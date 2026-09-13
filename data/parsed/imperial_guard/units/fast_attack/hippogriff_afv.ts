@@ -52,7 +52,7 @@ export const hippogriff_afv: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Lascannon",
@@ -79,7 +79,7 @@ export const hippogriff_afv: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(2), Explosive, Melta"
+      "abilities": "AT(2), Blast(4), Melta"
     },
     {
       "name": "Vigilator cannon",
@@ -88,7 +88,7 @@ export const hippogriff_afv: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     }
   ],
   "option_groups": [

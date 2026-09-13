@@ -607,6 +607,12 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   const [loading, setLoading] = useState(true);
   const [msg, setMsg]         = useState('');
   const [revealed, setRevealed] = useState<Record<number, { pw: string; rc: string }>>({});
+  // Creating an account: the password and recovery code come back ONCE, so they are held here
+  // until the admin dismisses them rather than being dropped after the request.
+  const [newUsername, setNewUsername] = useState('');
+  const [newUserIsTest, setNewUserIsTest] = useState(true);
+  const [creatingUser, setCreatingUser] = useState(false);
+  const [createdUser, setCreatedUser] = useState<{ username: string; pw: string; rc: string } | null>(null);
   const [requests, setRequests] = useState<api.RecoveryRequest[]>([]);
   const [resolving, setResolving] = useState<number | null>(null);
   const [health, setHealth]   = useState<HealthFinding[] | null>(null);
@@ -790,6 +796,23 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
       setRequests(prev => prev.map(r => r.id === requestId ? { ...r, status: 'resolved' as const } : r));
     } catch (e) { setMsg(String(e)); }
     finally { setResolving(null); }
+  }
+
+  /**
+   * Creates an account from the panel. Added for the Events & Leagues alpha, which is meant to be
+   * run closed with invented players — until now an admin could promote, delete and reset a user
+   * but never make one, so each test player meant going through the public sign-up form.
+   */
+  async function handleCreateUser() {
+    if (!newUsername.trim()) return;
+    setCreatingUser(true); setMsg('');
+    try {
+      const r = await api.adminCreateUser(newUsername.trim(), newUserIsTest);
+      setCreatedUser({ username: r.user.username, pw: r.password, rc: r.recoveryCode });
+      setNewUsername('');
+      await load();
+    } catch (e) { setMsg(String(e)); }
+    finally { setCreatingUser(false); }
   }
 
   async function handleResetPw(userId: number, username: string) {
@@ -1611,6 +1634,36 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
 
             {tab === 'users' && (
             <div>
+            <div className="border border-zinc-800 p-2 mb-3 space-y-2">
+              <div className="text-[10px] uppercase tracking-widest text-amber-600">Create account</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <input
+                  value={newUsername}
+                  onChange={e => setNewUsername(e.target.value)}
+                  placeholder="username"
+                  className="flex-1 min-w-[140px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                />
+                <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400">
+                  <input type="checkbox" checked={newUserIsTest} onChange={e => setNewUserIsTest(e.target.checked)} />
+                  test account
+                </label>
+                <button onClick={handleCreateUser} disabled={creatingUser || !newUsername.trim()} className={toolbarBtn}>
+                  {creatingUser ? '…' : 'Create'}
+                </button>
+              </div>
+              <p className="text-zinc-600 text-[10px] font-mono">
+                A test account is deleted by “Reset test data” in Events &amp; Leagues, along with its
+                armies and registrations.
+              </p>
+              {createdUser && (
+                <div className="border border-amber-900/60 bg-amber-950/10 px-2 py-1.5 text-[11px] font-mono space-y-0.5">
+                  <div className="text-amber-400">{createdUser.username} created — copy these now, they are not shown again:</div>
+                  <div className="text-zinc-300">password: <span className="text-amber-300">{createdUser.pw}</span></div>
+                  <div className="text-zinc-300">recovery code: <span className="text-amber-300">{createdUser.rc}</span></div>
+                  <button onClick={() => setCreatedUser(null)} className="text-zinc-500 hover:text-zinc-300 text-[10px] underline">dismiss</button>
+                </div>
+              )}
+            </div>
             <div className="flex items-center gap-2 mb-2">
               <input
                 value={filter}

@@ -16,7 +16,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target suffers one automatic hit with S: 8 AP: 0 D: 1; AT(2), Barrage, Seeking.",
+      "effect": "The target suffers one automatic hit with S: 8 AP: 0 D: 1; AT(2), Blast(6), Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },

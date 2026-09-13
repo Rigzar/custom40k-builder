@@ -145,7 +145,7 @@ export const noiseMarines: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -172,7 +172,7 @@ export const noiseMarines: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Sunder(2), Suppression"
+      "abilities": "AT(2), Sunder(2), Suppression(6)"
     },
     {
       "name": "Blastmaster - Varied frequency",
@@ -181,7 +181,7 @@ export const noiseMarines: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Sunder(2), Suppression"
+      "abilities": "Blast(4), Sunder(2), Suppression(3)"
     },
     {
       "name": "Plasma gun - Standard",
@@ -208,7 +208,7 @@ export const noiseMarines: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Sunder(2), Suppression"
+      "abilities": "Sunder(2), Suppression(3)"
     }
   ],
   "option_groups": [

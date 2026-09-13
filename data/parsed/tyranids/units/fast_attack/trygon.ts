@@ -49,7 +49,7 @@ export const trygon: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Prehensile pincer",
@@ -58,7 +58,7 @@ export const trygon: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra Attack(1)"
+      "abilities": "AT(2), Extra Attack(1), Limit(1)"
     },
     {
       "name": "Toxinspike",
@@ -67,7 +67,7 @@ export const trygon: Unit = {
       "s": "U",
       "ap": "-4",
       "d": "3",
-      "abilities": "Extra Attack(1), Poison(2+)"
+      "abilities": "Extra Attack(1), Limit(1), Poison(2+)"
     }
   ],
   "option_groups": [
@@ -261,7 +261,7 @@ export const trygon: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

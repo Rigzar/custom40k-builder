@@ -40,7 +40,7 @@ export const harlequinWraithlord: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Aeldari missile launcher - Sunburst",
@@ -49,7 +49,7 @@ export const harlequinWraithlord: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Aeldari missile launcher - Starshot",
@@ -76,7 +76,7 @@ export const harlequinWraithlord: Unit = {
       "s": "x2",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Flurry(1)"
+      "abilities": "AT(2), Extra Attack(1)"
     },
     {
       "name": "Scatter laser",
@@ -85,7 +85,7 @@ export const harlequinWraithlord: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Shuriken cannon",

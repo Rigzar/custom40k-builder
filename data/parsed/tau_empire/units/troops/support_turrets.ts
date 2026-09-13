@@ -40,7 +40,7 @@ export const supportTurrets: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Barrage, Indirect, Suppression"
+      "abilities": "Blast(6), Indirect, Suppression(3)"
     },
     {
       "name": "Burst cannon",
@@ -58,7 +58,7 @@ export const supportTurrets: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Fusion blaster",
@@ -92,9 +92,9 @@ export const supportTurrets: Unit = {
       "range": "30\"",
       "type": "Heavy 3",
       "s": "5",
-      "ap": "0",
+      "ap": "-1",
       "d": "1",
-      "abilities": "Anti-Air, Indirect, Sunder(2)"
+      "abilities": "Anti-Air, Seeking"
     }
   ],
   "option_groups": [
@@ -120,7 +120,7 @@ export const supportTurrets: Unit = {
         },
         {
           "name": "Smart missile system",
-          "points": 4
+          "points": 14
         },
         {
           "name": "Burst cannon",

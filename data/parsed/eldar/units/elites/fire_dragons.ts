@@ -68,7 +68,7 @@ export const fireDragons: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Firepike",

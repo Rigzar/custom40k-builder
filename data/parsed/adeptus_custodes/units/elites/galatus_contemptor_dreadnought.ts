@@ -40,7 +40,7 @@ export const galatusContemptorDreadnought: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lastrum storm bolter",
@@ -67,7 +67,7 @@ export const galatusContemptorDreadnought: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flurry(1)"
+      "abilities": "AT(2), Extra Attack(1)"
     },
     {
       "name": "Galatus warblade - Ranged",
@@ -76,7 +76,7 @@ export const galatusContemptorDreadnought: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Achillus dreadspear - Melee",

@@ -1,72 +1,99 @@
-﻿/**
- * SWARMLORD â€” HQ
+/**
+ * HIVE CRONE — Flyers
  *
- * SOURCE: TODO â€” add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE: Codex/Tyranids 1.05.ods, sheet "Hive Crone" (new in the September 2026 update). Verbatim:
  *
- * PSYKER RULE (from datasheet):
- *   "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
- *   â†’ Cast/deny limit and discipline access must be derived from this text.
- *   â†’ ENGINE TODO: enforce power limit and 'chosen discipline' mechanic.
+ *   1  Hive Crone  12"  3+ 3+  S6 T6 W5 I5 A4 Ld7 Sv4+   166 pts
+ *   A Hive Crone is equipped with: Drool cannon; Monstrous scything talons; 4 Tentaclids.
+ *
+ *   Drool cannon                18"  Assault 6  6  -2  1   Auto Hit, Sunder(1), Monofilament
+ *   Monstrous scything talons   -    Melee      U  -2  2   Extra Attack(1)
+ *   Stinger salvo               24"  Assault 2  5   0  1   Blast(4)
+ *   Tentaclids                  36"  Assault 1  5  -1  1   Ammo(1), Haywire, Seeking
+ *
+ *   OPTIONS
+ *   • May be equipped with one of the following: Stinger salvo +22
+ *   • May select one Special Biomorph: Resonator +13 / Synaptic Node +15 / Regeneration +25 /
+ *     Hardened Carapace +28
+ *   • May additionally select any number of Basic and Advanced Biomorphs (see Armory).
+ *
+ *   ABILITIES: Hover Mode
+ *   UNIT TYPE: Flyer, Monstrous Creature
+ *   KEYWORDS: Advanced Bioform
+ *
+ * ABILITY VOCABULARY: the sheet writes this datasheet in the POST-clean-up names (Auto Hit,
+ * Sunder(1), Extra Attack(1), Blast(4)). Every other weapon in the app is still on the pre-clean-up
+ * names, and the clean-up has to land atomically across all ~1400 profiles, so this unit is stored
+ * in the SAME vocabulary as its neighbours — Flames, Flurry(1), Explosive — using the author's own
+ * mapping. It gets renamed with everything else. A weapon written in a vocabulary no other weapon
+ * shares would look broken on the card today.
  */
 
 import type { Unit } from '../../../../../src/types/data';
 
-export const swarmlord: Unit = {
-  "name": "Swarmlord",
+export const hiveCrone: Unit = {
+  "name": "Hive Crone",
   "models": [
     {
-      "name": "Swarmlord",
-      "points": 339,
+      "name": "Hive Crone",
+      "points": 166,
       "min": 1,
       "max": 1,
       "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "7",
-        "T": "7",
-        "W": "6",
-        "I": "6",
-        "A": "5",
-        "LD": "10",
-        "SV": "2+"
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "T": "6",
+        "W": "5",
+        "I": "5",
+        "A": "4",
+        "LD": "7",
+        "SV": "4+"
       }
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Swarmlord is equipped with: Bone sabres.",
+  "equipped_with": "A Hive Crone is equipped with: Drool cannon; Monstrous scything talons; 4 Tentaclids.",
   "weapons": [
     {
-      "name": "Bone sabres",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Deadly(5+)"
+      "name": "Drool cannon",
+      "range": "18\"",
+      "type": "Assault 6",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1), Monofilament"
     },
     {
-      "name": "Monstrous flesh hooks",
-      "range": "6\"",
-      "type": "Pistol 8",
-      "s": "6",
+      "name": "Monstrous scything talons",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Extra Attack(1)"
+    },
+    {
+      "name": "Stinger salvo",
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Tentaclids",
+      "range": "36\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Ammo(1), Haywire, Seeking"
     }
   ],
   "option_groups": [
-    {
-      "header": "Only one Swarmlord per army.",
-      "constraint": {
-        "type": "unique_upgrade"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": true
-    },
     {
       "header": "May be equipped with one of the following",
       "constraint": {
@@ -74,8 +101,8 @@ export const swarmlord: Unit = {
       },
       "choices": [
         {
-          "name": "Monstrous flesh hooks",
-          "points": 13
+          "name": "Stinger salvo",
+          "points": 22
         }
       ],
       "inline_pts": null,
@@ -89,43 +116,25 @@ export const swarmlord: Unit = {
       },
       "choices": [
         {
-          "name": "Norn Crown",
-          "points": 10,
-          "effect": {
-            "grants_abilities": [
-              "Norn Crown: The unit may cast and deny 1 more psychic power per battle round."
-            ]
-          }
+          "name": "Resonator",
+          "points": 13
+        },
+        {
+          "name": "Synaptic Node",
+          "points": 15
         },
         {
           "name": "Regeneration",
-          "points": 30,
-          "effect": {
-            "grants_abilities": [
-              "Regeneration: The unit gains the \"Regeneration(1)\" ability."
-            ]
-          }
+          "points": 25
         },
         {
-          "name": "Winged",
-          "points": 53,
-          "effect": {
-            "grants_abilities": [
-              "Winged: The unit gains \"Anti-Grav\" and \"Deep Strike\"."
-            ],
-            "stat_mod": [
-              {
-                "stat": "M",
-                "delta": 6
-              }
-            ]
-          }
+          "name": "Hardened Carapace",
+          "points": 28
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
+      "is_unique_per_army": false
     },
     {
       "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
@@ -238,7 +247,7 @@ export const swarmlord: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },
@@ -311,21 +320,16 @@ export const swarmlord: Unit = {
     }
   ],
   "abilities": [
-    "Deflect, Fearless, Move Through Cover, Parry, Synapse",
-    "Alien Cunning: A Swarmlord can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players.",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
-    "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation.",
-    "Warp Barrier: The model gains a 4+ ward save."
+    "Hover Mode"
   ],
-  "unit_type": "Monstrous Creature",
+  "unit_type": "Flyer, Monstrous Creature",
   "keywords": [
-    "Tyranid",
     "Advanced Bioform"
   ],
   "is_vehicle": false,
   "is_character": false,
-  "armory_as_character": true,
-  "is_psyker": true,
+  "is_monster": true,
+  "is_psyker": false,
   "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
@@ -333,8 +337,7 @@ export const swarmlord: Unit = {
   "veteran_max": null,
   "locked_mark": null,
   "advisor": false,
-  "slot": "HQ",
+  "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 339,
-  "is_monster": true
+  "min_cost": 166
 };

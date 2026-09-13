@@ -76,7 +76,7 @@ export const phoenix: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Phoenix missile launcher - Starshot",

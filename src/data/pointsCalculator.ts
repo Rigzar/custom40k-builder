@@ -156,7 +156,7 @@ export const CALC_NOTES: string[] = [
   'Only the most expensive profile of a multi-mode weapon is paid for.',
   'A pistol is free on a model that already has a melee weapon; otherwise it costs half.',
   'An overheating weapon is priced as the average of its two modes.',
-  'Explosive counts as 2.7425 shots; Barrage counts as 3.8395.',
+  'Blast(4) counts as 2.7425 shots; Blast(6) counts as 3.8395.',
   'A weapon that hits automatically pays the INVERTED Ballistic skill — a 2+ model pays the 5+ multiplier.',
   '"Fast" doubles the movement value before it is looked up.',
   'Grenades cost 0.5 per type.',

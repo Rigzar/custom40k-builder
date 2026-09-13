@@ -59,7 +59,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames, Poison (4+)"
+          "abilities": "Auto Hit, Sunder(1), Poison (4+)"
         }
       ],
       "armour_compat": [
@@ -74,7 +74,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Barrage, Poison(4+)",
+      "abilities": "Blast(6), Poison(4+)",
       "p_unit": 5,
       "p_char": 5
     },
@@ -121,7 +121,7 @@
           "s": "+1",
           "ap": "-3",
           "d": "1",
-          "abilities": "Poison(4+), Flurry(1), Unwieldy"
+          "abilities": "Poison(4+), Extra Attack(1), Unwieldy"
         }
       ],
       "desc": "Only for models in Cataphractii armor.",
@@ -149,7 +149,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Poison(4+)",
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)",
       "p_unit": 6,
       "p_char": 5,
       "armour_compat": [
@@ -200,7 +200,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+). Only for models in Cataphractii or Terminator armor.",
+      "abilities": "Auto Hit, Sunder(1), Poison(4+). Only for models in Cataphractii or Terminator armor.",
       "p_unit": null,
       "p_char": 26,
       "desc": "Only for models in Cataphractii or Terminator armor.",
@@ -216,7 +216,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Poison(4+)",
+      "abilities": "Blast(4), Poison(4+)",
       "p_unit": null,
       "p_char": null,
       "armour_compat": [
@@ -231,7 +231,7 @@
       "s": "4",
       "ap": "-1",
       "d": "2",
-      "abilities": "Ammo(1), Barrage, Poison(4+). Only for models in Cataphractii or Terminator armor.",
+      "abilities": "Ammo(1), Blast(6), Poison(4+). Only for models in Cataphractii or Terminator armor.",
       "p_unit": null,
       "p_char": 7,
       "armour_compat": [

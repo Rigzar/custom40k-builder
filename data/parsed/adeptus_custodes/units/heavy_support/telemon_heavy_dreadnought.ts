@@ -58,7 +58,7 @@ export const telemonHeavyDreadnought: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Telemon caestus",
@@ -67,7 +67,7 @@ export const telemonHeavyDreadnought: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Flurry(1)"
+      "abilities": "AT(3), Extra Attack(1)"
     },
     {
       "name": "Arachnus storm cannon - Beam",
@@ -112,7 +112,7 @@ export const telemonHeavyDreadnought: Unit = {
   ],
   "abilities": [
     "Shield Host",
-    "Reinforced Atomantic Shielding: The model has a 4+ ward save. Enemy attacks receive a -3 AT penalty (to a minimum of -3)."
+    "Reinforced Atomantic Shielding: The model has a 4+ ward save. Enemy attacks receive a -2 AT penalty (to a minimum of 0)."
   ],
   "unit_type": "Vehicle, Walker",
   "keywords": [],

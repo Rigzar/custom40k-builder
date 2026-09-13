@@ -19,6 +19,7 @@ export default async function handler(req, res) {
     case 'secret-question': return secretQuestion(req, res);
     case 'recovery-code':   return recoveryCode(req, res);
     case 'recovery-status': return recoveryStatus(req, res);
+    case 'account-recovery': return accountRecovery(req, res);
     default:
       res.status(404).json({ error: 'Unknown auth action' });
   }
@@ -328,4 +329,32 @@ async function recoveryStatus(req, res) {
   } catch (err) {
     res.status(500).json({ error: 'Failed to check status', detail: String(err) });
   }
+}
+
+/**
+ * POST /api/auth/account-recovery { username, message } -> files a "lost my recovery code" request
+ * for an admin to resolve from the Admin panel.
+ *
+ * Moved here from its own api/account-recovery.js on 2026-09-13 to free a Vercel function slot for
+ * the Events module; the old path is gone, so src/lib/api.ts calls this one. Unauthenticated by
+ * design — the whole point is that the person cannot log in.
+ */
+async function accountRecovery(req, res) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { username, message } = req.body ?? {};
+  if (!username || typeof username !== 'string' || !username.trim()) {
+    res.status(400).json({ error: 'Missing "username" field' }); return;
+  }
+  const uname = username.trim().slice(0, 60);
+  const msg = typeof message === 'string' ? message.trim().slice(0, 500) : null;
+
+  const user = await sql`SELECT id FROM users WHERE username = ${uname}`;
+  if (!user.rows[0]) { res.status(404).json({ error: 'Username not found' }); return; }
+
+  const r = await sql`
+    INSERT INTO recovery_requests (username, message)
+    VALUES (${uname}, ${msg})
+    RETURNING id
+  `;
+  res.status(200).json({ ok: true, requestId: r.rows[0].id });
 }

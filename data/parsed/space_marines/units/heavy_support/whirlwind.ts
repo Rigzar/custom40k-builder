@@ -49,7 +49,7 @@ export const whirlwind: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect, Seeking, Suppression"
+      "abilities": "Blast(4), Indirect, Seeking, Suppression(3)"
     },
     {
       "name": "Whirlwind missile launcher (Vengeance)",
@@ -58,7 +58,7 @@ export const whirlwind: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     }
   ],
   "option_groups": [

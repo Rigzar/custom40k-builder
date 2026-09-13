@@ -49,7 +49,7 @@ export const monolith: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(4), Barrage, Suppression, Tank hunter"
+      "abilities": "AT(4), Blast(6), Suppression(3), Tank hunter"
     },
     {
       "name": "Death ray",

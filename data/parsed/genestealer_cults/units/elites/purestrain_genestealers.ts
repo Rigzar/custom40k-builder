@@ -49,7 +49,7 @@ export const purestrainGenestealers: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     }
   ],
   "option_groups": [

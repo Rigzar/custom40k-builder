@@ -88,7 +88,7 @@ export const CSM_KEYWORDS: CsmKeywordEntry[] = [
     axis: 'mark',
     gates: 'Tzeentch mark armory access. Grants: "Warded" ability; character/Monstrous becomes a ' +
       'psyker (1 power, any discipline) or gains +1 power manifested/denied per turn if already a ' +
-      'psyker; Vehicles gain a Warpflamer (9", Assault 4, S4, AP-1, D1, Flames). Sacred number 9 ' +
+      'psyker; Vehicles gain a Warpflamer (9", Assault 4, S4, AP-1, D1, Auto Hit + Sunder(1)). Sacred number 9 ' +
       '(Favored Units). Rival of Mark of Nurgle (Animosity of the Gods — mutually exclusive).',
   },
   {

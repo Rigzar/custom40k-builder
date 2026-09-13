@@ -40,7 +40,7 @@ export const wraithblades: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Flurry(1)"
+      "abilities": "AT(1), Extra Attack(1)"
     },
     {
       "name": "Ghostswords",
@@ -49,7 +49,7 @@ export const wraithblades: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     }
   ],
   "option_groups": [

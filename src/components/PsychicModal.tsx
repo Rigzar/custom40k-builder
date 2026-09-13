@@ -5,6 +5,7 @@ import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
+import { CSM_LOWER_PRAYERS } from '../engine/codex_csm/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
 import { powerMetaLine } from '../utils/psychicFormat';
 import { useT } from '../i18n';
@@ -74,6 +75,17 @@ export function PsychicModal({ item, unit, onClose }: Props) {
 
   const filteredPrayers = (data.prayers ?? []).filter(p => {
     if (isSMFaction && SM_CRUSADER_PRAYERS.has(p.name)) return hasCrusaderLegacy;
+    // Chaos Space Marines codex 2026-09 splits the ten prayers into Exalted and Lower and scopes
+    // each caster to one of them. Read from the unit's OWN ability text rather than a unit-name
+    // list, so a future datasheet that says the same sentence is covered without another edit.
+    if (data.faction === 'Chaos Space Marines') {
+      const said = (unit.abilities ?? []).join(' ');
+      const lower = /Lower Prayers/i.test(said);
+      const exalted = /Exalted Prayers/i.test(said);
+      if (lower !== exalted) {
+        return lower ? CSM_LOWER_PRAYERS.has(p.name) : !CSM_LOWER_PRAYERS.has(p.name);
+      }
+    }
     return true;
   });
 

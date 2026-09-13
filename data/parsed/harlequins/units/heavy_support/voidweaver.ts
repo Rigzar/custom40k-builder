@@ -40,7 +40,7 @@ export const voidweaver: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Haywire"
+      "abilities": "Blast(4), Haywire"
     },
     {
       "name": "Prismatic cannon - Dispersed",
@@ -49,7 +49,7 @@ export const voidweaver: Unit = {
       "s": "3",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Suppression"
+      "abilities": "Blast(6), Suppression(3)"
     },
     {
       "name": "Prismatic cannon - Focused",
@@ -58,7 +58,7 @@ export const voidweaver: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "2",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Prismatic cannon - Lance",

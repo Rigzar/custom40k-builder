@@ -104,7 +104,7 @@ export const roughRiders: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -113,7 +113,7 @@ export const roughRiders: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Las pistol",
@@ -158,7 +158,7 @@ export const roughRiders: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Frag lance (Charge)",
@@ -239,7 +239,7 @@ export const roughRiders: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenade launcher - Krak grenade",
@@ -430,7 +430,7 @@ export const roughRiders: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,

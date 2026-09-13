@@ -49,7 +49,7 @@ export const manticore: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Sky eagle rockets",
@@ -58,7 +58,7 @@ export const manticore: Unit = {
       "s": "9",
       "ap": "-2",
       "d": "2",
-      "abilities": "Anti-air, AT(3), Explosive, Indirect"
+      "abilities": "Anti-air, AT(3), Blast(4), Indirect"
     },
     {
       "name": "Storm eagle rockets",
@@ -67,7 +67,7 @@ export const manticore: Unit = {
       "s": "10",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(3), Barrage, Indirect"
+      "abilities": "AT(3), Blast(6), Indirect"
     },
     {
       "name": "Twin heavy stubber",
@@ -76,7 +76,7 @@ export const manticore: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

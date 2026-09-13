@@ -86,7 +86,7 @@ export const eliminatorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -113,7 +113,7 @@ export const eliminatorSquad: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Indirect, Suppression"
+      "abilities": "Armor piercing(5+), Sunder(2), Suppression(6)"
     },
     {
       "name": "Bolt sniper rifle (Hyper frag)",
@@ -122,7 +122,7 @@ export const eliminatorSquad: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(3)"
     },
     {
       "name": "Bolt sniper rifle (Mortis)",
@@ -131,7 +131,7 @@ export const eliminatorSquad: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Deadly(5+), Suppression"
+      "abilities": "Deadly(5+), Suppression(6)"
     }
   ],
   "option_groups": [

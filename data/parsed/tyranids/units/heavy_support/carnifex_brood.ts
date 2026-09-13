@@ -40,7 +40,7 @@ export const carnifexBrood: Unit = {
       "s": "7",
       "ap": "-4",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Bone mace",
@@ -49,7 +49,7 @@ export const carnifexBrood: Unit = {
       "s": "+2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra Attack(1)"
+      "abilities": "AT(2), Extra Attack(1), Limit(1)"
     },
     {
       "name": "Crushing claws",
@@ -67,7 +67,7 @@ export const carnifexBrood: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Monstrous scything talons",
@@ -76,7 +76,7 @@ export const carnifexBrood: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Spine banks",
@@ -85,7 +85,7 @@ export const carnifexBrood: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(3)"
     },
     {
       "name": "Stranglethorn cannon",
@@ -94,7 +94,7 @@ export const carnifexBrood: Unit = {
       "s": "7",
       "ap": "0",
       "d": "1",
-      "abilities": "AT(1), Barrage, Suppression"
+      "abilities": "AT(1), Blast(6), Suppression(3)"
     },
     {
       "name": "Thresher scythe",
@@ -103,7 +103,7 @@ export const carnifexBrood: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Deflagrate(5+), Flurry(3)"
+      "abilities": "Deflagrate(5+), Extra Attack(3)"
     },
     {
       "name": "Twin deathspitter with slimer maggots",
@@ -376,7 +376,7 @@ export const carnifexBrood: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

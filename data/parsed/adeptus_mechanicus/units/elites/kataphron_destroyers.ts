@@ -40,7 +40,7 @@ export const kataphronDestroyers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heavy grav-cannon",
@@ -49,7 +49,7 @@ export const kataphronDestroyers: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Barrage, Grav"
+      "abilities": "Blast(6), Grav"
     },
     {
       "name": "Phosphor blaster",
@@ -67,7 +67,7 @@ export const kataphronDestroyers: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Plasma culverin - Overheating",
@@ -76,7 +76,7 @@ export const kataphronDestroyers: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     }
   ],
   "option_groups": [

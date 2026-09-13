@@ -58,7 +58,7 @@ export const sicaranInfiltrators: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Shred"
+      "abilities": "Blast(4), Shred"
     },
     {
       "name": "Power sword",

@@ -40,7 +40,7 @@ export const knightCastellan: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Plasma decimator - Standard",
@@ -49,7 +49,7 @@ export const knightCastellan: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Plasma decimator - Overheating",
@@ -58,7 +58,7 @@ export const knightCastellan: Unit = {
       "s": "9",
       "ap": "-5",
       "d": "3",
-      "abilities": "AT(3), Barrage, Overheating"
+      "abilities": "AT(3), Blast(6), Overheating"
     },
     {
       "name": "Shield breaker missile",
@@ -94,7 +94,7 @@ export const knightCastellan: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Explosive, Suppression"
+      "abilities": "AT(1), Blast(4), Suppression(3)"
     },
     {
       "name": "Volcano lance",

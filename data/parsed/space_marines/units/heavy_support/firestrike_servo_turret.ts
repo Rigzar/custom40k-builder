@@ -40,7 +40,7 @@ export const firestrikeServoTurret: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Suppression"
+      "abilities": "AT(1), Suppression(3)"
     },
     {
       "name": "Twin las-talon",

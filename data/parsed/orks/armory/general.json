@@ -113,7 +113,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         }
       ]
     },
@@ -149,7 +149,7 @@
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3),Slow(-3), Armorbane.",
+      "abilities": "AT(3), Slow(-3), Armorbane.",
       "p_unit": 26,
       "p_char": 33
     },
@@ -172,7 +172,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames, Combi."
+          "abilities": "Auto Hit, Sunder(1), Combi."
         },
         {
           "name": "Shoota",
@@ -225,7 +225,7 @@
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive, Overheating. Mek only.",
+      "abilities": "AT(1), Blast(4), Overheating. Mek only.",
       "p_unit": null,
       "p_char": 23
     },
@@ -237,7 +237,7 @@
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3),Slow(-3), Armorbane, Flurry(2), Unwieldy.",
+      "abilities": "AT(3), Slow(-3), Armorbane, Extra Attack(2), Unwieldy.",
       "p_unit": 36,
       "p_char": 46
     },
@@ -321,7 +321,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive",
+      "abilities": "Blast(4)",
       "p_unit": null,
       "p_char": null
     },
@@ -333,7 +333,7 @@
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Tellyported. Mek in Mega armor only.",
+      "abilities": "AT(2), Blast(4), Tellyported. Mek in Mega armor only.",
       "p_unit": null,
       "p_char": 43
     },

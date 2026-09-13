@@ -95,7 +95,7 @@ export const redButcherTerminators: Unit = {
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "Armorbane, AT(3), Flurry(1), Slow(-3)"
+      "abilities": "Armorbane, AT(3), Extra Attack(1), Slow(-3)"
     },
     {
       "name": "Twin power axe",
@@ -104,7 +104,7 @@ export const redButcherTerminators: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     }
   ],
   "option_groups": [

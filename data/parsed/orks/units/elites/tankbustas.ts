@@ -33,7 +33,7 @@ export const tankbustas: Unit = {
   "variant_models": [
     {
       "name": "Nob",
-      "points": 33,
+      "points": 32,
       "min": 0,
       "max": 0,
       "stats": {
@@ -176,12 +176,12 @@ export const tankbustas: Unit = {
       "replaces": ["Smasha hamma"]
     },
     {
-      "header": "One Tankbusta may be upgraded to a Nob for +16 points and gains access to weapons and gear from the Armory.",
+      "header": "One Tankbusta may be upgraded to a Nob for +15 points and gains access to weapons and gear from the Armory.",
       "constraint": {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 16,
+      "inline_pts": 15,
       "variant_link": "Nob",
       "is_unique_per_army": false
     },

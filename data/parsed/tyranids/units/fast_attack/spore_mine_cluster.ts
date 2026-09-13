@@ -31,7 +31,7 @@ export const sporeMineCluster: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Spore Mine.",
+  "equipped_with": "Every model is equipped with: Spore mine explosion.",
   "weapons": [
     {
       "name": "Spore mine explosion",
@@ -40,13 +40,13 @@ export const sporeMineCluster: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(3)"
     }
   ],
   "option_groups": [],
   "abilities": [
-    "Deep Strike, Infiltrator, Mindless, Move Through Cover, Squadron",
-    "Living ammunition: The unit immediately explodes like a vehicle (one explosion per model) with the \"Spore mine explosion\" profile, if an enemy model comes within 3\" distance.",
+    "Deep Strike, Infiltrator, Mindless, Move Through Cover",
+    "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Spore mine explosion\" profile, if an enemy model comes within 3\" distance.",
     "Drifting Death: Instead of receiving orders as normal, Spore Mines drift aimlessly. During each Rally phase, roll 1D6 and a scatter die for every Spore Mine unit on the battlefield. The unit moves a number of inches equal to the D6 result in the direction indicated by the scatter die. If a Hit symbol is rolled, the controlling player chooses the direction instead."
   ],
   "unit_type": "Infantry",

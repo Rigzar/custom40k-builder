@@ -99,6 +99,15 @@ export const eradicatorSquad: Unit = {
       "abilities": "AT(2), Melta"
     },
     {
+      "name": "Heavy bolter",
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
       "name": "Multi-melta",
       "range": "24\"",
       "type": "Assault 1",
@@ -136,6 +145,10 @@ export const eradicatorSquad: Unit = {
         {
           "name": "Heavy melta rifle",
           "points": 18
+        },
+        {
+          "name": "Heavy bolter",
+          "points": 0
         }
       ],
       "inline_pts": null,

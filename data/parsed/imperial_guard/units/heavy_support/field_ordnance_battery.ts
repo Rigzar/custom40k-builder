@@ -40,7 +40,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage, Indirect, Suppression"
+      "abilities": "AT(2), Blast(6), Indirect, Suppression(3)"
     },
     {
       "name": "Frag grenade",
@@ -49,7 +49,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy lascannon",
@@ -67,7 +67,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Barrage, Indirect, Suppression"
+      "abilities": "AT(1), Blast(6), Indirect, Suppression(3)"
     },
     {
       "name": "Heavy quad launcher",
@@ -76,7 +76,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Lasgun",
@@ -94,7 +94,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Multiple rocket launcher",
@@ -103,7 +103,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Siege cannon",
@@ -112,7 +112,7 @@ export const fieldOrdnanceBattery: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Barrage, Indirect, Suppression"
+      "abilities": "AT(3), Blast(6), Indirect, Suppression(3)"
     }
   ],
   "option_groups": [
@@ -168,7 +168,7 @@ export const fieldOrdnanceBattery: Unit = {
   ],
   "abilities": [
     "Massive(2), Squadron",
-    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model."
+    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
   ],
   "unit_type": "Infantry",
   "keywords": [],

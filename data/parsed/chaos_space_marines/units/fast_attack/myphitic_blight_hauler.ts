@@ -81,7 +81,7 @@ export const myphiticBlightHauler: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Gnashing maw",
@@ -108,7 +108,7 @@ export const myphiticBlightHauler: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak missile",

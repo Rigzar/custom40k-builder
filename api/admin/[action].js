@@ -1,5 +1,6 @@
 import { sql, ensureSchema } from '../_lib/db.js';
-import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode } from '../_lib/auth.js';
+import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode,
+         isValidUsername } from '../_lib/auth.js';
 
 async function requireAdmin(req, res) {
   const userId = getSessionUserId(req);
@@ -41,6 +42,7 @@ export default async function handler(req, res) {
     case 'users':             return users(req, res);
     case 'pw':                return resetPw(req, res);
     case 'del':               return delUser(req, res);
+    case 'create-user':       return createUser(req, res);
     case 'promote':           return promote(req, res);
     case 'set-interrogator':  return setInterrogator(req, res);
     case 'recovery-requests': return recoveryRequests(req, res);
@@ -88,6 +90,44 @@ async function users(req, res) {
   try {
     const r = await sql`SELECT id, username, created_at, last_seen_at, last_login_at, is_admin FROM users ORDER BY created_at DESC`;
     res.status(200).json({ ok: true, users: r.rows });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+/**
+ * POST /api/admin/create-user { username, isTest } -> makes an account and hands back its password
+ * and recovery code ONCE.
+ *
+ * Added for the Events & Leagues alpha: the plan is to run it closed with invented players, and an
+ * admin could previously promote, delete and reset users but never CREATE one, so there was no way
+ * to make them without going through the public sign-up form for each. `is_test` marks them so the
+ * alpha reset can delete exactly the accounts it created.
+ */
+async function createUser(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  const adminId = await requireAdmin(req, res);
+  if (!adminId) return;
+  const { username, isTest } = req.body ?? {};
+  if (!isValidUsername(String(username ?? '').trim())) {
+    return res.status(400).json({ error: 'Username must be 3-24 characters: letters, numbers, _ or -.' });
+  }
+  const uname = String(username).trim();
+  try {
+    const clash = await sql`SELECT id FROM users WHERE LOWER(username) = LOWER(${uname})`;
+    if (clash.rows.length) return res.status(400).json({ error: 'That username is taken.' });
+
+    const password = generateRecoveryCode().toLowerCase().replace(/-/g, '');
+    const rc = generateRecoveryCode();
+    const r = await sql`
+      INSERT INTO users (username, password_hash, recovery_code_hash, recovery_code_encrypted, is_test)
+      VALUES (${uname}, ${await hashPassword(password)}, ${await hashRecoveryCode(rc)},
+              ${encryptRecoveryCode(rc)}, ${isTest === true})
+      RETURNING id, username, created_at, is_admin
+    `;
+    await logAction(adminId, 'create_user', r.rows[0].id, uname, isTest === true ? 'test account' : null);
+    // Shown once and never again \u2014 only hashes are stored.
+    res.status(200).json({ ok: true, user: r.rows[0], password, recoveryCode: rc });
   } catch (err) {
     res.status(500).json({ error: String(err) });
   }

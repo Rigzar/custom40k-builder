@@ -103,7 +103,7 @@ export const chaosLandRaider: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-Air, Explosive"
+      "abilities": "Anti-Air, Blast(4)"
     },
     {
       "name": "Twin heavy bolter",
@@ -139,7 +139,7 @@ export const chaosLandRaider: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Combi-melta - Bolter",

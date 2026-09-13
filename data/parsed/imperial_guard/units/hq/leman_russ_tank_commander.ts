@@ -40,7 +40,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage, Tank hunter"
+      "abilities": "AT(2), Blast(6), Tank hunter"
     },
     {
       "name": "Demolisher battle cannon",
@@ -49,7 +49,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Barrage, Tank hunter"
+      "abilities": "AT(3), Blast(6), Tank hunter"
     },
     {
       "name": "Eradicator nova cannon",
@@ -58,7 +58,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Seeking"
+      "abilities": "Blast(6), Seeking"
     },
     {
       "name": "Exterminator autocannon",
@@ -67,7 +67,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Suppression"
+      "abilities": "AT(1), Suppression(2)"
     },
     {
       "name": "Heavy bolter",
@@ -85,7 +85,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lascannon",
@@ -139,7 +139,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Executioner plasma cannon (Overheating)",
@@ -148,7 +148,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     },
     {
       "name": "Plasma cannon (Standard)",
@@ -157,7 +157,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Plasma cannon (Overheating)",
@@ -166,7 +166,7 @@ export const lemanRussTankCommander: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     }
   ],
   "option_groups": [

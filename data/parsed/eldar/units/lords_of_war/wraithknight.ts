@@ -40,7 +40,7 @@ export const wraithknight: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Explosive, Graviton"
+      "abilities": "AT(4), Blast(4), Graviton"
     },
     {
       "name": "Scatter laser",
@@ -49,7 +49,7 @@ export const wraithknight: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Shuriken cannon",
@@ -76,7 +76,7 @@ export const wraithknight: Unit = {
       "s": "7",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Sword of Vaul - Strike",
@@ -94,7 +94,7 @@ export const wraithknight: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Flurry(2)"
+      "abilities": "AT(1), Extra Attack(2)"
     }
   ],
   "option_groups": [

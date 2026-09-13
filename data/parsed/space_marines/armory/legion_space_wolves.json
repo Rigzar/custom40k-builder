@@ -14,7 +14,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Extra attack, Suppression",
+      "abilities": "Blast(4), Extra Attack(1), Limit(1), Suppression(3)",
       "p_unit": null,
       "p_char": 9
     },
@@ -51,7 +51,7 @@
           "s": "+1",
           "ap": "-3",
           "d": "1",
-          "abilities": "Flurry(1), Unwieldy"
+          "abilities": "Extra Attack(1), Unwieldy"
         }
       ]
     },
@@ -63,7 +63,7 @@
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(2)",
+      "abilities": "Extra Attack(2)",
       "p_unit": 4,
       "p_char": 5
     }

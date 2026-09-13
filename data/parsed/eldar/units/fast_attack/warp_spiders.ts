@@ -59,7 +59,7 @@ export const warpSpiders: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Armor piercing(5+), Monofilament, Suppression"
+      "abilities": "Armor piercing(5+), Monofilament, Suppression(2)"
     },
     {
       "name": "Powerblades",
@@ -68,7 +68,7 @@ export const warpSpiders: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(2), Shred, Unwieldy"
+      "abilities": "Extra Attack(2), Shred, Unwieldy"
     }
   ],
   "option_groups": [

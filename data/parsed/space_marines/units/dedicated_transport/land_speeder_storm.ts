@@ -40,7 +40,7 @@ export const landSpeederStorm: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Barrage, Suppression"
+      "abilities": "Blast(6), Suppression(3)"
     },
     {
       "name": "Heavy bolter",

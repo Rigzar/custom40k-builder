@@ -12,7 +12,7 @@
     {
       "name": "Hungering bladeʸ",
       "term_compat": false,
-      "desc": "One melee weapon of the model gains cumulative Flurry(4). Unique. Can't be combined with other blades.",
+      "desc": "One melee weapon of the model gains cumulative Extra Attack(4). Unique. Can't be combined with other blades.",
       "p_unit": 5,
       "p_char": 5
     },

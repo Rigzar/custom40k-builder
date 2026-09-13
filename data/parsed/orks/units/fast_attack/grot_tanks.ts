@@ -49,7 +49,7 @@ export const grotTanks: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Kustom mega-blasta",
@@ -58,7 +58,7 @@ export const grotTanks: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive, Overheating"
+      "abilities": "AT(1), Blast(4), Overheating"
     },
     {
       "name": "Rokkit launcha",
@@ -76,7 +76,7 @@ export const grotTanks: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

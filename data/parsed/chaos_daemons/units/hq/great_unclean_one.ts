@@ -89,7 +89,7 @@ export const greatUncleanOne: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Poison(2+)"
+      "abilities": "Blast(6), Poison(2+)"
     }
   ],
   "option_groups": [

@@ -56,7 +56,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         }
       ],
       "armour_compat": [
@@ -165,7 +165,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": 6,
       "p_char": 4
     },
@@ -177,7 +177,7 @@
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "Ammunition(1), AT(4), Barrage, Lance(+2)",
+      "abilities": "Ammunition(1), AT(4), Blast(6), Lance(+2)",
       "p_unit": null,
       "p_char": null,
       "armour_compat": [
@@ -339,7 +339,7 @@
       "name": "Warpflame gargoyles",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "When this model is set up during Deployment, choose one of its weapons with the Flames ability. That weapon can always fire, ignoring distance traveled.",
+      "desc": "When this model is set up during Deployment, choose one of its weapons with the Auto Hit ability. That weapon can always fire, ignoring distance traveled.",
       "p_unit": 5
     }
   ],

@@ -89,7 +89,7 @@ export const knightDesecrator: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Knight melee weapon - Strike",
@@ -107,7 +107,7 @@ export const knightDesecrator: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Flurry(3)"
+      "abilities": "AT(1), Extra Attack(3)"
     },
     {
       "name": "Laser destructor",

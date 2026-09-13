@@ -49,7 +49,7 @@ export const skullCannon: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Barrage, Suppression"
+      "abilities": "AT(1), Blast(6), Suppression(2)"
     }
   ],
   "option_groups": [],

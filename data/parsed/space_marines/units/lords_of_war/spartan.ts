@@ -47,7 +47,7 @@ export const spartan: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Laser destroyer",
@@ -101,7 +101,7 @@ export const spartan: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

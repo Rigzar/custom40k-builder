@@ -47,7 +47,7 @@ export const bladeChampion: Unit = {
   "abilities": [
     "Massive(1), Parry, Shield Host",
     "Custodian armor: The model gains a 5+ ward save.",
-    "Fighting style: During every activation, the Blade Champion may pick one of the following abilities for their Vaultswords:\n1. Behemor - Armor piercing(5+)\n2. Hurricanis - Flurry(2)\n3. Victus - Precision(5+)",
+    "Fighting style: During every activation, the Blade Champion may pick one of the following abilities for their Vaultswords:\n1. Behemor - Armor piercing(5+)\n2. Hurricanis - Extra Attack(2)\n3. Victus - Precision(5+)",
     "Martial superiority: The model can re-roll 1 to hit and 1 to wound roll."
   ],
   "unit_type": "Character Model, Infantry",

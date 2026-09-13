@@ -40,7 +40,7 @@ export const termite: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Meltacutters - Blast",

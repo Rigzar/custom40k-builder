@@ -49,7 +49,7 @@ export const doomsdayArk: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Doomsday cannon - High energy",

@@ -111,7 +111,7 @@ export const plagueMarines: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Poison(4+)"
+      "abilities": "Blast(4), Poison(4+)"
     },
     {
       "name": "Blight launcher",
@@ -156,7 +156,7 @@ export const plagueMarines: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2), Poison(4+)"
+      "abilities": "Extra Attack(2), Poison(4+)"
     },
     {
       "name": "Meltagun",
@@ -174,7 +174,7 @@ export const plagueMarines: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Plague knife",
@@ -192,7 +192,7 @@ export const plagueMarines: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Plasma gun - Standard",

@@ -49,7 +49,7 @@ export const greatHarlequin: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

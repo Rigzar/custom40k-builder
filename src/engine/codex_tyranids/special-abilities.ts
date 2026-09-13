@@ -37,8 +37,9 @@ export const TYRANID_SPECIAL_ABILITIES: TyranidSpecialAbilityEntry[] = [
   {
     name: 'Shadow in the Warp',
     category: 'army-rule',
-    text: 'Verbatim (Index): enemy psykers suffer -1 to manifest/deny in battle rounds 2-3, ' +
-      'increasing to -2 in rounds 4-5.',
+    text: 'Verbatim (Index): enemy psykers suffer a -1 penalty to manifest and deny psychic ' +
+      'powers. Enemy units suffer a -1 penalty to their Leadership starting in the 3rd battle ' +
+      'round. Both penalties are doubled for enemy units that are within Synapse range.',
   },
   {
     name: 'Psychic Feedback',

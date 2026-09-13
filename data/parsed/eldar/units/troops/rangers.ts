@@ -40,7 +40,7 @@ export const rangers: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(3)"
     },
     {
       "name": "Shuriken pistol",

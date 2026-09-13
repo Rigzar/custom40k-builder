@@ -49,7 +49,7 @@ export const warbuggy: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grot bomm",
@@ -58,7 +58,7 @@ export const warbuggy: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo (1), AT(2), Barrage, Indirect, Grot Gunner, Seeking"
+      "abilities": "Ammo (1), AT(2), Blast(6), Indirect, Grot Gunner, Seeking"
     },
     {
       "name": "Kannon - Frag",
@@ -67,7 +67,7 @@ export const warbuggy: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Kannon - Shell",
@@ -85,7 +85,7 @@ export const warbuggy: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Mek speshul",
@@ -112,7 +112,7 @@ export const warbuggy: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Rokkit launcha",
@@ -130,7 +130,7 @@ export const warbuggy: Unit = {
       "s": "2D6",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive, Mek Weapon, Shokk Tunnel"
+      "abilities": "AT(2), Blast(4), Mek Weapon, Shokk Tunnel"
     },
     {
       "name": "Skorcha",
@@ -139,7 +139,7 @@ export const warbuggy: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Squig launcha",
@@ -148,7 +148,7 @@ export const warbuggy: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Stikkbombz",
@@ -157,7 +157,7 @@ export const warbuggy: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Twin-linked big shoota",
@@ -365,7 +365,7 @@ export const warbuggy: Unit = {
     "Mek weapon: This weapon's profile cannot be changed by equipment or wargear.",
     "Pointy Bitz: The model inflicts D6 hits with S:6 AP:-2 D:1 when it makes a Charge move.",
     "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation.",
-    "Shokk Rifle: Roll for the strength of the weapon after you have selected a target. If doubles are rolled, consult the following table. If doubles are rolled: 1-1: Awups! The shooter and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! Nearest visible unit not in melee becomes the new target (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Barrage, Suppression. 5-5: Big wrong button! Remove the shooter from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! Fires with Strength D and AT(3), loses Barrage this activation.",
+    "Shokk Rifle: Roll for the strength of the weapon after you have selected a target. If doubles are rolled, consult the following table. If doubles are rolled: 1-1: Awups! The shooter and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! Nearest visible unit not in melee becomes the new target (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Blast(6), Suppression(3). 5-5: Big wrong button! Remove the shooter from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! Fires with Strength D and AT(3), loses Blast(6) this activation.",
     "Shokk Tunnel: When an \"Advance\" command is given, instead of moving the model an additional 1D6\", a model with this weapon is removed from the board and immediately repositioned according to the rules for Deep Strike. Then roll 1D6. On a 1 or 2, the model suffers a penetrating hit."
   ],
   "unit_type": "Vehicle",

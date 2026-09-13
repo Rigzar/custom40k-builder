@@ -33,7 +33,7 @@ export const squighogBoyz: Unit = {
   "variant_models": [
     {
       "name": "Nob",
-      "points": 77,
+      "points": 64,
       "min": 0,
       "max": 0,
       "stats": {
@@ -92,12 +92,12 @@ export const squighogBoyz: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "One Squighog Boy may be upgraded to a Nob for +33 points and gains access to weapons and gear from the Armory.",
+      "header": "One Squighog Boy may be upgraded to a Nob for +20 points and gains access to weapons and gear from the Armory.",
       "constraint": {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 33,
+      "inline_pts": 20,
       "variant_link": "Nob",
       "is_unique_per_army": false
     },

@@ -25,7 +25,7 @@ export const reaper: Unit = {
   "equipped_with": "A Reaper is equipped with: Sharpened prow; Storm vortex projector.",
   "weapons": [
     { "name": "Storm vortex projector (Beam)", "range": "36\"", "type": "Heavy 1", "s": "8", "ap": "-4", "d": "4", "abilities": "AT(3), Beam, Lance(+2)" },
-    { "name": "Storm vortex projector (Blast)", "range": "24\"", "type": "Heavy 1", "s": "6", "ap": "-1", "d": "1", "abilities": "Barrage, Suppression" }
+    { "name": "Storm vortex projector (Blast)", "range": "24\"", "type": "Heavy 1", "s": "6", "ap": "-1", "d": "1", "abilities": "Blast(6), Suppression(3)" }
   ],
   "option_groups": [
     {

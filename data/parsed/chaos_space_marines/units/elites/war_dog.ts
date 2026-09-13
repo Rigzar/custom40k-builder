@@ -85,7 +85,7 @@ export const warDog: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Daemonbreath spear",
@@ -103,7 +103,7 @@ export const warDog: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-Air, Explosive"
+      "abilities": "Anti-Air, Blast(4)"
     },
     {
       "name": "Heavy stubber",
@@ -112,7 +112,7 @@ export const warDog: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Melta",

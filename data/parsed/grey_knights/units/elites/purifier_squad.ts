@@ -56,13 +56,22 @@ export const purifierSquad: Unit = {
   "equipped_with": "Every model is equipped with: Cleansing flame; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
   "weapons": [
     {
-      "name": "Cleansing flame",
-      "range": "12\"",
-      "type": "Pistol 2",
+      "name": "Cleansing flame - Melee",
+      "range": "-",
+      "type": "Melee",
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Extra attack, Flames, Shield breaker(-1), Soul burn(5+)"
+      "abilities": "Extra Attack(1), Limit(1), Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(5+)"
+    },
+    {
+      "name": "Cleansing flame - Ranged",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Extra Attack(1), Limit(1), Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(5+)"
     },
     {
       "name": "Frag grenade",
@@ -71,7 +80,7 @@ export const purifierSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -89,7 +98,7 @@ export const purifierSquad: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames, Shield breaker(-1)"
+      "abilities": "Auto Hit, Sunder(1), Shield breaker(-1)"
     },
     {
       "name": "Nemesis daemon hammer",
@@ -125,7 +134,7 @@ export const purifierSquad: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Shield breaker(-1), Suppression"
+      "abilities": "Shield breaker(-1), Suppression(3)"
     },
     {
       "name": "Psycannon",
@@ -226,7 +235,7 @@ export const purifierSquad: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": true,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": true,
   "veteran_required": false,

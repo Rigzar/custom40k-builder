@@ -49,7 +49,7 @@ export const exorcist: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-air, Explosive, Indirect, Seeking"
+      "abilities": "Anti-air, Blast(4), Indirect, Seeking"
     },
     {
       "name": "Exorcist missile launcher - Exorcist missiles",

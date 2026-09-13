@@ -67,7 +67,7 @@ export const skyRayGunship: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin smart missile system",

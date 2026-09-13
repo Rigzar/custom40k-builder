@@ -71,7 +71,7 @@ export const cultistFirebrand: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -80,7 +80,7 @@ export const cultistFirebrand: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

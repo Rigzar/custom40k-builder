@@ -57,7 +57,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": null,
       "p_char": 13
     },
@@ -69,7 +69,7 @@
       "s": "+2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Quick(+1), Flurry(1)",
+      "abilities": "AT(1), Quick(+1), Extra Attack(1)",
       "p_unit": null,
       "p_char": 17
     },
@@ -81,7 +81,7 @@
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(1)",
+      "abilities": "Extra Attack(1)",
       "p_unit": null,
       "p_char": 8
     },
@@ -165,7 +165,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Monofilament",
+      "abilities": "Blast(4), Monofilament",
       "p_unit": 20,
       "p_char": 25
     },

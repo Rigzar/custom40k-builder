@@ -67,7 +67,7 @@ export const ghostkeelBattlesuits: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Fusion blaster",
@@ -85,7 +85,7 @@ export const ghostkeelBattlesuits: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "3",
-      "abilities": "Armorbane, AT(3), Explosive"
+      "abilities": "Armorbane, AT(3), Blast(4)"
     },
     {
       "name": "Cyclic ion raker - Standard",

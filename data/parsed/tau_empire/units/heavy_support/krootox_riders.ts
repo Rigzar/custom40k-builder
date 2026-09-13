@@ -58,7 +58,7 @@ export const krootoxRiders: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Monofilament, Suppression"
+      "abilities": "Blast(4), Monofilament, Suppression(3)"
     }
   ],
   "option_groups": [

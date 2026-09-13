@@ -46,7 +46,7 @@ const STRATAGEM_DEFS: Record<string, StratagemDef> = {
   // itself never gives it a trigger roll or wound count like Artillery/Low Orbital Strike do —
   // the GM has to adjudicate how it's actually delivered.
   'lance-strike':        { label: 'Lance Strike',          cost: 0, building: null,                  usable: 'Both',
-    effect: 'Granted once by Void Supremacy. Massive Orbital Strike weapon (Escalation): Unlimited, Assault 1, S:D AP:-6 D:5; AT(7), Explosive, Shield breaker(-3).' },
+    effect: 'Granted once by Void Supremacy. Massive Orbital Strike weapon (Escalation): Unlimited, Assault 1, S:D AP:-6 D:5; AT(7), Blast(4), Shield breaker(-3).' },
   'blitz':               { label: 'Blitz',                 cost: 2, building: 'satlink',             usable: 'Attacker',
     effect: '+1 to your Reinforcement phase rolls this battle. Lv2 Satlink: roll for one additional reinforcement unit.' },
   'fortified-positions': { label: 'Fortified Positions',   cost: 2, building: 'construction-center', usable: 'Defender',
@@ -140,7 +140,7 @@ export function CampaignBuildingsView({ campaign, sectors, isGm }: Props) {
     try {
       const [bRes, eRes, sRes, tRes, uRes] = await Promise.all([
         api.listBuildings(campaign.id),
-        api.listEvents(campaign.id),
+        api.listCampaignEvents(campaign.id),
         api.listSupply(campaign.id),
         api.listTauvaBonus(campaign.id),
         api.listStratagemUses(campaign.id),

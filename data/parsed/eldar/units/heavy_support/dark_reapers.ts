@@ -68,7 +68,7 @@ export const darkReapers: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Indirect fire, Suppression"
+      "abilities": "Blast(6), Indirect fire, Suppression(3)"
     },
     {
       "name": "Aeldari missile launcher - Sunburst",
@@ -77,7 +77,7 @@ export const darkReapers: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Aeldari missile launcher - Starshot",
@@ -95,7 +95,7 @@ export const darkReapers: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Reaper missile launcher - Starshot",

@@ -40,7 +40,7 @@ export const lictorBrood: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Piercing claws",
@@ -58,7 +58,7 @@ export const lictorBrood: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     }
   ],
   "option_groups": [
@@ -242,7 +242,7 @@ export const lictorBrood: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

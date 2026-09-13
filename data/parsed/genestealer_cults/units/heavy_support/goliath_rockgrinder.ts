@@ -40,7 +40,7 @@ export const goliathRockgrinder: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+      "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
     },
     {
       "name": "Clearance incinerator",
@@ -49,7 +49,7 @@ export const goliathRockgrinder: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heavy mining laser",
@@ -58,7 +58,7 @@ export const goliathRockgrinder: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Explosive"
+      "abilities": "AT(3), Blast(4)"
     },
     {
       "name": "Heavy stubber",
@@ -67,7 +67,7 @@ export const goliathRockgrinder: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Heavy seismic cannon - Long-wave",
@@ -76,7 +76,7 @@ export const goliathRockgrinder: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(2)"
     },
     {
       "name": "Heavy seismic cannon - Short-wave",
@@ -85,7 +85,7 @@ export const goliathRockgrinder: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

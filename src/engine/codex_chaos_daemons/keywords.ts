@@ -71,7 +71,7 @@ export const CD_KEYWORDS: CdKeywordEntry[] = [
     axis: 'mark',
     gates: 'Veteran ability: "Warded"; Character/Monstrous Creature becomes psyker (or gains ' +
       '+1 manifest/deny if already one); Vehicles gain a Warpflamer (R9" Assault 4 S4 AP-1 D1, ' +
-      'Flames). Gates ᵀ-superscript armory items (structurally bucketed in `armory_marks.Tzeentch`' +
+      'Auto Hit + Sunder(1)). Gates ᵀ-superscript armory items (structurally bucketed in `armory_marks.Tzeentch`' +
       ' — by-design glyph-collision split, ᵀ already means Terminator-compat elsewhere) + ' +
       'Tzeentch-locked archetype (Host Duplicitous ᵀ). Sacred number 9. Rival: Nurgle (Animosity).',
   },

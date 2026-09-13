@@ -7,6 +7,8 @@ import { applyPlatoonSlotOverride } from '../engine/codex_imperial_guard/platoon
 import { resolveUnit, computeUnitPoints } from '../engine/points';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { useT, type TranslationKey } from '../i18n';
+import { removedUnitNote } from '../engine/unitRenames';
+import type { RosterEntry } from '../types/army';
 
 const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
   'HQ': 'hq', 'Troops': 'troops', 'Elites': 'elites', 'Fast Attack': 'fastAttack',
@@ -18,6 +20,40 @@ const SLOT_ICON_STYLE: React.CSSProperties = {
   filter: 'brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(-10deg)',
   opacity: 0.65,
 };
+
+/**
+ * A roster entry whose datasheet the codex no longer has.
+ *
+ * UnitCard bails out with `return null` when the unit does not resolve, so before this existed the
+ * entry was simply INVISIBLE while still counting against its slot and contributing 0 points —
+ * a slot header reading "1 unit · 0 pts" with nothing under it. Show it, say why, and give the one
+ * action that helps. See engine/unitRenames.ts for the renames that are mapped forward instead.
+ */
+function MissingUnitCard({ item, faction }: { item: RosterEntry; faction: string }) {
+  const t = useT();
+  const removeUnit = useArmyStore(s => s.removeUnit);
+  const note = removedUnitNote(faction, item.unitName);
+  return (
+    <div className="mb-2 border border-red-900/60 bg-red-950/20">
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-red-900/40">
+        <span className="text-red-500 text-[13px] leading-none" aria-hidden="true">⚠</span>
+        <span className="font-cinzel text-[12px] uppercase tracking-wider text-zinc-200 flex-1">{item.unitName}</span>
+        <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-red-800/70 text-red-400 shrink-0">
+          {t('unitNotInCodexTitle')}
+        </span>
+      </div>
+      <div className="px-3 py-2 space-y-2">
+        <p className="text-[11px] text-zinc-400 leading-relaxed">{note ?? t('unitNotInCodexBody')}</p>
+        <button
+          onClick={() => removeUnit(item.id)}
+          className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-red-400 hover:bg-zinc-800 uppercase tracking-wide"
+        >
+          {t('removeFromList')}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /**
  * `scope` splits the roster view in two — "primary" (the main faction's own army, plus any
@@ -78,7 +114,9 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
                 {slotUnits.length} {slotUnits.length === 1 ? 'unit' : 'units'} · {slotPts} pts
               </span>
             </div>
-            {slotUnits.map(item => <UnitCard key={item.id} item={item} />)}
+            {slotUnits.map(item => (resolveUnit(item, data)
+              ? <UnitCard key={item.id} item={item} />
+              : <MissingUnitCard key={item.id} item={item} faction={data.faction} />))}
           </div>
         );
       })}

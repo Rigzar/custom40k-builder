@@ -40,7 +40,7 @@ export const aquilonCustodians: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lastrum storm bolter",
@@ -67,7 +67,7 @@ export const aquilonCustodians: Unit = {
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3),Slow(-2), Armorbane"
+      "abilities": "AT(3), Slow(-2), Armorbane"
     },
     {
       "name": "Twin adrathic destructor",

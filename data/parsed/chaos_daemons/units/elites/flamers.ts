@@ -40,7 +40,7 @@ export const flamers: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [],

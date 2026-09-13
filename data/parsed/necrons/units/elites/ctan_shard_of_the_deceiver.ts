@@ -13,11 +13,11 @@ export const ctanShardOfTheDeceiver: Unit = {
   "models": [
     {
       "name": "Deceiver",
-      "points": 280,
+      "points": 316,
       "min": 1,
       "max": 1,
       "stats": {
-        "M": "6\"",
+        "M": "12\"",
         "WS": "2+",
         "BS": "3+",
         "S": "6",
@@ -37,7 +37,7 @@ export const ctanShardOfTheDeceiver: Unit = {
       "name": "Golden Fists",
       "range": "-",
       "type": "Melee",
-      "s": "T",
+      "s": "U",
       "ap": "-3",
       "d": "2",
       "abilities": "-"
@@ -76,5 +76,5 @@ export const ctanShardOfTheDeceiver: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 1,
-  "min_cost": 280
+  "min_cost": 316
 };

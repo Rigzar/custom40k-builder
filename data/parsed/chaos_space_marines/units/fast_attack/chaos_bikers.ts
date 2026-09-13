@@ -162,7 +162,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -171,7 +171,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -207,7 +207,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Combi-melta - Bolter",

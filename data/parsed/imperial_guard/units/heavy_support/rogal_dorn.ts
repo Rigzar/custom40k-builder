@@ -67,7 +67,7 @@ export const rogalDorn: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Melta",
@@ -94,7 +94,7 @@ export const rogalDorn: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(4), Barrage, Tank hunter"
+      "abilities": "AT(4), Blast(6), Tank hunter"
     },
     {
       "name": "Pulveriser cannon",
@@ -103,7 +103,7 @@ export const rogalDorn: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Twin Battle cannon",
@@ -112,7 +112,7 @@ export const rogalDorn: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage, Tank hunter"
+      "abilities": "AT(2), Blast(6), Tank hunter"
     }
   ],
   "option_groups": [

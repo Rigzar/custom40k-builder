@@ -344,3 +344,32 @@ roster entry, checks `item.size` (sum of all specialist `modelSizes`) against 6,
 **Items 2, 3, 4, 8, 10, 11, 12 DONE (build ✓, local, NOT pushed). Item 9 documented (KI logged).
 Item 6 (Army Customisation full replace) remains a large structural rework, user-confirmed but
 not implemented. Item 7 logged, not fixed.**
+
+---
+
+## 9. Codex 1.01 (September 2026 update) — delta
+
+`Codex/Inquisition.ods` → `Codex/Inquisition 1.01.ods`, fetched from the author's live sheet.
+**One tab changed, `Army Customisation`, and within it one row.** Every other sheet is cell-for-cell
+identical (verified by `node scripts/fetch_codex.cjs inquisition`, which diffs every tab of every
+sheet and now reports `✅ identical`).
+
+The changed row, before → after:
+
+> `Sector Protector` — "Henchman Warbands can be taken without requiring an Inquisitor and when
+> done so have a size of 5-10 specialists."
+>
+> `Sector Lord` — "Henchman Warbands **consisting of 5+ Acolytes** can be taken without requiring
+> an Inquisitor and when done so have a size of 5-10 specialists."
+
+So two things moved: the archetype was **renamed**, and it gained a **composition requirement**.
+
+- The rename goes in `RENAMED_ARCHETYPES` (`engine/archetypes/index.ts`), which already existed for
+  AdMech's Titan Legion → Taghmata. That table was only consulted by `getArchetypeRule()`, so
+  `state.archetype` itself stayed on the old string — the picker showed nothing selected and every
+  `state.archetype === '...'` comparison missed. `currentArchetypeName()` is now applied on
+  `importRoster` and in the persist migration (store version 3 → 4), for the ally's archetype too.
+  That fixes the pre-existing Titan Legion case as well.
+- The 5+ Acolytes requirement is a new validator error next to the existing 5-10 size check, counted
+  from `item.modelSizes['Acolyte']`. Note it is 5+ ACOLYTES specifically, not 5+ specialists — a
+  Warband of 5 Crusaders no longer qualifies.

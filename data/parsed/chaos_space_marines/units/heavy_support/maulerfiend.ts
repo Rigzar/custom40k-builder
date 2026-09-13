@@ -84,7 +84,7 @@ export const maulerfiend: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(4)"
+      "abilities": "Extra Attack(4)"
     },
     {
       "name": "Magma cutter",

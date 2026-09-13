@@ -59,7 +59,7 @@ export const hellions: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1), Quick(1)"
+      "abilities": "Extra Attack(1), Quick(1)"
     },
     {
       "name": "Splinter pod",
@@ -68,7 +68,7 @@ export const hellions: Unit = {
       "s": "2",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Poison(3+)"
+      "abilities": "Blast(4), Poison(3+)"
     }
   ],
   "option_groups": [

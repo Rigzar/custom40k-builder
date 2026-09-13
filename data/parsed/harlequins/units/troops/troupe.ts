@@ -86,7 +86,7 @@ export const troupe: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Shuriken pistol",

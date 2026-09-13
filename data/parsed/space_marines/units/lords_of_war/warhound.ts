@@ -40,7 +40,7 @@ export const warhound: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Colossal blast, Indirect"
+      "abilities": "AT(1), Blast(8), Indirect"
     },
     {
       "name": "Inferno gun",
@@ -49,7 +49,7 @@ export const warhound: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Flames"
+      "abilities": "AT(1), Auto Hit, Sunder(1)"
     },
     {
       "name": "Plasma blastgun - Rapid",
@@ -58,7 +58,7 @@ export const warhound: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Plasma blastgun - Overload",
@@ -67,7 +67,7 @@ export const warhound: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Colossal blast"
+      "abilities": "AT(3), Blast(8)"
     },
     {
       "name": "Twin turbo-laser destructor",
@@ -76,7 +76,7 @@ export const warhound: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "4",
-      "abilities": "AT(4), Barrage"
+      "abilities": "AT(4), Blast(6)"
     },
     {
       "name": "Vulcan mega-bolter",

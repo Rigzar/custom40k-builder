@@ -40,7 +40,7 @@ export const skorpiusDisintegrator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Cognis heavy stubber",
@@ -58,7 +58,7 @@ export const skorpiusDisintegrator: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "Anti-air, AT(1), Explosive"
+      "abilities": "Anti-air, AT(1), Blast(4)"
     },
     {
       "name": "Ferrumite cannon",

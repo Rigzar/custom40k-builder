@@ -77,7 +77,7 @@ export const centurionDevastatorSquad: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive, Grav"
+      "abilities": "Blast(4), Grav"
     },
     {
       "name": "Hurricane Boltgun",
@@ -113,7 +113,7 @@ export const centurionDevastatorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak",

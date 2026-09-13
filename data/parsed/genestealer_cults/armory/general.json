@@ -33,7 +33,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive",
+      "abilities": "Blast(4)",
       "p_unit": 5,
       "p_char": 5
     },
@@ -45,7 +45,7 @@
       "s": "1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Poison(2+), Precision, Flurry(1)",
+      "abilities": "Poison(2+), Precision, Extra Attack(1)",
       "p_unit": 3,
       "p_char": 5
     },
@@ -117,7 +117,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive",
+      "abilities": "Blast(4)",
       "p_unit": 1,
       "p_char": 1
     },
@@ -129,7 +129,7 @@
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)",
+      "abilities": "Extra Attack(1)",
       "p_unit": 1,
       "p_char": 2
     },
@@ -177,7 +177,7 @@
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)",
+      "abilities": "Extra Attack(1)",
       "p_unit": 1,
       "p_char": 2
     },

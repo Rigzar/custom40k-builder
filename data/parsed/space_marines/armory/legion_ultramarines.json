@@ -1,0 +1,152 @@
+{
+  "name": "Ultramarines Armory",
+  "weapons": [
+    {
+      "name": "Soldier's Blade",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Unique",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
+      "name": "Sunwrath Pistol",
+      "term_compat": false,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Gravis"
+      ],
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Unique",
+      "p_unit": null,
+      "p_char": 18
+    },
+    {
+      "name": "Vengeance of Ultramar",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "range": "24\"",
+      "type": "Rapid Fire 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Poison(2+), Unique",
+      "p_unit": null,
+      "p_char": 26
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Adept of the Codex",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model and its attached unit may select one Space Marine trait they do not have to be under the effect of. Cannot select cursed founding, path of damnation, purity of all, expanded armory or sons of mars. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Helm of Censure",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model gains 1 cumulative hit and wound re-roll. Unique.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Laurels of Victory",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "Each wound the model does in combat counts as 2 for combat resolution.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Librarius pendant",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model gains a +1 bonus to manifest powers from the Librarius discipline.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Sanctic halo",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model gains a 4+ ward save and the \"Aegis(4+)\" ability.",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "Tarentian Cloak",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model gains the \"Regeneration(1)\" ability.",
+      "p_unit": 8,
+      "p_char": 12
+    },
+    {
+      "name": "Tyrannic War Veteran",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model and its attached unit gain +1 to wound rolls against Monstrous Infantry and Monstrous Creatures in melee.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Supply Vehicle",
+      "term_compat": false,
+      "gravis_compat": false,
+      "armour_compat": [],
+      "desc": "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Space Marine unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

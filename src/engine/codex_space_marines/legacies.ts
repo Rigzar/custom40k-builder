@@ -21,9 +21,13 @@
  *   Legacy of the Lion      → "Interromancy psychic discipline"
  *   Legacy of the Praetorian → "Geokinesis psychic discipline"
  *   Legacy of the Wolf      → "Tempestus psychic discipline"
+ *   Legacy of the Forge     → "Technomancy psychic discipline"   (codex 1.04)
+ *   Legacy of the Liberator → "Umbromancy psychic discipline"    (codex 1.04)
  */
 export const SM_LEGACY_DISC_MAP: Record<string, string> = {
   'Geokinesis (Legacy)':    'Legacy of the Praetorian',
+  'Technomancy (Legacy)':   'Legacy of the Forge',
+  'Umbromancy (Legacy)':    'Legacy of the Liberator',
   'Interromancy (Legacy)':  'Legacy of the Lion',
   'Sanguine (Legacy)':      'Legacy of the Angel',
   'Stormspeaking (Legacy)': 'Legacy of the Khan',

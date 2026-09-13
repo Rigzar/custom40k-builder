@@ -40,7 +40,7 @@ export const impulsor: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Ironhail heavy stubber",
@@ -85,7 +85,7 @@ export const impulsor: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Anti-air"
+      "abilities": "Blast(4), Anti-air"
     },
     {
       "name": "Bellicatus missile array (Icarus rockets)",

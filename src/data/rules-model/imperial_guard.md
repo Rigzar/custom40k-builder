@@ -92,7 +92,7 @@
     Get back in the fight! / Fall back!
   - **Vehicle orders** (3): Gunners, kill on sight! / Fire and fade! / Scorched earth!
   - **Legacy orders** (6, each unlocked by a Legacy — see §5): Burn them out! / Fire on my
-    command! / Form firing squad / Get around behind them! / Mount up! / Suppressive fire!
+    command! / Form firing squad! / Get around behind them! / Mount up! / Suppressive fire!
 - **Weapon team crews** (Index): some units can form a "Heavy weapons team" using the "Heavy
   Weapon Squad" profile.
 - **Hymns of Battle** (Hymns sheet, the Preacher's prayer-equivalent system, 5 hymns): Catechism

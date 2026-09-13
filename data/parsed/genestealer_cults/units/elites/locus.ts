@@ -40,7 +40,7 @@ export const locus: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Locus blades",
@@ -49,7 +49,7 @@ export const locus: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     }
   ],
   "option_groups": [

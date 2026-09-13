@@ -117,7 +117,7 @@ export const cryptek: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Monofilament"
+      "abilities": "Blast(4), Monofilament"
     },
     {
       "name": "Voltaic staff",

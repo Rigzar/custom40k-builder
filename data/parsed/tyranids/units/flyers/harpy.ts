@@ -40,7 +40,7 @@ export const harpy: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Spore Mine cysts",
@@ -49,7 +49,7 @@ export const harpy: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Stinger salvo",
@@ -58,7 +58,7 @@ export const harpy: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Twin stranglethorn cannon",
@@ -67,7 +67,7 @@ export const harpy: Unit = {
       "s": "7",
       "ap": "0",
       "d": "1",
-      "abilities": "AT(1), Barrage, Suppression"
+      "abilities": "AT(1), Blast(6), Suppression(3)"
     },
     {
       "name": "Twin venom cannon",
@@ -76,7 +76,7 @@ export const harpy: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [
@@ -278,7 +278,7 @@ export const harpy: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },
@@ -351,7 +351,8 @@ export const harpy: Unit = {
     }
   ],
   "abilities": [
-    "Hover Mode"
+    "Hover Mode",
+    "Spore Mine Launcher: Instead of shooting at an enemy, a Harpy may create a unit of \"Spore Mine Cluster\" (3 models) within 48\" of itself and at least 9\" away from any enemy unit."
   ],
   "unit_type": "Flyer, Monstrous Creature",
   "keywords": [

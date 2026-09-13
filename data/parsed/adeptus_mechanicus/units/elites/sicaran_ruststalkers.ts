@@ -58,7 +58,7 @@ export const sicaranRuststalkers: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Extra attack"
+      "abilities": "Extra Attack(1), Limit(1)"
     },
     {
       "name": "Mindscrambler grenade",
@@ -67,7 +67,7 @@ export const sicaranRuststalkers: Unit = {
       "s": "2",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(3)"
     },
     {
       "name": "Transonic blades",
@@ -76,7 +76,7 @@ export const sicaranRuststalkers: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Armor piercing(5+), Flurry(1)"
+      "abilities": "Armor piercing(5+), Extra Attack(1)"
     },
     {
       "name": "Transonic razor",

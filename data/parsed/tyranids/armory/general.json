@@ -9,7 +9,7 @@
       "s": "2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Extra Attack(1), Hits automatically wound the target",
+      "abilities": "Extra Attack(1), Limit(1), Hits automatically wound the target",
       "p_unit": null,
       "p_char": null
     },
@@ -21,7 +21,20 @@
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Flurry(3)",
+      "abilities": "Extra Attack(3)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Headlong charge",
+      "term_compat": false,
+      "armour_compat": [],
+      "range": "-",
+      "type": "Melee",
+      "s": "10",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(2), Blast(4)",
       "p_unit": null,
       "p_char": null
     }
@@ -54,6 +67,18 @@
       "desc": "Basic Biomorph. Point costs are paid per unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
       "p_unit": 5,
       "p_char": 5
+    },
+    {
+      "name": "Living Battering Ram",
+      "term_compat": false,
+      "desc": "The model causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile.",
+      "p_unit": 15,
+      "p_char": null,
+      "effect": {
+        "grants_weapons": [
+          "Headlong charge"
+        ]
+      }
     },
     {
       "name": "Pathogenesis",
@@ -108,7 +133,7 @@
     {
       "name": "Infrasonic Roar",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per unit. The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\".",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\".",
       "p_unit": 5,
       "p_char": 5
     },
@@ -168,7 +193,7 @@
     {
       "name": "Hardened Carapace",
       "term_compat": false,
-      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The unit improves its armor save by +1.",
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The unit improves its armor save by +1, to a maximum of 2+.",
       "p_unit": null,
       "p_char": null
     },

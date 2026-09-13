@@ -40,7 +40,7 @@ export const krootLoneSpear: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Kroot long gun",
@@ -49,7 +49,7 @@ export const krootLoneSpear: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Kroot javelins - Blast",
@@ -58,7 +58,7 @@ export const krootLoneSpear: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Kroot javelins - Charge",

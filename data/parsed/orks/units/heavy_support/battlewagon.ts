@@ -40,7 +40,7 @@ export const battlewagon: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Indirect"
+      "abilities": "Blast(6), Indirect"
     },
     {
       "name": "Big shoota",
@@ -58,7 +58,7 @@ export const battlewagon: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Flakka gunz",
@@ -67,7 +67,7 @@ export const battlewagon: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Anti-air, Explosive, Sunder(1)"
+      "abilities": "AT(1), Anti-air, Blast(4), Sunder(1)"
     },
     {
       "name": "Kannon - Frag",
@@ -76,7 +76,7 @@ export const battlewagon: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Kannon - Shell",
@@ -94,7 +94,7 @@ export const battlewagon: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     },
     {
       "name": "Lifta-droppa",
@@ -103,7 +103,7 @@ export const battlewagon: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Armorbane, Explosive, Grav, Lifta"
+      "abilities": "AT(2), Armorbane, Blast(4), Grav, Lifta"
     },
     {
       "name": "Lobba",
@@ -112,7 +112,7 @@ export const battlewagon: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Rokkit launcha",
@@ -130,7 +130,7 @@ export const battlewagon: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Supa-lobba",
@@ -139,7 +139,7 @@ export const battlewagon: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "Colossal Blast, Indirect"
+      "abilities": "Blast(8), Indirect"
     },
     {
       "name": "Supa-kannon",
@@ -148,7 +148,7 @@ export const battlewagon: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Twin-linked big shoota",

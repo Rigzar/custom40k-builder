@@ -58,7 +58,7 @@ export const chimera: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lasgun array",
@@ -76,7 +76,7 @@ export const chimera: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin heavy bolter",

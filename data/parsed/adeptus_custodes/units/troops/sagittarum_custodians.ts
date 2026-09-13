@@ -40,7 +40,7 @@ export const sagittarumCustodians: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Deflagrate(5+), Suppression"
+      "abilities": "Deflagrate(5+), Suppression(2)"
     }
   ],
   "option_groups": [],

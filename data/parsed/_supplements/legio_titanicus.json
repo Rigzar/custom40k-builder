@@ -326,7 +326,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames, Suppression"
+          "abilities": "Auto Hit, Sunder(1), Suppression(2)"
         }
       ],
       "option_groups": [
@@ -402,7 +402,7 @@
           "s": "9",
           "ap": "-4",
           "d": "3",
-          "abilities": "AT(3), Graviton, Suppression"
+          "abilities": "AT(3), Graviton, Suppression(6)"
         },
         {
           "name": "Lascannon",
@@ -429,7 +429,7 @@
           "s": "2",
           "ap": "-2",
           "d": "1",
-          "abilities": "Flames, Poison(2+), Rad"
+          "abilities": "Auto Hit, Sunder(1), Poison(2+), Rad"
         }
       ],
       "option_groups": [
@@ -639,7 +639,7 @@
         "s": "4",
         "ap": "0",
         "d": "1",
-        "abilities": "Explosive",
+        "abilities": "Blast(4)",
         "p_unit": 1,
         "p_char": 1
       },

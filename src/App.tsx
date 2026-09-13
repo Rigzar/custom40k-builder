@@ -34,6 +34,7 @@ const BugReportModal   = lazy(() => import('./components/BugReportModal').then(m
 const AuthModal        = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
 const CloudSavesModal  = lazy(() => import('./components/CloudSavesModal').then(m => ({ default: m.CloudSavesModal })));
 const CampaignModal    = lazy(() => import('./components/CampaignModal').then(m => ({ default: m.CampaignModal })));
+const EventsModal      = lazy(() => import('./components/EventsModal').then(m => ({ default: m.EventsModal })));
 const PrefsModal       = lazy(() => import('./components/PrefsModal').then(m => ({ default: m.PrefsModal })));
 const AdminPanel       = lazy(() => import('./components/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
@@ -196,6 +197,9 @@ export default function App() {
   const [showCloudSaves, setShowCloudSaves]     = useState(false);
   const [cloudSavesDefaultTab, setCloudSavesDefaultTab] = useState<'armies' | 'community' | 'friends' | 'preferences' | 'account'>('armies');
   const [showCampaign, setShowCampaign]         = useState(false);
+  // Events & Leagues is alpha-gated the same way Campaign is: built, but only reachable by
+  // admins until it has been run through with test data (see LandingPage's gated button).
+  const [showEvents, setShowEvents]             = useState(false);
   // Set when opened via the Account tab's "My Campaigns" quick-open, so CampaignModal expands
   // straight to that campaign instead of the plain index.
   const [campaignInitialOpenId, setCampaignInitialOpenId] = useState<number | undefined>(undefined);
@@ -833,6 +837,7 @@ export default function App() {
             : () => setShowAuth(true)
           }
           onShowCampaign={loggedIn ? () => setShowCampaign(true) : () => setShowAuth(true)}
+          onShowEvents={loggedIn ? () => setShowEvents(true) : () => setShowAuth(true)}
           onShowCheatSheets={() => setShowCheatSheets(true)}
         />
       )}
@@ -1060,6 +1065,13 @@ export default function App() {
             onCreateArmy={handleCreateCampaignArmy}
             onViewArmy={handleViewCampaignArmy}
             initialOpenId={campaignInitialOpenId}
+          />
+        )}
+        {showEvents && username && (
+          <EventsModal
+            username={username}
+            isAdmin={isAdmin || isInterrogator}
+            onClose={() => setShowEvents(false)}
           />
         )}
       </Suspense>

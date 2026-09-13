@@ -49,7 +49,7 @@ export const taurox: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Hot-shot volley gun",
@@ -76,7 +76,7 @@ export const taurox: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Taurox missile launcher (Krak)",
@@ -94,7 +94,7 @@ export const taurox: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Taurox gatling cannon",

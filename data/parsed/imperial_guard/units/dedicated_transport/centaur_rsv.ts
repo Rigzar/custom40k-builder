@@ -42,7 +42,7 @@ export const centaur_rsv: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [],

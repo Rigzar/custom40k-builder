@@ -76,7 +76,7 @@ export const tauros: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Tauros grenade launcher - Krak grenade",
@@ -94,7 +94,7 @@ export const tauros: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin lascannon",
@@ -112,7 +112,7 @@ export const tauros: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin heavy stubber",
@@ -121,7 +121,7 @@ export const tauros: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

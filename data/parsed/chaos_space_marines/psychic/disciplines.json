@@ -6,7 +6,7 @@
       "range": "12\"",
       "target": "Friendly unit",
       "cast_value": "5",
-      "effect": "The target adds +2 to the Strength for all weapons with the \"Flames\" ability.",
+      "effect": "The target adds +2 to the Strength for all weapons with the \"Auto Hit\" ability.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

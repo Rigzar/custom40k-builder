@@ -34,9 +34,37 @@ export const hiveTyrant: Unit = {
       }
     }
   ],
-  "variant_models": [],
+  "variant_models": [
+    {
+      "name": "Legendary Hive Tyrant",
+      "points": 339,
+      "min": 0,
+      "max": 0,
+      "stats": {
+        "M": "6\"",
+        "WS": "2+",
+        "BS": "2+",
+        "S": "7",
+        "T": "7",
+        "W": "6",
+        "I": "5",
+        "A": "5",
+        "LD": "10",
+        "SV": "2+"
+      }
+    }
+  ],
   "equipped_with": "A Hive Tyrant is equipped with: 2 Monstrous scything talons.",
   "weapons": [
+    {
+      "name": "Bone sabres",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Deadly(5+), Deflect, Parry"
+    },
     {
       "name": "Desiccator larvae",
       "range": "9\"",
@@ -62,7 +90,7 @@ export const hiveTyrant: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Lash whip and bonesword",
@@ -80,7 +108,7 @@ export const hiveTyrant: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Flurry(1)"
+      "abilities": "AT(1), Extra Attack(1)"
     },
     {
       "name": "Monstrous piercing claws",
@@ -98,7 +126,7 @@ export const hiveTyrant: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Extra Attack(1)"
+      "abilities": "AT(3), Extra Attack(1), Limit(1)"
     },
     {
       "name": "Shreddershard beetles",
@@ -116,7 +144,7 @@ export const hiveTyrant: Unit = {
       "s": "7",
       "ap": "0",
       "d": "1",
-      "abilities": "AT(1), Barrage, Suppression"
+      "abilities": "AT(1), Blast(6), Suppression(3)"
     },
     {
       "name": "Twin deathspitter with slimer maggots",
@@ -139,6 +167,16 @@ export const hiveTyrant: Unit = {
   ],
   "option_groups": [
     {
+      "header": "One Hive Tyrant per army can be upgraded to a Legendary Hive Tyrant",
+      "constraint": {
+        "type": "unique_upgrade"
+      },
+      "choices": [],
+      "inline_pts": 55,
+      "variant_link": "Legendary Hive Tyrant",
+      "is_unique_per_army": true
+    },
+    {
       "header": "May swap one of its Monstrous scything talons",
       "constraint": {
         "type": "one"
@@ -155,6 +193,10 @@ export const hiveTyrant: Unit = {
         {
           "name": "Twin devourer with brainleech worms",
           "points": 8
+        },
+        {
+          "name": "Bone sabres",
+          "points": 17
         },
         {
           "name": "Stranglethorn cannon",
@@ -193,6 +235,10 @@ export const hiveTyrant: Unit = {
         {
           "name": "Twin devourer with brainleech worms",
           "points": 8
+        },
+        {
+          "name": "Bone sabres",
+          "points": 17
         },
         {
           "name": "Stranglethorn cannon",
@@ -259,16 +305,24 @@ export const hiveTyrant: Unit = {
       },
       "choices": [
         {
-          "name": "Hive Commander",
-          "points": 5
-        },
-        {
-          "name": "Indescribable Horror",
-          "points": 5
+          "name": "Alien Cunning",
+          "points": 10
         },
         {
           "name": "Old Adversary",
           "points": 10
+        },
+        {
+          "name": "Swarm Leader",
+          "points": 10
+        },
+        {
+          "name": "Hive Commander",
+          "points": 15
+        },
+        {
+          "name": "Indescribable Horror",
+          "points": 15
         }
       ],
       "inline_pts": null,
@@ -446,7 +500,7 @@ export const hiveTyrant: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },
@@ -524,7 +578,10 @@ export const hiveTyrant: Unit = {
     "Warp Barrier: The model gains a 4+ ward save.",
     "Hive Commander: Select two units from your army. Both gain the \"Outflank\" ability.",
     "Indescribable Horror: Units taking a Leadership test caused by this model must roll an extra dice when taking the test and use the highest two results. In most circumstances, this will mean the unit rolls 3D6 and discards the lowest dice roll.",
-    "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round."
+    "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round.",
+    "Legendary Hive Tyrant: Must select a specialisation and may select a second one.",
+    "Alien Cunning: You may decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after the roll has been made.",
+    "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [

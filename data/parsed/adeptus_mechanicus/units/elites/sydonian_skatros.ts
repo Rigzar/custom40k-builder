@@ -49,7 +49,7 @@ export const sydonianSkatros: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Rad, Suppression"
+      "abilities": "Armor piercing(5+), Rad, Suppression(6)"
     },
     {
       "name": "Transuranic arquebus",
@@ -93,7 +93,7 @@ export const sydonianSkatros: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Squadron, Stealth",
-    "Achillan Eye: All Heavy weapons wielded by this model gain the Shred, Suppression, and Tank Hunter abilities."
+    "Achillan Eye: All Heavy weapons wielded by this model gain the Shred, Suppression(6), and Tank Hunter abilities."
   ],
   "unit_type": "Infantry",
   "keywords": [],

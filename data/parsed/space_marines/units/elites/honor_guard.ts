@@ -40,7 +40,7 @@ export const honorGuard: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -97,6 +97,10 @@ export const honorGuard: Unit = {
         {
           "name": "Bladeguard",
           "points": 6
+        },
+        {
+          "name": "Dark Furies",
+          "points": 1
         }
       ],
       "inline_pts": null,
@@ -108,6 +112,7 @@ export const honorGuard: Unit = {
     "Combat squads, They Shall Know No Fear",
     "Upgrades:",
     "Bladeguard: The model gains the \"Warded\" ability. Only for Infantry.",
+    "Dark Furies: The model gains the \"Hit & Run\" ability.",
     "Inner Circle: Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model.",
     "Sanguine Guard: The model rolls 1D6 less for scatter, when it is deployed via the rules for Deep Strike.",
     "Sternguard: The model may shoot \"Rapid Fire\" weapons at full range with a \"Move & Shoot\" command and reduces its total penalty to hit rolls in ranged combat by -1, down to a minimum of 0.",

@@ -49,7 +49,7 @@ export const malcador: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage, Tank hunter"
+      "abilities": "AT(2), Blast(6), Tank hunter"
     },
     {
       "name": "Demolisher battle cannon",
@@ -58,7 +58,7 @@ export const malcador: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Barrage, Tank hunter"
+      "abilities": "AT(3), Blast(6), Tank hunter"
     },
     {
       "name": "Heavy bolter",
@@ -76,7 +76,7 @@ export const malcador: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heavy stubber",
@@ -85,7 +85,7 @@ export const malcador: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Lascannon",
@@ -121,7 +121,7 @@ export const malcador: Unit = {
       "s": "1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames, Poison(3+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(3+)"
     },
     {
       "name": "Inferno gun - Inferno cannon",
@@ -130,7 +130,7 @@ export const malcador: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Inferno gun - Melta cannon",
@@ -139,7 +139,7 @@ export const malcador: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(2), Explosive, Melta"
+      "abilities": "AT(2), Blast(4), Melta"
     }
   ],
   "option_groups": [

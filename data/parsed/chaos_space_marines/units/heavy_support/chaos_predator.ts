@@ -112,7 +112,7 @@ export const chaosPredator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-Air, Explosive"
+      "abilities": "Anti-Air, Blast(4)"
     },
     {
       "name": "Heavy bolter",
@@ -166,7 +166,7 @@ export const chaosPredator: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Combi-melta - Bolter",
@@ -202,7 +202,7 @@ export const chaosPredator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Poison(4+)"
+      "abilities": "Blast(4), Poison(4+)"
     }
   ],
   "option_groups": [

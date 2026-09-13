@@ -143,7 +143,7 @@ export const havocs: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy bolter",
@@ -179,7 +179,7 @@ export const havocs: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak missile",
@@ -197,7 +197,7 @@ export const havocs: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "-1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

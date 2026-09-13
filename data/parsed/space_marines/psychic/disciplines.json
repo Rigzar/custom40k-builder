@@ -370,5 +370,129 @@
       "duration": "Instant",
       "complexity": "Basic"
     }
+  ],
+  "Technomancy (Legacy)": [
+    {
+      "name": "Blessing of the Machine God",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit (Vehicle)",
+      "cast_value": "6",
+      "effect": "The target gains +1 Ballistic Skill or +1 Weapon Skill.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Fury of Medusa",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Target point",
+      "cast_value": "7",
+      "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; AT(2), Lance(1), Seeking. Vehicles are hit twice.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Machine Flense",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit (Vehicle)",
+      "cast_value": "7",
+      "effect": "The target suffers 5 glancing hits.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Objuration Mechanicum",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target gains the \"Overheating\" ability on all ranged weapons.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Psy-steel Armor",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target improves its Saving throw by +2.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Reforge",
+      "type": "Augmentation",
+      "range": "3\"",
+      "target": "Friendly unit (Vehicle)",
+      "cast_value": "7",
+      "effect": "The target regains 1 Hull Point.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    }
+  ],
+  "Umbromancy (Legacy)": [
+    {
+      "name": "Abyss",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
+      "duration": "Until the target's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Spectral Blade",
+      "type": "Witchfire",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The psyker's melee attacks gain cumulative +1 Strength and -1 AP for each point of difference between his own Leadership and his target's.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Umbral Form",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The target gains a 4+ ward save.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Shadowstep",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "One friendly character may be removed from the table and placed immediately via the rules for Deep Strike.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Darkness Within",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Select up to 3 enemy units. Each target must pass a Leadership test or suffer 1 Mortal Wound. The same unit can be targeted multiple times.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Enveloping Darkness",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target can't use Meta orders.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
   ]
 }

@@ -49,7 +49,7 @@ export const pyrovoreBrood: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Flamespurt - Pyrogout",
@@ -58,7 +58,7 @@ export const pyrovoreBrood: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [
@@ -209,7 +209,7 @@ export const pyrovoreBrood: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

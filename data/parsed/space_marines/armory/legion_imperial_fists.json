@@ -47,7 +47,7 @@
     {
       "name": "Gatebreaker bolts",
       "term_compat": true,
-      "desc": "One Bolt weapon of the model gains a -1 bonus to its AP and the \"Explosive\" ability.",
+      "desc": "One Bolt weapon of the model gains a -1 bonus to its AP and the \"Blast(4)\" ability.",
       "p_unit": null,
       "p_char": 5,
       "gravis_compat": true,

@@ -255,7 +255,7 @@
     {
       "name": "Quake Multigeneratorᴱ",
       "term_compat": false,
-      "desc": "One ranged weapon of the model gains Suppression.",
+      "desc": "One ranged weapon of the model gains Suppression(3).",
       "p_unit": 5,
       "p_char": 5
     },

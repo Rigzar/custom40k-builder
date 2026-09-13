@@ -85,7 +85,7 @@ export const hiveGangers: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Gang grenade launcher",
@@ -103,7 +103,7 @@ export const hiveGangers: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Gang melta",
@@ -139,7 +139,7 @@ export const hiveGangers: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Gang plasma gun",
@@ -193,7 +193,7 @@ export const hiveGangers: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Gang stubber",

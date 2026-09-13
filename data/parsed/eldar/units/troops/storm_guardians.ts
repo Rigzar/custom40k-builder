@@ -67,7 +67,7 @@ export const stormGuardians: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Fusion gun",
@@ -85,7 +85,7 @@ export const stormGuardians: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Power sword",

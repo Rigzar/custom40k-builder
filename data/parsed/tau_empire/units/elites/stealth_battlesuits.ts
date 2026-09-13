@@ -34,7 +34,7 @@ export const stealthBattlesuits: Unit = {
   "variant_models": [
     {
       "name": "Stealth Shas'vre",
-      "points": 49,
+      "points": 44,
       "min": 0,
       "max": 0,
       "stats": {
@@ -74,11 +74,9 @@ export const stealthBattlesuits: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every 3 models, one model may swap their Burst cannon",
+      "header": "Every model may swap their Burst cannon",
       "constraint": {
-        "type": "per_n",
-        "per_n": 3,
-        "count_per_n": 1
+        "type": "every"
       },
       "choices": [
         {
@@ -92,12 +90,12 @@ export const stealthBattlesuits: Unit = {
       "replaces": ["Burst cannon"]
     },
     {
-      "header": "One Stealth Shas'ui may be upgraded to a Shas'vre for +5pts.",
+      "header": "One Stealth Shas'ui may be upgraded to a Shas'vre for +10 points.",
       "constraint": {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 5,
+      "inline_pts": 10,
       "variant_link": "Stealth Shas'vre",
       "is_unique_per_army": false
     },

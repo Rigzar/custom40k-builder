@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
-import { ENGAGEMENTS } from '../engine/engagements';
+import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { useT } from '../i18n';
@@ -113,8 +113,16 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
   const campaignTraitBonus = isAllied ? 0 : (store.campaignTraitBonus ?? 0);
-  const traitSlotBonus = (data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0) + (rule?.archetypeTraitBonus ?? 0) + campaignTraitBonus;
-  const traitSlots = [0, 1, ...Array.from({ length: traitSlotBonus }, (_, i) => i + 2)];
+  // The picker must offer exactly the slots the store will keep and the validator will accept --
+  // otherwise Skirmish (capped at 1 Trait) would show two dropdowns and silently discard the
+  // second pick. maxArmyTraits is the one place that number is decided.
+  const traitSlotCount = maxArmyTraits(
+    engagement,
+    data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0,
+    rule?.archetypeTraitBonus ?? 0,
+    campaignTraitBonus,
+  );
+  const traitSlots = Array.from({ length: traitSlotCount }, (_, i) => i);
 
   const ARCHETYPE_MARK: Record<string, string> = {
     'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',

@@ -49,7 +49,7 @@ export const sunSharkBomber: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Ammo(1), Barrage, Bomb, Suppression"
+      "abilities": "Ammo(1), Blast(6), Bomb, Suppression(3)"
     },
     {
       "name": "Seeker missile",

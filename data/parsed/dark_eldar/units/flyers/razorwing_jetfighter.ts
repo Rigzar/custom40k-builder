@@ -58,7 +58,7 @@ export const razorwingJetfighter: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Rending(5+)"
+      "abilities": "Blast(4), Rending(5+)"
     },
     {
       "name": "Necrotoxin missile",
@@ -67,7 +67,7 @@ export const razorwingJetfighter: Unit = {
       "s": "2",
       "ap": "0",
       "d": "1",
-      "abilities": "Barrage, Poison(2+)"
+      "abilities": "Blast(6), Poison(2+)"
     },
     {
       "name": "Shatterfield missile",

@@ -77,7 +77,7 @@ export const exaltedPlagueChampion: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Poison(4+)"
+      "abilities": "Blast(4), Poison(4+)"
     },
     {
       "name": "Enhanced blight grenades",
@@ -86,7 +86,7 @@ export const exaltedPlagueChampion: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "2",
-      "abilities": "Explosive, Poison(4+)"
+      "abilities": "Blast(4), Poison(4+)"
     },
     {
       "name": "Krak grenades",
@@ -131,7 +131,7 @@ export const exaltedPlagueChampion: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     }
   ],
   "option_groups": [

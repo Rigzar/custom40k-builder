@@ -85,7 +85,7 @@ export const dynastyPhaeron: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Staff of Stars - Shooting",
@@ -103,7 +103,7 @@ export const dynastyPhaeron: Unit = {
       "s": "+3",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Flurry(4)"
+      "abilities": "AT(2), Extra Attack(4)"
     }
   ],
   "option_groups": [],

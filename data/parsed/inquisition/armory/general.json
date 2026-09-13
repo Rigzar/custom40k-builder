@@ -67,7 +67,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Combi, Flames"
+          "abilities": "Combi, Auto Hit, Sunder(1)"
         }
       ]
     },
@@ -205,7 +205,7 @@
           "s": "7",
           "ap": "-2",
           "d": "2",
-          "abilities": "AT(1), Explosive"
+          "abilities": "AT(1), Blast(4)"
         },
         {
           "name": "Long range",
@@ -214,7 +214,7 @@
           "s": "8",
           "ap": "-3",
           "d": "3",
-          "abilities": "AT(2), Barrage"
+          "abilities": "AT(2), Blast(6)"
         }
       ]
     },
@@ -226,7 +226,7 @@
       "s": "2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Extra attack, hits automatically wound the target.",
+      "abilities": "Extra Attack(1), Limit(1), hits automatically wound the target.",
       "p_unit": null,
       "p_char": 5
     },
@@ -238,7 +238,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": 7,
       "p_char": 5
     },
@@ -286,7 +286,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive",
+      "abilities": "Blast(4)",
       "p_unit": 1,
       "p_char": 1,
       "specialist_compat": true
@@ -299,7 +299,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": 3,
       "p_char": 2
     },
@@ -311,7 +311,7 @@
       "s": "6",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression",
+      "abilities": "Armor piercing(5+), Suppression(6)",
       "p_unit": null,
       "p_char": 19
     },
@@ -610,7 +610,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Extra attack, Suppression",
+      "abilities": "Blast(4), Extra Attack(1), Limit(1), Suppression(3)",
       "p_unit": null,
       "p_char": 9
     },
@@ -719,7 +719,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Krak grenade",
@@ -764,7 +764,7 @@
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Suppression",
+      "abilities": "Blast(4), Suppression(3)",
       "p_unit": null,
       "p_char": 5
     },
@@ -776,7 +776,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression. Attacks with this weapon receive a +1 bonus to their BS value.",
+      "abilities": "Armor piercing(5+), Suppression(6). Attacks with this weapon receive a +1 bonus to their BS value.",
       "p_unit": 18,
       "p_char": 23
     },
@@ -809,7 +809,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames, Shield breaker(-1), Soul burn(6+)"
+          "abilities": "Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(6+)"
         }
       ]
     },
@@ -822,7 +822,7 @@
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames, Shield breaker(-1)",
+      "abilities": "Auto Hit, Sunder(1), Shield breaker(-1)",
       "p_unit": 23,
       "p_char": 17
     },

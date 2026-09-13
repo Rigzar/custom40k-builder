@@ -113,7 +113,7 @@ export const atalanJackals: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+      "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
     },
     {
       "name": "Heavy stubber",
@@ -122,7 +122,7 @@ export const atalanJackals: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Mining laser",
@@ -131,7 +131,7 @@ export const atalanJackals: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Grenade launcher - Frag",
@@ -140,7 +140,7 @@ export const atalanJackals: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenade launcher - Krak",

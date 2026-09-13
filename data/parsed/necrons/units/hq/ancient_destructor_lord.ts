@@ -12,7 +12,7 @@ export const ancientDestructorLord: Unit = {
   "name": "Ancient Destructor Lord",
   "models": [
     {
-      "name": "Nekrosor Lord",
+      "name": "Ancient Destructor Lord",
       "points": 420,
       "min": 1,
       "max": 1,
@@ -31,7 +31,7 @@ export const ancientDestructorLord: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Nekrosor Lord is equipped with: Enmitic disintegrators; Blade tail; Unmaker Gauntlet.",
+  "equipped_with": "An Ancient Destructor Lord is equipped with: Blade tail; Enmitic disintegrators; Unmaker gauntlet.",
   "weapons": [
     {
       "name": "Blade tail",
@@ -40,7 +40,7 @@ export const ancientDestructorLord: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Enmitic disintegrators",
@@ -52,18 +52,18 @@ export const ancientDestructorLord: Unit = {
       "abilities": "Deflagrate(5+)"
     },
     {
-      "name": "Unmaker Gauntlet",
+      "name": "Unmaker gauntlet",
       "range": "-",
       "type": "Melee",
       "s": "x2",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(2), Flurry(2), Unwieldy"
+      "abilities": "AT(2), Extra Attack(2), Unwieldy"
     }
   ],
   "option_groups": [
     {
-      "header": "Only one Nekrosor Lord per army.",
+      "header": "Only one Ancient Destructor Lord per army.",
       "constraint": {
         "type": "unique_upgrade"
       },

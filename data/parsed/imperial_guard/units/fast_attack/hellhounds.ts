@@ -40,7 +40,7 @@ export const hellhounds: Unit = {
       "s": "1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames, Poison(3+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(3+)"
     },
     {
       "name": "Heavy bolter",
@@ -58,7 +58,7 @@ export const hellhounds: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Inferno cannon",
@@ -67,7 +67,7 @@ export const hellhounds: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Melta cannon",
@@ -76,7 +76,7 @@ export const hellhounds: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(2), Explosive, Melta"
+      "abilities": "AT(2), Blast(4), Melta"
     }
   ],
   "option_groups": [

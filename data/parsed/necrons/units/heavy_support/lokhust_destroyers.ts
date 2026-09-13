@@ -40,7 +40,7 @@ export const lokhustDestroyers: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Barrage"
+      "abilities": "Blast(6)"
     },
     {
       "name": "Gauss cannon",

@@ -78,7 +78,7 @@ export const strikeTeam: Unit = {
       "s": "1",
       "ap": "0",
       "d": "1",
-      "abilities": "Blind, Suppression"
+      "abilities": "Blind, Suppression(6)"
     },
     {
       "name": "Pulse carbine",
@@ -87,7 +87,7 @@ export const strikeTeam: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Pulse pistol",

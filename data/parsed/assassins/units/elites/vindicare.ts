@@ -71,7 +71,7 @@ export const vindicare: Unit = {
       "s": "4",
       "ap": "-4",
       "d": "3",
-      "abilities": "Poison(2+), Sunder(2), Suppression"
+      "abilities": "Poison(2+), Sunder(2), Suppression(6)"
     },
     {
       "name": "Exitus rifle - Turbo penetrator",

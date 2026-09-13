@@ -34,7 +34,7 @@ export const haemoxytes: Unit = {
   "variant_models": [],
   "equipped_with": "Every model is equipped with: Wrack blades.",
   "weapons": [
-    { "name": "Liquifier gun", "range": "9\"", "type": "Assault 4", "s": "4", "ap": "-2", "d": "1", "abilities": "Flames" },
+    { "name": "Liquifier gun", "range": "9\"", "type": "Assault 4", "s": "4", "ap": "-2", "d": "1", "abilities": "Auto Hit, Sunder(1)" },
     { "name": "Ossefactor", "range": "24\"", "type": "Assault 1", "s": "2", "ap": "-3", "d": "2", "abilities": "Poison(2+)" },
     { "name": "Wrack blades", "range": "-", "type": "Melee", "s": "U", "ap": "-1", "d": "1", "abilities": "Poison(3+)" }
   ],

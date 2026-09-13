@@ -31,25 +31,7 @@ export const biovoreBrood: Unit = {
     }
   ],
   "variant_models": [
-    {
-      "name": "Spore Mine",
-      "points": 1,
-      "min": 0,
-      "max": 0,
-      "stats": {
-        "M": "6\"",
-        "WS": "-",
-        "BS": "-",
-        "S": "1",
-        "T": "1",
-        "W": "1",
-        "I": "3",
-        "A": "1",
-        "LD": "1",
-        "SV": "6+"
-      }
-    }
-  ],
+    ],
   "equipped_with": "Every model is equipped with: Spore Mine launcher.",
   "weapons": [
     {
@@ -59,7 +41,7 @@ export const biovoreBrood: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     }
   ],
   "option_groups": [
@@ -210,7 +192,7 @@ export const biovoreBrood: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },
@@ -283,10 +265,8 @@ export const biovoreBrood: Unit = {
     }
   ],
   "abilities": [
-    "Instinctive Behaviour (Biovore only), Massive(2) (Biovore only), Mindless (Spore Mine only), Move Through Cover",
-    "Living ammunition (Spore Mine only): The unit immediately explodes like a vehicle (one explosion per model) with the \"Spore Mine launcher\" profile, if an enemy model comes within 3\" distance.",
-    "Drifting Death (Spore Mine only): Instead of receiving orders as normal, Spore Mines drift aimlessly. During each Rally phase, roll 1D6 and a scatter die for every Spore Mine unit on the battlefield. The unit moves a number of inches equal to the D6 result in the direction indicated by the scatter die. If a Hit symbol is rolled, the controlling player chooses the direction instead.",
-    "Spore Mine Launcher: Instead of shooting at an enemy, a Biovore may create one unit of Spore Mines (3 models each) within 48\" of itself and at least 9\" away from any enemy unit."
+    "Instinctive Behaviour, Massive(2), Move Through Cover",
+    "Spore Mine Launcher: Instead of shooting at an enemy, a Biovore may create a unit of \"Spore Mine Cluster\" (3 models) within 48\" of itself and at least 9\" away from any enemy unit."
   ],
   "unit_type": "Infantry",
   "keywords": [

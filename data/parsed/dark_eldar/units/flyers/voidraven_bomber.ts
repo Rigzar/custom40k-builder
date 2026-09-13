@@ -58,7 +58,7 @@ export const voidravenBomber: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Bomb, Explosive"
+      "abilities": "Ammo(1), AT(2), Bomb, Blast(4)"
     },
     {
       "name": "Voidraven missiles",
@@ -67,7 +67,7 @@ export const voidravenBomber: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     }
   ],
   "option_groups": [

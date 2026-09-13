@@ -80,7 +80,7 @@
     },
     {
       "name": "Boom Boyz",
-      "desc": "Weapons with the \"Barrage\" or \"Explosive\" ability can hit up to one more model per unit.",
+      "desc": "Weapons with the \"Blast(x)\" ability can hit up to one more model per unit.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -125,7 +125,7 @@
     },
     {
       "name": "Pyromaniacs",
-      "desc": "All weapons with the \"Flames\" ability cause 1 additional hit.",
+      "desc": "All weapons with the \"Auto Hit\" ability cause 1 additional hit.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

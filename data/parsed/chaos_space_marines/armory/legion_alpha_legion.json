@@ -9,7 +9,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Deflagrate(5+), Flurry(3), Rending(5+), Unique, Unwieldy",
+      "abilities": "Deflagrate(5+), Extra Attack(3), Rending(5+), Unique, Unwieldy",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [
@@ -50,7 +50,7 @@
           "s": "5",
           "ap": "-2",
           "d": "1",
-          "abilities": "Suppression, Unique"
+          "abilities": "Suppression(3), Unique"
         },
         {
           "name": "Execution shot",
@@ -59,7 +59,7 @@
           "s": "7",
           "ap": "-3",
           "d": "2",
-          "abilities": "AT(1), Sniper, Sunder(2), Suppression, Unique"
+          "abilities": "AT(1), Sniper, Sunder(2), Suppression(6), Unique"
         }
       ]
     }
@@ -75,7 +75,7 @@
     {
       "name": "Hydra's Teeth",
       "term_compat": true,
-      "desc": "One Bolt weapon of the model gains the \"Explosive\", \"Poison(2+)\" and \"Seeking\" abilities.",
+      "desc": "One Bolt weapon of the model gains the \"Blast(4)\", \"Poison(2+)\" and \"Seeking\" abilities.",
       "p_unit": null,
       "p_char": 15,
       "armour_compat": [

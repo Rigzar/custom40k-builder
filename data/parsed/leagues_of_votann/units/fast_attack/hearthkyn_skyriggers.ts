@@ -81,7 +81,7 @@ export const hearthkynSkyriggers: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Graviton"
+      "abilities": "Blast(4), Graviton"
     },
     {
       "name": "Plasma axe",

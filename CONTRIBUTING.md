@@ -322,6 +322,36 @@ printed as separate rows, and only one of them got the right quantity. Always us
 game ends in brackets without it being a mode — but it is *not* safe on option-choice names, where
 Orks have a choice ending `(counts as two arm weapons)`.
 
+### Renamed and removed datasheets (`src/engine/unitRenames.ts`)
+
+A saved army stores every entry by unit **NAME**. When the author renames or deletes a datasheet,
+that name stops resolving — and every consumer in the app treats an unresolvable unit the same way:
+`resolveUnit()` returns `undefined`, `UnitCard` returns `null`, and the points sum does `: 0`. The
+result is the worst kind of failure: the entry renders **nothing**, costs **nothing**, and still
+holds its slot. The player sees a slot header reading *"1 unit · 0 pts"* with no card under it, and
+an army that quietly got cheaper.
+
+So a codex update that renames or removes a unit needs one of two things:
+
+- **Renamed** → add it to `RENAMED_UNITS` (keyed by faction display name). It is mapped forward on
+  load, in both `importRoster` and the persist migration, so the player never notices. Keep entries
+  forever; deleting one breaks somebody's saved list.
+- **Removed** → add a short note to `REMOVED_UNITS`. This only improves the message. Detection does
+  **not** depend on the table: the validator flags any entry that fails to resolve, and `ArmyList`
+  renders a `MissingUnitCard` in its place with a Remove button.
+
+- **An option GROUP the update deletes** → add its index, in the OLD numbering, to
+  `REMOVED_OPTION_GROUPS`. `optionQty` is keyed `[groupIndex][choiceIndex]`, so dropping a group
+  renumbers every group after it and a saved list's selections slide onto the wrong options.
+  `applyOptionGroupRemovals()` drops the removed keys and shifts the survivors down on load, next
+  to the two renames above. Space Marines 1.04 is the worked example: the Desolation Squad's Krak
+  missile launcher swap disappeared because the Krak missile became a free second profile of the
+  standard launcher, which would have turned every saved Veteran Sergeant upgrade into a Vengor
+  launcher. Adding a new *choice* needs no migration as long as it goes on the END of the list.
+
+Archetypes have the same problem and the same fix one file over — `RENAMED_ARCHETYPES` in
+`src/engine/archetypes/index.ts`.
+
 ### Weapon swaps (`scripts/check_weapon_swaps.ts`)
 
 An option group with `replaces: ["X"]` makes the engine take X away when the swap is bought.
@@ -605,6 +635,43 @@ Register it in `loaders.ts` under the faction's `marks` object.
 
 > **After adding any file:** open `src/data/loaders.ts`, find the faction's `case`, and make sure the new file is imported and passed to `asm()`. Files that are never imported by the loader are never loaded by the app — the file alone is not enough.
 3. Verify that `npm run build` passes and the faction loads in the app
+
+### Events & Leagues (`api/events/[action].js`, `src/components/EventsModal.tsx`)
+
+Organiser-run events and leagues, built to the author's requirements doc. Three tables:
+`events`, `event_players`, `event_games`.
+
+Three things the design settles up front, so they are not re-argued in a review:
+
+- **An event and a league are the same row.** Everything except the standings is identical, so
+  `is_league` only decides whether standings are generated. A separate table would have duplicated
+  registration, approval and list assignment.
+- **A reported game does not count until the OPPONENT confirms it**, and only the opponent can —
+  not the organiser, or the confirmation would mean nothing. A rejected report becomes `disputed`
+  and stays visible to the organiser rather than disappearing.
+- **Standings are derived, never stored.** A stored table drifts the moment a game is disputed or
+  corrected, and nothing here is expensive enough to cache.
+
+`is_test` + the `reset-test` action exist because the feature is meant to be run closed first, with
+invented players and lists, then wiped before it opens. That wipe is a real operation from day one
+rather than a manual database clean-up.
+
+**The module is alpha-gated**: the landing-page button is disabled for everyone except admins, the
+same pattern Campaign uses.
+
+**⚠ Before adding any endpoint under `api/`, read the note on the Vercel function cap below.**
+
+### The 12-function cap (`api/`)
+
+Vercel's Hobby plan caps a deployment at **12 serverless functions** and `api/` sits exactly at 12.
+Files under `api/_lib/` are imported, not routed, so they do not count. This is why several routers
+are `[action].js` files with a `switch` instead of one file per endpoint.
+
+Adding a new endpoint means **freeing a slot first**. Check with:
+
+```bash
+find api -name "*.js" -not -path "api/_lib/*" | wc -l
+```
 
 ### Rules-model digests (`src/data/rules-model/<faction>.md`)
 

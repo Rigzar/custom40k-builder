@@ -40,7 +40,7 @@ export const krootVultures: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Kroot knife",
@@ -58,7 +58,7 @@ export const krootVultures: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Kroot pistol",
@@ -112,7 +112,7 @@ export const krootVultures: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Accelerator bow - Fused arrow",
@@ -130,7 +130,7 @@ export const krootVultures: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

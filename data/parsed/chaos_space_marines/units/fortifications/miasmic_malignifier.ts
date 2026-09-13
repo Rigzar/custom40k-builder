@@ -83,7 +83,7 @@ export const miasmicMalignifier: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     }
   ],
   "option_groups": [],

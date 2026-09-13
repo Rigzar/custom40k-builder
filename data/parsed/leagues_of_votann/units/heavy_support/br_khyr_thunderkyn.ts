@@ -49,7 +49,7 @@ export const brKhyrThunderkyn: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "2",
-      "abilities": "Explosive, Graviton"
+      "abilities": "Blast(4), Graviton"
     },
     {
       "name": "SP heavy conversion beamer - Short range",
@@ -58,7 +58,7 @@ export const brKhyrThunderkyn: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Barrage"
+      "abilities": "AT(3), Blast(6)"
     },
     {
       "name": "SP heavy conversion beamer - Mid range",
@@ -67,7 +67,7 @@ export const brKhyrThunderkyn: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "SP heavy conversion beamer - Long range",

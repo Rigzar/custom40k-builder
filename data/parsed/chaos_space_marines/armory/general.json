@@ -80,7 +80,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Combi, Flames"
+          "abilities": "Combi, Auto Hit, Sunder(1)"
         }
       ],
       "armour_compat": [
@@ -174,7 +174,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": 12,
       "p_char": 8,
       "armour_compat": [
@@ -189,7 +189,7 @@
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(2)",
+      "abilities": "Extra Attack(2)",
       "p_unit": 5,
       "p_char": 5,
       "armour_compat": [
@@ -294,7 +294,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(3)",
+      "abilities": "Extra Attack(3)",
       "p_unit": null,
       "p_char": null
     },
@@ -321,7 +321,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2), Shred, Unwieldy",
+      "abilities": "Extra Attack(2), Shred, Unwieldy",
       "p_unit": 6,
       "p_char": 7,
       "armour_compat": [

@@ -1,0 +1,120 @@
+{
+  "name": "Raven Guard Armory",
+  "weapons": [
+    {
+      "name": "Ex Tenebris",
+      "term_compat": false,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Gravis"
+      ],
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Precision(5+), Rending(5+)",
+      "p_unit": 13,
+      "p_char": 15
+    },
+    {
+      "name": "Nihilus",
+      "term_compat": false,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Gravis"
+      ],
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Armorbane, AT(2), Deadly(5+), Sniper, Suppression(6)",
+      "p_unit": 25,
+      "p_char": 31
+    },
+    {
+      "name": "Raven's talons",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Extra Attack(2), Shred, Rending(5+), Unwieldy",
+      "p_unit": 9,
+      "p_char": 10
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Corvia",
+      "term_compat": false,
+      "gravis_compat": false,
+      "armour_compat": [],
+      "desc": "The model and its attached unit gain the \"Stealth\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 30
+    },
+    {
+      "name": "Korvidine Pattern Jump Pack",
+      "term_compat": false,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Gravis"
+      ],
+      "desc": "The model gains +1\" Movement when equipped with a Jump pack.",
+      "p_unit": 2,
+      "p_char": null
+    },
+    {
+      "name": "Marked for Death",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "At the beginning of the first Battle round, select one enemy Character model. Your entire army gains the \"Favored Enemy\" ability against that model. While that model is attached to a unit, you gain \"Favored Enemy\" against that unit as well. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Shadow Master",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model and its attatched unit may consolidate +3\".",
+      "p_unit": 3,
+      "p_char": null
+    },
+    {
+      "name": "The Armor of Shadows",
+      "term_compat": false,
+      "gravis_compat": false,
+      "armour_compat": [],
+      "desc": "The model can't be targeted by anything outside of 12\". Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Stealth jets",
+      "term_compat": false,
+      "gravis_compat": false,
+      "armour_compat": [],
+      "desc": "Enemy units gain no benefit from \"Anti-Air\" against this model. Anti-Grav and Flyer only.",
+      "p_unit": 10,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

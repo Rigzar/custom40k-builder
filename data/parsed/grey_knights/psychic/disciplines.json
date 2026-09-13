@@ -5,7 +5,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "Self + attached unit",
-      "cast_value": "6",
+      "cast_value": "7",
       "effect": "All melee attacks of the target gain the (cumulative) \"Shield breaker(-1)\" ability.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
@@ -25,7 +25,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "Self + attached unit",
-      "cast_value": "6",
+      "cast_value": "7",
       "effect": "The target gains the \"Aegis(4+)\" and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
@@ -56,7 +56,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "7",
-      "effect": "The target suffers one automatic hit with S: 5 AP: -2 D: 1; Barrage, Poison(2+), Seeking.",
+      "effect": "The target suffers one automatic hit with S: 5 AP: -2 D: 1; Blast(6), Poison(2+), Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     }
@@ -67,7 +67,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "-",
-      "cast_value": "5",
+      "cast_value": "6",
       "effect": "All psychic tests (of all players) receive a bonus OR penalty of 1.",
       "duration": "Until the caster's next activation",
       "complexity": "Complex"
@@ -88,7 +88,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "7",
-      "effect": "The target receives one Battleshock marker.",
+      "effect": "The target receives one Battleshock marker. Only works on targets that do not already have any Battleshock markers.",
       "duration": "Instant",
       "complexity": "Basic"
     },
@@ -97,8 +97,8 @@
       "type": "Augmentation",
       "range": "-",
       "target": "Self + attached unit",
-      "cast_value": "7",
-      "effect": "Remove the unit immediately and place it on the table again via the rules for Deep Strike. The scatter die is always a \"hit\". The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance.",
+      "cast_value": "8",
+      "effect": "Remove the unit immediately and place it on the table again via the rules for Deep Strike. The scatter die is always a \"hit\". The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance. Can only be cast once per battle round.",
       "duration": "Until the caster's next activation",
       "complexity": "Complex"
     },
@@ -129,7 +129,7 @@
       "type": "Augmentation",
       "range": "18\"",
       "target": "Friendly unit",
-      "cast_value": "7",
+      "cast_value": "8",
       "effect": "Ranged attacks of the target gain (cumulative) -2 AP and AT(2).",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
@@ -139,7 +139,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "Self + attached unit",
-      "cast_value": "6",
+      "cast_value": "7",
       "effect": "The target gains +3\" charge range.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
@@ -149,7 +149,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "Self + attached unit",
-      "cast_value": "7",
+      "cast_value": "8",
       "effect": "All melee attacks of the target gain the (cumulative) \"Shield breaker(-2)\" ability.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
@@ -159,7 +159,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "-",
-      "cast_value": "5",
+      "cast_value": "6",
       "effect": "The army receives a cumulative +1 bonus to rolls during the next Reinforcement and Initiative phase. Stacks with itself.",
       "duration": "Until the caster's next activation",
       "complexity": "Complex"
@@ -169,7 +169,7 @@
       "type": "Augmentation",
       "range": "-",
       "target": "Self + attached unit",
-      "cast_value": "6",
+      "cast_value": "7",
       "effect": "The target gains the (cumulative) \"Narthecium\" ability.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"

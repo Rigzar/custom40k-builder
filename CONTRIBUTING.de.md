@@ -325,6 +325,39 @@ und nur einer trug die richtige Anzahl. Verwende immer `weaponBaseName` / `weapo
 Spiel endet auf Klammern, ohne dass es ein Modus ist — bei Options-Namen dagegen nicht: Orks haben
 eine Auswahl, die auf `(counts as two arm weapons)` endet.
 
+### Umbenannte und entfernte Datenblätter (`src/engine/unitRenames.ts`)
+
+Eine gespeicherte Armee hält jeden Eintrag über den **NAMEN** der Einheit. Benennt der Autor ein
+Datenblatt um oder löscht es, lässt sich der Name nicht mehr auflösen — und die gesamte App
+behandelt eine nicht auflösbare Einheit gleich: `resolveUnit()` liefert `undefined`, `UnitCard`
+macht `return null`, und die Punktesumme rechnet `: 0`. Das Ergebnis ist der schlimmstmögliche
+Fehler: der Eintrag wird **gar nicht angezeigt**, kostet **0 Punkte** und belegt trotzdem seinen
+Slot. Der Spieler sieht eine Slot-Überschrift *"1 unit · 0 pts"* ohne Karte darunter — und eine
+Armee, die über Nacht stillschweigend billiger geworden ist.
+
+Ein Codex-Update, das eine Einheit umbenennt oder entfernt, braucht deshalb eines von beidem:
+
+- **Umbenannt** → in `RENAMED_UNITS` eintragen (nach Fraktions-Anzeigenamen). Der Name wird beim
+  Laden weitergereicht, sowohl in `importRoster` als auch in der Persist-Migration — der Spieler
+  merkt nichts. Einträge bleiben für immer stehen: einen zu löschen zerstört jemandes gespeicherte
+  Liste.
+- **Entfernt** → eine kurze Notiz in `REMOVED_UNITS`. Das verbessert nur die Meldung. Die Erkennung
+  hängt **nicht** an der Tabelle: der Validator meldet jeden Eintrag, der sich nicht auflösen
+  lässt, und `ArmyList` zeichnet stattdessen eine `MissingUnitCard` mit Entfernen-Button.
+
+- **Eine Options-GRUPPE, die das Update löscht** → ihren Index in der ALTEN Nummerierung in
+  `REMOVED_OPTION_GROUPS` eintragen. `optionQty` ist über `[Gruppe][Auswahl]` indiziert, also
+  verschiebt das Entfernen einer Gruppe alle folgenden, und gespeicherte Auswahlen rutschen auf die
+  falsche Option. `applyOptionGroupRemovals()` entfernt die gelöschten Schlüssel und zieht die
+  übrigen beim Laden nach unten, direkt neben den beiden Umbenennungen oben. Das reale Beispiel ist
+  Space Marines 1.04: der Krak-missile-launcher-Tausch des Desolation Squad fiel weg, weil die
+  Krak-Rakete zum kostenlosen zweiten Profil des Standardwerfers wurde — ohne Migration wäre jedes
+  gespeicherte Veteran-Sergeant-Upgrade zu einem Vengor launcher geworden. Eine neue *Auswahl*
+  braucht keine Migration, solange sie ans ENDE der Liste kommt.
+
+Archetypen haben dasselbe Problem und dieselbe Lösung eine Datei weiter: `RENAMED_ARCHETYPES` in
+`src/engine/archetypes/index.ts`.
+
 ### Waffentausch (`scripts/check_weapon_swaps.ts`)
 
 Eine Optionsgruppe mit `replaces: ["X"]` sorgt dafür, dass die Engine X entfernt, wenn der Tausch
@@ -584,6 +617,43 @@ In `loaders.ts` unter dem `marks`-Objekt der Fraktion registrieren.
 ```
 
 > **Nach dem Hinzufügen einer Datei:** öffne `src/data/loaders.ts`, finde den `case` der Fraktion und stelle sicher, dass die neue Datei importiert und an `asm()` übergeben wird. Dateien, die nie vom Loader importiert werden, werden nie von der App geladen – die Datei allein reicht nicht.
+
+### Events & Leagues (`api/events/[action].js`, `src/components/EventsModal.tsx`)
+
+Vom Organisator geführte Events und Ligen, gebaut nach dem Anforderungsdokument des Autors. Drei
+Tabellen: `events`, `event_players`, `event_games`.
+
+Drei Entscheidungen, die das Design von vornherein festlegt:
+
+- **Ein Event und eine Liga sind dieselbe Zeile.** Alles außer der Tabelle ist identisch, also
+  entscheidet `is_league` nur, ob Standings erzeugt werden. Eine eigene Tabelle hätte Anmeldung,
+  Freigabe und Listenzuordnung dupliziert.
+- **Ein gemeldetes Spiel zählt erst, wenn der GEGNER es bestätigt** — und nur er kann das, nicht der
+  Organisator, sonst wäre die Bestätigung wertlos. Ein abgelehnter Bericht wird `disputed` und
+  bleibt für den Organisator sichtbar, statt zu verschwinden.
+- **Die Tabelle wird berechnet, nie gespeichert.** Eine gespeicherte Tabelle läuft auseinander,
+  sobald ein Spiel angefochten oder korrigiert wird.
+
+`is_test` und die Aktion `reset-test` gibt es, weil das Feature erst geschlossen laufen soll — mit
+erfundenen Spielern und Listen — und vor der Öffnung geleert wird. Dieses Leeren ist von Anfang an
+eine echte Operation und keine Handarbeit in der Datenbank.
+
+**Das Modul ist Alpha-gesperrt**: der Button auf der Startseite ist für alle außer Admins
+deaktiviert, genau wie bei Campaign.
+
+**⚠ Vor jedem neuen Endpoint unter `api/` das Limit von Vercel-Funktionen beachten.**
+
+### Das 12-Funktionen-Limit (`api/`)
+
+Vercels Hobby-Plan begrenzt ein Deployment auf **12 Serverless-Funktionen**, und `api/` liegt genau
+bei 12. Dateien unter `api/_lib/` werden importiert, nicht geroutet, und zählen daher nicht. Darum
+sind mehrere Router `[action].js`-Dateien mit einem `switch` statt einer Datei pro Endpoint.
+
+Ein neuer Endpoint heißt: **vorher einen Platz frei machen**. Prüfen mit:
+
+```bash
+find api -name "*.js" -not -path "api/_lib/*" | wc -l
+```
 
 ### Regelmodell-Digests (`src/data/rules-model/<faction>.md`)
 

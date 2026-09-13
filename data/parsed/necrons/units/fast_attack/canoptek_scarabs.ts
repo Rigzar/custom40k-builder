@@ -41,6 +41,15 @@ export const canoptekScarabs: Unit = {
       "ap": "0",
       "d": "1",
       "abilities": "Armor piercing(5+)"
+    },
+    {
+      "name": "Scarab explosion",
+      "range": "-",
+      "type": "-",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Seeking"
     }
   ],
   "option_groups": [
@@ -66,11 +75,21 @@ export const canoptekScarabs: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
+    },
+    {
+      "header": "For each \"Warriors\" unit, one \"Canoptek Scarabs\" unit may be selected as Troops. Can't be a mandatory unit selection.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 0,
+      "variant_link": null,
+      "is_unique_per_army": false
     }
   ],
   "abilities": [
     "Mindless, Swarm, Use cover",
-    "Explosion: Scarab swarms may explode at the end of their movement. For each base remaining, an enemy unit within 3\" suffers a hit with S: 5 AP: 0 D: 1; Explosive. All Scarab swarms in the unit are removed after the explosion.",
+    "Explosion: Scarab swarms may explodes like a vehicle with a 6\" radius and with the \"Scarab explosion\" profile at the end of their movement.",
     "Bloodswarm Scarabs: Flayed Ones that deep strike within 6\" do not scatter.",
     "Flensing Scarabs: Melee attacks gain \"Poison(2+)\".",
     "Frenzied Scarabs: The model gains +1 Initiative."

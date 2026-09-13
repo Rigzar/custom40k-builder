@@ -68,7 +68,7 @@ export const magos: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Conversion beamer - Long range",
@@ -77,7 +77,7 @@ export const magos: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Eradication ray - Short range",
@@ -95,7 +95,7 @@ export const magos: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "2",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grav serpenta",
@@ -104,7 +104,7 @@ export const magos: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive, Grav"
+      "abilities": "Blast(4), Grav"
     },
     {
       "name": "Magnarail lance",
@@ -140,7 +140,7 @@ export const magos: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Rad"
+      "abilities": "Auto Hit, Sunder(1), Rad"
     },
     {
       "name": "Rotor cannon",
@@ -149,7 +149,7 @@ export const magos: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Servo-arc claw",
@@ -158,7 +158,7 @@ export const magos: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra attack, Haywire"
+      "abilities": "AT(2), Extra Attack(1), Limit(1), Haywire"
     },
     {
       "name": "Transonic cannon",
@@ -167,7 +167,7 @@ export const magos: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armor piercing(5+), Flames, Suppression"
+      "abilities": "Armor piercing(5+), Auto Hit, Sunder(1), Suppression(3)"
     },
     {
       "name": "Plasma fusil - Standard",

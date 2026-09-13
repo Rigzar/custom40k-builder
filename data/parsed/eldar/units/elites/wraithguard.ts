@@ -40,7 +40,7 @@ export const wraithguard: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "1",
-      "abilities": "AT(2), Deadly(5+), Distortion, Flames"
+      "abilities": "AT(2), Deadly(5+), Distortion, Auto Hit, Sunder(1)"
     },
     {
       "name": "Wraithcannon",

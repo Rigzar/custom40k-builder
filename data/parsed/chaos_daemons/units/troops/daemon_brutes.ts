@@ -1,5 +1,5 @@
 /**
- * DAEMON BRUTES — Elites
+ * DAEMON BRUTES — Troops (moved from Elites by the September 2026 codex update)
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
@@ -88,7 +88,7 @@ export const daemonBrutes: Unit = {
   "veteran_max": null,
   "locked_mark": null,
   "advisor": false,
-  "slot": "Elites",
+  "slot": "Troops",
   "default_size": 3,
   "min_cost": 168
 };

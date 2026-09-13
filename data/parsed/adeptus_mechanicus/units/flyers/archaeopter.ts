@@ -40,7 +40,7 @@ export const archaeopter: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Cognis, Suppression"
+      "abilities": "Cognis, Suppression(2)"
     },
     {
       "name": "Heavy phosphor blaster",
@@ -58,7 +58,7 @@ export const archaeopter: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo(3), AT(2), Bomb, Explosive, Graviton"
+      "abilities": "Ammo(3), AT(2), Bomb, Blast(4), Graviton"
     },
     {
       "name": "Twin-linked cognis heavy stubber",
@@ -67,7 +67,7 @@ export const archaeopter: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Cognis, Suppression"
+      "abilities": "Cognis, Suppression(2)"
     },
     {
       "name": "Twin-linked cognis lascannon",

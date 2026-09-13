@@ -58,7 +58,7 @@ export const killTeamVeterans: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy bolter",
@@ -76,7 +76,7 @@ export const killTeamVeterans: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Krak grenade",
@@ -94,7 +94,7 @@ export const killTeamVeterans: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak",
@@ -112,7 +112,7 @@ export const killTeamVeterans: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Armor piercing(5+), Explosive"
+      "abilities": "Armor piercing(5+), Blast(4)"
     },
     {
       "name": "Frag cannon (Solid round)",
@@ -139,7 +139,7 @@ export const killTeamVeterans: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

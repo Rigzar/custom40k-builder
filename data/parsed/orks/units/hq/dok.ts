@@ -59,7 +59,7 @@ export const dok: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

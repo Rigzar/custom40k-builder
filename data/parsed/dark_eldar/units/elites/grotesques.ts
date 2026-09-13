@@ -40,7 +40,7 @@ export const grotesques: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "Deadly(5+), Extra attack, Poison(2+)"
+      "abilities": "Deadly(5+), Extra Attack(1), Limit(1), Poison(2+)"
     },
     {
       "name": "Monstrous cleaver",
@@ -58,7 +58,7 @@ export const grotesques: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

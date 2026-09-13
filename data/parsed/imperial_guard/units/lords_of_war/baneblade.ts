@@ -49,7 +49,7 @@ export const baneblade: Unit = {
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Colossal blast, Tank hunter"
+      "abilities": "AT(3), Blast(8), Tank hunter"
     },
     {
       "name": "Demolisher cannon",
@@ -58,7 +58,7 @@ export const baneblade: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Barrage, Tank hunter"
+      "abilities": "AT(4), Blast(6), Tank hunter"
     },
     {
       "name": "Heavy stubber",
@@ -67,7 +67,7 @@ export const baneblade: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Lascannon",

@@ -40,7 +40,7 @@ export const mucolidSporeCluster: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Anti-Air, AT(2), Explosive"
+      "abilities": "Anti-Air, AT(2), Blast(4)"
     }
   ],
   "option_groups": [
@@ -155,7 +155,7 @@ export const mucolidSporeCluster: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },
@@ -229,7 +229,7 @@ export const mucolidSporeCluster: Unit = {
   ],
   "abilities": [
     "Infiltrator, Mindless, Stealth",
-    "Living ammunition: The unit immediately explodes like a vehicle (one explosion per model) with the \"Mucolid spore explosion\" profile, if an enemy model comes within 3\" distance."
+    "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Mucolid mine explosion\" profile, if an enemy model comes within 3\" distance."
   ],
   "unit_type": "Jump Pack Infantry",
   "keywords": [

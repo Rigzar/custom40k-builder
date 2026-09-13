@@ -38,7 +38,7 @@ export const ORK_SPECIAL_ABILITIES: OrkSpecialAbilityEntry[] = [
     name: 'Dakka Dakka Dakka',
     category: 'army-rule',
     text: 'Verbatim (Index): "The unit reduces its total ranged to-hit penalty by -1 (min 0). ' +
-      'Barrage and Explosive weapons do not benefit." Army-wide.',
+      'Blast(x) weapons do not benefit." Army-wide.',
   },
   {
     name: 'Tellyporta',

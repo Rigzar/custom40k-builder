@@ -126,3 +126,22 @@ export const CSM_LEGACY_ITEM_RESTRICTIONS: Record<string, { itemName: string; re
   ],
 
 };
+
+/**
+ * The five "Lower prayers" (Chaos Space Marines codex, September 2026).
+ *
+ * The codex used to print one undivided list of ten "Prayers to the Dark Gods" and left it vague
+ * who could take what — the author's changelog calls it "Corrected prayer selection where it was
+ * ambigious". It now splits them into EXALTED PRAYERS and LOWER PRAYERS, and each caster is scoped
+ * to one: a Dark Apostle (and a vehicle with the Fell-blessed machine) knows the Exalted, a Cult
+ * Demagogue the Lower. The ten prayers themselves did not change, so prayers.json is untouched and
+ * this set is all that is needed to tell the two halves apart. PsychicModal reads the caster's own
+ * ability text for which side it is on.
+ */
+export const CSM_LOWER_PRAYERS: ReadonlySet<string> = new Set([
+  'Heretical Visions',
+  'Will of the Chaos Gods',
+  'Warp Barrier',
+  'Forsaken Resurrection',
+  'Benediction of Darkness',
+]);

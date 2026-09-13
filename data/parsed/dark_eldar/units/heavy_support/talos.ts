@@ -40,7 +40,7 @@ export const talos: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Flurry(2)"
+      "abilities": "AT(1), Extra Attack(2)"
     },
     {
       "name": "Talos gauntlet",
@@ -49,7 +49,7 @@ export const talos: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flurry(1)"
+      "abilities": "AT(2), Extra Attack(1)"
     },
     {
       "name": "Talos ichor injector",
@@ -85,7 +85,7 @@ export const talos: Unit = {
       "s": "4",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin splinter rifle",
@@ -103,7 +103,7 @@ export const talos: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

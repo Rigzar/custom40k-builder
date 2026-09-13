@@ -185,7 +185,7 @@ export const darkCommune: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [
@@ -218,7 +218,7 @@ export const darkCommune: Unit = {
     }
   ],
   "abilities": [
-    "Faithful: A Cult Demagogue may pray once per turn. A prayer is successful at a roll of 3+. A Cult Demagogue knows all prayers from a chosen list.",
+    "Faithful: A Cult Demagogue may pray once per turn. A prayer is successful at a roll of 3+. A Cult Demagogue knows all prayers from the Lower Prayers discipline.",
     "Chaos banner: Cultists within 6\" use the Ld of the bearer.",
     "Command squad: For every HQ choice you may buy one Dark Commune unit which doesn't take an Elite slot."
   ],

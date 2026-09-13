@@ -49,7 +49,7 @@ export const slaughterbrute: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     }
   ],
   "option_groups": [],

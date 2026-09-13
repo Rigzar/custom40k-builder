@@ -96,7 +96,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Frag grenade",
@@ -105,7 +105,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Graviton gun",
@@ -114,7 +114,7 @@
           "s": "5",
           "ap": "-2",
           "d": "2",
-          "abilities": "Explosive, Graviton, Impuls, Sunder(2)"
+          "abilities": "Blast(4), Graviton, Impuls, Sunder(2)"
         },
         {
           "name": "Krak grenade",
@@ -257,7 +257,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -363,7 +363,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Krak grenade",
@@ -465,7 +465,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -544,7 +544,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Frag grenade",
@@ -553,7 +553,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Krak grenade",
@@ -598,7 +598,7 @@
           "s": "5",
           "ap": "0",
           "d": "1",
-          "abilities": "Suppression"
+          "abilities": "Suppression(3)"
         },
         {
           "name": "Volkite caliver",
@@ -721,7 +721,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -782,7 +782,7 @@
           "s": "7",
           "ap": "-2",
           "d": "2",
-          "abilities": "AT(1), Explosive"
+          "abilities": "AT(1), Blast(4)"
         },
         {
           "name": "Conversion beamer - Long range",
@@ -791,7 +791,7 @@
           "s": "8",
           "ap": "-3",
           "d": "3",
-          "abilities": "AT(2), Barrage"
+          "abilities": "AT(2), Blast(6)"
         },
         {
           "name": "Cyclone missile launcher - Frag missile",
@@ -800,7 +800,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Cyclone missile launcher - Krak missile",
@@ -836,7 +836,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Kheres-pattern assault cannon",
@@ -854,7 +854,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Missile launcher - Krak missile",
@@ -899,7 +899,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1), Explosive"
+          "abilities": "AT(1), Blast(4)"
         },
         {
           "name": "Plasma cannon - Overcharged",
@@ -908,7 +908,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Explosive, Overheating"
+          "abilities": "AT(2), Blast(4), Overheating"
         },
         {
           "name": "Storm bolter",
@@ -1182,7 +1182,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Combi-melta - Bolter",
@@ -1236,7 +1236,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Lightning claw",
@@ -1254,7 +1254,7 @@
           "s": "U",
           "ap": "-2",
           "d": "1",
-          "abilities": "Flurry(2), Shred, Unwieldy"
+          "abilities": "Extra Attack(2), Shred, Unwieldy"
         },
         {
           "name": "Plasma blaster - Standard",
@@ -1487,7 +1487,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1558,7 +1558,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Krak grenade",
@@ -1697,7 +1697,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Hand flamer",
@@ -1706,7 +1706,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Heavy bolter",
@@ -1742,7 +1742,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1), Explosive"
+          "abilities": "AT(1), Blast(4)"
         },
         {
           "name": "Plasma cannon - Overcharged",
@@ -1751,7 +1751,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Explosive, Overheating"
+          "abilities": "AT(2), Blast(4), Overheating"
         },
         {
           "name": "Volkite culverin",
@@ -1877,7 +1877,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1947,7 +1947,7 @@
           "s": "6",
           "ap": "-2",
           "d": "1",
-          "abilities": "Deflagrate(5+), Sunder(2), Suppression"
+          "abilities": "Deflagrate(5+), Sunder(2), Suppression(3)"
         },
         {
           "name": "Frag grenade",
@@ -1956,7 +1956,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Krak grenade",
@@ -2013,7 +2013,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2056,7 +2056,7 @@
           "s": "6",
           "ap": "-1",
           "d": "1",
-          "abilities": "Suppression"
+          "abilities": "Suppression(3)"
         },
         {
           "name": "Melta-ram",
@@ -2065,7 +2065,7 @@
           "s": "8",
           "ap": "-5",
           "d": "3",
-          "abilities": "Armorbane, AT(3), Extra Attack(1)"
+          "abilities": "Armorbane, AT(3), Extra Attack(1), Limit(1)"
         }
       ],
       "option_groups": [
@@ -2195,7 +2195,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Heavy bolter",
@@ -2213,7 +2213,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Krak grenade",
@@ -2240,7 +2240,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Missile launcher - Krak missile",
@@ -2267,7 +2267,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1), Explosive"
+          "abilities": "AT(1), Blast(4)"
         },
         {
           "name": "Plasma cannon - Overcharged",
@@ -2276,7 +2276,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Explosive, Overheating"
+          "abilities": "AT(2), Blast(4), Overheating"
         },
         {
           "name": "Volkite caliver",
@@ -2387,7 +2387,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2439,7 +2439,7 @@
           "s": "5",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1), Barrage, Grav, Graviton"
+          "abilities": "AT(1), Blast(6), Grav, Graviton"
         },
         {
           "name": "Heavy flamer",
@@ -2448,7 +2448,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Hunter-killer missile",
@@ -2671,7 +2671,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Auto Hit, Sunder(1)"
         },
         {
           "name": "Heracles autocannon",
@@ -2845,7 +2845,7 @@
           "s": "6",
           "ap": "-3",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Plasma bombard - Overcharged",
@@ -2854,7 +2854,7 @@
           "s": "7",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(1), Explosive, Overheating"
+          "abilities": "AT(1), Blast(4), Overheating"
         },
         {
           "name": "Power fist",
@@ -3049,7 +3049,7 @@
         "s": "5",
         "ap": "-2",
         "d": "2",
-        "abilities": "Armor piercing(5+), Precision(5+), Suppression",
+        "abilities": "Armor piercing(5+), Precision(5+), Suppression(6)",
         "p_unit": null,
         "p_char": 13
       },

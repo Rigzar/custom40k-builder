@@ -40,7 +40,7 @@ export const exocrine: Unit = {
       "s": "7",
       "ap": "-4",
       "d": "2",
-      "abilities": "Armorbane, AT(3), Barrage"
+      "abilities": "Armorbane, AT(3), Blast(6)"
     },
     {
       "name": "Monstrous scything talons",
@@ -49,7 +49,7 @@ export const exocrine: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Thresher scythe",
@@ -58,7 +58,7 @@ export const exocrine: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     }
   ],
   "option_groups": [
@@ -242,7 +242,7 @@ export const exocrine: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

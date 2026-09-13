@@ -58,7 +58,7 @@ export const hammerheadGunship: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin Swiftstrike burst cannon",
@@ -103,7 +103,7 @@ export const hammerheadGunship: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Suppression"
+      "abilities": "Blast(6), Suppression(3)"
     }
   ],
   "option_groups": [

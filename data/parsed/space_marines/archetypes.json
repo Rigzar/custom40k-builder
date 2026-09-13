@@ -54,6 +54,11 @@
       "armory_key": "Blood Angels"
     },
     {
+      "name": "Legacy of the Avenging Son",
+      "desc": "The army has access to the Ultramarines Armory.",
+      "armory_key": "Ultramarines"
+    },
+    {
       "name": "Legacy of the Crusader",
       "desc": "The army has access to the Black Templars Armory and Prayers of the Faithful.",
       "armory_key": "Black Templars"
@@ -64,9 +69,24 @@
       "armory_key": "Relictors"
     },
     {
+      "name": "Legacy of the Drake",
+      "desc": "The army has access to the Salamanders Armory.",
+      "armory_key": "Salamanders"
+    },
+    {
+      "name": "Legacy of the Forge",
+      "desc": "The army has access to the Iron Hands Armory and the Technomancy psychic discipline.",
+      "armory_key": "Iron Hands"
+    },
+    {
       "name": "Legacy of the Khan",
       "desc": "The army has access to the White Scars Armory and the Stormspeaking psychic discipline.",
       "armory_key": "White Scars"
+    },
+    {
+      "name": "Legacy of the Liberator",
+      "desc": "The army has access to the Raven Guard Armory and the Umbromancy psychic discipline.",
+      "armory_key": "Raven Guard"
     },
     {
       "name": "Legacy of the Lion",
@@ -88,6 +108,15 @@
     {
       "name": "Blitz Attack",
       "desc": "The unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Blood Hunger",
+      "desc": "The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock token or if the enemy unit is outnumbered.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -213,7 +242,7 @@
     },
     {
       "name": "Stalwart",
-      "desc": "The unit can reroll one armor save per battle round.",
+      "desc": "The unit can reroll one armor save per battle round. Only for creature models.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

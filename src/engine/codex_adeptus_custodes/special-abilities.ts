@@ -41,7 +41,7 @@ export const CUSTODES_SPECIAL_ABILITIES: CustodesSpecialAbilityEntry[] = [
     name: 'Archetypes (2 total)',
     category: 'archetype',
     text: 'Budget 0-1 Archetype. Both AOP-shuffle (no cross-faction ally-matrix): Kataphraktoi ' +
-      '(Jetbike Custodians→Troops; <12"M units must start embarked; no-transport <12"M units can\'t ' +
+      '(Vertus Praetors→Troops; <12"M units must start embarked; no-transport <12"M units can\'t ' +
       'be taken), Tharanatoi (Allarus + Aquilon Custodians→Troops; Custodian Guard + Sisters of ' +
       'Silence→Elite). Canonical in `archetypes.json`.',
   },

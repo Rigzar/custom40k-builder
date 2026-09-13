@@ -80,7 +80,7 @@
           "s": "6",
           "ap": "-3",
           "d": "2",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         },
         {
           "name": "Dissipated",
@@ -89,7 +89,7 @@
           "s": "6",
           "ap": "-2",
           "d": "1",
-          "abilities": "Explosive"
+          "abilities": "Blast(4)"
         }
       ]
     },
@@ -101,7 +101,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Shred",
+      "abilities": "Blast(4), Shred",
       "p_unit": 4,
       "p_char": 5
     },
@@ -173,7 +173,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Luminagen",
+      "abilities": "Blast(4), Luminagen",
       "p_unit": 5,
       "p_char": 7
     },
@@ -301,7 +301,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": null,
       "p_char": null
     },

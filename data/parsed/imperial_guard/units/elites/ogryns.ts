@@ -58,7 +58,7 @@ export const ogryns: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Ripper gun (Melee)",

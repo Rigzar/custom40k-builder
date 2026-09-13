@@ -33,7 +33,7 @@ export const beastSnaggaBoyz: Unit = {
   "variant_models": [
     {
       "name": "Nob",
-      "points": 24,
+      "points": 27,
       "min": 0,
       "max": 0,
       "stats": {
@@ -77,7 +77,7 @@ export const beastSnaggaBoyz: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

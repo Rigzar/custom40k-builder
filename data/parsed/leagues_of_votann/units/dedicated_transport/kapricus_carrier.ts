@@ -55,7 +55,7 @@ export const kapricusCarrier: Unit = {
   "option_groups": [],
   "abilities": [
     "Anti-grav, Eye of the Ancestors, Void armor",
-    "Scanner Uplinks: All ranged weapons of the model gain the \"Suppression\" ability.",
+    "Scanner Uplinks: All ranged weapons of the model gain the \"Suppression(3)\" ability.",
     "Transport: This model has a transport capacity of 5 infantry models, excluding models in Exo-armor and Exo-frames."
   ],
   "unit_type": "Vehicle",

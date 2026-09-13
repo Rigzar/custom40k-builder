@@ -14,7 +14,7 @@ export const furies: Unit = {
     {
       "name": "Fury",
       "points": 16,
-      "min": 10,
+      "min": 5,
       "max": 30,
       "stats": {
         "M": "12\"",

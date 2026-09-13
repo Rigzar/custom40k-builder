@@ -58,7 +58,7 @@ export const ironcladDreadnought: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heavy flamer",
@@ -67,7 +67,7 @@ export const ironcladDreadnought: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Hurricane Boltgun",

@@ -67,17 +67,25 @@ export function BugReportModal({ onClose, currentFaction }: Props) {
 
               {/* Unwise's suggestion (2026-09-11): the landing banner already carries this, but a
                   banner can be dismissed and only shows on the front page. THIS is the moment
-                  someone is about to report a rules mismatch, so the notice belongs here too. */}
+                  someone is about to report a rules mismatch, so the notice belongs here too.
+                  Rewritten 2026-09-12: it used to say the codex updates were not in, which stopped
+                  being true once all 22 landed. It now scopes the "expected, not a bug" carve-out
+                  down to the ONE thing still outside — the ability clean-up — and invites reports
+                  on everything else. Keep it in step with LandingPage's line5. */}
               <div className="border-l-2 border-amber-700 bg-amber-950/25 pl-3 py-2 space-y-1">
                 <p className="text-amber-500 text-[11px] uppercase tracking-widest font-semibold">
                   Before you send
                 </p>
                 <p className="text-zinc-300 text-xs leading-relaxed">
-                  <strong>This month's rules and codex changes are not in the app yet.</strong>{' '}
-                  They are still being finalised by Dominic and Unwise, and nothing goes in until
-                  they both sign it off. If the app disagrees with a document you have seen recently
-                  {' '}— a points cost, a new option, a reworded rule — that is expected and
-                  {' '}<strong>not a bug</strong>. Everything else is very welcome.
+                  The September rules and codex update <strong>is</strong> in — Core Rules 1.261,
+                  the Missions supplement and all 22 codices. If something in those looks wrong,
+                  please <strong>do</strong> tell us.{' '}
+                  <strong>One part is deliberately still out: the weapon-ability clean-up.</strong>{' '}
+                  Unwise is rewriting those across every army (Flames becomes Auto Hit plus
+                  Sunder(1), Flurry becomes Extra Attack, and Explosive, Barrage and Colossal Blast
+                  all become Blast(x)), and they have to change everywhere at once, so your cards
+                  still show the old names on purpose. A weapon ability that disagrees with the
+                  newest rules document is expected and {' '}<strong>not a bug</strong>.
                 </p>
               </div>
 

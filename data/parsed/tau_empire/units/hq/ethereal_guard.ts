@@ -40,7 +40,7 @@ export const etherealGuard: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1), Unwieldy"
+      "abilities": "Extra Attack(1), Unwieldy"
     },
     {
       "name": "Honour blade",

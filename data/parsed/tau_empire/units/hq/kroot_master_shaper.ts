@@ -86,7 +86,7 @@ export const krootMasterShaper: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Pulse rifle",
@@ -104,7 +104,7 @@ export const krootMasterShaper: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Twin ritualistic blades",
@@ -113,7 +113,7 @@ export const krootMasterShaper: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(2), Shred, Unwieldy"
+      "abilities": "Extra Attack(2), Shred, Unwieldy"
     },
     {
       "name": "Kroot rifle - Melee",
@@ -167,7 +167,7 @@ export const krootMasterShaper: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [

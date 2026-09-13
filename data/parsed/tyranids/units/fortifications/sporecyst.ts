@@ -59,7 +59,7 @@ export const sporecyst: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Barrage, Suppression"
+      "abilities": "Blast(6), Suppression(3)"
     },
     {
       "name": "Deathspitter",
@@ -77,7 +77,7 @@ export const sporecyst: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [
@@ -212,7 +212,7 @@ export const sporecyst: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

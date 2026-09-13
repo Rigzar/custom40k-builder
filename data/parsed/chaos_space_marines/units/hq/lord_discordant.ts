@@ -80,7 +80,7 @@ export const lordDiscordant: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Bladed limbs",
@@ -89,7 +89,7 @@ export const lordDiscordant: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Frag grenade",
@@ -98,7 +98,7 @@ export const lordDiscordant: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",

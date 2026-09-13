@@ -70,7 +70,7 @@ export function getRecoveryCode() {
 }
 
 export function requestAccountRecovery(username: string, message: string) {
-  return call<{ ok: true; requestId: number }>('/api/account-recovery', {
+  return call<{ ok: true; requestId: number }>('/api/auth/account-recovery', {
     method: 'POST', body: JSON.stringify({ username, message }),
   });
 }
@@ -107,6 +107,8 @@ export interface PublicArmySummary {
   id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
   username: string; avatar?: string | null;
   upvotes: number; downvotes: number; user_vote: 1 | -1 | null;
+  /** Comma-separated names of the events this list is registered for, or null for none. */
+  event_names?: string | null;
 }
 export interface UserSearchResult {
   username: string; avatar: string | null; isFriend: boolean; publicArmyCount: number;
@@ -207,8 +209,10 @@ export function listFriends() {
   return call<{ ok: true; friends: FriendRow[] }>('/api/profile/friends');
 }
 
-export function getPublicArmies(type: 'all' | 'friends' = 'all') {
-  return call<{ ok: true; armies: PublicArmySummary[] }>(`/api/profile/public-armies?type=${type}`);
+/** `eventId` narrows the feed to the lists registered for one event (requirement 4). */
+export function getPublicArmies(type: 'all' | 'friends' = 'all', eventId?: number) {
+  const q = eventId ? `&eventId=${eventId}` : '';
+  return call<{ ok: true; armies: PublicArmySummary[] }>(`/api/profile/public-armies?type=${type}${q}`);
 }
 
 export function copyPublicArmy(rosterId: number) {
@@ -472,7 +476,7 @@ export function useStratagem(campaignId: number, faction: string, stratagemKey: 
     method: 'POST', body: JSON.stringify({ campaignId, faction, stratagemKey }),
   });
 }
-export function listEvents(campaignId: number, faction?: string) {
+export function listCampaignEvents(campaignId: number, faction?: string) {
   const q = faction ? `&faction=${encodeURIComponent(faction)}` : '';
   return call<{ events: CampaignEvent[] }>(`/api/campaign/event-list?campaignId=${campaignId}${q}`);
 }
@@ -501,6 +505,16 @@ export function adminStats() { return call<{ ok: true } & AdminStats>('/api/admi
 export function adminResetPw(userId: number) {
   return call<{ ok: true; tempPassword: string; recoveryCode: string }>('/api/admin/pw', {
     method: 'POST', body: JSON.stringify({ userId }),
+  });
+}
+/**
+ * Creates an account and returns its password and recovery code ONCE — only hashes are stored, so
+ * whatever comes back here is the only copy. `isTest` marks it as alpha test data, which the Events
+ * module's "Reset test data" deletes along with the test events.
+ */
+export function adminCreateUser(username: string, isTest: boolean) {
+  return call<{ ok: true; user: AdminUserRow; password: string; recoveryCode: string }>('/api/admin/create-user', {
+    method: 'POST', body: JSON.stringify({ username, isTest }),
   });
 }
 export function adminDelUser(userId: number) {
@@ -640,4 +654,218 @@ export function getThread(withUsername: string) {
 }
 export function sendMessage(to: string, body: string) {
   return call<{ ok: true }>('/api/messages/send', { method: 'POST', body: JSON.stringify({ to, body }) });
+}
+
+// ── Events & Leagues (ALPHA) ────────────────────────────────────────────────
+// Mirrors api/events/[action].js. An event and a league are the same row: `is_league` only decides
+// whether standings are generated, so everything below is shared between them.
+
+export interface EventSummary {
+  id: number;
+  name: string;
+  description: string;
+  organiser: string;
+  organiser_user_id: number;
+  visibility: 'public' | 'private';
+  is_league: boolean;
+  starts_on: string | null;
+  ends_on: string | null;
+  reg_opens_on: string | null;
+  reg_closes_on: string | null;
+  is_test: boolean;
+  /**
+   * Has the organiser actually OPENED this league to players? A closed one is still listed and
+   * still readable — its standings and its whole game history stay open, which is the point of
+   * keeping a finished league around — it just cannot be joined and no games can be reported
+   * into it. Defaults to false, so nothing is ever open by accident.
+   */
+  published: boolean;
+  created_at: string;
+  /** approved players, as a string because Postgres COUNT comes back as bigint */
+  player_count?: string;
+  /** this viewer's own registration state, null when they have not registered */
+  my_status?: 'pending' | 'approved' | 'rejected' | null;
+}
+
+export interface EventPlayer {
+  user_id: number;
+  username: string;
+  /** A puppet seeded for the closed alpha — an admin may act as one of these. */
+  is_test?: boolean;
+  status: 'pending' | 'approved' | 'rejected';
+  roster_id: number | null;
+  roster_name: string | null;
+  faction: string | null;
+  registered_at: string;
+}
+
+export interface EventGame {
+  id: number;
+  reporter: string;
+  reporter_user_id: number;
+  reporter_roster_name: string | null;
+  reporter_faction: string | null;
+  opponent: string;
+  opponent_user_id: number;
+  opponent_roster_name: string | null;
+  opponent_faction: string | null;
+  mission: string;
+  /** always from the REPORTER's point of view */
+  result: 'win' | 'draw' | 'loss';
+  status: 'pending' | 'confirmed' | 'disputed';
+  dispute_note: string | null;
+  played_on: string | null;
+  created_at: string;
+}
+
+export interface EventStanding {
+  user_id: number;
+  username: string;
+  faction: string | null;
+  wins: string; draws: string; losses: string; played: string; points: string;
+}
+
+export interface NewEvent {
+  name: string;
+  description?: string;
+  visibility?: 'public' | 'private';
+  isLeague?: boolean;
+  startsOn?: string | null;
+  endsOn?: string | null;
+  regOpensOn?: string | null;
+  regClosesOn?: string | null;
+  isTest?: boolean;
+}
+
+export function listEvents() {
+  return call<{ events: EventSummary[] }>('/api/events/list');
+}
+
+export function getEvent(id: number) {
+  return call<{
+    event: EventSummary;
+    canManage: boolean;
+    /** The league is open at all. Separate from the registration window below. */
+    open: boolean;
+    registrationOpen: boolean;
+    me: { status: EventPlayer['status']; roster_id: number | null } | null;
+  }>(`/api/events/get?id=${id}`);
+}
+
+export function createEvent(ev: NewEvent) {
+  return call<{ event: EventSummary }>('/api/events/create', {
+    method: 'POST', body: JSON.stringify(ev),
+  });
+}
+
+export function updateEvent(id: number, ev: Partial<NewEvent>) {
+  return call<{ event: EventSummary }>('/api/events/update', {
+    method: 'POST', body: JSON.stringify({ id, ...ev }),
+  });
+}
+
+export function deleteEvent(id: number) {
+  return call<{ ok: true }>('/api/events/delete', { method: 'POST', body: JSON.stringify({ id }) });
+}
+
+/** Join a public event (approved at once) or ask to join a private one (pending). */
+export function registerForEvent(id: number) {
+  return call<{ me: { status: EventPlayer['status']; roster_id: number | null } }>('/api/events/register', {
+    method: 'POST', body: JSON.stringify({ id }),
+  });
+}
+
+/** Organiser only: approve or reject a registration. */
+export function setEventPlayerStatus(id: number, playerUserId: number, status: EventPlayer['status']) {
+  return call<{ player: { user_id: number; status: EventPlayer['status'] } }>('/api/events/set-status', {
+    method: 'POST', body: JSON.stringify({ id, playerUserId, status }),
+  });
+}
+
+/** Attach one of my own army lists to this event, or pass null to detach. */
+export function assignEventList(id: number, rosterId: number | null, asUserId?: number) {
+  return call<{ rosterId: number | null }>('/api/events/assign-list', {
+    method: 'POST', body: JSON.stringify({ id, rosterId, asUserId }),
+  });
+}
+
+export function listEventPlayers(id: number) {
+  return call<{ players: EventPlayer[]; canManage: boolean }>(`/api/events/players?id=${id}`);
+}
+
+export function listEventGames(id: number) {
+  return call<{ games: EventGame[] }>(`/api/events/games?id=${id}`);
+}
+
+/** Report a game. `result` is from YOUR point of view; it counts only once the opponent confirms. */
+/** `asUserId` is the admin-only "act as a test player" override — see api/events actingAs(). */
+export function reportEventGame(
+  id: number,
+  game: { opponentUserId: number; result: 'win' | 'draw' | 'loss'; mission?: string; playedOn?: string | null },
+  asUserId?: number,
+) {
+  return call<{ game: EventGame }>('/api/events/report-game', {
+    method: 'POST', body: JSON.stringify({ id, ...game, asUserId }),
+  });
+}
+
+/** Opponent only: accept the reported result, or reject it with a note for the organiser. */
+export function confirmEventGame(gameId: number, confirm: boolean, note?: string, asUserId?: number) {
+  return call<{ game: EventGame }>('/api/events/confirm-game', {
+    method: 'POST', body: JSON.stringify({ gameId, confirm, note, asUserId }),
+  });
+}
+
+export function getEventStandings(id: number) {
+  return call<{ isLeague: boolean; standings: EventStanding[] }>(`/api/events/standings?id=${id}`);
+}
+
+export interface LeagueExport {
+  exportedAt: string;
+  format: 'custom40k-league-1';
+  event: {
+    name: string; description: string; organiser: string | null;
+    visibility: 'public' | 'private'; isLeague: boolean; isTest: boolean;
+    startsOn: string | null; endsOn: string | null;
+    registrationOpensOn: string | null; registrationClosesOn: string | null;
+  };
+  players: { username: string; status: string; army: string | null; faction: string | null; points: number | null; registered_at: string }[];
+  games: {
+    reporter: string; opponent: string;
+    reporter_army: string | null; opponent_army: string | null;
+    reporter_faction: string | null; opponent_faction: string | null;
+    mission: string; result: 'win' | 'draw' | 'loss'; status: string;
+    dispute_note: string | null; played_on: string | null; created_at: string; confirmed_at: string | null;
+  }[];
+}
+
+/** The whole league as one document — the backup that is not the database. */
+export function exportEvent(id: number) {
+  return call<{ ok: true } & LeagueExport>(`/api/events/export?id=${id}`);
+}
+
+/**
+ * Admin only: fill an event with puppet players and fake armies so the whole flow can be tried
+ * without creating real accounts. Factions are deliberately duplicated so a same-faction matchup
+ * is available immediately.
+ */
+/**
+ * Open a league to players, or close it again. Closing never hides anything: a closed league is
+ * still listed, and its standings and games stay readable, so a finished season is still there to
+ * look back at and one mid-season stays watchable after registration ends.
+ */
+export function publishEvent(id: number, published: boolean) {
+  return call<{ published: boolean }>('/api/events/publish', {
+    method: 'POST', body: JSON.stringify({ id, published }),
+  });
+}
+
+export function seedTestPlayers(id: number, players = 4) {
+  return call<{ players: { user_id: number; username: string; faction: string; roster_id: number; points: number }[] }>(
+    '/api/events/seed-test', { method: 'POST', body: JSON.stringify({ id, players }) });
+}
+
+/** Admin only: wipe every event flagged as test data, before opening the feature to players. */
+export function resetTestEvents() {
+  return call<{ deleted: number; deletedUsers: number }>('/api/events/reset-test', { method: 'POST' });
 }

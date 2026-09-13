@@ -105,7 +105,7 @@
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": 3,
       "p_char": 2
     },
@@ -132,6 +132,19 @@
       "abilities": "-",
       "p_unit": 5,
       "p_char": 6
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "armour_compat": [],
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), AT(2)",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Krak grenades",
@@ -201,7 +214,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2), Shred, Unwieldy",
+      "abilities": "Extra Attack(2), Shred, Unwieldy",
       "p_unit": 5,
       "p_char": 6
     },
@@ -281,7 +294,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1)",
+      "abilities": "Extra Attack(1)",
       "p_unit": 3,
       "p_char": 4
     },
@@ -329,9 +342,41 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression",
+      "abilities": "Suppression(3)",
       "p_unit": null,
       "p_char": null
+    },
+    {
+      "name": "Krak lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 6,
+      "p_char": 9,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Charge, Quick(+1)"
+        },
+        {
+          "name": "Normal",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ]
     }
   ],
   "equipment": [
@@ -649,7 +694,7 @@
     {
       "name": "Camo net",
       "term_compat": false,
-      "desc": "If the vehicle has not moved during its activation, it counts as being in cover.",
+      "desc": "If the vehicle has not moved during its activation, it counts as having Stealth.",
       "p_unit": 30,
       "p_char": null,
       "category": "vehicle"

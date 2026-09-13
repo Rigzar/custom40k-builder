@@ -13,7 +13,7 @@ export const strikingScorpions: Unit = {
   "models": [
     {
       "name": "Striking Scorpion",
-      "points": 28,
+      "points": 30,
       "min": 5,
       "max": 10,
       "stats": {
@@ -33,7 +33,7 @@ export const strikingScorpions: Unit = {
   "variant_models": [
     {
       "name": "Striking Scorpion Exarch",
-      "points": 49,
+      "points": 51,
       "min": 0,
       "max": 0,
       "stats": {
@@ -59,7 +59,7 @@ export const strikingScorpions: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     },
     {
       "name": "Scorpion chainsword",
@@ -68,7 +68,7 @@ export const strikingScorpions: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Shuriken pistol",
@@ -154,6 +154,7 @@ export const strikingScorpions: Unit = {
   "abilities": [
     "Battle Focus, Infiltrator, <Aspect>",
     "Aspect armor: The model gains a 5+ ward save.",
+    "Spring the Trap: The unit gains the \"Deep Strike\" ability and does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
     "Mandiblaster: During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1."
   ],
   "unit_type": "Infantry",
@@ -173,5 +174,5 @@ export const strikingScorpions: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 5,
-  "min_cost": 140
+  "min_cost": 150
 };

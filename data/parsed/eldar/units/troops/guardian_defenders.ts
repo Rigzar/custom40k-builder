@@ -67,7 +67,7 @@ export const guardianDefenders: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Scatter laser",
@@ -76,7 +76,7 @@ export const guardianDefenders: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(4)"
     },
     {
       "name": "Shuriken cannon",
@@ -112,7 +112,7 @@ export const guardianDefenders: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Aeldari missile launcher - Starshot",

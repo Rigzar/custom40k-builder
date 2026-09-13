@@ -141,6 +141,15 @@ export const jakhals: Unit = {
       "abilities": "-"
     },
     {
+      "name": "Blood harpoon",
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Beam"
+    },
+    {
       "name": "Mauler chainblade",
       "range": "-",
       "type": "Melee",
@@ -172,6 +181,10 @@ export const jakhals: Unit = {
         {
           "name": "Mauler chainblade",
           "points": 1
+        },
+        {
+          "name": "Blood harpoon",
+          "points": 3
         }
       ],
       "inline_pts": null,

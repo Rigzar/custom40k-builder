@@ -53,7 +53,7 @@ export const wraithseer: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(3), Deadly(5+), Explosive, Graviton"
+      "abilities": "AT(3), Deadly(5+), Blast(4), Graviton"
     },
     {
       "name": "Ghostspear",
@@ -71,7 +71,7 @@ export const wraithseer: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(4)"
     },
     {
       "name": "Shuriken cannon",
@@ -107,7 +107,7 @@ export const wraithseer: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Aeldari missile launcher - Starshot",

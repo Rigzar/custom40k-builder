@@ -33,7 +33,7 @@ export const kommandos: Unit = {
   "variant_models": [
     {
       "name": "Nob",
-      "points": 28,
+      "points": 27,
       "min": 0,
       "max": 0,
       "stats": {
@@ -86,7 +86,7 @@ export const kommandos: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Choppa",
@@ -122,7 +122,7 @@ export const kommandos: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [
@@ -199,12 +199,12 @@ export const kommandos: Unit = {
       "replaces": ["Choppa", "Slugga"]
     },
     {
-      "header": "One Kommando may be upgraded to a Nob for +16 points and gains access to weapons and gear from the Armory.",
+      "header": "One Kommando may be upgraded to a Nob for +15 points and gains access to weapons and gear from the Armory.",
       "constraint": {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 16,
+      "inline_pts": 15,
       "variant_link": "Nob",
       "is_unique_per_army": false
     },

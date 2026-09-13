@@ -115,7 +115,7 @@ export const chaosSorcerer: Unit = {
   ],
   equipped_with: 'A Chaos Sorcerer is equipped with: Frag grenades; Krak grenades.',
   weapons: [
-    { name: 'Frag grenade', range: '6"', type: 'Grenade 1', s: '4', ap: '0',  d: '1', abilities: 'Explosive' },
+    { name: 'Frag grenade', range: '6"', type: 'Grenade 1', s: '4', ap: '0',  d: '1', abilities: 'Blast(4)' },
     { name: 'Krak grenade', range: '6"', type: 'Grenade 1', s: '6', ap: '-2', d: '1', abilities: '-' },
   ],
   option_groups: [

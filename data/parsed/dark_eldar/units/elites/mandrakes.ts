@@ -58,7 +58,7 @@ export const mandrakes: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(2)"
     },
     {
       "name": "Glimmersteel blade",
@@ -86,7 +86,7 @@ export const mandrakes: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,

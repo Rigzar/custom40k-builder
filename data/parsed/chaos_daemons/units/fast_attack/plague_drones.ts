@@ -58,7 +58,7 @@ export const plagueDrones: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Poison(4+)"
+      "abilities": "Blast(4), Poison(4+)"
     },
     {
       "name": "Rot Fly’s prehensile proboscis",

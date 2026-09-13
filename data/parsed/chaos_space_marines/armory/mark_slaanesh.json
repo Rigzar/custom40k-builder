@@ -20,7 +20,7 @@
           "s": "8",
           "ap": "-2",
           "d": "2",
-          "abilities": "AT(2), Sunder(2), Suppression"
+          "abilities": "AT(2), Sunder(2), Suppression(6)"
         },
         {
           "name": "Varied frequency",
@@ -29,7 +29,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Explosive, Sunder(2), Suppression"
+          "abilities": "Blast(4), Sunder(2), Suppression(3)"
         }
       ],
       "armour_compat": [
@@ -106,7 +106,7 @@
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(2)",
+      "abilities": "Extra Attack(2)",
       "p_unit": 4,
       "p_char": 4,
       "armour_compat": [
@@ -121,7 +121,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Sunder(2), Suppression",
+      "abilities": "Sunder(2), Suppression(3)",
       "p_unit": 5,
       "p_char": 6
     },
@@ -133,7 +133,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Sunder(2), Suppression",
+      "abilities": "Sunder(2), Suppression(3)",
       "p_unit": 11,
       "p_char": 13,
       "armour_compat": [
@@ -155,7 +155,7 @@
     {
       "name": "Doom Siren",
       "term_compat": true,
-      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression.",
+      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
       "p_unit": 5,
       "p_char": 5,
       "armour_compat": [
@@ -250,7 +250,7 @@
       "name": "Doom Siren",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression.",
+      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
       "p_unit": 10,
       "p_char": null
     }

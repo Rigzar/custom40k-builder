@@ -59,7 +59,7 @@ export const techmarine: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Extra attack"
+      "abilities": "Extra Attack(1), Limit(1)"
     },
     {
       "name": "Frag grenade",
@@ -68,7 +68,7 @@ export const techmarine: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grav pistol",
@@ -104,7 +104,7 @@ export const techmarine: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra attack, Slow(-5)"
+      "abilities": "AT(2), Extra Attack(1), Limit(1), Slow(-5)"
     }
   ],
   "option_groups": [

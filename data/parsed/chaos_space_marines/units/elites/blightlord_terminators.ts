@@ -142,7 +142,7 @@ export const blightlordTerminators: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Combi-melta - Bolter",
@@ -205,7 +205,7 @@ export const blightlordTerminators: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Power fist",

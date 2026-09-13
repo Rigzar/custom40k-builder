@@ -40,7 +40,7 @@ export const deathstrikeMissileLauncher: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(5), Barrage, Indirect"
+      "abilities": "AT(5), Blast(6), Indirect"
     },
     {
       "name": "Heavy bolter",
@@ -58,7 +58,7 @@ export const deathstrikeMissileLauncher: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin heavy stubber",
@@ -67,7 +67,7 @@ export const deathstrikeMissileLauncher: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

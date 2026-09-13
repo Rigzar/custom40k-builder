@@ -40,7 +40,7 @@ export const corvusBlackstar: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Bomb, Barrage"
+      "abilities": "Bomb, Blast(6)"
     },
     {
       "name": "Blackstar cluster launcher - Infernus cluster",
@@ -49,7 +49,7 @@ export const corvusBlackstar: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Bomb, Explosive, Sunder(1)"
+      "abilities": "Bomb, Blast(4), Sunder(1)"
     },
     {
       "name": "Hurricane bolt gun",
@@ -85,7 +85,7 @@ export const corvusBlackstar: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Anti-Air, Explosive"
+      "abilities": "Anti-Air, Blast(4)"
     },
     {
       "name": "Twin Blackstar rocket launcher - Dracos",
@@ -94,7 +94,7 @@ export const corvusBlackstar: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Barrage, Seeking"
+      "abilities": "Blast(6), Seeking"
     },
     {
       "name": "Twin lascannon",

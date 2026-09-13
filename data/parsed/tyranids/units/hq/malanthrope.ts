@@ -191,7 +191,7 @@ export const malanthrope: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },
@@ -266,7 +266,7 @@ export const malanthrope: Unit = {
   "abilities": [
     "Anti-Grav, Fearless, Synapse",
     "Enhanced Sporecloud: Friendly models within 9\" benefit from Obscuring cover.",
-    "Prey Adaption: The first time an enemy model is killed within 3\" of the model, all units of your army gain the \"Preferred Enemy\" ability against all enemy units.",
+    "Prey Adaption: The first time an enemy model is killed within 3\" of the model, all units of your army gain the \"Favoured Enemy\" ability against all enemy units.",
     "Psychic Barrier: The model gains a 5+ ward save.",
     "Toxic Miasma: During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\"."
   ],

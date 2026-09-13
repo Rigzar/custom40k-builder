@@ -24,7 +24,6 @@ export const TYRANID_SLOTS: TyranidSlotEntry[] = [
   { name: 'Hive Tyrant', slot: 'HQ' },
   { name: 'Malanthrope', slot: 'HQ' },
   { name: 'Neurotyrant', slot: 'HQ' },
-  { name: 'Swarmlord', slot: 'HQ' },
   { name: 'Tervigon', slot: 'HQ' },
   { name: 'Tyranid Prime', slot: 'HQ' },
   { name: 'Tyrant Guard Brood', slot: 'HQ' },
@@ -75,4 +74,5 @@ export const TYRANID_SLOTS: TyranidSlotEntry[] = [
 
   // --- Flyers (1) ---
   { name: 'Harpy', slot: 'Flyers' },
+  { name: 'Hive Crone', slot: 'Flyers' },
 ];

@@ -105,7 +105,7 @@ export const chaosVindicator: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Barrage, Tank hunter"
+      "abilities": "AT(4), Blast(6), Tank hunter"
     },
     {
       "name": "Havoc launcher",
@@ -114,7 +114,7 @@ export const chaosVindicator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-Air, Explosive"
+      "abilities": "Anti-Air, Blast(4)"
     },
     {
       "name": "Combi-flamer - Bolter",
@@ -132,7 +132,7 @@ export const chaosVindicator: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Combi-melta - Bolter",

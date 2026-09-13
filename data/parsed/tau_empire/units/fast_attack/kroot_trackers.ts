@@ -40,7 +40,7 @@ export const krootTrackers: Unit = {
       "s": "+2",
       "ap": "-1",
       "d": "1",
-      "abilities": "Extra attack, Flurry(1)"
+      "abilities": "Extra Attack(1), Limit(1)"
     },
     {
       "name": "Kroot hunting rifle",
@@ -49,7 +49,7 @@ export const krootTrackers: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Kroot pistol",

@@ -40,7 +40,7 @@ export const nightSpinner: Unit = {
       "s": "7",
       "ap": "0",
       "d": "2",
-      "abilities": "Armor piercing(5+), Barrage, Indirect fire, Monofilament, Suppression"
+      "abilities": "Armor piercing(5+), Blast(6), Indirect fire, Monofilament, Suppression(3)"
     },
     {
       "name": "Shuriken cannon",

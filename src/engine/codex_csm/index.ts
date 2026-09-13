@@ -27,7 +27,7 @@
  *   - slots.ts                → CSM_SLOTS             (Slot — roster per slot)
  */
 
-export { CSM_LEGACY_NOTES, CSM_LEGACY_ITEM_RESTRICTIONS } from './legacies';
+export { CSM_LEGACY_NOTES, CSM_LEGACY_ITEM_RESTRICTIONS, CSM_LOWER_PRAYERS } from './legacies';
 export { CSM_TRAIT_EFFECTS } from './traits';
 export { CSM_ARCHETYPES } from './archetypes/index';
 export { CSM_STRUCTURED_NOTES } from './archetypes/rules';

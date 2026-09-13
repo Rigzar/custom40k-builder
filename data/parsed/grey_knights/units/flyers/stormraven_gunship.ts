@@ -107,7 +107,7 @@ export const stormravenGunship: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Twin plasma cannon (Overcharged)",
@@ -116,7 +116,7 @@ export const stormravenGunship: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     },
     {
       "name": "Typhoon missile launcher (Frag)",
@@ -125,7 +125,7 @@ export const stormravenGunship: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Typhoon missile launcher (Krak)",

@@ -28,9 +28,9 @@ export const CUSTODES_UNIT_TYPES: CustodesUnitTypeEntry[] = [
   { name: 'Galatus Contemptor Dreadnought', unit_type: 'Vehicle, Walker' },
   { name: 'Custodian Wardens', unit_type: 'Infantry' },
   { name: 'Venerable Contemptor Dreadnought', unit_type: 'Vehicle, Walker' },
-  { name: 'Vertus Praetor', unit_type: 'Jetbike' },
+  { name: 'Vertus Praetors', unit_type: 'Jetbike' },
   // Fast Attack
-  { name: 'Jetbike Custodians', unit_type: 'Jetbike' },
+  { name: 'Venatari Custodians', unit_type: 'Jump Pack Infantry' },
   // Heavy Support
   { name: 'Caladius Grav-Tank', unit_type: 'Vehicle' },
   { name: 'Telemon Heavy Dreadnought', unit_type: 'Vehicle, Walker' },

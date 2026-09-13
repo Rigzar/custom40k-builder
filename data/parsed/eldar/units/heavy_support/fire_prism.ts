@@ -58,7 +58,7 @@ export const firePrism: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Barrage, Suppression"
+      "abilities": "Blast(6), Suppression(3)"
     },
     {
       "name": "Prism cannon - Focused",
@@ -67,7 +67,7 @@ export const firePrism: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Prism cannon - Lance",

@@ -40,7 +40,7 @@ export const squiggoth: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flurry(3)"
+      "abilities": "AT(2), Extra Attack(3)"
     },
     {
       "name": "Kannon - Frag",
@@ -49,7 +49,7 @@ export const squiggoth: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Barrage"
+      "abilities": "Blast(6)"
     },
     {
       "name": "Kannon - Shell",
@@ -58,7 +58,7 @@ export const squiggoth: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Lobba",
@@ -67,7 +67,7 @@ export const squiggoth: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Zzap gun",

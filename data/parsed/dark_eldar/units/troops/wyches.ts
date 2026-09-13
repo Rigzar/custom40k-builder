@@ -77,7 +77,7 @@ export const wyches: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     },
     {
       "name": "Razorflails",
@@ -86,7 +86,7 @@ export const wyches: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Re-roll to hit and to wound rolls, Flurry(1)"
+      "abilities": "Re-roll to hit and to wound rolls, Extra Attack(1)"
     },
     {
       "name": "Plasma grenade",
@@ -95,7 +95,7 @@ export const wyches: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Splinter pistol",

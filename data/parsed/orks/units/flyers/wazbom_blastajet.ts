@@ -49,7 +49,7 @@ export const wazbomBlastajet: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Grot Bomm",
@@ -58,7 +58,7 @@ export const wazbomBlastajet: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo (1), AT(2), Barrage, Grot-guided"
+      "abilities": "Ammo (1), AT(2), Blast(6), Grot-guided"
     },
     {
       "name": "Stikkbomb flinga",
@@ -67,7 +67,7 @@ export const wazbomBlastajet: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Bomb, Explosive"
+      "abilities": "Bomb, Blast(4)"
     },
     {
       "name": "Smasha gun",
@@ -76,7 +76,7 @@ export const wazbomBlastajet: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Explosive, Grav"
+      "abilities": "AT(1), Blast(4), Grav"
     },
     {
       "name": "Traktor kannon",
@@ -103,7 +103,7 @@ export const wazbomBlastajet: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Barrage, Overheating"
+      "abilities": "AT(2), Blast(6), Overheating"
     },
     {
       "name": "Twin-linked tellyport mega-blasta",
@@ -112,7 +112,7 @@ export const wazbomBlastajet: Unit = {
       "s": "9",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(1), Explosive, Tellyported"
+      "abilities": "AT(1), Blast(4), Tellyported"
     }
   ],
   "option_groups": [

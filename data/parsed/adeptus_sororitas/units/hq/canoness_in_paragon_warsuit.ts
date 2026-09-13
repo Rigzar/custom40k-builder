@@ -40,7 +40,7 @@ export const canonessInParagonWarsuit: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy bolter",
@@ -58,7 +58,7 @@ export const canonessInParagonWarsuit: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Krak grenade",
@@ -94,7 +94,7 @@ export const canonessInParagonWarsuit: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Paragon war lance",

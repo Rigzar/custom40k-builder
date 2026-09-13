@@ -49,7 +49,7 @@ export const heavyWeaponSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy bolter",
@@ -67,7 +67,7 @@ export const heavyWeaponSquad: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lascannon",
@@ -94,7 +94,7 @@ export const heavyWeaponSquad: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Twin heavy stubber",
@@ -103,7 +103,7 @@ export const heavyWeaponSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Missile launcher - Frag missile",
@@ -112,7 +112,7 @@ export const heavyWeaponSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak missile",
@@ -178,7 +178,7 @@ export const heavyWeaponSquad: Unit = {
   "abilities": [
     "Dug-in positions: All selected Heavy Weapons Squads must be combined into a maximum of three units of 1-3 Heavy Weapons Teams each. They count as independent units from the start of the game.",
     "Massive(1)",
-    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model."
+    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
   ],
   "unit_type": "Infantry",
   "keywords": [],

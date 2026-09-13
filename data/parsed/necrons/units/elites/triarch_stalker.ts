@@ -40,7 +40,7 @@ export const triarchStalker: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     },
     {
       "name": "Reinforced forelimbs",
@@ -67,7 +67,7 @@ export const triarchStalker: Unit = {
       "s": "6",
       "ap": "-5",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heat ray - Focused",

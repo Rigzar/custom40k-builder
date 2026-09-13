@@ -95,7 +95,7 @@ export const scourges: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Shardcarbine",
@@ -113,7 +113,7 @@ export const scourges: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(2)"
     },
     {
       "name": "Splinter cannon",

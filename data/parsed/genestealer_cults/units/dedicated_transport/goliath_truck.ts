@@ -40,7 +40,7 @@ export const goliathTruck: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+      "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
     },
     {
       "name": "Heavy stubber",
@@ -49,7 +49,7 @@ export const goliathTruck: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin autocannon",

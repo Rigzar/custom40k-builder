@@ -9,7 +9,7 @@
       "s": "+2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Furious Charge, Flurry(2), Terrifying(-1), Unique, Unwieldy",
+      "abilities": "AT(2), Furious Charge, Extra Attack(2), Terrifying(-1), Unique, Unwieldy",
       "p_unit": null,
       "p_char": 23
     },
@@ -21,7 +21,7 @@
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(3), Armorbane, Flurry(1), Unwieldy",
+      "abilities": "AT(3), Armorbane, Extra Attack(1), Unwieldy",
       "p_unit": 13,
       "p_char": 19
     },
@@ -89,7 +89,7 @@
       "s": "6",
       "ap": "-4",
       "d": "2",
-      "abilities": "Flurry(1), Unwieldy",
+      "abilities": "Extra Attack(1), Unwieldy",
       "p_unit": 10,
       "p_char": 15
     },
@@ -101,7 +101,7 @@
       "s": "+2",
       "ap": "-1",
       "d": "1",
-      "abilities": "Extra attack, Flurry(1)",
+      "abilities": "Extra Attack(1), Limit(1)",
       "p_unit": null,
       "p_char": null
     },
@@ -126,6 +126,32 @@
       "ap": "*",
       "d": "*",
       "abilities": "Markerlight",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Smart missile system",
+      "term_compat": false,
+      "armour_compat": [],
+      "range": "30\"",
+      "type": "Heavy 3",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Anti-Air, Seeking",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Seeker missile",
+      "term_compat": false,
+      "armour_compat": [],
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), AT(2)",
       "p_unit": null,
       "p_char": null
     }
@@ -207,7 +233,7 @@
       "p_char": 10
     },
     {
-      "name": "Krootox steedᴵ",
+      "name": "Kalamandra steedᴵ",
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +2 Strength, +2 Toughness, +2 Wounds, a 5+ Save and the \"Bike\" ability. Only for Kroot Shapers.",
       "p_unit": null,
@@ -361,7 +387,12 @@
       "term_compat": false,
       "desc": "The model gains a Smart missile system. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 14
+      "p_char": 14,
+      "effect": {
+        "grants_weapons": [
+          "Smart missile system"
+        ]
+      }
     },
     {
       "name": "XV84 Crisis battlesuit",
@@ -569,10 +600,15 @@
     {
       "name": "Seeker missile",
       "term_compat": false,
-      "desc": "The model gains a Seeker missile. The model may shoot once per game a Seeker missile with this profile: Range 120\", Heavy 1, Strength 8, AP -3, Damage 2, Anti-Air, AT(2). May be taken up to 2 times per model.",
+      "desc": "The model gains a Seeker missile. May be taken up to 2 times per model.",
       "p_unit": 5,
       "p_char": null,
-      "category": "vehicle"
+      "category": "vehicle",
+      "effect": {
+        "grants_weapons": [
+          "Seeker missile"
+        ]
+      }
     },
     {
       "name": "Smoke Launcher",

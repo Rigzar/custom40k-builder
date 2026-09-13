@@ -40,7 +40,7 @@ export const mutalithVortexBeast: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     },
     {
       "name": "Mutalith claws",
@@ -67,7 +67,7 @@ export const mutalithVortexBeast: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Soul burn(5+)"
+      "abilities": "Auto Hit, Sunder(1), Soul burn(5+)"
     }
   ],
   "option_groups": [],

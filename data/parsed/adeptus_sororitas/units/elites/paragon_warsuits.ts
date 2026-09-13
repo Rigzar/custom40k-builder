@@ -67,7 +67,7 @@ export const paragonWarsuits: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Multi-melta",
@@ -94,7 +94,7 @@ export const paragonWarsuits: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Paragon war mace",

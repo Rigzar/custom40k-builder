@@ -201,7 +201,7 @@ export const IG_VEHICLE_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Scorched earth!',
     when: 'After the unit has used ranged weapons.',
-    effect: 'The unit can immediately shoot again with a Barrage, Explosive or Flames weapon. The target must be a mission objective marker. If the hit roll is successful, the opponent loses control of it if there are no more of his units on the mission objective.',
+    effect: 'The unit can immediately shoot again with a Blast(x) or Auto Hit weapon. The target must be a mission objective marker. If the hit roll is successful, the opponent loses control of it if there are no more of his units on the mission objective.',
   },
 ];
 
@@ -209,7 +209,7 @@ export const IG_LEGACY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Burn them out!',
     when: 'When the unit is activated.',
-    effect: 'The unit gains the "Decimate" ability with all weapons that have the "Flames" ability.',
+    effect: 'The unit gains the "Decimate" ability with all weapons that have the "Auto Hit" ability.',
     legacyGrant: 'Death World',
   },
   {
@@ -221,13 +221,17 @@ export const IG_LEGACY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Suppressive fire!',
     when: 'When the unit is activated.',
-    effect: 'If the unit uses a "Stand & Shoot" order and does not split fire its weapons, all ranged weapons in the unit gain the "Suppression" ability.',
+    effect: 'If the unit uses a "Stand & Shoot" order, all ranged weapons in the unit gain the "Suppression(2)" ability.',
     legacyGrant: 'Fortress World',
   },
   {
     name: 'Fire on my command!',
     when: 'When the unit is activated.',
-    effect: 'The unit may target an enemy unit engaged in melee with a friendly unit. Any failed hit rolls are instead resolved as hits against the friendly unit. Weapons that have the "Barrage" or "Explosive" ability can\'t be used.',
+    // Two sentences restored from the live sheet 2026-09-13. Our copy of Imperial Guard 1.05
+    // had this cell printing the order ABOVE it instead of its own text, which is the duplicate
+    // reported to Unwise; he corrected it, and the restored text is LONGER than what we carried.
+    // Both ability names are the post-clean-up ones now that Core Rules 1.262 has landed.
+    effect: 'The unit may target an enemy unit engaged in melee with a friendly unit. Any failed hit rolls are instead resolved as hits against the friendly unit. Weapons that have the "Blast(x)" ability can\'t be used. Weapons with the "Auto Hit" ability hit both the friendly and the enemy unit. In all cases, if more than one friendly unit is engaged, the friendly unit with the most models left is hit first.',
     legacyGrant: 'Frozen World',
   },
   {
@@ -237,7 +241,7 @@ export const IG_LEGACY_ORDERS: OfficerOrderEntry[] = [
     legacyGrant: 'Industrial World',
   },
   {
-    name: 'Form firing squad',
+    name: 'Form firing squad!',
     when: 'When the unit is activated.',
     effect: 'When firing "Rapid Fire" weapons at a target within 12", the unit may choose which enemy model its ranged attacks are allocated to.',
     legacyGrant: 'Macropol World',

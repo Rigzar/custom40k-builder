@@ -98,7 +98,7 @@ export const obliterator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lascannon",
@@ -134,7 +134,7 @@ export const obliterator: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin melta",
@@ -152,7 +152,7 @@ export const obliterator: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Plasma cannon - Overcharged",
@@ -161,7 +161,7 @@ export const obliterator: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     },
     {
       "name": "Twin plasma gun - Standard",

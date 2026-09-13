@@ -35,13 +35,13 @@ export const CD_ARCHETYPES: Record<string, ArchetypeRule> = {
   //    activated like a unit during the same turn it appears. Once you activate the Meteor, place
   //    it like a unit arriving from Deep Strike. The scatter roll is always 2D6" and can never be
   //    changed. Instead of placing a model, all units within 6" of the final position receive one
-  //    automatic hit with Strength: 10, AP: -1, Damage: 1; AT(2), Barrage, Seeking, Suppression."
+  //    automatic hit with Strength: 10, AP: -1, Damage: 1; AT(2), Blast(6), Seeking, Suppression(3)."
   // (In-game effect only — not enforced by the builder.)
   'Calamitous Invasion': { ...BASE,
     notes: [
       'Roll 1D6 during each Reinforcement phase — on a 5+ a Meteor appears and must be activated like a unit that same turn.',
       'Scatter roll is always 2D6" and cannot be changed.',
-      'Instead of placing a model, all units within 6" suffer 1 automatic hit: S10 AP-1 D1, AT(2), Barrage, Seeking, Suppression.',
+      'Instead of placing a model, all units within 6" suffer 1 automatic hit: S10 AP-1 D1, AT(2), Blast(6), Seeking, Suppression(3).',
     ],
   },
 

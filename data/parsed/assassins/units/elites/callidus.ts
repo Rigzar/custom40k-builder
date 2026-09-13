@@ -60,7 +60,7 @@ export const callidus: Unit = {
       "s": "*",
       "ap": "*",
       "d": "*",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Phase sword",

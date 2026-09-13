@@ -19,7 +19,6 @@ export const TYRANID_UNIT_TYPES: TyranidUnitTypeEntry[] = [
   { name: 'Hive Tyrant', unit_type: 'Monstrous Creature' },
   { name: 'Malanthrope', unit_type: 'Character Model, Monstrous Infantry' },
   { name: 'Neurotyrant', unit_type: 'Monstrous Creature' },
-  { name: 'Swarmlord', unit_type: 'Monstrous Creature' },
   { name: 'Tervigon', unit_type: 'Monstrous Creature' },
   { name: 'Tyranid Prime', unit_type: 'Character Model, Infantry' },
   { name: 'Tyrant Guard Brood', unit_type: 'Infantry' },
@@ -63,4 +62,5 @@ export const TYRANID_UNIT_TYPES: TyranidUnitTypeEntry[] = [
   { name: 'Sporecyst', unit_type: 'Monstrous Creature' },
   // Flyers
   { name: 'Harpy', unit_type: 'Flyer, Monstrous Creature' },
+  { name: 'Hive Crone', unit_type: 'Flyer, Monstrous Creature' },
 ];

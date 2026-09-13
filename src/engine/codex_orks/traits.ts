@@ -72,7 +72,7 @@ export const ORKS_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     {
       type: 'unit_ability',
       name: 'Boom Boyz',
-      desc: 'Weapons with the "Barrage" or "Explosive" ability can hit up to one more model per unit.',
+      desc: 'Weapons with the "Blast(x)" ability can hit up to one more model per unit.',
       applies_to: 'all',
     },
   ],
@@ -125,7 +125,7 @@ export const ORKS_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     {
       type: 'unit_ability',
       name: 'Pyromaniacs',
-      desc: 'All weapons with the "Flames" ability cause 1 additional hit.',
+      desc: 'All weapons with the "Auto Hit" ability cause 1 additional hit.',
       applies_to: 'all',
     },
   ],

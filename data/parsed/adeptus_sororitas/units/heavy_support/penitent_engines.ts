@@ -49,7 +49,7 @@ export const penitentEngines: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Penitent buzz-blade",
@@ -58,7 +58,7 @@ export const penitentEngines: Unit = {
       "s": "+3",
       "ap": "-4",
       "d": "2",
-      "abilities": "Armorbane, AT(2), Flurry(1), Slow(-3)"
+      "abilities": "Armorbane, AT(2), Extra Attack(1), Slow(-3)"
     },
     {
       "name": "Penitent flail",
@@ -67,7 +67,7 @@ export const penitentEngines: Unit = {
       "s": "+1",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     }
   ],
   "option_groups": [

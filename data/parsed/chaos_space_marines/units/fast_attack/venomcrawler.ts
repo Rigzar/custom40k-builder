@@ -91,7 +91,7 @@ export const venomcrawler: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Flurry(2)"
+      "abilities": "AT(1), Extra Attack(2)"
     }
   ],
   "option_groups": [

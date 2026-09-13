@@ -40,7 +40,7 @@ export const vindicator: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Barrage, Tank hunter"
+      "abilities": "AT(4), Blast(6), Tank hunter"
     },
     {
       "name": "Storm bolter",

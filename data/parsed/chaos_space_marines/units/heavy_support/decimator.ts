@@ -48,7 +48,7 @@ export const decimator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Butcher cannon",
@@ -75,7 +75,7 @@ export const decimator: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Conversion beamer - Long range",
@@ -84,7 +84,7 @@ export const decimator: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Soulburner petard",
@@ -93,7 +93,7 @@ export const decimator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Rending(5+), Barrage"
+      "abilities": "Rending(5+), Blast(6)"
     },
     {
       "name": "Storm laser",

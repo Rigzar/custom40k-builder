@@ -40,7 +40,7 @@ export const battleFortress: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Indirect"
+      "abilities": "Blast(6), Indirect"
     },
     {
       "name": "Big shoota",
@@ -58,7 +58,7 @@ export const battleFortress: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Explosive"
+      "abilities": "AT(3), Blast(4)"
     },
     {
       "name": "Deff kannon",
@@ -67,7 +67,7 @@ export const battleFortress: Unit = {
       "s": "10",
       "ap": "-5",
       "d": "3",
-      "abilities": "AT(3), Colossal blast, Tank hunter"
+      "abilities": "AT(3), Blast(8), Tank hunter"
     },
     {
       "name": "Flakka gunz",
@@ -76,7 +76,7 @@ export const battleFortress: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Anti-air, Explosive, Sunder(1)"
+      "abilities": "AT(1), Anti-air, Blast(4), Sunder(1)"
     },
     {
       "name": "Gigashoota",
@@ -94,7 +94,7 @@ export const battleFortress: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo (1), AT(2), Barrage, Indirect, Grot-guided"
+      "abilities": "Ammo (1), AT(2), Blast(6), Indirect, Grot-guided"
     },
     {
       "name": "Kannon - Frag",
@@ -103,7 +103,7 @@ export const battleFortress: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Kannon - Shell",
@@ -121,7 +121,7 @@ export const battleFortress: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     },
     {
       "name": "Lifta-droppa",
@@ -130,7 +130,7 @@ export const battleFortress: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Armorbane, Explosive, Grav, Lifta"
+      "abilities": "AT(2), Armorbane, Blast(4), Grav, Lifta"
     },
     {
       "name": "Lobba",
@@ -139,7 +139,7 @@ export const battleFortress: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Rokkit launcha",
@@ -157,7 +157,7 @@ export const battleFortress: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Supa-lobba",
@@ -166,7 +166,7 @@ export const battleFortress: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Colossal Blast, Indirect"
+      "abilities": "AT(1), Blast(8), Indirect"
     },
     {
       "name": "Supa-kannon",
@@ -175,7 +175,7 @@ export const battleFortress: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Supa rokkit",
@@ -184,7 +184,7 @@ export const battleFortress: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage"
+      "abilities": "Ammo(1), AT(2), Blast(6)"
     },
     {
       "name": "Twin-linked big shoota",

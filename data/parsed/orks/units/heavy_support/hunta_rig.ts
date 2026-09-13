@@ -49,7 +49,7 @@ export const huntaRig: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Savage horns and hooves",
@@ -58,7 +58,7 @@ export const huntaRig: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     }
   ],
   "option_groups": [

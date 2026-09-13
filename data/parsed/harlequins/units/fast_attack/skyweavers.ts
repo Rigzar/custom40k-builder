@@ -40,7 +40,7 @@ export const skyweavers: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Haywire"
+      "abilities": "Blast(4), Haywire"
     },
     {
       "name": "Shuriken cannon",
@@ -58,7 +58,7 @@ export const skyweavers: Unit = {
       "s": "6",
       "ap": "-4",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Twin shuriken catapult",

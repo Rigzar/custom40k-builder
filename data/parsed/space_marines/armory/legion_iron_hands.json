@@ -1,0 +1,120 @@
+{
+  "name": "Iron Hands Armory",
+  "weapons": [
+    {
+      "name": "Betrayer's bane",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 17,
+      "p_char": 26,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi"
+        },
+        {
+          "name": "Melta",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Combi, Melta"
+        }
+      ]
+    },
+    {
+      "name": "Medusan power axe",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "range": "-",
+      "type": "Melee",
+      "s": "+4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(2), Unwieldy",
+      "p_unit": 7,
+      "p_char": 8
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Gorgon's chain",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model gains +1 Wound.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Ironstone",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "The model gains a +1 bonus to all rolls for its \"Blessing of the Omnissiah\" ability.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Mindforge stave",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "If the model targets a vehicle with a psychic power, it gains a +1 bonus to manifest the power.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Tempered helm",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "desc": "Select a friendly unit within 12\" during the model's activation. The target loses all Battleshock markers and gains the \"Fearless\" ability until the end of the battle round. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "March of the Ancients",
+      "term_compat": false,
+      "gravis_compat": false,
+      "armour_compat": [],
+      "desc": "The model may re-roll all to hit rolls of 1. Dreadnoughts only.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

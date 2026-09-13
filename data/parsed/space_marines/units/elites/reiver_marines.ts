@@ -67,7 +67,7 @@ export const reiverMarines: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy bolt pistol",
@@ -94,7 +94,7 @@ export const reiverMarines: Unit = {
       "s": "U",
       "ap": "0",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     }
   ],
   "option_groups": [

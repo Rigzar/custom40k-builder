@@ -9,7 +9,7 @@
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive, only for models in Terminator armor",
+      "abilities": "Blast(4), only for models in Terminator armor",
       "p_unit": 27,
       "p_char": null
     },
@@ -21,8 +21,21 @@
       "s": "2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Extra attack, hits automatically wound the target.",
+      "abilities": "Extra Attack(1), Limit(1), hits automatically wound the target.",
       "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "armour_compat": [],
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), AT(2)",
+      "p_unit": null,
       "p_char": null
     }
   ],

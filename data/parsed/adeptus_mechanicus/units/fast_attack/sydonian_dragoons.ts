@@ -49,7 +49,7 @@ export const sydonianDragoons: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Rad, Suppression"
+      "abilities": "Armor piercing(5+), Rad, Suppression(6)"
     },
     {
       "name": "Taser lance - Charge",

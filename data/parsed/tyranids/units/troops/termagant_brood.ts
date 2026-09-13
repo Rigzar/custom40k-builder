@@ -58,7 +58,7 @@ export const termagantBrood: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Spike rifle",
@@ -85,7 +85,7 @@ export const termagantBrood: Unit = {
       "s": "2",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Monofilament"
+      "abilities": "Auto Hit, Sunder(1), Monofilament"
     }
   ],
   "option_groups": [
@@ -298,7 +298,7 @@ export const termagantBrood: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

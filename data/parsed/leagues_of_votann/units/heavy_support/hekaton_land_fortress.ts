@@ -67,7 +67,7 @@ export const hekatonLandFortress: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Ammo(1), Explosive, Indirect"
+      "abilities": "Ammo(1), Blast(4), Indirect"
     },
     {
       "name": "MATR autocannon",
@@ -112,7 +112,7 @@ export const hekatonLandFortress: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Barrage"
+      "abilities": "AT(3), Blast(6)"
     },
     {
       "name": "SP heavy conversion beamer - Mid range",
@@ -121,7 +121,7 @@ export const hekatonLandFortress: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "SP heavy conversion beamer - Long range",

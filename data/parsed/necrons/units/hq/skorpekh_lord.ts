@@ -49,7 +49,7 @@ export const skorpekhLord: Unit = {
       "s": "+2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flurry(2), Unwieldy"
+      "abilities": "AT(2), Extra Attack(2), Unwieldy"
     }
   ],
   "option_groups": [],

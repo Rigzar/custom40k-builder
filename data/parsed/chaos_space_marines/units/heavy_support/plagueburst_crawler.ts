@@ -103,7 +103,7 @@ export const plagueburstCrawler: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Barrage, Indirect, Poison(4+)"
+      "abilities": "AT(1), Blast(6), Indirect, Poison(4+)"
     },
     {
       "name": "Plague spewer",
@@ -112,7 +112,7 @@ export const plagueburstCrawler: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Rothail volley gun",
@@ -139,7 +139,7 @@ export const plagueburstCrawler: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Poison(4+)"
+      "abilities": "Blast(4), Poison(4+)"
     }
   ],
   "option_groups": [

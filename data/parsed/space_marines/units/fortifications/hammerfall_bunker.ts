@@ -40,7 +40,7 @@ export const hammerfallBunker: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Anti-air"
+      "abilities": "Blast(4), Anti-air"
     },
     {
       "name": "Hammerstrike missile launcher (Krak)",
@@ -67,7 +67,7 @@ export const hammerfallBunker: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

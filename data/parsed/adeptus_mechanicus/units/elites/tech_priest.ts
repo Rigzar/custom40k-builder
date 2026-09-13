@@ -49,7 +49,7 @@ export const techPriest: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra attack"
+      "abilities": "AT(2), Extra Attack(1), Limit(1)"
     }
   ],
   "option_groups": [

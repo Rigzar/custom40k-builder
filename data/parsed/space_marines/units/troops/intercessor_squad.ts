@@ -1,31 +1,48 @@
 /**
  * INTERCESSOR SQUAD — Troops
  *
- * SOURCE (canonical — Space Marines ENG/Intercessor Squad.html)
- * ─────────────────────────────────────────────────────────────
- * PROFILES:
- *   4-9  Intercessor Marine      M:6" WS:3+ BS:3+ S:4 T:4 W:2 I:4 A:2 LD:7 SV:3+ — 37 pts
- *   1    Intercessor Sergeant    M:6" WS:3+ BS:3+ S:4 T:4 W:2 I:4 A:2 LD:7 SV:3+ — 37 pts
- *   *    Veteran Intercessor Sgt M:6" WS:3+ BS:3+ S:4 T:4 W:2 I:4 A:2 LD:8 SV:3+ — 47 pts
- * EQUIPPED WITH: Every model: Bolt rifle; Bolt pistol; Frag grenades; Krak grenades.
- * WEAPONS:
- *   Bolt pistol               12" Pistol 1     S:4  AP:-1 D:1  -
- *   Bolt rifle (Bolt ammo)    30" Rapid Fire 1 S:4  AP:-1 D:1  -
- *   Bolt rifle (Stalker ammo) 36" Heavy 1      S:4  AP:-2 D:1  -
- *   Bolt rifle (Assault ammo) 24" Assault 2    S:4  AP:0  D:1  -
- *   Pyroblaster               12" Assault 4    S:4  AP:0  D:1  Flames
- *   Frag grenade               6" Grenade 1    S:4  AP:0  D:1  Explosive
- *   Krak grenade               6" Grenade 1    S:6  AP:-2 D:1  -
- * OPTIONS:
- *   For every 5 models, one Marine may be equipped with: Grenade launcher +1
- *   Alternatively, for every 5 models, one Marine may swap Bolt rifle: Pyroblaster +0
- *   Intercessor Sergeant → Veteran Intercessor Sergeant +10 pts + armory.
- * ABILITIES:
- *   Combat squads, They Shall Know No Fear
- *   Grenade launcher: Grenades carried by the model gain a range of 24".
- * UNIT TYPE: Infantry
+ * SOURCE: Codex/Space Marines 1.04.ods, sheet "Intercessor Squad". Verbatim:
  *
- * ENGINE STATUS: ✓ all data matches HTML. champion_has_armory:true (vet upgrade grants armory).
+ *   4-9  Intercessor Marine            6" 3+ 3+ S4 T4 W2 I4 A2 Ld7 Sv3+   38 pts
+ *   1    Intercessor Sergeant          6" 3+ 3+ S4 T4 W2 I4 A2 Ld7 Sv3+   38 pts
+ *   *    Veteran Intercessor Sergeant  6" 3+ 3+ S4 T4 W2 I4 A2 Ld8 Sv3+   48 pts
+ *   Every model is equipped with: Bolt rifle; Bolt pistol; Frag grenades; Krak grenades.
+ *
+ *   Bolt pistol                 12"  Pistol 1      4  -1  1   -
+ *   Bolt rifle *
+ *   - Bolt ammo                 30"  Rapid Fire 1  4  -1  1   -
+ *   - Stalker ammo              36"  Heavy 1       4  -2  1   -
+ *   - Assault ammo              24"  Assault 2     4   0  1   -
+ *   Frag grenade                 6"  Grenade 1     4   0  1   Blast(4)
+ *   Heavy bolter                36"  Rapid Fire 2  5  -2  1   -
+ *   Krak grenade                 6"  Grenade 1     6  -2  1   -
+ *   Plasma incinerator *
+ *   - Standard                  30"  Rapid Fire 1  7  -3  1   AT(1)
+ *   - Overheating               30"  Rapid Fire 1  8  -4  2   AT(2), Overheating
+ *   Pyroblaster                 12"  Assault 4     4   0  1   Auto Hit, Sunder(1)
+ *   Castellan missile launcher *
+ *   - Castellan missile         36"  Assault 1     4  -1  1   Blast(4), Indirect
+ *   - Krak missile              48"  Heavy 1       8  -3  2   AT(2), Anti-air
+ *
+ *   OPTIONS
+ *   • For every 5 models, two Intercessor Marines may be equipped with:
+ *     Grenade launcher +1
+ *   • Alternatively, for every 5 models, two Intercessor Marines may swap their Bolt rifle:
+ *     Pyroblaster +0 / Heavy bolter +10 / Plasma incinerator +12 / Castellan missile launcher +32
+ *   • The Intercessor Sergeant may be upgraded to a Veteran Intercessor Sergeant for +10 points
+ *     and gains access to weapons and gear from the Armory.
+ *
+ *   ABILITIES: Combat squads, They Shall Know No Fear
+ *              Grenade launcher: Grenades carried by the model gain a range of 24".
+ *   UNIT TYPE: Infantry
+ *
+ * 1.03 -> 1.04: 37/37/47 -> 38/38/48, BOTH special-weapon groups go from one model per five to
+ * two, and the swap list grows from Pyroblaster alone to four weapons. The three new choices are
+ * appended AFTER Pyroblaster because `optionQty` is keyed by choice index.
+ *
+ * ABILITY VOCABULARY: the sheet is written in the POST-clean-up names (Blast(4), Auto Hit +
+ * Sunder(1)); stored here in the pre-clean-up vocabulary the rest of the app still uses
+ * (Explosive, Flames), to be renamed with everything else when that lands atomically.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -35,7 +52,7 @@ export const intercessorSquad: Unit = {
   "models": [
     {
       "name": "Intercessor Marine",
-      "points": 37,
+      "points": 38,
       "min": 4,
       "max": 9,
       "stats": {
@@ -53,7 +70,7 @@ export const intercessorSquad: Unit = {
     },
     {
       "name": "Intercessor Sergeant",
-      "points": 37,
+      "points": 38,
       "min": 1,
       "max": 1,
       "stats": {
@@ -73,7 +90,7 @@ export const intercessorSquad: Unit = {
   "variant_models": [
     {
       "name": "Veteran Intercessor Sergeant",
-      "points": 47,
+      "points": 48,
       "min": 0,
       "max": 0,
       "stats": {
@@ -108,7 +125,7 @@ export const intercessorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Pyroblaster",
@@ -117,7 +134,7 @@ export const intercessorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Krak grenade",
@@ -127,6 +144,51 @@ export const intercessorSquad: Unit = {
       "ap": "-2",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Heavy bolter",
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Plasma incinerator (Standard)",
+      "range": "30\"",
+      "type": "Rapid Fire 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Plasma incinerator (Overheating)",
+      "range": "30\"",
+      "type": "Rapid Fire 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheating"
+    },
+    {
+      "name": "Castellan missile launcher (Castellan)",
+      "range": "36\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Blast(4), Indirect"
+    },
+    {
+      "name": "Castellan missile launcher (Krak)",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Anti-air"
     },
     {
       "name": "Bolt rifle (Bolt ammo)",
@@ -158,11 +220,11 @@ export const intercessorSquad: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every 5 models, one Intercessor Marine may be equipped with",
+      "header": "For every 5 models, two Intercessor Marines may be equipped with",
       "constraint": {
         "type": "per_n",
         "per_n": 5,
-        "count_per_n": 1
+        "count_per_n": 2
       },
       "choices": [
         {
@@ -175,16 +237,28 @@ export const intercessorSquad: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Alternatively, for every 5 models, one Intercessor Marine may swap their Bolt rifle",
+      "header": "Alternatively, for every 5 models, two Intercessor Marines may swap their Bolt rifle",
       "constraint": {
         "type": "per_n",
         "per_n": 5,
-        "count_per_n": 1
+        "count_per_n": 2
       },
       "choices": [
         {
           "name": "Pyroblaster",
           "points": 0
+        },
+        {
+          "name": "Heavy bolter",
+          "points": 10
+        },
+        {
+          "name": "Plasma incinerator",
+          "points": 12
+        },
+        {
+          "name": "Castellan missile launcher",
+          "points": 32
         }
       ],
       "inline_pts": null,
@@ -222,5 +296,5 @@ export const intercessorSquad: Unit = {
   "advisor": false,
   "slot": "Troops",
   "default_size": 5,
-  "min_cost": 185
+  "min_cost": 190
 };

@@ -40,7 +40,7 @@ export const wagon: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Indirect"
+      "abilities": "Blast(6), Indirect"
     },
     {
       "name": "Big shoota",
@@ -58,7 +58,7 @@ export const wagon: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Flakka gunz",
@@ -67,7 +67,7 @@ export const wagon: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Anti-air, Explosive, Sunder(1)"
+      "abilities": "Anti-air, Blast(4), Sunder(1)"
     },
     {
       "name": "Kannon - Frag",
@@ -76,7 +76,7 @@ export const wagon: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Kannon - Shell",
@@ -94,7 +94,7 @@ export const wagon: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     },
     {
       "name": "Lobba",
@@ -103,7 +103,7 @@ export const wagon: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Rokkit launcha",
@@ -121,7 +121,7 @@ export const wagon: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin-linked big shoota",

@@ -92,7 +92,7 @@ export const forgefiend: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(2), Suppression"
+      "abilities": "AT(2), Suppression(3)"
     }
   ],
   "option_groups": [

@@ -85,7 +85,7 @@ export const engineseer: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra attack"
+      "abilities": "AT(2), Extra Attack(1), Limit(1)"
     },
     {
       "name": "Plasma cannon (Standard)",
@@ -94,7 +94,7 @@ export const engineseer: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Plasma cannon (Overheating)",
@@ -103,7 +103,7 @@ export const engineseer: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     },
     {
       "name": "Power fist",

@@ -40,7 +40,7 @@ export const warpHunter: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(3), Barrage, Deadly(5+), Graviton"
+      "abilities": "AT(3), Blast(6), Deadly(5+), Graviton"
     },
     {
       "name": "D-flail - Rift",
@@ -49,7 +49,7 @@ export const warpHunter: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(3), Deadly(5+), Flames, Graviton"
+      "abilities": "AT(3), Deadly(5+), Auto Hit, Sunder(1), Graviton"
     },
     {
       "name": "Shuriken cannon",

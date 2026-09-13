@@ -12,10 +12,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   // ── Adeptus Custodes ──────────────────────────────────────────────────────
   'Kataphraktoi': { ...BASE,
-    troopsRemap: ['Jetbike Custodians'],
+    troopsRemap: ['Vertus Praetors'],
     lowMoveMustEmbark: {},
     notes: [
-      'Jetbike Custodians count as Troops.',
+      'Vertus Praetors count as Troops.',
       'Units with M<12" must start the game as passengers inside a transport.',
       'Units with M<12" that have no transport option cannot be selected.',
     ],
@@ -516,7 +516,8 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
  * nothing and removing one breaks somebody's saved list.
  */
 const RENAMED_ARCHETYPES: Record<string, string> = {
-  'Titan Legion': 'Taghmata',   // Adeptus Mechanicus, 2026-08 codex
+  'Titan Legion': 'Taghmata',           // Adeptus Mechanicus, 2026-08 codex
+  'Sector Protector': 'Sector Lord',    // Inquisition, 2026-09 codex (1.01)
 };
 
 export function getArchetypeRule(archetype: string): ArchetypeRule | null {

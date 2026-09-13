@@ -16,12 +16,12 @@
  * OPTIONS:
  *   • All models may receive a Mark of Chaos (per model): Khorne/Slaanesh/Nurgle +2pts,
  *     Tzeentch +6pts
- *   • Each model may be upgraded with one of: Grasping Pseudopods +2 / Toxic Haemorrhage +5 /
+ *   • Each model may be upgraded with one of: Grasping Pseudopods +5 / Toxic Haemorrhage +5 /
  *     Subcutaneous Armor +16
  *
  * ABILITIES (verbatim):
  *   Move through cover, Terrifying(-1)
- *   Grasping Pseudopods: The model gains +3 Attacks.
+ *   Grasping Pseudopods: The model gains +2 Attacks.
  *   Toxic Haemorrhage: The model gains the "Poison(3+)" ability for all melee attacks.
  *   Subcutaneous Armor: The model gains a 5+ armor save.
  *
@@ -37,7 +37,7 @@
  *     Creature is its own type — see Helbrute/Big Mutants which are also Monstrous
  *     Infantry with is_monster:false). NOT a bug — same pattern faction-wide.
  *   ✓ no armourKeyword / no veteran abilities (text confirms no armory/veteran lines)
- *   ✓ default_size: 1 / min_cost: 22
+ *   ✓ default_size: 1 / min_cost: 23
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -47,7 +47,7 @@ export const chaosSpawn: Unit = {
   "models": [
     {
       "name": "Chaos Spawn",
-      "points": 22,
+      "points": 23,
       "min": 1,
       "max": 4,
       "stats": {
@@ -58,7 +58,7 @@ export const chaosSpawn: Unit = {
         "T": "5",
         "W": "3",
         "I": "3",
-        "A": "3",
+        "A": "4",
         "LD": "10",
         "SV": "6+"
       }
@@ -113,7 +113,7 @@ export const chaosSpawn: Unit = {
       "choices": [
         {
           "name": "Grasping Pseudopods",
-          "points": 2
+          "points": 5
         },
         {
           "name": "Toxic Haemorrhage",
@@ -131,7 +131,7 @@ export const chaosSpawn: Unit = {
   ],
   "abilities": [
     "Move through cover, Terrifying(-1)",
-    "Grasping Pseudopods: The model gains +3 Attacks.",
+    "Grasping Pseudopods: The model gains +2 Attacks.",
     "Toxic Haemorrhage: The model gains the \"Poison(3+)\" ability for all melee attacks.",
     "Subcutaneous Armor: The model gains a 5+ armor save."
   ],
@@ -152,5 +152,5 @@ export const chaosSpawn: Unit = {
   "advisor": false,
   "slot": "Fast Attack",
   "default_size": 1,
-  "min_cost": 22
+  "min_cost": 23
 };

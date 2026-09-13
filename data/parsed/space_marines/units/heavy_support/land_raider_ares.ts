@@ -40,7 +40,7 @@ export const landRaiderAres: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Barrage, Tank hunter"
+      "abilities": "AT(4), Blast(6), Tank hunter"
     },
     {
       "name": "Flamestorm cannon",
@@ -49,7 +49,7 @@ export const landRaiderAres: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Hurricane Boltgun",
@@ -94,7 +94,7 @@ export const landRaiderAres: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin plasma cannon (Standard)",
@@ -103,7 +103,7 @@ export const landRaiderAres: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Twin plasma cannon (Overcharged)",
@@ -112,7 +112,7 @@ export const landRaiderAres: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     }
   ],
   "option_groups": [

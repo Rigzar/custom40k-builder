@@ -49,7 +49,7 @@ export const ogrynBodyguard: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenadier gauntlet",
@@ -58,7 +58,7 @@ export const ogrynBodyguard: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(2)"
     },
     {
       "name": "Ripper gun - Ranged",

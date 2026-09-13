@@ -53,7 +53,7 @@ export const norn: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Monstrous piercing claws",
@@ -71,7 +71,7 @@ export const norn: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     }
   ],
   "option_groups": [
@@ -255,7 +255,7 @@ export const norn: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

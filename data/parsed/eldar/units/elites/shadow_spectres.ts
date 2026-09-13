@@ -77,7 +77,7 @@ export const shadowSpectres: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Prism blaster",
@@ -95,7 +95,7 @@ export const shadowSpectres: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Prism rifle - Focused",

@@ -49,7 +49,7 @@ export const warkopta: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive, Overheating"
+      "abilities": "AT(1), Blast(4), Overheating"
     },
     {
       "name": "Rokkit launcha",
@@ -67,7 +67,7 @@ export const warkopta: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin-linked supa-shoota",

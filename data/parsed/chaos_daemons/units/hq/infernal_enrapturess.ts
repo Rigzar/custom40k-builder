@@ -44,7 +44,7 @@ export const infernalEnrapturess: Unit = {
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "Suppression"
+      "abilities": "Suppression(6)"
     },
     {
       "name": "Heartstring lyre - Cacophonous melody",
@@ -53,7 +53,7 @@ export const infernalEnrapturess: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Suppression"
+      "abilities": "Auto Hit, Sunder(1), Suppression(3)"
     },
     {
       "name": "Ravaging claws",

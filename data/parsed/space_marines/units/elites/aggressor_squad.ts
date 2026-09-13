@@ -59,7 +59,7 @@ export const aggressorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Extra attack"
+      "abilities": "Blast(4), Extra Attack(1), Limit(1)"
     },
     {
       "name": "Auto boltstorm gauntlet (Melee)",
@@ -77,7 +77,7 @@ export const aggressorSquad: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(2)"
     },
     {
       "name": "Flamestorm gauntlet (Melee)",
@@ -95,7 +95,7 @@ export const aggressorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

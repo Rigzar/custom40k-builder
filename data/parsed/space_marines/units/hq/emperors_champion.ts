@@ -63,7 +63,7 @@ export const emperorsChampion: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -81,7 +81,7 @@ export const emperorsChampion: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "2",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "The Black Sword (Piercing strike)",

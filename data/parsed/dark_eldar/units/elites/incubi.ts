@@ -59,7 +59,7 @@ export const incubi: Unit = {
       "s": "+2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Deadly(5+), Flurry(1)"
+      "abilities": "Deadly(5+), Extra Attack(1)"
     },
     {
       "name": "Demiklaives (dual blades)",
@@ -68,7 +68,7 @@ export const incubi: Unit = {
       "s": "+1",
       "ap": "-4",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Demiklaives (single blade)",
@@ -77,7 +77,7 @@ export const incubi: Unit = {
       "s": "+2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Deadly(5+), Flurry(1)"
+      "abilities": "Deadly(5+), Extra Attack(1)"
     }
   ],
   "option_groups": [

@@ -67,7 +67,7 @@ export const lootedValkyrie: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Multiple rocket pod",
@@ -76,7 +76,7 @@ export const lootedValkyrie: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-Air, Explosive"
+      "abilities": "Anti-Air, Blast(4)"
     }
   ],
   "option_groups": [

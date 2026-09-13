@@ -524,6 +524,17 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                   <span className="ml-1">· {formatDate(a.updated_at)}</span>
                   {a.shared && <span className="ml-1.5 text-[9px] text-amber-600 uppercase tracking-wide">👥 {t('sharedWithYouBadge')}</span>}
                 </div>
+                {/* Requirement 4 of the events doc: a list registered for an event has to be
+                    identifiable in the public feed, not just inside the event page. */}
+                {a.event_names && (
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {a.event_names.split(', ').map(ev => (
+                      <span key={ev} className="text-[9px] px-1.5 py-0.5 border border-emerald-900 text-emerald-500 tracking-wide">
+                        ⚔ {ev}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 {loggedIn && !a.shared && (

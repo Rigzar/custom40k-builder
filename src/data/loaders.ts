@@ -110,7 +110,7 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'space_marines': {
-      const [u, g, arch, prayers, discs, rel, dw, da, ws, sw, fi, bt, ba, br] = await Promise.all([
+      const [u, g, arch, prayers, discs, rel, dw, da, ws, sw, fi, bt, ba, br, ih, rg, sa, ul] = await Promise.all([
         import('../../data/parsed/space_marines/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/space_marines/armory/general.json'),
         import('../../data/parsed/space_marines/archetypes.json'),
@@ -125,9 +125,15 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/space_marines/armory/legion_black_templars.json'),
         import('../../data/parsed/space_marines/armory/legion_blood_angels.json'),
         import('../../data/parsed/space_marines/armory/legion_blood_ravens.json'),
+        // Codex 1.04 (September 2026) adds four chapter armouries.
+        import('../../data/parsed/space_marines/armory/legion_iron_hands.json'),
+        import('../../data/parsed/space_marines/armory/legion_raven_guard.json'),
+        import('../../data/parsed/space_marines/armory/legion_salamanders.json'),
+        import('../../data/parsed/space_marines/armory/legion_ultramarines.json'),
       ]);
       return asm(u, g, arch, noRules, {},
-        { 'Relictors': rel, 'Death Watch': dw, 'Dark Angels': da, 'White Scars': ws, 'Space Wolves': sw, 'Imperial Fists': fi, 'Black Templars': bt, 'Blood Angels': ba, 'Blood Ravens': br },
+        { 'Relictors': rel, 'Death Watch': dw, 'Dark Angels': da, 'White Scars': ws, 'Space Wolves': sw, 'Imperial Fists': fi, 'Black Templars': bt, 'Blood Angels': ba, 'Blood Ravens': br,
+          'Iron Hands': ih, 'Raven Guard': rg, 'Salamanders': sa, 'Ultramarines': ul },
         { prayers, disciplines: discs });
     }
 

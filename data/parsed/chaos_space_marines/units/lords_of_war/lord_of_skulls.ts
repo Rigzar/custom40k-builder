@@ -92,7 +92,7 @@ export const lordOfSkulls: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Flames, Overheating"
+      "abilities": "AT(3), Auto Hit, Sunder(1), Overheating"
     },
     {
       "name": "Gorestorm cannon",
@@ -101,7 +101,7 @@ export const lordOfSkulls: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flames"
+      "abilities": "AT(2), Auto Hit, Sunder(1)"
     },
     {
       "name": "Great cleaver of Khorne - Strike",
@@ -119,7 +119,7 @@ export const lordOfSkulls: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Flurry(3)"
+      "abilities": "AT(3), Extra Attack(3)"
     },
     {
       "name": "Hades gatling cannon",
@@ -128,7 +128,7 @@ export const lordOfSkulls: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(2), Suppression"
+      "abilities": "AT(2), Suppression(3)"
     },
     {
       "name": "Ichor cannon",
@@ -137,7 +137,7 @@ export const lordOfSkulls: Unit = {
       "s": "7",
       "ap": "-4",
       "d": "1",
-      "abilities": "AT(1), Barrage, Seeking"
+      "abilities": "AT(1), Blast(6), Seeking"
     },
     {
       "name": "Skullhurler",
@@ -146,7 +146,7 @@ export const lordOfSkulls: Unit = {
       "s": "9",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(3), Colossal blast"
+      "abilities": "AT(3), Blast(8)"
     }
   ],
   "option_groups": [

@@ -49,7 +49,7 @@ export const thunderfireCannon: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -58,7 +58,7 @@ export const thunderfireCannon: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -85,7 +85,7 @@ export const thunderfireCannon: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Extra attack, Slow(-5)"
+      "abilities": "AT(2), Extra Attack(1), Limit(1), Slow(-5)"
     },
     {
       "name": "Thunderfire cannon (Airburst)",
@@ -94,7 +94,7 @@ export const thunderfireCannon: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Seeking"
+      "abilities": "Blast(4), Seeking"
     },
     {
       "name": "Thunderfire cannon (Subterranian blast)",
@@ -103,7 +103,7 @@ export const thunderfireCannon: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Thunderfire cannon (Surface detonation)",
@@ -112,7 +112,7 @@ export const thunderfireCannon: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     }
   ],
   "option_groups": [],

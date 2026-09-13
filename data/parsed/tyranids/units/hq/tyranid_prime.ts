@@ -40,7 +40,7 @@ export const tyranidPrime: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Deadly(5+), Flurry(1)"
+      "abilities": "Deadly(5+), Extra Attack(1)"
     },
     {
       "name": "Deathspitter",
@@ -85,7 +85,7 @@ export const tyranidPrime: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Spinefists",
@@ -330,7 +330,7 @@ export const tyranidPrime: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

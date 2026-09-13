@@ -49,7 +49,7 @@ export const bloodthirster: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flurry(2)"
+      "abilities": "AT(2), Extra Attack(2)"
     }
   ],
   "option_groups": [

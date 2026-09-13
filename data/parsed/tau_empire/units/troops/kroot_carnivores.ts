@@ -58,7 +58,7 @@ export const krootCarnivores: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Monofilament, Suppression"
+      "abilities": "Blast(4), Monofilament, Suppression(3)"
     },
     {
       "name": "Kroot rifle - Melee",

@@ -95,7 +95,7 @@ export const deathshroudTerminators: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Manreaper - Cleave",
@@ -113,7 +113,7 @@ export const deathshroudTerminators: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Poison(4+), Flurry(1), Unwieldy"
+      "abilities": "Poison(4+), Extra Attack(1), Unwieldy"
     }
   ],
   "option_groups": [],

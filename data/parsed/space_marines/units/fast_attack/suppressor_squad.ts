@@ -77,7 +77,7 @@ export const suppressorSquad: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Suppression"
+      "abilities": "AT(1), Suppression(3)"
     },
     {
       "name": "Bolt pistol",
@@ -95,7 +95,7 @@ export const suppressorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",

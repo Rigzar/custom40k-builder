@@ -1,5 +1,10 @@
 /**
- * JETBIKE CUSTODIANS — Fast Attack
+ * VERTUS PRAETORS — Fast Attack
+ *
+ * Codex 1.01 (September 2026) consolidated the old "Jetbike Custodians" and the old Elites
+ * "Vertus Praetor" into this one datasheet. The stats, points and options are the former Jetbike
+ * Custodians unchanged; only the name moved. Both old names are mapped forward in
+ * engine/unitRenames.ts, so armies saved under either still resolve.
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
@@ -8,11 +13,11 @@
 
 import type { Unit } from '../../../../../src/types/data';
 
-export const jetbikeCustodians: Unit = {
-  "name": "Jetbike Custodians",
+export const vertusPraetors: Unit = {
+  "name": "Vertus Praetors",
   "models": [
     {
-      "name": "Jetbike Custodian",
+      "name": "Vertus Praetor",
       "points": 151,
       "min": 3,
       "max": 6,

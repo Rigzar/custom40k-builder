@@ -771,7 +771,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     g => /psyker/i.test(g.header) && g.inline_pts != null,
   );
   const isOptionalPsyker = !unit.is_psyker && psykerGroupIdx >= 0 &&
-    (item.optionQty[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
+    (item.optionQty?.[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.
   const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && statModMark === 'Tzeentch';
@@ -1187,7 +1187,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     for (const weapon of weapons) {
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       if ((grant.scope === 'ranged') === isMelee) continue;
-      weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), grant.ability]);
+      const granted = grant.basicBioform && (unit.keywords ?? []).includes('Basic Bioform')
+        ? grant.basicBioform
+        : grant.ability;
+      weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), granted]);
     }
   }
 
@@ -1406,7 +1409,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   if (builtInChampion) {
     for (const [gi, g] of unit.option_groups.entries()) {
       if (!g.replaces?.length || g.applies_to_model) continue;
-      for (const [ci, qty] of Object.entries(item.optionQty[gi] ?? {})) {
+      for (const [ci, qty] of Object.entries(item.optionQty?.[gi] ?? {})) {
         if (ci === '__inline' || !qty) continue;
         const choice = g.choices[parseInt(ci)];
         if (!choice) continue;
@@ -1722,7 +1725,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
           .find(v => header.includes(v.name.toLowerCase()));
         if (headerVariant && (grp.label ?? '').toLowerCase() !== headerVariant.name.toLowerCase()) continue;
       }
-      const ch = item.optionQty[gi] ?? {};
+      const ch = item.optionQty?.[gi] ?? {};
       let groupQty = 0;
       for (const [ci, qty] of Object.entries(ch)) {
         if (ci === '__inline' || !qty) continue;
@@ -1963,7 +1966,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     // show what was actually taken" gap, one weapon over).
     const servitorSwapGi = unit.option_groups.findIndex(g => (g.header ?? '').includes('Shock charger'));
     const servitorSwapBought = servitorSwapGi >= 0 &&
-      Object.values(item.optionQty[servitorSwapGi] ?? {}).some(q => Number(q) > 0);
+      Object.values(item.optionQty?.[servitorSwapGi] ?? {}).some(q => Number(q) > 0);
     for (const grp of groups) {
       grp.weapons = grp.weapons.filter(w => {
         if (baseName(w.name) === 'Shock charger') return servitorSwapBought;
@@ -2173,8 +2176,16 @@ function isNamedChoiceActive(unit: Unit, item: RosterEntry, choiceName: string):
  * BIOMORPH_ALL_RANGED_RANGE_BOOSTS below for the numeric-delta sibling (Pathogenesis's own
  * "+3\" to all ranged weapons") — Zzapkrumpaz has no numeric equivalent, ability-only.
  */
-const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, { ability: string; scope: 'ranged' | 'melee' }> = {
-  'Infrasonic Roar': { ability: 'Suppression', scope: 'ranged' },
+const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {
+  ability: string;
+  scope: 'ranged' | 'melee';
+  /** Value used instead when the unit is a Basic Bioform — see Infrasonic Roar. */
+  basicBioform?: string;
+}> = {
+  // Codex 2026-09 gives this one TWO values: "All ranged weapons in the unit gain the
+  // \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain
+  // \"Suppression(2)\"." It is the only grant in the game that reads the unit's bioform.
+  'Infrasonic Roar': { ability: 'Suppression(3)', scope: 'ranged', basicBioform: 'Suppression(2)' },
   'Zzapkrumpaz': { ability: 'Deadly(6+)', scope: 'melee' },
 };
 

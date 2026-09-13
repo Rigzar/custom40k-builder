@@ -104,7 +104,7 @@ export const helbrute: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Helbrute fist",
@@ -131,7 +131,7 @@ export const helbrute: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheat"
+      "abilities": "AT(2), Blast(4), Overheat"
     },
     {
       "name": "Multi-melta",
@@ -149,7 +149,7 @@ export const helbrute: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(4)"
+      "abilities": "Extra Attack(4)"
     },
     {
       "name": "Reaper autocannon",
@@ -185,7 +185,7 @@ export const helbrute: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak missile",

@@ -67,7 +67,7 @@ export const pteraxiiSterylizors: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Luminagen"
+      "abilities": "Auto Hit, Sunder(1), Luminagen"
     },
     {
       "name": "Pteraxii talons",
@@ -76,7 +76,7 @@ export const pteraxiiSterylizors: Unit = {
       "s": "+1",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     }
   ],
   "option_groups": [

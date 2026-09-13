@@ -49,7 +49,7 @@ export const bigedBossbunka: Unit = {
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Beam, Flames"
+      "abilities": "AT(3), Beam, Auto Hit, Sunder(1)"
     },
     {
       "name": "Gaze of Gork - Glare",
@@ -58,7 +58,7 @@ export const bigedBossbunka: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Beam, Explosive"
+      "abilities": "Beam, Blast(4)"
     }
   ],
   "option_groups": [

@@ -77,7 +77,7 @@ export const lootas: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive, Overheating"
+      "abilities": "AT(1), Blast(4), Overheating"
     },
     {
       "name": "Rokkit launcha",

@@ -96,7 +96,7 @@ export const CD_SPECIAL_ABILITIES: CdSpecialAbilityEntry[] = [
     category: 'archetype',
     text: 'Ungated. Roll 1D6 each Reinforcement phase; on 5+ a Meteor appears (activated like a ' +
       'unit; placed like Deep Strike, scatter always 2D6" unmodified). Instead of placing a model, ' +
-      'all units within 6" take 1 automatic hit S10 AP-1 D1, AT(2), Barrage, Seeking, Suppression.',
+      'all units within 6" take 1 automatic hit S10 AP-1 D1, AT(2), Blast(6), Seeking, Suppression(3).',
   },
   {
     name: 'Figureheads of The Dark Prince',

@@ -147,7 +147,7 @@ export const legionnaires: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -156,7 +156,7 @@ export const legionnaires: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy bolter",
@@ -210,7 +210,7 @@ export const legionnaires: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Missile launcher - Frag missile",
@@ -219,7 +219,7 @@ export const legionnaires: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak missile",

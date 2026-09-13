@@ -68,7 +68,7 @@
       "range": "-",
       "target": "Self",
       "cast_value": "4",
-      "effect": "The target gains a melee weapon with the following profile: S: +1 AP: -3 D: 1, Flurry(2).",
+      "effect": "The target gains a melee weapon with the following profile: S: +1 AP: -3 D: 1, Extra Attack(2).",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -98,7 +98,7 @@
       "range": "24\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target suffers one hit with the following profile: S: 5 AP: -1 D: 1; Barrage, Seeking.",
+      "effect": "The target suffers one hit with the following profile: S: 5 AP: -1 D: 1; Blast(6), Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },

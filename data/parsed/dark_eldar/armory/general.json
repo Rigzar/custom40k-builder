@@ -69,7 +69,7 @@
       "s": "10",
       "ap": "0",
       "d": "*",
-      "abilities": "Ammo(1), AT(4), Barrage, Units hit must pass a Strength test or suffer three Mortal Wounds.",
+      "abilities": "Ammo(1), AT(4), Blast(6), Units hit must pass a Strength test or suffer three Mortal Wounds.",
       "p_unit": null,
       "p_char": 15
     },
@@ -81,7 +81,7 @@
       "s": "+1",
       "ap": "-4",
       "d": "1",
-      "abilities": "Flurry(3)",
+      "abilities": "Extra Attack(3)",
       "p_unit": 9,
       "p_char": 10
     },
@@ -105,7 +105,7 @@
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "Deadly(5+), Extra attack, Poison(2+)",
+      "abilities": "Deadly(5+), Extra Attack(1), Limit(1), Poison(2+)",
       "p_unit": 8,
       "p_char": 10
     },
@@ -141,7 +141,7 @@
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(1), Quick(1)",
+      "abilities": "Extra Attack(1), Quick(1)",
       "p_unit": 5,
       "p_char": 6
     },
@@ -177,7 +177,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(3)",
+      "abilities": "Extra Attack(3)",
       "p_unit": 6,
       "p_char": 6
     },
@@ -189,7 +189,7 @@
       "s": "*",
       "ap": "-",
       "d": "-",
-      "abilities": "Extra attack, For each successful hit roll with this weapon, the target must pass a Toughness test. If the test fails, the model dies immediately. Doesn't work against vehicles.",
+      "abilities": "Extra Attack(1), Limit(1), For each successful hit roll with this weapon, the target must pass a Toughness test. If the test fails, the model dies immediately. Doesn't work against vehicles.",
       "p_unit": null,
       "p_char": 10
     },
@@ -201,7 +201,7 @@
       "s": "4",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames",
+      "abilities": "Auto Hit, Sunder(1)",
       "p_unit": 19,
       "p_char": 13
     },
@@ -213,7 +213,7 @@
       "s": "8",
       "ap": "-5",
       "d": "3",
-      "abilities": "Ammo(1), Explosive, To wound rolls are rolled against the target's Leadership value",
+      "abilities": "Ammo(1), Blast(4), To wound rolls are rolled against the target's Leadership value",
       "p_unit": null,
       "p_char": 5
     },
@@ -225,7 +225,7 @@
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive",
+      "abilities": "Blast(4)",
       "p_unit": 1,
       "p_char": 1
     },
@@ -261,7 +261,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Poison(3+), Flurry(1)",
+      "abilities": "Poison(3+), Extra Attack(1)",
       "p_unit": 5,
       "p_char": 6
     },
@@ -522,7 +522,7 @@
     {
       "name": "Twilight shroud",
       "term_compat": false,
-      "desc": "The model and its attached unit gain the \"Stealth\" abilities.",
+      "desc": "The model and its attached unit gain the \"Stealth\" ability.",
       "p_unit": null,
       "p_char": 20
     },

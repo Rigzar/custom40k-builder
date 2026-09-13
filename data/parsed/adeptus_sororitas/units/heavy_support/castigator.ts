@@ -67,7 +67,7 @@ export const castigator: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Seeking"
+      "abilities": "Blast(4), Seeking"
     },
     {
       "name": "Castigator battle cannon - Sanctified shell",
@@ -76,7 +76,7 @@ export const castigator: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Explosive"
+      "abilities": "AT(3), Blast(4)"
     }
   ],
   "option_groups": [

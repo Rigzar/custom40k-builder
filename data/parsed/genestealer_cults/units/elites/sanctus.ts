@@ -40,7 +40,7 @@ export const sanctus: Unit = {
       "s": "1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(1), Poison(2+), Precision(5+)"
+      "abilities": "Extra Attack(1), Poison(2+), Precision(5+)"
     },
     {
       "name": "Cult sniper rifle",
@@ -49,7 +49,7 @@ export const sanctus: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Familiar's claws",
@@ -58,7 +58,7 @@ export const sanctus: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     }
   ],
   "option_groups": [

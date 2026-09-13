@@ -40,6 +40,9 @@ export async function ensureSchema() {
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS social_links JSONB`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS social_public BOOLEAN NOT NULL DEFAULT false`;
+  // Accounts invented to exercise a closed alpha (Events & Leagues). Flagged rather than
+  // guessed at by name, so the reset deletes exactly what it created and nothing else.
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_test BOOLEAN NOT NULL DEFAULT false`;
   await sql`
     CREATE TABLE IF NOT EXISTS rosters (
       id SERIAL PRIMARY KEY,
@@ -393,6 +396,83 @@ export async function ensureSchema() {
   // yet) keeps behaving exactly as before this migration — one sector, one vote, same as always.
   await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS system_name TEXT`;
   await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS is_capital BOOLEAN NOT NULL DEFAULT false`;
+
+
+  // ── Events & Leagues (Dominic's requirements, 2026-09-13) ─────────────────────────────────────
+  // An EVENT is a named window with a registration period; a LEAGUE is an event that also keeps a
+  // leaderboard. One table for both, because everything except the standings is identical and a
+  // separate "leagues" table would duplicate registration, approval and list assignment.
+  //
+  // Visibility is the only thing that changes how joining works: a PUBLIC event approves a
+  // registration on the spot, a PRIVATE one leaves it pending until the organiser approves it.
+  await sql`
+    CREATE TABLE IF NOT EXISTS events (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      description TEXT NOT NULL DEFAULT '',
+      organiser_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      -- 'public' | 'private'
+      visibility TEXT NOT NULL DEFAULT 'public',
+      -- a league generates standings from confirmed games; a plain event does not
+      is_league BOOLEAN NOT NULL DEFAULT false,
+      starts_on DATE,
+      ends_on DATE,
+      reg_opens_on DATE,
+      reg_closes_on DATE,
+      -- test data made while the feature is closed, so it can be wiped in one go before opening
+      is_test BOOLEAN NOT NULL DEFAULT false,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS events_organiser_idx ON events(organiser_user_id)`;
+
+  // One row per player per event. `roster_id` is the list they assigned; it stays NULL until they
+  // pick one, and ON DELETE SET NULL so deleting a roster cannot delete the registration.
+  await sql`
+    CREATE TABLE IF NOT EXISTS event_players (
+      id SERIAL PRIMARY KEY,
+      event_id INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      -- 'pending' | 'approved' | 'rejected'
+      status TEXT NOT NULL DEFAULT 'pending',
+      roster_id INTEGER REFERENCES rosters(id) ON DELETE SET NULL,
+      registered_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE(event_id, user_id)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS event_players_event_idx ON event_players(event_id)`;
+  await sql`CREATE INDEX IF NOT EXISTS event_players_user_idx ON event_players(user_id)`;
+
+  // A reported game. It counts toward the standings only once the OPPONENT confirms it, so the
+  // result is never one player's word — `status` is the whole point of this table.
+  await sql`
+    CREATE TABLE IF NOT EXISTS event_games (
+      id SERIAL PRIMARY KEY,
+      event_id INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+      reporter_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      reporter_roster_id INTEGER REFERENCES rosters(id) ON DELETE SET NULL,
+      opponent_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      opponent_roster_id INTEGER REFERENCES rosters(id) ON DELETE SET NULL,
+      mission TEXT NOT NULL DEFAULT '',
+      -- from the REPORTER's point of view: 'win' | 'draw' | 'loss'
+      result TEXT NOT NULL,
+      -- 'pending' | 'confirmed' | 'disputed'
+      status TEXT NOT NULL DEFAULT 'pending',
+      -- why the opponent rejected it, shown to the organiser
+      dispute_note TEXT,
+      played_on DATE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      confirmed_at TIMESTAMPTZ
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS event_games_event_idx ON event_games(event_id)`;
+  await sql`CREATE INDEX IF NOT EXISTS event_games_opponent_idx ON event_games(opponent_user_id, status)`;
+
+  // A league is never OPEN to players until someone deliberately opens it. Players still SEE a
+  // closed one — it is announced, just not joinable — so the flag gates joining and reporting,
+  // not visibility. DEFAULT false is the point: a new league cannot be open by accident, and
+  // neither can the ones that already exist when this migration runs.
+  await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS published BOOLEAN NOT NULL DEFAULT false`;
 
   schemaReady = true;
 }

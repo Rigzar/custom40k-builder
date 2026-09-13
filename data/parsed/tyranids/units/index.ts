@@ -19,7 +19,6 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Hive Tyrant": hq.hiveTyrant,
   "Malanthrope": hq.malanthrope,
   "Neurotyrant": hq.neurotyrant,
-  "Swarmlord": hq.swarmlord,
   "Tervigon": hq.tervigon,
   "Tyranid Prime": hq.tyranidPrime,
   "Tyrant Guard Brood": hq.tyrantGuardBrood,
@@ -56,6 +55,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Tyrannocyte": dedicatedTransport.tyrannocyte,
   "Sporecyst": fortifications.sporecyst,
   "Harpy": flyers.harpy,
+  "Hive Crone": flyers.hiveCrone,
 };
 
 /** Slot → unit names map — same as units.json "slot_to_units" field. */
@@ -64,7 +64,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Hive Tyrant",
     "Malanthrope",
     "Neurotyrant",
-    "Swarmlord",
     "Tervigon",
     "Tyranid Prime",
     "Tyrant Guard Brood"
@@ -114,7 +113,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Sporecyst"
   ],
   "Flyers": [
-    "Harpy"
+    "Harpy",
+    "Hive Crone"
   ]
 };
 

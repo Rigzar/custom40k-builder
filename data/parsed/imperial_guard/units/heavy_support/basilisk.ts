@@ -49,7 +49,7 @@ export const basilisk: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin heavy stubber",
@@ -58,7 +58,7 @@ export const basilisk: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Earthshaker cannon - HE shells",
@@ -67,7 +67,7 @@ export const basilisk: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Barrage, Indirect"
+      "abilities": "AT(3), Blast(6), Indirect"
     },
     {
       "name": "Earthshaker cannon - Gas shells",
@@ -76,7 +76,7 @@ export const basilisk: Unit = {
       "s": "1",
       "ap": "0",
       "d": "2",
-      "abilities": "Barrage, Poison(2+), Indirect, Seeking, Suppression"
+      "abilities": "Blast(6), Poison(2+), Indirect, Seeking, Suppression(3)"
     }
   ],
   "option_groups": [

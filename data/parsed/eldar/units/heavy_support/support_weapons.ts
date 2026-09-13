@@ -40,7 +40,7 @@ export const supportWeapons: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(3), Deadly(5+), Explosive, Graviton"
+      "abilities": "AT(3), Deadly(5+), Blast(4), Graviton"
     },
     {
       "name": "Shadow weaver",
@@ -49,7 +49,7 @@ export const supportWeapons: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Armor piercing(5+), Explosive, Indirect fire, Monofilament, Suppression"
+      "abilities": "Armor piercing(5+), Blast(4), Indirect fire, Monofilament, Suppression(3)"
     },
     {
       "name": "Shuriken catapult",
@@ -67,7 +67,7 @@ export const supportWeapons: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "Haywire, Seeking, Suppression"
+      "abilities": "Haywire, Seeking, Suppression(3)"
     }
   ],
   "option_groups": [
@@ -94,7 +94,7 @@ export const supportWeapons: Unit = {
   ],
   "abilities": [
     "Battle Focus",
-    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model.",
+    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
     "Vibro: If more than one Vibro cannon is shooting at the same target, the weapon gets the \"Decimate\" ability."
   ],
   "unit_type": "Infantry",

@@ -60,7 +60,7 @@ export const commander: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Barrage, Indirect, Suppression"
+      "abilities": "Blast(6), Indirect, Suppression(3)"
     },
     {
       "name": "Burst cannon",
@@ -78,7 +78,7 @@ export const commander: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Fusion blaster",

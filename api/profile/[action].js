@@ -226,6 +226,9 @@ async function getPublicArmies(req, res) {
     await ensureSchema();
     const type = req.query.type ?? 'all';
     const userId = getSessionUserId(req);
+    // Requirement 4 of the events doc: "ideally selecting an event should display all army lists
+    // registered for that event". 0 means no filter, so the SQL stays one shape either way.
+    const eventId = Number.isInteger(Number(req.query.eventId)) ? Number(req.query.eventId) : 0;
 
     const mapRow = r => ({
       ...r,
@@ -241,6 +244,9 @@ async function getPublicArmies(req, res) {
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
           r.data->>'faction' AS faction_label,
+          (SELECT string_agg(e.name, ', ' ORDER BY e.name)
+             FROM event_players ep JOIN events e ON e.id = ep.event_id
+            WHERE ep.roster_id = r.id AND ep.status = 'approved') AS event_names,
           COALESCE(SUM(CASE WHEN rv.vote =  1 THEN 1 ELSE 0 END), 0)::int AS upvotes,
           COALESCE(SUM(CASE WHEN rv.vote = -1 THEN 1 ELSE 0 END), 0)::int AS downvotes,
           MAX(CASE WHEN rv.user_id = ${userId} THEN rv.vote END) AS user_vote
@@ -249,6 +255,9 @@ async function getPublicArmies(req, res) {
         JOIN friends f ON f.friend_id = r.user_id AND f.user_id = ${userId}
         LEFT JOIN roster_votes rv ON rv.roster_id = r.id
         WHERE r.is_public = true
+          AND (${eventId} = 0 OR EXISTS (
+                SELECT 1 FROM event_players ep
+                 WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
         GROUP BY r.id, u.username, u.avatar
         ORDER BY r.updated_at DESC LIMIT 50
       `;
@@ -261,6 +270,9 @@ async function getPublicArmies(req, res) {
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
           r.data->>'faction' AS faction_label,
+          (SELECT string_agg(e.name, ', ' ORDER BY e.name)
+             FROM event_players ep JOIN events e ON e.id = ep.event_id
+            WHERE ep.roster_id = r.id AND ep.status = 'approved') AS event_names,
           COALESCE(SUM(CASE WHEN rv.vote =  1 THEN 1 ELSE 0 END), 0)::int AS upvotes,
           COALESCE(SUM(CASE WHEN rv.vote = -1 THEN 1 ELSE 0 END), 0)::int AS downvotes,
           MAX(CASE WHEN rv.user_id = ${userId} THEN rv.vote END) AS user_vote
@@ -268,6 +280,9 @@ async function getPublicArmies(req, res) {
         JOIN users u ON u.id = r.user_id
         LEFT JOIN roster_votes rv ON rv.roster_id = r.id
         WHERE r.is_public = true
+          AND (${eventId} = 0 OR EXISTS (
+                SELECT 1 FROM event_players ep
+                 WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
         GROUP BY r.id, u.username, u.avatar
         ORDER BY r.updated_at DESC LIMIT 50
       `;
@@ -277,6 +292,9 @@ async function getPublicArmies(req, res) {
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
           r.data->>'faction' AS faction_label,
+          (SELECT string_agg(e.name, ', ' ORDER BY e.name)
+             FROM event_players ep JOIN events e ON e.id = ep.event_id
+            WHERE ep.roster_id = r.id AND ep.status = 'approved') AS event_names,
           COALESCE(SUM(CASE WHEN rv.vote =  1 THEN 1 ELSE 0 END), 0)::int AS upvotes,
           COALESCE(SUM(CASE WHEN rv.vote = -1 THEN 1 ELSE 0 END), 0)::int AS downvotes,
           NULL::int AS user_vote
@@ -284,6 +302,9 @@ async function getPublicArmies(req, res) {
         JOIN users u ON u.id = r.user_id
         LEFT JOIN roster_votes rv ON rv.roster_id = r.id
         WHERE r.is_public = true
+          AND (${eventId} = 0 OR EXISTS (
+                SELECT 1 FROM event_players ep
+                 WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
         GROUP BY r.id, u.username, u.avatar
         ORDER BY r.updated_at DESC LIMIT 50
       `;

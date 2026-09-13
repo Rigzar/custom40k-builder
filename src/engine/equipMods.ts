@@ -344,7 +344,7 @@ export function parseEnhancementDelta(choice: string): { rangeDelta?: number; sD
 }
 
 export interface ChosenWeaponEffect {
-  /** Ability text to add to the chosen weapon (e.g. "Master-crafted", "Suppression"). */
+  /** Ability text to add to the chosen weapon (e.g. "Master-crafted", "Suppression(3)"). */
   abilities?: string[];
   sDelta?: number;
   apDelta?: number;
@@ -509,14 +509,14 @@ export const CHOSEN_WEAPON_GRANT_ITEMS: Record<string, ChosenWeaponEffect> = {
   'Obsidian blade': { deadlyStack: true },
   'Cegorach’s Rose': { deadlyStack: true },
   'Darkstar alloyᴱ': { abilities: ['Deadly(5+)'] },
-  'Quake Multigeneratorᴱ': { abilities: ['Suppression'] },
+  'Quake Multigeneratorᴱ': { abilities: ['Suppression(3)'] },
   'Relic blade': { dDelta: 1 },
   'Holy weapon': { dDelta: 1 },
   'Cursed blade': { dDelta: 1 },
   'Maelstrom Weapon': { sDelta: 1 },
   'Reaver Weapon': { sDelta: 1 },
   'Fire blade': { abilities: ['Precision(5+)'], apDelta: -2 },
-  'Hungering bladeʸ': { abilities: ['Flurry(4)'] },
+  'Hungering bladeʸ': { abilities: ['Extra Attack(4)'] },
   'Silent bladeʸ': { abilities: ['Shield breaker(-2)'] },
   'Sorrow bladeʸ': { abilities: ['Decimate'], sDelta: 1 },
   // Found via an armory-wide modifier audit (2026-08-31): both paid for and correctly targeted

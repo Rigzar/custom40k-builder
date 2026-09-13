@@ -49,7 +49,7 @@ export const greatKnarloc: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Kroot long gun",
@@ -58,7 +58,7 @@ export const greatKnarloc: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Repeater cannon",
@@ -85,7 +85,7 @@ export const greatKnarloc: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     }
   ],
   "option_groups": [

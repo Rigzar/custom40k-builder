@@ -40,7 +40,7 @@ export const specialWeaponSquad: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage"
+      "abilities": "Ammo(1), AT(2), Blast(6)"
     },
     {
       "name": "Frag grenade",
@@ -49,7 +49,7 @@ export const specialWeaponSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Flamer",
@@ -58,7 +58,7 @@ export const specialWeaponSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lasgun",
@@ -85,7 +85,7 @@ export const specialWeaponSquad: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Grenade launcher - Frag grenade",
@@ -94,7 +94,7 @@ export const specialWeaponSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenade launcher - Krak grenade",

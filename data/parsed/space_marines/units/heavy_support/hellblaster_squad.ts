@@ -13,7 +13,7 @@ export const hellblasterSquad: Unit = {
   "models": [
     {
       "name": "Hellblaster Marine",
-      "points": 58,
+      "points": 53,
       "min": 4,
       "max": 9,
       "stats": {
@@ -31,7 +31,7 @@ export const hellblasterSquad: Unit = {
     },
     {
       "name": "Hellblaster Sergeant",
-      "points": 58,
+      "points": 53,
       "min": 1,
       "max": 1,
       "stats": {
@@ -51,7 +51,7 @@ export const hellblasterSquad: Unit = {
   "variant_models": [
     {
       "name": "Veteran Hellblaster Sergeant",
-      "points": 68,
+      "points": 63,
       "min": 0,
       "max": 0,
       "stats": {
@@ -86,7 +86,7 @@ export const hellblasterSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -96,42 +96,6 @@ export const hellblasterSquad: Unit = {
       "ap": "-2",
       "d": "1",
       "abilities": "-"
-    },
-    {
-      "name": "Plasma incinerator (Assault standard)",
-      "range": "24\"",
-      "type": "Assault 2",
-      "s": "6",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Plasma incinerator (Assault overheating)",
-      "range": "24\"",
-      "type": "Assault 2",
-      "s": "7",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(1), Overheating"
-    },
-    {
-      "name": "Plasma incinerator (Heavy standard)",
-      "range": "36\"",
-      "type": "Heavy 1",
-      "s": "8",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(2)"
-    },
-    {
-      "name": "Plasma incinerator (Heavy overheating)",
-      "range": "36\"",
-      "type": "Heavy 1",
-      "s": "9",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(3), Overheating"
     },
     {
       "name": "Plasma incinerator (Standard)",
@@ -182,5 +146,5 @@ export const hellblasterSquad: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 5,
-  "min_cost": 290
+  "min_cost": 265
 };

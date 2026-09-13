@@ -79,7 +79,7 @@ export const noctilithCrown: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [],

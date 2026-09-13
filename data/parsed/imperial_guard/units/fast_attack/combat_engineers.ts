@@ -77,7 +77,7 @@ export const combatEngineers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -86,7 +86,7 @@ export const combatEngineers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Lasgun",
@@ -192,7 +192,7 @@ export const combatEngineers: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,

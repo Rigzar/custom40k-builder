@@ -118,7 +118,7 @@
       "range": "24\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target unit suffers a hit with the following profile: S: 5 AP: -1 D: 1; Barrage, Seeking.",
+      "effect": "The target unit suffers a hit with the following profile: S: 5 AP: -1 D: 1; Blast(6), Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     }

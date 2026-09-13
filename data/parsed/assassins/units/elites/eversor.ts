@@ -79,7 +79,7 @@ export const eversor: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "2",
-      "abilities": "Flurry(2), Shred"
+      "abilities": "Extra Attack(2), Shred"
     }
   ],
   "option_groups": [],

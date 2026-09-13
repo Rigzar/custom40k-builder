@@ -67,7 +67,7 @@ export const stormsurge: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Explosive"
+      "abilities": "AT(3), Blast(4)"
     },
     {
       "name": "Pulse blastcannon - Dispersed",
@@ -76,7 +76,7 @@ export const stormsurge: Unit = {
       "s": "9",
       "ap": "-1",
       "d": "1",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Blast(6)"
     },
     {
       "name": "Pulse driver cannon",
@@ -85,7 +85,7 @@ export const stormsurge: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Barrage, Tank hunter"
+      "abilities": "AT(3), Blast(6), Tank hunter"
     },
     {
       "name": "Twin airbursting fragmentation projector",
@@ -94,7 +94,7 @@ export const stormsurge: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Seeking"
+      "abilities": "Blast(4), Seeking"
     },
     {
       "name": "Twin burst cannon",
@@ -103,7 +103,7 @@ export const stormsurge: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(3)"
     },
     {
       "name": "Twin flamer",
@@ -112,7 +112,7 @@ export const stormsurge: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin smart missile system",

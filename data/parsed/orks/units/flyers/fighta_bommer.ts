@@ -49,7 +49,7 @@ export const fightaBommer: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Bomb, Barrage"
+      "abilities": "Ammo(1), AT(2), Bomb, Blast(6)"
     },
     {
       "name": "Bomm",
@@ -58,7 +58,7 @@ export const fightaBommer: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Ammo(1), Bomb, Barrage"
+      "abilities": "Ammo(1), Bomb, Blast(6)"
     },
     {
       "name": "Burna bomm",
@@ -67,7 +67,7 @@ export const fightaBommer: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Ammo(1), Bomb, Barrage, Seeking"
+      "abilities": "Ammo(1), Bomb, Blast(6), Seeking"
     },
     {
       "name": "Grot Bomm",
@@ -76,7 +76,7 @@ export const fightaBommer: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo (1), AT(2), Barrage, Grot-guided"
+      "abilities": "Ammo (1), AT(2), Blast(6), Grot-guided"
     },
     {
       "name": "Rokkit",
@@ -94,7 +94,7 @@ export const fightaBommer: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Ammo(1), Explosive, Seeking"
+      "abilities": "Ammo(1), Blast(4), Seeking"
     },
     {
       "name": "Twin-linked big shoota",

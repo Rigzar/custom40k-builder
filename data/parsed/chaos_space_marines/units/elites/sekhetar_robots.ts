@@ -77,7 +77,7 @@ export const sekhetarRobots: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Hellfyre missile rack",
@@ -113,7 +113,7 @@ export const sekhetarRobots: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

@@ -49,7 +49,7 @@ export const predator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Lascannon",
@@ -94,7 +94,7 @@ export const predator: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin lascannon",

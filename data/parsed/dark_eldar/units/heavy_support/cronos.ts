@@ -40,7 +40,7 @@ export const cronos: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Spirit syphon",
@@ -49,7 +49,7 @@ export const cronos: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Seeking"
+      "abilities": "Blast(4), Seeking"
     },
     {
       "name": "Spirit vortex",
@@ -58,7 +58,7 @@ export const cronos: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Seeking"
+      "abilities": "Blast(6), Seeking"
     }
   ],
   "option_groups": [

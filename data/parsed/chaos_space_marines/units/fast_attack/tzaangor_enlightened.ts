@@ -118,7 +118,7 @@ export const tzaangorEnlightened: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(3)"
     }
   ],
   "option_groups": [

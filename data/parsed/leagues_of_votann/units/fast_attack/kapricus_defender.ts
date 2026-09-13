@@ -81,7 +81,7 @@ export const kapricusDefender: Unit = {
   ],
   "abilities": [
     "Anti-grav, Eye of the Ancestors, Squadron, Vanguard, Void armor",
-    "Scanner Uplinks: All ranged weapons of the model gain the \"Suppression\" ability."
+    "Scanner Uplinks: All ranged weapons of the model gain the \"Suppression(3)\" ability."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

@@ -26,8 +26,8 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Galatus Contemptor Dreadnought": elites.galatusContemptorDreadnought,
   "Custodian Wardens": elites.custodianWardens,
   "Venerable Contemptor Dreadnought": elites.venerableContemptorDreadnought,
-  "Vertus Praetor": elites.vertusPraetor,
-  "Jetbike Custodians": fastAttack.jetbikeCustodians,
+  "Vertus Praetors": fastAttack.vertusPraetors,
+  "Venatari Custodians": fastAttack.venatariCustodians,
   "Caladius Grav-Tank": heavySupport.caladiusGravTank,
   "Telemon Heavy Dreadnought": heavySupport.telemonHeavyDreadnought,
   "Venerable Land Raider": heavySupport.venerableLandRaider,
@@ -54,10 +54,10 @@ export const slot_to_units: Record<string, string[]> = {
     "Galatus Contemptor Dreadnought",
     "Custodian Wardens",
     "Venerable Contemptor Dreadnought",
-    "Vertus Praetor"
   ],
   "Fast Attack": [
-    "Jetbike Custodians"
+    "Vertus Praetors",
+    "Venatari Custodians"
   ],
   "Heavy Support": [
     "Caladius Grav-Tank",

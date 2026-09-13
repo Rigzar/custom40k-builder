@@ -49,7 +49,7 @@ export const achillesRidgerunners: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Explosive"
+      "abilities": "AT(3), Blast(4)"
     },
     {
       "name": "Heavy mortar",
@@ -58,7 +58,7 @@ export const achillesRidgerunners: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Heavy stubber",
@@ -67,7 +67,7 @@ export const achillesRidgerunners: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

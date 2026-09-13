@@ -40,7 +40,7 @@ export const soulGrinder: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Suppression"
+      "abilities": "AT(1), Suppression(3)"
     },
     {
       "name": "Iron claw",
@@ -58,7 +58,7 @@ export const soulGrinder: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Flurry(3)"
+      "abilities": "AT(1), Extra Attack(3)"
     },
     {
       "name": "Maw cannon - Vomit",
@@ -67,7 +67,7 @@ export const soulGrinder: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Maw cannon - Tongue",
@@ -85,7 +85,7 @@ export const soulGrinder: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     }
   ],
   "option_groups": [

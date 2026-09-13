@@ -77,7 +77,7 @@ export const acolyteHybrids: Unit = {
       "s": "U",
       "ap": "0",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     },
     {
       "name": "Demolition charge",
@@ -86,7 +86,7 @@ export const acolyteHybrids: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+      "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
     },
     {
       "name": "Frag grenade",
@@ -95,7 +95,7 @@ export const acolyteHybrids: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Hand flamer",
@@ -104,7 +104,7 @@ export const acolyteHybrids: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heavy rock cutter",

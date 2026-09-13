@@ -40,7 +40,7 @@ export const stormSpeeder: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krakstorm grenade launcher",
@@ -112,7 +112,7 @@ export const stormSpeeder: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive, Anti-air"
+      "abilities": "Blast(4), Anti-air"
     },
     {
       "name": "Hammerstrike missile launcher (Krak)",

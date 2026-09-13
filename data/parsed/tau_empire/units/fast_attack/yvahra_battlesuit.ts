@@ -85,7 +85,7 @@ export const yvahraBattlesuit: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armor piercing(5+), Flames"
+      "abilities": "Armor piercing(5+), Auto Hit, Sunder(1)"
     },
     {
       "name": "Phased plasma flamer - Nova-charge",
@@ -94,7 +94,7 @@ export const yvahraBattlesuit: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "2",
-      "abilities": "Armor piercing(5+), Flames, Overheating"
+      "abilities": "Armor piercing(5+), Auto Hit, Sunder(1), Overheating"
     }
   ],
   "option_groups": [

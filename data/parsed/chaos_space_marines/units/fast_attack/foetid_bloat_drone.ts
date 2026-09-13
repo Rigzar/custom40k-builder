@@ -85,7 +85,7 @@ export const foetidBloatDrone: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Deflagrate(5+), Poison(4+), Flurry(4)"
+      "abilities": "AT(1), Deflagrate(5+), Poison(4+), Extra Attack(4)"
     },
     {
       "name": "Heavy blight launcher",
@@ -94,7 +94,7 @@ export const foetidBloatDrone: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "2",
-      "abilities": "Armorbane, AT(1), Explosive, Poison(4+)"
+      "abilities": "Armorbane, AT(1), Blast(4), Poison(4+)"
     },
     {
       "name": "Plague probe",
@@ -112,7 +112,7 @@ export const foetidBloatDrone: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     }
   ],
   "option_groups": [

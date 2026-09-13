@@ -40,7 +40,7 @@ export const masterOfOrdnance: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Barrage, Indirect, Suppression"
+      "abilities": "AT(2), Blast(6), Indirect, Suppression(3)"
     },
     {
       "name": "Las pistol",

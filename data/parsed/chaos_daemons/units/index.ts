@@ -36,7 +36,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Bloodcrushers": elites.bloodcrushers,
   "Fiends": elites.fiends,
   "Flamers": elites.flamers,
-  "Daemon Brutes": elites.daemonBrutes,
+  "Daemon Brutes": troops.daemonBrutes,
   "Flesh Hounds": fastAttack.fleshHounds,
   "Furies": fastAttack.furies,
   "Hellflayer": fastAttack.hellflayer,
@@ -72,6 +72,7 @@ export const slot_to_units: Record<string, string[]> = {
   "Troops": [
     "Bloodletters",
     "Blue Horrors",
+    "Daemon Brutes",
     "Daemonettes",
     "Nurglings",
     "Plaguebearers",
@@ -80,7 +81,6 @@ export const slot_to_units: Record<string, string[]> = {
   "Elites": [
     "Beasts of Nurgle",
     "Bloodcrushers",
-    "Daemon Brutes",
     "Fiends",
     "Flamers"
   ],

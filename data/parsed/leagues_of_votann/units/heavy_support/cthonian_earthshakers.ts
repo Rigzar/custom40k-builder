@@ -49,7 +49,7 @@ export const cthonianEarthshakers: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Explosive, Indirect"
+      "abilities": "AT(3), Blast(4), Indirect"
     },
     {
       "name": "Plasma picks",
@@ -67,7 +67,7 @@ export const cthonianEarthshakers: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Graviton, Indirect, Suppression"
+      "abilities": "Blast(4), Graviton, Indirect, Suppression(3)"
     }
   ],
   "option_groups": [
@@ -90,7 +90,7 @@ export const cthonianEarthshakers: Unit = {
   ],
   "abilities": [
     "Eye of the Ancestors, Squadron, Steady Advance, Void armor",
-    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model."
+    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
   ],
   "unit_type": "Infantry",
   "keywords": [],

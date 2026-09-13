@@ -95,7 +95,7 @@ export const devastatorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grav cannon",
@@ -104,7 +104,7 @@ export const devastatorSquad: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive, Grav"
+      "abilities": "Blast(4), Grav"
     },
     {
       "name": "Heavy bolter",
@@ -122,7 +122,7 @@ export const devastatorSquad: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Krak grenade",
@@ -158,7 +158,7 @@ export const devastatorSquad: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak",
@@ -176,7 +176,7 @@ export const devastatorSquad: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Plasma cannon - Overheating",
@@ -185,7 +185,7 @@ export const devastatorSquad: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     }
   ],
   "option_groups": [

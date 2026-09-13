@@ -78,7 +78,7 @@
     },
     {
       "name": "Ministorum World",
-      "desc": "The army must select a third Trait.",
+      "desc": "The army must select two Traits and may then select a third Trait that is paid per unit (not per model). That Trait is free.",
       "armory_key": null,
       "trait_slot_bonus": 1
     }
@@ -123,6 +123,15 @@
     {
       "name": "Close Combat Specialists",
       "desc": "Each model may swap their Lasgun for a Las pistol and a Close combat weapon.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Close Order Drill",
+      "desc": "If all models of a unit are in base to base contact, they gain +1 Initiative and +1 Leadership. Weapons with the \"Blast(4)\" or \"Auto Hit\" ability always score +1 additional hit against the unit while the benefits of this trait are active. \"Blast(6)\" weapons score +2 hits and \"Blast(8)\" weapons cause +3 hits. Can only be used by Infantry type units without the \"Massive(x)\" ability. The Initiative bonus is not cumulative with the bonus from the \"Fix bayonets!\" order.",
       "pts_unit": "0",
       "pts_char": "0",
       "pts_monster": "-",

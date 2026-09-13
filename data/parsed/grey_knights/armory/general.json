@@ -15,15 +15,28 @@
       "p_char": 5
     },
     {
-      "name": "Cleansing flame",
+      "name": "Cleansing flame - Melee",
       "term_compat": false,
       "armour_compat": [],
-      "range": "12\"",
-      "type": "Pistol 2",
+      "range": "-",
+      "type": "Melee",
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Extra attack, Flames, Shield breaker(-1), Soul burn(5+)",
+      "abilities": "Extra Attack(1), Limit(1), Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(5+)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Cleansing flame - Ranged",
+      "term_compat": false,
+      "armour_compat": [],
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Extra Attack(1), Limit(1), Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(5+)",
       "p_unit": null,
       "p_char": null
     },
@@ -38,7 +51,7 @@
       "s": "2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Extra Attack, Hits automatically wound the target",
+      "abilities": "Extra Attack(1), Limit(1), Hits automatically wound the target",
       "p_unit": null,
       "p_char": 5
     },
@@ -483,7 +496,8 @@
       "p_char": 12,
       "effect": {
         "grants_weapons": [
-          "Cleansing flame"
+          "Cleansing flame - Melee",
+          "Cleansing flame - Ranged"
         ]
       }
     },

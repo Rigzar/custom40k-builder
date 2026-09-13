@@ -99,7 +99,7 @@ export const warpsmith: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -117,7 +117,7 @@ export const warpsmith: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Meltagun tendril",
@@ -126,7 +126,7 @@ export const warpsmith: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "1",
-      "abilities": "AT(1), Melta, Flurry(1)"
+      "abilities": "AT(1), Melta, Extra Attack(1)"
     },
     {
       "name": "Omnissiah power axe",

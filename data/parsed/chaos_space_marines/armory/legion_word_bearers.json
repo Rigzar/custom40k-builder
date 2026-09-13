@@ -82,15 +82,15 @@
       "name": "Fell-blessed machine",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "The vehicle may pray once per turn. A prayer is successful at a roll of 3+. The vehicle knows all prayers to the dark gods.",
-      "p_unit": 10
+      "desc": "The vehicle may pray once per turn. A prayer is successful at a roll of 3+. The vehicle knows all prayers from the Exalted Prayers discipline.",
+      "p_unit": 20
     },
     {
       "name": "Mhara Gal",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "All weapons of the model gain \"Soul Burn(5+)\". Only for Walkers.",
-      "p_unit": 30
+      "desc": "The model gains a 5+ ward save. Only for Walkers.",
+      "p_unit": 45
     }
   ],
   "daemon_weapons": []

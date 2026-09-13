@@ -49,7 +49,7 @@ export const dreadnought: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Flurry(1), Shred"
+      "abilities": "AT(1), Extra Attack(1), Shred"
     },
     {
       "name": "Dreadnought close combat weapon",
@@ -67,7 +67,7 @@ export const dreadnought: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(2)"
     },
     {
       "name": "Flamestorm cannon",
@@ -76,7 +76,7 @@ export const dreadnought: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heavy flamer",
@@ -85,7 +85,7 @@ export const dreadnought: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Melta",
@@ -157,7 +157,7 @@ export const dreadnought: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Missile launcher - Krak",
@@ -175,7 +175,7 @@ export const dreadnought: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive"
+      "abilities": "AT(1), Blast(4)"
     },
     {
       "name": "Plasma cannon - Overcharged",
@@ -184,7 +184,7 @@ export const dreadnought: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     }
   ],
   "option_groups": [

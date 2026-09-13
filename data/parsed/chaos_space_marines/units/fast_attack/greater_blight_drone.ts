@@ -78,7 +78,7 @@ export const greaterBlightDrone: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Poison(4+)"
+      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
     },
     {
       "name": "Maw cannon - Phlegm",
@@ -87,7 +87,7 @@ export const greaterBlightDrone: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive, Poison(4+)"
+      "abilities": "AT(2), Blast(4), Poison(4+)"
     }
   ],
   "option_groups": [

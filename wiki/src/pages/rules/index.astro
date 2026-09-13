@@ -19,7 +19,7 @@ import Layout from '../../components/Layout.astro';
       </div>
       <p class="rules-supertitle">Custom40k Reference</p>
       <h1 class="rules-title">Core Rules</h1>
-      <p class="rules-meta">v1.255 · Balance 5.03 · FAQ #5: Codex rules override Core Rules</p>
+      <p class="rules-meta">v1.262 · Balance 5.04 · FAQ #5: Codex rules override Core Rules</p>
     </div>
   </div>
 
@@ -56,7 +56,7 @@ import Layout from '../../components/Layout.astro';
       <div class="phase-card phase-card--2">
         <img src="/phase-icons/reinforce.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Reinforcement Phase</div>
-        <p>Roll reinforcement dice equal to the battle round number. Each 4+ brings one unit from reserve.</p>
+        <p>You may roll reinforcement dice equal to the battle round number. Each 4+ must bring one unit from reserve, if possible.</p>
         <table class="compact-table">
           <thead><tr><th>Round</th><th>Dice</th><th>Auto Units</th></tr></thead>
           <tbody>
@@ -73,7 +73,7 @@ import Layout from '../../components/Layout.astro';
       <div class="phase-card phase-card--3">
         <img src="/phase-icons/command.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Command Phase</div>
-        <p>Both players assign orders face-down to all units simultaneously. Orders determine what a unit can do in the Action Phase.</p>
+        <p>Both players assign orders face-down to all units simultaneously. Orders determine what a unit can do in the Action Phase. <strong>All allowed actions of an order must be resolved in the order they are written.</strong></p>
         <div class="order-grid">
           <div class="order-pill">Advance</div>
           <div class="order-pill">Charge</div>
@@ -170,7 +170,7 @@ import Layout from '../../components/Layout.astro';
         <li><strong>Hit Rolls</strong> — Roll to hit vs model's BS. Roll of 6 always succeeds.</li>
         <li><strong>Wound Rolls</strong> — Roll based on weapon Strength vs target Toughness.</li>
         <li><strong>Saving Throws</strong> — Roll save, subtract weapon AP. Ward save unaffected by AP.</li>
-        <li><strong>Damage</strong> — Failed save = damage equal to weapon profile. When damage ≥ Wounds, model removed. Damage doesn't carry over.</li>
+        <li><strong>Damage</strong> — Failed save = damage equal to weapon profile. When damage ≥ Wounds, model removed. Damage doesn't carry over. Removing casualties <strong>ends immediately</strong> once no enemy model is left within LOS or within the weapon's range.</li>
         <li><strong>Leadership Test</strong> — If unit drops below half starting strength, pass Ld test or receive 2 Battleshock tokens.</li>
       </ol>
     </div>
@@ -233,7 +233,7 @@ import Layout from '../../components/Layout.astro';
         <li><strong>Initiative Order</strong> — Models act from highest to lowest Initiative. Same Initiative = simultaneous.</li>
         <li><strong>Engagement Range</strong> — Base contact OR within 1″ of a friendly model in base contact. Can fight one level up/down.</li>
         <li><strong>Resolve Attacks</strong> — Distribute A stat freely among melee weapons. Roll vs WS. Roll of 6 always hits.</li>
-        <li><strong>Combat Result</strong> — Score: +1 for more remaining wounds, +1 per wound caused, +1 per penetrating hit. Winner = more points.</li>
+        <li><strong>Combat Result</strong> — Only scored if enemy units are still in base contact; otherwise the remaining side automatically wins. Score: +1 for more remaining wounds, +1 per wound caused (Creatures), +1 per penetrating hit (Vehicles). Winner = more points.</li>
         <li><strong>Losing Combat</strong> — Loser takes Ld test with penalty = result difference. Fail: 2 Battleshock tokens (flee).</li>
         <li><strong>Pursuit</strong> — Winner may pursue fleeing units: roll D6+highest I. Match or exceed fleeing unit's roll to catch (+1 auto hit per model, −1 Battleshock token from fleeing unit).</li>
       </ol>
@@ -342,7 +342,8 @@ import Layout from '../../components/Layout.astro';
     </div>
 
     <div class="rule-section reveal">
-      <div class="section-divider"><span>Vehicle Damage Chart</span></div>
+      <div class="section-divider"><span>Vehicle Damage Chart</span></div>
+      <p class="note">Against a vehicle you do not follow the normal rules for wounding models — you resolve an <strong>Armor penetration roll</strong> instead, and consult this chart on a penetrating hit.</p>
       <table class="ref-table">
         <thead><tr><th>D6</th><th>Result</th><th>Effect</th></tr></thead>
         <tbody>
@@ -369,7 +370,7 @@ import Layout from '../../components/Layout.astro';
 
     <div class="rule-section reveal">
       <div class="section-divider"><span>Suppressive Fire</span></div>
-      <p>Scoring 6+ ranged hits with non-Suppression weapons forces the target to take a Ld test. For every additional 6 hits: cumulative −1 penalty. Fail → 1 Battleshock token (if they had none).</p>
+      <p>A unit scoring 6+ ranged hits in its activation forces the target to take a Ld test. For every additional 6 hits: cumulative −1 penalty. Fail → 1 Battleshock token (if they had none). If the target would also have to test for dropping below half Starting Strength at the same time, it rolls only for Suppressive Fire — and a failure gives 2 tokens even if it already had one.</p>
     </div>
 
   </div><!-- /tab-combat -->
@@ -410,13 +411,13 @@ import Layout from '../../components/Layout.astro';
           <span class="unit-type-sub">Creature</span>
         </div>
         <ul>
-          <li>Can join a creature unit (start Command Phase within 2″).</li>
+          <li>Can join a creature unit (start Command Phase within 2″). One order is issued for both.</li>
           <li>One character per unit. Cannot join Monstrous Creatures or Vehicles.</li>
-          <li>Must be targeted separately in melee.</li>
-          <li>Auto-rallies during Rally Phase if alone.</li>
-          <li>Cannot take wounds for unit in ranged. Uses own armour/invul.</li>
-          <li>Fires only one weapon per activation (unless equipment states otherwise).</li>
-          <li>Ignored when determining half-strength.</li>
+          <li>Auto-rallies during Rally Phase if not attached. Always uses its own armour/ward save, even when attached.</li>
+          <li>Fires one weapon, or two pistols, per activation (unless equipment grants another).</li>
+          <li><strong>Attached:</strong> character and unit count as a single unit, but the character does not count towards the unit's starting strength.</li>
+          <li><strong>Attached:</strong> cannot be assigned ranged wounds unless the unit is completely destroyed.</li>
+          <li><strong>Attached:</strong> character and unit determine Engagement Range separately and are targeted separately in melee — attacks on one cannot affect the other.</li>
         </ul>
       </div>
 
@@ -453,7 +454,7 @@ import Layout from '../../components/Layout.astro';
         <ul>
           <li>Cannot be joined by a Character Model.</li>
           <li>Cannot enter transport vehicles.</li>
-          <li>Rolls additional D6 (Strength + 2D6 total) to penetrate vehicle armour.</li>
+          <li>Gains a +3 bonus on Armor penetration rolls.</li>
           <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
         </ul>
       </div>
@@ -466,7 +467,7 @@ import Layout from '../../components/Layout.astro';
         <ul>
           <li>Cannot be joined by a Character Model.</li>
           <li>Cannot enter transport vehicles.</li>
-          <li>Rolls additional D3 (Strength + 1D6 + 1D3 total) to penetrate vehicle armour.</li>
+          <li>Gains a +2 bonus on Armor penetration rolls.</li>
           <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
         </ul>
       </div>
@@ -479,6 +480,7 @@ import Layout from '../../components/Layout.astro';
         <ul>
           <li>Treated like vehicles but locked in melee like infantry.</li>
           <li>May change facing during its own initiative step in melee.</li>
+          <li>No Defensive Fire against enemies charging from behind the torso's facing.</li>
           <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
         </ul>
       </div>
@@ -492,9 +494,9 @@ import Layout from '../../components/Layout.astro';
           <li>Has Front/Side/Rear armour values and Hull Points.</li>
           <li>Auto-passes Leadership tests.</li>
           <li>Tank Shock on Charge: 1 auto hit per inch travelled at Initiative 10.</li>
-          <li>Not locked in melee — can be given any order while in melee.</li>
+          <li>Not locked in melee — may leave freely, but while in melee may only be given Advance, Fight or Move &amp; Shoot.</li>
           <li>Cannot shoot if enemy is in base contact.</li>
-          <li>Turret weapons: 360°. Chassis weapons: 180°.</li>
+          <li>Turret weapons: 360°. Chassis weapons: 180°. A weapon is only 360° if firing all the way round would never force the model itself to turn (and so change its armour facings).</li>
           <li>Move &gt;12″: cannot fire any weapons. Move 6–12″: fire 1 weapon.</li>
         </ul>
       </div>
@@ -570,6 +572,28 @@ import Layout from '../../components/Layout.astro';
     </div>
 
     <div class="rule-section reveal">
+      <div class="section-divider"><span>Weapon Profile Reference</span></div>
+      <div class="stat-ref-grid">
+        <div class="stat-ref"><span class="stat-letter">Rng</span><div><strong>Range</strong> — Maximum distance in inches, measured from the model's base (or, lacking one, any part of the hull). A “−” means melee only.</div></div>
+        <div class="stat-ref"><span class="stat-letter">Typ</span><div><strong>Type</strong> — Assault, Grenade, Heavy, Melee, Pistol or Rapid Fire. Ranged weapons only shoot and Melee weapons only fight, unless stated otherwise.</div></div>
+        <div class="stat-ref"><span class="stat-letter">S</span><div><strong>Strength</strong> — 1–10, or <strong>D</strong> for a Destroyer weapon. <strong>U</strong> means the wielder's own Strength; a modifier (“+1”, “x2”) applies to it.</div></div>
+        <div class="stat-ref"><span class="stat-letter">AP</span><div><strong>Armor Piercing</strong> — How far it reduces the target's armour save. AP −3 is better than AP −1; AP 0 applies no modifier.</div></div>
+        <div class="stat-ref"><span class="stat-letter">D</span><div><strong>Damage</strong> — Damage inflicted by a successful attack, after failed saves.</div></div>
+        <div class="stat-ref"><span class="stat-letter">Abl</span><div><strong>Abilities</strong> — Special rules for the weapon; see the Weapon Abilities section below, the Codex, or the army list entry.</div></div>
+      </div>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Base Sizes</span></div>
+      <ul class="notes-list">
+        <li>Creatures <strong>must</strong> use the base size supplied with the official model.</li>
+        <li>Vehicles <strong>may</strong> use the base size supplied with the official model.</li>
+        <li>Conversions, kitbashes and original creations must use the same base size as the official model.</li>
+        <li>If a resculpt ships with a bigger base than the old version, you may use either size for your old model.</li>
+      </ul>
+    </div>
+
+    <div class="rule-section reveal">
       <div class="section-divider"><span>Weapon Types</span></div>
       <table class="weapon-types-table">
         <thead>
@@ -592,7 +616,7 @@ import Layout from '../../components/Layout.astro';
         </tbody>
       </table>
       <ul class="notes-list">
-        <li>¹ One model per unit may use a grenade. In melee, grenades have 1 attack and can only target Vehicles or Monstrous Creatures.</li>
+        <li>¹ One model per unit may use a grenade. In melee, grenades can only target Vehicles or Monstrous Creatures.</li>
         <li>² If a model has at least one melee weapon AND one pistol, gains +1 Attack in melee.</li>
         <li>³ A model can fire up to two pistols, OR other eligible weapons (not both).</li>
         <li>⁴ Doubles shots at half range. With S&amp;S order only: can fire at full range too.</li>
@@ -672,7 +696,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Furious Charge</div><p>Gain +1 Strength and +1 Initiative until end of battle round when making a charge move.</p></div>
       <div class="ability-card"><div class="ability-name">Greater Daemon</div><p>The model has a 4+ ward save.</p></div>
       <div class="ability-card"><div class="ability-name">Haste (x″)</div><p>Infantry model gains x″ increased movement for Advance movement.</p></div>
-      <div class="ability-card"><div class="ability-name">Hit &amp; Run</div><p>After all models in melee activated (before result): unit may move 3D6″ away in straight line. Cannot enter engagement range. Enemy cannot pursue.</p></div>
+      <div class="ability-card"><div class="ability-name">Hit &amp; Run</div><p>After all models in melee activated (before result): unit may move 3D6″ away in straight line. Cannot enter engagement range and cannot consolidate after the move. Enemy cannot pursue and must make a 3″ consolidation move if able.</p></div>
       <div class="ability-card"><div class="ability-name">Infiltrator</div><p>After all normal deployment, deploy anywhere: 18″ from enemies in LOS, 12″ from enemies out of LOS. Cannot Vanguard move. Alternate placement if both players have Infiltrators.</p></div>
       <div class="ability-card"><div class="ability-name">Massive (X)</div><p>Occupies X additional spaces in transport vehicles.</p></div>
       <div class="ability-card"><div class="ability-name">Mindless</div><p>Auto-passes every Leadership test. Can contest objectives but never hold them.</p></div>
@@ -680,13 +704,13 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Narthecium</div><p>Once per turn, reduce damage of one wound to the model or its unit by 1 (declared after saves). Doesn't work vs S8+, or Mortal Wounds.</p></div>
       <div class="ability-card"><div class="ability-name">Objective Secured!</div><p>Captured objective remains under control even with no friendly units in range — until opponent contests/conquers it at end of a battle round. Automatically granted to all Troops selections.</p></div>
       <div class="ability-card"><div class="ability-name">Open</div><p>Vehicle has fire hatches = passenger capacity. Passengers can be targeted, cast psychic powers, benefit from cover with transport. Cannot fight in melee while inside. After disembarking, can always make 6″ Charge if vehicle moved ≤12″.</p></div>
-      <div class="ability-card"><div class="ability-name">Outflank</div><p>When arriving from reserve, may deploy along side edges (not opponent's deployment zone, not turn 1). Counts as moved at maximum range, Move &amp; Shoot order only.</p></div>
+      <div class="ability-card"><div class="ability-name">Outflank</div><p>When arriving from reserve, may deploy along side edges (not opponent's deployment zone, not turn 1). Counts as having already moved up to its maximum Movement value this Battle Round; Move &amp; Shoot order only.</p></div>
       <div class="ability-card"><div class="ability-name">Parry</div><p>Melee attacks against the model suffer −1 to hit rolls.</p></div>
       <div class="ability-card"><div class="ability-name">Regeneration (X)</div><p>Regains X wounds at the start of each Reinforcement phase.</p></div>
-      <div class="ability-card"><div class="ability-name">Retribution (X)</div><p>Melee hits against the model cause X auto wounds per battle round (S4 AP0 D1) against the attacking unit. Multiple models with this rule pool their instances.</p></div>
-      <div class="ability-card"><div class="ability-name">Squadron</div><p>All models treated as independent units during deployment. Own orders, no formation requirement.</p></div>
-      <div class="ability-card"><div class="ability-name">Stealth</div><p>The model always counts as being in Heavy cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Swarm</div><p>Each instance of damage can only cause 1 wound loss. Barrage/Explosive cause 1 hit per remaining Wound on the model.</p></div>
+      <div class="ability-card"><div class="ability-name">Retribution (X)</div><p>Each melee hit against the model inflicts 1 automatic wound (S4 AP0 D1) against the attacking unit, to a maximum of X per Battle round. Multiple models with this rule pool their instances.</p></div>
+      <div class="ability-card"><div class="ability-name">Squadron</div><p>Each model becomes an independent unit during deployment and stays independent for the rest of the game.</p></div>
+      <div class="ability-card"><div class="ability-name">Stealth</div><p>The model always counts as being in Heavy cover, except when targeted by a Charge.</p></div>
+      <div class="ability-card"><div class="ability-name">Swarm</div><p>All attacks targeting the unit have their Damage reduced to 1 if higher. Blast(x) uses the unit's remaining Wounds (not the number of models) for how many hits it generates.</p></div>
       <div class="ability-card"><div class="ability-name">Tank Hunter</div><p>One armor penetration roll vs vehicle (or wound roll vs Monstrous Creature) may be re-rolled. Multiple models with the same weapon: one roll per model may be re-rolled.</p></div>
       <div class="ability-card"><div class="ability-name">Terrifying (−X)</div><p>Enemy units within 6″ suffer −X Leadership.</p></div>
       <div class="ability-card"><div class="ability-name">Unique</div><p>The weapon or wargear may only be included once per army.</p></div>
@@ -708,10 +732,11 @@ import Layout from '../../components/Layout.astro';
 
       <div class="ability-card"><div class="ability-name">Ammo (X)</div><p>This weapon can only be used X times per game.</p></div>
       <div class="ability-card"><div class="ability-name">Anti-Air</div><p>Attacks vs Anti-Grav, Jet Bike, Jump Pack models or Flyers gain +1 to hit and +1 Strength.</p></div>
-      <div class="ability-card"><div class="ability-name">Armorbane</div><p>Rolls an additional 1D6 for armor penetration.</p></div>
-      <div class="ability-card"><div class="ability-name">Armor Piercing (X+)</div><p>Wound rolls of X+ always succeed and gain −2 AP. Armor penetration rolls of X+ gain +1 AT and roll an extra 1D3 for armor penetration.</p></div>
+      <div class="ability-card"><div class="ability-name">Armorbane</div><p>Gains a +3 bonus on armor penetration rolls.</p></div>
+      <div class="ability-card"><div class="ability-name">Armor Piercing (X+)</div><p>Wound rolls of X+ always succeed and gain −2 AP. Armor penetration rolls of X+ gain +1 AT and roll an extra +2 for armor penetration rolls.</p></div>
       <div class="ability-card"><div class="ability-name">AT (X)</div><p>Can cause Penetrating Hits. On a penetrating hit, roll X dice on the Vehicle Damage Chart and apply all results.</p></div>
-      <div class="ability-card"><div class="ability-name">Barrage</div><p>Successful hit → up to 5 additional hits (6 total, if enough models). Failed hit → re-roll once for up to 2 additional hits (3 total). Each model only hit once per shot.</p></div>
+      <div class="ability-card"><div class="ability-name">Auto Hit</div><p>The weapon hits automatically.</p></div>
+      <div class="ability-card"><div class="ability-name">Blast (X)</div><p>Successful hit → 1 hit per model in the target unit, to a maximum of X. Failed hit → re-roll once, and it can then only generate half (rounded down) that many hits. Replaces the old Explosive (4), Barrage (6) and Colossal Blast (8).</p></div>
       <div class="ability-card"><div class="ability-name">Beam</div><p>Choose target, make normal hit roll. If hit: draw a line from shooting model's base to target. Make wound roll vs target AND any unit the line passes through.</p></div>
       <div class="ability-card"><div class="ability-name">Blind</div><p>If weapon scores at least one hit, target unit does not gain a Charge bonus for its Charge order.</p></div>
       <div class="ability-card"><div class="ability-name">Blood Drinker</div><p>When the model causes a Wound loss, it regains 1 Wound (up to starting value).</p></div>
@@ -719,35 +744,33 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Combi</div><p>Combines two weapon profiles. Can fire both simultaneously at same target at −1 to hit.</p></div>
       <div class="ability-card"><div class="ability-name">Deadly (X+)</div><p>Wound rolls of X+ increase the Damage value of the attack by +1.</p></div>
       <div class="ability-card"><div class="ability-name">Decimate</div><p>Wound rolls gain +1. Does not work against Vehicles.</p></div>
-      <div class="ability-card"><div class="ability-name">Deflagrate (X+)</div><p>Hit rolls of X+ score an additional hit.</p></div>
-      <div class="ability-card"><div class="ability-name">Explosive</div><p>Successful hit → up to 3 additional hits (4 total). Failed hit → re-roll once for up to 1 additional hit (2 total). Each model only hit once per shot.</p></div>
-      <div class="ability-card"><div class="ability-name">Extra Attack (X)</div><p>Weapon profile can be used an extra X times per activation in addition to other weapons. Maximum X attacks with this weapon per battle round.</p></div>
-      <div class="ability-card"><div class="ability-name">Flames</div><p>Weapon hits automatically. Units in cover reduce their cover armour save bonus by cumulative −1 (min 0).</p></div>
-      <div class="ability-card"><div class="ability-name">Flurry (X)</div><p>Model makes X additional attacks with this weapon's profile per battle round (can still make more attacks with this weapon).</p></div>
+      <div class="ability-card"><div class="ability-name">Deflagrate (X+)</div><p>Hit rolls of X+ score an additional hit. Does not work with Blast(x) weapons.</p></div>
+      <div class="ability-card"><div class="ability-name">Extra Attack (X)</div><p>X attacks with this weapon profile each activation, in addition to any attacks the unit can normally make. Maximum X attacks with this weapon per activation.</p></div>
+      <div class="ability-card"><div class="ability-name">Limit (X)</div><p>You can only make X attacks with this weapon each turn.</p></div>
       <div class="ability-card"><div class="ability-name">Force Weapon</div><p>If bearer successfully manifests ≥1 psychic power during activation, this weapon gains +1 Damage for the rest of the battle round.</p></div>
       <div class="ability-card"><div class="ability-name">Grav</div><p>Unless already better, wound roll = enemy's armour save. Unless already worse, enemy's armour save against this = 5+. Does not work vs Vehicles.</p></div>
       <div class="ability-card"><div class="ability-name">Graviton</div><p>Creatures that <em>lose a wound</em> to this weapon must pass a Strength test or suffer another wound with S:4 AP:0 D:1, Seeking. This is in addition to the actual wound roll.</p></div>
       <div class="ability-card"><div class="ability-name">Gruesome</div><p>Each wound caused counts as two for combat resolution. Fleeing models caught by pursuit suffer one additional automatic wound.</p></div>
       <div class="ability-card"><div class="ability-name">Haywire</div><p>Each hit causes one automatic penetrating hit against a Vehicle (in addition to normal damage). Does not work vs Creatures.</p></div>
-      <div class="ability-card"><div class="ability-name">Indirect</div><p>Does not require LOS. Target only gets cover bonus if in a terrain zone. Can only be fired with Stand &amp; Shoot order.</p></div>
+      <div class="ability-card"><div class="ability-name">Indirect</div><p>Can target enemy units and cause casualties without LOS. Target only gets cover bonus if in a terrain zone. Can only be fired with Stand &amp; Shoot order.</p></div>
       <div class="ability-card"><div class="ability-name">Lance (+X)</div><p>Armor penetration rolls gain +X bonus.</p></div>
       <div class="ability-card"><div class="ability-name">Life Curse</div><p>One wound roll may be re-rolled against Creatures. Multiple models with same weapon: one wound roll per model may be re-rolled.</p></div>
-      <div class="ability-card"><div class="ability-name">Master-crafted</div><p>One hit roll may be re-rolled (or wound/AP roll for Barrage/Explosive/Flames). Multiple models: one roll per model. Cannot be used on Grenade weapons with Ammo(X).</p></div>
-      <div class="ability-card"><div class="ability-name">Melta</div><p>At half range: +1 Damage, +2 AT, and roll an extra 1D6 for armor penetration.</p></div>
+      <div class="ability-card"><div class="ability-name">Master-crafted</div><p>One hit roll may be re-rolled — or, if the weapon has Blast(x) or Auto Hit, a single wound or armour penetration roll instead. Multiple models: one roll per model. Cannot be used on Grenade weapons with Ammo(X).</p></div>
+      <div class="ability-card"><div class="ability-name">Melta</div><p>At half range: +1 Damage, +2 AT, and a +3 bonus on armor penetration rolls.</p></div>
       <div class="ability-card"><div class="ability-name">Monofilament</div><p>If target in cover and ≥1 hit: terrain becomes difficult and dangerous until end of target's next activation.</p></div>
       <div class="ability-card"><div class="ability-name">Overheating</div><p>Each roll of 1 on a hit roll → user suffers a Mortal Wound (or glancing hit for vehicles, using weapon's AT). Re-rolls: initial roll determines overheating. Auto-hit weapons: roll of 1 to wound instead triggers this.</p></div>
       <div class="ability-card"><div class="ability-name">Poison (X+)</div><p>Wound rolls of X+ against Creatures always succeed.</p></div>
-      <div class="ability-card"><div class="ability-name">Precision (X+)</div><p>Successful hit rolls of X+ automatically wound Creatures. Cannot be used with Barrage or Explosive.</p></div>
+      <div class="ability-card"><div class="ability-name">Precision (X+)</div><p>Successful hit rolls of X+ automatically wound creatures. Cannot be used with Blast(x) weapons.</p></div>
       <div class="ability-card"><div class="ability-name">Psi-shock</div><p>If creature unit is hit, a random psyker in that unit must pass a Ld value test or suffer D3 Mortal Wounds. Vehicles: random psyker suffers D3 Critical Damage instead. Each additional hit from same unit = cumulative −1. Triggers once per activating unit.</p></div>
       <div class="ability-card"><div class="ability-name">Quick (+X)</div><p>The model gains +X to its Initiative.</p></div>
       <div class="ability-card"><div class="ability-name">Rending (X+)</div><p>Wound rolls of X+ gain an additional −1 AP.</p></div>
       <div class="ability-card"><div class="ability-name">Seeking</div><p>Enemy units in cover do not gain any cover benefit and are treated as being outside cover.</p></div>
       <div class="ability-card"><div class="ability-name">Shield Breaker (−X)</div><p>Ward saves of enemy models are degraded by −X.</p></div>
-      <div class="ability-card"><div class="ability-name">Shred</div><p>May re-roll to wound rolls with this weapon.</p></div>
+      <div class="ability-card"><div class="ability-name">Shred</div><p>May re-roll any wound rolls made with this weapon.</p></div>
       <div class="ability-card"><div class="ability-name">Slow (−X)</div><p>The model suffers −X to its Initiative.</p></div>
-      <div class="ability-card"><div class="ability-name">Soul Burn (X+)</div><p>Wound rolls of X+ against Creatures inflict 1 Mortal Wound. Does not work vs Vehicles.</p></div>
+      <div class="ability-card"><div class="ability-name">Soul Burn (X+)</div><p>Wound rolls of X+ against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work vs Vehicles.</p></div>
       <div class="ability-card"><div class="ability-name">Sunder (X)</div><p>Enemy units in cover reduce their cover armour save bonus by −X (min 0).</p></div>
-      <div class="ability-card"><div class="ability-name">Suppression</div><p>1 ranged hit forces target to take a Ld test. Additional Suppression weapons vs same target: cumulative −1. Explosive: +−1. Barrage: +−2. Fail = 1 Battleshock token (if unit has none). Stacks with Suppressive Fire penalties.</p></div>
+      <div class="ability-card"><div class="ability-name">Suppression (X)</div><p>Every hit from a weapon with this ability counts as X hits when determining Suppressive Fire.</p></div>
       <div class="ability-card"><div class="ability-name">Unwieldy</div><p>Model does not gain the +1 Attack for having a pistol in melee. Each model may carry only one Unwieldy item.</p></div>
 
     </div>

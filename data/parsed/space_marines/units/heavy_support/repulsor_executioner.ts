@@ -40,7 +40,7 @@ export const repulsorExecutioner: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy onslaught gatling cannon",
@@ -121,7 +121,7 @@ export const repulsorExecutioner: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Macro plasma incinerator (Overheating)",
@@ -130,7 +130,7 @@ export const repulsorExecutioner: Unit = {
       "s": "9",
       "ap": "-5",
       "d": "3",
-      "abilities": "AT(3), Explosive, Overheating"
+      "abilities": "AT(3), Blast(4), Overheating"
     }
   ],
   "option_groups": [

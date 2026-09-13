@@ -49,7 +49,7 @@ export const medusa: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin heavy stubber",
@@ -58,7 +58,7 @@ export const medusa: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Medusa siege cannon - HE shells",
@@ -67,7 +67,7 @@ export const medusa: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(4), Barrage"
+      "abilities": "AT(4), Blast(6)"
     },
     {
       "name": "Medusa siege cannon - Bastion-breacher shells",
@@ -76,7 +76,7 @@ export const medusa: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(4), Explosive, Tank hunter"
+      "abilities": "AT(4), Blast(4), Tank hunter"
     }
   ],
   "option_groups": [

@@ -2,9 +2,10 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
 import type { FactionData, Trait, Unit, Armory } from '../types/data';
-import { ENGAGEMENTS } from '../engine/engagements';
+import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
-import { getArchetypeRule } from '../engine/archetypes';
+import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
+import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
@@ -65,6 +66,7 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
 function computeTraitSelections(
   unit: Unit, item: RosterEntry, names: string[], traits: Trait[], data: FactionData,
+  freeTraitName?: string | null,
 ): TraitSelection[] {
   return names
     .map(name => {
@@ -108,6 +110,10 @@ function computeTraitSelections(
 
       const pts = parseTraitPts(raw);
       if (pts === null) return null; // trait cost is "-" for this unit type
+      // Imperial Guard "Ministorum World" (codex 1.05): "The army must select two Traits and may
+      // then select a third Trait that is paid per unit (not per model). That Trait is free."
+      // Only the THIRD pick is free, and only that one -- everything else prices as normal.
+      if (freeTraitName && name === freeTraitName) return { name, points: 0 };
       const perWound = typeof raw === 'string' && raw.trimEnd().endsWith('*');
       return { name, points: pts, ...(perWound ? { perWound: true } : {}) };
     })
@@ -138,6 +144,10 @@ function applyArmyTraits(
   alliedTraitPool?: string[],
 ): RosterEntry[] {
   const holyTrinity = legacy === 'The Holy Trinity';
+  // See computeTraitSelections: Ministorum World makes the army's THIRD Trait cost nothing. Held
+  // by NAME rather than by index because `unitTraitNames` below is the pool with army-only traits
+  // filtered out, so positions there do not line up with the pool the player actually picked.
+  const freeTraitName = (legacy === 'Ministorum World' && traitPool.length >= 3) ? traitPool[2] : null;
   const unitTraitNames = traitPool.filter(name => {
     const def = data.traits.find(t => t.name === name);
     return def && !isArmyOnlyTrait(def);
@@ -186,7 +196,7 @@ function applyArmyTraits(
       }
 
       // All selected traits apply to all eligible units — veteran_max limits only armory items
-      return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data) };
+      return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
     }
 
     return { ...item, traits: [] };
@@ -387,17 +397,33 @@ export const useArmyStore = create<ArmyStore>()(
       })),
 
       setEngagement: (e: EngagementType) => set((s: S) => {
+        // Missions (Skirmish): "Only one Trait may be selected." Coming from Pitched or Epic the
+        // pool can hold more than the new engagement allows. Clip it here, the same way setLegacy
+        // clips when a Legacy's bonus slot goes away — otherwise the picker would show one slot
+        // while a second Trait stayed silently active on every unit, which is the exact shape of
+        // GH#76 (the panel telling the player something the engine does not actually grant).
+        const traitCap = maxArmyTraits(
+          e,
+          s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0,
+          getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0,
+          s.campaignTraitBonus ?? 0,
+        );
+        const clipped = s.traitPool.length > traitCap ? s.traitPool.slice(0, traitCap) : s.traitPool;
+        const retrait = (army: RosterEntry[]) => (s.data && clipped !== s.traitPool)
+          ? applyArmyTraits(army, clipped, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
+          : army;
+
         // Missions.txt (Skirmish): "No allies may be included." Switching into Skirmish with an
         // allied detachment already present drops it (and its units), same as setAlliedFaction(null).
         if (e === 'skirmish' && s.alliedFaction) {
-          const army = s.army.filter(entry => entry.factionSource !== s.alliedFaction);
+          const army = retrait(s.army.filter(entry => entry.factionSource !== s.alliedFaction));
           return {
-            engagement: e, pointLimit: ENGAGEMENTS[e].default, army,
+            engagement: e, pointLimit: ENGAGEMENTS[e].default, army, traitPool: clipped,
             alliedFaction: undefined, alliedData: null,
             alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [], alliedHqMark: 'Undivided' as Mark,
           };
         }
-        return { engagement: e, pointLimit: ENGAGEMENTS[e].default };
+        return { engagement: e, pointLimit: ENGAGEMENTS[e].default, traitPool: clipped, army: retrait(s.army) };
       }),
       setPointLimit: (n: number) => set({ pointLimit: n }),
       setHqMark: (m: Mark) => set({ hqMark: m }),
@@ -438,7 +464,12 @@ export const useArmyStore = create<ArmyStore>()(
         // Re-clip the trait pool if the new legacy grants fewer bonus slots than the old one
         // (e.g. leaving "Ministorum World" drops its 3rd-Trait slot).
         const archetypeTraitBonus = getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0;
-        const maxTraits = 2 + (s.data?.legacies.find(lg => lg.name === l)?.trait_slot_bonus ?? 0) + archetypeTraitBonus;
+        const maxTraits = maxArmyTraits(
+          s.engagement,
+          s.data?.legacies.find(lg => lg.name === l)?.trait_slot_bonus ?? 0,
+          archetypeTraitBonus,
+          0,
+        );
         if (s.traitPool.length > maxTraits) {
           const newPool = s.traitPool.slice(0, maxTraits);
           return {
@@ -463,7 +494,12 @@ export const useArmyStore = create<ArmyStore>()(
         // Assault campaign's "Features of.." bonus (Research Facility / Breakthrough! event) adds
         // more still — manually entered by the player, see campaignTraitBonus.
         const archetypeTraitBonus2 = getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0;
-        const maxTraits = 2 + (s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0) + archetypeTraitBonus2 + (s.campaignTraitBonus ?? 0);
+        const maxTraits = maxArmyTraits(
+          s.engagement,
+          s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0,
+          archetypeTraitBonus2,
+          s.campaignTraitBonus ?? 0,
+        );
         const newPool = pool.slice(0, maxTraits);
         const hadBC = s.traitPool.includes('Black Crusade');
         const hasBC = newPool.includes('Black Crusade');
@@ -827,6 +863,19 @@ export const useArmyStore = create<ArmyStore>()(
         try {
           const parsed = JSON.parse(json);
           const newState = { ...defaultState, ...parsed, data: s.data };
+          // A list saved before the author renamed an archetype carries the OLD name. Map it
+          // forward here: getArchetypeRule() already sees through the rename table, but
+          // state.archetype itself would stay stale, so the picker would show nothing selected
+          // and every `state.archetype === '...'` check in the validator would miss.
+          if (newState.archetype) newState.archetype = currentArchetypeName(newState.archetype);
+          if (newState.alliedArchetype) newState.alliedArchetype = currentArchetypeName(newState.alliedArchetype);
+          // Same for datasheets the author has renamed: a saved entry holds the unit NAME, and a
+          // name that no longer resolves renders nothing and costs nothing (see unitRenames.ts).
+          if (Array.isArray(newState.army)) {
+            newState.army = applyUnitRenames(newState.faction, newState.army as RosterEntry[], s.data?.units);
+            newState.army = applyArmoryRenames(newState.faction, newState.army as RosterEntry[]);
+            newState.army = applyOptionGroupRemovals(newState.faction, newState.army as RosterEntry[]);
+          }
           // Migrate existing saves: apply forcedMark to non-locked units when archetype requires it.
           const importedRule = getArchetypeRule(newState.archetype);
           const migratedArmy = importedRule?.forcedMark
@@ -856,7 +905,7 @@ export const useArmyStore = create<ArmyStore>()(
     {
       name: 'custom40k-army',
       storage: createJSONStorage(() => sessionStorage),
-      version: 3,
+      version: 4,
       migrate: (persisted: unknown, fromVersion: number) => {
         const s = persisted as Record<string, unknown>;
         if (fromVersion < 1) {
@@ -883,6 +932,17 @@ export const useArmyStore = create<ArmyStore>()(
                 return entry.mark ? entry : { ...entry, mark: rule.forcedMark };
               });
             }
+          }
+        }
+        if (fromVersion < 4) {
+          // Same rename mapping as importRoster, for an in-progress session persisted under the
+          // archetype's previous name.
+          if (typeof s.archetype === 'string') s.archetype = currentArchetypeName(s.archetype);
+          if (typeof s.alliedArchetype === 'string') s.alliedArchetype = currentArchetypeName(s.alliedArchetype);
+          if (typeof s.faction === 'string' && Array.isArray(s.army)) {
+            s.army = applyUnitRenames(s.faction, s.army as { unitName: string }[]);   // no data at rehydrate; the import path applies the upgrade
+            s.army = applyArmoryRenames(s.faction, s.army as { armory?: { itemName: string }[] }[]) as typeof s.army;
+            s.army = applyOptionGroupRemovals(s.faction, s.army as RosterEntry[]) as typeof s.army;
           }
         }
         return s;

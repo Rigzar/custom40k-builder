@@ -140,7 +140,7 @@ export const chaosTerminators: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Combi-melta - Bolter",
@@ -194,7 +194,7 @@ export const chaosTerminators: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Pair of lightning claws",
@@ -203,7 +203,7 @@ export const chaosTerminators: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2), Shred, Unwieldy"
+      "abilities": "Extra Attack(2), Shred, Unwieldy"
     },
     {
       "name": "Power axe",

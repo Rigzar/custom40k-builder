@@ -40,7 +40,7 @@ export const ratlings: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage"
+      "abilities": "Ammo(1), AT(2), Blast(6)"
     },
     {
       "name": "Sniper rifle",
@@ -49,7 +49,7 @@ export const ratlings: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Tankstopper rifle",

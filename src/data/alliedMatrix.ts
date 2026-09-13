@@ -58,7 +58,7 @@ const MATRIX: Record<string, Record<string, Relationship>> = {
   DaE: { AdC:'R', AdM:'R', AdS:'R', CD:'R', CSM:'R', DaE:'Y', Eld:'Y', GK:'R', GSC:'R', IG:'R', Inq:'Y', LoV:'R', Nec:'R', Ork:'Y', SM:'R', Tau:'R', Tyr:'R' },
   Eld: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'Y', Eld:'G', GK:'Y', GSC:'R', IG:'Y', Inq:'Y', LoV:'Y', Nec:'R', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'R' },
   GK: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'R' },
-  GSC: { AdC:'R', AdM:'R', AdS:'R', CD:'R', CSM:'Y', DaE:'R', Eld:'R', GK:'R', GSC:'G', IG:'R', Inq:'Y', LoV:'R', Nec:'R', Ork:'R', SM:'R', Tau:'R', Tyr:'G' },
+  GSC: { AdC:'R', AdM:'R', AdS:'R', CD:'R', CSM:'Y', DaE:'R', Eld:'R', GK:'R', GSC:'G', IG:'R', Inq:'Y', LoV:'R', Nec:'R', Ork:'R', SM:'R', Tau:'R', Tyr:'Y' },
   IG: { AdC:'G', AdM:'G', AdS:'G', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'G', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'G', Tau:'Y', Tyr:'R' },
   Inq: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'Y', CSM:'Y', DaE:'Y', Eld:'Y', GK:'Y', GSC:'Y', IG:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'Y' },
   LoV: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'R' },
@@ -66,7 +66,7 @@ const MATRIX: Record<string, Record<string, Relationship>> = {
   Ork: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'Y', DaE:'Y', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'G', SM:'Y', Tau:'Y', Tyr:'R' },
   SM: { AdC:'G', AdM:'G', AdS:'G', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'G', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'G', Tau:'Y', Tyr:'R' },
   Tau: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'Y', Tau:'G', Tyr:'R' },
-  Tyr: { AdC:'R', AdM:'R', AdS:'R', CD:'R', CSM:'R', DaE:'R', Eld:'R', GK:'R', GSC:'G', IG:'R', Inq:'Y', LoV:'R', Nec:'R', Ork:'R', SM:'R', Tau:'R', Tyr:'G' },
+  Tyr: { AdC:'R', AdM:'R', AdS:'R', CD:'R', CSM:'R', DaE:'R', Eld:'R', GK:'R', GSC:'Y', IG:'R', Inq:'Y', LoV:'R', Nec:'R', Ork:'R', SM:'R', Tau:'R', Tyr:'G' },
 };
 
 /**

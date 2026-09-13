@@ -11,43 +11,51 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v171_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v172c_dismissed';
 
-// v1.71 (2026-09-11) is a REAL version cut (Rigzar: "todo lo que hagamos a partir de ahora es
-// nueva version"), so per [[feedback_version_cut_banner_scope]] this banner is RESET to only
-// v1.71's own content -- v1.70's seven lines are gone from here and live on in the changelog
-// modal. line1 = the 13 wargear items that never granted their weapon (GH#119), line2 = the
-// quoted damage results shown as abilities, line3 = the standing notice that the incoming
-// rules/codex updates are NOT in the app yet and should not be reported as bugs (Rigzar,
-// 2026-09-11: they are being finalised by Dominic and Unwise and need both sign-offs).
-// Append follow-ups here while v1.71 stays open.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; contrib: string; };
+// v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
+// [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
+// v1.71's two lines (the GH#119 wargear sweep and the quoted damage results) shipped on
+// 2026-09-11 and were already announced; they live on in the changelog modal.
+//   line1 = Core Rules 1.261, led by the Skirmish one-Trait cap because it invalidates saved lists
+//   line2 = all 22 codices are in; the two consolidations and the points moves players must check
+//   line3 = the five wargear items found while closing the update, which granted nothing
+//   line4 = the ability clean-up IS in as of 2026-09-13, with the new names spelled out.
+//           Horus Heresy closed it out the same day — its sheet became readable again, so the
+//           last three weapons without a Suppression value have one and NOTHING is outstanding.
+//           The intro no longer says a part is missing; that is why the key is bumped to v172c.
+// Append follow-ups here while v1.72 stays open. Bump ANNOUNCEMENT_KEY whenever these lines
+// change materially, or readers who dismissed the previous card never see the new one.
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.71: wargear that promised a weapon, and cards that listed the wrong abilities",
-    intro: "Two sweeps off the back of two reports — each one turned out to affect most of the game, not one unit.",
+    title: "v1.72: the September rules and codex update",
+    intro: "The Core Rules, the Missions supplement and all 22 codices are up to date, and so is the weapon-ability clean-up. Nothing from this update is still outstanding.",
     install: "",
-    line1: "⚔️ 13 pieces of wargear across 9 factions promised a weapon and never gave it. Reported for the Eldar jetbike, which should come with its built-in twin shuriken catapult. The rest: Harlequin jetbikes, Votann Skimmer bike, Horus Heresy Scimitar Jetbike, Chaos Doombike, Screamer of Tzeentch, Grey Knights Warden of the Blade, Necron Staff of the Destroyer, Imperial Guard Twin heavy stubber, and Tau Knarloc steed, Markerlight and XV84. If you own one of those, the weapon is on your card now.",
-    line2: "🛡️ Vehicle cards listed the damage results their wargear PROTECTS them from as abilities they had. A Leman Russ with extra armour showed \"Crew Shaken\" and \"Engine damage\" under Abilities — exactly backwards. 19 items in 14 factions did this: every faction's Additional armor, plus Spirit stones, Decoy launchers and the Chain guard.",
-    line3: "⚠️ THE NEW RULES AND CODEX UPDATES ARE NOT IN THE APP YET. They are still being finalised by the two people working on them, Dominic and Unwise, and nothing goes in until they both sign it off. So if the app disagrees with a document you have seen recently — a points cost, a new option, a reworded rule — that is expected and it is NOT a bug. Please don't report those; we already know. Everything else is fair game and the report form is the fastest way to reach us.",
+    line1: "📕 The Core Rules are now at 1.261 / Balance 5.04, and one change will affect lists you have already built: IN SKIRMISH YOU MAY NOW SELECT ONLY ONE ARMY TRAIT. A Legacy that normally grants an extra Trait cannot lift that limit, so an existing Skirmish list with two will be flagged until you drop one. Also in: Monstrous Creatures and Monstrous Infantry get a flat +3 and +2 on Armor penetration instead of extra dice, Armorbane and Melta give a flat +3 and Armor piercing +2 in place of their extra dice, Extra Attack and Flurry are now per ACTIVATION rather than per battle round, Smite counts as a Basic power, and Sniper grants +1 Ballistic Skill. The full list is in the changelog.",
+    line2: "📖 EVERY FACTION'S CODEX UPDATE IS IN — all 22. Two datasheets were merged away and your saved lists have been migrated for you: the Tyranid SWARMLORD is now a Legendary Hive Tyrant upgrade at the same 339 points, and the Custodes JETBIKE CUSTODIANS and VERTUS PRAETOR are one unit, Vertus Praetors. New arrivals: the Tyranid Hive Crone, the Custodes Venatari Custodians, four new Space Marine Chapter armouries (Iron Hands, Raven Guard, Salamanders, Ultramarines) and two new psychic disciplines, Technomancy and Umbromancy. And a great many points moved — Space Marine Desolation Squads, Hellblasters and Intercessors, Ork Nobs, Tau Stealth Battlesuits, Eldar Striking Scorpions, the Chaos Ascended Daemon Prince. Open a list you care about and check its total.",
+    line3: "⚔️ Five more pieces of wargear named a weapon and handed over nothing. The Tau XV81 Crisis battlesuit's Smart missile system, and the Hunter-killer missile sold on Space Marine, Imperial Guard, Adeptus Custodes and Adeptus Sororitas vehicles — 5 points for nothing on four factions' tanks. All five are on your card now.",
+    line4: "🔄 THE WEAPON-ABILITY CLEAN-UP IS IN TOO — Unwise finished it, so your cards now speak Core Rules 1.262. Flames is now AUTO HIT plus SUNDER(1). Flurry is now EXTRA ATTACK. Explosive, Barrage and Colossal Blast are all BLAST(x) — 4, 6 and 8 respectively. And Suppression now carries a number per weapon, SUPPRESSION(x), where each of its hits counts as x toward Suppressive Fire. Suppressive Fire itself got simpler: 6+ ranged hits in one activation, −1 for every further 6, and no separate test just because a Suppression weapon hit you. 1331 weapon profiles changed, and the glossary, the cheat sheets and the wiki moved with them, so an ability on a card is always one you can look up. The Horus Heresy supplement is in as well — its sheet went readable again, and the last three weapons that still said Suppression with no number have one.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.71: Ausrüstung ohne ihre Waffe, und Karten mit den falschen Fähigkeiten",
-    intro: "Zwei Meldungen, zwei Durchgänge — beide betrafen fast das ganze Spiel, nicht eine Einheit.",
+    title: "v1.72: Das September-Update für Regeln und Codices",
+    intro: "Die Core Rules, das Missions-Supplement und alle 22 Codices sind auf dem neuesten Stand — und die Überarbeitung der Waffenfähigkeiten ebenfalls. Aus diesem Update steht nichts mehr aus.",
     install: "",
-    line1: "⚔️ 13 Ausrüstungsteile in 9 Fraktionen versprachen eine Waffe und gaben sie nie. Gemeldet für das Eldar-Jetbike, das seinen eingebauten Twin shuriken catapult mitbringen soll. Ebenso: Harlekin-Jetbikes, Votann Skimmer bike, Horus-Heresy Scimitar Jetbike, Chaos Doombike, Screamer of Tzeentch, Grey Knights Warden of the Blade, Necron Staff of the Destroyer, Imperiale Armee Twin heavy stubber sowie Tau Knarloc steed, Markerlight und XV84.",
-    line2: "🛡️ Fahrzeugkarten führten die Schadensergebnisse, vor denen ihre Ausrüstung SCHÜTZT, als eigene Fähigkeiten auf. Ein Leman Russ mit Zusatzpanzerung zeigte \"Crew Shaken\" und \"Engine damage\" unter Fähigkeiten — genau verkehrt herum. 19 Teile in 14 Fraktionen.",
-    line3: "⚠️ DIE NEUEN REGEL- UND CODEX-UPDATES SIND NOCH NICHT IN DER APP. Sie werden gerade von den beiden Verantwortlichen fertiggestellt, Dominic und Unwise, und nichts wird übernommen, bevor beide es freigegeben haben. Wenn die App also von einem Dokument abweicht, das du kürzlich gesehen hast — Punktekosten, eine neue Option, eine umformulierte Regel — ist das so gewollt und KEIN Fehler. Bitte meldet das nicht; wir wissen davon. Alles andere gern über das Formular.",
+    line1: "📕 Die Core Rules stehen jetzt auf 1.261 / Balance 5.04, und eine Änderung betrifft bereits gebaute Listen: IM SCHARMÜTZEL DARF NUR NOCH EINE ARMEE-EIGENSCHAFT GEWÄHLT WERDEN. Ein Vermächtnis, das sonst eine zusätzliche Eigenschaft gewährt, hebt dieses Limit nicht auf — eine bestehende Scharmützel-Liste mit zweien wird beanstandet, bis eine wegfällt. Ebenfalls neu: Monströse Kreaturen und Monströse Infanterie erhalten pauschal +3 bzw. +2 auf Panzerungsdurchschlag statt zusätzlicher Würfel, Armorbane und Melta geben pauschal +3 und Armor piercing +2 statt ihrer Extrawürfel, Extra Attack und Flurry gelten jetzt pro AKTIVIERUNG statt pro Kampfrunde, Smite zählt als Basis-Kraft, und Sniper gibt +1 Ballistische Fähigkeit. Die vollständige Liste steht im Changelog.",
+    line2: "📖 DIE CODEX-UPDATES ALLER FRAKTIONEN SIND DRIN — alle 22. Zwei Datenblätter wurden zusammengelegt, und deine gespeicherten Listen wurden dabei automatisch mitgezogen: Der Tyraniden-SCHWARMLORD ist jetzt ein Aufstieg zum Legendären Schwarmtyranten zum selben Preis von 339 Punkten, und die Custodes-JETBIKE CUSTODIANS und der VERTUS PRAETOR sind eine Einheit, die Vertus Praetors. Neu dabei: die Tyraniden-Hive Crone, die Venatari Custodians, vier neue Ordensarsenale der Space Marines (Iron Hands, Raven Guard, Salamanders, Ultramarines) und zwei neue Psi-Disziplinen, Technomancy und Umbromancy. Außerdem haben sich sehr viele Punktekosten verschoben — Desolation Squads, Hellblaster und Intercessors der Space Marines, Ork-Nobs, Tau Stealth Battlesuits, Eldar Striking Scorpions, der Aufgestiegene Dämonenprinz des Chaos. Öffne eine Liste, die dir wichtig ist, und prüfe ihre Gesamtkosten.",
+    line3: "⚔️ Fünf weitere Ausrüstungsteile nannten eine Waffe und gaben sie nie: das Smart missile system des Tau XV81 sowie das Hunter-killer missile auf Fahrzeugen der Space Marines, der Imperialen Armee, der Custodes und der Sororitas — 5 Punkte für nichts auf den Panzern von vier Fraktionen. Alle fünf stehen jetzt auf der Karte.",
+    line4: "🔄 AUCH DIE ÜBERARBEITUNG DER WAFFENFÄHIGKEITEN IST DRIN — Unwise ist fertig, eure Karten sprechen jetzt Core Rules 1.262. Aus Flames wird AUTO HIT plus SUNDER(1), aus Flurry wird EXTRA ATTACK, und Explosive, Barrage und Colossal Blast werden alle zu BLAST(x) — 4, 6 bzw. 8. Suppression hat jetzt einen Wert pro Waffe, SUPPRESSION(x): jeder ihrer Treffer zählt als x für Suppressive Fire. Suppressive Fire selbst wurde einfacher: 6+ Fernkampftreffer in einer Aktivierung, −1 für je weitere 6 — und kein eigener Test mehr, nur weil eine Suppression-Waffe getroffen hat. 1331 Waffenprofile geändert, und Glossar, Cheat Sheets und Wiki sind mitgezogen. Das Horus-Heresy-Supplement ist ebenfalls dabei — sein Tabellenblatt ist wieder lesbar, und die letzten drei Waffen, bei denen Suppression noch ohne Zahl stand, haben jetzt eine.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.71: equipo que prometía un arma, y fichas que listaban habilidades que no eran",
-    intro: "Dos reportes, dos barridos — los dos acabaron afectando a casi todo el juego, no a una unidad.",
+    title: "v1.72: el update de reglas y códex de septiembre",
+    intro: "Las Core Rules, el suplemento de Missions y los 22 códices están al día, y la limpieza de habilidades de arma también. De este update ya no queda nada pendiente.",
     install: "",
-    line1: "⚔️ 13 piezas de equipo en 9 facciones prometían un arma y nunca la daban. Reportado por el jetbike de Eldar, que debe venir con su twin shuriken catapult integrado. Los demás: jetbikes de Harlequins, Skimmer bike de Votann, Scimitar Jetbike de Horus Heresy, Doombike del Caos, Screamer of Tzeentch, Warden of the Blade de Grey Knights, Staff of the Destroyer de Necrons, Twin heavy stubber de la Guardia, y Knarloc steed, Markerlight y XV84 de Tau. Si tienes alguno, el arma ya te sale en la ficha.",
-    line2: "🛡️ Las fichas de vehículo listaban como habilidades propias los daños de los que su equipo les PROTEGE. Un Leman Russ con blindaje adicional mostraba \"Crew Shaken\" y \"Engine damage\" en Habilidades — justo al revés. 19 ítems en 14 facciones lo hacían: el Additional armor de cada facción, más Spirit stones, Decoy launchers y el Chain guard.",
-    line3: "⚠️ LOS NUEVOS UPDATES DE REGLAS Y CODEX TODAVÍA NO ESTÁN EN LA APP. Los están rematando las dos personas que se encargan, Dominic y Unwise, y no entra nada hasta que ambos den el visto bueno. Así que si la app no coincide con un documento que hayas visto hace poco — un coste en puntos, una opción nueva, una regla reescrita — es lo esperado y NO es un bug. Por favor no lo reportéis; ya lo sabemos. Cualquier otra cosa sí, y el formulario es la vía más rápida.",
+    line1: "📕 Las Core Rules ya están en 1.261 / Balance 5.04, y un cambio afecta a listas que ya tengas hechas: EN SKIRMISH SOLO SE PUEDE ELEGIR UN RASGO DE EJÉRCITO. Una Legacy que normalmente da un rasgo extra no levanta ese límite, así que una lista de Skirmish con dos quedará marcada hasta que quites uno. También entra: las Criaturas Monstruosas y la Infantería Monstruosa pasan a un +3 y +2 fijos a penetración de blindaje en vez de tirar dados extra, Armorbane y Melta dan un +3 fijo y Armor piercing un +2 en lugar de sus dados extra, Extra Attack y Flurry pasan a ser por ACTIVACIÓN en vez de por ronda, Smite cuenta como poder Básico, y Sniper da +1 a Habilidad de Proyectiles. La lista completa está en el changelog.",
+    line2: "📖 LOS UPDATES DE CÓDEX DE TODAS LAS FACCIONES YA ESTÁN — las 22. Dos hojas se fusionaron y tus listas guardadas se migran solas: el SWARMLORD tyránido es ahora una mejora a Legendary Hive Tyrant por los mismos 339 puntos, y los JETBIKE CUSTODIANS y el VERTUS PRAETOR de Custodes son una sola unidad, Vertus Praetors. Novedades: la Hive Crone tyránida, los Venatari Custodians, cuatro armerías de Capítulo nuevas de Space Marines (Iron Hands, Raven Guard, Salamanders, Ultramarines) y dos disciplinas psíquicas nuevas, Technomancy y Umbromancy. Y se han movido muchísimos puntos — Desolation Squads, Hellblasters e Intercessors de Space Marines, los Nob orkos, los Stealth Battlesuits de Tau, los Striking Scorpions de Eldar, el Príncipe Demonio Ascendido del Caos. Abre la lista que te importe y mira el total.",
+    line3: "⚔️ Cinco piezas de equipo más nombraban un arma y no daban nada: el Smart missile system del XV81 de Tau y el Hunter-killer missile de los vehículos de Space Marines, Guardia, Custodes y Sororitas — 5 puntos por nada en los tanques de cuatro facciones. Las cinco ya salen en la ficha.",
+    line4: "🔄 LA LIMPIEZA DE HABILIDADES TAMBIÉN ESTÁ DENTRO — Unwise la terminó, así que tus fichas ya hablan Core Rules 1.262. Flames pasa a AUTO HIT más SUNDER(1), Flurry pasa a EXTRA ATTACK, y Explosive, Barrage y Colossal Blast se unifican en BLAST(x) — 4, 6 y 8 respectivamente. Suppression lleva ahora un número por arma, SUPPRESSION(x), y cada uno de sus impactos cuenta como x para Suppressive Fire. El propio Suppressive Fire se simplificó: 6+ impactos a distancia en una activación, −1 por cada 6 más, y ya no hay test aparte por que te impacte un arma con Suppression. 1331 perfiles de arma cambiados, y el glosario, las chuletas y el wiki han ido con ellos. El suplemento de Horus Heresy también entra — su hoja volvió a ser legible, y las tres últimas armas que seguían diciendo Suppression sin número ya tienen su valor.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -122,10 +130,10 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.71 is a REAL version cut, so this banner carries ONLY v1.71's own two items;
-              v1.70's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
-              here while v1.71 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3]
+          {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
+              v1.71's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
+              here while v1.72 is open; cut a fresh banner when a new version is cut. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
@@ -240,6 +248,7 @@ interface Props {
   onShowCloudSaves?: () => void;
   onShowCommunity?: () => void;
   onShowCampaign?: () => void;
+  onShowEvents?: () => void;
   onShowCheatSheets: () => void;
 }
 
@@ -247,6 +256,7 @@ export function LandingPage({
   saves, announcement, canResume,
   onStart, onResume, onLoadArmy, onShowAuth, onShowCloudSaves, onShowCommunity, onShowCheatSheets,
   onShowCampaign,
+  onShowEvents,
 }: Props) {
   const [showChangelog, setShowChangelog] = useState(false);
   // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
@@ -442,6 +452,28 @@ export function LandingPage({
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
                 {t('navCampaignComingSoon')}
+              </button>
+            )}
+
+            {/* Events & Leagues, same alpha gate as Campaign: the module is built but stays
+                admin-only until it has been run end to end with test data and reset. */}
+            {loggedIn && (isAdmin || isInterrogator) ? (
+              <button
+                onClick={onShowEvents}
+                title="Events & Leagues — alpha access (admin)"
+                className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
+              >
+                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
+                EVENTS &amp; LEAGUES (ALPHA)
+              </button>
+            ) : (
+              <button
+                disabled
+                title="Events & Leagues is still in alpha testing"
+                className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
+              >
+                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
+                EVENTS &amp; LEAGUES — COMING SOON
               </button>
             )}
           </div>

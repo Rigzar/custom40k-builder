@@ -61,7 +61,7 @@
   },
   {
     "name": "Tribute of Emphatic Veneration",
-    "effect": "The unit's ranged weapons gain \"Suppression.\"",
+    "effect": "The unit's ranged weapons gain \"Suppression(3).\"",
     "type": "legacy",
     "grantedByLegacy": "Legacy of the Gleaming Giant"
   },

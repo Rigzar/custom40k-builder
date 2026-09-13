@@ -77,7 +77,7 @@ export const howlingBanshees: Unit = {
       "s": "+1",
       "ap": "-4",
       "d": "1",
-      "abilities": "Flurry(2), Unwieldy"
+      "abilities": "Extra Attack(2), Unwieldy"
     },
     {
       "name": "Shuriken pistol",

@@ -58,7 +58,7 @@ export const cthonianBeserks: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect, Suppression"
+      "abilities": "Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Twin concussion weapon",
@@ -67,7 +67,7 @@ export const cthonianBeserks: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Flurry(1), Slow(-2), Unwieldy"
+      "abilities": "AT(2), Extra Attack(1), Slow(-2), Unwieldy"
     }
   ],
   "option_groups": [

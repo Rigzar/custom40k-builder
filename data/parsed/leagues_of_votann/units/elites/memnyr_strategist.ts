@@ -40,7 +40,7 @@ export const memnyrStrategist: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Graviton"
+      "abilities": "Blast(4), Graviton"
     }
   ],
   "option_groups": [],

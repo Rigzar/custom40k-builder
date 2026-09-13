@@ -58,7 +58,7 @@ export const onagerDunecrawler: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Eradication beamer - Long range",
@@ -67,7 +67,7 @@ export const onagerDunecrawler: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Barrage"
+      "abilities": "Blast(6)"
     },
     {
       "name": "Icarus array - Daedalus missile launcher",
@@ -103,7 +103,7 @@ export const onagerDunecrawler: Unit = {
       "s": "10",
       "ap": "-5",
       "d": "3",
-      "abilities": "AT(4), Explosive"
+      "abilities": "AT(4), Blast(4)"
     },
     {
       "name": "Twin heavy phosphor blaster",

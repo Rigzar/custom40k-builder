@@ -44,7 +44,7 @@ export const neurotyrant: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames, Seeking"
+      "abilities": "Auto Hit, Sunder(1), Seeking"
     }
   ],
   "option_groups": [
@@ -213,7 +213,7 @@ export const neurotyrant: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

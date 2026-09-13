@@ -36,7 +36,7 @@ export const kabaliteTrueborn: Unit = {
   "weapons": [
     { "name": "Blaster", "range": "18\"", "type": "Assault 1", "s": "8", "ap": "-4", "d": "2", "abilities": "AT(2), Lance(+1)" },
     { "name": "Dark lance", "range": "36\"", "type": "Heavy 1", "s": "8", "ap": "-4", "d": "3", "abilities": "AT(3), Lance(+2)" },
-    { "name": "Shredder", "range": "18\"", "type": "Assault 1", "s": "6", "ap": "-1", "d": "1", "abilities": "Explosive, Suppression" },
+    { "name": "Shredder", "range": "18\"", "type": "Assault 1", "s": "6", "ap": "-1", "d": "1", "abilities": "Blast(4), Suppression(2)" },
     { "name": "Splinter cannon", "range": "36\"", "type": "Assault 4", "s": "3", "ap": "0", "d": "1", "abilities": "Poison(3+)" },
     { "name": "Splinter rifle", "range": "24\"", "type": "Rapid Fire 1", "s": "2", "ap": "0", "d": "1", "abilities": "Poison(3+)" }
   ],

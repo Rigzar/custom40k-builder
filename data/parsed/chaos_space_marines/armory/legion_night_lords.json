@@ -9,7 +9,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Armor piercing(5+), Flurry(2), Shred, Unwieldy",
+      "abilities": "Armor piercing(5+), Extra Attack(2), Shred, Unwieldy",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [
@@ -24,7 +24,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(4), Shred, Unwieldy",
+      "abilities": "Extra Attack(4), Shred, Unwieldy",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [

@@ -40,7 +40,7 @@ export const flayedOnes: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(2), Shred"
+      "abilities": "Extra Attack(2), Shred"
     }
   ],
   "option_groups": [],

@@ -49,7 +49,7 @@ export const stompa: Unit = {
       "s": "10",
       "ap": "-5",
       "d": "3",
-      "abilities": "AT(3), Colossal blast, Tank hunter"
+      "abilities": "AT(3), Blast(8), Tank hunter"
     },
     {
       "name": "Flakka gunz",
@@ -58,7 +58,7 @@ export const stompa: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Anti-air, Explosive, Sunder(1)"
+      "abilities": "AT(1), Anti-air, Blast(4), Sunder(1)"
     },
     {
       "name": "Flamebelcha",
@@ -67,7 +67,7 @@ export const stompa: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Flames"
+      "abilities": "AT(1), Auto Hit, Sunder(1)"
     },
     {
       "name": "Gaze of Mork",
@@ -94,7 +94,7 @@ export const stompa: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo (1), AT(2), Barrage, Indirect, Grot-guided"
+      "abilities": "Ammo (1), AT(2), Blast(6), Indirect, Grot-guided"
     },
     {
       "name": "Lifta-droppa",
@@ -103,7 +103,7 @@ export const stompa: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Armorbane, Explosive, Grav, Lifta"
+      "abilities": "AT(2), Armorbane, Blast(4), Grav, Lifta"
     },
     {
       "name": "Mega-choppa - Strike",
@@ -112,7 +112,7 @@ export const stompa: Unit = {
       "s": "D",
       "ap": "-5",
       "d": "4",
-      "abilities": "AT(4), Flurry(1)"
+      "abilities": "AT(4), Extra Attack(1)"
     },
     {
       "name": "Mega-choppa - Sweep",
@@ -121,7 +121,7 @@ export const stompa: Unit = {
       "s": "U",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Flurry(4)"
+      "abilities": "AT(2), Extra Attack(4)"
     },
     {
       "name": "Megadeff Rolla",
@@ -130,7 +130,7 @@ export const stompa: Unit = {
       "s": "U",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Flurry(12)"
+      "abilities": "AT(3), Extra Attack(12)"
     },
     {
       "name": "Rokkit launcha",
@@ -148,7 +148,7 @@ export const stompa: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Supa-skorcha",
@@ -157,7 +157,7 @@ export const stompa: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Supa rokkit",
@@ -166,7 +166,7 @@ export const stompa: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage"
+      "abilities": "Ammo(1), AT(2), Blast(6)"
     },
     {
       "name": "Supa-gatler",

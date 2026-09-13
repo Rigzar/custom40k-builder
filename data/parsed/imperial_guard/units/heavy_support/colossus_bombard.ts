@@ -40,7 +40,7 @@ export const colossusBombard: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Colossal Blast, Indirect, Seeking, Suppression"
+      "abilities": "Blast(8), Indirect, Seeking, Suppression(3)"
     },
     {
       "name": "Heavy bolter",
@@ -58,7 +58,7 @@ export const colossusBombard: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin heavy stubber",
@@ -67,7 +67,7 @@ export const colossusBombard: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [
@@ -92,7 +92,7 @@ export const colossusBombard: Unit = {
     }
   ],
   "abilities": [
-    "Colossal Blast: A successful hit roll with this weapon generates a number of wound rolls equal to the number of models in the target unit, up to a maximum of 8. An unsuccessful hit roll can be re-rolled once. A successful re-roll can generate a maximum of 4 wound rolls.",
+    "Blast(8): A successful hit roll with this weapon generates 1 hit per model in the target unit, to a maximum of 8 hits. An unsuccessful hit roll can be re-rolled once and can only generate half (rounded down) that many maximum hits.",
     "Slow Firing: A Colossus Bombard may only fire its siege cannon with a Stand & Shoot order, even if it is not firing indirectly."
   ],
   "unit_type": "Vehicle",

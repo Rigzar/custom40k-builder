@@ -94,7 +94,7 @@ export const warptalons: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -112,7 +112,7 @@ export const warptalons: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(2), Shred, Unwieldy"
+      "abilities": "Extra Attack(2), Shred, Unwieldy"
     }
   ],
   "option_groups": [

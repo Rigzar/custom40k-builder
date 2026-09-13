@@ -44,7 +44,7 @@ export const captain: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -62,7 +62,7 @@ export const captain: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames, Shield breaker(-1)"
+      "abilities": "Auto Hit, Sunder(1), Shield breaker(-1)"
     },
     {
       "name": "Nemesis daemon hammer",
@@ -98,7 +98,7 @@ export const captain: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Shield breaker(-1), Suppression"
+      "abilities": "Shield breaker(-1), Suppression(3)"
     },
     {
       "name": "Psycannon",

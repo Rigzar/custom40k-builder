@@ -58,7 +58,7 @@ export const stormtroopers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Flamer",
@@ -67,7 +67,7 @@ export const stormtroopers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Hot-shot lasgun",
@@ -112,7 +112,7 @@ export const stormtroopers: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Grenade launcher - Frag grenade",
@@ -121,7 +121,7 @@ export const stormtroopers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenade launcher - Krak grenade",

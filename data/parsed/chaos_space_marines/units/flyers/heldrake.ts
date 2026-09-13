@@ -86,7 +86,7 @@ export const heldrake: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Heldrake claws",
@@ -104,7 +104,7 @@ export const heldrake: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(2), Suppression"
+      "abilities": "AT(2), Suppression(3)"
     }
   ],
   "option_groups": [

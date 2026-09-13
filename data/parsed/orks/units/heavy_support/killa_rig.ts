@@ -44,7 +44,7 @@ export const killaRig: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Savage horns and hooves",
@@ -53,7 +53,7 @@ export const killaRig: Unit = {
       "s": "+1",
       "ap": "-2",
       "d": "2",
-      "abilities": "Flurry(3)"
+      "abilities": "Extra Attack(3)"
     },
     {
       "name": "Stikka kannon",
@@ -71,7 +71,7 @@ export const killaRig: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Flames"
+      "abilities": "AT(3), Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [],

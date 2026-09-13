@@ -2,11 +2,12 @@ import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor } from './points';
 import { t, tpl, type Language } from '../i18n';
-import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
+import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
 import {
   getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
-import { applyVariantSlotOverride } from './slotOverrides';
+import { applyVariantSlotOverride, hasSlotOptIn } from './slotOverrides';
+import { removedUnitNote } from './unitRenames';
 import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
@@ -179,6 +180,7 @@ function getSlotUsage(
   countAllied?: boolean,
   engagement?: string,
   excludeFactionSources?: string[],
+  excludeSlotOptIns?: boolean,
 ): number {
   const exemptIds = engagement === 'skirmish' ? new Set<string>() : advisorExemptIds(army, data, rule, alliedFaction);
   return army.filter(i => {
@@ -187,7 +189,12 @@ function getSlotUsage(
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     if (exemptIds.has(i.id)) return false;
     const u = resolveUnit(i, data);
-    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+    const printedSlot = getEffectiveSlot(i.unitName, i.slot, rule);
+    // A unit that is only in this slot because its datasheet let it opt in (Canoptek Scarabs'
+    // "may be selected as Troops ... Can't be a mandatory unit selection") fills the slot but
+    // cannot satisfy the AOP minimum -- so the minimum check asks for the count without them.
+    if (excludeSlotOptIns && hasSlotOptIn(i, u ?? undefined, printedSlot)) return false;
+    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, printedSlot);
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;
     // IG Platoon grouping (ki-45b): a member linked to a live Platoon Command Squad is folded
@@ -1008,6 +1015,30 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
   }, 0);
 
+  // ── Entries whose datasheet no longer exists ─────────────────────────────────
+  // Every consumer in the app treats an unresolvable unit as `: 0` / `return null`, so without
+  // this the entry renders nothing, costs nothing and still holds its slot -- an army that
+  // silently got cheaper overnight. This runs FIRST, before any other check, because until it is
+  // resolved every points and slot number below it is describing a different army than the
+  // player's. Renames are mapped forward on load (engine/unitRenames.ts); what reaches here is a
+  // datasheet the codex genuinely dropped.
+  {
+    const missing = state.army.filter(i => !resolveUnit(i, data));
+    const seen = new Set<string>();
+    for (const i of missing) {
+      if (seen.has(i.unitName)) continue;
+      seen.add(i.unitName);
+      const note = removedUnitNote(state.faction, i.unitName);
+      const count = missing.filter(m => m.unitName === i.unitName).length;
+      items.push({
+        type: 'error',
+        text: note
+          ? T('valUnitRemovedFromCodex', { unit: i.unitName, count, note })
+          : T('valUnitNotInCodex', { unit: i.unitName, count }),
+      });
+    }
+  }
+
   // Point ranges. Missions states these as the size of the game, not as advice — "Skirmish
   // (1000 - 1500 points)" — so an army outside its engagement's band is an error, the same as any
   // other restriction the supplement prints. An empty army is exempt: a list you have not started
@@ -1777,16 +1808,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         g.variant_link === 'Inquisitor Lord' && !!(item.optionQty?.[gi]?.['__inline']),
       );
     });
-    // Inquisition "Sector Protector" (Army Customisation, added by the author in the August 2026
-    // update): "Henchman Warbands can be taken without requiring an Inquisitor and when done so
-    // have a size of 5-10 specialists." That replaces the Inquisitor-derived cap outright — the
-    // Warband no longer hangs off an Inquisitor at all, so neither the 6 nor the Lord's 12 apply.
-    const sectorProtector = state.archetype === 'Sector Protector';
-    const cap = sectorProtector ? 10 : (hasInquisitorLord ? 12 : 6);
+    // Inquisition "Sector Lord" (Army Customisation; the archetype the author added in August 2026
+    // as "Sector Protector" and renamed with the September 2026 codex 1.01 — see
+    // RENAMED_ARCHETYPES). Codex 1.01, verbatim: "Henchman Warbands consisting of 5+ Acolytes can
+    // be taken without requiring an Inquisitor and when done so have a size of 5-10 specialists."
+    // That replaces the Inquisitor-derived cap outright — the Warband no longer hangs off an
+    // Inquisitor at all, so neither the 6 nor the Lord's 12 apply. The 5+ ACOLYTES clause is new in
+    // 1.01: the old wording asked only for 5 specialists of any kind.
+    const sectorLord = state.archetype === 'Sector Lord';
+    const cap = sectorLord ? 10 : (hasInquisitorLord ? 12 : 6);
     for (const item of state.army) {
       if (item.unitName !== 'Henchman Warband') continue;
-      if (sectorProtector && item.size < 5) {
+      if (sectorLord && item.size < 5) {
         items.push({ type: 'error', text: T('valSectorProtectorWarbandMin', { count: item.size }) });
+      }
+      if (sectorLord) {
+        const acolytes = item.modelSizes?.['Acolyte'] ?? 0;
+        if (acolytes < 5) {
+          items.push({ type: 'error', text: T('valSectorLordAcolytes', { count: acolytes }) });
+        }
       }
       if (item.size > cap) {
         items.push({
@@ -2010,7 +2050,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     // For integrated supplements (HH Legion), count both primary and supplement units toward the primary AOP.
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl, true);
     // Skirmish (Missions, Unit Restrictions): "All units occupy an Army Organisation slot, even if
     // their rules state otherwise." That is every free-slot mechanism in the game, not only the
     // Advisor one getSlotUsage already switches off — Royal Court, the Daemon heralds, Geminae
@@ -2088,8 +2128,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           .reduce((s, pts) => s + Math.floor(pts * transportPct), 0)
       : 0;
     const troopsPts = baseTroopsPts + transportBonus;
-    // Canon (Missions.txt: "25% of the point limit"; Core Rules: "25% of the played points") — the
-    // denominator is the agreed GAME SIZE, not the points currently mustered. A half-built
+    // Canon (Missions.txt: "25% of the point limit"; Core Rules 1.261 now says the same, having
+    // previously said "25% of the played points" — the two documents agree as of this revision) —
+    // the denominator is the agreed GAME SIZE, not the points currently mustered. A half-built
     // 1688/2500 army must still plan its Troops against 2500, so basing the % on the running total
     // is misleading (reported by a player). The primary + allied detachments share ONE common
     // requirement against the full limit (allied Troops are in the numerator above), so the
@@ -2499,6 +2540,29 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     });
   }
 
+  // ── Necrons: Canoptek Scarabs as Troops (codex 1.11) ─────────────────────────
+  // `Codex/Necrons 1.11.ods`, Canoptek Scarabs / OPTIONS, verbatim: "For each \"Warriors\" unit,
+  // one \"Canoptek Scarabs\" unit may be selected as Troops. Can't be a mandatory unit selection."
+  // The slot move itself is in slotOverrides.ts and the "not mandatory" half is handled by the AOP
+  // minimum above; this is the one-per-Warriors-unit cap. Counted over the whole roster rather than
+  // per detachment because the sentence does not scope itself to one.
+  if (data.faction === 'Necrons') {
+    const scarabsAsTroops = state.army.filter(i => {
+      if (i.unitName !== 'Canoptek Scarabs') return false;
+      const u = resolveUnit(i, data);
+      return hasSlotOptIn(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, effectiveRuleFor(i, state)));
+    }).length;
+    if (scarabsAsTroops > 0) {
+      const warriors = state.army.filter(i => i.unitName === 'Warriors').length;
+      if (scarabsAsTroops > warriors) {
+        items.push({
+          type: 'error',
+          text: T('valScarabsAsTroopsCap', { count: scarabsAsTroops, warriors }),
+        });
+      }
+    }
+  }
+
   // ── Lords of War (Escalation): Epic Battle only + 33% of points cap ──────────
   // missions_text.txt: only Epic has the "0+ Lords of War" slot; "A total of 33% of the
   // point limit may be spent on Lord of War units."
@@ -2704,11 +2768,33 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Army trait limit (base 2, plus Legacy/archetype/campaign bonus slots)
-  const maxTraits = 2 + (data.legacies.find(lg => lg.name === state.legacy)?.trait_slot_bonus ?? 0)
-    + (rule?.archetypeTraitBonus ?? 0) + (state.campaignTraitBonus ?? 0);
+  // Army trait limit (base 2, plus Legacy/archetype/campaign bonus slots, minus any hard ceiling
+  // the engagement imposes -- Skirmish is capped at 1 Trait). Shared with the store so the picker
+  // and the panel can never disagree about the number.
+  const maxTraits = maxArmyTraits(
+    state.engagement,
+    data.legacies.find(lg => lg.name === state.legacy)?.trait_slot_bonus ?? 0,
+    rule?.archetypeTraitBonus ?? 0,
+    state.campaignTraitBonus ?? 0,
+  );
   if (state.traitPool.length > maxTraits) {
-    items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length }) });
+    items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length, max: maxTraits }) });
+  }
+
+  // Imperial Guard "Ministorum World" (codex 1.05): "The army must select two Traits and may then
+  // select a third Trait THAT IS PAID PER UNIT (NOT PER MODEL). That Trait is free." The cost table
+  // marks a per-model Trait with a trailing asterisk ("If point costs are marked with *, then they
+  // must be paid for every Wound or Hull point in the unit"), so the third pick may not carry one.
+  // The store already prices that slot at 0 either way, which is exactly why this needs saying out
+  // loud: without the check a player would get an illegal Trait for free and never be told.
+  if (state.legacy === 'Ministorum World' && state.traitPool.length >= 3) {
+    const third = state.traitPool[2];
+    const def = data.traits.find(t => t.name === third);
+    const perModel = [def?.pts_unit, def?.pts_char, def?.pts_monster, def?.pts_veh]
+      .some(v => typeof v === 'string' && v.trimEnd().endsWith('*'));
+    if (perModel) {
+      items.push({ type: 'error', text: T('valMinistorumThirdTraitPerUnit', { trait: third }) });
+    }
   }
 
   // veteran_required: unit must have at least 1 veteran ability bought from the armory

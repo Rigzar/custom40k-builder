@@ -58,7 +58,7 @@ export const serberysSulphurhounds: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Luminagen"
+      "abilities": "Blast(4), Luminagen"
     },
     {
       "name": "Phosphor pistol",
@@ -76,7 +76,7 @@ export const serberysSulphurhounds: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [

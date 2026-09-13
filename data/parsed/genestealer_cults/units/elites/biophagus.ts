@@ -40,7 +40,7 @@ export const biophagus: Unit = {
       "s": "1",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive, Poison(2+)"
+      "abilities": "Blast(4), Poison(2+)"
     },
     {
       "name": "Injector goad",

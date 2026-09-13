@@ -40,10 +40,10 @@ export const CUSTODES_SLOTS: CustodesSlotEntry[] = [
   { name: 'Galatus Contemptor Dreadnought', slot: 'Elites' },
   { name: 'Custodian Wardens', slot: 'Elites' },
   { name: 'Venerable Contemptor Dreadnought', slot: 'Elites' },
-  { name: 'Vertus Praetor', slot: 'Elites' },
 
   // --- Fast Attack (1) ---
-  { name: 'Jetbike Custodians', slot: 'Fast Attack' },
+  { name: 'Vertus Praetors', slot: 'Fast Attack' },
+  { name: 'Venatari Custodians', slot: 'Fast Attack' },
 
   // --- Heavy Support (3) ---
   { name: 'Caladius Grav-Tank', slot: 'Heavy Support' },

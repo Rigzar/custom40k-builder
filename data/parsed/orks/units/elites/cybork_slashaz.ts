@@ -85,7 +85,7 @@ export const cyborkSlashaz: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Combi, Flames"
+      "abilities": "Combi, Auto Hit, Sunder(1)"
     },
     {
       "name": "Kombi-rokkit launcha - Shoota",
@@ -130,7 +130,7 @@ export const cyborkSlashaz: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Twin shoota",

@@ -40,7 +40,7 @@ export const knightPaladin: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Ironstorm missile pod",
@@ -49,7 +49,7 @@ export const knightPaladin: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Indirect, Suppression"
+      "abilities": "Blast(6), Indirect, Suppression(3)"
     },
     {
       "name": "Knight melee weapon - Strike",
@@ -67,7 +67,7 @@ export const knightPaladin: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Flurry(3)"
+      "abilities": "AT(1), Extra Attack(3)"
     },
     {
       "name": "Melta",
@@ -85,7 +85,7 @@ export const knightPaladin: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage, Tank hunter"
+      "abilities": "AT(2), Blast(6), Tank hunter"
     },
     {
       "name": "Stormspear rocket pod",

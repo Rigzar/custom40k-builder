@@ -12,7 +12,10 @@
  *   Armor piercing(X+)  → lower X = better
  *   Sunder(X)           → higher X = better (more cover reduction)
  *   AT(X)               → higher X = better (more penetrating rolls)
- *   Flurry(X)           → higher X = better (more extra attacks)
+ *   Extra Attack(X)     → higher X = better (more extra attacks)
+ *   Limit(X)            → higher X = better (a higher cap on those extra attacks)
+ *   Blast(X)            → higher X = better (more hits against a large unit)
+ *   Suppression(X)      → higher X = better (each hit counts as more toward Suppressive Fire)
  *   Slow(-X)            → more negative = worse for attacker; compare absolute value, LOWER = better for defender
  *   Shield breaker(-X)  → more negative = better
  *
@@ -27,7 +30,13 @@ const MERGEABLE_ABILITIES: Record<string, CompareMode> = {
   'armor piercing': 'lower_better',
   'sunder':         'higher_better',
   'at':             'higher_better',
-  'flurry':         'higher_better',
+  // Core Rules 1.262 renamed Flurry to Extra Attack and gave Blast and Suppression values;
+  // this table matches on the ability NAME, so it had to move with them or the merge would
+  // silently stop firing and a weapon could end up carrying Blast(4) AND Blast(6).
+  'extra attack':   'higher_better',
+  'limit':          'higher_better',
+  'blast':          'higher_better',
+  'suppression':    'higher_better',
   'shield breaker': 'lower_better',  // more negative = better, but we compare absolute value
   // Slow(-X): lower absolute X = less Initiative penalty = better for the bearer
   // e.g. Slow(-1) better than Slow(-5). Spineshiver Blade "reduces Slow(x) by 1".

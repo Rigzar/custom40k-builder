@@ -86,7 +86,7 @@ export const neophyteHybrids: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Frag grenade",
@@ -95,7 +95,7 @@ export const neophyteHybrids: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Heavy stubber",
@@ -104,7 +104,7 @@ export const neophyteHybrids: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Mining laser",
@@ -113,7 +113,7 @@ export const neophyteHybrids: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(3), Explosive"
+      "abilities": "AT(3), Blast(4)"
     },
     {
       "name": "Shotgun",
@@ -140,7 +140,7 @@ export const neophyteHybrids: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenade launcher - Krak",
@@ -158,7 +158,7 @@ export const neophyteHybrids: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(2)"
     },
     {
       "name": "Seismic cannon - Short wave",
@@ -167,7 +167,7 @@ export const neophyteHybrids: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     }
   ],
   "option_groups": [

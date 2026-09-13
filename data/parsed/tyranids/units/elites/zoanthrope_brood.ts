@@ -59,7 +59,7 @@ export const zoanthropeBrood: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive, Seeking"
+      "abilities": "Blast(4), Seeking"
     },
     {
       "name": "Warp lightning - Focused",
@@ -219,7 +219,7 @@ export const zoanthropeBrood: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: The unit gains the \"Suppression\" ability for all ranged attacks made against targets within 12\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
             ]
           }
         },

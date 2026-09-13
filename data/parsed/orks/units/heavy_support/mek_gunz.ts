@@ -40,7 +40,7 @@ export const mekGunz: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(2), Explosive, Sunder(2), Bubbles"
+      "abilities": "AT(2), Blast(4), Sunder(2), Bubbles"
     },
     {
       "name": "Bubblechukka - Big",
@@ -49,7 +49,7 @@ export const mekGunz: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Barrage, Sunder(2), Bubbles"
+      "abilities": "Blast(6), Sunder(2), Bubbles"
     },
     {
       "name": "Bubblechukka - 'Uge",
@@ -58,7 +58,7 @@ export const mekGunz: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Colossal Blast, Sunder(2), Bubbles"
+      "abilities": "Blast(8), Sunder(2), Bubbles"
     },
     {
       "name": "Kannon - Frag",
@@ -67,7 +67,7 @@ export const mekGunz: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Kannon - Shell",
@@ -85,7 +85,7 @@ export const mekGunz: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Barrage, Overheating"
+      "abilities": "AT(2), Blast(6), Overheating"
     },
     {
       "name": "Lobba",
@@ -94,7 +94,7 @@ export const mekGunz: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect"
+      "abilities": "Blast(4), Indirect"
     },
     {
       "name": "Smasha gun",
@@ -103,7 +103,7 @@ export const mekGunz: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(1), Explosive, Grav"
+      "abilities": "AT(1), Blast(4), Grav"
     },
     {
       "name": "Traktor kannon",
@@ -178,8 +178,7 @@ export const mekGunz: Unit = {
   "abilities": [
     "Squadron",
     "Bubbles: When a unit shoots with this weapon, before selecting a target roll a D6. On a result of 1-2, all bubblechukkas in the unit must use the \"Weedy\" profile. On a result of 3-4, they must all use the \"Big\" profile. On a result of 5-6, they must all ust the \"'Uge\" profile.",
-    "Colossal Blast: A successful hit roll with this weapon generates a number of wound rolls equal to the number of models in the target unit, up to a maximum of 8. An unsuccessful hit roll can be re-rolled once. A successful re-roll can generate a maximum of 4 wound rolls.",
-    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model.",
+    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
     "Traktor kannon: Attacks against vehicles receive an additional +1 bonus on hit rolls."
   ],
   "unit_type": "Infantry",

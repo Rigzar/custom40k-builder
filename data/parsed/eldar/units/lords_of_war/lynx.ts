@@ -49,7 +49,7 @@ export const lynx: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Barrage"
+      "abilities": "AT(4), Blast(6)"
     },
     {
       "name": "Pulsar - Salvo",
@@ -67,7 +67,7 @@ export const lynx: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Shuriken cannon",
@@ -85,7 +85,7 @@ export const lynx: Unit = {
       "s": "*",
       "ap": "-4",
       "d": "1",
-      "abilities": "AT(1), Flames, Soundquake, Suppression"
+      "abilities": "AT(1), Auto Hit, Sunder(1), Soundquake, Suppression(3)"
     },
     {
       "name": "Starcannon",

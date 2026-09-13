@@ -320,6 +320,37 @@ archivo; no reimplementes la separación.
 termina en paréntesis sin que sea un modo — pero *no* lo es en nombres de opción, donde Orks tiene
 uno que acaba en `(counts as two arm weapons)`.
 
+### Hojas renombradas y eliminadas (`src/engine/unitRenames.ts`)
+
+Una lista guardada almacena cada entrada por el **NOMBRE** de la unidad. Cuando el autor renombra o
+borra una hoja, ese nombre deja de resolverse — y toda la app trata igual a una unidad que no
+resuelve: `resolveUnit()` devuelve `undefined`, `UnitCard` hace `return null` y la suma de puntos
+hace `: 0`. El resultado es el peor fallo posible: la entrada **no se ve**, cuesta **0 puntos** y
+sigue ocupando su hueco. El jugador ve una cabecera de hueco que dice *"1 unit · 0 pts"* sin tarjeta
+debajo, y un ejército que en silencio vale menos que ayer.
+
+Así que una actualización de códex que renombre o elimine una unidad necesita una de dos cosas:
+
+- **Renombrada** → añádela a `RENAMED_UNITS` (por nombre de facción). Se mapea al cargar, tanto en
+  `importRoster` como en la migración persistida, así que el jugador no nota nada. Las entradas se
+  quedan para siempre: borrar una rompe la lista guardada de alguien.
+- **Eliminada** → añade una nota corta a `REMOVED_UNITS`. Eso solo mejora el mensaje. La detección
+  **no** depende de la tabla: el validador marca cualquier entrada que no resuelva, y `ArmyList`
+  pinta una `MissingUnitCard` en su lugar con un botón para quitarla.
+
+- **Un GRUPO de opciones que el update elimina** → apunta su índice, en la numeración ANTIGUA, en
+  `REMOVED_OPTION_GROUPS`. `optionQty` se indexa `[grupo][opción]`, así que quitar un grupo
+  renumera todos los siguientes y las selecciones guardadas se deslizan a la opción equivocada.
+  `applyOptionGroupRemovals()` borra las claves eliminadas y baja las supervivientes al cargar,
+  junto a los dos renombrados de arriba. El ejemplo real es Space Marines 1.04: el cambio al Krak
+  missile launcher del Desolation Squad desapareció porque el misil Krak pasó a ser un segundo
+  perfil gratis del lanzador estándar — sin la migración, cada mejora a Veteran Sergeant guardada
+  se habría convertido en un Vengor launcher. Añadir una *opción* nueva no necesita migración
+  siempre que vaya al FINAL de la lista.
+
+Los arquetipos tienen el mismo problema y la misma solución un archivo más allá:
+`RENAMED_ARCHETYPES` en `src/engine/archetypes/index.ts`.
+
 ### Cambios de arma (`scripts/check_weapon_swaps.ts`)
 
 Un grupo de opción con `replaces: ["X"]` hace que el motor quite X al comprar el cambio. Sin eso el
@@ -577,6 +608,43 @@ Registralo en `loaders.ts` bajo el objeto `marks` de la facción.
 ```
 
 > **Después de agregar cualquier archivo:** abrí `src/data/loaders.ts`, encontrá el `case` de la facción y asegurate de que el nuevo archivo esté importado y pasado a `asm()`. Los archivos que nunca son importados por el loader nunca son cargados por la app — el archivo solo no es suficiente.
+
+### Eventos y Ligas (`api/events/[action].js`, `src/components/EventsModal.tsx`)
+
+Eventos y ligas gestionados por un organizador, siguiendo el documento de requisitos del autor.
+Tres tablas: `events`, `event_players`, `event_games`.
+
+Tres decisiones que el diseño deja cerradas de entrada:
+
+- **Un evento y una liga son la misma fila.** Todo salvo la clasificación es idéntico, así que
+  `is_league` solo decide si se generan standings. Una tabla aparte habría duplicado registro,
+  aprobación y asignación de lista.
+- **Una partida reportada no cuenta hasta que la confirma el RIVAL**, y solo él puede hacerlo — ni
+  siquiera el organizador, o la confirmación no significaría nada. Un reporte rechazado pasa a
+  `disputed` y el organizador lo sigue viendo.
+- **La clasificación se calcula, nunca se guarda.** Una tabla guardada se desincroniza en cuanto
+  alguien disputa o corrige una partida.
+
+`is_test` y la acción `reset-test` existen porque la idea es rodar la función en cerrado primero,
+con jugadores y listas inventados, y limpiarlo antes de abrirla. Ese borrado es una operación real
+desde el primer día, no una limpieza a mano de la base de datos.
+
+**El módulo está capado en alpha**: el botón de la portada está deshabilitado para todos salvo
+admins, igual que Campaign.
+
+**⚠ Antes de añadir cualquier endpoint en `api/`, lee la nota del tope de funciones de Vercel.**
+
+### El tope de 12 funciones (`api/`)
+
+El plan Hobby de Vercel limita un deploy a **12 funciones serverless** y `api/` está justo en 12.
+Lo que hay en `api/_lib/` se importa, no se enruta, así que no cuenta. Por eso varios routers son
+ficheros `[action].js` con un `switch` en vez de un fichero por endpoint.
+
+Añadir un endpoint nuevo implica **liberar un hueco antes**. Compruébalo con:
+
+```bash
+find api -name "*.js" -not -path "api/_lib/*" | wc -l
+```
 
 ### Digests de modelo de reglas (`src/data/rules-model/<faction>.md`)
 

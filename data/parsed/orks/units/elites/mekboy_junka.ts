@@ -58,7 +58,7 @@ export const mekboyJunka: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Grot bomm",
@@ -67,7 +67,7 @@ export const mekboyJunka: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo (1), AT(2), Barrage, Indirect, Grot-guided"
+      "abilities": "Ammo (1), AT(2), Blast(6), Indirect, Grot-guided"
     },
     {
       "name": "Junka Shokk Attack Gun",
@@ -76,7 +76,7 @@ export const mekboyJunka: Unit = {
       "s": "2D6",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage, Mek Weapon"
+      "abilities": "AT(2), Blast(6), Mek Weapon"
     },
     {
       "name": "Killkannon",
@@ -85,7 +85,7 @@ export const mekboyJunka: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     },
     {
       "name": "Kustom mega-blasta",
@@ -94,7 +94,7 @@ export const mekboyJunka: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive, Overheating"
+      "abilities": "AT(1), Blast(4), Overheating"
     },
     {
       "name": "Rokkit launcha",
@@ -112,7 +112,7 @@ export const mekboyJunka: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Supa-skorcha",
@@ -121,7 +121,7 @@ export const mekboyJunka: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin-linked big shoota",
@@ -266,7 +266,7 @@ export const mekboyJunka: Unit = {
     "Grot-guided: This weapon is fired with a BS of 4+ and ignores cover. Enemy targets in cover do not gain an armor bonus, and the firer suffers no hit penalty.",
     "Junka force field: A junka equipped with a Junka Force Field and any friendly unit entirely within 9\" gains the \"Warded\" ability against ranged attacks.",
     "Mek weapon: This weapon's profile cannot be changed by equipment or wargear.",
-    "Junka Shokk Attack Gun: Roll for the strength of this weapon after you have selected a target. If doubles are rolled, consult the following table. If doubles are rolled: 1-1: Awups! The shooter and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! Nearest visible unit not in melee becomes the new target (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Barrage, Suppression. 5-5: Big wrong button! Remove the shooter from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! Fires with Strength D and AT(3), loses Barrage this activation.",
+    "Junka Shokk Attack Gun: Roll for the strength of this weapon after you have selected a target. If doubles are rolled, consult the following table. If doubles are rolled: 1-1: Awups! The shooter and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! Nearest visible unit not in melee becomes the new target (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Blast(6), Suppression(3). 5-5: Big wrong button! Remove the shooter from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! Fires with Strength D and AT(3), loses Blast(6) this activation.",
     "Tellyport Tunnella: When an \"Advance\" command is given, instead of moving the model an additional 1D6\", a model with a Tellyport Tunnella is removed from the board and immediately repositioned according to the rules for Deep Strike. Then roll 1D6. On a 1 or 2, the model suffers a penetrating hit.",
     "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation."
   ],

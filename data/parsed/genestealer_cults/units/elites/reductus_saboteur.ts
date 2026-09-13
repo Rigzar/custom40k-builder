@@ -40,7 +40,7 @@ export const reductusSaboteur: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Remote explosives - Demolition charge",
@@ -49,7 +49,7 @@ export const reductusSaboteur: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+      "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
     },
     {
       "name": "Autopistol",

@@ -24,7 +24,7 @@
  *
  * ABILITIES (verbatim):
  *   Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+.
- *     A Dark Apostle knows all prayers to the dark gods.
+ *     A Dark Apostle knows all prayers from the Exalted Prayers discipline.
  *   Seal of corruption: This model has a 4+ ward save.
  *   Sinister Bishop: A Sinister Bishop may pray one additional time per battle round.
  *
@@ -105,7 +105,7 @@ export const darkApostle: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Krak grenade",
@@ -166,7 +166,7 @@ export const darkApostle: Unit = {
     }
   ],
   "abilities": [
-    "Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+. A Dark Apostle knows all prayers to the dark gods.",
+    "Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+. A Dark Apostle knows all prayers from the Exalted Prayers discipline.",
     "Seal of corruption: This model has a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",

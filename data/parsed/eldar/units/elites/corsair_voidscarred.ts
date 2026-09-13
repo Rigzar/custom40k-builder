@@ -125,7 +125,7 @@ export const corsairVoidscarred: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(2)"
     },
     {
       "name": "Fusion pistol",
@@ -161,7 +161,7 @@ export const corsairVoidscarred: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Power sword",
@@ -179,7 +179,7 @@ export const corsairVoidscarred: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression"
+      "abilities": "Armor piercing(5+), Suppression(3)"
     },
     {
       "name": "Shuriken cannon",

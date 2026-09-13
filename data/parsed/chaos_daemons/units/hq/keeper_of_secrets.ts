@@ -53,7 +53,7 @@ export const keeperOfSecrets: Unit = {
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Slow(-3), Flurry(2), Only 2 attacks per activation can be done with this profile."
+      "abilities": "AT(3), Slow(-3), Extra Attack(2), Only 2 attacks per activation can be done with this profile."
     },
     {
       "name": "Witstealer sword",

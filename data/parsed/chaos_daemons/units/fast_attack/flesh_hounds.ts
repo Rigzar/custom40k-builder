@@ -58,7 +58,7 @@ export const fleshHounds: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Suppression"
+      "abilities": "Auto Hit, Sunder(1), Suppression(3)"
     },
     {
       "name": "Gore-drenched fangs",

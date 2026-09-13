@@ -44,7 +44,7 @@ export const landRaiderRedeemer: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Multi-melta",

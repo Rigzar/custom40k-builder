@@ -40,7 +40,7 @@ export const ophydianDestroyers: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Flurry(2), Slow(-1)"
+      "abilities": "AT(1), Extra Attack(2), Slow(-1)"
     },
     {
       "name": "Hyperphase threshers",
@@ -49,7 +49,7 @@ export const ophydianDestroyers: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     }
   ],
   "option_groups": [

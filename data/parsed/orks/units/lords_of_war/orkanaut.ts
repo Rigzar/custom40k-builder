@@ -40,7 +40,7 @@ export const orkanaut: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Deffstorm mega-shoota",
@@ -58,7 +58,7 @@ export const orkanaut: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Barrage"
+      "abilities": "AT(1), Blast(6)"
     },
     {
       "name": "Klaw of Gork (or possibly Mork) - Strike",
@@ -76,7 +76,7 @@ export const orkanaut: Unit = {
       "s": "U",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Flurry(3)"
+      "abilities": "AT(1), Extra Attack(3)"
     },
     {
       "name": "Kustom mega-blasta",
@@ -85,7 +85,7 @@ export const orkanaut: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Explosive, Overheating"
+      "abilities": "AT(2), Blast(4), Overheating"
     },
     {
       "name": "Kustom mega-kannon",
@@ -94,7 +94,7 @@ export const orkanaut: Unit = {
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Barrage, Overheating"
+      "abilities": "AT(2), Blast(6), Overheating"
     },
     {
       "name": "Rokkit launcha",
@@ -112,7 +112,7 @@ export const orkanaut: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Supa-skorcha",
@@ -121,7 +121,7 @@ export const orkanaut: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Twin-linked big shoota",

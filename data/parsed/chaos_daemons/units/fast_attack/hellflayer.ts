@@ -49,7 +49,7 @@ export const hellflayer: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armor piercing(5+), Flurry(6)"
+      "abilities": "Armor piercing(5+), Extra Attack(6)"
     }
   ],
   "option_groups": [],

@@ -40,7 +40,7 @@ export const vampire: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Phoenix missile launcher - Starshot",
@@ -58,7 +58,7 @@ export const vampire: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin pulsar - Saturation",
@@ -67,7 +67,7 @@ export const vampire: Unit = {
       "s": "D",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Barrage"
+      "abilities": "AT(3), Blast(6)"
     },
     {
       "name": "Twin pulsar - Salvo",

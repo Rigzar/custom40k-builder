@@ -40,7 +40,7 @@ export const dropPod: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Anti-air, Suppression"
+      "abilities": "Blast(4), Anti-air, Suppression(3)"
     },
     {
       "name": "Storm bolter",

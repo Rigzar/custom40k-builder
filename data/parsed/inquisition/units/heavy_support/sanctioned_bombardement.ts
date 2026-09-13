@@ -32,7 +32,7 @@ export const sanctionedBombardement: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Barrage, Suppression"
+      "abilities": "Blast(6), Suppression(3)"
     },
     {
       "name": "Melta artillery",
@@ -41,7 +41,7 @@ export const sanctionedBombardement: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "Armorbane, AT(4), Explosive"
+      "abilities": "Armorbane, AT(4), Blast(4)"
     },
     {
       "name": "Precision lance strike",

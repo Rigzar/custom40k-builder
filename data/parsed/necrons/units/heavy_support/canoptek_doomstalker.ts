@@ -40,7 +40,7 @@ export const canoptekDoomstalker: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Twin gauss flayer",

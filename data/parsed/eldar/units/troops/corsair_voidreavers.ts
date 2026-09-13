@@ -67,7 +67,7 @@ export const corsairVoidreavers: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(2)"
     },
     {
       "name": "Neuro disruptor",
@@ -85,7 +85,7 @@ export const corsairVoidreavers: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Power sword",

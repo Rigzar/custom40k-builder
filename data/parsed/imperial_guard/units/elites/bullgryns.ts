@@ -67,7 +67,7 @@ export const bullgryns: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Grenadier gauntlet",
@@ -76,7 +76,7 @@ export const bullgryns: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Suppression"
+      "abilities": "Blast(4), Suppression(2)"
     }
   ],
   "option_groups": [

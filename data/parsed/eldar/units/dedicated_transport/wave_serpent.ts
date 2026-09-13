@@ -58,7 +58,7 @@ export const waveSerpent: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Twin shuriken cannon",
@@ -94,7 +94,7 @@ export const waveSerpent: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Twin Aeldari missile launcher - Starshot",

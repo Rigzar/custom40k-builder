@@ -5,7 +5,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Smite',
       type: 'Witchfire', range: '18"', target: 'Enemy unit',
-      cast_value: '5', duration: 'Instant', complexity: 'Normal',
+      cast_value: '5', duration: 'Instant', complexity: 'Basic',
       effect: 'The target suffers three automatic hits with Strength: 5 AP: -1 D: 1; Seeking.',
     },
   ],
@@ -81,7 +81,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Gaze Into The Future',
       type: 'Augmentation', range: '-', target: 'Self',
-      cast_value: '7', duration: 'Until the caster\'s next activation', complexity: 'Basic',
+      cast_value: '8', duration: 'Until the caster\'s next activation', complexity: 'Basic',
       effect: 'The target may re-roll all rolls.',
     },
   ],
@@ -120,7 +120,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Fireball',
       type: 'Witchfire', range: '36"', target: 'Enemy unit',
       cast_value: '7', duration: 'Instant', complexity: 'Normal',
-      effect: 'The target suffers one automatic hit with Strength: 8 AP: -3 D: 1; AT(2), Barrage, Seeking.',
+      effect: 'The target suffers one automatic hit with Strength: 8 AP: -3 D: 1; AT(2), Blast(6), Seeking.',
     },
   ],
   'Telekinesis': [
@@ -128,7 +128,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Projectile Assault',
       type: 'Witchfire', range: '24"', target: 'Enemy unit',
       cast_value: '5', duration: 'Instant', complexity: 'Normal',
-      effect: 'Six automatic hits with S: 5 AP: -2 D: 1; Seeking, Suppression.',
+      effect: 'Six automatic hits with S: 5 AP: -2 D: 1; Seeking, Suppression(2).',
     },
     {
       name: 'Telekinetic Blast',
@@ -158,7 +158,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Psionic Storm',
       type: 'Witchfire', range: '18"', target: 'Enemy unit',
       cast_value: '7', duration: 'Instant', complexity: 'Complex',
-      effect: 'The target suffers one automatic hit with Strength: 9 AP: -3 D: 1; AT(2), Barrage, Seeking, Suppression.',
+      effect: 'The target suffers one automatic hit with Strength: 9 AP: -3 D: 1; AT(2), Blast(6), Seeking, Suppression(3).',
     },
   ],
   'Telepathy': [

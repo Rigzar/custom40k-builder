@@ -40,7 +40,7 @@ export const heavyOrdnanceCarriage: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Lasgun",
@@ -58,7 +58,7 @@ export const heavyOrdnanceCarriage: Unit = {
       "s": "9",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(3), Barrage, Indirect"
+      "abilities": "AT(3), Blast(6), Indirect"
     },
     {
       "name": "Earthshaker cannon - Gas shells",
@@ -67,7 +67,7 @@ export const heavyOrdnanceCarriage: Unit = {
       "s": "1",
       "ap": "0",
       "d": "2",
-      "abilities": "Barrage, Poison(2+), Indirect, Seeking"
+      "abilities": "Blast(6), Poison(2+), Indirect, Seeking"
     },
     {
       "name": "Medusa siege cannon - HE shells",
@@ -76,7 +76,7 @@ export const heavyOrdnanceCarriage: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(4), Barrage"
+      "abilities": "AT(4), Blast(6)"
     },
     {
       "name": "Medusa siege cannon - Bastion-breacher shells",
@@ -85,7 +85,7 @@ export const heavyOrdnanceCarriage: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(4), Explosive, Tank hunter"
+      "abilities": "AT(4), Blast(4), Tank hunter"
     }
   ],
   "option_groups": [
@@ -151,7 +151,7 @@ export const heavyOrdnanceCarriage: Unit = {
   ],
   "abilities": [
     "Massive(4), Squadron",
-    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model."
+    "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
   ],
   "unit_type": "Infantry",
   "keywords": [],

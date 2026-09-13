@@ -40,7 +40,7 @@ export const deffkoptaz: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo(1), AT(3), Barrage"
+      "abilities": "Ammo(1), AT(3), Blast(6)"
     },
     {
       "name": "Kopta rokkits",
@@ -58,7 +58,7 @@ export const deffkoptaz: Unit = {
       "s": "7",
       "ap": "-3",
       "d": "1",
-      "abilities": "AT(1), Explosive, Overheating"
+      "abilities": "AT(1), Blast(4), Overheating"
     },
     {
       "name": "Spinnin'blades",
@@ -67,7 +67,7 @@ export const deffkoptaz: Unit = {
       "s": "+1",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Extra Attack(1)"
     },
     {
       "name": "Stikkbombz",
@@ -76,7 +76,7 @@ export const deffkoptaz: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Twin big shoota",

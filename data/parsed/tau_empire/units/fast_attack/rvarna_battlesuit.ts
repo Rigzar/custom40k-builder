@@ -67,7 +67,7 @@ export const rvarnaBattlesuit: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Pulse submunitions cannon - Nova-charge",
@@ -76,7 +76,7 @@ export const rvarnaBattlesuit: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Barrage, Overheating"
+      "abilities": "Blast(6), Overheating"
     }
   ],
   "option_groups": [

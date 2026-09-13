@@ -76,7 +76,7 @@ export const skitariiRangers: Unit = {
       "s": "5",
       "ap": "-3",
       "d": "1",
-      "abilities": "Explosive, Grav"
+      "abilities": "Blast(4), Grav"
     },
     {
       "name": "Transuranic arquebus",

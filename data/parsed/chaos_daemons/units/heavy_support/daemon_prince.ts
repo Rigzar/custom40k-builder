@@ -33,7 +33,7 @@ export const daemonPrince: Unit = {
   "variant_models": [
     {
       "name": "Ascended Daemon Prince",
-      "points": 289,
+      "points": 293,
       "min": 0,
       "max": 0,
       "stats": {
@@ -68,7 +68,7 @@ export const daemonPrince: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flurry(2)"
+      "abilities": "Extra Attack(2)"
     }
   ],
   "option_groups": [
@@ -156,7 +156,7 @@ export const daemonPrince: Unit = {
         "type": "unique_upgrade"
       },
       "choices": [],
-      "inline_pts": 90,
+      "inline_pts": 109,
       "variant_link": "Ascended Daemon Prince",
       "is_unique_per_army": true
     }

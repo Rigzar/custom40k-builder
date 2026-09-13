@@ -40,7 +40,7 @@ export const deathJester: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Aeldari missile launcher - Starshot",
@@ -76,7 +76,7 @@ export const deathJester: Unit = {
       "s": "4",
       "ap": "-2",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "Blast(4)"
     },
     {
       "name": "Shrieker cannon",
@@ -85,7 +85,7 @@ export const deathJester: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Bio-explosion, Poison(2+), Shuriken, Suppression"
+      "abilities": "Bio-explosion, Poison(2+), Shuriken, Suppression(6)"
     },
     {
       "name": "Shuriken cannon",

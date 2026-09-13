@@ -40,7 +40,7 @@ export const shroudRunners: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(4+), Suppression"
+      "abilities": "Armor piercing(4+), Suppression(3)"
     },
     {
       "name": "Scatter laser",
@@ -49,7 +49,7 @@ export const shroudRunners: Unit = {
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Suppression"
+      "abilities": "Suppression(3)"
     },
     {
       "name": "Shuriken pistol",

@@ -111,7 +111,7 @@ export const scarabOccultTerminators: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Auto Hit, Sunder(1)"
     },
     {
       "name": "Hellfyre missile rack",
