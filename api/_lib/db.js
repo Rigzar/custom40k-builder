@@ -468,6 +468,20 @@ export async function ensureSchema() {
   await sql`CREATE INDEX IF NOT EXISTS event_games_event_idx ON event_games(event_id)`;
   await sql`CREATE INDEX IF NOT EXISTS event_games_opponent_idx ON event_games(opponent_user_id, status)`;
 
+  // Battle reports. EACH PLAYER GETS THEIR OWN SLOT rather than one shared field, because the two
+  // accounts of a game are the interesting thing — and because a shared box would mean one player
+  // being able to overwrite the other's words.
+  //
+  // `*_report_lang` is the language its author was using when they wrote it, captured at save time.
+  // It is NOT a translation: a report is prose, and machine-translating it on every read would mean
+  // an external service receiving what players write, charged per character per reader. Storing the
+  // language lets the reader be told what they are about to read, and lets their own browser
+  // translate it on one tap if they want — free, and on their side.
+  await sql`ALTER TABLE event_games ADD COLUMN IF NOT EXISTS reporter_report TEXT`;
+  await sql`ALTER TABLE event_games ADD COLUMN IF NOT EXISTS reporter_report_lang TEXT`;
+  await sql`ALTER TABLE event_games ADD COLUMN IF NOT EXISTS opponent_report TEXT`;
+  await sql`ALTER TABLE event_games ADD COLUMN IF NOT EXISTS opponent_report_lang TEXT`;
+
   // A league is never OPEN to players until someone deliberately opens it. Players still SEE a
   // closed one — it is announced, just not joinable — so the flag gates joining and reporting,
   // not visibility. DEFAULT false is the point: a new league cannot be open by accident, and

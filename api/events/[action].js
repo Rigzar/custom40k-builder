@@ -45,6 +45,7 @@ export default async function handler(req, res) {
       case 'publish':       return publish(req, res, userId);
       case 'settle-game':   return settleGame(req, res, userId);
       case 'player-lists':  return playerLists(req, res, userId);
+      case 'game-report':   return gameReport(req, res, await actingAs(req, userId));
       default:
         res.status(404).json({ error: 'Unknown events action' });
     }
@@ -671,6 +672,42 @@ async function seedTest(req, res, userId) {
 }
 
 /**
+ * POST /api/events/game-report { gameId, text, lang } -> write YOUR OWN battle report on a game.
+ *
+ * Each player writes their own, and can only ever write their own: the two accounts of a game are
+ * the point, and a shared box would let one player overwrite the other's words. Editable while the
+ * game is unconfirmed, frozen once it is — confirming approves the result AND the reports as they
+ * stand, which is what Rigzar asked for (*"si esta escribe un battle report y lo guarde y apruebe"*).
+ * If something has to change afterwards, the organiser's Send back reopens the game.
+ *
+ * `lang` is the language the author was writing IN, taken from their own interface. Stored, never
+ * translated — see the migration note in db.js for why.
+ */
+async function gameReport(req, res, userId) {
+  if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
+  const { gameId, text, lang } = req.body ?? {};
+  const g = await sql`SELECT * FROM event_games WHERE id = ${Number(gameId)}`;
+  const game = g.rows[0];
+  if (!game) return bad(res, 'Game not found.', 404);
+
+  const side = game.reporter_user_id === userId ? 'reporter'
+    : game.opponent_user_id === userId ? 'opponent' : null;
+  if (!side) return bad(res, 'You did not play in this game.', 403, 'evErrNotYourGame');
+  if (game.status === 'confirmed') {
+    return bad(res, 'This game is confirmed, so its battle report is final.', 400, 'evErrReportFinal');
+  }
+
+  const body = typeof text === 'string' && text.trim() ? text.trim().slice(0, 8000) : null;
+  const at = body && ['en', 'de', 'es'].includes(lang) ? lang : null;
+  const r = side === 'reporter'
+    ? await sql`UPDATE event_games SET reporter_report = ${body}, reporter_report_lang = ${at}
+                 WHERE id = ${game.id} RETURNING *`
+    : await sql`UPDATE event_games SET opponent_report = ${body}, opponent_report_lang = ${at}
+                 WHERE id = ${game.id} RETURNING *`;
+  res.status(200).json({ ok: true, game: r.rows[0] });
+}
+
+/**
  * POST /api/events/settle-game { gameId, action, result, note } -> the ORGANISER settles a game.
  *
  * Players confirm or dispute their own games; that is what makes a result trustworthy. But a
@@ -786,7 +823,9 @@ async function exportEvent(req, res, userId) {
     SELECT ru.username AS reporter, ou.username AS opponent,
            rr.name AS reporter_army, orr.name AS opponent_army,
            rr.data->>'faction' AS reporter_faction, orr.data->>'faction' AS opponent_faction,
-           g.mission, g.result, g.status, g.dispute_note, g.played_on, g.created_at, g.confirmed_at
+           g.mission, g.result, g.status, g.dispute_note, g.played_on, g.created_at, g.confirmed_at,
+           -- the backup is the file meant to hold everything, so the reports travel in it too
+           g.reporter_report, g.reporter_report_lang, g.opponent_report, g.opponent_report_lang
     FROM event_games g
     JOIN users ru ON ru.id = g.reporter_user_id
     JOIN users ou ON ou.id = g.opponent_user_id

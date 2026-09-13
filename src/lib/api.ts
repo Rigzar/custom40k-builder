@@ -2,7 +2,7 @@
  * every call sends credentials so the HttpOnly session cookie round-trips automatically. */
 import type { DataOverrides } from '../engine/dataOverrides';
 import type { SourceIgnores } from '../engine/sourceCompare';
-import { t, tpl, useLanguage } from '../i18n';
+import { t, tpl, useLanguage, type Language } from '../i18n';
 export type { DataOverride, DataOverrides } from '../engine/dataOverrides';
 export type { SourceIgnore, SourceIgnores } from '../engine/sourceCompare';
 
@@ -737,6 +737,14 @@ export interface EventGame {
   result: 'win' | 'draw' | 'loss';
   status: 'pending' | 'confirmed' | 'disputed';
   dispute_note: string | null;
+  /**
+   * Each player's own battle report, and the language they wrote it IN. The language is stored
+   * so a reader can be told what they are about to read — it is never translated for them.
+   */
+  reporter_report: string | null;
+  reporter_report_lang: 'en' | 'de' | 'es' | null;
+  opponent_report: string | null;
+  opponent_report_lang: 'en' | 'de' | 'es' | null;
   played_on: string | null;
   created_at: string;
 }
@@ -832,6 +840,16 @@ export function assignEventList(
 ) {
   return call<{ rosterId: number | null }>('/api/events/assign-list', {
     method: 'POST', body: JSON.stringify({ id, rosterId, asUserId, playerUserId }),
+  });
+}
+
+/**
+ * Write your own battle report on a game. You can only ever write your own slot, and only while
+ * the game is unconfirmed — confirming approves the result and the reports together.
+ */
+export function writeGameReport(gameId: number, text: string, lang: Language, asUserId?: number) {
+  return call<{ game: EventGame }>('/api/events/game-report', {
+    method: 'POST', body: JSON.stringify({ gameId, text, lang, asUserId }),
   });
 }
 

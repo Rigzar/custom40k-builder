@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { LeagueSheet } from './LeagueSheet';
 import { factionLabel } from '../utils/factionLabel';
-import { useT, tpl } from '../i18n';
+import { useT, tpl, useLanguage } from '../i18n';
 
 /**
  * A translated string with `{name}` placeholders filled in. Every component below takes its own
@@ -319,6 +319,9 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
 }) {
   const t = useT();
   const tf = fill(t);
+  // The language the viewer is writing IN, stored with a battle report so a later reader is told
+  // what they are about to read rather than being silently machine-translated.
+  const language = useLanguage(sel => sel.language);
   const [tab, setTab] = useState<TabId>('info');
   const [data, setData] = useState<Awaited<ReturnType<typeof api.getEvent>> | null>(null);
   const [players, setPlayers] = useState<api.EventPlayer[]>([]);
@@ -607,6 +610,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           onConfirm={(gid, ok, note) => act(() => api.confirmEventGame(gid, ok, note, as))}
           canManage={data.canManage}
           onSettle={(gid, what, result) => act(() => api.settleEventGame(gid, what, result ? { result } : {}))}
+          onSaveReport={(gid, text) => act(() => api.writeGameReport(gid, text, language, as))}
         />
       )}
 
@@ -729,7 +733,7 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
   );
 }
 
-function GamesTab({ games, players, username, realUsername, busy, canReport, canManage, onReport, onConfirm, onSettle }: {
+function GamesTab({ games, players, username, realUsername, busy, canReport, canManage, onReport, onConfirm, onSettle, onSaveReport }: {
   games: api.EventGame[]; players: api.EventPlayer[]; username: string; busy: boolean; canReport: boolean;
   /**
    * The account actually signed in, which is NOT `username` while an admin drives a puppet.
@@ -744,6 +748,8 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
   onReport: (g: { opponentUserId: number; result: 'win' | 'draw' | 'loss'; mission?: string; playedOn?: string | null }) => void;
   onConfirm: (gameId: number, confirm: boolean, note?: string) => void;
   onSettle: (gameId: number, action: 'confirm' | 'reopen' | 'delete', result?: 'win' | 'draw' | 'loss') => void;
+  /** A player saving their OWN battle report on a game they played. */
+  onSaveReport: (gameId: number, text: string) => void;
 }) {
   const t = useT();
   const tf = fill(t);
@@ -892,6 +898,7 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
                   {g.mission || t('evNoMission')}{g.played_on ? ` · ${dateOnly(g.played_on)}` : ''}
                   {g.dispute_note ? ` · “${g.dispute_note}”` : ''}
                 </div>
+                <BattleReports game={g} username={username} busy={busy} onSave={onSaveReport} />
               </div>
               <span className="flex items-center gap-1.5 shrink-0">
                 {/* An organiser also has to be able to undo a game both players confirmed and then
@@ -913,6 +920,85 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
             </div>
           ))}
       </div>
+    </div>
+  );
+}
+
+/**
+ * One game's battle reports: yours to write, theirs to read.
+ *
+ * Each player has their own slot, so this shows a box for the side the viewer is on and plain text
+ * for the other. Every report carries the language it was WRITTEN in, stated above it — nothing is
+ * translated for the reader, because a report is someone's own words. The browser's own translate
+ * handles it for anyone who wants that, free and on their side.
+ */
+function BattleReports({ game, username, busy, onSave }: {
+  game: api.EventGame; username: string; busy: boolean;
+  onSave: (gameId: number, text: string) => void;
+}) {
+  const t = useT();
+  const tf = fill(t);
+  const side = game.reporter === username ? 'reporter' : game.opponent === username ? 'opponent' : null;
+  const mineText = side === 'reporter' ? game.reporter_report : side === 'opponent' ? game.opponent_report : null;
+  const [draft, setDraft] = useState(mineText ?? '');
+  // Re-sync when the game reloads under us (a save, or switching puppet), but never while typing.
+  useEffect(() => { setDraft(mineText ?? ''); }, [mineText]);
+
+  const locked = game.status === 'confirmed';
+  const others: { who: string; text: string; lang: string | null }[] = [];
+  if (side !== 'reporter' && game.reporter_report) {
+    others.push({ who: game.reporter, text: game.reporter_report, lang: game.reporter_report_lang });
+  }
+  if (side !== 'opponent' && game.opponent_report) {
+    others.push({ who: game.opponent, text: game.opponent_report, lang: game.opponent_report_lang });
+  }
+  if (!side && others.length === 0) return null;
+
+  const langName = (l: string | null) =>
+    l === 'de' ? t('evLangDe') : l === 'es' ? t('evLangEs') : l === 'en' ? t('evLangEn') : null;
+
+  return (
+    <div className="border-t border-zinc-900 mt-1.5 pt-1.5 space-y-2">
+      <div className="text-[10px] uppercase tracking-widest text-zinc-600">{t('evBattleReport')}</div>
+
+      {others.map(o => (
+        <div key={o.who} className="space-y-0.5">
+          <div className="text-[10px] text-zinc-500">
+            {o.who}
+            {langName(o.lang) && <span className="text-zinc-700"> · {tf('evWrittenIn', { lang: langName(o.lang) ?? '' })}</span>}
+          </div>
+          <p className="text-zinc-300 text-[11px] whitespace-pre-wrap">{o.text}</p>
+        </div>
+      ))}
+
+      {side && (locked ? (
+        mineText ? (
+          <div className="space-y-0.5">
+            <div className="text-[10px] text-zinc-500">{t('evYourReport')}</div>
+            <p className="text-zinc-300 text-[11px] whitespace-pre-wrap">{mineText}</p>
+          </div>
+        ) : null
+      ) : (
+        <div className="space-y-1">
+          <textarea className={`${box} h-20 resize-y`} value={draft} disabled={busy}
+                    placeholder={t('evReportPlaceholder')}
+                    onChange={e => setDraft(e.target.value)} />
+          <div className="flex items-center gap-2">
+            <button className={btn} disabled={busy || draft === (mineText ?? '')}
+                    onClick={() => onSave(game.id, draft)}>
+              {draft === (mineText ?? '') && mineText ? t('evReportSaved') : t('evSaveReport')}
+            </button>
+            <span className="text-zinc-600 text-[10px]">{t('evReportHintEdit')}</span>
+          </div>
+        </div>
+      ))}
+
+      {locked && (mineText || others.length > 0) && (
+        <p className="text-zinc-700 text-[10px] italic">{t('evReportFinalNote')}</p>
+      )}
+      {others.some(o => o.lang) && (
+        <p className="text-zinc-700 text-[10px] italic">{t('evWrittenInHint')}</p>
+      )}
     </div>
   );
 }

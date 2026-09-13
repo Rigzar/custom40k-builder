@@ -394,7 +394,21 @@ export type TranslationKey =
   | 'evErrStillPending'
   | 'evErrOverLimit'
   | 'evErrWrongEngagement'
-  | 'evErrNoAllies';
+  | 'evErrNoAllies'
+  | 'evBattleReport'
+  | 'evYourReport'
+  | 'evReportPlaceholder'
+  | 'evSaveReport'
+  | 'evReportSaved'
+  | 'evReportFinalNote'
+  | 'evReportHintEdit'
+  | 'evWrittenIn'
+  | 'evWrittenInHint'
+  | 'evLangEn'
+  | 'evLangDe'
+  | 'evLangEs'
+  | 'evErrNotYourGame'
+  | 'evErrReportFinal';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1208,6 +1222,20 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evErrOverLimit: 'That army is {pts} points and this event is capped at {cap}.',
     evErrWrongEngagement: 'That army is built for {theirs} and this event is {ours}.',
     evErrNoAllies: 'That army has an allied detachment and this event does not allow allies.',
+    evBattleReport: 'Battle report',
+    evYourReport: 'Your battle report',
+    evReportPlaceholder: 'How did the game go? (optional)',
+    evSaveReport: 'Save report',
+    evReportSaved: 'Saved',
+    evReportFinalNote: 'This game is confirmed, so its battle reports are final.',
+    evReportHintEdit: 'Either player can write their own. Confirming the game approves the reports with it.',
+    evWrittenIn: 'written in {lang}',
+    evWrittenInHint: 'Reports are kept exactly as their author wrote them. Your browser can translate this page if you want it in another language.',
+    evLangEn: 'English',
+    evLangDe: 'German',
+    evLangEs: 'Spanish',
+    evErrNotYourGame: 'You did not play in this game.',
+    evErrReportFinal: 'This game is confirmed, so its battle report is final.',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -2020,6 +2048,20 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evErrOverLimit: 'Diese Armee hat {pts} Punkte, dieses Event ist auf {cap} begrenzt.',
     evErrWrongEngagement: 'Diese Armee ist für {theirs} gebaut, dieses Event ist {ours}.',
     evErrNoAllies: 'Diese Armee hat ein verbündetes Detachment, und dieses Event erlaubt keine Verbündeten.',
+    evBattleReport: 'Schlachtbericht',
+    evYourReport: 'Dein Schlachtbericht',
+    evReportPlaceholder: 'Wie lief die Partie? (optional)',
+    evSaveReport: 'Bericht speichern',
+    evReportSaved: 'Gespeichert',
+    evReportFinalNote: 'Diese Partie ist bestätigt, ihre Schlachtberichte sind endgültig.',
+    evReportHintEdit: 'Jeder Spieler schreibt seinen eigenen. Mit der Bestätigung der Partie werden auch die Berichte übernommen.',
+    evWrittenIn: 'geschrieben auf {lang}',
+    evWrittenInHint: 'Berichte bleiben genau so, wie ihr Autor sie geschrieben hat. Dein Browser kann die Seite übersetzen, wenn du sie in einer anderen Sprache lesen willst.',
+    evLangEn: 'Englisch',
+    evLangDe: 'Deutsch',
+    evLangEs: 'Spanisch',
+    evErrNotYourGame: 'Du hast in dieser Partie nicht gespielt.',
+    evErrReportFinal: 'Diese Partie ist bestätigt, ihr Schlachtbericht ist endgültig.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -2832,6 +2874,20 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evErrOverLimit: 'Ese ejército tiene {pts} puntos y este evento está limitado a {cap}.',
     evErrWrongEngagement: 'Ese ejército está hecho para {theirs} y este evento es {ours}.',
     evErrNoAllies: 'Ese ejército lleva un destacamento aliado y este evento no permite aliados.',
+    evBattleReport: 'Reporte de batalla',
+    evYourReport: 'Tu reporte de batalla',
+    evReportPlaceholder: '¿Cómo fue la partida? (opcional)',
+    evSaveReport: 'Guardar reporte',
+    evReportSaved: 'Guardado',
+    evReportFinalNote: 'Esta partida está confirmada, así que sus reportes son definitivos.',
+    evReportHintEdit: 'Cada jugador escribe el suyo. Al confirmar la partida se aprueban también los reportes.',
+    evWrittenIn: 'escrito en {lang}',
+    evWrittenInHint: 'Los reportes se conservan tal cual los escribió su autor. Tu navegador puede traducir esta página si la quieres en otro idioma.',
+    evLangEn: 'inglés',
+    evLangDe: 'alemán',
+    evLangEs: 'español',
+    evErrNotYourGame: 'No jugaste esta partida.',
+    evErrReportFinal: 'Esta partida está confirmada, así que su reporte es definitivo.',
   },
 };
 
