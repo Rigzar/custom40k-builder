@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-unconfirmed-game-left-hanging-for-ever-01",
+    status: "fixed",
+    title: "A game whose opponent never confirms used to freeze for ever",
+    description: "FIXED 2026-09-13, designed in Discord by Dominic, Unwise and Rigzar together. A reported game counts for nothing until the opponent confirms it, and nothing ever forced that to happen. TWO ANSWERS WERE PROPOSED AND DROPPED, and why is worth keeping: Unwise's auto-dispute after ten minutes (\"people probably wouldn't play 2 games per day\" ' games are reported late at night and confirmed the next day), and Rigzar's auto-win after a week (it invents a result nobody agreed to). atypicalhero's position won: leave it open, let it count for nothing, and give the player a reason to act ' \"maybe not allowing the player report a game or confirm another one, before the oldest one is confirmed\". THE RULE: while a pending game names you as the opponent, `report-game` and `confirm-game` both refuse, naming the game and who reported it. DISPUTING CLEARS THE BLOCK exactly as confirming does, which is the part that keeps it from trapping anyone ' the reporter is NOT blocked and is the one who decides the game exists, so a mistaken report would otherwise leave the wrong person stuck. TWO COMPANION POWERS, both approved by Dominic when the trap was put to him: the REPORTER may withdraw their own game while nobody has confirmed it (a game no one agreed to, removed rather than decided ' it cannot be abused), and the ORGANISER may delete a pending game, not only a disputed one. WHAT THE ORGANISER DELIBERATELY CANNOT DO is confirm on a player's behalf ' atypicalhero was explicit (\"I wouldn't need/want the organiser to do something about it. Just see it and then be able to talk with the responsible players\") ' so they get a read-only waiting list instead: every unconfirmed game, who it is waiting on, and how many days it has sat there."
+  },
+  {
+    id: "ki-event-registration-window-vs-start-date-01",
+    status: "fixed",
+    title: "Registration could be set to close after the event had already started",
+    description: "FIXED 2026-09-13 (Unwise: \"maybe force registration end date to be before tournament starting date?\"). Nothing stopped an organiser setting a registration deadline later than the first day of play, which is only ever a typo. Refused now on create and on edit, server-side. DELIBERATELY ONLY CHECKED WHEN BOTH DATES EXIST: an event with no start date has nothing to be before, and an event with NO END DATE is a real choice rather than an omission ' atypicalhero asked for \"until all games are played\" as a valid option, so an empty end date means the league runs until the organiser closes it. That already worked; the form now says so instead of looking like a field someone forgot."
+  },
+  {
     id: "ki-extra-attack-limit-mismatches-after-the-1262-cleanup-01",
     status: "fixed",
     title: "Eight weapons disagreed with their sheet on Extra Attack / Limit after the 1.262 clean-up",

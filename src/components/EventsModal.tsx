@@ -216,7 +216,9 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
                      onChange={e => setForm(f => ({ ...f, startsOn: e.target.value || null }))} /></label>
             <label className="text-[10px] text-zinc-500">{t('evEnds')}
               <input type="date" className={box} value={form.endsOn ?? ''}
-                     onChange={e => setForm(f => ({ ...f, endsOn: e.target.value || null }))} /></label>
+                     title={t('evNoEndDateHint')}
+                     onChange={e => setForm(f => ({ ...f, endsOn: e.target.value || null }))} />
+              <span className="block text-zinc-600 text-[9px] mt-0.5">{t('evNoEndDateHint')}</span></label>
             <label className="text-[10px] text-zinc-500">{t('evRegOpens')}
               <input type="date" className={box} value={form.regOpensOn ?? ''}
                      onChange={e => setForm(f => ({ ...f, regOpensOn: e.target.value || null }))} /></label>
@@ -611,6 +613,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           canManage={data.canManage}
           onSettle={(gid, what, result) => act(() => api.settleEventGame(gid, what, result ? { result } : {}))}
           onSaveReport={(gid, text) => act(() => api.writeGameReport(gid, text, language, as))}
+          awaitingMe={data.awaitingMe}
         />
       )}
 
@@ -733,7 +736,7 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
   );
 }
 
-function GamesTab({ games, players, username, realUsername, busy, canReport, canManage, onReport, onConfirm, onSettle, onSaveReport }: {
+function GamesTab({ games, players, username, realUsername, busy, canReport, canManage, awaitingMe, onReport, onConfirm, onSettle, onSaveReport }: {
   games: api.EventGame[]; players: api.EventPlayer[]; username: string; busy: boolean; canReport: boolean;
   /**
    * The account actually signed in, which is NOT `username` while an admin drives a puppet.
@@ -750,6 +753,11 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
   onSettle: (gameId: number, action: 'confirm' | 'reopen' | 'delete', result?: 'win' | 'draw' | 'loss') => void;
   /** A player saving their OWN battle report on a game they played. */
   onSaveReport: (gameId: number, text: string) => void;
+  /**
+   * The oldest game still waiting on this viewer, if any. While one exists they cannot report a
+   * new game or confirm a different one — the rule the three of them agreed instead of a timer.
+   */
+  awaitingMe: { id: number; reporter: string; created_at: string } | null;
 }) {
   const t = useT();
   const tf = fill(t);
@@ -763,12 +771,28 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
   const waitingOnMe = games.filter(g => g.status === 'pending' && g.opponent === username);
   /** Games the players could not settle between them. Nothing moves until a referee rules. */
   const disputed = games.filter(g => g.status === 'disputed');
+  /** Every game still waiting on its opponent, for the organiser's own view. */
+  const pendingAll = games.filter(g => g.status === 'pending');
+  /** How long a game has been sitting unconfirmed, in the reader's language. */
+  const waitedFor = (iso: string) => {
+    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    return days < 1 ? t('evWaitingToday') : tf('evWaitingDays', { n: days });
+  };
   /** You never rule on a game you played in — organiser or admin, it makes no difference. */
   const mine = (g: api.EventGame) => g.reporter === realUsername || g.opponent === realUsername;
 
   return (
     <div className="space-y-3">
-      {canReport && (
+      {/* Said before the form, not after a refusal: the reason you cannot report is sitting right
+          below, and disputing clears it just as well as confirming. */}
+      {awaitingMe && (
+        <div className="border border-amber-900/60 bg-amber-950/10 px-3 py-2 space-y-0.5">
+          <div className="text-[11px] text-amber-300">{tf('evAwaitingYou', { name: awaitingMe.reporter })}</div>
+          <p className="text-zinc-400 text-[10px]">{t('evAwaitingYouWhy')}</p>
+        </div>
+      )}
+
+      {canReport && !awaitingMe && (
         <div className="border border-zinc-800 p-3 space-y-2">
           <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evReportGame')}</div>
           <div className="grid grid-cols-2 gap-2">
@@ -824,6 +848,33 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Dominic: the organiser should SEE an unconfirmed game and talk to the players, not decide
+          it. The one action allowed is removing a game that should never have been reported. */}
+      {canManage && pendingAll.length > 0 && (
+        <div className="space-y-1.5">
+          <div className="text-[10px] uppercase tracking-widest text-zinc-500">{t('evPendingForOrganiser')}</div>
+          {pendingAll.map(g => (
+            <div key={g.id} className="flex items-center justify-between gap-2 border border-zinc-800 px-3 py-1.5">
+              <div className="min-w-0">
+                <div className="text-[12px] text-zinc-300">
+                  {g.reporter} <span className="text-zinc-600">→</span> {g.opponent}
+                </div>
+                <div className="text-[10px] text-zinc-500 font-mono truncate">
+                  {tf('evWaitingOn', { name: g.opponent })} · {waitedFor(g.created_at)}
+                </div>
+              </div>
+              {!mine(g) && (
+                <button className={btn} disabled={busy} title={t('evDeleteGameQ')}
+                        onClick={() => { if (window.confirm(t('evDeleteGameQ'))) onSettle(g.id, 'delete'); }}>
+                  {t('evDelete')}
+                </button>
+              )}
+            </div>
+          ))}
+          <p className="text-zinc-600 text-[10px] italic">{t('evPendingOrganiserHint')}</p>
         </div>
       )}
 
@@ -903,6 +954,14 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
               <span className="flex items-center gap-1.5 shrink-0">
                 {/* An organiser also has to be able to undo a game both players confirmed and then
                     realised was wrong — otherwise the only fix is a second, opposite game. */}
+                {/* Your own report, nobody has confirmed it: take it back yourself rather than
+                    making your opponent dispute your mistake. */}
+                {g.status !== 'confirmed' && g.reporter === realUsername && (
+                  <button className={btn} disabled={busy} title={t('evWithdrawHint')}
+                          onClick={() => { if (window.confirm(t('evWithdrawQ'))) onSettle(g.id, 'delete'); }}>
+                    {t('evWithdraw')}
+                  </button>
+                )}
                 {canManage && g.status === 'confirmed' && !mine(g) && (
                   <button className={btn} disabled={busy} title={t('evUndoHint')}
                           onClick={() => onSettle(g.id, 'reopen')}>

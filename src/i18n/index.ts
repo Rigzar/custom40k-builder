@@ -408,7 +408,22 @@ export type TranslationKey =
   | 'evLangDe'
   | 'evLangEs'
   | 'evErrNotYourGame'
-  | 'evErrReportFinal';
+  | 'evErrReportFinal'
+  | 'evErrOweConfirmReport'
+  | 'evErrOweConfirmOther'
+  | 'evErrSettleNotYours'
+  | 'evErrRegAfterStart'
+  | 'evAwaitingYou'
+  | 'evAwaitingYouWhy'
+  | 'evWithdraw'
+  | 'evWithdrawHint'
+  | 'evWithdrawQ'
+  | 'evWaitingOn'
+  | 'evWaitingDays'
+  | 'evWaitingToday'
+  | 'evPendingForOrganiser'
+  | 'evPendingOrganiserHint'
+  | 'evNoEndDateHint';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1236,6 +1251,21 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evLangEs: 'Spanish',
     evErrNotYourGame: 'You did not play in this game.',
     evErrReportFinal: 'This game is confirmed, so its battle report is final.',
+    evErrOweConfirmReport: 'You have a game from {name} waiting on you. Confirm it, or dispute it if it is wrong, before reporting another.',
+    evErrOweConfirmOther: 'Deal with the older game from {name} first — confirm it, or dispute it if it is wrong.',
+    evErrSettleNotYours: 'Only an organiser or admin can settle a game.',
+    evErrRegAfterStart: 'Registration has to close before the event starts.',
+    evAwaitingYou: '{name} is waiting on you',
+    evAwaitingYouWhy: 'Until you confirm it — or dispute it, if it is wrong — you cannot report a new game or confirm another one.',
+    evWithdraw: 'Withdraw',
+    evWithdrawHint: 'You reported this and nobody has confirmed it — take it back',
+    evWithdrawQ: 'Withdraw this game? It disappears for both of you.',
+    evWaitingOn: 'waiting on {name}',
+    evWaitingDays: '{n} day(s)',
+    evWaitingToday: 'today',
+    evPendingForOrganiser: 'Reported, not yet confirmed',
+    evPendingOrganiserHint: 'You can see these but not confirm them — only the opponent can. If one has been sitting a while, talk to the players.',
+    evNoEndDateHint: 'Leave empty and the league runs until you close it.',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -2062,6 +2092,21 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evLangEs: 'Spanisch',
     evErrNotYourGame: 'Du hast in dieser Partie nicht gespielt.',
     evErrReportFinal: 'Diese Partie ist bestätigt, ihr Schlachtbericht ist endgültig.',
+    evErrOweConfirmReport: 'Eine Partie von {name} wartet auf dich. Bestätige sie, oder fechte sie an, wenn sie falsch ist, bevor du eine neue einträgst.',
+    evErrOweConfirmOther: 'Kümmere dich zuerst um die ältere Partie von {name} — bestätige sie, oder fechte sie an, wenn sie falsch ist.',
+    evErrSettleNotYours: 'Nur ein Organisator oder Admin kann eine Partie entscheiden.',
+    evErrRegAfterStart: 'Die Anmeldung muss schließen, bevor das Event beginnt.',
+    evAwaitingYou: '{name} wartet auf dich',
+    evAwaitingYouWhy: 'Bis du sie bestätigst — oder anfichtst, falls sie falsch ist — kannst du keine neue Partie eintragen und keine andere bestätigen.',
+    evWithdraw: 'Zurückziehen',
+    evWithdrawHint: 'Du hast sie eingetragen und niemand hat sie bestätigt — nimm sie zurück',
+    evWithdrawQ: 'Diese Partie zurückziehen? Sie verschwindet für euch beide.',
+    evWaitingOn: 'wartet auf {name}',
+    evWaitingDays: '{n} Tag(e)',
+    evWaitingToday: 'heute',
+    evPendingForOrganiser: 'Eingetragen, noch nicht bestätigt',
+    evPendingOrganiserHint: 'Du siehst sie, kannst sie aber nicht bestätigen — das kann nur der Gegner. Liegt eine länger, sprich mit den Spielern.',
+    evNoEndDateHint: 'Leer lassen: die Liga läuft, bis du sie schließt.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -2888,6 +2933,21 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evLangEs: 'español',
     evErrNotYourGame: 'No jugaste esta partida.',
     evErrReportFinal: 'Esta partida está confirmada, así que su reporte es definitivo.',
+    evErrOweConfirmReport: 'Tienes una partida de {name} esperando por ti. Confírmala, o dispútala si está mal, antes de reportar otra.',
+    evErrOweConfirmOther: 'Resuelve primero la partida más antigua de {name} — confírmala, o dispútala si está mal.',
+    evErrSettleNotYours: 'Solo un organizador o admin puede resolver una partida.',
+    evErrRegAfterStart: 'Las inscripciones tienen que cerrar antes de que empiece el evento.',
+    evAwaitingYou: '{name} está esperando por ti',
+    evAwaitingYouWhy: 'Hasta que la confirmes — o la disputes, si está mal — no puedes reportar una partida nueva ni confirmar otra.',
+    evWithdraw: 'Retirar',
+    evWithdrawHint: 'La reportaste tú y nadie la ha confirmado — retírala',
+    evWithdrawQ: '¿Retirar esta partida? Desaparece para los dos.',
+    evWaitingOn: 'esperando a {name}',
+    evWaitingDays: '{n} día(s)',
+    evWaitingToday: 'hoy',
+    evPendingForOrganiser: 'Reportadas, aún sin confirmar',
+    evPendingOrganiserHint: 'Las ves pero no puedes confirmarlas — solo el rival puede. Si alguna lleva tiempo parada, habla con los jugadores.',
+    evNoEndDateHint: 'Déjala vacía y la liga dura hasta que tú la cierres.',
   },
 };
 

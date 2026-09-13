@@ -789,6 +789,11 @@ export function getEvent(id: number, asUserId?: number) {
      * same shape as a refusal, so the picker explains itself the way the server would have.
      */
     listLock: { msg: string; key?: string } | null;
+    /**
+     * The oldest game still waiting on this player to confirm. While one exists they cannot
+     * report a new game or confirm a different one — disputing it clears the block too.
+     */
+    awaitingMe: { id: number; reporter: string; created_at: string } | null;
     me: { status: EventPlayer['status']; roster_id: number | null } | null;
   }>(`/api/events/get?id=${id}${asUserId ? `&asUserId=${asUserId}` : ''}`);
 }

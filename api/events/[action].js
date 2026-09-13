@@ -111,6 +111,21 @@ async function loadEvent(eventId, userId) {
   return { ev, canManage: ev.organiser_user_id === userId || await isAdmin(userId) };
 }
 
+/**
+ * Registration cannot still be open once the event has begun (Unwise: *"maybe force registration
+ * end date to be before tournament starting date?"*). Returns a refusal or null.
+ *
+ * Only checked when BOTH dates are given: an event with no start date has nothing to be before,
+ * and an event with no end date is the deliberate *"until all games are played"* case.
+ */
+function datesRefusal(startsOn, regClosesOn) {
+  const a = asDate(startsOn), b = asDate(regClosesOn);
+  if (a && b && b > a) {
+    return { msg: 'Registration has to close before the event starts.', key: 'evErrRegAfterStart' };
+  }
+  return null;
+}
+
 /** A date string the DB will accept, or null — so an empty form field does not become 'Invalid Date'. */
 const asDate = (v) => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null);
 
@@ -256,6 +271,8 @@ async function get(req, res, userId, realUserId = userId) {
     // then be refused. Only meaningful for a registered player.
     // The key travels with it so the picker can explain itself in the reader's language.
     listLock: mine.rows[0] ? listLockReason(ev) : null,
+    // What this player owes, so the UI can say why they are blocked before they try something.
+    awaitingMe: mine.rows[0] ? await oldestAwaitingMe(ev.id, userId) : null,
   });
 }
 
@@ -268,6 +285,8 @@ async function create(req, res, userId) {
   if (visibility !== undefined && visibility !== 'public' && visibility !== 'private') {
     return bad(res, 'Visibility must be "public" or "private".');
   }
+  const dateProblem = datesRefusal(startsOn, regClosesOn);
+  if (dateProblem) return bad(res, dateProblem.msg, 400, dateProblem.key);
   // A real league starts CLOSED so nothing reaches players by accident. A TEST event is the exact
   // opposite case: it exists to be driven immediately, it is admin-only whether it is open or not
   // (`is_test` is checked separately everywhere visibility is decided), and leaving it closed only
@@ -297,6 +316,8 @@ async function update(req, res, userId) {
   const { ev, canManage } = await loadEvent(Number(id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
   if (!canManage) return bad(res, 'Only the organiser can edit this event.', 403);
+  const dateProblem = datesRefusal(startsOn, regClosesOn);
+  if (dateProblem) return bad(res, dateProblem.msg, 400, dateProblem.key);
 
   const r = await sql`
     UPDATE events SET
@@ -499,6 +520,12 @@ async function reportGame(req, res, userId) {
   if (!ev) return bad(res, 'Event not found.', 404);
   if (!ev.published) return bad(res, 'This league is closed — no games can be reported yet.', 400, 'evErrClosedReport');
   if (Number(opponentUserId) === userId) return bad(res, 'You cannot report a game against yourself.', 400, 'evErrSelfGame');
+  const owed = await oldestAwaitingMe(ev.id, userId);
+  if (owed) {
+    return bad(res,
+      `You have a game from ${owed.reporter} waiting on you. Confirm it, or dispute it if it is wrong, before reporting another.`,
+      400, 'evErrOweConfirmReport', { name: owed.reporter });
+  }
 
   const both = await sql`
     SELECT user_id, roster_id FROM event_players
@@ -535,6 +562,13 @@ async function confirmGame(req, res, userId) {
   if (!game) return bad(res, 'Game not found.', 404);
   if (game.opponent_user_id !== userId) return bad(res, 'Only your opponent can confirm this game.', 403, 'evErrNotYourConfirm');
   if (game.status !== 'pending') return bad(res, 'This game has already been resolved.', 400, 'evErrAlreadyResolved');
+  // You may always act on the one that is blocking you — that is the whole point of it.
+  const owedFirst = await oldestAwaitingMe(game.event_id, userId);
+  if (owedFirst && owedFirst.id !== game.id) {
+    return bad(res,
+      `Deal with the older game from ${owedFirst.reporter} first — confirm it, or dispute it if it is wrong.`,
+      400, 'evErrOweConfirmOther', { name: owedFirst.reporter });
+  }
 
   const r = confirm === true
     ? await sql`UPDATE event_games SET status = 'confirmed', confirmed_at = now() WHERE id = ${game.id} RETURNING *`
@@ -672,6 +706,32 @@ async function seedTest(req, res, userId) {
 }
 
 /**
+ * The oldest game still waiting on THIS player to confirm, or null.
+ *
+ * Decided in Discord by Dominic, Unwise and Rigzar together, after two timer ideas were dropped.
+ * The problem: a reported game counts for nothing until the opponent confirms, and an opponent who
+ * simply never does freezes it for ever. A 10-minute auto-dispute was rejected because games get
+ * played across different days; a one-week auto-win was rejected because it invents a result
+ * nobody agreed to.
+ *
+ * What is left is Dominic's: *"maybe not allowing the player report a game or confirm another one,
+ * before the oldest one is confirmed"*. You are not punished and no result is invented — you
+ * simply cannot move on until you have dealt with what is waiting on you. DISPUTING COUNTS AS
+ * DEALING WITH IT, which is what keeps this from ever trapping anyone: a game reported against you
+ * by mistake is cleared by saying so, and that also puts it in front of the organiser.
+ */
+async function oldestAwaitingMe(eventId, userId) {
+  const r = await sql`
+    SELECT g.id, g.created_at, ru.username AS reporter
+      FROM event_games g
+      JOIN users ru ON ru.id = g.reporter_user_id
+     WHERE g.event_id = ${eventId} AND g.opponent_user_id = ${userId} AND g.status = 'pending'
+     ORDER BY g.created_at ASC
+     LIMIT 1`;
+  return r.rows[0] ?? null;
+}
+
+/**
  * POST /api/events/game-report { gameId, text, lang } -> write YOUR OWN battle report on a game.
  *
  * Each player writes their own, and can only ever write their own: the two accounts of a game are
@@ -719,7 +779,10 @@ async function gameReport(req, res, userId) {
  *                 agreed on the wrong way round. Counts toward the standings from then on.
  *   · 'reopen'  — put it back to `pending` so the opponent can look at it again. For the case
  *                 where the dispute was a mistake or the players have since sorted it out.
- *   · 'delete'  — it never happened. Removes the row.
+ *   · 'delete'  — it never happened. Removes the row. Allowed on a PENDING game as well as a
+ *                 disputed one (Dominic, asked explicitly): an organiser has to be able to clear
+ *                 a game that should never have been reported, not only one the players argued
+ *                 about. The REPORTER can withdraw their own unconfirmed game too, below.
  *
  * Deliberately NOT restricted to disputed games: an organiser also has to be able to undo a game
  * that both players confirmed and then realised was wrong. The one thing the organiser still
@@ -739,14 +802,25 @@ async function settleGame(req, res, userId) {
 
   const { ev, canManage } = await loadEvent(game.event_id, userId);
   if (!ev) return bad(res, 'Event not found.', 404);
-  if (!canManage) return bad(res, 'Only an organiser or admin can settle a game.', 403);
+
+  // THE REPORTER MAY WITHDRAW THEIR OWN GAME while nobody has confirmed it. Agreed with Rigzar as
+  // the companion to the confirmation block: if I report a game against you by mistake, you are
+  // the one blocked and I am not, so I have to be able to take it back myself rather than making
+  // you dispute my typo. It can never be abused — it is only ever a game no one has agreed to,
+  // and it is gone rather than decided.
+  const ownWithdrawal = what === 'delete'
+    && game.reporter_user_id === userId
+    && game.status !== 'confirmed';
+  if (!canManage && !ownWithdrawal) {
+    return bad(res, 'Only an organiser or admin can settle a game.', 403, 'evErrSettleNotYours');
+  }
   // NOBODY SETTLES THEIR OWN GAME. Rigzar: *"si un inquisidor que esté en la liga como jugador no
   // puede auto arreglarse los juegos disputados"*. The referee powers belong to the organiser AND
   // to the admins generally, which is exactly why this line has to exist — an admin who is also
   // playing would otherwise be able to rule on the game they are arguing about. It applies to the
   // organiser too: the principle is the conflict of interest, not the job title. Any OTHER
   // organiser or admin can still settle it, so nothing is ever stuck.
-  if (game.reporter_user_id === userId || game.opponent_user_id === userId) {
+  if (!ownWithdrawal && (game.reporter_user_id === userId || game.opponent_user_id === userId)) {
     return bad(res, 'You played in this game, so you cannot settle it. Another organiser or admin has to.', 403, 'evErrPlayedInIt');
   }
   if (what === 'confirm' && game.status === 'pending') {
