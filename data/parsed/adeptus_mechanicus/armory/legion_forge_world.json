@@ -9,7 +9,7 @@
       "s": "x3",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Extra Attack(1), Limit(1), Master-Crafted. Forge World Metalica only.",
+      "abilities": "AT(3), Limit(1), Master-Crafted. Forge World Metalica only.",
       "p_unit": null,
       "p_char": 26
     },
@@ -21,7 +21,7 @@
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "Ammo(1), AT(3), Beam, Blast(4), Extra Attack(1), Limit(1). Forge World Stygies VIII only.",
+      "abilities": "Ammo(1), AT(3), Beam, Blast(4), Limit(1). Forge World Stygies VIII only.",
       "p_unit": null,
       "p_char": 36
     },

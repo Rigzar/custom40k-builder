@@ -58,7 +58,7 @@ export const sicaranRuststalkers: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Extra Attack(1), Limit(1)"
+      "abilities": "Limit(1)"
     },
     {
       "name": "Mindscrambler grenade",

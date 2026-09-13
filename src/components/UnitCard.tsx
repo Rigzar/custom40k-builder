@@ -4,7 +4,7 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
@@ -377,7 +377,7 @@ export function UnitCard({ item }: Props) {
     // Exception: Eldar "Exemplars of the Shrines" lets an Exarch take TWO Exarch Powers, so the
     // "one Exarch Power" group is allowed up to `exarchPowersCount` selections instead of 1.
     const g = u.option_groups[gi];
-    if (g?.constraint.type === 'one' && qty > 0 && ci !== '__inline') {
+    if (groupConstraint(g, item, u).type === 'one' && qty > 0 && ci !== '__inline') {
       const isExarchPowerGroup = /Exarch Power/i.test(g.header);
       const oneMax = isExarchPowerGroup
         ? (getArchetypeRule(effectiveArchetypeFor(item, store))?.exarchPowersCount ?? 1)
@@ -1319,7 +1319,7 @@ export function UnitCard({ item }: Props) {
             }
 
             // Required OG warning: show if nothing is selected
-            const isRequired = g.constraint.required;
+            const isRequired = groupConstraint(g, item, u).required;
             const hasSelection = isRequired && g.choices.some((_, ci) => (item.optionQty?.[realGi]?.[ci] ?? 0) > 0);
 
             // True when the header already states the cost (e.g. "…for +15 points.") — avoids showing pts twice.
@@ -1458,9 +1458,12 @@ export function UnitCard({ item }: Props) {
               );
             }
 
-            const isPerN = g.constraint.type === 'per_n';
-            const isEvery = g.constraint.type === 'every';
-            const isFixedMax = g.constraint.type === 'fixed_max';
+            // Through groupConstraint, not g.constraint: a promotion can change what this group
+            // allows (Legendary Hive Tyrant — one specialisation becomes up to two, mandatory).
+            const gc = groupConstraint(g, item, u);
+            const isPerN = gc.type === 'per_n';
+            const isEvery = gc.type === 'every';
+            const isFixedMax = gc.type === 'fixed_max';
             const applyModelNames = Array.isArray(g.applies_to_model)
               ? g.applies_to_model
               : g.applies_to_model ? [g.applies_to_model] : null;
@@ -1506,8 +1509,8 @@ export function UnitCard({ item }: Props) {
                 ? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies
                 : isFixedMax
                   ? (modelGroupCap !== null
-                      ? Math.min((g.constraint.max ?? item.size) + swarmControllersBonus, modelGroupCap)
-                      : (g.constraint.max ?? item.size) + swarmControllersBonus)
+                      ? Math.min((gc.max ?? item.size) + swarmControllersBonus, modelGroupCap)
+                      : (gc.max ?? item.size) + swarmControllersBonus)
                   : null;
             // "every"/"fixed_max" groups (not just per_n) share a combined budget across all their
             // choices — e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap, or Raptors'
@@ -1580,13 +1583,20 @@ export function UnitCard({ item }: Props) {
 
             function qtyControl(ci: number, c: Choice) {
               const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
-              const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
+              const canUseQty = ['per_n', 'fixed_max', 'every'].includes(gc.type);
               // Independent choices measure against their own quantity, capped at 1 each — Tyranid
               // Biomorphs are a one-time flat buy per unit ("Point costs are paid per unit," ods
               // Armory sheet), not one copy per model, so a choice is either bought or not.
+              // `max_per_choice` narrows the shared pool per choice — "pick two DIFFERENT
+              // specialisations" is a pool of 2 with a cap of 1 each, which neither fixed_max nor
+              // independent_choices expresses on its own.
               const remaining = g.independent_choices
                 ? 1 - qty
-                : groupRemaining;
+                : gc.max_per_choice != null && groupRemaining != null
+                  ? Math.min(groupRemaining, gc.max_per_choice - qty)
+                  : gc.max_per_choice != null
+                    ? gc.max_per_choice - qty
+                    : groupRemaining;
               const inputMax = remaining !== null ? qty + remaining : undefined;
               // Detect "(X only)" mark restrictions embedded in choice names
               const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;

@@ -1,4 +1,4 @@
-import type { Unit, Model, FactionData } from '../types/data';
+import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types/data';
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 import { getArchetypeRule } from './archetypes';
@@ -76,6 +76,19 @@ function isMarkGroup(g: { constraint: { type: string } }) {
  * defaults to 1, so the 104 single-model promotions are priced by exactly the same arithmetic.
  */
 type ActiveVariant = { variant: Model; group: { header: string; inline_pts: number | null }; count: number };
+
+/**
+ * The constraint that is actually in force for a group, given what the entry has bought.
+ *
+ * Almost always `group.constraint`. The exception is a promotion that CHANGES an existing group's
+ * rule instead of adding a new one — the Hive Tyrant picks one specialisation, the Legendary Hive
+ * Tyrant must pick one and may pick two. Read the cap and the `required` flag through here.
+ */
+export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
+  const vc = group.variant_constraint;
+  if (!vc) return group.constraint;
+  return getActiveVariant(item, unit)?.variant.name === vc.variant ? vc.constraint : group.constraint;
+}
 
 function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
   for (const [gi, g] of unit.option_groups.entries()) {

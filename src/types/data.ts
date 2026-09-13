@@ -125,6 +125,18 @@ export interface Constraint {
   max?: number;       // for fixed_max; also for veteran when "up to N veteran abilities"
   /** If true, a selection is mandatory — builder warns if nothing is chosen. */
   required?: boolean;
+  /**
+   * Cap on each INDIVIDUAL choice, while the group still shares one pool of `max`.
+   *
+   * `fixed_max` alone means "N picks from this list" and lets all N land on the same choice, which
+   * is right for a weapon swap (two Raptors can both take a Flamer). It is wrong for "pick two
+   * different upgrades": the Legendary Hive Tyrant must select a specialisation and may select a
+   * second one, and taking Alien Cunning twice is not a second one.
+   *
+   * Distinct from `independent_choices`, which REMOVES the shared pool and gives every choice its
+   * own allowance — that would let this Tyrant take all five.
+   */
+  max_per_choice?: number;
 }
 
 /**
@@ -151,6 +163,19 @@ export interface OptionCondition {
 export interface OptionGroup {
   header: string;
   constraint: Constraint;
+  /**
+   * A constraint that REPLACES `constraint` while the named variant model is active.
+   *
+   * Some promotions change what an option group allows rather than adding a new one. The Hive
+   * Tyrant "may be upgraded to one of the following specialisation"; the Legendary Hive Tyrant
+   * "must select a specialisation and may select a second one" — same list, same group, a
+   * different rule once promoted. Both sentences are on the same datasheet, so the group cannot
+   * simply carry one of them.
+   *
+   * Read through `groupConstraint(group, item, unit)`, never off `constraint` directly, anywhere
+   * the cap or the required flag matters.
+   */
+  variant_constraint?: { variant: string; constraint: Constraint };
   choices: Choice[];
   inline_pts: number | null;
   variant_link: string | null;

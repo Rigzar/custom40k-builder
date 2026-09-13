@@ -303,6 +303,15 @@ export const hiveTyrant: Unit = {
       "constraint": {
         "type": "one"
       },
+      "variant_constraint": {
+        "variant": "Legendary Hive Tyrant",
+        "constraint": {
+          "type": "fixed_max",
+          "max": 2,
+          "max_per_choice": 1,
+          "required": true
+        }
+      },
       "choices": [
         {
           "name": "Alien Cunning",

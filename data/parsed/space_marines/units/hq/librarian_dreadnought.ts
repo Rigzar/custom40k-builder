@@ -70,7 +70,7 @@ export const librarianDreadnought: Unit = {
       "s": "+2",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Extra Attack(1), Limit(1), Force weapon"
+      "abilities": "AT(2), Limit(1), Force weapon"
     },
     {
       "name": "Melta",

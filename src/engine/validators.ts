@@ -1,6 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint } from './points';
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
 import {
@@ -1067,7 +1067,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const u = resolveUnit(item, data);
     if (!u) continue;
     for (const [gi, g] of u.option_groups.entries()) {
-      if (!g.constraint.required) continue;
+      // Through groupConstraint: a promotion can make an optional group mandatory (the Legendary
+      // Hive Tyrant MUST take a specialisation where the plain one may).
+      if (!groupConstraint(g, item, u).required) continue;
       const hasSelection = g.choices.some((_, ci) => (item.optionQty?.[gi]?.[ci] ?? 0) > 0);
       if (!hasSelection) {
         items.push({
@@ -2447,17 +2449,31 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           });
         }
       }
-      if (g.constraint?.type === 'fixed_max') {
+      const gc = groupConstraint(g, item, u);
+      if (gc?.type === 'fixed_max') {
         // `independent_choices`: each choice has its own allowance rather than one shared pool, so
         // the check is per choice and the cap is 1 (Tyranid Biomorphs — "any number" means any
         // number of DIFFERENT biomorphs, each bought once; the ods Armory sheet is explicit that
         // "Point costs are paid per unit," not per model). Summing them would re-impose the very
         // shared budget the flag exists to remove.
-        const max = g.constraint.max ?? (g.independent_choices ? 1 : 0);
+        const max = gc.max ?? (g.independent_choices ? 1 : 0);
         const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
         const used = g.independent_choices
           ? qtys.reduce((m, [, v]) => Math.max(m, v ?? 0), 0)
           : qtys.reduce((s, [, v]) => s + (v ?? 0), 0);
+        // "Two DIFFERENT specialisations": the pool is shared AND no single choice may take it all.
+        if (gc.max_per_choice != null) {
+          const over = qtys.find(([, v]) => (v ?? 0) > gc.max_per_choice!);
+          if (over) {
+            items.push({
+              type: 'error',
+              text: T('valFixedMaxExceeded', {
+                unit: item.unitName, header: g.header.substring(0, 50),
+                used: over[1] ?? 0, max: gc.max_per_choice,
+              }),
+            });
+          }
+        }
         if (used > max) {
           items.push({
             type: 'error',
