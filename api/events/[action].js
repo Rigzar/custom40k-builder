@@ -175,13 +175,18 @@ async function create(req, res, userId) {
   if (visibility !== undefined && visibility !== 'public' && visibility !== 'private') {
     return bad(res, 'Visibility must be "public" or "private".');
   }
+  // A real league starts CLOSED so nothing reaches players by accident. A TEST event is the exact
+  // opposite case: it exists to be driven immediately, it is admin-only whether it is open or not
+  // (`is_test` is checked separately everywhere visibility is decided), and leaving it closed only
+  // means the puppets you just seeded cannot report a game — a step with nothing behind it.
+  const published = isTest === true;
   const r = await sql`
     INSERT INTO events (name, description, organiser_user_id, visibility, is_league,
-                        starts_on, ends_on, reg_opens_on, reg_closes_on, is_test)
+                        starts_on, ends_on, reg_opens_on, reg_closes_on, is_test, published)
     VALUES (${name.trim()}, ${typeof description === 'string' ? description.trim() : ''}, ${userId},
             ${visibility ?? 'public'}, ${isLeague === true},
             ${asDate(startsOn)}, ${asDate(endsOn)}, ${asDate(regOpensOn)}, ${asDate(regClosesOn)},
-            ${isTest === true})
+            ${isTest === true}, ${published})
     RETURNING *
   `;
   res.status(200).json({ ok: true, event: r.rows[0] });
@@ -456,6 +461,12 @@ async function seedTest(req, res, userId) {
   const { ev, canManage } = await loadEvent(Number(req.body?.id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
   if (!canManage) return bad(res, 'Only the organiser can seed this event.', 403);
+
+  // Seeding puppets IS the "I want to drive this now" action, so it opens the event as well —
+  // otherwise the players you just created cannot report a game. This also rescues a test event
+  // created before that became the default. It stays admin-only either way: `is_test` gates who
+  // can see it, `published` only gates joining and reporting.
+  if (ev.is_test && !ev.published) await sql`UPDATE events SET published = true WHERE id = ${ev.id}`;
 
   const want = Math.min(Math.max(Number(req.body?.players) || 4, 2), 12);
   // Pairs on purpose, so a same-faction matchup is available from the first game.

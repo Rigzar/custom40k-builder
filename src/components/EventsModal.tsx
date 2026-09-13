@@ -420,16 +420,21 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
               reporting are shut, so say which of the two reasons applies. */}
           {!data.open && (
             <p className="text-zinc-500 text-[11px] italic">
-              This league is closed — {data.canManage
-                ? 'open it below when you are ready for players to join.'
-                : 'the organiser has not opened it yet. You can still read the standings and the games played.'}
+              This league is closed — {!data.canManage
+                ? 'the organiser has not opened it yet. You can still read the standings and the games played.'
+                : ev.is_test
+                  ? 'so no games can be reported into it yet. Open it below — a test event stays admin-only either way.'
+                  : 'open it below when you are ready for players to join.'}
             </p>
           )}
 
+          {/* On a TEST event this says "open" rather than "open to players", because opening one
+              never exposes it: `is_test` is what gates who can see it, and it is checked separately
+              from `published`. Opening only unlocks registering and reporting. */}
           {data.canManage && (
             <button className={data.open ? btn : btnPrimary} disabled={busy}
                     onClick={() => act(() => api.publishEvent(ev.id, !data.open))}>
-              {data.open ? 'Close league' : 'Open league to players'}
+              {data.open ? 'Close league' : ev.is_test ? 'Open for reporting' : 'Open league to players'}
             </button>
           )}
 
