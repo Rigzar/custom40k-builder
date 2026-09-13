@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
     switch (req.query.action) {
       case 'list':          return list(req, res, userId);
-      case 'get':           return get(req, res, userId);
+      case 'get':           return get(req, res, await actingAs(req, userId), userId);
       case 'create':        return create(req, res, userId);
       case 'update':        return update(req, res, userId);
       case 'delete':        return remove(req, res, userId);
@@ -163,12 +163,14 @@ async function list(req, res, userId) {
 }
 
 /** GET /api/events/get?id= -> one event, with the caller's own registration state. */
-async function get(req, res, userId) {
+async function get(req, res, userId, realUserId = userId) {
   if (req.method !== 'GET') return bad(res, 'Method not allowed', 405);
   const id = Number(req.query.id);
   if (!Number.isInteger(id)) return bad(res, 'Event id is required.');
 
-  const { ev, canManage } = await loadEvent(id, userId);
+  // `userId` is whoever the page is speaking FOR (a puppet, while an admin drives one); the
+  // organiser powers still belong to the real account behind it.
+  const { ev, canManage } = await loadEvent(id, realUserId);
   if (!ev) return bad(res, 'Event not found.', 404);
 
   const mine = await sql`SELECT status, roster_id FROM event_players WHERE event_id = ${id} AND user_id = ${userId}`;

@@ -285,14 +285,17 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
     onError('');
     try {
       const [ev, pl, gm] = await Promise.all([
-        api.getEvent(eventId), api.listEventPlayers(eventId), api.listEventGames(eventId),
+        api.getEvent(eventId, actingAs === '' ? undefined : Number(actingAs)),
+        api.listEventPlayers(eventId), api.listEventGames(eventId),
       ]);
       setData(ev); setPlayers(pl.players); setGames(gm.games);
       if (ev.event.is_league) setStandings((await api.getEventStandings(eventId)).standings);
     } catch (err) {
       onError((err as Error).message);
     }
-  }, [eventId, onError]);
+    // actingAs is a dependency on purpose: switching puppet has to re-ask, or the page keeps
+    // showing the previous player's registration and army list.
+  }, [eventId, onError, actingAs]);
 
   useEffect(() => { void load(); }, [load]);
   useEffect(() => { setListDraft(data?.me?.roster_id ?? ''); }, [data?.me?.roster_id, actingAs]);

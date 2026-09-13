@@ -741,7 +741,7 @@ export function listEvents() {
   return call<{ events: EventSummary[] }>('/api/events/list');
 }
 
-export function getEvent(id: number) {
+export function getEvent(id: number, asUserId?: number) {
   return call<{
     event: EventSummary;
     canManage: boolean;
@@ -751,7 +751,7 @@ export function getEvent(id: number) {
     /** Why this player may no longer change their army list, or null while they still may. */
     listLock: string | null;
     me: { status: EventPlayer['status']; roster_id: number | null } | null;
-  }>(`/api/events/get?id=${id}`);
+  }>(`/api/events/get?id=${id}${asUserId ? `&asUserId=${asUserId}` : ''}`);
 }
 
 export function createEvent(ev: NewEvent) {
