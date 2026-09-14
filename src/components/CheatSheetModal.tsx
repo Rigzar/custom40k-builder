@@ -866,6 +866,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
         'It may make a further, up to 1D6" Advance move.',
         'It must stay at least 1" from enemy models.',
         'It may declare any number of enemy units it can see as targets for ranged attacks.',
+        'Ranged targets may make use of the "Take Cover" meta order.',
         'It may fire Assault, Pistol, or Grenade weapons with a –1 to hit penalty after moving.',
         'It may cast basic psychic powers and similar effects (incantations, prayers, …) at any point during the activation.',
       ],
@@ -876,8 +877,10 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'It may move up to its Movement value (but max 12").',
         'It may declare any number of enemy units it can see as targets for ranged attacks.',
+        'Ranged targets may make use of the "Take Cover" meta order.',
         'It may fire Assault, Pistol, and Grenade weapons with a –1 to hit penalty after moving.',
         'It may declare any number of enemy units it can see as targets for a Charge move.',
+        'Charge targets may make use of "Defensive Fire" or "Hold your Ground" meta orders.',
         'It may make a further, up to 6" Charge move in a straight line, if it can get into direct base contact with any of these enemy units.',
         'It must select either +1 Attack or +1 Initiative for all models as a Charge bonus.',
         'It resolves the Fight order.',
@@ -890,13 +893,15 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'It receives 1 automatic hit from each enemy model in attack range.',
         'It gains two Battleshock tokens and flees.',
+        'Instead of being allowed to pursue as normal, enemy units have to remain in melee combat if there are other units of yours remaining in base contact with them and resolve the melee as if all units involved had the Fight order.',
+        'If there are no friendly units anymore, enemy units lose their order, count as activated and may only consolidate.',
       ],
     },
     {
       name: 'Fight',
       prerequisite: 'The unit is already engaged in melee combat.',
       effect: [
-        'The melee is resolved as if all units involved had the Fight order.',
+        'The melee is resolved (see Melee combat) as if all units involved had the Fight order.',
         'It may cast basic psychic powers and similar effects (incantations, prayers, …) during its initiative step.',
         'It removes all orders from units participating in this melee.',
       ],
@@ -907,6 +912,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'It may move up to its Movement value.',
         'It may declare any number of enemy units it can see as targets for ranged attacks.',
+        'Ranged targets may make use of the "Take Cover" meta order.',
         'It may fire any ranged weapon except Heavy types after moving.',
         'It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at any point during the activation.',
       ],
@@ -917,6 +923,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'It may not move.',
         'It may declare any number of enemy units it can see as targets for ranged attacks.',
+        'Ranged targets may make use of the "Take Cover" meta order.',
         'It may fire any ranged weapon, including Heavy types.',
         'It reduces the total hit penalty for ranged attacks by 1.',
         'It may cast all types of psychic powers and similar effects (incantations, prayers, …) at any point during the activation.',
@@ -932,6 +939,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
         'Sie darf zusätzlich eine Advance-Bewegung von bis zu 1D6" machen.',
         'Sie muss mindestens 1" Abstand zu gegnerischen Modellen halten.',
         'Sie darf eine beliebige Anzahl sichtbarer gegnerischer Einheiten als Ziele für Fernkampfangriffe erklären.',
+        'Fernkampfziele dürfen den Meta-Befehl "Take Cover" nutzen.',
         'Sie darf nach der Bewegung Assault-, Pistol- oder Grenade-Waffen mit –1 auf den Trefferwurf abfeuern.',
         'Sie darf zu jedem Zeitpunkt ihrer Aktivierung Basic-psionische Kräfte und ähnliche Effekte (Beschwörungen, Gebete, …) wirken.',
       ],
@@ -942,8 +950,10 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Sie darf sich bis zu ihrem Movement-Wert bewegen (aber max. 12").',
         'Sie darf eine beliebige Anzahl sichtbarer gegnerischer Einheiten als Ziele für Fernkampfangriffe erklären.',
+        'Fernkampfziele dürfen den Meta-Befehl "Take Cover" nutzen.',
         'Sie darf nach der Bewegung Assault-, Pistol- und Grenade-Waffen mit –1 auf den Trefferwurf abfeuern.',
         'Sie darf eine beliebige Anzahl sichtbarer gegnerischer Einheiten als Ziele für eine Charge-Bewegung erklären.',
+        'Charge-Ziele dürfen die Meta-Befehle "Defensive Fire" oder "Hold your Ground" nutzen.',
         'Sie darf zusätzlich eine Charge-Bewegung von bis zu 6" in gerader Linie machen, wenn sie dadurch direkten Base Contact mit einer dieser gegnerischen Einheiten erreichen kann.',
         'Sie muss für alle Modelle entweder +1 Attack oder +1 Initiative als Charge-Bonus wählen.',
         'Sie löst den Fight-Befehl auf.',
@@ -956,13 +966,15 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Sie erhält 1 automatischen Treffer von jedem gegnerischen Modell in Angriffsreichweite.',
         'Sie erhält zwei Battleshock-Marker und flieht.',
+        'Statt normal verfolgen zu dürfen, müssen gegnerische Einheiten im Nahkampf gebunden bleiben, wenn weitere eigene Einheiten in Base Contact mit ihnen stehen, und der Nahkampf wird aufgelöst, als hätten alle beteiligten Einheiten den Fight-Befehl.',
+        'Gibt es keine befreundeten Einheiten mehr, verlieren die gegnerischen Einheiten ihren Befehl, gelten als aktiviert und dürfen nur konsolidieren.',
       ],
     },
     {
       name: 'Fight',
       prerequisite: 'Die Einheit ist bereits im Nahkampf gebunden.',
       effect: [
-        'Der Nahkampf wird aufgelöst, als hätten alle beteiligten Einheiten den Fight-Befehl.',
+        'Der Nahkampf wird aufgelöst (siehe Melee Combat), als hätten alle beteiligten Einheiten den Fight-Befehl.',
         'Sie darf in ihrem Initiative-Schritt Basic-psionische Kräfte und ähnliche Effekte (Beschwörungen, Gebete, …) wirken.',
         'Sie entfernt alle Befehle von den an diesem Nahkampf beteiligten Einheiten.',
       ],
@@ -973,6 +985,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Sie darf sich bis zu ihrem Movement-Wert bewegen.',
         'Sie darf eine beliebige Anzahl sichtbarer gegnerischer Einheiten als Ziele für Fernkampfangriffe erklären.',
+        'Fernkampfziele dürfen den Meta-Befehl "Take Cover" nutzen.',
         'Sie darf nach der Bewegung jede Fernkampfwaffe außer Heavy-Waffen abfeuern.',
         'Sie darf zu jedem Zeitpunkt ihrer Aktivierung Basic- und Normal-psionische Kräfte und ähnliche Effekte (Beschwörungen, Gebete, …) wirken.',
       ],
@@ -983,6 +996,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Sie darf sich nicht bewegen.',
         'Sie darf eine beliebige Anzahl sichtbarer gegnerischer Einheiten als Ziele für Fernkampfangriffe erklären.',
+        'Fernkampfziele dürfen den Meta-Befehl "Take Cover" nutzen.',
         'Sie darf jede Fernkampfwaffe abfeuern, einschließlich Heavy-Waffen.',
         'Sie verringert den gesamten Trefferabzug für Fernkampfangriffe um 1.',
         'Sie darf zu jedem Zeitpunkt ihrer Aktivierung alle Arten von psionischen Kräften und ähnlichen Effekten (Beschwörungen, Gebete, …) wirken.',
@@ -998,6 +1012,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
         'Puede hacer además un movimiento de Advance de hasta 1D6".',
         'Debe mantenerse a al menos 1" de los modelos enemigos.',
         'Puede declarar como objetivo de ataques a distancia a cualquier número de unidades enemigas que pueda ver.',
+        'Los objetivos a distancia pueden usar la meta orden "Take Cover".',
         'Puede disparar armas Assault, Pistol o Grenade con –1 para impactar tras moverse.',
         'Puede lanzar poderes psíquicos Basic y efectos similares (invocaciones, plegarias, …) en cualquier momento de su activación.',
       ],
@@ -1008,8 +1023,10 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Puede moverse hasta su valor de Movement (pero máx. 12").',
         'Puede declarar como objetivo de ataques a distancia a cualquier número de unidades enemigas que pueda ver.',
+        'Los objetivos a distancia pueden usar la meta orden "Take Cover".',
         'Puede disparar armas Assault, Pistol y Grenade con –1 para impactar tras moverse.',
         'Puede declarar como objetivo de un movimiento de Charge a cualquier número de unidades enemigas que pueda ver.',
+        'Los objetivos de la Charge pueden usar las meta órdenes "Defensive Fire" o "Hold your Ground".',
         'Puede hacer además un movimiento de Charge de hasta 6" en línea recta, si con ello puede entrar en base contact directo con alguna de esas unidades enemigas.',
         'Debe elegir +1 Attack o +1 Initiative para todos sus modelos como bono de Charge.',
         'Resuelve la orden Fight.',
@@ -1022,13 +1039,15 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Recibe 1 impacto automático de cada modelo enemigo dentro de su alcance de ataque.',
         'Gana dos tokens de Battleshock y huye (Fleeing).',
+        'En lugar de poder perseguir con normalidad, las unidades enemigas deben permanecer trabadas en combate si hay otras unidades tuyas en base contact con ellas, y el combate se resuelve como si todas las unidades implicadas tuvieran la orden Fight.',
+        'Si ya no queda ninguna unidad amiga, las unidades enemigas pierden su orden, cuentan como activadas y solo pueden consolidar.',
       ],
     },
     {
       name: 'Fight',
       prerequisite: 'La unidad ya está trabada en combate cuerpo a cuerpo.',
       effect: [
-        'El combate se resuelve como si todas las unidades implicadas tuvieran la orden Fight.',
+        'El combate se resuelve (ver Melee Combat) como si todas las unidades implicadas tuvieran la orden Fight.',
         'Puede lanzar poderes psíquicos Basic y efectos similares (invocaciones, plegarias, …) en su paso de iniciativa.',
         'Elimina todas las órdenes de las unidades que participan en este combate.',
       ],
@@ -1039,6 +1058,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'Puede moverse hasta su valor de Movement.',
         'Puede declarar como objetivo de ataques a distancia a cualquier número de unidades enemigas que pueda ver.',
+        'Los objetivos a distancia pueden usar la meta orden "Take Cover".',
         'Puede disparar cualquier arma a distancia excepto las de tipo Heavy tras moverse.',
         'Puede lanzar poderes psíquicos Basic y Normal y efectos similares (invocaciones, plegarias, …) en cualquier momento de su activación.',
       ],
@@ -1049,6 +1069,7 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
       effect: [
         'No puede moverse.',
         'Puede declarar como objetivo de ataques a distancia a cualquier número de unidades enemigas que pueda ver.',
+        'Los objetivos a distancia pueden usar la meta orden "Take Cover".',
         'Puede disparar cualquier arma a distancia, incluidas las de tipo Heavy.',
         'Reduce en 1 la penalización total para impactar en ataques a distancia.',
         'Puede lanzar cualquier tipo de poder psíquico y efectos similares (invocaciones, plegarias, …) en cualquier momento de su activación.',
@@ -1172,19 +1193,19 @@ const ORDERS_UI_TEXT: Record<Language, OrdersUiText> = {
     title: 'ORDERS', subtitle: 'Command Phase Orders · Meta Orders',
     assignedTitle: 'Assigned in the Command Phase — one per unit',
     metaTitle: 'Meta Orders — triggered, not assigned',
-    notes: "**Notes:** a unit doesn't have to perform every part of its order (e.g. Move & Shoot may skip moving or shooting) · fewer orders than your opponent gives you **Skip tokens** (1 per 2 orders of difference, rounded up).",
+    notes: "**Meta Orders are Defensive Reactions:** usable only if the unit has not been activated this round, and using one removes its order · never usable by a unit engaged in melee. **Notes:** a unit doesn't have to perform every part of its order (e.g. Move & Shoot may skip moving or shooting) · fewer orders than your opponent gives you **Skip tokens** (1 per 2 orders of difference, rounded up).",
   },
   de: {
     title: 'ORDERS', subtitle: 'Command Phase Orders · Meta Orders',
     assignedTitle: 'In der Command-Phase zugewiesen — eine pro Einheit',
     metaTitle: 'Meta Orders — ausgelöst, nicht zugewiesen',
-    notes: '**Hinweise:** eine Einheit muss nicht jeden Teil ihres Befehls ausführen (z. B. kann Move & Shoot das Bewegen oder Schießen auslassen) · weniger Befehle als der Gegner geben **Skip-Marker** (1 pro 2 Befehle Unterschied, aufgerundet).',
+    notes: '**Meta Orders sind Defensive Reactions:** nur nutzbar, wenn die Einheit in dieser Runde noch nicht aktiviert wurde, und die Nutzung entfernt ihren Befehl · nie nutzbar für eine im Nahkampf gebundene Einheit. **Hinweise:** eine Einheit muss nicht jeden Teil ihres Befehls ausführen (z. B. kann Move & Shoot das Bewegen oder Schießen auslassen) · weniger Befehle als der Gegner geben **Skip-Marker** (1 pro 2 Befehle Unterschied, aufgerundet).',
   },
   es: {
     title: 'ORDERS', subtitle: 'Command Phase Orders · Meta Orders',
     assignedTitle: 'Asignadas en la Command Phase — una por unidad',
     metaTitle: 'Meta Orders — se activan, no se asignan',
-    notes: '**Notas:** una unidad no tiene que ejecutar todas las partes de su orden (p. ej., Move & Shoot puede omitir moverse o disparar) · tener menos órdenes que el rival da **tokens de Skip** (1 por cada 2 órdenes de diferencia, redondeando hacia arriba).',
+    notes: '**Las Meta Orders son Defensive Reactions:** solo se pueden usar si la unidad aún no se ha activado en esta ronda, y usarlas le quita su orden · nunca se pueden usar si está trabada en combate. **Notas:** una unidad no tiene que ejecutar todas las partes de su orden (p. ej., Move & Shoot puede omitir moverse o disparar) · tener menos órdenes que el rival da **tokens de Skip** (1 por cada 2 órdenes de diferencia, redondeando hacia arriba).',
   },
 };
 

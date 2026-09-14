@@ -468,6 +468,7 @@ gerade repariert hatte. Siehe `tts/README.md`.
   - Ein neues Gebet hinzugefügt wird, das nur mit dem Legacy of the Crusader erscheinen soll (zu `SM_CRUSADER_PRAYERS` hinzufügen).
   - Ein bestehendes SM-Legacy oder eine Disziplin umbenannt wird.
 - **`codex_grey_knights/legacies.ts`** – Diese Datei bearbeiten, wenn sich ändert, welche Kraft ein Legacy GK-Psykern immer gewährt (`getGKLegacyPower`).
+- **`codex_genestealer_cults/legacies.ts`** – Derselbe Mechanismus für GSC: jedes Legacy lehrt allen Psionikern eine zusätzliche Kraft (`getGSCLegacyPowerName`). Dort steht nur der NAME der Kraft; der Text wird aus der codexeigenen Disziplin "Legacy Psychic Powers" aufgelöst — den Text also nie hierher kopieren.
 - **`codex_<fraktion>/legacies.ts`** – Diese Datei bearbeiten für Legacy-Rüstkammer-Zugriffsregeln oder Markierungsbeschränkungen einer Fraktion (z. B. `CSM_LEGACY_NOTES` in `codex_csm/legacies.ts`).
 
 Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, eine Datei `codex_<fraktion>/legacies.ts` nach demselben Muster erstellen, in `PsychicModal.tsx` einbinden, und – falls auch eine strukturierte Notiz angezeigt werden soll – in der `FACTION_LEGACY_NOTES`-Map von `legacies.ts` (oberste Ebene) registrieren.

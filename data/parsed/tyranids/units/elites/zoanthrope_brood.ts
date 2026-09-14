@@ -33,7 +33,7 @@ export const zoanthropeBrood: Unit = {
   "variant_models": [
     {
       "name": "Neurothrope",
-      "points": 120,
+      "points": 95,
       "min": 0,
       "max": 1,
       "stats": {

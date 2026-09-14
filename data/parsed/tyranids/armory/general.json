@@ -105,28 +105,28 @@
     {
       "name": "Acid Blood",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The model gains the \"Retribution(1)\" ability. Advanced Bioforms gain \"Retribution(3)\" instead.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. The model gains the \"Retribution(1)\" ability. Advanced Bioforms gain \"Retribution(3)\" instead.",
       "p_unit": 5,
       "p_char": 5
     },
     {
       "name": "Camouflage",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the benefit of light cover until its first activation.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. The unit gains the benefit of light cover until its first activation.",
       "p_unit": 3,
       "p_char": 3
     },
     {
       "name": "Extremely Volatile",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7.",
       "p_unit": 0,
       "p_char": 0
     },
     {
       "name": "Implant Attack",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The model gains the \"Implant Attack\" weapon.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The model gains the \"Implant Attack\" weapon.",
       "p_unit": 5,
       "p_char": 5,
       "advanced_bioform_only": true
@@ -134,14 +134,14 @@
     {
       "name": "Infrasonic Roar",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. All ranged weapons in the unit gain the \"Suppression(2)\" ability against targets within 12\". Advanced Bioforms gain \"Suppression(3)\".",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. All ranged weapons in the unit gain the \"Suppression(2)\" ability against targets within 12\". Advanced Bioforms gain \"Suppression(3)\".",
       "p_unit": 5,
       "p_char": 5
     },
     {
       "name": "Resonance Barb",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 to all tests for manifesting a psychic power.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 to all tests for manifesting a psychic power.",
       "p_unit": 5,
       "p_char": 5,
       "advanced_bioform_only": true
@@ -149,7 +149,7 @@
     {
       "name": "Symbiote Rippers",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains the \"Symbiote Rippers\" weapon.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains the \"Symbiote Rippers\" weapon.",
       "p_unit": 3,
       "p_char": 3,
       "advanced_bioform_only": true
@@ -157,7 +157,7 @@
     {
       "name": "Thornback",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit doubles the final combat result for its own army in each melee in which it participates.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit doubles the final combat result for its own army in each melee in which it participates.",
       "p_unit": 5,
       "p_char": 5,
       "advanced_bioform_only": true
@@ -165,7 +165,7 @@
     {
       "name": "Tusked",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 additional attack as a Charge bonus.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 additional attack as a Charge bonus.",
       "p_unit": 5,
       "p_char": 5,
       "advanced_bioform_only": true
@@ -173,7 +173,7 @@
     {
       "name": "Warped",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the ability \"Terrifying(-1)\".",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. The unit gains the ability \"Terrifying(-1)\".",
       "p_unit": 5,
       "p_char": 5
     },

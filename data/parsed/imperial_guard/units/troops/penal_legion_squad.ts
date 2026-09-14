@@ -88,11 +88,19 @@ export const penalLegionSquad: Unit = {
       "choices": [
         {
           "name": "Knife fighters",
-          "points": 1
+          "points": 1,
+          "effect": {
+            "grants_weapons": ["Close combat weapon", "Las pistol"],
+            "grants_abilities": ["Knife Fighters: The model gains a Close combat weapon and a Las pistol."]
+          }
         },
         {
           "name": "Gunslingers",
-          "points": 2
+          "points": 2,
+          "effect": {
+            "grants_weapons": ["Lasgun"],
+            "grants_abilities": ["Gunslingers: The model gains a Lasgun."]
+          }
         }
       ],
       "inline_pts": null,

@@ -138,7 +138,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // DE 1.01: the three sub-faction-purity archetypes were rewritten. They no longer grant
   // "+1 Ld + double weapon swaps"; instead each lets its named Elite unit be taken as Troops and
   // removes its one-per-HQ limit. Normal Troops are unaffected (no demoteOtherTroops).
-  'Trueborn': { ...BASE, allowedKeywords: ['Kabal'],
+  'Trueborn Raid': { ...BASE, allowedKeywords: ['Kabal'],
     troopsRemap: ['Kabalite Trueborn'],
     liftsUniqueLimit: ['Kabalite Trueborn'],
     notes: [
@@ -147,7 +147,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Haemoxytes': { ...BASE, allowedKeywords: ['Coven'],
+  'Haemoxyte Raid': { ...BASE, allowedKeywords: ['Coven'],
     troopsRemap: ['Haemoxytes'],
     liftsUniqueLimit: ['Haemoxytes'],
     notes: [
@@ -156,7 +156,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Bloodbrides': { ...BASE, allowedKeywords: ['Cult'],
+  'Bloodbride Raid': { ...BASE, allowedKeywords: ['Cult'],
     troopsRemap: ['Hekatrix Bloodbrides'],
     liftsUniqueLimit: ['Hekatrix Bloodbrides'],
     notes: [
@@ -518,6 +518,9 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 const RENAMED_ARCHETYPES: Record<string, string> = {
   'Titan Legion': 'Taghmata',           // Adeptus Mechanicus, 2026-08 codex
   'Sector Protector': 'Sector Lord',    // Inquisition, 2026-09 codex (1.01)
+  'Bloodbrides': 'Bloodbride Raid',        // Dark Eldar, 1.01 codex
+  'Haemoxytes': 'Haemoxyte Raid',          // Dark Eldar, 1.01 codex
+  'Trueborn': 'Trueborn Raid',             // Dark Eldar, 1.01 codex
 };
 
 export function getArchetypeRule(archetype: string): ArchetypeRule | null {

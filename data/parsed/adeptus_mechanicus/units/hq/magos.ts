@@ -158,7 +158,7 @@ export const magos: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Limit(1), Haywire"
+      "abilities": "AT(2), Extra Attack(1), Limit(1), Haywire"
     },
     {
       "name": "Transonic cannon",

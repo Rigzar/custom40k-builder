@@ -78,6 +78,25 @@ export const IG_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // SOURCE — Combined Regiments:
   // "The army must select a second Legacy."
   // COST: 0 | 0 | 0 | 0   (army-level rule — enforced by validators; no per-unit effect)
+  // SOURCE — Close Order Drill:
+  // "If all models of a unit are in base to base contact, they gain +1 Initiative and +1 Leadership.
+  //  Weapons with the \"Blast(4)\" or \"Auto Hit\" ability always score +1 additional hit against the
+  //  unit while the benefits of this trait are active. Blast(6) weapons score +2 hits and Blast(8)
+  //  weapons cause +3 hits. Can only be used by Infantry type units without the \"Massive(x)\"
+  //  ability. The Initiative bonus is not cumulative with the bonus from the \"Fix bayonets!\" order."
+  // COST: 0 | 0 | -
+  // The bonus is conditional on the unit's formation during the game and carries a real DRAWBACK,
+  // so it must not be applied as a flat stat_mod — a note is the only correct representation, and
+  // the drawback is part of it.
+  'Close Order Drill': [
+    {
+      type: 'unit_ability',
+      name: 'Close Order Drill',
+      desc: 'While every model of the unit is in base-to-base contact it gains +1 Initiative and +1 Leadership — but weapons with "Blast(4)" or "Auto Hit" score +1 additional hit against it, "Blast(6)" +2 and "Blast(8)" +3. Infantry without "Massive(x)" only. The Initiative bonus does not stack with "Fix bayonets!".',
+      applies_to: 'infantry',
+    },
+  ],
+
   'Combined Regiments': [],
 
   // SOURCE — Disciplined Shooters:

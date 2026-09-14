@@ -244,10 +244,12 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
       // priced by `variant.points` in the `active` branch above — adding its own choice.points
       // here would double-charge it.
       if (choice?.variant_link && active) continue;
-      // A choice-level `per_model` does NOT multiply here: the quantity already counts how many
-      // models took it, so `points × qty` is the per-model cost. The GROUP-level flag still
-      // multiplies, because there the quantity means something else (an every-model swap).
-      if (choice) total += choice.points * qty * (g.per_model ? item.size : 1);
+      // A choice-level `per_model` multiplies exactly like the group-level one. Both mean "this
+      // one purchase covers the whole unit and is priced by headcount", which is what the Tyranid
+      // Armory's own footnote says ("Point costs are paid per model") and what the author's worked
+      // example gives: Infrasonic Roar at 1 point on a 30-model Gargoyle Brood is 30, bought once.
+      // It is NOT a per-model adoption count - see the cap of 1 in UnitCard/validators.
+      if (choice) total += choice.points * qty * (g.per_model || choice.per_model ? item.size : 1);
     }
   }
 

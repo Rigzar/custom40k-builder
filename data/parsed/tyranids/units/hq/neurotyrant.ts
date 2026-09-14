@@ -44,7 +44,7 @@ export const neurotyrant: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Auto Hit, Sunder(1), Seeking"
+      "abilities": "Auto Hit, Seeking"
     }
   ],
   "option_groups": [

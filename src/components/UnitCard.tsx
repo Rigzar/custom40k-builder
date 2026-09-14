@@ -1591,11 +1591,12 @@ export function UnitCard({ item }: Props) {
               // specialisations" is a pool of 2 with a cap of 1 each, which neither fixed_max nor
               // independent_choices expresses on its own.
               //
-              // A `per_model` choice inside an independent group is capped at the MODEL COUNT
-              // rather than at 1: the Armory preamble allows each model one of an item, and the
-              // Advanced Biomorph block prices it per model, so part of a brood may take it.
+              // A `per_model` choice is capped at 1 like any other. "Paid per model" is about the
+              // PRICE, not about how many models take it: the author's own example applies one
+              // Advanced Biomorph to a whole 30-model brood and charges 30, and Living Battering
+              // Ram is explicitly "per model, but it gives the weapon to every model in the unit".
               const remaining = g.independent_choices
-                ? (c.per_model ? item.size : 1) - qty
+                ? 1 - qty
                 : gc.max_per_choice != null && groupRemaining != null
                   ? Math.min(groupRemaining, gc.max_per_choice - qty)
                   : gc.max_per_choice != null

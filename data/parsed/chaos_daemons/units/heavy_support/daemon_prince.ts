@@ -37,7 +37,7 @@ export const daemonPrince: Unit = {
       "min": 0,
       "max": 0,
       "stats": {
-        "M": "6\"",
+        "M": "8\"",
         "WS": "2+",
         "BS": "2+",
         "S": "7",

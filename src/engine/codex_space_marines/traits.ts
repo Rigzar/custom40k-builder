@@ -42,6 +42,21 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // SOURCE — Bolter Drill:
   // "The unit gains the 'Deflagrate(5+)' ability with Bolt weapons."
   // COST: 5 | 0 | 5
+  // SOURCE — Blood Hunger:
+  // "The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock
+  //  token or if the enemy unit is outnumbered."
+  // COST: 5 | 0 | 5
+  // Conditional on the state of the ENEMY unit at the moment of the fight, so there is nothing the
+  // builder can apply — it is carried as a note, the same shape as Red Thirst.
+  'Blood Hunger': [
+    {
+      type: 'unit_ability',
+      name: 'Blood Hunger',
+      desc: 'The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock token, or if the enemy unit is outnumbered.',
+      applies_to: 'all',
+    },
+  ],
+
   'Bolter Drill': [
     {
       type: 'weapon_ability',

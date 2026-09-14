@@ -83,7 +83,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deflagrate': {
     name: 'Deflagrate({X})',
-    description: 'Hit rolls of {X} score an additional hit. Does not work with Barrage, Colossal Blast and Explosive weapons.',
+    description: 'Hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
   },
   'blast': {
     name: 'Blast({X})',
@@ -129,7 +129,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'master-crafted': {
     name: 'Master-crafted',
-    description: "A single hit roll can be re-rolled. If the weapon has Barrage, Explosive, or Flames, a single wound or armor penetration roll can be re-rolled instead. If multiple models in a unit have this weapon, one hit roll per model may be re-rolled. Can't be used on \"Grenade\" type weapons with weapons that have the \"Ammo(x)\" ability.",
+    description: "A single hit roll can be re-rolled. If the weapon has the \"Blast(x)\" or \"Auto Hit\" ability, a single wound or armor penetration roll can be re-rolled instead. If multiple models in a unit have this weapon, one hit roll per model may be re-rolled. Can't be used on \"Grenade\" type weapons with weapons that have the \"Ammo(x)\" ability.",
   },
   'melta': {
     name: 'Melta',
@@ -141,7 +141,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'overheating': {
     name: 'Overheating',
-    description: 'Self-Inflicted Damage on Hit Rolls: Each roll of a 1 on a hit roll with this weapon causes the user to suffer a Mortal Wound. If the model is a vehicle, it instead suffers a glancing hit using the weapon\'s AT value. Re-Roll Restriction: If the model has any ability to re-roll hit rolls (such as from Barrage, Explosive, Psychic effects, or other rules), the result of the initial roll determines whether the weapon is overheating. Automatic Hits: For weapons that hit automatically, any roll of a 1 when determining wound rolls causes the user to suffer the same penalty: a Mortal Wound or, for vehicles, a glancing hit using the weapon\'s AT value. Wound Assignment: Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons. These wounds cannot spill over to other models without Overheating weapons, overriding the standard rule that entire models must be removed first.',
+    description: 'Self-Inflicted Damage on Hit Rolls: Each roll of a 1 on a hit roll with this weapon causes the user to suffer a Mortal Wound. If the model is a vehicle, it instead suffers a glancing hit using the weapon\'s AT value. Re-Roll Restriction: If the model has any ability to re-roll hit rolls (such as from Blast(x), Psychic effects, or other rules), the result of the initial roll determines whether the weapon is overheating. Automatic Hits: For weapons that hit automatically, any roll of a 1 when determining wound rolls causes the user to suffer the same penalty: a Mortal Wound or, for vehicles, a glancing hit using the weapon\'s AT value. Wound Assignment: Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons. These wounds cannot spill over to other models without Overheating weapons, overriding the standard rule that entire models must be removed first.',
   },
   'poison': {
     name: 'Poison({X})',
@@ -149,7 +149,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'precision': {
     name: 'Precision({X})',
-    description: "Successful hit rolls of {X} automatically wound creatures. Can't be used with \"Barrage\" or \"Explosive\" weapons.",
+    description: "Successful hit rolls of {X} automatically wound creatures. Can't be used with \"Blast(x)\" weapons.",
   },
   'psi-shock': {
     name: 'Psi-shock',
@@ -189,7 +189,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'limit': {
     name: 'Limit({X})',
-    description: 'You can only make {X} attacks with this weapon each turn.',
+    description: 'Only {X} attacks can be made with this weapon each turn.',
   },
   'sunder': {
     name: 'Sunder({X})',
@@ -407,7 +407,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'fire hatches': {
     name: 'Fire Hatches({X})',
-    description: 'The vehicle has {X} fire ports. Passengers may fire through them and can also be targeted by enemy ranged attacks.',
+    description: 'The vehicle has {X} fire hatches. Each fire hatch allows one passenger to fire their weapon when the unit activates.',
   },
   'frenzy': {
     name: 'Frenzy({X})',
@@ -495,7 +495,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'swarm': {
     name: 'Swarm',
-    description: "All attacks that target this unit have their Damage reduced to 1 if it was higher. Attacks with the \"Barrage\" or \"Explosive\" ability use the unit's remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
+    description: "All attacks that target this unit have their Damage reduced to 1 if it was higher. Attacks with the \"Blast(x)\" ability use the unit's remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
   },
   'tank hunter': {
     name: 'Tank Hunter',
@@ -540,7 +540,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'dakka dakka dakka': {
     name: 'Dakka Dakka Dakka',
-    description: 'The unit reduces its total penalty to hit rolls in ranged combat by -1 (minimum 0). Barrage and Explosive weapons do not benefit from this rule.',
+    description: 'The unit reduces its total penalty to hit rolls in ranged combat by -1 (minimum 0). Blast(x) weapons do not benefit from this rule.',
   },
   'waaagh!': {
     name: 'Waaagh!',
@@ -625,7 +625,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'mark of tzeentch': {
     name: 'Mark of Tzeentch',
-    description: 'The model gains the "Warded" ability. Character models and Monstrous Creatures become a Psyker knowing 1 power from any discipline (or manifest/deny 1 additional power if already a Psyker). Vehicles gain a Warpflamer weapon (Range 9", Assault 4, S:4 AP:-1 D:1, Flames). Counts as a veteran ability.',
+    description: 'The model gains the "Warded" ability. Character models and Monstrous Creatures become a Psyker knowing 1 power from any discipline (or manifest/deny 1 additional power if already a Psyker). Vehicles gain a Warpflamer weapon (Range 9", Assault 4, S:4 AP:-1 D:1, Auto Hit, Sunder(1)). Counts as a veteran ability.',
   },
   'hover mode': {
     name: 'Hover Mode',
@@ -677,6 +677,7 @@ export const COMMAND_ORDERS: OrderEntry[] = [
       'It may make a further, up to 1D6" Advance move.',
       'It must stay at least 1" from enemy models.',
       'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'Ranged targets may make use of the "Take Cover" meta order.',
       'It may fire Assault, Pistol, or Grenade weapons with a –1 to hit penalty after moving.',
       'It may cast basic psychic powers and similar effects (incantations, prayers, …) at any point during the activation.',
     ],
@@ -687,8 +688,10 @@ export const COMMAND_ORDERS: OrderEntry[] = [
     effect: [
       'It may move up to its Movement value (but max 12").',
       'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'Ranged targets may make use of the "Take Cover" meta order.',
       'It may fire Assault, Pistol, and Grenade weapons with a –1 to hit penalty after moving.',
       'It may declare any number of enemy units it can see as targets for a Charge move.',
+      'Charge targets may make use of "Defensive Fire" or "Hold your Ground" meta orders.',
       'It may make a further, up to 6" Charge move in a straight line, if it can get into direct base contact with any of these enemy units.',
       'It must select either +1 Attack or +1 Initiative for all models as a Charge bonus.',
       'It resolves the Fight order.',
@@ -701,13 +704,15 @@ export const COMMAND_ORDERS: OrderEntry[] = [
     effect: [
       'It receives 1 automatic hit from each enemy model in attack range.',
       'It gains two Battleshock tokens and flees.',
+      'Instead of being allowed to pursue as normal, enemy units have to remain in melee combat if there are other units of yours remaining in base contact with them and resolve the melee as if all units involved had the Fight order.',
+      'If there are no friendly units anymore, enemy units lose their order, count as activated and may only consolidate.',
     ],
   },
   {
     name: 'Fight',
     prerequisite: 'The unit is already engaged in melee combat.',
     effect: [
-      'The melee is resolved as if all units involved had the Fight order.',
+      'The melee is resolved (see Melee combat) as if all units involved had the Fight order.',
       'It may cast basic psychic powers and similar effects (incantations, prayers, …) during its initiative step.',
       'It removes all orders from units participating in this melee.',
     ],
@@ -718,6 +723,7 @@ export const COMMAND_ORDERS: OrderEntry[] = [
     effect: [
       'It may move up to its Movement value.',
       'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'Ranged targets may make use of the "Take Cover" meta order.',
       'It may fire any ranged weapon except Heavy types after moving.',
       'It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at any point during the activation.',
     ],
@@ -728,6 +734,7 @@ export const COMMAND_ORDERS: OrderEntry[] = [
     effect: [
       'It may not move.',
       'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'Ranged targets may make use of the "Take Cover" meta order.',
       'It may fire any ranged weapon, including Heavy types.',
       'It reduces the total hit penalty for ranged attacks by 1.',
       'It may cast all types of psychic powers and similar effects (incantations, prayers, …) at any point during the activation.',

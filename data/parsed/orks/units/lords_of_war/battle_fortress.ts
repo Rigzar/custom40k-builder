@@ -58,7 +58,7 @@ export const battleFortress: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Blast(4)"
+      "abilities": "AT(2), Blast(4)"
     },
     {
       "name": "Deff kannon",
@@ -148,7 +148,7 @@ export const battleFortress: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2)"
+      "abilities": "Anti-air, AT(2)"
     },
     {
       "name": "Skorcha",
@@ -166,7 +166,7 @@ export const battleFortress: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Blast(8), Indirect"
+      "abilities": "Blast(8), Indirect"
     },
     {
       "name": "Supa-kannon",

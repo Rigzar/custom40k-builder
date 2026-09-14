@@ -49,7 +49,7 @@ export const psychophage: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Auto Hit, Sunder(1), Seeking"
+      "abilities": "Auto Hit, Seeking"
     }
   ],
   "option_groups": [

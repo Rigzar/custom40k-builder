@@ -1,7 +1,7 @@
 {
   "archetypes": [
     {
-      "name": "Bloodbrides",
+      "name": "Bloodbride Raid",
       "desc": "- Hekatrix Bloodbrides can be taken as Troops and they are not limited to one per Succubus anymore.\n- The army may only consist of <Cult> units."
     },
     {
@@ -9,11 +9,11 @@
       "desc": "- The army gets a third HQ slot and must feature one Dracon, one Haemoncolus and one Succubus (or their upgraded variants).\n- The army gets a third trait and must pick one trait each for <Coven>, <Kabal>, and <Wyches>."
     },
     {
-      "name": "Haemoxytes",
+      "name": "Haemoxyte Raid",
       "desc": "- Haemoxytes can be taken as Troops and they are not limited to one per Haemonculus anymore.\n- The army may only consist of <Coven> units."
     },
     {
-      "name": "Trueborn",
+      "name": "Trueborn Raid",
       "desc": "- Kabalite Trueborn can be taken as Troops and they are not limited to one per Dracon anymore.\n- The army may only consist of <Kabal> units."
     },
     {

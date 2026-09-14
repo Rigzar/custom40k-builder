@@ -191,7 +191,7 @@ import { wt } from '../../lib/i18n';
           </svg>
         </div>
         <div class="scoring-title">Mission Objectives</div>
-        <p class="scoring-desc">Hold an objective by keeping at least one model within 3" of it with no enemy model in range. If both sides have models in range, the objective is contested. Elevation: units one level above or below can contest.</p>
+        <p class="scoring-desc">Hold an objective by keeping at least one model within 3" of it with no enemy model in range. If an enemy model is in range, the objective is contested and scores for nobody. Each unit can only hold or contest ONE objective per turn — if it qualifies for several, roll to decide which. Elevation: a unit can capture or contest an objective directly one level above or below it. Control is lost the moment no friendly model is within the 3" radius, or an enemy model enters it.</p>
       </div>
       <div class="scoring-card">
         <div class="scoring-icon" aria-hidden="true">
@@ -352,7 +352,7 @@ import { wt } from '../../lib/i18n';
           <div class="victory-box">
             <div class="victory-label">Victory Condition</div>
             <div class="victory-title">Collect Wreckage / Attrition</div>
-            <p>To collect wreckage, a unit must be in base contact with the objective and use a <em>Stand &amp; Shoot</em> command to pick it up. A unit can only hold one wreckage. Securing wreckage scores <strong>200 VP</strong> per piece; the objective is then removed. Additionally, VP are awarded for destroyed enemy units.</p>
+            <p>To collect wreckage, a unit must be in direct base contact with the objective and use a <em>Stand &amp; Shoot</em> command to pick it up — and it may do nothing else but fight back in melee for that activation. Only units able to control a mission objective can pick up wreckage. Securing wreckage scores <strong>200 VP</strong> per piece; the objective is then removed. Additionally, VP are awarded for destroyed enemy units.</p>
           </div>
         </div>
       </div>
@@ -408,7 +408,7 @@ import { wt } from '../../lib/i18n';
             <ol class="setup-steps">
               <li>Place one command post in each deployment zone (Position: 12" in, 12" up from corner).</li>
               <li>Place three objectives in a line between both deployment zones.</li>
-              <li>Each command post has an 18" scanner/jammer: no unit may deploy within 18" of the enemy command post. Deep Strike scatters into this zone return to reserves.</li>
+              <li>Each command post has an enhanced scanner and jammer: no model may be deployed within 18" of the enemy command post <em>by any means</em>. Enemy units that scatter into this zone from Deep Strike are sent back to reserves.</li>
               <li>Both players roll a die; the winner chooses deployment side. Alternate deploying one unit at a time.</li>
             </ol>
           </div>
@@ -471,7 +471,7 @@ import { wt } from '../../lib/i18n';
           <div class="victory-box">
             <div class="victory-label">Victory Condition</div>
             <div class="victory-title">Control Objectives</div>
-            <p>Controlling one objective at end of a battle round scores <strong>200 VP</strong> (up to 600 VP per round if holding all three active objectives in a line). The player with the most VP at game end wins.</p>
+            <p>Controlling one objective at end of a battle round scores <strong>200 VP</strong> (up to 600 VP per round). The player with the most VP at game end wins.</p>
           </div>
         </div>
       </div>
@@ -518,7 +518,7 @@ import { wt } from '../../lib/i18n';
           <div class="victory-box">
             <div class="victory-label">Victory Condition</div>
             <div class="victory-title">Secure Relic / Attrition</div>
-            <p>A creature unit must end a battle round in base contact with the relic to control it. <strong>No model can control the relic during the first battle round.</strong> The relic moves with the unit (max 6"/round); if any rule would move the unit further, the relic is left behind. The relic can never embark on a transport and is left behind if the controlling unit does so. If the controlling unit is in melee or both sides are in base contact, it is contested. Starting with the second Battle round, controlling the relic at the end of the Battle round scores <strong>400 VP</strong>, or <strong>800 VP</strong> if within own deployment zone. Additionally, VP are awarded for destroyed enemy units.</p>
+            <p>A creature unit must end a battle round in direct base contact with the relic to control it. The relic moves with the unit (max 6"/round); if any rule would move the unit further, the relic is left behind. The relic can never embark on a transport and is left behind if the controlling unit does so. If the controlling unit is in melee or both sides are in base contact, it is contested. <strong>Scoring starts in the second battle round</strong> — from then on, controlling the relic at the end of a Battle round scores <strong>400 VP</strong>, or <strong>800 VP</strong> if within own deployment zone. Additionally, VP are awarded for destroyed enemy units.</p>
           </div>
         </div>
       </div>

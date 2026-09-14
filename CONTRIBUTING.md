@@ -458,6 +458,7 @@ range/target/duration line, re-breaking exactly what v1.70 had just fixed. See `
   - You add a new prayer that only appears with Legacy of the Crusader (add it to `SM_CRUSADER_PRAYERS`).
   - You rename an existing SM legacy or discipline.
 - **`codex_grey_knights/legacies.ts`** — Edit this if you change which power a Legacy always grants GK psykers (`getGKLegacyPower`).
+- **`codex_genestealer_cults/legacies.ts`** — Same mechanic for GSC: each Legacy teaches every Psyker one extra power (`getGSCLegacyPowerName`). It stores only the legacy → power NAME; the power's text is resolved from the codex's own "Legacy Psychic Powers" discipline, so never copy the text in here.
 - **`codex_<faction>/legacies.ts`** — Edit this for a faction's Legacy armory-access rules or mark restrictions (e.g. `codex_csm/legacies.ts`'s `CSM_LEGACY_NOTES`).
 
 If you add a new faction with legacy-gated disciplines, create a `codex_<faction>/legacies.ts` file following the same pattern, wire it into `PsychicModal.tsx`, and register it in top-level `legacies.ts`'s `FACTION_LEGACY_NOTES` map if it also needs structured-note display.

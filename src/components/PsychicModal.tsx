@@ -66,9 +66,10 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     return m ? `${parseInt(m[1], 10) + 6}"` : range;
   };
 
-  // GK legacy power: each legacy grants all psykers one fixed always-known power.
-  // Same display pattern as Smite ("Always known" badge). Null for all other factions.
-  const legacyPower = getLegacyExtraPower(data.faction, legacy ?? legacy2 ?? '');
+  // Legacy power: the legacy grants all psykers one fixed always-known power, displayed the
+  // same way as Smite ("Always known" badge). Grey Knights and Genestealer Cults both have it;
+  // the GSC powers live in the codex's own discipline list, hence passing `data.disciplines`.
+  const legacyPower = getLegacyExtraPower(data.faction, legacy ?? legacy2 ?? '', data.disciplines);
 
   const isSMFaction = data.faction === 'Space Marines';
   const hasCrusaderLegacy = legacy === 'Legacy of the Crusader' || legacy2 === 'Legacy of the Crusader';

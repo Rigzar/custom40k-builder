@@ -133,15 +133,18 @@ export const servitors: Unit = {
       "choices": [
         {
           "name": "Phosphor blaster",
-          "points": 7
+          "points": 7,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Meltagun",
-          "points": 13
+          "points": 13,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Incendine combustor",
-          "points": 14
+          "points": 14,
+          "effect": { "grants_weapons": ["Shock charger"] }
         }
       ],
       "inline_pts": null,
@@ -161,19 +164,23 @@ export const servitors: Unit = {
       "choices": [
         {
           "name": "Heavy bolter",
-          "points": 13
+          "points": 13,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Heavy arc rifle",
-          "points": 15
+          "points": 15,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Multi-melta",
-          "points": 27
+          "points": 27,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Plasma cannon",
-          "points": 50
+          "points": 50,
+          "effect": { "grants_weapons": ["Shock charger"] }
         }
       ],
       "inline_pts": null,

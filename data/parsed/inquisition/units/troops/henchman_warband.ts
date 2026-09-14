@@ -197,9 +197,9 @@ export const henchmanWarband: Unit = {
       "header": "Any Servitor may swap their Paired shock chargers for a Shock charger and one of the following",
       "constraint": { "type": "every" },
       "choices": [
-        { "name": "Heavy bolter", "points": 13 },
-        { "name": "Multi-melta", "points": 27 },
-        { "name": "Plasma cannon", "points": 50 }
+        { "name": "Heavy bolter", "points": 13, "effect": { "grants_weapons": ["Shock charger"] } },
+        { "name": "Multi-melta", "points": 27, "effect": { "grants_weapons": ["Shock charger"] } },
+        { "name": "Plasma cannon", "points": 50, "effect": { "grants_weapons": ["Shock charger"] } }
       ],
       "inline_pts": null,
       "variant_link": null,

@@ -459,6 +459,7 @@ Ver `tts/README.md`.
   - Añadís una nueva plegaria que solo aparezca con el Legacy of the Crusader (agregala a `SM_CRUSADER_PRAYERS`).
   - Renombrás un legado o disciplina SM existente.
 - **`codex_grey_knights/legacies.ts`** — Editá este archivo si cambiás qué poder otorga siempre un Legado a los psykers GK (`getGKLegacyPower`).
+- **`codex_genestealer_cults/legacies.ts`** — El mismo mecanismo para GSC: cada Legado enseña un poder extra a todos los Psykers (`getGSCLegacyPowerName`). Guarda solo el NOMBRE del poder; el texto se resuelve desde la disciplina "Legacy Psychic Powers" del propio códex, así que nunca copies el texto aquí.
 - **`codex_<facción>/legacies.ts`** — Editá este archivo para las reglas de acceso a armería de Legados de una facción o restricciones de marca (p. ej. `CSM_LEGACY_NOTES` en `codex_csm/legacies.ts`).
 
 Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un archivo `codex_<facción>/legacies.ts` siguiendo el mismo patrón, conectalo en `PsychicModal.tsx`, y registralo en el mapa `FACTION_LEGACY_NOTES` de `legacies.ts` (top-level) si también necesita mostrarse como nota estructurada.

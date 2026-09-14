@@ -49,7 +49,7 @@ export const harpy: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Blast(4), Indirect, Suppression(3)"
+      "abilities": "Bomb, Blast(4), Indirect, Suppression(3)"
     },
     {
       "name": "Stinger salvo",

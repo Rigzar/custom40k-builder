@@ -2456,9 +2456,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // number of DIFFERENT biomorphs, each bought once; the ods Armory sheet is explicit that
         // "Point costs are paid per unit," not per model). Summing them would re-impose the very
         // shared budget the flag exists to remove.
-        // An `independent_choices` group caps each choice on its own: at 1 normally, and at the
-        // unit's model count for a `per_model` choice (one per model, priced per model).
-        const perChoiceCap = (ci) => (g.choices[Number(ci)]?.per_model ? item.size : 1);
+        // An `independent_choices` group caps EVERY choice at 1, `per_model` included: that flag
+        // scales the price by headcount, it does not let a second copy be bought.
+        const perChoiceCap = (_ci?: string) => 1;
         const max = gc.max ?? (g.independent_choices ? 1 : 0);
         const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
         if (g.independent_choices) {

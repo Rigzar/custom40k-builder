@@ -219,7 +219,7 @@
       "s": "+3",
       "ap": "-1",
       "d": "1",
-      "abilities": "Force weapon",
+      "abilities": "AT(1), Force weapon",
       "p_unit": null,
       "p_char": 6,
       "armour_compat": [

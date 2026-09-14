@@ -89,15 +89,18 @@ export const servitors: Unit = {
       "choices": [
         {
           "name": "Heavy bolter",
-          "points": 13
+          "points": 13,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Multi-melta",
-          "points": 27
+          "points": 27,
+          "effect": { "grants_weapons": ["Shock charger"] }
         },
         {
           "name": "Plasma cannon",
-          "points": 50
+          "points": 50,
+          "effect": { "grants_weapons": ["Shock charger"] }
         }
       ],
       "replaces": [

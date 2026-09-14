@@ -105,15 +105,15 @@ import Layout from '../../components/Layout.astro';
       <div class="rule-grid">
         <div class="rule-card">
           <div class="rule-name">Advance</div>
-          <p>Move up to M. May Advance D6″ extra. Shoot Assault/Pistol/Grenade at −1. Cannot target units in melee.</p>
+          <p>Move up to M. May Advance D6″ extra. Declare any number of visible enemy units as ranged targets — they may answer with <em>Take Cover</em>. Shoot Assault/Pistol/Grenade at −1. Cast basic psychic powers.</p>
         </div>
         <div class="rule-card">
           <div class="rule-name">Charge</div>
-          <p>Move up to M (max 12″). Declare charge targets. Make a 6″ Charge move to reach them. Gain +1 A or +1 I as Charge bonus. Then resolve Fight.</p>
+          <p>Move up to M (max 12″). Ranged targets may answer with <em>Take Cover</em>. Declare charge targets — they may answer with <em>Defensive Fire</em>, <em>Hold your Ground</em> or <em>Counter-Attack</em>. Make a 6″ Charge move to reach them. Gain +1 A or +1 I as Charge bonus. Then resolve Fight.</p>
         </div>
         <div class="rule-card">
           <div class="rule-name">Escape</div>
-          <p>Must be in melee. Receive 1 automatic hit per enemy model in range. Gain 2 Battleshock tokens and flee.</p>
+          <p>Must be in melee. Receive 1 automatic hit per enemy model in range. Gain 2 Battleshock tokens and flee. The enemy does NOT pursue as normal: they stay locked in the melee if you still have units in base contact with them, and it resolves as if everyone had Fight. With nothing of yours left, they lose their order, count as activated and may only consolidate.</p>
         </div>
         <div class="rule-card">
           <div class="rule-name">Fight</div>
@@ -121,11 +121,11 @@ import Layout from '../../components/Layout.astro';
         </div>
         <div class="rule-card">
           <div class="rule-name">Move &amp; Shoot</div>
-          <p>Move up to M. Fire any weapon except Heavy. Cast basic and normal psychic powers.</p>
+          <p>Move up to M. Ranged targets may answer with <em>Take Cover</em>. Fire any weapon except Heavy. Cast basic and normal psychic powers.</p>
         </div>
         <div class="rule-card">
           <div class="rule-name">Stand &amp; Shoot</div>
-          <p>Cannot move. Fire any weapon including Heavy. −1 to total hit penalty. Cast all psychic powers.</p>
+          <p>Cannot move. Ranged targets may answer with <em>Take Cover</em>. Fire any weapon including Heavy. −1 to total hit penalty. Cast all psychic powers.</p>
         </div>
       </div>
     </div>
@@ -133,6 +133,7 @@ import Layout from '../../components/Layout.astro';
     <!-- Meta Orders -->
     <div class="rule-section reveal">
       <div class="section-divider"><span>Meta Orders (Defensive Reactions)</span></div>
+      <p class="section-intro">Not assigned in the Command Phase — triggered. A Defensive Reaction may only be used by a unit that has not yet been activated this round, and using one removes that unit&rsquo;s order. None of them can be used by a unit engaged in melee.</p>
       <p class="section-note">Triggered in specific situations — not assigned in the Command Phase. Can only be used by units that haven't activated yet this round and are not in melee.</p>
       <div class="rule-grid">
         <div class="rule-card">
@@ -763,6 +764,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Precision (X+)</div><p>Successful hit rolls of X+ automatically wound creatures. Cannot be used with Blast(x) weapons.</p></div>
       <div class="ability-card"><div class="ability-name">Psi-shock</div><p>If creature unit is hit, a random psyker in that unit must pass a Ld value test or suffer D3 Mortal Wounds. Vehicles: random psyker suffers D3 Critical Damage instead. Each additional hit from same unit = cumulative −1. Triggers once per activating unit.</p></div>
       <div class="ability-card"><div class="ability-name">Quick (+X)</div><p>The model gains +X to its Initiative.</p></div>
+      <div class="ability-card"><div class="ability-name">Rad</div><p>A unit hit by this weapon suffers a −1 penalty to its Toughness value until the end of its next activation.</p></div>
       <div class="ability-card"><div class="ability-name">Rending (X+)</div><p>Wound rolls of X+ gain an additional −1 AP.</p></div>
       <div class="ability-card"><div class="ability-name">Seeking</div><p>Enemy units in cover do not gain any cover benefit and are treated as being outside cover.</p></div>
       <div class="ability-card"><div class="ability-name">Shield Breaker (−X)</div><p>Ward saves of enemy models are degraded by −X.</p></div>
