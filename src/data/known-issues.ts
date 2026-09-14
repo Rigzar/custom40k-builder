@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-three-regressions-from-the-tyranid-update-01",
+    status: "fixed",
+    title: "Three bugs introduced by the Tyranid biomorph work, and what each one taught",
+    description: "FIXED 2026-09-14. Rigzar: \"algo hiciste mal al crear todo lo nuevo, te recomiendo que despues de hacer esos arreglos revises bien\". Fair, and all three came from the same habit of changing a rule in the place I was looking at instead of everywhere it lives. (1) THE VALIDATOR REFUSED A LEGAL BIOMORPH. Living Battering Ram is gated to Monstrous Creatures, which is a UNIT TYPE rather than a keyword, so `requires_keyword` had to learn to match both. I taught `UnitCard` and not `validators.ts`, so the picker offered it and the review panel then demanded its removal on every Hive Tyrant, Legendary Hive Tyrant and Neurotyrant. Now one exported `unitMatchesKeyword()` and no second copy. (2) ADVANCED BIOMORPHS WERE ALL-OR-NOTHING. I read the block footnote (\"Point costs are paid per model\") and modelled it as one purchase costing points × size, which ignores the Armory preamble one line above it: \"every item can only be purchased once by EACH MODEL\". Reported on Carnifex broods. The two sentences together mean the stepper runs to the model count and the cost is points × quantity — part of a brood may take it. (3) A TICK-BOX SUMMONED ANOTHER TICK-BOX'S WEAPON, and this one predates the Tyranid work entirely. A tick-box group links the weapon named in its header under a pseudo-choice token, and that token was the bare string '__inline' for EVERY group on the unit ' so with two tick-boxes, ticking either satisfied the other's weapon. Reported on the HH Legion Tactical Squad (\"They Shall Know No Fear\" producing five Astartes chainswords). Now keyed `__inline:<groupIndex>`. MEASURED RATHER THAN ASSUMED: `scripts/_tmp_inline_collision.cjs` counts 14 exposed datasheets across 8 factions (Company Command Squad with four tick-boxes, Kommandos and Warp Spiders with three, three Grey Knights Land Raiders, the Vindicator, Voidraven Bomber, Swooping Hawks, Squighog Boyz, Big Mek, Venerable Land Raider, and both HH Tactical squads), not the one that was reported."
+  },
+  {
+    id: "ki-smite-reported-as-mortal-wounds-not-reproducible-01",
+    status: "investigating",
+    title: "GH#121: Smite reported as doing mortal wounds — not found anywhere",
+    description: "OPEN 2026-09-14 (GitHub #121, Tyranids): \"The rule for smite says it does mortal wounds\", expected \"three automatic hits at strength 5 AP -1 damage 1 seeking\". THE APP ALREADY SAYS WHAT THEY EXPECT, word for word: `src/data/generalDisciplines.ts` defines Smite as \"The target suffers three automatic hits with Strength: 5 AP: -1 D: 1; Seeking\", and that is what the power picker, the Field Manual's discipline pages and the wiki (`wiki/src/lib/generalDisciplines.ts`) all render. The git history of that file has never contained the words mortal wound, and a search across every rules file, glossary entry, cheat sheet and rules-model digest finds Smite and mortal wounds together nowhere. DELIBERATELY NOT CLOSED as not-reproducible: GH#118 was closed on that reasoning two days ago and the reasoning was wrong. Asked the reporter for a screenshot instead, and flagged the likeliest cause — the PWA service worker serving a build from before the September update, which bit me twice in one session while checking light mode."
+  },
+  {
     id: "ki-tyranids-advanced-biomorphs-per-model-01",
     status: "fixed",
     title: "Tyranids 1.06 revision: Advanced Biomorphs are paid per model",

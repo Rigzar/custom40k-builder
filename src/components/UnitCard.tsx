@@ -4,7 +4,7 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
@@ -1590,8 +1590,12 @@ export function UnitCard({ item }: Props) {
               // `max_per_choice` narrows the shared pool per choice — "pick two DIFFERENT
               // specialisations" is a pool of 2 with a cap of 1 each, which neither fixed_max nor
               // independent_choices expresses on its own.
+              //
+              // A `per_model` choice inside an independent group is capped at the MODEL COUNT
+              // rather than at 1: the Armory preamble allows each model one of an item, and the
+              // Advanced Biomorph block prices it per model, so part of a brood may take it.
               const remaining = g.independent_choices
-                ? 1 - qty
+                ? (c.per_model ? item.size : 1) - qty
                 : gc.max_per_choice != null && groupRemaining != null
                   ? Math.min(groupRemaining, gc.max_per_choice - qty)
                   : gc.max_per_choice != null
@@ -1606,16 +1610,8 @@ export function UnitCard({ item }: Props) {
               // their indices, but a unit without the keyword cannot buy it. Unlike the mark gate
               // this leaves "−" live, so a selection made before the keyword existed can be
               // cleared instead of stranding the player on an illegal list.
-              // Matched against the unit's KEYWORDS and its UNIT TYPE, because the codex gates on
-              // both: "Advanced Bioform" is a keyword, while the Living Battering Ram's "Can only
-              // be taken by Monstrous Creatures" names a unit type. The type line can hold several
-              // ("Flyer, Monstrous Creature"), so it is split before matching.
-              const unitTraits = [
-                ...(u.keywords ?? []),
-                ...String(u.unit_type ?? '').split(',').map(x => x.trim()).filter(Boolean),
-              ];
               const choiceKeywordBlocked = c.requires_keyword != null
-                && !unitTraits.includes(c.requires_keyword);
+                && !unitMatchesKeyword(u, c.requires_keyword);
               const addBlocked = choiceMarkBlocked || choiceKeywordBlocked;
               const blockTitle = choiceMarkBlocked
                 ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}`

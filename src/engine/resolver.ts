@@ -366,7 +366,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // own name contains "and" ("Shardnet and impaler", "Lash whip and Bonesword") still matches the
   // choice that grants it, instead of the split turning it into a phantom always-shown weapon.
   const optionalWeapons = new Map<string, Set<string>>();
-  for (const g of unit.option_groups) {
+  for (const [gi, g] of unit.option_groups.entries()) {
     // A tick-box option has no choices at all — the weapon it buys is named only in its header
     // ("May take a Markerlight for +10 points."). With nothing to match, the weapon counted as a
     // fixed default and appeared on the datasheet for free. Tie it to the group's '__inline'
@@ -377,7 +377,11 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         if (!new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}s?\\b`, 'i').test(g.header)) continue;
         if (unit.equipped_with?.includes(baseName(w.name))) continue;   // already a real default
         if (!optionalWeapons.has(k)) optionalWeapons.set(k, new Set());
-        optionalWeapons.get(k)!.add('__inline');
+        // Keyed to THIS group, not to a shared '__inline' token. Reported on the Horus Heresy
+        // Legion Tactical Squad: ticking "They Shall Know No Fear" made five Astartes chainswords
+        // appear, because the squad has two tick-box groups and only one of them names a weapon —
+        // with one token between them, ticking either satisfied the other's weapon.
+        optionalWeapons.get(k)!.add(`__inline:${gi}`);
       }
       continue;
     }
@@ -628,7 +632,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     }
     // A ticked tick-box counts as picking its group's pseudo-choice, so a weapon named only in
     // that group's header (see optionalWeapons above) appears exactly when the box is ticked.
-    if (ch['__inline']) selectedChoiceNames.add('__inline');
+    if (ch['__inline']) selectedChoiceNames.add(`__inline:${gi}`);
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];

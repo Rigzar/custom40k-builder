@@ -84,6 +84,25 @@ type ActiveVariant = { variant: Model; group: { header: string; inline_pts: numb
  * rule instead of adding a new one — the Hive Tyrant picks one specialisation, the Legendary Hive
  * Tyrant must pick one and may pick two. Read the cap and the `required` flag through here.
  */
+/**
+ * Does this unit satisfy a `requires_keyword` gate?
+ *
+ * Matches the unit's KEYWORDS and its UNIT TYPE, because the codex gates on both: "Advanced
+ * Bioform" is a keyword, while the Living Battering Ram's "Can only be taken by Monstrous
+ * Creatures" names a unit type. The type line can hold several ("Flyer, Monstrous Creature"), so
+ * it is split before matching.
+ *
+ * It lives here, and is the ONLY implementation, because the first version of this rule was
+ * written into the picker alone: the validator kept matching keywords only and told every
+ * Monstrous Creature to remove a biomorph it was entitled to. One rule, one place.
+ */
+export function unitMatchesKeyword(
+  unit: { keywords?: string[]; unit_type?: string }, keyword: string,
+): boolean {
+  if ((unit.keywords ?? []).includes(keyword)) return true;
+  return String(unit.unit_type ?? '').split(',').map(t => t.trim()).includes(keyword);
+}
+
 export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
   const vc = group.variant_constraint;
   if (!vc) return group.constraint;
@@ -225,9 +244,10 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
       // priced by `variant.points` in the `active` branch above — adding its own choice.points
       // here would double-charge it.
       if (choice?.variant_link && active) continue;
-      // `per_model` on the CHOICE as well as the group: a group can hold both kinds (Tyranid
-      // Biomorphs are per unit for Basic and per model for Advanced since the 2026-09-13 codex).
-      if (choice) total += choice.points * qty * (g.per_model || choice.per_model ? item.size : 1);
+      // A choice-level `per_model` does NOT multiply here: the quantity already counts how many
+      // models took it, so `points × qty` is the per-model cost. The GROUP-level flag still
+      // multiplies, because there the quantity means something else (an every-model swap).
+      if (choice) total += choice.points * qty * (g.per_model ? item.size : 1);
     }
   }
 

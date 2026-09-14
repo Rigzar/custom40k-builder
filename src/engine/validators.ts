@@ -1,6 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword } from './points';
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
 import {
@@ -1881,7 +1881,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       g.choices.forEach((c, ci) => {
         if (!c.requires_keyword) return;
         if ((item.optionQty?.[gi]?.[ci] ?? 0) <= 0) return;
-        if ((u.keywords ?? []).includes(c.requires_keyword)) return;
+        if (unitMatchesKeyword(u, c.requires_keyword)) return;
         items.push({
           type: 'error',
           text: `${item.unitName}: "${c.name}" needs the ${c.requires_keyword} keyword — remove it.`,
@@ -2456,10 +2456,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // number of DIFFERENT biomorphs, each bought once; the ods Armory sheet is explicit that
         // "Point costs are paid per unit," not per model). Summing them would re-impose the very
         // shared budget the flag exists to remove.
+        // An `independent_choices` group caps each choice on its own: at 1 normally, and at the
+        // unit's model count for a `per_model` choice (one per model, priced per model).
+        const perChoiceCap = (ci) => (g.choices[Number(ci)]?.per_model ? item.size : 1);
         const max = gc.max ?? (g.independent_choices ? 1 : 0);
         const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
+        if (g.independent_choices) {
+          const over = qtys.find(([k, v]) => (v ?? 0) > perChoiceCap(k));
+          if (over) {
+            items.push({
+              type: 'error',
+              text: T('valFixedMaxExceeded', {
+                unit: item.unitName, header: g.header.substring(0, 50),
+                used: over[1] ?? 0, max: perChoiceCap(over[0]),
+              }),
+            });
+          }
+        }
         const used = g.independent_choices
-          ? qtys.reduce((m, [, v]) => Math.max(m, v ?? 0), 0)
+          ? qtys.reduce((m, [k, v]) => Math.max(m, (v ?? 0) > perChoiceCap(k) ? 0 : v ?? 0), 0)
           : qtys.reduce((s, [, v]) => s + (v ?? 0), 0);
         // "Two DIFFERENT specialisations": the pool is shared AND no single choice may take it all.
         if (gc.max_per_choice != null) {

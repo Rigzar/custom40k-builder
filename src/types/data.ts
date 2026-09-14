@@ -85,9 +85,13 @@ export interface Choice {
    * changed on 2026-09-13 to "Point costs are paid per model". One flag on the group would move
    * both halves.
    *
-   * It does NOT change how many times the choice can be bought — that stays one, as the Armory
-   * preamble says. It changes what that one purchase costs: `points × unit size`, the same shape
-   * as a Special Biomorph.
+   * It is bought ONCE PER MODEL, not once for the unit: the Armory preamble says "every item can
+   * only be purchased once by EACH MODEL", and the Advanced block adds "Point costs are paid per
+   * model". So the stepper runs up to the unit's model count and the cost is `points × quantity`
+   * — three of a five-model brood may take it and two may not.
+   *
+   * Reported the day it shipped: a first version charged `points × size` for a single all-or-
+   * nothing purchase, which reads the footnote and ignores the preamble.
    */
   per_model?: boolean;
 }
