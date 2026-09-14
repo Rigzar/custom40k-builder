@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-core-rules-docx-is-four-versions-stale-01",
+    status: "known",
+    title: "BLOCKER: the canonical Core Rules file is 1.258 while the app implements 1.262",
+    description: "RAISED 2026-09-14 by Rigzar, and he is right: \"solo copiaste y pegaste sin analizar bien … cambiaste solo datos, no ajustaste a las nuevas reglas, textos etc\". THE MEASURABLE FORM OF THAT: `Codex/Custom40k Core Rules.docx` still reads \"Rules version 1.258, Balance version 5.03\" and is dated 5 August, while the app's own code says it implements 1.262 in the glossary, the cheat sheets and the Field Manual. The 1.262 document was pasted into chat during the September update and NEVER SAVED INTO `Codex/`, so the conversion was done against a chat message and a list of renames instead of against a document. That is precisely why it came out as a find-and-replace: there was nothing to reconcile the surrounding rules text against. WHAT THIS BLOCKS: any claim that the app's rules text matches the current rules is unverifiable today, for every entry that was not in the rename list. WHAT IS NEEDED: the current `Custom40k Core Rules.docx` (and `Custom40k Missions.docx`, also from August) dropped into `Codex/`. Those are .docx files the author shares directly; `fetch_codex.cjs` only pulls the Google Sheets, so this cannot be self-served. THEN the real job is a reconciliation of the glossary (`coreRules.ts`, ~60 special rules and ~50 weapon abilities), both cheat sheets in three languages, the Field Manual and the wiki against the document, entry by entry — not another mapping pass. THE SHEETS THEMSELVES ARE CURRENT as of today: 11 books were refreshed after reading every diff, and every one of those changes was the author replacing \"invulnerable save\" with \"ward save\", which our data already said (including the Scarab Occult Terminators straggler we had reported to him). One new sheet, `tyranids_test`, has appeared with no local counterpart — the author is working on something there."
+  },
+  {
     id: "ki-sanity-sweep-was-41-percent-noise-01",
     status: "known",
     title: "The phantom-weapon guard was 41% false positives, which is why nobody read it",
