@@ -365,7 +365,19 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // recognised as optional; the FULL choice name is also kept as a candidate so a weapon whose
   // own name contains "and" ("Shardnet and impaler", "Lash whip and Bonesword") still matches the
   // choice that grants it, instead of the split turning it into a phantom always-shown weapon.
-  const optionalWeapons = new Map<string, Set<string>>();
+  /**
+ * Does the loadout sentence name this weapon? Compared with punctuation normalised, because the
+ * author's own sheets mix the two apostrophes: the Chaos Daemons Plague Drones are "equipped with:
+ * Death's heads" in prose and carry a weapon row called "Death’s heads". An exact substring test
+ * says no, so a weapon the model always carries was treated as an unowned optional — which looks
+ * right on the card and quietly breaks anything that depends on knowing it is a default, such as a
+ * swap's replace threshold. Fixed here rather than in the data: the source will keep mixing them.
+ */
+const PUNCT = /[‘’ʼ]/g;
+const loadoutNames = (equipped: string | undefined, name: string): boolean =>
+  (equipped ?? '').replace(PUNCT, "'").includes(name.replace(PUNCT, "'"));
+
+const optionalWeapons = new Map<string, Set<string>>();
   for (const [gi, g] of unit.option_groups.entries()) {
     // A tick-box option has no choices at all — the weapon it buys is named only in its header
     // ("May take a Markerlight for +10 points."). With nothing to match, the weapon counted as a
@@ -375,7 +387,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
       for (const w of unit.weapons) {
         const k = wkey(w.name);
         if (!new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}s?\\b`, 'i').test(g.header)) continue;
-        if (unit.equipped_with?.includes(baseName(w.name))) continue;   // already a real default
+        if (loadoutNames(unit.equipped_with, baseName(w.name))) continue;   // already a real default
         if (!optionalWeapons.has(k)) optionalWeapons.set(k, new Set());
         // Keyed to THIS group, not to a shared '__inline' token. Reported on the Horus Heresy
         // Legion Tactical Squad: ticking "They Shall Know No Fear" made five Astartes chainswords
@@ -397,7 +409,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         // Bubonic axe/Power fist swapping out Balesword) must still be tracked as optional here
         // even though the group has a `replaces` link, since this map is what hides THEM (the
         // new weapon) until bought; `replaces` only handles removing the OLD weapon, separately.
-        if (!g.replaces?.length && unit.equipped_with?.includes(part)) continue;
+        if (!g.replaces?.length && loadoutNames(unit.equipped_with, part)) continue;
         // A choice can name the CREW as well as the gun ("Kustom mega-blasta with grot gunner",
         // "Twin-linked Big shoota with Grot Gunner") while the weapon row is just the gun. Try the
         // full name first, and only if nothing matches fall back to the name without that trailing
@@ -517,7 +529,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     const bare = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim();
     for (const g of unit.option_groups) {
       for (const name of g.replaces ?? []) {
-        if (!unit.equipped_with?.includes(bare(name)) && unit.weapons.some(w => w.name === name)) {
+        if (!loadoutNames(unit.equipped_with, bare(name)) && unit.weapons.some(w => w.name === name)) {
           variantOnlyWeapons.add(name);
         }
       }
@@ -674,7 +686,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     // name also appears as a swap-upgrade choice (e.g. Ironclad's "Heavy flamer" comes with
     // the Seismic hammer but is also a choice for swapping the Storm bolter — the default copy
     // must not be hidden because the choice copy hasn't been selected).
-    if (unit.equipped_with?.includes(baseName(w.name)) && !conditionalGrantWeapons.has(baseName(w.name))) return true;
+    if (loadoutNames(unit.equipped_with, baseName(w.name)) && !conditionalGrantWeapons.has(baseName(w.name))) return true;
     return [...owningChoices].some(cn => selectedChoiceNames.has(cn));
   });
 }

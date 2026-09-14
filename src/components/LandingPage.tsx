@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v172g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v172h_dismissed';
 
 // v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
@@ -38,9 +38,10 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v172g_dismissed';
 //
 //   line7 = Events & Leagues is open to everyone (key -> v172g)
 //   line8 = Tyranid Advanced Biomorphs are paid per model, which moves list totals
+//   line9 = the three fixes those changes needed the next day (key -> v172h)
 // Append follow-ups here while v1.72 stays open. Bump ANNOUNCEMENT_KEY whenever these lines
 // change materially, or readers who dismissed the previous card never see the new one.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.72: the September rules and codex update",
@@ -54,6 +55,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "☀ LIGHT MODE IS HERE — atypicalhero asked for it. The sun button next to the flags on this page switches it, and so does Appearance in Preferences; whichever you pick is remembered on this device. It is the whole app, not one screen: the builder, the printed cards, the league, every window. The dark theme is untouched and stays the default, so nothing changes unless you want it to.",
     line7: "🏆 EVENTS & LEAGUES IS OPEN. Sign in and the button is on the front page. Browse any public league, join one, attach one of your saved army lists, report your games and confirm your opponent’s — a result only counts once the other player agrees to it. For now only the organisers create a league; everyone else joins one. A league you have not been let into yet still shows, marked CLOSED, and you can read its standings and its games whenever you like.",
     line8: "🧬 TYRANID PLAYERS, CHECK YOUR TOTAL. Advanced Biomorphs are now paid PER MODEL instead of once for the whole unit, so a squad that takes one costs more than it did. Basic Biomorphs are unchanged, still one flat cost. Several got cheaper to go with it: on a Basic Bioform unit Acid Blood, Camouflage, Infrasonic Roar, Thornback and Warped are 1 point instead of 5, and on an Advanced Bioform Camouflage and Symbiote Rippers are 3 instead of 5. LIVING BATTERING RAM IS MONSTROUS CREATURES ONLY now — greyed out everywhere else, Monstrous Infantry included, which is a different unit type. And the Implant Attack weapon has Extra Attack(1) back on it.",
+    line9: "🔧 THREE FIXES FROM YESTERDAY’S CHANGES, all reported by you within the hour. A TICK-BOX OPTION COULD SUMMON A WEAPON THAT BELONGS TO A DIFFERENT TICK-BOX — ticking “They Shall Know No Fear” on a Horus Heresy Legion Tactical Squad put five Astartes chainswords on the card as if you had bought them. 14 datasheets across 8 factions could do it, so if one of yours has ever shown a weapon you did not pay for, look again: Company Command Squad, Kommandos, Warp Spiders, the Grey Knights Land Raiders, the Vindicator and more. THE REVIEW PANEL WAS REFUSING A LEGAL BIOMORPH: every Monstrous Creature was told to remove its Living Battering Ram. AND ADVANCED BIOMORPHS WERE ALL-OR-NOTHING — they are bought once per MODEL, so three of a five-model brood may take one and two may not.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
@@ -68,6 +70,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "☀ DER HELLE MODUS IST DA — atypicalhero hat darum gebeten. Die Sonne neben den Flaggen auf dieser Seite schaltet um, ebenso „Darstellung“ in den Einstellungen; deine Wahl wird auf diesem Gerät gespeichert. Es gilt für die ganze App, nicht nur einen Bildschirm: Builder, gedruckte Karten, Liga, jedes Fenster. Das dunkle Design bleibt unverändert und bleibt Standard — es ändert sich also nichts, wenn du nicht willst.",
     line7: "🏆 EVENTS & LIGEN SIND OFFEN. Melde dich an, dann steht der Knopf auf der Startseite. Stöbere durch alle öffentlichen Ligen, tritt einer bei, hänge eine deiner gespeicherten Armeelisten an, trage deine Partien ein und bestätige die deines Gegners — ein Ergebnis zählt erst, wenn der andere zustimmt. Vorerst erstellen nur die Organisatoren eine Liga; alle anderen treten bei. Eine Liga, die noch nicht offen ist, siehst du trotzdem — als GESCHLOSSEN markiert — und kannst Tabelle und Partien jederzeit lesen.",
     line8: "🧬 TYRANIDEN-SPIELER, PRÜFT EURE PUNKTE. Fortgeschrittene Biomorphe werden jetzt PRO MODELL bezahlt statt einmal für die ganze Einheit, eine Einheit mit einem davon kostet also mehr als vorher. Basis-Biomorphe bleiben unverändert. Dafür wurden mehrere billiger: bei einer Basis-Bioform kosten Acid Blood, Camouflage, Infrasonic Roar, Thornback und Warped 1 statt 5 Punkte, bei einer Fortgeschrittenen Bioform Camouflage und Symbiote Rippers 3 statt 5. LIVING BATTERING RAM GIBT ES NUR NOCH FÜR MONSTRÖSE KREATUREN — überall sonst ausgegraut, auch bei Monströser Infanterie, die ein anderer Einheitentyp ist. Und die Waffe Implant Attack hat wieder Extra Attack(1).",
+    line9: "🔧 DREI KORREKTUREN ZU DEN GESTRIGEN ÄNDERUNGEN, alle von euch innerhalb einer Stunde gemeldet. EIN ANKREUZFELD KONNTE EINE WAFFE HERBEIZAUBERN, DIE ZU EINEM ANDEREN ANKREUZFELD GEHÖRT — „They Shall Know No Fear“ bei einem Horus-Heresy Legion Tactical Squad setzte fünf Astartes chainswords auf die Karte, als hättet ihr sie gekauft. 14 Datenblätter in 8 Fraktionen konnten das: Company Command Squad, Kommandos, Warp Spiders, die Grey Knights Land Raider, der Vindicator und weitere. DIE ÜBERPRÜFUNG VERWEIGERTE EINEN ERLAUBTEN BIOMORPH: jede Monströse Kreatur sollte ihren Living Battering Ram entfernen. UND FORTGESCHRITTENE BIOMORPHE WAREN ALLES-ODER-NICHTS — sie werden pro MODELL gekauft, drei von fünf dürfen einen nehmen und zwei nicht.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -82,6 +85,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "☀ YA HAY MODO CLARO — lo pidió atypicalhero. El botón del sol junto a las banderas de esta página lo cambia, y también Apariencia en Preferencias; lo que elijas se recuerda en este dispositivo. Es la app entera, no una pantalla: el constructor, las fichas impresas, la liga, cada ventana. El tema oscuro sigue igual y sigue siendo el que viene por defecto, así que no cambia nada si no quieres.",
     line7: "🏆 EVENTOS Y LIGAS YA ESTÁ ABIERTO. Inicia sesión y el botón está en la portada. Mira cualquier liga pública, apúntate a una, engancha una de tus listas guardadas, reporta tus partidas y confirma las de tu rival — un resultado no cuenta hasta que el otro lo acepta. Por ahora solo los organizadores crean liga; los demás se apuntan. Una liga que aún no esté abierta se ve igualmente, marcada como CERRADA, y puedes leer su clasificación y sus partidas cuando quieras.",
     line8: "🧬 JUGADORES DE TYRANIDS, REVISAD EL TOTAL. Los Biomorfos Avanzados se pagan ahora POR MODELO en vez de una vez por toda la unidad, así que una escuadra que lleve uno cuesta más que antes. Los Biomorfos Básicos no cambian, siguen siendo un coste único. A cambio varios bajan de precio: en una unidad de Bioforma Básica, Acid Blood, Camouflage, Infrasonic Roar, Thornback y Warped cuestan 1 punto en vez de 5, y en Bioforma Avanzada, Camouflage y Symbiote Rippers cuestan 3 en vez de 5. LIVING BATTERING RAM ES SOLO PARA CRIATURAS MONSTRUOSAS — sale en gris en todo lo demás, incluida la Infantería Monstruosa, que es otro tipo de unidad. Y el arma Implant Attack vuelve a llevar Extra Attack(1).",
+    line9: "🔧 TRES ARREGLOS DE LOS CAMBIOS DE AYER, todos reportados por vosotros en menos de una hora. UNA CASILLA PODÍA INVOCAR UN ARMA QUE ES DE OTRA CASILLA — marcar “They Shall Know No Fear” en una Legion Tactical Squad de Horus Heresy ponía cinco Astartes chainswords en la ficha como si las hubieras comprado. Podía pasar en 14 fichas de 8 facciones, así que si alguna te ha mostrado alguna vez un arma que no pagaste, mírala otra vez: Company Command Squad, Kommandos, Warp Spiders, los Land Raider de Grey Knights, el Vindicator y más. EL PANEL DE REVISIÓN RECHAZABA UN BIOMORFO LEGAL: a toda Criatura Monstruosa le exigía quitar su Living Battering Ram. Y LOS BIOMORFOS AVANZADOS ERAN TODO O NADA — se compran una vez por MODELO, así que tres de una manada de cinco pueden llevarlo y dos no.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -159,7 +163,7 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.71's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.72 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

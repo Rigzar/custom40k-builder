@@ -31,7 +31,7 @@ export const shieldCaptain: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Shield-Captain is equipped with: Bolt caster; Guardian spear.",
+  "equipped_with": "A Shield-Captain is equipped with: Relic bolt caster; Relic guardian spear.",
   "weapons": [
     {
       "name": "Relic balistus grenade launcher",
@@ -97,11 +97,11 @@ export const shieldCaptain: Unit = {
       },
       "choices": [
         {
-          "name": "Sentinel blade & Storm shield",
+          "name": "Relic sentinel blade & Storm shield",
           "points": 5
         },
         {
-          "name": "Castellan axe",
+          "name": "Relic castellan axe",
           "points": 9
         }
       ],
