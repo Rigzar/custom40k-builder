@@ -36,8 +36,14 @@ export function ValidationPanel() {
       {open && (
         <div className="p-3 space-y-1">
           {items.map((it, i) => {
-            const cls    = it.type === 'error' ? 'text-red-400' : it.type === 'warn' ? 'text-amber-400' : 'text-green-400';
-            const prefix = it.type === 'error' ? '✗' : it.type === 'warn' ? '⚠' : '✓';
+            const cls    = it.type === 'error' ? 'text-red-400'
+              : it.type === 'warn' ? 'text-amber-400'
+              : it.type === 'info' ? 'text-zinc-400'
+              : 'text-green-400';
+            const prefix = it.type === 'error' ? '✗'
+              : it.type === 'warn' ? '⚠'
+              : it.type === 'info' ? '·'
+              : '✓';
             return (
               <div key={i} className={`flex items-start gap-2 text-[11px] ${cls}`}>
                 <span className="shrink-0 mt-px">{prefix}</span>

@@ -22,7 +22,12 @@ import {
 } from './codex_imperial_guard/platoon';
 
 export interface ValidationItem {
-  type: 'error' | 'warn' | 'ok';
+  /**
+   * 'info' is NEUTRAL: something the player may want to know that is not wrong. It renders
+   * without a tick or a cross and is counted as neither an error nor a warning, so a list
+   * that is simply unfinished still reads as Ready.
+   */
+  type: 'error' | 'warn' | 'ok' | 'info';
   text: string;
 }
 
@@ -1039,19 +1044,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Point ranges. Missions states these as the size of the game, not as advice — "Skirmish
-  // (1000 - 1500 points)" — so an army outside its engagement's band is an error, the same as any
-  // other restriction the supplement prints. An empty army is exempt: a list you have not started
-  // yet is not a broken list, and opening the builder to a red error helps nobody.
+  // Point ranges. Missions states these as the size of the game — "Skirmish (1000 - 1500
+  // points)" — so going OVER the band is an error: you cannot fix it by carrying on.
+  //
+  // Being UNDER it is not. A list is below its minimum for the entire time you are building it,
+  // so an error there fires on every list in the game until the last unit goes in — reported by a
+  // player at 2485/2500 in Pitched Battle ("can you make app not angry about 2500 point limit?").
+  // It is now a neutral note saying how many points are still missing.
+  //
+  // An empty army is exempt entirely: a list you have not started is not an unfinished list.
   if (total > 0) {
+    const short = (min: number) => T('valPointsToGo', { short: min - total, min, total });
     if (state.engagement === 'skirmish') {
-      if (total < 1000) items.push({ type: 'error', text: T('valSkirmishRecommended', { total }) });
+      if (total < 1000) items.push({ type: 'info', text: short(1000) });
       if (total > 1500) items.push({ type: 'error', text: T('valSkirmishCap', { total }) });
     } else if (state.engagement === 'pitched') {
-      if (total < 2500) items.push({ type: 'error', text: T('valPitchedRecommended', { total }) });
+      if (total < 2500) items.push({ type: 'info', text: short(2500) });
       if (total > 3500) items.push({ type: 'error', text: T('valPitchedCap', { total }) });
     } else {
-      if (total < 4000) items.push({ type: 'error', text: T('valEpicRecommended', { total }) });
+      if (total < 4000) items.push({ type: 'info', text: short(4000) });
     }
   }
 

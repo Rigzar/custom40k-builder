@@ -130,7 +130,7 @@ export type TranslationKey =
   | 'copiedLabel' | 'copyToClipboardButton' | 'shareCodeHint' | 'pasteArmyCodePlaceholder'
   | 'pasteJsonPlaceholder' | 'invalidCodeOrJsonAlert' | 'importJsonLink' | 'useBugButtonPart1' | 'useBugButtonPart2'
   | 'cultPowersLabel' | 'psychicPowersLabel' | 'andPrayersSuffix' | 'andPactsSuffix' | 'prayersAndPactsLabel'
-  | 'prayersLabel' | 'infernalPactsLabel' | 'alwaysKnownBadge' | 'smiteCastLine' | 'legacyTag' | 'castLabel'
+  | 'prayersLabel' | 'infernalPactsLabel' | 'alwaysKnownBadge' | 'legacyTag' | 'castLabel'
   | 'chooseWord' | 'oneDisciplineLabel' | 'modeAllFromOneMid' | 'allItsPowersLabel' | 'selectedPrefix'
   | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'powersWord'
   | 'modeNFromAnyPart2' | 'noDisciplinesAvailable' | 'chosenBadge' | 'includedBadge' | 'noDisciplineChosenWord'
@@ -152,7 +152,8 @@ export type TranslationKey =
   | 'exarchPowerPrefix' | 'enhancementPrefix' | 'gainsSuffix' | 'traitBadge' | 'ruleBadge' | 'optionBadge' | 'equipBadge'
   | 'seeFactionRulesPlain' | 'ammoLabel' | 'veteranLabel' | 'vehicleEquipmentLabel' | 'traitsCountLabel'
   | 'powersPrayersLabel' | 'powersLabel' | 'pactsCountLabel'
-  | 'valSkirmishRecommended' | 'valSkirmishCap' | 'valPitchedRecommended' | 'valPitchedCap' | 'valEpicRecommended'
+  | 'valSkirmishCap' | 'valPitchedCap'
+  | 'valPointsToGo'
   | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'valOnlyOneArmour'
   | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
   | 'valArchetypeSlotNotAllowed' | 'valArchetypeRequiresHqUnit' | 'valArchetypeRequiresHqUpgrade'
@@ -798,7 +799,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prayersLabel: 'Prayers',
     infernalPactsLabel: 'Infernal Pacts',
     alwaysKnownBadge: 'Always known',
-    smiteCastLine: 'Cast: 5 · Witchfire · Instant — 1D3 Mortal Wounds (2D3 if cast value ≥10)',
     legacyTag: '(Legacy)',
     castLabel: 'Cast:',
     chooseWord: 'Choose',
@@ -903,11 +903,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     powersPrayersLabel: 'Powers/Prayers',
     powersLabel: 'Powers',
     pactsCountLabel: 'Pacts',
-    valSkirmishRecommended: 'Skirmish is played at 1000–1500 pts (current: {total}).',
     valSkirmishCap: 'Skirmish cap 1500 pts (current: {total}).',
-    valPitchedRecommended: 'Pitched Battle is played at 2500–3500 pts (current: {total}).',
+    /** Neutral: the list is still being built, not broken. See ValidationItem's 'info' type. */
+    valPointsToGo: '{short} points to go to reach {min} (current: {total}).',
     valPitchedCap: 'Pitched Battle cap 3500 pts (current: {total}).',
-    valEpicRecommended: 'Epic Battle is played at 4000+ pts (current: {total}).',
     valOverPointsLimit: 'Over points limit ({total}/{limit}).',
     valWithinLimit: 'Within limit ({total}/{limit}).',
     valSelectionRequired: '{unit}: "{header}" — a selection is required.',
@@ -1646,7 +1645,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prayersLabel: 'Gebete',
     infernalPactsLabel: 'Infernale Pakte',
     alwaysKnownBadge: 'Immer bekannt',
-    smiteCastLine: 'Wirkung: 5 · Hexenfeuer · Sofort — 1D3 Mortal Wounds (2D3 falls Wirkwert ≥10)',
     legacyTag: '(Legacy)',
     castLabel: 'Wirkung:',
     chooseWord: 'Wählen',
@@ -1751,11 +1749,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     powersPrayersLabel: 'Kräfte/Gebete',
     powersLabel: 'Kräfte',
     pactsCountLabel: 'Pakte',
-    valSkirmishRecommended: 'Skirmish empfohlen 1000–1500 Pkt (aktuell: {total}).',
     valSkirmishCap: 'Skirmish-Obergrenze 1500 Pkt (aktuell: {total}).',
-    valPitchedRecommended: 'Pitched Battle empfohlen 2500–3500 Pkt (aktuell: {total}).',
+    valPointsToGo: 'Noch {short} Punkte bis {min} (aktuell: {total}).',
     valPitchedCap: 'Pitched-Battle-Obergrenze 3500 Pkt (aktuell: {total}).',
-    valEpicRecommended: 'Epic Battle empfohlen 4000+ Pkt (aktuell: {total}).',
     valOverPointsLimit: 'Über dem Punktelimit ({total}/{limit}).',
     valWithinLimit: 'Innerhalb des Limits ({total}/{limit}).',
     valSelectionRequired: '{unit}: „{header}" — eine Auswahl ist erforderlich.',
@@ -2494,7 +2490,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prayersLabel: 'Plegarias',
     infernalPactsLabel: 'Pactos Infernales',
     alwaysKnownBadge: 'Siempre conocido',
-    smiteCastLine: 'Lanzamiento: 5 · Fuego de bruja · Instantáneo — 1D3 Heridas Mortales (2D3 si el valor de lanzamiento ≥10)',
     legacyTag: '(Legacy)',
     castLabel: 'Lanzamiento:',
     chooseWord: 'Elige',
@@ -2599,11 +2594,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     powersPrayersLabel: 'Poderes/Plegarias',
     powersLabel: 'Poderes',
     pactsCountLabel: 'Pactos',
-    valSkirmishRecommended: 'Skirmish recomendado 1000–1500 pts (actual: {total}).',
     valSkirmishCap: 'Tope de Skirmish 1500 pts (actual: {total}).',
-    valPitchedRecommended: 'Pitched Battle recomendado 2500–3500 pts (actual: {total}).',
+    valPointsToGo: 'Faltan {short} puntos para {min} (actual: {total}).',
     valPitchedCap: 'Tope de Pitched Battle 3500 pts (actual: {total}).',
-    valEpicRecommended: 'Epic Battle recomendado 4000+ pts (actual: {total}).',
     valOverPointsLimit: 'Por encima del límite de puntos ({total}/{limit}).',
     valWithinLimit: 'Dentro del límite ({total}/{limit}).',
     valSelectionRequired: '{unit}: "{header}" — se requiere una selección.',

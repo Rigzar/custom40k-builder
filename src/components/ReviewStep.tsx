@@ -98,8 +98,14 @@ export function ReviewStep({ onPrint, onSave, savedMsg, onBack }: {
         <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-3">{t('validation')}</h2>
         <div className="border border-zinc-800 bg-zinc-900/50 divide-y divide-zinc-800/70">
           {[...errors, ...warns, ...oks].map((it, i) => {
-            const cls    = it.type === 'error' ? 'text-red-400' : it.type === 'warn' ? 'text-amber-400' : 'text-green-400';
-            const prefix = it.type === 'error' ? '✗' : it.type === 'warn' ? '⚠' : '✓';
+            const cls    = it.type === 'error' ? 'text-red-400'
+              : it.type === 'warn' ? 'text-amber-400'
+              : it.type === 'info' ? 'text-zinc-400'
+              : 'text-green-400';
+            const prefix = it.type === 'error' ? '✗'
+              : it.type === 'warn' ? '⚠'
+              : it.type === 'info' ? '·'
+              : '✓';
             return (
               <div key={i} className={`flex items-start gap-2.5 px-4 py-2.5 text-[12px] ${cls}`}>
                 <span className="shrink-0 mt-px">{prefix}</span>

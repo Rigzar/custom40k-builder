@@ -71,6 +71,12 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // the GSC powers live in the codex's own discipline list, hence passing `data.disciplines`.
   const legacyPower = getLegacyExtraPower(data.faction, legacy ?? legacy2 ?? '', data.disciplines);
 
+  // Smite is read from the data like every other power. It used to be a hardcoded string that
+  // still described the OLD Smite ("1D3 Mortal Wounds") long after the Core Rules changed it,
+  // which is what GH#121 reported — the one line in this modal that could drift, and did.
+  const smite: Power | undefined = (GENERAL_DISCIPLINES['General'] ?? [])
+    .find(p => p.name === 'Smite');
+
   const isSMFaction = data.faction === 'Space Marines';
   const hasCrusaderLegacy = legacy === 'Legacy of the Crusader' || legacy2 === 'Legacy of the Crusader';
 
@@ -367,7 +373,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
                   <span className="text-amber-300 font-semibold text-sm">Smite</span>
                 </div>
-                <div className="text-[10px] text-zinc-500 mt-0.5">{t('smiteCastLine')}</div>
+                {smite && (
+                  <div className="text-[10px] text-zinc-500 mt-0.5">
+                    {t('castLabel')} {smite.cast_value} · {smite.type} · {smite.duration} — {smite.effect}
+                  </div>
+                )}
               </div>
             )}
 
