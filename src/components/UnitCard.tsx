@@ -69,8 +69,10 @@ const WEAPON_TYPE_ICONS: Partial<Record<string, string>> = {
   Melee:        '/weapon-type-icons/melee.svg',
 };
 
-const STAT_ICON_FILTER = 'brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(-15deg)';
-const TYPE_ICON_FILTER  = 'brightness(0) invert(1)';
+// Theme-resolved (see --icon-tint in index.css). These two cover ~30 icons between them:
+// the stat header, the model rows and every weapon-table column.
+const STAT_ICON_FILTER = 'var(--icon-tint-gold)';
+const TYPE_ICON_FILTER  = 'var(--icon-tint)';
 
 function getFactionCat(faction: string): 'chaos' | 'imperium' | 'xenos' | 'supp' {
   if (/chaos/i.test(faction)) return 'chaos';
@@ -407,7 +409,7 @@ export function UnitCard({ item }: Props) {
             const src = sym ?? `/faction-symbols/${data.faction.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}.svg`;
             return (
               <img src={src} alt="" aria-hidden="true" className="shrink-0 mt-0.5 opacity-60"
-                style={{ width: 44, height: 44, filter: 'brightness(0) invert(1)' }} />
+                style={{ width: 44, height: 44, filter: 'var(--icon-tint-fixed)' }} />
             );
           })()}
           <div className="flex-1 min-w-0">
@@ -1238,7 +1240,7 @@ export function UnitCard({ item }: Props) {
                           >
                             {MARK_ICON[m] && (
                               <img src={MARK_ICON[m]} alt="" aria-hidden="true"
-                                style={{ width: 18, height: 18, filter: active ? st.filter : 'brightness(0) invert(1) opacity(0.3)' }} />
+                                style={{ width: 18, height: 18, filter: active ? st.filter : 'var(--icon-tint) opacity(0.3)' }} />
                             )}
                             <span className="font-cinzel text-[9px] uppercase tracking-wide leading-none">{m}</span>
                           </button>

@@ -239,6 +239,18 @@
 [data-theme="light"] .text-amber-800 { color: oklch(33% .095 53); }
 [data-theme="light"] .text-amber-900 { color: oklch(30% .085 51); }
 
+/*
+ * ...and the SAME colours with an opacity modifier. `text-amber-700/80` compiles to its own
+ * class that color-mixes the MIRRORED variable, so it never saw the override above and stayed
+ * the washed-out light gold — the "PROFILE" heading measured 1.25:1 against its own panel.
+ * Same trap the border overrides already had to cover.
+ */
+[data-theme="light"] .text-amber-700\/80 { color: color-mix(in oklab, oklch(36% .105 55) 80%, transparent); }
+[data-theme="light"] .text-amber-700\/70 { color: color-mix(in oklab, oklch(36% .105 55) 70%, transparent); }
+[data-theme="light"] .text-amber-700\/60 { color: color-mix(in oklab, oklch(36% .105 55) 60%, transparent); }
+[data-theme="light"] .text-amber-800\/70 { color: color-mix(in oklab, oklch(33% .095 53) 70%, transparent); }
+[data-theme="light"] .text-zinc-700\/80  { color: color-mix(in oklab, oklch(56% .013 285.8) 80%, transparent); }
+
 /* Gold FRAMES. The Preferences window is `border-2 border-amber-800`, which mirrored to 92%
    lightness on a 97% panel — a two-pixel border nobody can see, which is why that window looked
    like loose text. Borders go dark; `bg-amber-700/800` fills are left mirrored, because a light
@@ -268,6 +280,40 @@
 /* Faction symbols and the eagle marks are single-colour art forced WHITE with a filter, so in
    light mode they vanished completely. `brightness(0)` alone makes the same art black; the
    opacity stays on the element so each use keeps the weight it chose. */
+/*
+ * Icon tints for INLINE `filter` styles (the class-based ones are .symbol-tint* below).
+ * A filter written inline cannot follow the theme, so it is expressed as a variable instead:
+ * `style={{ filter: 'var(--icon-tint)' }}`. Reported in light mode as "un montón" of missing
+ * icons - 41 of 43 filtered images sit on surfaces of 0.87-0.99 lightness, and every one of
+ * them was being painted white.
+ *
+ * --icon-tint-fixed is for icons on a DELIBERATELY dark surface (the faction roundel, the
+ * unit-card header): those stay white in both themes. Tinting them by theme is what hid 18 of
+ * 21 symbols when light mode first shipped.
+ */
+:root {
+  --icon-tint: brightness(0) invert(1);
+  --icon-tint-gold: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(-15deg);
+  --icon-tint-fixed: brightness(0) invert(1);
+}
+[data-theme="light"] {
+  --icon-tint: brightness(0);
+  --icon-tint-gold: brightness(0) sepia(1) saturate(3) hue-rotate(-18deg) brightness(0.75);
+}
+
+/*
+ * The unit-card header keeps its faction gradient in light mode, so it is a FIXED-DARK surface:
+ * its ink is pinned to the values measured from the dark theme rather than inverted with the
+ * rest of the page. Without this the title is near-black on dark red and unreadable.
+ */
+[data-theme="light"] .unit-card-holo .text-white   { color: #fff; }
+[data-theme="light"] .unit-card-holo .text-zinc-300 { color: oklch(87.1% .006 286.286); }
+[data-theme="light"] .unit-card-holo .text-zinc-400 { color: oklch(70.5% .015 286.067); }
+[data-theme="light"] .unit-card-holo .text-zinc-500 { color: oklch(55.2% .016 285.938); }
+[data-theme="light"] .unit-card-holo .text-zinc-600 { color: oklch(44.2% .017 285.786); }
+[data-theme="light"] .unit-card-holo .text-amber-400 { color: oklch(82.8% .189 84.429); }
+[data-theme="light"] .unit-card-holo .text-amber-700 { color: oklch(55.5% .163 48.998); }
+
 .symbol-tint { filter: brightness(0) invert(1); }
 [data-theme="light"] .symbol-tint { filter: brightness(0); }
 

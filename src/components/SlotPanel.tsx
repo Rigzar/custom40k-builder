@@ -201,7 +201,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
               >
                 {SLOT_ICONS[slot] && (
                   <img src={SLOT_ICONS[slot]} alt="" className="w-4 h-4 shrink-0"
-                    style={{ filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
+                    style={{ filter: 'var(--icon-tint)', opacity: 0.5 }} />
                 )}
                 <span className="font-cinzel text-[10px] uppercase tracking-widest text-emerald-500/80 flex-1 text-left">
                   {t(SLOT_LABEL_KEY[slot] ?? 'hq')}
@@ -429,7 +429,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
             >
               {SLOT_ICONS[slot] && (
                 <img src={SLOT_ICONS[slot]} alt="" className="w-4 h-4 shrink-0"
-                  style={{ filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
+                  style={{ filter: 'var(--icon-tint)', opacity: 0.5 }} />
               )}
               <span className="font-cinzel text-[10px] uppercase tracking-widest text-amber-500/80 flex-1 text-left">
                 {t(SLOT_LABEL_KEY[slot] ?? 'hq')}
