@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as api from '../lib/api';
-import type { PublicArmySummary, FriendRow, UserSearchResult, FriendRequestRow, RosterShareUser, SharedArmySummary } from '../lib/api';
+import type { PublicArmySummary, FriendRow, UserSearchResult, FriendRequestRow, RosterShareUser, SharedArmySummary, EventSummary } from '../lib/api';
 import { useT } from '../i18n';
 import { useArmyStore } from '../store/army';
 import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine/points';
@@ -408,6 +408,9 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
 }) {
   const t = useT();
   const [filter, setFilter] = useState<'all' | 'friends' | 'shared'>('all');
+  /** 0 = every list. Otherwise only the lists registered for that event. */
+  const [eventId, setEventId] = useState(0);
+  const [events, setEvents] = useState<EventSummary[]>([]);
   const [armies, setArmies] = useState<(PublicArmySummary & { shared?: boolean })[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -419,14 +422,15 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
     return { ...s, upvotes: 0, downvotes: 0, user_vote: null, shared: true };
   }
 
-  async function load(type: 'all' | 'friends' | 'shared') {
+  async function load(type: 'all' | 'friends' | 'shared', ev = 0) {
     setLoading(true); setError('');
     try {
       if (type === 'shared') {
+        // "Shared with me" is a different feed with no event filter behind it.
         const res = await api.getSharedWithMe();
         setArmies(res.armies.map(toCard));
       } else {
-        const res = await api.getPublicArmies(type);
+        const res = await api.getPublicArmies(type, ev || undefined);
         setArmies(res.armies);
       }
     }
@@ -434,7 +438,14 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
     finally { setLoading(false); }
   }
 
-  useEffect(() => { load(filter); }, [filter]);
+  // `/api/events/list` already returns only what this viewer may see, so a private league never
+  // shows up in the picker for someone who could not open it anyway.
+  useEffect(() => {
+    if (!loggedIn) return;
+    api.listEvents().then(r => setEvents(r.events)).catch(() => { /* picker just stays empty */ });
+  }, [loggedIn]);
+
+  useEffect(() => { load(filter, eventId); }, [filter, eventId]);
 
   async function handleCopy(army: PublicArmySummary) {
     if (!loggedIn) return;
@@ -512,12 +523,40 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
           </div>
         )}
       </div>
+      {loggedIn && filter !== 'shared' && events.length > 0 && (
+        <div className="flex items-center gap-2">
+          <label htmlFor="community-event" className="text-[10px] uppercase tracking-wide text-zinc-500 shrink-0">
+            {t('filterByEvent')}
+          </label>
+          <select
+            id="community-event"
+            value={eventId}
+            onChange={e => setEventId(Number(e.target.value))}
+            className="flex-1 min-w-0 bg-zinc-900 border border-zinc-700 text-zinc-300 text-[11px] px-2 py-1"
+          >
+            <option value={0}>{t('filterAnyEvent')}</option>
+            {events.map(ev => (
+              <option key={ev.id} value={ev.id}>{ev.name}</option>
+            ))}
+          </select>
+          {eventId !== 0 && (
+            <button
+              onClick={() => setEventId(0)}
+              className="shrink-0 text-[10px] uppercase tracking-wide px-2 py-1 border border-zinc-700 text-zinc-500 hover:text-zinc-300 transition-colors"
+            >
+              {t('filterClear')}
+            </button>
+          )}
+        </div>
+      )}
       {error && <p className="text-red-400 text-xs">{error}</p>}
       {loading ? (
         <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
       ) : armies.length === 0 ? (
         <p className="text-zinc-500 italic text-sm text-center py-8">
-          {filter === 'friends' ? t('noFriendArmies') : filter === 'shared' ? t('noSharedArmies') : t('noPublicArmies')}
+          {eventId !== 0
+            ? t('noEventArmies')
+            : filter === 'friends' ? t('noFriendArmies') : filter === 'shared' ? t('noSharedArmies') : t('noPublicArmies')}
         </p>
       ) : (
         <div className="space-y-2">

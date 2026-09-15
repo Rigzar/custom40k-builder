@@ -154,6 +154,7 @@ export type TranslationKey =
   | 'powersPrayersLabel' | 'powersLabel' | 'pactsCountLabel'
   | 'valSkirmishCap' | 'valPitchedCap'
   | 'viewingCopyOf' | 'editMyCopy'
+  | 'filterByEvent' | 'filterAnyEvent' | 'filterClear' | 'noEventArmies'
   | 'valPointsToGo'
   | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'valOnlyOneArmour'
   | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
@@ -910,6 +911,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     /** Shown when the builder holds a copy of somebody else's community list. */
     viewingCopyOf: 'Viewing a copy of “{name}” by {author}. Nothing you do here can change their list.',
     editMyCopy: 'Edit my copy',
+    filterByEvent: 'Event',
+    filterAnyEvent: 'Any event',
+    filterClear: 'Clear',
+    noEventArmies: 'No lists are registered for that event yet.',
     valPitchedCap: 'Pitched Battle cap 3500 pts (current: {total}).',
     valOverPointsLimit: 'Over points limit ({total}/{limit}).',
     valWithinLimit: 'Within limit ({total}/{limit}).',
@@ -1757,6 +1762,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valPointsToGo: 'Noch {short} Punkte bis {min} (aktuell: {total}).',
     viewingCopyOf: 'Du siehst eine Kopie von „{name}“ von {author}. Nichts hier kann deren Liste ändern.',
     editMyCopy: 'Meine Kopie bearbeiten',
+    filterByEvent: 'Event',
+    filterAnyEvent: 'Alle Events',
+    filterClear: 'Zurücksetzen',
+    noEventArmies: 'Für dieses Event ist noch keine Liste angemeldet.',
     valPitchedCap: 'Pitched-Battle-Obergrenze 3500 Pkt (aktuell: {total}).',
     valOverPointsLimit: 'Über dem Punktelimit ({total}/{limit}).',
     valWithinLimit: 'Innerhalb des Limits ({total}/{limit}).',
@@ -2604,6 +2613,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valPointsToGo: 'Faltan {short} puntos para {min} (actual: {total}).',
     viewingCopyOf: 'Estás viendo una copia de «{name}» de {author}. Nada de lo que hagas aquí cambia su lista.',
     editMyCopy: 'Editar mi copia',
+    filterByEvent: 'Evento',
+    filterAnyEvent: 'Cualquier evento',
+    filterClear: 'Quitar',
+    noEventArmies: 'Aún no hay listas inscritas en ese evento.',
     valPitchedCap: 'Tope de Pitched Battle 3500 pts (actual: {total}).',
     valOverPointsLimit: 'Por encima del límite de puntos ({total}/{limit}).',
     valWithinLimit: 'Dentro del límite ({total}/{limit}).',

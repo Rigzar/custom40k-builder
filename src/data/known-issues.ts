@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-community-filter-by-event-01",
+    status: "fixed",
+    title: "Community tab can be filtered by event - the API already supported it, only the picker was missing",
+    description: "DONE 2026-09-15, asked for by Dominic: \"For the community army tab, currently I can filter for all, friends, shared with me. Could you add it so I can filter for an event? So I can immediately filter for all league lists\". ALMOST ALL OF IT ALREADY EXISTED and had simply never been given a control. `/api/profile/public-armies` has accepted an `eventId` since the league shipped and applies it in all three of its query branches; `api.getPublicArmies(type, eventId)` already passed it through; and every card in the feed already rendered its `event_names` badges. The only missing piece was the picker, so this is a UI change and no new query. THE EVENT LIST comes from `/api/events/list`, which already returns only what the viewer is entitled to see, so a private league cannot appear in the dropdown for someone who could not open it anyway - the filter inherits the visibility rules instead of inventing its own. TWO DETAILS WORTH KEEPING: the picker is hidden on \"Shared with me\", which is a different feed with no event filter behind it, rather than being offered and silently doing nothing; and the empty state says \"No lists are registered for that event yet\" when a filter is active, instead of the generic \"no public armies\" which would read as though the feed were broken. Verified by reading the server default rather than assuming it: with no `eventId` in the query, `Number(undefined)` is NaN, `Number.isInteger` rejects it and the handler falls back to 0, which every branch treats as \"any event\". NOT verified end to end - the Community tab needs a logged-in session and the browser pane was hidden (viewport 0x0), so the dropdown itself has not been clicked in a running app."
+  },
+  {
     id: "ki-community-list-opens-locked-01",
     status: "fixed",
     title: "Someone else's list now opens locked - and no Inquisitor could ever edit it anyway",
