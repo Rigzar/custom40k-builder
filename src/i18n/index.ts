@@ -153,6 +153,7 @@ export type TranslationKey =
   | 'seeFactionRulesPlain' | 'ammoLabel' | 'veteranLabel' | 'vehicleEquipmentLabel' | 'traitsCountLabel'
   | 'powersPrayersLabel' | 'powersLabel' | 'pactsCountLabel'
   | 'valSkirmishCap' | 'valPitchedCap'
+  | 'viewingCopyOf' | 'editMyCopy'
   | 'valPointsToGo'
   | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'valOnlyOneArmour'
   | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
@@ -906,6 +907,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishCap: 'Skirmish cap 1500 pts (current: {total}).',
     /** Neutral: the list is still being built, not broken. See ValidationItem's 'info' type. */
     valPointsToGo: '{short} points to go to reach {min} (current: {total}).',
+    /** Shown when the builder holds a copy of somebody else's community list. */
+    viewingCopyOf: 'Viewing a copy of “{name}” by {author}. Nothing you do here can change their list.',
+    editMyCopy: 'Edit my copy',
     valPitchedCap: 'Pitched Battle cap 3500 pts (current: {total}).',
     valOverPointsLimit: 'Over points limit ({total}/{limit}).',
     valWithinLimit: 'Within limit ({total}/{limit}).',
@@ -1751,6 +1755,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     pactsCountLabel: 'Pakte',
     valSkirmishCap: 'Skirmish-Obergrenze 1500 Pkt (aktuell: {total}).',
     valPointsToGo: 'Noch {short} Punkte bis {min} (aktuell: {total}).',
+    viewingCopyOf: 'Du siehst eine Kopie von „{name}“ von {author}. Nichts hier kann deren Liste ändern.',
+    editMyCopy: 'Meine Kopie bearbeiten',
     valPitchedCap: 'Pitched-Battle-Obergrenze 3500 Pkt (aktuell: {total}).',
     valOverPointsLimit: 'Über dem Punktelimit ({total}/{limit}).',
     valWithinLimit: 'Innerhalb des Limits ({total}/{limit}).',
@@ -2596,6 +2602,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     pactsCountLabel: 'Pactos',
     valSkirmishCap: 'Tope de Skirmish 1500 pts (actual: {total}).',
     valPointsToGo: 'Faltan {short} puntos para {min} (actual: {total}).',
+    viewingCopyOf: 'Estás viendo una copia de «{name}» de {author}. Nada de lo que hagas aquí cambia su lista.',
+    editMyCopy: 'Editar mi copia',
     valPitchedCap: 'Tope de Pitched Battle 3500 pts (actual: {total}).',
     valOverPointsLimit: 'Por encima del límite de puntos ({total}/{limit}).',
     valWithinLimit: 'Dentro del límite ({total}/{limit}).',

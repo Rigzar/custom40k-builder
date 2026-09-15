@@ -227,6 +227,13 @@ export default function App() {
   // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
   // a fresh entry instead of silently overwriting whatever was last bound.
   const [activeCloudRosterId, setActiveCloudRosterId] = useState<number | null>(null);
+  /**
+   * Set while the builder is showing a COPY of somebody else's community list. It locks the
+   * editing surface until the player explicitly chooses "Edit my copy", so reading a list can
+   * never feel like changing it. Deliberately not persisted: a reload must never leave anyone
+   * stuck in a locked builder.
+   */
+  const [viewingCopyOf, setViewingCopyOf] = useState<{ name: string; author: string } | null>(null);
   // Ref so the beforeunload/autosave handlers always see the current login state without stale closure.
   const loggedInRef = useRef(false);
   useEffect(() => { loggedInRef.current = loggedIn; }, [loggedIn]);
@@ -504,6 +511,7 @@ export default function App() {
       if (orphansTheList) store.clearArmy();
       sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
       setActiveCloudRosterId(null);
+      setViewingCopyOf(null);   // your own list: editable as normal
       setActiveLocalSaveId(null);
       // Apply default engagement / points when starting a fresh army.
       if (army.length === 0) {
@@ -565,6 +573,7 @@ export default function App() {
           if (name !== baseName) setArmyName(name);
           const res = await api.saveRoster(name, { ...stateSnapshot, armyName: name }, store.campaignId, store.campaignFaction);
           setActiveCloudRosterId(res.roster.id);
+          setViewingCopyOf(null);   // your own list: editable as normal
         }
         setSavedMsg('Saved to cloud!');
       } catch {
@@ -616,6 +625,7 @@ export default function App() {
     pendingLoad.current = save;
     setActiveLocalSaveId(save.id);
     setActiveCloudRosterId(null);
+    setViewingCopyOf(null);   // your own list: editable as normal
     // Normalize: old saves stored the display label as factionKey; new ones store the snake_case key.
     const fKey = FACTION_NAMES[save.factionKey]
       ? save.factionKey
@@ -641,6 +651,7 @@ export default function App() {
       unitCount: ((data.army as unknown[])?.length) ?? 0,
     };
     setActiveCloudRosterId(rosterId);
+    setViewingCopyOf(null);   // your own list: editable as normal
     setActiveLocalSaveId(null);
     consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
@@ -654,6 +665,7 @@ export default function App() {
     store.clearArmy();
     store.setCampaignLink(campaignId, campaignFaction);
     setActiveCloudRosterId(null);
+    setViewingCopyOf(null);   // your own list: editable as normal
     setActiveLocalSaveId(null);
     setShowCampaign(false);
     setScreen('flow');
@@ -667,7 +679,7 @@ export default function App() {
     setShowCampaign(false);
   }
 
-  function handleLoadCommunityArmy(data: Record<string, unknown>) {
+  function handleLoadCommunityArmy(data: Record<string, unknown>, from?: { name: string; author: string }) {
     const fLabel = data.faction as string;
     const fKey = FACTION_NAMES[fLabel]
       ? fLabel
@@ -683,6 +695,10 @@ export default function App() {
       unitCount: ((data.army as unknown[])?.length) ?? 0,
     };
     setActiveCloudRosterId(null);
+    // Someone else's list opens LOCKED. The server would refuse a write to their roster
+    // anyway (every roster write is scoped to the owner), but nothing said so, and reading
+    // a list should not feel like editing one.
+    setViewingCopyOf(from ?? null);
     consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
     enterFlow('units');
@@ -948,7 +964,27 @@ export default function App() {
               </p>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
+            {viewingCopyOf && (
+              <div className="flex flex-wrap items-center gap-3 mb-3 px-3 py-2 border border-amber-800/70 bg-amber-900/15">
+                <span className="text-[11px] text-amber-300 flex-1 min-w-0">
+                  {t('viewingCopyOf')
+                    .replace('{name}', viewingCopyOf.name || '—')
+                    .replace('{author}', viewingCopyOf.author)}
+                </span>
+                <button
+                  onClick={() => setViewingCopyOf(null)}
+                  className="shrink-0 px-3 py-1 border border-amber-600 text-amber-200 text-[11px] uppercase tracking-widest hover:bg-amber-800/40 transition-colors"
+                >
+                  {t('editMyCopy')}
+                </button>
+              </div>
+            )}
+
+            {/* `inert` leaves the list fully readable and scrollable while making every control
+                inside it non-interactive and unfocusable - "read it, don't change it" in one
+                attribute, with no list of mutating actions to keep in step. */}
+            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4"
+              inert={!!viewingCopyOf}>
               <aside className="space-y-2">
                 <CollapsiblePanel title={t('unitCatalogue')} defaultOpen>
                   {showAlly

@@ -22,7 +22,7 @@ interface Props {
   /** Close this modal and open the Campaign modal, expanded straight to this campaign. */
   onOpenCampaign?: (campaignId: number) => void;
   onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
-  onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
+  onLoadCommunityArmy?: (data: Record<string, unknown>, from?: { name: string; author: string }) => void;
   onLoadCloudRoster?: (data: Record<string, unknown>, rosterId: number) => void;
   defaultTab?: Tab;
 }
@@ -404,7 +404,7 @@ function ShareLinkPanel({ rosterId, initialToken, onTokenChange }: {
 function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
   loggedIn: boolean;
   onClose: () => void;
-  onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
+  onLoadCommunityArmy?: (data: Record<string, unknown>, from?: { name: string; author: string }) => void;
 }) {
   const t = useT();
   const [filter, setFilter] = useState<'all' | 'friends' | 'shared'>('all');
@@ -483,7 +483,9 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
     try {
       const res = await api.loadRoster(army.id);
       if (onLoadCommunityArmy) {
-        onLoadCommunityArmy(res.roster.data as Record<string, unknown>);
+        // name the author so the builder can say whose list this is a copy of
+        onLoadCommunityArmy(res.roster.data as Record<string, unknown>,
+          { name: army.name, author: army.username });
       } else {
         onClose();
       }
