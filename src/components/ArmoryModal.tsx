@@ -224,7 +224,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // "Authority of the Inquisition" — Inquisition-only, capped at 1 item per model regardless
   // of which faction/section it came from.
-  const isInquisition = data.faction === 'Inquisition';
+  // The UNIT's own faction, not the primary army's. Keying off `data` meant that when
+  // Inquisition was the ALLIED detachment `data.faction` read the primary faction and the
+  // Authority tab never appeared for the Inquisition units entitled to it (GH#124).
+  // `activeData` is the data this item's armoury comes from, which is what the sibling gate
+  // `isInquisitionAcolytes` below already uses.
+  const isInquisition = activeData.faction === 'Inquisition';
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
 
   // Level 1 — once per model: blocked once the squad already holds one copy per model (item.size),
