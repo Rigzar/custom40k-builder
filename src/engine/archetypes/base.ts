@@ -209,6 +209,20 @@ export interface ArchetypeRule {
    * vs the `unique_upgrade` option group).
    */
   liftsUniqueChoices?: string[];
+  /**
+   * Stat changes the archetype applies to every unit in the army, e.g. Ratling Company's
+   * "All Creature units gain +1 Ballistic Skill" and "suffer -1 Strength and -1 Toughness".
+   *
+   * Pushed into the same list the TRAIT stat_mods use (`traitStatMods` in resolver.ts), so the
+   * unit card, the print view and the TTS export all honour it without a second code path.
+   *
+   * SIGN: WS, BS and SV print as "X+" where a LOWER number is better, so an IMPROVEMENT to
+   * those is a NEGATIVE delta (same convention as `EQUIP_STAT_MAP` in equipMods.ts). Every
+   * other stat is a plain number and a bonus is positive.
+   *
+   * `creatureOnly` skips vehicles, matching the codex's own "All Creature units" wording.
+   */
+  statMods?: { stat: string; delta: number; creatureOnly?: boolean }[];
 }
 
 export const BASE: ArchetypeRule = {

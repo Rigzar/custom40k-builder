@@ -1,6 +1,10 @@
 {
   "archetypes": [
     {
+      "name": "Airborne Assault Company",
+      "desc": "- The army doubles the amount of units that may enter from reserves each round during the Reinforcement phase. Roll one die for each unit.\n- May not select any Heavy Support units."
+    },
+    {
       "name": "Brood Brothers",
       "desc": "- Brood Brothers are treated like \"Genestealer Cults\" in the Ally matrix.\n- All creature units must gain the \"Ambush\" ability (see Genestealer Cults) for 1 point per Wound.\n- Models with access to the Armory can also access the Genestealer Cult Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
     },
@@ -14,15 +18,19 @@
     },
     {
       "name": "Jungle Fighters",
-      "desc": "- All units gain the \"Move through cover\" and \"Use cover\" abilities.\n- All creature units additionally gain the \"Infiltrate\" ability. \n- All creature units reduce their armor save by -1. \n- Creature units that have access to Lascannons may select a Heavy Flamer for +5 points in its place."
+      "desc": "- All units gain the \"Move through cover\" and \"Use cover\" abilities.\n- All creature units additionally gain the \"Infiltrate\" ability.\n- All creature units reduce their armor save by -1.\n- Creature units that have access to Lascannons may select a Heavy Flamer for +5 points in its place."
     },
     {
       "name": "Mechanised Company",
-      "desc": "- Dedicated transports from Mechanised Infantry squads count towards the 25% requirement for Troop selections with 50% of their point costs.\n- All creature units with less than 12\" Movement must start the game as passengers inside a transport.\n- Can not take a Leman Russ Tank Commander or a Leman Russ Commissar.\n- May only take a single Heavy Support selection."
+      "desc": "- Transport vehicles from Mechanised Infantry squads count towards the 25% requirement for Troop selections with 75% of their point costs.\n- All creature units with less than 12\" Movement must start the game as passengers inside a transport.\n- Can not take a Leman Russ Tank Commander or a Leman Russ Commissar.\n- May only take a single Heavy Support selection."
     },
     {
       "name": "Ogryn Regiment",
       "desc": "- Bullgryns, Ogryns and Ogryn Brutes can be taken as Troops.\n- All other Troop units become Elite choices."
+    },
+    {
+      "name": "Ratling Company",
+      "desc": "- All Creature units gain +1 Ballistic Skill.\n- All Creature units suffer -1 Strength and -1 Toughness.\n- Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers and Stormtrooper Command Squads may not be selected."
     },
     {
       "name": "Tempestus Scions",
@@ -30,15 +38,11 @@
     },
     {
       "name": "Traitor Guard",
-      "desc": "- Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+      "desc": "- Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Models with access to the Armory and a Mark of a God can also access the god specific Armory.\n- Models with the \"Psyker\" ability and a Mark of a God can also access that god specific psychic discipline.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- Must adhere to the \"Animosity of the Gods\" rule (see Chaos Space Marines).\n- Must adhere to the \"Summoning\" rule (see Chaos Space Marines).\n- May not select a Legacy."
     },
     {
       "name": "Veteran Company",
       "desc": "- Veterans can be taken as Troops.\n- All units in the army gain the ability to and must select a Veteran ability."
-    },
-    {
-      "name": "War Hawks",
-      "desc": "- The army doubles the amount of units that may enter from reserves each round during the Reinforcement phase. Roll one die for each unit.\n- May not select any Heavy Support units."
     },
     {
       "name": "Whiteshields",

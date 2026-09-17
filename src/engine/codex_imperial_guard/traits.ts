@@ -121,8 +121,11 @@ export const IG_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // SOURCE — Hardened Fighters:
   // "The unit gains +1 Weapon skill."
   // COST: 5 | 0 | - | -
+  // WS prints as "X+" and a LOWER number is better, so an IMPROVEMENT is a NEGATIVE delta
+  // (same convention as SV and BS; see EQUIP_STAT_MAP in equipMods.ts). Stored as +1 this
+  // made a 4+ Weapon Skill into a 5+ — GH#123.
   'Hardened Fighters': [
-    { type: 'stat_mod', stat: 'WS', delta: 1, applies_to: 'all' },
+    { type: 'stat_mod', stat: 'WS', delta: -1, applies_to: 'all' },
   ],
 
   // SOURCE — Heavy Infantry:

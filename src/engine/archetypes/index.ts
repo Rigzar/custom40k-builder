@@ -304,11 +304,37 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'War Hawks': { ...BASE,
+  // Renamed from "War Hawks" in the 2026-09-17 sheet; the effect text is unchanged.
+  'Airborne Assault Company': { ...BASE,
     bannedSlots: ['Heavy Support'],
     notes: [
       'The army doubles the number of units that may arrive from reserves each round.',
       'No Heavy Support units may be selected.',
+    ],
+  },
+
+  // SOURCE — Ratling Company (Imperial Guard 1.05, Army Customisation):
+  // "- All Creature units gain +1 Ballistic Skill.
+  //   - All Creature units suffer -1 Strength and -1 Toughness.
+  //   - Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers and Stormtrooper
+  //     Command Squads may not be selected."
+  // BS is a "X+" stat, so its +1 bonus is stored as -1 (see statMods' own doc comment).
+  // The banned names are spelled as the DATASHEETS spell them, which is why the sheet's
+  // plural "Stormtrooper Command Squads" is listed here in the singular.
+  'Ratling Company': { ...BASE,
+    bannedUnits: [
+      'Bullgryns', 'Ogryns', 'Ogryn Bodyguard', 'Ogryn Brutes',
+      'Stormtroopers', 'Stormtrooper Command Squad',
+    ],
+    statMods: [
+      { stat: 'BS', delta: -1, creatureOnly: true },
+      { stat: 'S',  delta: -1, creatureOnly: true },
+      { stat: 'T',  delta: -1, creatureOnly: true },
+    ],
+    notes: [
+      'All creature units gain +1 Ballistic Skill.',
+      'All creature units suffer -1 Strength and -1 Toughness.',
+      'Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers and Stormtrooper Command Squads may not be selected.',
     ],
   },
 
@@ -356,6 +382,9 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
       'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',
       'A Mark of Chaos counts as the unit\'s veteran ability, same as Chaos Space Marines.',
       'Models with Armory access may also use the Chaos Space Marine Armory.',
+      'With a Mark of a God, Armory access also reaches the Armory of that god, and a Psyker '
+        + 'also reaches the psychic discipline of that god.',
+      'The "Animosity of the Gods" and "Summoning" rules both apply, as for Chaos Space Marines.',
       'No Legacy may be selected.',
     ],
   },
@@ -518,6 +547,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 const RENAMED_ARCHETYPES: Record<string, string> = {
   'Titan Legion': 'Taghmata',           // Adeptus Mechanicus, 2026-08 codex
   'Sector Protector': 'Sector Lord',    // Inquisition, 2026-09 codex (1.01)
+  'War Hawks': 'Airborne Assault Company',  // Imperial Guard, 2026-09-17 sheet
   'Bloodbrides': 'Bloodbride Raid',        // Dark Eldar, 1.01 codex
   'Haemoxytes': 'Haemoxyte Raid',          // Dark Eldar, 1.01 codex
   'Trueborn': 'Trueborn Raid',             // Dark Eldar, 1.01 codex

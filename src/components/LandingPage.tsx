@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v173e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v173f_dismissed';
 
 // v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
@@ -41,7 +41,7 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v173e_dismissed';
 //   line9 = the three fixes those changes needed the next day (key -> v172h)
 // Append follow-ups here while v1.72 stays open. Bump ANNOUNCEMENT_KEY whenever these lines
 // change materially, or readers who dismissed the previous card never see the new one.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.73: a full check of the app against the codices — first results",
@@ -56,7 +56,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🔮 REPORTED ON GITHUB — SMITE'S DESCRIPTION WAS THE OLD ONE — it still said \"1D3 Mortal Wounds\" on a psyker's power list. Smite is three automatic hits at Strength 5, AP -1, Damage 1, Seeking, which is what the rest of the app already said.",
     line8: "🌤 LIGHT MODE: A LOT OF THINGS WERE INVISIBLE. Reported by one of you. The unit card's title sat dark-on-dark and was unreadable, and most of the small icons — the slot icons in the catalogue, the Chaos Mark icons, the stat and weapon-table icons — were being painted white onto a white panel. 41 of the 43 icons in the app were affected. Fixed by making the tints follow the theme, while the ones that sit on a deliberately dark badge stay light. If you use light mode, it should all be there now.",
     line9: "👁 SOMEONE ELSE'S LIST NOW OPENS LOCKED. Asked for by Dominic. Opening a community army used to drop you into the builder with everything clickable, so reading a list felt one wrong click away from wrecking it. It now opens in view mode, with a bar naming whose list it is and an EDIT MY COPY button. To be clear: nothing was ever at risk — what you open is a COPY, and the server has always refused any change to a list you do not own, Inquisitor rights included. It just never said so. AND YOU CAN NOW FILTER THE COMMUNITY LIST BY EVENT — also Dominic's idea — so \"show me every list in the league\" is one dropdown.",
-    line10: "🔍 THESE ARE THE FIRST RESULTS, NOT THE LAST. The check is still running, so expect more fixes in the next versions. Keep reporting anything that looks wrong — your reports are what tell us where to look first.",
+    line10: "🛡 IMPERIAL GUARD UPDATE FOR THE LEAGUE. The author sent a new sheet, so there is a new archetype: RATLING COMPANY gives every creature unit +1 Ballistic Skill and costs them -1 Strength and -1 Toughness, and cannot take Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers or Stormtrooper Command Squads. The stat changes are really applied — pick it and your cards change; vehicles are untouched, as the codex says. WAR HAWKS IS NOW AIRBORNE ASSAULT COMPANY: same rules, new name, and lists you already saved keep working. Also fixed: the HARDENED FIGHTERS trait was making Weapon Skill WORSE instead of better, and two archetype descriptions were wrong — Mechanised Company counts its transports at 75%, not 50% (the app always calculated it right, only the text was wrong).",
+    line11: "🔍 THESE ARE THE FIRST RESULTS, NOT THE LAST. The check is still running, so expect more fixes in the next versions. Keep reporting anything that looks wrong — your reports are what tell us where to look first.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
@@ -72,7 +73,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🔮 AUF GITHUB GEMELDET — SMITES BESCHREIBUNG WAR DIE ALTE — in der Kräfteliste stand noch \"1D3 Mortal Wounds\". Smite sind drei automatische Treffer mit Stärke 5, AP -1, Schaden 1, Seeking, so wie es der Rest der App längst sagte.",
     line8: "🌤 LIGHT MODE: VIELES WAR UNSICHTBAR. Von einem von euch gemeldet. Der Titel der Einheitenkarte stand dunkel auf dunkel und war unlesbar, und die meisten kleinen Symbole — die Slot-Symbole im Katalog, die Chaos-Mal-Symbole, die Werte- und Waffentabellen-Symbole — wurden weiß auf weißem Panel gezeichnet. 41 der 43 Symbole waren betroffen. Die Tönungen folgen jetzt dem Theme, während die auf bewusst dunklem Grund hell bleiben. Im Light Mode sollte jetzt alles da sein.",
     line9: "👁 FREMDE LISTEN ÖFFNEN JETZT GESPERRT. Von Dominic gewünscht. Bisher landete man beim Öffnen einer Community-Armee direkt im Builder, alles anklickbar — Lesen fühlte sich wie ein Fehlklick vom Zerstören entfernt an. Jetzt öffnet sie im Ansichtsmodus, mit einer Leiste, die sagt, wessen Liste es ist, und einem Button MEINE KOPIE BEARBEITEN. Zur Klarstellung: es war nie etwas in Gefahr — ihr öffnet eine KOPIE, und der Server hat Änderungen an fremden Listen immer abgelehnt, Inquisitor-Rechte eingeschlossen. Es stand nur nirgends. UND DIE COMMUNITY-LISTE LÄSST SICH JETZT NACH EVENT FILTERN — ebenfalls Dominics Idee — \"zeig mir alle Listen der Liga\" ist damit ein Dropdown.",
-    line10: "🔍 DAS SIND DIE ERSTEN ERGEBNISSE, NICHT DIE LETZTEN. Die Prüfung läuft weiter, es kommen also weitere Korrekturen in den nächsten Versionen. Meldet weiterhin alles, was falsch aussieht — eure Meldungen sagen uns, wo wir zuerst hinschauen.",
+    line10: "🛡 IMPERIALE-ARMEE-UPDATE FÜR DIE LIGA. Der Autor hat ein neues Tabellenblatt geschickt, also gibt es einen neuen Archetyp: RATLING COMPANY gibt jeder Kreatureneinheit +1 Ballistische Fähigkeit und kostet sie -1 Stärke und -1 Widerstand, und kann keine Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers oder Stormtrooper Command Squads nehmen. Die Wertänderungen werden wirklich angewendet — wählt ihn und eure Karten ändern sich; Fahrzeuge bleiben unberührt, wie es der Codex sagt. WAR HAWKS HEISST JETZT AIRBORNE ASSAULT COMPANY: gleiche Regeln, neuer Name, gespeicherte Listen laufen weiter. Außerdem behoben: die Eigenschaft HARDENED FIGHTERS machte das Kampfgeschick SCHLECHTER statt besser, und zwei Archetyp-Beschreibungen waren falsch — Mechanised Company zählt seine Transporter mit 75%, nicht 50% (gerechnet wurde immer richtig, nur der Text war falsch).",
+    line11: "🔍 DAS SIND DIE ERSTEN ERGEBNISSE, NICHT DIE LETZTEN. Die Prüfung läuft weiter, es kommen also weitere Korrekturen in den nächsten Versionen. Meldet weiterhin alles, was falsch aussieht — eure Meldungen sagen uns, wo wir zuerst hinschauen.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -88,7 +90,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🔮 REPORTADO EN GITHUB — LA DESCRIPCIÓN DE SMITE ERA LA VIEJA — en la lista de poderes seguía diciendo \"1D3 Heridas Mortales\". Smite son tres impactos automáticos con Fuerza 5, AP -1, Daño 1, Seeking, que es lo que ya decía el resto de la app.",
     line8: "🌤 MODO CLARO: HABÍA UN MONTÓN DE COSAS QUE NO SE VEÍAN. Reportado por uno de vosotros. El título de la ficha de unidad salía oscuro sobre oscuro e ilegible, y la mayoría de los iconos pequeños — los de slot del catálogo, los de Marca de Caos, los de stats y los de la tabla de armas — se pintaban en blanco sobre un panel blanco. Afectaba a 41 de los 43 iconos de la app. Ahora los tintes siguen al tema, y los que van sobre una chapa oscura a propósito se quedan claros. Si usas modo claro, ya debería estar todo.",
     line9: "👁 LA LISTA DE OTRO YA SE ABRE BLOQUEADA. Pedido por Dominic. Antes, al abrir un ejército de la comunidad caías en el builder con todo clicable, así que leer una lista parecía estar a un clic de cargártela. Ahora se abre en modo consulta, con una barra que dice de quién es y un botón EDITAR MI COPIA. Y que quede claro: nunca hubo nada en riesgo — lo que abres es una COPIA, y el servidor siempre ha rechazado cualquier cambio en una lista que no sea tuya, derechos de Inquisidor incluidos. Simplemente no se decía. Y LA LISTA DE LA COMUNIDAD YA SE PUEDE FILTRAR POR EVENTO — también idea de Dominic — así \"enséñame todas las listas de la liga\" es un desplegable.",
-    line10: "🔍 ESTOS SON LOS PRIMEROS RESULTADOS, NO LOS ÚLTIMOS. La revisión sigue, así que habrá más arreglos en las siguientes versiones. Seguid reportando cualquier cosa que parezca mal — vuestros reportes son lo que nos dice dónde mirar primero.",
+    line10: "🛡 UPDATE DE GUARDIA IMPERIAL PARA LA LIGA. El autor mandó hoja nueva, así que hay un arquetipo nuevo: RATLING COMPANY da a cada unidad criatura +1 a Habilidad de Proyectiles y le quita -1 Fuerza y -1 Resistencia, y no puede llevar Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers ni Stormtrooper Command Squads. Los cambios de stats se aplican de verdad — lo eliges y tus fichas cambian; los vehículos no se tocan, como dice el códex. WAR HAWKS AHORA SE LLAMA AIRBORNE ASSAULT COMPANY: mismas reglas, nombre nuevo, y las listas que ya tengas guardadas siguen funcionando. También arreglado: el trait HARDENED FIGHTERS empeoraba la Habilidad de Armas en vez de mejorarla, y dos descripciones de arquetipo estaban mal — Mechanised Company cuenta sus transportes al 75%, no al 50% (la app siempre calculó bien, lo que estaba mal era el texto).",
+    line11: "🔍 ESTOS SON LOS PRIMEROS RESULTADOS, NO LOS ÚLTIMOS. La revisión sigue, así que habrá más arreglos en las siguientes versiones. Seguid reportando cualquier cosa que parezca mal — vuestros reportes son lo que nos dice dónde mirar primero.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -166,7 +169,7 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.71's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.72 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

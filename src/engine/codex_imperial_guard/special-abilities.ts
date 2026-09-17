@@ -77,7 +77,9 @@ export const IG_SPECIAL_ABILITIES: IgSpecialAbilityEntry[] = [
       'toward Troops 25%; single Heavy Support), Ogryn Regiment (Bullgryns/Ogryns/Ogryn Brutes→' +
       'Troops, others→Elite), Tempestus Scions (roster restricted to Scion units; Stormtroopers→' +
       'Troops; all gain Objective secured!), Veteran Company (Veterans→Troops; all units must take a ' +
-      'Veteran ability), War Hawks (double reserve entry; no Heavy Support), Whiteshields (Conscripts ' +
+      'Veteran ability), Airborne Assault Company (double reserve entry; no Heavy Support), ' +
+      'Ratling Company (creature units +1 BS, -1 S and -1 T; no Bullgryns/Ogryns/Ogryn Bodyguard/' +
+      'Ogryn Brutes/Stormtroopers/Stormtrooper Command Squad), Whiteshields (Conscripts ' +
       'without Platoon Command; 1 other Troop per Conscript Platoon), Jungle Fighters (Move-through/' +
       'Use cover + Infiltrate; -1 Sv). Full AOP-remap data canonical in `archetypes.json`.',
   },

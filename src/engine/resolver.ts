@@ -845,6 +845,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const traitsApply = (isMainFaction || isAlliedScopeItem) &&
     (itemFactionForTraits !== 'Chaos Space Marines' || hasCSMKeyword);
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
+  // An archetype can change stats army-wide too (Ratling Company). Same list as the traits,
+  // so the card, the print view and the TTS export all honour it with no second code path.
+  for (const sm of rule?.statMods ?? []) {
+    if (sm.creatureOnly && unit.is_vehicle) continue;
+    traitStatMods.push({ stat: sm.stat, delta: sm.delta });
+  }
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
   const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
   const traitGrantedItems: string[] = [];
