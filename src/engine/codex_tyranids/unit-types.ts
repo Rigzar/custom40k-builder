@@ -33,7 +33,7 @@ export const TYRANID_UNIT_TYPES: TyranidUnitTypeEntry[] = [
   // Elites
   { name: 'Deathleaper', unit_type: 'Monstrous Infantry' },
   { name: 'Haruspex', unit_type: 'Monstrous Creature' },
-  { name: 'Hive Guard Brood', unit_type: 'Infantry' },
+  { name: 'Hive Guard Brood', unit_type: 'Monstrous Infantry' },
   { name: 'Lictor Brood', unit_type: 'Monstrous Infantry' },
   { name: 'Maleceptor', unit_type: 'Monstrous Creature' },
   { name: 'Toxicrene', unit_type: 'Monstrous Creature' },
@@ -46,12 +46,12 @@ export const TYRANID_UNIT_TYPES: TyranidUnitTypeEntry[] = [
   { name: 'Mucolid Spore Cluster', unit_type: 'Jump Pack Infantry' },
   { name: 'Parasite of Mortrex', unit_type: 'Jump Pack Infantry' },
   { name: 'Psychophage', unit_type: 'Monstrous Creature' },
-  { name: 'Pyrovore Brood', unit_type: 'Infantry' },
+  { name: 'Pyrovore Brood', unit_type: 'Monstrous Infantry' },
   { name: 'Ravener Brood', unit_type: 'Bike' },
   { name: 'Spore Mine Cluster', unit_type: 'Infantry' },
   { name: 'Trygon', unit_type: 'Monstrous Creature' },
   // Heavy Support
-  { name: 'Biovore Brood', unit_type: 'Infantry' },
+  { name: 'Biovore Brood', unit_type: 'Monstrous Infantry' },
   { name: 'Carnifex Brood', unit_type: 'Monstrous Creature' },
   { name: 'Exocrine', unit_type: 'Monstrous Creature' },
   { name: 'Norn', unit_type: 'Monstrous Creature' },

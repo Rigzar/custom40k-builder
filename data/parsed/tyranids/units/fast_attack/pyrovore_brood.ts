@@ -309,7 +309,7 @@ export const pyrovoreBrood: Unit = {
     "Instinctive Behaviour, Massive(2), Move Through Cover",
     "Volatile: The model always explodes like a vehicle."
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Monstrous Infantry",
   "keywords": [
     "Tyranid",
     "Advanced Bioform"

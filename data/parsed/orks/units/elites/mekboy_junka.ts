@@ -263,7 +263,7 @@ export const mekboyJunka: Unit = {
     "Transport: This model has a transport capacity of 12 infantry models. If equipped with a big gun, it has a transport capacity of 6 infantry models.",
     "Big Drill: A junka equipped with a Big Drill gains the Deep Strike rule. It resolves Tank Shocks using the Big Drill weapon profile.",
     "Eavy plates: A junka with 'Eavy plates increases its front and side armor to 12.",
-    "Grot-guided: This weapon is fired with a BS of 4+ and ignores cover. Enemy targets in cover do not gain an armor bonus, and the firer suffers no hit penalty.",
+    "Grot-guided: This weapon is fired with a BS of 4+ and gains Seeking.",
     "Junka force field: A junka equipped with a Junka Force Field and any friendly unit entirely within 9\" gains the \"Warded\" ability against ranged attacks.",
     "Mek weapon: This weapon's profile cannot be changed by equipment or wargear.",
     "Junka Shokk Attack Gun: Roll for the strength of this weapon after you have selected a target. If doubles are rolled, consult the following table. If doubles are rolled: 1-1: Awups! The shooter and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! Nearest visible unit not in melee becomes the new target (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Blast(6), Suppression(3). 5-5: Big wrong button! Remove the shooter from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! Fires with Strength D and AT(3), loses Blast(6) this activation.",

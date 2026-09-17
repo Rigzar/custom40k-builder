@@ -31,7 +31,7 @@ export const tyranidWarriorBrood: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Scything talons; Spinefists.",
+  "equipped_with": "Every model is equipped with: 2 Scything talons.",
   "weapons": [
     {
       "name": "Barbed strangler",
@@ -140,7 +140,7 @@ export const tyranidWarriorBrood: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Each model may swap their Scything talons",
+      "header": "Each model may swap one of their Scything talons",
       "constraint": {
         "type": "every"
       },
@@ -166,14 +166,14 @@ export const tyranidWarriorBrood: Unit = {
       ]
     },
     {
-      "header": "Each model may swap their Spinefists",
+      "header": "Each model may swap one of their Scything talons",
       "constraint": {
         "type": "every"
       },
       "choices": [
         {
-          "name": "Scything talons",
-          "points": 0
+          "name": "Spinefists",
+          "points": 2
         },
         {
           "name": "Devourer",
@@ -188,7 +188,7 @@ export const tyranidWarriorBrood: Unit = {
       "variant_link": null,
       "is_unique_per_army": false,
       "replaces": [
-        "Spinefists"
+        "Scything talons"
       ]
     },
     {

@@ -6,7 +6,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "4",
-      "effect": "Roll 1D6 and add the caster's Ld score. The target suffers one automatic wound for each point of difference to its own Ld value. Seeking.",
+      "effect": "Roll 1D6 and add the caster's Ld score. The target suffers one automatic wound for each point of difference to its own Ld value with Strength: 4 AP: 0 Damage: 1; Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -450,7 +450,7 @@
       "range": "-",
       "target": "Self",
       "cast_value": "5",
-      "effect": "The psyker's melee attacks gain cumulative +1 Strength and -1 AP for each point of difference between his own Leadership and his target's.",
+      "effect": "The psyker's melee attacks gain cumulative +1 Strength and -1 AP for each point his own Leadership is higher than his target's.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

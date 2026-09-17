@@ -317,7 +317,7 @@ export const hiveGuardBrood: Unit = {
   "abilities": [
     "Instinctive Behaviour, Massive(1), Move Through Cover"
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Monstrous Infantry",
   "keywords": [
     "Tyranid",
     "Advanced Bioform"

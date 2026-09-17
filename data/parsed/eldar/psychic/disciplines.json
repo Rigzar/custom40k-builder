@@ -16,7 +16,7 @@
       "range": "24\"",
       "target": "Friendly unit",
       "cast_value": "7",
-      "effect": "The target gains the benefit of heavy cover.",
+      "effect": "The target gains Stealth.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

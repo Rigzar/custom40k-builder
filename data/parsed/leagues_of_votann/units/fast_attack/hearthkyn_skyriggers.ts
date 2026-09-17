@@ -181,7 +181,7 @@ export const hearthkynSkyriggers: Unit = {
     "Eye of the Ancestors, Steady Advance, Void armor",
     "Medipack: The model gains the \"Narthecium\" ability.",
     "Multiwave comms array: The unit may use the Ld value of a friendly Kâhl, if any is present and alive in the army.",
-    "Pan spectral scanner: All weapons of the unit gain +1 AP when shooting at targets that benefit from cover."
+    "Pan spectral scanner: All weapons of the unit gain \"Sunder(1)\"."
   ],
   "unit_type": "Jump Pack Infantry",
   "keywords": [],

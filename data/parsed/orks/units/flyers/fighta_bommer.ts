@@ -233,7 +233,7 @@ export const fightaBommer: Unit = {
   ],
   "abilities": [
     "Dakka Dakka Dakka, Waaagh!",
-    "Grot-guided: This weapon is fired with a BS of 4+ and ignores cover. Enemy targets in cover do not gain an armor bonus, and the firer suffers no hit penalty.",
+    "Grot-guided: This weapon is fired with a BS of 4+ and gains Seeking.",
     "Grot Gunner: A weapon with a Grot gunner is fired with a BS of 4+.",
     "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation."
   ],

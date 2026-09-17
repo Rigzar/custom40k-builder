@@ -145,8 +145,8 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Levitation',
       type: 'Augmentation', range: '12"', target: 'Friendly unit',
-      cast_value: '6', duration: 'Until the caster\'s next activation', complexity: 'Basic',
-      effect: 'The target gains +6" Movement (to a maximum of 12") and the "Anti-Grav" ability.',
+      cast_value: '5', duration: 'Until the caster\'s next activation', complexity: 'Basic',
+      effect: 'The target gains +2" Movement (to a maximum of 12") and the "Anti-Grav" ability.',
     },
     {
       name: 'Mechanical Blockade',

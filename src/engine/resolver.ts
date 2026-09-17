@@ -1216,6 +1216,16 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
 
+  // Wargear worded "All weapons of the unit gain <Ability>" (Pan spectral scanner, Faolchu). Same
+  // gap class as Infrasonic Roar above: the text was stored and paid for and no weapon row ever
+  // showed it. "All weapons" is literal here, melee included - Sunder cuts the cover bonus to the
+  // armour save, which a melee attack against a unit in cover runs into just the same.
+  for (const ability of allWeaponsWargearGrants(unit, item)) {
+    for (const weapon of weapons) {
+      weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), ability]);
+    }
+  }
+
   const blackCrusadeChampion = !!(item.blackCrusadeHQ);
 
   // Collect abilities from selected choices that have their own abilities array
@@ -2189,6 +2199,71 @@ function isNamedChoiceActive(unit: Unit, item: RosterEntry, choiceName: string):
     const ci = (g.choices ?? []).findIndex(c => c.name === choiceName);
     return ci >= 0 && (item.optionQty?.[gi]?.[ci] ?? 0) > 0;
   });
+}
+
+/**
+ * Is a named piece of WARGEAR on this unit right now? Broader than `isNamedChoiceActive`, because
+ * the same item is written three different ways across the codices and all three have to work:
+ *
+ *   1. a paid choice named after it      — Hearthkyn Skyriggers / Warriors, Hernkyn Pioneers
+ *   2. an inline group that names it in the HEADER, with no choices at all and a tick-box
+ *      ("1 Voidscarred may be equipped with a Faolchu for +10 points.")
+ *   3. DEFAULT equipment that a "Can replace the X" group can take away — the Hekaton Land
+ *      Fortress starts with its Pan spectral scanner and only loses it if that group is used
+ */
+function isNamedWargearActive(unit: Unit, item: RosterEntry, name: string): boolean {
+  if (isNamedChoiceActive(unit, item, name)) return true;
+  // Accent-folded throughout: the Eldar item is spelled "Faolchú" in the headers and the ability
+  // line, and a plain toLowerCase() comparison against "Faolchu" silently matches nothing.
+  const lower = accentFold(name);
+  const has = (s: string | undefined) => accentFold(s ?? '').includes(lower);
+  // (2) inline tick-box on a group whose header names the item
+  const inlineOn = unit.option_groups.some((g, gi) =>
+    !(g.choices ?? []).length
+    && has(g.header)
+    && (item.optionQty?.[gi]?.['__inline'] ?? 0) > 0);
+  if (inlineOn) return true;
+  // (3) default equipment, unless a replace-group has actually been used to swap it out
+  if (!has(unit.equipped_with)) return false;
+  const replaced = unit.option_groups.some((g, gi) =>
+    /\b(?:can|may)\s+replace\b/i.test(g.header ?? '')
+    && has(g.header)
+    && Object.entries(item.optionQty?.[gi] ?? {}).some(([, q]) => (q ?? 0) > 0));
+  return !replaced;
+}
+
+/** Lower-cased and stripped of diacritics, so "Faolchú" and "Faolchu" are the same string. */
+const accentFold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+/**
+ * Wargear whose ability line reads "All weapons of the unit gain <Ability>" — the ability goes on
+ * every weapon row, not just into the ability list. Only the item NAME is listed here; WHAT it
+ * grants is read from that unit's own ability text (see the doc on the loop that uses this), so a
+ * datasheet the author has not updated yet keeps granting exactly what it prints.
+ */
+const ALL_WEAPONS_WARGEAR: readonly string[] = [
+  'Pan spectral scanner',   // Leagues of Votann - Skyriggers, Warriors, Hernkyn Pioneers, Hekaton
+  'Faolchu',                // Eldar - Corsair Voidscarred (matched accent-insensitively below)
+];
+
+/** "Sunder(1)", "Deadly(5+)" - a parameterised rules ability, which plain prose never looks like. */
+const ABILITY_TOKEN = /gain\s*["'\u201c]?([A-Z][A-Za-z' -]*\(\s*\d+\+?\s*\))/;
+
+/**
+ * For each piece of ALL_WEAPONS_WARGEAR the unit actually has, the ability its OWN datasheet says
+ * it grants — or nothing, when that datasheet still carries the older hand-written wording.
+ */
+function allWeaponsWargearGrants(unit: Unit, item: RosterEntry): string[] {
+  const out: string[] = [];
+  for (const name of ALL_WEAPONS_WARGEAR) {
+    const line = (unit.abilities ?? []).find(a => accentFold(a).startsWith(accentFold(name) + ':'));
+    if (!line) continue;
+    const ability = line.match(ABILITY_TOKEN)?.[1];
+    if (!ability) continue;                       // still on the old prose - grants nothing yet
+    if (!isNamedWargearActive(unit, item, name)) continue;
+    out.push(ability);
+  }
+  return out;
 }
 
 /**

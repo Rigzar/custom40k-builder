@@ -372,7 +372,7 @@ export const corsairVoidscarred: Unit = {
   ],
   "abilities": [
     "Channeler stones: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
-    "Faolchú: All weapons of the unit gain +1 AP when shooting at targets that benefit from cover.",
+    "Faolchú: All weapons of the unit gain \"Sunder(1)\".",
     "Ghosthelm: The Way Seeker ignores the first Perils of the warp attack each round.",
     "Mistshield: The model and it's attached unit gain a 5+ ward save against ranged attacks.",
     "Neuro disruptor: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",

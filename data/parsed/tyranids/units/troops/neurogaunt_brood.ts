@@ -69,7 +69,7 @@ export const neurogauntBrood: Unit = {
         },
         {
           "name": "Endless",
-          "points": 3,
+          "points": 4,
           "effect": {
             "grants_abilities": [
               "Endless: If the unit is below half its starting strength or is destroyed, it can be removed from the field once per game at the end of the battle round and automatically reappears as a reserve at full starting strength in the next battle round. You get one \"Spawning pool\" token for every started three units with this ability."

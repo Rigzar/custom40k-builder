@@ -8,7 +8,8 @@
  * every player sees them immediately.
  *
  * Deliberately narrow: an override can only change a value that already exists (a model's points,
- * one stat, one field of one weapon). It can never add or remove units, weapons or options — that
+ * one stat, one field of one weapon, one upgrade's cost). It can never add or remove units,
+ * weapons or options — that
  * still requires a real data change, reviewed against the .ods. Anything that doesn't match an
  * existing target is skipped silently, so a stale override can't corrupt a faction.
  */
@@ -17,8 +18,8 @@ import type { FactionData, Unit, Model, Weapon } from '../types/data';
 export interface DataOverride {
   /** Unit name as it appears in the faction's units map. */
   unit: string;
-  kind: 'points' | 'stat' | 'weapon';
-  /** Model name (points/stat) or weapon name (weapon). */
+  kind: 'points' | 'stat' | 'weapon' | 'option';
+  /** Model name (points/stat), weapon name (weapon), or choice name (option). */
   target: string;
   /** 'points', a stat key ('M', 'T', 'FRONT'…), or a weapon field ('range', 'type', 's', 'ap', 'd', 'abilities'). */
   field: string;
@@ -52,6 +53,21 @@ export function applyDataOverrides(data: FactionData, overrides: DataOverride[] 
   for (const o of overrides) {
     const unit = units?.[o.unit];
     if (!unit) continue;
+
+    if (o.kind === 'option') {
+      // An upgrade's cost. Only ever applied when exactly ONE choice in the whole unit carries
+      // that name: two same-named choices give no way to tell which the admin meant, and silently
+      // picking one is how the wrong row gets edited.
+      if (o.field !== 'points') continue;
+      const matches = (unit.option_groups ?? [])
+        .flatMap(g => g.choices ?? [])
+        .filter(c => c.name === o.target);
+      const n = Number(o.value);
+      if (matches.length !== 1 || !Number.isFinite(n)) continue;
+      matches[0].points = n;
+      applied++;
+      continue;
+    }
 
     if (o.kind === 'weapon') {
       if (!WEAPON_FIELDS.has(o.field)) continue;

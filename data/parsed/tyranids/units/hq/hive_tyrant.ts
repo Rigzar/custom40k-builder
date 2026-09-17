@@ -37,7 +37,7 @@ export const hiveTyrant: Unit = {
   "variant_models": [
     {
       "name": "Legendary Hive Tyrant",
-      "points": 339,
+      "points": 312,
       "min": 0,
       "max": 0,
       "stats": {
@@ -172,7 +172,7 @@ export const hiveTyrant: Unit = {
         "type": "unique_upgrade"
       },
       "choices": [],
-      "inline_pts": 55,
+      "inline_pts": 56,
       "variant_link": "Legendary Hive Tyrant",
       "is_unique_per_army": true
     },

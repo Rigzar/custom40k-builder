@@ -196,7 +196,7 @@ export const hekatonLandFortress: Unit = {
   ],
   "abilities": [
     "Eye of the Ancestors, Void armor",
-    "Pan spectral scanner: All weapons of the unit gain +1 AP when shooting at targets that benefit from cover.",
+    "Pan spectral scanner: All weapons of the unit gain \"Sunder(1)\".",
     "Transport: This model has a transport capacity of 12 infantry models."
   ],
   "unit_type": "Vehicle",

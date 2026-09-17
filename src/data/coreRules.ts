@@ -264,7 +264,7 @@ export const RULES: Record<string, RuleEntry> = {
   // Orks 1.01.ods
   'grot-guided': {
     name: 'Grot-guided',
-    description: 'This weapon is fired with a BS of 4+ and ignores cover. Enemy targets in cover do not gain an armor bonus, and the firer suffers no hit penalty.',
+    description: 'This weapon is fired with a BS of 4+ and gains Seeking.',
   },
   'grot gunner': {
     name: 'Grot Gunner',

@@ -231,7 +231,7 @@ export const chaosVindicator: Unit = {
     }
   ],
   "abilities": [
-    "Siege shield: The model automatically passes tests for difficult terrain and is not slowed down by it. Additionally, attacks from the front always treat the Vindicator as being in cover."
+    "Siege shield: The model automatically passes tests for difficult terrain and is not slowed down by it. Additionally, attacks from the front always treat the model as being in light cover."
   ],
   "unit_type": "Vehicle",
   "keywords": [

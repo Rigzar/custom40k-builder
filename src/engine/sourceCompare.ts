@@ -5,7 +5,8 @@
  * diffs it against the loaded faction data.
  *
  * Compares model POINTS, model STATS (header-driven, so infantry M/WS/BS/S/T/W/I/A/LD/SV and
- * vehicle FRONT/SIDE/REAR/HP both work) and WEAPON profiles (range/type/S/AP/D/abilities).
+ * vehicle FRONT/SIDE/REAR/HP both work), WEAPON profiles (range/type/S/AP/D/abilities) and
+ * OPTION COSTS (the "- Name  +N points" rows of the OPTIONS block).
  *
  * Read-only: it reports differences, it never writes anything.
  *
@@ -28,7 +29,7 @@ export type FixOwner = 'sheet' | 'code' | 'unknown';
 export interface SourceFinding {
   unit: string;
   /** 'sheet' = an anomaly in the source itself (e.g. the same weapon listed twice) */
-  kind: 'points' | 'stat' | 'weapon' | 'sheet';
+  kind: 'points' | 'stat' | 'weapon' | 'option' | 'sheet';
   /** model name (points/stat) or weapon name */
   target: string;
   /** 'points', a stat key ('M', 'T', 'FRONT'…), or a weapon field ('range', 'ap'…) */
@@ -501,6 +502,50 @@ export function coverageGaps(faction: FactionData, csvByUnit: Record<string, str
 }
 
 /** Diff production (models: points + stats, weapons: full profile) vs the source CSVs by unit name. */
+/** One upgrade row of an OPTIONS block: what it is called and what it costs. */
+export interface SourceOption { name: string; points: number }
+
+/** Rows that end the OPTIONS block. The sheet always follows it with one of these headers. */
+const OPTIONS_END = /^(ABILITIES|UNIT TYPE|KEYWORDS|WEAPON|OPTIONS)$/i;
+
+/**
+ * Parse the OPTIONS block: the "- Scuttlers | +1 point" rows, which is where every upgrade cost in
+ * the game lives. Returns each name with EVERY price found for it, so a caller can tell a single
+ * unambiguous row from a name the sheet uses twice.
+ *
+ * Bullet rows ("• May select one Special Biomorph:") are group headers, not priced options, and a
+ * bullet that names its own price promotes a model whose variant POINTS row is compared already.
+ */
+export function extractOptions(csv: string): Record<string, number[]> {
+  const rows = csvRows(csv);
+  const out: Record<string, number[]> = {};
+  let inBlock = false;
+  for (const r of rows) {
+    const first = norm(r[0]);
+    if (/^OPTIONS$/i.test(first)) { inBlock = true; continue; }
+    if (!inBlock) continue;
+    if (OPTIONS_END.test(first)) break;
+    const m = first.match(/^[-\u2013\u2022]\s*(.+)$/);
+    if (!m || /^\u2022/.test(first)) continue;          // not an upgrade row
+    const name = norm(m[1]).replace(/:$/, '');
+    // The sheets spell a price fourteen different ways, and a reader that knows only the common
+    // one skips the rest in silence — "+5 points/model" alone hid 27 of the 38 Necron datasheets
+    // from this check. Surveyed across every workbook: "+N points" (1926), "+N point" (80),
+    // "+N points/model" (70), "+Npts" (27), "+N points each" (8), bare "N points" (6),
+    // "+N Punkte" (5, German), "+N point/model" (5), "N point" (3), "+N pts", "+N pt",
+    // "+N point per model", "+N points per model", and one "+N pints".
+    //
+    // Only the NUMBER is compared; whether the cost is per model is the option group's own
+    // `per_model` flag, which the sheet's "/model" suffix describes and this check does not touch.
+    const priceCell = norm(r[1]);
+    const pm = priceCell.match(
+      /^([+-]?\d+)\s*(?:points?|pints?|pts?|punkte)?\s*(?:(?:\/|\s+per\s+)\s*model|each)?\.?$/i);
+    if (!name || !pm) continue;
+    (out[name] ??= []).push(parseInt(pm[1], 10));
+  }
+  return out;
+}
+
 export function compareFaction(faction: FactionData, csvByUnit: Record<string, string | null>): SourceFinding[] {
   const findings: SourceFinding[] = [];
   const units = faction.units as Record<string, Unit>;
@@ -574,6 +619,35 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
               : `Tab "${unit.name}", weapon "${w.name}", column ${field.toUpperCase()}. If the sheet is right, press Apply and the app matches it immediately; if the app is right, change the cell.`,
           });
         }
+      }
+    }
+
+    // ── option costs: the "- Name  +N points" rows of the OPTIONS block ──
+    const srcOptions = extractOptions(csv);
+    const prodOptions = new Map<string, number[]>();
+    for (const g of unit.option_groups ?? []) {
+      for (const c of g.choices ?? []) {
+        if (c.points == null) continue;
+        prodOptions.set(c.name, [...(prodOptions.get(c.name) ?? []), c.points]);
+      }
+    }
+    for (const [name, srcPrices] of Object.entries(srcOptions)) {
+      const prodPrices = prodOptions.get(name);
+      if (!prodPrices) continue;                       // name doesn't line up — skip, don't guess
+      if (srcPrices.length > 1 || prodPrices.length > 1) {
+        findings.push({
+          unit: unit.name, kind: 'sheet', target: name, field: 'duplicate option row',
+          source: srcPrices.join(' / '), prod: prodPrices.join(' / '), fix: 'unknown',
+          action: `Tab "${unit.name}" offers "${name}" more than once, so there is no single cost to compare — editing one of them would be a guess at which. Give the rows distinct names if they are different upgrades.`,
+        });
+        continue;
+      }
+      if (srcPrices[0] !== prodPrices[0]) {
+        findings.push({
+          unit: unit.name, kind: 'option', target: name, field: 'points',
+          source: String(srcPrices[0]), prod: String(prodPrices[0]), fix: 'unknown',
+          action: `Tab "${unit.name}", OPTIONS row "${name}". If the sheet is right, press Apply and the app matches it immediately; if the app is right, change the cell.`,
+        });
       }
     }
   }

@@ -292,7 +292,7 @@ export const biovoreBrood: Unit = {
     "Instinctive Behaviour, Massive(2), Move Through Cover",
     "Spore Mine Launcher: Instead of shooting at an enemy, a Biovore may create a unit of \"Spore Mine Cluster\" (3 models) within 48\" of itself and at least 9\" away from any enemy unit."
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Monstrous Infantry",
   "keywords": [
     "Tyranid",
     "Advanced Bioform"

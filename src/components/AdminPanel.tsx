@@ -1432,7 +1432,8 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
             {fixBadge(f.fix)}
             <span className={`shrink-0 w-14 text-[9px] uppercase ${
               f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
-              : f.kind === 'sheet' ? 'text-red-500' : 'text-fuchsia-500'
+              : f.kind === 'sheet' ? 'text-red-500' : f.kind === 'option' ? 'text-emerald-500'
+              : 'text-fuchsia-500'
             }`}>{f.kind}</span>
             <span className="text-zinc-300 flex-1 truncate" title={L.srcTabHint(f.unit)}>
               {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
