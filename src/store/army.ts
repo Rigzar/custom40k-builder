@@ -7,6 +7,7 @@ import { resolveUnit } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
 import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
+import { isPsykerOnlyTrait } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
 import { armoryItemsLostByDeselecting, repairOrphanedArmory } from '../utils/armoryGuard';
@@ -92,6 +93,14 @@ function computeTraitSelections(
       // every faction regardless of how the effect's applies_to was modelled. Matches all phrasings:
       // "Only for creatures." / "Only for creature units." / "Only for creature models …".
       if (unit.is_vehicle && /only for creature/i.test(def.desc)) return null;
+
+      // "Only for Psykers." — Eldar's Children of Prophecy and Space Marines' Knowledge is Power.
+      // The engine has only ever given these to psykers, and the picker stopped offering them to
+      // anyone else, but a list SAVED before that kept paying for an inert trait — reported as
+      // "Children of prophecy still seems the same to me. Will I need to remake the list?" The
+      // answer has to be no. Dropped HERE, which every read passes through: a saved list, a shared
+      // link and an imported code all heal themselves when the app updates, with no migration.
+      if (isPsykerOnlyTrait(name) && !unit.is_psyker) return null;
 
       let raw: string | null | undefined;
       if (unit.is_vehicle) {
