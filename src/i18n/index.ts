@@ -286,6 +286,10 @@ export type TranslationKey =
   | 'filterByFaction'
   | 'filterByArchetype'
   | 'filterByEngagement'
+  | 'evRegClosedByDate'
+  | 'evRegClosedByDateOrganiser'
+  | 'evRegNotYetOpen'
+  | 'evRegNotYetOpenOrganiser'
   | 'evSave'
   | 'evEditEvent'
   | 'evEditEventHint'
@@ -1165,6 +1169,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     filterByFaction: 'Any faction',
     filterByArchetype: 'Any archetype',
     filterByEngagement: 'Any battle type',
+    evRegClosedByDate: 'Registration closed on {date}.',
+    evRegClosedByDateOrganiser: 'Registration closed on {date} — the league is open, only the sign-up window has passed. Use EDIT EVENT above and change “Registration closes” to reopen it; the open/closed button does not control this.',
+    evRegNotYetOpen: 'Registration opens on {date}.',
+    evRegNotYetOpenOrganiser: 'Registration opens on {date} — the league is open, the sign-up window simply has not started. Use EDIT EVENT above to change “Registration opens”.',
     evSave: 'Save',
     evEditEvent: 'Edit event',
     evEditEventHint: 'Only you can change these. Registration still has to close on or before the start date.',
@@ -2041,6 +2049,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     filterByFaction: 'Alle Fraktionen',
     filterByArchetype: 'Alle Archetypen',
     filterByEngagement: 'Alle Schlachtarten',
+    evRegClosedByDate: 'Die Anmeldung endete am {date}.',
+    evRegClosedByDateOrganiser: 'Die Anmeldung endete am {date} — die Liga ist offen, nur das Anmeldefenster ist vorbei. Ändere unter EVENT BEARBEITEN das Feld „Anmeldung endet“, um sie wieder zu öffnen; der Offen/Geschlossen-Knopf steuert das nicht.',
+    evRegNotYetOpen: 'Die Anmeldung beginnt am {date}.',
+    evRegNotYetOpenOrganiser: 'Die Anmeldung beginnt am {date} — die Liga ist offen, das Anmeldefenster hat nur noch nicht begonnen. Ändere unter EVENT BEARBEITEN das Feld „Anmeldung beginnt“.',
     evSave: 'Speichern',
     evEditEvent: 'Event bearbeiten',
     evEditEventHint: 'Nur du kannst das ändern. Die Anmeldung muss weiterhin spätestens am Starttag schließen.',
@@ -2917,6 +2929,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     filterByFaction: 'Cualquier facción',
     filterByArchetype: 'Cualquier arquetipo',
     filterByEngagement: 'Cualquier tipo de batalla',
+    evRegClosedByDate: 'La inscripción cerró el {date}.',
+    evRegClosedByDateOrganiser: 'La inscripción cerró el {date} — la liga está abierta, lo que ha pasado es el plazo. Usa EDITAR EVENTO arriba y cambia “Cierre de inscripción” para reabrirla; el botón de abrir/cerrar no controla esto.',
+    evRegNotYetOpen: 'La inscripción abre el {date}.',
+    evRegNotYetOpenOrganiser: 'La inscripción abre el {date} — la liga está abierta, el plazo simplemente no ha empezado. Usa EDITAR EVENTO arriba para cambiar “Apertura de inscripción”.',
     evSave: 'Guardar',
     evEditEvent: 'Editar evento',
     evEditEventHint: 'Solo tú puedes cambiar esto. La inscripción debe seguir cerrando el día de inicio o antes.',

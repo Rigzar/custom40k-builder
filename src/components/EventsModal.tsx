@@ -60,6 +60,9 @@ const ENGAGEMENT_KEY = {
 } as const;
 
 const dateOnly = (v: string | null) => (v ? String(v).slice(0, 10) : '');
+/** Today as YYYY-MM-DD, compared as a plain string — the same shape the server's `regOpen`
+ *  uses, so the two cannot disagree about which side of a date we are on. */
+const todayISO = () => new Date().toISOString().slice(0, 10);
 
 export function EventsModal({ onClose, username, isAdmin, canCreate }: Props) {
   const t = useT();
@@ -531,6 +534,23 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
             {ev.reg_opens_on && ` · ${tf('evFromDate', { date: dateOnly(ev.reg_opens_on) })}`}
             {ev.reg_closes_on && ` · ${tf('evUntilDate', { date: dateOnly(ev.reg_closes_on) })}`}
           </p>
+
+          {/* The league being OPEN and registration being open are two different things, and the
+              second is driven purely by dates. Reported when Dominic reopened the league and sign-up
+              stayed shut: the panel said "Registration CLOSED" next to an open league and never said
+              why, so the only visible control — the open/closed button — looked like the answer.
+              Say which date is doing it, and tell the organiser where to change it. */}
+          {data.open && !data.registrationOpen && (
+            <p className="text-amber-600/80 text-[11px] italic">
+              {ev.reg_opens_on && todayISO() < dateOnly(ev.reg_opens_on)
+                ? tf(data.canManage ? 'evRegNotYetOpenOrganiser' : 'evRegNotYetOpen',
+                     { date: dateOnly(ev.reg_opens_on) })
+                : ev.reg_closes_on
+                  ? tf(data.canManage ? 'evRegClosedByDateOrganiser' : 'evRegClosedByDate',
+                       { date: dateOnly(ev.reg_closes_on) })
+                  : ''}
+            </p>
+          )}
 
           {/* A closed league is still worth opening: whoever finds it can read the standings and
               every confirmed game, whether the season is over or has not started. Only joining and
