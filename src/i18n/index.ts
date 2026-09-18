@@ -270,6 +270,31 @@ export type TranslationKey =
   | 'evTagLeague'
   | 'evPlayerCount'
   | 'evAllEvents'
+  | 'playTitle'
+  | 'playHint'
+  | 'playEmpty'
+  | 'playRanged'
+  | 'playMelee'
+  | 'playAbilities'
+  | 'playTraits'
+  | 'playPowers'
+  | 'playPrayers'
+  | 'playExpandAll'
+  | 'playCollapseAll'
+  | 'playClose'
+  | 'playOpen'
+  | 'filterByFaction'
+  | 'filterByArchetype'
+  | 'filterByEngagement'
+  | 'evSave'
+  | 'evEditEvent'
+  | 'evEditEventHint'
+  | 'evH2H'
+  | 'evH2HHint'
+  | 'evH2HNone'
+  | 'evH2HPlayed'
+  | 'evH2HRecord'
+  | 'evH2HPending'
   | 'evBackup'
   | 'evBackupHint'
   | 'evSheet'
@@ -1124,6 +1149,31 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evTagLeague: 'LEAGUE',
     evPlayerCount: '{n} player(s)',
     evAllEvents: '← All events',
+    playTitle: 'Battle view',
+    playHint: 'Your army as it is on the table — only what you actually took. Tap a unit to open it. Nothing here can be edited.',
+    playEmpty: 'No units in this army yet.',
+    playRanged: 'Ranged',
+    playMelee: 'Melee',
+    playAbilities: 'Abilities',
+    playTraits: 'Traits',
+    playPowers: 'Powers',
+    playPrayers: 'Prayers',
+    playExpandAll: 'Open all',
+    playCollapseAll: 'Close all',
+    playClose: 'Back to builder',
+    playOpen: 'Battle view',
+    filterByFaction: 'Any faction',
+    filterByArchetype: 'Any archetype',
+    filterByEngagement: 'Any battle type',
+    evSave: 'Save',
+    evEditEvent: 'Edit event',
+    evEditEventHint: 'Only you can change these. Registration still has to close on or before the start date.',
+    evH2H: 'Head to head',
+    evH2HHint: 'Who you have already played in this event, and how it went. Only games from this event count.',
+    evH2HNone: 'You have no games in this event yet.',
+    evH2HPlayed: 'games',
+    evH2HRecord: 'W–D–L',
+    evH2HPending: 'awaiting confirmation',
     evBackup: '⤓ Backup',
     evBackupHint: 'Download the whole league as a .json backup',
     evSheet: '🖨 Sheet',
@@ -1975,6 +2025,31 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evTagLeague: 'LIGA',
     evPlayerCount: '{n} Spieler',
     evAllEvents: '← Alle Events',
+    playTitle: 'Gefechtsansicht',
+    playHint: 'Deine Armee, wie sie auf dem Tisch steht — nur das, was du wirklich genommen hast. Tippe eine Einheit an. Hier lässt sich nichts ändern.',
+    playEmpty: 'Noch keine Einheiten in dieser Armee.',
+    playRanged: 'Fernkampf',
+    playMelee: 'Nahkampf',
+    playAbilities: 'Fähigkeiten',
+    playTraits: 'Traits',
+    playPowers: 'Kräfte',
+    playPrayers: 'Gebete',
+    playExpandAll: 'Alle öffnen',
+    playCollapseAll: 'Alle schließen',
+    playClose: 'Zurück zum Builder',
+    playOpen: 'Gefechtsansicht',
+    filterByFaction: 'Alle Fraktionen',
+    filterByArchetype: 'Alle Archetypen',
+    filterByEngagement: 'Alle Schlachtarten',
+    evSave: 'Speichern',
+    evEditEvent: 'Event bearbeiten',
+    evEditEventHint: 'Nur du kannst das ändern. Die Anmeldung muss weiterhin spätestens am Starttag schließen.',
+    evH2H: 'Direktvergleich',
+    evH2HHint: 'Gegen wen du in diesem Event schon gespielt hast und wie es ausging. Es zählen nur Partien aus diesem Event.',
+    evH2HNone: 'Du hast in diesem Event noch keine Partien.',
+    evH2HPlayed: 'Partien',
+    evH2HRecord: 'S–U–N',
+    evH2HPending: 'wartet auf Bestätigung',
     evBackup: '⤓ Sicherung',
     evBackupHint: 'Die ganze Liga als .json-Sicherung herunterladen',
     evSheet: '🖨 Blatt',
@@ -2826,6 +2901,31 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evTagLeague: 'LIGA',
     evPlayerCount: '{n} jugador(es)',
     evAllEvents: '← Todos los eventos',
+    playTitle: 'Vista de batalla',
+    playHint: 'Tu ejército tal y como está en la mesa — solo lo que cogiste de verdad. Toca una unidad para abrirla. Aquí no se edita nada.',
+    playEmpty: 'Aún no hay unidades en este ejército.',
+    playRanged: 'A distancia',
+    playMelee: 'Cuerpo a cuerpo',
+    playAbilities: 'Habilidades',
+    playTraits: 'Rasgos',
+    playPowers: 'Poderes',
+    playPrayers: 'Oraciones',
+    playExpandAll: 'Abrir todas',
+    playCollapseAll: 'Cerrar todas',
+    playClose: 'Volver al builder',
+    playOpen: 'Vista de batalla',
+    filterByFaction: 'Cualquier facción',
+    filterByArchetype: 'Cualquier arquetipo',
+    filterByEngagement: 'Cualquier tipo de batalla',
+    evSave: 'Guardar',
+    evEditEvent: 'Editar evento',
+    evEditEventHint: 'Solo tú puedes cambiar esto. La inscripción debe seguir cerrando el día de inicio o antes.',
+    evH2H: 'Cara a cara',
+    evH2HHint: 'Contra quién has jugado ya en este evento y cómo acabó. Solo cuentan las partidas de este evento.',
+    evH2HNone: 'Aún no tienes partidas en este evento.',
+    evH2HPlayed: 'partidas',
+    evH2HRecord: 'V–E–D',
+    evH2HPending: 'pendiente de confirmar',
     evBackup: '⤓ Copia',
     evBackupHint: 'Descargar la liga entera como copia .json',
     evSheet: '🖨 Hoja',

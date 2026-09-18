@@ -398,7 +398,15 @@ const optionalWeapons = new Map<string, Set<string>>();
       continue;
     }
     for (const c of g.choices) {
-      const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+      const rawParts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+      // A choice whose FULL name is a weapon row in its own right is ONE weapon, not a bundle, so
+      // it must not also be split. The Tyranid "Lash whip and Bonesword" has its own profile
+      // (Deadly(5+), Quick(+1)), and splitting it linked the separate "Boneswords" row — different
+      // weapon, different abilities — to the same choice, so buying the lash whip printed a pair
+      // of boneswords nobody had. Reported on the Warrior Brood; the Tyranid Prime had it too.
+      // Swept first: of the 57 compound choice names in the game these are the only two where the
+      // full name is a weapon row AND a part resolves to another one, so nothing else changes.
+      const parts = unit.weapons.some(w => wkey(w.name) === wkey(c.name)) ? [] : rawParts;
       for (const part of parts.length > 1 ? [c.name, ...parts] : [c.name]) {
         // A choice that just re-buys an ADDITIONAL copy of a weapon the unit is already
         // equipped with by default (e.g. Chaos Rhino's base "Combi-bolter" vs. its separate
@@ -1264,7 +1272,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // grants_weapons pass alongside applyEffect(ai.effect).
   const grantChoiceWeapons = (eff: OptionEffect | undefined) => {
     for (const grantedName of eff?.grants_weapons ?? []) {
-      const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
+      // `?? []` on the ARRAY, not just on `armory_general`: the type says `Armory` but the value
+      // reaches here through a loader cast, so a faction whose armoury came back a different
+      // shape crashes the whole unit card on `.find` rather than quietly granting nothing. That is
+      // GH#113's exact failure and it cost 18 factions a full-page crash — see
+      // `scripts/check_faction_shapes.ts`.
+      const granted = ((data.armory_general?.weapons ?? []) as import('../types/data').ArmoryItem[])
         .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
       if (granted) pushGrantedWeapon(granted);
     }

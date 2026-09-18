@@ -51,7 +51,12 @@ export const bloodmaster: Unit = {
     "Locus of Khorne: The model and its attached unit get the \"Favoured enemy(everything)\" special rule."
   ],
   "unit_type": "Character Model, Infantry",
-  "keywords": [],
+  "keywords": [
+    // The datasheet's own "Herald: ..." ability is what makes this unit a Herald; recorded
+    // here as a keyword so the Armory's `requires_keywords: ["Herald"]` gate can see it.
+    // Without it the Palanquin of Nurgle was refused to every model in the game (GH#127).
+    "Herald"
+  ],
   "is_vehicle": false,
   "is_character": true,
   "is_monster": false,

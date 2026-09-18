@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { RosterEntry } from '../types/army';
 import type { Unit } from '../types/data';
 import { useArmyStore } from '../store/army';
+import { isPsykerOnlyTrait } from '../engine/traitEffects';
 
 interface Props {
   item: RosterEntry;
@@ -36,8 +37,12 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
   // Only show unit traits (those with per-unit costs)
   const unitTraitDefs = data.traits.filter(t => {
     if (!traitPool.includes(t.name)) return false;
-    // Children of Prophecy (Eldar): "Only for Psykers" — hide for non-psyker units
-    if (t.name === 'Children of Prophecy' && !unit.is_psyker) return false;
+    // "Only for Psykers" — hide for non-psyker units. Asked for again on Eldar's "Children of
+    // Prophecy"; this used to name that one trait, so Space Marines' "Knowledge is Power" (same
+    // wording, same `applies_to: 'psyker'`) stayed selectable and chargeable on units that can
+    // never manifest a power. Driven by the effect registry now, so a future psyker-only trait is
+    // gated the day it is wired.
+    if (isPsykerOnlyTrait(t.name) && !unit.is_psyker) return false;
     // Iron Within, Iron Without (CSM): "Only for creature models that do not already have an
     // ward save" — hide for creature units whose datasheet already grants one
     if (t.name === 'Iron Within, Iron Without' && !unit.is_vehicle) {

@@ -552,6 +552,26 @@ export function multiplesPerModel(desc: string | undefined): number {
   return m ? parseInt(m[1], 10) : 1;
 }
 
+/**
+ * Whether the item is bought PER WEAPON rather than per model — "Must be purchased separately for
+ * each weapon" (the Master-crafted weapon in eleven codices, and the Votann Forgewrought weapon).
+ *
+ * Reported for Imperial Guard: *"I can't select Master Crafted twice ... it says I can hence
+ * mentioning it"*. The item's own description says so and the per-model cap never read it, so the
+ * second purchase was refused on every faction that offers it.
+ *
+ * Deliberately keyed to the SENTENCE, not to the item's name: the other weapon-target items in the
+ * Armory ("Relic of the Chapter", "Cursed blade", "Chaos artefact" and the rest) are single relics
+ * and must keep their cap of one. The Space Marines sheet is the one place that states the shorter
+ * "One weapon of the model gains the ability" without the second sentence — that is left alone and
+ * raised with the author rather than assumed, since the other eleven sheets spell it out and his
+ * does not.
+ */
+export function isPerWeaponPurchase(desc: string | undefined): boolean {
+  return /purchased\s+(?:separately\s+)?for\s+each\s+weapon|for\s+each\s+weapon\s+separately|for\s+each\s+weapon\s+seperately/i
+    .test(desc ?? '');
+}
+
 /** The 16 named Ork "Kustom Job" armory items (Armory.html, unit-gated by prose — "Vehicle only" /
  *  "Mek only" / "Walker only" / "Spanna only" / "Warbuggy only" — not by a structural data field, so
  *  there's no other way to identify them than this canonical name list). The "Waaagh! Coast

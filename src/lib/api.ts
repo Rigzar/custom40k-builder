@@ -122,6 +122,8 @@ export interface RosterSummary {
 }
 export interface PublicArmySummary {
   id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
+  /** The army's own Archetype and battle type, so the list can be filtered by them. */
+  archetype?: string | null; engagement?: string | null;
   username: string; avatar?: string | null;
   upvotes: number; downvotes: number; user_vote: 1 | -1 | null;
   /** Comma-separated names of the events this list is registered for, or null for none. */

@@ -410,6 +410,11 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
   const [filter, setFilter] = useState<'all' | 'friends' | 'shared'>('all');
   /** 0 = every list. Otherwise only the lists registered for that event. */
   const [eventId, setEventId] = useState(0);
+  // Faction / Archetype / Battle type. Applied in the browser: unlike the event filter these are
+  // plain columns that now travel with every row, so a round trip would buy nothing.
+  const [fFaction, setFFaction] = useState('');
+  const [fArchetype, setFArchetype] = useState('');
+  const [fEngagement, setFEngagement] = useState('');
   const [events, setEvents] = useState<EventSummary[]>([]);
   const [armies, setArmies] = useState<(PublicArmySummary & { shared?: boolean })[]>([]);
   const [loading, setLoading] = useState(true);
@@ -503,6 +508,20 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
     } catch (err) { setError((err as Error).message); }
   }
 
+  /** Options built from the list itself, so a dropdown never offers a choice that finds nothing. */
+  const optionsOf = (pick: (a: api.PublicArmySummary) => string | null | undefined) =>
+    [...new Set(armies.map(pick).filter((v): v is string => !!v))].sort((a, b) => a.localeCompare(b));
+  const factionOptions = optionsOf(a => a.faction_label);
+  const archetypeOptions = optionsOf(a => a.archetype);
+  const engagementOptions = optionsOf(a => a.engagement);
+
+  const shown = armies.filter(a =>
+    (!fFaction || a.faction_label === fFaction)
+    && (!fArchetype || a.archetype === fArchetype)
+    && (!fEngagement || a.engagement === fEngagement));
+
+  const selectCls = 'flex-1 min-w-0 bg-zinc-900 border border-zinc-700 text-zinc-300 text-[11px] px-2 py-1';
+
   return (
     <div className="p-4 space-y-3">
       <div className="flex items-center justify-between">
@@ -549,10 +568,43 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
           )}
         </div>
       )}
+      {(factionOptions.length > 1 || archetypeOptions.length > 1 || engagementOptions.length > 1) && (
+        <div className="flex items-center gap-2">
+          {factionOptions.length > 1 && (
+            <select className={selectCls} value={fFaction} onChange={e => setFFaction(e.target.value)}
+                    aria-label={t('filterByFaction')}>
+              <option value="">{t('filterByFaction')}</option>
+              {factionOptions.map(v => <option key={v} value={v}>{factionLabel(v)}</option>)}
+            </select>
+          )}
+          {archetypeOptions.length > 1 && (
+            <select className={selectCls} value={fArchetype} onChange={e => setFArchetype(e.target.value)}
+                    aria-label={t('filterByArchetype')}>
+              <option value="">{t('filterByArchetype')}</option>
+              {archetypeOptions.map(v => <option key={v} value={v}>{v}</option>)}
+            </select>
+          )}
+          {engagementOptions.length > 1 && (
+            <select className={selectCls} value={fEngagement} onChange={e => setFEngagement(e.target.value)}
+                    aria-label={t('filterByEngagement')}>
+              <option value="">{t('filterByEngagement')}</option>
+              {engagementOptions.map(v => <option key={v} value={v}>{v}</option>)}
+            </select>
+          )}
+          {(fFaction || fArchetype || fEngagement) && (
+            <button
+              onClick={() => { setFFaction(''); setFArchetype(''); setFEngagement(''); }}
+              className="shrink-0 text-[10px] uppercase tracking-wide px-2 py-1 border border-zinc-700 text-zinc-500 hover:text-zinc-300 transition-colors"
+            >
+              {t('filterClear')}
+            </button>
+          )}
+        </div>
+      )}
       {error && <p className="text-red-400 text-xs">{error}</p>}
       {loading ? (
         <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
-      ) : armies.length === 0 ? (
+      ) : shown.length === 0 ? (
         <p className="text-zinc-500 italic text-sm text-center py-8">
           {eventId !== 0
             ? t('noEventArmies')
@@ -560,7 +612,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
         </p>
       ) : (
         <div className="space-y-2">
-          {armies.map(a => (
+          {shown.map(a => (
             <div key={a.id} className="bg-zinc-800 border border-zinc-700 border-l-4 border-l-zinc-600 p-3 flex items-center gap-3">
               <Avatar username={a.username} avatar={a.avatar} size={30} />
               <div className="flex-1 min-w-0">

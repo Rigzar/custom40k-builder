@@ -18,6 +18,8 @@ import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
+import { selectedAbilities } from '../lib/battleProfile';
+import { markStatMods } from '../lib/markMods';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { paginate } from '../utils/printPagination';
@@ -114,14 +116,7 @@ const STAT_KEYS_INF = ['M','WS','BS','S','T','W','I','A','LD','SV'] as const;
 const STAT_KEYS_VEH = ['M','BS','S','FRONT','SIDE','REAR','I','A','HP'] as const;
 const STAT_LABEL: Record<string, string> = { FRONT: 'FR', SIDE: 'SI', REAR: 'RE' };
 
-const MARK_STAT_MODS: Record<string, { stat: string; delta: number } | null> = {
-  Khorne: { stat: 'A', delta: 1 }, Nurgle: { stat: 'T', delta: 1 },
-  Slaanesh: { stat: 'I', delta: 1 }, Tzeentch: null, Undivided: null,
-};
-const MARK_CHAR_MODS: Record<string, { stat: string; delta: number } | null> = {
-  Khorne: { stat: 'S', delta: 1 }, Nurgle: { stat: 'W', delta: 1 },
-  Slaanesh: { stat: 'M', delta: 2 }, Tzeentch: null, Undivided: null,
-};
+// The Mark stat table moved to lib/markMods.ts — one copy of the codex's own wording.
 
 const WEAPON_KEYWORDS_8TH = [
   'rapid fire', 'snap fire', 'entropic strike', 'instant death', 'soul blaze',
@@ -220,10 +215,11 @@ function FancyShield({ value, color }: { value: number; color: string }) {
 }
 
 // ── Stat row ──────────────────────────────────────────────────────────────────
-function StatRow({ keys, stats, mod, showLabels, modelLabel, color }: {
+function StatRow({ keys, stats, mods, showLabels, modelLabel, color }: {
   keys: readonly string[];
   stats: Record<string, string>;
-  mod: { stat: string; delta: number } | null;
+  /** Every Mark bonus this model gets — a character or Monstrous Creature gets two. */
+  mods: { stat: string; delta: number }[];
   showLabels: boolean;
   modelLabel?: string;
   color: string;
@@ -253,8 +249,11 @@ function StatRow({ keys, stats, mod, showLabels, modelLabel, color }: {
       )}
       {keys.map((k) => {
         const raw = stats[k] ?? '-';
-        const boosted = !!(mod && mod.stat === k);
-        const display = boosted ? applyDelta(raw, mod!.delta) + '*' : raw;
+        const here = mods.filter(m => m.stat === k);
+        const boosted = here.length > 0;
+        const display = boosted
+          ? here.reduce((v, m) => applyDelta(v, m.delta), raw) + '*'
+          : raw;
         return (
           <div key={k} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {showLabels && (
@@ -384,14 +383,16 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const storeState = useArmyStore.getState();
   const { archetype, legacy, legacy2 } = storeState;
   const rp = resolveUnitProfile(item, u, storeState, data);
+  // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
+  // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          injectedAbilities, optionStatMods, optionAbilities,
-          effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
+          optionStatMods, attachedDrones } = rp;
   const color = getThemeColor(data.faction, effectiveMark);
 
   const statKeys  = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
-  const modTable  = u.is_character ? MARK_CHAR_MODS : MARK_STAT_MODS;
-  const mod       = statModMark ? modTable[statModMark] : null;
+  // One list, not a choice between two: the codex says a character or Monstrous Creature gains
+  // its bonus ADDITIONALLY, so both apply (GH#128).
+  const markMods  = markStatMods(statModMark, u);
   const symbolUrl = getCardSymbol(data.faction, archetype, legacy, legacy2);
   const modelsToShow = rp.modelsToShow;
   const modelCounts  = rp.modelCounts;
@@ -477,63 +478,10 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   })));
 
   // Build filter sets for optional abilities
-  const _shownWeaponBaseNames = new Set(rp.weaponsToShow.map((w: Weapon) => w.name.split(' - ')[0]));
-  const _unselectedOptionalWeapons = new Set<string>();
-  const _allChoiceAbilityTexts = new Set<string>();
-  for (const g of u.option_groups) {
-    for (const c of g.choices) {
-      const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-      for (const part of (parts.length > 1 ? parts : [c.name])) {
-        if (u.weapons.some((w: Weapon) => w.name.split(' - ')[0] === part) && !_shownWeaponBaseNames.has(part)) {
-          _unselectedOptionalWeapons.add(part.toLowerCase());
-        }
-      }
-      for (const ab of (c.abilities ?? [])) {
-        _allChoiceAbilityTexts.add(ab.toLowerCase());
-      }
-    }
-  }
-  const _selectedChoiceAbilityTexts = new Set(
-    (injectedAbilities as string[]).map((a: string) => a.toLowerCase())
-  );
-  // Psyker inline toggle: unit has an optional psyker upgrade but it hasn't been bought
-  const _hasPsykerOption = psykerGroupIdx >= 0 && !effectivePsyker;
-
-  const abilitiesList = [
-    ...(u.abilities as string[])
-      .filter((ab: string) => {
-        if (/^\d+$/.test(ab.trim())) return false;
-        const ci = ab.indexOf(':');
-        const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
-        // Weapon-named ability for an unselected optional weapon
-        if (_unselectedOptionalWeapons.has(label)) return false;
-        // Ability only granted by a choice that hasn't been selected
-        if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
-        // Psyker ability when the inline psyker upgrade wasn't bought
-        if (_hasPsykerOption && label === 'psyker') return false;
-        return true;
-      }),
-    ...injectedAbilities.filter(ab =>
-      !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))
-    ),
-    ...equipMods.grantedAbilities.filter(ab =>
-      !u.abilities.some((a: string) => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())
-    ),
-    ...optionAbilities.filter(ab =>
-      !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))
-    ),
-  ].filter((() => {
-    // De-dupe by ability NAME (case-insensitive) so an item-granted ability and the base ability of
-    // the same name don't both show (e.g. "Tank hunter" from equipment + "Tank Hunter" base).
-    const seen = new Set<string>();
-    return (ab: string) => {
-      const ci = ab.indexOf(':');
-      const key = (ci > 0 ? ab.slice(0, ci) : ab).trim().toLowerCase();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    };
-  })());
+  // The 'only what you actually took' filter now lives in lib/battleProfile.ts, so the new
+  // battle view and this printed card give the same answer by construction rather than by
+  // two copies staying in step. Same logic, same order, moved verbatim.
+  const abilitiesList = selectedAbilities(u, item, rp as any);
   const traitList  = item.traits.map(t => t.name);
   const powerList  = item.powers.map(p => `${p.powerName} (${p.disciplineName})`);
   const prayerList = item.prayers;
@@ -677,7 +625,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               }
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-                  <StatRow keys={statKeys} stats={modStats} mod={mod} showLabels={mi === 0}
+                  <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
                     modelLabel={modelsToShow.length > 1
                       ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name)
                       : undefined}
@@ -689,7 +637,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               );
             })}
             {attachedDrones.map(({ drone, count }) => (
-              <StatRow key={drone.name} keys={STAT_KEYS_INF} stats={drone.stats as Record<string, string>} mod={null}
+              <StatRow key={drone.name} keys={STAT_KEYS_INF} stats={drone.stats as Record<string, string>} mods={[]}
                 showLabels={false} modelLabel={`${count}× ${drone.name}`} color={color} />
             ))}
           </div>

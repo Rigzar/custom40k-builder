@@ -5,7 +5,7 @@ import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -251,7 +251,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     const accessorCount = (isVehicle || unit.has_armory_access) ? item.size : 1;
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
-      : accessorCount * multiplesPerModel(arm.desc);
+      // "Must be purchased separately for each weapon" (Master-crafted weapon, Forgewrought
+      // weapon): the cap is one purchase per WEAPON the model can point it at, not one per model.
+      // Reported for Imperial Guard - the second purchase was refused although the item's own
+      // text invites it. `availableWeapons` is the very list the "apply to" picker offers, so the
+      // cap can never allow a purchase the player has nowhere to put.
+      : isPerWeaponPurchase(arm.desc)
+        ? accessorCount * Math.max(1, availableWeapons.length)
+        : accessorCount * multiplesPerModel(arm.desc);
     return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
@@ -753,6 +760,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       scaling = 'perModel';
     } else {
       pts = getItemPts(arm) ?? 0;
+    }
+    // A per-weapon item may be bought several times, but never twice for the SAME weapon -
+    // raising the cap without this would let one gun be master-crafted five times over.
+    if (isPerWeaponPurchase(arm.desc) && targetWeapon
+      && currentArmory.some(a => a.itemName === arm.name && a.section === sec && a.targetWeapon === targetWeapon)) {
+      return;
     }
     addArmoryItem(item.id, {
       id: selId(),

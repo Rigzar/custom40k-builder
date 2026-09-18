@@ -12,7 +12,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { parseInvSaveFromAbilities } from './equipMods';
-import { parseEquipMods, isUniqueItem } from './equipMods';
+import { parseEquipMods, isUniqueItem, weaponCopiesPerModel } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
@@ -291,12 +291,19 @@ export function computeCdFreeSlots(
     if (!u) continue;
     const abilities = u.abilities ?? [];
 
+    // A Herald is NOT a Greater Daemon, however much its rules text talks about one. Entourage
+    // reads "For each Greater Daemon of the same Chaos god...", so searching the ability text for
+    // "greater daemon" matched every Herald and let each one count as a Greater Daemon of its own
+    // god — which freed its own HQ slot, for any god, with no cap that could ever bite (GH#126).
+    // `is_monster` is the same proxy ArmoryModal already uses for this exact reason; the Herald
+    // test is kept alongside it so a future monstrous Herald could not slip back through.
+    const isHerald = abilities.some(a => /^herald:/i.test(a));
     // Greater Daemon: contributes Entourage quota for its god
-    if (abilities.some(a => /\bgreater daemon\b/i.test(a)) && u.locked_mark) {
+    if (u.is_monster && !isHerald && u.locked_mark) {
       greaterDaemonsByGod[u.locked_mark] = (greaterDaemonsByGod[u.locked_mark] ?? 0) + 1;
     }
     // Herald: heralds that can be freed by Entourage or paired by Herald rule
-    if (abilities.some(a => /^herald:/i.test(a)) && u.locked_mark) {
+    if (isHerald && u.locked_mark) {
       heraldsByGod[u.locked_mark] = (heraldsByGod[u.locked_mark] ?? 0) + 1;
     }
     // Khorne HQ count — for Bound Beast
@@ -2567,9 +2574,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         .filter(({ other }) => ['per_n', 'every'].includes(other.constraint.type) && other.replaces?.some(w => g.replaces!.includes(w)) && sameScope(other));
       if (cluster.length < 2) return;
       cluster.forEach(({ oi }) => seen.add(oi));
-      const poolSize = (applyNames && item.modelSizes)
+      const models = (applyNames && item.modelSizes)
         ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
         : item.size;
+      // The pool is one SWAP per copy of the weapon, not one per model. A Tyranid Warrior carries
+      // TWO Scything talons and each of its two groups swaps one of them, so a 3-model brood has
+      // six swaps available, not three — the panel called a completely legal loadout an error.
+      // `weaponCopiesPerModel` is the same reader `computeWeaponGroups` uses for the mirror-image
+      // decision (when the replaced weapon disappears from the profile), so the two agree by
+      // construction instead of by coincidence; a weapon with one copy is unchanged.
+      const copies = Math.max(...g.replaces!.map(n => weaponCopiesPerModel(u.equipped_with, n, g.requires_choice)));
+      const poolSize = models * copies;
       const used = cluster.reduce((s, { oi }) => s + Object.entries(item.optionQty?.[oi] ?? {}).reduce(
         (s2, [k, v]) => k === '__inline' ? s2 : s2 + (v ?? 0), 0
       ), 0);

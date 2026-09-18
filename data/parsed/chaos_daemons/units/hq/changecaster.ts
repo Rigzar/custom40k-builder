@@ -76,7 +76,12 @@ export const changecaster: Unit = {
     "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from the discipline of Change."
   ],
   "unit_type": "Character Model, Infantry",
-  "keywords": [],
+  "keywords": [
+    // The datasheet's own "Herald: ..." ability is what makes this unit a Herald; recorded
+    // here as a keyword so the Armory's `requires_keywords: ["Herald"]` gate can see it.
+    // Without it the Palanquin of Nurgle was refused to every model in the game (GH#127).
+    "Herald"
+  ],
   "is_vehicle": false,
   "is_character": true,
   "is_monster": false,

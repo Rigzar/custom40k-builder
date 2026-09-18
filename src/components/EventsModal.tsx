@@ -3,6 +3,7 @@ import * as api from '../lib/api';
 import { LeagueSheet } from './LeagueSheet';
 import { factionLabel } from '../utils/factionLabel';
 import { useT, tpl, useLanguage } from '../i18n';
+import { headToHead } from '../lib/headToHead';
 
 /**
  * A translated string with `{name}` placeholders filled in. Every component below takes its own
@@ -29,7 +30,7 @@ const fill = (t: (k: Parameters<ReturnType<typeof useT>>[0]) => string) =>
  * their turn.
  */
 
-type TabId = 'info' | 'players' | 'games' | 'standings';
+type TabId = 'info' | 'players' | 'games' | 'standings' | 'h2h';
 
 interface Props {
   onClose: () => void;
@@ -395,10 +396,16 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
   /** Who the Games tab should treat as "me" when deciding whose turn it is to confirm. */
   const actingName = asPlayer?.username ?? username;
 
+  /** The player's own games in THIS event — drives both the tab and its contents. */
+  const myGames = games.filter(g => g.reporter === actingName || g.opponent === actingName);
+
   const TABS: { key: TabId; label: string }[] = [
     { key: 'info', label: 'INFO' },
     { key: 'players', label: `PLAYERS (${players.filter(p => p.status === 'approved').length})` },
     { key: 'games', label: `GAMES (${games.length})` },
+    // Only offered once the player has a game here: an empty "who have you played" tab is a
+    // question no one asked.
+    ...(myGames.length ? [{ key: 'h2h' as TabId, label: t('evH2H').toUpperCase() }] : []),
     ...(ev.is_league ? [{ key: 'standings' as TabId, label: 'STANDINGS' }] : []),
   ];
 
@@ -492,6 +499,12 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
 
       {tab === 'info' && (
         <div className="space-y-3">
+          {/* Organiser-only. A league runs for months and the dates are the thing most likely to
+              move — "can you extend registration to Sunday" is the ordinary case, not an edge one. */}
+          {data.canManage && (
+            <EventEditPanel ev={ev} busy={busy} onSave={patch => act(() => api.updateEvent(ev.id, patch))} />
+          )}
+
           {ev.description && <p className="text-zinc-300 text-[12px] whitespace-pre-wrap">{ev.description}</p>}
 
           {/* Stated up front rather than discovered by being refused. */}
@@ -630,6 +643,8 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           awaitingMe={data.awaitingMe}
         />
       )}
+
+      {tab === 'h2h' && <HeadToHeadTab games={myGames} me={actingName} />}
 
       {tab === 'standings' && <StandingsTab standings={standings} />}
 
@@ -992,6 +1007,155 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
               </span>
             </div>
           ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Per-player head-to-head for ONE event: each opponent the player has faced, how often, the record
+ * and every game behind it.
+ *
+ * Event-specific by construction — it is handed only this event's games, which is what was asked
+ * for ("The history is meant to be event specific").
+ */
+function HeadToHeadTab({ games, me }: { games: api.EventGame[]; me: string }) {
+  const t = useT();
+  const [open, setOpen] = useState<string | null>(null);
+  // The mirroring and the tallying live in `lib/headToHead.ts` so they can be tested directly —
+  // reading a game from the wrong side turns a loss into a win, quietly and plausibly.
+  const rows = headToHead(games, me);
+
+  if (!rows.length) return <p className="text-zinc-500 text-[12px] italic">{t('evH2HNone')}</p>;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-zinc-500 text-[11px] leading-snug">{t('evH2HHint')}</p>
+      {rows.map(r => (
+        <div key={r.opponent} className="border border-zinc-800">
+          <button
+            className="w-full flex items-center gap-2 px-2 py-1.5 text-left hover:bg-zinc-900/60"
+            onClick={() => setOpen(open === r.opponent ? null : r.opponent)}
+          >
+            <span className="text-zinc-200 text-[12px] flex-1">{r.opponent}</span>
+            <span className="text-zinc-400 text-[11px] tabular-nums">{r.played} {t('evH2HPlayed')}</span>
+            <span className="text-zinc-500 text-[10px] uppercase tracking-wide">{t('evH2HRecord')}</span>
+            <span className="text-zinc-300 text-[11px] tabular-nums">{r.wins}–{r.draws}–{r.losses}</span>
+            {r.pending > 0 && (
+              <span className="text-amber-600/80 text-[10px] italic">{r.pending} {t('evH2HPending')}</span>
+            )}
+            <span className="text-zinc-600 text-[10px] w-3 text-center">{open === r.opponent ? '−' : '+'}</span>
+          </button>
+          {open === r.opponent && (
+            <ul className="border-t border-zinc-800 divide-y divide-zinc-900">
+              {r.games.map(m => {
+                const tone = m.game.status !== 'confirmed' ? 'text-amber-600/80'
+                  : m.result === 'win' ? 'text-emerald-500'
+                  : m.result === 'loss' ? 'text-red-500' : 'text-zinc-400';
+                return (
+                  <li key={m.game.id} className="flex items-center gap-2 px-2 py-1 text-[11px]">
+                    <span className={`uppercase tracking-wide w-10 shrink-0 ${tone}`}>{m.result}</span>
+                    <span className="text-zinc-400 flex-1">{m.game.mission}</span>
+                    <span className="text-zinc-500">
+                      {m.myFaction ?? '?'} <span className="text-zinc-700">vs</span> {m.theirFaction ?? '?'}
+                    </span>
+                    {m.game.status !== 'confirmed' && (
+                      <span className="text-amber-600/80 italic">{t('evH2HPending')}</span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Organiser-only editing of an event that already exists — chiefly its dates.
+ *
+ * Folded open on demand rather than always shown: most visits to the Info tab are to READ the
+ * event, and a form sitting above the description turns every one of them into a chance to change
+ * it by accident.
+ *
+ * The server is still the authority. It refuses anyone who is not the organiser and refuses a
+ * registration date later than the start date, so this form cannot produce a state the API would
+ * not accept on its own.
+ */
+function EventEditPanel({ ev, busy, onSave }: {
+  ev: api.EventSummary;
+  busy: boolean;
+  onSave: (patch: Partial<api.NewEvent>) => void;
+}) {
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  const day = (v: string | null | undefined) => (v ? String(v).slice(0, 10) : '');
+  const [form, setForm] = useState({
+    name: ev.name,
+    description: ev.description ?? '',
+    startsOn: day(ev.starts_on),
+    endsOn: day(ev.ends_on),
+    regOpensOn: day(ev.reg_opens_on),
+    regClosesOn: day(ev.reg_closes_on),
+  });
+
+  const box = 'w-full bg-zinc-950 border border-zinc-800 px-2 py-1 text-[12px] text-zinc-200';
+
+  if (!open) {
+    return (
+      <button className="text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:bg-zinc-900/60"
+              onClick={() => setOpen(true)}>
+        {t('evEditEvent')}
+      </button>
+    );
+  }
+
+  return (
+    <div className="border border-zinc-800 p-3 space-y-2">
+      <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evEditEvent')}</div>
+      <p className="text-zinc-500 text-[11px] leading-snug">{t('evEditEventHint')}</p>
+      <input className={box} value={form.name}
+             onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+      <textarea className={`${box} h-16 resize-y`} value={form.description}
+                onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
+      <div className="grid grid-cols-2 gap-2">
+        <label className="text-[10px] text-zinc-500">{t('evStarts')}
+          <input type="date" className={box} value={form.startsOn}
+                 onChange={e => setForm(f => ({ ...f, startsOn: e.target.value }))} /></label>
+        <label className="text-[10px] text-zinc-500">{t('evEnds')}
+          <input type="date" className={box} value={form.endsOn}
+                 onChange={e => setForm(f => ({ ...f, endsOn: e.target.value }))} /></label>
+        <label className="text-[10px] text-zinc-500">{t('evRegOpens')}
+          <input type="date" className={box} value={form.regOpensOn}
+                 onChange={e => setForm(f => ({ ...f, regOpensOn: e.target.value }))} /></label>
+        <label className="text-[10px] text-zinc-500">{t('evRegCloses')}
+          <input type="date" className={box} value={form.regClosesOn}
+                 onChange={e => setForm(f => ({ ...f, regClosesOn: e.target.value }))} /></label>
+      </div>
+      <div className="flex gap-2">
+        <button className="text-[11px] px-3 py-1 border border-amber-700 text-amber-300 hover:bg-amber-900/30 disabled:opacity-40"
+                disabled={busy || !form.name.trim()}
+                onClick={() => {
+                  onSave({
+                    name: form.name.trim(),
+                    description: form.description,
+                    // A cleared date must reach the server as null, not as "" — the update action
+                    // writes the value straight through, so an empty string would be stored.
+                    startsOn: form.startsOn || null,
+                    endsOn: form.endsOn || null,
+                    regOpensOn: form.regOpensOn || null,
+                    regClosesOn: form.regClosesOn || null,
+                  } as Partial<api.NewEvent>);
+                  setOpen(false);
+                }}>
+          {t('evSave')}
+        </button>
+        <button className="text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:bg-zinc-900/60"
+                disabled={busy} onClick={() => setOpen(false)}>
+          {t('evCancel')}
+        </button>
       </div>
     </div>
   );

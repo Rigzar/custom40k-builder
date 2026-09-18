@@ -21,6 +21,7 @@ import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
 import { PsychicModal } from './PsychicModal';
+import { markStatMods, hasMarkStatMods } from '../lib/markMods';
 import { useT, tpl } from '../i18n';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
@@ -101,15 +102,8 @@ const MARK_BONUSES: Record<string, { inf: string; char: string; veh: string }> =
   Undivided: { inf: 'Gains mark benefits when destroying enemy units', char: '', veh: '' },
 };
 
-interface StatMod { stat: string; delta: number; }
-interface MarkMod { inf?: StatMod; char?: StatMod; }
-const MARK_STAT_MODS: Record<string, MarkMod> = {
-  Khorne:    { inf: { stat: 'A', delta: 1 }, char: { stat: 'S', delta: 1 } },
-  Nurgle:    { inf: { stat: 'T', delta: 1 }, char: { stat: 'W', delta: 1 } },
-  Slaanesh:  { inf: { stat: 'I', delta: 1 }, char: { stat: 'M', delta: 2 } },
-  Tzeentch:  {},
-  Undivided: {},
-};
+// The Mark stat table moved to lib/markMods.ts, so the unit card, the printed card and the
+// battle view all read one copy of the codex's own wording (GH#128).
 
 function applyDelta(value: string, delta: number): { display: string; modified: boolean } {
   if (!value || value === '-') return { display: value, modified: false };
@@ -738,9 +732,7 @@ export function UnitCard({ item }: Props) {
             <div className="px-3 pt-2 pb-0">
             <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1 flex items-center gap-3">
               <span>{t('profileLabel')}</span>
-              {(isFavored || blackCrusadeChampion || (statModMark && MARK_STAT_MODS[statModMark] && (
-                u.is_character ? MARK_STAT_MODS[statModMark].char : MARK_STAT_MODS[statModMark].inf
-              ))) && (
+              {(isFavored || blackCrusadeChampion || hasMarkStatMods(statModMark, u)) && (
                 <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">{t('markBonusAsteriskNote')}</span>
               )}
               {traitStatMods.length > 0 && (
@@ -831,16 +823,14 @@ export function UnitCard({ item }: Props) {
                           ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
                           : statModMark ? [statModMark] : [];
                         if (!u.is_vehicle) {
+                          // The codex gives the second half of a Mark to "a character model OR
+                          // Monstrous Creature"; this used to test is_character alone, so the
+                          // Daemon Prince and all four Greater Daemons — monsters, not characters
+                          // — never got it (GH#128). `markStatMods` owns that rule now.
                           for (const m of marksToApply) {
-                            const mods = MARK_STAT_MODS[m];
-                            if (!mods) continue;
-                            if (mods.inf && mods.inf.stat === k) {
-                              const r = applyDelta(display, mods.inf.delta);
-                              display = r.display;
-                              if (r.modified) markBoosted = true;
-                            }
-                            if (u.is_character && mods.char && mods.char.stat === k) {
-                              const r = applyDelta(display, mods.char.delta);
+                            for (const mod of markStatMods(m, u)) {
+                              if (mod.stat !== k) continue;
+                              const r = applyDelta(display, mod.delta);
                               display = r.display;
                               if (r.modified) markBoosted = true;
                             }

@@ -308,8 +308,7 @@ export const veterans: Unit = {
     {
       "header": "Two other Veterans may form a Heavy weapons team",
       "constraint": {
-        "type": "fixed_max",
-        "max": 2
+        "type": "one"
       },
       "choices": [
         {

@@ -13,7 +13,9 @@ import { useT, useLanguage } from '../i18n';
  * an illegal list could be printed without ever seeing why. It is a step of its own now, and the
  * header chip jumps here.
  */
-export function ReviewStep({ onPrint, onSave, savedMsg, onBack }: {
+export function ReviewStep({ onPlay, onPrint, onSave, savedMsg, onBack }: {
+  /** Opens the table-side view — the army without the building controls. */
+  onPlay: () => void;
   onPrint: () => void;
   onSave: () => void;
   savedMsg: string;
@@ -141,6 +143,15 @@ export function ReviewStep({ onPrint, onSave, savedMsg, onBack }: {
                 }`}
             >
               {savedMsg || t('save')}
+            </button>
+            {/* Sits beside Print on purpose: the two answer the same question ("what am I
+                actually fielding?") for the two places it gets asked — on paper, and on the table
+                with the phone in hand. */}
+            <button
+              onClick={onPlay}
+              className="text-[11px] uppercase tracking-wide border border-amber-800 text-amber-400 hover:bg-amber-900/30 px-4 py-1.5 transition-colors"
+            >
+              {t('playOpen')}
             </button>
             <button
               onClick={onPrint}

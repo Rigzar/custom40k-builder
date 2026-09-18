@@ -17,7 +17,7 @@
       "target": "Enemy unit",
       "cast_value": "6",
       "effect": "The target must pass a Leadership test with a -2 penalty or gain a Battleshock token.",
-      "duration": "Until the caster's next activation",
+      "duration": "Immediately",
       "complexity": "Normal"
     },
     {
@@ -37,7 +37,7 @@
       "target": "Enemy unit",
       "cast_value": "6",
       "effect": "The target suffers one automatic hit with one of the two profiles:\nBurst S: 5 AP: -3 D: 1; Blast(4), Seeking.\nLance S: 10 AP: -4 D: 3; AT(3), Seeking.",
-      "duration": "Until the caster's next activation",
+      "duration": "Immediately",
       "complexity": "Basic"
     },
     {

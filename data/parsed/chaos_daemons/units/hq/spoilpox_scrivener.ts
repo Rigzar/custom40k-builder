@@ -60,7 +60,12 @@ export const spoilpoxScrivener: Unit = {
     "Keep Counting! Meet your Quota!: During the activation, select a friendly Mark of Nurgle unit that is within 7\" of the Spoilpox Scrivener. All models in that unit gain +1 to hit rolls."
   ],
   "unit_type": "Character Model, Infantry",
-  "keywords": [],
+  "keywords": [
+    // The datasheet's own "Herald: ..." ability is what makes this unit a Herald; recorded
+    // here as a keyword so the Armory's `requires_keywords: ["Herald"]` gate can see it.
+    // Without it the Palanquin of Nurgle was refused to every model in the game (GH#127).
+    "Herald"
+  ],
   "is_vehicle": false,
   "is_character": true,
   "is_monster": false,

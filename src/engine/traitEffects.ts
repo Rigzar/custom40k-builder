@@ -49,6 +49,21 @@ export function getTraitEffects(traitName: string, unit: Unit): TraitEffect[] {
 }
 
 /**
+ * Is this trait usable ONLY by Psykers? True when it has effects defined and every one of them is
+ * psyker-scoped ("Only for Psykers." in the codex) - the Eldar "Children of Prophecy" and the
+ * Space Marine "Knowledge is Power".
+ *
+ * The Trait Picker uses it to stop offering such a trait to a unit that can never manifest a
+ * power. It used to hide ONE of them, by name, so the other was selectable and chargeable and did
+ * nothing. A trait with no entry here at all returns false and keeps showing: plenty are not wired
+ * yet, and hiding those would empty the picker.
+ */
+export function isPsykerOnlyTrait(traitName: string): boolean {
+  const effects = TRAIT_EFFECTS[traitName];
+  return !!effects?.length && effects.every(e => e.applies_to === 'psyker');
+}
+
+/**
  * All faction trait effects, keyed by trait name.
  * Each faction lives in its own file under engine/traits/.
  */

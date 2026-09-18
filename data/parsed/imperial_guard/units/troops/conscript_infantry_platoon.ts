@@ -142,8 +142,7 @@ export const conscriptInfantryPlatoon: Unit = {
       "header": "For every ten models, two other Conscripts may form a Heavy weapons team",
       "constraint": {
         "type": "per_n",
-        "per_n": 10,
-        "count_per_n": 2
+        "per_n": 10
       },
       "choices": [
         {

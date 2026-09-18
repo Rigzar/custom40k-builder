@@ -230,6 +230,30 @@ async function getPublicArmies(req, res) {
     // registered for that event". 0 means no filter, so the SQL stays one shape either way.
     const eventId = Number.isInteger(Number(req.query.eventId)) ? Number(req.query.eventId) : 0;
 
+    /**
+     * May this reader see the NON-PUBLIC lists registered for the event they are filtering by?
+     * True for a participant of that event and for its organiser; false for everyone else, and
+     * always false when no event is selected. Computed once rather than inside each query so the
+     * three variants cannot drift apart.
+     */
+    let canReadEvent = false;
+    if (eventId !== 0) {
+      // Same reach as the Events module's own read gate: a PUBLIC event is readable by anyone, a
+      // private one only by its participants and organiser, and a test event by nobody else.
+      // Rigzar, on a list entered into a league: "si esta en el evento ya no cuenta como privada".
+      const r = await sql`
+        SELECT 1 FROM events e
+         WHERE e.id = ${eventId}
+           AND e.is_test = false
+           AND (e.visibility = 'public'
+                OR e.organiser_user_id = ${userId ?? 0}
+                OR EXISTS (SELECT 1 FROM event_players ep
+                            WHERE ep.event_id = e.id AND ep.user_id = ${userId ?? 0}
+                              AND ep.status = 'approved'))
+         LIMIT 1`;
+      canReadEvent = r.rows.length > 0;
+    }
+
     const mapRow = r => ({
       ...r,
       avatar: r.avatar ?? null,
@@ -244,6 +268,9 @@ async function getPublicArmies(req, res) {
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
           r.data->>'faction' AS faction_label,
+          -- alongside the faction: the two other things a reader filters a league by
+          r.data->>'archetype' AS archetype,
+          r.data->>'engagement' AS engagement,
           (SELECT string_agg(e.name, ', ' ORDER BY e.name)
              FROM event_players ep JOIN events e ON e.id = ep.event_id
             WHERE ep.roster_id = r.id AND ep.status = 'approved') AS event_names,
@@ -254,7 +281,16 @@ async function getPublicArmies(req, res) {
         JOIN users u ON u.id = r.user_id
         JOIN friends f ON f.friend_id = r.user_id AND f.user_id = ${userId}
         LEFT JOIN roster_votes rv ON rv.roster_id = r.id
-        WHERE r.is_public = true
+        WHERE (
+            r.is_public = true
+            -- A list entered into an event is shared with THAT event, public or not: the league's
+            -- own Players tab already shows it, and a filter that silently dropped the non-public
+            -- entrants reported a smaller league than the one being played. Gated on the reader
+            -- being in the event (or organising it), so nothing leaks outside it.
+            OR (${eventId} <> 0 AND ${canReadEvent ? 1 : 0} = 1 AND EXISTS (
+                  SELECT 1 FROM event_players ep
+                   WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
+          )
           AND (${eventId} = 0 OR EXISTS (
                 SELECT 1 FROM event_players ep
                  WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
@@ -270,6 +306,9 @@ async function getPublicArmies(req, res) {
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
           r.data->>'faction' AS faction_label,
+          -- alongside the faction: the two other things a reader filters a league by
+          r.data->>'archetype' AS archetype,
+          r.data->>'engagement' AS engagement,
           (SELECT string_agg(e.name, ', ' ORDER BY e.name)
              FROM event_players ep JOIN events e ON e.id = ep.event_id
             WHERE ep.roster_id = r.id AND ep.status = 'approved') AS event_names,
@@ -279,7 +318,16 @@ async function getPublicArmies(req, res) {
         FROM rosters r
         JOIN users u ON u.id = r.user_id
         LEFT JOIN roster_votes rv ON rv.roster_id = r.id
-        WHERE r.is_public = true
+        WHERE (
+            r.is_public = true
+            -- A list entered into an event is shared with THAT event, public or not: the league's
+            -- own Players tab already shows it, and a filter that silently dropped the non-public
+            -- entrants reported a smaller league than the one being played. Gated on the reader
+            -- being in the event (or organising it), so nothing leaks outside it.
+            OR (${eventId} <> 0 AND ${canReadEvent ? 1 : 0} = 1 AND EXISTS (
+                  SELECT 1 FROM event_players ep
+                   WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
+          )
           AND (${eventId} = 0 OR EXISTS (
                 SELECT 1 FROM event_players ep
                  WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
@@ -292,6 +340,9 @@ async function getPublicArmies(req, res) {
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
           r.data->>'faction' AS faction_label,
+          -- alongside the faction: the two other things a reader filters a league by
+          r.data->>'archetype' AS archetype,
+          r.data->>'engagement' AS engagement,
           (SELECT string_agg(e.name, ', ' ORDER BY e.name)
              FROM event_players ep JOIN events e ON e.id = ep.event_id
             WHERE ep.roster_id = r.id AND ep.status = 'approved') AS event_names,
@@ -301,7 +352,16 @@ async function getPublicArmies(req, res) {
         FROM rosters r
         JOIN users u ON u.id = r.user_id
         LEFT JOIN roster_votes rv ON rv.roster_id = r.id
-        WHERE r.is_public = true
+        WHERE (
+            r.is_public = true
+            -- A list entered into an event is shared with THAT event, public or not: the league's
+            -- own Players tab already shows it, and a filter that silently dropped the non-public
+            -- entrants reported a smaller league than the one being played. Gated on the reader
+            -- being in the event (or organising it), so nothing leaks outside it.
+            OR (${eventId} <> 0 AND ${canReadEvent ? 1 : 0} = 1 AND EXISTS (
+                  SELECT 1 FROM event_players ep
+                   WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))
+          )
           AND (${eventId} = 0 OR EXISTS (
                 SELECT 1 FROM event_players ep
                  WHERE ep.roster_id = r.id AND ep.event_id = ${eventId} AND ep.status = 'approved'))

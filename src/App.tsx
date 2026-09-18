@@ -28,6 +28,7 @@ import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { PwaUpdatePrompt } from './components/PwaUpdatePrompt';
 const PrintView        = lazy(() => import('./components/PrintView').then(m => ({ default: m.PrintView })));
+const PlayView         = lazy(() => import('./components/PlayView').then(m => ({ default: m.PlayView })));
 const CheatSheetModal  = lazy(() => import('./components/CheatSheetModal').then(m => ({ default: m.CheatSheetModal })));
 const SavedArmiesModal = lazy(() => import('./components/SavedArmiesModal').then(m => ({ default: m.SavedArmiesModal })));
 const BugReportModal   = lazy(() => import('./components/BugReportModal').then(m => ({ default: m.BugReportModal })));
@@ -171,6 +172,8 @@ export default function App() {
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
   const [loadingFaction, setLoadingFaction]     = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
+  /** The table-side view: the army with the building taken out (Unwise's request). */
+  const [showPlay, setShowPlay]                 = useState(false);
   const [showCheatSheets, setShowCheatSheets]   = useState(false);
   const [showArmies, setShowArmies]             = useState(false);
   const [showBugReport, setShowBugReport]       = useState(false);
@@ -1023,6 +1026,7 @@ export default function App() {
       {/* ── ④ Review ── */}
       {screen === 'flow' && step === 'review' && flowUnlocked && (
         <ReviewStep
+          onPlay={() => setShowPlay(true)}
           onPrint={() => setShowPrint(true)}
           onSave={handleSaveArmy}
           savedMsg={savedMsg}
@@ -1035,6 +1039,11 @@ export default function App() {
         {showPrint     && (
           <ErrorBoundary label="Print View" onClose={() => setShowPrint(false)}>
             <PrintView onClose={() => setShowPrint(false)} />
+          </ErrorBoundary>
+        )}
+        {showPlay      && (
+          <ErrorBoundary label="Battle View" onClose={() => setShowPlay(false)}>
+            <PlayView onClose={() => setShowPlay(false)} />
           </ErrorBoundary>
         )}
         {showCheatSheets && (

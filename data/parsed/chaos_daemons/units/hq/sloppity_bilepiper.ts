@@ -52,7 +52,12 @@ export const sloppityBilepiper: Unit = {
     "Jolly Gutpipes: During the activation, select a friendly Mark of Nurgle unit that is within 7\" of the Sloppity Bilepiper. All models in that unit move +1\" until the end of their next activation."
   ],
   "unit_type": "Character Model, Infantry",
-  "keywords": [],
+  "keywords": [
+    // The datasheet's own "Herald: ..." ability is what makes this unit a Herald; recorded
+    // here as a keyword so the Armory's `requires_keywords: ["Herald"]` gate can see it.
+    // Without it the Palanquin of Nurgle was refused to every model in the game (GH#127).
+    "Herald"
+  ],
   "is_vehicle": false,
   "is_character": true,
   "is_monster": false,
