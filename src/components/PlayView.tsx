@@ -23,8 +23,7 @@ import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile } from '../engine/resolver';
 import { selectedAbilities, battleWeapons, selectedExtras } from '../lib/battleProfile';
-import { markStatMods } from '../lib/markMods';
-import { applyStatDelta } from '../lib/markMods';
+import { resolveStatValue } from '../lib/statPipeline';
 import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
@@ -87,9 +86,25 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   const extras = selectedExtras(item);
   const models = rp.modelsToShow ?? [];
   const statKeys = u.is_vehicle ? STAT_VEH : STAT_INF;
-  // A chosen Mark changes the printed profile, and at the table that is the number you roll
-  // against — the same list the unit card and the datacard use (GH#128).
-  const marks = markStatMods(rp.statModMark, u);
+  // At the table the number you roll against is the FINAL one, so this runs the whole chain the
+  // unit card runs — Marks, traits, wargear and options — not just the Marks. Reported the day
+  // this view shipped: Toxin Sacs raised Strength on the unit card and not here.
+  const marks: string[] = rp.blackCrusadeChampion
+    ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
+    : rp.statModMark ? [rp.statModMark] : [];
+  const statOf = (m: any, i: number, k: string) => resolveStatValue(m.stats?.[k] ?? '-', k, {
+    unit: u,
+    marks,
+    favouredLeader: !!rp.isFavored && i === rp.squadLeaderIdx,
+    traitStatMods: rp.traitStatMods ?? [],
+    optionStatMods: rp.optionStatMods ?? [],
+    equipMods: rp.equipMods,
+    traitEquipMods: rp.traitEquipMods,
+    // Every row in this view is the unit as fielded; a champion's own purchases already sit on
+    // the champion's model row, which is the row this renders.
+    isEquipTarget: true,
+    ctanYngirActive: rp.ctanYngirActive,
+  });
 
   // `modelCounts` is an array PARALLEL to modelsToShow, not a map keyed by model name, and its
   // entries are null for a model whose count is simply the unit size. Reading it as a map printed
@@ -130,13 +145,18 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
                       <td className="text-zinc-200 py-0.5 pr-1">
                         {counts[i] != null ? `${counts[i]}x ` : ''}{m.name}
                       </td>
-                      {statKeys.map(k => (
-                        <td key={k} className={`text-right px-1 tabular-nums ${
-                          marks.some(x => x.stat === k) ? 'text-blue-300' : 'text-zinc-300'}`}>
-                          {marks.filter(x => x.stat === k)
-                                .reduce((v, x) => applyStatDelta(v, x.delta), m.stats?.[k] ?? '–')}
-                        </td>
-                      ))}
+                      {statKeys.map(k => {
+                        const { display, source } = statOf(m, i, k);
+                        // Same colour language as the unit card: blue Mark, green trait,
+                        // violet wargear, cyan option.
+                        const tone = source.mark ? 'text-blue-300'
+                          : source.trait ? 'text-emerald-300'
+                          : source.equip ? 'text-violet-300'
+                          : source.option ? 'text-cyan-300' : 'text-zinc-300';
+                        return (
+                          <td key={k} className={`text-right px-1 tabular-nums ${tone}`}>{display}</td>
+                        );
+                      })}
                     </tr>
                   ))}
                 </tbody>

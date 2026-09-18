@@ -21,7 +21,8 @@ import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
 import { PsychicModal } from './PsychicModal';
-import { markStatMods, hasMarkStatMods } from '../lib/markMods';
+import { hasMarkStatMods } from '../lib/markMods';
+import { resolveStatValue } from '../lib/statPipeline';
 import { useT, tpl } from '../i18n';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
@@ -105,20 +106,8 @@ const MARK_BONUSES: Record<string, { inf: string; char: string; veh: string }> =
 // The Mark stat table moved to lib/markMods.ts, so the unit card, the printed card and the
 // battle view all read one copy of the codex's own wording (GH#128).
 
-function applyDelta(value: string, delta: number): { display: string; modified: boolean } {
-  if (!value || value === '-') return { display: value, modified: false };
-  if (/^\d+$/.test(value)) return { display: String(parseInt(value) + delta), modified: true };
-  const inch = value.match(/^(\d+)"$/);
-  if (inch) return { display: `${parseInt(inch[1]) + delta}"`, modified: true };
-  // A save/skill value ("3+"): stat_mod deltas for SV are already stored in save-number space
-  // (a "+1 to save" ability is delta: -1, since a LOWER printed number is the better save —
-  // verified across all 33 stat_mod:SV sources in the game, e.g. Tyranid "Hardened Carapace"),
-  // so the same plain addition as the numeric-stat case above applies. Floored at 2+, the best
-  // save the game prints anywhere.
-  const save = value.match(/^(\d+)\+$/);
-  if (save) return { display: `${Math.max(2, parseInt(save[1]) + delta)}+`, modified: true };
-  return { display: value, modified: false };
-}
+// applyDelta moved to lib/statPipeline.ts as applyStatDelta, so the unit card and the battle
+// view round and floor stats the same way.
 const STAT_KEYS_INF = ['M','WS','BS','S','T','W','I','A','LD','SV'] as const;
 const STAT_KEYS_VEH = ['M','BS','S','FRONT','SIDE','REAR','I','A','HP'] as const;
 
@@ -812,118 +801,26 @@ export function UnitCard({ item }: Props) {
                           );
                         }
                         const raw = (m.stats as Record<string, string>)[k] ?? '-';
-                        let display = raw;
-                        let markBoosted = false;
-                        let traitBoosted = false;
-                        let equipBoosted = false;
-                        let optionBoosted = false;
-
-                        // Apply mark stat bonuses (vehicles get ability-based bonuses only, no stat deltas)
-                        const marksToApply: string[] = blackCrusadeChampion
-                          ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
-                          : statModMark ? [statModMark] : [];
-                        if (!u.is_vehicle) {
-                          // The codex gives the second half of a Mark to "a character model OR
-                          // Monstrous Creature"; this used to test is_character alone, so the
-                          // Daemon Prince and all four Greater Daemons — monsters, not characters
-                          // — never got it (GH#128). `markStatMods` owns that rule now.
-                          for (const m of marksToApply) {
-                            for (const mod of markStatMods(m, u)) {
-                              if (mod.stat !== k) continue;
-                              const r = applyDelta(display, mod.delta);
-                              display = r.display;
-                              if (r.modified) markBoosted = true;
-                            }
-                          }
-                        }
-
-                        // Favored: squad leader gains +1 Attack
-                        if (isFavored && i === squadLeaderIdx && k === 'A') {
-                          const r = applyDelta(display, 1);
-                          display = r.display;
-                          if (r.modified) markBoosted = true;
-                        }
-
-                        // Apply trait stat mods (stacked delta on top of current display)
-                        const traitDelta = traitStatMods
-                          .filter(sm => sm.stat === k)
-                          .reduce((acc, sm) => acc + sm.delta, 0);
-                        if (traitDelta !== 0) {
-                          const r = applyDelta(display, traitDelta);
-                          if (r.modified) { display = r.display; traitBoosted = true; }
-                        }
-
-                        // Apply equipment stat mods — only on the row actually entitled to the
-                        // Armory's effects (see isEquipTarget above).
-                        if (!u.is_vehicle && isEquipTarget) {
-                          const equipDelta = equipMods.statDeltas[k] ?? 0;
-                          if (equipDelta !== 0) {
-                            const r = applyDelta(display, equipDelta);
-                            if (r.modified) { display = r.display; equipBoosted = true; }
-                          }
-                          // Equipment armor save (SV)
-                          if (k === 'SV' && equipMods.armorSave !== null) {
-                            const existing = display.match(/(\d+)\+/);
-                            if (!existing || equipMods.armorSave < parseInt(existing[1])) {
-                              display = `${equipMods.armorSave}+`;
-                              equipBoosted = true;
-                            }
-                          }
-                        }
-
-                        // A Trait's own `grant_armory_item` effect (IG "Heavy Infantry" → Plate
-                        // armor) applies to every model in the unit, unlike a real per-model
-                        // Armory purchase — so this runs on every row, not gated by isEquipTarget
-                        // (ki-ig-heavy-infantry-trait-champion-only-01).
-                        if (!u.is_vehicle) {
-                          const traitEquipDelta = traitEquipMods.statDeltas[k] ?? 0;
-                          if (traitEquipDelta !== 0) {
-                            const r = applyDelta(display, traitEquipDelta);
-                            if (r.modified) { display = r.display; equipBoosted = true; }
-                          }
-                          if (k === 'SV' && traitEquipMods.armorSave !== null) {
-                            const existing = display.match(/(\d+)\+/);
-                            if (!existing || traitEquipMods.armorSave < parseInt(existing[1])) {
-                              display = `${traitEquipMods.armorSave}+`;
-                              equipBoosted = true;
-                            }
-                          }
-                        }
-
-                        // Apply equipment stat SETS (e.g. Living vehicle "WS → 4+")
-                        // Only applied if the set value is better (lower number) than current.
-                        const setVal = isEquipTarget ? equipMods.statSets[k] : undefined;
-                        if (setVal) {
-                          const currentNum = display.match(/^(\d+)\+/)?.[1];
-                          const setNum = setVal.match(/^(\d+)\+/)?.[1];
-                          if (currentNum && setNum && parseInt(setNum) < parseInt(currentNum)) {
-                            display = setVal;
-                            equipBoosted = true;
-                          } else if (!currentNum || display === '-') {
-                            // No current value or "-" → always set
-                            display = setVal;
-                            equipBoosted = true;
-                          }
-                        }
-
-                        // Apply option stat mods (e.g. Daemon Prince wings M +6)
-                        const optionDelta = optionStatMods
-                          .filter(sm => sm.stat === k)
-                          .reduce((acc, sm) => acc + sm.delta, 0);
-                        if (optionDelta !== 0) {
-                          const r = applyDelta(display, optionDelta);
-                          if (r.modified) { display = r.display; optionBoosted = true; }
-                        }
-
-                        // Yngir: C'tan Shard upgrade floors the save at 2+ (ods-verbatim) — same
-                        // "set if better" pattern as equipMods.armorSave above.
-                        if (k === 'SV' && ctanYngirActive) {
-                          const existing = display.match(/(\d+)\+/);
-                          if (!existing || 2 < parseInt(existing[1])) {
-                            display = '2+';
-                            optionBoosted = true;
-                          }
-                        }
+                        // The whole chain lives in lib/statPipeline.ts so the battle view applies
+                        // exactly the same sources in the same order. Reported the day that view
+                        // shipped: Toxin Sacs raised Strength here and not there, because there
+                        // only Marks were applied.
+                        const _sv = resolveStatValue(raw, k, {
+                          unit: u,
+                          marks: blackCrusadeChampion
+                            ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
+                            : statModMark ? [statModMark] : [],
+                          favouredLeader: isFavored && i === squadLeaderIdx,
+                          traitStatMods, optionStatMods,
+                          equipMods, traitEquipMods,
+                          isEquipTarget,
+                          ctanYngirActive,
+                        });
+                        const display = _sv.display;
+                        const markBoosted = _sv.source.mark;
+                        const traitBoosted = _sv.source.trait;
+                        const equipBoosted = _sv.source.equip;
+                        const optionBoosted = _sv.source.option;
 
                         const cellClass = markBoosted
                           ? 'text-blue-400 font-bold'
