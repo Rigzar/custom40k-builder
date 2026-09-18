@@ -150,7 +150,9 @@ const NON_RULE_TOKENS = new Set([
  * not in `data` at all when `data` is the supplement/ally's own FactionData. Callers pass the
  * primary FactionData here as a fallback whenever `data` might be a supplement/ally's own.
  */
-function findArmoryItem(data: FactionData, name: string, hostData?: FactionData): ArmoryItem | undefined {
+function findArmoryItem(
+  data: FactionData, name: string, hostData?: FactionData, forVehicle?: boolean,
+): ArmoryItem | undefined {
   const sources = [
     data.armory_general,
     ...Object.values(data.armory_marks ?? {}),
@@ -158,10 +160,15 @@ function findArmoryItem(data: FactionData, name: string, hostData?: FactionData)
   ].filter((a): a is NonNullable<typeof a> => !!a);
   for (const arm of sources)
     for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
-      const found = ((arm[sec] as ArmoryItem[] | undefined) ?? []).find(a => a.name === name);
-      if (found) return found;
+      // Same name twice in one section is always a creature/vehicle pair (18 in the game, two
+      // with different rules — Eldar "Spirit stones", Imperial Guard "Vox"), so hand the buyer
+      // the one written for it rather than whichever comes first.
+      const matches = ((arm[sec] as ArmoryItem[] | undefined) ?? []).filter(a => a.name === name);
+      if (!matches.length) continue;
+      if (matches.length === 1 || forVehicle === undefined) return matches[0];
+      return matches.find(a => (a.category === 'vehicle') === forVehicle) ?? matches[0];
     }
-  return hostData && hostData !== data ? findArmoryItem(hostData, name) : undefined;
+  return hostData && hostData !== data ? findArmoryItem(hostData, name, undefined, forVehicle) : undefined;
 }
 
 // ── Design tokens (pure CSS — no external images) ─────────────────────────────
@@ -413,17 +420,17 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const armData = armoryData ?? data;
   for (const sel of item.armory) {
     if (sel.section === 'equipment') {
-      const arm = findArmoryItem(armData, sel.itemName, data);
+      const arm = findArmoryItem(armData, sel.itemName, data, !!u.is_vehicle);
       if (!isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'daemon_weapons') {
-      const arm = findArmoryItem(armData, sel.itemName, data);
+      const arm = findArmoryItem(armData, sel.itemName, data, !!u.is_vehicle);
       if (!isWeaponTrait(arm?.desc) && !isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'weapons') continue;
-    const arm = findArmoryItem(armData, sel.itemName, data);
+    const arm = findArmoryItem(armData, sel.itemName, data, !!u.is_vehicle);
     if (arm && !arm.range && !(arm.profiles && arm.profiles.length > 0)) {
       armEquip.push({ name: sel.itemName, desc: arm.desc ?? '' });
     }

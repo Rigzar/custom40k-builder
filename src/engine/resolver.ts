@@ -162,7 +162,24 @@ export interface ResolvedProfile {
 
 // ── Shared utility ────────────────────────────────────────────────────────────
 
-export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryItem | undefined {
+/**
+ * Look up a bought Armory item.
+ *
+ * `forVehicle` disambiguates a name that appears TWICE in the same section. Every armoury in the
+ * game that does this pairs a creature entry with a `category: 'vehicle'` one — 18 pairs, and two
+ * of them carry genuinely different rules: the Eldar "Spirit stones" (an extra psychic power for a
+ * creature, ignoring the first Crew Shaken for a vehicle) and the Imperial Guard "Vox". Matching on
+ * the name alone always returned the first, so a vehicle showed the creature's text. Reported for
+ * the Eldar pair; the Guard one had never been noticed.
+ *
+ * Optional on purpose: the caller has to know who is buying, and most callers do. One that does not
+ * gets today's behaviour, which is right for the sixteen pairs whose two entries say the same
+ * thing. Derived from the UNIT at read time rather than stored on the selection, so a list saved
+ * before this fix heals itself on open.
+ */
+export function findArmoryItem(
+  data: FactionData, sel: ArmorySelection, forVehicle?: boolean,
+): ArmoryItem | undefined {
   const section = sel.section as keyof typeof data.armory_general;
   const sources = [
     data.armory_general,
@@ -190,8 +207,12 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
     ...Object.values(data.borrowable_armories ?? {}),
   ];
   for (const armory of sources) {
-    const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);
-    if (found) return found;
+    const matches = (armory[section] as ArmoryItem[]).filter(a => a.name === sel.itemName);
+    if (!matches.length) continue;
+    if (matches.length === 1 || forVehicle === undefined) return matches[0];
+    // Two entries, one of them the vehicle version: give the buyer the one written for it. If the
+    // pair is somehow not split that way, fall back to the first rather than guess.
+    return matches.find(a => (a.category === 'vehicle') === forVehicle) ?? matches[0];
   }
   // A saved list stores the item's NAME, so correcting a misspelling in the data orphans every
   // list holding it: the points stay on the selection and are still charged, while the lookup
@@ -822,7 +843,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const championWeaponTraitMap = new Map<string, string[]>();
   for (const sel of item.armory) {
     if (sel.section !== 'daemon_weapons' || !sel.targetWeapon) continue;
-    const armItem = findArmoryItem(data, sel);
+    const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (!armItem?.desc || !isWeaponTrait(armItem.desc)) continue;
     const gains = extractWeaponGains(armItem.desc);
     if (gains.length === 0) continue;
@@ -930,12 +951,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   };
   for (const sel of item.armory) {
     if (sel.section === 'weapons') {
-      const armItem = findArmoryItem(data, sel);
+      const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
       if (armItem) pushGrantedWeapon(armItem);
       continue;
     }
     if (sel.section !== 'daemon_weapons' && sel.section !== 'equipment') continue;
-    const armItem = findArmoryItem(data, sel);
+    const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
     const grantedName = extractGrantedWeaponName(armItem.desc);
     if (!grantedName) continue;
@@ -1024,13 +1045,13 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Sergeant alone had bought Plate armor (ki-ig-heavy-infantry-trait-champion-only-01).
   const equipItems = item.armory
     .filter(a => {
-      const ai = findArmoryItem(data, a);
+      const ai = findArmoryItem(data, a, !!unit.is_vehicle);
       if (a.section === 'daemon_weapons') return !isWeaponTrait(ai?.desc) && !isGrantWeapon(ai?.desc);
       if (a.section === 'equipment') return !isGrantWeapon(ai?.desc); // exclude weapon-granting upgrades
       return false;
     })
     .map((a): EquipInput => {
-      const found = findArmoryItem(data, a);
+      const found = findArmoryItem(data, a, !!unit.is_vehicle);
       return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword, typeEffect: found?.effect };
     });
   const equipMods: EquipMods = parseEquipMods(equipItems, unit.armourKeyword, unit.abilities);
@@ -1112,7 +1133,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Pattern: All (ranged|melee|bolt)? weapons ... gain ['"]ABILITY['"]
   for (const sel of item.armory) {
     if (sel.section !== 'equipment') continue;
-    const armItem = findArmoryItem(data, sel);
+    const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (!armItem?.desc) continue;
     const desc = armItem.desc;
     // Match "All [type] weapons ... gain 'X'" or "All [type] weapons ... gain "X""
@@ -1152,7 +1173,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // applyChosenWeaponStatBoosts; this loop only handles the ability-text half.
   for (const sel of item.armory) {
     if (sel.section !== 'equipment' || !sel.targetWeapon) continue;
-    const armItem = findArmoryItem(data, sel);
+    const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (!armItem?.desc) continue;
     const fixed = CHOSEN_WEAPON_GRANT_ITEMS[sel.itemName];
     let abilities: string[] = fixed?.abilities ? [...fixed.abilities] : [];
@@ -1304,7 +1325,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // "Bike"; "Daemonic stature" → "Monstrous Infantry"). Stats and quoted abilities for these items
   // still come from equipMods; this only adds the type, de-duplicated against what the model has.
   for (const sel of item.armory) {
-    const ai = findArmoryItem(data, sel);
+    const ai = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (ai?.effect) applyEffect(ai.effect);
     for (const grantedName of ai?.effect?.grants_weapons ?? []) {
       const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
@@ -1359,7 +1380,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // item's own desc text — which needs `data`/findArmoryItem, not available where the boost is
   // actually applied.
   const familyBoostKeys = item.armory
-    .map(a => { const ai = findArmoryItem(data, a); return ai ? familyBoostKeyFor(a.itemName, ai.desc) : null; })
+    .map(a => { const ai = findArmoryItem(data, a, !!unit.is_vehicle); return ai ? familyBoostKeyFor(a.itemName, ai.desc) : null; })
     .filter((k): k is string => !!k);
 
   return {
