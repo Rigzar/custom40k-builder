@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v174b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v174c_dismissed';
 
 // v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
@@ -55,7 +55,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "🏁 EVENTS: THE ORGANISER CAN EDIT AN EVENT AFTER CREATING IT — name, description and all four dates, so registration can be extended. And a list entered into a league no longer hides FROM that league: filtering the community tab by an event now shows every list registered for it, public or not. Also new there: FACTION, ARCHETYPE and BATTLE TYPE filters.",
     line7: "🎲 A NEW BATTLE VIEW, FOR WHEN YOU ARE ACTUALLY PLAYING. Unwise’s idea — he keeps the app open beside his models because it beats the PDF, but mid-game he does not care about the options he did NOT take. BATTLE VIEW sits next to Print: one line per unit, tap to open, and inside only what that unit really has — stats, the weapons it is carrying, and its real abilities, traits and powers. No steppers, no option lists, nothing editable. Deliberately not a wound tracker.",
     line8: "🧬 TYRANIDS: THE HORROR and WARP BLAST now take effect IMMEDIATELY rather than lasting until the caster’s next activation, straight from the author’s sheet.",
-    line9: "🧪 FOLLOW-UP ON THE BATTLE VIEW: it was showing BASE stats rather than yours — Toxin Sacs raised a Tyranid’s Strength on the unit card and not there. It now runs the same chain the unit card runs (Marks, Traits, wargear, options), in the same order, and the colour tells you what changed the number: blue Mark, green Trait, violet wargear, cyan option. Thanks for catching it the same day.",
+    line9: "🧪 FOLLOW-UP ON THE BATTLE VIEW: it was showing BASE stats rather than yours — Toxin Sacs raised a Tyranid’s Strength on the unit card and not there. It now runs the same chain the unit card runs (Marks, Traits, wargear, options), in the same order, and the colour tells you what changed the number: blue Mark, green Trait, violet wargear, cyan option. Thanks for catching it the same day. It also keeps your army’s colours now — each card wears its own faction’s tint, so an allied detachment still reads as itself.",
     line10: "",
     line11: "",
     line12: "",
@@ -73,7 +73,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "🏁 EVENTS: DER ORGANISATOR KANN EIN EVENT NACHTRÄGLICH BEARBEITEN — Name, Beschreibung und alle vier Daten, die Anmeldung lässt sich also verlängern. Und eine in eine Liga eingetragene Liste versteckt sich nicht mehr VOR dieser Liga: der Event-Filter im Community-Tab zeigt jetzt alle dort angemeldeten Listen, öffentlich oder nicht. Neu dort außerdem: Filter nach FRAKTION, ARCHETYP und SCHLACHTART.",
     line7: "🎲 EINE NEUE GEFECHTSANSICHT, FÜR DAS SPIEL SELBST. Unwises Idee — er hat die App neben den Modellen offen, weil das besser ist als das PDF, aber mitten im Spiel interessieren ihn die Optionen nicht, die er NICHT genommen hat. GEFECHTSANSICHT steht neben Drucken: eine Zeile pro Einheit, antippen zum Öffnen, und darin nur das, was die Einheit wirklich hat — Werte, die getragenen Waffen und die echten Fähigkeiten, Traits und Kräfte. Keine Stepper, keine Optionslisten, nichts Änderbares. Bewusst kein Wunden-Tracker.",
     line8: "🧬 TYRANIDEN: THE HORROR und WARP BLAST wirken jetzt SOFORT statt bis zur nächsten Aktivierung des Psionikers — direkt aus dem Blatt des Autors.",
-    line9: "🧪 NACHTRAG ZUR GEFECHTSANSICHT: sie zeigte GRUNDWERTE statt deiner — Toxin Sacs erhöhte die Stärke auf der Einheitenkarte, dort aber nicht. Sie durchläuft jetzt dieselbe Kette wie die Einheitenkarte (Male, Traits, Ausrüstung, Optionen), in derselben Reihenfolge, und die Farbe sagt, was den Wert geändert hat: blau Mal, grün Trait, violett Ausrüstung, cyan Option. Danke fürs Melden noch am selben Tag.",
+    line9: "🧪 NACHTRAG ZUR GEFECHTSANSICHT: sie zeigte GRUNDWERTE statt deiner — Toxin Sacs erhöhte die Stärke auf der Einheitenkarte, dort aber nicht. Sie durchläuft jetzt dieselbe Kette wie die Einheitenkarte (Male, Traits, Ausrüstung, Optionen), in derselben Reihenfolge, und die Farbe sagt, was den Wert geändert hat: blau Mal, grün Trait, violett Ausrüstung, cyan Option. Danke fürs Melden noch am selben Tag. Sie behält jetzt auch die Farben deiner Armee — jede Karte trägt den Ton ihrer eigenen Fraktion, ein verbündetes Detachment bleibt also erkennbar.",
     line10: "",
     line11: "",
     line12: "",
@@ -91,7 +91,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "🏁 EVENTOS: EL ORGANIZADOR YA PUEDE EDITAR UN EVENTO CREADO — nombre, descripción y las cuatro fechas, así que la inscripción se puede alargar. Y una lista inscrita en una liga ya no se esconde DE esa liga: al filtrar la pestaña de comunidad por un evento aparecen todas las listas inscritas, públicas o no. Además: filtros por FACCIÓN, ARQUETIPO y TIPO DE BATALLA.",
     line7: "🎲 NUEVA VISTA DE BATALLA, PARA CUANDO ESTÁS JUGANDO. Idea de Unwise — juega con la app abierta junto a las miniaturas porque le va mejor que el PDF, pero en plena partida no le importan las opciones que NO cogió. VISTA DE BATALLA está junto a Imprimir: una línea por unidad, toca para abrirla, y dentro solo lo que esa unidad lleva de verdad — perfil, las armas que porta y sus habilidades, rasgos y poderes reales. Sin contadores, sin listas de opciones, nada editable. A propósito, no es un tracker de heridas.",
     line8: "🧬 TIRÁNIDOS: THE HORROR y WARP BLAST ahora tienen efecto INMEDIATO en vez de durar hasta la siguiente activación del psíquico — directo de la hoja del autor.",
-    line9: "🧪 SEGUIMIENTO DE LA VISTA DE BATALLA: mostraba los stats BASE y no los tuyos — Toxin Sacs subía la Fuerza en la ficha de unidad y ahí no. Ahora pasa por la misma cadena que la ficha (Marcas, Rasgos, equipo, opciones), en el mismo orden, y el color te dice qué cambió el número: azul Marca, verde Rasgo, violeta equipo, cian opción. Gracias por pillarlo el mismo día.",
+    line9: "🧪 SEGUIMIENTO DE LA VISTA DE BATALLA: mostraba los stats BASE y no los tuyos — Toxin Sacs subía la Fuerza en la ficha de unidad y ahí no. Ahora pasa por la misma cadena que la ficha (Marcas, Rasgos, equipo, opciones), en el mismo orden, y el color te dice qué cambió el número: azul Marca, verde Rasgo, violeta equipo, cian opción. Gracias por pillarlo el mismo día. Y ahora conserva los colores de tu ejército — cada ficha lleva el tono de su propia facción, así que un destacamento aliado se sigue distinguiendo.",
     line10: "",
     line11: "",
     line12: "",

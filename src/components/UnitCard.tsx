@@ -23,6 +23,7 @@ import { TraitsModal } from './TraitsModal';
 import { PsychicModal } from './PsychicModal';
 import { hasMarkStatMods } from '../lib/markMods';
 import { resolveStatValue } from '../lib/statPipeline';
+import { getFactionCat, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { useT, tpl } from '../i18n';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
@@ -76,24 +77,8 @@ const WEAPON_TYPE_ICONS: Partial<Record<string, string>> = {
 const STAT_ICON_FILTER = 'var(--icon-tint-gold)';
 const TYPE_ICON_FILTER  = 'var(--icon-tint)';
 
-function getFactionCat(faction: string): 'chaos' | 'imperium' | 'xenos' | 'supp' {
-  if (/chaos/i.test(faction)) return 'chaos';
-  if (/space marines|imperial|mechanicus|custodes|sororitas|grey knights|inquisition/i.test(faction)) return 'imperium';
-  if (/tau|necron|ork|eldar|genestealer|harlequin|votann|tyranid/i.test(faction)) return 'xenos';
-  return 'supp';
-}
-const HDR_BG: Record<string, string> = {
-  chaos:   'linear-gradient(135deg, #311212 0%, #1d0a0a 100%)',
-  imperium:'linear-gradient(135deg, #27220f 0%, #18150a 100%)',
-  xenos:   'linear-gradient(135deg, #0e2016 0%, #090f0c 100%)',
-  supp:    'linear-gradient(135deg, #191828 0%, #0f0e1a 100%)',
-};
-const HDR_BORDER: Record<string, string> = {
-  chaos:   '#8b1c1c',
-  imperium:'#8b7a1c',
-  xenos:   '#1c7a42',
-  supp:    '#42427a',
-};
+// getFactionCat / HDR_BG / HDR_BORDER moved to lib/factionTheme.ts so the battle view wears the
+// same colours instead of a third copy of these hex values.
 
 const MARK_BONUSES: Record<string, { inf: string; char: string; veh: string }> = {
   Khorne:    { inf: '+1 Attack',       char: '+1 Strength (character)',          veh: 'Tank Shock: double hit' },

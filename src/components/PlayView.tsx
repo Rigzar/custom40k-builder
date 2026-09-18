@@ -24,6 +24,7 @@ import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile } from '../engine/resolver';
 import { selectedAbilities, battleWeapons, selectedExtras } from '../lib/battleProfile';
 import { resolveStatValue } from '../lib/statPipeline';
+import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
@@ -113,10 +114,16 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   const counted = counts.reduce<number>((a, b) => a + (b ?? 0), 0);
   const size = counted > 0 ? counted : item.size;
 
+  // Each unit wears ITS OWN faction's colour, not the army's: an allied detachment is the whole
+  // reason to tint a card at all. Asked for on this view — the builder already does it and losing
+  // it here cost the one cue that says which detachment a unit belongs to while scrolling mid-game.
+  const cat = getFactionCat(entryFaction(item, data.faction));
+
   return (
-    <div className="border border-zinc-800 bg-zinc-950/40">
+    <div className="border border-zinc-800 border-l-2" style={{ borderLeftColor: HDR_BORDER[cat] }}>
       <button
-        className="w-full flex items-baseline gap-2 px-3 py-2 text-left hover:bg-zinc-900/60"
+        className="w-full flex items-baseline gap-2 px-3 py-2 text-left hover:brightness-125 transition-all"
+        style={{ background: HDR_BG[cat] }}
         onClick={() => setOpen(o => !o)}
       >
         <span className="text-zinc-600 text-[10px] w-3 shrink-0">{open ? '−' : '+'}</span>
@@ -124,11 +131,11 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
           {item.customName || item.unitName}
         </span>
         <span className="text-zinc-500 text-[10px] tabular-nums shrink-0">{size}</span>
-        <span className="text-amber-600/80 text-[10px] tabular-nums shrink-0">{rp.pts} pts</span>
+        <span className="text-[10px] tabular-nums shrink-0" style={{ color: HDR_BORDER[cat] }}>{rp.pts} pts</span>
       </button>
 
       {open && (
-        <div className="px-3 pb-3 border-t border-zinc-800/70">
+        <div className="px-3 pb-3 bg-zinc-950/40" style={{ borderTop: `1px solid ${HDR_BORDER[cat]}55` }}>
           {/* stats */}
           {models.length > 0 && (
             <div className="overflow-x-auto mt-2">
