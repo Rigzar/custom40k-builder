@@ -135,7 +135,15 @@ async function loadEvent(eventId, userId) {
 function datesRefusal(startsOn, regClosesOn) {
   const a = asDate(startsOn), b = asDate(regClosesOn);
   if (a && b && b > a) {
-    return { msg: 'Registration has to close before the event starts.', key: 'evErrRegAfterStart' };
+    // Name BOTH dates. Reported as "it won't save it if I extend the registration date": an
+    // organiser extending sign-up on a league that has already begun trips this every time, and
+    // "registration has to close before the event starts" does not say which start date it means
+    // or that moving it is the other way out.
+    return {
+      msg: `Registration would close on ${b}, after the event starts on ${a}. `
+         + 'Move the start date too, or pick an earlier registration close date.',
+      key: 'evErrRegAfterStart',
+    };
   }
   return null;
 }

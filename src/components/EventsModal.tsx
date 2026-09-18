@@ -505,7 +505,13 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           {/* Organiser-only. A league runs for months and the dates are the thing most likely to
               move — "can you extend registration to Sunday" is the ordinary case, not an edge one. */}
           {data.canManage && (
-            <EventEditPanel ev={ev} busy={busy} onSave={patch => act(() => api.updateEvent(ev.id, patch))} />
+            <EventEditPanel ev={ev} busy={busy}
+                            onSave={async patch => {
+                              // Report back whether it actually saved: a refusal has to leave the
+                              // form open with the typed dates still in it, not look like success.
+                              try { await api.updateEvent(ev.id, patch); await load(); onError(''); return null; }
+                              catch (err) { return (err as Error).message; }
+                            }} />
           )}
 
           {ev.description && <p className="text-zinc-300 text-[12px] whitespace-pre-wrap">{ev.description}</p>}
@@ -1107,10 +1113,12 @@ function HeadToHeadTab({ games, me }: { games: api.EventGame[]; me: string }) {
 function EventEditPanel({ ev, busy, onSave }: {
   ev: api.EventSummary;
   busy: boolean;
-  onSave: (patch: Partial<api.NewEvent>) => void;
+  /** Resolves to null on success, or the server's refusal message. */
+  onSave: (patch: Partial<api.NewEvent>) => Promise<string | null>;
 }) {
   const t = useT();
   const [open, setOpen] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
   const day = (v: string | null | undefined) => (v ? String(v).slice(0, 10) : '');
   const [form, setForm] = useState({
     name: ev.name,
@@ -1136,6 +1144,11 @@ function EventEditPanel({ ev, busy, onSave }: {
     <div className="border border-zinc-800 p-3 space-y-2">
       <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evEditEvent')}</div>
       <p className="text-zinc-500 text-[11px] leading-snug">{t('evEditEventHint')}</p>
+      {/* Shown HERE, beside the fields that caused it, and the form stays open with what you
+          typed. Reported as "it won't save it if I extend the registration date": the refusal was
+          real (registration may not close after the event starts) but the panel closed anyway, so
+          it read as a broken save. */}
+      {err && <p className="text-red-400 text-[11px] leading-snug">{err}</p>}
       <input className={box} value={form.name}
              onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
       <textarea className={`${box} h-16 resize-y`} value={form.description}
@@ -1157,8 +1170,9 @@ function EventEditPanel({ ev, busy, onSave }: {
       <div className="flex gap-2">
         <button className="text-[11px] px-3 py-1 border border-amber-700 text-amber-300 hover:bg-amber-900/30 disabled:opacity-40"
                 disabled={busy || !form.name.trim()}
-                onClick={() => {
-                  onSave({
+                onClick={async () => {
+                  setErr(null);
+                  const failed = await onSave({
                     name: form.name.trim(),
                     description: form.description,
                     // A cleared date must reach the server as null, not as "" — the update action
@@ -1168,7 +1182,8 @@ function EventEditPanel({ ev, busy, onSave }: {
                     regOpensOn: form.regOpensOn || null,
                     regClosesOn: form.regClosesOn || null,
                   } as Partial<api.NewEvent>);
-                  setOpen(false);
+                  if (failed) setErr(failed);
+                  else setOpen(false);
                 }}>
           {t('evSave')}
         </button>
