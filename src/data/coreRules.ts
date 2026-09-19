@@ -36,7 +36,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'armor piercing': {
     name: 'Armor Piercing({X})',
-    description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and roll an extra +2 for armor penetration rolls.',
+    description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and a +2 bonus for armor penetration rolls.',
   },
   'at': {
     name: 'AT({X})',
@@ -325,7 +325,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'rapid fire': {
     name: 'Rapid Fire',
-    description: 'May be used with Stand & Shoot and Move & Shoot orders only. Doubles its shots when fired at half range. If the unit has not received the "Stand & Shoot" command, it can only fire at half range with Rapid Fire weapons.',
+    description: 'May be used with Stand & Shoot and Move & Shoot orders only. If the target of this weapon is within half its range, it doubles its attacks. If the unit does not have the "Stand & Shoot" order, it can only fire the weapon at targets within half range.',
   },
 
   // ── Model special rules ───────────────────────────────────────────────────
@@ -515,7 +515,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'unyielding': {
     name: 'Unyielding',
-    description: 'Ranged Combat Shoot Heavy weapons with a Move & Shoot order. Always shoot Rapid Fire weapons at full range OR twice at half range. Fire all weapon types at a -1 hit penalty when executing a Charge order. Limitations Cannot receive the Advance order. Cannot pursue fleeing units in close combat.',
+    description: 'Ranged Combat Shoot Heavy weapons with a Move & Shoot order. Can always fire Rapid Fire weapons up to full range. Fire all weapon types at a -1 hit penalty when executing a Charge order. Limitations Cannot receive the Advance order. Cannot pursue fleeing units in close combat.',
   },
   'vanguard': {
     name: 'Vanguard',

@@ -56,7 +56,7 @@ import Layout from '../../components/Layout.astro';
       <div class="phase-card phase-card--2">
         <img src="/phase-icons/reinforce.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Reinforcement Phase</div>
-        <p>You may roll reinforcement dice equal to the battle round number. Each 4+ must bring one unit from reserve, if possible.</p>
+        <p>You may roll reinforcement dice equal to the battle round number. Each 4+ must bring one unit from reserve, if possible. They enter from your board edge during their activation in the following Command phase, with an Advance or Move &amp; Shoot order only.</p>
         <table class="compact-table">
           <thead><tr><th>Round</th><th>Dice</th><th>Auto Units</th></tr></thead>
           <tbody>
@@ -197,7 +197,7 @@ import Layout from '../../components/Layout.astro';
         <li><strong>Resolve Attacks</strong> — If multiple targets, resolve all attacks vs one unit before moving to next.</li>
         <li><strong>Hit Rolls</strong> — Roll to hit vs model's BS. Roll of 6 always succeeds.</li>
         <li><strong>Wound Rolls</strong> — Roll based on weapon Strength vs target Toughness.</li>
-        <li><strong>Saving Throws</strong> — Roll save, subtract weapon AP. Ward save unaffected by AP.</li>
+        <li><strong>Saving Throws</strong> — Roll save, subtract weapon AP. Ward save unaffected by AP. If the required save would be worse than 6+ and the model has no Ward save (or its Ward save is also worse than 6+), skip the roll and apply the damage.</li>
         <li><strong>Damage</strong> — Failed save = damage equal to weapon profile. When damage ≥ Wounds, model removed. Damage doesn't carry over. Removing casualties <strong>ends immediately</strong> once no enemy model is left within LOS or within the weapon's range.</li>
         <li><strong>Leadership Test</strong> — If unit drops below half starting strength, pass Ld test or receive 2 Battleshock tokens.</li>
       </ol>
@@ -343,7 +343,7 @@ import Layout from '../../components/Layout.astro';
         <tbody>
           <tr><td>1</td><td>—</td><td>Nothing happens.</td></tr>
           <tr><td>2</td><td class="result-label">Crew Shaken</td><td>−1 to hit, −50% movement until end of next activation. Not cumulative.</td></tr>
-          <tr><td>3</td><td class="result-label">Engine Damage</td><td>Movement reduced by ⅓ permanently. Fully immobilised = can't move, no melee lock. If can't reduce further → lose 1 HP.</td></tr>
+          <tr><td>3</td><td class="result-label">Engine Damage</td><td>Movement reduced by ⅓ permanently. Fully immobilised = can't move at all (Advance and Charge movement included), no melee lock. If can't reduce further → lose 1 HP.</td></tr>
           <tr><td>4</td><td class="result-label">Weapon Damage</td><td>Owner chooses a weapon — permanently destroyed. Can spend 1 HP instead of losing last weapon.</td></tr>
           <tr><td>5</td><td class="result-label">Structural Damage</td><td>Lose 1 Hull Point.</td></tr>
           <tr><td>6</td><td class="result-label result-crit">Critical Damage</td><td>Attacker picks: Engine Damage, Weapon Damage, or Structural Damage.</td></tr>
@@ -394,7 +394,7 @@ import Layout from '../../components/Layout.astro';
           <li>Cannot move vertically on terrain.</li>
           <li>Auto-advances 6″ on Advance order.</li>
           <li>May fire Heavy weapons with Move &amp; Shoot.</li>
-          <li>Always fires Rapid Fire at full range.</li>
+          <li>Always fires Rapid Fire up to full range.</li>
           <li>Fires all weapon types on Charge at −1.</li>
         </ul>
       </div>
@@ -424,7 +424,7 @@ import Layout from '../../components/Layout.astro';
           <li>Ignores terrain and vertical movement costs.</li>
           <li>Auto-advances 6″ on Advance order.</li>
           <li>May fire Heavy weapons with Move &amp; Shoot.</li>
-          <li>Always fires Rapid Fire at full range.</li>
+          <li>Always fires Rapid Fire up to full range.</li>
           <li>Fires all weapon types on Charge at −1.</li>
         </ul>
       </div>
@@ -449,7 +449,7 @@ import Layout from '../../components/Layout.astro';
           <li>Cannot be joined by a Character Model.</li>
           <li>Cannot enter transport vehicles.</li>
           <li>Gains a +3 bonus on Armor penetration rolls.</li>
-          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
+          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire up to full range. All types on Charge at −1.</li>
         </ul>
       </div>
 
@@ -462,7 +462,7 @@ import Layout from '../../components/Layout.astro';
           <li>Cannot be joined by a Character Model.</li>
           <li>Cannot enter transport vehicles.</li>
           <li>Gains a +2 bonus on Armor penetration rolls.</li>
-          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
+          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire up to full range. All types on Charge at −1.</li>
         </ul>
       </div>
 
@@ -475,7 +475,7 @@ import Layout from '../../components/Layout.astro';
           <li>Treated like vehicles but locked in melee like infantry.</li>
           <li>May change facing during its own initiative step in melee.</li>
           <li>No Defensive Fire against enemies charging from behind the torso's facing.</li>
-          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
+          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire up to full range. All types on Charge at −1.</li>
         </ul>
       </div>
 
@@ -597,7 +597,7 @@ import Layout from '../../components/Layout.astro';
         <li>¹ One model per unit may use a grenade. In melee, grenades can only target Vehicles or Monstrous Creatures.</li>
         <li>² If a model has at least one melee weapon AND one pistol, gains +1 Attack in melee.</li>
         <li>³ A model can fire up to two pistols, OR other eligible weapons (not both).</li>
-        <li>⁴ Doubles shots at half range. With S&amp;S order only: can fire at full range too.</li>
+        <li>⁴ Doubles its attacks against a target within half range. Without a Stand &amp; Shoot order it can only fire at targets within half range.</li>
       </ul>
     </div>
 
@@ -660,7 +660,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Tank Hunter</div><p>One armor penetration roll vs vehicle (or wound roll vs Monstrous Creature) may be re-rolled. Multiple models with the same weapon: one roll per model may be re-rolled.</p></div>
       <div class="ability-card"><div class="ability-name">Terrifying (−X)</div><p>Enemy units within 6″ suffer −X Leadership.</p></div>
       <div class="ability-card"><div class="ability-name">Unique</div><p>The weapon or wargear may only be included once per army.</p></div>
-      <div class="ability-card"><div class="ability-name">Unyielding</div><p>May fire Heavy with Move &amp; Shoot. Always fires Rapid Fire at full range OR twice at half range. All weapon types at −1 on Charge. Cannot Advance or pursue fleeing units in melee.</p></div>
+      <div class="ability-card"><div class="ability-name">Unyielding</div><p>May fire Heavy with Move &amp; Shoot. Always fires Rapid Fire up to full range. All weapon types at −1 on Charge. Cannot Advance or pursue fleeing units in melee.</p></div>
       <div class="ability-card"><div class="ability-name">Use Cover</div><p>Models benefiting from cover impose an additional −1 to hit rolls for ranged attacks.</p></div>
       <div class="ability-card"><div class="ability-name">Vanguard</div><p>At the start of the first battle round: move 6″ (or 12″ from a transport). Alternate activation with opponent's Vanguard units, starting with the player who deployed first.</p></div>
       <div class="ability-card"><div class="ability-name">Warded</div><p>Gain a 6+ ward save, or improve existing invul by +1 (max 4+). Cumulative with itself.</p></div>
@@ -679,7 +679,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Ammo (X)</div><p>This weapon can only be used X times per game.</p></div>
       <div class="ability-card"><div class="ability-name">Anti-Air</div><p>Attacks vs Anti-Grav, Jet Bike, Jump Pack models or Flyers gain +1 to hit and +1 Strength.</p></div>
       <div class="ability-card"><div class="ability-name">Armorbane</div><p>Gains a +3 bonus on armor penetration rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">Armor Piercing (X+)</div><p>Wound rolls of X+ always succeed and gain −2 AP. Armor penetration rolls of X+ gain +1 AT and roll an extra +2 for armor penetration rolls.</p></div>
+      <div class="ability-card"><div class="ability-name">Armor Piercing (X+)</div><p>Wound rolls of X+ always succeed and gain −2 AP. Armor penetration rolls of X+ gain +1 AT and a +2 bonus for armor penetration rolls.</p></div>
       <div class="ability-card"><div class="ability-name">AT (X)</div><p>Can cause Penetrating Hits. On a penetrating hit, roll X dice on the Vehicle Damage Chart and apply all results.</p></div>
       <div class="ability-card"><div class="ability-name">Auto Hit</div><p>The weapon hits automatically.</p></div>
       <div class="ability-card"><div class="ability-name">Blast (X)</div><p>Successful hit → 1 hit per model in the target unit, to a maximum of X. Failed hit → re-roll once, and it can then only generate half (rounded down) that many hits. Replaces the old Explosive (4), Barrage (6) and Colossal Blast (8).</p></div>
