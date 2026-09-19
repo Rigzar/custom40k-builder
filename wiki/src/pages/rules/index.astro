@@ -336,6 +336,17 @@ import Layout from '../../components/Layout.astro';
     </div>
 
     <div class="rule-section reveal">
+      <div class="section-divider"><span>Melee over Terrain</span></div>
+      <p>Two units separated by a terrain piece — a sandbag barrier, a wall — can still fight each other, but only if <strong>all three</strong> of these are true:</p>
+      <ul class="plain-list">
+        <li>At least one model among the two units is <strong>33% taller</strong> than the terrain piece between them.</li>
+        <li>The terrain piece separates the two units by <strong>no more than 1&Prime;</strong>.</li>
+        <li>The terrain piece has <strong>no roof at all</strong>, or a crevice/window between them at least <strong>0.5&Prime;</strong> tall and wide.</li>
+      </ul>
+      <p class="note">Miss any one of the three and there is no melee over that terrain piece.</p>
+    </div>
+
+    <div class="rule-section reveal">
       <div class="section-divider"><span>Vehicle Damage Chart</span></div>
       <p class="note">Against a vehicle you do not follow the normal rules for wounding models — you resolve an <strong>Armor penetration roll</strong> instead, and consult this chart on a penetrating hit.</p>
       <table class="ref-table">
@@ -350,6 +361,26 @@ import Layout from '../../components/Layout.astro';
         </tbody>
       </table>
       <p class="note">Glancing Hit: roll chart × AT value, apply only highest result (no 6s). Penetrating Hit: roll × AT value, apply ALL results.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Vehicle Destruction</span></div>
+      <p>A vehicle is destroyed when it loses its last Hull Point, and <em>how</em> it lost it decides what happens next.</p>
+      <div class="rule-grid">
+        <div class="rule-card">
+          <div class="rule-name">Wreckage</div>
+          <p>Last Hull Point lost to Engine, Weapon or Structural Damage. The model <strong>stays on the table as difficult terrain</strong>. Passengers disembark within 3&Prime; and each must pass a Leadership test or take a Battleshock token.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Explosion</div>
+          <p>Last Hull Point lost to Critical Damage. Every model within <strong>D6&Prime;</strong> takes a S5 / AP 0 / D1 hit. Passengers take those wounds <strong>automatically</strong> and get a Battleshock token. Casualties count towards the combat result in melee. Survivors disembark within 3&Prime; and act on their activation according to how far the vehicle had moved.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Emergency Disembarkation</div>
+          <p>If passengers cannot be placed — terrain or enemies in the way — they disembark within <strong>6&Prime;</strong> instead but count as activated for the rest of the round. Models that still cannot be placed are removed from play.</p>
+        </div>
+      </div>
+      <p class="note">Flyers: passengers may only disembark in Hover mode, and an exploding flyer deals them <strong>double</strong> the automatic wounds.</p>
     </div>
 
     <div class="rule-section reveal">
@@ -533,6 +564,23 @@ import Layout from '../../components/Layout.astro';
     </div>
 
     <div class="rule-section reveal">
+      <div class="section-divider"><span>Transports</span></div>
+      <p><strong>Embarking:</strong> a unit within 3&Prime; at the end of its movement can board a transport. Passengers cannot be given a <strong>Stand &amp; Shoot</strong> order. Any number of units may ride, up to the vehicle&rsquo;s transport capacity.</p>
+      <p>What the passengers may do depends on how far the transport moved this activation:</p>
+      <table class="ref-table">
+        <thead><tr><th>Vehicle moved</th><th>Passenger actions</th></tr></thead>
+        <tbody>
+          <tr><td>0&Prime;</td><td>Use fire hatches <em>or</em> disembark within 3&Prime;. Execute their command normally.</td></tr>
+          <tr><td>&gt;0&Prime;–6&Prime;</td><td>Use fire hatches <em>or</em> disembark within 3&Prime;. Execute their command. <strong>Cannot move or Charge.</strong></td></tr>
+          <tr><td>&gt;6&Prime;–12&Prime;</td><td>Use fire hatches <em>or</em> disembark within 3&Prime;. Execute their command at <strong>&minus;1 to hit</strong> until the end of the battle round. <strong>Cannot move or Charge.</strong></td></tr>
+          <tr><td>&gt;12&Prime;</td><td><strong>No actions at all.</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="note"><strong>Fire Hatches:</strong> each one lets a single passenger fire their weapon when the unit activates. A vehicle with the <strong>Open</strong> rule has fire hatches equal to its passenger capacity — and its passengers can be shot at, count as physically on the battlefield for ranges and psychic powers (measured from the hull), share the transport&rsquo;s cover, cannot fight in melee from inside, and can always make a 6&Prime; Charge move after disembarking if the vehicle moved up to 12&Prime;.</p>
+      <p class="note">A transport and the units inside it count as <strong>one reserve</strong>: a single 4+ brings them on together. For what happens when the transport is destroyed, see <strong>Vehicle Destruction</strong> under Combat.</p>
+    </div>
+
+    <div class="rule-section reveal">
       <div class="section-divider"><span>Profile Values Reference</span></div>
       <div class="stat-ref-grid">
         <div class="stat-ref"><img src="/stat-icons/move.svg" class="stat-icon" alt="M"><div><strong>Movement</strong> — Speed in inches. "−" = cannot move.</div></div>
@@ -547,6 +595,27 @@ import Layout from '../../components/Layout.astro';
         <div class="stat-ref"><img src="/stat-icons/save.svg" class="stat-icon" alt="Sv"><div><strong>Save</strong> — Armour protection, modified by weapon AP. Roll of 1 always fails. Max 1+.</div></div>
         <div class="stat-ref"><span class="stat-letter">Inv</span><div><strong>Ward Save</strong> — Not affected by AP. Max 4+ (unless stated otherwise).</div></div>
       </div>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Modifying Profile Values</span></div>
+      <p><strong>Order of modifications</strong> — additive first (<strong>+1</strong>), then multiplicative (<strong>×2</strong>), then subtractive (<strong>&minus;1</strong>). The order matters: the same three modifiers applied in another order give a different number.</p>
+      <table class="ref-table">
+        <thead><tr><th>Situation</th><th>Example</th><th>Applies as</th></tr></thead>
+        <tbody>
+          <tr><td>Several instances of the <em>same rule</em></td><td>A model with a Storm shield targeted by Shrouded</td><td>Only the highest modifier</td></tr>
+          <tr><td>Several instances of the <em>same equipment</em></td><td>A unit with two models carrying a Trophy</td><td>Only the highest modifier</td></tr>
+          <tr><td>Several instances that <em>say</em> they are cumulative</td><td>An Eldar Fire blade</td><td>Combined</td></tr>
+          <tr><td><em>Different</em> rules and equipment</td><td>The Terrifying rule plus a Trophy</td><td>Combined</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><strong>Modifying Strength:</strong> if a model&rsquo;s Strength changes, it gains a temporary minimum AT value in melee unless it is already as good or better. At <strong>Strength 7 or higher</strong> all its melee attacks have <strong>AT(1)</strong>, again unless already better.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Profile Value Tests</span></div>
+      <p>Some rules call for a test against a profile value — a &ldquo;Toughness test&rdquo;, a &ldquo;Leadership value test&rdquo;. Roll <strong>1D6</strong>. The roll must be <strong>equal to or below</strong> the value to pass, and a roll of <strong>6 always fails</strong>. Use the <em>current</em> value, after any equipment, psychic power or other modifier.</p>
+      <p class="note">Not the same thing as the Leadership test for Battleshock, which is <strong>2D6</strong> against Leadership. The opposite convention applies to attacks: on a hit or wound roll a <strong>6 always succeeds</strong> whatever the target number, while an armour save of <strong>1 always fails</strong>.</p>
     </div>
 
     <div class="rule-section reveal">
