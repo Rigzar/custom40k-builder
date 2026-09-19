@@ -956,7 +956,14 @@ import Layout from '../../components/Layout.astro';
       panels.forEach(function (p) { p.classList.remove('tab-panel--active'); });
       btn.classList.add('tab-active');
       var panel = document.getElementById('tab-' + id);
-      if (panel) { panel.classList.add('tab-panel--active'); }
+      if (panel) {
+        panel.classList.add('tab-panel--active');
+        // Reveal this tab's sections now. They were display:none when the observer ran, and an
+        // IntersectionObserver never fires for a hidden element, so without this they stay at
+        // opacity 0 until a scroll happens to catch them — which read as the page half-keeping
+        // the previous tab.
+        panel.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+      }
     });
   });
 })();
