@@ -104,29 +104,15 @@ export function getFactionDescription(key: string): string {
   return FACTION_DESCRIPTIONS[key] ?? 'Description coming soon.';
 }
 
-/** Codex document version, from each faction's canonical .ods title. Only factions whose .ods
- *  carries a version in its title are listed; others render without a version badge. */
-export const FACTION_VERSIONS: Record<string, string> = {
-  imperial_guard: '1.04',
-  grey_knights: '1.01',
-  orks: '1.01',
-  eldar: '1.01',
-  dark_eldar: '1.01',
-  tyranids: '1.05',
-  // all other audited factions default to their first published version
-  chaos_space_marines: '1.03',
-  chaos_daemons: '1.01',
-  space_marines: '1.01',
-  adeptus_mechanicus: '1.00',
-  adeptus_custodes: '1.00',
-  adeptus_sororitas: '1.01',
-  inquisition: '1.00',
-  tau_empire: '1.00',
-  necrons: '1.1',
-  genestealer_cults: '1.02',
-  harlequins: '1.00',
-  leagues_of_votann: '1.02',
-};
+/**
+ * Codex document version, generated into `src/vendor/factionVersions.json` by `vendor.mjs`
+ * from the app's own `factionCatalog.ts` on every dev/build. It used to be a hand-typed map
+ * right here, and 11 of its 19 entries had gone stale while the app's were all correct -- a
+ * second copy of a number nobody remembers to update twice. Do not reintroduce one.
+ */
+import FACTION_VERSIONS_JSON from '../vendor/factionVersions.json';
+
+export const FACTION_VERSIONS: Record<string, string> = FACTION_VERSIONS_JSON;
 
 export function getFactionVersion(key: string): string | undefined {
   return FACTION_VERSIONS[key];

@@ -376,7 +376,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
-    armoryOnlyFaction: 'chaos_space_marines',
+    armoryOnlyFaction: 'chaos_space_marines', grantsMarkArmory: true,
     notes: [
       'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
       'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',

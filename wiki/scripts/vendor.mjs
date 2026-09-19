@@ -4,7 +4,7 @@
 // (wiki/.gitignore excludes src/vendor/) — so the wiki can be deployed as a single self-contained
 // Vercel project (its own Root Directory) while still reading the live canonical data, not a
 // stale duplicate.
-import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -44,4 +44,21 @@ for (const [from, to] of copies) {
   cpSync(src, dest, { recursive: true });
 }
 
+// The codex version printed on each faction hub used to be a second, hand-typed map inside the
+// wiki, and 11 of its 19 entries had gone stale (Space Marines read 1.01 against a real 1.05).
+// Generate it from the app's own catalogue instead, in the same pass that copies everything else,
+// so bumping a version in one place is the whole job.
+//
+// `factionCatalog.ts` is not vendored wholesale because it imports a type from `src/i18n`, which
+// would drag zustand and the entire translation table into a wiki that needs neither.
+const catalogue = readFileSync(join(repoRoot, 'src/data/factionCatalog.ts'), 'utf8');
+const versions = {};
+for (const m of catalogue.matchAll(/key: '([a-z_]+)',[^}]*?version: '([\d.]+)'/g)) versions[m[1]] = m[2];
+if (Object.keys(versions).length < 15) {
+  throw new Error(`[vendor] parsed only ${Object.keys(versions).length} faction versions from `
+    + 'factionCatalog.ts — the catalogue\'s shape changed and the wiki would print stale numbers');
+}
+writeFileSync(join(vendorRoot, 'factionVersions.json'), JSON.stringify(versions, null, 2) + '\n');
+
 console.log(`[vendor] copied ${copies.length} canonical source paths into ${vendorRoot}`);
+console.log(`[vendor] generated factionVersions.json (${Object.keys(versions).length} factions)`);

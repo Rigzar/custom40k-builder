@@ -123,10 +123,17 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
   // SOURCE — Renegades:
   // "- Renegades are treated like 'Chaos Space Marines' in the Ally matrix.
   //  - May select one Trait from the 'Chaos Space Marines' list instead of the normal selection."
+  // The third line was added to the sheet by the author on 2026-09-19, answering our question
+  // about it: the CSM list says its traits apply only to models with the "Chaos Space Marine"
+  // keyword, which no Space Marine has. "Everything in the SM dex counts as having that keyword
+  // [...] The intention is to prevent Cultist type units from accessing the traits. SM don't have
+  // that, so it can easily be solved with a flat allowance."
   'Renegades': { ...BASE,
+    foreignTraitFaction: 'chaos_space_marines', foreignTraitMax: 1,
     notes: [
       'Treated as Allies of Convenience for Chaos Space Marines.',
-      'May select one Trait from the Chaos Space Marines trait list instead of the normal selection.',
+      'One of the army\'s two Traits may be taken from the Chaos Space Marines list instead.',
+      'All units from the Space Marines codex count as having the "Chaos Space Marine" keyword.',
     ],
   },
 

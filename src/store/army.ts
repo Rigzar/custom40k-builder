@@ -282,6 +282,14 @@ export interface ArmyStore extends ArmyState {
   /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
   injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => void;
   injectArchetypeArmory: (factionData: FactionData | null, grantsMarks?: boolean) => void;
+  /**
+   * Merge another codex's TRAIT list into `data.traits` (Space Marines' Renegades -> Chaos
+   * Space Marines). Appending into the same array rather than keeping a parallel one is what
+   * makes every existing consumer work unchanged: the picker, the per-unit trait modal, the
+   * cost lookup and `computeTraitSelections` all read `data.traits`, and a borrowed trait whose
+   * definition the resolver cannot find is charged for and does nothing. Pass null to clear.
+   */
+  injectForeignTraits: (traits: Trait[] | null, factionName?: string) => void;
   /** Park another codex's armouries as BORROW-ONLY (Red Corsairs "Reaver Lord"). Pass null to clear. */
   injectBorrowableArmories: (armories: Record<string, Armory> | null) => void;
   /** Same, but for the Allied Detachment's own archetype-granted intrinsic ally. */
@@ -804,6 +812,18 @@ export const useArmyStore = create<ArmyStore>()(
       // Gue'vesa → Tau). Units are NOT injected — only the foreign armory, so the resolver can
       // apply the rules effects of items bought from that tab. Pass null to clear it when the
       // archetype changes to one without the grant.
+      injectForeignTraits: (traits: Trait[] | null, factionName = '') => set((s: S) => {
+        if (!s.data) return {};
+        const own = s.data.own_traits ?? s.data.traits;
+        const tagged = (traits ?? []).map(t => ({ ...t, foreign_faction: factionName }));
+        const next = [...own, ...tagged];
+        // Same array contents, same array identity: never re-render for nothing.
+        if (s.data.traits.length === next.length
+            && s.data.traits.every((t, i) => t.name === next[i].name
+                                          && t.foreign_faction === next[i].foreign_faction)) return {};
+        return { data: { ...s.data, own_traits: own, traits: next } };
+      }),
+
       injectArchetypeArmory: (factionData: FactionData | null, grantsMarks = false) => set((s: S) => {
         if (!s.data) return {};
         const next = factionData

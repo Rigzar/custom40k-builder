@@ -30,7 +30,7 @@
     },
     {
       "name": "Renegades",
-      "desc": "- Renegades are treated like \"Chaos Space Marines\" in the Ally matrix.\n- May select one Trait from the \"Chaos Space Marines\" list instead of the normal selection."
+      "desc": "- Renegades are treated like \"Chaos Space Marines\" in the Ally matrix.\n- May select one Trait from the \"Chaos Space Marines\" list instead of the normal selection.\n- All units from the codex \"Space Marines\" count as having the keyword \"Chaos Space Marine\"."
     },
     {
       "name": "Swift as the Wind",

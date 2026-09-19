@@ -112,6 +112,14 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
+
+  // A trait BORROWED from another codex (Renegades -> Chaos Space Marines) occupies one of the
+  // army's normal slots, and only `foreignTraitMax` of them may be borrowed: "Renegades may
+  // replace one of their traits with a CSM one, still having up to 2 in total" (the author,
+  // 2026-09-19). Enforced by hiding the borrowed list from the OTHER slots once one is taken,
+  // rather than by letting it be picked and then complaining.
+  const foreignTraitMax = getArchetypeRule(archetype)?.foreignTraitMax ?? 0;
+  const foreignTraitsTaken = traitPool.filter(n => data.traits.find(t => t.name === n)?.foreign_faction).length;
   const campaignTraitBonus = isAllied ? 0 : (store.campaignTraitBonus ?? 0);
   // The picker must offer exactly the slots the store will keep and the validator will accept --
   // otherwise Skirmish (capped at 1 Trait) would show two dropdowns and silently discard the
@@ -366,7 +374,17 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
 
                     {openTraitSlot !== null && (
                       <TraitPickerModal
-                        traits={data.traits}
+                        traits={(() => {
+                          const own = data.traits.filter(t => !t.foreign_faction);
+                          if (!foreignTraitMax) return own;
+                          // This slot may still offer the borrowed list while the army is under
+                          // the cap, or when THIS slot is the one already holding a borrowed
+                          // trait (so it can be swapped for another rather than only cleared).
+                          const thisSlotIsForeign = !!data.traits.find(
+                            t => t.name === traitPool[openTraitSlot] && t.foreign_faction);
+                          return foreignTraitsTaken < foreignTraitMax || thisSlotIsForeign
+                            ? data.traits : own;
+                        })()}
                         excludedNames={traitSlots
                           .filter(s => s !== openTraitSlot)
                           .map(s => traitPool[s])

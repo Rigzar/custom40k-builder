@@ -107,6 +107,22 @@ export interface ArchetypeRule {
    * a veteran ability for the unit, same as the CSM-side rule.
    */
   grantsMarkPurchase?: boolean;
+
+  /**
+   * The archetype also grants the GOD-SPECIFIC armoury of whatever Mark a model carries, which is
+   * a separate grant from reaching the Chaos Space Marine Armory at all. Imperial Guard's Traitor
+   * Guard has it ("Models with access to the Armory and a Mark of a God can also access the god
+   * specific Armory"); AdMech's Dark Mechanicum does NOT — its entry stops at the CSM Armory.
+   */
+  grantsMarkArmory?: boolean;
+
+  /**
+   * The army may take traits from ANOTHER codex's list, up to `foreignTraitMax` of its normal
+   * trait slots (Space Marines' Renegades: one of its two may be a Chaos Space Marines trait).
+   * Distinct from every other foreign grant in here, which are all ARMOURY grants.
+   */
+  foreignTraitFaction?: string;
+  foreignTraitMax?: number;
   /**
    * Grants every unit with Armory access ongoing, UNCAPPED use of another faction's general
    * Armory (weapons + non-veteran/non-vehicle equipment) — distinct from `alliedFaction` (which

@@ -12,6 +12,7 @@ import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
+import { markAccess } from '../lib/markAccess';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
@@ -28,7 +29,6 @@ import { useT, tpl } from '../i18n';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
-const MARKS_ALL: Mark[] = ['Undivided', 'Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
 
 const MARK_ICON: Record<string, string> = {
   Khorne:    '/mark-icons/khorne.svg',
@@ -242,7 +242,10 @@ export function UnitCard({ item }: Props) {
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
-  const hasMarks = Object.keys(data.animosity).length > 0;
+  // Whether this unit may be given a Mark, and which ones. NOT `data.animosity` alone: that
+  // table exists only for CSM and Chaos Daemons, so the two archetypes whose whole point is
+  // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
+  const markPick = markAccess(u, data, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
   // variant's own collapsible block, not in the global action row.
@@ -1066,7 +1069,7 @@ export function UnitCard({ item }: Props) {
           )}
 
           {/* Mark selection — units with a mark group, OR any HQ in a chaos faction */}
-          {!u.locked_mark && !markIsForced && hasMarks && (hasMarkGroup || effectiveSlot === 'HQ') && (
+          {markPick.show && (
             <div>
               {/* Black Crusade Champion toggle — only shown for non-locked HQs when BC is active */}
               {traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && (
@@ -1095,8 +1098,7 @@ export function UnitCard({ item }: Props) {
                   SOURCE: each unit's datasheet lists exactly which marks it can take.
                   e.g. Chaos Sorcerer has Undivided/Slaanesh/Nurgle/Tzeentch but NOT Khorne. */}
               {!item.blackCrusadeHQ && (() => {
-                const markGroup = u.option_groups.find(g => g.constraint.type === 'mark');
-                const availableMarks = markGroup?.choices.map(c => c.name as Mark) ?? MARKS_ALL;
+                const availableMarks = markPick.marks as Mark[];
                 return (
                   <div>
                     <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1.5 font-cinzel">{t('chaosMarkLabel')}</div>

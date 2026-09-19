@@ -118,6 +118,11 @@ export function TraitPickerModal({ traits, excludedNames, currentValue, slotLabe
                     {isExcluded && (
                       <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase tracking-wide">{t('traitTakenByOtherSlot')}</span>
                     )}
+                    {/* A trait borrowed from another codex has to say so: the list is otherwise
+                        indistinguishable from the army's own, and only one may be taken. */}
+                    {tr.foreign_faction && (
+                      <span className="text-[9px] bg-rose-950/60 text-rose-300 border border-rose-900 px-1 py-0.5 uppercase tracking-wide">{tr.foreign_faction}</span>
+                    )}
                   </div>
                   {/* Own line rather than floated beside the name — a trait's cost can be three
                       joined segments ("+5 pts per unit · +5 pts per monster · free (per char)"),

@@ -92,7 +92,6 @@ export const colossusBombard: Unit = {
     }
   ],
   "abilities": [
-    "Blast(8): A successful hit roll with this weapon generates 1 hit per model in the target unit, to a maximum of 8 hits. An unsuccessful hit roll can be re-rolled once and can only generate half (rounded down) that many maximum hits.",
     "Slow Firing: A Colossus Bombard may only fire its siege cannon with a Stand & Shoot order, even if it is not firing indirectly."
   ],
   "unit_type": "Vehicle",

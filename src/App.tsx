@@ -357,6 +357,20 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, data?.faction]);
 
+  // Archetype-granted FOREIGN TRAIT LIST (no units, no armoury): Space Marines' "Renegades" may
+  // take one of its two Traits from the Chaos Space Marines list. The list has to reach the
+  // STORE, not just the picker: `computeTraitSelections` looks every selected trait's definition
+  // up in `data.traits`, and one it cannot find is charged for and does nothing.
+  useEffect(() => {
+    if (!data) return;
+    const fk = getArchetypeRule(archetype)?.foreignTraitFaction;
+    if (!fk || !loaders[fk]) { store.injectForeignTraits(null); return; }
+    loaders[fk]()
+      .then(m => store.injectForeignTraits((m as FactionData).traits, (m as FactionData).faction))
+      .catch(e => console.error('Error loading archetype-granted trait faction', e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [archetype, data?.faction]);
+
   // Red Corsairs "Reaver Lord" (CSM 1.03): "Select a single item from any Space Marine or Chaos
   // Space Marine Armory for the stated cost." The Chaos armouries are already loaded; the Space
   // Marine ones are another codex, so they are fetched only when the Legacy that unlocks the Red

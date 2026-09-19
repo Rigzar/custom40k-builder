@@ -497,6 +497,12 @@ export interface Trait {
   /** True for traits whose description says the army must select a second Legacy. */
   enables_second_legacy?: boolean;
   /**
+   * Set only on a trait borrowed from ANOTHER codex's list, to the display name of that codex
+   * (Space Marines' Renegades archetype borrows from Chaos Space Marines). Used to cap how many
+   * borrowed traits an army may hold and to say where the trait came from in the picker.
+   */
+  foreign_faction?: string;
+  /**
    * Extra veteran-ability/Doctrina-Imperative slots this trait grants while active — e.g.
    * AdMech's "Veteran Maniple": "Any unit with the option to purchase a Doctrina Imperitive
    * may purchase a second one." Only applies to units with an explicit `veteran_max` already
@@ -612,6 +618,12 @@ export interface FactionData {
   archetypes: Archetype[];
   legacies: Legacy[];
   traits: Trait[];
+  /**
+   * The faction's OWN trait list, stashed the first time an archetype injects foreign traits
+   * into `traits`. Without it, switching archetype twice would append the borrowed list again
+   * on top of itself. Absent until that happens.
+   */
+  own_traits?: Trait[];
   animosity: Record<string, string[]>;
   disciplines: Record<string, Power[]>;
   pacts: Power[];

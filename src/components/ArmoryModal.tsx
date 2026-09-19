@@ -1359,9 +1359,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 // has to live here too — getDaemonWeaponPool() reads activeData, which is the
                 // unit's own faction and carries no daemon_weapons at all. Same combined-pool rule
                 // as the native CSM tab: general + the unit's active mark.
+                // The GOD's daemon weapons are a separate grant and not every archetype has it.
+                // Traitor Guard does ("Models with access to the Armory and a Mark of a God can
+                // also access the god specific Armory"); Dark Mechanicum's entry grants the Chaos
+                // Space Marine Armory and stops there, so it gets the general list only.
                 const foreignDaemonPool = [
                   ...((archetypeArmoryData.armory_general.daemon_weapons ?? []) as ArmoryItem[]),
-                  ...(effectiveMark && archetypeArmoryData.armory_marks?.[effectiveMark]
+                  ...(itemRule?.grantsMarkArmory && effectiveMark && archetypeArmoryData.armory_marks?.[effectiveMark]
                     ? ((archetypeArmoryData.armory_marks[effectiveMark].daemon_weapons ?? []) as ArmoryItem[])
                     : []),
                 ].filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
@@ -1399,6 +1403,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       eqExarchPower={eqExarchPower}
                       onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
+                      // "Daemon weapon" and "Greater Daemon weapon" are EQUIPMENT rows in the
+                      // codex, so the picker that chooses the abilities they unlock belongs here.
+                      // Without this prop the item could be bought on this tab and nothing ever
+                      // asked which ability it granted — reported for Traitor Guard and Dark
+                      // Mechanicum, which reach the CSM Armory only through this tab.
+                      daemonWeapon={{
+                        pool: foreignDaemonPool,
+                        selections: daemonWeaponSelections,
+                        dwTargetWeapon,
+                        onSetTargetWeapon: (n, w) => setDwTargetWeapon(prev => ({ ...prev, [n]: w })),
+                        isTakenElsewhere: arm => uniqueArmyBlocked(arm, 'daemon_weapons'),
+                        onAdd: (arm, tw) => add(arm, foreignSrcLabel, 'daemon_weapons', tw),
+                        onRemove: removeItem,
+                      }}
                     />
                   );
                 }
@@ -1407,7 +1425,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : foreignWeapons.map((arm, i) => {
                     const pts = getItemPts(arm);
                     const blocked = pts === null;
-                    const isDaemonGateway = arm.name === 'Daemon weapon' || arm.name === 'Greater Daemon weapon';
                     return (
                       <div key={i}>
                         <ArmoryItemRow
@@ -1419,20 +1436,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           onRemove={removeItem}
                           onAdd={() => !blocked && add(arm, foreignSrcLabel, 'weapons')}
                         />
-                        {isDaemonGateway && getSelId(arm.name, 'weapons') && (
-                          <DaemonWeaponPicker
-                            pool={foreignDaemonPool}
-                            cap={arm.name === 'Greater Daemon weapon' ? 2 : 1}
-                            selections={daemonWeaponSelections}
-                            lastAdded={lastAdded}
-                            availableWeapons={availableWeapons}
-                            dwTargetWeapon={dwTargetWeapon}
-                            onSetTargetWeapon={(n, w) => setDwTargetWeapon(prev => ({ ...prev, [n]: w }))}
-                            isTakenElsewhere={a => uniqueArmyBlocked(a, 'daemon_weapons')}
-                            onAdd={(a, tw) => add(a, foreignSrcLabel, 'daemon_weapons', tw)}
-                            onRemove={removeItem}
-                          />
-                        )}
                       </div>
                     );
                   });
