@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v174e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v174f_dismissed';
 
 // v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
@@ -58,7 +58,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🧪 FOLLOW-UP ON THE BATTLE VIEW: it was showing BASE stats rather than yours — Toxin Sacs raised a Tyranid’s Strength on the unit card and not there. It now runs the same chain the unit card runs (Marks, Traits, wargear, options), in the same order, and the colour tells you what changed the number: blue Mark, green Trait, violet wargear, cyan option. Thanks for catching it the same day. It also keeps your army’s colours now — each card wears its own faction’s tint, so an allied detachment still reads as itself.",
     line10: "🔄 LISTS YOU ALREADY SAVED REPAIR THEMSELVES. Asked after the Psyker-only trait fix: “Children of Prophecy still seems the same to me. Will I need to remake the list?” No. That fix stopped the trait being OFFERED to non-psykers, but a list saved beforehand kept the old selection and kept paying 5 points a unit for nothing. The check now runs every time a list is read, so opening a saved list, a shared link or an imported code drops it and hands the points back. That is the pattern from here on: when a rule changes, your existing lists heal on open rather than needing to be rebuilt.",
     line11: "💎 ELDAR: SPIRIT STONES ON A VEHICLE SHOWED THE CREATURE’S RULES. There are two items with that name — an extra psychic power for a creature, ignoring the first Crew Shaken for a vehicle — and the app matched by name alone, so it always handed back the first. Fixed on the unit card and the printed datacard. The same lookup was checked across the whole game: 18 items share a name inside their own Armory, and one more actually differed — the IMPERIAL GUARD VOX — which nobody had reported.",
-    line12: "",
+    line12: "📐 THE WIKI’S RULE DIAGRAMS ARE NEW, AND THEY ARE SCOOTS’ WORK — thank you. Ten drawings, to scale from the models: charge and engagement range, melee, obstacle and terrain cover, vehicle armour facings, turret and chassis weapon arcs, deep strike scatter, and unit formation. Seven replace rough stand-ins we had drawn ourselves. And UNIT FORMATION turned out to be missing from the wiki altogether — his diagram is what made us notice, so the rule is written up now too. Core Rules page, in the wiki.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
@@ -76,7 +76,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🧪 NACHTRAG ZUR GEFECHTSANSICHT: sie zeigte GRUNDWERTE statt deiner — Toxin Sacs erhöhte die Stärke auf der Einheitenkarte, dort aber nicht. Sie durchläuft jetzt dieselbe Kette wie die Einheitenkarte (Male, Traits, Ausrüstung, Optionen), in derselben Reihenfolge, und die Farbe sagt, was den Wert geändert hat: blau Mal, grün Trait, violett Ausrüstung, cyan Option. Danke fürs Melden noch am selben Tag. Sie behält jetzt auch die Farben deiner Armee — jede Karte trägt den Ton ihrer eigenen Fraktion, ein verbündetes Detachment bleibt also erkennbar.",
     line10: "🔄 BEREITS GESPEICHERTE LISTEN REPARIEREN SICH SELBST. Nachgefragt nach dem Psioniker-Trait-Fix: „Children of Prophecy sieht für mich unverändert aus. Muss ich die Liste neu bauen?“ Nein. Der Fix verhinderte nur, dass der Trait Nicht-Psionikern ANGEBOTEN wird — eine vorher gespeicherte Liste behielt die alte Auswahl und zahlte weiter 5 Punkte pro Einheit für nichts. Die Prüfung läuft jetzt bei jedem Laden, also wirft das Öffnen einer gespeicherten Liste, eines geteilten Links oder eines importierten Codes sie hinaus und gibt die Punkte zurück. So läuft es ab jetzt: ändert sich eine Regel, heilen bestehende Listen beim Öffnen.",
     line11: "💎 ELDAR: SPIRIT STONES AUF EINEM FAHRZEUG ZEIGTE DIE KREATUREN-REGEL. Es gibt zwei Gegenstände dieses Namens — eine zusätzliche Psi-Kraft für Kreaturen, das Ignorieren des ersten „Crew Shaken“ für Fahrzeuge — und die App suchte nur nach dem Namen, gab also immer den ersten zurück. Auf der Einheitenkarte und der Druckkarte behoben. Die Suche wurde im ganzen Spiel geprüft: 18 Gegenstände teilen sich einen Namen in ihrer eigenen Armory, und einer unterschied sich ebenfalls — der VOX DER IMPERIAL GUARD — den niemand gemeldet hatte.",
-    line12: "",
+    line12: "📐 DIE REGELDIAGRAMME IM WIKI SIND NEU — UND SIE STAMMEN VON SCOOTS. Danke dafür. Zehn Zeichnungen, maßstabsgetreu nach den Modellen: Angriff und Nahkampfreichweite, Nahkampf, Deckung durch Hindernisse und Gelände, Panzerungsseiten, Feuerwinkel von Turm und Wanne, Deep-Strike-Abweichung und Einheitenformation. Sieben ersetzen grobe Platzhalter, die wir selbst gezeichnet hatten. Und die EINHEITENFORMATION fehlte im Wiki komplett — sein Diagramm hat uns darauf gestoßen, also ist die Regel jetzt auch geschrieben. Zu finden auf der Core-Rules-Seite im Wiki.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -94,7 +94,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🧪 SEGUIMIENTO DE LA VISTA DE BATALLA: mostraba los stats BASE y no los tuyos — Toxin Sacs subía la Fuerza en la ficha de unidad y ahí no. Ahora pasa por la misma cadena que la ficha (Marcas, Rasgos, equipo, opciones), en el mismo orden, y el color te dice qué cambió el número: azul Marca, verde Rasgo, violeta equipo, cian opción. Gracias por pillarlo el mismo día. Y ahora conserva los colores de tu ejército — cada ficha lleva el tono de su propia facción, así que un destacamento aliado se sigue distinguiendo.",
     line10: "🔄 LAS LISTAS YA GUARDADAS SE ARREGLAN SOLAS. Preguntado tras el arreglo del rasgo solo-psíquicos: “Children of Prophecy me sigue pareciendo igual. ¿Tengo que rehacer la lista?” No. Aquel arreglo evitó que el rasgo se OFRECIERA a no-psíquicos, pero una lista guardada antes conservaba la selección y seguía pagando 5 puntos por unidad para nada. La comprobación corre ahora cada vez que se lee una lista, así que abrir una guardada, un enlace compartido o un código importado la descarta y te devuelve los puntos. Este es el patrón a partir de ahora: si cambia una regla, tus listas se curan al abrirlas en vez de tener que rehacerlas.",
     line11: "💎 ELDAR: SPIRIT STONES EN UN VEHÍCULO MOSTRABA LA REGLA DE CRIATURA. Hay dos objetos con ese nombre — un poder psíquico extra para criaturas, ignorar el primer “Crew Shaken” para vehículos — y la app buscaba solo por nombre, así que siempre devolvía el primero. Arreglado en la ficha de unidad y en la ficha impresa. Se revisó la búsqueda en todo el juego: 18 objetos comparten nombre dentro de su propia armería, y uno más también difería — el VOX de IMPERIAL GUARD — que nadie había reportado.",
-    line12: "",
+    line12: "📐 LOS DIAGRAMAS DE REGLAS DEL WIKI SON NUEVOS, Y SON OBRA DE SCOOTS — gracias. Diez dibujos, a escala con las miniaturas: carga y alcance de combate, cuerpo a cuerpo, cobertura por obstáculo y por terreno, blindaje por caras, arcos de torreta y de casco, dispersión del Deep Strike y formación de unidad. Siete sustituyen a bocetos que habíamos hecho nosotros. Y la FORMACIÓN DE UNIDAD resultó no estar en el wiki — su diagrama es lo que nos hizo verlo, así que la regla está escrita ya también. En la página de Core Rules del wiki.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -172,7 +172,7 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.71's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.72 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line12, tx.line11]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
