@@ -1,0 +1,79 @@
+{
+  "name": "Ordo Xenos Armory",
+  "weapons": [
+    {
+      "name": "Phase sword",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Shield breaker(-2)",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
+      "name": "Scythian venom talon",
+      "term_compat": false,
+      "requires_army_item": "Ordo Xenos",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Poison(2+)",
+      "p_unit": null,
+      "p_char": 7
+    },
+    {
+      "name": "Sling gun",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "To wound rolls of 5+ gain additional -2 AP.",
+      "p_unit": 11,
+      "p_char": 14
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Esoteric knowledge",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "desc": "The model and its attached unit may reroll one die per battle round.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Empyrian brain mines",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "desc": "Nominate one enemy model in direct base contact during its own activation. The target must pass an Initiative test or can't attack this battle round. One use only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Uluméathi Plasma Syphon",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "desc": "Enemy models within 18\" suffer a -1 penalty to Strength, AP and Damage to weapons with an \"Overcharged\" profile (applies to all profiles of the affected weapons), to a minimum of 1 each.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Tome of Vethric",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "desc": "The bearer may pick one veteran ability to be in effect for themselves and their attached unit. Choose before starting deployment.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

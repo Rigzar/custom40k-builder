@@ -17,17 +17,17 @@
     {
       "name": "Ordo Hereticus",
       "desc": "The army has access to the Ordo Hereticus Armory and Ordo Hereticus Warbands.",
-      "armory_key": null
+      "armory_key": "Ordo Hereticus"
     },
     {
       "name": "Ordo Malleus",
       "desc": "The army has access to the Ordo Malleus Armory and Ordo Malleus Warbands.",
-      "armory_key": null
+      "armory_key": "Ordo Malleus"
     },
     {
       "name": "Ordo Xenos",
       "desc": "The army has access to the Ordo Xenos Armory and Ordo Xenos Warbands.",
-      "armory_key": null
+      "armory_key": "Ordo Xenos"
     },
     {
       "name": "Ordo Minoris",

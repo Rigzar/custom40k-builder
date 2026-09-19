@@ -24,6 +24,7 @@ import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile } from '../engine/resolver';
 import { selectedAbilities, battleWeapons, selectedExtras } from '../lib/battleProfile';
 import { resolveStatValue } from '../lib/statPipeline';
+import { wardSave, ownWardAbilities } from '../lib/wardSave';
 import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
@@ -87,6 +88,13 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   const extras = selectedExtras(item);
   const models = rp.modelsToShow ?? [];
   const statKeys = u.is_vehicle ? STAT_VEH : STAT_INF;
+  // A ward save is the other number you roll at the table, and this view showed none at
+  // all: the derivation lived inside the unit card, so a Daemon, a Custodian or a C'tan
+  // came here with nothing. 163 of 666 datasheets state one.
+  const ward = wardSave({
+    abilities: ownWardAbilities(u, item), equipInvSave: rp.equipMods?.invulnSave,
+    optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities,
+  });
   // At the table the number you roll against is the FINAL one, so this runs the whole chain the
   // unit card runs — Marks, traits, wargear and options — not just the Marks. Reported the day
   // this view shipped: Toxin Sacs raised Strength on the unit card and not here.
@@ -168,6 +176,12 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
                   ))}
                 </tbody>
               </table>
+            </div>
+          )}
+          {ward !== null && (
+            <div className="mt-1 text-[10px] text-amber-300/90">
+              <span className="uppercase tracking-wide text-zinc-500">Ward save</span>{' '}
+              <span className="font-mono font-semibold">{ward}+</span>
             </div>
           )}
 

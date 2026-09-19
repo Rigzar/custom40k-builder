@@ -14,6 +14,18 @@
       "p_char": null
     },
     {
+      "name": "Magnificent Gleam",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "D",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(4), Charge, Extra Attack(1), Limit(1).",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
       "name": "Paragon Spear",
       "term_compat": false,
       "range": "-",
@@ -30,7 +42,7 @@
     {
       "name": "Halo of the Torchbearer",
       "term_compat": true,
-      "desc": "This model gains the \"Magnificent Gleam\" weapon. It and its attached unit gains the \"Move Through Cover\" ability. Unique. Emmissaries Imperatus only.",
+      "desc": "This model gains the \"Magnificent Gleam\" weapon. It and its attached unit gains the \"Move Through Cover\" ability. Unique. Emissaries Imperatus only.",
       "p_unit": 15,
       "p_char": null
     },

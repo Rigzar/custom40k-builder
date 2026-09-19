@@ -447,6 +447,11 @@ export const useArmyStore = create<ArmyStore>()(
 
       setArchetype: (a: string) => set((s: S) => {
         const newRule = getArchetypeRule(a);
+        // Yngir's chosen C'tan Shard is a per-ENTRY flag that costs +85pts and turns that shard into
+        // an HQ (see getEffectiveSlotFor). Nothing cleared it when the army left Yngir, so the
+        // upgrade kept being charged -- and, once the slot fix landed, kept filling an HQ slot --
+        // under an archetype that does not grant it. Leaving Yngir drops it.
+        const clearYngir = a !== 'Yngir';
         // If new archetype forces a mark, apply it to all non-locked units.
         const baseArmy = newRule?.forcedMark
           ? s.army.map((e: RosterEntry) => {
@@ -458,7 +463,8 @@ export const useArmyStore = create<ArmyStore>()(
         const army = s.data
           ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : baseArmy;
-        return { archetype: a, army };
+        return { archetype: a, army: clearYngir ? army.map((e: RosterEntry) =>
+          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : army };
       }),
 
       setLegacy: (l: string) => set((s: S) => {

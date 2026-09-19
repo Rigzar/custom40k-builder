@@ -258,17 +258,22 @@ export function isWeaponTrait(desc: string | undefined): boolean {
  *   "The vehicle/model receives an additional weapon: X." (Orks vehicle equipment)
  */
 export function isGrantWeapon(desc: string | undefined): boolean {
-  return /\bthe model gains (?:the ['"][^'"]+['"]\s+\w+\s+weapon|a [\w\s-]+(?:missile|weapon|gun|cannon))\b|\bthe (?:model|vehicle) receives an additional weapon:/i
+  // The adjective between the quoted name and "weapon" is OPTIONAL. Three of the four items in the
+  // game written this way have none at all — 'gains the "Magnificent Gleam" weapon' (Custodes, Halo
+  // of the Torchbearer) and 'the "Living vehicle" weapon' (Chaos Space Marines); only Chaos's Kai
+  // says 'the "Kai gun" ranged weapon'. Requiring it meant the others were never recognised as
+  // granting a weapon at all.
+  return /\b(?:the|this) model gains (?:the ['"][^'"]+['"](?:\s+\w+)?\s+weapon|a [\w\s-]+(?:missile|weapon|gun|cannon))\b|\bthe (?:model|vehicle) receives an additional weapon:/i
     .test(desc ?? '');
 }
 
 /** Extract the weapon name granted by an item with isGrantWeapon=true. */
 export function extractGrantedWeaponName(desc: string): string | null {
   // Pattern 1: "The model gains the 'X' ... weapon"
-  const m1 = desc.match(/\bthe model gains the ['"]([^'"]+)['"]\s+\w+\s+weapon/i);
+  const m1 = desc.match(/\b(?:the|this) model gains the ['"]([^'"]+)['"](?:\s+\w+)?\s+weapon/i);
   if (m1) return m1[1];
   // Pattern 2: "The model gains a X." (X = weapon name ending in known suffixes)
-  const m2 = desc.match(/\bthe model gains a ([\w\s-]+(?:missile|weapon|gun|cannon))\b/i);
+  const m2 = desc.match(/\b(?:the|this) model gains a ([\w\s-]+(?:missile|weapon|gun|cannon))\b/i);
   if (m2) return m2[1].trim();
   // Pattern 3: "The vehicle/model receives an additional weapon: X."
   const m3 = desc.match(/\bthe (?:model|vehicle) receives an additional weapon:\s*([^.]+)\./i);

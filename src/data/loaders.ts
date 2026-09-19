@@ -199,14 +199,23 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'inquisition': {
-      const [u, g, arch, discs, prayers] = await Promise.all([
+      // The three Ordo armouries are LEGACY armouries -- `Inquisition 1.01.ods` ships them as
+      // their own sheets and each is granted by its own Legacy ("Ordo Hereticus: The army has
+      // access to the Ordo Hereticus Armory."). They used to be flattened into general.json,
+      // so all 22 items were buyable with no Legacy chosen.
+      const [u, g, arch, discs, prayers, her, mal, xen] = await Promise.all([
         import('../../data/parsed/inquisition/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/inquisition/armory/general.json'),
         import('../../data/parsed/inquisition/archetypes.json'),
         import('../../data/parsed/inquisition/psychic/disciplines.json'),
         import('../../data/parsed/inquisition/psychic/prayers.json'),
+        import('../../data/parsed/inquisition/armory/legion_ordo_hereticus.json'),
+        import('../../data/parsed/inquisition/armory/legion_ordo_malleus.json'),
+        import('../../data/parsed/inquisition/armory/legion_ordo_xenos.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs, prayers });
+      return asm(u, g, arch, noRules, {},
+        { 'Ordo Hereticus': her, 'Ordo Malleus': mal, 'Ordo Xenos': xen },
+        { disciplines: discs, prayers });
     }
 
     case 'assassins': {

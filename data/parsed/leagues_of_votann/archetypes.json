@@ -20,7 +20,7 @@
   "legacies": [
     {
       "name": "League of Explorers",
-      "desc": "The army has access to the Trans-Hyperain Alliance armory.",
+      "desc": "The army has access to the Trans-Hyperian Alliance armory.",
       "armory_key": "League"
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "name": "League of Magnates",
-      "desc": "The army has access to the Ymir Conglomerate armory.",
+      "desc": "The army has access to the Ymyr Conglomerate armory.",
       "armory_key": "League"
     },
     {

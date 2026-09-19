@@ -1,0 +1,127 @@
+{
+  "name": "Ordo Hereticus Armory",
+  "weapons": [
+    {
+      "name": "Combi-stake thrower",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 7,
+      "p_char": 11,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Stake",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Always wounds psykers on 2+ and causes them to suffer a \"Peril of the Warp\" attack on a successful wounding roll."
+        }
+      ],
+      "requires_army_item": "Ordo Hereticus"
+    },
+    {
+      "name": "Ignis Judicium",
+      "term_compat": false,
+      "requires_army_item": "Ordo Hereticus",
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(2), Melta",
+      "p_unit": null,
+      "p_char": 34
+    },
+    {
+      "name": "Brazier of Holy Fire",
+      "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "Unique.",
+      "p_unit": null,
+      "p_char": 14,
+      "profiles": [
+        {
+          "name": "Flail",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Soul burn(6+)"
+        },
+        {
+          "name": "Flame",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(6+)"
+        }
+      ]
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Hexagram warding runes",
+      "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
+      "desc": "Enemy models in direct base contact suffer a -1 penalty to their ward saves.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Liber Heresius",
+      "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
+      "desc": "The bearer may pick any two veteran abilites to be in effect for themselves and their attached unit. The veteran abilities can be changed each activation.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "No escape",
+      "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
+      "desc": "Fleeing units are automatically caught up in melee and receive twice the amount of hits from each pursuing model.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Praesidium Protectiva",
+      "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
+      "desc": "The model gains a 4+ ward save.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Psyoccolum",
+      "term_compat": true,
+      "desc": "The model and its attached unit may reroll all to hit dice against a psyker and its attached unit.",
+      "p_unit": null,
+      "p_char": 5,
+      "requires_army_item": "Ordo Hereticus"
+    }
+  ],
+  "daemon_weapons": []
+}

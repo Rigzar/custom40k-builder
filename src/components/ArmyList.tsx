@@ -1,7 +1,7 @@
 import { useArmyStore } from '../store/army';
 import { UnitCard } from './UnitCard';
 import { SLOT_ORDER } from '../engine/engagements';
-import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlotFor } from '../engine/archetypes';
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride } from '../engine/codex_imperial_guard/platoon';
 import { resolveUnit, computeUnitPoints } from '../engine/points';
@@ -91,7 +91,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
       {SLOT_ORDER.map(slot => {
         const slotUnits = scopedArmy.filter(item => {
           const u = resolveUnit(item, data);
-          const baseSlot = applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule));
+          const baseSlot = applyVariantSlotOverride(item, u, getEffectiveSlotFor(item, rule));
           return applyPlatoonSlotOverride(item, scopedArmy, baseSlot) === slot;
         });
         if (slotUnits.length === 0) return null;

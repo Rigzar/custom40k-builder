@@ -17,7 +17,7 @@
  * ABILITIES:
  *   They Shall Know No Fear
  *   The Armor of Faith: 4+ inv save.
- *   Honor or Death: enemy HQ/Character within 12" → Order forced to Charge (must engage).
+ *   Honor or Death: enemy HQ/Character within 10" → Order forced to Charge (must engage).
  *   Martial superiority: re-roll 1 hit and 1 wound.
  *   Oath: choose at start of combat round 1 — affects all SM creatures army-wide:
  *     Abhor the Witch: all units get Aegis(5+); no psykers allowed.

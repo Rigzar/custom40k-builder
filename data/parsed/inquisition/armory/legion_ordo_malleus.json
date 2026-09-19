@@ -1,0 +1,79 @@
+{
+  "name": "Ordo Malleus Armory",
+  "weapons": [
+    {
+      "name": "Psycannon",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "7",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1), Armor piercing(5+)",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "Incinerator",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1), Shield breaker(-1)",
+      "p_unit": 23,
+      "p_char": 17
+    },
+    {
+      "name": "Nemesis daemon hammer",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(2), Force weapon, Shield breaker(-1), Slow(-3)",
+      "p_unit": null,
+      "p_char": 16
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Grimoire of True Names",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "desc": "One model in direct base contact suffers -1 penalties to its WS, Initiatives and Attacks, up to a minimum of 1.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Psybolt ammunition",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
+      "p_unit": null,
+      "p_char": 1
+    },
+    {
+      "name": "Purified weapon",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "desc": "Before setting up units, pick one of the purified powers below and add it to one melee weapon of the model.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Tesseract labyrinth",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "desc": "At the start of your activation, pick a wounded enemy model in base contact. It must pass a Strength test or is immediately removed. One use only.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

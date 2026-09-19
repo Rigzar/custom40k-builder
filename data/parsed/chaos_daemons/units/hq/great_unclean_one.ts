@@ -62,7 +62,7 @@ export const greatUncleanOne: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Poison(2+)"
+      "abilities": "AT(1), Poison(2+)"
     },
     {
       "name": "Nurgling infestation",

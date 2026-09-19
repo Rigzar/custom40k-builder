@@ -280,6 +280,7 @@ export const krootMasterShaper: Unit = {
   "abilities": [
     "Infiltrator, Supporting Fire, Use Cover",
     "Evolutionary Adaptation: A Master Shaper may assign a free Signature Evolutionary Adaptation trait to itself and one other friendly Kroot unit at the start of deployment. It may not assign a Signature Evolutionary Adaptation the army has already chosen.",
+    "Shaper Chief: A Shaper Chief may assign its Evolutionary Adaptation to an additional friendly Kroot unit.",
     "Upgrades",
     "Flesh Shaper: The model and its attached unit gain \"Deflagrate(6+)\" for all melee attacks.",
     "Trail Shaper: After all units have been placed in the Deployment phase, you may remove and redeploy this model and its attached unit.",

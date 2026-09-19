@@ -142,7 +142,10 @@ export const crisisHonorGuard: Unit = {
         },
         {
           "name": "XV85-2 Enforcer",
-          "points": 10
+          "points": 10,
+          "effect": {
+            "stat_mod": [{ "stat": "SV", "delta": -1 }]
+          }
         },
         {
           "name": "XV22-2 Stalker",
@@ -158,10 +161,10 @@ export const crisisHonorGuard: Unit = {
       "per_model": true
     },
     {
-      "header": "Any model can be equipped with up to two of the following",
+      "header": "Any model can be equipped with up to three of the following",
       "constraint": {
         "type": "fixed_max",
-        "max": 2
+        "max": 3
       },
       "choices": [
         {

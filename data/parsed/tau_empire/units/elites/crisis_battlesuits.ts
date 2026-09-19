@@ -110,10 +110,10 @@ export const crisisBattlesuits: Unit = {
   ],
   "option_groups": [
     {
-      "header": "Any model can be equipped with up to two of the following",
+      "header": "Any model can be equipped with up to three of the following",
       "constraint": {
         "type": "fixed_max",
-        "max": 2
+        "max": 3
       },
       "choices": [
         {

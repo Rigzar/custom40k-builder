@@ -85,10 +85,14 @@ than GK's "tab present, category empty"; Custodes' budget line never mentions Tr
   units can't be taken).
 - Tharanatoi (Allarus + Aquilon Custodians→Troops; Custodian Guard + Sisters of Silence→Elite).
 
-**5 Legacies** — each = one Shield Host, granting that Host's Armory: Castellans of the Blessed
+**6 Legacies** — each = one Shield Host, granting that Host's Armory: Castellans of the Blessed
 Worlds→Solar Watch / Gilded Guardians→Aquilan Shield / Instruments of His Wrath→Dread Host / The
-Hostless→Emperor's Chosen / Warders of the Dark Cells→Shadowkeepers. Shield Host armories in
-`armory/legion_shield_host.json`.
+Hostless→Emperor's Chosen / Warders of the Dark Cells→Shadowkeepers / Heralds of the
+Throne→Emissaries Imperatus. Shield Host armories in `armory/legion_shield_host.json`.
+
+Heralds of the Throne was added by the author on 2026-09-19, after we reported that "Halo of the
+Torchbearer" was gated to an Emissaries Imperatus that no Legacy granted. The same update added the
+**Magnificent Gleam** weapon row (priced "-", i.e. grant-only) that the Halo hands out.
 
 **0 Traits** — none exist (confirmed §5 above).
 

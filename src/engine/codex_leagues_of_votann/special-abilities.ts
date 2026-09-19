@@ -65,7 +65,7 @@ export const VOTANN_SPECIAL_ABILITIES: VotannSpecialAbilityEntry[] = [
     name: 'Legacies (5 total — each = one League)',
     category: 'legacy',
     text: 'Each grants one League\'s Armory (loaded as the \'League\' legacy): League of Explorers→' +
-      'Trans-Hyperain Alliance / League of Leagues→Greater Thurian League / League of Magnates→Ymir ' +
+      'Trans-Hyperian Alliance / League of Leagues→Greater Thurian League / League of Magnates→Ymyr ' +
       'Conglomerate / League of Sentinels→Urani-Surtr Regulates / League of Warriors→Kronus ' +
       'Hegemony. League armories in `legion_league.json`.',
   },

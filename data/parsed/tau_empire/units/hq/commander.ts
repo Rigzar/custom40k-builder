@@ -14,7 +14,7 @@ export const commander: Unit = {
   "models": [
     {
       "name": "Shas'el Commander",
-      "points": 81,
+      "points": 86,
       "min": 1,
       "max": 1,
       "stats": {
@@ -34,7 +34,7 @@ export const commander: Unit = {
   "variant_models": [
     {
       "name": "Shas'o Commander",
-      "points": 96,
+      "points": 101,
       "min": 0,
       "max": 0,
       "stats": {
@@ -146,10 +146,10 @@ export const commander: Unit = {
   ],
   "option_groups": [
     {
-      "header": "Can be equipped with up to two of the following",
+      "header": "Can be equipped with up to three of the following",
       "constraint": {
         "type": "fixed_max",
-        "max": 2
+        "max": 3
       },
       "choices": [
         {
@@ -229,7 +229,8 @@ export const commander: Unit = {
   "abilities": [
     "Supporting Fire",
     "Crisis bodyguard: The Commander may join a unit of Crisis Honor Guard.",
-    "Shas'o: May be equipped with one additional weapon and SUPPORT SYSTEM each."
+    "Shas'o Commander: The model may select another unit during each Reinforcement phase. The target gains the same ability to move 1D6\" after shooting until the end of the current Battle round.",
+    "Tactical Acumen: The model and its attached unit may make a 1D6\" move after they have used their ranged weapons. Can not be used with a Charge command."
   ],
   "unit_type": "Jump Pack Infantry, Monstrous Infantry",
   "keywords": [],
@@ -247,5 +248,5 @@ export const commander: Unit = {
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 81
+  "min_cost": 86
 };

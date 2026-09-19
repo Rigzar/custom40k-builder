@@ -170,6 +170,7 @@ export type TranslationKey =
   | 'valAllyNoLegacy' | 'valAllyNoTraits' | 'valAllyTroopsRatioFail' | 'valAllyTroopsRatioOk'
   | 'valSkirmishUniqueLimit' | 'valSkirmishHqExceeds' | 'valSkirmishUnitExceeds' | 'valSkirmishSquadronMax'
   | 'valSkirmishCombinedArmour' | 'valSkirmishArmourSaveGain' | 'valSkirmishInvSaveGain' | 'valSkirmishToughnessGain'
+  | 'valSkirmishArmourSaveBase' | 'valSkirmishInvSaveBase' | 'valSkirmishToughnessBase'
   | 'valSkirmishDamageGain' | 'valPerNExceeded' | 'valFixedMaxExceeded' | 'valDisjointSquadSize'
   | 'valRatioPerNExceeded' | 'valCrossGroupPoolExceeded' | 'valLowEpicOnly' | 'valLowExceeds33' | 'valLowOk'
   | 'valPlatoonLinkedCount' | 'valPlatoonUnlinkedInfantry' | 'valSlotOverMax' | 'valUsingAops' | 'valAlliedNeedAtLeast'
@@ -996,6 +997,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishArmourSaveGain: 'Skirmish: {unit} gains a 2+ armour save from "{culprit}" — not allowed.',
     valSkirmishInvSaveGain: 'Skirmish: {unit} gains a 4+ or better ward save from "{culprit}" — not allowed.',
     valSkirmishToughnessGain: 'Skirmish: {unit} reaches T{t} from equipment — max T7.',
+    valSkirmishArmourSaveBase: 'Skirmish: {unit} has a {sv}+ armour save on its datasheet — max 3+ in Skirmish.',
+    valSkirmishInvSaveBase: 'Skirmish: {unit} has a {sv}+ ward save from its own abilities — max 5+ in Skirmish.',
+    valSkirmishToughnessBase: 'Skirmish: {unit} is T{t} on its datasheet — max T7 in Skirmish.',
     valSkirmishDamageGain: 'Skirmish: {unit} equips "{item}" with Damage 3 or higher — not allowed.',
     valPerNExceeded: '{unit}: "{header}" — {used} swaps, only {max} allowed for squad of {size}.',
     valFixedMaxExceeded: '{unit}: "{header}" — {used} swaps, maximum {max}.',
@@ -1876,6 +1880,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishArmourSaveGain: 'Skirmish: {unit} erhält einen 2+ Rüstungswurf durch „{culprit}" — nicht erlaubt.',
     valSkirmishInvSaveGain: 'Skirmish: {unit} erhält einen 4+ oder besseren Schutzwurf durch „{culprit}" — nicht erlaubt.',
     valSkirmishToughnessGain: 'Skirmish: {unit} erreicht W{t} durch Ausrüstung — max. W7.',
+    valSkirmishArmourSaveBase: 'Scharmützel: {unit} hat laut Datasheet einen {sv}+ Rüstungswurf — max. 3+ im Scharmützel.',
+    valSkirmishInvSaveBase: 'Scharmützel: {unit} hat durch eigene Fähigkeiten einen {sv}+ Ward-Save — max. 5+ im Scharmützel.',
+    valSkirmishToughnessBase: 'Scharmützel: {unit} hat laut Datasheet T{t} — max. T7 im Scharmützel.',
     valSkirmishDamageGain: 'Skirmish: {unit} rüstet „{item}" mit Schaden 3 oder höher aus — nicht erlaubt.',
     valPerNExceeded: '{unit}: „{header}" — {used} Tauschoptionen, nur {max} erlaubt für Trupp von {size}.',
     valFixedMaxExceeded: '{unit}: „{header}" — {used} Tauschoptionen, Maximum {max}.',
@@ -2756,6 +2763,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishArmourSaveGain: 'Skirmish: {unit} obtiene una salvación de armadura de 2+ gracias a "{culprit}" — no permitido.',
     valSkirmishInvSaveGain: 'Skirmish: {unit} obtiene un ward save de 4+ o mejor gracias a "{culprit}" — no permitido.',
     valSkirmishToughnessGain: 'Skirmish: {unit} alcanza R{t} por equipo — máximo R7.',
+    valSkirmishArmourSaveBase: 'Escaramuza: {unit} tiene una salvación de {sv}+ en su datasheet — máx. 3+ en Escaramuza.',
+    valSkirmishInvSaveBase: 'Escaramuza: {unit} tiene una salvación Ward de {sv}+ por sus propias habilidades — máx. 5+ en Escaramuza.',
+    valSkirmishToughnessBase: 'Escaramuza: {unit} tiene T{t} en su datasheet — máx. T7 en Escaramuza.',
     valSkirmishDamageGain: 'Skirmish: {unit} equipa "{item}" con Daño 3 o superior — no permitido.',
     valPerNExceeded: '{unit}: "{header}" — {used} intercambios, solo {max} permitidos para escuadra de {size}.',
     valFixedMaxExceeded: '{unit}: "{header}" — {used} intercambios, máximo {max}.',

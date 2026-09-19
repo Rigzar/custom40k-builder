@@ -117,19 +117,45 @@ export const hiveCrone: Unit = {
       "choices": [
         {
           "name": "Resonator",
-          "points": 13
+          "points": 13,
+          "effect": {
+            "grants_abilities": [
+              "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
+            ]
+          }
         },
         {
           "name": "Synaptic Node",
-          "points": 15
+          "points": 15,
+          "effect": {
+            "grants_abilities": [
+              "Synaptic Node: The unit gains the \"Fearless\" and \"Synapse\" abilities. Only a single unit per army may take this Biomorph."
+            ]
+          }
         },
         {
           "name": "Regeneration",
-          "points": 25
+          "points": 25,
+          "effect": {
+            "grants_abilities": [
+              "Regeneration: The unit gains the \"Regeneration(1)\" ability."
+            ]
+          }
         },
         {
           "name": "Hardened Carapace",
-          "points": 28
+          "points": 28,
+          "effect": {
+            "grants_abilities": [
+              "Hardened Carapace: The unit improves its armor save by +1."
+            ],
+            "stat_mod": [
+              {
+                "stat": "SV",
+                "delta": -1
+              }
+            ]
+          }
         }
       ],
       "inline_pts": null,

@@ -49,7 +49,7 @@ export const exocrine: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Extra Attack(1)"
+      "abilities": "AT(1), Extra Attack(1)"
     },
     {
       "name": "Thresher scythe",

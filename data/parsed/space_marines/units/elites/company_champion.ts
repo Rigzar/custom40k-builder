@@ -92,7 +92,7 @@ export const companyChampion: Unit = {
     "Command squad, They Shall Know No Fear",
     "Advisor: For every HQ selection, one Company Champion may be selected without taking up an Elite slot.",
     "Company Champion: The model may re-roll 1 to hit roll per activation.",
-    "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 12\", the placed Order is converted to Charge. The Company champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
+    "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 10\", the placed Order is converted to Charge. The Company champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

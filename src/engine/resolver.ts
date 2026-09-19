@@ -15,6 +15,7 @@ import { csmResolve } from './codex_csm/resolver';
 import { cdResolve } from './codex_chaos_daemons/resolver';
 import { smResolve } from './codex_space_marines/resolver';
 import { admechResolve } from './codex_adeptus_mechanicus/resolver';
+import { markStatMods } from '../lib/markMods';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -395,8 +396,32 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
  * swap's replace threshold. Fixed here rather than in the data: the source will keep mixing them.
  */
 const PUNCT = /[‘’ʼ]/g;
+/**
+ * The same problem is not limited to apostrophes. The loadout sentence and the weapon row are
+ * written by hand in different cells, and they disagree in every way a person can mistype:
+ *
+ *   Chaos Space Marines Heldrake   "equipped with: Bale flamer"      row "Baleflamer"
+ *   Space Marines Techmarine       "Omnissiah-Power axe"             row "Omnissiah power axe"
+ *   Inquisition Valkyrie           "equipped with: Multilaser"       row "Multi-laser"
+ *   Tau Sky Ray Gunship            "Seeker missiles rack"            row "Seeker missile rack"
+ *
+ * Every one of those made a weapon the model always carries look like an unbought option, which is
+ * the phantom-weapon class. So the comparison drops case, spaces and hyphens, and tries the weapon
+ * name without a trailing plural as well. Kept in the engine rather than corrected in the data for
+ * the reason the apostrophe rule already gives: the source will keep mixing them.
+ */
+const flat = (s: string) => s
+  .replace(PUNCT, "'")
+  .toLowerCase()
+  .split(/[\s\-'"]+/)
+  // Singularise EVERY word, not just the last one: the Tau Sky Ray is "equipped with: Seeker
+  // missiles rack" against a weapon row "Seeker missile rack", where the plural sits in the
+  // middle. Splitting first is what makes that reachable — once the spaces are gone there are no
+  // word ends left to find.
+  .map(w => (w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w))
+  .join('');
 const loadoutNames = (equipped: string | undefined, name: string): boolean =>
-  (equipped ?? '').replace(PUNCT, "'").includes(name.replace(PUNCT, "'"));
+  flat(equipped ?? '').includes(flat(name));
 
 const optionalWeapons = new Map<string, Set<string>>();
   for (const [gi, g] of unit.option_groups.entries()) {
@@ -419,7 +444,21 @@ const optionalWeapons = new Map<string, Set<string>>();
       continue;
     }
     for (const c of g.choices) {
-      const rawParts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+      // "with" joins a bundle exactly as "&" and "and" do — Grey Knights' Dreadnought is "Must be
+      // equipped with two of the following: Dreadnought close combat weapon WITH Storm bolter",
+      // two separate weapon rows, and the Orks write their grot-gunner mounts the same way
+      // ("Kustom mega-blasta with grot gunner", "Big shoota with Grot Gunner"). Without it those
+      // five weapons were claimed by no choice and rendered on every model for free. Safe because
+      // of the guard immediately below: a choice whose FULL name is itself a weapon row is never
+      // split, which is what protects the Tyranids' "Twin devourer with brainleech worms".
+      // "with" joins a bundle exactly as "&" and "and" do: Grey Knights' Dreadnought must be
+      // equipped with two of a list whose cheapest entry is "Dreadnought close combat weapon WITH
+      // Storm bolter" — two separate weapon rows. Without this the Storm bolter was claimed by no
+      // choice, so it counted as a fixed default and appeared on every Dreadnought for free.
+      // Safe because of the guard immediately below: a choice whose FULL name is itself a weapon
+      // row is never split, which is what protects the Tyranids' "Twin devourer with brainleech
+      // worms" and "Twin deathspitter with slimer maggots".
+      const rawParts = c.name.split(/\s*(?:&|\band\b|\bwith\b)\s*/i).filter(Boolean);
       // A choice whose FULL name is a weapon row in its own right is ONE weapon, not a bundle, so
       // it must not also be split. The Tyranid "Lash whip and Bonesword" has its own profile
       // (Deadly(5+), Quick(+1)), and splitting it linked the separate "Boneswords" row — different
@@ -1259,6 +1298,18 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   // Collect abilities from selected choices that have their own abilities array
   const choiceAbilities: string[] = [];
+  // CORE RULES 1.264, Unit Types -> Jump Pack Infantry: "Gains the 'Deep Strike' special
+  // rule." The only unit type in the Core Book that grants a named rule, and nothing applied
+  // it -- 37 of the game's 43 Jump Pack Infantry datasheets do not state Deep Strike because
+  // the TYPE is meant to give it (confirmed in the sheets: Tau Crisis Battlesuits and Vespid
+  // Stingwings both list the type and no such ability). The type is spelled several ways
+  // across the codices -- "Jump pack", "Jump Pack Infantry", "Jump pack, Monstrous
+  // infantry" -- so it is matched loosely, and the 6 datasheets that DO state it are skipped
+  // so nobody sees it twice.
+  if (/jump\s*pack/i.test(String(unit.unit_type ?? ''))
+      && !(unit.abilities ?? []).some(a => /deep strike/i.test(String(a)))) {
+    choiceAbilities.push('Deep Strike');
+  }
   // Option effects (ki-parser-02): stat/type/ability changes from selected wargear options.
   const optionStatMods: Array<{ stat: string; delta: number }> = [];
   const optionAddedUnitTypes: string[] = [];
@@ -2051,9 +2102,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))));
+    return applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]))))))));
   }
-  return applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))));
+  return applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty))))))));
 }
 
 /**
@@ -2200,6 +2251,71 @@ const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta?: nu
   'Enhanced Runt-Sucker': { weaponName: 'Junka Shokk Attack Gun', newType: 'Assault 2' },
   'Souped-up Speshul': { weaponName: 'Mek speshul', newType: 'Assault 14' },
 };
+/**
+ * CORE RULES 1.264, Modifying Profile Values -> Modifying Strength:
+ *   "If a model's Strength value changes due to abilities, wargear or other means, it will gain a
+ *    temporary minimum AT value when attacking in melee, unless it is already better or equal.
+ *    If a model's Strength is 7 or higher, all melee attacks have AT(1), unless it is already
+ *    better."
+ *
+ * The two sentences are one rule, and the author confirmed how to read it (Unwise, 2026-09-19,
+ * answering our question): "any weapon that has Strength 7 gains AT(1) if it doesn't have any AT
+ * already. This typically happens for melee units with abilities that increase their strength. For
+ * example, a Carnifex (S6) ... if [it] gains 1 strength from somewhere (for example, the toxin sacs
+ * biomorph) its weapon profile for Monstrous Scything Talons becomes ... AT(1), Extra Attack(1)
+ * because its Strength is now 7 with that weapon profile. This also applies to ranged weapons, but
+ * it's rarer."
+ *
+ * So the threshold is the WEAPON's effective Strength, not the model's printed one, and it has to
+ * be read AFTER modifiers -- which is exactly the case the first version of this could not see.
+ * A weapon writes its Strength as "U" (the model's current value), "+x" (added to it), "x2"
+ * (doubled) or a flat number.
+ *
+ * NOTE, recorded rather than hidden: the document says "melee" in both sentences and the author's
+ * answer extends it to ranged weapons. Ranged weapons at Strength 7+ nearly always state an AT
+ * already, which is why he called it rare.
+ */
+function applyStrengthSevenAT(
+  unit: Unit,
+  profile: ResolvedProfile,
+  groups: WeaponGroup[],
+): WeaponGroup[] {
+  // The model's CURRENT Strength: printed value plus every source the card already applies.
+  const base = parseInt(String((unit.models?.[0]?.stats as Record<string, string>)?.S ?? ''), 10);
+  if (!Number.isFinite(base)) return groups;
+  let modelS = base;
+  for (const m of markStatMods(profile.statModMark, unit)) if (m.stat === 'S') modelS += m.delta;
+  for (const m of profile.traitStatMods ?? []) if (m.stat === 'S') modelS += m.delta;
+  for (const m of profile.optionStatMods ?? []) if (m.stat === 'S') modelS += m.delta;
+  modelS += profile.equipMods?.statDeltas?.S ?? 0;
+  modelS += profile.traitEquipMods?.statDeltas?.S ?? 0;
+
+  /** A weapon's effective Strength, in the four shapes a profile writes it. */
+  const weaponStrength = (raw: string): number | null => {
+    const v = String(raw ?? '').trim();
+    if (/^U$/i.test(v)) return modelS;
+    const plus = v.match(/^\+(\d+)$/);
+    if (plus) return modelS + parseInt(plus[1], 10);
+    const times = v.match(/^x(\d+)$/i);
+    if (times) return modelS * parseInt(times[1], 10);
+    const flat = v.match(/^(\d+)$/);
+    return flat ? parseInt(flat[1], 10) : null;   // "D" and anything else: not a number
+  };
+
+  return groups.map(g => ({
+    ...g,
+    weapons: g.weapons.map(w => {
+      // "unless it is already better" -- AT(1) is the weakest AT there is, so ANY stated AT wins.
+      if (/\bAT\(\d+\)/i.test(String(w.abilities ?? ''))) return w;
+      const s = weaponStrength(w.s as string);
+      if (s === null || s < 7) return w;
+      const had = String(w.abilities ?? '').trim();
+      const abilities = !had || had === '-' ? 'AT(1)' : `AT(1), ${had}`;
+      return { ...w, abilities };
+    }),
+  }));
+}
+
 function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
   const active = Object.keys(NAMED_WEAPON_BOOST_ITEMS).filter(name => {
     if (item.armory.some(a => a.itemName === name)) return true;

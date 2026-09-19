@@ -48,11 +48,13 @@ export const CUSTODES_SPECIAL_ABILITIES: CustodesSpecialAbilityEntry[] = [
 
   // --- §5 Legacies (5) — each = one Shield Host ---
   {
-    name: 'Legacies (5 total — each = one Shield Host)',
+    name: 'Legacies (6 total — each = one Shield Host)',
     category: 'legacy',
     text: 'Each Legacy unlocks one Shield Host\'s Armory: Castellans of the Blessed Worlds→Solar ' +
       'Watch / Gilded Guardians→Aquilan Shield / Instruments of His Wrath→Dread Host / The ' +
-      'Hostless→Emperor\'s Chosen / Warders of the Dark Cells→Shadowkeepers. Shield Host armories ' +
+      'Hostless→Emperor\'s Chosen / Warders of the Dark Cells→Shadowkeepers / Heralds of the ' +
+      'Throne→Emissaries Imperatus (added by the author 2026-09-19, together with the relic that ' +
+      'had been gated to it with no Legacy to match). Shield Host armories ' +
       'in `legion_shield_host.json`.',
   },
 

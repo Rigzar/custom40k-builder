@@ -52,7 +52,7 @@ export const razorwingJetfighter: Unit = {
       "abilities": "-"
     },
     {
-      "name": "Monoscythe missile",
+      "name": "Razorwing missiles - Monoscythe missile",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "6",
@@ -61,7 +61,7 @@ export const razorwingJetfighter: Unit = {
       "abilities": "Blast(4), Rending(5+)"
     },
     {
-      "name": "Necrotoxin missile",
+      "name": "Razorwing missiles - Necrotoxin missile",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "2",
@@ -70,7 +70,7 @@ export const razorwingJetfighter: Unit = {
       "abilities": "Blast(6), Poison(2+)"
     },
     {
-      "name": "Shatterfield missile",
+      "name": "Razorwing missiles - Shatterfield missile",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "7",

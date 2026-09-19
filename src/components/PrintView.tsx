@@ -17,6 +17,8 @@ import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
+import { wardSave, ownWardAbilities } from '../lib/wardSave';
+import { capStat } from '../lib/statPipeline';
 import { resolveUnitProfile } from '../engine/resolver';
 import { selectedAbilities } from '../lib/battleProfile';
 import { markStatMods } from '../lib/markMods';
@@ -258,8 +260,10 @@ function StatRow({ keys, stats, mods, showLabels, modelLabel, color }: {
         const raw = stats[k] ?? '-';
         const here = mods.filter(m => m.stat === k);
         const boosted = here.length > 0;
+        // Capped at the Core Rules maximum for the stat: a +1 Leadership trait on a model
+        // already printed at Ld 10 used to show Ld 11.
         const display = boosted
-          ? here.reduce((v, m) => applyDelta(v, m.delta), raw) + '*'
+          ? capStat(k, here.reduce((v, m) => applyDelta(v, m.delta), raw)) + '*'
           : raw;
         return (
           <div key={k} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -393,7 +397,13 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, attachedDrones } = rp;
+          optionStatMods, attachedDrones, optionAbilities, traitAbilities } = rp;
+  // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
+  // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
+  // affected. Same derivation as the unit card now.
+  const effectiveInvSv = wardSave({
+    abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave, optionAbilities, traitAbilities,
+  });
   const color = getThemeColor(data.faction, effectiveMark);
 
   const statKeys  = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
@@ -637,8 +647,8 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                       ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name)
                       : undefined}
                     color={color} />
-                  {mi === 0 && equipMods.invulnSave !== null && (
-                    <FancyShield value={equipMods.invulnSave} color={color} />
+                  {mi === 0 && effectiveInvSv !== null && (
+                    <FancyShield value={effectiveInvSv} color={color} />
                   )}
                 </div>
               );

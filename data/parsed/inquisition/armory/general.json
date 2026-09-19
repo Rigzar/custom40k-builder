@@ -145,39 +145,6 @@
       ]
     },
     {
-      "name": "Combi-stake thrower",
-      "term_compat": true,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 7,
-      "p_char": 11,
-      "profiles": [
-        {
-          "name": "Boltgun",
-          "range": "24\"",
-          "type": "Rapid Fire 1",
-          "s": "4",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "-"
-        },
-        {
-          "name": "Stake",
-          "range": "24\"",
-          "type": "Assault 2",
-          "s": "3",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Always wounds psykers on 2+ and causes them to suffer a \"Peril of the Warp\" attack on a successful wounding roll."
-        }
-      ],
-      "requires_army_item": "Ordo Hereticus"
-    },
-    {
       "name": "Conversion beamer",
       "term_compat": false,
       "range": "",
@@ -353,19 +320,6 @@
       "p_char": null
     },
     {
-      "name": "Ignis Judicium",
-      "term_compat": false,
-      "requires_army_item": "Ordo Hereticus",
-      "range": "12\"",
-      "type": "Pistol 2",
-      "s": "8",
-      "ap": "-5",
-      "d": "2",
-      "abilities": "AT(2), Melta",
-      "p_unit": null,
-      "p_char": 34
-    },
-    {
       "name": "Inferno pistol",
       "term_compat": false,
       "range": "6\"",
@@ -463,19 +417,6 @@
       "abilities": "The model and its attached unit can't be targeted by any psychic power, including friendly ones.",
       "p_unit": null,
       "p_char": 5
-    },
-    {
-      "name": "Phase sword",
-      "term_compat": true,
-      "requires_army_item": "Ordo Xenos",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Shield breaker(-2)",
-      "p_unit": null,
-      "p_char": 6
     },
     {
       "name": "Plasma gun",
@@ -613,19 +554,6 @@
       "abilities": "Blast(4), Extra Attack(1), Limit(1), Suppression(3)",
       "p_unit": null,
       "p_char": 9
-    },
-    {
-      "name": "Psycannon",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "range": "24\"",
-      "type": "Rapid Fire 2",
-      "s": "7",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "AT(1), Armor piercing(5+)",
-      "p_unit": null,
-      "p_char": 35
     },
     {
       "name": "Rad grenades",
@@ -779,91 +707,6 @@
       "abilities": "Armor piercing(5+), Suppression(6). Attacks with this weapon receive a +1 bonus to their BS value.",
       "p_unit": 18,
       "p_char": 23
-    },
-    {
-      "name": "Brazier of Holy Fire",
-      "term_compat": true,
-      "requires_army_item": "Ordo Hereticus",
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "Unique.",
-      "p_unit": null,
-      "p_char": 14,
-      "profiles": [
-        {
-          "name": "Flail",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Shield breaker(-1), Soul burn(6+)"
-        },
-        {
-          "name": "Flame",
-          "range": "9\"",
-          "type": "Assault 4",
-          "s": "4",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Auto Hit, Sunder(1), Shield breaker(-1), Soul burn(6+)"
-        }
-      ]
-    },
-    {
-      "name": "Incinerator",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1), Shield breaker(-1)",
-      "p_unit": 23,
-      "p_char": 17
-    },
-    {
-      "name": "Nemesis daemon hammer",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-3",
-      "d": "3",
-      "abilities": "AT(2), Force weapon, Shield breaker(-1), Slow(-3)",
-      "p_unit": null,
-      "p_char": 16
-    },
-    {
-      "name": "Scythian venom talon",
-      "term_compat": false,
-      "requires_army_item": "Ordo Xenos",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "1",
-      "abilities": "Poison(2+)",
-      "p_unit": null,
-      "p_char": 7
-    },
-    {
-      "name": "Sling gun",
-      "term_compat": true,
-      "requires_army_item": "Ordo Xenos",
-      "range": "18\"",
-      "type": "Assault 3",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "To wound rolls of 5+ gain additional -2 AP.",
-      "p_unit": 11,
-      "p_char": 14
     }
   ],
   "equipment": [
@@ -1016,22 +859,6 @@
       "p_char": 5
     },
     {
-      "name": "Esoteric knowledge",
-      "term_compat": true,
-      "requires_army_item": "Ordo Xenos",
-      "desc": "The model and its attached unit may reroll one die per battle round.",
-      "p_unit": null,
-      "p_char": 10
-    },
-    {
-      "name": "Empyrian brain mines",
-      "term_compat": true,
-      "requires_army_item": "Ordo Xenos",
-      "desc": "Nominate one enemy model in direct base contact during its own activation. The target must pass an Initiative test or can't attack this battle round. One use only.",
-      "p_unit": null,
-      "p_char": 5
-    },
-    {
       "name": "Familiar",
       "term_compat": true,
       "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for psykers.",
@@ -1046,35 +873,11 @@
       "p_char": 5
     },
     {
-      "name": "Grimoire of True Names",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "desc": "One model in direct base contact suffers -1 penalties to its WS, Initiatives and Attacks, up to a minimum of 1.",
-      "p_unit": null,
-      "p_char": 10
-    },
-    {
-      "name": "Hexagram warding runes",
-      "term_compat": true,
-      "requires_army_item": "Ordo Hereticus",
-      "desc": "Enemy models in direct base contact suffer a -1 penalty to their ward saves.",
-      "p_unit": null,
-      "p_char": 10
-    },
-    {
       "name": "Jump pack",
       "term_compat": false,
       "desc": "The model gains the \"Jump pack\" ability.",
       "p_unit": null,
       "p_char": 11
-    },
-    {
-      "name": "Liber Heresius",
-      "term_compat": true,
-      "requires_army_item": "Ordo Hereticus",
-      "desc": "The bearer may pick any two veteran abilites to be in effect for themselves and their attached unit. The veteran abilities can be changed each activation.",
-      "p_unit": null,
-      "p_char": 15
     },
     {
       "name": "Marksman honours",
@@ -1098,14 +901,6 @@
       "p_char": 2
     },
     {
-      "name": "No escape",
-      "term_compat": true,
-      "requires_army_item": "Ordo Hereticus",
-      "desc": "Fleeing units are automatically caught up in melee and receive twice the amount of hits from each pursuing model.",
-      "p_unit": null,
-      "p_char": 5
-    },
-    {
       "name": "Plate armour",
       "term_compat": false,
       "desc": "The model gains a 4+ save.",
@@ -1118,38 +913,6 @@
       "desc": "The model gains a 3+ save.",
       "p_unit": 5,
       "p_char": 10
-    },
-    {
-      "name": "Praesidium Protectiva",
-      "term_compat": true,
-      "requires_army_item": "Ordo Hereticus",
-      "desc": "The model gains a 4+ ward save.",
-      "p_unit": null,
-      "p_char": 15
-    },
-    {
-      "name": "Psyoccolum",
-      "term_compat": true,
-      "desc": "The model and its attached unit may reroll all to hit dice against a psyker and its attached unit.",
-      "p_unit": null,
-      "p_char": 5,
-      "requires_army_item": "Ordo Hereticus"
-    },
-    {
-      "name": "Psybolt ammunition",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
-      "p_unit": null,
-      "p_char": 1
-    },
-    {
-      "name": "Purified weapon",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "desc": "Before setting up units, pick one of the purified powers below and add it to one melee weapon of the model.",
-      "p_unit": null,
-      "p_char": 5
     },
     {
       "name": "Psychic training",
@@ -1236,14 +999,6 @@
       "p_char": 43
     },
     {
-      "name": "Tesseract labyrinth",
-      "term_compat": true,
-      "requires_army_item": "Ordo Malleus",
-      "desc": "At the start of your activation, pick a wounded enemy model in base contact. It must pass a Strength test or is immediately removed. One use only.",
-      "p_unit": null,
-      "p_char": 5
-    },
-    {
       "name": "Throne of Judgement",
       "term_compat": false,
       "desc": "The model gains +3 Strength, +3 Toughness, +2 Wounds, the \"Monstrous Infantry\" unit type and loses the \"Character model\" ability. Additionally, it gains a Triple multi-melta. Only for infantry. Unique.",
@@ -1251,7 +1006,9 @@
       "p_char": 143,
       "effect": {
         "set_unit_type": "Monstrous Infantry",
-        "grants_weapons": ["Triple multi-melta"]
+        "grants_weapons": [
+          "Triple multi-melta"
+        ]
       }
     },
     {
@@ -1259,14 +1016,6 @@
       "term_compat": true,
       "desc": "The model gains the ability \"Terrifying(-1)\".",
       "p_unit": 5,
-      "p_char": 5
-    },
-    {
-      "name": "Uluméathi Plasma Syphon",
-      "term_compat": true,
-      "requires_army_item": "Ordo Xenos",
-      "desc": "Enemy models within 18\" suffer a -1 penalty to Strength, AP and Damage to weapons with an \"Overcharged\" profile (applies to all profiles of the affected weapons), to a minimum of 1 each.",
-      "p_unit": null,
       "p_char": 5
     },
     {
@@ -1351,14 +1100,6 @@
       "desc": "A friendly unit arriving within 6\" of this model via Deep strike does not scatter. This model must be present on the table at the beginning of the battle round in order to be used. Psyker only.",
       "p_unit": 15,
       "p_char": null
-    },
-    {
-      "name": "Tome of Vethric",
-      "term_compat": true,
-      "requires_army_item": "Ordo Xenos",
-      "desc": "The bearer may pick one veteran ability to be in effect for themselves and their attached unit. Choose before starting deployment.",
-      "p_unit": null,
-      "p_char": 5
     }
   ],
   "daemon_weapons": []

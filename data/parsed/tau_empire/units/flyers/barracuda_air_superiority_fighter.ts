@@ -31,7 +31,7 @@ export const barracudaAirSuperiorityFighter: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Barracuda is a single model and equipped with: 2 Long-barrled burst cannons; 2 Missile pods; Swiftstrike burst cannon.",
+  "equipped_with": "A Barracuda is a single model and equipped with: 2 Long-barrelled burst cannons; 2 Missile pods; Swiftstrike burst cannon.",
   "weapons": [
     {
       "name": "Long-barrelled burst cannon",
@@ -108,7 +108,7 @@ export const barracudaAirSuperiorityFighter: Unit = {
   ],
   "option_groups": [
     {
-      "header": "Can replace both Long-barreled burst cannons",
+      "header": "Can replace both Long-barrelled burst cannons",
       "constraint": {
         "type": "one"
       },

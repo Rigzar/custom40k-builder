@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
-import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { useT } from '../i18n';
 import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
@@ -410,7 +410,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         {(() => {
                           const champion = army.find(item => {
                             if (item.factionSource) return false;
-                            const effSlot = getEffectiveSlot(item.unitName, item.slot, getArchetypeRule(archetype));
+                            const effSlot = getEffectiveSlotFor(item, getArchetypeRule(archetype));
                             return effSlot === 'HQ' && item.blackCrusadeHQ;
                           });
                           if (champion) {

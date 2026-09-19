@@ -16,6 +16,7 @@ import {
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
   glyphArmourRestriction,
 } from '../engine/keywords';
+import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
@@ -668,6 +669,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     : [];
   const activeLegionKeys = isTrueAllyUnit ? allyLegacyLegionKeys : [...legacyLegionKeys, ...grantedArchetypeKeys];
   const hasLegion = activeLegionKeys.length > 0;
+  // Eight factions keep every Legacy armoury in ONE file and separate the items with a line in
+  // the item's own text ("Alaitoc only.", "Ymyr Conglomerate only."). Nothing enforced it, so
+  // picking any Legacy handed you all of them. The mapping comes from each Legacy's own
+  // description, and only gates naming one of THIS faction's Legacy armouries are enforced --
+  // "Psyker only." and "One use only." are different restrictions and must pass through.
+  const legacySource = isTrueAllyUnit && alliedData ? alliedData : data;
+  const activeLegacyNames = (isTrueAllyUnit ? [alliedLegacy ?? ''] : [legacy, legacy2]).filter(Boolean) as string[];
+  const allowedByLegacy = legacyItemAllowed(legacySource.legacies ?? [], activeLegacyNames);
 
   // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE.
   // Scoped to the item's OWN detachment — an allied unit reads its ally trait pool + faction data,
@@ -912,7 +921,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         ? BC_MARKS.flatMap(m => filterArmoryList(markArmories[m]?.[sec] as ArmoryItem[]))
         : effectiveMark ? filterArmoryList(markArmories[effectiveMark]?.[sec] as ArmoryItem[]) : [];
     }
-    else if (tab === 'legion') list = legionSources.flatMap(s => filterArmoryList(s[sec] as ArmoryItem[]));
+    else if (tab === 'legion') list = legionSources.flatMap(s => filterArmoryList((s[sec] as ArmoryItem[])?.filter(allowedByLegacy)));
     else if (tab === 'archetypeArmory') list = filterArmoryList(archetypeArmoryData?.armory_general?.[sec] as ArmoryItem[]);
     else return [];
     return sec === 'weapons' ? filterMeleeOnlyNoSlowUnwieldy(list) : list;

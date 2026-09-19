@@ -52,15 +52,6 @@ export const stormtroopers: Unit = {
   "equipped_with": "Every model is equipped with: Frag grenade; Hot-shot lasgun; Krak grenade.",
   "weapons": [
     {
-      "name": "Chainsword",
-      "range": "-",
-      "type": "Melee",
-      "s": "T",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
       "name": "Flamer",
       "range": "9\"",
       "type": "Assault 4",
@@ -118,15 +109,6 @@ export const stormtroopers: Unit = {
       "name": "Hot-shot lasgun",
       "range": "24\"",
       "type": "Rapid Fire 1",
-      "s": "3",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Hot-shot laspistol",
-      "range": "12\"",
-      "type": "Pistol 1",
       "s": "3",
       "ap": "-2",
       "d": "1",

@@ -31,7 +31,7 @@ export const knightCentura: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Knight-Centura is equipped with: Psyk-out grenade.",
+  "equipped_with": "A Knight-Centura is equipped with: Flamer; Psyk-out grenade.",
   "weapons": [
     {
       "name": "Boltgun",

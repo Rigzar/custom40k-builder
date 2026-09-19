@@ -77,8 +77,8 @@ Elite), Hearthfyre Arsenal (a free Brôkhyr Iron-master per 500 pts; Hearthkyn d
 Persecution Prospect (Hernkyn Yaegirs→Troops; non-Infiltrate <12"M units must start embarked).
 
 **5 Legacies** — each = one League, granting that League's Armory (loaded as the 'League' legacy):
-League of Explorers→Trans-Hyperain Alliance / League of Leagues→Greater Thurian League / League of
-Magnates→Ymir Conglomerate / League of Sentinels→Urani-Surtr Regulates / League of Warriors→Kronus
+League of Explorers→Trans-Hyperian Alliance / League of Leagues→Greater Thurian League / League of
+Magnates→Ymyr Conglomerate / League of Sentinels→Urani-Surtr Regulates / League of Warriors→Kronus
 Hegemony.
 
 **16 Traits** (3-column pricing; many Judgement-token-themed): Brutal Efficiency / Dour Survivalists

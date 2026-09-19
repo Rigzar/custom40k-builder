@@ -21,6 +21,11 @@
       "armory_key": "Shield Host"
     },
     {
+      "name": "Heralds of the Throne",
+      "desc": "The army has access to the Emissaries Imperatus Armory.",
+      "armory_key": "Shield Host"
+    },
+    {
       "name": "Intruments of His Wrath",
       "desc": "The army has access to the Dread Host Armory.",
       "armory_key": "Shield Host"

@@ -89,15 +89,6 @@ export const acolyteHybrids: Unit = {
       "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
     },
     {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
       "name": "Hand flamer",
       "range": "6\"",
       "type": "Pistol 4",

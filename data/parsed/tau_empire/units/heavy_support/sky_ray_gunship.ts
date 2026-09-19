@@ -52,9 +52,9 @@ export const skyRayGunship: Unit = {
       "abilities": "AT(2), Anti-Air"
     },
     {
-      "name": "Twin burst cannon",
+      "name": "Burst cannon",
       "range": "18\"",
-      "type": "Rapid Fire 6",
+      "type": "Rapid Fire 3",
       "s": "5",
       "ap": "-1",
       "d": "1",
@@ -70,9 +70,9 @@ export const skyRayGunship: Unit = {
       "abilities": "Suppression(3)"
     },
     {
-      "name": "Twin smart missile system",
+      "name": "Smart missile system",
       "range": "30\"",
-      "type": "Heavy 8",
+      "type": "Heavy 4",
       "s": "5",
       "ap": "-1",
       "d": "1",
@@ -91,7 +91,7 @@ export const skyRayGunship: Unit = {
           "points": 0
         },
         {
-          "name": "two Smart missile systems",
+          "name": "Two Smart missile systems",
           "points": 20
         }
       ],

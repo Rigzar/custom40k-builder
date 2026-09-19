@@ -4,7 +4,7 @@ import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyF
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
 import {
-  getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
+  getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
 import { applyVariantSlotOverride, hasSlotOptIn } from './slotOverrides';
 import { removedUnitNote } from './unitRenames';
@@ -149,7 +149,7 @@ export function advisorExemptIds(
       const n = army.filter(j => {
         const jIsAllied = !!(j.factionSource && j.factionSource === alliedFaction);
         if (jIsAllied !== isAllied) return false;
-        if (getEffectiveSlot(j.unitName, j.slot, rule) !== 'HQ') return false;
+        if (getEffectiveSlotFor(j, rule) !== 'HQ') return false;
         const u = resolveUnit(j, data);
         return !u?.advisor; // advisors don't count as HQ selections for their own ratio cap
       }).length;
@@ -194,7 +194,7 @@ function getSlotUsage(
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     if (exemptIds.has(i.id)) return false;
     const u = resolveUnit(i, data);
-    const printedSlot = getEffectiveSlot(i.unitName, i.slot, rule);
+    const printedSlot = getEffectiveSlotFor(i, rule);
     // A unit that is only in this slot because its datasheet let it opt in (Canoptek Scarabs'
     // "may be selected as Troops ... Can't be a mandatory unit selection") fills the slot but
     // cannot satisfy the AOP minimum -- so the minimum check asks for the count without them.
@@ -307,7 +307,7 @@ export function computeCdFreeSlots(
       heraldsByGod[u.locked_mark] = (heraldsByGod[u.locked_mark] ?? 0) + 1;
     }
     // Khorne HQ count — for Bound Beast
-    const effSlot = applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule));
+    const effSlot = applyVariantSlotOverride(item, u, getEffectiveSlotFor(item, rule));
     if (effSlot === 'HQ') {
       const mark = u.locked_mark ?? item.mark;
       if (mark === 'Khorne') khorneHqCount++;
@@ -1243,7 +1243,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (rule.requiresHqUnit) {
       const hasRequiredHq = state.army.some(item => {
         if (item.factionSource) return false;
-        const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+        const effSlot = getEffectiveSlotFor(item, rule);
         return effSlot === 'HQ' && item.unitName.toLowerCase().includes(rule!.requiresHqUnit!.toLowerCase());
       });
       if (!hasRequiredHq) {
@@ -1262,7 +1262,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const { unitNameContains, choiceName } = rule.requiresHqUpgrade;
       const hasRequiredHqUpgrade = state.army.some(item => {
         if (item.factionSource) return false;
-        const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+        const effSlot = getEffectiveSlotFor(item, rule);
         if (effSlot !== 'HQ' || !item.unitName.toLowerCase().includes(unitNameContains.toLowerCase())) return false;
         if (item.armory.some(a => a.itemName === choiceName)) return true;
         const u = resolveUnit(item, data);
@@ -1287,7 +1287,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       let otherCount = 0;
       for (const item of state.army) {
         if (item.factionSource) continue;
-        if (getEffectiveSlot(item.unitName, item.slot, rule) !== 'Troops') continue;
+        if (getEffectiveSlotFor(item, rule) !== 'Troops') continue;
         if (item.unitName === anchorUnit) anchorCount++;
         else otherCount++;
       }
@@ -1311,7 +1311,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       for (const item of state.army) {
         if (item.factionSource) continue;
         if (item.unitName === escortUnit) escortCount++;
-        else if (item.unitName === troopsUnit && getEffectiveSlot(item.unitName, item.slot, rule) === 'Troops') troopsCount++;
+        else if (item.unitName === troopsUnit && getEffectiveSlotFor(item, rule) === 'Troops') troopsCount++;
       }
       if (troopsCount > escortCount) {
         items.push({
@@ -1389,7 +1389,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (rule.hqAllowed.length > 0) {
       for (const item of state.army) {
         if (item.factionSource) continue;
-        const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+        const effSlot = getEffectiveSlotFor(item, rule);
         if (effSlot === 'HQ') {
           const allowed = rule.hqAllowed.some(name =>
             item.unitName.toLowerCase().includes(name.toLowerCase()),
@@ -1409,7 +1409,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const hqMarks: string[] = [];
       for (const item of state.army) {
         if (item.factionSource) continue;
-        const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+        const effSlot = getEffectiveSlotFor(item, rule);
         if (effSlot !== 'HQ') continue;
         const u = resolveUnit(item, data);
         const m = u?.locked_mark ?? item.mark ?? '';
@@ -1467,7 +1467,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const otherTroopsCount = state.army.filter(i =>
         !i.factionSource &&
         i.unitName !== 'Conscript Infantry Platoon' &&
-        getEffectiveSlot(i.unitName, i.slot, rule) === 'Troops' &&
+        getEffectiveSlotFor(i, rule) === 'Troops' &&
         countsTowardOwnSlot(i, state.army)
       ).length;
       if (otherTroopsCount > cipCount) {
@@ -1516,10 +1516,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // Allied Detachment's archetype, which is '' (→ no slot remap) in the common Daemonkin case.
       const alliedRule = getArchetypeRule(state.alliedArchetype);
       const hasMainHq = state.army.some(i =>
-        isDaemonkinMain(i) && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
+        isDaemonkinMain(i) && getEffectiveSlotFor(i, rule) === 'HQ',
       );
       const hasAlliedHq = state.army.some(i =>
-        isDaemonkinDaemon(i) && getEffectiveSlot(i.unitName, i.slot, alliedRule) === 'HQ',
+        isDaemonkinDaemon(i) && getEffectiveSlotFor(i, alliedRule) === 'HQ',
       );
       if (state.army.length > 0 && !(hasMainHq && hasAlliedHq)) {
         items.push({
@@ -1545,7 +1545,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const chosenCount = state.army.filter(i => !i.factionSource && i.unitName === 'Chosen').length;
   if (chosenCount > 0) {
     const hqCount = state.army.filter(i =>
-      !i.factionSource && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
+      !i.factionSource && getEffectiveSlotFor(i, rule) === 'HQ',
     ).length;
     if (chosenCount > hqCount) {
       items.push({
@@ -1669,7 +1669,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   if (blackCrusadeActive) {
     const bcChampions = state.army.filter(item => {
       if (item.factionSource) return false;
-      const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+      const effSlot = getEffectiveSlotFor(item, rule);
       return effSlot === 'HQ' && item.blackCrusadeHQ;
     });
 
@@ -2095,7 +2095,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // complained about, so it explains a specific list rather than lecturing in general.
       if (summoningExcl && state.army.some(i =>
         i.factionSource === 'chaos_daemons' &&
-        getEffectiveSlot(i.unitName, i.slot, rule) === slot)) {
+        getEffectiveSlotFor(i, rule) === slot)) {
         items.push({ type: 'warn', text: T('valSummoningNoMandatoryAop', { slot }) });
       }
     }
@@ -2113,7 +2113,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
         if (!u) return false;
         const iRule = getArchetypeRule(effectiveArchetypeFor(i, state));
-        if (getEffectiveSlot(i.unitName, i.slot, iRule) !== 'Troops') return false;
+        if (getEffectiveSlotFor(i, iRule) !== 'Troops') return false;
         return countsTroops(i.unitName, u.locked_mark, iRule);
       })
       .reduce((s, i) => {
@@ -2216,7 +2216,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       }
       if (allyRule.requiresHqUnit) {
         const hasRequiredHq = allyItems.some(item => {
-          const effSlot = getEffectiveSlot(item.unitName, item.slot, allyRule);
+          const effSlot = getEffectiveSlotFor(item, allyRule);
           return effSlot === 'HQ' && item.unitName.toLowerCase().includes(allyRule.requiresHqUnit!.toLowerCase());
         });
         if (!hasRequiredHq) {
@@ -2225,7 +2225,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       }
       if (allyRule.hqAllowed.length > 0) {
         for (const item of allyItems) {
-          const effSlot = getEffectiveSlot(item.unitName, item.slot, allyRule);
+          const effSlot = getEffectiveSlotFor(item, allyRule);
           if (effSlot === 'HQ') {
             const allowed = allyRule.hqAllowed.some(name => item.unitName.toLowerCase().includes(name.toLowerCase()));
             if (!allowed) {
@@ -2237,7 +2237,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (allyRule.requiresHqUpgrade) {
         const { unitNameContains, choiceName } = allyRule.requiresHqUpgrade;
         const hasRequiredHqUpgrade = allyItems.some(item => {
-          const effSlot = getEffectiveSlot(item.unitName, item.slot, allyRule!);
+          const effSlot = getEffectiveSlotFor(item, allyRule!);
           if (effSlot !== 'HQ' || !item.unitName.toLowerCase().includes(unitNameContains.toLowerCase())) return false;
           if (item.armory.some(a => a.itemName === choiceName)) return true;
           const u = resolveUnit(item, data);
@@ -2323,7 +2323,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const u = resolveUnit(item, data);
       if (!u) continue;
       const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state));
-      const effSlot = getEffectiveSlot(item.unitName, item.slot, effectiveRuleFor(item, state));
+      const effSlot = getEffectiveSlotFor(item, effectiveRuleFor(item, state));
       if (effSlot === 'HQ' && pts > 150) {
         items.push({ type: 'error', text: T('valSkirmishHqExceeds', { unit: item.unitName, pts }) });
       }
@@ -2389,8 +2389,36 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       //  - 4+ invuln save or better  → Iron halo, Daemonic aura, etc.
       //  - Toughness 8 or higher (base T + equipment delta)
       //  - Weapon Damage 3 or higher on any bought weapon
-      // These only fire when something was actually bought — units that START with these stats
-      // aren't blocked (the rule is about what equipment GRANTS, not the datasheet profile).
+      // The author settled the reading on 2026-09-19 ("Yes, datasheet included — no Custodes,
+      // no murder clowns, no Tzeentch Terminators"), so the PRINTED profile is checked first,
+      // below, and these equipment checks then catch a unit that only becomes illegal once it
+      // buys something. 105 of 666 datasheets are barred by the printed-profile half.
+      // ── the printed datasheet, per the author's ruling ──────────────────────────────────
+      const svPrinted = (u.models ?? [])
+        .map(m => (m.stats as Record<string, string>)?.SV)
+        .map(v => String(v ?? '').match(/^(\d)\+$/)?.[1])
+        .filter((v): v is string => !!v)
+        .map(v => parseInt(v, 10));
+      const bestSv = svPrinted.length ? Math.min(...svPrinted) : null;
+      if (bestSv !== null && bestSv <= 2) {
+        items.push({ type: 'error', text: T('valSkirmishArmourSaveBase', { unit: item.unitName, sv: bestSv }) });
+      }
+
+      // A ward save from the datasheet's OWN abilities. Equipment-granted ones stay with the
+      // equipment check below, so a unit is never reported twice for the same save.
+      const wardBase = parseInvSaveFromAbilities(u.abilities ?? []);
+      if (wardBase !== null && wardBase <= 4) {
+        items.push({ type: 'error', text: T('valSkirmishInvSaveBase', { unit: item.unitName, sv: wardBase }) });
+      }
+
+      const tPrinted = (u.models ?? [])
+        .map(m => parseInt(String((m.stats as Record<string, string>)?.T ?? ''), 10))
+        .filter(v => Number.isFinite(v));
+      const bestT = tPrinted.length ? Math.max(...tPrinted) : null;
+      if (bestT !== null && bestT >= 8) {
+        items.push({ type: 'error', text: T('valSkirmishToughnessBase', { unit: item.unitName, t: bestT }) });
+      }
+
       if (item.armory.length > 0) {
         const equipItems = item.armory
           .filter(a => a.section === 'equipment')
@@ -2607,7 +2635,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const scarabsAsTroops = state.army.filter(i => {
       if (i.unitName !== 'Canoptek Scarabs') return false;
       const u = resolveUnit(i, data);
-      return hasSlotOptIn(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, effectiveRuleFor(i, state)));
+      return hasSlotOptIn(i, u ?? undefined, getEffectiveSlotFor(i, effectiveRuleFor(i, state)));
     }).length;
     if (scarabsAsTroops > 0) {
       const warriors = state.army.filter(i => i.unitName === 'Warriors').length;
@@ -2626,7 +2654,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   {
     const lowUnits = state.army.filter(i => {
       const u = resolveUnit(i, data);
-      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, effectiveRuleFor(i, state)));
+      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlotFor(i, effectiveRuleFor(i, state)));
       return effSlot === 'Lords of War';
     });
     if (lowUnits.length > 0) {

@@ -76,7 +76,7 @@ export const tyrannofex: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "2",
-      "abilities": "Extra Attack(1)"
+      "abilities": "AT(1), Extra Attack(1)"
     },
     {
       "name": "Rupture cannon",

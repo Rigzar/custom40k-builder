@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
-import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlot, getEffectiveSlotFor, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds, getSlotUsage } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
@@ -166,7 +166,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     const alliedAdvisorExemptIds = advisorExemptIds(army, store.data!, rule, alliedFactionKey ?? undefined);
     // Core Rules: each Troop beyond 1 grants +1 Elites/FA/HS slot — precompute troop count.
     const allyTroopCount = army.filter(e =>
-      e.factionSource === alliedFactionKey && getEffectiveSlot(e.unitName, e.slot, rule) === 'Troops'
+      e.factionSource === alliedFactionKey && getEffectiveSlotFor(e, rule) === 'Troops'
     ).length;
     return (
       <div className="divide-y divide-zinc-800/50">
@@ -180,7 +180,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           const used = army.filter(e => {
             if (e.factionSource !== alliedFactionKey) return false;
             if (alliedAdvisorExemptIds.has(e.id)) return false;
-            return getEffectiveSlot(e.unitName, e.slot, rule) === slot;
+            return getEffectiveSlotFor(e, rule) === slot;
           }).length;
           // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic.
           // Elites/FA/HS scale with Troop count: max = allyTroopCount (1 Troop → 1 each, 2 Troops → 2 each).

@@ -103,7 +103,7 @@ export const wraithlord: Unit = {
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "-"
+      "abilities": "AT(1)"
     },
     {
       "name": "Aeldari missile launcher - Sunburst",

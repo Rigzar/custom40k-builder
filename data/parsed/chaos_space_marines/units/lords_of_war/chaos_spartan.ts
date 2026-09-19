@@ -145,15 +145,6 @@ export const chaosSpartan: Unit = {
       "abilities": "AT(3)"
     },
     {
-      "name": "Storm bolter",
-      "range": "24\"",
-      "type": "Assault 2",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
       "name": "Twin heavy bolter",
       "range": "36\"",
       "type": "Heavy 6",
@@ -243,7 +234,7 @@ export const chaosSpartan: Unit = {
       },
       "choices": [
         {
-          "name": "Storm bolter",
+          "name": "Combi-bolter",
           "points": 11
         },
         {

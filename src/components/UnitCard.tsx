@@ -6,7 +6,8 @@ import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../ty
 import { useArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
-import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
+import { wardSources, ownWardAbilities } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
@@ -196,26 +197,18 @@ export function UnitCard({ item }: Props) {
   //   - equipment (Terminator armor=5+, Cataphractii=4+…)
   //   - traits: Iron Within inv_save effect, Berserk(5+) from Laboratory Experiments
   // Conditional ones (Desecration "near objectives") stay only in Abilities section text.
-  const baseInvSave = parseInvSaveFromAbilities(u.abilities ?? []);
-  const equipInvSave = equipMods.invulnSave;
-  // Option-granted abilities (e.g. Dire Avenger Exarch's purchased Shimmershield) are gated on
-  // the option actually being selected (see resolver.ts's optionAbilities/effect.grants_abilities),
-  // unlike u.abilities — which is why they need their own scan rather than folding into baseInvSave.
-  const optionInvSave = parseInvSaveFromAbilities(optionAbilities);
-  // Trait inv saves: "X+ Ward Save" in traitAbilities (from inv_save effect)
-  // + Berserk(X+) ability name (gives X+ inv per core rules)
-  const traitInvSave: number | null = traitAbilities.reduce<number | null>((best, ta) => {
-    const m1 = ta.name.match(/^(\d)\+\s+(?:Ward|Invulnerability)/i);
-    if (m1) { const v = parseInt(m1[1]); return best === null || v < best ? v : best; }
-    const m2 = ta.name.match(/^Berserk\((\d)\+\)/i);
-    if (m2) { const v = parseInt(m2[1]); return best === null || v < best ? v : best; }
-    return best;
-  }, null);
-  const allInvCandidates = [baseInvSave, equipInvSave, optionInvSave, traitInvSave].filter((v): v is number => v !== null);
-  const effectiveInvSv: number | null = allInvCandidates.length > 0 ? Math.min(...allInvCandidates) : null;
-  // Source markers for ◆ indicator
-  const invSvFromEquip = equipInvSave !== null && (baseInvSave === null || equipInvSave <= (baseInvSave ?? 99)) && equipInvSave === effectiveInvSv;
-  const invSvFromTrait = traitInvSave !== null && traitInvSave === effectiveInvSv && equipInvSave !== effectiveInvSv;
+  // The whole derivation lives in lib/wardSave.ts so the printed datacard and the Battle View
+  // can run the same one. It used to be here and only here, which is why a Daemon printed a
+  // card with no ward save on it (163 datasheets across all 18 factions).
+  const ward = wardSources({
+    abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave,
+    optionAbilities, traitAbilities,
+  });
+  const effectiveInvSv = ward.value;
+  // Source markers for the ◆ indicator — the card's own tie-breaking, unchanged: equipment
+  // claims a tie with the datasheet, a trait does not claim a tie with equipment.
+  const invSvFromEquip = ward.equipment !== null && (ward.datasheet === null || ward.equipment <= (ward.datasheet ?? 99)) && ward.equipment === effectiveInvSv;
+  const invSvFromTrait = ward.trait !== null && ward.trait === effectiveInvSv && ward.equipment !== effectiveInvSv;
 
   const statKeys: readonly string[] = u.is_vehicle
     ? (vehicleHasWS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)

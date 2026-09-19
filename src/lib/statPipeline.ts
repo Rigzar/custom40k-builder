@@ -53,6 +53,31 @@ export interface StatPipelineInput {
  * inches value, and a roll target ("3+", floored at 2+ — the best the game prints anywhere).
  * `modified` says whether the value could actually take the change; "-" never can.
  */
+/**
+ * CORE RULES 1.264, Profile Values: every stat states a maximum, and a modifier cannot take a
+ * model past it. "Strength (S) ... Maximum Value: 10 or D", and the same 10 for Toughness,
+ * Initiative, Attacks and Leadership.
+ *
+ * FOUND 2026-09-19: seven factions have an army trait granting +1 Leadership to EVERY unit, and 70
+ * models in the game are already printed at Ld 10 — the Eldar Avatar of Khaine under "Black
+ * Guardians" showed Ld 11.
+ *
+ * Saves and skills are deliberately NOT capped here. Canon's maximum for WS, BS and armour save is
+ * 1+, but the only save-improving item in the game (Tyranid "Hardened Carapace") caps ITSELF at 2+
+ * in its own text, and that is the floor `applyStatDelta` already applies. A generic 1+ floor would
+ * quietly overrule the item.
+ */
+const STAT_MAX: Record<string, number> = { S: 10, T: 10, I: 10, A: 10, LD: 10 };
+
+export function capStat(key: string, value: string): string {
+  const max = STAT_MAX[key.toUpperCase()];
+  if (max === undefined) return value;
+  const m = value.match(/^(\d+)(\*?)$/);
+  if (!m) return value;            // "D", "-", an inches value: nothing to cap
+  const n = parseInt(m[1], 10);
+  return n > max ? `${max}${m[2]}` : value;
+}
+
 export function applyStatDelta(value: string, delta: number): { display: string; modified: boolean } {
   if (!value || value === '-' || value === '–') return { display: value, modified: false };
   if (/^\d+$/.test(value)) return { display: String(parseInt(value, 10) + delta), modified: true };
@@ -119,5 +144,5 @@ export function resolveStatValue(
   step(input.optionStatMods.filter(s => s.stat === k).reduce((a, s) => a + s.delta, 0), 'option');
   if (input.ctanYngirActive) floorSave(2, 'option');
 
-  return { display, source: src };
+  return { display: capStat(k, display), source: src };
 }

@@ -165,13 +165,6 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Ynnari (Dark Eldar)': { ...BASE, noLegacy: true,
-    notes: [
-      'Allied to Eldar as Battle Brothers.',
-      'Access to the Ynnari Armory and Revenant discipline (see Eldar).',
-      'No Legacy may be selected.',
-    ],
-  },
 
   // ── Eldar ─────────────────────────────────────────────────────────────────
   'Aspect Focus': { ...BASE,
@@ -212,10 +205,23 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Ynnari (Eldar)': { ...BASE, noLegacy: true,
+  // ELDAR **AND** DARK ELDAR both call this archetype "Ynnari", in their sheets and in their
+  // `archetypes.json`. It used to live under 'Ynnari (Eldar)' and 'Ynnari (Dark Eldar)', which
+  // `getArchetypeRule` could never reach -- it looks the name up verbatim -- so the archetype
+  // did nothing at all: the "no Legacy" restriction went unenforced and the Ynnari Armory was
+  // never offered. (The Revenant discipline worked throughout, because PsychicModal gates it on
+  // the archetype STRING rather than on this object, which is why the rest went unnoticed.)
+  // The two old objects were identical apart from a parenthetical, so one entry serves both.
+  //
+  // `sharedSupplementArmory` is the existing mechanism for "this archetype opens an armoury to
+  // the whole army"; Eldar already loads the file under exactly this key. Dark Eldar does not
+  // ship an Ynnari armoury of its own and its sheet says "(see Eldar)" -- that cross-faction
+  // half is recorded in known-issues rather than guessed at here.
+  'Ynnari': { ...BASE, noLegacy: true,
+    sharedSupplementArmory: 'Ynnari',
     notes: [
       'Allied to Eldar as Battle Brothers.',
-      'Access to the Ynnari Armory and Revenant discipline.',
+      'Access to the Ynnari Armory and the Revenant discipline.',
       'No Legacy may be selected.',
     ],
   },
@@ -565,6 +571,27 @@ export function currentArchetypeName(archetype: string): string {
 /** Strip trailing god superscripts (ˢ ᴷ ᵀ ᴺ) from archetype names for display. */
 export function cleanArchetypeName(name: string): string {
   return name.replace(/[ˢᴷᵀᴺ]+$/, '');
+}
+
+/**
+ * The same answer for a roster ENTRY, which can carry a slot change of its own.
+ *
+ * Yngir (Necrons, ods-verbatim): "One C'tan shard (any kind) counts as an HQ selection... It costs
+ * an additional +85 points." That is a per-ENTRY choice, not a per-NAME remap, so it cannot live in
+ * `troopsRemap` and `getEffectiveSlot` below cannot see it. The resolver re-slotted the chosen shard
+ * to HQ for the unit card and the slot panel, but every slot count in `validators.ts` went through
+ * the name-only function and still saw an Elite — so the shard filled an Elite slot and never
+ * satisfied the HQ minimum (GH#129).
+ *
+ * Keyed on the flag alone, exactly as `points.ts` charges the +85, and the flag is cleared when the
+ * army leaves the Yngir archetype (`setArchetype`).
+ */
+export function getEffectiveSlotFor(
+  item: { unitName: string; slot: string; ctanYngirUpgrade?: boolean },
+  rule: ArchetypeRule | null,
+): string {
+  if (item.ctanYngirUpgrade && /^C'tan Shard/.test(item.unitName)) return 'HQ';
+  return getEffectiveSlot(item.unitName, item.slot, rule);
 }
 
 export function getEffectiveSlot(
