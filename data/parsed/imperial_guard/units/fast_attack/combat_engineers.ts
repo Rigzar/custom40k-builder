@@ -68,7 +68,7 @@ export const combatEngineers: Unit = {
       }
     }
   ],
-  "equipped_with": "Every model is equipped with: Machine pistol; Lasgun; Frag grenades.",
+  "equipped_with": "Every model is equipped with: Machine pistol; Lasgun; Frag grenades; Trench Club.",
   "weapons": [
     {
       "name": "Flamer",

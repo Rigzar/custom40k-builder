@@ -49,7 +49,7 @@ export const pteraxiiSterylizors: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Phosphor torch.",
+  "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Phosphor torch; Pteraxii Talons.",
   "weapons": [
     {
       "name": "Arc grenade",

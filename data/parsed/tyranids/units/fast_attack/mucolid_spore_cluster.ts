@@ -253,7 +253,7 @@ export const mucolidSporeCluster: Unit = {
   ],
   "abilities": [
     "Infiltrator, Mindless, Stealth",
-    "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Mucolid mine explosion\" profile, if an enemy model comes within 3\" distance."
+    "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Mucolid spore explosion\" profile, if an enemy model comes within 3\" distance."
   ],
   "unit_type": "Jump Pack Infantry",
   "keywords": [

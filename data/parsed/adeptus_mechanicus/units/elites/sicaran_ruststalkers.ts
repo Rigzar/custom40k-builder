@@ -49,7 +49,7 @@ export const sicaranRuststalkers: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Enhanced Bionics; Transonic blades.",
+  "equipped_with": "Every model is equipped with: Enhanced Bionics; Transonic blades; Mindscrambler Grenades.",
   "weapons": [
     {
       "name": "Chordclaw",

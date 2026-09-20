@@ -240,7 +240,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // list-building purposes (the once-per-game/1D6-activation flavour is a procedural in-game rule,
   // not enforced here, matching how the rest of the engine treats procedural-only text).
   const balefulTomeCount = item.armory.filter(a => a.itemName === 'Baleful tome').length;
-  const bonusPowerSlots = psychicTrainingCount + balefulTomeCount;
+  // "Interdimensional Knowledge" (Chaos Daemons, Mark of Tzeentch armoury, 10 pts): "The model may
+  // pick 2 ADDITIONAL psychic powers from any general psychic discipline." Two slots, not one --
+  // it was counted as none at all, so the item was bought and changed nothing. Found by the
+  // faction-rule coverage sweep, reading the Chaos Daemons "General disciplines via armory grants"
+  // note. The "from any general discipline" half is not narrowed here for the same reason Baleful
+  // tome's is not: the modal already offers the general disciplines to every psyker, so the extra
+  // picks land in the right pool without a second mechanism.
+  const interdimensionalCount = item.armory.filter(a => a.itemName === 'Interdimensional Knowledge').length;
+  const bonusPowerSlots = psychicTrainingCount + balefulTomeCount + interdimensionalCount * 2;
   const effectivePowerLimit = psykerMode === 'all_from_one'
     ? powerLimit  // all_from_one unlocks the whole discipline, training/tome add extra picks
     : powerLimit + bonusPowerSlots;

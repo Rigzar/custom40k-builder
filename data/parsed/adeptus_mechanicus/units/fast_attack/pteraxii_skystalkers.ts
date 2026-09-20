@@ -49,7 +49,7 @@ export const pteraxiiSkystalkers: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Flechette carbine.",
+  "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Flechette carbine; Pteraxii Talons.",
   "weapons": [
     {
       "name": "Arc grenade",

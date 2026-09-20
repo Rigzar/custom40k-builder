@@ -31,7 +31,7 @@ export const gargoyleBrood: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Fleshborer.",
+  "equipped_with": "Every model is equipped with: Fleshborer; Blinding Venom.",
   "weapons": [
     {
       "name": "Fleshborer",

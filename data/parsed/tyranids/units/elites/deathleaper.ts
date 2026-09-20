@@ -31,7 +31,7 @@ export const deathleaper: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Deathleaper is equipped with: Flesh hooks, Scything talons, Rending claws.",
+  "equipped_with": "A Deathleaper is equipped with: Flesh hooks, Scything talons, Piercing claws.",
   "weapons": [
     {
       "name": "Flesh hooks",

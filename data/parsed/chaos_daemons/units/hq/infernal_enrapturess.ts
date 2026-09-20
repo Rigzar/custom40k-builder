@@ -35,7 +35,7 @@ export const infernalEnrapturess: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "An Infernal Enrapturess is equipped with: Ravaging claws.",
+  "equipped_with": "An Infernal Enrapturess is equipped with: Heartstring Lyre, Ravaging claws.",
   "weapons": [
     {
       "name": "Heartstring lyre - Euphonic blast",

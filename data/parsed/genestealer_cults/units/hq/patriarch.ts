@@ -35,7 +35,7 @@ export const patriarch: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Patriach is equipped with: -.",
+  "equipped_with": "A Patriach is equipped with: Patriarch Claws.",
   "weapons": [
     {
       "name": "Patriarch claws",
