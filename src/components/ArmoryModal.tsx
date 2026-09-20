@@ -5,7 +5,7 @@ import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -263,6 +263,23 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
+  /**
+   * "Every enhancement is unique per army." Which of an enumerable relic's enhancements are
+   * already spoken for, anywhere in the army INCLUDING this unit's other copies -- ten of these
+   * relics may be taken multiple times, so the second pick has to know what the first one took
+   * (GH#136: it did not, and "+ Add another" simply repeated it).
+   */
+  function takenEnhancementsFor(arm: ArmoryItem): string[] {
+    if (!enhancementsUniquePerArmy(arm.desc)) return [];
+    const out: string[] = [];
+    for (const e of army) {
+      for (const a of e.armory ?? []) {
+        if (a.itemName === arm.name && a.chosenPower) out.push(a.chosenPower);
+      }
+    }
+    return out;
+  }
+
   function uniqueArmyBlocked(arm: ArmoryItem, sec: Section): boolean {
     // "Every Kustom job is unique." — the Orks Armory prints that once at the FOOT of the KUSTOM
     // JOBS section rather than on each of the sixteen entries, so `isUniqueItem(arm.desc)` never
@@ -1130,7 +1147,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
-                        isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
                         onAdd={arm => {
@@ -1221,7 +1238,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
                         markless={legMarkless(legName)}
-                        isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
                         onAdd={arm => {
@@ -1312,7 +1329,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         lastAdded={lastAdded}
                         markless
                         getPts={getItemPts}
-                        isUniqueSelected={() => authorityCapReached}
+                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={() => authorityCapReached}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
                         onAdd={arm => {
@@ -1398,7 +1415,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       lastAdded={lastAdded}
                       markless
                       getPts={getItemPts}
-                      isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                      takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
                       getSelId={name => getSelId(name, 'equipment')}
                       onRemove={removeItem}
                       onAdd={arm => {
@@ -1461,7 +1478,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               lastAdded={lastAdded}
               markless={isMarklessFaction}
               getPts={getItemPts}
-              isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+              takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
               getSelId={name => getSelId(name, 'equipment')}
               onRemove={removeItem}
               onAdd={arm => {
@@ -1544,6 +1561,9 @@ interface EquipGroupsProps {
   /** Computes the correct price for this unit type (handles CD Greater Daemon vs regular). */
   getPts?: (arm: ArmoryItem) => number | null;
   isUniqueSelected?: (arm: ArmoryItem) => boolean;
+  /** Enhancements of this relic already spoken for anywhere in the army ("Every enhancement is
+   *  unique per army") -- the picker disables those. */
+  takenEnhancements?: (arm: ArmoryItem) => string[];
   getSelId?: (name: string) => string | undefined;
   onRemove?: (id: string) => void;
   onAdd: (arm: ArmoryItem) => void;
@@ -1588,6 +1608,7 @@ function EquipmentGroups({
   markless = false,
   getPts,
   isUniqueSelected,
+  takenEnhancements,
   getSelId, onRemove,
   onAdd,
   daemonWeapon,
@@ -1678,7 +1699,7 @@ function EquipmentGroups({
                   onAdd={() => canAdd && onAdd(arm)}
                 />
                 {/* Weapon target picker — shown when item needs to target a specific weapon */}
-                {needsTarget && !uniqueSel && !(getSelId?.(arm.name)) && (
+                {needsTarget && !uniqueSel && (!getSelId?.(arm.name) || allowsMultipleCopies(arm.desc)) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
                     <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('applyToLabel')}</span>
                     <select
@@ -1697,7 +1718,11 @@ function EquipmentGroups({
                     "Crusade weapon" (one of 5 named enhancements), or one of the ~18 relics whose
                     own text enumerates 3-4 Range/Strength/AP/AT options. Same mechanism, pool
                     read from the right source per item. */}
-                {needsPower && !uniqueSel && !(getSelId?.(arm.name)) && (
+                {/* GH#136: this used to hide the moment the item was bought, so a relic whose own
+                    text says "Can be taken multiple times" could not be given a SECOND, different
+                    enhancement -- "+ Add another" reused the pending choice and duplicated it.
+                    Stays open for those, and the options already spoken for are disabled. */}
+                {needsPower && !uniqueSel && (!getSelId?.(arm.name) || allowsMultipleCopies(arm.desc)) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
                     <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">
                       {arm.name === 'Paragon of war' ? t('exarchPowerLabel') : t('enhancementLabel')}
@@ -1710,9 +1735,10 @@ function EquipmentGroups({
                       <option value="">{arm.name === 'Paragon of war' ? t('selectPowerOption') : t('selectEnhancementOption')}</option>
                       {(arm.name === 'Paragon of war' ? ELDAR_EXARCH_POWERS
                         : arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS
-                        : enumOptions).map(pn => (
-                        <option key={pn} value={pn}>{pn}</option>
-                      ))}
+                        : enumOptions).map(pn => {
+                        const taken = (takenEnhancements?.(arm) ?? []).includes(pn);
+                        return <option key={pn} value={pn} disabled={taken}>{pn}{taken ? ' — ' + t('takenLabel') : ''}</option>;
+                      })}
                     </select>
                   </div>
                 )}

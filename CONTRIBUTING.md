@@ -418,6 +418,30 @@ It walks all 21 factions through the real loader and asserts that everything the
 **Run it after touching `loaders.ts`, any `psychic/` or `armory/` data file, or the `FactionData`
 type.** Exits non-zero on the first problem.
 
+### Relic enhancements (`scripts/check_enhancement_uniqueness.ts`)
+
+Nineteen relics let you improve one weapon with one of +6″ Range / +1 Strength / -1 AP / +1 AT.
+Ten of them also say **"Can be taken multiple times"**, and all nineteen say the enhancement is
+**unique per army**.
+
+```
+npx tsx scripts/check_enhancement_uniqueness.ts
+```
+
+**The uniqueness line has TWO wordings.** Eighteen say "Every **enhancement** is unique per army";
+the Adeptus Custodes *Vault weapon* says "Each **improvement** is unique per army". Match only the
+first and that relic's rule is silently unenforced — `enhancementsUniquePerArmy()` accepts both.
+
+**A relic that may be taken multiple times needs BOTH pickers to stay open**, not just the
+enhancement one: the second copy must also say which weapon it improves. The guard names each gate
+separately, and that is deliberate — an earlier version searched for the shared helper and passed
+while the enhancement gate was still broken, because the weapon-target gate one line above matched
+it. It was caught by driving the real modal, not by the check.
+
+**The rule is enforced twice on purpose**: the picker greys out what is already taken, and a
+validator flags duplicates — a list saved before the fix carries one, and no picker can retro-flag
+that.
+
 ### Deployment rules bought per Wound (`scripts/check_deployment_upgrades.ts`)
 
 Five factions sell a rule on their Index tab that lets one unit be set up differently, paid for per

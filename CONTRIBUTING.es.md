@@ -417,6 +417,31 @@ llama `.find()` — `prayers`, `pacts`, cada disciplina, cada sección de armer�
 array. **Ejecutalo tras tocar `loaders.ts`, cualquier fichero de `psychic/` o `armory/`, o el tipo
 `FactionData`.** Sale con código distinto de cero al primer problema.
 
+### Mejoras de reliquia (`scripts/check_enhancement_uniqueness.ts`)
+
+Diecinueve reliquias permiten mejorar un arma con una de +6″ Alcance / +1 Fuerza / -1 AP / +1 AT.
+Diez dicen además **"Can be taken multiple times"**, y las diecinueve dicen que la mejora es
+**única por ejército**.
+
+```
+npx tsx scripts/check_enhancement_uniqueness.ts
+```
+
+**La línea de unicidad tiene DOS redacciones.** Dieciocho dicen "Every **enhancement** is unique
+per army"; el *Vault weapon* de Adeptus Custodes dice "Each **improvement** is unique per army".
+Si solo casas la primera, la regla de esa reliquia no se aplica y nadie se entera —
+`enhancementsUniquePerArmy()` acepta las dos.
+
+**Una reliquia que admite varias copias necesita que se queden abiertos LOS DOS selectores**, no
+solo el de la mejora: la segunda copia también tiene que decir a qué arma mejora. El guard nombra
+cada puerta por separado, y es a propósito: una versión anterior buscaba el helper compartido y
+pasaba con la puerta de la mejora todavía rota, porque casaba con la del arma una línea más
+arriba. Lo destapó conducir el modal de verdad, no la comprobación.
+
+**La regla se aplica dos veces a propósito**: el selector agrisa lo ya cogido, y un validador marca
+los duplicados — una lista guardada antes del arreglo lleva uno, y ningún selector puede marcarlo
+a posteriori.
+
 ### Reglas de despliegue compradas por herida (`scripts/check_deployment_upgrades.ts`)
 
 Cinco facciones venden en su pestaña Index una regla que permite desplegar una unidad de otra

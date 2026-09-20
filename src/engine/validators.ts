@@ -13,7 +13,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { parseInvSaveFromAbilities } from './equipMods';
-import { parseEquipMods, isUniqueItem, weaponCopiesPerModel } from './equipMods';
+import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
@@ -2047,6 +2047,34 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         type: 'error',
         text: `${deployUpRule.name}: only ${cap} unit(s) may be set up this way at ${state.pointLimit} points (have ${taken}).`,
       });
+    }
+  }
+
+  // "Every enhancement is unique per army." Nineteen relics enumerate 3-4 enhancements (+6" Range,
+  // +1 Strength, -1 AP, +1 AT) and say that line; ten of them ALSO say "Can be taken multiple
+  // times", so the same model may hold two -- but never the same enhancement, and never one
+  // another model in the army has already taken. Reported as GH#136 on the Necrons Tomb world
+  // relic: a second copy duplicated the first one's enhancement instead of offering the rest.
+  // Checked here rather than only in the picker because a list SAVED before the fix carries the
+  // duplicate, and the picker cannot retro-flag it.
+  {
+    const seen = new Map<string, string>();   // "item|enhancement" -> the unit that has it
+    const dupes: string[] = [];
+    for (const it of state.army) {
+      const u = resolveUnit(it, data);
+      if (!u) continue;
+      for (const sel of it.armory ?? []) {
+        if (!sel.chosenPower) continue;
+        const armItem = findArmoryItem(data, sel, !!u.is_vehicle);
+        if (!armItem || !enhancementsUniquePerArmy(armItem.desc)) continue;
+        const key = `${sel.itemName}|${sel.chosenPower}`;
+        const prev = seen.get(key);
+        if (prev) dupes.push(`${sel.itemName} "${sel.chosenPower}" (${prev} and ${it.unitName})`);
+        else seen.set(key, it.unitName);
+      }
+    }
+    for (const d of dupes) {
+      items.push({ type: 'error', text: `Every enhancement is unique per army: ${d}.` });
     }
   }
 

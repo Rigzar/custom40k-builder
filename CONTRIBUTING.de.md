@@ -427,6 +427,31 @@ Es führt alle 21 Fraktionen durch den echten Loader und prüft, dass alles, wor
 ist. **Nach Änderungen an `loaders.ts`, an Dateien in `psychic/` oder `armory/` oder am Typ
 `FactionData` ausführen.** Beendet sich beim ersten Problem mit Fehlercode.
 
+### Relikt-Verbesserungen (`scripts/check_enhancement_uniqueness.ts`)
+
+Neunzehn Relikte verbessern eine Waffe um +6″ Reichweite / +1 Stärke / -1 DS / +1 AT. Zehn sagen
+zusätzlich **„Can be taken multiple times“**, und alle neunzehn sagen, die Verbesserung sei
+**einmalig pro Armee**.
+
+```
+npx tsx scripts/check_enhancement_uniqueness.ts
+```
+
+**Die Einmaligkeitszeile hat ZWEI Formulierungen.** Achtzehn sagen „Every **enhancement** is unique
+per army“; das *Vault weapon* der Adeptus Custodes sagt „Each **improvement** is unique per army“.
+Wer nur die erste trifft, setzt die Regel dieses einen Relikts still nicht durch —
+`enhancementsUniquePerArmy()` akzeptiert beide.
+
+**Ein mehrfach wählbares Relikt braucht BEIDE Auswahlfelder offen**, nicht nur das für die
+Verbesserung: die zweite Kopie muss auch sagen, welche Waffe sie verbessert. Der Guard benennt
+jedes Gate einzeln, und das mit Absicht — eine frühere Fassung suchte nach dem gemeinsamen Helfer
+und war grün, während das Verbesserungs-Gate noch kaputt war, weil das Waffen-Gate eine Zeile
+darüber passte. Aufgefallen ist es beim Bedienen des echten Modals, nicht durch die Prüfung.
+
+**Die Regel wird bewusst zweifach durchgesetzt**: das Auswahlfeld graut Vergebenes aus, und ein
+Validator meldet Duplikate — eine vor dem Fix gespeicherte Liste enthält eines, und kein
+Auswahlfeld kann das nachträglich markieren.
+
 ### Aufstellungsregeln, die pro Wunde gekauft werden (`scripts/check_deployment_upgrades.ts`)
 
 Fünf Fraktionen bieten auf ihrem Index-Blatt eine Regel an, mit der eine Einheit anders aufgestellt

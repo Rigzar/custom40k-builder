@@ -318,6 +318,28 @@ export function requiresWeaponTarget(desc: string | undefined): boolean {
  *  need a SECOND picker (which enhancement) alongside the weapon-target one — see
  *  parseEnumerableWeaponChoices/parseEnhancementDelta below and ArmoryModal.tsx's reuse of the
  *  existing named-choice picker (already built for Eldar's Paragon of war / HH's Crusade weapon). */
+/**
+ * "Can be taken multiple times." -- ten of the twenty-one enumerable-enhancement relics say it
+ * (Necrons Tomb world relic, Space Marines Relic of the Chapter, Orks Artifact of Gork...or Mork,
+ * and seven more). The other eleven are one per model.
+ */
+export function allowsMultipleCopies(desc: string | undefined): boolean {
+  return /can be taken multiple times/i.test(desc ?? '');
+}
+
+/**
+ * "Every enhancement is unique per army." -- all nineteen enumerable relics say it, and it is the
+ * rule GH#136 is really about: a model may buy a second Tomb world relic, but NOT the same
+ * enhancement, and not one another model in the army has already taken.
+ */
+export function enhancementsUniquePerArmy(desc: string | undefined): boolean {
+  // TWO WORDINGS, and the second one is a single relic: nineteen say "Every ENHANCEMENT is unique
+  // per army" and the Adeptus Custodes Vault weapon says "Each IMPROVEMENT is unique per army".
+  // Matching only the first left that one relic silently unenforced, which is how this family of
+  // near-miss wording has bitten before (see the Legacy gate's two phrasings).
+  return /(every|each)\s+(enhancement|improvement)\s+is\s+unique\s+per\s+army/i.test(desc ?? '');
+}
+
 export function isEnumerableWeaponChoice(desc: string | undefined): boolean {
   return /gains one of the following/i.test(desc ?? '');
 }
