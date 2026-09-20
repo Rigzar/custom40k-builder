@@ -2221,7 +2221,7 @@ function applyDaBoomaBoost(unit: Unit, item: RosterEntry, groups: WeaponGroup[])
   const boost = (w: Weapon): Weapon => {
     if (w.name !== targetName) return w;
     let s = w.s, range = w.range;
-    if (/^\d+$/.test(s)) s = String(parseInt(s, 10) + 1);
+    s = addStrength(s, 1);   // same modifier-aware add as every other +1 Strength (GH#134)
     const m = range.match(/^(\d+)"$/);
     if (m) range = `${parseInt(m[1], 10) + 12}"`;
     return { ...w, s, range };
@@ -2242,6 +2242,25 @@ function applyDaBoomaBoost(unit: Unit, item: RosterEntry, groups: WeaponGroup[])
  * checked against unit.option_groups + item.optionQty by matching the choice NAME rather than a
  * hardcoded group/choice index, since those can shift as the sheet changes.
  */
+/**
+ * Add a Strength delta to a weapon's printed Strength.
+ *
+ * A melee weapon usually prints a MODIFIER rather than a number — "+2" means two above the
+ * wielder's own Strength — and the old test was `/^\d+$/`, which "+2" fails. So every +1 Strength
+ * enhancement silently did nothing on exactly the weapons people buy them for: a Skorpekh Lord's
+ * melee weapon stayed at +2 with the Tomb World relic applied (GH#134). 103 weapons in five
+ * factions alone print Strength this way.
+ *
+ * "U", "x2", "D" and "T" are left alone: those resolve against the model rather than being a
+ * number on the profile, so there is nothing here to add to.
+ */
+export function addStrength(s: string, delta: number): string {
+  if (/^\d+$/.test(s)) return String(parseInt(s, 10) + delta);
+  const mod = s.match(/^\+(\d+)$/);
+  if (mod) return `+${parseInt(mod[1], 10) + delta}`;
+  return s;
+}
+
 const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta?: number; apDelta?: number; newType?: string }> = {
   'Nitro Squigs': { weaponName: 'Squig launcha', sDelta: 1, apDelta: -1 },
   // Ork Kustom Jobs — found via an armory-wide modifier audit (2026-08-31): each names one FIXED
@@ -2329,7 +2348,7 @@ function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGro
   const boost = (w: Weapon): Weapon => {
     const match = boosts.find(b => b.weaponName.toLowerCase() === w.name.toLowerCase());
     if (!match) return w;
-    const s = match.sDelta && /^\d+$/.test(w.s) ? String(parseInt(w.s, 10) + match.sDelta) : w.s;
+    const s = match.sDelta ? addStrength(w.s, match.sDelta) : w.s;
     const ap = match.apDelta && /^-?\d+$/.test(w.ap) ? String(parseInt(w.ap, 10) + match.apDelta) : w.ap;
     const type = match.newType ?? w.type;
     return { ...w, s, ap, type };
@@ -2514,7 +2533,7 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
     if (!matches.length) return w;
     let s = w.s, ap = w.ap, d = w.d, range = w.range, type = w.type;
     for (const { effect } of matches) {
-      if (effect.sDelta && /^\d+$/.test(s)) s = String(parseInt(s, 10) + effect.sDelta);
+      if (effect.sDelta) s = addStrength(s, effect.sDelta);
       if (effect.apDelta && /^-?\d+$/.test(ap)) ap = String(parseInt(ap, 10) + effect.apDelta);
       if (effect.dDelta && /^\d+$/.test(d)) d = String(parseInt(d, 10) + effect.dDelta);
       if (effect.rangeDelta) {

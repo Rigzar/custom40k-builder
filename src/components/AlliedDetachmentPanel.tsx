@@ -4,6 +4,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import {
   getAlliableWith,
   getRelationship,
+  allySide,
   RELATIONSHIP_COLORS,
   type Relationship,
 } from '../data/alliedMatrix';
@@ -40,8 +41,7 @@ function FactionPicker({
   // The active archetype may rewrite the matrix (Votann "Demiurg" → T'au are Battle Brothers),
   // so the picker has to group and colour the options by the relationship THIS army actually has.
   const archetype = useArmyStore(s => s.archetype);
-  const relOverrides = getArchetypeRule(archetype)?.alliedRelationshipOverrides;
-  const options = getAlliableWith(primaryFaction, relOverrides);
+  const options = getAlliableWith(primaryFaction, allySide(getArchetypeRule(archetype)));
   const groups: Relationship[] = ['G', 'Y', 'R'];
 
   return (
@@ -146,8 +146,13 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
     );
   }
 
+  // The ALLY's own archetype matters just as much: "Traitor Guard are treated like Chaos Space
+  // Marines in the Ally matrix" is printed in the Imperial Guard codex, on the detachment being
+  // brought IN, which is the case a player actually builds.
+  const alliedArchetype = useArmyStore(s => s.alliedArchetype);
   // ── Allied faction selected ──────────────────────────────────────────────
-  const rel = getRelationship(primaryFaction, alliedFaction, getArchetypeRule(archetype)?.alliedRelationshipOverrides);
+  const rel = getRelationship(primaryFaction, alliedFaction,
+    allySide(getArchetypeRule(archetype)), allySide(getArchetypeRule(alliedArchetype)));
   const factionLabel = FACTION_NAMES[alliedFaction] ?? alliedFaction;
 
   return (

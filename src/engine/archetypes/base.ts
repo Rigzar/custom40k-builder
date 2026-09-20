@@ -50,6 +50,14 @@ export interface ArchetypeRule {
    * restrictions (GitHub #83).
    */
   alliedRelationshipOverrides?: Record<string, 'G' | 'Y' | 'R'>;
+
+  /**
+   * "<Archetype> are treated like \"<Faction>\" in the Ally matrix" — this army reads, and is
+   * read as, that faction's row and column. Four archetypes say it: Traitor Guard and
+   * Renegades become Chaos Space Marines, Brood Brothers become Genestealer Cults, Gue'vesa
+   * become Tau. Distinct from `alliedRelationshipOverrides`, which rewrites ONE cell.
+   */
+  alliedMatrixAs?: string;
   /**
    * Restricts the `alliedFaction` roster-injection to ONLY these unit names (by exact name),
    * instead of the faction's whole roster — e.g. Adeptus Mechanicus' Dark Mechanicum grants just

@@ -70,30 +70,70 @@ const MATRIX: Record<string, Record<string, Relationship>> = {
 };
 
 /**
- * @param overrides the ACTIVE archetype's `alliedRelationshipOverrides`, keyed by the other
- *   faction. An archetype may rewrite the standing relationship for the army that takes it —
- *   Votann "Demiurg" makes T'au Battle Brothers where the matrix says Allies of Convenience.
+ * What an archetype does to this army's place in the matrix. Two shapes, because the codices use
+ * two wordings:
+ *
+ *   `overrides`  "Dark Mechanicum become Allies of Convenience for Chaos Space Marines" — one cell.
+ *   `matrixAs`   "Traitor Guard are treated like Chaos Space Marines in the Ally matrix" — the whole
+ *                row AND column, so the army reads and is read as that faction.
+ */
+export interface AllySideRules {
+  overrides?: Record<string, Relationship>;
+  matrixAs?: string;
+}
+
+const BETTER: Record<Relationship, number> = { G: 0, Y: 1, R: 2 };
+
+/**
+ * One side's rules, read off its archetype. A tiny helper because BOTH sides have to be passed
+ * now and `rule?.a, rule?.b` at four call sites is how one of them ends up half-updated.
+ */
+export function allySide(
+  rule?: { alliedRelationshipOverrides?: Record<string, Relationship>; alliedMatrixAs?: string } | null,
+): AllySideRules | undefined {
+  if (!rule) return undefined;
+  return { overrides: rule.alliedRelationshipOverrides, matrixAs: rule.alliedMatrixAs };
+}
+
+/**
+ * The relationship between two detachments, taking BOTH sides' archetypes into account.
+ *
+ * Both sides matter because the rewrite usually lives on the ALLY, not the host: a Chaos Space
+ * Marines army with an allied Traitor Guard detachment is the case that was reported, and the
+ * sentence that changes it is printed in the Imperial Guard codex, on the archetype the ALLY took.
+ * Reading only the primary's archetype left that army on the plain IG row, i.e. Desperate Allies.
+ *
+ * When both sides name a level, the BETTER one wins. Every one of these sentences is a grant —
+ * "become Battle Brothers", "become Allies of Convenience" — so the army that was given something
+ * keeps it; nothing in the rules describes two grants cancelling out, and none of the eight
+ * archetypes in the game conflict today.
  */
 export function getRelationship(
   factionKeyA: string,
   factionKeyB: string,
-  overrides?: Record<string, Relationship>,
+  a?: AllySideRules,
+  b?: AllySideRules,
 ): Relationship | null {
-  const forced = overrides?.[factionKeyB];
+  const forced = [a?.overrides?.[factionKeyB], b?.overrides?.[factionKeyA]]
+    .filter((r): r is Relationship => !!r)
+    .sort((x, y) => BETTER[x] - BETTER[y])[0];
   if (forced) return forced;
-  const codeA = FACTION_TO_CODE[factionKeyA];
-  const codeB = FACTION_TO_CODE[factionKeyB];
+  const codeA = FACTION_TO_CODE[a?.matrixAs ?? factionKeyA];
+  const codeB = FACTION_TO_CODE[b?.matrixAs ?? factionKeyB];
   if (!codeA || !codeB) return null;
   return MATRIX[codeA]?.[codeB] ?? null;
 }
 
 /** Returns all factions with their relationship to the given faction, sorted G → Y → R.
- *  `overrides` is the active archetype's `alliedRelationshipOverrides` — see getRelationship. */
+ *  Only THIS army's archetype is known here — the picker runs before an ally, let alone an allied
+ *  archetype, has been chosen — so a rewrite that lives on the ally's side (Traitor Guard) cannot
+ *  show up in the grouping. `getRelationship` sees both and has the final word once one is picked. */
 export function getAlliableWith(
   factionKey: string,
-  overrides?: Record<string, Relationship>,
+  side?: AllySideRules,
 ): Array<{ key: string; relationship: Relationship }> {
-  const codeA = FACTION_TO_CODE[factionKey];
+  const overrides = side?.overrides;
+  const codeA = FACTION_TO_CODE[side?.matrixAs ?? factionKey];
   if (!codeA) return [];
   const seen = new Set<string>();
   const result: Array<{ key: string; relationship: Relationship }> = [];

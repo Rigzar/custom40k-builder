@@ -52,9 +52,17 @@ export function countsTowardOwnSlot(item: RosterEntry, army: RosterEntry[]): boo
   return !isLinkedToExistingPlatoon(item, army);
 }
 
-/** Roster entries eligible as link targets for a "↳ Platoon" picker — every Platoon Command
- * Squad currently in the main army (allied PCS, if any, are out of scope: a platoon is a
- * main-faction structure). */
-export function listPlatoonAnchors(army: RosterEntry[]): RosterEntry[] {
-  return army.filter(e => e.unitName === PLATOON_ANCHOR_UNIT && !e.factionSource);
+/**
+ * Roster entries eligible as link targets for a "↳ Platoon" picker — every Platoon Command Squad
+ * in the SAME detachment as the unit doing the linking.
+ *
+ * `detachment` is the entry's own `factionSource`: undefined for the primary army, the allied
+ * faction's slug for an allied one. Matching on it keeps a platoon inside one detachment (a primary
+ * Infantry Squad cannot join an allied PCS, or the other way round) while still letting an ALLIED
+ * Guard detachment build one, which it could not before — this function used to return only
+ * primary-army anchors, so the picker in an allied detachment was always empty (player report).
+ */
+export function listPlatoonAnchors(army: RosterEntry[], detachment?: string): RosterEntry[] {
+  return army.filter(e =>
+    e.unitName === PLATOON_ANCHOR_UNIT && (e.factionSource ?? undefined) === (detachment ?? undefined));
 }

@@ -130,6 +130,9 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
   // that, so it can easily be solved with a flat allowance."
   'Renegades': { ...BASE,
     foreignTraitFaction: 'chaos_space_marines', foreignTraitMax: 1,
+    // ods-verbatim, same row: "Renegades are treated like \"Chaos Space Marines\" in the Ally
+    // matrix." The trait half of that row was built on 2026-09-19; this half was not.
+    alliedMatrixAs: 'chaos_space_marines',
     notes: [
       'Treated as Allies of Convenience for Chaos Space Marines.',
       'One of the army\'s two Traits may be taken from the Chaos Space Marines list instead.',

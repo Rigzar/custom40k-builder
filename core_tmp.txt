@@ -1,0 +1,1947 @@
+🧐 Custom40k Core Rules
+Custom40k Core Rules
+Rules version 1.264, Balance version 5.04
+
+ TOC \h \u \z \n \t "Heading 1,1,Heading 2,2,Heading 6,6,"The Battle Round
+1. Rally phase
+2. Reinforcement Phase
+3. Command Phase
+Meta Orders
+4. Initiative Phase
+5. Action Phase
+Movement
+Resolving Attacks
+Line of Sight (LOS)
+Mortal Wounds
+Starting Strength
+Strength “D”
+Suppressive Fire
+Ranged Combat
+Melee Combat
+Mixed Units
+Cover
+Terrain
+Abstract Terrain Zones
+Concrete Terrain Zones
+Obstacles
+Obscuring Terrain/Units
+Terrain Properties
+Melee over Terrain
+Profile Values
+Creatures and vehicles
+Weapons
+Modifying Profile Values
+Profile Value Tests
+Base size
+Unit Types
+Infantry
+Bike
+Character Model
+Jet Bike
+Jump Pack Infantry
+Monstrous Creature
+Monstrous Infantry
+Walker
+Vehicles
+Flyers
+Psychic Powers
+Hymns, Invocations, and Prayers
+Weapon types
+Special Rules
+Model abilities
+Objective secured!
+Weapon abilities
+Army Organization
+Army rules
+Allies
+Setting up units
+Supplements
+Playing your first game
+FAQ
+Deep Lore
+Experimental Rules
+Weapon abilities
+
+The Battle Round
+Custom40k is played over the course of five battle rounds, each consisting of several phases. In some phases, both players act simultaneously. The order of who acts first with their unit is determined by a roll-off at the start of each battle round.
+A battle round is divided into the following phases:
+Rally Phase
+Fleeing or pinned units may attempt to rally.
+Reinforcement Phase
+Units held in reserve attempt to enter the battlefield.
+Command Phase
+Both players assign orders to all units by placing them face down.
+Initiative Phase
+Determine which player activates the first unit for this battle round.
+Action Phase
+Players alternate activating their units and carrying out the orders assigned during the Command Phase.
+
+1. Rally phase
+Both players must take a Leadership test for each of their units currently carrying at least one Battleshock token.
+Roll 2D6 for each unit.
+If the result is equal to or lower than the unit's Leadership value, it removes all Battleshock tokens and can receive orders in the Command Phase and act normally in the Action Phase.
+If the test fails, the unit retains its Battleshock tokens.
+If the unit retains two tokens, it will flee now as described below.
+Battleshock
+Some abilities and interactions during the game may cause a unit to gain Battleshock tokens. The effects are immediately applied / resolved upon gaining the respective amount of tokens.
+One Battleshock Token - Pinned
+The unit suffers a -1 penalty to all hit rolls (ranged and melee).
+Its movement value is halved.
+The unit cannot gain a Charge bonus or other benefits from equipment or special rules when using a Charge order.
+It may still receive orders during the next Command Phase.
+Two Battleshock Tokens - Fleeing
+The unit immediately moves D6+6” toward the nearest friendly board edge, ignoring enemy units in its path if no other route is possible.
+It cannot receive orders in the following Command Phase and is considered fully activated for all purposes.
+It cannot contest or hold mission objectives.
+Fleeing units ignore movement penalties from difficult or dangerous terrain.
+If a fleeing unit reaches the board edge, it is removed from the game.
+If a fleeing unit enters close combat (again) during the same battle round:
+It cannot fight in melee.
+It automatically loses the combat, regardless of the actual result.
+Instead of fleeing a second time, the unit remains in place with 1 Battleshock token.
+Note that units can never have more than two Battleshock tokens at a time.
+
+2. Reinforcement Phase
+During the Reinforcement Phase, players attempt to bring their units from reserve onto the battlefield. The process is as follows:
+The controlling player may roll a number of dice equal to the current battle round number (see table below).
+For each 4, 5, or 6 rolled, one unit from reserve must enter the battlefield, if possible.
+In the following Command Phase, these units may only receive an “Advance” or “Move & Shoot” order and enter the battlefield from the controlling player's board edge (=> all edges that are touching your deployment zone and not further than that) during their activation.
+They may move up to their normal limit with the board edge being the starting point for measurement.
+Automatic Reinforcements
+Starting from the third battle round, one additional unit automatically arrives from reserve.
+This increases to two units in the fourth round and three units in the fifth round.
+Order of Resolution
+If both players have units in reserve, the player who won the roll to choose deployment zones resolves their reinforcement rolls first.
+Reinforcement Chart
+Battle round
+ · Reinforcement Dice
+ · Additional Units
+ ·
+1
+ · 1D6
+ · None
+ ·
+2
+ · 2D6
+ · None
+ ·
+3
+ · 3D6
+ · +1 unit
+ ·
+4
+ · 4D6
+ · +2 units
+ ·
+5
+ · 5D6
+ · +3 units
+ ·
+
+Transports and Characters
+Transport vehicles and the units they carry count as one reserve.
+A single 4+ result allows the transport and its embarked units to arrive together.
+In the same way an attached character model and a unit only roll one die.
+Games above 2500 points
+For every additional 2500 points of game size you get the specified number of Reinforcement Dice one more time.
+Example: In a 5000 points game you would get 2D6 in the first Battle round, in a 7500 points game you would get 3D6 in the first Battle round and so on.
+
+3. Command Phase
+During the Command Phase, players assign orders to all units currently on the battlefield or arriving as reinforcements this turn. These orders dictate the unit's actions in the upcoming Action Phase. All allowed actions have to be resolved in the order that they are written.
+Assigning Orders
+Orders are represented by cards or tokens and placed face-down next to each unit.
+Players place orders simultaneously.
+If players cannot agree who places first, roll a die to determine the order.
+Types of Orders
+Advance
+Prerequisite: The unit is not engaged in melee combat.
+Effect:
+It may move up to its Movement value.
+It may make a further, up to 1D6” Advance move.
+It must stay at least 1” from enemy models.
+It may declare any number of enemy units it can see as targets for ranged attacks.
+Ranged targets may make use of the “Take Cover” meta order.
+It may fire Assault, Pistol, or Grenade weapons with a –1 to hit penalty after moving.
+It may cast basic psychic powers and similar effects (incantations, prayers, …) at any point during the activation.
+Charge
+Prerequisite: The unit is not engaged in melee combat.
+Effect:
+It may move up to its Movement value (but max 12”).
+It may declare any number of enemy units it can see as targets for ranged attacks.
+Ranged targets may make use of the “Take Cover” meta order.
+It may fire Assault, Pistol, and Grenade weapons with a –1 to hit penalty after moving.
+It may declare any number of enemy units it can see as targets for a Charge move.
+Charge targets may make use of “Defensive Fire” or “Hold your Ground” meta orders.
+It may make a further, up to 6” Charge move in a straight line, if it can get into direct base contact with any of these enemy units.
+It must select either +1 Attack or +1 Initiative for all models as a Charge bonus.
+It resolves the Fight order
+It may cast basic psychic powers and similar effects (incantations, prayers, …) at any point during the activation.
+Escape
+Prerequisite: The unit is already engaged in melee combat.
+Effect:
+It receives 1 automatic hit from each enemy model in attack range.
+It gains two Battleshock tokens and flees.
+Instead of being allowed to pursue as normal, enemy units have to remain in melee combat if there are other units of yours remaining in base contact with them and resolve the melee as if all units involved had the Fight order.
+If there are no friendly units anymore, enemy units lose their order, count as activated and may only consolidate.
+Fight
+Prerequisite: The unit is already engaged in melee combat.
+Effect:
+The melee is resolved (see Melee combat) as if all units involved had the Fight order.
+It may cast basic psychic powers and similar effects (incantations, prayers, …) during its initiative step.
+It removes all orders from units participating in this melee.
+Move & Shoot
+Prerequisite: The unit is not engaged in melee combat.
+Effect:
+It may move up to its Movement value.
+It may declare any number of enemy units it can see as targets for ranged attacks.
+Ranged targets may make use of the “Take Cover” meta order.
+It may fire any ranged weapon except Heavy types after moving.
+It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at any point during the activation.
+Stand & Shoot
+Prerequisite: The unit is not engaged in melee combat.
+Effect:
+It may not move.
+It may declare any number of enemy units it can see as targets for ranged attacks.
+Ranged targets may make use of the “Take Cover” meta order.
+It may fire any ranged weapon, including Heavy types.
+It reduces the total hit penalty for ranged attacks by 1.
+It may cast all types of psychic powers and similar effects (incantations, prayers, …) at any point during the activation.
+
+Meta Orders
+These orders are not assigned during the Command Phase but are triggered in specific situations:
+Defensive Reactions
+Defensive Reactions may be used if the specific requirements are satisfied and the unit has not been activated in the current round, yet. After resolving the Defensive Reaction, the unit's order is removed.
+Defensive Reactions can never be used by units that are engaged in melee combat.
+
+Counter-Attack
+Prerequisite: The unit has the Counter-Attack ability, is declared as a target for a charge move and after the charging unit has declared all charge targets.
+Effect:
+It is treated as having successfully executed a Charge order.
+It must choose a Charge bonus before the attacker does so and additionally gains effects from equipment or special rules triggered by a Charge.
+
+Defensive Fire
+Prerequisite: The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.
+Effect:
+It may fire ranged weapons at the attacking unit with a –1 to hit penalty.
+It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at the attacking unit or itself.
+The attacker automatically passes any Leadership test during Defensive Fire.
+
+Hold Your Ground
+Prerequisite: The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.
+Effect:
+It negates the attacker’s Charge bonus.
+If multiple units are charged at the same time, at least 50% of them have to use Hold Your Ground in order to negate the attacker’s Charge bonus.
+
+Take Cover
+Prerequisite: The unit is selected as a target for a ranged attack, psychic power or similar effect (incantations, prayers, …) and after the shooting unit has declared all ranged targets.
+Effect:
+It gains a +1 bonus to Saving throws against ranged attacks until the enemy’s activation ends.
+Ranged attacks against it reduce their AT by 1 (to a minimum of 0).
+Doing Nothing
+A unit does not need to perform every aspect of an order. For example, a unit with Move & Shoot may skip either moving or shooting.
+Skip Marker
+If one player has more Orders than the other, the player with fewer Orders receives Skip tokens.
+For every two Orders of difference (rounded up), the disadvantaged player gains one Skip token.
+In other words: for a difference of 1, 3, 5, … Orders, the player receives 1, 2, 3, … Skip Orders respectively.
+
+4. Initiative Phase
+Both players roll 2D6 to determine who gains the initiative for the current battle round.
+The player with the higher result gains the initiative and activates the first unit in the Action Phase.
+Handling Ties
+If the roll is a tie, initiative goes to the player who did not have it in the previous round.
+If it is the first battle round, the player who finished deploying their units first wins the tie.
+
+5. Action Phase
+The Action Phase is the core of the battle, where units carry out their assigned orders. Players take turns activating one unit at a time, starting with the player who won the Initiative Phase.
+Sequence of Activations
+The player with the initiative selects a unit to activate and resolves the order assigned to it.
+The other player then activates one of their units and resolves its order.
+Repeat this process, alternating between players, until all units have been activated.
+Key Rules for the Action Phase
+Unless otherwise stated, a unit may perform all of the following actions each battle round, but no action more than once:
+Move
+Make ranged attacks
+Fight in melee combat
+Make a Flee move (triggered by gaining 2 Battleshock tokens)
+Note that this is not dependent on a unit having an unused order. For example, a unit that has already activated and made ranged attacks earlier in the battle round may still fight in melee if it is charged later.
+Passing
+If a player has no more units to activate, they automatically pass. The other player continues activating their remaining units until all have been activated.
+End of the Action Phase
+Once both players have activated all units, the battle round ends, and the game proceeds to the next round, beginning with the Rally Phase.
+
+Movement
+To move a unit, it must have received an appropriate movement-related order during the Command Phase. The following rules apply to movement:
+Horizontal Movement
+A unit can move horizontally up to the distance specified in its Movement profile.
+Movement is measured from the model's base (or, for vehicles, the lowest point of the chassis).
+Vertical Movement
+Vertical movement costs 3” per floor of a building or level change.
+Vertical movement applies when models move up or down terrain such as:
+Cliffs
+High walls
+Slopes
+Stairs or ladders (if models cannot physically be placed on intermediate levels).
+Unit Formation
+At the end of its movement, the unit must be in formation, which means no model in the unit can be more than 2” away horizontally or 5” away vertically from another model in the same unit.
+Units engaged in close combat do not need to maintain formation.
+After leaving melee, models must move to bring as many models as possible back into formation.
+Moving Through Other Units
+Creatures can move through friendly models.
+Vehicles must be bypassed and cannot be moved through.
+Models must maintain a minimum distance of 1” from all enemy models.
+Mixed Movement Profiles
+Units with models that have different movement limitations must apply them for the entire unit.
+Example:
+If a character model in Terminator armor joins an Infantry unit, the unit is restricted by the Terminator armor’s limitations, such as:
+Inability to Advance.
+Inability to pursue opponents in close combat (due to the "Unyielding" special rule).
+
+Resolving Attacks
+Line of Sight (LOS)
+Line of sight is determined differently for creatures and vehicles:
+Creatures
+LOS is based on the entire body (head, torso, arms, legs).
+Ignored elements: Weapons and equipment (e.g., wings, jump packs) are treated as air.
+Vehicles
+LOS is drawn using the entire hull/silhouette, including mounted weapons.
+Ignored elements: Equipment like searchlights, banners, or bulldozer blades are treated as air.
+Mortal Wounds
+Some weapons or abilities inflict Mortal Wounds.
+Mortal Wounds ignore any armor and ward save the target model might have.
+Unless stated otherwise, Mortal Wounds are always in addition to the regular effect that causes them.
+Starting Strength
+“Starting Strength” denotes the maximum number of models the unit was set up with at the start of the game. Units below half Starting Strength take a permanent -1 penalty to their Leadership.
+Strength “D”
+Some especially devastating weapons have a “D” for their Strength value.
+Instead of following the regular tables for wounding creatures and vehicles, use the following:
+A to wound roll of 2+ is always successful
+Vehicles with AV 10 or less are automatically penetrated.
+Against all other vehicles, an armor penetration roll of 2+ is always a penetrating hit.
+If the armor penetration roll was high enough to actually cause a penetrating hit (treat Strength: D as Strength: 10), you cause an automatic Critical Hit in addition to your actual rolls.
+Suppressive Fire
+A unit scoring 6+ ranged hits in its activation forces the target to take a Leadership test.
+For every additional 6 hits, the Leadership test is done with a cumulative -1 penalty.
+If the enemy unit fails the test and has no Battleshock token, it receives one.
+If the enemy unit has to roll Leadership for Suppressive Fire and for sustaining casualties below half starting strength at the same time, it only rolls for Suppressive Fire. If it fails, it receives 2 battleshock tokens even if it already has one.
+
+Ranged Combat
+To use ranged weapons, a unit must receive an appropriate order, as outlined in the Weapon Types rules.
+When resolving ranged combat:
+Choose Targets
+Select targets for all weapons before resolving any attacks.
+A model may either use all weapons from its datasheet or one weapon selected from the armory*.
+At least one model in the target unit must be visible to the attacker and within weapon range.
+Enemy units that are in melee combat can’t be targeted.
+Resolve Attacks
+If targeting multiple units, resolve all attacks against one unit before moving to the next.
+If using multiple weapons, resolve attacks for weapons with the same profile before moving to others.
+Number of Hit Rolls
+Determined by weapon type (e.g., "Rapid Fire 1" = 1 hit roll, "Assault 2" = 2 hit rolls).
+To Hit
+Roll to hit; results must meet or exceed the model’s Ballistic Skill (BS).
+Wound Rolls
+For each successful hit, roll to wound based on the weapon’s Strength (S) vs. the target’s Toughness (T):
+Strength vs. Toughness
+ · Required Roll
+ ·
+S >= 2x T
+ · 2+
+ ·
+S > T
+ · 3+
+ ·
+S = T
+ · 4+
+ ·
+S < T
+ · 5+
+ ·
+S <= ½ T
+ · 6+
+ ·
+
+Saving Throws
+For each successful wound, the defender rolls to save.*
+Subtract the weapon’s AP from the roll.*
+If the result equals or exceeds the model’s save value, the wound is prevented.
+Ward saves (if available) are unaffected by AP and may be attempted if the normal save fails.
+*If a wound cannot be saved because the required saving throw is worse than 6+, and the model either has no Ward Save or its Ward Save is also worse than 6+, skip the saving throw and apply the damage immediately.
+Damage Resolution
+If the save fails, the model suffers damage equal to the weapon’s profile.
+Once the damage a model accumulated is ≥ their Wounds, it is removed as a casualty.
+Damage does not carry over to other models.
+Removing casualties ends immediately if there is no enemy model left within LOS or within weapon range.
+Leadership Test
+If the target unit falls below half starting strength or loses a model while already below half strength, it must pass a Leadership test or receives two Battleshock tokens and becomes Fleeing.
+*See “Weapon types” for specific limitations.
+
+Melee Combat
+Defender Movement
+The defender moves up to 6” to place as many models as possible into base contact with the enemy.
+Priority: Character models take precedence, even if fewer models reach base contact.
+Initiative Order
+Models act in order of Initiative (I), starting with the highest.
+If both sides have models that act at the same Initiative, they act simultaneously.
+That means even if one model gets killed, it may still attack back.
+Engagement Range
+Models must be in base contact with an enemy model or within 1” of a friendly model in base contact to participate.
+A unit can fight one elevation up and down, if it is standing right above or below the enemy unit. In this case it counts as being in base contact.
+Resolve Attacks
+Select targets and weapons before rolling.
+The number of attacks is determined by the model’s Attacks (A) stat and can be freely distributed among each equipped melee weapon.
+Models without melee weapons use their profile Strength, AP: 0, and Damage: 1 for attacks.
+Roll to hit; results must meet or exceed the model’s Weapon Skill (WS).
+Wound Rolls
+The Strength of the attack is either U (= the models current Strength value) or +x, where x is added to the models current Strength value.
+Use the same Strength vs. Toughness table as ranged combat.
+Saving Throws & Damage Resolution
+Resolve saves as per ranged combat.
+Already wounded models and those not in base contact are removed first.
+Combat Result
+At the end of combat, if there are still enemy units in base contact, each side scores points:
+Wounds remaining: +1 point for the side with more.*
+Wounds lost caused (against Creatures): +1 point per wound.**
+Penetrating hits (against Vehicles): +1 point each.
+Modifiers: Apply specific bonuses or penalties from unit rules.
+
+The side with more points is the winner.
+If there are no enemy units left in base contact, the remaining side is automatically the winner.
+*A vehicle’s remaining Hull Points are counted as 5 Wounds each in melee.
+	** Only actual lost Wounds count, excess damage is ignored.
+Winning Combat
+If there are no enemy units left in base contact, all winning units may make a consolidation move up to 3”.
+This move can get into base contact with another enemy unit, causing a Melee Combat. This counts as Charging the enemy unit for all intents and purposes (including Meta Orders).
+Enemy units left in base conctact have lost the combat and have to take a Leadership test.
+Losing Combat
+All losing units take a Leadership test with a penalty equal to the Combat Result difference.
+Failing: The unit receives two Battleshock tokens and becomes Fleeing.
+Passing: Melee ends, and - beginning with the attacker - both players move all models that are not in base contact with enemy models up to 6” into contact with enemy models still engaged in the same close combat.
+
+If there are no other enemy units in base contact, the winning side may pursue fleeing units, instead of consolidating.
+Both players roll a D6 and add the highest Initiative (I) of each unit.
+If the pursuer matches or exceeds the fleeing unit’s result, it catches up, inflicting 1 automatic hit per pursuing model and removing 1 Battleshock token from the fleeing unit.
+If unsuccessful, the pursuer may only consolidate instead.
+
+Draw
+If both sides have the same amount of points, Melee ends, and - beginning with the attacker - both players move all models that are not in base contact with enemy models up to 6” into contact with enemy models still engaged in the same close combat.
+Limitations
+Units may only pursue once per battle round.
+
+Mixed Units
+Mixed Armor Save
+If a unit contains models with different armor saves (e.g., 2+ and 3+).
+Use the armor save value that occurs most frequently within the unit.
+In the event of a tie, the controlling player decides which save value is used.
+Mixed Defensive Special Rules
+If a unit includes models with different defensive special rules (e.g., -1 to being hit).
+Hit and wound rolls are resolved using the special rule (or lack of one) that occurs most frequently in the unit.
+In the event of a tie, the controlling player chooses which special rule applies.
+Mixed Toughness
+If a unit is composed of models with different Toughness values (e.g., T3 and T4).
+Wound rolls are resolved against the Toughness value that occurs most frequently in the unit.
+If there is a tie, the controlling player decides which Toughness value is used.
+Removing Casualties
+Casualties must be removed first from models that match the profile or rule being used during the attack.
+Example: In a unit with two models with a 2+ save and two models with a 3+ save, if the unit suffers two wounds and a 2+ save is used, any failed saves must result in the removal of the 2+ save models first.
+This may result in multiple models being wounded in a single unit.
+Character Models:
+Characters cannot voluntarily be assigned Wounds instead of their unit.
+In cases where profiles or special rules tie, the unit’s profile must be used before assigning Wounds to the character.
+
+Cover
+Light Cover
+Grants a +1 bonus to Armour Saves.
+Inflicts a -1 penalty to ranged hit rolls for attackers.
+Reduces the AT of incoming ranged attacks by -1 (to a minimum of 0).
+Examples: Sandbag barricades.
+Heavy Cover
+Grants a +2 bonus to Armour Saves.
+Inflicts a -1 penalty to ranged hit rolls for attackers.
+Reduces the AT of incoming ranged attacks by -1 (to a minimum of 0).
+Examples: Bunkers.
+Additional Effects for "Charge" Commands
+If a unit in cover is the target of a "Charge" command, it always benefits from the "Hold Your Ground" effect, regardless of its activation status.
+Conditions for Cover Benefits
+To benefit from cover, at least 50% of all models or their bases in the unit must be in cover.
+If both the attacking and defending units benefit from cover provided by the same terrain zone or piece of terrain, neither unit receives the cover bonus.
+Units can only benefit from one type of cover at a time.
+
+Designer’s note: Because terrain can vary greatly from table to table, and players may have different expectations, it is best to review the battlefield together with everyone involved and define each terrain piece before the game begins.
+
+Terrain
+Each part of the gaming table is divided into at least one type of terrain. This can be either a free area or specific terrain models. You should agree together with all players before the game what type of cover (light, heavy, none) each terrain piece should provide.
+Abstract Terrain Zones
+Definition: A defined, self-contained area on the battlefield.
+Effects:
+The unit always benefits from cover while within the terrain zone.
+The physical model of the terrain zone does not obstruct lines of sight either when targeting units within it or when a unit inside targets units outside of it.
+Units targeting enemies within the same terrain zone do not gain cover bonuses.
+Examples: Forests.
+Concrete Terrain Zones
+Definition: A defined, self-contained area on the battlefield.
+Effects:
+The unit always benefits from cover while within the terrain zone.
+Lines of sight are handled as normal (e.g., using true line of sight).
+Units targeting enemies within the same terrain zone do not gain cover bonuses.
+Examples: Bunkers.
+Obstacles
+Definition: A single terrain model (e.g., barrels, containers, tank traps).
+Conditions:
+The unit benefits from cover if it is within 3” of the obstacle and a straight line (1mm diameter) can be drawn from the middle of the attacker’s base to the middle of the target's base, intersecting the obstacle.
+Obstacles must be at least half the height of the unit to provide cover.
+Obstacles must be at least half the width of the unit to provide cover.
+Obscuring Terrain/Units
+Definition: Any terrain zone, obstacle, or enemy unit located between an attacker and its target.
+Effects:
+The unit benefits from cover if  a straight line (1mm diameter) can be drawn from the middle of the attacker’s base to the middle of the target's base, intersecting the obscuring terrain/unit.
+Obscuring terrain/units must be at least half the height of the unit to provide cover.
+Obscuring terrain/units must be at least half the width of the unit to provide cover.
+The attacking unit receives a -1 penalty to hit rolls in ranged combat.
+No AP penalty or armour save bonus is granted to the defending unit.
+The defending unit is not treated as benefiting from cover for any weapon or effect.
+Melee combats are treated the same as obscuring units.
+A unit that benefits from any type of cover does not benefit from this rule.
+
+Terrain Properties
+Normal Terrain
+All units can move across or through this terrain without restriction.
+Difficult Terrain
+Units moving over or through difficult terrain suffer a movement penalty based on their Movement value:
+Movement Value
+ · Penalty
+ ·
+3”
+ · -1”
+ ·
+6”
+ · -2”
+ ·
+12”
+ · -4”
+ ·
+24”
+ · -8”
+ ·
+
+If a unit's movement value does not match the table, the penalty is 33% of the Movement value, rounding up.
+Alternative: Units can move through terrain at full speed, but then treat it as dangerous terrain.
+No matter how many times a unit moves through difficult terrain in one activation, it only applies the penalty once.
+Dangerous Terrain
+Units touching dangerous terrain during their activation must take a terrain test.
+Each model rolls 1D6. For every roll of 1, the unit suffers a Mortal Wound.
+Vehicles suffer an “Engine Damage” result instead.
+Units only take the test once per activation, regardless of how many times they interact with dangerous terrain.
+Impassable Terrain
+Units can’t pass through this terrain.
+Units may move over it if they have the Anti-Grav or Jump pack ability.
+Units may not end their movement on this terrain.
+
+Melee over Terrain
+If two units are separated by a terrain piece (for example a sandbag barrier or a wall), they may still engage in melee with each other if the following conditions are met:
+At least one of the models among both units is 33% taller than the terrain piece between them.
+The terrain piece is not separating both units by more than 1”.
+The terrain piece has no roof at all or a crevice/window between them that is at least 0,5” tall and wide.
+
+Profile Values
+Creatures and vehicles
+Movement (M)
+Definition: The speed at which a model moves across the battlefield.
+Models with ‘-’ cannot move at all.
+Weapon Skill (WS)
+Definition: A model's skill in close combat.
+A model with ‘-’ cannot fight in close combat.
+A roll of 6 on a hit roll is always a success.
+Maximum Value: 1+.
+Ballistic Skill (BS)
+Definition: A model's accuracy when firing ranged weapons.
+Models with ‘-’ cannot use ranged weapons or make ranged attacks.
+A roll of 6 on a hit roll is always a success.
+Maximum Value: 1+.
+Strength (S)
+Definition: Indicates how strong a model is, particularly for dealing damage in close combat.
+A roll of 6 on a wound roll is always a success.
+Maximum Value: 10 or D.
+Toughness (T)
+Definition: Indicates how resistant a model is to physical damage.
+Maximum Value: 10.
+Wounds (W)
+Definition: Represents how much damage a model can endure before being removed from play.
+Initiative (I)
+Definition: Indicates how fast a model may act in close combat.
+Maximum Value: 10.
+Attacks (A)
+Definition: Indicates the number of times a model can strike in close combat.
+Models with ‘-’ cannot fight in close combat.
+Maximum Value: 10.
+Leadership (Ld)
+Definition: Reflects a model's bravery, determination, and self-control.
+A unit always uses the highest Leadership in the squad, including attached Characters.
+If a unit is fearless or has special morale rules, those apply to the attached Character as well.
+Maximum Value: 10.
+Saving Throw (Sv)
+Definition: Represents the protection provided by a model's armor.
+Armor saves are modified by the attacking weapon’s Armor Penetration (AP).
+A roll of 1 on the save is always a failure.
+Maximum Value: 1+.
+Ward Save
+Definition: Indicates a model's exceptional defensive capability.
+Can be used in addition to the regular Saving Throw.
+A roll of 1 on the save is always a failure.
+Maximum Value: 4+, unless explicitly stated otherwise.
+Weapons
+Weapon
+Definition: Indicates the name of the weapon.
+Range
+Definition: Indicates the maximum range of the weapon measured in inches.
+For Ranged Weapons, this indicates how far the weapon can shoot.
+Range is measured from the base of a model, or - if it is lacking that - from any part of the hull.
+If the weapon’s range contains a ‘-’, it can only be used in close combat.
+Type
+Definition: Indicates to which category a weapon belongs to: Assault, Grenade, Heavy, Melee, Pistol, or Rapid Fire.
+These rules define a weapon’s usage and affect how attacks can be made, depending on whether or not the model carrying it moved that turn.
+Unless specified otherwise, Ranged weapons can only be used to make Shooting attacks, and Melee weapons can only be used in Melee combat.
+Strength (S)
+Definition: How likely the weapon is to inflict damage.
+If the weapon has a numerical Strength value (e.g., 1 to 10), this is the Strength of attacks made with that weapon.
+If the weapon has a "D" instead of a numerical Strength value, it is a Destroyer weapon (see Strength "D" for further details).
+If the Strength is listed as "U" (User), attacks are resolved using the wielder’s base Strength value.
+If the weapon confers a modifier (e.g., "+1" or "x2"), apply this modifier to the wielder's Strength value to determine the attack's Strength.
+Maximum Value: 10 or D.
+Armor Piercing (AP)
+Definition: This value shows how effective the weapon is at punching through armor.
+The greater the AP value (e.g., AP -3 is better than AP -1), the more it reduces the target’s Armor Save roll.
+An AP of 0 applies no modifier. For exact details on how to apply AP, see the Ranged and Melee Combat sections.
+Damage (D)
+Definition: The amount of damage inflicted by a successful attack (after failed saves).
+Abilities
+Definition: This section includes any special rules that apply to the weapon. More information on these can be found either in the Weapon Abilities section, the relevant Codex, or the army list entry.
+
+Modifying Profile Values
+Order of Modifications
+Additive Bonuses apply first (e.g., +1).
+Multiplicative Bonuses apply second (e.g., x2).
+Subtractive Bonuses apply last (e.g., -1).
+Modifying Strength
+If a model’s Strength value changes due to abilities, wargear or other means, it will gain a temporary minimum AT value when attacking in melee, unless it is already better or equal.
+If a model's Strength is 7 or higher, all melee attacks have AT(1), unless it is already better.
+Cumulative Modifications
+Modifications from different sources (e.g., equipment, special rules) are cumulative.
+If the same rule or equipment is applied multiple times, only the highest modifier is used.
+Rules for Combining Modifiers
+Situation
+ · Example
+ · Application
+ ·
+Multiple instances of the same rule
+ · A model with a “Storm shield” is targeted by the psychic power “Shrouded”.
+ · Only the highest modifier
+ ·
+Multiple instances of the same equipment
+ · A unit that contains two models with a “Trophy”.
+ · Only the highest modifier
+ ·
+Multiple instances with explicit statement that it is cumulative
+ · A model with an Eldar “Fire blade”.
+ · Combined modifier
+ ·
+Different rules and equipment
+ · A model with the “Terrifying” rule and a “Trophy”.
+ · Combined modifier
+ ·
+
+Profile Value Tests
+Certain rules may require a profile value test, such as a “Toughness test”.
+Roll 1D6.
+The roll must be equal to or below the relevant profile value to pass.
+A roll of 6 is always a failure.
+Use the current profile value, which may be modified by equipment, psychic powers or other factors.
+
+Base size
+Creatures must use the base size that is supplied with the official model.
+Vehicles may use the base size that is supplied with the official model.
+Conversions/kitbashes and own creations must use a base size that is the same as the official model.
+If a resculpt is supplied with a bigger size than the old version, you may use either size for your old model.
+
+Unit Types
+Each model is assigned one or more unit types, which define the rules and exceptions applicable to it during gameplay.
+Infantry
+Treated as a “creature”.
+Follows all general rules without exceptions.
+
+Bike
+Acts like Infantry, with the following exceptions:
+Movement
+Cannot move vertically on terrain.
+Automatically advances 6" when given an Advance order.
+Ranged Combat
+May fire “Heavy” weapons with a Move & Shoot order.
+Can always fire “Rapid Fire” weapons up to full range.
+May fire all weapon types during a Charge order but with a -1 hit penalty.
+
+Character Model
+Acts like Infantry, with the following exceptions:
+General
+Automatically rallies during the Rally Phase if not attached to a unit.
+Always use their own armor and ward save when wounded, even when attached to a unit.
+Joining Units
+Can join a creature unit by starting the Command Phase within 2" of a model in the unit.
+Both the character and the unit must be either engaged in the same melee or not engaged at all.
+Players must declare the character is joining the unit; only one order is issued for both.
+The character unit and the unit it is attached to count as being a single unit
+Restrictions
+Only one character may be attached to a unit at a time.
+Cannot be attached to Monstrous Creatures or Vehicles.
+Ranged Combat
+Can only fire one weapon or two pistols per activation, unless granted an additional weapon through equipment (e.g., bikes with built-in Bolt rifles).
+While attached to a unit, the following additional rules also apply:
+General
+The character unit does not count towards the unit’s starting strength.
+Ranged Combat
+The Character cannot be assigned wounds unless the attached unit is completely destroyed.
+Melee Combat
+The Character and attached unit determine Engagement Range separately and must be targeted separately. This means that melee attacks made against the attached unit cannot affect the Character unit and vice-versa.
+
+Jet Bike
+Acts like Infantry, with the following exceptions:
+Movement
+Ignores terrain and vertical movement costs.
+Automatically advances 6" when given an Advance order.
+Ranged Combat
+May fire “Heavy” weapons with a Move & Shoot order.
+Can always fire “Rapid Fire” weapons up to full range.
+May fire all weapon types during a Charge order but with a -1 hit penalty.
+
+Jump Pack Infantry
+Acts like Infantry, with the following exceptions:
+Movement
+Ignores terrain and vertical movement costs.
+Gains the “Deep Strike” special rule.
+
+Monstrous Creature
+Acts like Infantry, with the following exceptions:
+Joining Units
+Cannot be joined by a Character Model.
+Movement
+Cannot enter transport vehicles.
+Melee Combat
+Gains a +3 bonus on Armor penetration rolls.
+Ranged Combat
+May fire “Heavy” weapons with a Move & Shoot order.
+Can always fire “Rapid Fire” weapons up to full range.
+May fire all weapon types during a Charge order but with a -1 hit penalty.
+
+Monstrous Infantry
+Acts like Infantry, with the following exceptions:
+Joining Units
+Cannot be joined by a Character Model.
+Movement
+Cannot enter transport vehicles.
+Melee Combat
+Gains a +2 bonus on Armor penetration rolls.
+Ranged Combat
+May fire “Heavy” weapons with a Move & Shoot order.
+Can always fire “Rapid Fire” weapons up to full range.
+May fire all weapon types during a Charge order but with a -1 hit penalty.
+
+Walker
+Acts like Vehicles, with the following exceptions:
+Movement
+Treated like vehicles but is bound by enemy units in melee like Infantry.
+Melee Combat
+May change its facing during its own initiative step.
+Ranged Combat
+May fire “Heavy” weapons with a Move & Shoot order.
+Can always fire “Rapid Fire” weapons up to full range.
+May fire all weapon types during a Charge order but with a -1 hit penalty.
+Defensive Fire
+While some Walkers are able to rotate around their own axis with their torso, Defensive Fire may not be used against enemies that charge the model from behind (= the opposite direction of which the torso is facing).
+
+Vehicles
+Melee combat
+Tank Shock
+A vehicle that uses a Charge command performs a Tank Shock.
+For every 1” distance travelled during the Charge move, the vehicle causes 1 automatic hit in melee at Initiative 10 if it gets into contact with the Charge target.
+The hits use the profile Strength: U AP: * Damage: 1.
+*The AP depends on the vehicle’s Armor Value with which it touches the Charge target.
+AV 10 = AP 0, AV 11 = AP -1, AV 12 = AP -2, AV 13 = AP -3, AV 14 = AP -4.
+If the target is a vehicle itself, both models instead inflict 1 automatic hit to each other with their profile’s Strength value.
+Hitting vehicles in melee
+Attacks are resolved against the armor facing that the attacker is touching.
+Leaving melee combat:
+Vehicles are not locked in combat and may leave it freely. While in melee, they can only be given the “Advance”, “Fight” or “Move & Shoot” order.
+If a vehicle leaves melee, all enemy models capable of fighting may either make one automatic hit per model against it or decide to fight normally against the remaining units that stay in melee.
+The vehicle completes its activation as normal.
+Afterwards, if there is no unit left in melee to stay engaged with, the enemy unit may reposition up to 3” but loses its order for the turn.
+Shooting restrictions:
+Vehicles cannot shoot if an enemy unit is in base contact.
+
+Ranged Combat
+Shooting
+May fire “Heavy” weapons with a Move & Shoot order.
+Can always fire “Rapid Fire” weapons up to full range.
+May fire all weapon types during a Charge order but with a -1 hit penalty.
+Weapon arcs
+Turret-mounted weapons: 360° arc of fire.*
+Chassis-mounted weapons: 180° arc of fire in the direction they are pointed.
+To determine whether a weapon has a 360° or 180° firing arc, ask the following question:
+Would firing the weapon through a full 360° ever require the model itself to change its physical facing, and therefore change the facing of its Armour Values?
+If yes, the weapon does not have a 360° firing arc.
+If not, the weapon has a 360° firing arc.
+For example, a Dreadnought’s weapons are not considered 360°, because firing at a target behind it would require the Dreadnought itself to rotate, changing the facing of its Armour Values.
+Weapon limitations based on movement
+Vehicle Movement
+ · Weapon Usage
+ ·
+0”-6”
+ · Fire all weapons.
+ ·
+>6”-12”
+ · Fire 1 weapon.
+ ·
+>12”
+ · Cannot fire any weapons
+ ·
+	*Including Tau Drones.
+
+Profile
+Armor Value:
+Indicates protection level for front, side, and rear.
+Hull Points:
+Function like Wounds for vehicles.
+Leadership:
+Vehicles automatically pass Leadership tests as they do not have a Leadership value.
+
+Transports
+Embarking
+Units within 3” at the end of their movement can board a transport.
+Passengers cannot issue a Stand & Shoot order.
+Passenger actions based on movement
+Vehicle Movement
+ · Passenger Actions
+ ·
+0”
+ · - Use Fire hatches
+or
+- Disembark within 3”.
+- Execute their command normally.
+ ·
+>0”-6”
+ · - Use Fire hatches
+or
+- Disembark within 3”.
+- Execute their command.
+- Cannot move or Charge.
+ ·
+>6”-12”
+ · - Use Fire hatches
+or
+
+- Disembark within 3”.
+- Execute their command.
+- Suffer a -1 to hit penalty until the end of the battle round.
+- Cannot move or Charge.
+ ·
+>12”
+ · - Cannot perform any actions.
+ ·
+
+Fire Hatches
+Each Fire hatch allows one passenger to fire their weapon when the unit activates.
+
+Wounding Vehicles
+Instead of following the normal rules for wounding models, you resolve an “Armor penetration roll”
+After a hit, roll 1D6 + weapon strength:
+Lower than Armor Value: Nothing happens.
+Equal to Armor Value: Cause a Glancing Hit.
+Higher than Armor Value: Cause a Penetrating Hit.
+If a weapon has no AT(x) property, all Penetrating Hits are downgraded to Glancing Hits.
+Ward saves
+Vehicles with an Ward save may use it against Glancing and Penetrating Hits.
+Effects of hits
+Glancing Hit: Roll on the Vehicle Damage Chart as many times as the weapon’s AT(x) value (minimum 1) and only apply the highest result. Results of “6” must be re-rolled.
+Penetrating Hit: Roll on the Vehicle Damage Chart as many times as the weapon’s AT(x) value and apply all results.
+
+Vehicle Damage Chart
+D6 Roll
+ · Result
+ ·
+1
+ · Nothing happens
+ ·
+2
+ · Crew Shaken
+The vehicle suffers a penalty of -1 to hit rolls and -50% to movement.
+Lasts until the end of the model's next activation.
+Not cumulative with itself.
+ ·
+3
+ · Engine Damage
+The vehicle reduces its movement speed by 1/3 of the starting profile value for the rest of the game.
+Completely immobilised vehicles can’t move (including Advance and Charge movement) and do not lock enemy units in combat anymore. Enemy units can be given every order while in melee and may leave with any movement order.
+If the movement speed cannot be reduced any further, the vehicle instead loses one Hull Point.
+ ·
+4
+ · Weapon Damage
+The player controlling the vehicle chooses a weapon which cannot be used for the rest of the game.
+Instead of losing its last weapon, a vehicle can decide to instead lose 1 Hull point.
+If all weapons are already destroyed, the vehicle instead loses one Hull Point.
+ ·
+5
+ · Structural Damage
+The vehicle loses 1 Hull point.
+ ·
+6
+ · Critical Damage
+The attacker may choose for the vehicle to suffer either one Engine Damage, one Weapon Damage, or one Structural Damage.
+ ·
+
+Vehicle Destruction
+Final Hull Point lost through excess Engine Damage, Weapon Damage or Structural Damage (Wreckage).
+The model remains as difficult terrain.
+Passengers disembark within 3” and must pass a Leadership test or receive a Battleshock token.
+Final Hull Point lost through Critical Damage (Explosion).
+All models within D6” take a Strength: 5, AP: 0, Damage: 1 hit.
+Passengers take automatic wounds with the same profile and receive a Battleshock token.
+Casualties from the explosion count towards the combat result in melee.
+Survivors disembark within 3” and act during their activation based on the vehicle movement before destruction (see Transports).
+Emergency Disembarkation
+If passengers cannot be placed (e.g., blocked by terrain or enemies), they disembark within 6” but count as activated for the rest of the round.
+Models that cannot be placed are removed from play.
+
+Flyers
+General Rules
+Flyers follow the standard creature or vehicle rules, but they also have unique features and interactions.
+Activation
+Flyers are deployed during the Reinforcement phase, placed anywhere on the battlefield of the player's choice.
+Flyers can only receive the following orders during the Command phase:
+Advance: Represents a fast attack flight. The flyer may only fire one weapon.
+Move & Shoot: Represents a slower, thorough attack approach. The flyer may fire all weapons.
+Flyers cannot be activated as the first unit in a turn.
+If only flyer units remain on the battlefield, the player gains an additional pass marker.
+
+Ranged Combat
+Shooting at Flyers:
+Subtract 12” from the range of any weapon fired at or by a flyer.
+If the resulting range is 0” or less, the target cannot be shot at.
+Units firing at flyers suffer a -1 hit penalty.
+Ward save:
+Flyers with the Advance order gain a 4+ ward save.
+
+Melee Combat
+Flyers cannot engage or be engaged in melee combat.
+
+Damage and Disabled Flyers
+If a flyer suffers 3 permanent Engine Damage results, it becomes disabled:
+The flyer cannot be deployed for one full round of combat.
+At the start of the next round, all Engine Damage is removed, and the flyer can be redeployed as normal.
+
+Passengers
+Passengers can only disembark from a flyer when it is in Hover mode.
+If a flyer is destroyed by an explosion, passengers suffer double the automatic wounds.
+
+Hover Mode
+Flyers with the Hover Mode feature can behave like standard models when in this mode:
+Setup: A flyer may start in hover mode during deployment before the first battle round.
+Entering Hover Mode:
+A flyer enters hover mode by not repositioning during the reserve phase.
+Exiting Hover Mode:
+The flyer is removed from the battlefield during the reserve phase and treated as a regular flyer in the following reserve phase.
+Hover Mode Benefits
+Flyers in hover mode can capture, hold, or contest objectives.
+Flyers can only be healed or repaired by models (e.g., Blessing of the Omnissiah) while in hover mode.
+
+Mission Objectives
+Flyers cannot capture, hold, or contest objectives unless they are in Hover Mode.
+
+Movement and Interactions
+Flyers always count as having moved 24”when not in Hover mode, regardless of the chosen order.
+This does not prevent them from firing their weapons, as specified under Activation.
+
+Psychic Powers
+Casting Psychic Powers
+Psyker Rule: Models with the “Psyker” rule can manifest psychic powers.
+Power Categories:
+Psychic powers are classified as Basic, Normal, and Complex, which determine how they are cast.
+See each order in the Command phase for specifics.
+Line of Sight:
+Unless specified otherwise, psychic powers require a Line of Sight to the target.
+Manifesting a Psychic Power is known as a “Psychic Test”:
+Roll 2d6. The result must meet or exceed the cast value of the power.
+A psyker may attempt to manifest the same psychic power more than once in a turn. Each subsequent attempt incurs a stacking -1 penalty to the psychic test.
+Overchanneling:
+A model may opt to use an additional die when trying to manifest a psychic power (for a total of 3D6, usually), but suffers 1D3 Mortal Wounds on any double (in addition to any actual Peril of the Warp attack).
+Known Powers:
+The psychic powers a psyker knows are listed in their unit profile.
+If a psyker is limited in the number of powers it knows, they must be selected when creating the army list.
+Psykers have access to the list of General Psychic Disciplines as well as those listed in their respective Codex.
+Dispelling Psychic Powers
+Some models may dispel psychic powers.
+If an enemy psyker within 24" successfully manifested a power, the model may attempt to dispel it.
+Roll 2d6. The result must be greater than the psychic test result to dispel the power.
+A dispelled power has no effect.
+Duration of Psychic Powers
+The duration of each psychic power is specified in its description.
+If the caster of a psychic power is eliminated, all effects from their powers end immediately.
+Psychic Powers in Melee Combat
+Psykers engaged in melee can only cast basic psychic powers during their initiative phase.
+Targets are limited to:
+The psyker themselves.
+Friendly or enemy units engaged in the same melee combat.
+Psykers not in melee cannot target units in melee with Witchfire powers.
+Targets of Psychic Powers
+Self: Affects only the caster model itself.
+Friendly unit: Affects either a friendly unit within range, OR the caster model itself (and their attached unit).
+Enemy unit: Affects an enemy unit within range, including attached character models..
+
+Perils of the Warp
+If the result of the psychic test is a double 1 or double 6, the psyker suffers a Perils of the Warp attack. Roll 1d6 and consult the table below:
+D6
+ · Effect
+ ·
+1
+ · Sucked into the Warp: The psyker must take a Leadership value test. If passed, the psyker suffers 1 Mortal Wound or Hull Point loss. If failed, the psyker is removed as a casualty.
+ ·
+2
+ · Mindsteal: The psyker suffers 1 Mortal Wound or Hull Point loss. The power they attempted to manifest can no longer be used for the rest of the game.
+ ·
+3
+ · Power Drain: The psyker suffers 1 Mortal Wound or Hull Point loss. Roll 1D3, and both players subtract the result from all psychic tests for the remainder of the round. This effect is cumulative.
+ ·
+4
+ · Psionic Feedback: The psyker suffers 1 Mortal Wound or Hull Point loss.
+ ·
+5
+ · Empyrian Aftermath: The psyker must take a Leadership value test. If failed, they suffer 1 Mortal Wound or Hull Point loss.
+ ·
+6
+ · Warp Boost: The psyker must take a Leadership value test. If passed, they gain the following bonuses until the end of their next activation:
++1 to hit rolls
++1 to wound rolls
+
+If failed, they suffer 1 Mortal Wound or Hull Point loss.
+ ·
+
+Vehicles
+Use Leadership 10 for Perils of the Warp tests.
+Leadership tests vs. Leadership value tests:
+Fearless models and Vehicles must still pass Leadership value tests.
+
+Hymns, Invocations, and Prayers
+Some models can use Hymns, Invocations, and Prayers as special abilities.
+These abilities cannot be dispelled by any means and may only be attempted once per battle round per unit.
+If the model using these abilities is eliminated, the effects persist until the Rally phase of the next battle round.
+
+Weapon types
+Each weapon in the game has a specific type that determines how and when it can be used in conjunction with various orders. The table below outlines the compatibility of each weapon type with orders:
+Order / Type
+ · Stand & Shoot
+ · Move & Shoot
+ · Advance
+ · Charge
+ · Fight
+ ·
+Assault
+ · Yes
+ · Yes
+ · Yes
+ · Yes
+ · No
+ ·
+Grenade¹
+ · Yes
+ · Yes
+ · Yes
+ · Yes
+ · Yes
+ ·
+Heavy
+ · Yes
+ · No
+ · No
+ · No
+ · No
+ ·
+Melee²
+ · No
+ · No
+ · No
+ · Yes
+ · Yes
+ ·
+Pistol³
+ · Yes
+ · Yes
+ · Yes
+ · Yes
+ · No
+ ·
+Rapid Fire⁴
+ · Yes
+ · Yes
+ · No
+ · No
+ · No
+ ·
+
+¹Grenade
+One model per unit may use a grenade instead of other eligible weapons.
+In melee, grenades can only target Vehicles or Monstrous Creatures.
+²Melee
+If a model is equipped with at least one melee weapon and one pistol, it gains +1 Attack in melee combat.
+Some weapons both feature a melee and a pistol profile. These confer the bonus as well.
+³Pistol
+A model can either fire up to two pistols (from the datasheet or the armory) or other eligible weapons during its activation.
+⁴Rapid Fire
+If this weapon’s target is within half its range, it doubles its attacks.
+If the unit doesn’t have the “Stand & Shoot” order, it can only fire the weapon at targets within half range.
+
+Special Rules
+Model abilities
+Acute Senses
+Infiltrators always have to stay 18” apart during deployment, even if there is no direct Line of Sight to this unit.
+Aegis (X+)
+The model can dispel any psychic power directly targeting it on a roll of X+.
+It can also prevent a Perils of the Warp attack on a roll of X+.
+The best Aegis value from all models in the unit is used.
+Anti-Grav
+The model ignores terrain, units, and vertical movement costs when moving.
+Berserk(X+)
+The model gains a X+ ward save, but it does not work against weapons with Strength 8 or higher.
+Limitations
+Cannot use the Escape command.
+Cannot use the Take Cover defensive reaction.
+Blind Rage
+When not engaged in melee
+The unit moves 1D6" toward the nearest enemy unit instead of taking Leadership tests or receiving Battleshock tokens.
+This can result in the unit entering engagement range and starting melee combat as if using a Charge command.
+When engaged in melee
+If the unit fails a Leadership test, it loses 1D3 wounds instead of fleeing.
+Limitations
+Cannot use the Escape command.
+Cannot use the Take Cover defensive reaction.
+Bodyguard
+Ranged Combat
+Wounds must first be assigned to the Bodyguard model before character models in the unit can be selected as targets.
+Close Combat
+Attacks must first target the Bodyguard model (if possible), before targeting characters.
+Bodyguards can pile in at the same time as character models in melee.
+Brotherhood of Psykers
+If the unit has at least 2 models with this rule, it gains +1 to all psychic cast and deny rolls.
+Combat Squads
+If the unit has the maximum number of models, it may be split into two smaller units of equal size during deployment.
+Command Squad
+Models with this ability can join
+A squad.
+A single character.
+A squad that already has a character attached.
+Counter-Attack
+The model is able to use the Counter-Attack Meta-Order.
+Deep Strike
+Models arriving from reserve can be placed anywhere on the battlefield.
+Deployment Process:
+Place one model from the unit on the battlefield in the desired position.
+Roll a scatter die:
+If the result is a hit icon, the model remains in place.
+If the result is an arrow, move the model 2D6" in the indicated direction.
+Remaining models in the unit must be placed in a circle around the first model, touching it.
+If the first circle is full, begin a second circle, with each model touching one from the first circle.
+If the first model lands outside the playing field, the unit goes back into reserve.
+If the first model lands in direct base contact with or on an enemy unit:
+Roll a D6:
+1-3: The unit returns to reserve.
+4-6: The opponent sets up the unit anywhere on the battlefield (except impassable terrain) using Deep Strike rules without rolling scatter.
+Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain.
+Placement Exceptions:
+If models cannot be placed due to space limitations, they count as destroyed.
+On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped.
+Units deployed this way count as having already moved up to their maximum Movement value this Battle Round and can only receive a “Move & Shoot” order.
+
+Example
+The first model (1) is placed on the battlefield.
+A circle of models (2) is formed around the first.
+If there are any remaining models, another circle (3) is formed, and this process continues until all models are placed.
+Deflect
+Ranged attacks against the model suffer a -1 penalty to hit rolls.
+Daemon
+The model has a 5+ ward save.
+Daemonic Instability
+The unit ignores the effects of a single Battleshock token.
+Upon gaining a second Battleshock token, the unit:
+Suffers 1D3 Mortal Wounds.
+Discards all Battleshock tokens.
+Does not flee.
+Close Combat
+Instead of fleeing, the unit suffers 1D3+1 Mortal Wounds and remains in place.
+Limitations
+Cannot use the Escape command.
+Cannot use the Take Cover defensive reaction.
+Fast
+Vehicles double their movement range (up to a maximum of 24").
+The model may fire one additional weapon if it moves up to 12".
+Fearless
+Automatically passes any Leadership test.
+Limitations
+Cannot use the Escape command.
+Cannot use the Take Cover defensive reaction.
+Favoured Enemy
+At the start of the first battle round, select a faction (e.g., Space Marines).
+The model reduces its total penalty to hit rolls against the chosen faction from equipment and abilities by -1, down to a minimum of 0.
+Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.
+Frenzy(x”)
+The Infantry model gains x” increased movement for Charge movement.
+Furious Charge
+The model gains +1 Strength and +1 Initiative until the end of the current battle round, when making a charge move.
+Greater Daemon
+The model has a 4+ ward save.
+Haste(x”)
+The Infantry model gains x” increased movement for Advance movement.
+Hit & Run
+After all models in a melee combat have been activated (but before the Combat Result is determined), the unit may move 3D6" away from the enemy in a straight line.
+The unit may not get into engagement range with another enemy unit with this move.
+The unit cannot consolidate after making this move.
+Enemy units cannot pursue and must make a 3” consolidation move if able.
+Infiltrator
+During deployment, a unit with this ability can be declared as an Infiltrator.
+After all normal deployment is complete, Infiltrators can be deployed anywhere on the battlefield, maintaining:
+18" distance from enemy units if in direct line of sight.
+12" distance if out of line of sight.
+Units deployed this way cannot make a Vanguard move.
+Simultaneous Units:
+If both players have Infiltrator units, alternate deploying them, starting with the player who deployed first.
+Massive(X)
+The model occupies X additional spaces in transport vehicles.
+Mindless
+The unit automatically passes every Leadership test. It can contest mission objectives, but never hold them.
+Move Through Cover
+The model does not suffer movement penalties for moving through terrain.
+Narthecium
+Once per turn, the damage of a wound against the model or attached unit can be reduced by 1.
+Limitations:
+Can be declared after armor and ward saves.
+Does not work against weapons with Strength 8 or higher.
+Does not work against Mortal Wounds.
+Open
+The vehicle has fire hatches equal to its passenger capacity.
+Passengers
+Can be targeted for ranged attacks.
+Count as physically present on the battlefield (e.g., Psykers can manifest powers). Ranges are measured from the transport’s hull.
+Benefit from cover if the transport does.
+Cannot participate in melee combat while inside the vehicle.
+Can always make a 6” Charge move after disembarking, if the vehicle moved up to 12”.
+Outflank
+When arriving from reserves, the unit may also be deployed along the side edges of the battlefield.
+Limitations
+Units deployed this way count as having already moved up to their maximum Movement value this Battle Round and can only receive a “Move & Shoot” order.
+Units may not be deployed in the opponent's deployment zone.
+Units may not be deployed on the side edges on turn 1.
+Parry
+Melee attacks against the model suffer a -1 penalty to hit rolls.
+Regeneration(X)
+The model regains X wounds at the start of each Reinforcement phase.
+Retribution(X)
+When the model is hit by a melee attack, it inflicts 1 automatic wound with Strength: 4 AP: 0 D: 1 against the attacking unit, to a maximum of x automatic wounds per Battle round.
+If a unit contains multiple models with this rule, pool all instances of Retribution(x) together.
+Squadron
+Each model in the selection becomes an independent unit during deployment and remains an independent unit for the rest of the game.
+Stealth
+The model always counts as being in Heavy cover except when targeted by a Charge.
+Swarm
+All attacks that target this unit have their Damage reduced to 1 if it was higher.
+Attacks with the "Blast(x)" ability use the unit’s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.
+Tank Hunter
+A single armor penetration roll against a vehicle or wound roll against a Monstrous creature can be re-rolled.
+ If multiple models in a unit have the same weapon with this rule, the corresponding hit rolls can be made together. In this case, one roll per model may be re-rolled.
+Terrifying(-X)
+Enemy units within 6" suffer -X Leadership.
+Use Cover
+Models benefiting from cover impose an additional -1 penalty to hit rolls for ranged attacks.
+Unique
+The weapon or wargear may only be included once per army.
+Unyielding
+Ranged Combat
+Shoot Heavy weapons with a Move & Shoot order.
+Can always fire Rapid Fire weapons up to full range.
+Fire all weapon types at a -1 hit penalty when executing a Charge order.
+Limitations
+Cannot receive the Advance order.
+Cannot pursue fleeing units in close combat.
+Vanguard
+At the start of the first battle round, the unit can:
+Move 6" if deployed on the battlefield.
+Move 12" if deployed in a dedicated transport vehicle.
+Simultaneous Units:
+If both players have Vanguard units, alternate activating them, starting with the player who deployed first.
+Warded
+The model gains a 6+ ward save, or improves an existing ward save by +1 (to a maximum of 4+). Cumulative with itself.
+
+Objective secured!
+Effect
+If an objective is captured or controlled by a unit with this trait, the objective remains under the controlling player’s possession even if no friendly units remain in range.
+Control is only lost if the opposing player conquers or contests the objective with one of their own units at the end of a battle round.
+Transport Interaction
+Transport vehicles also benefit from this rule, if a unit embarked inside has it.
+Automatic Rule
+This special rule is automatically conferred to every Troop selection in the game.
+Units gain or lose this rule if they switch their battlefield role through Archetypes.
+
+Weapon abilities
+Ammo(x)
+Wargear with this special rule can only be used X times per game
+Anti-Air
+Attacks made with this weapon against models with the Anti-Grav, Jet Bike, or Jump Pack special rules or the Flyer unit type gain +1 to hit rolls and +1 Strength.
+Armorbane
+The weapon gains a +3 bonus for armor penetration rolls.
+Armor piercing(x+)
+Wound rolls of x+ always succeed and gain an additional -2 AP.
+Armor penetration rolls of x+ gain +1 AT and a +2 bonus for armor penetration rolls.
+AT(x)
+Can cause Penetrating Hits.
+On a Penetrating Hit, roll x amount of dice on the Vehicle Damage Chart and apply all results.
+Auto Hit
+The weapon hits automatically.
+Beam
+Choose a target and make a hit roll with the weapon as normal. If the hit is successful, draw a 1mm straight line from the nearest point of the shooting model’s base to the nearest point of a model in the target unit.
+Make a wound roll against the target unit and any other units the line passes over.
+Blast(x)
+A successful hit roll with this weapon generates 1 hit per model in the target unit, to a maximum of x hits.
+An unsuccessful hit roll can be re-rolled once and can only generate half (rounded down) that many maximum hits.
+Blind
+If a weapon with this rule scores at least one hit, the target unit does not gain a Charge bonus for executing a Charge order.
+Blood Drinker
+When the model causes a Wound loss, it regains 1 Wound, up to the starting value in its profile.
+Bomb
+The range of this weapon is unaffected by the range reduction rules for Flyers.
+Charge
+A weapon profile with this ability can only be used if the model is using a Charge command.
+Combi
+Combination weapons, like the "Combi-melta," combine two profiles into one.
+A combi-weapon can fire both profiles simultaneously at the same target, with a -1 penalty to hit.
+Deadly(x+)
+Wound rolls of x+ increase the Damage value of the attack by +1.
+Decimate
+Wound rolls gain a +1 bonus.
+Does not work against Vehicles.
+Deflagrate(x+)
+Hit rolls of x+ score an additional hit.
+Does not work with Blast(x) weapons.
+Extra Attack(x)
+x attacks with this weapon profile can be made during each activation in addition to any attacks the unit can normally make.
+Force Weapon
+If the bearer successfully manifests at least one psychic power during their activation, any Force weapon they carry gains +1 Damage for the remainder of the battle round.
+Grav
+Unless it would already be better, the wound roll for this weapon is equal to the enemy unit’s armor save profile.
+Unless it is already worse, the armor save against this weapon is always 5+.
+Does not work against Vehicles.
+Graviton
+Creatures that lose a wound by this weapon must pass a Strength test or suffer another wound with S: 4 AP: 0 D: 1; Seeking. This is in addition to the actual wound roll.
+If the target enemy unit is in cover and at least one hit is scored with this weapon, the terrain becomes difficult and dangerous terrain until the next unit activation that caused the hit.
+Gruesome
+Every wound caused by a weapon with this rule counts as two for combat resolution.
+Models that are caught while fleeing from close combat suffer an additional automatic wound from this weapon.
+Haywire
+Each hit causes one automatic penetrating hit against a Vehicle, in addition to any normal damage.
+Does not work against Creatures.
+Lance(+x)
+Armor penetration rolls gain a +x bonus.
+Life Curse
+A single wound roll can be re-rolled against Creatures.
+If multiple models in a unit have the same weapon with this rule, they can make their wound rolls together. In this case, one wound roll per model may be re-rolled.
+Limit(x)
+Only x attacks can be made with this weapon each turn.
+Indirect
+The weapon can target enemy units and cause casualties without LOS.
+Targets only gain a cover bonus if they are in a terrain zone.
+Weapons can only be fired indirectly using the “Stand & Shoot” command.
+Master-crafted
+A single hit roll can be re-rolled. If the weapon has the “Blast(x)”, or “Auto Hit” ability, a single wound or armor penetration roll can be re-rolled instead.
+If multiple models in a unit have the same weapon with this rule, the corresponding hit rolls can be made together. In this case, one hit roll per model may be re-rolled.
+Can't be used on “Grenade” type weapons with weapons with the “Ammo(x)” ability.
+Melta
+When targeting units within half the weapon's maximum range, the weapon gains +1 Damage, +2 AT and gains a +3 bonus for armor penetration.
+Monofilament
+If at least one hit has been scored with the weapon, the target counts as being in difficult and dangerous terrain until the end of the next activation of the target unit.
+Overheating
+Self-Inflicted Damage on Hit Rolls: Each roll of a 1 on a hit roll with this weapon causes the user to suffer a Mortal Wound. If the model is a vehicle, it instead suffers a glancing hit using the weapon's AT value.
+Re-Roll Restriction: If the model has any ability to re-roll hit rolls (such as from Blast(x), Psychic effects, or other rules), the result of the initial roll determines whether the weapon is overheating.
+Automatic Hits: For weapons that hit automatically, any roll of a 1 when determining wound rolls causes the user to suffer the same penalty: a Mortal Wound or, for vehicles, a glancing hit using the weapon's AT value.
+Wound Assignment: Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons. These wounds cannot spill over to other models without Overheating weapons, overriding the standard rule that entire models must be removed first.
+Poison(x+)
+Wound rolls of x+ against creatures always succeed.
+Precision(x+)
+Successful hit rolls of x+ automatically wound creatures.
+Can’t be used with “Blast(x)” weapons.
+Psi-shock
+If a creature unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 Mortal Wounds.
+If a vehicle unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 instances of Critical Damage.
+Each additional hit from the same unit during the same activation incurs a cumulative -1 penalty for the test.
+Can’t be triggered more than once per activated unit.
+Quick(+x)
+The model gains +x to its Initiative.
+Rad
+A unit hit by this weapon suffers a -1 penalty to its Toughness value until the end of its next activation.
+Rending(x+)
+Wound rolls of x+ gain an additional bonus of -1 to their AP.
+Seeking
+Enemy units in cover do not gain any cover benefit against this weapon and are treated as being outside of cover.
+Shield Breaker(-x)
+Ward saves of enemy models are degraded by -x.
+Shred
+The model may re-roll any wound rolls made with this weapon
+Slow(-x)
+The model suffers -x to its Initiative.
+Soul Burn(x+)
+Wound rolls of x+ against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved.
+Does not work against Vehicles.
+Sunder(x)
+Enemy units in cover reduce the benefit to their armor save from cover by -x (to a minimum of 0).
+Suppression(x)
+Every hit from a weapon with this ability counts as x hits when determining Suppressive Fire
+Unwieldy
+The model does not gain an additional attack for having a pistol in close combat.
+Each model may carry only one Unwieldy item.
+
+Army Organization
+All units in the game are assigned a specific Battlefield Role (e.g., Troops, Elite). Players must organize their army based on these roles and adhere to the Army Organization Plan (AOP) outlined below:
+Army Organization Plan (AOP)
+1-2 HQ
+2-6 Troops
+0-3 Elite
+0-3 Fast Attack
+0-3 Heavy Support
+0-ᵀ Dedicated Transport
+0-1 Fortification
+0-2 Flyer
+ᵀ A Dedicated Transport Vehicle may be selected for each unit with the “Infantry” type.
+Minimum Army Requirements
+Every army must include:
+1 HQ unit (minimum).
+2 Troop units (minimum).
+At least 25% of the point limit have to be spent on Troop units (including upgrades)
+Other unit types may be selected up to the listed maximum limits.
+Exceeding the AOP
+If a player fully utilizes their current AOP, they gain access to a second, identical AOP.
+Transports, Fortifications and Flyers do not have to be filled out to get another AOP.
+Each additional AOP must meet the same minimum requirements for HQ and Troop units.
+
+Army rules
+Adeptus Custodes
+Adeptus Mechanicus
+Adeptus Sororitas
+Assassins
+Chaos Daemons
+Chaos Space Marines
+Dark Eldar
+Eldar
+Genestealer Cults
+Grey Knights
+Harlequins
+
+Horus Heresy Forces of the Machine God
+Horus Heresy Legiones Astartes Supplement
+Imperial Guard
+Inquisition
+Leagues of Votann
+Necrons
+Orks
+Space Marines
+Tau Empire
+Tyranids
+
+Allies
+Players have the option to field allied units. These are subject to separate rules, which result from the Allied Matrix:
+
+ · AdC
+ · AdM
+ · AdS
+ · CD
+ · CSM
+ · DaE
+ · Eld¹
+ · GK
+ · GSC
+ · IG
+ · Inq
+ · LoV
+ · Nec
+ · Ork
+ · SM
+ · Tau
+ · Tyr
+ ·
+AdC
+ · G
+ · G
+ · G
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · G
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · R
+ ·
+AdM
+ · G
+ · G
+ · G
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · G
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · R
+ ·
+AdS
+ · G
+ · G
+ · G
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · G
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · R
+ ·
+CD
+ · R
+ · R
+ · R
+ · G
+ · G
+ · R
+ · R
+ · R
+ · R
+ · R
+ · Y
+ · R
+ · R
+ · R
+ · R
+ · R
+ · R
+ ·
+CSM
+ · R
+ · R
+ · R
+ · G
+ · G
+ · R
+ · R
+ · R
+ · Y
+ · R
+ · Y
+ · R
+ · R
+ · Y
+ · R
+ · R
+ · R
+ ·
+DaE
+ · R
+ · R
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · R
+ · R
+ · Y
+ · R
+ · R
+ · Y
+ · R
+ · R
+ · R
+ ·
+Eld¹
+ · Y
+ · Y
+ · Y
+ · R
+ · R
+ · Y
+ · G
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · R
+ ·
+GK
+ · Y
+ · Y
+ · Y
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · R
+ ·
+GSC
+ · R
+ · R
+ · R
+ · R
+ · Y
+ · R
+ · R
+ · R
+ · G
+ · R
+ · Y
+ · R
+ · R
+ · R
+ · R
+ · R
+ · Y
+ ·
+IG
+ · G
+ · G
+ · G
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · G
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · R
+ ·
+Inq
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ ·
+LoV
+ · Y
+ · Y
+ · Y
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · R
+ ·
+Nec
+ · Y
+ · Y
+ · Y
+ · R
+ · R
+ · R
+ · R
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · Y
+ · Y
+ · R
+ ·
+Orks
+ · Y
+ · Y
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · Y
+ · R
+ ·
+SM
+ · G
+ · G
+ · G
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · G
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · Y
+ · R
+ ·
+Tau
+ · Y
+ · Y
+ · Y
+ · R
+ · R
+ · R
+ · Y
+ · Y
+ · R
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · Y
+ · G
+ · R
+ ·
+Tyr
+ · R
+ · R
+ · R
+ · R
+ · R
+ · R
+ · R
+ · R
+ · Y
+ · R
+ · Y
+ · R
+ · R
+ · R
+ · R
+ · R
+ · G
+ ·
+
+Factions and Allied Relationships
+Green (G, Battle Brothers)
+These factions have a long history of cooperation and mutual trust. Their tactics, doctrines, and methods are closely aligned, making them highly effective when fighting together.
+Allied units are treated as friendly in all respects on the battlefield.
+Abilities such as auras and psychic powers can be cast on allied units.
+Transport vehicles can carry units from both factions without restriction.
+Yellow (Y, Allies of Convenience)
+These factions only work together when absolutely necessary, often due to a larger mutual enemy or temporary benefits. Their cooperation is unstable and limited.
+Allied units are treated as separate armies on the battlefield.
+Abilities such as auras and psychic powers can only affect the primary faction’s units.
+Transport vehicles can only carry units of the primary faction.
+Red (R, Desperate Allies)
+Factions in this category are sworn enemies or have a history of deep mistrust. Any temporary alliance is extremely rare and often comes with dire consequences.
+Allied units are treated as separate armies on the battlefield.
+Abilities such as auras and psychic powers can only affect the primary faction’s units.
+Transport vehicles can only carry units from the primary faction.
+Units within 12" of an allied faction unit must pass a Leadership test with a -1 penalty or lose their order for that turn.
+Allies use their own Army Organization Plan (AOP), which includes:
+0-1 HQ
+1-2 Troops
+0-1 Elite*
+0-1 Fast Attack*
+0-1 Heavy Support*
+0-ᵀ Transports
+For each Troop unit, one Elite, Fast Attack, or Heavy Support unit may be chosen.
+Allies cannot select a second AOC after filling all available slots.
+Allies may select their own Army Customisation options.
+Allying with the same faction
+A faction may ally with itself.
+Both parts are considered as one army, so “Unique” equipment or “once per army” upgrades (like for HQ selections) can still only be taken once.
+Limitation
+Units that are taken in an allied detachment can never make use of the “Objective secured!” rule.
+
+Setting up units
+Both players compare the total number of units in their army. For every 2-unit difference, the player with fewer units receives a pass marker.
+Deployment Sequence:
+Side Pick: The player who won the side pick will begin the deployment phase.
+Unit Placement: Starting with the player who picked the side, each player takes turns placing a unit (with or without any attached character models) in their deployment zone.
+Instead of placing a unit, a player can opt for one of the following:
+Boarding a transport vehicle: Announce that a unit is boarding a transport vehicle and place the transport along with any units (including attached characters).
+Starting in reserve: Announce that a unit will start in reserve and will enter the battlefield later.
+Character models joining a unit in reserve: Announce that a character will join a unit in reserve.
+Infiltration: Announce that a unit will be set up as an infiltrator and placed on the battlefield later.
+Character models joining an infiltrator unit: Announce that a character will join a unit as infiltrators.
+Fortification Setup: Remove a piece of terrain that is at least 50% within your deployment zone and replace it with a Fortification-type unit.
+Pass Marker: A player may use a pass marker to skip a unit placement. However, after using a pass marker once, the player must deploy a unit.
+Infiltrator Placement:
+Infiltrator units are alternately placed in the same way as normal units after all other units have been deployed. Infiltrators do not count when determining the initiative bonus for the game.
+Note: Some missions may specifically outrule the use of certain setup options, such as reserve or infiltrator rules, so always check the mission specifics before deployment.
+
+Supplements
+Escalation
+Additional rules for Gargantuan Creatures and Super-heavy Vehicles.
+Link
+Missions
+Standard missions for all game sizes.
+Link
+Planetary Assault
+Campaign system that depicts the struggle of several factions for control over a planet.
+Link
+
+Playing your first game
+Some general recommendations for new players to get started.
+Game size: 2500 points per player.
+Table size: 72”x48”.
+Mission: Take & Hold (Link)
+For now, skip the Army Customisation options in each faction and simply use the datasheets as written.
+Go easy on vehicle use for both sides.
+If you prefer a smaller game with fewer models or points, check out the Skirmish rules in the Mission Supplement. Skirmish comes with limitations on what units can be taken to keep the game balanced and fun.
+It is strongly recommended to use the Mission Supplement, as the game is balanced around objective-based gameplay.
+
+FAQ
+1. What is the armor save for a master-crafted armor (Sv 2+) unit in cover that is hit by a laser cannon (AP -4)?
+First, the saving throw is improved by 2, to a maximum of 1+. After that, the weapon's AP (armor penetration) value of -4 is subtracted, degrading the armor save to 5+.
+
+2. How many different units can ride in a transporter?
+Any number of units up to the maximum transport capacity of the vehicle.
+
+3. Is a unit still engaged in melee if it does not flee at the end of a melee but has no models left in attack range?
+No, it is not engaged in melee if no models are in attack range.
+
+4. Can a unit fire Overwatch or fight in close combat one more time if charged by a new unit during the turn?
+No, each unit can only fight and shoot once per game turn.
+
+5. A rule from the Core Rules overlaps or contradicts a rule from a Codex. What takes precedence?
+Specific rules from the Codex override general rules from the Core Rules.
+
+6. How do units deployed as infiltrators count when determining who was first to complete deployment?
+If a player declares a unit as an Infiltrator during deployment, that unit is counted as deployed, even if it is placed on the field later.
+
+7. Some rules are resolved at the beginning of a unit's activation. When does a unit count as activated when engaged in melee?
+The unit counts as activated at the start of its initiative step.
+
+8. Can a character model hold an objective while attached to a unit with a rule prohibiting the unit from holding objectives?
+No, the character must separate from the unit in order to hold the objective.
+
+9. Some vehicles have movable flaps or ramps. How does that affect rules like line of sight or range?
+Any movable flaps or ramps are treated as if they were closed for purposes of line of sight and range.
+
+10. Does a dispelled psychic power still count as manifested in terms of e.g., Force weapons?
+Yes, a dispelled psychic power still counts as manifested in terms of Force weapons and similar abilities.
+
+11. How many times can a dice be re-rolled if a model benefits from multiple re-rolls from different sources?
+Each dice roll can only be re-rolled once. Weapons with the “Blast(x)” keyword already have a built-in re-roll and cannot be re-rolled again.
+
+12 . Can a unit still strike in close combat if it has been charged after it has already carried out its order but has not yet fought?
+Yes, a unit can still strike in close combat even if it has already carried out its order but has not yet fought.
+
+13. Some rules refer to “transports/transport vehicles,” others to “dedicated transports,” what is the difference?
+A transport/transport vehicle is any model that can carry passengers. A dedicated transport refers specifically to a model assigned to the transport battlefield role in an army.
+
+14. Some rules allow a model to be set up within x” using the Deep strike rules without rolling for scatter. Does the model have to be set up with its entire base within x?
+No, it is enough that part of the model’s base is set up within the specified distance (x”).
+
+15. How does “Precision” interact with abilities that are triggered on to wound rolls (e.g. Armor piercing)?
+All wounds that are caused by “Precisions” can be rolled in addition to see if other abilities trigger.
+
+16. Am I allowed to measure distances before an action (like moving or shooting) calls for it?
+Measuring distances is allowed at all times.
+
+17. What happens to the order of a unit, if it starts the battle round in melee but all enemy units in direct base contact are removed before they activate?
+The unit counts as activated, loses its order and may immediately make a 3” consolidation move after the last enemy unit in direct base contact has been removed.
+
+Deep Lore
+The 9th Edition Drukhari Codex (released March 2021) is, in a very real sense, the reason Custom40k exists.
+At the time, we were running a Crusade league, and when the new Drukhari Codex dropped, it practically killed the league overnight. Everyone who played against them came away so frustrated that they didn't just quit Crusade, but they quit Warhammer entirely.
+And no, that is not an exaggeration.
+Suddenly, I had nobody left to play with, and I was frustrated enough to start looking for alternatives.
+I tried a number of different systems, but none of them really gave me what I was looking for. They all had their own strengths, but something was always missing. OPR in particular was simply too rules-light for my taste. I still wanted the depth, detail and army identity that had made me enjoy Warhammer in the first place, just without some of the things that had driven us away from it.
+Then, more or less by chance, I met two people at my local gaming club who had previously talked about creating their own ruleset for 40k. They had even played a test game, but the idea had never really gone any further.
+I contacted them, we started talking, ideas began bouncing back and forth, and before long we had the first prototype of what would eventually become Custom40k.
+It didn't have a name back then. The other two were rather fond of calling it “Bastard40k.” 😅
+Custom40k has changed enormously since those first games. By now, I am responsible for almost all of the rules currently used in the system, but it would never have reached this point without the people who helped get the whole thing started.
+So a special thanks goes to Arni (“SymbiJoe”), Norbert (“comfyhoro”), and Philip (“Adamas”).
+Without their ideas, feedback, discussions, testing, and willingness to take that first step with me, Custom40k would not be what it is today.
+And in a strange way, I suppose I should thank the 9th Edition Drukhari Codex as well.
+After all, without it, Custom40k might never have existed.
+
+Special Thanks
+A very special thanks also goes to everyone in the international Custom40k Discord community, who continuously help improve the game through their feedback, ideas, and contributions. Special shout out to the members of the local club who have been with me from the start and weathered all crazy ideas and balance mistakes I made over the years. Sorry for that, guys!
+It is genuinely incredible to see how much effort people put into this project. Whether it is writing battle reports, suggesting new rules, creating printable tokens or assets for Tabletop Simulator, or even building an entire app (yes, an actual app!) your contributions have gone far beyond anything I could have expected.
+Custom40k has become better because of all of you, and I am incredibly grateful for the time, creativity, and passion you continue to put into it.
+
+Experimental Rules
+Any rule presented here is currently undergoing playtesting and is completely optional for you to use in your games. Changes are marked in red.
+
+Weapon abilities
+Add the “Sniper” ability to all weapons in your army that are supposed to be a sniper rifle of the respective faction.
+Sniper
+The model gains +1 Ballistic Skill.
+The model may select a specific character model in the target unit for all to hit and to wound rolls.
+Use the target’s individual defensive profile for hitting and wounding it.
+

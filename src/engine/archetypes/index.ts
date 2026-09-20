@@ -45,6 +45,9 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Dark Mechanicum': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
     armoryOnlyFaction: 'chaos_space_marines',
+    // ods-verbatim: "Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines."
+    // The standing AdM<->CSM cell is R, so without this the pair read Desperate Allies (reported).
+    alliedRelationshipOverrides: { chaos_space_marines: 'Y' },
     alliedFaction: 'chaos_space_marines', alliedMarkFilter: 'all',
     alliedUnitsOnly: ['Venomcrawler', 'Defiler', 'Forgefiend', 'Maulerfiend', 'Heldrake'],
     notes: [
@@ -219,6 +222,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // half is recorded in known-issues rather than guessed at here.
   'Ynnari': { ...BASE, noLegacy: true,
     sharedSupplementArmory: 'Ynnari',
+    // Both codices say it, each pointing at the other: Eldar's "Ynnari become \"Battle Brothers\"
+    // for Dark Eldar", Dark Eldar's "...for Eldar". One entry serves both armies, so it carries
+    // both keys; the one that names its own faction is a harmless no-op.
+    alliedRelationshipOverrides: { eldar: 'G', dark_eldar: 'G' },
     notes: [
       'Allied to Eldar as Battle Brothers.',
       'Access to the Ynnari Armory and the Revenant discipline.',
@@ -363,8 +370,12 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Brood Brothers': { ...BASE,
     forcedAbility: { name: 'Ambush', pointsPerWound: 1, creatureOnly: true },
     armoryOnlyFaction: 'genestealer_cults',
+    // ods-verbatim: "Brood Brothers are treated like \"Genestealer Cults\" in the Ally matrix."
+    // GSC<->GSC is G, so this is Battle Brothers -- the old note said Allies of Convenience, which
+    // was wrong as well as unimplemented.
+    alliedMatrixAs: 'genestealer_cults',
     notes: [
-      'Treated as Allies of Convenience for Genestealer Cults.',
+      'Treated as Genestealer Cults in the Ally matrix, so Battle Brothers with them.',
       'All creature units must gain the "Ambush" ability at +1 pt per Wound (no opt-out).',
       'Models with Armory access may also use the Genestealer Cult Armory.',
     ],
@@ -373,8 +384,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Gue\'vesa': { ...BASE,
     forcedAbility: { name: 'Supporting Fire', pointsPerWound: 1, pointsPerHull: 2 },
     armoryOnlyFaction: 'tau_empire',
+    // ods-verbatim: "Gue'vesa are treated like \"Tau\" in the Ally matrix." Tau<->Tau is G.
+    alliedMatrixAs: 'tau_empire',
     notes: [
-      'Treated as Allies of Convenience for Tau Empire.',
+      'Treated as Tau in the Ally matrix, so Battle Brothers with them.',
       'All units must gain "Supporting Fire" at +1 pt per Wound or +2 pts per Hull point (no opt-out).',
       'Creature units equipped with a Lasgun may exchange it for a Pulse rifle at +3 pts per model.',
       'Creature units equipped with a Hot-shot lasgun may exchange it for a Pulse rifle at +2 pts per model.',
@@ -383,6 +396,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
     armoryOnlyFaction: 'chaos_space_marines', grantsMarkArmory: true,
+    // ods-verbatim: "Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix."
+    // CSM<->CSM is G. The note below has said this since the archetype was written; it was display
+    // text only, the same shape as the Demiurg bug (GH#83).
+    alliedMatrixAs: 'chaos_space_marines',
     notes: [
       'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
       'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',

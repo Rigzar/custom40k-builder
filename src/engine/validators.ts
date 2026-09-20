@@ -216,12 +216,32 @@ function getSlotUsage(
  * NOT for this one — only an effective unit_type of exactly "Infantry" (no added types via
  * `adds_unit_types`, no replacement via `set_unit_type`) counts.
  */
+/**
+ * Every token our data uses in `unit_type` that is genuinely a TYPE. Anything else in that field is
+ * a keyword the parser folded in: the Necrons sheet prints "UNIT TYPE: Infantry" and "KEYWORD:
+ * Necron" on separate rows, and our Warriors carry "Infantry, Necron" with an empty `keywords`.
+ * Sixteen Necron and several Tau (Kroot) datasheets are like that.
+ */
+const UNIT_TYPE_TOKENS = new Set([
+  'infantry', 'jump pack infantry', 'jump pack', 'bike', 'jet bike', 'jetbike',
+  'monstrous infantry', 'monstrous creature', 'character model', 'character',
+  'walker', 'vehicle', 'super-heavy vehicle', 'flyer', 'artillery', 'swarm', 'beast',
+]);
+
 function isStrictInfantrySelection(item: RosterEntry, data: FactionData, state: ArmyState): boolean {
   const u = resolveUnit(item, data);
   if (!u) return false;
   const rp = resolveUnitProfile(item, u, state, data);
   if (rp.optionAddedUnitTypes.length > 0) return false;
-  return (rp.optionSetUnitType ?? u.unit_type).trim() === 'Infantry';
+  // Compared token by token rather than as one string. The exact-string test meant no NECRON unit
+  // in the game ever qualified -- every one of them reads "Infantry, Necron" -- so a Necron army
+  // was granted no Dedicated Transport slots at all (GH#131). Tokens that are not unit types are
+  // ignored; tokens that ARE (Bike, Jump Pack Infantry, Character Model...) still disqualify, which
+  // is the designer clarification this function exists for.
+  const tokens = (rp.optionSetUnitType ?? u.unit_type)
+    .split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+  const types = tokens.filter(t => UNIT_TYPE_TOKENS.has(t));
+  return types.length === 1 && types[0] === 'infantry';
 }
 
 /**
@@ -238,7 +258,26 @@ function countInfantrySelections(state: ArmyState, data: FactionData, countAllie
   }).length;
 }
 
-function getAopRequirement(army: RosterEntry[], data: FactionData, engKey: string, rule: Rule, alliedFaction?: string): number {
+/**
+ * `freeSlots` is what `computeFreeSlotAdjustments` returned for this army. It has to be subtracted
+ * HERE and not only in the slot-max check below: a unit that occupies no slot must not be able to
+ * demand a whole extra Army Organisation Plan. Reported on the Necron Hexmark Destroyer, whose
+ * Royal Assassin exempts one per Lord -- three Elites plus an exempt fourth asked for a second AOP
+ * and the panel then showed the doubled cap, 3/6 (GH#133). Nothing about it was Hexmark-specific;
+ * every free-slot mechanism in the game could do it.
+ *
+ * Skirmish zeroes the adjustments for the same reason the slot-max check does (Missions, Unit
+ * Restrictions: "All units occupy an Army Organisation slot, even if their rules state otherwise"),
+ * and the caller passes them already zeroed.
+ */
+export function getAopRequirement(
+  army: RosterEntry[],
+  data: FactionData,
+  engKey: string,
+  rule: Rule,
+  alliedFaction?: string,
+  freeSlots?: { elites: number; fa: number; hs: number },
+): number {
   const eng = ENGAGEMENTS[engKey];
   if (!eng.multiAop) return 1;
   let aops = 1;
@@ -247,7 +286,12 @@ function getAopRequirement(army: RosterEntry[], data: FactionData, engKey: strin
     const [, max] = eng.aop[slot];
     if (max <= 0) continue;
     // Exclude allied units from main AOP calculation
-    const used = getSlotUsage(army, data, slot, rule, alliedFaction, false, engKey);
+    const raw = getSlotUsage(army, data, slot, rule, alliedFaction, false, engKey);
+    const adj = slot === 'Elites' ? (freeSlots?.elites ?? 0)
+      : slot === 'Fast Attack' ? (freeSlots?.fa ?? 0)
+      : slot === 'Heavy Support' ? (freeSlots?.hs ?? 0)
+      : 0;
+    const used = Math.max(0, raw - adj);
     if (used > max) aops = Math.max(aops, Math.ceil(used / max));
   }
   return aops;
@@ -2064,7 +2108,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const summoningExcl = (data.faction === 'Chaos Space Marines' && state.archetype !== 'Daemonkin')
     ? ['chaos_daemons']
     : undefined;
-  const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction);
+  const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction,
+    state.engagement === 'skirmish' ? undefined : freeSlots);
   for (const slot of SLOT_ORDER) {
     if (slot === 'Lords of War') continue; // Escalation: Epic-only + 33% pts cap, handled separately
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
@@ -2113,7 +2158,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
         if (!u) return false;
         const iRule = getArchetypeRule(effectiveArchetypeFor(i, state));
-        if (getEffectiveSlotFor(i, iRule) !== 'Troops') return false;
+        // The SAME effective slot the rest of the engine uses, opt-ins included. Necron Canoptek
+        // Scarabs "may be selected as Troops"; their printed slot is Fast Attack, so reading only
+        // the printed slot meant a Scarab unit that IS a Troops selection contributed nothing to
+        // the 25% requirement (GH#130). The codex's other half -- "Can't be a mandatory unit
+        // selection" -- is about the AOP MINIMUM and is enforced separately, by `excludeSlotOptIns`
+        // in getSlotUsage; it is not about the points share.
+        const slot = applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule));
+        if (slot !== 'Troops') return false;
         return countsTroops(i.unitName, u.locked_mark, iRule);
       })
       .reduce((s, i) => {
@@ -2695,15 +2747,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // platoon, so an unlinked one is an error (reported on Discord 2026-07-18: they could sit in
     // an "independent" Troops slot forever). The other three members have min 0 and their own
     // printed slot, so unlinked copies of those stay legal.
+    // Allied Guard detachments are checked too. They used to be skipped entirely, which is why the
+    // whole platoon mechanism was missing for them (player report); the anchor still has to be in
+    // the SAME detachment, so the id match below does the scoping on its own.
     const orphanInfantry = state.army.filter(i =>
-      i.unitName === 'Infantry Squad' && !i.factionSource &&
+      i.unitName === 'Infantry Squad' &&
       !state.army.some(p => p.id === i.platoonId && p.unitName === PLATOON_ANCHOR_UNIT)
     ).length;
     if (orphanInfantry > 0) {
       items.push({ type: 'error', text: T('valPlatoonUnlinkedInfantry', { count: orphanInfantry }) });
     }
 
-    const pcsUnits = state.army.filter(i => i.unitName === PLATOON_ANCHOR_UNIT && !i.factionSource);
+    const pcsUnits = state.army.filter(i => i.unitName === PLATOON_ANCHOR_UNIT);
     for (const pcs of pcsUnits) {
       for (const [memberName, { min, max }] of Object.entries(PLATOON_MEMBER_LIMITS)) {
         const linkedCount = state.army.filter(i => i.unitName === memberName && i.platoonId === pcs.id).length;

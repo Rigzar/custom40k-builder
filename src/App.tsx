@@ -10,7 +10,7 @@ import { ReviewStep } from './components/ReviewStep';
 import { StepBar, type Step } from './components/StepBar';
 import { FactionSymbol } from './components/FactionSymbol';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
-import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
+import { getRelationship, allySide, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
 import { ENGAGEMENTS } from './engine/engagements';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/points';
@@ -967,11 +967,13 @@ export default function App() {
               <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3 mb-3">
                 {t('alliedSeparateDetachment')} {factionLabel}.
                 {selectedFaction && (() => {
-                  const rel = getRelationship(selectedFaction, alliedFaction!, getArchetypeRule(archetype)?.alliedRelationshipOverrides);
+                  const rel = getRelationship(selectedFaction, alliedFaction!,
+                    allySide(getArchetypeRule(archetype)), allySide(getArchetypeRule(alliedArchetype)));
                   return rel ? ` ${RELATIONSHIP_DESCRIPTIONS[rel]}` : '';
                 })()}
                 {selectedFaction && (() => {
-                  const rel = getRelationship(selectedFaction, alliedFaction!, getArchetypeRule(archetype)?.alliedRelationshipOverrides);
+                  const rel = getRelationship(selectedFaction, alliedFaction!,
+                    allySide(getArchetypeRule(archetype)), allySide(getArchetypeRule(alliedArchetype)));
                   return rel ? (
                     <span className={`ml-1.5 font-semibold uppercase tracking-wide ${RELATIONSHIP_COLORS[rel]}`}>
                       {RELATIONSHIP_LABELS[rel]}

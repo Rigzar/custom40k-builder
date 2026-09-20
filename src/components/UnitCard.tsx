@@ -498,8 +498,11 @@ export function UnitCard({ item }: Props) {
            Infantry Squad / Conscript Infantry Platoon / Special Weapon Squad / Heavy Weapon
            Squad linked to a live Platoon Command Squad fold into that PCS's single Troops
            slot instead of each costing their own. */}
-      {data?.faction === 'Imperial Guard' && !item.factionSource && isPlatoonMemberUnit(item.unitName) && (() => {
-        const anchors = listPlatoonAnchors(army);
+      {(item.factionSource ? item.factionSource === 'imperial_guard' : data?.faction === 'Imperial Guard')
+        && isPlatoonMemberUnit(item.unitName) && (() => {
+        // The entry's OWN detachment, not the army's primary faction: an allied Guard detachment
+        // builds its platoon the same way, folded into one of its own 1-2 Troops slots.
+        const anchors = listPlatoonAnchors(army, item.factionSource);
         // The picker is shown even with no Platoon Command Squad in the list. Hiding it was a trap
         // (Discord, a first-time Guard player): the validator says "every Infantry Squad must be
         // linked to a Platoon Command Squad", and the control that would do the linking was not on
@@ -1466,6 +1469,10 @@ export function UnitCard({ item }: Props) {
               // Ram is explicitly "per model, but it gives the weapon to every model in the unit".
               const remaining = g.independent_choices
                 ? 1 - qty
+                : g.per_choice_pool && groupMax != null
+                  // Each choice draws on its own full pool: three Spyders may each take a Dark
+                  // prison, and taking three must not lock out the claw arrays (GH#132).
+                  ? groupMax - qty
                 : gc.max_per_choice != null && groupRemaining != null
                   ? Math.min(groupRemaining, gc.max_per_choice - qty)
                   : gc.max_per_choice != null

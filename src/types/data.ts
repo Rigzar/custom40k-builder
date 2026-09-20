@@ -213,6 +213,18 @@ export interface OptionGroup {
    */
   independent_choices?: boolean;
   /**
+   * Each choice gets its own pool of the GROUP's size, rather than one shared pool (the default)
+   * or a flat one-per-choice (`independent_choices`).
+   *
+   * The codices distinguish these by one phrase. Canoptek Wraiths: "Any model can each be equipped
+   * with ONE OF THE FOLLOWING" — exclusive, so the models share a pool. Canoptek Spyders, same
+   * sheet: "Any number of models can each be equipped with:" and then three unrelated items, with
+   * no "one of the following" — so a Spyder may carry a Dark prison AND a Fabricator claw array,
+   * and three Spyders may each have one. Sharing a pool capped the whole squadron at a single
+   * purchase (GH#132).
+   */
+  per_choice_pool?: boolean;
+  /**
    * Optional keyword gate: this option group is only available (and only valid) when the
    * condition holds. Used for cross-option dependencies the header text only states in prose,
    * e.g. "If no Mark of Khorne is taken …" → { type: 'notInstanceOf', scope: 'unit', keyword: 'Khorne' }.
