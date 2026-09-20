@@ -10,7 +10,32 @@ import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCo
  * upgrades are bought at a base rate that scales with size (see ArmorySelection.scaling), so a
  * stale stored total would be wrong after the squad is resized post-purchase.
  */
-export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Unit): number {
+/**
+ * The one armoury item in the game whose price is a SENTENCE rather than a number.
+ *
+ * Tau Empire 1.02.ods -> Armory row 46, "Tactical philosophiesᴵ", price cell: "10p per 500p game
+ * size". Every other price in all 21 codices is a plain number -- swept to be sure -- so the
+ * parser had nowhere to put this and stored null, and the item was bought for FREE. At a
+ * 2500-point game it should cost 50.
+ *
+ * It scales with the GAME SIZE, not with the unit's models or Wounds, which is why it cannot ride
+ * on `ArmorySelection.scaling` and needs the point limit threaded in.
+ */
+const GAME_SIZE_PRICED: Record<string, { points: number; per: number }> = {
+  'tactical philosophies': { points: 10, per: 500 },
+};
+
+/** Its cost at this game size: "10p per 500p" is a rate, so a 2500-point game pays 5 x 10. */
+export function gameSizePrice(itemName: string, pointLimit: number): number | null {
+  const key = itemName.replace(/[^ -~]/g, '').trim().toLowerCase();
+  const rule = GAME_SIZE_PRICED[key];
+  if (!rule || !pointLimit || pointLimit <= 0) return null;
+  return Math.ceil(pointLimit / rule.per) * rule.points;
+}
+
+export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Unit, pointLimit = 0): number {
+  const byGameSize = gameSizePrice(a.itemName, pointLimit);
+  if (byGameSize !== null) return byGameSize;
   if (a.scaling === 'perModel') return a.points * item.size;
   if (a.scaling === 'perWound') {
     const wStatKey = unit.is_vehicle ? 'HP' : 'W';
@@ -170,7 +195,7 @@ function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
  * and a defaulted parameter would let a forgotten call site under-charge in silence. Making it
  * required means the compiler names every one of the ten places that sum unit points.
  */
-export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string): number {
+export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string, pointLimit: number): number {
   let total = 0;
   const active = getActiveVariant(item, unit);
 
@@ -277,7 +302,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     }
   }
 
-  for (const it of item.armory ?? []) total += liveArmoryPoints(it, item, unit);
+  for (const it of item.armory ?? []) total += liveArmoryPoints(it, item, unit, pointLimit);
   // army.ts already filters which units receive traits (CSM keyword check, faction check, etc.)
   // so item.traits is always the correct pre-filtered list — just sum it here.
   for (const t of item.traits ?? []) {

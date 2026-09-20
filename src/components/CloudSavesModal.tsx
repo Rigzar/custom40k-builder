@@ -63,7 +63,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   const totalPts = store.data
     ? army.reduce((sum, e) => {
         const u = resolveUnit(e, store.data!);
-        return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, store), factionForEntry(e, store.data)) : 0);
+        return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, store), factionForEntry(e, store.data), store.pointLimit) : 0);
       }, 0)
     : 0;
 

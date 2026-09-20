@@ -427,6 +427,36 @@ Es führt alle 21 Fraktionen durch den echten Loader und prüft, dass alles, wor
 ist. **Nach Änderungen an `loaders.ts`, an Dateien in `psychic/` oder `armory/` oder am Typ
 `FactionData` ausführen.** Beendet sich beim ersten Problem mit Fehlercode.
 
+### Ist eine Fraktionsregel VERDRAHTET oder nur aufgeschrieben? (`scripts/audit_faction_rule_coverage.cjs`)
+
+Jede `codex_<fraktion>/special-abilities.ts` hält die Regeln dieser Fraktion wörtlich. Gefragt wird
+für jede: Taucht ihr NAME irgendwo auf, wo die Engine HANDELN könnte? Dokumentation
+(`special-abilities.ts`, `keywords.ts`, `src/data/`, die rules-model-Digests) zählt nicht.
+
+```
+node scripts/audit_faction_rule_coverage.cjs            # Übersicht je Fraktion
+node scripts/audit_faction_rule_coverage.cjs --list     # alle unverdrahteten Regeln
+node scripts/audit_faction_rule_coverage.cjs necrons    # eine Fraktion
+```
+
+**Genannt zu sein beweist nichts. NICHT genannt zu sein beweist, dass die Regel nicht feuern
+kann** — nur dieser Richtung wird vertraut. Es gibt das Werkzeug, weil ein Spieler den Eldar
+*Webway strike* fand: korrekt dokumentiert, korrekt gedruckt, an nichts verdrahtet. Keine
+Datenprüfung konnte das sehen, denn die Daten stimmten.
+
+**Die Ausgabe ist eine Leseliste, keine Fehlerliste.** Die meisten Einträge sind Tischhandlung und
+zu Recht Fließtext. Die wichtige Kategorie ist `army-rule`.
+
+Aus dem ersten Durchgang kamen zwei Guards, deren Form Nachahmung verdient:
+
+- `check_weapon_grants_unit_ability.ts` — "wenn ein Modell X trägt, erhält die Einheit Y".
+  **„Equipped with“ heißt ausgegeben oder als Option gewählt, NICHT auf dem Datenblatt gedruckt**;
+  jede kaufbare Waffe wird gedruckt, die lockere Lesart ist auf 11 von 12 Blättern falsch.
+- `check_named_ward_abilities.ts` — eine Fähigkeit, die eine Rettung IST, ohne eine Zahl zu nennen
+  (Sororitas *Shield of Faith*, 6+, nur im Index definiert). **Der beste Wert muss weiterhin
+  gewinnen**, eine 6+ darf nie eine bessere Rettung überschreiben, und `Aegis(X+)` muss ungeparst
+  bleiben — es ist ein Bannwurf.
+
 ### Relikt-Verbesserungen (`scripts/check_enhancement_uniqueness.ts`)
 
 Neunzehn Relikte verbessern eine Waffe um +6″ Reichweite / +1 Stärke / -1 DS / +1 AT. Zehn sagen

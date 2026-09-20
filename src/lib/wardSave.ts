@@ -43,6 +43,38 @@ export interface WardSources {
  * written "5+ Ward Save" (see resolver.ts), and Berserk(X+) names no save at all -- per the Core
  * Rules it simply IS an X+ ward save, so it has to be recognised on its own.
  */
+/**
+ * Abilities that ARE a ward save while naming no number, because the value lives in the codex's
+ * Index rather than on the datasheet. The datasheet's ability line carries only the NAME, so
+ * nothing in the text for `parseInvSaveFromAbilities` to find.
+ *
+ * ADEPTUS SORORITAS "Shield of Faith" (Adeptus Sororitas 1.01.ods, Index row 16): "The model
+ * receives a 6+ ward save." Twenty-three of the faction's twenty-eight datasheets carry it and
+ * THIRTEEN showed no ward save at all; the other ten already had a better one from elsewhere, and
+ * the best value still wins, so nothing regresses for them.
+ *
+ * Swept every Index tab in the game for this shape and Shield of Faith is the only one. Checked
+ * and REJECTED while looking: the Grey Knights' Aegis(X+) reads like a save and is not one --
+ * Core Rules 1.264: "The model can dispel any psychic power directly targeting it on a roll of
+ * X+", which is why it is correctly parsed as nothing.
+ */
+const NAMED_WARD_ABILITIES: Record<string, number> = {
+  'shield of faith': 6,
+};
+
+function fromNamedAbilities(abilities: string[] | null | undefined): number | null {
+  let best: number | null = null;
+  for (const a of abilities ?? []) {
+    // The line is often a comma-joined list ("Acts of Faith, Shield of Faith"), so match the NAME
+    // anywhere in it rather than requiring the whole ability to be that one word.
+    for (const [name, value] of Object.entries(NAMED_WARD_ABILITIES)) {
+      if (!String(a).toLowerCase().includes(name)) continue;
+      if (best === null || value < best) best = value;
+    }
+  }
+  return best;
+}
+
 function fromTraitAbilities(traits: Array<{ name: string }> | null | undefined): number | null {
   let best: number | null = null;
   for (const t of traits ?? []) {
@@ -59,8 +91,10 @@ function fromTraitAbilities(traits: Array<{ name: string }> | null | undefined):
 export function wardSave(src: WardSources): number | null {
   const candidates = [
     parseInvSaveFromAbilities(src.abilities ?? []),
+    fromNamedAbilities(src.abilities),
     src.equipInvSave ?? null,
     parseInvSaveFromAbilities(src.optionAbilities ?? []),
+    fromNamedAbilities(src.optionAbilities),
     fromTraitAbilities(src.traitAbilities),
   ].filter((v): v is number => v !== null);
   return candidates.length ? Math.min(...candidates) : null;

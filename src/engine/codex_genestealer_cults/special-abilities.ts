@@ -71,11 +71,12 @@ export const GSC_SPECIAL_ABILITIES: GscSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'GSC psychic discipline + Legacy powers not wired (ki-genestealer-cults-psychic-unwired-01)',
+    name: 'GSC psychic discipline + Legacy powers — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` has a "GSC psychic discipline" (37 rows, the Broodmind discipline) and the 6 ' +
-      'Legacies each grant a named bonus power, and GSC has 2 psyker units + the Crown of ' +
-      'Ascendancy, but `loaders.ts` imports only units+general+archetypes (disciplines slot `{}`). ' +
-      'Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope.',
+    text: 'STALE AS OF 2026-09-20, corrected in place rather than deleted so the record of ' +
+      'when the gap closed survives. It used to report this as unwired; measured today, ' +
+      'Broodmind AND the Legacy Psychic Powers are both in production (12 powers between them) with 2 psykers. ' +
+      'Found by scripts/audit_faction_rule_coverage.cjs, which lists rules the engine is ' +
+      'wired to nothing for — seven of its nine gap-notes turned out to be stale like this one.',
   },
 ];

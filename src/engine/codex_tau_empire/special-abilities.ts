@@ -86,11 +86,16 @@ export const TAU_SPECIAL_ABILITIES: TauSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'Ethereal Invocations + Kroot Shaman psychic not wired (ki-tau-empire-psychic-unwired-01)',
+    name: 'Ethereal Invocations + Kroot Shaman — RESOLVED 2026-09-20',
     category: 'gap-note',
-    text: 'The `.ods` has "Invocations of the Ethereals" (a prayer system) + the Kroot Hunting Pack ' +
-      'archetype grants a Shaman psyker (Biomancy/Divination), but `loaders.ts` imports only units+' +
-      'general+archetypes+Sept armory (disciplines slot `{}`). Narrower than other factions\' psychic ' +
-      'gaps (base roster has 0 psykers). Larger separate scope.',
+    text: 'HALF STALE, HALF A REAL BUG, and worth keeping for the difference. STALE HALF: the '  +
+      'four Invocations of the Ethereals ARE in production, loaded as prayers, and they match '  +
+      'the sheet exactly (Calm of Tides, Storm of Fire, Sense of Stone, Zephyr\'s Grace). '  +
+      'REAL HALF: the Kroot Master Shaper\'s +10 Shaman upgrade under Kroot Hunting Pack DID '  +
+      'turn the unit into a psyker and charge for it, and no power picker ever opened — the '  +
+      'unit card gated the whole psychic section on the FACTION having disciplines of its own, '  +
+      'and the Tau have none. The Shaman\'s pool is Biomancy and Divination, which live in '  +
+      'GENERAL_DISCIPLINES and are not part of FactionData. Measured: it is the ONLY unit in '  +
+      'the game whose sole pool is the general list. Fixed; see check_optional_psyker_upgrade.ts.',
   },
 ];

@@ -113,14 +113,11 @@ export const IG_SPECIAL_ABILITIES: IgSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'Psychic disciplines + Hymns not wired (ki-ig-psychic-unwired-01)',
+    name: 'Psychic disciplines + Hymns — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` canon carries a full Psikana discipline + a Preacher Hymns system, and IG has ' +
-      'psyker units, but `loaders.ts:123` loads only units+armory+archetypes (no psychic JSON; ' +
-      '`data/parsed/imperial_guard/psychic/` is empty). Per "básate en el .ods" the canon\'s having ' +
-      'these means it is a genuine data gap, not an intentional cut. Larger scope than the armory ' +
-      'fix — needs Psikana + Hymns parsed into production JSON and wired into the loader (mirroring ' +
-      'GK/Inquisition disciplines). Logged as `ki-ig-psychic-unwired-01`.',
+    text: 'STALE AS OF 2026-09-20, corrected in place rather than deleted. Measured today: '  +
+      'Psikana I and Psikana II are both in production (12 powers between them) with 3 psyker '  +
+      'datasheets, and the 5 Hymns are loaded as prayers with a priest to say them.',
   },
 ];
 

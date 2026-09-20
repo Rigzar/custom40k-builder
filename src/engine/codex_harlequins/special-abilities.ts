@@ -58,12 +58,12 @@ export const HARLEQUINS_SPECIAL_ABILITIES: HarlequinsSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'Harlequins psychic discipline not wired (ki-harlequins-psychic-unwired-01)',
+    name: 'Harlequins psychic discipline — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` has a "Harlequins psychic discipline" (19 rows) and the Shadowseer is a ' +
-      'psyker, but `loaders.ts:harlequins` imports only units + general armory (disciplines slot ' +
-      '`{}`). Same gap class as IG (`ki-ig-psychic-unwired-01`) / Eldar (`ki-eldar-psychic-' +
-      'unwired-01`). Compounds when Harlequins are fielded as an Eldar/Dark-Eldar ally (those ' +
-      'factions have their own psychic gaps). Larger separate scope.',
+    text: 'STALE AS OF 2026-09-20, corrected in place rather than deleted so the record of ' +
+      'when the gap closed survives. It used to report this as unwired; measured today, ' +
+      'the Phantasmancy discipline (6 powers) is in production and the faction has a psyker to cast it. ' +
+      'Found by scripts/audit_faction_rule_coverage.cjs, which lists rules the engine is ' +
+      'wired to nothing for — seven of its nine gap-notes turned out to be stale like this one.',
   },
 ];

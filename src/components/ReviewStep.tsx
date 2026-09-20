@@ -30,7 +30,7 @@ export function ReviewStep({ onPlay, onPrint, onSave, savedMsg, onBack }: {
 
   const ptsOf = (item: typeof army[number]) => {
     const u = resolveUnit(item, data);
-    return u ? computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data)) : 0;
+    return u ? computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data), state.pointLimit) : 0;
   };
 
   const alliedUnits  = alliedFaction ? army.filter(i => i.factionSource === alliedFaction) : [];

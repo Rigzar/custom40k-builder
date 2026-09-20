@@ -1069,7 +1069,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
   }, 0);
 
   // ── Entries whose datasheet no longer exists ─────────────────────────────────
@@ -2078,6 +2078,33 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // "If no Heavy weapons team is formed, another Guardsman may be equipped with a Special weapon."
+  // (Imperial Guard 1.05.ods, Index row 35 + the Infantry Squad and Conscript Infantry Platoon
+  // sheets.) The second Special-weapon group EXISTS in our data and its header states the
+  // condition in words, but nothing enforced it: a squad could form the Heavy weapons team AND
+  // still take the extra Special weapon. Found by the faction-rule coverage sweep, reading the
+  // "Weapon team crews" army rule.
+  //
+  // Driven by the header wording rather than a hand-written unit list, so a third datasheet
+  // carrying the same sentence is covered the day it appears. Only TWO have it today.
+  for (const it of state.army) {
+    const u = resolveUnit(it, data);
+    if (!u) continue;
+    const groups = u.option_groups ?? [];
+    const condIdx = groups.findIndex(g => /if no heavy weapons team is formed/i.test(g.header ?? ''));
+    if (condIdx < 0) continue;
+    const teamIdx = groups.findIndex(g => /form a heavy weapons team/i.test(g.header ?? ''));
+    if (teamIdx < 0) continue;
+    const taken = (gi: number) =>
+      Object.entries((it.optionQty ?? {})[gi] ?? {}).some(([ci, q]) => ci !== '__inline' && !!q);
+    if (taken(teamIdx) && taken(condIdx)) {
+      items.push({
+        type: 'error',
+        text: `${it.unitName}: the extra Special weapon is only available if no Heavy weapons team is formed.`,
+      });
+    }
+  }
+
   // Yngir: "One C'tan shard (any kind)" — defense in depth alongside the UI toggle's
   // disable-the-other-instances guard (ods-verbatim, only 1 per army regardless of how many
   // C'tan Shards are fielded).
@@ -2220,7 +2247,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       })
       .reduce((s, i) => {
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
-        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
+        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
       }, 0);
     // Transport vehicles "from Mechanised Infantry" count toward the 25% Troops requirement
     // (Imperial Guard 1.01.ods): 50% of their point cost BY DEFAULT, raised to 75% by the
@@ -2243,7 +2270,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           })
           .map(i => {
             const u = resolveUnit(i, data);
-            return u ? computeUnitPoints(i, u, state.archetype, factionForEntry(i, data)) : 0;
+            return u ? computeUnitPoints(i, u, state.archetype, factionForEntry(i, data), state.pointLimit) : 0;
           })
           .sort((a, b) => b - a)
           .slice(0, mechInfCount)
@@ -2424,7 +2451,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
-      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data));
+      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data), state.pointLimit);
       const effSlot = getEffectiveSlotFor(item, effectiveRuleFor(item, state));
       if (effSlot === 'HQ' && pts > 150) {
         items.push({ type: 'error', text: T('valSkirmishHqExceeds', { unit: item.unitName, pts }) });
@@ -2768,7 +2795,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       } else {
         const lowPts = lowUnits.reduce((s, i) => {
           const u = resolveUnit(i, data);
-          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
+          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
         }, 0);
         const cap = Math.floor(total * 0.33);
         if (lowPts > cap) {

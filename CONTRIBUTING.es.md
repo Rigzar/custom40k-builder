@@ -417,6 +417,36 @@ llama `.find()` — `prayers`, `pacts`, cada disciplina, cada sección de armer�
 array. **Ejecutalo tras tocar `loaders.ts`, cualquier fichero de `psychic/` o `armory/`, o el tipo
 `FactionData`.** Sale con código distinto de cero al primer problema.
 
+### ¿Una regla de facción está CABLEADA o solo escrita? (`scripts/audit_faction_rule_coverage.cjs`)
+
+Cada `codex_<facción>/special-abilities.ts` guarda las reglas de esa facción literales. Esto
+pregunta de cada una: ¿su NOMBRE aparece en algún sitio donde el motor pueda ACTUAR? La
+documentación (`special-abilities.ts`, `keywords.ts`, `src/data/`, los digests) no cuenta.
+
+```
+node scripts/audit_faction_rule_coverage.cjs            # resumen por facción
+node scripts/audit_faction_rule_coverage.cjs --list     # todas las reglas sin cablear
+node scripts/audit_faction_rule_coverage.cjs necrons    # una facción
+```
+
+**Aparecer no prueba nada. No aparecer prueba que la regla no puede dispararse**: esa es la única
+dirección de la que se fía. Existe porque un jugador encontró el *Webway strike* éldar bien
+documentado, bien impreso y cableado a nada; ninguna auditoría de datos podía verlo, porque el
+dato era correcto.
+
+**La salida es una lista para LEER, no una lista de bugs.** La mayoría son acción de mesa y están
+bien como prosa. La categoría que importa es `army-rule`.
+
+De la primera pasada salieron dos guards cuya forma merece copiarse:
+
+- `check_weapon_grants_unit_ability.ts` — "si un modelo lleva X, la unidad gana Y". **"Equipped
+  with" es que la dotación lo dé o que lo elijas, NO que esté impreso en la ficha**: todas las
+  armas comprables se imprimen, así que la lectura laxa falla en 11 de 12 hojas de Grey Knights.
+- `check_named_ward_abilities.ts` — una habilidad que ES una salvación sin decir número
+  (*Shield of Faith* de Sororitas, 6+, definida solo en el Index). **Debe seguir ganando el mejor
+  valor**, así que un 6+ nunca pisa una salvación mejor, y `Aegis(X+)` debe seguir sin parsearse:
+  es una tirada de disipación.
+
 ### Mejoras de reliquia (`scripts/check_enhancement_uniqueness.ts`)
 
 Diecinueve reliquias permiten mejorar un arma con una de +6″ Alcance / +1 Fuerza / -1 AP / +1 AT.

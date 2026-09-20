@@ -418,6 +418,35 @@ It walks all 21 factions through the real loader and asserts that everything the
 **Run it after touching `loaders.ts`, any `psychic/` or `armory/` data file, or the `FactionData`
 type.** Exits non-zero on the first problem.
 
+### Is a faction rule WIRED, or only written down? (`scripts/audit_faction_rule_coverage.cjs`)
+
+Every `codex_<faction>/special-abilities.ts` holds that faction's rules verbatim. This asks of each
+one: does its NAME appear anywhere the engine could ACT on it? Documentation
+(`special-abilities.ts`, `keywords.ts`, `src/data/`, the rules-model digests) does not count.
+
+```
+node scripts/audit_faction_rule_coverage.cjs            # summary per faction
+node scripts/audit_faction_rule_coverage.cjs --list     # every text-only rule
+node scripts/audit_faction_rule_coverage.cjs necrons    # one faction
+```
+
+**Being named proves nothing. NOT being named proves the rule cannot fire** — that is the only
+direction this trusts. It exists because a player found the Eldar *Webway strike* documented
+correctly, printed correctly and wired to nothing; no data audit could see it, because the data was
+right.
+
+**The output is a worklist to READ, not a bug list.** Most entries are table action and correctly
+prose. The category that matters is `army-rule`.
+
+Two guards came out of the first pass, both worth copying the shape of:
+
+- `check_weapon_grants_unit_ability.ts` — "if one model is equipped with X, the unit gains Y".
+  **"Equipped with" means issued or taken as an option, NOT printed on the datasheet**; every
+  buyable weapon is printed, so the loose reading is wrong on 11 of 12 Grey Knights sheets.
+- `check_named_ward_abilities.ts` — an ability that IS a ward save while naming no number
+  (Sororitas *Shield of Faith*, 6+, defined only in the Index). **The best value must still win**,
+  so a 6+ never overwrites a better save, and `Aegis(X+)` must stay unparsed — it is a dispel roll.
+
 ### Relic enhancements (`scripts/check_enhancement_uniqueness.ts`)
 
 Nineteen relics let you improve one weapon with one of +6″ Range / +1 Strength / -1 AP / +1 AT.

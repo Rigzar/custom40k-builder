@@ -90,11 +90,15 @@ export const ELDAR_SPECIAL_ABILITIES: EldarSpecialAbilityEntry[] = [
 
   // --- §6 gap notes ---
   {
-    name: 'Eldar psychic discipline + Revenant not wired (ki-eldar-psychic-unwired-01)',
+    name: 'Eldar psychic discipline + Revenant — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` has a large "Eldar psychic discipline" (64 rows) + the Ynnari Revenant ' +
-      'discipline, and Eldar has 6 psyker units, but `loaders.ts` loads only units+general+' +
-      'archetypes+Craftworld+Ynnari armories — no psychic-discipline file (disciplines slot `{}`). ' +
-      'Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope.',
+    text: 'STALE AS OF 2026-09-20 and corrected rather than deleted. It used to say the ' +
+      'Eldar psychic discipline and the Ynnari Revenant were not wired. They are: ' +
+      '`data/parsed/eldar/psychic/disciplines.json` carries four disciplines and 21 powers ' +
+      '(Battle 6, Fate 6, Revenant 6, Wraith 3), and the per-unit restrictions baked into ' +
+      'each discipline KEY are enforced in PsychicModal — Warlocks see only Battle, the ' +
+      'Farseer only Fate, the Wraithseer only Wraith. Revenant came in with the Ynnari ' +
+      'archetype fix. Left here because a note that once described a real gap is worth ' +
+      'keeping as the record of when it closed (ki-eldar-psychic-unwired-01).',
   },
 ];

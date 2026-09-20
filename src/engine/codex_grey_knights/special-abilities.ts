@@ -80,10 +80,15 @@ export const GK_SPECIAL_ABILITIES: GkSpecialAbilityEntry[] = [
   {
     name: 'True Grit',
     category: 'army-rule',
-    text: 'Verbatim: "All ranged weapons of the model are treated as Assault weapons. ' +
-      'Additionally, if the model made a ranged AND melee attack in the same activation, it ' +
-      'gains +1 Attack until the end of the Fight phase." Present on Strike/Terminator Squad ' +
-      'ability lines.',
+    text: 'Verbatim (Grey Knights 1.01.ods, Index row 15): "The model MAY treat all of its ' +
+      'ranged weapons DURING ITS ACTIVATION as \'Assault\' weapons (f.e. Rapid Fire 2 becomes ' +
+      'Assault 2) and gains +1 attack for any combination of a ranged weapon with a melee ' +
+      'weapon." Present on the Strike/Terminator Squad ability lines. THIS FILE USED TO ' +
+      'PARAPHRASE IT as a flat "all ranged weapons are treated as Assault weapons", dropping ' +
+      'the words MAY and DURING ITS ACTIVATION -- a stronger rule than the sheet grants. Those ' +
+      'two words are exactly why the weapon rows are correctly left alone: the choice is the ' +
+      'player\'s and it is made per activation, so printing "Assault 2" on the card would deny ' +
+      'them the Rapid Fire 2 they may still use.',
   },
 
   // --- §4 datasheet-level Psyker / Faithful rules (cast-system access notes) ---

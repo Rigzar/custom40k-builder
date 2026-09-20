@@ -88,11 +88,12 @@ export const ORK_SPECIAL_ABILITIES: OrkSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'Ork (Waaagh!) psychic discipline not wired (ki-orks-psychic-unwired-01)',
+    name: 'Ork (Waaagh!) psychic discipline — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` has an "Ork psychic discipline" (19 rows, the Waaagh! discipline) and Orks ' +
-      'have psyker units (Weirdboy), but `loaders.ts` imports only units+general+archetypes+Clan ' +
-      'armory (disciplines slot `{}`). Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger ' +
-      'separate scope.',
+    text: 'STALE AS OF 2026-09-20, corrected in place rather than deleted so the record of ' +
+      'when the gap closed survives. It used to report this as unwired; measured today, ' +
+      'the Waaagh! discipline (6 powers) is in production and 2 Ork datasheets are psykers. ' +
+      'Found by scripts/audit_faction_rule_coverage.cjs, which lists rules the engine is ' +
+      'wired to nothing for — seven of its nine gap-notes turned out to be stale like this one.',
   },
 ];

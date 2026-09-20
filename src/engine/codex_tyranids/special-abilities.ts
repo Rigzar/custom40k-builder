@@ -88,11 +88,12 @@ export const TYRANID_SPECIAL_ABILITIES: TyranidSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'Tyranid psychic discipline not wired (ki-tyranids-psychic-unwired-01)',
+    name: 'Tyranid psychic discipline — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` has a "Tyranid psychic discipline" (19 rows) and Tyranids have 7 psyker units ' +
-      '(the most psyker-dense faction), but `loaders.ts` imports only units+general[empty]+' +
-      'archetypes+Hive Fleet armory (disciplines slot `{}`). Same gap class as IG ' +
-      '(`ki-ig-psychic-unwired-01`). Larger separate scope.',
+    text: 'STALE AS OF 2026-09-20, corrected in place rather than deleted so the record of ' +
+      'when the gap closed survives. It used to report this as unwired; measured today, ' +
+      'the Hive Mind discipline (6 powers) is in production and 7 Tyranid datasheets are psykers. ' +
+      'Found by scripts/audit_faction_rule_coverage.cjs, which lists rules the engine is ' +
+      'wired to nothing for — seven of its nine gap-notes turned out to be stale like this one.',
   },
 ];

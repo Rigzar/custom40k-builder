@@ -66,7 +66,7 @@ function MissingUnitCard({ item, faction }: { item: RosterEntry; faction: string
  */
 export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }) {
   const t = useT();
-  const { army, data, archetype, alliedFaction, alliedArchetype } = useArmyStore();
+  const { army, data, archetype, alliedFaction, alliedArchetype, pointLimit } = useArmyStore();
   if (!data) return null;
 
   const scopedArmy = scope === 'allied'
@@ -98,7 +98,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
 
         const slotPts = slotUnits.reduce((s, item) => {
           const u = resolveUnit(item, data);
-          return s + (u ? computeUnitPoints(item, u, effectiveArchetype, factionForEntry(item, data)) : 0);
+          return s + (u ? computeUnitPoints(item, u, effectiveArchetype, factionForEntry(item, data), pointLimit) : 0);
         }, 0);
 
         return (

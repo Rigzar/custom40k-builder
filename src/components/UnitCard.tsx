@@ -27,6 +27,7 @@ import { hasMarkStatMods } from '../lib/markMods';
 import { resolveStatValue } from '../lib/statPipeline';
 import { getFactionCat, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { useT, tpl } from '../i18n';
+import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
@@ -1825,7 +1826,26 @@ export function UnitCard({ item }: Props) {
               </button>
             )}
             {(() => {
-              const hasDiscs = Object.keys(data.disciplines ?? {}).length > 0;
+              // A psyker can always pick from the SIX GENERAL DISCIPLINES, which are not part of
+              // FactionData -- so gating this section on the faction having disciplines of its own
+              // hid it completely from the one unit in the game whose only pool is the general
+              // list: the TAU KROOT MASTER SHAPER upgraded to a Shaman under Kroot Hunting Pack.
+              // Its codex line is explicit -- "A Kroot Shaman is a Psyker and can cast 1 power and
+              // deny 1 power per battle round. It knows two powers from either the Biomancy or
+              // Divination disciplines" -- and Tau have no faction discipline at all, so the +10
+              // points were charged, `effectivePsyker` went true, and no power picker ever opened.
+              // Measured: it is the only unit in the game in that position.
+              // A psyker can always pick from the SIX GENERAL DISCIPLINES, which are not part of
+              // FactionData -- so gating this section on the faction having disciplines of its own
+              // hid it completely from the one unit in the game whose only pool is the general
+              // list: the TAU KROOT MASTER SHAPER upgraded to a Shaman under Kroot Hunting Pack.
+              // Its codex line is explicit -- "A Kroot Shaman is a Psyker and can cast 1 power and
+              // deny 1 power per battle round. It knows two powers from either the Biomancy or
+              // Divination disciplines" -- and Tau have no faction discipline at all, so the +10
+              // points were charged, `effectivePsyker` went true, and no power picker ever opened.
+              // Measured: it is the only unit in the game in that position.
+              const hasDiscs = Object.keys(data.disciplines ?? {}).length > 0
+                || Object.keys(GENERAL_DISCIPLINES).length > 0;
               const hasPowers = effectivePsyker && hasDiscs;
               const hasPrayers = u.is_priest && (data.prayers ?? []).length > 0;
               const hasPacts = u.uses_pacts && (data.pacts ?? []).length > 0;

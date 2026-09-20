@@ -84,10 +84,12 @@ export const VOTANN_SPECIAL_ABILITIES: VotannSpecialAbilityEntry[] = [
 
   // --- §6 gap note ---
   {
-    name: 'Skeinwrought discipline not wired (ki-leagues-of-votann-psychic-unwired-01)',
+    name: 'Skeinwrought discipline — RESOLVED, kept as a record',
     category: 'gap-note',
-    text: 'The `.ods` has a "Skeinwrought discipline" (19 rows) and Votann has a psyker (Grimnyr), ' +
-      'but `loaders.ts` imports only units+general+archetypes+League armory (disciplines slot `{}`). ' +
-      'Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope.',
+    text: 'STALE AS OF 2026-09-20, corrected in place rather than deleted so the record of ' +
+      'when the gap closed survives. It used to report this as unwired; measured today, ' +
+      'the Skeinwrought discipline (6 powers) is in production and the Grimnyr casts it. ' +
+      'Found by scripts/audit_faction_rule_coverage.cjs, which lists rules the engine is ' +
+      'wired to nothing for — seven of its nine gap-notes turned out to be stale like this one.',
   },
 ];

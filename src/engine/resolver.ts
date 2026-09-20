@@ -769,7 +769,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const rule = getArchetypeRule(effectiveArchetype);
 
   // Points & slot
-  const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data));
+  const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit);
   // Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) — re-slots
   // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
   // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
@@ -1421,6 +1421,30 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // (Allies section, L1833) — gated on factionSource matching the active allied faction
   // (NOT on factionSource alone: injected-supplement units like Assassins/HH carry their own
   // factionSource without being an "allied detachment" in the rules sense).
+  /**
+   * "If one model of the unit is equipped with this weapon, all models of the unit gain X."
+   * A single model's wargear granting a UNIT-WIDE ability -- Grey Knights 1.01.ods, Index row 10:
+   * "Nemesis warding stave: If one model of the unit is equipped with this weapon, all models of
+   * the unit gain 'Parry'." Twelve Grey Knights datasheets may buy the stave (+9 to +11 points)
+   * and it granted nothing at all; found by auditing which documented faction rules the engine
+   * never looks at, the same way the Eldar Webway strike was found.
+   *
+   * Triggered by the loadout line naming it OR by a chosen option, which is exactly what
+   * "equipped with" means -- printing the weapon's PROFILE on the datasheet is not being equipped
+   * with it, and that distinction is what `audit_phantom_near_miss` exists to police.
+   */
+  const WEAPON_GRANTS_UNIT_ABILITY: Record<string, { weapon: string; grants: string }[]> = {
+    'Grey Knights': [{ weapon: 'Nemesis warding stave', grants: 'Parry' }],
+  };
+  for (const g of WEAPON_GRANTS_UNIT_ABILITY[data.faction] ?? []) {
+    const issued = (unit.equipped_with ?? '').toLowerCase().includes(g.weapon.toLowerCase());
+    const chosen = Object.entries(item.optionQty ?? {}).some(([gi, ch]) =>
+      Object.entries(ch as Record<string, number>).some(([ci, qty]) =>
+        !!qty && ci !== '__inline' &&
+        unit.option_groups?.[Number(gi)]?.choices?.[Number(ci)]?.name?.toLowerCase().includes(g.weapon.toLowerCase())));
+    if (issued || chosen) optionAbilities.push(`${g.grants} (${g.weapon})`);
+  }
+
   const ruleNotes: string[] = [];
   if (effectiveSlot === 'Troops' && !isAlliedDetachmentUnit) {
     ruleNotes.push('Objective secured!');
