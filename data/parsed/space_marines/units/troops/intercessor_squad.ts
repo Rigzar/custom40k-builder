@@ -19,7 +19,8 @@
  *   Plasma incinerator *
  *   - Standard                  30"  Rapid Fire 1  7  -3  1   AT(1)
  *   - Overheating               30"  Rapid Fire 1  8  -4  2   AT(2), Overheating
- *   Pyroblaster                 12"  Assault 4     4   0  1   Auto Hit, Sunder(1)
+ *   Pyreblaster                 12"  Assault 4     4   0  1   Auto Hit, Sunder(1)
+ *   Pyrecannon                  15"  Assault 4     5  -1  1   Auto Hit, Sunder(1)
  *   Castellan missile launcher *
  *   - Castellan missile         36"  Assault 1     4  -1  1   Blast(4), Indirect
  *   - Krak missile              48"  Heavy 1       8  -3  2   AT(2), Anti-air
@@ -28,7 +29,7 @@
  *   • For every 5 models, two Intercessor Marines may be equipped with:
  *     Grenade launcher +1
  *   • Alternatively, for every 5 models, two Intercessor Marines may swap their Bolt rifle:
- *     Pyroblaster +0 / Heavy bolter +10 / Plasma incinerator +12 / Castellan missile launcher +32
+ *     Pyreblaster +0 / Pyrecannon +7 / Heavy bolter +10 / Plasma incinerator +12 / Castellan missile launcher +32
  *   • The Intercessor Sergeant may be upgraded to a Veteran Intercessor Sergeant for +10 points
  *     and gains access to weapons and gear from the Armory.
  *
@@ -37,8 +38,9 @@
  *   UNIT TYPE: Infantry
  *
  * 1.03 -> 1.04: 37/37/47 -> 38/38/48, BOTH special-weapon groups go from one model per five to
- * two, and the swap list grows from Pyroblaster alone to four weapons. The three new choices are
- * appended AFTER Pyroblaster because `optionQty` is keyed by choice index.
+ * two, and the swap list grows from Pyreblaster alone to five weapons. The new choices are
+ * appended AFTER Pyreblaster because `optionQty` is keyed by choice index. The Pyrecannon,
+ * added 2026-09-19, is appended for the same reason even though the sheet prints it second.
  *
  * ABILITY VOCABULARY: the sheet is written in the POST-clean-up names (Blast(4), Auto Hit +
  * Sunder(1)); stored here in the pre-clean-up vocabulary the rest of the app still uses
@@ -128,11 +130,20 @@ export const intercessorSquad: Unit = {
       "abilities": "Blast(4)"
     },
     {
-      "name": "Pyroblaster",
+      "name": "Pyreblaster",
       "range": "12\"",
       "type": "Assault 4",
       "s": "4",
       "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Pyrecannon",
+      "range": "15\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1)"
     },
@@ -245,7 +256,7 @@ export const intercessorSquad: Unit = {
       },
       "choices": [
         {
-          "name": "Pyroblaster",
+          "name": "Pyreblaster",
           "points": 0
         },
         {
@@ -259,6 +270,10 @@ export const intercessorSquad: Unit = {
         {
           "name": "Castellan missile launcher",
           "points": 32
+        },
+        {
+          "name": "Pyrecannon",
+          "points": 7
         }
       ],
       "inline_pts": null,

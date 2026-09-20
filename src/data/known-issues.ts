@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-sm-intercessor-pyrecannon-01",
+    status: "fixed",
+    title: "Space Marines: the Intercessors’ new Pyrecannon, and Pyroblaster becomes Pyreblaster",
+    description: "APPLIED 2026-09-19, requested by atypicalhero: “Please update Space Marines once more. Intercessors got a new weapon.” `fetch_codex` named two changed tabs, Intercessor Squad and Indomitus Crusader Squad, and both were read in full. NEW: the PYRECANNON — 15″, Assault 4, S5, AP -1, D1, Auto Hit, Sunder(1), +7pts — in the Intercessor Squad’s “two per five models may swap their Bolt rifle” list, where the sheet prints it SECOND, between the Pyreblaster (+0) and the Heavy bolter (+10). It is APPENDED to the end of our choice array instead: `optionQty` is keyed by choice INDEX, so inserting at position 1 would silently turn every saved Heavy bolter into a Plasma incinerator and so on down the list. RENAME: both changed tabs now say “Pyreblaster” where they said “Pyroblaster”, and the Crusaders’ “Pyro pistol” is now a “Pyre pistol”; renames keep their index, so saved lists are unaffected. The INFERNUS SQUAD tab still says “Pyroblaster” and is deliberately left alone — each datasheet stays faithful to its own tab, and since the profile is identical on both it reads as a rename still in progress, which is with the author. Verified through the real path rather than by eye: a 5-model squad resolves at 190pts, 197 with one Pyrecannon and 204 with two, the weapon appears on the card, and the Bolt rifle correctly stays for the three models that did not swap. Space Marines now report no differences on either datasheet and `fetch_codex` says identical.",
+  },
+  {
     id: "ki-honor-or-death-range-01",
     status: "fixed",
     title: "“Honor or Death” said 12″ where the codex says 10″, on two datasheets",

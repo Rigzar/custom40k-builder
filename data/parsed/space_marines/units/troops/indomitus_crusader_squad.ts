@@ -19,15 +19,15 @@
  *   Bolt rifle (Stalker ammo) 36" Heavy 1      S:4 AP:-2 D:1  -
  *   Bolt rifle (Assault ammo) 24" Assault 2    S:4 AP:0  D:1  -
  *   Heavy bolt pistol  12" Pistol 1    S:4  AP:-2 D:1  -
- *   Pyroblaster        12" Assault 4   S:4  AP:0  D:1  Flames
- *   Pyro pistol         9" Pistol 4    S:4  AP:0  D:1  Flames
+ *   Pyreblaster        12" Assault 4   S:4  AP:0  D:1  Flames
+ *   Pyre pistol         9" Pistol 4    S:4  AP:0  D:1  Flames
  *   Frag grenade        6" Grenade 1   S:4  AP:0  D:1  Explosive
  *   Krak grenade        6" Grenade 1   S:6  AP:-2 D:1  -
  * OPTIONS:
  *   All Neophytes may swap Astartes chainsword: Astartes shotgun+1, Bolt carbine+1
  *   Each Initiate may swap Astartes chainsword: Bolt rifle+2
- *   Per-10 models, two Initiates swap Astartes chainsword: Pyroblaster+1, Power fist+11
- *   Per-10 models, two Initiates swap Heavy bolt pistols: Pyro pistol+2, Plasma pistol+7
+ *   Per-10 models, two Initiates swap Astartes chainsword: Pyreblaster+1, Power fist+11
+ *   Per-10 models, two Initiates swap Heavy bolt pistols: Pyre pistol+2, Plasma pistol+7
  *   Sword Brother has access to weapons and gear from the Armory.
  * ABILITIES: Combat squads, They Shall Know No Fear; Squires (Neophytes removed first as
  *   casualties, use own defensive profile even if not the majority) — added SM 1.01.
@@ -35,7 +35,7 @@
  *
  * ENGINE STATUS: equipped_with field only stores Neophyte line (string limitation); Initiate/Sword
  *   Brother gear deduced from option groups. has_armory_access:true (Sword Brother direct access).
- *   BUGS FIXED: Neophyte Astartes shotgun 0→1 pt, Bolt carbine 0→1 pt, Pyroblaster 0→1 pt.
+ *   BUGS FIXED: Neophyte Astartes shotgun 0→1 pt, Bolt carbine 0→1 pt, Pyreblaster 0→1 pt.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -174,7 +174,7 @@ export const indomitusCrusaderSquad: Unit = {
       "abilities": "Blast(4)"
     },
     {
-      "name": "Pyroblaster",
+      "name": "Pyreblaster",
       "range": "12\"",
       "type": "Assault 4",
       "s": "4",
@@ -183,7 +183,7 @@ export const indomitusCrusaderSquad: Unit = {
       "abilities": "Auto Hit, Sunder(1)"
     },
     {
-      "name": "Pyro pistol",
+      "name": "Pyre pistol",
       "range": "9\"",
       "type": "Pistol 4",
       "s": "4",
@@ -262,7 +262,7 @@ export const indomitusCrusaderSquad: Unit = {
       },
       "choices": [
         {
-          "name": "Pyroblaster",
+          "name": "Pyreblaster",
           "points": 1
         },
         {
@@ -287,7 +287,7 @@ export const indomitusCrusaderSquad: Unit = {
       },
       "choices": [
         {
-          "name": "Pyro pistol",
+          "name": "Pyre pistol",
           "points": 2
         },
         {
