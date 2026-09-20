@@ -1,4 +1,5 @@
 import type { FactionData, Power } from '../types/data';
+import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 
 /**
  * Shared formatting + lookup for prayers, infernal pacts and psychic powers.
@@ -27,6 +28,14 @@ export function findPowerByName(name: string, data: FactionData | null | undefin
     data.prayers,
     data.pacts,
     ...Object.values(data.disciplines ?? {}),
+    // GENERAL_DISCIPLINES is not part of FactionData: it is the six disciplines every psyker in
+    // the game can pick from (Biomancy, Divination, Pyromancy, Telekinesis, Telepathy, plus the
+    // always-known General list), and it lives in its own module. Leaving it out meant ALL 31 of
+    // those powers resolved to nothing -- in every one of the 19 factions -- so a Biomancy pick
+    // printed its bare name with no range, cast value, target, duration or effect, while a
+    // faction-discipline pick a line above it printed everything. The picker, the validator, the
+    // cheat sheet and the TTS export all knew about this pool; only the formatter did not.
+    ...Object.values(GENERAL_DISCIPLINES),
   ];
   for (const pool of pools.filter((p): p is Power[] => Array.isArray(p))) {
     const hit = pool.find(p => p.name === name);

@@ -417,6 +417,86 @@ llama `.find()` — `prayers`, `pacts`, cada disciplina, cada sección de armer�
 array. **Ejecutalo tras tocar `loaders.ts`, cualquier fichero de `psychic/` o `armory/`, o el tipo
 `FactionData`.** Sale con código distinto de cero al primer problema.
 
+### Aliados: la matriz y el destacamento aliado (`check_ally_matrix_vs_core.cjs`, `check_allied_rules.ts`)
+
+La sección "Allies" del Core Book le da cuatro cosas al constructor de listas; el resto (auras, qué
+transporte puede llevar a quién, el chequeo de Liderazgo de Desperate Allies) pasa en la mesa.
+
+```
+node scripts/check_ally_matrix_vs_core.cjs "<volcado de texto del core>"
+npx tsx scripts/check_allied_rules.ts
+```
+
+El primero compara las 289 celdas de `src/data/alliedMatrix.ts` con la rejilla 17×17 del
+reglamento. **Cuidado con el patrón de columna al editarlo:** `SM` sin límite por la izquierda casa
+dentro de `CSM:'R'`, y por eso su primera ejecución cantó 13 celdas mal — todas en la columna SM —
+sobre datos correctos. Siete arquetipos REESCRIBEN una fila de la matriz; esos tienen su propio
+guard, `check_ally_matrix_overrides.ts`.
+
+El segundo comprueba el mini-AOP aliado contra la lista del Core Book y que un único o un
+"once per army" siga contando una sola vez cuando te alías con tu propia facción. **Si escribes una
+sonda con una entrada aliada, dale a la FactionData un mapa `allied`**: `resolveUnit` manda el ítem
+aliado a `data.allied[factionSource]`, y sin él toda unidad aliada resuelve a `undefined`, las
+comprobaciones se la saltan y un "no hay error" silencioso se lee como un fallo del motor. Los dos
+controles de ese guard existen exactamente por eso: una copia debe ser legal, y dos en el primario
+deben saltar.
+
+### Visualización de poderes psíquicos (`scripts/check_psychic_display.ts`)
+
+Una entrada de lista guarda poderes, oraciones y pactos como **cadenas con el nombre pelado**;
+todo el detalle de reglas (alcance, objetivo, valor de lanzamiento, duración, efecto) vive en los
+datos psíquicos y lo resuelve al pintar `src/utils/psychicFormat.ts`. Dos cosas pueden romperlo, y
+cada una es invisible para una comprobación que solo mire la otra:
+
+- **Un pool que la búsqueda no recorre.** `GENERAL_DISCIPLINES`
+  (`src/data/generalDisciplines.ts`) **no forma parte de `FactionData`** — son las seis disciplinas
+  que puede elegir cualquier psíquico del juego. Hay que añadirlo explícitamente a los pools de
+  `findPowerByName`. Hubo un tiempo en que no estaba, y sus 31 poderes no resolvían en ninguna de
+  las 19 facciones.
+- **Un sitio de pintado que nunca llama al formateador.** Hay cuatro: `PsychicModal`, `UnitCard`,
+  `PrintView` y `PlayView` (la vista de batalla). La ficha de unidad llegó a formatear oraciones y
+  pactos e imprimir los poderes con el nombre pelado.
+
+```
+npx tsx scripts/check_psychic_display.ts
+```
+
+Comprueba las dos mitades: que cada uno de los ~808 poderes seleccionables resuelve a una línea de
+metadatos no vacía **y** que cada sitio de pintado llama de verdad al formateador — quitando antes
+los comentarios, porque los comentarios de los componentes nombran justo las funciones que busca.
+**Ejecútalo tras añadir una disciplina, un fichero de datos psíquicos o un sitio nuevo donde se
+muestre un poder.**
+
+### Tipos de unidad del Core Book (`scripts/check_unit_types.ts`)
+
+La sección "Unit Types" de las Core Rules es casi toda **acción dentro de la partida** — Tank
+Shock, arcos de tiro, tabla de daño de vehículo, Hover Mode — y esa parte vive correctamente en la
+wiki como prosa. Cuatro de sus afirmaciones cambian algo que posee el **constructor de listas**, y
+este guard las comprueba en los 670 datasheets:
+
+- **Monstrous Creature y Monstrous Infantry no pueden entrar en transportes.** Ambos lo dicen bajo
+  Movement. Ojo: `"Monstrous Infantry"` **contiene la palabra "Infantry"**, así que un test
+  `unit_type.includes('infantry')` lo lee como permiso. Fue un bug real, en 33 unidades.
+- **`is_monster` significa Monstrous *Creature*** (o Gargantuan), nunca Monstrous Infantry. El canon
+  es la cabecera de precios de cada hoja Army Customisation: `NORMAL | CHARACTER MODELS | MONSTROUS
+  CREATURES & VEHICLES`. El flag elige esa tercera columna, así que ponerlo en Monstrous Infantry
+  cobra y filtra la unidad como criatura.
+- **Ningún vehículo imprime Leadership** — "Vehicles automatically pass Leadership tests as they do
+  not have a Leadership value."
+- **Todo Walker lleva `is_vehicle`** — "Walker: Acts like Vehicles." Importa porque todas las
+  puertas de vehículo del motor (acceso a armería, ámbito de traits, HP vs W, puntos) leen el
+  **flag**, no la cadena `unit_type`. Un Flyer cuyo `unit_type` omite "Vehicle" pero tiene
+  `is_vehicle` a true es por tanto **correcto**, no un fallo.
+
+```
+npx tsx scripts/check_unit_types.ts
+```
+
+**Ejecútalo tras editar el `unit_type` de cualquier datasheet o sus flags
+`is_vehicle`/`is_monster`/`is_character`, o tras tocar `transportGate.ts`.** Sale con código
+distinto de cero y nombra a cada infractor. El "gains Deep Strike" de Jump Pack Infantry es la
+quinta afirmación y tiene su propio guard, `scripts/check_jump_pack_deep_strike.ts`.
+
 ### Exportar a Tabletop Simulator
 
 Un ejército montado aquí se puede exportar a una mesa de Tabletop Simulator. Son dos mitades que

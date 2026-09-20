@@ -418,6 +418,83 @@ It walks all 21 factions through the real loader and asserts that everything the
 **Run it after touching `loaders.ts`, any `psychic/` or `armory/` data file, or the `FactionData`
 type.** Exits non-zero on the first problem.
 
+### Allies: the matrix and the allied detachment (`check_ally_matrix_vs_core.cjs`, `check_allied_rules.ts`)
+
+The Core Book's "Allies" section hands the list builder four things; the rest of it (auras, which
+transport may carry whom, the Desperate Allies Leadership test) happens at the table.
+
+```
+node scripts/check_ally_matrix_vs_core.cjs "<core rules text dump>"
+npx tsx scripts/check_allied_rules.ts
+```
+
+The first compares all 289 cells of `src/data/alliedMatrix.ts` against the rulebook's 17×17 grid.
+**Mind the column pattern when editing it:** `SM` without a left boundary matches inside `CSM:'R'`,
+which made its first run report 13 wrong cells, all in the SM column, on data that was correct.
+Seven archetypes REWRITE a row of the matrix; those have their own guard,
+`check_ally_matrix_overrides.ts`.
+
+The second asserts the allied mini-AOP against the Core Book's list and that a unique / once-per-army
+selection still counts once when you ally with your own faction. **If you write a probe involving an
+allied entry, give the FactionData an `allied` map** — `resolveUnit` sends an allied item to
+`data.allied[factionSource]`, and without it every allied unit resolves to `undefined`, so checks
+skip them and a silent "no error" reads as an engine bug. Both controls in that guard exist for
+exactly that reason: one copy must be legal, and two in the primary must be flagged.
+
+### Psychic power display (`scripts/check_psychic_display.ts`)
+
+A roster entry stores powers, prayers and pacts as **bare name strings**; every rules detail
+(range, target, cast value, duration, effect) lives in the psychic data and is resolved at render
+time by `src/utils/psychicFormat.ts`. Two things can break that, and each is invisible to a check
+that only tests the other:
+
+- **A pool the lookup does not search.** `GENERAL_DISCIPLINES` (`src/data/generalDisciplines.ts`)
+  is **not part of `FactionData`** — it is the six disciplines every psyker in the game may pick
+  from. It has to be added to `findPowerByName`'s pools explicitly. It once was not, and all 31 of
+  its powers resolved to nothing in all 19 factions.
+- **A render site that never calls the formatter.** There are four: `PsychicModal`, `UnitCard`,
+  `PrintView` and `PlayView` (the battle view). The unit card once formatted prayers and pacts and
+  printed powers as a bare name.
+
+```
+npx tsx scripts/check_psychic_display.ts
+```
+
+It asserts both halves: every one of the ~808 selectable powers resolves to a non-empty meta line,
+**and** each render site really calls the formatter — with comments stripped first, because the
+components' comments name the very functions the check greps for. **Run it after adding a
+discipline, a psychic data file, or a new place that displays a power.**
+
+### Core Book unit types (`scripts/check_unit_types.ts`)
+
+The Core Rules' "Unit Types" section is mostly **in-game action** — Tank Shock, firing arcs, the
+Vehicle Damage Chart, Hover Mode — and that part correctly lives in the wiki as prose. Four of its
+statements change something a **roster builder** owns, and this guard asserts those four across all
+670 datasheets:
+
+- **Monstrous Creature and Monstrous Infantry cannot enter transport vehicles.** Both say so under
+  Movement. Watch out: `"Monstrous Infantry"` **contains the word "Infantry"**, so a
+  `unit_type.includes('infantry')` test reads it as permission. That was a real bug, for 33 units.
+- **`is_monster` means Monstrous *Creature*** (or Gargantuan), never Monstrous Infantry. The canon
+  is the price header on every Army Customisation sheet: `NORMAL | CHARACTER MODELS | MONSTROUS
+  CREATURES & VEHICLES`. The flag selects that third column, so putting it on Monstrous Infantry
+  prices and filters the unit as a creature.
+- **No vehicle prints a Leadership value** — "Vehicles automatically pass Leadership tests as they
+  do not have a Leadership value."
+- **Every Walker carries `is_vehicle`** — "Walker: Acts like Vehicles." This matters because every
+  vehicle gate in the engine (armoury access, trait scope, HP-vs-W, points) reads the **flag**, not
+  the `unit_type` string. A Flyer whose `unit_type` omits "Vehicle" while `is_vehicle` is true is
+  therefore **correct**, not a fault.
+
+```
+npx tsx scripts/check_unit_types.ts
+```
+
+**Run it after editing any datasheet's `unit_type` or its `is_vehicle`/`is_monster`/`is_character`
+flags, or after touching `transportGate.ts`.** Exits non-zero and names every offender. Jump Pack
+Infantry's "gains Deep Strike" is the fifth builder-owned statement and has its own guard,
+`scripts/check_jump_pack_deep_strike.ts`.
+
 ### Tabletop Simulator export
 
 An army built here can be exported to a Tabletop Simulator table. It is two halves that must be

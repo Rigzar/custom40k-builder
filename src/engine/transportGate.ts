@@ -16,12 +16,17 @@ export function unitMovementInches(unit: Unit): number | null {
 }
 
 /** A unit can embark in a Dedicated Transport if its unit_type contains 'Infantry' (covers
- * 'Infantry', 'Character Model, Infantry', 'Monstrous Infantry') but NOT 'Jump Pack' variants
- * (jump packs prevent embarking). Distinct from validators.ts's strict-Infantry check (which
- * requires exact "Infantry" for the AOP cap) — here we care about physical embark capability. */
+ * 'Infantry' and 'Character Model, Infantry') but NOT 'Jump Pack' variants (jump packs prevent
+ * embarking), and NOT the Monstrous types. Core Rules 1.264, Unit Types: Monstrous Creature and
+ * Monstrous Infantry each state "Cannot enter transport vehicles." under Movement, so "Monstrous
+ * Infantry" containing the word Infantry must not be read as permission - this comment used to
+ * claim the opposite and list Monstrous Infantry as covered. Distinct from validators.ts's
+ * strict-Infantry check (which requires exact "Infantry" for the AOP cap) — here we care about
+ * physical embark capability. */
 export function unitHasTransportOption(unit: Unit): boolean {
   const t = unit.unit_type;
   if (/jump[\s-]*pack/i.test(t)) return false;
+  if (/monstrous|gargantuan/i.test(t)) return false;
   return t.toLowerCase().includes('infantry');
 }
 

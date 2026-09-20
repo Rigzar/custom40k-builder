@@ -41,6 +41,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Warbikers": fastAttack.warbikers,
   "Warbuggy": fastAttack.warbuggy,
   "Warkopta": fastAttack.warkopta,
+  "Battle Fortress": lordsOfWar.battleFortress,
   "Orkanaut": lordsOfWar.orkanaut,
   "Stompa": lordsOfWar.stompa,
   "Battlewagon": heavySupport.battlewagon,
@@ -120,6 +121,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Wazbom Blastajet"
   ],
   "Lords of War": [
+    "Battle Fortress",
     "Orkanaut",
     "Stompa"
   ]

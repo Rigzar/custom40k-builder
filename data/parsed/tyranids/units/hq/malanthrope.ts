@@ -312,5 +312,5 @@ export const malanthrope: Unit = {
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 99,
-  "is_monster": true
+  "is_monster": false
 };

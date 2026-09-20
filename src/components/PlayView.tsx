@@ -26,6 +26,7 @@ import { selectedAbilities, battleWeapons, selectedExtras } from '../lib/battleP
 import { resolveStatValue } from '../lib/statPipeline';
 import { wardSave, ownWardAbilities } from '../lib/wardSave';
 import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
+import { powerMetaByName } from '../utils/psychicFormat';
 import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
@@ -220,13 +221,39 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
                 <p><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playTraits')}</span>
                    <span className="text-zinc-300">{extras.traits.join(' · ')}</span></p>
               )}
+              {/* The one view you actually read DURING a game, and it listed powers and prayers by
+                  NAME only — so the range and cast value of the thing you are about to cast were
+                  the one detail it did not have. Each entry now carries its meta line (type,
+                  range, cast value, target, duration) from the shared formatter. The effect text
+                  stays out on purpose: this view's whole point is a compact card, and the full
+                  rules text is one tap away on the unit card and on the printed sheet. */}
               {extras.powers.length > 0 && (
-                <p><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPowers')}</span>
-                   <span className="text-zinc-300">{extras.powers.join(' · ')}</span></p>
+                <div><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPowers')}</span>
+                  {extras.powers.map((name, i) => {
+                    const meta = powerMetaByName(name, data);
+                    return (
+                      <span key={i} className="text-zinc-300">
+                        {i > 0 && <span className="text-zinc-600"> · </span>}
+                        {name}
+                        {meta && <span className="text-amber-600/90"> ({meta})</span>}
+                      </span>
+                    );
+                  })}
+                </div>
               )}
               {extras.prayers.length > 0 && (
-                <p><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPrayers')}</span>
-                   <span className="text-zinc-300">{extras.prayers.join(' · ')}</span></p>
+                <div><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPrayers')}</span>
+                  {extras.prayers.map((name, i) => {
+                    const meta = powerMetaByName(name, data);
+                    return (
+                      <span key={i} className="text-zinc-300">
+                        {i > 0 && <span className="text-zinc-600"> · </span>}
+                        {name}
+                        {meta && <span className="text-amber-600/90"> ({meta})</span>}
+                      </span>
+                    );
+                  })}
+                </div>
               )}
             </div>
           )}

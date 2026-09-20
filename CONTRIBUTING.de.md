@@ -427,6 +427,89 @@ Es führt alle 21 Fraktionen durch den echten Loader und prüft, dass alles, wor
 ist. **Nach Änderungen an `loaders.ts`, an Dateien in `psychic/` oder `armory/` oder am Typ
 `FactionData` ausführen.** Beendet sich beim ersten Problem mit Fehlercode.
 
+### Verbündete: die Matrix und die verbündete Abordnung (`check_ally_matrix_vs_core.cjs`, `check_allied_rules.ts`)
+
+Der Abschnitt "Allies" des Core Books gibt dem Listenbauer vier Dinge; der Rest (Auren, welcher
+Transporter wen mitnehmen darf, der Leadership-Test bei Desperate Allies) passiert am Tisch.
+
+```
+node scripts/check_ally_matrix_vs_core.cjs "<Textdump der Core Rules>"
+npx tsx scripts/check_allied_rules.ts
+```
+
+Der erste vergleicht alle 289 Zellen von `src/data/alliedMatrix.ts` mit dem 17×17-Raster des
+Regelwerks. **Beim Bearbeiten auf das Spaltenmuster achten:** `SM` ohne linke Grenze trifft
+innerhalb von `CSM:'R'` — deshalb meldete der erste Lauf 13 falsche Zellen, allesamt in der
+SM-Spalte, bei korrekten Daten. Sieben Archetypen SCHREIBEN eine Zeile der Matrix um; dafür gibt es
+den eigenen Guard `check_ally_matrix_overrides.ts`.
+
+Der zweite prüft den verbündeten Mini-AOP gegen die Liste des Core Books und dass eine
+Unique- bzw. Once-per-army-Auswahl auch dann nur einmal zählt, wenn man sich mit der eigenen
+Fraktion verbündet. **Wer eine Sonde mit einem verbündeten Eintrag schreibt, muss der FactionData
+eine `allied`-Map geben:** `resolveUnit` schickt einen verbündeten Eintrag an
+`data.allied[factionSource]`; ohne sie löst jede verbündete Einheit zu `undefined` auf, Prüfungen
+überspringen sie, und ein stilles „kein Fehler“ liest sich wie ein Engine-Bug. Genau dafür sind
+die beiden Kontrollen in diesem Guard da: eine Kopie muss legal sein, zwei im primären
+Detachement müssen gemeldet werden.
+
+### Anzeige psionischer Kräfte (`scripts/check_psychic_display.ts`)
+
+Ein Listeneintrag speichert Kräfte, Gebete und Pakte als **bloße Namensstrings**; jedes
+Regeldetail (Reichweite, Ziel, Wirkwert, Dauer, Effekt) liegt in den psionischen Daten und wird
+beim Rendern von `src/utils/psychicFormat.ts` aufgelöst. Zwei Dinge können das brechen, und jedes
+ist für eine Prüfung unsichtbar, die nur das andere testet:
+
+- **Ein Pool, den die Suche nicht durchsucht.** `GENERAL_DISCIPLINES`
+  (`src/data/generalDisciplines.ts`) ist **nicht Teil von `FactionData`** — es sind die sechs
+  Disziplinen, aus denen jeder Psioniker im Spiel wählen darf. Er muss den Pools von
+  `findPowerByName` ausdrücklich hinzugefügt werden. Einmal war er es nicht, und alle 31 Kräfte
+  lösten in allen 19 Fraktionen ins Leere auf.
+- **Eine Render-Stelle, die den Formatierer nie aufruft.** Es gibt vier: `PsychicModal`,
+  `UnitCard`, `PrintView` und `PlayView` (die Battle View). Die Einheitenkarte formatierte einst
+  Gebete und Pakte und druckte Kräfte als bloßen Namen.
+
+```
+npx tsx scripts/check_psychic_display.ts
+```
+
+Geprüft werden beide Hälften: dass jede der ~808 wählbaren Kräfte zu einer nicht leeren
+Metazeile auflöst **und** dass jede Render-Stelle den Formatierer wirklich aufruft — Kommentare
+werden vorher entfernt, denn die Kommentare der Komponenten nennen genau die Funktionen, nach
+denen gesucht wird. **Nach dem Hinzufügen einer Disziplin, einer psionischen Datendatei oder einer
+neuen Anzeigestelle ausführen.**
+
+### Einheitentypen des Core Books (`scripts/check_unit_types.ts`)
+
+Der Abschnitt "Unit Types" der Core Rules besteht größtenteils aus **Handlungen im Spiel** — Tank
+Shock, Feuerwinkel, Fahrzeug-Schadenstabelle, Hover Mode — und dieser Teil gehört zu Recht als
+Fließtext ins Wiki. Vier seiner Aussagen ändern etwas, das dem **Listenbauer** gehört; dieser
+Guard prüft sie über alle 670 Datenblätter:
+
+- **Monstrous Creature und Monstrous Infantry können keine Transportfahrzeuge betreten.** Beide
+  sagen es unter Movement. Achtung: `"Monstrous Infantry"` **enthält das Wort "Infantry"**, ein
+  Test auf `unit_type.includes('infantry')` liest das also als Erlaubnis. Das war ein echter Fehler,
+  bei 33 Einheiten.
+- **`is_monster` bedeutet Monstrous *Creature*** (oder Gargantuan), nie Monstrous Infantry. Kanon
+  ist die Preisüberschrift auf jedem Army-Customisation-Blatt: `NORMAL | CHARACTER MODELS |
+  MONSTROUS CREATURES & VEHICLES`. Das Flag wählt diese dritte Spalte — auf Monstrous Infantry
+  gesetzt, wird die Einheit als Kreatur bepreist und gefiltert.
+- **Kein Fahrzeug druckt einen Leadership-Wert** — "Vehicles automatically pass Leadership tests as
+  they do not have a Leadership value."
+- **Jeder Walker trägt `is_vehicle`** — "Walker: Acts like Vehicles." Das zählt, weil jede
+  Fahrzeugprüfung der Engine (Arsenalzugang, Trait-Geltungsbereich, HP statt W, Punkte) das **Flag**
+  liest, nicht den `unit_type`-String. Ein Flyer, dessen `unit_type` "Vehicle" auslässt, während
+  `is_vehicle` true ist, ist daher **korrekt** und kein Fehler.
+
+```
+npx tsx scripts/check_unit_types.ts
+```
+
+**Nach dem Bearbeiten des `unit_type` eines Datenblatts oder seiner Flags
+`is_vehicle`/`is_monster`/`is_character` ausführen, ebenso nach Änderungen an
+`transportGate.ts`.** Beendet sich mit Fehlercode und nennt jeden Verstoß. Das "gains Deep Strike"
+von Jump Pack Infantry ist die fünfte Aussage und hat einen eigenen Guard,
+`scripts/check_jump_pack_deep_strike.ts`.
+
 ### Export nach Tabletop Simulator
 
 Eine hier gebaute Armee lässt sich auf einen Tabletop-Simulator-Tisch exportieren. Es sind zwei

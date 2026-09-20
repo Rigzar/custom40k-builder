@@ -1968,17 +1968,30 @@ export function UnitCard({ item }: Props) {
                 </div>
               )}
               {/* Selected powers — filter out internal __discipline__ marker */}
-              {item.powers.filter(p => p.powerName !== '__discipline__').map((p, i) => (
-                <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                  <span className="text-zinc-300">{p.powerName} <span className="text-zinc-600">({p.disciplineName})</span></span>
-                  <button
-                    onClick={() => useArmyStore.getState().removePower(item.id, p.disciplineName, p.powerName)}
-                    className="text-red-500 hover:text-red-300"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
+              {/* v1.70 gave prayers and pacts their full line here and POWERS WERE LEFT BEHIND:
+                  the two blocks below format through `powerMetaByName`/`powerEffectByName` while
+                  this one printed the bare name and its discipline, so the card never told you a
+                  power's range, cast value, target or duration — the same complaint v1.70 fixed,
+                  on the one kind of entry it missed. Same formatter as the modal and Print View. */}
+              {item.powers.filter(p => p.powerName !== '__discipline__').map((p, i) => {
+                const meta = powerMetaByName(p.powerName, data);
+                const eff = powerEffectByName(p.powerName, data);
+                return (
+                  <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                    <div className="min-w-0">
+                      <div className="text-zinc-300">{p.powerName} <span className="text-zinc-600">({p.disciplineName})</span></div>
+                      {meta && <div className="text-[10px] text-amber-600/90 uppercase tracking-wide">{meta}</div>}
+                      {eff && <div className="text-[10px] text-zinc-500 leading-snug">{eff}</div>}
+                    </div>
+                    <button
+                      onClick={() => useArmyStore.getState().removePower(item.id, p.disciplineName, p.powerName)}
+                      className="text-red-500 hover:text-red-300 shrink-0"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
               {/* For all_from_one mode: show chosen discipline */}
               {item.powers.find(p => p.powerName === '__discipline__') && (() => {
                 const disc = item.powers.find(p => p.powerName === '__discipline__')!;
