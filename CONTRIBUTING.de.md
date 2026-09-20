@@ -427,6 +427,63 @@ Es führt alle 21 Fraktionen durch den echten Loader und prüft, dass alles, wor
 ist. **Nach Änderungen an `loaders.ts`, an Dateien in `psychic/` oder `armory/` oder am Typ
 `FactionData` ausführen.** Beendet sich beim ersten Problem mit Fehlercode.
 
+### Aufstellungsregeln, die pro Wunde gekauft werden (`scripts/check_deployment_upgrades.ts`)
+
+Fünf Fraktionen bieten auf ihrem Index-Blatt eine Regel an, mit der eine Einheit anders aufgestellt
+wird, bezahlt pro Wunde: Eldar/Harlequins **Webway strike**, Dark Eldar **Webway raid**
+(Infiltrators, +1/Wunde, Infanterie), Custodes **Lightning strike** (Deep Strike, +1/Wunde oder
++4/Strukturpunkt, Infantry/Walker) und Orks **Tellyporta** (Deep Strike, +1/Wunde, +4/SP für
+Fahrzeuge und monströse Kreaturen). Sie liegen in `src/engine/deploymentUpgrades.ts` und werden pro
+Listeneintrag geschaltet.
+
+```
+npx tsx scripts/check_deployment_upgrades.ts
+```
+
+**„For each STARTED 1000 points“ bedeutet CEIL**, ebenso das orkische „or part thereof“ — die
+Obergrenze wird bei 1000 **und** 1001 geprüft, weil dieser Code das Paar floor/ceil schon einmal
+verwechselt hat („for every 500 points“ ist floor).
+
+**`computeUnitPoints` nimmt `faction` als PFLICHTPARAMETER und muss das bleiben.** Ein Standardwert
+ließe eine vergessene Aufrufstelle still zu wenig berechnen; als Pflicht nennt der Compiler alle
+zwölf. Übergib `factionForEntry(item, data)`, nie `data.faction`: ein verbündeter Eintrag wird mit
+der Fraktion des VERBÜNDETEN bepreist, denn eine verbündete Abordnung wählt ihre eigene Army
+Customisation.
+
+**`resolveUnit` in `points.ts` ist das Nachschlagen der Einheit, keine Preisberechnung.** Seine
+Modelle tragen die Grundkosten des Datenblatts und bewegen sich nie; eine Preisdifferenz darauf zu
+prüfen ergibt immer null. Rechne über `computeUnitPoints` oder über `pts` des Resolvers.
+
+### „Objective secured!“ und verbündete Abordnungen (`scripts/check_objective_secured_allies.ts`)
+
+Die Core Rules sind eindeutig: *„Units that are taken in an allied detachment can never make use of
+the 'Objective secured!' rule.“* **Die Fähigkeit erreicht eine Einheit auf drei Wegen**, und einen
+davon abzusichern genügt nicht:
+
+1. die automatische Verleihung an jede Troops-Auswahl (`resolver.ts`);
+2. die Eldar-Exarchen-Kraft **Stand firm** über `EXARCH_POWER_EFFECTS.unitAbility`;
+3. **jeder Arsenalgegenstand, dessen Beschreibung die Fähigkeit in Anführungszeichen nennt** — der
+   generische Parser in `equipMods` greift sie auf, weshalb das Mandulian Reliquary der Grey
+   Knights sie ohne eigene Verdrahtung verleiht.
+
+Ein vierter scheinbarer Weg ist bloßer Text: zwölf Archetyp-`notes` versprechen die Fähigkeit und
+verleihen nichts. Die bleiben; `ArmyConfig.tsx` setzt für die verbündete Abordnung einen Hinweis
+darunter.
+
+```
+npx tsx scripts/check_objective_secured_allies.ts
+```
+
+**Die Prüfung muss `factionSource` gegen die AKTIVE verbündete Fraktion stellen, nie
+`factionSource` allein:** eine eingefügte Supplement-Einheit (Assassins, Horus Heresy) trägt ihren
+eigenen `factionSource`, ohne im Regelsinn eine verbündete Abordnung zu sein, und behält die
+Fähigkeit. Der Guard prüft genau diesen Fall — den, den eine nachlässige Korrektur bricht,
+während alles andere weiter durchläuft.
+
+**Wer hier eine Sonde schreibt, muss `slot` im Listeneintrag setzen.** Eine `RosterEntry` trägt
+ihren eigenen Slot, und `effectiveSlot` liest diesen, nicht `unit.slot` — der erste Lauf dieses
+Guards scheiterte deshalb an seiner eigenen Troops-Kontrolle, wofür diese Kontrolle da ist.
+
 ### Verbündete: die Matrix und die verbündete Abordnung (`check_ally_matrix_vs_core.cjs`, `check_allied_rules.ts`)
 
 Der Abschnitt "Allies" des Core Books gibt dem Listenbauer vier Dinge; der Rest (Auren, welcher

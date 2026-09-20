@@ -4,7 +4,7 @@ import { SLOT_ORDER } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor } from '../engine/archetypes';
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride } from '../engine/codex_imperial_guard/platoon';
-import { resolveUnit, computeUnitPoints } from '../engine/points';
+import { resolveUnit, computeUnitPoints, factionForEntry } from '../engine/points';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { useT, type TranslationKey } from '../i18n';
 import { removedUnitNote } from '../engine/unitRenames';
@@ -98,7 +98,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
 
         const slotPts = slotUnits.reduce((s, item) => {
           const u = resolveUnit(item, data);
-          return s + (u ? computeUnitPoints(item, u, effectiveArchetype) : 0);
+          return s + (u ? computeUnitPoints(item, u, effectiveArchetype, factionForEntry(item, data)) : 0);
         }, 0);
 
         return (

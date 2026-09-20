@@ -418,6 +418,59 @@ It walks all 21 factions through the real loader and asserts that everything the
 **Run it after touching `loaders.ts`, any `psychic/` or `armory/` data file, or the `FactionData`
 type.** Exits non-zero on the first problem.
 
+### Deployment rules bought per Wound (`scripts/check_deployment_upgrades.ts`)
+
+Five factions sell a rule on their Index tab that lets one unit be set up differently, paid for per
+Wound: Eldar/Harlequins **Webway strike**, Dark Eldar **Webway raid** (Infiltrators, +1/Wound,
+infantry), Custodes **Lightning strike** (Deep Strike, +1/Wound or +4/Hull Point, Infantry/Walker)
+and Orks **Tellyporta** (Deep Strike, +1/Wound, +4/Hull Point for vehicles and monstrous creatures).
+They live in `src/engine/deploymentUpgrades.ts` and are toggled per roster entry.
+
+```
+npx tsx scripts/check_deployment_upgrades.ts
+```
+
+**"For each STARTED 1000 points" means CEIL**, as does the Ork "or part thereof" — the cap is
+asserted at 1000 *and* 1001 precisely because this codebase has mixed up the floor/ceil pair before
+("for every 500 points" is floor).
+
+**`computeUnitPoints` takes `faction` as a REQUIRED parameter and must keep doing so.** Giving it a
+default would let a forgotten call site under-charge in silence; required, the compiler names all
+twelve. Pass `factionForEntry(item, data)`, never `data.faction` — an allied entry is priced against
+the ALLY's faction, because an allied detachment picks its own Army Customisation.
+
+**`resolveUnit` in `points.ts` is the unit LOOKUP, not a pricing call.** Its models carry the
+datasheet's base cost and never move, so asserting a price delta through it always reads zero. Price
+through `computeUnitPoints`, or through the resolver's `pts`.
+
+### "Objective secured!" and allied detachments (`scripts/check_objective_secured_allies.ts`)
+
+The Core Rules are absolute: *"Units that are taken in an allied detachment can never make use of
+the 'Objective secured!' rule."* **The ability reaches a unit by three routes**, and gating one of
+them is not enough:
+
+1. the automatic conferral on every Troops selection (`resolver.ts`);
+2. the Eldar Exarch power **Stand firm**, via `EXARCH_POWER_EFFECTS.unitAbility`;
+3. **any armoury item whose description quotes the ability** — the generic quoted-ability parser in
+   `equipMods` picks those up, so the Grey Knights Mandulian Reliquary grants it without any
+   per-item wiring.
+
+A fourth apparent route is prose: twelve archetype `notes` promise the ability and grant nothing.
+Those stay, and `ArmyConfig.tsx` adds a caveat under them for the allied detachment instead.
+
+```
+npx tsx scripts/check_objective_secured_allies.ts
+```
+
+**The gate must test `factionSource` against the ACTIVE allied faction, never `factionSource`
+alone:** an injected-supplement unit (Assassins, Horus Heresy) carries its own `factionSource`
+without being an allied detachment in the rules sense, and keeps the ability. The guard asserts
+that case, and it is the one a careless fix breaks while every other assertion still passes.
+
+**If you add a probe here, set `slot` on the roster entry.** A `RosterEntry` carries its own slot
+and `effectiveSlot` reads that, not `unit.slot` — the first run of this guard failed its own
+Troops control because of it, which is exactly what that control is for.
+
 ### Allies: the matrix and the allied detachment (`check_ally_matrix_vs_core.cjs`, `check_allied_rules.ts`)
 
 The Core Book's "Allies" section hands the list builder four things; the rest of it (auras, which

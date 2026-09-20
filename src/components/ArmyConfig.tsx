@@ -257,6 +257,17 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                             {n}
                           </li>
                         ))}
+                        {/* Twelve archetype notes in the game promise "Objective secured!", and the
+                            Core Rules' Allies section says an allied detachment can NEVER use it.
+                            The engine already withholds the ability (resolver.ts gates all three
+                            routes), so without this line the panel promised something the card
+                            then did not show, with no explanation. Only rendered for the allied
+                            detachment, and only when a note actually raises the subject. */}
+                        {isAllied && rule.notes.some(n => /objective secured/i.test(n)) && (
+                          <li className="text-[10px] text-amber-500/90 pl-3 border-l border-amber-700 italic">
+                            {t('alliedNoObjectiveSecured')}
+                          </li>
+                        )}
                       </ul>
                     )}
                   </div>

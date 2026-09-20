@@ -68,7 +68,7 @@ export type TranslationKey =
   | 'armoryLostOnDowngradeConfirm'
   | 'transportCapacityLabel'
   | 'reaverLordPickLabel' | 'reaverLordChosenLabel' | 'reaverLordSearch'
-  | 'noCustomisationOptions' | 'battleSetup' | 'armyDoctrine' | 'notAvailableInSkirmish' | 'onlyForArmiesWithMarkOf'
+  | 'noCustomisationOptions' | 'battleSetup' | 'armyDoctrine' | 'notAvailableInSkirmish' | 'onlyForArmiesWithMarkOf' | 'alliedNoObjectiveSecured' | 'deploymentUpgradeLabel' | 'deploymentUpgradeFull'
   | 'legaciesNotAvailableWithArchetype' | 'secondLegacyNone' | 'secondLegacyUnlockedByTrait'
   | 'chooseUpToTraitsPrefix' | 'chooseUpToTraitsSuffix' | 'csmTraitsKeywordNote' | 'traitSlotPrefix' | 'traitSlotSuffix'
   | 'campaignTraitBonusLabel'
@@ -602,6 +602,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     armyDoctrine: 'Army Doctrine',
     notAvailableInSkirmish: 'Not available in Skirmish.',
     onlyForArmiesWithMarkOf: 'Only for armies with Mark of',
+    alliedNoObjectiveSecured: "Not in an allied detachment: allied units can never use “Objective secured!” (Core Rules, Allies).",
+    deploymentUpgradeLabel: 'Set up with {ability} ({rule}) — +{pts} pts',
+    deploymentUpgradeFull: 'Army limit reached at this game size',
     legaciesNotAvailableWithArchetype: 'Legacies not available with archetype',
     secondLegacyNone: '— 2nd Legacy (none) —',
     secondLegacyUnlockedByTrait: '2nd Legacy unlocked by the second-legion trait.',
@@ -1487,6 +1490,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     armyDoctrine: 'Armee-Doktrin',
     notAvailableInSkirmish: 'Im Scharmützel nicht verfügbar.',
     onlyForArmiesWithMarkOf: 'Nur für Armeen mit Mal von',
+    alliedNoObjectiveSecured: "Nicht in einer verbündeten Abordnung: verbündete Einheiten können „Objective secured!“ nie nutzen (Core Rules, Allies).",
+    deploymentUpgradeLabel: 'Aufstellen mit {ability} ({rule}) — +{pts} Pkt.',
+    deploymentUpgradeFull: 'Armeelimit bei dieser Spielgröße erreicht',
     legaciesNotAvailableWithArchetype: 'Vermächtnisse nicht verfügbar mit Archetyp',
     secondLegacyNone: '— 2. Vermächtnis (keines) —',
     secondLegacyUnlockedByTrait: '2. Vermächtnis wird durch die Zweite-Legion-Eigenschaft freigeschaltet.',
@@ -2370,6 +2376,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     armyDoctrine: 'Doctrina del ejército',
     notAvailableInSkirmish: 'No disponible en Skirmish.',
     onlyForArmiesWithMarkOf: 'Solo para ejércitos con Marca de',
+    alliedNoObjectiveSecured: "No en un destacamento aliado: las unidades aliadas nunca pueden usar «Objective secured!» (Core Rules, Allies).",
+    deploymentUpgradeLabel: 'Desplegar con {ability} ({rule}) — +{pts} ptos',
+    deploymentUpgradeFull: 'Límite del ejército alcanzado para este tamaño de partida',
     legaciesNotAvailableWithArchetype: 'Legados no disponibles con el arquetipo',
     secondLegacyNone: '— 2º Legado (ninguno) —',
     secondLegacyUnlockedByTrait: '2º Legado desbloqueado por el rasgo de segunda legión.',

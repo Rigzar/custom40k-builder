@@ -141,6 +141,14 @@ export interface RosterEntry {
    */
   ctanYngirUpgrade?: boolean;
   /**
+   * This entry is set up using its faction's deployment rule -- Eldar/Harlequins "Webway strike",
+   * Dark Eldar "Webway raid", Custodes "Lightning strike", Orks "Tellyporta". Each is an Index-tab
+   * army rule costing points per Wound (or per Hull Point), capped at one unit per STARTED 1000
+   * points of game size. Per-entry rather than per-unit-name because the same datasheet may be
+   * fielded twice with only one of them deploying this way. See engine/deploymentUpgrades.ts.
+   */
+  deploymentUpgrade?: boolean;
+  /**
    * Dark Eldar sub-faction (Kabal / Coven / Cult) chosen for a unit that carries more than one
    * sub-faction keyword (the shared vehicles/flyers: Raider, Venom, Ravager, Razorwing, Voidraven).
    * Narrows which sub-faction's traits apply to this unit. Null/undefined = un-chosen → every

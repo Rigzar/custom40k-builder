@@ -1,7 +1,8 @@
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect, DroneType } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
-import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
+import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor, factionForEntry } from './points';
+import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade } from './deploymentUpgrades';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
@@ -768,7 +769,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const rule = getArchetypeRule(effectiveArchetype);
 
   // Points & slot
-  const pts = computeUnitPoints(item, unit, effectiveArchetype);
+  const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data));
   // Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) — re-slots
   // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
   // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
@@ -1119,6 +1120,16 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // (ki-eldar-exarch-powers-no-effects-defined-01: these had no defined effect anywhere in the
   // engine before, for ANY purchase path). See getActiveExarchPowers() for why two purchase paths
   // both feed this one list.
+  // Allies, Limitation: "Units that are taken in an allied detachment can never make use of the
+  // 'Objective secured!' rule." Computed HERE rather than at its other use below, because the
+  // ability reaches a unit by three different routes and the automatic one is only the first:
+  // the Troops conferral further down, the Eldar Exarch power "Stand firm", and any armoury item
+  // whose text quotes the ability (the Grey Knights Mandulian Reliquary), which the generic
+  // quoted-ability parser in equipMods picks up. Only the first was gated, so an allied Exarch or
+  // Grey Knights character could still buy it. Gated on factionSource matching the ACTIVE allied
+  // faction, not on factionSource alone: injected-supplement units (Assassins, Horus Heresy) carry
+  // their own factionSource without being an allied detachment in the rules sense.
+  const isAlliedDetachmentUnit = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
   const activeExarchPowers = getActiveExarchPowers(unit, item);
   // Ability-text grants (unitAbility, and allWeapons' named ability/Deadly-stacking) are handled
   // here via weaponTraitMap/grantedAbilities; the numeric rangeDelta half is applied separately in
@@ -1397,6 +1408,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
 
+  // The absolute half of the same rule: whatever route granted it -- an Exarch power, an armoury
+  // item's quoted ability, a trait -- an allied-detachment unit does not keep "Objective secured!".
+  if (isAlliedDetachmentUnit) {
+    equipMods.grantedAbilities = equipMods.grantedAbilities.filter(a => !/objective secured/i.test(a));
+  }
+
   // Core Rules "Objective secured!" (L1320-1322, "Automatic Rule"): automatically conferred
   // to every Troop selection; units gain/lose it if their battlefield role switches via
   // Archetypes — `effectiveSlot` already reflects archetype slot-shifts (getEffectiveSlot),
@@ -1404,7 +1421,6 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // (Allies section, L1833) — gated on factionSource matching the active allied faction
   // (NOT on factionSource alone: injected-supplement units like Assassins/HH carry their own
   // factionSource without being an "allied detachment" in the rules sense).
-  const isAlliedDetachmentUnit = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
   const ruleNotes: string[] = [];
   if (effectiveSlot === 'Troops' && !isAlliedDetachmentUnit) {
     ruleNotes.push('Objective secured!');
@@ -1422,6 +1438,17 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // the join mechanics read the same grant (UnitCard dropdown + validator). Scoped via `rule`.
   if (rule?.grantsCommandSquad?.includes(item.unitName)) {
     ruleNotes.push('Command squad');
+  }
+
+  // The faction's deployment rule, bought on this entry: the unit is set up with Infiltrators
+  // (Webway strike / Webway raid) or Deep Strike (Lightning strike / Tellyporta). Shown as a rule
+  // note so it reaches the unit card, the printed datacard and the battle view like any other, and
+  // named so the card says WHICH rule paid for it. Eligibility is re-checked here rather than
+  // trusted from the stored flag: a saved list whose unit later stops qualifying (or whose faction
+  // rule changes) must stop showing it, and points.ts applies the same test before charging.
+  const deployUp = item.deploymentUpgrade ? getDeploymentUpgrade(data.faction) : null;
+  if (deployUp && unitMayTakeDeploymentUpgrade(unit, deployUp)) {
+    ruleNotes.push(`${deployUp.ability} (${deployUp.name})`);
   }
 
   // Armory items whose effect targets a whole NAMED WEAPON FAMILY (see FAMILY_BOOST_ITEMS in

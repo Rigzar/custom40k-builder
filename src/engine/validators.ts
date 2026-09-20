@@ -1,8 +1,9 @@
 import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
+import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
 import {
   getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
@@ -1068,7 +1069,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
   }, 0);
 
   // ── Entries whose datasheet no longer exists ─────────────────────────────────
@@ -2028,6 +2029,27 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // The faction's deployment rule -- Webway strike / Webway raid / Lightning strike / Tellyporta.
+  // "For each STARTED 1000 points of game size, one ... unit may be set up..." -- started, so the
+  // cap is Math.ceil, never floor. Counts entries whose unit still QUALIFIES, because points.ts
+  // and the resolver both ignore the flag on a unit that does not, and a cap that counted them
+  // would report an over-spend the player is not being charged for.
+  const deployUpRule = getDeploymentUpgrade(data.faction);
+  if (deployUpRule) {
+    const taken = state.army.filter(i => {
+      if (!i.deploymentUpgrade) return false;
+      const u = resolveUnit(i, data);
+      return !!u && unitMayTakeDeploymentUpgrade(u, deployUpRule);
+    }).length;
+    const cap = deploymentUpgradeCap(state.pointLimit, deployUpRule);
+    if (taken > cap) {
+      items.push({
+        type: 'error',
+        text: `${deployUpRule.name}: only ${cap} unit(s) may be set up this way at ${state.pointLimit} points (have ${taken}).`,
+      });
+    }
+  }
+
   // Yngir: "One C'tan shard (any kind)" — defense in depth alongside the UI toggle's
   // disable-the-other-instances guard (ods-verbatim, only 1 per army regardless of how many
   // C'tan Shards are fielded).
@@ -2170,7 +2192,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       })
       .reduce((s, i) => {
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
-        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
+        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
       }, 0);
     // Transport vehicles "from Mechanised Infantry" count toward the 25% Troops requirement
     // (Imperial Guard 1.01.ods): 50% of their point cost BY DEFAULT, raised to 75% by the
@@ -2193,7 +2215,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           })
           .map(i => {
             const u = resolveUnit(i, data);
-            return u ? computeUnitPoints(i, u, state.archetype) : 0;
+            return u ? computeUnitPoints(i, u, state.archetype, factionForEntry(i, data)) : 0;
           })
           .sort((a, b) => b - a)
           .slice(0, mechInfCount)
@@ -2374,7 +2396,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
-      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state));
+      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data));
       const effSlot = getEffectiveSlotFor(item, effectiveRuleFor(item, state));
       if (effSlot === 'HQ' && pts > 150) {
         items.push({ type: 'error', text: T('valSkirmishHqExceeds', { unit: item.unitName, pts }) });
@@ -2718,7 +2740,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       } else {
         const lowPts = lowUnits.reduce((s, i) => {
           const u = resolveUnit(i, data);
-          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
+          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
         }, 0);
         const cap = Math.floor(total * 0.33);
         if (lowPts > cap) {

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { factionForEntry } from './engine/points';
 import { useArmyStore, getSerializableState } from './store/army';
 import { SlotPanel } from './components/SlotPanel';
 import { ArmyConfig } from './components/ArmyConfig';
@@ -116,7 +117,7 @@ function HeaderStatus({ onOpenReview }: { onOpenReview: () => void }) {
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data)) : 0);
   }, 0);
 
   const pct  = Math.min(100, (total / state.pointLimit) * 100);
@@ -466,7 +467,7 @@ export default function App() {
         const totalPts = st.data
           ? st.army.reduce((sum, e) => {
               const u = resolveUnit(e, st.data!);
-              return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, st)) : 0);
+              return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, st), factionForEntry(e, st.data)) : 0);
             }, 0)
           : 0;
         const entry: SavedArmy = {
@@ -570,7 +571,7 @@ export default function App() {
 
     const total = army.reduce((s, i) => {
       const u = resolveUnit(i, data);
-      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store)) : 0);
+      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store), factionForEntry(i, store.data)) : 0);
     }, 0);
 
     const baseName = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;

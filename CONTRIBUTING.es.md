@@ -417,6 +417,62 @@ llama `.find()` — `prayers`, `pacts`, cada disciplina, cada sección de armer�
 array. **Ejecutalo tras tocar `loaders.ts`, cualquier fichero de `psychic/` o `armory/`, o el tipo
 `FactionData`.** Sale con código distinto de cero al primer problema.
 
+### Reglas de despliegue compradas por herida (`scripts/check_deployment_upgrades.ts`)
+
+Cinco facciones venden en su pestaña Index una regla que permite desplegar una unidad de otra
+forma, pagando por herida: Eldar/Harlequins **Webway strike**, Dark Eldar **Webway raid**
+(Infiltrators, +1/herida, infantería), Custodes **Lightning strike** (Deep Strike, +1/herida o
++4/punto de casco, Infantry/Walker) y Orkos **Tellyporta** (Deep Strike, +1/herida, +4/PC para
+vehículos y criaturas monstruosas). Viven en `src/engine/deploymentUpgrades.ts` y se activan por
+entrada de lista.
+
+```
+npx tsx scripts/check_deployment_upgrades.ts
+```
+
+**"For each STARTED 1000 points" es CEIL**, igual que el "or part thereof" orko — el tope se
+comprueba a 1000 **y** a 1001 justamente porque este código ya confundió antes la pareja
+floor/ceil ("for every 500 points" es floor).
+
+**`computeUnitPoints` recibe `faction` como parámetro OBLIGATORIO y debe seguir así.** Ponerle un
+valor por defecto dejaría que una llamada olvidada cobrara de menos en silencio; siendo obligatorio,
+el compilador nombra las doce. Pasa `factionForEntry(item, data)`, nunca `data.faction`: una entrada
+aliada se cobra con la facción del ALIADO, porque el destacamento aliado elige su propia
+personalización.
+
+**`resolveUnit` de `points.ts` es la BÚSQUEDA de la unidad, no un cálculo de puntos.** Sus modelos
+llevan el coste base de la ficha y nunca se mueven, así que medir una diferencia de precio por ahí
+siempre da cero. Cobra por `computeUnitPoints`, o por el `pts` del resolver.
+
+### "Objective secured!" y los destacamentos aliados (`scripts/check_objective_secured_allies.ts`)
+
+Las Core Rules son tajantes: *"Units that are taken in an allied detachment can never make use of
+the 'Objective secured!' rule."* **La habilidad le llega a una unidad por tres vías**, y cerrar
+solo una no basta:
+
+1. la concesión automática a toda selección de Troops (`resolver.ts`);
+2. el poder de Exarca éldar **Stand firm**, vía `EXARCH_POWER_EFFECTS.unitAbility`;
+3. **cualquier ítem de armería cuya descripción entrecomille la habilidad**: el parser genérico de
+   `equipMods` las recoge, así que el Mandulian Reliquary de Grey Knights la concede sin
+   cableado propio.
+
+Hay una cuarta vía aparente que es solo texto: doce `notes` de arquetipo la prometen y no conceden
+nada. Esas se quedan, y `ArmyConfig.tsx` añade debajo una advertencia para el destacamento aliado.
+
+```
+npx tsx scripts/check_objective_secured_allies.ts
+```
+
+**La puerta debe comparar `factionSource` con la facción aliada ACTIVA, nunca mirar `factionSource`
+a secas:** una unidad de suplemento inyectado (Assassins, Horus Heresy) lleva su propio
+`factionSource` sin ser un destacamento aliado en sentido de reglas, y conserva la habilidad. El
+guard comprueba ese caso, y es justo el que rompe un arreglo descuidado mientras todo lo demás
+sigue pasando.
+
+**Si escribes una sonda aquí, pon `slot` en la entrada de lista.** Una `RosterEntry` lleva su
+propio slot y `effectiveSlot` lee ese, no `unit.slot` — la primera ejecución de este guard falló su
+propio control de Troops por eso, que es exactamente para lo que ese control existe.
+
 ### Aliados: la matriz y el destacamento aliado (`check_ally_matrix_vs_core.cjs`, `check_allied_rules.ts`)
 
 La sección "Allies" del Core Book le da cuatro cosas al constructor de listas; el resto (auras, qué

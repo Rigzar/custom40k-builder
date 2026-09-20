@@ -27,6 +27,7 @@ import { hasMarkStatMods } from '../lib/markMods';
 import { resolveStatValue } from '../lib/statPipeline';
 import { getFactionCat, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { useT, tpl } from '../i18n';
+import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -562,6 +563,39 @@ export function UnitCard({ item }: Props) {
           </select>
         </div>
       )}
+
+      {/* ── The faction's deployment rule: Webway strike / Webway raid / Lightning strike /
+           Tellyporta. "For each STARTED 1000 points of game size, one ... unit may be set up
+           using the rules for Infiltrators / Deep Strike for +1 point per Wound." Only shown for
+           a faction that HAS one and a unit that qualifies; the price is computed live from the
+           CURRENT size and Wounds, so resizing the squad after ticking it re-prices on the spot
+           rather than leaving a stale number. Disabled once the army is at its cap, in the same
+           shape as the Yngir toggle below: refuse the click, do not merely warn. */}
+      {(() => {
+        const up = getDeploymentUpgrade(data?.faction);
+        if (!up || !unitMayTakeDeploymentUpgrade(u, up)) return null;
+        const checked = !!item.deploymentUpgrade;
+        const cap = deploymentUpgradeCap((store as any).pointLimit ?? 0, up);
+        const taken = army.filter(e => e.deploymentUpgrade).length;
+        const atCap = !checked && taken >= cap;
+        const pts = deploymentUpgradeCost(u, item.size, up);
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+            <label
+              onClick={() => { if (!atCap || checked) updateUnit(item.id, { deploymentUpgrade: !checked }); }}
+              className={`flex items-center gap-2 text-[11px] ${atCap ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
+              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
+                {checked && <span className="text-[8px] text-white leading-none">✓</span>}
+              </div>
+              <span className="text-zinc-300">
+                {tpl(t('deploymentUpgradeLabel'), { ability: up.ability, rule: up.name, pts })}
+              </span>
+            </label>
+            {atCap && <span className="text-[10px] text-red-400/80">{t('deploymentUpgradeFull')}</span>}
+          </div>
+        );
+      })()}
 
       {/* ── Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) ──
            Only ONE entry in the whole army may take this — hard-enforced by disabling the

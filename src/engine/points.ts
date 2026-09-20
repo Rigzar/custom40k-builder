@@ -2,6 +2,7 @@ import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 import { getArchetypeRule } from './archetypes';
+import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 
 /**
  * Live-recompute an armory selection's cost from the unit's CURRENT size/wounds, instead of
@@ -21,6 +22,23 @@ export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Un
 }
 
 /** Resolve a unit from the correct faction source. */
+/**
+ * The faction whose Army Customisation this roster entry follows. An allied detachment picks its
+ * OWN (Core Rules, Allies: "Allies may select their own Army Customisation options"), so an allied
+ * entry must be priced against the ALLY's faction, not the primary army's -- otherwise an allied
+ * Eldar detachment inside an Ork army would be offered Tellyporta and charged for it.
+ */
+export function factionForEntry(
+  item: { factionSource?: string; nestedFaction?: string },
+  data: FactionData,
+): string {
+  const d: any = data as any;
+  if (item.factionSource && item.nestedFaction)
+    return d.allied?.[item.factionSource]?.allied?.[item.nestedFaction]?.faction ?? data.faction;
+  if (item.factionSource) return d.allied?.[item.factionSource]?.faction ?? data.faction;
+  return data.faction;
+}
+
 export function resolveUnit(item: { unitName: string; factionSource?: string; nestedFaction?: string }, data: FactionData): Unit | undefined {
   if (item.factionSource && item.nestedFaction) {
     return data.allied?.[item.factionSource]?.allied?.[item.nestedFaction]?.units[item.unitName];
@@ -146,7 +164,13 @@ function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
     ?? unit.models[0];
 }
 
-export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = ''): number {
+/**
+ * `faction` is REQUIRED and deliberately has no default: it is only needed for the deployment
+ * rules (Webway strike / Webway raid / Lightning strike / Tellyporta), which are keyed by faction,
+ * and a defaulted parameter would let a forgotten call site under-charge in silence. Making it
+ * required means the compiler names every one of the ten places that sum unit points.
+ */
+export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string): number {
   let total = 0;
   const active = getActiveVariant(item, unit);
 
@@ -292,6 +316,14 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
   // +85 points" (ods-verbatim, Necrons Army Customisation). Flat surcharge, not per-model —
   // C'tan Shards are always a single model (default_size 1).
   if (item.ctanYngirUpgrade) total += 85;
+  // Deployment rule bought on this entry (Webway strike / Webway raid / Lightning strike /
+  // Tellyporta): rate x Wounds-or-Hull-Points x models, exactly as the Index tab prices it.
+  if (item.deploymentUpgrade) {
+    const up = getDeploymentUpgrade(faction);
+    if (up && unitMayTakeDeploymentUpgrade(unit, up)) {
+      total += deploymentUpgradeCost(unit, item.size, up);
+    }
+  }
 
   return total;
 }

@@ -3,7 +3,7 @@ import * as api from '../lib/api';
 import type { PublicArmySummary, FriendRow, UserSearchResult, FriendRequestRow, RosterShareUser, SharedArmySummary, EventSummary } from '../lib/api';
 import { useT } from '../i18n';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine/points';
+import { resolveUnit, computeUnitPoints, effectiveArchetypeFor, factionForEntry } from '../engine/points';
 import { usePrefs, type AutosaveInterval } from '../hooks/usePrefs';
 import { Avatar } from './Avatar';
 import type { EngagementType } from '../types/army';
@@ -63,7 +63,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   const totalPts = store.data
     ? army.reduce((sum, e) => {
         const u = resolveUnit(e, store.data!);
-        return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, store)) : 0);
+        return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, store), factionForEntry(e, store.data)) : 0);
       }, 0)
     : 0;
 
