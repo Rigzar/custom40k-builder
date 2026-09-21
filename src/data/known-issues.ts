@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-white-screen-allied-detachment-null-data-01",
+    status: "fixed",
+    title: "White screen when adding an allied detachment — a required argument put a data read on a path with no data",
+    description: "FIXED 2026-09-21, reported the same evening: “whenever I attempt to add an allied detachment, it appears to break the app. All I get is a white screen. Tried on phone and laptop with same result.” SELF-INFLICTED by 6ea3166 the same day. `computeUnitPoints` never touched `data` until then; `faction` was made a REQUIRED argument precisely so no call site could silently under-charge, and each site now passes `factionForEntry(item, data)`. That function read `data.faction` unguarded. `data` is null until a faction finishes loading, AND the saved-army lists price every stored army including ones whose codex is not the one in memory, so the new read sits on paths that legitimately run with nothing loaded. One throw during render is a blank page for the whole app.\n\nFIX: every read in `factionForEntry` is optional, returning an empty faction name when nothing is loaded — which matches no faction-keyed rule, so nothing is charged and nothing granted, the correct answer when the faction is not yet known.\n\nWORTH RECORDING ABOUT THE HUNT: the first reproduction was AGAINST A STALE CACHED BUNDLE. The clean-up call had failed silently (`navigator.serviceWorker` undefined in that context) so the page kept serving an older build, and React error #310 from it sent me bisecting commits that were innocent. HEAD did not crash when re-tested properly. The real defect was found by READING the diff for what newly touches `data`, not by the repro. Check the bundle hash before trusting a white-screen repro.\n\nGUARD `scripts/check_faction_for_entry_null_safe.ts` runs five null/undefined shapes through `factionForEntry` (plain, allied, nested-allied, and a FactionData with no allied map) and one through the real `computeUnitPoints`; proved to fail with the unguarded read restored."
+  },
+  {
     id: "ki-faction-rules-wired-vs-written-01",
     status: "investigating",
     title: "Faction rules that are written down and wired to nothing — the sweep, and the first two fixed",

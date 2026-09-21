@@ -57,11 +57,18 @@ export function factionForEntry(
   item: { factionSource?: string; nestedFaction?: string },
   data: FactionData,
 ): string {
+  // EVERY read is optional, and that is load-bearing rather than defensive habit. `data` is null
+  // until a faction finishes loading, and the saved-army lists price EVERY stored army -- including
+  // ones whose faction is not the one currently loaded. Before this function existed
+  // `computeUnitPoints` never touched `data` at all, so making it a required argument put a
+  // `data.faction` on a path that can legitimately run with nothing loaded: one throw during
+  // render is a white screen for the whole app. An empty faction name simply matches no
+  // faction-keyed rule, which is the correct answer when we do not yet know the faction.
   const d: any = data as any;
   if (item.factionSource && item.nestedFaction)
-    return d.allied?.[item.factionSource]?.allied?.[item.nestedFaction]?.faction ?? data.faction;
-  if (item.factionSource) return d.allied?.[item.factionSource]?.faction ?? data.faction;
-  return data.faction;
+    return d?.allied?.[item.factionSource]?.allied?.[item.nestedFaction]?.faction ?? d?.faction ?? '';
+  if (item.factionSource) return d?.allied?.[item.factionSource]?.faction ?? d?.faction ?? '';
+  return d?.faction ?? '';
 }
 
 export function resolveUnit(item: { unitName: string; factionSource?: string; nestedFaction?: string }, data: FactionData): Unit | undefined {
