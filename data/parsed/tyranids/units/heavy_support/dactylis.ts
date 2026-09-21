@@ -371,5 +371,5 @@ export const dactylis: Unit = {
   "slot": "Heavy Support",
   "default_size": 1,
   "min_cost": 111,
-  "is_monster": false
+  "is_monster": true
 };
