@@ -68,9 +68,52 @@ data/parsed/<faction>/
 
 > All 19 factions use the `units/` per-slot layout. Each unit lives in its own
 > `.ts` file under `units/<slot>/<unit>.ts`. To edit a unit, open that file
-> directly. To add a new unit, create the `.ts` file and add its `export` line
-> to that slot's `index.ts`. Units audited against the canonical `.ods` source
-> have a source header comment; auto-generated units carry a `TODO` comment.
+> directly. Units audited against the canonical `.ods` source have a source
+> header comment; auto-generated units carry a `TODO` comment. To ADD a unit,
+> see the section below — it takes THREE files, not two.
+
+### Adding a NEW unit
+
+A unit is only real when it appears in **three** places. This used to say "create the file and add
+its export line", which is two of them, and the first unit contributed from outside the team landed
+unreachable because of it — so it is spelled out now.
+
+1. **`data/parsed/<faction>/units/<slot>/<unit>.ts`** — the datasheet itself.
+2. **`data/parsed/<faction>/units/<slot>/index.ts`** — one line:
+   `export { dactylis } from './dactylis';`
+3. **`data/parsed/<faction>/units/index.ts`** — **TWO** entries, and this is the step that gets
+   missed:
+   - in the `units` map: `"Dactylis": heavySupport.dactylis,`
+   - in `slot_to_units`, under the right slot: `"Dactylis",`
+
+**A name in `slot_to_units` with no entry in the `units` map shows up in the catalogue and resolves
+to nothing.** An Ork Lord of War sat unreachable that way for months.
+
+**The name must match EXACTLY in all of them**, capitals included — the unit's own `"name"`, each
+model row's `"name"`, the `units` map key and the `slot_to_units` entry. Everything in the engine
+looks a unit up by that string, so one capital letter makes it a different unit.
+
+**Read the stat row against its column headings.** The sheet runs
+`No. | NAME | M | WS | BS | S | T | W | I | A | LD | SV | POINTS`, and `T W I A LD` run together:
+the Dactylis went in with its Wounds and Leadership swapped. `No.` is the squad size, so `1-2`
+means `min: 1, max: 2`.
+
+**A weapon marked `*` on the sheet has profiles underneath it**, and each is its own entry named
+`"<Weapon> - <Profile>"`. Copy one profile at a time, straight across that row, and never copy one
+profile's ability list onto another — two profiles arrived with a neighbour's abilities and so were
+missing their `AT(2)` entirely. An ability with an unclosed bracket (`Suppression(3`) resolves to
+nothing at all, because lookup is by exact text.
+
+**Do not copy "may select any number of Basic and Advanced Biomorphs (see Armory)"** or any
+equivalent line into the unit's options. Those live in the faction's armoury and the app adds them.
+Only options the datasheet itself names, with their own prices, belong in `option_groups`.
+
+**Checking it without Node:** read your file next to the sheet field by field, then open the PR's
+"Files changed" tab and confirm all three files above are there. If `units/index.ts` is not in the
+list, the unit is not connected. Say so in the PR if you would like it run through the codex
+comparison before merging — that tool prints one line per field that disagrees with the sheet.
+
+
 
 ### Workflow
 
@@ -109,6 +152,54 @@ data/parsed/<faction>/
 | `mark` | Mark of Chaos selection |
 | `veteran` | Veteran ability slot |
 | `unique_upgrade` | Unit-level unique restriction |
+
+### Adding a weapon, an armoury item, an archetype, a trait or a legacy
+
+**The one thing to understand first: writing a rule down does not make it do anything.** Most of
+these live in TWO places — the DATA, which makes it appear and be priced, and the ENGINE, which
+makes it act. A sweep of every faction rule we had written down found 56 that nothing in the app
+ever looked at. Many were table-only and correctly prose, but four were real bugs: a relic that
+granted nothing, a ward save 13 datasheets never got, an army-wide upgrade that was free, and a
+condition that was decoration.
+
+`node scripts/audit_faction_rule_coverage.cjs <faction>` lists the rules the engine cannot act on.
+
+**A weapon on a datasheet** goes in that unit's `weapons[]`. If the sheet marks it `*`, each profile
+is its own entry named `"<Weapon> - <Profile>"`. If an option REPLACES a weapon, the option group
+needs `replaces` listing the exact weapon name(s), every profile spelled out — without it both the
+old and the new weapon show. Never put a quantity in a choice name ("two Flamers"): gating matches
+the choice name against the weapon name exactly, so the weapon then shows whether or not it was
+bought.
+
+**An armoury item** goes in `armory/general.json` (or `mark_*.json` / `legion_*.json`). Copy the
+price columns as the sheet has them — they are NORMAL / CHARACTER MODELS / MONSTROUS CREATURES &
+VEHICLES, and the third is for Monstrous **Creatures** and vehicles, not Monstrous Infantry. Copy
+the description verbatim: the engine reads it. `Unique` with a capital U means once per army;
+"can be taken multiple times" and "every enhancement is unique per army" are both read from that
+text. An item whose text quotes an ability in double quotes grants that ability automatically —
+which is why the wording matters more than it looks.
+
+**An archetype** is an entry in `archetypes.json` AND a rule in
+`src/engine/archetypes/index.ts` (`ARCHETYPE_RULES`). The JSON alone makes it selectable and does
+nothing else. Its `notes` are shown to the player and grant nothing; anything that must actually
+happen — a slot remap, a cap, a granted ability — is a field on the rule object. Three Inquisition
+archetypes still resolve to no rule at all, so the app offers them and they do nothing.
+
+**A trait** is an entry in `archetypes.json` AND effects in that faction's `traits.ts`
+(`TRAIT_EFFECTS`). Its three price columns match the armoury's, and a `*` means the cost is per
+Wound or Hull point. Each effect carries `applies_to` — `all`, `creature`, `vehicle`, `character`,
+`infantry`, `monster` or `psyker` — and that scope decides who gets it. A trait with no entry in
+`TRAIT_EFFECTS` is selectable, costs points and changes nothing.
+
+**A legacy** is an entry in `archetypes.json` whose `armory_key` **must match** the key used for
+that faction in `src/data/loaders.ts`; if they diverge the armoury tab never appears. Where a
+faction keeps all its legacy relics in one file, each relic's own text carries its restriction
+("Alaitoc only.", "Ymyr Conglomerate only.") and the gate is derived from the legacy's own
+description — so both sentences have to be copied exactly as written.
+
+**A whole faction** is not a data drop: it needs its folder, a loader entry in
+`src/data/loaders.ts`, and a row and column in the allied matrix in `src/data/alliedMatrix.ts`.
+Open an issue before starting one.
 
 ### Armory file structure
 

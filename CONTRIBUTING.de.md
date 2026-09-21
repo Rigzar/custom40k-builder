@@ -69,7 +69,49 @@ data/parsed/<fraktion>/
 > Alle 19 Fraktionen verwenden das `units/`-Layout pro Slot. Jede Einheit
 > liegt in einer eigenen `.ts`-Datei unter `units/<slot>/<einheit>.ts`.
 > Gegenueber `.ods` geprueft Einheiten haben einen Quell-Kommentarblock im
-> Header; automatisch generierte Einheiten tragen einen `TODO`-Kommentar.
+> Header; automatisch generierte Einheiten tragen einen `TODO`-Kommentar. Zum
+> HINZUFUEGEN einer Einheit siehe den Abschnitt unten: es sind DREI Dateien.
+
+### Eine NEUE Einheit hinzufuegen
+
+Eine Einheit existiert erst, wenn sie an **drei** Stellen steht. Die erste von ausserhalb des Teams
+beigesteuerte Einheit war genau deswegen nicht erreichbar, deshalb steht es jetzt hier.
+
+1. **`data/parsed/<fraktion>/units/<slot>/<einheit>.ts`** — das Datenblatt selbst.
+2. **`data/parsed/<fraktion>/units/<slot>/index.ts`** — eine Zeile:
+   `export { dactylis } from './dactylis';`
+3. **`data/parsed/<fraktion>/units/index.ts`** — **ZWEI** Eintraege, und dieser Schritt wird
+   vergessen:
+   - in der `units`-Map: `"Dactylis": heavySupport.dactylis,`
+   - in `slot_to_units` unter dem richtigen Slot: `"Dactylis",`
+
+**Ein Name in `slot_to_units` ohne Eintrag in der `units`-Map erscheint im Katalog und loest sich
+zu nichts auf.** Ein orkischer Lord of War war so monatelang unerreichbar.
+
+**Der Name muss ueberall EXAKT uebereinstimmen**, Grossbuchstaben eingeschlossen: der `"name"` der
+Einheit, der `"name"` jeder Modellzeile, der Schluessel der `units`-Map und der Eintrag in
+`slot_to_units`. Die Engine sucht die Einheit ueber diese Zeichenkette.
+
+**Lies die Statuszeile gegen ihre Spaltenkoepfe.** Das Blatt lautet
+`No. | NAME | M | WS | BS | S | T | W | I | A | LD | SV | POINTS`, und `T W I A LD` stehen direkt
+nebeneinander: beim Dactylis waren Wunden und Moral vertauscht. `No.` ist die Truppgroesse, `1-2`
+heisst also `min: 1, max: 2`.
+
+**Eine Waffe mit `*` hat Profile darunter**, jedes ein eigener Eintrag `"<Waffe> - <Profil>"`.
+Kopiere ein Profil nach dem anderen entlang seiner Zeile und niemals die Faehigkeitsliste eines
+Profils auf ein anderes: zwei kamen mit denen des Nachbarn und verloren dadurch ihr `AT(2)`. Eine
+Faehigkeit mit nicht geschlossener Klammer (`Suppression(3`) loest sich zu nichts auf, denn gesucht
+wird nach exaktem Text.
+
+**Uebernimm "may select any number of Basic and Advanced Biomorphs (see Armory)"** nicht in die
+Optionen der Einheit. Das liegt im Arsenal der Fraktion und wird von der App ergaenzt. In
+`option_groups` gehoeren nur Optionen, die das Datenblatt selbst nennt, mit ihren Preisen.
+
+**Pruefen ohne Node:** lies deine Datei Feld fuer Feld neben dem Blatt und oeffne dann den Tab
+"Files changed" des PR, um alle drei Dateien von oben zu bestaetigen. Fehlt `units/index.ts`, ist
+die Einheit nicht verbunden. Schreib in den PR, wenn wir sie vor dem Merge durch den
+Codex-Vergleich laufen lassen sollen.
+
 
 ### Vorgehensweise
 
@@ -108,6 +150,55 @@ data/parsed/<fraktion>/
 | `mark` | Auswahl des Chaos-Zeichens |
 | `veteran` | Veteranen-Faehigkeitsslot |
 | `unique_upgrade` | Einheitenbezogene Einzigartigkeitsbeschraenkung |
+
+### Eine Waffe, ein Arsenal-Objekt, einen Archetyp, einen Trait oder ein Legacy hinzufuegen
+
+**Das Wichtigste zuerst: eine Regel aufzuschreiben bewirkt noch nichts.** Die meisten leben an ZWEI
+Stellen — den DATEN, die sie erscheinen und bepreisen lassen, und der ENGINE, die sie wirken
+laesst. Ein Durchgang durch alle aufgeschriebenen Fraktionsregeln fand 56, auf die nichts in der
+App je schaute. Viele davon gehoeren als Fließtext dorthin, aber vier waren echte Fehler: ein
+Relikt, das nichts verlieh, eine Rettung, die 13 Datenblaetter nie bekamen, eine armeeweite
+Verbesserung, die kostenlos war, und eine Bedingung, die bloße Zierde war.
+
+`node scripts/audit_faction_rule_coverage.cjs <fraktion>` listet die Regeln, auf die die Engine
+nicht reagieren kann.
+
+**Eine Waffe auf einem Datenblatt** gehoert in dessen `weapons[]`. Traegt sie auf dem Blatt ein
+`*`, ist jedes Profil ein eigener Eintrag `"<Waffe> - <Profil>"`. Ersetzt eine Option eine Waffe,
+braucht die Gruppe `replaces` mit dem exakten Waffennamen — jedes Profil einzeln — sonst werden
+alte und neue Waffe angezeigt. Niemals Mengen in einen Optionsnamen schreiben ("zwei Flammenwerfer"):
+verglichen wird exakt gegen den Waffennamen, und die Waffe erscheint dann ungekauft.
+
+**Ein Arsenal-Objekt** gehoert in `armory/general.json` (oder `mark_*.json` / `legion_*.json`).
+Uebernimm die Preisspalten wie auf dem Blatt: NORMAL / CHARACTER MODELS / MONSTROUS CREATURES &
+VEHICLES — die dritte gilt monstroesen **Kreaturen** und Fahrzeugen, nicht Monstrous Infantry.
+Uebernimm den Beschreibungstext woertlich, denn die Engine liest ihn: `Unique` mit großem U heißt
+einmal pro Armee, und sowohl "can be taken multiple times" als auch "every enhancement is unique
+per army" werden aus diesem Text gelesen. Ein Objekt, dessen Text eine Faehigkeit in
+Anfuehrungszeichen nennt, verleiht sie automatisch.
+
+**Ein Archetyp** ist ein Eintrag in `archetypes.json` UND eine Regel in
+`src/engine/archetypes/index.ts` (`ARCHETYPE_RULES`). Das JSON allein macht ihn waehlbar und sonst
+nichts. Seine `notes` werden dem Spieler gezeigt und verleihen nichts; alles, was wirklich
+geschehen soll — ein Slot-Wechsel, eine Obergrenze, eine verliehene Faehigkeit — ist ein Feld des
+Regelobjekts. Drei Inquisition-Archetypen loesen bis heute zu gar keiner Regel auf.
+
+**Ein Trait** ist ein Eintrag in `archetypes.json` UND Effekte in der `traits.ts` der Fraktion
+(`TRAIT_EFFECTS`). Seine drei Preisspalten entsprechen denen des Arsenals, und ein `*` bedeutet
+Kosten pro Wunde oder Strukturpunkt. Jeder Effekt traegt `applies_to` — `all`, `creature`,
+`vehicle`, `character`, `infantry`, `monster` oder `psyker` — und dieser Geltungsbereich entscheidet,
+wer ihn bekommt. Ein Trait ohne Eintrag in `TRAIT_EFFECTS` ist waehlbar, kostet Punkte und bewirkt
+nichts.
+
+**Ein Legacy** ist ein Eintrag in `archetypes.json`, dessen `armory_key` mit dem Schluessel der
+Fraktion in `src/data/loaders.ts` **uebereinstimmen muss**; weichen sie ab, erscheint der
+Arsenal-Tab nie. Haelt eine Fraktion alle Legacy-Relikte in einer Datei, traegt jedes Relikt seine
+Einschraenkung im eigenen Text ("Alaitoc only.", "Ymyr Conglomerate only."), und die Sperre wird
+aus der Beschreibung des Legacy selbst abgeleitet — beide Saetze muessen exakt uebernommen werden.
+
+**Eine ganze Fraktion** ist kein bloßer Datenabwurf: sie braucht ihren Ordner, einen Eintrag in
+`src/data/loaders.ts` sowie eine Zeile und eine Spalte in der Verbuendetenmatrix in
+`src/data/alliedMatrix.ts`. Bitte vorher ein Issue eroeffnen.
 
 ### Ruestkammer-Dateistruktur
 

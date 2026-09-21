@@ -69,7 +69,49 @@ data/parsed/<faccion>/
 > Las 19 facciones usan el layout `units/` por slot. Cada unidad vive en su
 > propio `.ts` bajo `units/<slot>/<unidad>.ts`. Las unidades auditadas contra
 > el `.ods` canónico tienen un comentario de cabecera con la fuente; las
-> generadas automáticamente traen un comentario `TODO`.
+> generadas automáticamente traen un comentario `TODO`. Para AÑADIR una unidad,
+> mirá la sección de abajo: hacen falta TRES ficheros, no dos.
+
+### Añadir una unidad NUEVA
+
+Una unidad solo existe de verdad cuando aparece en **tres** sitios. La primera unidad aportada
+desde fuera del equipo entró inalcanzable justamente por esto, así que queda escrito.
+
+1. **`data/parsed/<faccion>/units/<slot>/<unidad>.ts`** — la ficha.
+2. **`data/parsed/<faccion>/units/<slot>/index.ts`** — una línea:
+   `export { dactylis } from './dactylis';`
+3. **`data/parsed/<faccion>/units/index.ts`** — **DOS** entradas, y este es el paso que se olvida:
+   - en el mapa `units`: `"Dactylis": heavySupport.dactylis,`
+   - en `slot_to_units`, bajo el slot correcto: `"Dactylis",`
+
+**Un nombre en `slot_to_units` sin entrada en el mapa `units` sale en el catálogo y no resuelve a
+nada.** Un Lord of War orko estuvo meses inalcanzable así.
+
+**El nombre debe coincidir EXACTO en todos ellos**, mayúsculas incluidas: el `"name"` de la unidad,
+el `"name"` de cada fila de modelo, la clave del mapa `units` y la entrada de `slot_to_units`. Todo
+el motor busca la unidad por esa cadena, así que una mayúscula la convierte en otra unidad.
+
+**Leé la fila de stats contra sus cabeceras.** La hoja va
+`No. | NAME | M | WS | BS | S | T | W | I | A | LD | SV | POINTS`, y `T W I A LD` van pegadas: el
+Dactylis entró con Heridas y Liderazgo cruzados. `No.` es el tamaño de escuadra, o sea `1-2` es
+`min: 1, max: 2`.
+
+**Un arma con `*` en la hoja tiene perfiles debajo**, y cada uno es su propia entrada llamada
+`"<Arma> - <Perfil>"`. Copiá un perfil cada vez, leyendo esa fila de izquierda a derecha, y nunca
+copies la lista de habilidades de un perfil en otro: dos llegaron con las del vecino y se quedaron
+sin su `AT(2)`. Una habilidad con el paréntesis sin cerrar (`Suppression(3`) no resuelve a nada,
+porque la búsqueda es por texto exacto.
+
+**No copies "may select any number of Basic and Advanced Biomorphs (see Armory)"** ni nada
+equivalente a las opciones de la unidad. Eso vive en la armería de la facción y la app lo añade
+sola. En `option_groups` solo van las opciones que la propia ficha nombra, con sus precios.
+
+**Cómo comprobarlo sin Node:** leé tu fichero al lado de la hoja campo a campo y después abrí la
+pestaña "Files changed" del PR para confirmar que están los tres ficheros de arriba. Si
+`units/index.ts` no aparece, la unidad no está conectada. Dilo en el PR si querés que la pasemos
+por la comparación con el códex antes de mergear: esa herramienta imprime una línea por cada campo
+que discrepa de la hoja.
+
 
 ### Proceso
 
@@ -108,6 +150,56 @@ data/parsed/<faccion>/
 | `mark` | Selección de Marca del Caos |
 | `veteran` | Slot de habilidad veterana |
 | `unique_upgrade` | Restricción de unicidad a nivel de unidad |
+
+### Añadir un arma, un ítem de armería, un arquetipo, un trait o un legacy
+
+**Lo primero que hay que entender: escribir una regla no hace que haga nada.** Casi todas viven en
+DOS sitios — los DATOS, que la hacen aparecer y cobrarse, y el MOTOR, que la hace actuar. Un
+barrido de todas las reglas de facción que teníamos escritas encontró 56 que nada en la app
+miraba nunca. Muchas eran de mesa y están bien como prosa, pero cuatro eran bugs reales: una
+reliquia que no concedía nada, una salvación que 13 fichas no recibían, una mejora de ejército
+que era gratis y una condición que era decoración.
+
+`node scripts/audit_faction_rule_coverage.cjs <faccion>` lista las reglas sobre las que el motor no
+puede actuar.
+
+**Un arma de una ficha** va en el `weapons[]` de esa unidad. Si la hoja la marca con `*`, cada
+perfil es su propia entrada llamada `"<Arma> - <Perfil>"`. Si una opción SUSTITUYE a un arma, el
+grupo necesita `replaces` con el nombre exacto del arma — todos los perfiles, uno a uno — o se
+mostrarán la vieja y la nueva. Nunca pongas cantidades en el nombre de una opción ("dos
+lanzallamas"): el filtro compara el nombre de la opción con el del arma de forma exacta, y
+entonces el arma sale se compre o no.
+
+**Un ítem de armería** va en `armory/general.json` (o `mark_*.json` / `legion_*.json`). Copiá las
+columnas de precio tal cual: son NORMAL / CHARACTER MODELS / MONSTROUS CREATURES & VEHICLES, y la
+tercera es de Monstrous **Creatures** y vehículos, no de Monstrous Infantry. Copiá la descripción
+literal, porque el motor la lee: `Unique` con U mayúscula significa una vez por ejército, y tanto
+"can be taken multiple times" como "every enhancement is unique per army" se leen de ese texto. Un
+ítem cuyo texto nombre una habilidad entre comillas la concede automáticamente, así que la
+redacción importa más de lo que parece.
+
+**Un arquetipo** es una entrada en `archetypes.json` Y una regla en
+`src/engine/archetypes/index.ts` (`ARCHETYPE_RULES`). Solo con el JSON se puede elegir y no hace
+nada más. Sus `notes` se le muestran al jugador y no conceden nada; todo lo que deba ocurrir de
+verdad — cambiar un slot, un tope, conceder una habilidad — es un campo del objeto de la regla.
+Tres arquetipos de Inquisition siguen sin resolver a ninguna regla: la app los ofrece y no hacen
+nada.
+
+**Un trait** es una entrada en `archetypes.json` Y efectos en el `traits.ts` de esa facción
+(`TRAIT_EFFECTS`). Sus tres columnas de precio son las mismas que las de la armería, y un `*`
+significa que el coste es por Herida o Punto de Casco. Cada efecto lleva `applies_to` — `all`,
+`creature`, `vehicle`, `character`, `infantry`, `monster` o `psyker` — y ese ámbito decide a quién
+le llega. Un trait sin entrada en `TRAIT_EFFECTS` se puede elegir, cuesta puntos y no cambia nada.
+
+**Un legacy** es una entrada en `archetypes.json` cuyo `armory_key` **debe coincidir** con la clave
+que usa esa facción en `src/data/loaders.ts`; si divergen, la pestaña de armería no aparece nunca.
+Cuando una facción guarda todas sus reliquias de legacy en un solo fichero, cada reliquia lleva su
+restricción en su propio texto ("Alaitoc only.", "Ymyr Conglomerate only.") y la puerta se deriva
+de la descripción del propio legacy, así que ambas frases hay que copiarlas exactamente.
+
+**Una facción entera** no es soltar datos: necesita su carpeta, su entrada en
+`src/data/loaders.ts` y una fila y una columna en la matriz de aliados de `src/data/alliedMatrix.ts`.
+Abrí un issue antes de empezar una.
 
 ### Estructura de archivos de armería
 
