@@ -59,6 +59,31 @@
           var t = e && e.target;
           if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) heal('asset');
         }, true);
+        // A RUNTIME error that blanks the page MID-SESSION. This is the case the checks above
+        // all miss, and it is the one players actually report: the app boots fine, renders, works
+        // -- and then one click (adding an allied detachment, 2026-09-21) throws while React is
+        // rendering, which unmounts the whole tree and leaves an empty #root. No asset failed, so
+        // no preload/asset handler fires, and the 8-second blank check ran long ago while the app
+        // was healthy. Worse, the clean-boot handler below has already cleared the flag by then.
+        //
+        // Verified as the mechanism: on the live site the SAME bundle that blanked worked
+        // perfectly once the service worker and caches were purged by hand -- stale chunks mixed
+        // with a fresh entry point. So a purge-and-reload is exactly the right response, and the
+        // once-per-tab flag still stops a genuine app bug from becoming a reload loop.
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) return;   // handled above
+          setTimeout(function () {
+            var root = document.getElementById('root');
+            if (root && root.childElementCount === 0) heal('runtime');
+          }, 400);
+        });
+        window.addEventListener('unhandledrejection', function () {
+          setTimeout(function () {
+            var root = document.getElementById('root');
+            if (root && root.childElementCount === 0) heal('rejection');
+          }, 400);
+        });
         // Belt and braces: nothing rendered at all after 8s means the bundle never ran.
         setTimeout(function () {
           var root = document.getElementById('root');
