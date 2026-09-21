@@ -49,6 +49,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Trygon": fastAttack.trygon,
   "Biovore Brood": heavySupport.biovoreBrood,
   "Carnifex Brood": heavySupport.carnifexBrood,
+  "Dactylis": heavySupport.dactylis,
   "Exocrine": heavySupport.exocrine,
   "Norn": heavySupport.norn,
   "Tyrannofex": heavySupport.tyrannofex,

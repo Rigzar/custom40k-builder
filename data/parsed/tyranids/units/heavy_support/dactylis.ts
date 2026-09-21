@@ -9,10 +9,10 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const dactylis: Unit = {
-  "name": "dactylis",
+  "name": "Dactylis",
   "models": [
     {
-      "name": "dactylis",
+      "name": "Dactylis",
       "points": 226,
       "min": 1,
       "max": 2,
@@ -22,20 +22,20 @@ export const dactylis: Unit = {
         "BS": "3+",
         "S": "6",
         "T": "7",
-        "W": "7",
+        "W": "6",
         "I": "4",
         "A": "4",
-        "LD": "6",
+        "LD": "7",
         "SV": "3+"
       }
     }
   ],
   "variant_models": [
     ],
-  "equipped_with": "Every model is equipped with: Clawed Graspers",
+  "equipped_with": "Every model is equipped with: Clawed graspers.",
   "weapons": [
     {
-      "name": "Clawed Graspers - Spore Mine launcher",
+      "name": "Clawed graspers - Spore Mine launcher",
       "range": "48\"",
       "type": "Heavy 3",
       "s": "6",
@@ -44,40 +44,40 @@ export const dactylis: Unit = {
       "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
     },
     {
-      "name": "Clawed Graspers - Mucolid Mine launcher",
+      "name": "Clawed graspers - Mucolid Mine launcher",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
+      "abilities": "Anti-Air, AT(2), Blast(4), Indirect"
     },
     {
-      "name": "Clawed Graspers - Melee",
-      "range": "Melee",
-      "type": "Heavy 1",
+      "name": "Clawed graspers - Melee",
+      "range": "-",
+      "type": "Melee",
       "s": "U",
-      "ap": "-3",
+      "ap": "-2",
       "d": "1",
       "abilities": "-"
     },
     {
-      "name": "Spasmic Launcher - Mucolid Mine Spasm",
+      "name": "Spasmic launcher - Mucolid Mine spasm",
       "range": "12\"",
       "type": "Grenade 1",
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
+      "abilities": "Anti-Air, AT(2), Blast(4), Indirect"
     },
     {
-      "name": "Spasmic Launcher - Spore Mine Spasm",
+      "name": "Spasmic launcher - Spore Mine spasm",
       "range": "12\"",
       "type": "Grenade 3",
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3"
+      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
     }
   ],
   "option_groups": [
