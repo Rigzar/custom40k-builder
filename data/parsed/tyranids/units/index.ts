@@ -102,6 +102,7 @@ export const slot_to_units: Record<string, string[]> = {
   "Heavy Support": [
     "Biovore Brood",
     "Carnifex Brood",
+    "Dactylis",
     "Exocrine",
     "Norn",
     "Tyrannofex"
