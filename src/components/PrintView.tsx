@@ -1558,6 +1558,16 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   const { language: rootLang } = useLanguage();
   const [mode, setMode] = useState<'cards' | 'simple' | 'list'>('cards');
   const [paperSize, setPaperSize] = usePaperSize();
+  // These two live ABOVE the early return on purpose. They used to sit ~140 lines further down,
+  // below `if (!data) return null` -- the same shape that white-screened the whole app from
+  // AlliedDetachmentPanel on 2026-09-21. Hooks must run in the same order on every render, so a
+  // component that returns before reaching one calls a different number of them the moment the
+  // condition flips. Latent here (the print view only opens once data is loaded) and fixed
+  // anyway, because latent is a bug waiting for a new caller.
+  const printableRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (data && printableRef.current) paginate(printableRef.current, paperSize);
+  });
   if (!data) return null;
 
   // The FULL FactionData (WITH armory) an item's armory items should be looked up in. `data.allied`
@@ -1699,10 +1709,6 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   // engine may drop, measure the blocks and write a real `page-break-after` where a page fills
   // up -- a CSS2 property every engine has honoured for decades, and one this file already uses
   // for the cover page. Re-runs whenever the content or the paper size changes.
-  const printableRef = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    if (printableRef.current) paginate(printableRef.current, paperSize);
-  });
   return createPortal((
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden" style={{ background: '#18171a' }}>
       {/* Toolbar — wraps on narrow screens so it can never force horizontal overflow */}

@@ -109,6 +109,12 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   const t = useT();
   const { alliedFaction, setAlliedFaction, engagement, archetype } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
+  // MUST stay up here with the other hooks. This used to sit ~40 lines further down, BELOW three
+  // early returns -- so the component called two hooks while no ally was chosen and three once one
+  // was, which is React error #310 ("rendered more hooks than during the previous render") and a
+  // white screen for the whole app the moment you picked an allied faction. Hooks run in a fixed
+  // order on every render; nothing that calls one may live after a conditional return.
+  const alliedArchetype = useArmyStore(s => s.alliedArchetype);
 
   if (!primaryFaction) return null;
 
@@ -149,7 +155,6 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   // The ALLY's own archetype matters just as much: "Traitor Guard are treated like Chaos Space
   // Marines in the Ally matrix" is printed in the Imperial Guard codex, on the detachment being
   // brought IN, which is the case a player actually builds.
-  const alliedArchetype = useArmyStore(s => s.alliedArchetype);
   // ── Allied faction selected ──────────────────────────────────────────────
   const rel = getRelationship(primaryFaction, alliedFaction,
     allySide(getArchetypeRule(archetype)), allySide(getArchetypeRule(alliedArchetype)));
