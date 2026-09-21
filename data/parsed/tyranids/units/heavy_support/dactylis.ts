@@ -15,7 +15,7 @@ export const dactylis: Unit = {
       "name": "dactylis",
       "points": 226,
       "min": 1,
-      "max": 3,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "3+",
