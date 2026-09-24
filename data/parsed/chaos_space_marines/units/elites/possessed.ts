@@ -15,8 +15,8 @@
  *
  * OPTIONS:
  *   • All models may receive a Mark of Chaos (points per model):
- *     Nurgle +3 / Tzeentch +9
- *     (NOTE: ONLY Nurgle and Tzeentch available — no Undivided, no Khorne, no Slaanesh)
+ *     Khorne +3 / Slaanesh +3 / Nurgle +3 / Tzeentch +9
+ *     (UPDATED 2026-09-24 per author's sheet: all four Marks now available — no Undivided)
  *   • All models may be equipped with Jump packs for +11 points per model.
  *   • May have up to 2 veteran abilities.
  *
@@ -27,8 +27,8 @@
  *
  * ENGINE STATUS:
  *   ✓ stats, pts, weapon match HTML exactly
- *   ✓ mark options: Nurgle+3 / Tzeentch+9 ONLY — correctly restricts mark choices
- *   ✓ locked_mark: null (has mark selector, but restricted to Nurgle/Tzeentch)
+ *   ✓ mark options: Khorne+3 / Slaanesh+3 / Nurgle+3 / Tzeentch+9 — no Undivided
+ *   ✓ locked_mark: null (has mark selector, all four gods, no Undivided)
  *   ✓ jump packs: adds_unit_types ["Jump Pack Infantry"] + grants_abilities ["Deep Strike"]
  *     per Core Rules lines 503-507 ("Jump Pack Infantry acts like Infantry, gains Deep Strike")
  *   ✓ champion_has_armory: false / has_armory_access: false (no armory mentioned in HTML)
@@ -81,6 +81,14 @@ export const possessed: Unit = {
         "type": "mark"
       },
       "choices": [
+        {
+          "name": "Khorne",
+          "points": 3
+        },
+        {
+          "name": "Slaanesh",
+          "points": 3
+        },
         {
           "name": "Nurgle",
           "points": 3
