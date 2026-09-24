@@ -373,7 +373,8 @@ stays in the loadout (removable) rather than auto-flagged illegal.
 **Per-unit Mark pricing:** locked-mark units (15 of 22 carry a god keyword) omit the selector and
 inject the mark as an innate ability — matches the keyword model. Non-locked: Big Mutants, Chaos
 Terminators, Chosen, Helbrute, Legionnaires, Master of Execution, Possessed carry a `mark` group
-(Possessed = Nurgle/Tzeentch only; Chaos Terminators = no Undivided). Cultist Firebrand & Master of
+(Possessed = all four gods, no Undivided, UPDATED 2026-09-24; Chaos Terminators = no Undivided).
+Cultist Firebrand & Master of
 Execution price marks on the HQ/Undivided scale. Mark pricing & animosity gating = ✅ (`points.ts` /
 `validators.ts allowedMarks()`).
 
@@ -419,7 +420,7 @@ logic text-only · ❌ not modeled.
   models"**) · ✅count / **conditional-unlock ❌**. champ armory ✅.
 - **Plague Marines** — locked Nurgle; `per_n{5,2}`×2 special-weapon swaps · ✅count/❌drop; `one`
   Icon/banner single-slot · ✅. champ armory ✅.
-- **Possessed** — `mark` (Nurgle 3 / Tzeentch 9 only) ✅; `every` Jump packs +11 (→Jump pack
+- **Possessed** — `mark` (Khorne 3 / Slaanesh 3 / Nurgle 3 / Tzeentch 9, no Undivided) ✅; `every` Jump packs +11 (→Jump pack
   infantry, +Move) · `every`+unit-type change 🟡 (pts ✅, type/Move injection ❌); Daemon. vet_max 2.
 - **Red Butcher Terminators** — locked Khorne; `one` Champion swap · ✅; ᵀ-gate ✅ (Cataphractii).
   champ armory ✅.
