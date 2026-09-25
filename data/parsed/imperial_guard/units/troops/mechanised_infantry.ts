@@ -71,6 +71,24 @@ export const mechanisedInfantry: Unit = {
   "equipped_with": "Every model is equipped with: Frag grenades; Lasgun.",
   "weapons": [
     {
+      "name": "Las pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Close combat weapon",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
       "name": "Autocannon",
       "range": "48\"",
       "type": "Heavy 2",
@@ -319,6 +337,33 @@ export const mechanisedInfantry: Unit = {
       "inline_pts": 5,
       "variant_link": "Veteran Sergeant",
       "is_unique_per_army": false
+    },
+    {
+      // IG ARMY TRAIT "Close Combat Specialists" (Imperial Guard 1.05, Army Customisation row 73):
+      // "Each model may swap their Lasgun for a Las pistol and a Close combat weapon." The trait
+      // itself costs 0 | 0 | -, and the swap costs nothing on top of it — the same shape the
+      // author already uses for this exact trade elsewhere: the Sororitas Sisters Novitiate may
+      // swap their Autoguns for a "Close combat weapon, +0 points", and the IG Penal Legion
+      // Squad's "Knife Fighters" upgrade grants "a Close combat weapon and a Las pistol" outright.
+      // APPENDED LAST on purpose: `optionQty` is keyed by group INDEX, so a group added anywhere
+      // else would silently repoint every saved list's selections.
+      "header": "Close Combat Specialists: each model may swap their Lasgun",
+      "requires_trait": "Close Combat Specialists",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Las pistol & Close combat weapon",
+          "points": 0
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Lasgun"
+      ]
     }
   ],
   "abilities": [

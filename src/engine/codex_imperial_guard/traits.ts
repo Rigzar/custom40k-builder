@@ -73,18 +73,21 @@ export const IG_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
       desc: 'Each model may swap their Lasgun for a Las pistol and a Close combat weapon.',
       applies_to: 'all',
     },
-    // THE SWAP ITSELF IS NOT BUILT, and the reason is a missing profile rather than a missing
-    // feature. Skele, Discord 2026-09-24: "i cannot change the lasgun to las-pistol and ccw in the
-    // builder... being able to change that in the army builder would be nice."
+    // THE SWAP ITSELF is a real option group, appended LAST to the nine Guard datasheets that
+    // are issued a Lasgun and gated with `requires_trait: 'Close Combat Specialists'`. Reported by
+    // Skele, Discord 2026-09-24: "i cannot change the lasgun to las-pistol and ccw in the builder".
     //
-    // `grant_option_group` exists for exactly this (see traitEffects.ts) and the trait would use
-    // it — except that the two weapons it swaps INTO have nowhere to come from. "Las pistol" is an
-    // Armory item (1 point) and would be free here, which is already a question; "CLOSE COMBAT
-    // WEAPON" IS IN NO ARMORY AT ALL and only appears on two datasheets of its own (Hive Gangers,
-    // Penal Legion Squad). Wiring it would mean inventing a profile for every Guard unit in the
-    // army, which is writing a rules fact, and that is the author's. Asked; until he answers, the
-    // ability text above is the honest answer and the player does the substitution at the table,
-    // which is what Skele is already doing.
+    // I FIRST SAID IT COULD NOT BE BUILT because "Close combat weapon" is in no Armory, so its
+    // profile would have to be invented. Rigzar asked whether one existed anywhere — it does,
+    // printed IDENTICALLY three times: IG Hive Gangers, IG Penal Legion Squad and Sororitas
+    // Sisters Novitiate all give Melee / S U / AP 0 / D 1. "Las pistol" is the Armory's own row
+    // (12", Pistol 1, S3, AP 0, D 1). And the free-swap shape has two precedents of its own: the
+    // Sisters Novitiate "may swap their Autoguns: Close combat weapon, +0 points", and Penal
+    // Legion's "Knife Fighters: The model gains a Close combat weapon and a Las pistol". Nothing
+    // was invented; I had simply stopped looking at the Imperial Guard sheet.
+    //
+    // The Chimera ("Lasgun arrays") and both Stormtrooper sheets ("Hot-shot lasgun") are left out:
+    // the trait says "their Lasgun", and neither of those is one.
   ],
 
   // SOURCE — Combined Regiments:

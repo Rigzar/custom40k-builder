@@ -2862,6 +2862,24 @@ export function resolveUnitProfile(
   state: ArmyState,
   data: FactionData,
 ): ResolvedProfile {
+  // A group the datasheet only has because an ARMY TRAIT grants it (IG "Close Combat Specialists")
+  // must resolve to nothing while that trait is not in the pool. Dropped from the SELECTIONS here,
+  // once, rather than gated at each of the dozen places that walk `unit.option_groups` — so the
+  // weapon list, the counts, the points and the card cannot disagree about it. This is the same
+  // shape as a saved list keeping a Yngir upgrade after leaving the archetype: the selection
+  // survives in the save (so re-adding the trait restores it) and simply does not apply.
+  const gated = unit.option_groups.some(g => g.requires_trait);
+  if (gated) {
+    const pool = (item.factionSource && item.factionSource === state.alliedFaction)
+      ? (state.alliedTraitPool ?? []) : (state.traitPool ?? []);
+    const kept: Record<number, Record<string, number>> = {};
+    for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+      const g = unit.option_groups[Number(gi)];
+      if (g?.requires_trait && !pool.includes(g.requires_trait)) continue;
+      kept[Number(gi)] = ch as Record<string, number>;
+    }
+    item = { ...item, optionQty: kept };
+  }
   const base = resolveBase(item, unit, state, data);
   // A second-level nested ally (factionSource = the Allied Detachment's own faction, nestedFaction
   // = a faction IT intrinsically grants, e.g. CSM Plaguehost → Chaos Daemons Plaguebearers) must

@@ -1219,7 +1219,11 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           )}
 
           {/* Option groups */}
-          {u.option_groups.filter(g => !isMarkGroup(g) && !g.variant_link || g.variant_link).map((g) => {
+          {u.option_groups.filter(g => (!isMarkGroup(g) && !g.variant_link || g.variant_link)
+            // A group the datasheet only has because an army TRAIT grants it (IG Close Combat
+            // Specialists). `realGi` below is an index into the unfiltered array, so hiding it
+            // here moves nothing.
+            && (!g.requires_trait || effectiveTraitPool.includes(g.requires_trait))).map((g) => {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
             // Host-gated branches (BSData condition, scope:'force') — e.g. a Horus Heresy squad's

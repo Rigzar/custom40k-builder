@@ -278,6 +278,18 @@ export interface OptionGroup {
    */
   applies_to_model?: string | string[];
   /**
+   * The group only exists while this ARMY TRAIT is in the pool — it is a swap the trait grants,
+   * not one the datasheet offers.
+   *
+   * Imperial Guard "Close Combat Specialists": "Each model may swap their Lasgun for a Las pistol
+   * and a Close combat weapon." It was filed as prose and could not be done in the builder
+   * (Skele, Discord 2026-09-24). Modelled as a REAL option group sitting permanently in the data,
+   * APPENDED after the datasheet's own groups so no saved list's option indices move, and hidden
+   * unless the trait is taken. Nothing else in the file changes, and a group without this field
+   * behaves exactly as before.
+   */
+  requires_trait?: string;
+  /**
    * Per_n groups only: overrides the per_n DIVISOR to the sum of modelSizes[...] for the listed
    * group(s), instead of the unit's total `size`. Needed when the datasheet's "for every N X
    * models" explicitly excludes a model group from the count (e.g. Kroot Farstalkers' "for every

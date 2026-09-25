@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v177c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v177d_dismissed';
 
 // v1.77 (2026-09-25) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner carries ONLY v1.77's own content. Everything v1.76 announced lives on in the changelog.
@@ -63,6 +63,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       "\ud83d\udcac League lists are locked — once registration closes. You could still edit an army already entered in a league \u2014 not swap it, edit it \u2014 with nobody asked. Ask the organiser to reopen registration if a list needs correcting.",
       "\ud83d\udcac League lists open up — the other way too: the organiser and the admins can always read them, and every player in the league can once registration has closed. Most of them answered \u201cNot found\u201d before, because entering a list never made it readable.",
       "\ud83d\udcac Open all / Close all — in the army builder, not only in the Battle View.",
+      "\ud83d\udcac Close Combat Specialists — is a swap you can actually make now. The Imperial Guard trait lets each model trade its Lasgun for a Las pistol and a Close combat weapon, free, on the nine Guard datasheets that are issued a Lasgun \u2014 not the Chimera's Lasgun arrays and not a Stormtrooper's Hot-shot lasgun.",
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
@@ -98,6 +99,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       "\ud83d\udcac League lists are locked — sobald die Anmeldung schliesst. Eine bereits eingetragene Armee liess sich weiterhin BEARBEITEN \u2014 nicht tauschen, bearbeiten \u2014 ohne dass jemand gefragt wurde. Fuer eine Korrektur muss der Organisator die Anmeldung wieder oeffnen.",
       "\ud83d\udcac League lists open up — auch andersherum: Organisator und Admins koennen sie immer lesen, alle Teilnehmer nach Anmeldeschluss. Vorher antworteten die meisten mit \u201cNot found\u201d, weil das Eintragen einer Liste sie nie lesbar machte.",
       "\ud83d\udcac Open all / Close all — im Armee-Builder, nicht nur in der Battle View.",
+      "\ud83d\udcac Close Combat Specialists — ist jetzt ein Tausch, den du wirklich machen kannst. Der Trait der Imperialen Armee laesst jedes Modell sein Lasgewehr gegen eine Laspistole und eine Nahkampfwaffe tauschen, kostenlos, auf den neun Datenblaettern mit Lasgewehr \u2014 nicht die Lasgun Arrays des Chimera und nicht das Hot-shot Lasgun eines Stormtroopers.",
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
@@ -133,6 +135,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       "\ud83d\udcac League lists are locked — en cuanto cierra la inscripción. Un ejército ya inscrito se podía seguir EDITANDO \u2014 no cambiar, editar \u2014 sin que nadie lo autorizara. Si hay que corregir una lista, que el organizador reabra la inscripción.",
       "\ud83d\udcac League lists open up — también al revés: el organizador y los admins siempre pueden leerlas, y el resto de jugadores en cuanto cierra la inscripción. Antes casi todas daban \u201cNot found\u201d, porque inscribir una lista nunca la hacía legible.",
       "\ud83d\udcac Open all / Close all — en el constructor de ejércitos, no solo en la Battle View.",
+      "\ud83d\udcac Close Combat Specialists — ya es un cambio que podes hacer de verdad. El trait de la Guardia deja a cada modelo cambiar su Lasgun por una Las pistol y un Close combat weapon, gratis, en las nueve fichas que llevan Lasgun \u2014 no los Lasgun arrays del Chimera ni el Hot-shot lasgun de un Stormtrooper.",
     ],
     contrib: "\ud83d\udc41\ufe0f ¿Encontraste algo mal? El formulario de reporte de la app funciona — unidad, engagement, arquetipo y una foto.",
   },
