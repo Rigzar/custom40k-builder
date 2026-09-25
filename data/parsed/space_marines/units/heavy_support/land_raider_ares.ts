@@ -43,15 +43,6 @@ export const landRaiderAres: Unit = {
       "abilities": "AT(4), Blast(6), Tank hunter"
     },
     {
-      "name": "Flamestorm cannon",
-      "range": "12\"",
-      "type": "Heavy 6",
-      "s": "6",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
       "name": "Hurricane Boltgun",
       "range": "24\"",
       "type": "Rapid Fire 6",

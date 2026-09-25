@@ -31,7 +31,7 @@ export const knightPaladin: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Knight Paladin is equipped with: Heavy stubber; Knight melee weapon; Rapid-fire battle canon.",
+  "equipped_with": "A Knight Paladin is equipped with: Heavy stubber; Knight melee weapon; Rapid-fire battle cannon.",
   "weapons": [
     {
       "name": "Heavy stubber",

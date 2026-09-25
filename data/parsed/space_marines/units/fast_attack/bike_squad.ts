@@ -163,7 +163,7 @@ export const bikeSquad: Unit = {
     {
       "name": "Multi-melta",
       "range": "24\"",
-      "type": "Heavy 1",
+      "type": "Assault 1",
       "s": "8",
       "ap": "-5",
       "d": "2",

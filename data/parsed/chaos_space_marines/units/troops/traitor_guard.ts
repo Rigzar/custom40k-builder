@@ -127,15 +127,6 @@ export const traitorGuard: Unit = {
       "abilities": "Blast(4)"
     },
     {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
       "name": "Lasgun",
       "range": "24\"",
       "type": "Rapid Fire 1",

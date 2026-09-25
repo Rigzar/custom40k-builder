@@ -163,7 +163,13 @@ export const exaltedPlagueChampion: Unit = {
             "Blight Racks: The Biologus Putrifier and any attached unit uses the \"Enhanced blight grenades\" profile for their Blight grenades.",
             "Foul Infusion: All melee attacks of the Biologus Putrifier and his attached unit gain the \"Deadly(5+)\" ability.",
             "Putrid Explosion: If the Biologus Putrifier is killed roll a die. On a 4+ he explodes like a vehicle with a 6\" radius."
-          ]
+          ],
+          // "Blight Racks: … uses the 'Enhanced blight grenades' profile for their Blight
+          // grenades." The upgraded profile is on the tab and nothing issued it, so it showed on
+          // every Foetid Virion for free (Rigzar's phantom-weapon list, 2026-09-20; the author
+          // answered that the Blight Racks ability is what grants it). Tied to THIS choice so it
+          // appears only once the Biologus Putrifier specialisation is taken.
+          "effect": { "grants_weapons": ["Enhanced blight grenades"] }
         },
         {
           "name": "Foul Blightspawn",
