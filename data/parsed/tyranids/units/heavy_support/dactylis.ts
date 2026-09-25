@@ -32,19 +32,10 @@ export const dactylis: Unit = {
   ],
   "variant_models": [
     ],
-  "equipped_with": "Every model is equipped with: Clawed graspers.",
+  "equipped_with": "Every model is equipped with: Forelimbs; Grasping Claws.",
   "weapons": [
     {
-      "name": "Clawed graspers - Spore Mine launcher",
-      "range": "48\"",
-      "type": "Heavy 3",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
-    },
-    {
-      "name": "Clawed graspers - Mucolid Mine launcher",
+      "name": "Forelimbs - Mucolid Spore launcher",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",
@@ -53,7 +44,16 @@ export const dactylis: Unit = {
       "abilities": "Anti-Air, AT(2), Blast(4), Indirect"
     },
     {
-      "name": "Clawed graspers - Melee",
+      "name": "Forelimbs - Spore Mine launcher",
+      "range": "48\"",
+      "type": "Heavy 3",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
+    },
+    {
+      "name": "Grasping claws",
       "range": "-",
       "type": "Melee",
       "s": "U",
@@ -62,7 +62,7 @@ export const dactylis: Unit = {
       "abilities": "-"
     },
     {
-      "name": "Spasmic launcher - Mucolid Mine spasm",
+      "name": "Spasmic launcher - Mucolid Spore spasm",
       "range": "12\"",
       "type": "Grenade 1",
       "s": "8",
@@ -350,7 +350,7 @@ export const dactylis: Unit = {
   ],
   "abilities": [
     "Instinctive Behaviour, Move Through Cover, Squadron",
-    "Forelimb locomotion: The model may only fire with its Clawed graspers with a Stand & Shoot order, even if it is not firing indirectly.",
+    "Forelimb locomotion: The model may only fire with its Forelimbs with a Stand & Shoot order, even if it is not firing indirectly.",
     "Spore Mine Launcher: Instead of shooting at an enemy, a Dactylis may create a unit of \"Spore Mine Cluster\" (6 models) or a unit of \"Mucolid Spore Cluster\" (1 model) within 48\" of itself and at least 9\" away from any enemy unit."
   ],
   "unit_type": "Monstrous Creature",
@@ -370,6 +370,6 @@ export const dactylis: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 111,
+  "min_cost": 226,
   "is_monster": true
 };

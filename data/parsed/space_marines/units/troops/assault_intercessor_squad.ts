@@ -14,12 +14,15 @@
  *   Frag grenade         6" Grenade 1 S:4  AP:0  D:1  Explosive
  *   Krak grenade         6" Grenade 1 S:6  AP:-2 D:1  -
  * OPTIONS:
+ *   Two Intercessor Marines may swap their Astartes chainsword: Power sword +2 / Power fist +11
+ *   (NEW 2026-09-24 per author's sheet — this squad had no weapon options before.)
  *   Intercessor Sergeant → Veteran Intercessor Sergeant +10 pts + armory.
- *   No weapon options for the squad.
  * ABILITIES: Combat squads, They Shall Know No Fear
  * UNIT TYPE: Infantry
  *
- * ENGINE STATUS: ✓ all data matches HTML. champion_has_armory:true (vet upgrade grants armory).
+ * ENGINE STATUS: ✓ all data matches sheet. champion_has_armory:true (vet upgrade grants armory).
+ *   Chainsword swap modeled as fixed_max{2}, shared pool across both choices, matching Big
+ *   Mutants' own "Up to two models" shape.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -121,9 +124,48 @@ export const assaultIntercessorSquad: Unit = {
       "ap": "-2",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Power fist",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)"
+    },
+    {
+      "name": "Power sword",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-"
     }
   ],
   "option_groups": [
+    {
+      "header": "Two Intercessor Marines may swap their Astartes chainsword",
+      "constraint": {
+        "type": "fixed_max",
+        "max": 2
+      },
+      "choices": [
+        {
+          "name": "Power sword",
+          "points": 2
+        },
+        {
+          "name": "Power fist",
+          "points": 11
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": ["Astartes chainsword"]
+    },
     {
       "header": "The Intercessor Sergeant may be upgraded to a Veteran Intercessor Sergeant for +10 points and gains access to weapons and gear from the Armory.",
       "constraint": {

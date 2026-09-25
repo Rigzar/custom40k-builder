@@ -1,9 +1,32 @@
 /**
  * ERADICATOR SQUAD — Heavy Support
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE (canonical — Space Marines ENG/Eradicator Squad.html)
+ * ────────────────────────────────────────────────────────────────────
+ * PROFILES:
+ *   2-5  Eradicator Marine       M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:7 SV:3+ — 53 pts
+ *   1    Eradicator Sergeant     M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:7 SV:3+ — 53 pts
+ *   *    Veteran Eradicator Sgt  M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:8 SV:3+ — 63 pts
+ *   (Gravis armour; T:5.)
+ * EQUIPPED WITH: Every model: Melta rifle; Bolt pistol; Frag grenades; Gravis armor; Krak grenades.
+ * WEAPONS:
+ *   Bolt pistol         12" Pistol 1  S:4 AP:-1 D:1 -
+ *   Heavy bolter        36" Rapid Fire 2 S:5 AP:-2 D:1 -
+ *   Heavy melta rifle   18" Assault 1 S:8 AP:-5 D:2 AT(2), Melta
+ *   Melta rifle         18" Assault 1 S:8 AP:-5 D:1 AT(1), Melta
+ *   Multi-melta         24" Assault 1 S:8 AP:-5 D:2 AT(2), Melta
+ * OPTIONS:
+ *   For every 3 models, one Marine may swap Melta rifle: Multi-melta +19
+ *   All remaining models may swap Melta rifle: Heavy bolter +0 / Heavy melta rifle +18
+ *   Eradicator Sergeant → Veteran Eradicator Sergeant +10 pts + armory.
+ * ABILITIES:
+ *   Combat squads, Massive(1), They Shall Know No Fear, Unyielding
+ *   Gravis armor: The model gains a 6+ ward save.
+ * UNIT TYPE: Infantry
  *
+ * ENGINE STATUS (audited 2026-09-24): ✓ all data matches sheet exactly — no changes needed.
+ *   armourKeyword:"Gravis" ✓. champion_has_armory:true (vet upgrade grants armory).
+ *   default_size:3 (2 Marines + 1 Sergeant) / min_cost:159 (3×53) ✓.
  */
 
 import type { Unit } from '../../../../../src/types/data';

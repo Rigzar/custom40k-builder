@@ -4,10 +4,12 @@
  * SOURCE (canonical — Space Marines ENG/Heavy Intercessor Squad.html)
  * ────────────────────────────────────────────────────────────────────
  * PROFILES:
- *   4-9  Intercessor Marine      M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:7 SV:3+ — 44 pts
+ *   2-9  Intercessor Marine      M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:7 SV:3+ — 44 pts
  *   1    Intercessor Sergeant    M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:7 SV:3+ — 44 pts
  *   *    Veteran Intercessor Sgt M:6" WS:3+ BS:3+ S:4 T:5 W:2 I:4 A:2 LD:8 SV:3+ — 54 pts
  *   (NOTE: T:5 — not T:4 like regular Intercessors; Gravis armour.)
+ *   (UPDATED 2026-09-24 per author's sheet: Marine min squad size 4 → 2; default_size/min_cost
+ *    recomputed 2 Marines + 1 Sergeant = 3 models, matching the Eradicator Squad's own shape.)
  * EQUIPPED WITH: Every model: Heavy bolt rifle; Bolt pistol; Frag grenades; Gravis armor; Krak grenades.
  * WEAPONS:
  *   Bolt pistol                   12" Pistol 1     S:4  AP:-1 D:1  -
@@ -17,17 +19,20 @@
  *   Heavy bolter (Bolt ammo)      36" Rapid Fire 2 S:5  AP:-2 D:1  -
  *   Heavy bolter (Stalker ammo)   42" Heavy 2      S:5  AP:-3 D:1  -
  *   Heavy bolter (Assault ammo)   30" Assault 4    S:5  AP:-1 D:1  -
+ *   Multi-melta                  24" Assault 1     S:8  AP:-5 D:2  AT(2), Melta
  *   Frag grenade                   6" Grenade 1    S:4  AP:0  D:1  Explosive
  *   Krak grenade                   6" Grenade 1    S:6  AP:-2 D:1  -
  * OPTIONS:
- *   For every 5 models, one Marine may swap Heavy bolt rifle: Heavy bolter +15
+ *   For every 5 models, TWO Marines may swap Heavy bolt rifle: Heavy bolter +15 / Multi-melta +28
+ *   (UPDATED 2026-09-24: was one Marine / Heavy bolter only — now two Marines, and Multi-melta
+ *    joins the swap list, matching the Eradicator Squad's own Multi-melta option.)
  *   Intercessor Sergeant → Veteran Intercessor Sergeant +10 pts + armory.
  * ABILITIES:
  *   Combat squads, Massive(1), They Shall Know No Fear, Unyielding
  *   Gravis armor: The model gains a 6+ ward save.
  * UNIT TYPE: Infantry
  *
- * ENGINE STATUS: ✓ all data matches HTML. armourKeyword:"Gravis" ✓. T:5 ✓.
+ * ENGINE STATUS: ✓ all data matches sheet. armourKeyword:"Gravis" ✓. T:5 ✓.
  *   champion_has_armory:true (vet upgrade grants armory).
  */
 
@@ -39,7 +44,7 @@ export const heavyIntercessorSquad: Unit = {
     {
       "name": "Intercessor Marine",
       "points": 44,
-      "min": 4,
+      "min": 2,
       "max": 9,
       "stats": {
         "M": "6\"",
@@ -176,20 +181,33 @@ export const heavyIntercessorSquad: Unit = {
       "ap": "0",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Multi-melta",
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(2), Melta"
     }
   ],
   "option_groups": [
     {
-      "header": "For every 5 models, one Intercessor Marine may swap their Heavy bolt rifle",
+      "header": "For every 5 models, two Intercessor Marines may swap their Heavy bolt rifle",
       "constraint": {
         "type": "per_n",
         "per_n": 5,
-        "count_per_n": 1
+        "count_per_n": 2
       },
       "choices": [
         {
           "name": "Heavy bolter",
           "points": 15
+        },
+        {
+          "name": "Multi-melta",
+          "points": 28
         }
       ],
       "inline_pts": null,
@@ -226,6 +244,6 @@ export const heavyIntercessorSquad: Unit = {
   "locked_mark": null,
   "advisor": false,
   "slot": "Troops",
-  "default_size": 5,
-  "min_cost": 220
+  "default_size": 3,
+  "min_cost": 132
 };
