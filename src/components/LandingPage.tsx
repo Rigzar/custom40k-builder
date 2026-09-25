@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v177e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v177f_dismissed';
 
 // v1.77 (2026-09-25) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner carries ONLY v1.77's own content. Everything v1.76 announced lives on in the changelog.
@@ -23,10 +23,11 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v177e_dismissed';
 // vea mas ordenado, no asi." Twenty-eight one-line paragraphs stacked in a column is still a
 // wall; what was missing was STRUCTURE, not brevity.
 //
-// Now: GROUPED INTO SECTIONS, each a titled two-column list — the source (a GH number, or a
-// speech bubble for Discord) in a narrow fixed column, the fix in the other, one clause each.
-// That is what makes it scannable: the eye goes down the left edge and stops at the row it
-// wants, instead of reading twenty-eight sentences to find one.
+// Now: GROUPED INTO COLLAPSIBLE SECTIONS, each a titled two-column list — the source (a GH
+// number, a rule name, a league heading) in a narrow column, the fix in the other, one clause
+// each. The card opens showing three headers and their counts, and the reader opens the one they
+// care about. Two rounds of feedback got here: first "one line per fix", then "que se vea mas
+// ordenado", then "que los titulos sean pestanas desplegables".
 //
 // KEEP EACH LINE TO ONE CLAUSE. The temptation is to explain, and explaining is what the
 // changelog and Known Issues are for. If a line needs a comma and a "because", it belongs there.
@@ -240,17 +241,27 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.75's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.76 is open; cut a fresh banner when a new version is cut. */}
-          {/* Sections, each a two-column list: the source in a narrow column, the fix in the
-              other. See the layout note beside ANNOUNCEMENT_TEXT for why it is shaped this way. */}
+          {/* Sections, each a COLLAPSED two-column list. Rigzar: "es posible que los titulos sean
+              pestanas desplegables? asi pueden estar todas compactas y la gente abre el que quiere".
+              So the card opens as three headers and nothing else, and you open the one you care
+              about. The COUNT is on the header for that reason — a closed section still has to tell
+              you how much is behind it, or there is no reason to open it.
+
+              Native <details>, not React state: it keeps its own open/closed, it is keyboard- and
+              screen-reader-operable for free, and Ctrl+F still finds text inside a closed one in
+              Chrome. The marker is hidden explicitly rather than relying on `display:flex`
+              dropping it, which only some browsers do. */}
           {tx.sections.map(sec => (
-            <div key={sec.label} className="pt-1">
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-[10px] uppercase tracking-widest text-amber-600/90 font-semibold shrink-0">
+            <details key={sec.label} className="group pt-1">
+              <summary className="cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden flex items-center gap-2 py-1">
+                <span className="text-[10px] uppercase tracking-widest text-amber-600/90 font-semibold shrink-0 group-hover:text-amber-500 transition-colors">
                   {sec.label}
                 </span>
+                <span className="text-[10px] text-zinc-500 tabular-nums shrink-0">{sec.rows.length}</span>
                 <span className="flex-1 h-px bg-zinc-700/60" />
-              </div>
-              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-baseline">
+                <span className="text-[10px] text-zinc-500 shrink-0 transition-transform group-open:rotate-180">▾</span>
+              </summary>
+              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-baseline pt-1 pb-1">
                 {sec.rows.map(([src, fix], i) => (
                   <Fragment key={i}>
                     {/* No `whitespace-nowrap`: a long label ("Close Combat Specialists") would hold the
@@ -261,7 +272,7 @@ function CommunityAnnouncement() {
                   </Fragment>
                 ))}
               </div>
-            </div>
+            </details>
           ))}
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
