@@ -952,6 +952,26 @@ export function computeArchetypeHqFreeSlots(
   return { hq: credited, notes };
 }
 
+/**
+ * "Up to two Crypteks may be taken for every HQ slot" (Necrons 1.11, Canoptek Court). N copies of
+ * the named unit share one HQ slot, so all but every Nth are exempt. The archetype's own note said
+ * this from the start and nothing acted on it: a third Cryptek was rejected in a list the sheet
+ * allows four of (GH#150).
+ */
+export function computeArchetypeHqSharedSlots(
+  army: RosterEntry[],
+  rule: Rule,
+): { hq: number; notes: string[] } {
+  if (!rule?.hqUnitsPerSlot) return { hq: 0, notes: [] };
+  const { unitName, per } = rule.hqUnitsPerSlot;
+  const count = army.filter(i => !i.factionSource && i.unitName === unitName).length;
+  if (count === 0 || per < 2) return { hq: 0, notes: [] };
+  const slotsUsed = Math.ceil(count / per);
+  const free = count - slotsUsed;
+  if (free <= 0) return { hq: 0, notes: [] };
+  return { hq: free, notes: [`${unitName}: up to ${per} may be taken per HQ slot — ${count} of them occupy ${slotsUsed} slot${slotsUsed === 1 ? '' : 's'}.`] };
+}
+
 /** All 4 datasheets independently say "An army can contain only one C'tan Shard" (ods-verbatim,
  * Necrons "OPTIONS" row) — confirmed army-wide (not per-name) by Yngir's own wording "One C'tan
  * shard (any kind) counts as an HQ selection." Each datasheet's own option_group is a
@@ -1033,10 +1053,11 @@ export function computeFreeSlotAdjustments(
   const hexmark         = computeHexmarkDestroyerFreeSlots(army, data);
   const spiritseer      = computeSpiritseerFreeSlots(army, data);
   const royalCourt      = computeRoyalCourtFreeSlots(army, data);
+  const hqShared        = computeArchetypeHqSharedSlots(army, rule);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
       + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites,
@@ -1048,7 +1069,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes,
+      ...royalCourt.notes, ...hqShared.notes,
     ],
   };
 }

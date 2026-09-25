@@ -151,6 +151,13 @@ export function ownWardAbilities(
   return (u.abilities ?? []).filter(ab => {
     const colon = ab.indexOf(':');
     if (colon < 1) return true;
-    return !unbought.has(ab.slice(0, colon).trim().toLowerCase());
+    const label = ab.slice(0, colon).trim();
+    if (unbought.has(label.toLowerCase())) return false;
+    // A specialisation prints its own name on a LINE OF ITS OWN above the rule it grants, so the
+    // label spans two lines and matched no choice name. An unbought Magos specialisation
+    // ("Technoarchaeologist" / "Seekers of Divine Arcana", which grants "Warded") therefore
+    // improved the Magos's innate 5+ ward to a free 4+ (GH#139).
+    const firstLine = label.split(/\r?\n/)[0].trim().toLowerCase();
+    return !unbought.has(firstLine);
   });
 }

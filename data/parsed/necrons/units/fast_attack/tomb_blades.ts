@@ -74,7 +74,10 @@ export const tombBlades: Unit = {
         },
         {
           "name": "Shadowloom & shieldvanes",
-          "points": 12
+          "points": 12,
+          // "Shadowloom and shieldvanes: The model gains a 3+ armor save." (Necrons 1.11).
+          // A SET, not a delta — the sheet states the resulting save, not a modifier.
+          "effect": { "stat_set": [{ "stat": "SV", "value": "3+" }] }
         }
       ],
       "inline_pts": null,

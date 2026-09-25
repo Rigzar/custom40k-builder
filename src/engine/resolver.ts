@@ -113,6 +113,13 @@ export interface ResolvedProfile {
   championWeaponTraitMap: Map<string, string[]>;
   /** Mark-derived ability injections (e.g. Warded, Warpflamer) — shown with "Mark" badge. */
   injectedAbilities: string[];
+  /**
+   * Labels of ability lines that belong to an upgrade the player has NOT bought. The sheets print
+   * an upgrade's rules under its own name ("Shadowloom and shieldvanes: The model gains a 3+ armor
+   * save.") and every view printed them unconditionally, so a Tomb Blade's battle-ready sheet
+   * showed an armour save it never paid for (GH#149). 134 lines in the game are written this way.
+   */
+  hiddenUpgradeAbilityLabels: string[];
   /** Archetype / variant rule notes (e.g. Ascended DP, Goretide) — shown with "Rule" badge. */
   injectedRuleNotes: string[];
   equipMods: EquipMods;
@@ -138,6 +145,8 @@ export interface ResolvedProfile {
   // Option effects (ki-parser-02) — stat/type/ability changes a selected wargear option confers.
   /** Stat deltas from selected options (e.g. Daemon Prince wings M +6), stacked over base. */
   optionStatMods: Array<{ stat: string; delta: number }>;
+  /** Absolute stat values an option sets ("gains WS 3+"), keyed by stat. */
+  optionStatSets: Record<string, string>;
   /** Unit types ADDED by selected options (additive), e.g. "Jump pack infantry". */
   optionAddedUnitTypes: string[];
   /** Unit-type line REPLACED by a selected option (datasheet "change type to X"); null if none. */
@@ -727,13 +736,25 @@ const optionalWeapons = new Map<string, Set<string>>();
   const keptByChoice = new Set<string>();
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
-    if (!g?.replaces?.length) continue;
+    if (!g?.choices?.length) continue;
     for (const [ci, qty] of Object.entries(ch)) {
       if (!qty || ci === '__inline') continue;
       const choice = g.choices[parseInt(ci)];
       if (!choice) continue;
       for (const part of choice.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim())) {
-        if (g.replaces.includes(part)) keptByChoice.add(part);
+        if (g.replaces?.includes(part)) { keptByChoice.add(part); continue; }
+        // A weapon one group swapped away is NOT gone if a DIFFERENT group's selected choice hands
+        // it back. A Leman Russ that trades its hull Heavy bolter for a Lascannon and then buys the
+        // "two Heavy bolters" sponsons ended up with no Heavy bolter at all: one group said
+        // "replaced" and nothing asked whether the player had since bought two more (GH#152). The
+        // choice's own multiplier and plural are stripped so "two Heavy bolters" reaches the
+        // weapon row "Heavy bolter".
+        const bare = part.replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/i, '').trim().toLowerCase();
+        const hit = unit.weapons.find(w => {
+          const b = baseName(w.name).toLowerCase();
+          return b === bare || b + 's' === bare;
+        });
+        if (hit) keptByChoice.add(baseName(hit.name));
       }
     }
   }
@@ -1162,7 +1183,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Inject global trait weapon abilities into weaponTraitMap so the WeaponTable shows them
   // directly on each weapon row (e.g. Siege Experts → Sunder(1) on every ranged weapon).
   if (traitWeaponAbilities.length > 0) {
-    for (const weapon of unit.weapons) {
+    // `weapons`, not `unit.weapons`: a trait that grants an ability to ALL ranged attacks grants it
+    // to the ones bought from the Armory too. Iterating the datasheet list left an armoury weapon
+    // as the only row on the card without it — AdMech's Djinn Eyes ("This unit gains the
+    // 'Sunder(1)' ability for all ranged attacks") added nothing to a bought weapon (GH#137).
+    for (const weapon of weapons) {
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       for (const wa of traitWeaponAbilities) {
         const applies =
@@ -1323,6 +1348,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   // Option effects (ki-parser-02): stat/type/ability changes from selected wargear options.
   const optionStatMods: Array<{ stat: string; delta: number }> = [];
+  const optionStatSets: Record<string, string> = {};
   const optionAddedUnitTypes: string[] = [];
   let optionSetUnitType: string | null = null;
   const optionAbilities: string[] = [];
@@ -1336,12 +1362,36 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   // De-dup helpers: an effect only grants what the model doesn't already have (a type/ability
   // already in its base profile is not re-added). Normalize so "Deepstrike" matches "Deep strike".
+  // Ability lines that only apply once an upgrade is BOUGHT — matched by NAME against this
+  // datasheet's own option choices, so nothing outside that shape is touched. "&" is normalised
+  // because the sheets mix "Shadowloom & shieldvanes" (choice) with "Shadowloom and shieldvanes"
+  // (ability label) on the same page.
+  const _choiceNorm = (x: string) => x.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim();
+  const _allChoiceNorm = new Set<string>();
+  const _selChoiceNorm = new Set<string>();
+  for (const [gi, g] of unit.option_groups.entries()) {
+    const ch: Record<string, number> = (item.optionQty?.[gi] ?? {}) as Record<string, number>;
+    (g.choices ?? []).forEach((c, ci) => {
+      _allChoiceNorm.add(_choiceNorm(c.name));
+      if (Number(ch[String(ci)] ?? 0) > 0) _selChoiceNorm.add(_choiceNorm(c.name));
+    });
+  }
+  const hiddenUpgradeAbilityLabels = (unit.abilities ?? [])
+    .filter(a => a.includes(':'))
+    .map(a => a.split(':')[0].trim())
+    // A specialisation prints its own name on a LINE OF ITS OWN above the rule it grants, so the
+    // label spans two lines ("Technoarchaeologist" then "Seekers of Divine Arcana"); either line
+    // may be the choice's name.
+    .flatMap(h => (/\r?\n/.test(h) ? [h, h.split(/\r?\n/)[0].trim()] : [h]))
+    .filter(h => _allChoiceNorm.has(_choiceNorm(h)) && !_selChoiceNorm.has(_choiceNorm(h)));
+
   const _norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
   const _baseTypeNorm = _norm(unit.unit_type);
   const _baseAbilNorm = (unit.abilities ?? []).flatMap(a => a.split(/[,;]/)).map(p => _norm(p.split(':')[0]));
   const applyEffect = (eff: OptionEffect | undefined) => {
     if (!eff) return;
     for (const sm of eff.stat_mod ?? []) optionStatMods.push({ stat: sm.stat, delta: sm.delta });
+    for (const ss of eff.stat_set ?? []) optionStatSets[ss.stat] = ss.value;
     for (const t of eff.adds_unit_types ?? [])
       if (!optionAddedUnitTypes.includes(t) && !_baseTypeNorm.includes(_norm(t))) optionAddedUnitTypes.push(t);
     if (eff.set_unit_type) optionSetUnitType = eff.set_unit_type;
@@ -1494,13 +1544,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     effectiveHasVetAbilities,
     equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], attachedDrones: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap,
     injectedAbilities: choiceAbilities,
+    hiddenUpgradeAbilityLabels,
     injectedRuleNotes: ruleNotes,
     equipMods,
     traitEquipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
-    optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    optionStatMods, optionStatSets, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     familyBoostKeys,
   };
 }
@@ -1582,7 +1633,15 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         const choice = g.choices[parseInt(ci)];
         if (!choice) continue;
         const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-        for (const part of (parts.length > 1 ? parts : [choice.name])) squadOnlyGrantedNames.add(part);
+        for (const part of (parts.length > 1 ? parts : [choice.name])) {
+          // …unless the group HANDS THAT WEAPON BACK, in which case it is not something the squad
+          // bought at all — it is kit both rows already carry. The Terminator Squad's "swap their
+          // Storm bolters -> Storm bolter and Cyclone missile launcher" marked the Storm bolter
+          // squad-only, and the Sergeant's row lost the one his own loadout clause gives him: he
+          // rendered holding a Power sword and nothing else (GH#143).
+          if ((g.replaces ?? []).some(r => r.toLowerCase() === part.trim().toLowerCase())) continue;
+          squadOnlyGrantedNames.add(part);
+        }
       }
     }
   }
@@ -1625,7 +1684,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // Missile Drone is equipped with: Missile pod.") actually reach 2 matched clauses instead of 1,
   // which is what routes it into the per-clause split below instead of the flattened fallback.
   const clauses = [...unit.equipped_with.matchAll(
-    /(?:Every|The|An?) ([^.]+?) is (?:a single character model and |a single model and |a single model |a single character and |a character model and |a character and |)equipped with:\s*([^.]+)\./g
+    /(?:Every|Each|The|An?) ([^.]+?) is (?:a single character model and |a single model and |a single model |a single character and |a character model and |a character and |)equipped with:\s*([^.]+)\./g
   )];
   // Ghostkeel Battlesuits has no second clause at all (its 2 Stealth Drones carry no weapons of
   // their own) — it never reaches the >1 threshold above even with the tolerant regex. Its one
@@ -1776,6 +1835,35 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (variantGroup && variantSplitFromFirstClause) variantGroup.weapons.push(w);
       }
     }
+    // The pass above can only place a weapon that NO clause claimed. A weapon bought by one model
+    // row but carried as standard kit by ANOTHER is claimed, so it never reached the row that
+    // actually paid for it: the Voidscarred's "Any Voidscarred may swap their Shuriken rifle ->
+    // Shuriken pistol and Power sword" grants two weapons that the Shade Runner, Soul Weaver and
+    // Way Seeker all carry by default, and the buyer's row lost its rifles and gained nothing
+    // (GH#157 — "the Shuriken Rifle is removed, but the additional weapons are not added").
+    // Scoped to groups that say who they apply to, so a squad-wide swap is untouched, and matched
+    // against the row's model SPAN as well as its label, because the clause covering the
+    // Voidscarred is written "Every Voidscarred and Felarch is equipped with:".
+    for (const [gi, g] of unit.option_groups.entries()) {
+      if (!g.applies_to_model) continue;
+      const targets = Array.isArray(g.applies_to_model) ? g.applies_to_model : [g.applies_to_model];
+      const target = groups.find(gr => gr.models
+        ? gr.models.some(mn => targets.includes(mn))
+        : targets.includes(gr.label as string));
+      if (!target) continue;
+      for (const [ci, qty] of Object.entries(item.optionQty?.[gi] ?? {})) {
+        if (ci === '__inline' || !qty) continue;
+        const choice = g.choices[parseInt(ci)];
+        if (!choice) continue;
+        const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim()).filter(Boolean);
+        for (const part of (parts.length > 1 ? [choice.name, ...parts] : [choice.name])) {
+          const w = remaining.find(x => bareWeapon(x.name) === part.toLowerCase());
+          if (w && !target.weapons.some(x => x.name === w.name)) target.weapons.push(w);
+        }
+      }
+      // Keep the row in the datasheet's own weapon order rather than "whatever was bought last".
+      target.weapons.sort((a, b) => remaining.indexOf(a) - remaining.indexOf(b));
+    }
     // …unless the promoted variant above already took them. On the two bike squads the Armory is
     // reached only by upgrading the Sergeant (`variant_link`), so the purchase belongs to the
     // *Veteran* Sergeant's row; appending the base Sergeant's row too printed the same weapon
@@ -1867,6 +1955,12 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     if (grp.count == null && !unitHasMultiCopyWeapon && !hasAnyOptionSelection && !hasArmoryGrantedWeapon) continue;
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
+    // Copies a swap HANDS BACK: "swap their Storm bolters -> Storm bolter and Cyclone missile
+    // launcher" takes one and returns one, so the model's Storm bolter count is unchanged and the
+    // squad's four must not read three (GH#143). Kept separate from `replacedQty` because a
+    // multi-copy swap can take two and return one ("swap BOTH Penitent flails -> Penitent
+    // buzz-blade and Penitent flail" is a net loss of one), which a plain "skip it" cannot express.
+    const returnedQty = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
       // Process BOTH swap groups (`replaces`) and add-only weapon-grant groups. Add-only groups
       // (e.g. IG "Another Guardsman may be equipped with a Special weapon: Flamer") were skipped,
@@ -1892,6 +1986,28 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         const headerVariant = (unit.variant_models ?? [])
           .find(v => header.includes(v.name.toLowerCase()));
         if (headerVariant && (grp.label ?? '').toLowerCase() !== headerVariant.name.toLowerCase()) continue;
+        // Same reasoning one level down: a swap whose header names a MODEL ROW ("For every 5
+        // models, two Terminators may swap their Storm bolters") must not be subtracted from the
+        // OTHER rows. The Terminator Sergeant carries a Storm bolter too, so buying the squad's
+        // Cyclone launcher took his away and his row rendered with a Power sword and nothing else
+        // (GH#143). Only applies once the loadout clauses have actually split the unit into
+        // labelled rows — a single merged row is the whole unit and must keep subtracting.
+        // The LONGEST matching row name wins, so "Terminators" cannot be read as the Sergeant's
+        // row and vice versa; plurals are matched because the sheets write "two Terminators".
+        else if (grp.label) {
+          const named = unit.models
+            .map(mm => mm.name)
+            .filter(n => new RegExp('(^|[^a-z])' + n.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + 's?([^a-z]|$)').test(header))
+            .sort((a, b) => b.length - a.length)[0];
+          // Only when that model actually HAS a row of its own to be counted on. An Engineseer's
+          // "Up to 2 Servitors may be equipped with: Power fist" has no Servitor row when the
+          // player bought no Servitors, and the purchase then has nowhere else to land — skipping
+          // it there just dropped the count and printed a bare "Power fist".
+          const namedHasRow = !!named && groups.some(x => (x.label ?? '').toLowerCase() === named.toLowerCase()
+            || (x.models ?? []).some(mn => mn.toLowerCase() === named.toLowerCase()));
+          if (named && namedHasRow && named.toLowerCase() !== grp.label.toLowerCase()
+              && !(grp.models ?? []).some(mn => mn.toLowerCase() === named.toLowerCase())) continue;
+        }
       }
       const ch = item.optionQty?.[gi] ?? {};
       let groupQty = 0;
@@ -1913,6 +2029,19 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // ("Chainsword & Laspistol") has no single weapon row matching its own full name, so
         // adding it as an extra candidate here is a harmless no-op for that case.
         for (const part of (parts.length > 1 ? [choice.name, ...parts] : [choice.name])) {
+          // The other half of the net-keep above: a bundle choice that hands back a weapon its own
+          // group replaces ("Storm bolter and Cyclone missile launcher" vs `replaces: [Storm
+          // bolter]`) leaves the model's count UNCHANGED. Counting it as granted made the squad's
+          // four Storm bolters read "1x" instead (GH#143). Skipped on both sides so the weapon
+          // falls through with no override at all and keeps the row's own model count.
+          // Normalised the same way `returnedQty` above normalises, so "2 Shield breaker missiles"
+          // is recognised as the group's own "Shield breaker missile" coming back. Comparing the
+          // raw strings let the Knight Castellan's swap count its returned missiles twice — once
+          // as returned and once as granted — and its four became seven.
+          if (parts.length > 1) {
+            const pb = part.replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/i, '').replace(/s$/, '').trim().toLowerCase();
+            if ((g.replaces ?? []).some(r => r.replace(/s$/, '').toLowerCase() === pb)) continue;
+          }
           // A choice can print its OWN multiplier in the name ("2 Heavy flamers", "4 Heavy
           // bolters", "2 Lascannons and 2 Twin heavy bolter" split into two parts above) when one
           // purchase grants several copies at once — the common "sponson"/multi-gun-bank shape
@@ -1959,7 +2088,28 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       }
       if (groupQty === 0) continue;
       for (const replaced of (g.replaces ?? [])) {
+        // A choice that hands the weapon straight back is a net keep, not a loss: the Terminator
+        // Squad's "swap their Storm bolters -> Storm bolter and Cyclone missile launcher" costs
+        // the model nothing but gains it the launcher, and subtracting the swap turned four Storm
+        // bolters into three (GH#143). The visibility pass already treats these as kept
+        // (`keptByChoice` above); the count arithmetic did not, so the row disagreed with itself.
+        // Counted per CHOICE, because the same group's other choices (Heavy flamer, Assault
+        // cannon, Plasma cannon) really do take the bolter away.
         replacedQty.set(replaced, (replacedQty.get(replaced) ?? 0) + groupQty);
+        for (const [ci, qty] of Object.entries(item.optionQty?.[gi] ?? {})) {
+          if (ci === '__inline' || !qty) continue;
+          const choice = g.choices[parseInt(ci)];
+          if (!choice) continue;
+          const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim());
+          if (parts.length < 2) continue;
+          for (const p of parts) {
+            const mult = p.match(/^(?:(\d+)|(two|three|four))\s+/i);
+            const bare = p.replace(/^(?:a pair of|a|an|two|three|four|\d+)\s+/i, '').replace(/s$/, '').trim();
+            if (bare.toLowerCase() !== replaced.toLowerCase().replace(/s$/, '')) continue;
+            const copiesBack = mult ? (mult[1] ? parseInt(mult[1], 10) : { two: 2, three: 3, four: 4 }[mult[2].toLowerCase()]!) : 1;
+            returnedQty.set(replaced, (returnedQty.get(replaced) ?? 0) + copiesBack * Number(qty));
+          }
+        }
       }
     }
     const overrides = new Map<string, number>();
@@ -2044,9 +2194,16 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // Penitent Engines read 3 flails after one swap instead of 6, and six Kastelan Robots
         // read 5 Power fists instead of 10.
         const swapsAllCopies = copies > 1 &&
-          replaceGroups.some(g => /\b(both|their two|two|all)\b/i.test(g.header ?? ''));
+          // Counts above two were missing: the Knight Castellan's "May swap FOUR Shield breaker
+          // missiles…" carries four copies and traded all four, and reading it as a single-copy
+          // swap left five of its four missiles on the card (GH#152 follow-on).
+          replaceGroups.some(g => /\b(both|their two|two|three|four|five|six|all)\b/i.test(g.header ?? ''));
         const perSwap = swapsAllCopies ? copies : 1;
-        overrides.set(w.name, Math.max(0, groupModels * copies - replacedQty.get(rKey)! * perSwap));
+        // …plus anything a DIFFERENT group bought of the same weapon. The replaced branch used to
+        // win outright and ignore `grantedQty`, so a Leman Russ that swapped its hull Heavy bolter
+        // away and then bought the two Heavy bolter sponsons read "0x Heavy bolter" (GH#152).
+        overrides.set(w.name, Math.max(0, groupModels * copies - replacedQty.get(rKey)! * perSwap
+          + (returnedQty.get(rKey) ?? 0) + (grantedQty.get(gKey) ?? 0)));
       } else if (grantedQty.has(gKey)) {
         // A granted weapon the model ALREADY carries adds to what it has rather than replacing it.
         // Discord (Liquid Citrus): a Tyranid Prime is equipped with Scything talons AND Spinefists,
@@ -2086,7 +2243,13 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
             return src.some(x => (x.replaces ?? []).every(r =>
               (unit.equipped_with ?? '').toLowerCase().includes(baseName(r).toLowerCase())));
           })());
-        const alreadyHas = inOwnDefault && !hasPromotion && grp.label === null && tradesSomethingReal
+        // …but a promotion only takes the model out of the squad's count when it HAS a row of its
+        // own. The Warp Spiders render as one row: promoting the Exarch and buying it a second
+        // Death spinner made the whole card read "1x Death spinner" for a five-model squad,
+        // because the squad's own five were not counted at all (GH#138). When the promoted model
+        // shares this row, `groupModels` already includes it, so the grant is simply added.
+        const promotedHasOwnRow = hasPromotion && groups.some(x => x !== grp && x.label != null);
+        const alreadyHas = inOwnDefault && !promotedHasOwnRow && grp.label === null && tradesSomethingReal
           ? groupModels * weaponCopiesPerModel(unit.equipped_with, bn)
           : 0;
         overrides.set(w.name, alreadyHas + grantedQty.get(gKey)!);

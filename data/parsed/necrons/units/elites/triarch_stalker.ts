@@ -108,7 +108,13 @@ export const triarchStalker: Unit = {
       "choices": [
         {
           "name": "Reinforced forelimbs",
-          "points": 13
+          "points": 13,
+          // "Reinforced forelimbs: The model gains WS 3+ and +2 A." (Necrons 1.11, Triarch
+          // Stalker). The Stalker's printed WS is "-", so Weapon Skill is a SET, not a delta.
+          "effect": {
+            "stat_mod": [{ "stat": "A", "delta": 2 }],
+            "stat_set": [{ "stat": "WS", "value": "3+" }]
+          }
         }
       ],
       "inline_pts": null,

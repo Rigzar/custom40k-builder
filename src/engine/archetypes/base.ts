@@ -190,6 +190,13 @@ export interface ArchetypeRule {
    */
   pointsBasedHqFree?: { unitName: string; perPoints: number } | null;
   /**
+   * "Up to two Crypteks may be taken for every HQ slot" (Necrons 1.11, Army Customisation,
+   * Canoptek Court). Several copies of one unit SHARE an HQ slot, so `per` of them cost one slot
+   * between them. The note said so and nothing enforced it, and a third Cryptek was rejected
+   * although the archetype allows four (GH#150).
+   */
+  hqUnitsPerSlot?: { unitName: string; per: number } | null;
+  /**
    * Units listed here don't count toward the 25% Troops requirement, while every OTHER Troops
    * unit still does (the normal `troopsCount: 'all'` behaviour) — e.g. Votann Hearthfyre
    * Arsenal's "Hearthkyn Warriors do not count towards the 25% Troops requirement" (ods-verbatim).

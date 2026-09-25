@@ -37,7 +37,7 @@ export const canoptekScarabs: Unit = {
       "name": "Feeder mandibles",
       "range": "-",
       "type": "Melee",
-      "s": "T",
+      "s": "U",
       "ap": "0",
       "d": "1",
       "abilities": "Armor piercing(5+)"

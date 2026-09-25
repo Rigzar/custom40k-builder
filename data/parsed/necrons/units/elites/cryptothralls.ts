@@ -46,7 +46,7 @@ export const cryptothralls: Unit = {
       "name": "Scythed limbs",
       "range": "-",
       "type": "Melee",
-      "s": "T",
+      "s": "U",
       "ap": "-1",
       "d": "1",
       "abilities": "-"

@@ -230,6 +230,7 @@ export const corsairVoidscarred: Unit = {
   "option_groups": [
     {
       "header": "Any Voidscarred may swap their Shuriken rifle",
+      "applies_to_model": ["Voidscarred", "Felarch"],
       "constraint": {
         "type": "every"
       },
@@ -248,6 +249,7 @@ export const corsairVoidscarred: Unit = {
     },
     {
       "header": "The Felarch may swap their Shuriken pistol",
+      "applies_to_model": "Felarch",
       "constraint": {
         "type": "one"
       },
@@ -279,6 +281,7 @@ export const corsairVoidscarred: Unit = {
     },
     {
       "header": "For every 5 models, one Voidscarred may swap their Shuriken rifle",
+      "applies_to_model": "Voidscarred",
       "constraint": {
         "type": "per_n",
         "per_n": 5,
@@ -303,6 +306,7 @@ export const corsairVoidscarred: Unit = {
     },
     {
       "header": "If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle",
+      "applies_to_model": "Voidscarred",
       "constraint": {
         "type": "one"
       },
@@ -325,6 +329,7 @@ export const corsairVoidscarred: Unit = {
     },
     {
       "header": "If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle",
+      "applies_to_model": "Voidscarred",
       "constraint": {
         "type": "one"
       },
@@ -343,6 +348,7 @@ export const corsairVoidscarred: Unit = {
     },
     {
       "header": "If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle",
+      "applies_to_model": "Voidscarred",
       "constraint": {
         "type": "one"
       },

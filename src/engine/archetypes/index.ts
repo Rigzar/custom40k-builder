@@ -451,6 +451,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // for every other archetype.
   'Canoptek Court': { ...BASE,
     hqAllowed: ['Cryptek'],
+    hqUnitsPerSlot: { unitName: 'Cryptek', per: 2 },
     notes: [
       'Only Crypteks may be taken as HQ. Up to 2 Crypteks may be taken per HQ slot.',
       'Canoptek units gain the "Objective secured!" ability.',

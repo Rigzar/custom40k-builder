@@ -172,11 +172,11 @@ export function UnitCard({ item }: Props) {
     variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
     effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
-    injectedAbilities, injectedRuleNotes, equipMods, traitEquipMods,
+    injectedAbilities, hiddenUpgradeAbilityLabels, injectedRuleNotes, equipMods, traitEquipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
-    optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    optionStatMods, optionStatSets, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     attachedDrones,
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
@@ -830,7 +830,7 @@ export function UnitCard({ item }: Props) {
                             ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
                             : statModMark ? [statModMark] : [],
                           favouredLeader: isFavored && i === squadLeaderIdx,
-                          traitStatMods, optionStatMods,
+                          traitStatMods, optionStatMods, optionStatSets,
                           equipMods, traitEquipMods,
                           isEquipTarget,
                           ctanYngirActive,
@@ -2184,6 +2184,9 @@ export function UnitCard({ item }: Props) {
               const ci = ab.indexOf(':');
               const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
               if (_unselectedOptionalWeapons.has(label)) return false;
+              // An upgrade's own rules text, printed under the upgrade's name, when that upgrade
+              // has not been bought (GH#149).
+              if (hiddenUpgradeAbilityLabels.some(h => h.toLowerCase() === label)) return false;
               if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
               if (_hasPsykerOption && label === 'psyker') return false;
               if (!_henchmanAbilityKeep(ab)) return false;

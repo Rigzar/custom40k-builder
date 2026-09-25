@@ -110,6 +110,13 @@ export interface OptionEffect {
   /** Stat deltas applied to the unit's models while active, e.g. M +6 (Daemon Prince + wings). */
   stat_mod?: { stat: keyof StatBlock; delta: number }[];
   /**
+   * ABSOLUTE stat values the option sets, for the datasheet verb "gains WS 3+" rather than
+   * "+1 WS". A delta cannot express it: the Triarch Stalker's printed WS is "-", and its
+   * Reinforced forelimbs give it a Weapon Skill it did not have (GH#151). Applied only when
+   * better than the value the model has reached by then, exactly like an armoury "set".
+   */
+  stat_set?: { stat: keyof StatBlock; value: string }[];
+  /**
    * Unit types ADDED while active. Additive, never a replacement: a model "gains" a type and
    * keeps the ones it had (Core Rules: a model may have "one or more unit types"). Use this for the
    * datasheet verb "gain the X Unit type". E.g. Daemon Prince + wings → "Monstrous Creature, Jump

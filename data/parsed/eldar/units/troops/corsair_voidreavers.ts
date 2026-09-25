@@ -169,6 +169,7 @@ export const corsairVoidreavers: Unit = {
       "replaces": [
         "Shuriken pistol"
       ],
+      "applies_to_model": "Felarch",
       "requires_choice": [
         "Shuriken pistol & Power sword"
       ]

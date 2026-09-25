@@ -397,7 +397,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, attachedDrones, optionAbilities, traitAbilities } = rp;
+          optionStatMods, optionStatSets, attachedDrones, optionAbilities, traitAbilities } = rp;
   // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
   // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
   // affected. Same derivation as the unit card now.
@@ -640,6 +640,14 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
               }
+              // Absolute values an option sets ("Reinforced forelimbs: the model gains WS 3+"),
+              // which no delta can express on a profile that prints "-" (GH#151).
+              for (const [k, v] of Object.entries(optionStatSets ?? {})) {
+                if (modStats[k] === undefined || !v) continue;
+                const cur = String(modStats[k]).match(/^(\d+)\+/)?.[1];
+                const set = v.match(/^(\d+)\+/)?.[1];
+                if (!cur || modStats[k] === '-' || (set && parseInt(set, 10) < parseInt(cur, 10))) modStats[k] = v;
+              }
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
@@ -830,7 +838,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
 
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, variant, weaponTraitMap, injectedAbilities, optionAbilities, equipMods, traitEquipMods,
+  const { pts, variant, weaponTraitMap, injectedAbilities, hiddenUpgradeAbilityLabels, optionAbilities, equipMods, traitEquipMods,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
@@ -909,6 +917,9 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
       const ci = ab.indexOf(':');
       const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
       if (_unselectedOptionalWeapons.has(label)) return false;
+      // An upgrade's own rules text, printed under the upgrade's name, when that upgrade has not
+      // been bought — the battle-ready sheet showed Tomb Blades' armour upgrade unbought (GH#149).
+      if (hiddenUpgradeAbilityLabels.some((h: string) => h.toLowerCase() === label)) return false;
       if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
       if (_hasPsykerOption && label === 'psyker') return false;
       return true;

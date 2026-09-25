@@ -82,7 +82,7 @@ function parseSaveValue(v: string): number {
 }
 
 export function parseEquipMods(
-  items: { name: string; desc: string; armourKeyword?: string; typeEffect?: { adds_unit_types?: string[]; set_unit_type?: string } }[],
+  items: { name: string; desc: string; armourKeyword?: string; typeEffect?: { adds_unit_types?: string[]; set_unit_type?: string; stat_mod?: { stat: string; delta: number }[] } }[],
   innateArmour?: string,
   baseAbilities: string[] = [],
 ): EquipMods {
@@ -124,8 +124,16 @@ export function parseEquipMods(
     const isArmourSwap = !!it.armourKeyword && !!innateArmour;
     // Only apply stat deltas when the bonus clearly applies to the bearer, not an aura for other units
     if (!isArmourSwap && !AURA_PHRASES.test(desc)) {
+      // An item that already DECLARES the change in its `effect.stat_mod` is applied through the
+      // option-effect pipeline (`optionStatMods`), which covers every model row. Re-deriving it
+      // from the same sentence here added it a SECOND time on the row that carries the purchase:
+      // AdMech's Aggressor Imperative ("The model gains +2\" Movement.") moved the squad to 8"
+      // and its Alpha to 10" (GH#140). Scoped per STAT, so an item that declares one stat and
+      // describes another in prose keeps both.
+      const declared = new Set((it.typeEffect?.stat_mod ?? []).map(sm => String(sm.stat).toUpperCase()));
       // Positive stat deltas: "gains +N Stat"
       for (const [re, key, sign] of EQUIP_STAT_MAP) {
+        if (declared.has(String(key).toUpperCase())) continue;
         const m = desc.match(re);
         if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]) * sign;
       }

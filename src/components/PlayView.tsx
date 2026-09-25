@@ -108,6 +108,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
     favouredLeader: !!rp.isFavored && i === rp.squadLeaderIdx,
     traitStatMods: rp.traitStatMods ?? [],
     optionStatMods: rp.optionStatMods ?? [],
+    optionStatSets: rp.optionStatSets ?? {},
     equipMods: rp.equipMods,
     traitEquipMods: rp.traitEquipMods,
     // Every row in this view is the unit as fielded; a champion's own purchases already sit on

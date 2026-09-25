@@ -152,6 +152,9 @@ export const mutants: Unit = {
   "option_groups": [
     {
       "header": "The entire unit may receive one of the following upgrades per model",
+      // "…one of the following upgrades PER MODEL" — the sheet prices these once per model
+      // and one flat charge was made for the whole squad (GH#141).
+      "per_model": true,
       "constraint": {
         "type": "one"
       },

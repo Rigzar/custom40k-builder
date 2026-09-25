@@ -41,6 +41,8 @@ export interface StatPipelineInput {
   favouredLeader: boolean;
   traitStatMods: StatMod[];
   optionStatMods: StatMod[];
+  /** Absolute values an OPTION sets ("gains WS 3+"), applied like an armoury set: best wins. */
+  optionStatSets?: Record<string, string | undefined>;
   equipMods: EquipLike;
   traitEquipMods: EquipLike;
   /** Does this row actually carry the Armory purchases? (A champion's gear is the champion's.) */
@@ -142,6 +144,15 @@ export function resolveStatValue(
   }
   // 7 — Options (Toxin Sacs +1 Strength, Daemon Prince wings +6" Movement) and the C'tan floor
   step(input.optionStatMods.filter(s => s.stat === k).reduce((a, s) => a + s.delta, 0), 'option');
+  // An option's own "set" — same best-wins rule as the wargear one in step 6, but it runs here
+  // because an option applies to the model itself, not to the row that carries the Armory.
+  const optSet = input.optionStatSets?.[k];
+  if (optSet) {
+    const cur = display.match(/^(\d+)\+/)?.[1];
+    const set = optSet.match(/^(\d+)\+/)?.[1];
+    if (cur && set && parseInt(set, 10) < parseInt(cur, 10)) { display = optSet; src.option = true; }
+    else if (!cur || display === '-') { display = optSet; src.option = true; }
+  }
   if (input.ctanYngirActive) floorSave(2, 'option');
 
   return { display: capStat(k, display), source: src };

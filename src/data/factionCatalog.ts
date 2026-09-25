@@ -54,7 +54,7 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/chaos.svg',
     pillFg: '#cc8888', pillFgLight: '#8a3236', dividerColor: '#3a1a1a',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.04' },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.05' },
       { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.01' },
     ],
   },
@@ -65,11 +65,11 @@ export const CATEGORIES: FactionCategory[] = [
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.05' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.05' },
-      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing', version: '1.01' },
-      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing', version: '1.01' },
+      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'complete', version: '1.01' },
+      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'complete', version: '1.01' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.01' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.01' },
-      { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'testing', version: '1.01' },
+      { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.01' },
     ],
   },
   {
@@ -77,15 +77,15 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/xenos.svg',
     pillFg: '#6ab88a', pillFgLight: '#1d6944', dividerColor: '#1a3a28',
     factions: [
-      { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'testing', version: '1.01' },
+      { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'complete', version: '1.02' },
       { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.11' },
-      { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.02' },
+      { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.03' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.01' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.01' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.02' },
-      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing', version: '1.01' },
+      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.01' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.02' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.06' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.07' },
     ],
   },
 ];

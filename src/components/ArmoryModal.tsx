@@ -786,6 +786,23 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       scaling = 'perModel';
     } else {
       pts = getItemPts(arm) ?? 0;
+      // "The point cost for this equipment is the same as for the weapon that it enhances."
+      // (SM Relic blade, Sororitas Holy weapon, CSM Cursed blade, Harlequins Crescendo.) The
+      // sheet prices these "Special" and the app charged 0 for them (GH#142). Once the player has
+      // named the weapon in the "apply to" picker, that cost IS knowable: it is the same weapon's
+      // own Armory price for this buyer, read through getItemPts so every faction's column rules
+      // (character/psyker/Cryptek/Greater Daemon...) apply exactly as they would to buying it.
+      // A weapon the Armory does not sell still has no price, so the item stays at 0 and the row
+      // keeps saying "Special" rather than inventing a number.
+      if (pts === 0 && isWeaponCostSpecial(arm.desc) && targetWeapon) {
+        const base = weaponBaseName(targetWeapon).toLowerCase();
+        const src = (armory?.weapons ?? []) as ArmoryItem[];
+        // Armoury rows carry superscript restriction glyphs ("Relic bladeᴳ ᵀ"), which are not
+        // part of the weapon's name — strip anything outside plain ASCII before comparing.
+        const plain = (x: string) => weaponBaseName(stripMarkGlyph(x)).replace(/[^ -~]/g, '').trim().toLowerCase();
+        const match = src.find(w => plain(w.name) === plain(base));
+        if (match) pts = getItemPts(match) ?? 0;
+      }
     }
     // A per-weapon item may be bought several times, but never twice for the SAME weapon -
     // raising the cap without this would let one gun be master-crafted five times over.
@@ -972,11 +989,26 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ? ((archetypeArmoryData?.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => a.category === 'vehicle')
     : []
   ).filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+  // Same shape, same cause, different armoury: a vehicle carrying a Mark could never reach its
+  // Mark's VEHICLE UPGRADES. The vehicle panel opens with filterCategory="vehicle" and hides the
+  // tab bar, so the "mark" tab — where a Chaos Predator's Mirror plate and Warpflame gargoyles
+  // live — had no way of being opened (GH#148). Appended to the single vehicle list for the same
+  // reason the foreign items are.
+  const markVehicleEquip: ArmoryItem[] = (isVehicle
+    ? (isBlackCrusadeChampion
+        ? BC_MARKS.flatMap(m => (markArmories[m]?.equipment ?? []) as ArmoryItem[])
+        : effectiveMark ? ((markArmories[effectiveMark]?.equipment ?? []) as ArmoryItem[]) : [])
+      .filter(a => a.category === 'vehicle')
+    : []
+  ).filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
   const foreignVehicleNames = new Set(foreignVehicleEquip.map(a => a.name));
   const foreignSourceLabel = `${archetype} — ${archetypeArmoryData?.faction ?? ''} Armoury`;
-  const vehicleEquipAll = foreignVehicleEquip.length
-    ? [...vehicleEquip, ...foreignVehicleEquip.filter(a => !vehicleEquip.some(v => v.name === a.name))]
+  const vehicleEquipBase = markVehicleEquip.length
+    ? [...vehicleEquip, ...markVehicleEquip.filter(a => !vehicleEquip.some(v => v.name === a.name))]
     : vehicleEquip;
+  const vehicleEquipAll = foreignVehicleEquip.length
+    ? [...vehicleEquipBase, ...foreignVehicleEquip.filter(a => !vehicleEquipBase.some(v => v.name === a.name))]
+    : vehicleEquipBase;
 
   return (
     <div

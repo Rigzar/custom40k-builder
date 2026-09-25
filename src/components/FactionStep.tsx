@@ -38,6 +38,10 @@ export function FactionStep({
   onContinue: () => void;
 }) {
   const theme = useTheme(t => t.theme);
+  // Does any faction still carry a review status worth showing? Admin overrides count, which is
+  // why this is derived here rather than read off the compiled catalogue.
+  const hasUnreviewedFaction = CATEGORIES.some(c => c.factions.some(f =>
+    (factionFlags?.[f.key] ?? f.available) && (codexVersions?.[f.key]?.status ?? f.status) !== 'complete'));
   const t = useT();
   const { engagement, pointLimit, setEngagement, setPointLimit, alliedFaction } = useArmyStore();
   // Raw text of the points-limit box while it is being edited (null = show the store value).
@@ -171,11 +175,18 @@ export function FactionStep({
       <section>
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-[11px] uppercase tracking-widest text-amber-700">{t('selectFaction')}</h2>
-          <div className="hidden sm:flex items-center gap-3 text-[10px] text-zinc-500">
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" />{t('fullyReviewed')}</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />{t('needsTesting')}</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" />{t('inReview')}</span>
-          </div>
+          {/* The review-status legend, and the dot it explains, only mean something while some
+              faction is NOT fully reviewed. Every codex is now reviewed, so a row of identical
+              green dots and a key explaining three colours nobody can see is just noise. Kept
+              conditional rather than deleted: an admin can still set a faction back to
+              "in review" from the settings panel, and the legend comes back with it. */}
+          {hasUnreviewedFaction && (
+            <div className="hidden sm:flex items-center gap-3 text-[10px] text-zinc-500">
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" />{t('fullyReviewed')}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />{t('needsTesting')}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" />{t('inReview')}</span>
+            </div>
+          )}
         </div>
 
         <div className="space-y-7">
@@ -231,7 +242,7 @@ export function FactionStep({
                         }
                       `}
                     >
-                      {f.available && (
+                      {f.available && hasUnreviewedFaction && (
                         <div
                           className={`absolute top-2 right-2 w-2 h-2 rounded-full ${STATUS_DOT[f.status]}`}
                           title={t(STATUS_I18N_KEY[f.status])}
