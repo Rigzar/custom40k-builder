@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import * as api from '../lib/api';
 import { ChangelogModal } from './ChangelogModal';
 import { LanguageSelector } from './LanguageSelector';
@@ -12,132 +12,158 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v177d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v177e_dismissed';
 
 // v1.77 (2026-09-25) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner carries ONLY v1.77's own content. Everything v1.76 announced lives on in the changelog.
 //
-// FORMAT, set by Rigzar 2026-09-25: "el banner da mucha info basura, da ladilla leerlo. Si son
-// bugs de github pon el git y el fix rapido -- GH#xxx ahora puede hacer tal cosa, resuelto. Si es
-// de discord usa el simbolo de discord y el fix mas sencillo."
+// LAYOUT, and it took two goes. Rigzar first: "el banner da mucha info basura, da ladilla leerlo.
+// Si son bugs de github pon el git y el fix rapido -- GH#xxx ahora puede hacer tal cosa,
+// resuelto." So the paragraphs became one line per fix. Then: "que banner tan horrible, que se
+// vea mas ordenado, no asi." Twenty-eight one-line paragraphs stacked in a column is still a
+// wall; what was missing was STRUCTURE, not brevity.
 //
-// So: ONE SHORT LINE PER FIX. The part before the em dash is the source and gets bolded by
-// BoldSplitLine -- "GH#143" for an issue, a speech bubble for something said on Discord -- and
-// what follows says what the player can now do, in one sentence. No mechanism, no counts, no
-// paragraph. Anyone who wants the reasoning has the changelog and Known Issues.
+// Now: GROUPED INTO SECTIONS, each a titled two-column list — the source (a GH number, or a
+// speech bubble for Discord) in a narrow fixed column, the fix in the other, one clause each.
+// That is what makes it scannable: the eye goes down the left edge and stops at the row it
+// wants, instead of reading twenty-eight sentences to find one.
 //
-// `lines` is an ARRAY, not line1..line7: this release has seventeen of them and the old fixed
-// slots could not hold it. Append follow-ups to the array while v1.77 stays open and bump
-// ANNOUNCEMENT_KEY, or readers who dismissed the card never see the new ones.
-type AnnouncementLang = { title: string; intro: string; install: string; lines: string[]; contrib: string; };
+// KEEP EACH LINE TO ONE CLAUSE. The temptation is to explain, and explaining is what the
+// changelog and Known Issues are for. If a line needs a comma and a "because", it belongs there.
+//
+// Append follow-ups to the right section while v1.77 stays open and bump ANNOUNCEMENT_KEY, or
+// readers who dismissed the card never see the new ones.
+type AnnouncementSection = { label: string; rows: [string, string][] };
+type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.77: the bug reports",
-    intro: "Nineteen were open. Sixteen are fixed, plus what came in on Discord. One line each — the changelog has the reasoning.",
+    intro: "Nineteen were open and sixteen are fixed, plus what came in on Discord. One line each; the changelog has the reasoning.",
     install: "",
-    lines: [
-      "GH#143 — the Terminator Sergeant keeps his Storm bolter when the squad buys a Cyclone missile launcher.",
-      "GH#157 — Corsair Voidscarred get the Power sword and Shuriken pistol they paid for.",
-      "GH#156 — the Voidreavers' Felarch no longer hands the rest of the squad a free Shuriken pistol.",
-      "GH#147 — Scarab Occult Terminators show as a squad and a Sorcerer, not as one model.",
-      "GH#152 — the Leman Russ' Heavy bolter sponsons no longer vanish when you swap the hull gun.",
-      "GH#141 — Chosen upgrades are charged per model — Dark Crusaders on five models costs 10, not 2.",
-      "GH#142 — the Relic blade costs the same as the weapon it enhances, once you pick that weapon.",
-      "GH#155 — Swordsman Honours stay on the Scout Sergeant instead of raising the whole squad.",
-      "GH#139 — the Magos has its 5+ ward save, not a 4+ it never bought.",
-      "GH#140 — the Aggressor Imperative moves the model 8\u2033, not 10\u2033.",
-      "GH#149 — the Tomb Blades' armour upgrade shows on your sheet only once you have bought it — and grants the 3+ when you do.",
-      "GH#151 — Reinforced Forelimbs give the Triarch Stalker WS 3+ and +2 Attacks.",
-      "GH#150 — a Canoptek Court army can field four Crypteks, two per HQ slot.",
-      "GH#144 — Feeder mandibles and Scythed limbs read Strength U, not T.",
-      "GH#138 — a Warp Spider Exarch's second Death spinner no longer wipes the squad's own five.",
-      "GH#137 — Djinn Eyes adds Sunder(1) to weapons you buy from the Armory too.",
-      "GH#148 — a Chaos Predator with the Mark of Tzeentch can buy its Mirror plate and Warpflame gargoyles.",
-      "\ud83d\udcac Armiger and War Dog — pickable in Pitched Battle now, not only Epic. The gate to Epic was our assumption, not a rule.",
-      "\ud83d\udcac Bike Squad Multi-melta — Assault 1, not Heavy 1. The author corrected the source.",
-      "\ud83d\udcac Four sheets the author fixed — the Traitor Guard's Krak grenade and the Land Raider Ares' Flamestorm cannon are gone, the Knight Paladin's battle cannon is spelled right, and the Foetid Virion's Enhanced blight grenades appear only with the Biologus Putrifier.",
-      "\ud83d\udfe2 Every faction badge is green — all eighteen codices are fully reviewed, so the colour key is gone from the faction screen.",
-      "\ud83d\udcac The Holy Trinity — grants its third Trait slot. Its own text says \u201cthe army gains access to a third trait\u201d and the app only ever gave two, so picking it told you that you had too many.",
-      "\ud83d\udcac The campaign Trait bonus — only appears on a campaign army now. It was on every list, which made it look like a free extra Trait \u2014 and it was being used as one, because it was the workaround for the Holy Trinity bug above.",
-      "\ud83d\udcac Dreadnoughts — may swap EACH Storm bolter, not just one. The cap follows the arms you actually picked, so a Dreadnought with two Storm bolters can trade both and one with a single bolter still trades one.",
-      "\ud83d\udcac League lists are locked — once registration closes. You could still edit an army already entered in a league \u2014 not swap it, edit it \u2014 with nobody asked. Ask the organiser to reopen registration if a list needs correcting.",
-      "\ud83d\udcac League lists open up — the other way too: the organiser and the admins can always read them, and every player in the league can once registration has closed. Most of them answered \u201cNot found\u201d before, because entering a list never made it readable.",
-      "\ud83d\udcac Open all / Close all — in the army builder, not only in the Battle View.",
-      "\ud83d\udcac Close Combat Specialists — is a swap you can actually make now. The Imperial Guard trait lets each model trade its Lasgun for a Las pistol and a Close combat weapon, free, on the nine Guard datasheets that are issued a Lasgun \u2014 not the Chimera's Lasgun arrays and not a Stormtrooper's Hot-shot lasgun.",
+    sections: [
+      { label: "Reported on GitHub", rows: [
+        ["GH#143", "The Terminator Sergeant keeps his Storm bolter."],
+        ["GH#157", "Corsair Voidscarred get the weapons they paid for."],
+        ["GH#156", "The Voidreavers' Felarch stops handing out free pistols."],
+        ["GH#147", "Scarab Occult Terminators show as a squad and a Sorcerer."],
+        ["GH#152", "The Leman Russ keeps its Heavy bolter sponsons."],
+        ["GH#141", "Chosen upgrades are charged per model."],
+        ["GH#142", "The Relic blade costs what its weapon costs."],
+        ["GH#155", "Swordsman Honours stay on the Scout Sergeant."],
+        ["GH#139", "The Magos has a 5+ ward save, not a 4+."],
+        ["GH#140", "The Aggressor Imperative moves the model 8\u2033, not 10\u2033."],
+        ["GH#149", "Tomb Blades show their armour upgrade only once bought."],
+        ["GH#151", "Reinforced Forelimbs give the Triarch Stalker WS 3+ and +2 A."],
+        ["GH#150", "A Canoptek Court army may field four Crypteks."],
+        ["GH#144", "Feeder mandibles read Strength U, not T."],
+        ["GH#138", "A Warp Spider Exarch's second spinner keeps the squad's."],
+        ["GH#137", "Djinn Eyes reaches weapons bought from the Armory."],
+        ["GH#148", "A Tzeentch Chaos Predator can buy its vehicle upgrades."],
+      ] },
+      { label: "From Discord", rows: [
+        ["Armiger, War Dog", "Selectable in Pitched Battle, not only Epic."],
+        ["Dreadnoughts", "May swap EACH Storm bolter they carry."],
+        ["Holy Trinity", "Grants its third Trait slot."],
+        ["Close Combat Specialists", "The Lasgun swap can be made now, free, on nine Guard datasheets."],
+        ["Bike Squad Multi-melta", "Assault 1, not Heavy 1."],
+        ["Four datasheets", "The author's own corrections, applied."],
+        ["Campaign Trait bonus", "Only shown on a campaign army."],
+        ["Open all / Close all", "In the army builder, not only the Battle View."],
+        ["Faction badges", "All eighteen codices reviewed \u2014 the colour key is gone."],
+      ] },
+      { label: "Leagues", rows: [
+        ["Locked", "A list entered in a league is frozen once registration closes."],
+        ["Readable", "Organisers and admins always; every player once registration closes."],
+        ["Clearer", "A refused save now says why instead of \u201cSave failed\u201d."],
+      ] },
     ],
-    contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
+    contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
     title: "v1.77: die Fehlermeldungen",
-    intro: "Neunzehn waren offen. Sechzehn sind behoben, dazu was auf Discord kam. Eine Zeile pro Fix — die Begruendung steht im Changelog.",
+    intro: "Neunzehn waren offen, sechzehn sind behoben, dazu was auf Discord kam. Eine Zeile pro Fix; die Begruendung steht im Changelog.",
     install: "",
-    lines: [
-      "GH#143 — der Terminator-Sergeant behaelt seinen Storm Bolter, wenn der Trupp einen Cyclone Missile Launcher kauft.",
-      "GH#157 — Corsair Voidscarred bekommen das Powerschwert und die Shuriken-Pistole, die sie bezahlt haben.",
-      "GH#156 — der Felarch der Voidreavers verschenkt keine Shuriken-Pistolen mehr an den Rest des Trupps.",
-      "GH#147 — Scarab Occult Terminators erscheinen als Trupp UND Zauberer, nicht als ein Modell.",
-      "GH#152 — die Heavy-Bolter-Sponsons des Leman Russ verschwinden nicht mehr, wenn du die Rumpfwaffe tauschst.",
-      "GH#141 — Chosen-Upgrades kosten pro Modell — Dark Crusaders auf fuenf Modellen kostet 10, nicht 2.",
-      "GH#142 — die Relic Blade kostet so viel wie die Waffe, die sie verbessert, sobald du sie auswaehlst.",
-      "GH#155 — Swordsman Honours bleiben beim Scout-Sergeant, statt den ganzen Trupp zu verbessern.",
-      "GH#139 — der Magos hat seine 5+ Rettung, nicht eine nie gekaufte 4+.",
-      "GH#140 — das Aggressor Imperative bewegt das Modell 8\u2033, nicht 10\u2033.",
-      "GH#149 — das Ruestungs-Upgrade der Tomb Blades steht erst auf dem Blatt, wenn du es gekauft hast — und gibt dann die 3+.",
-      "GH#151 — Reinforced Forelimbs geben dem Triarch Stalker KG 3+ und +2 Attacken.",
-      "GH#150 — eine Canoptek-Court-Armee darf vier Crypteks aufstellen, zwei pro HQ-Slot.",
-      "GH#144 — Feeder Mandibles und Scythed Limbs haben Staerke U, nicht T.",
-      "GH#138 — der zweite Death Spinner eines Warp-Spider-Exarchen loescht die fuenf des Trupps nicht mehr.",
-      "GH#137 — Djinn Eyes verleiht Sunder(1) auch Waffen aus dem Arsenal.",
-      "GH#148 — ein Chaos Predator mit dem Mal des Tzeentch kann Mirror Plate und Warpflame Gargoyles kaufen.",
-      "\ud83d\udcac Armiger and War Dog — jetzt auch in Pitched Battle waehlbar, nicht nur in Epic. Die Epic-Sperre war unsere Annahme, keine Regel.",
-      "\ud83d\udcac Bike Squad Multi-melta — Assault 1, nicht Heavy 1. Der Autor hat die Quelle korrigiert.",
-      "\ud83d\udcac Four sheets the author fixed — die Krak-Granate der Traitor Guard und die Flamestorm Cannon des Land Raider Ares sind weg, die Battle Cannon des Knight Paladin ist richtig geschrieben, und die Enhanced Blight Grenades des Foetid Virion erscheinen nur mit dem Biologus Putrifier.",
-      "\ud83d\udfe2 Every faction badge is green — alle achtzehn Codices sind vollstaendig geprueft, daher ist die Farblegende von der Fraktionsauswahl verschwunden.",
-      "\ud83d\udcac The Holy Trinity — gewaehrt seinen dritten Trait-Slot. Sein eigener Text sagt \u201cthe army gains access to a third trait\u201d, und die App gab nur zwei \u2014 wer ihn waehlte, bekam die Meldung, er habe zu viele.",
-      "\ud83d\udcac The campaign Trait bonus — erscheint nur noch bei einer Kampagnen-Armee. Vorher stand er auf jeder Liste und sah wie ein kostenloser Extra-Trait aus \u2014 und wurde auch so benutzt, denn er war der Notbehelf fuer den Holy-Trinity-Fehler oben.",
-      "\ud83d\udcac Dreadnoughts — duerfen JEDEN Storm Bolter tauschen, nicht nur einen. Die Obergrenze richtet sich nach den tatsaechlich gewaehlten Armen: mit zwei Storm Boltern tauschst du beide, mit einem eben einen.",
-      "\ud83d\udcac League lists are locked — sobald die Anmeldung schliesst. Eine bereits eingetragene Armee liess sich weiterhin BEARBEITEN \u2014 nicht tauschen, bearbeiten \u2014 ohne dass jemand gefragt wurde. Fuer eine Korrektur muss der Organisator die Anmeldung wieder oeffnen.",
-      "\ud83d\udcac League lists open up — auch andersherum: Organisator und Admins koennen sie immer lesen, alle Teilnehmer nach Anmeldeschluss. Vorher antworteten die meisten mit \u201cNot found\u201d, weil das Eintragen einer Liste sie nie lesbar machte.",
-      "\ud83d\udcac Open all / Close all — im Armee-Builder, nicht nur in der Battle View.",
-      "\ud83d\udcac Close Combat Specialists — ist jetzt ein Tausch, den du wirklich machen kannst. Der Trait der Imperialen Armee laesst jedes Modell sein Lasgewehr gegen eine Laspistole und eine Nahkampfwaffe tauschen, kostenlos, auf den neun Datenblaettern mit Lasgewehr \u2014 nicht die Lasgun Arrays des Chimera und nicht das Hot-shot Lasgun eines Stormtroopers.",
+    sections: [
+      { label: "Auf GitHub gemeldet", rows: [
+        ["GH#143", "Der Terminator-Sergeant behaelt seinen Storm Bolter."],
+        ["GH#157", "Corsair Voidscarred bekommen die Waffen, die sie bezahlt haben."],
+        ["GH#156", "Der Felarch der Voidreavers verschenkt keine Pistolen mehr."],
+        ["GH#147", "Scarab Occult Terminators erscheinen als Trupp und Zauberer."],
+        ["GH#152", "Der Leman Russ behaelt seine Heavy-Bolter-Sponsons."],
+        ["GH#141", "Chosen-Upgrades kosten pro Modell."],
+        ["GH#142", "Die Relic Blade kostet so viel wie ihre Waffe."],
+        ["GH#155", "Swordsman Honours bleiben beim Scout-Sergeant."],
+        ["GH#139", "Der Magos hat eine 5+ Rettung, keine 4+."],
+        ["GH#140", "Das Aggressor Imperative bewegt das Modell 8\u2033, nicht 10\u2033."],
+        ["GH#149", "Tomb Blades zeigen ihr Ruestungs-Upgrade erst nach dem Kauf."],
+        ["GH#151", "Reinforced Forelimbs geben dem Triarch Stalker KG 3+ und +2 A."],
+        ["GH#150", "Eine Canoptek-Court-Armee darf vier Crypteks aufstellen."],
+        ["GH#144", "Feeder Mandibles haben Staerke U, nicht T."],
+        ["GH#138", "Der zweite Spinner eines Warp-Spider-Exarchen laesst dem Trupp seine."],
+        ["GH#137", "Djinn Eyes erreicht auch Waffen aus dem Arsenal."],
+        ["GH#148", "Ein Chaos Predator mit Tzeentch kann seine Fahrzeug-Upgrades kaufen."],
+      ] },
+      { label: "Aus Discord", rows: [
+        ["Armiger, War Dog", "In Pitched Battle waehlbar, nicht nur in Epic."],
+        ["Dreadnoughts", "Duerfen JEDEN getragenen Storm Bolter tauschen."],
+        ["Holy Trinity", "Gewaehrt seinen dritten Trait-Slot."],
+        ["Close Combat Specialists", "Der Lasgewehr-Tausch ist jetzt moeglich, kostenlos, auf neun Guard-Datenblaettern."],
+        ["Bike Squad Multi-melta", "Assault 1, nicht Heavy 1."],
+        ["Four datasheets", "Die Korrekturen des Autors, uebernommen."],
+        ["Campaign Trait bonus", "Nur bei einer Kampagnen-Armee sichtbar."],
+        ["Open all / Close all", "Im Armee-Builder, nicht nur in der Battle View."],
+        ["Faction badges", "Alle achtzehn Codices geprueft \u2014 die Farblegende ist weg."],
+      ] },
+      { label: "Ligen", rows: [
+        ["Locked", "Eine in einer Liga eingetragene Liste ist nach Anmeldeschluss gesperrt."],
+        ["Readable", "Organisatoren und Admins immer; alle Spieler nach Anmeldeschluss."],
+        ["Clearer", "Ein abgelehntes Speichern nennt jetzt den Grund statt \u201cSave failed\u201d."],
+      ] },
     ],
-    contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
+    contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
     title: "v1.77: los reportes",
-    intro: "Había diecinueve abiertos. Dieciséis arreglados, más lo que llegó por Discord. Una línea por fix — el razonamiento está en el changelog.",
+    intro: "Habia diecinueve abiertos y dieciseis estan arreglados, mas lo que llego por Discord. Una linea por fix; el razonamiento esta en el changelog.",
     install: "",
-    lines: [
-      "GH#143 — el sargento Terminator conserva su Storm bolter cuando la escuadra compra un Cyclone missile launcher.",
-      "GH#157 — los Corsair Voidscarred reciben la Power sword y la Shuriken pistol que pagaron.",
-      "GH#156 — el Felarch de los Voidreavers ya no regala Shuriken pistols al resto de la escuadra.",
-      "GH#147 — los Scarab Occult Terminators salen como escuadra y hechicero, no como un solo modelo.",
-      "GH#152 — los sponsons de Heavy bolter del Leman Russ ya no desaparecen si cambiás el arma del casco.",
-      "GH#141 — las mejoras de los Chosen se cobran por modelo — Dark Crusaders en cinco modelos cuesta 10, no 2.",
-      "GH#142 — la Relic blade cuesta lo mismo que el arma que mejora, en cuanto elegís esa arma.",
-      "GH#155 — las Swordsman Honours se quedan en el Scout Sergeant en vez de subir a toda la escuadra.",
-      "GH#139 — el Magos tiene su salvación 5+, no un 4+ que nunca compró.",
-      "GH#140 — el Aggressor Imperative mueve el modelo 8\u2033, no 10\u2033.",
-      "GH#149 — la mejora de armadura de las Tomb Blades sale en la hoja solo si la comprás — y entonces sí da el 3+.",
-      "GH#151 — las Reinforced Forelimbs dan al Triarch Stalker WS 3+ y +2 Ataques.",
-      "GH#150 — un ejército Canoptek Court puede llevar cuatro Crypteks, dos por slot de HQ.",
-      "GH#144 — las Feeder mandibles y las Scythed limbs tienen Fuerza U, no T.",
-      "GH#138 — el segundo Death spinner de un Warp Spider Exarch ya no borra los cinco de la escuadra.",
-      "GH#137 — Djinn Eyes añade Sunder(1) también a las armas compradas en la armería.",
-      "GH#148 — un Chaos Predator con la Marca de Tzeentch ya puede comprar Mirror plate y Warpflame gargoyles.",
-      "\ud83d\udcac Armiger and War Dog — ya se pueden elegir en Pitched Battle, no solo en Epic. La puerta a Epic era una suposición nuestra, no una regla.",
-      "\ud83d\udcac Bike Squad Multi-melta — Assault 1, no Heavy 1. El autor corrigió la fuente.",
-      "\ud83d\udcac Four sheets the author fixed — el Krak grenade de los Traitor Guard y el Flamestorm cannon del Land Raider Ares ya no están, el battle cannon del Knight Paladin está bien escrito, y las Enhanced blight grenades del Foetid Virion solo salen con el Biologus Putrifier.",
-      "\ud83d\udfe2 Every faction badge is green — los dieciocho códices están revisados por completo, así que la leyenda de colores desapareció de la pantalla de facciones.",
-      "\ud83d\udcac The Holy Trinity — da su tercer slot de Trait. Su propio texto dice \u201cthe army gains access to a third trait\u201d y la app solo daba dos, así que al elegirlo te decía que tenías demasiados.",
-      "\ud83d\udcac The campaign Trait bonus — solo aparece en un ejército de campaña. Antes salía en todas las listas y parecía un Trait extra gratis \u2014 y se usaba como tal, porque era el apaño para el bug de Holy Trinity de arriba.",
-      "\ud83d\udcac Dreadnoughts — pueden cambiar CADA Storm bolter, no solo uno. El tope sigue a los brazos que elegiste: con dos Storm bolters cambiás los dos, con uno cambiás uno.",
-      "\ud83d\udcac League lists are locked — en cuanto cierra la inscripción. Un ejército ya inscrito se podía seguir EDITANDO \u2014 no cambiar, editar \u2014 sin que nadie lo autorizara. Si hay que corregir una lista, que el organizador reabra la inscripción.",
-      "\ud83d\udcac League lists open up — también al revés: el organizador y los admins siempre pueden leerlas, y el resto de jugadores en cuanto cierra la inscripción. Antes casi todas daban \u201cNot found\u201d, porque inscribir una lista nunca la hacía legible.",
-      "\ud83d\udcac Open all / Close all — en el constructor de ejércitos, no solo en la Battle View.",
-      "\ud83d\udcac Close Combat Specialists — ya es un cambio que podes hacer de verdad. El trait de la Guardia deja a cada modelo cambiar su Lasgun por una Las pistol y un Close combat weapon, gratis, en las nueve fichas que llevan Lasgun \u2014 no los Lasgun arrays del Chimera ni el Hot-shot lasgun de un Stormtrooper.",
+    sections: [
+      { label: "Reportado en GitHub", rows: [
+        ["GH#143", "El sargento Terminator conserva su Storm bolter."],
+        ["GH#157", "Los Corsair Voidscarred reciben las armas que pagaron."],
+        ["GH#156", "El Felarch de los Voidreavers ya no regala pistolas."],
+        ["GH#147", "Los Scarab Occult Terminators salen como escuadra y hechicero."],
+        ["GH#152", "El Leman Russ conserva sus sponsons de Heavy bolter."],
+        ["GH#141", "Las mejoras de los Chosen se cobran por modelo."],
+        ["GH#142", "La Relic blade cuesta lo que cuesta su arma."],
+        ["GH#155", "Las Swordsman Honours se quedan en el Scout Sergeant."],
+        ["GH#139", "El Magos tiene salvacion 5+, no 4+."],
+        ["GH#140", "El Aggressor Imperative mueve el modelo 8\u2033, no 10\u2033."],
+        ["GH#149", "Las Tomb Blades muestran su mejora de armadura solo al comprarla."],
+        ["GH#151", "Las Reinforced Forelimbs dan al Triarch Stalker WS 3+ y +2 A."],
+        ["GH#150", "Un ejercito Canoptek Court puede llevar cuatro Crypteks."],
+        ["GH#144", "Las Feeder mandibles tienen Fuerza U, no T."],
+        ["GH#138", "El segundo spinner de un Warp Spider Exarch no borra los de la escuadra."],
+        ["GH#137", "Djinn Eyes llega a las armas compradas en la armeria."],
+        ["GH#148", "Un Chaos Predator con Tzeentch ya compra sus mejoras de vehiculo."],
+      ] },
+      { label: "Desde Discord", rows: [
+        ["Armiger, War Dog", "Se pueden elegir en Pitched Battle, no solo en Epic."],
+        ["Dreadnoughts", "Pueden cambiar CADA Storm bolter que lleven."],
+        ["Holy Trinity", "Da su tercer slot de Trait."],
+        ["Close Combat Specialists", "El cambio del Lasgun ya se puede hacer, gratis, en nueve fichas de la Guardia."],
+        ["Bike Squad Multi-melta", "Assault 1, no Heavy 1."],
+        ["Four datasheets", "Las correcciones del autor, aplicadas."],
+        ["Campaign Trait bonus", "Solo se ve en un ejercito de campana."],
+        ["Open all / Close all", "En el constructor, no solo en la Battle View."],
+        ["Faction badges", "Los dieciocho codices revisados \u2014 la leyenda de colores ya no esta."],
+      ] },
+      { label: "Ligas", rows: [
+        ["Locked", "Una lista inscrita en una liga queda congelada al cerrar la inscripcion."],
+        ["Readable", "Organizadores y admins siempre; el resto al cerrar la inscripcion."],
+        ["Clearer", "Un guardado rechazado dice por que, en vez de \u201cSave failed\u201d."],
+      ] },
     ],
-    contrib: "\ud83d\udc41\ufe0f ¿Encontraste algo mal? El formulario de reporte de la app funciona — unidad, engagement, arquetipo y una foto.",
+    contrib: "\ud83d\udc41\ufe0f Encontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
 };
 /* canvas-smoke placeholder — wire up here when user provides the effect */
@@ -214,8 +240,29 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.75's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.76 is open; cut a fresh banner when a new version is cut. */}
-          {/* One short line per fix — see the format note beside ANNOUNCEMENT_TEXT. */}
-          {tx.lines.filter(Boolean).map((line, i) => <BoldSplitLine key={i} text={line} />)}
+          {/* Sections, each a two-column list: the source in a narrow column, the fix in the
+              other. See the layout note beside ANNOUNCEMENT_TEXT for why it is shaped this way. */}
+          {tx.sections.map(sec => (
+            <div key={sec.label} className="pt-1">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-[10px] uppercase tracking-widest text-amber-600/90 font-semibold shrink-0">
+                  {sec.label}
+                </span>
+                <span className="flex-1 h-px bg-zinc-700/60" />
+              </div>
+              <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-baseline">
+                {sec.rows.map(([src, fix], i) => (
+                  <Fragment key={i}>
+                    {/* No `whitespace-nowrap`: a long label ("Close Combat Specialists") would hold the
+                        column open and squeeze the fix into a sliver on a phone. A GH number has no
+                        space in it, so it never wraps anyway. */}
+                    <span className="text-[11px] text-emerald-400 font-semibold tabular-nums max-w-[9rem]">{src}</span>
+                    <span className="text-[11.5px] text-zinc-300 leading-snug">{fix}</span>
+                  </Fragment>
+                ))}
+              </div>
+            </div>
+          ))}
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>
