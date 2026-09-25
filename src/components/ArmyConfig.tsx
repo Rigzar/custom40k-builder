@@ -347,7 +347,15 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       </div>
                     )}
 
-                    {!isAllied && (
+                    {/* CAMPAIGN ONLY. This stepper adds Trait slots a CAMPAIGN has awarded, and it
+                        was showing on every army — so it read as a free "give myself another
+                        Trait" button, and was used as one: it is the workaround Rigzar handed a
+                        player whose Holy Trinity legacy would not grant its third slot (Discord,
+                        2026-09-21). That legacy grants it properly now, and this belongs behind
+                        the campaign it describes. A list that already carries a bonus keeps the
+                        control, so a saved army can be corrected rather than stuck with a number
+                        it cannot see. */}
+                    {!isAllied && (store.campaignId != null || campaignTraitBonus > 0) && (
                       <div className="flex items-center gap-2 border border-zinc-800 bg-zinc-950/50 px-3 py-2">
                         <span className="text-[10px] text-zinc-500 flex-1">{t('campaignTraitBonusLabel')}</span>
                         <button type="button" disabled={campaignTraitBonus <= 0}

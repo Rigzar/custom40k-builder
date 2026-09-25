@@ -73,6 +73,18 @@ export const IG_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
       desc: 'Each model may swap their Lasgun for a Las pistol and a Close combat weapon.',
       applies_to: 'all',
     },
+    // THE SWAP ITSELF IS NOT BUILT, and the reason is a missing profile rather than a missing
+    // feature. Skele, Discord 2026-09-24: "i cannot change the lasgun to las-pistol and ccw in the
+    // builder... being able to change that in the army builder would be nice."
+    //
+    // `grant_option_group` exists for exactly this (see traitEffects.ts) and the trait would use
+    // it — except that the two weapons it swaps INTO have nowhere to come from. "Las pistol" is an
+    // Armory item (1 point) and would be free here, which is already a question; "CLOSE COMBAT
+    // WEAPON" IS IN NO ARMORY AT ALL and only appears on two datasheets of its own (Hive Gangers,
+    // Penal Legion Squad). Wiring it would mean inventing a profile for every Guard unit in the
+    // army, which is writing a rules fact, and that is the author's. Asked; until he answers, the
+    // ability text above is the honest answer and the player does the substitution at the table,
+    // which is what Skele is already doing.
   ],
 
   // SOURCE — Combined Regiments:

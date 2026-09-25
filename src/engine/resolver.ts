@@ -2202,8 +2202,20 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // …plus anything a DIFFERENT group bought of the same weapon. The replaced branch used to
         // win outright and ignore `grantedQty`, so a Leman Russ that swapped its hull Heavy bolter
         // away and then bought the two Heavy bolter sponsons read "0x Heavy bolter" (GH#152).
-        overrides.set(w.name, Math.max(0, groupModels * copies - replacedQty.get(rKey)! * perSwap
-          + (returnedQty.get(rKey) ?? 0) + (grantedQty.get(gKey) ?? 0)));
+        // A weapon the model owns ONLY because another group granted it has no base count of its
+        // own: a Dreadnought's `equipped_with` is "-" and both its Storm bolters come from the arm
+        // list, so `groupModels * copies` invents one the model never had. Swapping both then left
+        // "1x Storm bolter" on the card. When the loadout line does not mention the weapon, what
+        // was granted IS the base.
+        // Asked of the TEXT, not of weaponCopiesPerModel: that helper answers "how many copies
+        // does one model carry" and defaults to 1 for a weapon the line never mentions, which is
+        // exactly the case being distinguished here.
+        const fromLoadout = (unit.equipped_with ?? '').toLowerCase().includes(bn.toLowerCase());
+        const base = fromLoadout
+          ? groupModels * copies + (grantedQty.get(gKey) ?? 0)
+          : (grantedQty.get(gKey) ?? groupModels * copies);
+        overrides.set(w.name, Math.max(0, base - replacedQty.get(rKey)! * perSwap
+          + (returnedQty.get(rKey) ?? 0)));
       } else if (grantedQty.has(gKey)) {
         // A granted weapon the model ALREADY carries adds to what it has rather than replacing it.
         // Discord (Liquid Citrus): a Tyranid Prime is equipped with Scything talons AND Spinefists,

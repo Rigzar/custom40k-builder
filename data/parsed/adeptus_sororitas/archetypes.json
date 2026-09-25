@@ -50,6 +50,7 @@
     },
     {
       "name": "The Holy Trinity",
+      "trait_slot_bonus": 1,
       "desc": "The army gains access to a third trait and must select these traits: Raging Fervour, Rites of Fire and Unshakeable Vengeance. All traits combined cost 10 points for each non-character units.",
       "armory_key": "Order"
     }

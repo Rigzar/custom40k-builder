@@ -377,15 +377,23 @@ export interface Unit {
    */
   requires_army_item?: string | null;
   /**
-   * Gates the unit to a specific engagement type — for units that occupy a normal AOP slot
-   * (not 'Lords of War') but still belong to a supplement only active in that engagement.
-   * Example: CSM "War Dog" — Escalation.ods's own "Elite" ability text ("Chaos armies may
-   * select units of War Dogs as an Elite choice") gives it an Elite-slot pick instead of the
-   * normal Lords of War slot, but it remains an Escalation-supplement unit and the supplement
-   * (per escalation.md §1) is only active in Epic Battle. Without this gate the unit would be
-   * pickable in Skirmish/Pitched Battle too, where Escalation content doesn't exist.
+   * The engagement types a unit may be picked in — for units that occupy a normal AOP slot
+   * (not 'Lords of War') but still belong to a supplement that is not active everywhere.
+   *
+   * The two that have it are the Escalation ARMIGER and WAR DOG, whose own ability text
+   * ("Imperial/Chaos armies may select units of Armigers/War Dogs as an Elite choice") gives
+   * them an Elite-slot pick instead of the normal Lords of War slot. We had gated BOTH to Epic
+   * Battle on the reasoning that Escalation is an Epic supplement — an assumption of ours,
+   * written down as a comment and never checked with the author. He has now ruled otherwise
+   * (Discord, 2026-09-22): "Armigers are supposed to be available in Pitched Battle, same as
+   * War Dogs." Neither sheet says anything about an engagement; the Elite override is the whole
+   * rule. So both list Pitched and Epic. SKIRMISH is still excluded, which is the conservative
+   * reading of a ruling that named Pitched — flagged for the author rather than assumed again.
+   *
+   * A LIST rather than a single value precisely because the old shape could only say "exactly
+   * this one engagement", which is what forced the wrong answer.
    */
-  requires_engagement?: 'skirmish' | 'pitched' | 'epic' | null;
+  requires_engagement?: Array<'skirmish' | 'pitched' | 'epic'> | 'skirmish' | 'pitched' | 'epic' | null;
 }
 
 export interface WeaponProfile {

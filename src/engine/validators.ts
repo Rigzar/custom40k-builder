@@ -999,8 +999,13 @@ export function ctanShardCapBlockReason(unitName: string, faction: string, army:
  * outside Epic Battle, the only engagement where Escalation content is active). Mirrors
  * lowMoveEmbarkBlockReason's "grey it out, don't just note it" pattern. */
 export function engagementGateBlockReason(unit: Unit, engagement: string): string | null {
-  if (!unit.requires_engagement || unit.requires_engagement === engagement) return null;
-  return `Requires the Escalation supplement (Epic Battle engagement) — not available in ${engagement === 'skirmish' ? 'Skirmish' : 'Pitched Battle'}.`;
+  const allowed = unit.requires_engagement;
+  if (!allowed) return null;
+  const list = Array.isArray(allowed) ? allowed : [allowed];
+  if (list.includes(engagement as 'skirmish' | 'pitched' | 'epic')) return null;
+  const label: Record<string, string> = { skirmish: 'Skirmish', pitched: 'Pitched Battle', epic: 'Epic Battle' };
+  const names = list.map(e => label[e] ?? e).join(' or ');
+  return `Only available in ${names} — not in ${label[engagement] ?? engagement}.`;
 }
 
 export interface FreeSlotAdjustments {

@@ -45,6 +45,12 @@
  *   ✓ has_veteran_abilities: false / locked_mark: null ✓
  *   ✓ default_size: 1 / min_cost: 196 ✓
  *   ✓ requires_engagement: 'epic' — the unit's own ability text ("Elite: Chaos armies may
+ * ENGAGEMENT (author ruling, Discord 2026-09-22): "Armigers are supposed to be available
+ * in Pitched Battle, same as War Dogs." Both were gated to Epic Battle on OUR reasoning
+ * that Escalation is an Epic supplement — an assumption written down as a comment and
+ * never put to him. The sheets say nothing about an engagement; the "Elite" override is
+ * the whole rule. Now ["pitched", "epic"]. Skirmish is still excluded: he named Pitched,
+ * and guessing past a ruling is what caused this in the first place.
  *     select units of War Dogs as an Elite choice") grants Elite-slot access instead of the
  *     normal Lords of War slot used by its sibling Escalation units (Chaos Warhound etc.), but
  *     it's still an Escalation-supplement datasheet — was unconditionally selectable in any
@@ -279,7 +285,7 @@ export const warDog: Unit = {
   "advisor": false,
   "is_squadron": true,
   "locked_mark": null,
-  "requires_engagement": "epic",
+  "requires_engagement": ["pitched", "epic"],
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 196

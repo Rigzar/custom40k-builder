@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { UnitCard } from './UnitCard';
 import { SLOT_ORDER } from '../engine/engagements';
@@ -67,6 +68,10 @@ function MissingUnitCard({ item, faction }: { item: RosterEntry; faction: string
 export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }) {
   const t = useT();
   const { army, data, archetype, alliedFaction, alliedArchetype, pointLimit } = useArmyStore();
+  // Declared BEFORE the early return below: a hook under a `return null` is what took the whole
+  // app down on 2026-09-21 (React #310). `npm run lint` catches it; so does putting it here.
+  const [collapseSignal, setCollapseSignal] = useState(0);
+  const [collapseAll, setCollapseAll] = useState(false);
   if (!data) return null;
 
   const scopedArmy = scope === 'allied'
@@ -88,6 +93,22 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
 
   return (
     <div>
+      {/* COLLAPSE / EXPAND ALL. Requested by Dominic on Discord, 2026-09-22: "I would love for a
+          function to collapse / open all sheets there. When I'm doing the army myself as well as
+          when viewing another person's list." The Battle View has had one; the builder, where you
+          spend the time, did not. A COUNTER rather than a boolean, so pressing the same button
+          twice works and a card the player has since toggled by hand still follows the next press
+          — each card watches the counter and sets itself to `collapseAll`, then goes back to
+          answering only to its own header. */}
+      <div className="flex justify-end mb-2">
+        <button
+          type="button"
+          onClick={() => { setCollapseAll(v => !v); setCollapseSignal(n => n + 1); }}
+          className="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-amber-500 border border-zinc-800 hover:border-amber-900 px-2 py-1 transition-colors"
+        >
+          {collapseAll ? t('playExpandAll') : t('playCollapseAll')}
+        </button>
+      </div>
       {SLOT_ORDER.map(slot => {
         const slotUnits = scopedArmy.filter(item => {
           const u = resolveUnit(item, data);
@@ -115,7 +136,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
               </span>
             </div>
             {slotUnits.map(item => (resolveUnit(item, data)
-              ? <UnitCard key={item.id} item={item} />
+              ? <UnitCard key={item.id} item={item} collapseSignal={collapseSignal} collapseAll={collapseAll} />
               : <MissingUnitCard key={item.id} item={item} faction={data.faction} />))}
           </div>
         );

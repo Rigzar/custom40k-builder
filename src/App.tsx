@@ -594,10 +594,17 @@ export default function App() {
           setViewingCopyOf(null);   // your own list: editable as normal
         }
         setSavedMsg('Saved to cloud!');
-      } catch {
-        setSavedMsg('Save failed');
+        setTimeout(() => setSavedMsg(''), 2000);
+      } catch (e) {
+        // SAY WHY. A bare "Save failed" is the worst possible answer to the one refusal a player
+        // can actually hit and act on: a list entered in a league whose registration has closed is
+        // locked, and the server explains that in a sentence. Swallowing it left the player
+        // pressing Save again. Held longer than the success toast because there is something to
+        // read (and to act on: ask the organiser).
+        const msg = e instanceof Error && e.message ? e.message : 'Save failed';
+        setSavedMsg(msg);
+        setTimeout(() => setSavedMsg(''), msg.length > 40 ? 9000 : 2000);
       }
-      setTimeout(() => setSavedMsg(''), 2000);
       return;
     }
 

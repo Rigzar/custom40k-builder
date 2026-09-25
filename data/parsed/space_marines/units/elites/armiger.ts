@@ -12,6 +12,12 @@
  * given keywords: ['Lord of War'] for consistency", a guess that turned out wrong given
  * this override). Moved to Elites, `keywords: []`, and gated to Epic Battle via
  * `requires_engagement` since it's still an Escalation-supplement datasheet.
+ * ENGAGEMENT (author ruling, Discord 2026-09-22): "Armigers are supposed to be available
+ * in Pitched Battle, same as War Dogs." Both were gated to Epic Battle on OUR reasoning
+ * that Escalation is an Epic supplement — an assumption written down as a comment and
+ * never put to him. The sheets say nothing about an engagement; the "Elite" override is
+ * the whole rule. Now ["pitched", "epic"]. Skirmish is still excluded: he named Pitched,
+ * and guessing past a ruling is what caused this in the first place.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -161,7 +167,7 @@ export const armiger: Unit = {
   "veteran_max": null,
   "locked_mark": null,
   "advisor": false,
-  "requires_engagement": "epic",
+  "requires_engagement": ["pitched", "epic"],
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 239

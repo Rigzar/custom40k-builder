@@ -12,66 +12,129 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v177_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v177c_dismissed';
 
 // v1.77 (2026-09-25) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
-// banner is RESET to ONLY v1.77's own content. Everything v1.76 announced lives on in the
-// changelog modal; a reader who dismissed that card must not be shown its fixes again.
+// banner carries ONLY v1.77's own content. Everything v1.76 announced lives on in the changelog.
 //
-// This release is ONE thing: the player bug reports. Nineteen were open, and the ones that are
-// fixed here are almost all the same complaint in different words -- the LIVE PROFILE disagreed
-// with what you bought. So both lines lead with "look at your cards", not with the mechanism.
+// FORMAT, set by Rigzar 2026-09-25: "el banner da mucha info basura, da ladilla leerlo. Si son
+// bugs de github pon el git y el fix rapido -- GH#xxx ahora puede hacer tal cosa, resuelto. Si es
+// de discord usa el simbolo de discord y el fix mas sencillo."
 //
-//   line1 = weapons: what the card shows after a swap. The Terminator Sergeant who lost his
-//           Storm bolter, the Voidscarred whose new weapons went to the wrong models, the
-//           Scarab Occult squad printed as one model, the Leman Russ sponsons that vanished.
-//   line2 = points and saves, i.e. the ones that CHANGE A SAVED LIST's total: the Chosen
-//           upgrades that were charged once for the whole squad, the Relic blade at 0 points,
-//           the Magos's free 4+ ward, the Scout Sergeant's honours spreading to his squad.
-//   line3 = the rest, plus the faction badges all turning green.
+// So: ONE SHORT LINE PER FIX. The part before the em dash is the source and gets bolded by
+// BoldSplitLine -- "GH#143" for an issue, a speech bubble for something said on Discord -- and
+// what follows says what the player can now do, in one sentence. No mechanism, no counts, no
+// paragraph. Anyone who wants the reasoning has the changelog and Known Issues.
 //
-// Append follow-ups here while v1.77 stays open, and bump ANNOUNCEMENT_KEY whenever these lines
-// change materially, or readers who dismissed the previous card never see the new one.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
+// `lines` is an ARRAY, not line1..line7: this release has seventeen of them and the old fixed
+// slots could not hold it. Append follow-ups to the array while v1.77 stays open and bump
+// ANNOUNCEMENT_KEY, or readers who dismissed the card never see the new ones.
+type AnnouncementLang = { title: string; intro: string; install: string; lines: string[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.77: what your card says you bought",
-    intro: "This one is the bug reports. Nineteen were open and most of them turned out to be the same complaint told a different way: you bought something, and the live profile disagreed. Check the cards of any squad that swaps weapons — several of these change what is printed on them, and two change what your list costs.",
+    title: "v1.77: the bug reports",
+    intro: "Nineteen were open. Sixteen are fixed, plus what came in on Discord. One line each — the changelog has the reasoning.",
     install: "",
-    line1: "⚔️ WEAPON SWAPS THAT PRINTED THE WRONG THING. THE SPACE MARINE TERMINATOR SERGEANT LOST HIS STORM BOLTER whenever the squad bought a Cyclone missile launcher (GH#143) — the option reads “Storm bolter and Cyclone missile launcher”, so it hands the bolter straight back, and the app was subtracting one anyway and taking it off the Sergeant's row as well. THE ELDAR CORSAIR VOIDSCARRED lost their Shuriken rifles and gained nothing (GH#157): the Power sword and Shuriken pistol they paid for landed on the Shade Runner, the Soul Weaver and the Way Seeker, who carry those already. THE VOIDREAVERS' FELARCH was handing every other model a free Shuriken pistol (GH#156). SCARAB OCCULT TERMINATORS printed as a single model with everything on it, Sorcerer and squad merged into one row (GH#147) — the datasheet says “EACH Scarab Occult Terminator is equipped with”, and the app only understood “Every” and “The”. AND THE LEMAN RUSS' TWO HEAVY BOLTER SPONSONS VANISHED if you had also swapped the hull Heavy bolter for something else (GH#152). The same pass fixed the SPACE MARINE ASSAULT SQUAD, the CSM MUTANTS, the SORORITAS PENITENT ENGINES and the KNIGHT CASTELLAN, none of them reported.",
-    line2: "💰 AND FOUR THINGS THAT CHANGE THE NUMBERS ON YOUR LIST. CHAOS CHOSEN UPGRADES ARE PER MODEL (GH#141) — Dark Crusaders is +2 points PER MODEL, and one flat +2 was charged for the whole squad; the CSM MUTANTS' upgrades were the same. THE SPACE MARINES RELIC BLADE COST NOTHING (GH#142): the codex prices it “the same as the weapon it enhances”, which is not a number, so the app charged 0 — now that you name the weapon in the “apply to” picker, it charges that weapon's own Armory price. THE ADEPTUS MECHANICUS MAGOS HAD A 4+ WARD SAVE (GH#139) and should have 5+: an unbought specialisation's rules text was being read as if you had taken it. And SWORDSMAN HONOURS BOUGHT FOR A SCOUT SERGEANT RAISED THE WHOLE SQUAD'S WEAPON SKILL (GH#155) — the Scout Squad's codex entry gives the Armory to the Sergeant alone, and our copy said the whole squad. THE AGGRESSOR IMPERATIVE was also applied twice to the model carrying it, so an AdMech squad leader moved 10″ instead of 8″ (GH#140).",
-    line3: "🛠️ AND THE REST OF THE REPORTS. NECRONS: the TRIARCH STALKER'S REINFORCED FORELIMBS now give it WS 3+ and +2 Attacks (GH#151); a CANOPTEK COURT ARMY MAY FIELD FOUR CRYPTEKS, two per HQ slot, as its own archetype says (GH#150); the BATTLE-READY SHEET NO LONGER SHOWS THE TOMB BLADES' ARMOUR UPGRADE BEFORE YOU BUY IT — and grants the 3+ when you do (GH#149); and the CANOPTEK SCARABS' Feeder mandibles read Strength “U”, not “T” (GH#144). ELDAR: A WARP SPIDER EXARCH'S SECOND DEATH SPINNER no longer wipes the squad's own five (GH#138). ADEPTUS MECHANICUS: DJINN EYES now adds Sunder(1) to weapons bought from the Armory too, not only to the ones printed on the datasheet (GH#137). CHAOS SPACE MARINES: A CHAOS PREDATOR WITH THE MARK OF TZEENTCH CAN REACH ITS MIRROR PLATE AND WARPFLAME GARGOYLES (GH#148) — a vehicle's equipment panel had no way to open the Mark tab. 🟢 AND EVERY FACTION BADGE IS GREEN: all eighteen codices have been through a full review, so the colour key is gone from the faction screen. Chaos Space Marines 1.05, Orks 1.03, Tau Empire 1.02 and Tyranids 1.07 are the versions this build was checked against.",
-    line4: "",
-    line5: "",
-    line6: "",
-    line7: "",
-    contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
+    lines: [
+      "GH#143 — the Terminator Sergeant keeps his Storm bolter when the squad buys a Cyclone missile launcher.",
+      "GH#157 — Corsair Voidscarred get the Power sword and Shuriken pistol they paid for.",
+      "GH#156 — the Voidreavers' Felarch no longer hands the rest of the squad a free Shuriken pistol.",
+      "GH#147 — Scarab Occult Terminators show as a squad and a Sorcerer, not as one model.",
+      "GH#152 — the Leman Russ' Heavy bolter sponsons no longer vanish when you swap the hull gun.",
+      "GH#141 — Chosen upgrades are charged per model — Dark Crusaders on five models costs 10, not 2.",
+      "GH#142 — the Relic blade costs the same as the weapon it enhances, once you pick that weapon.",
+      "GH#155 — Swordsman Honours stay on the Scout Sergeant instead of raising the whole squad.",
+      "GH#139 — the Magos has its 5+ ward save, not a 4+ it never bought.",
+      "GH#140 — the Aggressor Imperative moves the model 8\u2033, not 10\u2033.",
+      "GH#149 — the Tomb Blades' armour upgrade shows on your sheet only once you have bought it — and grants the 3+ when you do.",
+      "GH#151 — Reinforced Forelimbs give the Triarch Stalker WS 3+ and +2 Attacks.",
+      "GH#150 — a Canoptek Court army can field four Crypteks, two per HQ slot.",
+      "GH#144 — Feeder mandibles and Scythed limbs read Strength U, not T.",
+      "GH#138 — a Warp Spider Exarch's second Death spinner no longer wipes the squad's own five.",
+      "GH#137 — Djinn Eyes adds Sunder(1) to weapons you buy from the Armory too.",
+      "GH#148 — a Chaos Predator with the Mark of Tzeentch can buy its Mirror plate and Warpflame gargoyles.",
+      "\ud83d\udcac Armiger and War Dog — pickable in Pitched Battle now, not only Epic. The gate to Epic was our assumption, not a rule.",
+      "\ud83d\udcac Bike Squad Multi-melta — Assault 1, not Heavy 1. The author corrected the source.",
+      "\ud83d\udcac Four sheets the author fixed — the Traitor Guard's Krak grenade and the Land Raider Ares' Flamestorm cannon are gone, the Knight Paladin's battle cannon is spelled right, and the Foetid Virion's Enhanced blight grenades appear only with the Biologus Putrifier.",
+      "\ud83d\udfe2 Every faction badge is green — all eighteen codices are fully reviewed, so the colour key is gone from the faction screen.",
+      "\ud83d\udcac The Holy Trinity — grants its third Trait slot. Its own text says \u201cthe army gains access to a third trait\u201d and the app only ever gave two, so picking it told you that you had too many.",
+      "\ud83d\udcac The campaign Trait bonus — only appears on a campaign army now. It was on every list, which made it look like a free extra Trait \u2014 and it was being used as one, because it was the workaround for the Holy Trinity bug above.",
+      "\ud83d\udcac Dreadnoughts — may swap EACH Storm bolter, not just one. The cap follows the arms you actually picked, so a Dreadnought with two Storm bolters can trade both and one with a single bolter still trades one.",
+      "\ud83d\udcac League lists are locked — once registration closes. You could still edit an army already entered in a league \u2014 not swap it, edit it \u2014 with nobody asked. Ask the organiser to reopen registration if a list needs correcting.",
+      "\ud83d\udcac League lists open up — the other way too: the organiser and the admins can always read them, and every player in the league can once registration has closed. Most of them answered \u201cNot found\u201d before, because entering a list never made it readable.",
+      "\ud83d\udcac Open all / Close all — in the army builder, not only in the Battle View.",
+    ],
+    contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.77: was auf deiner Karte steht",
-    intro: "Diese Version sind die Fehlermeldungen. Neunzehn waren offen, und die meisten waren dieselbe Beschwerde in anderen Worten: du hast etwas gekauft, und das Live-Profil sah es anders. Sieh dir die Karten jeder Einheit an, die Waffen tauscht — mehrere davon werden jetzt anders gedruckt, und zwei ändern, was deine Liste kostet.",
+    title: "v1.77: die Fehlermeldungen",
+    intro: "Neunzehn waren offen. Sechzehn sind behoben, dazu was auf Discord kam. Eine Zeile pro Fix — die Begruendung steht im Changelog.",
     install: "",
-    line1: "⚔️ WAFFENTAUSCHE, DIE FALSCH GEDRUCKT WURDEN. DEM SPACE-MARINE-TERMINATOR-SERGEANT FEHLTE SEIN STORM BOLTER, sobald die Einheit einen Cyclone Missile Launcher kaufte (GH#143) — die Option heißt „Storm bolter and Cyclone missile launcher“, gibt den Bolter also zurück, und die App zog ihn trotzdem ab, auch beim Sergeant. DIE ELDAR CORSAIR VOIDSCARRED verloren ihre Shuriken-Gewehre und bekamen nichts (GH#157): Powerschwert und Shuriken-Pistole landeten beim Shade Runner, Soul Weaver und Way Seeker, die beides ohnehin tragen. DER FELARCH DER VOIDREAVERS verschenkte an alle anderen Modelle eine Shuriken-Pistole (GH#156). SCARAB OCCULT TERMINATORS wurden als ein einziges Modell gedruckt, Zauberer und Trupp in einer Zeile (GH#147) — das Datenblatt sagt „EACH Scarab Occult Terminator is equipped with“, und die App kannte nur „Every“ und „The“. UND DIE ZWEI HEAVY-BOLTER-SPONSONS DES LEMAN RUSS VERSCHWANDEN, wenn man zusätzlich den Rumpf-Heavy-Bolter getauscht hatte (GH#152). Derselbe Durchgang reparierte SPACE MARINE ASSAULT SQUAD, CSM MUTANTS, SORORITAS PENITENT ENGINES und KNIGHT CASTELLAN, von denen niemand berichtet hatte.",
-    line2: "💰 UND VIER DINGE, DIE DIE ZAHLEN DEINER LISTE ÄNDERN. CHAOS-CHOSEN-UPGRADES KOSTEN PRO MODELL (GH#141) — Dark Crusaders ist +2 Punkte PRO MODELL, berechnet wurden +2 für den ganzen Trupp; bei den CSM MUTANTS dasselbe. DAS RELIC BLADE DER SPACE MARINES KOSTETE NICHTS (GH#142): der Codex preist es „genauso wie die Waffe, die es verbessert“ — keine Zahl, also wurden 0 berechnet. Jetzt, wo du die Waffe im „apply to“-Auswahlfeld benennst, kostet es deren Arsenal-Preis. DER ADEPTUS-MECHANICUS-MAGOS HATTE EINE 4+ RETTUNG (GH#139) statt 5+: der Regeltext einer nicht gekauften Spezialisierung wurde gelesen, als hättest du sie. Und SWORDSMAN HONOURS FÜR EINEN SCOUT-SERGEANT HOB DAS KAMPFGESCHICK DES GANZEN TRUPPS (GH#155) — der Codex gibt das Arsenal allein dem Sergeant, unsere Kopie dem ganzen Trupp. DAS AGGRESSOR IMPERATIVE wurde beim tragenden Modell doppelt angewendet, also bewegte sich ein AdMech-Anführer 10″ statt 8″ (GH#140).",
-    line3: "🛠️ UND DER REST DER MELDUNGEN. NECRONS: die REINFORCED FORELIMBS DES TRIARCH STALKER geben jetzt KG 3+ und +2 Attacken (GH#151); eine CANOPTEK-COURT-ARMEE darf VIER CRYPTEKS aufstellen, zwei pro HQ-Slot, wie ihr Archetyp es sagt (GH#150); das BATTLE-READY-BLATT ZEIGT DAS RÜSTUNGS-UPGRADE DER TOMB BLADES NICHT MEHR, BEVOR MAN ES KAUFT — und gewährt die 3+, wenn man es tut (GH#149); und die Feeder mandibles der CANOPTEK SCARABS haben Stärke „U“, nicht „T“ (GH#144). ELDAR: DER ZWEITE DEATH SPINNER EINES WARP-SPIDER-EXARCHEN löscht die fünf des Trupps nicht mehr aus (GH#138). ADEPTUS MECHANICUS: DJINN EYES verleiht Sunder(1) jetzt auch aus dem Arsenal gekauften Waffen (GH#137). CHAOS SPACE MARINES: EIN CHAOS PREDATOR MIT DEM MAL DES TZEENTCH ERREICHT SEINE MIRROR PLATE UND WARPFLAME GARGOYLES (GH#148) — das Ausrüstungsfenster eines Fahrzeugs konnte den Mal-Reiter gar nicht öffnen. 🟢 UND ALLE FRAKTIONSPUNKTE SIND GRÜN: alle achtzehn Codices sind vollständig geprüft, die Farblegende ist von der Fraktionsauswahl verschwunden. Geprüft wurde gegen Chaos Space Marines 1.05, Orks 1.03, Tau Empire 1.02 und Tyranids 1.07.",
-    line4: "",
-    line5: "",
-    line6: "",
-    line7: "",
-    contrib: "👁️ Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
+    lines: [
+      "GH#143 — der Terminator-Sergeant behaelt seinen Storm Bolter, wenn der Trupp einen Cyclone Missile Launcher kauft.",
+      "GH#157 — Corsair Voidscarred bekommen das Powerschwert und die Shuriken-Pistole, die sie bezahlt haben.",
+      "GH#156 — der Felarch der Voidreavers verschenkt keine Shuriken-Pistolen mehr an den Rest des Trupps.",
+      "GH#147 — Scarab Occult Terminators erscheinen als Trupp UND Zauberer, nicht als ein Modell.",
+      "GH#152 — die Heavy-Bolter-Sponsons des Leman Russ verschwinden nicht mehr, wenn du die Rumpfwaffe tauschst.",
+      "GH#141 — Chosen-Upgrades kosten pro Modell — Dark Crusaders auf fuenf Modellen kostet 10, nicht 2.",
+      "GH#142 — die Relic Blade kostet so viel wie die Waffe, die sie verbessert, sobald du sie auswaehlst.",
+      "GH#155 — Swordsman Honours bleiben beim Scout-Sergeant, statt den ganzen Trupp zu verbessern.",
+      "GH#139 — der Magos hat seine 5+ Rettung, nicht eine nie gekaufte 4+.",
+      "GH#140 — das Aggressor Imperative bewegt das Modell 8\u2033, nicht 10\u2033.",
+      "GH#149 — das Ruestungs-Upgrade der Tomb Blades steht erst auf dem Blatt, wenn du es gekauft hast — und gibt dann die 3+.",
+      "GH#151 — Reinforced Forelimbs geben dem Triarch Stalker KG 3+ und +2 Attacken.",
+      "GH#150 — eine Canoptek-Court-Armee darf vier Crypteks aufstellen, zwei pro HQ-Slot.",
+      "GH#144 — Feeder Mandibles und Scythed Limbs haben Staerke U, nicht T.",
+      "GH#138 — der zweite Death Spinner eines Warp-Spider-Exarchen loescht die fuenf des Trupps nicht mehr.",
+      "GH#137 — Djinn Eyes verleiht Sunder(1) auch Waffen aus dem Arsenal.",
+      "GH#148 — ein Chaos Predator mit dem Mal des Tzeentch kann Mirror Plate und Warpflame Gargoyles kaufen.",
+      "\ud83d\udcac Armiger and War Dog — jetzt auch in Pitched Battle waehlbar, nicht nur in Epic. Die Epic-Sperre war unsere Annahme, keine Regel.",
+      "\ud83d\udcac Bike Squad Multi-melta — Assault 1, nicht Heavy 1. Der Autor hat die Quelle korrigiert.",
+      "\ud83d\udcac Four sheets the author fixed — die Krak-Granate der Traitor Guard und die Flamestorm Cannon des Land Raider Ares sind weg, die Battle Cannon des Knight Paladin ist richtig geschrieben, und die Enhanced Blight Grenades des Foetid Virion erscheinen nur mit dem Biologus Putrifier.",
+      "\ud83d\udfe2 Every faction badge is green — alle achtzehn Codices sind vollstaendig geprueft, daher ist die Farblegende von der Fraktionsauswahl verschwunden.",
+      "\ud83d\udcac The Holy Trinity — gewaehrt seinen dritten Trait-Slot. Sein eigener Text sagt \u201cthe army gains access to a third trait\u201d, und die App gab nur zwei \u2014 wer ihn waehlte, bekam die Meldung, er habe zu viele.",
+      "\ud83d\udcac The campaign Trait bonus — erscheint nur noch bei einer Kampagnen-Armee. Vorher stand er auf jeder Liste und sah wie ein kostenloser Extra-Trait aus \u2014 und wurde auch so benutzt, denn er war der Notbehelf fuer den Holy-Trinity-Fehler oben.",
+      "\ud83d\udcac Dreadnoughts — duerfen JEDEN Storm Bolter tauschen, nicht nur einen. Die Obergrenze richtet sich nach den tatsaechlich gewaehlten Armen: mit zwei Storm Boltern tauschst du beide, mit einem eben einen.",
+      "\ud83d\udcac League lists are locked — sobald die Anmeldung schliesst. Eine bereits eingetragene Armee liess sich weiterhin BEARBEITEN \u2014 nicht tauschen, bearbeiten \u2014 ohne dass jemand gefragt wurde. Fuer eine Korrektur muss der Organisator die Anmeldung wieder oeffnen.",
+      "\ud83d\udcac League lists open up — auch andersherum: Organisator und Admins koennen sie immer lesen, alle Teilnehmer nach Anmeldeschluss. Vorher antworteten die meisten mit \u201cNot found\u201d, weil das Eintragen einer Liste sie nie lesbar machte.",
+      "\ud83d\udcac Open all / Close all — im Armee-Builder, nicht nur in der Battle View.",
+    ],
+    contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.77: lo que tu ficha dice que compraste",
-    intro: "Esta versión son los reportes. Había diecinueve abiertos y casi todos resultaron ser la misma queja contada de otra forma: compraste algo y el perfil en vivo no estaba de acuerdo. Mirá las fichas de cualquier escuadra que cambie armas — varias se imprimen distinto ahora, y dos cambian lo que cuesta tu lista.",
+    title: "v1.77: los reportes",
+    intro: "Había diecinueve abiertos. Dieciséis arreglados, más lo que llegó por Discord. Una línea por fix — el razonamiento está en el changelog.",
     install: "",
-    line1: "⚔️ CAMBIOS DE ARMA QUE SE IMPRIMÍAN MAL. AL SARGENTO TERMINATOR DE SPACE MARINES LE DESAPARECÍA EL STORM BOLTER cuando la escuadra compraba un Cyclone missile launcher (GH#143) — la opción dice «Storm bolter and Cyclone missile launcher», o sea que te lo devuelve, y la app lo restaba igual, también al sargento. A LOS ELDAR CORSAIR VOIDSCARRED les quitaba los Shuriken rifles y no les daba nada (GH#157): la Power sword y la Shuriken pistol pagadas aterrizaban en el Shade Runner, el Soul Weaver y el Way Seeker, que ya las llevan. EL FELARCH DE LOS VOIDREAVERS regalaba una Shuriken pistol a todos los demás (GH#156). LOS SCARAB OCCULT TERMINATORS salían como un solo modelo, hechicero y escuadra en la misma fila (GH#147) — la hoja dice «EACH Scarab Occult Terminator is equipped with» y la app solo entendía «Every» y «The». Y LOS DOS HEAVY BOLTER DE SPONSON DEL LEMAN RUSS DESAPARECÍAN si además habías cambiado el Heavy bolter del casco (GH#152). La misma pasada arregló la SPACE MARINE ASSAULT SQUAD, los CSM MUTANTS, los PENITENT ENGINES de Sororitas y el KNIGHT CASTELLAN, ninguno reportado.",
-    line2: "💰 Y CUATRO COSAS QUE CAMBIAN LOS NÚMEROS DE TU LISTA. LAS MEJORAS DE LOS CHOSEN SON POR MODELO (GH#141) — Dark Crusaders es +2 puntos POR MODELO y se cobraba un +2 plano para toda la escuadra; los CSM MUTANTS igual. LA RELIC BLADE DE SPACE MARINES NO COSTABA NADA (GH#142): el códex la precia «igual que el arma que mejora», que no es un número, así que se cobraba 0 — ahora que nombrás el arma en el selector «aplicar a», cobra el precio de esa arma en la armería. EL MAGOS DE ADEPTUS MECHANICUS TENÍA SALVACIÓN 4+ (GH#139) y debe tener 5+: el texto de una especialización sin comprar se leía como si la tuvieras. Y LAS SWORDSMAN HONOURS COMPRADAS PARA UN SCOUT SERGEANT SUBÍAN EL WS DE TODA LA ESCUADRA (GH#155) — el códex le da la armería solo al sargento, y nuestra copia se la daba a todos. EL AGGRESSOR IMPERATIVE también se aplicaba dos veces al modelo que lo lleva, así que un líder de AdMech movía 10″ en vez de 8″ (GH#140).",
-    line3: "🛠️ Y EL RESTO DE LOS REPORTES. NECRONS: las REINFORCED FORELIMBS DEL TRIARCH STALKER ya dan WS 3+ y +2 Ataques (GH#151); un ejército CANOPTEK COURT puede llevar CUATRO CRYPTEKS, dos por slot de HQ, como dice su propio arquetipo (GH#150); la HOJA BATTLE-READY YA NO MUESTRA LA MEJORA DE ARMADURA DE LAS TOMB BLADES SIN COMPRARLA — y concede el 3+ cuando la comprás (GH#149); y las Feeder mandibles de los CANOPTEK SCARABS tienen Fuerza «U», no «T» (GH#144). ELDAR: EL SEGUNDO DEATH SPINNER DE UN WARP SPIDER EXARCH ya no borra los cinco de la escuadra (GH#138). ADEPTUS MECHANICUS: DJINN EYES ahora añade Sunder(1) también a las armas compradas en la armería (GH#137). CHAOS SPACE MARINES: UN CHAOS PREDATOR CON LA MARCA DE TZEENTCH YA LLEGA A SU MIRROR PLATE Y SUS WARPFLAME GARGOYLES (GH#148) — el panel de equipo de un vehículo no tenía forma de abrir la pestaña de marca. 🟢 Y TODOS LOS PUNTOS DE FACCIÓN ESTÁN EN VERDE: los dieciocho códices pasaron revisión completa, así que la leyenda de colores desapareció de la pantalla de facciones. Este build se verificó contra Chaos Space Marines 1.05, Orks 1.03, Tau Empire 1.02 y Tyranids 1.07.",
-    line4: "",
-    line5: "",
-    line6: "",
-    line7: "",
-    contrib: "👁️ ¿Encontraste algo mal? El formulario de reporte de la app funciona — unidad, engagement, arquetipo y una foto.",
+    lines: [
+      "GH#143 — el sargento Terminator conserva su Storm bolter cuando la escuadra compra un Cyclone missile launcher.",
+      "GH#157 — los Corsair Voidscarred reciben la Power sword y la Shuriken pistol que pagaron.",
+      "GH#156 — el Felarch de los Voidreavers ya no regala Shuriken pistols al resto de la escuadra.",
+      "GH#147 — los Scarab Occult Terminators salen como escuadra y hechicero, no como un solo modelo.",
+      "GH#152 — los sponsons de Heavy bolter del Leman Russ ya no desaparecen si cambiás el arma del casco.",
+      "GH#141 — las mejoras de los Chosen se cobran por modelo — Dark Crusaders en cinco modelos cuesta 10, no 2.",
+      "GH#142 — la Relic blade cuesta lo mismo que el arma que mejora, en cuanto elegís esa arma.",
+      "GH#155 — las Swordsman Honours se quedan en el Scout Sergeant en vez de subir a toda la escuadra.",
+      "GH#139 — el Magos tiene su salvación 5+, no un 4+ que nunca compró.",
+      "GH#140 — el Aggressor Imperative mueve el modelo 8\u2033, no 10\u2033.",
+      "GH#149 — la mejora de armadura de las Tomb Blades sale en la hoja solo si la comprás — y entonces sí da el 3+.",
+      "GH#151 — las Reinforced Forelimbs dan al Triarch Stalker WS 3+ y +2 Ataques.",
+      "GH#150 — un ejército Canoptek Court puede llevar cuatro Crypteks, dos por slot de HQ.",
+      "GH#144 — las Feeder mandibles y las Scythed limbs tienen Fuerza U, no T.",
+      "GH#138 — el segundo Death spinner de un Warp Spider Exarch ya no borra los cinco de la escuadra.",
+      "GH#137 — Djinn Eyes añade Sunder(1) también a las armas compradas en la armería.",
+      "GH#148 — un Chaos Predator con la Marca de Tzeentch ya puede comprar Mirror plate y Warpflame gargoyles.",
+      "\ud83d\udcac Armiger and War Dog — ya se pueden elegir en Pitched Battle, no solo en Epic. La puerta a Epic era una suposición nuestra, no una regla.",
+      "\ud83d\udcac Bike Squad Multi-melta — Assault 1, no Heavy 1. El autor corrigió la fuente.",
+      "\ud83d\udcac Four sheets the author fixed — el Krak grenade de los Traitor Guard y el Flamestorm cannon del Land Raider Ares ya no están, el battle cannon del Knight Paladin está bien escrito, y las Enhanced blight grenades del Foetid Virion solo salen con el Biologus Putrifier.",
+      "\ud83d\udfe2 Every faction badge is green — los dieciocho códices están revisados por completo, así que la leyenda de colores desapareció de la pantalla de facciones.",
+      "\ud83d\udcac The Holy Trinity — da su tercer slot de Trait. Su propio texto dice \u201cthe army gains access to a third trait\u201d y la app solo daba dos, así que al elegirlo te decía que tenías demasiados.",
+      "\ud83d\udcac The campaign Trait bonus — solo aparece en un ejército de campaña. Antes salía en todas las listas y parecía un Trait extra gratis \u2014 y se usaba como tal, porque era el apaño para el bug de Holy Trinity de arriba.",
+      "\ud83d\udcac Dreadnoughts — pueden cambiar CADA Storm bolter, no solo uno. El tope sigue a los brazos que elegiste: con dos Storm bolters cambiás los dos, con uno cambiás uno.",
+      "\ud83d\udcac League lists are locked — en cuanto cierra la inscripción. Un ejército ya inscrito se podía seguir EDITANDO \u2014 no cambiar, editar \u2014 sin que nadie lo autorizara. Si hay que corregir una lista, que el organizador reabra la inscripción.",
+      "\ud83d\udcac League lists open up — también al revés: el organizador y los admins siempre pueden leerlas, y el resto de jugadores en cuanto cierra la inscripción. Antes casi todas daban \u201cNot found\u201d, porque inscribir una lista nunca la hacía legible.",
+      "\ud83d\udcac Open all / Close all — en el constructor de ejércitos, no solo en la Battle View.",
+    ],
+    contrib: "\ud83d\udc41\ufe0f ¿Encontraste algo mal? El formulario de reporte de la app funciona — unidad, engagement, arquetipo y una foto.",
   },
 };
 /* canvas-smoke placeholder — wire up here when user provides the effect */
@@ -148,9 +211,8 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.75's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.76 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
-            .filter(Boolean)
-            .map((line, i) => <BoldSplitLine key={i} text={line} />)}
+          {/* One short line per fix — see the format note beside ANNOUNCEMENT_TEXT. */}
+          {tx.lines.filter(Boolean).map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>

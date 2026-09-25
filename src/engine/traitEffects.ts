@@ -26,7 +26,23 @@ export type TraitEffect =
    * an Armory entry by name; weapons are added to the profile, equipment runs through
    * parseEquipMods like a bought item (so "4+ armor save" text actually moves the save).
    */
-  | { type: 'grant_armory_item'; item: string;                                          applies_to: AppliesTo };
+  | { type: 'grant_armory_item'; item: string;                                          applies_to: AppliesTo }
+  /**
+   * The trait gives every unit that carries `replaces` a free swap into `into` — a real option
+   * group on the card, not a sentence.
+   *
+   * ONE trait in the game is worded this way, Imperial Guard's CLOSE COMBAT SPECIALISTS: "Each
+   * model may swap their Lasgun for a Las pistol and a Close combat weapon." It was filed as a
+   * `unit_ability`, so the text appeared and the swap did not exist. Reported by Skele on
+   * Discord, 2026-09-24: "i cannot change the lasgun to las-pistol and ccw in the builder... you
+   * say in battle - when 'lasgun' appears in a datasheet i substitute it as 'laspistol', and i
+   * have a ccw - though being able to change that in the army builder would be nice."
+   *
+   * The group is only offered to a unit whose own loadout names `replaces`, which is what the
+   * word "their" in the trait text means, and it is appended AFTER the datasheet's own groups so
+   * no saved list's option indices move (see [[feedback_reordering_choices_breaks_saved_lists]]).
+   */
+  | { type: 'grant_option_group'; replaces: string; into: string[]; header: string;      applies_to: AppliesTo };
 
 function effectApplies(effect: TraitEffect, unit: Unit): boolean {
   switch (effect.applies_to) {

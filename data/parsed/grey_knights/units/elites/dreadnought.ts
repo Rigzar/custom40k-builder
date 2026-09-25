@@ -205,9 +205,10 @@ export const dreadnought: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Can swap a Storm bolter",
+      "header": "May swap each Storm bolter",
       "constraint": {
-        "type": "one"
+        "type": "fixed_max",
+        "max": 2
       },
       "choices": [
         {

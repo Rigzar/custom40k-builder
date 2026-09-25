@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
@@ -99,7 +99,17 @@ const MARK_BONUSES: Record<string, { inf: string; char: string; veh: string }> =
 const STAT_KEYS_INF = ['M','WS','BS','S','T','W','I','A','LD','SV'] as const;
 const STAT_KEYS_VEH = ['M','BS','S','FRONT','SIDE','REAR','I','A','HP'] as const;
 
-interface Props { item: RosterEntry; }
+interface Props {
+  item: RosterEntry;
+  /**
+   * "Collapse all" / "Expand all", driven from `ArmyList`. A COUNTER, not a boolean: pressing the
+   * same button twice has to work, and a card the player has since opened by hand must still
+   * follow the next press. The card sets itself to `collapseAll` whenever the counter changes and
+   * is otherwise free to answer its own header.
+   */
+  collapseSignal?: number;
+  collapseAll?: boolean;
+}
 
 function isMarkGroup(g: { constraint: { type: string } }) {
   return g.constraint.type === 'mark';
@@ -149,7 +159,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
   return { weapons: [], compound: false };
 }
 
-export function UnitCard({ item }: Props) {
+export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
   const store = useArmyStore();
   const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
@@ -160,6 +170,15 @@ export function UnitCard({ item }: Props) {
   const [psyOpen, setPsyOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [editingName, setEditingName] = useState(false);
+  // Follow "collapse all"/"expand all" when the counter moves. Skips the first render so a card
+  // added to the list does not snap shut. Above the early return below, deliberately.
+  const firstCollapseSignal = useRef(true);
+  useEffect(() => {
+    if (firstCollapseSignal.current) { firstCollapseSignal.current = false; return; }
+    setCollapsed(!!collapseAll);
+    // `collapseAll` is read, not watched: the counter is what says "the player pressed it".
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collapseSignal]);
 
   if (!data) return null;
   const u = resolveUnit(item, data);
@@ -1410,14 +1429,41 @@ export function UnitCard({ item }: Props) {
             const _headerCopies = _perCopyHeader
               ? Math.max(...g.replaces!.map(w => weaponCopiesPerModel(u.equipped_with, w, g.requires_choice)))
               : 1;
+            // A SWAP CAPPED BY WHAT YOU ACTUALLY BOUGHT. A Dreadnought's `equipped_with` is "-":
+            // every arm comes from its "must pick two weapons from this list" group, and two of
+            // those entries carry a Storm bolter. So "may swap each Storm bolter" is capped by how
+            // many Storm bolters you PICKED, which no static max can express. Ruled by the author
+            // on Discord, 2026-09-22: "'Can swap a Storm bolter' should mean that it can swap any
+            // Storm bolter it has, not just exactly one. Dreadnoughts of all colours." Only
+            // applies when the replaced weapon is in no loadout line at all — otherwise the
+            // ordinary copies-per-model rule above already has the answer.
+            const _replacedInLoadout = !!g.replaces?.length &&
+              g.replaces.some(w => (u.equipped_with ?? '').toLowerCase().includes(w.toLowerCase()));
+            const ownedFromOtherGroups = (!!g.replaces?.length && !_replacedInLoadout)
+              ? Math.max(...g.replaces!.map(w => {
+                  const needle = w.toLowerCase();
+                  let owned = 0;
+                  (u.option_groups ?? []).forEach((og, ogi) => {
+                    if (og === g) return;
+                    for (const [ci, qty] of Object.entries(item.optionQty?.[ogi] ?? {})) {
+                      if (ci === '__inline' || !qty) continue;
+                      const ch = og.choices?.[parseInt(ci)];
+                      if (ch && ch.name.toLowerCase().includes(needle)) owned += Number(qty);
+                    }
+                  });
+                  return owned;
+                }))
+              : null;
             const groupMax = perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
                 ? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies
                 : isFixedMax
-                  ? (modelGroupCap !== null
-                      ? Math.min((gc.max ?? item.size) + swarmControllersBonus, modelGroupCap)
-                      : (gc.max ?? item.size) + swarmControllersBonus)
+                  ? Math.min(
+                      modelGroupCap !== null
+                        ? Math.min((gc.max ?? item.size) + swarmControllersBonus, modelGroupCap)
+                        : (gc.max ?? item.size) + swarmControllersBonus,
+                      ownedFromOtherGroups ?? Infinity)
                   : null;
             // "every"/"fixed_max" groups (not just per_n) share a combined budget across all their
             // choices — e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap, or Raptors'
