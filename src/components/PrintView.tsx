@@ -397,7 +397,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, optionStatSets, attachedDrones, optionAbilities, traitAbilities } = rp;
+          optionStatMods, optionStatSets, ctanYngirActive, attachedDrones, optionAbilities, traitAbilities } = rp;
   // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
   // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
   // affected. Same derivation as the unit card now.
@@ -639,6 +639,17 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               const modStats = applyEquipDeltas(applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle), traitEquipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
+              }
+              // Yngir: "One C'tan shard ... improves its armor save to 2+". The floor lives in
+              // `statPipeline`, which the unit card and the battle view both run and THIS VIEW DOES
+              // NOT — it builds its stats by hand. So the printed sheet was the one place the
+              // improvement never happened: "The Yngir C'Tan's armour save displays as 3+ when
+              // printed. Other Yngir improvements display correctly." (GH#160). Same shape as the
+              // ward save and the psychic details before it: one view knowing something the others
+              // do not. Applied as a FLOOR, so a shard that already prints better keeps it.
+              if (ctanYngirActive) {
+                const cur = String(modStats.SV ?? '').match(/^(\d+)\+/)?.[1];
+                if (!cur || parseInt(cur, 10) > 2) modStats.SV = '2+';
               }
               // Absolute values an option sets ("Reinforced forelimbs: the model gains WS 3+"),
               // which no delta can express on a profile that prints "-" (GH#151).

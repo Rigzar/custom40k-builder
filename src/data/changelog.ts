@@ -25,6 +25,21 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.78',
+    date: '2026-09-26',
+    title: 'The codex re-audit: four Tyranid bugs you could only field one of',
+    changes: [
+      'Tyranids — FOUR BIG BUGS MAY BE FIELDED IN TWOS. The EXOCRINE, the HARPY, the HIVE CRONE and the TYRANNOFEX all read “1-2” on their own datasheets and the app capped every one of them at a single model. The MUCOLID SPORE CLUSTER is “1-6” and was capped at three. And the BIOVORE costs 110 points, not the 111 we were charging.',
+      'Chaos Space Marines — THE HEAVY CHAINAXE COSTS 9 POINTS. Both datasheets that offer it say so and neither of ours did: the CHAOS SPACE MARINES squad was charging 4 and the LEGIONNAIRES 5. If you have a saved list with one, it just got more expensive.',
+      'Chaos Space Marines — THE LEGIONNAIRES\' REAPER CHAINCANNON NOW MATCHES ITS OWN SHEET: Suppression(2), not (3). The codex prints this weapon on three different tabs and gives it Suppression(2) on two of them and (3) on the third, which is why our three copies had drifted apart; each one now follows the tab it is printed on, and the discrepancy is with the author.',
+      'Dark Eldar, Tau Empire — TWO LOADOUT LINES THAT HAD BEEN DROPPED ARE BACK. The COURT OF THE ARCHON\'s Sslyth and the GHOSTKEEL\'s Stealth Drones each carry nothing, so their “equipped with: -” clause looked like it could be left out — except a clause is also what gives a model its own row, so anything bought for one of them landed on a different model\'s line. Nothing on your card changes today; a purchase for those models now lands where it belongs.',
+      'GENERAL — ALL NINETEEN CODICES RE-AUDITED, FIELD BY FIELD. Model rows, points, min and max, loadout lines, weapon profiles and every option\'s name and price, compared against the author\'s own sheets. 515 differences came out; the ones above are the ones that were ours. THE NUMBERS ARE NOW CLEAN: every remaining difference in points, stats or unit size is a case where the sheet contradicts ITSELF, and each of those has gone to the author rather than been guessed at.',
+      'Imperial Guard — A COMMISSAR NO LONGER FREES AN ELITE SLOT FOR SOMETHING ELSE (GH#159). Reported exactly right: “For each HQ and Commissar taken together, it causes a non-Character Infantry Elite choice to not use up a slot. Commissars should not exempt other units from their Elite slot.” The Commissar was counted TWICE — once correctly, by dropping its own entry from the slot count, and once again as a number added to a POOL that any Elite in the list could draw on. Reproduced with one HQ, two Infantry Squads, one Commissar and three Ogryns: the Commissar was exempt AND an Ogryn stopped paying for its slot.',
+      'GENERAL — AND THE SAME FAULT WEARING A DIFFERENT UNIT: ASSASSINS (GH#153). “All Elite choices don’t use up a slot for each HQ choice (including Assassins).” However many Assassins you bring they occupy a single Elite slot between them, and the slots that frees belong to the ASSASSINS — they were going into the same shared pool, so three Assassins handed a free Elite slot to a Terminator Squad. Both rules now exempt the entries that earn them instead of widening the limit for everyone.',
+      'Necrons — THE YNGIR C’TAN’S 2+ SAVE NOW PRINTS (GH#160). “The Yngir C’Tan’s armour save displays as 3+ when printed. Other Yngir improvements display correctly.” The improvement lives in the one place the unit card and the battle view both read, and the PRINTED SHEET is the one view that builds its stats by hand — so it was the only place the save never improved. Same shape as the ward save and the psychic details before it: one view knowing something the others do not.',
+    ],
+  },
+  {
     version: '1.77',
     date: '2026-09-25',
     title: 'The bug-report sweep: what your card says you bought',

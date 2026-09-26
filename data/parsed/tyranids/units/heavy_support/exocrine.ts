@@ -15,7 +15,7 @@ export const exocrine: Unit = {
       "name": "Exocrine",
       "points": 218,
       "min": 1,
-      "max": 1,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "3+",

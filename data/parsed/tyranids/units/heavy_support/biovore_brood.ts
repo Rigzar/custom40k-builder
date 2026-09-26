@@ -13,7 +13,7 @@ export const biovoreBrood: Unit = {
   "models": [
     {
       "name": "Biovore",
-      "points": 111,
+      "points": 110,
       "min": 1,
       "max": 3,
       "stats": {

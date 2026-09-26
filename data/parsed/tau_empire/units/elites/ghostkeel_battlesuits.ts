@@ -49,7 +49,7 @@ export const ghostkeelBattlesuits: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Ghostkeel Shas'vre is a single model and equipped with: Cyclic ion raker; Drone controller; 2 Flamers; 2 Stealth Drones.",
+  "equipped_with": "A Ghostkeel Shas'vre is a single model and equipped with: Cyclic ion raker; Drone controller; 2 Flamers; 2 Stealth Drones. Stealth Drones are equipped with: -.",
   "weapons": [
     {
       "name": "Burst cannon",

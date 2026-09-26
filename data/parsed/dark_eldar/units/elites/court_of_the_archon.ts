@@ -41,7 +41,7 @@ export const courtOfTheArchon: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Lhaemaean is equipped with: Splinter pistol; Venom blade. Every Medusae is equipped with: Eyeburst. Every Ur-Ghul is equipped with: Rending claws.",
+  "equipped_with": "Every Lhaemaean is equipped with: Splinter pistol; Venom blade. Every Medusae is equipped with: Eyeburst. Every Sslyth is equipped with: -. Every Ur-Ghul is equipped with: Rending claws.",
   "weapons": [
     { "name": "Eyeburst", "range": "9\"", "type": "Assault 4", "s": "5", "ap": "-2", "d": "1", "abilities": "Seeking, Suppression(2)" },
     { "name": "Rending claws", "range": "-", "type": "Melee", "s": "U", "ap": "-2", "d": "1", "abilities": "Rending(5+)" },

@@ -12,156 +12,107 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v177f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v178b_dismissed';
 
-// v1.77 (2026-09-25) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
-// banner carries ONLY v1.77's own content. Everything v1.76 announced lives on in the changelog.
+// v1.78 (2026-09-26) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
+// banner is RESET to ONLY v1.78's own content. Everything v1.77 announced lives on in the
+// changelog modal; a reader who dismissed that card must not be shown its fixes again.
 //
-// LAYOUT, and it took two goes. Rigzar first: "el banner da mucha info basura, da ladilla leerlo.
-// Si son bugs de github pon el git y el fix rapido -- GH#xxx ahora puede hacer tal cosa,
-// resuelto." So the paragraphs became one line per fix. Then: "que banner tan horrible, que se
-// vea mas ordenado, no asi." Twenty-eight one-line paragraphs stacked in a column is still a
-// wall; what was missing was STRUCTURE, not brevity.
+// LAYOUT (unchanged from v1.77, and it took two rounds to get there). Rigzar: "el banner da mucha
+// info basura, da ladilla leerlo... GH#xxx ahora puede hacer tal cosa, resuelto", then "que se vea
+// mas ordenado", then "es posible que los titulos sean pestanas desplegables? asi pueden estar
+// todas compactas y la gente abre el que quiere".
 //
-// Now: GROUPED INTO COLLAPSIBLE SECTIONS, each a titled two-column list — the source (a GH
-// number, a rule name, a league heading) in a narrow column, the fix in the other, one clause
-// each. The card opens showing three headers and their counts, and the reader opens the one they
-// care about. Two rounds of feedback got here: first "one line per fix", then "que se vea mas
-// ordenado", then "que los titulos sean pestanas desplegables".
+// So: COLLAPSIBLE SECTIONS, each a two-column list, one clause per row, and the count on the
+// header so a closed section still says how much is behind it. Keep each line to a single clause;
+// anything needing a "because" belongs in the changelog.
 //
-// KEEP EACH LINE TO ONE CLAUSE. The temptation is to explain, and explaining is what the
-// changelog and Known Issues are for. If a line needs a comma and a "because", it belongs there.
+// A SECTION THAT ASKS, not just tells. Rigzar posted three open questions to the Discord bug
+// channel to reach the people who filed them, and: "en el discord no lo van a ver... mi idea, una
+// pequena pregunta con un link directo al github o al canal de los bugs". A question buried in a
+// chat scrolls away in an hour and nobody opens a GitHub issue they did not file, so the ask goes
+// where the reporter already is — on the front page, with the issue one click away. A row with a
+// third element renders its source cell as a link.
 //
-// Append follow-ups to the right section while v1.77 stays open and bump ANNOUNCEMENT_KEY, or
+// KEEP THIS SECTION EMPTY WHEN THERE IS NOTHING TO ASK. It only works while it is short and every
+// line is genuinely blocked on a reader; a standing list of five is furniture.
+//
+// Append follow-ups to the right section while v1.78 stays open and bump ANNOUNCEMENT_KEY, or
 // readers who dismissed the card never see the new ones.
-type AnnouncementSection = { label: string; rows: [string, string][] };
+/** `[source, what changed]`, or `[source, what we need, href]` for a row that asks the reader
+ *  something. The href turns the source cell into a link — see the note beside ANNOUNCEMENT_TEXT. */
+type AnnouncementRow = [string, string] | [string, string, string];
+type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.77: the bug reports",
-    intro: "Nineteen were open and sixteen are fixed, plus what came in on Discord. One line each; the changelog has the reasoning.",
+    title: "v1.78: the codex re-audit",
+    intro: "All nineteen codices compared against the author's own sheets, field by field. 515 differences came out. Those, plus three bug reports.",
     install: "",
     sections: [
-      { label: "Reported on GitHub", rows: [
-        ["GH#143", "The Terminator Sergeant keeps his Storm bolter."],
-        ["GH#157", "Corsair Voidscarred get the weapons they paid for."],
-        ["GH#156", "The Voidreavers' Felarch stops handing out free pistols."],
-        ["GH#147", "Scarab Occult Terminators show as a squad and a Sorcerer."],
-        ["GH#152", "The Leman Russ keeps its Heavy bolter sponsons."],
-        ["GH#141", "Chosen upgrades are charged per model."],
-        ["GH#142", "The Relic blade costs what its weapon costs."],
-        ["GH#155", "Swordsman Honours stay on the Scout Sergeant."],
-        ["GH#139", "The Magos has a 5+ ward save, not a 4+."],
-        ["GH#140", "The Aggressor Imperative moves the model 8\u2033, not 10\u2033."],
-        ["GH#149", "Tomb Blades show their armour upgrade only once bought."],
-        ["GH#151", "Reinforced Forelimbs give the Triarch Stalker WS 3+ and +2 A."],
-        ["GH#150", "A Canoptek Court army may field four Crypteks."],
-        ["GH#144", "Feeder mandibles read Strength U, not T."],
-        ["GH#138", "A Warp Spider Exarch's second spinner keeps the squad's."],
-        ["GH#137", "Djinn Eyes reaches weapons bought from the Armory."],
-        ["GH#148", "A Tzeentch Chaos Predator can buy its vehicle upgrades."],
+      { label: "What changed", rows: [
+        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "May be fielded in twos. Every one of them reads \u201c1-2\u201d and was capped at one."],
+        ["Mucolid Spore Cluster", "Up to six, not three."],
+        ["Biovore", "110 points, not 111."],
+        ["Heavy chainaxe", "9 points on both Chaos datasheets that offer it \u2014 we charged 4 and 5."],
+        ["Reaper chaincannon", "The Legionnaires' copy now matches its own sheet: Suppression(2)."],
+        ["Sslyth, Stealth Drones", "A purchase for one of them lands on its own line again."],
+        ["Commissars", "No longer free an Elite slot for some other unit."],
+        ["Assassins", "The slot they share is theirs — it is not handed to another Elite."],
+        ["Yngir C’tan", "Its 2+ armour save prints on the sheet."],
       ] },
-      { label: "From Discord", rows: [
-        ["Armiger, War Dog", "Selectable in Pitched Battle, not only Epic."],
-        ["Dreadnoughts", "May swap EACH Storm bolter they carry."],
-        ["Holy Trinity", "Grants its third Trait slot."],
-        ["Close Combat Specialists", "The Lasgun swap can be made now, free, on nine Guard datasheets."],
-        ["Bike Squad Multi-melta", "Assault 1, not Heavy 1."],
-        ["Four datasheets", "The author's own corrections, applied."],
-        ["Campaign Trait bonus", "Only shown on a campaign army."],
-        ["Open all / Close all", "In the army builder, not only the Battle View."],
-        ["Faction badges", "All eighteen codices reviewed \u2014 the colour key is gone."],
-      ] },
-      { label: "Leagues", rows: [
-        ["Locked", "A list entered in a league is frozen once registration closes."],
-        ["Readable", "Organisers and admins always; every player once registration closes."],
-        ["Clearer", "A refused save now says why instead of \u201cSave failed\u201d."],
+      { label: "We need an answer", rows: [
+        ["Reply on GitHub #154", "Allied Guard platoon: are your Infantry Squads linked to the Command Squad in the \u201c\u21b3 Platoon\u201d dropdown? A screenshot of the cards settles it.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
+        ["Reply on GitHub #152", "The Leman Russ' two Heavy bolter sponsons fold into its existing row as \u201c3x\u201d. Is that hard to read? Say so and we will label it.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
+        ["Ask on Discord", "Anything else that looks wrong \u2014 the bug channel is the fastest way to reach us.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.77: die Fehlermeldungen",
-    intro: "Neunzehn waren offen, sechzehn sind behoben, dazu was auf Discord kam. Eine Zeile pro Fix; die Begruendung steht im Changelog.",
+    title: "v1.78: die Codex-Pruefung",
+    intro: "Alle neunzehn Codices Feld fuer Feld mit den Blaettern des Autors verglichen. 515 Unterschiede kamen heraus; dies sind die, die bei uns lagen.",
     install: "",
     sections: [
-      { label: "Auf GitHub gemeldet", rows: [
-        ["GH#143", "Der Terminator-Sergeant behaelt seinen Storm Bolter."],
-        ["GH#157", "Corsair Voidscarred bekommen die Waffen, die sie bezahlt haben."],
-        ["GH#156", "Der Felarch der Voidreavers verschenkt keine Pistolen mehr."],
-        ["GH#147", "Scarab Occult Terminators erscheinen als Trupp und Zauberer."],
-        ["GH#152", "Der Leman Russ behaelt seine Heavy-Bolter-Sponsons."],
-        ["GH#141", "Chosen-Upgrades kosten pro Modell."],
-        ["GH#142", "Die Relic Blade kostet so viel wie ihre Waffe."],
-        ["GH#155", "Swordsman Honours bleiben beim Scout-Sergeant."],
-        ["GH#139", "Der Magos hat eine 5+ Rettung, keine 4+."],
-        ["GH#140", "Das Aggressor Imperative bewegt das Modell 8\u2033, nicht 10\u2033."],
-        ["GH#149", "Tomb Blades zeigen ihr Ruestungs-Upgrade erst nach dem Kauf."],
-        ["GH#151", "Reinforced Forelimbs geben dem Triarch Stalker KG 3+ und +2 A."],
-        ["GH#150", "Eine Canoptek-Court-Armee darf vier Crypteks aufstellen."],
-        ["GH#144", "Feeder Mandibles haben Staerke U, nicht T."],
-        ["GH#138", "Der zweite Spinner eines Warp-Spider-Exarchen laesst dem Trupp seine."],
-        ["GH#137", "Djinn Eyes erreicht auch Waffen aus dem Arsenal."],
-        ["GH#148", "Ein Chaos Predator mit Tzeentch kann seine Fahrzeug-Upgrades kaufen."],
+      { label: "Was sich geaendert hat", rows: [
+        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Koennen zu zweit aufgestellt werden. Alle lesen \u201c1-2\u201d und waren auf eins begrenzt."],
+        ["Mucolid Spore Cluster", "Bis zu sechs, nicht drei."],
+        ["Biovore", "110 Punkte, nicht 111."],
+        ["Heavy chainaxe", "9 Punkte auf beiden Chaos-Datenblaettern \u2014 wir berechneten 4 und 5."],
+        ["Reaper chaincannon", "Die Kopie der Legionnaires entspricht jetzt ihrem Blatt: Suppression(2)."],
+        ["Sslyth, Stealth Drones", "Ein Kauf fuer eines von ihnen landet wieder in seiner eigenen Zeile."],
+        ["Commissars", "Geben keinen Elite-Slot mehr fuer eine andere Einheit frei."],
+        ["Assassins", "Der geteilte Slot gehoert ihnen — er geht nicht an eine andere Elite."],
+        ["Yngir C’tan", "Seine 2+ Ruestung steht jetzt auf dem Blatt."],
       ] },
-      { label: "Aus Discord", rows: [
-        ["Armiger, War Dog", "In Pitched Battle waehlbar, nicht nur in Epic."],
-        ["Dreadnoughts", "Duerfen JEDEN getragenen Storm Bolter tauschen."],
-        ["Holy Trinity", "Gewaehrt seinen dritten Trait-Slot."],
-        ["Close Combat Specialists", "Der Lasgewehr-Tausch ist jetzt moeglich, kostenlos, auf neun Guard-Datenblaettern."],
-        ["Bike Squad Multi-melta", "Assault 1, nicht Heavy 1."],
-        ["Four datasheets", "Die Korrekturen des Autors, uebernommen."],
-        ["Campaign Trait bonus", "Nur bei einer Kampagnen-Armee sichtbar."],
-        ["Open all / Close all", "Im Armee-Builder, nicht nur in der Battle View."],
-        ["Faction badges", "Alle achtzehn Codices geprueft \u2014 die Farblegende ist weg."],
-      ] },
-      { label: "Ligen", rows: [
-        ["Locked", "Eine in einer Liga eingetragene Liste ist nach Anmeldeschluss gesperrt."],
-        ["Readable", "Organisatoren und Admins immer; alle Spieler nach Anmeldeschluss."],
-        ["Clearer", "Ein abgelehntes Speichern nennt jetzt den Grund statt \u201cSave failed\u201d."],
+      { label: "Wir brauchen eine Antwort", rows: [
+        ["Reply on GitHub #154", "Verbuendetes Guard-Platoon: sind deine Infantry Squads im \u201c\u21b3 Platoon\u201d-Menue mit dem Command Squad verknuepft? Ein Screenshot der Karten klaert es.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
+        ["Reply on GitHub #152", "Die zwei Heavy-Bolter-Sponsons des Leman Russ gehen als \u201c3x\u201d in die vorhandene Zeile. Schwer zu lesen? Sag Bescheid, dann beschriften wir sie.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
+        ["Ask on Discord", "Alles andere, was falsch aussieht \u2014 der Bug-Kanal ist der schnellste Weg zu uns.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.77: los reportes",
-    intro: "Habia diecinueve abiertos y dieciseis estan arreglados, mas lo que llego por Discord. Una linea por fix; el razonamiento esta en el changelog.",
+    title: "v1.78: la re-auditoria de codices",
+    intro: "Los diecinueve codices comparados campo a campo con las hojas del autor. Salieron 515 diferencias. Esas, mas tres reportes.",
     install: "",
     sections: [
-      { label: "Reportado en GitHub", rows: [
-        ["GH#143", "El sargento Terminator conserva su Storm bolter."],
-        ["GH#157", "Los Corsair Voidscarred reciben las armas que pagaron."],
-        ["GH#156", "El Felarch de los Voidreavers ya no regala pistolas."],
-        ["GH#147", "Los Scarab Occult Terminators salen como escuadra y hechicero."],
-        ["GH#152", "El Leman Russ conserva sus sponsons de Heavy bolter."],
-        ["GH#141", "Las mejoras de los Chosen se cobran por modelo."],
-        ["GH#142", "La Relic blade cuesta lo que cuesta su arma."],
-        ["GH#155", "Las Swordsman Honours se quedan en el Scout Sergeant."],
-        ["GH#139", "El Magos tiene salvacion 5+, no 4+."],
-        ["GH#140", "El Aggressor Imperative mueve el modelo 8\u2033, no 10\u2033."],
-        ["GH#149", "Las Tomb Blades muestran su mejora de armadura solo al comprarla."],
-        ["GH#151", "Las Reinforced Forelimbs dan al Triarch Stalker WS 3+ y +2 A."],
-        ["GH#150", "Un ejercito Canoptek Court puede llevar cuatro Crypteks."],
-        ["GH#144", "Las Feeder mandibles tienen Fuerza U, no T."],
-        ["GH#138", "El segundo spinner de un Warp Spider Exarch no borra los de la escuadra."],
-        ["GH#137", "Djinn Eyes llega a las armas compradas en la armeria."],
-        ["GH#148", "Un Chaos Predator con Tzeentch ya compra sus mejoras de vehiculo."],
+      { label: "Que cambio", rows: [
+        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Se pueden llevar de a dos. Todas leen \u201c1-2\u201d y estaban topadas en una."],
+        ["Mucolid Spore Cluster", "Hasta seis, no tres."],
+        ["Biovore", "110 puntos, no 111."],
+        ["Heavy chainaxe", "9 puntos en las dos fichas de Caos que lo ofrecen \u2014 cobrabamos 4 y 5."],
+        ["Reaper chaincannon", "La copia de los Legionnaires ya coincide con su hoja: Suppression(2)."],
+        ["Sslyth, Stealth Drones", "Una compra para uno de ellos vuelve a aterrizar en su propia fila."],
+        ["Commissars", "Ya no liberan un slot de Elite para otra unidad."],
+        ["Assassins", "El slot que comparten es suyo — no se lo queda otra Elite."],
+        ["Yngir C’tan", "Su salvacion 2+ ya sale en la hoja impresa."],
       ] },
-      { label: "Desde Discord", rows: [
-        ["Armiger, War Dog", "Se pueden elegir en Pitched Battle, no solo en Epic."],
-        ["Dreadnoughts", "Pueden cambiar CADA Storm bolter que lleven."],
-        ["Holy Trinity", "Da su tercer slot de Trait."],
-        ["Close Combat Specialists", "El cambio del Lasgun ya se puede hacer, gratis, en nueve fichas de la Guardia."],
-        ["Bike Squad Multi-melta", "Assault 1, no Heavy 1."],
-        ["Four datasheets", "Las correcciones del autor, aplicadas."],
-        ["Campaign Trait bonus", "Solo se ve en un ejercito de campana."],
-        ["Open all / Close all", "En el constructor, no solo en la Battle View."],
-        ["Faction badges", "Los dieciocho codices revisados \u2014 la leyenda de colores ya no esta."],
-      ] },
-      { label: "Ligas", rows: [
-        ["Locked", "Una lista inscrita en una liga queda congelada al cerrar la inscripcion."],
-        ["Readable", "Organizadores y admins siempre; el resto al cerrar la inscripcion."],
-        ["Clearer", "Un guardado rechazado dice por que, en vez de \u201cSave failed\u201d."],
+      { label: "Necesitamos una respuesta", rows: [
+        ["Reply on GitHub #154", "Pelotón de Guardia aliada: ¿tus Infantry Squads están enlazadas al Command Squad en el desplegable \u201c\u21b3 Platoon\u201d? Una captura de las fichas lo resuelve.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
+        ["Reply on GitHub #152", "Los dos sponsons de Heavy bolter del Leman Russ se funden en su fila como \u201c3x\u201d. ¿Se lee mal? Decilo y le ponemos etiqueta.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
+        ["Ask on Discord", "Cualquier otra cosa que se vea mal \u2014 el canal de bugs es la vía más rápida.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Encontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -262,12 +213,20 @@ function CommunityAnnouncement() {
                 <span className="text-[10px] text-zinc-500 shrink-0 transition-transform group-open:rotate-180">▾</span>
               </summary>
               <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-baseline pt-1 pb-1">
-                {sec.rows.map(([src, fix], i) => (
+                {sec.rows.map(([src, fix, href], i) => (
                   <Fragment key={i}>
                     {/* No `whitespace-nowrap`: a long label ("Close Combat Specialists") would hold the
                         column open and squeeze the fix into a sliver on a phone. A GH number has no
                         space in it, so it never wraps anyway. */}
-                    <span className="text-[11px] text-emerald-400 font-semibold tabular-nums max-w-[9rem]">{src}</span>
+                    {href
+                      ? <a href={href} target="_blank" rel="noopener noreferrer"
+                           className="text-[11px] text-amber-400 hover:text-amber-300 font-semibold tabular-nums max-w-[9rem] underline decoration-amber-700/60 underline-offset-2 transition-colors">
+                          {/* JSX TEXT IS NOT A JS STRING: a "\u2197" written here prints those six
+                              characters, which is what the first version of this line did. Wrapped
+                              in braces it is a real string literal and decodes. */}
+                          {src} {'\u2197'}
+                        </a>
+                      : <span className="text-[11px] text-emerald-400 font-semibold tabular-nums max-w-[9rem]">{src}</span>}
                     <span className="text-[11.5px] text-zinc-300 leading-snug">{fix}</span>
                   </Fragment>
                 ))}

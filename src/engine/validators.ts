@@ -169,6 +169,21 @@ export function advisorExemptIds(
     seen.set(key, n + 1);
     if (n < hqCount(isAllied) * (u.advisorRatio ?? 1)) exempt.add(i.id);
   }
+  // ASSASSINS, by the same id-based route and for the same reason. "Execution Force": however
+  // many Assassins you bring, they occupy a SINGLE Elite slot between them — so every one after
+  // the first is exempt, and it is THOSE ENTRIES that are exempt, not a slot for anyone.
+  //
+  // It used to be returned as a number from `computeAssassinFreeSlots` and subtracted from the
+  // slot total, which is a pool: three Assassins freed two Elite slots that an Ogryn could walk
+  // into. GH#153 named exactly this ("All Elite choices don't use up a slot ... including
+  // Assassins"), and GH#159 was the same fault wearing a Commissar.
+  if (getAssassinAccessAlignment(data.faction)) {
+    let seenAssassin = 0;
+    for (const i of army) {
+      if (i.factionSource !== 'assassins' || !ASSASSIN_NAMES.includes(i.unitName)) continue;
+      if (seenAssassin++ > 0) exempt.add(i.id);
+    }
+  }
   return exempt;
 }
 
@@ -428,8 +443,10 @@ export function computeAssassinFreeSlots(
     if (ASSASSIN_NAMES.includes(item.unitName)) total++;
   }
   if (total === 0) return { elites: 0, notes: [] };
+  // `elites: 0` — the exemption is applied to the Assassin ENTRIES themselves, in
+  // `advisorExemptIds`. Returning a number here put it in a pool any Elite could draw on (GH#153).
   return {
-    elites: total - 1,
+    elites: 0,
     notes: [`"Cults Abominatioe"/"Execution Force": Assassin selection (${total} unit${total === 1 ? '' : 's'}) occupies a single Elite slot.`],
   };
 }
@@ -673,7 +690,26 @@ export function computeCommissarFreeSlots(
   if (commissarCount > infantryCount) {
     notes.push(`Commissar: ${commissarCount - infantryCount} extra unit${commissarCount - infantryCount === 1 ? '' : 's'} exceed the Infantry-selection ratio and still occupy a normal Elite slot.`);
   }
-  return { elites: credited, notes };
+  // …AND IT CONTRIBUTES NOTHING TO THE POOL, because the exemption has already been applied.
+  //
+  // GH#159: "For each HQ and Commissar taken together, it causes a non-Character Infantry Elite
+  // choice to not use up a slot. Commissars should not exempt other units from their Elite slot."
+  // Exactly right, and the cause is that the Commissar was counted TWICE. It is flagged
+  // `advisor: true`, so `advisorExemptIds` already drops the Commissar's own entry from the slot
+  // COUNT by id — and this function then returned a number that `getSlotUsage`'s caller subtracts
+  // from the total, which is a POOL and so lands on whatever Elite happens to be in the list.
+  // Reproduced with 1 HQ, 2 Infantry Squads, 1 Commissar and 3 Ogryns: the Commissar's id was
+  // exempt AND the pool freed one more slot, which an Ogryn took.
+  //
+  // The note stays, because it is the only place the player is told the ratio.
+  //
+  // ONE DIFFERENCE REMAINS, and it errs on the strict side rather than being left silent: the
+  // codex anchors this to "each Infantry type unit selection" while `advisorExemptIds` caps every
+  // advisor by HQ COUNT. An army with more Infantry selections than HQs — which is most Guard
+  // armies — therefore gets fewer Commissar exemptions than the codex allows, never more. Fixing
+  // the anchor means giving that function the army state it does not currently receive; logged
+  // rather than bolted on, since erring strict cannot make an illegal list look legal.
+  return { elites: 0, notes };
 }
 
 /**

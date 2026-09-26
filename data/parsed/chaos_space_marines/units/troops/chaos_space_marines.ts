@@ -348,7 +348,7 @@ export const chaosSpaceMarines: Unit = {
       "choices": [
         {
           "name": "Heavy chainaxe",
-          "points": 4
+          "points": 9
         }
       ],
       "inline_pts": null,

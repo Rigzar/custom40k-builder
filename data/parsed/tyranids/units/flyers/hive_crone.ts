@@ -38,7 +38,7 @@ export const hiveCrone: Unit = {
       "name": "Hive Crone",
       "points": 166,
       "min": 1,
-      "max": 1,
+      "max": 2,
       "stats": {
         "M": "12\"",
         "WS": "3+",

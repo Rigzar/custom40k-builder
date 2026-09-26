@@ -209,8 +209,8 @@ export const legionnaires: Unit = {
       "type": "Assault 4",
       "s": "5",
       "ap": "-1",
-      "d": "1",
-      "abilities": "Suppression(3)"
+      "d": "-1",
+      "abilities": "Suppression(2)"
     },
     {
       "name": "Missile launcher - Frag missile",
@@ -333,7 +333,7 @@ export const legionnaires: Unit = {
       "choices": [
         {
           "name": "Heavy chainaxe",
-          "points": 5
+          "points": 9
         }
       ],
       "inline_pts": null,

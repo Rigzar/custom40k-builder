@@ -15,7 +15,7 @@ export const harpy: Unit = {
       "name": "Harpy",
       "points": 213,
       "min": 1,
-      "max": 1,
+      "max": 2,
       "stats": {
         "M": "12\"",
         "WS": "3+",

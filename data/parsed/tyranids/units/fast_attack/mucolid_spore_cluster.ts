@@ -15,7 +15,7 @@ export const mucolidSporeCluster: Unit = {
       "name": "Mucolid Spore",
       "points": 40,
       "min": 1,
-      "max": 3,
+      "max": 6,
       "stats": {
         "M": "12\"",
         "WS": "-",
