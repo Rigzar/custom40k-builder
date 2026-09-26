@@ -475,7 +475,9 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Obeisance Phalanx': { ...BASE,
-    troopsRemap: ['Lychguard', 'Triarch Praetorians'], demoteOtherTroops: true,
+    // The sheet is explicit and it is a BAN, not a demotion: "- Lychguard and Triarch
+    // Praetorians can be taken as Troops. - No other Troop units may be selected."
+    troopsRemap: ['Lychguard', 'Triarch Praetorians'], banOtherTroops: true,
     requiresHqUnit: 'Lord',
     notes: [
       'Lychguard and Triarch Praetorians count as Troops. No other Troops may be selected.',
@@ -630,6 +632,9 @@ export function isUnitAllowed(
 ): boolean {
   if (!rule) return true;
   if (rule.bannedUnits.includes(unitName)) return false;
+  // "No other Troop units may be selected" (Necrons Obeisance Phalanx). Checked against the
+  // PRINTED slot, like `bannedSlots` just below, so it is read before any remap moves the unit.
+  if (rule.banOtherTroops && originalSlot === 'Troops' && !rule.troopsRemap.includes(unitName)) return false;
   if (originalSlot && rule.bannedSlots.includes(originalSlot)) return false;
   if (rule.requireForcedMarkOnly && rule.forcedMark) {
     if (unit.locked_mark && unit.locked_mark !== rule.forcedMark) return false;

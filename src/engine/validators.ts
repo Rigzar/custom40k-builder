@@ -1320,6 +1320,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           text: T('valArchetypeUnitNotAllowed', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName }),
         });
       }
+      // "No other Troop units may be selected" (Necrons Obeisance Phalanx). Dropping it from the
+      // CATALOGUE stops anyone adding one, and says nothing to the player who already has one in a
+      // saved list — which is the case that matters, since the archetype can be switched after the
+      // army is built. Read off the PRINTED slot so a remap cannot hide it.
+      const printedSlot = !item.factionSource ? resolveUnit(item, data)?.slot : undefined;
+      if (rule.banOtherTroops && printedSlot === 'Troops' && !rule.troopsRemap.includes(item.unitName)) {
+        items.push({
+          type: 'error',
+          text: T('valArchetypeUnitNotAllowed', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName }),
+        });
+      }
     }
 
     // Whitelist — only specific units allowed (e.g. Krumpa Kompany, Tempestus Scions)

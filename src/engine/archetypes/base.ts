@@ -37,7 +37,21 @@ export interface ArchetypeRule {
   /** Units listed here gain the "Command Squad" ability (can join a squad, or attach to a
    * single character on its own) — e.g. Librarian Conclave grants it to Librarians. */
   grantsCommandSquad: string[];
+  /**
+   * "All other Troops become Elites" — the datasheet stays selectable, in a different slot.
+   * Swept every codex: the ONLY archetypes whose text actually says this are the Tau ones
+   * ("Any other Troop unit becomes Elite choices"). Do not reach for it to express a ban.
+   */
   demoteOtherTroops: boolean;
+  /**
+   * "No other Troop units may be selected" — the datasheet is not selectable AT ALL, which is a
+   * different rule from demoting it, and the Necrons OBEISANCE PHALANX is the only archetype in
+   * the game whose text says it. Reported 2026-09-26: "The Necron archetype Obeisance Phalanx
+   * says 'no other troops can be selected', but Warriors, Immortals and Flayed Ones can be
+   * selected as Elites." They could, because the rule was expressed with `demoteOtherTroops`,
+   * which moves them rather than removing them.
+   */
+  banOtherTroops: boolean;
   alliedFaction: string | null;
   alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
   /**
@@ -260,7 +274,7 @@ export const BASE: ArchetypeRule = {
   troopsRemap: [], forcedMark: null, requireForcedMarkOnly: false,
   bannedUnits: [], bannedSlots: [], hqOverride: null, hqAllowed: [],
   requiresHqUnit: null, noAnimosity: false, noLegacy: false, noTraits: false,
-  troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], grantVetAbilitiesToAll: false, grantsCommandSquad: [], demoteOtherTroops: false,
+  troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], grantVetAbilitiesToAll: false, grantsCommandSquad: [], demoteOtherTroops: false, banOtherTroops: false,
   alliedFaction: null, alliedMarkFilter: 'all', allowedUnitsOnly: [], allowedKeywords: [], notes: [],
 };
 

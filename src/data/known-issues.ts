@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-obeisance-phalanx-bans-other-troops-01",
+    status: "fixed",
+    title: "Obeisance Phalanx demoted the Troops its own text forbids",
+    description: "FIXED 2026-09-26 (v1.78). Reported: “The Necron archetype Obeisance Phalanx says ‘no other troops can be selected’, but Warriors, Immortals and Flayed Ones can be selected as Elites.”\n\nThe sheet (Necrons 1.11, Army Customisation) is explicit: “- Lychguard and Triarch Praetorians can be taken as Troops. - No other Troop units may be selected.” The rule was expressed with `demoteOtherTroops`, which MOVES a Troops unit into Elites — a different rule, and the only one the engine could express, since there was no flag for a ban.\n\nNew `banOtherTroops`, checked in `isUnitAllowed` against the PRINTED slot so a remap cannot hide it. Two halves, because dropping a unit from the catalogue says nothing to someone who already has one: the three are gone from the catalogue, AND a saved list holding one is now flagged “Archetype ‘Obeisance Phalanx’: Warriors is not allowed”. That second half is the case that matters, since the archetype can be switched after the army is built. Verified both ways, with a no-archetype control that stays silent.\n\nSWEPT WHILE FIXING IT, because the flag was clearly doing two jobs. Across all nineteen codices, exactly ONE archetype's text bans other Troops (this one) and exactly TWO say they become Elites (the Tau Crisis and Stealth cadres: “Any other Troop unit becomes Elite choices”). See the open question below for the other twelve."
+  },
+  {
+    id: "ki-demote-other-troops-unstated-01",
+    status: "known",
+    title: "Twelve archetypes demote other Troops on our say-so, not the codex's",
+    description: "OPEN 2026-09-26, found while fixing the Obeisance Phalanx report.\n\n`demoteOtherTroops` moves every Troops datasheet the archetype did not promote into Elites. FOURTEEN archetypes carry it. Searching all nineteen sheets for the sentence that justifies it finds it TWICE: the Tau Crisis and Stealth cadres, “Any other Troop unit becomes Elite choices”. The other twelve — Kataphraktoi, Tharanatoi, Holy Vanguard, Penitent Crusade, Aspect Focus, Wraithhost, The First Curse, Chamber of Purity, Ogryn Regiment, Einhyr Guard, Destroyer Cult, Krumpa Kompany — have sheets that say only “X count as Troops” and nothing at all about the rest.\n\nSo the demotion is OUR reading of silence, written into the rules table and never put to the author. That is the same shape as the Armiger's Epic-Battle gate, which was also an assumption of ours documented as though it were a rule, and which the author overturned the moment he was asked.\n\nNOT CHANGED ON MY OWN READING, in either direction: leaving other Troops as Troops would alter twelve archetypes across nine factions on the strength of what a sheet does NOT say, and that is exactly the kind of guess this entry exists to stop. Asked instead."
+  },
+  {
     id: "ki-free-slot-pool-leaks-to-other-units-01",
     status: "fixed",
     title: "A free Elite slot earned by one unit was handed to any Elite in the list",

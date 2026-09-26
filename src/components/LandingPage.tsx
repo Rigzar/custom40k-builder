@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v178c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v178d_dismissed';
 
 // v1.78 (2026-09-26) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.78's own content. Everything v1.77 announced lives on in the
@@ -62,6 +62,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["GH#159", "A Commissar no longer frees an Elite slot for some other unit."],
         ["GH#153", "Same fault, wearing Assassins: the slot they share is theirs, not another Elite's."],
         ["GH#160", "The Yngir C\u2019tan\u2019s 2+ armour save prints on the sheet."],
+        ["Obeisance Phalanx", "Warriors, Immortals and Flayed Ones can no longer be taken \u2014 its own text bans them."],
       ] },
       { label: "From the codex review", rows: [
         ["Exocrine, Harpy, Hive Crone, Tyrannofex", "May be fielded in twos. Every one reads \u201c1-2\u201d and was capped at one."],
@@ -88,6 +89,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["GH#159", "Ein Kommissar gibt keinen Elite-Slot mehr fuer eine andere Einheit frei."],
         ["GH#153", "Derselbe Fehler bei den Assassinen: der geteilte Slot gehoert ihnen, nicht einer anderen Elite."],
         ["GH#160", "Die 2+ Ruestung des Yngir-C\u2019tan steht jetzt auf dem Blatt."],
+        ["Obeisance Phalanx", "Warriors, Immortals und Flayed Ones sind nicht mehr waehlbar \u2014 der eigene Text verbietet sie."],
       ] },
       { label: "Aus der Codex-Pruefung", rows: [
         ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Koennen zu zweit aufgestellt werden. Alle lesen \u201c1-2\u201d und waren auf eins begrenzt."],
@@ -114,6 +116,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["GH#159", "Un Comisario ya no libera un slot de Elite para otra unidad."],
         ["GH#153", "El mismo fallo con los Assassins: el slot que comparten es suyo, no de otra Elite."],
         ["GH#160", "La salvacion 2+ del C\u2019tan Yngir ya sale en la hoja impresa."],
+        ["Obeisance Phalanx", "Warriors, Immortals y Flayed Ones ya no se pueden llevar \u2014 su propio texto lo prohibe."],
       ] },
       { label: "De la revision de codices", rows: [
         ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Se pueden llevar de a dos. Todas leen \u201c1-2\u201d y estaban topadas en una."],
