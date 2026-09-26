@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v178b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v178c_dismissed';
 
 // v1.78 (2026-09-26) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.78's own content. Everything v1.77 announced lives on in the
@@ -26,6 +26,14 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v178b_dismissed';
 // So: COLLAPSIBLE SECTIONS, each a two-column list, one clause per row, and the count on the
 // header so a closed section still says how much is behind it. Keep each line to a single clause;
 // anything needing a "because" belongs in the changelog.
+//
+// THE SECTIONS ARE BY SOURCE, and that is the whole point of having them. v1.78 first shipped
+// with one "What changed" block holding everything, and Rigzar: "si antes estaba ordenado lo de
+// las pestanitas del banner, ahora lo cambiaste? la gente tiene que saber que se reparo de
+// github, que de discord etc... no todo en un mismo bloque, por algo creamos solapar pestanas".
+// Right: a reader who filed an issue wants to know whether THEIRS was fixed, and someone who
+// reported on Discord wants the same, and "we re-read the codices" is a different kind of news
+// from either. One block answers none of those questions. Keep a section per source.
 //
 // A SECTION THAT ASKS, not just tells. Rigzar posted three open questions to the Discord bug
 // channel to reach the people who filed them, and: "en el discord no lo van a ver... mi idea, una
@@ -47,75 +55,81 @@ type AnnouncementLang = { title: string; intro: string; install: string; section
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.78: the codex re-audit",
-    intro: "All nineteen codices compared against the author's own sheets, field by field. 515 differences came out. Those, plus three bug reports.",
+    intro: "All nineteen codices compared against the author\u2019s own sheets, field by field \u2014 plus three bug reports.",
     install: "",
     sections: [
-      { label: "What changed", rows: [
-        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "May be fielded in twos. Every one of them reads \u201c1-2\u201d and was capped at one."],
+      { label: "Reported on GitHub", rows: [
+        ["GH#159", "A Commissar no longer frees an Elite slot for some other unit."],
+        ["GH#153", "Same fault, wearing Assassins: the slot they share is theirs, not another Elite's."],
+        ["GH#160", "The Yngir C\u2019tan\u2019s 2+ armour save prints on the sheet."],
+      ] },
+      { label: "From the codex review", rows: [
+        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "May be fielded in twos. Every one reads \u201c1-2\u201d and was capped at one."],
         ["Mucolid Spore Cluster", "Up to six, not three."],
         ["Biovore", "110 points, not 111."],
         ["Heavy chainaxe", "9 points on both Chaos datasheets that offer it \u2014 we charged 4 and 5."],
-        ["Reaper chaincannon", "The Legionnaires' copy now matches its own sheet: Suppression(2)."],
+        ["Reaper chaincannon", "The Legionnaires\u2019 copy now matches its own sheet: Suppression(2)."],
         ["Sslyth, Stealth Drones", "A purchase for one of them lands on its own line again."],
-        ["Commissars", "No longer free an Elite slot for some other unit."],
-        ["Assassins", "The slot they share is theirs — it is not handed to another Elite."],
-        ["Yngir C’tan", "Its 2+ armour save prints on the sheet."],
       ] },
       { label: "We need an answer", rows: [
         ["Reply on GitHub #154", "Allied Guard platoon: are your Infantry Squads linked to the Command Squad in the \u201c\u21b3 Platoon\u201d dropdown? A screenshot of the cards settles it.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
-        ["Reply on GitHub #152", "The Leman Russ' two Heavy bolter sponsons fold into its existing row as \u201c3x\u201d. Is that hard to read? Say so and we will label it.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
-        ["Ask on Discord", "Anything else that looks wrong \u2014 the bug channel is the fastest way to reach us.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
+        ["Reply on GitHub #152", "The Leman Russ\u2019 two Heavy bolter sponsons fold into its existing row as \u201c3x\u201d. Is that hard to read? Say so and we will label it.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
+        ["Or reply on Discord", "Either of those, or anything else that looks wrong \u2014 answer here instead if it is easier.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
     title: "v1.78: die Codex-Pruefung",
-    intro: "Alle neunzehn Codices Feld fuer Feld mit den Blaettern des Autors verglichen. 515 Unterschiede kamen heraus; dies sind die, die bei uns lagen.",
+    intro: "Alle neunzehn Codices Feld fuer Feld mit den Blaettern des Autors verglichen \u2014 dazu drei Fehlermeldungen.",
     install: "",
     sections: [
-      { label: "Was sich geaendert hat", rows: [
+      { label: "Auf GitHub gemeldet", rows: [
+        ["GH#159", "Ein Kommissar gibt keinen Elite-Slot mehr fuer eine andere Einheit frei."],
+        ["GH#153", "Derselbe Fehler bei den Assassinen: der geteilte Slot gehoert ihnen, nicht einer anderen Elite."],
+        ["GH#160", "Die 2+ Ruestung des Yngir-C\u2019tan steht jetzt auf dem Blatt."],
+      ] },
+      { label: "Aus der Codex-Pruefung", rows: [
         ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Koennen zu zweit aufgestellt werden. Alle lesen \u201c1-2\u201d und waren auf eins begrenzt."],
         ["Mucolid Spore Cluster", "Bis zu sechs, nicht drei."],
         ["Biovore", "110 Punkte, nicht 111."],
         ["Heavy chainaxe", "9 Punkte auf beiden Chaos-Datenblaettern \u2014 wir berechneten 4 und 5."],
         ["Reaper chaincannon", "Die Kopie der Legionnaires entspricht jetzt ihrem Blatt: Suppression(2)."],
         ["Sslyth, Stealth Drones", "Ein Kauf fuer eines von ihnen landet wieder in seiner eigenen Zeile."],
-        ["Commissars", "Geben keinen Elite-Slot mehr fuer eine andere Einheit frei."],
-        ["Assassins", "Der geteilte Slot gehoert ihnen — er geht nicht an eine andere Elite."],
-        ["Yngir C’tan", "Seine 2+ Ruestung steht jetzt auf dem Blatt."],
       ] },
       { label: "Wir brauchen eine Antwort", rows: [
         ["Reply on GitHub #154", "Verbuendetes Guard-Platoon: sind deine Infantry Squads im \u201c\u21b3 Platoon\u201d-Menue mit dem Command Squad verknuepft? Ein Screenshot der Karten klaert es.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
         ["Reply on GitHub #152", "Die zwei Heavy-Bolter-Sponsons des Leman Russ gehen als \u201c3x\u201d in die vorhandene Zeile. Schwer zu lesen? Sag Bescheid, dann beschriften wir sie.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
-        ["Ask on Discord", "Alles andere, was falsch aussieht \u2014 der Bug-Kanal ist der schnellste Weg zu uns.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
+        ["Or reply on Discord", "Eine der beiden Fragen, oder alles andere, was falsch aussieht \u2014 antworte hier, wenn es einfacher ist.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
     title: "v1.78: la re-auditoria de codices",
-    intro: "Los diecinueve codices comparados campo a campo con las hojas del autor. Salieron 515 diferencias. Esas, mas tres reportes.",
+    intro: "Los diecinueve codices comparados campo a campo con las hojas del autor \u2014 mas tres reportes.",
     install: "",
     sections: [
-      { label: "Que cambio", rows: [
+      { label: "Reportado en GitHub", rows: [
+        ["GH#159", "Un Comisario ya no libera un slot de Elite para otra unidad."],
+        ["GH#153", "El mismo fallo con los Assassins: el slot que comparten es suyo, no de otra Elite."],
+        ["GH#160", "La salvacion 2+ del C\u2019tan Yngir ya sale en la hoja impresa."],
+      ] },
+      { label: "De la revision de codices", rows: [
         ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Se pueden llevar de a dos. Todas leen \u201c1-2\u201d y estaban topadas en una."],
         ["Mucolid Spore Cluster", "Hasta seis, no tres."],
         ["Biovore", "110 puntos, no 111."],
         ["Heavy chainaxe", "9 puntos en las dos fichas de Caos que lo ofrecen \u2014 cobrabamos 4 y 5."],
         ["Reaper chaincannon", "La copia de los Legionnaires ya coincide con su hoja: Suppression(2)."],
         ["Sslyth, Stealth Drones", "Una compra para uno de ellos vuelve a aterrizar en su propia fila."],
-        ["Commissars", "Ya no liberan un slot de Elite para otra unidad."],
-        ["Assassins", "El slot que comparten es suyo — no se lo queda otra Elite."],
-        ["Yngir C’tan", "Su salvacion 2+ ya sale en la hoja impresa."],
       ] },
       { label: "Necesitamos una respuesta", rows: [
-        ["Reply on GitHub #154", "Pelotón de Guardia aliada: ¿tus Infantry Squads están enlazadas al Command Squad en el desplegable \u201c\u21b3 Platoon\u201d? Una captura de las fichas lo resuelve.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
-        ["Reply on GitHub #152", "Los dos sponsons de Heavy bolter del Leman Russ se funden en su fila como \u201c3x\u201d. ¿Se lee mal? Decilo y le ponemos etiqueta.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
-        ["Ask on Discord", "Cualquier otra cosa que se vea mal \u2014 el canal de bugs es la vía más rápida.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
+        ["Reply on GitHub #154", "Peloton de Guardia aliada: \u00bftus Infantry Squads estan enlazadas al Command Squad en el desplegable \u201c\u21b3 Platoon\u201d? Una captura de las fichas lo resuelve.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
+        ["Reply on GitHub #152", "Los dos sponsons de Heavy bolter del Leman Russ se funden en su fila como \u201c3x\u201d. \u00bfSe lee mal? Decilo y le ponemos etiqueta.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
+        ["Or reply on Discord", "Cualquiera de las dos, o cualquier otra cosa que se vea mal \u2014 contesta aqui si te resulta mas facil.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
       ] },
     ],
-    contrib: "\ud83d\udc41\ufe0f Encontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
+    contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
 };
 /* canvas-smoke placeholder — wire up here when user provides the effect */
