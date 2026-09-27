@@ -74,7 +74,7 @@
       "desc": "Advanced Biomorph. Point costs are paid per model. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile. Can only be taken by Monstrous Creatures.",
       "p_unit": 15,
       "p_char": 15,
-      "advanced_bioform_only": true,
+      "requires_keywords": ["Monstrous Creature"],
       "effect": {
         "grants_weapons": [
           "Headlong charge"
@@ -98,7 +98,7 @@
     {
       "name": "Toxin Sacs",
       "term_compat": false,
-      "desc": "Basic Biomorph. Point costs are paid per unit. The unit gains +1 Strength and the \"Poison(4+)\" ability for all melee attacks.",
+      "desc": "Basic Biomorph. Point costs are paid per unit. The unit gains the \"Poison(4+)\" ability for all melee attacks.",
       "p_unit": 5,
       "p_char": 5
     },
@@ -129,7 +129,7 @@
       "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The model gains the \"Implant Attack\" weapon.",
       "p_unit": 5,
       "p_char": 5,
-      "advanced_bioform_only": true
+      "requires_keywords": ["Advanced Bioform"]
     },
     {
       "name": "Infrasonic Roar",
@@ -144,7 +144,7 @@
       "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 to all tests for manifesting a psychic power.",
       "p_unit": 5,
       "p_char": 5,
-      "advanced_bioform_only": true
+      "requires_keywords": ["Advanced Bioform"]
     },
     {
       "name": "Symbiote Rippers",
@@ -152,7 +152,7 @@
       "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains the \"Symbiote Rippers\" weapon.",
       "p_unit": 3,
       "p_char": 3,
-      "advanced_bioform_only": true
+      "requires_keywords": ["Advanced Bioform"]
     },
     {
       "name": "Thornback",
@@ -160,15 +160,15 @@
       "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit doubles the final combat result for its own army in each melee in which it participates.",
       "p_unit": 5,
       "p_char": 5,
-      "advanced_bioform_only": true
+      "requires_keywords": ["Advanced Bioform"]
     },
     {
       "name": "Tusked",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 additional attack as a Charge bonus.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The unit gains +1 Strength.",
       "p_unit": 5,
       "p_char": 5,
-      "advanced_bioform_only": true
+      "requires_keywords": ["Advanced Bioform"]
     },
     {
       "name": "Warped",

@@ -1497,7 +1497,19 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (at >= 0) weapons[at] = { ...weapons[at], type: t[2] };
   }
 
-  for (const text of optionAbilities) {
+  // Same grant, now off an ARMORY item's own `desc` — a purchased item never reaches
+  // optionAbilities (that array is option_groups-only) and equipMods.grantedAbilities has already
+  // been reduced to the bare quoted name by this point ("Poison(4+)", not the sentence around it),
+  // which parseWeaponAbilityGrant can't match — it needs "for all melee/ranged attacks" to know
+  // the scope. Re-resolving each selection's full desc is the only way to see that sentence intact.
+  // Skipping this would silently regress every Armory-bought "gains X for all melee/ranged
+  // attacks" item back to text-only, the same bug this function exists to fix for options — the
+  // Tyranid Biomorphs moved to a shared Armory list are exactly this shape now (Toxin Sacs'
+  // Poison(4+) reaches a weapon row only because this loop runs too).
+  const armoryGrantTexts = item.armory
+    .map(sel => findArmoryItem(data, sel, !!unit.is_vehicle)?.desc)
+    .filter((d): d is string => !!d);
+  for (const text of [...optionAbilities, ...armoryGrantTexts]) {
     const grant = parseWeaponAbilityGrant(text);
     if (!grant) continue;
     for (const weapon of weapons) {
