@@ -5,7 +5,7 @@ import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -249,6 +249,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (isMultipleAllowed(arm.desc)) return false;
     const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
+    // Biomorphs are bought once for the WHOLE unit no matter its size or squadron count (the
+    // codex's own "Point costs are paid per unit/model" is about price, never quantity) — never
+    // scale the cap by item.size the way an ordinary has_armory_access squad's gear would.
+    if (isBiomorph(arm.desc)) return owned >= 1;
     const accessorCount = (isVehicle || unit.has_armory_access) ? item.size : 1;
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
@@ -786,6 +790,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       scaling = 'perModel';
     } else {
       pts = getItemPts(arm) ?? 0;
+      // Advanced Biomorphs price "per model" — pts stays the flat per-model rate off the sheet,
+      // and liveArmoryPoints() multiplies it by the unit's current size on every render (Basic
+      // Biomorphs are a flat unit-wide price and get no scaling flag).
+      if (isAdvancedBiomorph(arm.desc)) scaling = 'perModel';
       // "The point cost for this equipment is the same as for the weapon that it enhances."
       // (SM Relic blade, Sororitas Holy weapon, CSM Cursed blade, Harlequins Crescendo.) The
       // sheet prices these "Special" and the app charged 0 for them (GH#142). Once the player has

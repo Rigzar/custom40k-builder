@@ -579,6 +579,26 @@ export function isMultipleAllowed(desc: string | undefined): boolean {
   return /can be taken multiple times|purchased for each weapon/i.test(desc ?? '');
 }
 
+/**
+ * Tyranid Biomorphs (both tiers) — moved from per-unit `option_groups` (18 identical copies
+ * across every applicable datasheet) to a shared Armory list, 2026-09. Each is bought ONCE for
+ * the whole unit regardless of squad size — never a per-model quantity, unlike ordinary Armory
+ * equipment. `oncePerModelBlocked` special-cases this to a flat cap of 1.
+ */
+export function isBiomorph(desc: string | undefined): boolean {
+  return /^(basic|advanced) biomorph\./i.test((desc ?? '').trim());
+}
+
+/**
+ * Advanced Biomorphs price "per model" (the codex's own wording, 2026-09-13 — see the `per_model`
+ * doc comment on `Choice` in types/data.ts): the flat listed cost is multiplied by the unit's
+ * current size, same mechanism as a Squadron's `scaling: 'perModel'` Armory purchase. Basic
+ * Biomorphs stay a flat unit-wide price, no scaling.
+ */
+export function isAdvancedBiomorph(desc: string | undefined): boolean {
+  return /^advanced biomorph\./i.test((desc ?? '').trim());
+}
+
 /** "May be taken up to N times per model" (e.g. Tau Seeker missile: up to 2) — the once-per-model
  *  cap multiplies by N instead of being a flat single copy. Defaults to 1 (the ordinary single-copy
  *  case) when the item's desc doesn't state an explicit multiplier. */
