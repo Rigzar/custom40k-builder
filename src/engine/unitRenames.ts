@@ -99,7 +99,105 @@ export const REMOVED_OPTION_GROUPS: Record<string, Record<string, number[]>> = {
   'Space Marines': {
     'Desolation Squad': [0],
   },
+  // Tyranids 2026-09-27: the 18-entry Biomorph list moved out of every datasheet's own
+  // option_groups into a shared Armory list (ki-tyranid-biomorph-shared-armory-01). The group
+  // itself is gone from all 40 units below; migrateTyranidBiomorphsToArmory (below) converts any
+  // selections it held into item.armory BEFORE this table runs, so this entry only has to shift
+  // the groups that came after it (all but Zoanthrope Brood had none).
+  'Tyranids': {
+    'Mucolid Spore Cluster': [0],
+    'Tyrannocyte': [1], 'Deathleaper': [1], 'Haruspex': [1], 'Maleceptor': [1], 'Toxicrene': [1],
+    'Venomthrope Brood': [1], "Von Ryan's Leaper Brood": [1], 'Zoanthrope Brood': [1],
+    'Gargoyle Brood': [1], 'Parasite of Mortrex': [1], 'Psychophage': [1], 'Pyrovore Brood': [1],
+    'Sporocyst': [1], 'Biovore Brood': [1], 'Malanthrope': [1], 'Neurotyrant': [1],
+    'Barbgaunt Brood': [1], 'Hormagaunt Brood': [1], 'Neurogaunt Brood': [1],
+    'Hive Guard Brood': [2], 'Lictor Brood': [2], 'Mawloc': [2], 'Hive Crone': [2],
+    'Dactylis': [2], 'Exocrine': [2], 'Ripper Swarms': [2],
+    'Ravener Brood': [3], 'Trygon': [3], 'Harpy': [3], 'Tyrannofex': [3], 'Tervigon': [3],
+    'Tyranid Prime': [3], 'Tyrant Guard Brood': [3], 'Termagant Brood': [3],
+    'Norn': [4], 'Genestealer Brood': [4], 'Tyranid Warrior Brood': [4],
+    'Carnifex Brood': [5],
+    'Hive Tyrant': [7],
+  },
 };
+
+/**
+ * Basic Biomorphs price a flat cost for the whole unit; Advanced ones price the SAME listed cost
+ * PER MODEL (the codex's own "Point costs are paid per unit/model" line — see the `Choice.per_model`
+ * doc comment in types/data.ts). Kept here, not derived from the general.json entries, because a
+ * migration has to reproduce points/scaling exactly as they were on the day a list was saved, not
+ * as the Armory sheet reads today — a future re-price of a Biomorph must never reach backward and
+ * silently re-cost an old save. { points, advanced } mirrors data/parsed/tyranids/armory/general.json
+ * as of ki-tyranid-biomorph-shared-armory-01.
+ */
+const TYRANID_BIOMORPH_PRICES: Record<string, { points: number; advanced: boolean }> = {
+  'Acid Maw':             { points: 5,  advanced: false },
+  'Adrenal Glands':       { points: 5,  advanced: false },
+  'Enhanced Senses':      { points: 5,  advanced: false },
+  'Heightened Reflexes':  { points: 5,  advanced: false },
+  'Pathogenesis':         { points: 5,  advanced: false },
+  'Relentless Hunger':    { points: 5,  advanced: false },
+  'Toxin Sacs':           { points: 5,  advanced: false },
+  'Acid Blood':           { points: 5,  advanced: true },
+  'Extremely Volatile':   { points: 0,  advanced: true },
+  'Implant Attack':       { points: 5,  advanced: true },
+  'Infrasonic Roar':      { points: 5,  advanced: true },
+  'Resonance Barb':       { points: 5,  advanced: true },
+  'Symbiote Rippers':     { points: 3,  advanced: true },
+  'Thornback':            { points: 5,  advanced: true },
+  'Tusked':               { points: 5,  advanced: true },
+  'Warped':               { points: 5,  advanced: true },
+  'Camouflage':           { points: 3,  advanced: true },
+  'Living Battering Ram': { points: 15, advanced: true },
+};
+
+/** The Biomorph choice list's fixed order, identical across all 40 datasheets that carried it —
+ *  verified byte-for-byte before the group was removed. optionQty's choice index is this array's
+ *  index; a saved list has no other way to say which Biomorph it means. */
+const TYRANID_BIOMORPH_CHOICE_ORDER = Object.keys(TYRANID_BIOMORPH_PRICES);
+
+/**
+ * Convert a saved Tyranid list's Biomorph selections (recorded as `optionQty[groupIndex][choiceIndex]`
+ * against the now-deleted option_groups entry) into `item.armory` selections, so a list saved before
+ * ki-tyranid-biomorph-shared-armory-01 keeps whatever Biomorphs it had instead of silently losing
+ * them. Must run BEFORE applyOptionGroupRemovals (which only drops-and-shifts; it has no idea a
+ * choice here means a named Biomorph, and would just discard the quantity).
+ */
+export function migrateTyranidBiomorphsToArmory<T extends {
+  unitName: string;
+  optionQty?: Record<number, Record<string, number>>;
+  armory: { id: string; itemName: string; source: string; section: string; points: number; scaling?: 'perModel' | 'perWound'; isCharacter: boolean }[];
+}>(faction: string, army: T[]): T[] {
+  if (faction !== 'Tyranids') return army;
+  const groupTable = REMOVED_OPTION_GROUPS['Tyranids'];
+  let changed = false;
+  const next = army.map(e => {
+    const groupIdx = groupTable[e.unitName]?.[0];
+    const picks = groupIdx !== undefined ? e.optionQty?.[groupIdx] : undefined;
+    if (!picks) return e;
+    const newSelections: T['armory'] = [];
+    for (const [ciStr, qty] of Object.entries(picks)) {
+      if (ciStr === '__inline' || !qty) continue;
+      const name = TYRANID_BIOMORPH_CHOICE_ORDER[Number(ciStr)];
+      const priced = name ? TYRANID_BIOMORPH_PRICES[name] : undefined;
+      if (!priced) continue; // an index outside the old 18 means nothing here — leave it untouched
+      newSelections.push({
+        id: 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2))),
+        itemName: name,
+        source: 'General',
+        section: 'equipment',
+        points: priced.points,
+        scaling: priced.advanced ? 'perModel' : undefined,
+        isCharacter: false,
+      });
+    }
+    if (!newSelections.length) return e;
+    changed = true;
+    const { [groupIdx]: _dropped, ...restOptionQty } = e.optionQty ?? {};
+    return { ...e, optionQty: restOptionQty, armory: [...e.armory, ...newSelections] };
+  });
+  return changed ? next : army;
+}
 
 /**
  * Drop the removed groups' selections and shift the survivors down, so a list saved against the

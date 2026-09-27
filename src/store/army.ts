@@ -5,7 +5,7 @@ import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
-import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals } from '../engine/unitRenames';
+import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
 import { isPsykerOnlyTrait } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
@@ -909,6 +909,8 @@ export const useArmyStore = create<ArmyStore>()(
           if (Array.isArray(newState.army)) {
             newState.army = applyUnitRenames(newState.faction, newState.army as RosterEntry[], s.data?.units);
             newState.army = applyArmoryRenames(newState.faction, newState.army as RosterEntry[]);
+            // Must run BEFORE applyOptionGroupRemovals — see ki-tyranid-biomorph-shared-armory-01.
+            newState.army = migrateTyranidBiomorphsToArmory(newState.faction, newState.army as RosterEntry[]);
             newState.army = applyOptionGroupRemovals(newState.faction, newState.army as RosterEntry[]);
           }
           // Migrate existing saves: apply forcedMark to non-locked units when archetype requires it.
@@ -940,7 +942,7 @@ export const useArmyStore = create<ArmyStore>()(
     {
       name: 'custom40k-army',
       storage: createJSONStorage(() => sessionStorage),
-      version: 4,
+      version: 5,
       migrate: (persisted: unknown, fromVersion: number) => {
         const s = persisted as Record<string, unknown>;
         if (fromVersion < 1) {
@@ -977,6 +979,15 @@ export const useArmyStore = create<ArmyStore>()(
           if (typeof s.faction === 'string' && Array.isArray(s.army)) {
             s.army = applyUnitRenames(s.faction, s.army as { unitName: string }[]);   // no data at rehydrate; the import path applies the upgrade
             s.army = applyArmoryRenames(s.faction, s.army as { armory?: { itemName: string }[] }[]) as typeof s.army;
+            s.army = applyOptionGroupRemovals(s.faction, s.army as RosterEntry[]) as typeof s.army;
+          }
+        }
+        if (fromVersion < 5) {
+          // Tyranid Biomorphs moved from option_groups to a shared Armory list
+          // (ki-tyranid-biomorph-shared-armory-01) — must run BEFORE applyOptionGroupRemovals,
+          // which only drops-and-shifts and would otherwise just discard the quantity.
+          if (typeof s.faction === 'string' && Array.isArray(s.army)) {
+            s.army = migrateTyranidBiomorphsToArmory(s.faction, s.army as RosterEntry[]) as typeof s.army;
             s.army = applyOptionGroupRemovals(s.faction, s.army as RosterEntry[]) as typeof s.army;
           }
         }
