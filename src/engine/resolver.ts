@@ -1223,6 +1223,15 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Pattern: All (ranged|melee|bolt)? weapons ... gain ['"]ABILITY['"]
   for (const sel of item.armory) {
     if (sel.section !== 'equipment') continue;
+    // Tyranid Infrasonic Roar ("All ranged weapons in the unit gain the 'Suppression(2)'
+    // ability ... Advanced Bioforms gain 'Suppression(3)'.") also matches the pattern below —
+    // its greedy `.*` walks past the FIRST quoted name to the sentence's last one, so it always
+    // grabbed "Suppression(3)" here regardless of the buyer's own bioform tier, stacking a second,
+    // sometimes-wrong copy of the ability on top of the correct one PER_UNIT_OPTION_ALL_WEAPONS_
+    // ABILITY_GRANTS above already adds tier-aware (Discord: a Hive Guard Brood's Shock cannon
+    // read "Suppression(3), Suppression(3)"). Anything already in that hand-fed table is its
+    // authority, not this generic fallback's.
+    if (sel.itemName in PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS) continue;
     const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (!armItem?.desc) continue;
     const desc = armItem.desc;
@@ -1316,13 +1325,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
 
-  // Per-unit options (never Armory purchases, so `item.armory` never holds them and the "All
-  // weapons gain X" loop above can't see them) worded "the unit gains 'X' for all ranged/melee
-  // weapons/attacks" — Tyranid Biomorphs (Discord: "infrasonic roar should add suppression to
-  // all weapons" — the ability text was already stored and paid for, but nothing ever added
-  // "Suppression" to the actual weapon rows, same gap class as GH#92/Psy-ammunition) and Ork
-  // "Zzapkrumpaz" (a Kustom Job: "This unit's melee weapons gain 'Deadly(6+)'", found via an
-  // armory-wide modifier audit, same shape, opposite scope).
+  // Named per-unit choices the generic "All weapons gain X" loop above can't see, worded "the
+  // unit gains 'X' for all ranged/melee weapons/attacks" — Tyranid Biomorphs (Discord: "infrasonic
+  // roar should add suppression to all weapons" — the ability text was already stored and paid
+  // for, but nothing ever added "Suppression" to the actual weapon rows, same gap class as
+  // GH#92/Psy-ammunition) and Ork "Zzapkrumpaz" (a Kustom Job: "This unit's melee weapons gain
+  // 'Deadly(6+)'", found via an armory-wide modifier audit, same shape, opposite scope). Detected
+  // via isNamedChoiceActive, which checks both `item.armory` and `unit.option_groups` — Biomorphs
+  // moved from the latter to the former in ki-tyranid-biomorph-shared-armory-01.
   for (const [choiceName, grant] of Object.entries(PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS)) {
     if (!isNamedChoiceActive(unit, item, choiceName)) continue;
     for (const weapon of weapons) {
@@ -1539,6 +1549,17 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // item's quoted ability, a trait -- an allied-detachment unit does not keep "Objective secured!".
   if (isAlliedDetachmentUnit) {
     equipMods.grantedAbilities = equipMods.grantedAbilities.filter(a => !/objective secured/i.test(a));
+  }
+
+  // Tyranid Acid Blood: "The model gains 'Retribution(1)'. Advanced Bioforms gain 'Retribution(3)'
+  // instead." — one or the other, never both, depending on the BUYING unit's own bioform tier.
+  // The generic quoted-name scraper in equipMods.ts has no notion of "instead" and adds both
+  // names it finds quoted (Discord: a Hormagaunt Brood — Basic Bioform — showed Retribution(1)
+  // AND Retribution(3) after buying it). Same shape as Infrasonic Roar's tiered Suppression
+  // above, just a general ability rather than a weapon-scoped one.
+  if (isNamedChoiceActive(unit, item, 'Acid Blood')) {
+    const wrong = (unit.keywords ?? []).includes('Advanced Bioform') ? 'Retribution(1)' : 'Retribution(3)';
+    equipMods.grantedAbilities = equipMods.grantedAbilities.filter(a => a !== wrong);
   }
 
   // Core Rules "Objective secured!" (L1320-1322, "Automatic Rule"): automatically conferred
@@ -2660,13 +2681,17 @@ function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGro
 }
 
 /**
- * Is a named option-group choice currently selected on this unit — checked purely against
+ * Is a named option-group choice currently selected on this unit — checked against
  * `unit.option_groups` + `item.optionQty` by matching the choice NAME (not a hardcoded group/
- * choice index, since those can shift as the sheet changes). Tyranid Biomorphs are bought this
- * way, never through `item.armory` (mirrors the same detection NAMED_WEAPON_BOOST_ITEMS above
- * uses for its inline-option half).
+ * choice index, since those can shift as the sheet changes), OR against `item.armory` by item
+ * name. Tyranid Biomorphs used to be bought only the first way; ki-tyranid-biomorph-shared-
+ * armory-01 moved them to a shared Armory list, and this function silently stopped matching them
+ * (Discord: Pathogenesis' own +3" range boost, and Infrasonic Roar's Basic/Advanced Bioform
+ * tier below, both went dead the same day the option_groups block was deleted) until this second
+ * check was added.
  */
 function isNamedChoiceActive(unit: Unit, item: RosterEntry, choiceName: string): boolean {
+  if (item.armory.some(a => a.itemName === choiceName)) return true;
   return unit.option_groups.some((g, gi) => {
     const ci = (g.choices ?? []).findIndex(c => c.name === choiceName);
     return ci >= 0 && (item.optionQty?.[gi]?.[ci] ?? 0) > 0;
@@ -2787,12 +2812,12 @@ const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {
 /**
  * Tyranid Biomorphs worded "the unit adds +N\" to all of its ranged weapons" — Pathogenesis is
  * the only one with this exact numeric shape (Discord: "pathogenesis should add 3\" to all
- * weapons" — the .ods itself says "ranged weapons" specifically, not literally all). Bought via
- * the unit's own option_groups (never `item.armory`), same gap class as GH#92 (Psy-ammunition):
- * the ability text was already stored and paid for, but the weapon's own Range column never
- * reflected it. Mirrors applyExarchAllWeaponsRangeBoost's shape (a flat delta applied to every
- * non-melee weapon with a numeric range), driven by a named biomorph choice instead of an Exarch
- * Power.
+ * weapons" — the .ods itself says "ranged weapons" specifically, not literally all). Detected via
+ * isNamedChoiceActive (item.armory since ki-tyranid-biomorph-shared-armory-01, unit.option_groups
+ * before it), same gap class as GH#92 (Psy-ammunition): the ability text was already stored and
+ * paid for, but the weapon's own Range column never reflected it. Mirrors
+ * applyExarchAllWeaponsRangeBoost's shape (a flat delta applied to every non-melee weapon with a
+ * numeric range), driven by a named biomorph choice instead of an Exarch Power.
  */
 const BIOMORPH_ALL_RANGED_RANGE_BOOSTS: Record<string, number> = {
   'Pathogenesis': 3,

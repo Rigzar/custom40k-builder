@@ -130,26 +130,50 @@ export const REMOVED_OPTION_GROUPS: Record<string, Record<string, number[]>> = {
  * silently re-cost an old save. { points, advanced } mirrors data/parsed/tyranids/armory/general.json
  * as of ki-tyranid-biomorph-shared-armory-01.
  */
-const TYRANID_BIOMORPH_PRICES: Record<string, { points: number; advanced: boolean }> = {
-  'Acid Maw':             { points: 5,  advanced: false },
-  'Adrenal Glands':       { points: 5,  advanced: false },
-  'Enhanced Senses':      { points: 5,  advanced: false },
-  'Heightened Reflexes':  { points: 5,  advanced: false },
-  'Pathogenesis':         { points: 5,  advanced: false },
-  'Relentless Hunger':    { points: 5,  advanced: false },
-  'Toxin Sacs':           { points: 5,  advanced: false },
-  'Acid Blood':           { points: 5,  advanced: true },
-  'Extremely Volatile':   { points: 0,  advanced: true },
-  'Implant Attack':       { points: 5,  advanced: true },
-  'Infrasonic Roar':      { points: 5,  advanced: true },
-  'Resonance Barb':       { points: 5,  advanced: true },
-  'Symbiote Rippers':     { points: 3,  advanced: true },
-  'Thornback':            { points: 5,  advanced: true },
-  'Tusked':               { points: 5,  advanced: true },
-  'Warped':               { points: 5,  advanced: true },
-  'Camouflage':           { points: 3,  advanced: true },
-  'Living Battering Ram': { points: 15, advanced: true },
+/**
+ * Advanced Biomorphs price DIFFERENTLY depending on the buying unit's own Basic/Advanced Bioform
+ * keyword (Discord/Unwise: Acid Blood charged a Hormagaunt Brood — Basic Bioform — 5pts/model
+ * instead of the 1 its own column lists; a `basicPrice: null` item is Advanced-Bioform-only, same
+ * as the general.json entry's own null `p_unit`). Basic Biomorphs charge the same either way.
+ * `perModel` mirrors `p_char`/`scaling: 'perModel'` — the ADVANCED BIOMORPHS section's own "Point
+ * costs are paid per model" line, true for all 11 of them regardless of which price tier applies.
+ *
+ * KEY ORDER IS LOAD-BEARING — do not alphabetise or regroup. TYRANID_BIOMORPH_CHOICE_ORDER below
+ * is this object's own Object.keys(), and a saved list's optionQty has no way to name a Biomorph
+ * except by its position in the original 18-choice option_group, verified byte-for-byte before
+ * that group was deleted.
+ */
+const TYRANID_BIOMORPH_PRICES: Record<string, { basicPrice: number | null; advancedPrice: number; perModel: boolean }> = {
+  'Acid Maw':             { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Adrenal Glands':       { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Enhanced Senses':      { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Heightened Reflexes':  { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Pathogenesis':         { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Relentless Hunger':    { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Toxin Sacs':           { basicPrice: 5,    advancedPrice: 5,  perModel: false },
+  'Acid Blood':           { basicPrice: 1,    advancedPrice: 5,  perModel: true },
+  'Extremely Volatile':   { basicPrice: 0,    advancedPrice: 0,  perModel: true },
+  'Implant Attack':       { basicPrice: null, advancedPrice: 5,  perModel: true },
+  'Infrasonic Roar':      { basicPrice: 1,    advancedPrice: 5,  perModel: true },
+  'Resonance Barb':       { basicPrice: null, advancedPrice: 5,  perModel: true },
+  'Symbiote Rippers':     { basicPrice: null, advancedPrice: 3,  perModel: true },
+  'Thornback':            { basicPrice: 1,    advancedPrice: 5,  perModel: true },
+  'Tusked':               { basicPrice: null, advancedPrice: 5,  perModel: true },
+  'Warped':               { basicPrice: 1,    advancedPrice: 5,  perModel: true },
+  'Camouflage':           { basicPrice: 1,    advancedPrice: 3,  perModel: true },
+  'Living Battering Ram': { basicPrice: null, advancedPrice: 15, perModel: true },
 };
+
+/** The 8 Tyranid datasheets (of the 40 in REMOVED_OPTION_GROUPS['Tyranids']) carrying the "Basic
+ *  Bioform" keyword instead of "Advanced Bioform" — every other one there is Advanced Bioform.
+ *  Needed here because the migration works from a bare unit NAME, with no faction data loaded to
+ *  read the keyword off. (A 9th Basic Bioform datasheet, Spore Mine Cluster, never had the
+ *  Biomorph option_group to begin with, so it has no entry in REMOVED_OPTION_GROUPS and doesn't
+ *  belong here either.) */
+const TYRANID_BASIC_BIOFORM_UNITS = new Set([
+  'Gargoyle Brood', 'Mucolid Spore Cluster', 'Barbgaunt Brood', 'Genestealer Brood',
+  'Hormagaunt Brood', 'Neurogaunt Brood', 'Ripper Swarms', 'Termagant Brood',
+]);
 
 /** The Biomorph choice list's fixed order, identical across all 40 datasheets that carried it —
  *  verified byte-for-byte before the group was removed. optionQty's choice index is this array's
@@ -181,13 +205,16 @@ export function migrateTyranidBiomorphsToArmory<T extends {
       const name = TYRANID_BIOMORPH_CHOICE_ORDER[Number(ciStr)];
       const priced = name ? TYRANID_BIOMORPH_PRICES[name] : undefined;
       if (!priced) continue; // an index outside the old 18 means nothing here — leave it untouched
+      const isAdvancedUnit = !TYRANID_BASIC_BIOFORM_UNITS.has(e.unitName);
+      const points = isAdvancedUnit ? priced.advancedPrice : priced.basicPrice;
+      if (points === null) continue; // an old selection this unit's own type couldn't legally buy
       newSelections.push({
         id: 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2))),
         itemName: name,
         source: 'General',
         section: 'equipment',
-        points: priced.points,
-        scaling: priced.advanced ? 'perModel' : undefined,
+        points,
+        scaling: priced.perModel ? 'perModel' : undefined,
         isCharacter: false,
       });
     }

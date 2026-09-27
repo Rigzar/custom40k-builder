@@ -229,6 +229,15 @@ export function parseEquipMods(
       const negated = new Set(Array.from(
         quotable.matchAll(/\b(?:ignores?|immune to|cannot suffer|does not suffer|is not affected by|never suffers?|prevents?)\b[^.;]*?"([^"]+)"/gi),
         m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
+      // A quoted name immediately followed by "order" NAMES a game order the sentence is
+      // referencing ("...as if it had been given the 'Stand & Shoot' order"), not an ability the
+      // model gains — the unit already has whatever order-related rule this grants, spelled out
+      // in the rest of the sentence. Reported on Discord for Tyranid Heightened Reflexes, whose
+      // card listed "Stand & Shoot" itself among its abilities; the same sentence (word for word)
+      // sits in Adeptus Sororitas, Imperial Guard, Inquisition and Space Marines' own Armories.
+      const orderNames = new Set(Array.from(
+        quotable.matchAll(/"([^"]+)"\s+orders?\b/gi),
+        m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
       for (const raw of quoted) {
         // Some descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads
         // `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the captured name
@@ -239,6 +248,7 @@ export function parseEquipMods(
         // …the item shields the model from this, it does not confer it. The full rule text is
         // still shown under the wargear entry itself, so nothing is hidden from the player.
         if (negated.has(ab.toLowerCase())) continue;
+        if (orderNames.has(ab.toLowerCase())) continue;
         // A quoted unit-type word THIS ITEM grants as a type is handled by the type system, not
         // shown as an ability too. Still guarded by UNIT_TYPE_WORDS so an unrelated quoted phrase
         // that happens to coincide with a real type name isn't swallowed by a data mistake.
