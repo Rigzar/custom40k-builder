@@ -161,7 +161,7 @@ export const tyranidPrime: Unit = {
           "points": 12,
           "effect": {
             "grants_abilities": [
-              "Leaping: The unit gains the \"Frenzy(6\\\")\" ability."
+              "Leaping: The unit gains the \"Frenzy(6\")\" ability."
             ]
           }
         },

@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.79',
+    date: '2026-09-27',
+    title: 'The shared Biomorph Armory, one day old and already fixed six times over',
+    changes: [
+      'Tyranids — codex synced to 1.08. ADVANCED BIOMORPHS PRICE DIFFERENTLY DEPENDING ON WHO\'S BUYING THEM, and the Armory refactor that moved them off 40 duplicated datasheets a day ago (v1.78) missed that split entirely. Reported by Unwise: Acid Blood charged a Hormagaunt Brood (a Basic Bioform) 5pts/model instead of the 1 its own price column lists. The sheet\'s ADVANCED BIOMORPHS table has always had two price columns — "Basic Bioform" and "Adv. Bioform" — and Acid Blood, Camouflage, Infrasonic Roar, Thornback and Warped all charge the CHEAPER of the two to a Basic Bioform buyer. Thornback and Warped were also wrongly restricted to Advanced Bioforms only — they aren\'t, they\'re just pricier for one — and Implant Attack, Resonance Barb, Symbiote Rippers and Tusked carried a sentence claiming that same restriction that never appears on the actual sheet (the real gate is simply that Basic Bioforms have no price for them at all, a "-" on the sheet).',
+      'Tyranids — ACID BLOOD NO LONGER GRANTS BOTH RETRIBUTION TIERS AT ONCE. "The model gains \'Retribution(1)\'. Advanced Bioforms gain \'Retribution(3)\' instead" is one or the other depending on the buyer — the generic ability-text scanner has no notion of "instead" and added both quoted names it found, so every unit that bought it read Retribution(1) AND (3) together.',
+      'Tyranids — INFRASONIC ROAR NO LONGER PRINTS SUPPRESSION TWICE. Two separate mechanisms both recognised "All ranged weapons ... gain \'X\'" text and each added its own copy to the weapon row — one already tier-aware (Basic Bioform vs Advanced), the other a generic fallback that always grabbed the LAST quoted name in the sentence regardless of the buyer\'s own tier. A Hive Guard Brood\'s Shock cannon read "Suppression(3), Suppression(3)"; a Basic Bioform buyer would have silently gotten the Advanced value stacked on top of its own correct one.',
+      'Tyranids — PATHOGENESIS\' +3" RANGED WEAPON RANGE WORKS AGAIN, one day after it broke. The function that applies it (and the one behind Infrasonic Roar\'s tier) both checked whether the Biomorph was picked in a unit\'s own option_groups — which is exactly where yesterday\'s Armory refactor moved every Biomorph OUT of, so both silently stopped firing the same day they shipped. They now also check `item.armory`.',
+      'Tyranids — ADRENAL GLANDS\' HASTE ABILITY DISPLAYS CORRECTLY. Its own text carried a stray backslash character (`Haste(2\\")` instead of `Haste(2")`) that broke the quote-pairing the game engine uses to read an ability\'s name out of a sentence — the card showed a garbled "Haste(2\\" with no description under it. Fixed the same typo in two more places it had spread to (Trygon Prime and Tyranid Warrior Brood\'s own copies of "Leaping").',
+      'GENERAL — A SENTENCE NAMING A GAME ORDER NO LONGER READS AS A GRANTED ABILITY. "...as if it had been given the \'Stand & Shoot\' order" is a reference inside the sentence, not something the unit gains — five factions share this exact wording (Tyranids, Adeptus Sororitas, Imperial Guard, Inquisition, Space Marines) and all five had "Stand & Shoot" showing up as a fake ability of its own alongside the real one the sentence actually describes.',
+      'Tyranids — ADVANCED BIOMORPHS\' OWN CARD TEXT NOW SAYS "PER MODEL", not "per unit" — the section they belong to has always charged per model (that\'s the whole reason the price scales with squad size), but ten of the eleven entries\' own wording still said the Basic Biomorphs\' line by mistake.',
+    ],
+  },
+  {
     version: '1.78',
     date: '2026-09-26',
     title: 'The codex re-audit: four Tyranid bugs you could only field one of',

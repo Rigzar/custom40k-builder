@@ -202,7 +202,7 @@ export const tyranidWarriorBrood: Unit = {
           "points": 6,
           "effect": {
             "grants_abilities": [
-              "Leaping: The unit gains the \"Frenzy(6\\\")\" ability."
+              "Leaping: The unit gains the \"Frenzy(6\")\" ability."
             ]
           }
         },

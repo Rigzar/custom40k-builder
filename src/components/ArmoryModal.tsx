@@ -446,6 +446,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (isWeaponCostSpecial(arm.desc)) return 0;
     const cp = parsePrice(arm.p_char);
     const up = parsePrice(arm.p_unit);
+    // Tyranid Advanced Biomorphs: the sheet's two price columns are "Basic Bioform" (p_unit) vs
+    // "Adv. Bioform" (p_char) buyer — an axis of the BUYING UNIT's own keyword, not the
+    // is_character split every other faction's two-column armoury uses below. Reported on Discord
+    // (Unwise): Acid Blood charged a Hormagaunt Brood (Basic Bioform) 5pts/model instead of 1.
+    // A null column (e.g. Tusked's p_unit) already means "not for this buyer" via the null-price
+    // block in isAddBlocked, so this alone also covers the five items only Advanced Bioforms may
+    // take at all — no separate requires_keywords needed for that axis.
+    if (isAdvancedBiomorph(arm.desc)) return (unit.keywords ?? []).includes('Advanced Bioform') ? cp : up;
     if (isCD) return isGreaterDaemon ? cp : up;
     // Eldar: a lone character buyer (Autarch/Farseer/Spiritseer/Wraithseer) prices off the
     // column matching its own role — see resolveEldarCharPrice. A squad buyer (e.g. Warlocks)
