@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
-import { getArchetypeRule, getEffectiveSlot, getEffectiveSlotFor, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds, getSlotUsage } from '../engine/validators';
+import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -171,11 +171,21 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       }
     }
 
-    const alliedAdvisorExemptIds = advisorExemptIds(army, store.data!, rule, alliedFactionKey ?? undefined);
+    /*
+     * The ALLIED counts go through getSlotUsage, the same function the validator uses, for the
+     * same reason the primary branch already does: this branch used to filter the army by hand,
+     * and a hand-rolled count drifts from the rules.
+     *
+     * It drifted here. The hand-rolled version knew nothing about the Imperial Guard platoon, so
+     * every Infantry Squad and Conscript Infantry Platoon linked to a Platoon Command Squad ate a
+     * Troops slot of its own instead of folding into the PCS's single one (GH#154). The engine had
+     * always counted it correctly — only the panel the player reads was wrong, and it also drove
+     * the Elites/FA/HS maxima, which scale with the Troop count.
+     */
+    const usedAllied = (slot: string) =>
+      getSlotUsage(army, store.data!, slot, rule, alliedFactionKey ?? undefined, true, engagement);
     // Core Rules: each Troop beyond 1 grants +1 Elites/FA/HS slot — precompute troop count.
-    const allyTroopCount = army.filter(e =>
-      e.factionSource === alliedFactionKey && getEffectiveSlotFor(e, rule) === 'Troops'
-    ).length;
+    const allyTroopCount = usedAllied('Troops');
     return (
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
@@ -185,11 +195,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           const units = effectiveSlotUnits[slot] ?? [];
           if (max === 0 && units.length === 0) return null;
 
-          const used = army.filter(e => {
-            if (e.factionSource !== alliedFactionKey) return false;
-            if (alliedAdvisorExemptIds.has(e.id)) return false;
-            return getEffectiveSlotFor(e, rule) === slot;
-          }).length;
+          const used = usedAllied(slot);
           // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic.
           // Elites/FA/HS scale with Troop count: max = allyTroopCount (1 Troop → 1 each, 2 Troops → 2 each).
           const effectiveMax = slot === 'Dedicated Transport'

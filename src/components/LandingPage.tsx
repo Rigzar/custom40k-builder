@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v178d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v178e_dismissed';
 
 // v1.78 (2026-09-26) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.78's own content. Everything v1.77 announced lives on in the
@@ -55,10 +55,13 @@ type AnnouncementLang = { title: string; intro: string; install: string; section
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.78: the codex re-audit",
-    intro: "All nineteen codices compared against the author\u2019s own sheets, field by field \u2014 plus three bug reports.",
+    intro: "All nineteen codices compared against the author\u2019s own sheets, field by field \u2014 plus nine bug reports, four of them filed this week.",
     install: "",
     sections: [
       { label: "Reported on GitHub", rows: [
+        ["GH#161", "Stormshroud gives Soul burn to an Overlord\u2019s weapon \u2014 it works on single-model characters again."],
+        ["GH#154", "An allied Guard platoon costs ONE Troops slot again, not one per squad."],
+        ["GH#152", "Checked on screen: the Leman Russ\u2019 Heavy bolter sponsons work \u2014 the row reads \u201c3x\u201d."],
         ["GH#159", "A Commissar no longer frees an Elite slot for some other unit."],
         ["GH#153", "Same fault, wearing Assassins: the slot they share is theirs, not another Elite's."],
         ["GH#160", "The Yngir C\u2019tan\u2019s 2+ armour save prints on the sheet."],
@@ -72,20 +75,22 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Reaper chaincannon", "The Legionnaires\u2019 copy now matches its own sheet: Suppression(2)."],
         ["Sslyth, Stealth Drones", "A purchase for one of them lands on its own line again."],
       ] },
-      { label: "We need an answer", rows: [
-        ["Reply on GitHub #154", "Allied Guard platoon: are your Infantry Squads linked to the Command Squad in the \u201c\u21b3 Platoon\u201d dropdown? A screenshot of the cards settles it.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
-        ["Reply on GitHub #152", "The Leman Russ\u2019 two Heavy bolter sponsons fold into its existing row as \u201c3x\u201d. Is that hard to read? Say so and we will label it.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
-        ["Or reply on Discord", "Either of those, or anything else that looks wrong \u2014 answer here instead if it is easier.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
+      { label: "Reported on Discord", rows: [
+        ["Toxin Sacs", "Poison(4+) now reaches your melee weapons. So do 55 other grants that were text only."],
+        ["Trygon Prime", "Grants Fearless and Synapse and retypes the Bio-electric pulse to Assault 12."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
     title: "v1.78: die Codex-Pruefung",
-    intro: "Alle neunzehn Codices Feld fuer Feld mit den Blaettern des Autors verglichen \u2014 dazu drei Fehlermeldungen.",
+    intro: "Alle neunzehn Codices Feld fuer Feld mit den Blaettern des Autors verglichen \u2014 dazu neun Fehlermeldungen, vier davon aus dieser Woche.",
     install: "",
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
+        ["GH#161", "Stormshroud gibt Soul burn auf die Waffe eines Overlords \u2014 Einzelmodell-Charaktere wieder korrekt."],
+        ["GH#154", "Ein verbuendeter Garde-Zug kostet wieder EINEN Troops-Slot, nicht einen pro Trupp."],
+        ["GH#152", "Am Bildschirm geprueft: die Heavy-Bolter-Sponsons des Leman Russ funktionieren \u2014 die Zeile zeigt \u201e3x\u201c."],
         ["GH#159", "Ein Kommissar gibt keinen Elite-Slot mehr fuer eine andere Einheit frei."],
         ["GH#153", "Derselbe Fehler bei den Assassinen: der geteilte Slot gehoert ihnen, nicht einer anderen Elite."],
         ["GH#160", "Die 2+ Ruestung des Yngir-C\u2019tan steht jetzt auf dem Blatt."],
@@ -99,20 +104,22 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Reaper chaincannon", "Die Kopie der Legionnaires entspricht jetzt ihrem Blatt: Suppression(2)."],
         ["Sslyth, Stealth Drones", "Ein Kauf fuer eines von ihnen landet wieder in seiner eigenen Zeile."],
       ] },
-      { label: "Wir brauchen eine Antwort", rows: [
-        ["Reply on GitHub #154", "Verbuendetes Guard-Platoon: sind deine Infantry Squads im \u201c\u21b3 Platoon\u201d-Menue mit dem Command Squad verknuepft? Ein Screenshot der Karten klaert es.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
-        ["Reply on GitHub #152", "Die zwei Heavy-Bolter-Sponsons des Leman Russ gehen als \u201c3x\u201d in die vorhandene Zeile. Schwer zu lesen? Sag Bescheid, dann beschriften wir sie.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
-        ["Or reply on Discord", "Eine der beiden Fragen, oder alles andere, was falsch aussieht \u2014 antworte hier, wenn es einfacher ist.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
+      { label: "Auf Discord gemeldet", rows: [
+        ["Toxin Sacs", "Poison(4+) erreicht jetzt die Nahkampfwaffen \u2014 wie 55 weitere Effekte, die nur Text waren."],
+        ["Trygon Prime", "Gibt Fearless und Synapse und macht den Bio-electric pulse zu Assault 12."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
     title: "v1.78: la re-auditoria de codices",
-    intro: "Los diecinueve codices comparados campo a campo con las hojas del autor \u2014 mas tres reportes.",
+    intro: "Los diecinueve codices comparados campo a campo con las hojas del autor \u2014 mas nueve reportes, cuatro de esta semana.",
     install: "",
     sections: [
       { label: "Reportado en GitHub", rows: [
+        ["GH#161", "Stormshroud da Soul burn al arma de un Overlord \u2014 vuelve a funcionar en personajes de un solo modelo."],
+        ["GH#154", "Un peloton de la Guardia aliada vuelve a costar UN hueco de Troops, no uno por escuadra."],
+        ["GH#152", "Comprobado en pantalla: los sponsons de bolter pesado del Leman Russ funcionan \u2014 la fila pone \u201c3x\u201d."],
         ["GH#159", "Un Comisario ya no libera un slot de Elite para otra unidad."],
         ["GH#153", "El mismo fallo con los Assassins: el slot que comparten es suyo, no de otra Elite."],
         ["GH#160", "La salvacion 2+ del C\u2019tan Yngir ya sale en la hoja impresa."],
@@ -126,10 +133,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Reaper chaincannon", "La copia de los Legionnaires ya coincide con su hoja: Suppression(2)."],
         ["Sslyth, Stealth Drones", "Una compra para uno de ellos vuelve a aterrizar en su propia fila."],
       ] },
-      { label: "Necesitamos una respuesta", rows: [
-        ["Reply on GitHub #154", "Peloton de Guardia aliada: \u00bftus Infantry Squads estan enlazadas al Command Squad en el desplegable \u201c\u21b3 Platoon\u201d? Una captura de las fichas lo resuelve.", "https://github.com/Rigzar/custom40k-builder/issues/154"],
-        ["Reply on GitHub #152", "Los dos sponsons de Heavy bolter del Leman Russ se funden en su fila como \u201c3x\u201d. \u00bfSe lee mal? Decilo y le ponemos etiqueta.", "https://github.com/Rigzar/custom40k-builder/issues/152"],
-        ["Or reply on Discord", "Cualquiera de las dos, o cualquier otra cosa que se vea mal \u2014 contesta aqui si te resulta mas facil.", "https://discord.com/channels/1270330819893792818/1409790086605701171"],
+      { label: "Reportado en Discord", rows: [
+        ["Toxin Sacs", "Poison(4+) llega por fin a las armas de cuerpo a cuerpo. Y otros 55 efectos que eran solo texto."],
+        ["Trygon Prime", "Concede Fearless y Synapse y pasa el Bio-electric pulse a Assault 12."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",

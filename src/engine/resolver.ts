@@ -893,7 +893,22 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // weapon, not every copy the squad carries — those go to championWeaponTraitMap instead,
   // applied later to just that model's own weapon group.
   const builtInChampionForTraits = getBuiltInChampion(unit);
-  const hasCharacterScopedBuyer = (!!builtInChampionForTraits && unit.models[0].max > 1) || !!activeVariant;
+  /*
+   * A ONE-MODEL unit has nobody to scope against, so its variant is not a "character-scoped
+   * buyer" — it is the whole unit.
+   *
+   * The variant clause was written for a promoted model INSIDE a squad (a Traitor Sergeant). But
+   * a Necron Overlord is a VARIANT of the Necron Lord and a single model, so a Character-priced
+   * item routed its grant to championWeaponTraitMap, which is only ever applied to a separate
+   * model group — and a single-model unit has none. Stormshroud charged 10 points and never put
+   * Soul burn(5+) on the Overlord's Hyperphase glaive (GH#161). 39 single-model units across most
+   * factions were affected, all of them characters; the 81 multi-model ones are untouched.
+   *
+   * Counted over every model row, not models[0]: some squads list the champion first.
+   */
+  const totalModels = (unit.models ?? []).reduce((n, m) => n + (m.max ?? 1), 0);
+  const hasCharacterScopedBuyer = (!!builtInChampionForTraits && unit.models[0].max > 1)
+    || (!!activeVariant && totalModels > 1);
   // When ONLY the champion has Armory access (champion_has_armory, no unit-wide has_armory_access),
   // the buyer of any weapon-ability item is that champion — so a "…of the model gain X" item scopes
   // to the champion even if it also carries a p_unit price (e.g. Nurgle "Plague ammunition", both
@@ -1443,6 +1458,56 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
         .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
       if (granted) pushGrantedWeapon(granted);
+    }
+  }
+
+  /*
+   * Upgrades that grant a weapon ability to every melee or ranged weapon, READ FROM THE CODEX TEXT
+   * the option already carries: "The unit gains the \"Poison(4+)\" ability for all melee attacks."
+   *
+   * This used to need a hand-written entry per upgrade in
+   * PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS, which had grown to two. Everything else — 56
+   * grants across several codices, 40 of them Tyranid Toxin Sacs — stored the sentence, charged
+   * the points, showed the text, and never put the ability on a single weapon row. Reported by a
+   * player who had noticed Poison(4+) missing "for a really long time".
+   *
+   * parseWeaponAbilityGrant insists the subject is the unit or model itself: "The TARGET gains
+   * the \"Deflagrate(5+)\" ability for all melee AND ranged weapons" is a psychic power buffing
+   * somebody else, and applying it to the caster's own weapons would be a new bug wearing the
+   * fix's clothes.
+   */
+  /*
+   * ...and the same sentence's other half: "its Bio-electric pulse weapon gains the \"Assault 12\"
+   * type." The Trygon Prime upgrade charged 15 points and did nothing at all — no Fearless, no
+   * Synapse, and a Bio-electric pulse still firing Assault 6 — because the whole effect was one
+   * line of prose sitting in the datasheet's always-on ability list, where it also showed on
+   * Trygons that had not bought it. The sheet prints it under an "Upgrades:" heading.
+   *
+   * Read from the text rather than registered in a table, so the next one works on its own.
+   */
+  for (const text of optionAbilities) {
+    const t = text.match(
+      /\bits ([A-Za-z][\w'\- ]+?) weapon gains the ["“]([^"”]+)["”] type/i);
+    if (!t) continue;
+    const at = weapons.findIndex(w => w.name.toLowerCase() === t[1].trim().toLowerCase());
+    // REPLACED, never mutated: `weapons` is [...unit.weapons], a copy of the array whose weapon
+    // objects are still the faction data's own. Editing one in place would give the Bio-electric
+    // pulse Assault 12 for every Trygon in the app, including the ones that never bought the
+    // upgrade, and it would outlive the roster entry that did.
+    if (at >= 0) weapons[at] = { ...weapons[at], type: t[2] };
+  }
+
+  for (const text of optionAbilities) {
+    const grant = parseWeaponAbilityGrant(text);
+    if (!grant) continue;
+    for (const weapon of weapons) {
+      const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
+      const applies = grant.scope === 'all'
+        || grant.scope === 'both'
+        || (grant.scope === 'melee' && isMelee)
+        || (grant.scope === 'ranged' && !isMelee);
+      if (applies)
+        weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), grant.ability]);
     }
   }
 
@@ -2668,6 +2733,32 @@ function allWeaponsWargearGrants(unit: Unit, item: RosterEntry): string[] {
  * BIOMORPH_ALL_RANGED_RANGE_BOOSTS below for the numeric-delta sibling (Pathogenesis's own
  * "+3\" to all ranged weapons") — Zzapkrumpaz has no numeric equivalent, ability-only.
  */
+/**
+ * Read "the unit gains the \"X\" ability for all melee/ranged attacks" out of an upgrade's own
+ * codex text, so a grant does not need to be registered by hand to reach the weapon rows.
+ *
+ * Deliberately strict in two places, both of them load-bearing:
+ *
+ *  - THE SUBJECT must be the unit or the model. "The target gains ..." is a psychic power buffing
+ *    another unit, and there are three of those.
+ *  - THE SCOPE must be attacks or weapons. "Favoured Enemy(everything) ... for itself and any
+ *    friendly unit in the same melee combat" mentions melee and grants nothing to a weapon; seven
+ *    Tyranid datasheets carry it.
+ *
+ * Anything it does not recognise falls through to PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS,
+ * which is the place for oddly worded one-offs (Infrasonic Roar reads the unit's bioform;
+ * Monstrous Visages puts two different abilities in one sentence).
+ */
+export function parseWeaponAbilityGrant(text: string):
+  { ability: string; scope: 'melee' | 'ranged' | 'both' | 'all' } | null {
+  const m = text.match(
+    /\b(?:the|this) (?:unit|model)\b[^.]*?\bgains? the ["“]([^"”]+)["”] abilit(?:y|ies) for (?:all )?(?:(melee|ranged)(?:\s+(?:or|and)\s+(melee|ranged))?\s+)?(attacks|weapons)\b/i);
+  if (!m) return null;
+  const first = m[2]?.toLowerCase() as 'melee' | 'ranged' | undefined;
+  if (!first) return { ability: m[1], scope: 'all' };
+  return { ability: m[1], scope: m[3] ? 'both' : first };
+}
+
 const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {
   ability: string;
   scope: 'ranged' | 'melee';

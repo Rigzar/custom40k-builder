@@ -98,7 +98,14 @@ export const trygon: Unit = {
       "choices": [
         {
           "name": "Trygon Prime",
-          "points": 15
+          "points": 15,
+          "effect": {
+            "grants_abilities": [
+              "Fearless",
+              "Synapse",
+              "Trygon Prime: The model gains the \"Fearless\" and \"Synapse\" abilities. Additionally, its Bio-electric pulse weapon gains the \"Assault 12\" type."
+            ]
+          }
         }
       ],
       "inline_pts": null,
@@ -359,8 +366,7 @@ export const trygon: Unit = {
   ],
   "abilities": [
     "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
-    "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules.",
-    "Trygon Prime: The model gains the \"Fearless\" and \"Synapse\" abilities. Additionally, its Bio-electric pulse weapon gains the \"Assault 12\" type."
+    "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [
