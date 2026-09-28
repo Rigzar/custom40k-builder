@@ -13,7 +13,7 @@ export const razorwingJetfighter: Unit = {
   "models": [
     {
       "name": "Razorwing Jetfighter",
-      "points": 274,
+      "points": 206,
       "min": 1,
       "max": 1,
       "stats": {
@@ -142,7 +142,9 @@ export const razorwingJetfighter: Unit = {
     }
   ],
   "abilities": [
-    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
+    "Deflect",
+    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit.",
+    "Vector Dancer: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [
@@ -161,5 +163,5 @@ export const razorwingJetfighter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 274
+  "min_cost": 206
 };

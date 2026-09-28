@@ -13,7 +13,7 @@ export const deathleaper: Unit = {
   "models": [
     {
       "name": "Deathleaper",
-      "points": 180,
+      "points": 233,
       "min": 1,
       "max": 1,
       "stats": {
@@ -23,7 +23,7 @@ export const deathleaper: Unit = {
         "S": "6",
         "T": "5",
         "W": "5",
-        "I": "7",
+        "I": "6",
         "A": "5",
         "LD": "10",
         "SV": "4+"
@@ -110,7 +110,7 @@ export const deathleaper: Unit = {
   ],
   "abilities": [
     "Deep Strike, Deflect, Hit & Run, Infiltrate, Move Through Cover, Parry, Stealth, Terrifying(-2), Use Cover",
-    "Assassin: If all attacks are resolved against a single model, the Lictor may re-roll all to hit and to wound rolls.",
+    "Assassin: If all attacks are resolved against a single model, the Lictor may re-roll all to hit rolls.",
     "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
     "Pheromone Trail: A friendly unit arriving within 6\" of this model via Deep strike does not scatter. The Lictor must be present on the table at the beginning of the battle round in order to use this rule.",
     "Unnatural Speed: The model has a 5+ ward save."

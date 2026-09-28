@@ -12,7 +12,7 @@ export const ravenFighter: Unit = {
   "models": [
     {
       "name": "Raven",
-      "points": 343,
+      "points": 289,
       "min": 1,
       "max": 1,
       "stats": {
@@ -28,7 +28,8 @@ export const ravenFighter: Unit = {
   ],
   "option_groups": [],
   "abilities": [
-    "Vector Dancer: The model gains a 4+ ward save.",
+    "Deflect",
+    "Vector Dancer: The model gains a 5+ ward save.",
     "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
   ],
   "unit_type": "Flyer",
@@ -48,5 +49,5 @@ export const ravenFighter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 343
+  "min_cost": 289
 };

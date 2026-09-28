@@ -13,12 +13,12 @@ export const stormhawkInterceptor: Unit = {
   "models": [
     {
       "name": "Stormhawk Interceptor",
-      "points": 332,
+      "points": 299,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
-        "WS": "6+",
+        "WS": "-",
         "BS": "3+",
         "S": "6",
         "FRONT": "12",
@@ -139,7 +139,9 @@ export const stormhawkInterceptor: Unit = {
       ]
     }
   ],
-  "abilities": [],
+  "abilities": [
+    "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability."
+  ],
   "unit_type": "Flyer",
   "keywords": [],
   "is_vehicle": true,
@@ -155,5 +157,5 @@ export const stormhawkInterceptor: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 332
+  "min_cost": 299
 };

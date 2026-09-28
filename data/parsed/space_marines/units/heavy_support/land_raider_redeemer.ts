@@ -13,14 +13,14 @@ export const landRaiderRedeemer: Unit = {
   "models": [
     {
       "name": "Land Raider Redeemer",
-      "points": 384,
+      "points": 377,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
         "WS": "6+",
         "BS": "3+",
-        "S": "6",
+        "S": "7",
         "FRONT": "14",
         "SIDE": "14",
         "REAR": "14",
@@ -38,7 +38,7 @@ export const landRaiderRedeemer: Unit = {
       "range": "12\"",
       "type": "Heavy 6",
       "s": "6",
-      "ap": "-3",
+      "ap": "-2",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1)"
     },
@@ -116,5 +116,5 @@ export const landRaiderRedeemer: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 384
+  "min_cost": 377
 };

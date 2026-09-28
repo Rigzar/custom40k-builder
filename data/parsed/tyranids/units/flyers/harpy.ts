@@ -13,7 +13,7 @@ export const harpy: Unit = {
   "models": [
     {
       "name": "Harpy",
-      "points": 213,
+      "points": 177,
       "min": 1,
       "max": 2,
       "stats": {
@@ -31,17 +31,8 @@ export const harpy: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Harpy is equipped with: Monstrous scything talons; Twin venom cannon; Spore Mine cysts.",
+  "equipped_with": "A Harpy is equipped with: Twin venom cannon; Spore Mine cysts.",
   "weapons": [
-    {
-      "name": "Monstrous scything talons",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Extra Attack(1)"
-    },
     {
       "name": "Spore Mine cysts",
       "range": "6\"",
@@ -169,7 +160,7 @@ export const harpy: Unit = {
     }
   ],
   "abilities": [
-    "Hover Mode",
+    "Hover Mode, Instinctive Behaviour, Squadron",
     "Spore Mine Launcher: Instead of shooting at an enemy, a Harpy may create a unit of \"Spore Mine Cluster\" (3 models) within 48\" of itself and at least 9\" away from any enemy unit."
   ],
   "unit_type": "Flyer, Monstrous Creature",
@@ -189,6 +180,6 @@ export const harpy: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 213,
+  "min_cost": 177,
   "is_monster": true
 };

@@ -13,7 +13,7 @@ export const voidravenBomber: Unit = {
   "models": [
     {
       "name": "Voidraven Bomber",
-      "points": 254,
+      "points": 278,
       "min": 1,
       "max": 1,
       "stats": {
@@ -109,7 +109,9 @@ export const voidravenBomber: Unit = {
     }
   ],
   "abilities": [
-    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
+    "Deflect",
+    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit.",
+    "Vector Dancer: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [
@@ -128,5 +130,5 @@ export const voidravenBomber: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 254
+  "min_cost": 278
 };

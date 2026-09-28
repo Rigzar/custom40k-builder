@@ -56,7 +56,7 @@ export const ironcladDreadnought: Unit = {
       "range": "12\"",
       "type": "Heavy 6",
       "s": "6",
-      "ap": "-3",
+      "ap": "-2",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1)"
     },
@@ -151,7 +151,7 @@ export const ironcladDreadnought: Unit = {
         },
         {
           "name": "Flamestorm cannon",
-          "points": 9
+          "points": 3
         }
       ],
       "inline_pts": null,

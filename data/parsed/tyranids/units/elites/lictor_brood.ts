@@ -13,7 +13,7 @@ export const lictorBrood: Unit = {
   "models": [
     {
       "name": "Lictor",
-      "points": 117,
+      "points": 116,
       "min": 1,
       "max": 2,
       "stats": {
@@ -23,7 +23,7 @@ export const lictorBrood: Unit = {
         "S": "6",
         "T": "5",
         "W": "4",
-        "I": "6",
+        "I": "5",
         "A": "4",
         "LD": "10",
         "SV": "5+"
@@ -134,7 +134,7 @@ export const lictorBrood: Unit = {
   ],
   "abilities": [
     "Deep Strike, Hit & Run, Infiltrate, Move Through Cover, Stealth, Squadron, Terrifying(-1), Use Cover",
-    "Assassin: If all attacks are resolved against a single model, the Lictor may re-roll all to hit and to wound rolls.",
+    "Assassin: If all attacks are resolved against a single model, the Lictor may re-roll all to hit rolls.",
     "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
     "Pheromone Trail: A friendly unit arriving within 6\" of this model via Deep strike does not scatter. The Lictor must be present on the table at the beginning of the battle round in order to use this rule.",
     "Neurolictor: Select one enemy unit during your activation. The target must pass a Leadership test or gain one Battleshock token."

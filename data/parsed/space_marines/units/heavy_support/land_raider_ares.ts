@@ -13,7 +13,7 @@ export const landRaiderAres: Unit = {
   "models": [
     {
       "name": "Land Raider Ares",
-      "points": 547,
+      "points": 581,
       "min": 1,
       "max": 1,
       "stats": {
@@ -183,5 +183,5 @@ export const landRaiderAres: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 547
+  "min_cost": 581
 };

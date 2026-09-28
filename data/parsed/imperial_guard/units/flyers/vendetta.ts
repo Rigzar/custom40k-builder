@@ -13,7 +13,7 @@ export const vendetta: Unit = {
   "models": [
     {
       "name": "Vendetta",
-      "points": 512,
+      "points": 471,
       "min": 1,
       "max": 1,
       "stats": {
@@ -112,5 +112,5 @@ export const vendetta: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 512
+  "min_cost": 471
 };

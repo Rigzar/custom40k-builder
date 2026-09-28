@@ -13,12 +13,12 @@ export const stormtalonGunship: Unit = {
   "models": [
     {
       "name": "Stormtalon Gunship",
-      "points": 224,
+      "points": 204,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
-        "WS": "6+",
+        "WS": "-",
         "BS": "3+",
         "S": "5",
         "FRONT": "11",
@@ -117,7 +117,7 @@ export const stormtalonGunship: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Hover mode"
+    "Hover mode"
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -134,5 +134,5 @@ export const stormtalonGunship: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 224
+  "min_cost": 204
 };

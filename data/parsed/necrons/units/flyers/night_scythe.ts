@@ -13,7 +13,7 @@ export const nightScythe: Unit = {
   "models": [
     {
       "name": "Night Scythe",
-      "points": 225,
+      "points": 173,
       "min": 1,
       "max": 1,
       "stats": {
@@ -63,5 +63,5 @@ export const nightScythe: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 225
+  "min_cost": 173
 };

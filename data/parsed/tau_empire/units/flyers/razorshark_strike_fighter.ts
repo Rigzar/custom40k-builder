@@ -13,7 +13,7 @@ export const razorsharkStrikeFighter: Unit = {
   "models": [
     {
       "name": "Razorshark Strike Fighter",
-      "points": 273,
+      "points": 229,
       "min": 1,
       "max": 1,
       "stats": {
@@ -98,7 +98,7 @@ export const razorsharkStrikeFighter: Unit = {
     }
   ],
   "abilities": [
-    "Supporting Fire"
+    "-"
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -115,5 +115,5 @@ export const razorsharkStrikeFighter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 273
+  "min_cost": 229
 };

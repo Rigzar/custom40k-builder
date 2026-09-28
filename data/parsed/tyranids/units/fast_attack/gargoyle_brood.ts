@@ -100,7 +100,7 @@ export const gargoyleBrood: Unit = {
     }
   ],
   "abilities": [
-    "Combat Squads, Instinctive Behaviour"
+    "Instinctive Behaviour"
   ],
   "unit_type": "Jump Pack Infantry",
   "keywords": [

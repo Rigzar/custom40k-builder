@@ -74,7 +74,7 @@ export const dreadnought: Unit = {
       "range": "12\"",
       "type": "Heavy 6",
       "s": "6",
-      "ap": "-3",
+      "ap": "-2",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1)"
     },
@@ -213,7 +213,7 @@ export const dreadnought: Unit = {
         },
         {
           "name": "Flamestorm cannon",
-          "points": 36
+          "points": 30
         },
         {
           "name": "Twin heavy bolter",

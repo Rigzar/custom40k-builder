@@ -13,12 +13,12 @@ export const stormravenGunship: Unit = {
   "models": [
     {
       "name": "Stormraven Gunship",
-      "points": 472,
+      "points": 442,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
-        "WS": "6+",
+        "WS": "-",
         "BS": "3+",
         "S": "6",
         "FRONT": "12",
@@ -181,7 +181,8 @@ export const stormravenGunship: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Hover mode",
+    "Hover mode",
+    "	Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
     "Transport: This model has a transport capacity of 10 infantry models and 1 Dreadnought."
   ],
   "unit_type": "Flyer",
@@ -199,5 +200,5 @@ export const stormravenGunship: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 472
+  "min_cost": 442
 };

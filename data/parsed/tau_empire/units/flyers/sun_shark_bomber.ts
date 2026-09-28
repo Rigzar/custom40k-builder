@@ -13,7 +13,7 @@ export const sunSharkBomber: Unit = {
   "models": [
     {
       "name": "Sun Shark Bomber",
-      "points": 240,
+      "points": 222,
       "min": 1,
       "max": 1,
       "stats": {
@@ -92,7 +92,7 @@ export const sunSharkBomber: Unit = {
     }
   ],
   "abilities": [
-    "Supporting Fire"
+    "-"
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -109,5 +109,5 @@ export const sunSharkBomber: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 240
+  "min_cost": 222
 };

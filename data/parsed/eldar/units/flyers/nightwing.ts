@@ -13,7 +13,7 @@ export const nightwing: Unit = {
   "models": [
     {
       "name": "Nightwing",
-      "points": 343,
+      "points": 301,
       "min": 1,
       "max": 1,
       "stats": {
@@ -36,7 +36,7 @@ export const nightwing: Unit = {
     {
       "name": "Twin bright lance",
       "range": "36\"",
-      "type": "Heavy 1",
+      "type": "Heavy 2",
       "s": "8",
       "ap": "-4",
       "d": "3",
@@ -54,9 +54,9 @@ export const nightwing: Unit = {
   ],
   "option_groups": [],
   "abilities": [
-    "Battle Focus, Deflect",
+    "Deflect",
     "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability.",
-    "Vector Dancer: The model gains a 4+ ward save."
+    "Vector Dancer: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -73,5 +73,5 @@ export const nightwing: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 343
+  "min_cost": 301
 };

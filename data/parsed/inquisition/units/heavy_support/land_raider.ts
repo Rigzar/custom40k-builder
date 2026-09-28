@@ -13,7 +13,7 @@ export const landRaider: Unit = {
   "models": [
     {
       "name": "Land Raider",
-      "points": 558,
+      "points": 555,
       "min": 1,
       "max": 1,
       "stats": {
@@ -116,5 +116,5 @@ export const landRaider: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 558
+  "min_cost": 555
 };

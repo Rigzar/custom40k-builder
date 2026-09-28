@@ -189,7 +189,7 @@ export const termagantBrood: Unit = {
     }
   ],
   "abilities": [
-    "Combat Squads, Instinctive Behaviour, Move Through Cover"
+    "Instinctive Behaviour, Move Through Cover"
   ],
   "unit_type": "Infantry",
   "keywords": [
