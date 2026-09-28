@@ -13,7 +13,7 @@ export const zoanthropeBrood: Unit = {
   "models": [
     {
       "name": "Zoanthrope",
-      "points": 95,
+      "points": 92,
       "min": 1,
       "max": 6,
       "stats": {
@@ -33,7 +33,7 @@ export const zoanthropeBrood: Unit = {
   "variant_models": [
     {
       "name": "Neurothrope",
-      "points": 120,
+      "points": 124,
       "min": 0,
       "max": 1,
       "stats": {
@@ -42,7 +42,7 @@ export const zoanthropeBrood: Unit = {
         "BS": "2+",
         "S": "5",
         "T": "5",
-        "W": "2",
+        "W": "3",
         "I": "3",
         "A": "2",
         "LD": "10",
@@ -109,12 +109,12 @@ export const zoanthropeBrood: Unit = {
       "per_model": true
     },
     {
-      "header": "One model may be upgraded to a Neurothrope for +25 points.",
+      "header": "One model may be upgraded to a Neurothrope for +32 points.",
       "constraint": {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 25,
+      "inline_pts": 32,
       "variant_link": "Neurothrope",
       "is_unique_per_army": false
     }
@@ -124,7 +124,7 @@ export const zoanthropeBrood: Unit = {
     "Warp Barrier: The model gains a 4+ ward save.",
     "Psyker: The Neurothrope can cast 1 power and deny 1 power per battle round. It knows Smite and one powers from a chosen discipline."
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Monstrous Infantry",
   "keywords": [
     "Tyranid",
     "Advanced Bioform"
