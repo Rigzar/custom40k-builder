@@ -91,7 +91,7 @@ export const hormagauntBrood: Unit = {
     }
   ],
   "abilities": [
-    "Combat Squads, Frenzy(6\"), Instinctive Behaviour, Move Through Cover"
+    "Frenzy(6\"), Instinctive Behaviour, Move Through Cover"
   ],
   "unit_type": "Infantry",
   "keywords": [
