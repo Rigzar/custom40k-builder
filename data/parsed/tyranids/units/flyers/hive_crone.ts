@@ -182,7 +182,9 @@ export const hiveCrone: Unit = {
     }
   ],
   "abilities": [
-    "Hover Mode"
+    "Hover Mode",
+    "Instinctive Behaviour",
+    "Squadron"
   ],
   "unit_type": "Flyer, Monstrous Creature",
   "keywords": [

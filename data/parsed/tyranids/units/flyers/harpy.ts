@@ -170,6 +170,8 @@ export const harpy: Unit = {
   ],
   "abilities": [
     "Hover Mode",
+    "Instinctive Behaviour",
+    "Squadron",
     "Spore Mine Launcher: Instead of shooting at an enemy, a Harpy may create a unit of \"Spore Mine Cluster\" (3 models) within 48\" of itself and at least 9\" away from any enemy unit."
   ],
   "unit_type": "Flyer, Monstrous Creature",
