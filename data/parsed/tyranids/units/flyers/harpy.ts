@@ -13,7 +13,7 @@ export const harpy: Unit = {
   "models": [
     {
       "name": "Harpy",
-      "points": 213,
+      "points": 177,
       "min": 1,
       "max": 2,
       "stats": {
@@ -31,17 +31,8 @@ export const harpy: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Harpy is equipped with: Monstrous scything talons; Twin venom cannon; Spore Mine cysts.",
+  "equipped_with": "A Harpy is equipped with: Twin venom cannon; Spore Mine cysts.",
   "weapons": [
-    {
-      "name": "Monstrous scything talons",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Extra Attack(1)"
-    },
     {
       "name": "Spore Mine cysts",
       "range": "6\"",
