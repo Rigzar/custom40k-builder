@@ -1210,10 +1210,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         eqExarchPower={eqExarchPower}
                         onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                       />
-                    ) : (
-                      markItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                        : markItems.map((arm, i) => (
+                    ) : markItems.length === 0 ? (
+                      <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
+                    ) : effectiveSection === 'weapons' ? (
+                      <ArmoryWeaponTable
+                        items={markItems} justAddedName={lastAdded ?? undefined}
+                        isBlocked={arm => isAddBlocked(arm, effectiveSection)}
+                        getPts={getItemPts}
+                        getSelId={name => getSelId(name, effectiveSection)}
+                        onRemove={removeItem}
+                        onAdd={arm => add(arm, `${markName} Armoury`, effectiveSection)}
+                      />
+                    ) : markItems.map((arm, i) => (
                           <ArmoryItemRow
                             key={i} arm={arm} isChar={isChar}
                             justAdded={lastAdded === arm.name}
@@ -1223,8 +1231,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, `${markName} Armoury`, effectiveSection)}
                           />
-                        ))
-                    )}
+                        ))}
                   </div>
                 );
               })}
@@ -1305,10 +1312,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                         reaverLord={reaverLordCtx}
                       />
-                    ) : (
-                      legItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-4">{t('noItemsInSection')}</div>
-                        : legItems.map((arm, i) => (
+                    ) : legItems.length === 0 ? (
+                      <div className="text-zinc-500 italic text-sm text-center py-4">{t('noItemsInSection')}</div>
+                    ) : effectiveSection === 'weapons' ? (
+                      <ArmoryWeaponTable
+                        items={legItems} markless={legMarkless(legName)} justAddedName={lastAdded ?? undefined}
+                        isBlocked={arm => isAddBlocked(arm, effectiveSection)}
+                        getPts={getItemPts}
+                        getSelId={name => getSelId(name, effectiveSection)}
+                        onRemove={removeItem}
+                        onAdd={arm => add(arm, legName, effectiveSection)}
+                      />
+                    ) : legItems.map((arm, i) => (
                           <ArmoryItemRow
                             key={i} arm={arm} isChar={isChar} markless={legMarkless(legName)}
                             justAdded={lastAdded === arm.name}
@@ -1318,8 +1333,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, legName, effectiveSection)}
                           />
-                        ))
-                    )}
+                        ))}
                   </div>
                 );
               })
@@ -1392,24 +1406,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         eqExarchPower={eqExarchPower}
                         onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                       />
+                    ) : foreignWeapons.length === 0 ? (
+                      <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
                     ) : (
-                      foreignWeapons.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                        : foreignWeapons.map((arm, i) => {
-                          const pts = getItemPts(arm);
-                          const blocked = authorityCapReached || pts === null;
-                          return (
-                            <ArmoryItemRow
-                              key={i} arm={arm} isChar={isChar}
-                              justAdded={lastAdded === arm.name}
-                              disabled={blocked}
-                              selectedArmoryId={getSelId(arm.name, 'weapons')}
-                              ptsOverride={pts}
-                              onRemove={removeItem}
-                              onAdd={() => !blocked && add(arm, AUTHORITY_SOURCE, 'weapons')}
-                            />
-                          );
-                        })
+                      <ArmoryWeaponTable
+                        items={foreignWeapons} justAddedName={lastAdded ?? undefined}
+                        isBlocked={() => authorityCapReached}
+                        getPts={getItemPts}
+                        getSelId={name => getSelId(name, 'weapons')}
+                        onRemove={removeItem}
+                        onAdd={arm => add(arm, AUTHORITY_SOURCE, 'weapons')}
+                      />
                     )}
                   </div>
                 );
@@ -1496,23 +1503,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 }
                 return foreignWeapons.length === 0
                   ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                  : foreignWeapons.map((arm, i) => {
-                    const pts = getItemPts(arm);
-                    const blocked = pts === null;
-                    return (
-                      <div key={i}>
-                        <ArmoryItemRow
-                          arm={arm} isChar={isChar}
-                          justAdded={lastAdded === arm.name}
-                          disabled={blocked}
-                          selectedArmoryId={getSelId(arm.name, 'weapons')}
-                          ptsOverride={pts}
-                          onRemove={removeItem}
-                          onAdd={() => !blocked && add(arm, foreignSrcLabel, 'weapons')}
-                        />
-                      </div>
-                    );
-                  });
+                  : (
+                    <ArmoryWeaponTable
+                      items={foreignWeapons} justAddedName={lastAdded ?? undefined}
+                      isBlocked={() => false}
+                      getPts={getItemPts}
+                      getSelId={name => getSelId(name, 'weapons')}
+                      onRemove={removeItem}
+                      onAdd={arm => add(arm, foreignSrcLabel, 'weapons')}
+                    />
+                  );
               })()}
             </div>
           ) : effectiveSection === 'equipment' ? (
@@ -1558,9 +1558,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           ) : (
             (() => {
               const items = getItems(effectiveSection);
-              return items.length === 0
-                ? <div className="text-zinc-500 italic text-sm text-center py-8">{t('noItemsInSection')}</div>
-                : items.map((arm, i) => (
+              if (items.length === 0) return <div className="text-zinc-500 italic text-sm text-center py-8">{t('noItemsInSection')}</div>;
+              const armSource = tab === 'mark' ? `${effectiveMark} Armoury` : 'General';
+              return effectiveSection === 'weapons' ? (
+                <ArmoryWeaponTable
+                  items={items} markless={isMarklessFaction}
+                  justAddedName={lastAdded ?? undefined}
+                  isBlocked={arm => isAddBlocked(arm, effectiveSection)}
+                  getPts={getItemPts}
+                  getSelId={name => getSelId(name, effectiveSection)}
+                  onRemove={removeItem}
+                  onAdd={arm => add(arm, armSource, effectiveSection)}
+                />
+              ) : items.map((arm, i) => (
                   <ArmoryItemRow
                     key={i} arm={arm} isChar={isChar} markless={isMarklessFaction}
                     justAdded={lastAdded === arm.name}
@@ -1568,7 +1578,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     selectedArmoryId={getSelId(arm.name, effectiveSection)}
                     ptsOverride={getItemPts(arm)}
                     onRemove={removeItem}
-                    onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
+                    onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, armSource, effectiveSection)}
                   />
                 ));
             })()
@@ -2310,4 +2320,96 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
     return <div className="text-[10px] text-zinc-600 italic mt-0.5">{arm.abilities}</div>;
   }
   return <div className="text-[10px] text-zinc-600 italic mt-0.5">{t('seeFactionRulesProfile')}</div>;
+}
+
+/**
+ * Checkbox-table view of the Armory's Weapons tab, requested on Discord (Unwise): "sometimes I
+ * already know what gear I want and I find the checkbox menu very intuitive and fast." Same
+ * column layout as the datasheet's own weapon-swap tables (UnitCard.tsx) — WEAPON/RANGE/TYPE/S/
+ * AP/D/ABILITIES/PTS — just fed from ArmoryItem[] instead of a Choice[], since both shapes already
+ * carry the same stat fields. Equipment stays on the card view: most equipment items have no
+ * range/S/AP/D to put in these columns.
+ *
+ * Ownership is binary (checked/unchecked), same simplification the swap tables themselves use —
+ * a multi-model unit that can buy several copies of one weapon still uses the card view's own
+ * "Add another" button for the second-and-later copies; this table only toggles the first.
+ *
+ * Multi-profile items (`arm.profiles`, e.g. a combi-weapon's separate fire modes) show their
+ * FIRST profile's stats in the row — full per-profile sub-rows belong to a future pass if this
+ * shape turns out to be common in practice; today's items are effectively all single-profile.
+ */
+function ArmoryWeaponTable({
+  items, isBlocked, getPts, getSelId, onAdd, onRemove, justAddedName, markless = false,
+}: {
+  items: ArmoryItem[];
+  isBlocked: (arm: ArmoryItem) => boolean;
+  getPts: (arm: ArmoryItem) => number | null;
+  getSelId: (name: string) => string | undefined;
+  onAdd: (arm: ArmoryItem) => void;
+  onRemove: (id: string) => void;
+  justAddedName?: string;
+  markless?: boolean;
+}) {
+  const t = useT();
+  return (
+    <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
+      {/* NOT table-fixed — same reasoning as the datasheet's own weapon-swap table: forcing the
+          declared percentages in this narrow panel piles the headers on top of each other. */}
+      <table className="w-full text-xs border-collapse">
+        <thead>
+          <tr className="border-b border-zinc-600">
+            <th className="py-1.5 pl-2 w-[4%]" />
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[22%]">{t('weapon')}</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">{t('rangeFullLabel')}</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[12%]">{t('typeFullLabel')}</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
+            <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((arm, i) => {
+            const selId = getSelId(arm.name);
+            const owned = !!selId;
+            const blocked = isBlocked(arm);
+            const pts = getPts(arm);
+            const costIsSpecial = isWeaponCostSpecial(arm.desc);
+            const priceIsNull = pts === null && !costIsSpecial;
+            const disabled = !owned && (blocked || priceIsNull);
+            const ptsLabel = costIsSpecial ? 'Special' : (pts != null ? `${pts >= 0 ? '+' : ''}${pts}` : '—');
+            const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
+            const profile = arm.profiles && arm.profiles.length > 0 ? arm.profiles[0] : arm;
+            return (
+              <tr
+                key={i}
+                title={arm.desc}
+                className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-40' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
+              >
+                <td className="py-1.5 pl-2">
+                  <div
+                    onClick={() => { if (disabled) return; if (owned) onRemove(selId!); else onAdd(arm); }}
+                    className={`w-4 h-4 border flex items-center justify-center transition-colors
+                      ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
+                      ${disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
+                  >
+                    {owned && <span className="text-[8px] text-white leading-none">✓</span>}
+                  </div>
+                </td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">{displayName}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
+                <td className="py-1.5 px-1 text-zinc-300">{profile.type ?? '-'}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.ap ?? '-'}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.d ?? '-'}</td>
+                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? profile.abilities : '—'}</td>
+                <td className="py-1.5 px-2 text-right text-amber-600 whitespace-nowrap">{ptsLabel}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 }
