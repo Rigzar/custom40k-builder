@@ -13,7 +13,7 @@ export const corvusBlackstar: Unit = {
   "models": [
     {
       "name": "Corvus Blackstar",
-      "points": 341,
+      "points": 299,
       "min": 1,
       "max": 1,
       "stats": {
@@ -170,11 +170,11 @@ export const corvusBlackstar: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Fast, Hover mode",
+    "Hover mode",
     "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
     "Auspex array: All ranged weapons equipped by this vehicle gain the \"Sunder(1)\" ability.",
     "Infernum Halo-launcher: Enemy weapons do not get any bonus for \"Anti-Air\" abilities.",
-    "Transport: This model has a transport capacity of 12 infantry models. Cannot transport models with the \"Massive\" ability."
+    "Transport: This model has a transport capacity of 12 infantry models."
   ],
   "unit_type": "Flyer, Vehicle",
   "keywords": [],
@@ -191,5 +191,5 @@ export const corvusBlackstar: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 341
+  "min_cost": 299
 };

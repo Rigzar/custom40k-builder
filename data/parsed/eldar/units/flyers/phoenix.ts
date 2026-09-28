@@ -13,7 +13,7 @@ export const phoenix: Unit = {
   "models": [
     {
       "name": "Phoenix",
-      "points": 571,
+      "points": 428,
       "min": 1,
       "max": 1,
       "stats": {
@@ -58,7 +58,7 @@ export const phoenix: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Anti-air, Shuriken"
+      "abilities": "Shuriken"
     },
     {
       "name": "Twin starcannon",
@@ -111,8 +111,8 @@ export const phoenix: Unit = {
     }
   ],
   "abilities": [
-    "Battle Focus, Deflect",
-    "Vector Dancer: The model gains a 4+ ward save."
+    "Deflect",
+    "Vector Dancer: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -129,5 +129,5 @@ export const phoenix: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 571
+  "min_cost": 428
 };

@@ -13,20 +13,20 @@ export const archaeopter: Unit = {
   "models": [
     {
       "name": "Archaeopter",
-      "points": 254,
+      "points": 161,
       "min": 1,
       "max": 2,
       "stats": {
         "M": "12\"",
         "WS": "-",
         "BS": "3+",
-        "S": "6",
+        "S": "5",
         "FRONT": "11",
         "SIDE": "11",
         "REAR": "10",
         "I": "3",
         "A": "1",
-        "HP": "3"
+        "HP": "2"
       }
     }
   ],
@@ -137,7 +137,7 @@ export const archaeopter: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Fast, Hover mode, Vanguard",
+    "Hover mode, Squadron",
     "Transport: This model has a transport capacity of 6 infantry models."
   ],
   "unit_type": "Flyer, Vehicle",
@@ -155,5 +155,5 @@ export const archaeopter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 254
+  "min_cost": 161
 };

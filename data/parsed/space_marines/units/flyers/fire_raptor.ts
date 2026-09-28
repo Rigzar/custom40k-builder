@@ -13,12 +13,12 @@ export const fireRaptor: Unit = {
   "models": [
     {
       "name": "Fire Raptor",
-      "points": 617,
+      "points": 583,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
-        "WS": "6+",
+        "WS": "-",
         "BS": "3+",
         "S": "6",
         "FRONT": "12",
@@ -52,9 +52,9 @@ export const fireRaptor: Unit = {
       "abilities": "AT(1)"
     },
     {
-      "name": "Twin avenger bolt cannon",
+      "name": "Twin avenger mega bolter",
       "range": "36\"",
-      "type": "Heavy 10",
+      "type": "Rapid Fire 10",
       "s": "6",
       "ap": "-2",
       "d": "1",
@@ -114,7 +114,7 @@ export const fireRaptor: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Hover mode"
+    "Hover mode"
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -131,5 +131,5 @@ export const fireRaptor: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 617
+  "min_cost": 583
 };

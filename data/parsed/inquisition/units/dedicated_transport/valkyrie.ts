@@ -13,7 +13,7 @@ export const valkyrie: Unit = {
   "models": [
     {
       "name": "Valkyrie",
-      "points": 223,
+      "points": 175,
       "min": 1,
       "max": 1,
       "stats": {
@@ -127,7 +127,7 @@ export const valkyrie: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Fast, Hover mode",
+    "Hover mode",
     "Transport: This model has a transport capacity of 12 infantry models."
   ],
   "unit_type": "Flyer, Vehicle",
@@ -145,5 +145,5 @@ export const valkyrie: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 223
+  "min_cost": 175
 };

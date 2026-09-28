@@ -13,7 +13,7 @@ export const crimsonHunter: Unit = {
   "models": [
     {
       "name": "Crimson Hunter",
-      "points": 388,
+      "points": 355,
       "min": 1,
       "max": 1,
       "stats": {
@@ -33,7 +33,7 @@ export const crimsonHunter: Unit = {
   "variant_models": [
     {
       "name": "Crimson Hunter Exarch",
-      "points": 443,
+      "points": 385,
       "min": 0,
       "max": 0,
       "stats": {
@@ -82,12 +82,12 @@ export const crimsonHunter: Unit = {
   ],
   "option_groups": [
     {
-      "header": "One model may be upgraded to an Exarch for +55 points.",
+      "header": "One model may be upgraded to an Exarch for +28 points.",
       "constraint": {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 55,
+      "inline_pts": 28,
       "variant_link": "Crimson Hunter Exarch",
       "is_unique_per_army": false
     },
@@ -204,5 +204,5 @@ export const crimsonHunter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 388
+  "min_cost": 355
 };

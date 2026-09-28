@@ -13,7 +13,7 @@ export const predator: Unit = {
   "models": [
     {
       "name": "Predator",
-      "points": 208,
+      "points": 204,
       "min": 1,
       "max": 1,
       "stats": {
@@ -31,7 +31,7 @@ export const predator: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Predator is a single model and equipped with: Twin assault cannon.",
+  "equipped_with": "A Predator is a single model and equipped with: Twin flamestorm cannon.",
   "weapons": [
     {
       "name": "Heavy bolter",
@@ -114,16 +114,16 @@ export const predator: Unit = {
       },
       "choices": [
         {
-          "name": "Twin flamestorm cannon",
-          "points": 8
+          "name": "Twin assault cannon",
+          "points": 4
         },
         {
           "name": "Predator autocannon",
-          "points": 24
+          "points": 28
         },
         {
           "name": "Twin lascannon",
-          "points": 74
+          "points": 78
         }
       ],
       "inline_pts": null,
@@ -181,5 +181,5 @@ export const predator: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 208
+  "min_cost": 204
 };

@@ -13,7 +13,7 @@ export const landRaiderPrometheus: Unit = {
   "models": [
     {
       "name": "Land Raider",
-      "points": 395,
+      "points": 378,
       "min": 1,
       "max": 1,
       "stats": {
@@ -107,5 +107,5 @@ export const landRaiderPrometheus: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 395
+  "min_cost": 378
 };

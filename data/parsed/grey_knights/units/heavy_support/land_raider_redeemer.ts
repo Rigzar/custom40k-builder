@@ -17,7 +17,7 @@ export const landRaiderRedeemer: Unit = {
   "models": [
     {
       "name": "Land Raider Redeemer",
-      "points": 395,
+      "points": 385,
       "min": 1,
       "max": 1,
       "stats": {
@@ -41,8 +41,8 @@ export const landRaiderRedeemer: Unit = {
       "name": "Flamestorm cannon",
       "range": "12\"",
       "type": "Heavy 6",
-      "s": "6",
-      "ap": "-3",
+      "s": "7",
+      "ap": "-2",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1)"
     },
@@ -151,5 +151,5 @@ export const landRaiderRedeemer: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 395
+  "min_cost": 385
 };

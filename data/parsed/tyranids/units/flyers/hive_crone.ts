@@ -182,9 +182,7 @@ export const hiveCrone: Unit = {
     }
   ],
   "abilities": [
-    "Hover Mode",
-    "Instinctive Behaviour",
-    "Squadron"
+    "Hover Mode, Instinctive Behaviour, Squadron",
   ],
   "unit_type": "Flyer, Monstrous Creature",
   "keywords": [
@@ -203,5 +201,5 @@ export const hiveCrone: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 166
+  "min_cost": 156
 };

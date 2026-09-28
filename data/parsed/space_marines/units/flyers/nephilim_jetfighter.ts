@@ -13,12 +13,12 @@ export const nephilimJetfighter: Unit = {
   "models": [
     {
       "name": "Nephilim Jetfighter",
-      "points": 237,
+      "points": 203,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
-        "WS": "6+",
+        "WS": "-",
         "BS": "3+",
         "S": "5",
         "FRONT": "11",
@@ -36,7 +36,7 @@ export const nephilimJetfighter: Unit = {
     {
       "name": "Avenger mega bolter",
       "range": "48\"",
-      "type": "Heavy 5",
+      "type": "Rapid Fire 5",
       "s": "6",
       "ap": "-2",
       "d": "1",
@@ -79,7 +79,7 @@ export const nephilimJetfighter: Unit = {
       "choices": [
         {
           "name": "Twin lascannon",
-          "points": 75
+          "points": 90
         }
       ],
       "inline_pts": null,
@@ -89,7 +89,8 @@ export const nephilimJetfighter: Unit = {
     }
   ],
   "abilities": [
-    "Anti-Grav, Hover mode"
+    "Anti-Grav, Hover mode",
+    "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability."
   ],
   "unit_type": "Flyer",
   "keywords": [],
@@ -106,5 +107,5 @@ export const nephilimJetfighter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 237
+  "min_cost": 203
 };

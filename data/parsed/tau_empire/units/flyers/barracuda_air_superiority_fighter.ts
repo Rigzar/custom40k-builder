@@ -13,7 +13,7 @@ export const barracudaAirSuperiorityFighter: Unit = {
   "models": [
     {
       "name": "Barracuda",
-      "points": 354,
+      "points": 304,
       "min": 1,
       "max": 1,
       "stats": {
@@ -156,7 +156,6 @@ export const barracudaAirSuperiorityFighter: Unit = {
     }
   ],
   "abilities": [
-    "Supporting Fire",
     "Dispersion field: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
@@ -174,5 +173,5 @@ export const barracudaAirSuperiorityFighter: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 354
+  "min_cost": 304
 };

@@ -17,7 +17,7 @@ export const stormravenGunship: Unit = {
   "models": [
     {
       "name": "Stormraven Gunship",
-      "points": 482,
+      "points": 450,
       "min": 1,
       "max": 1,
       "stats": {
@@ -226,5 +226,5 @@ export const stormravenGunship: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 482
+  "min_cost": 450
 };

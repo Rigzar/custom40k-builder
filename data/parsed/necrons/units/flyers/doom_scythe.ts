@@ -13,7 +13,7 @@ export const doomScythe: Unit = {
   "models": [
     {
       "name": "Doom Scythe",
-      "points": 334,
+      "points": 284,
       "min": 1,
       "max": 1,
       "stats": {
@@ -71,5 +71,5 @@ export const doomScythe: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 334
+  "min_cost": 284
 };

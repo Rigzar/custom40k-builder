@@ -59,7 +59,7 @@ export const heldrake: Unit = {
   "models": [
     {
       "name": "Heldrake",
-      "points": 240,
+      "points": 202,
       "min": 1,
       "max": 1,
       "stats": {
@@ -81,7 +81,7 @@ export const heldrake: Unit = {
   "weapons": [
     {
       "name": "Baleflamer",
-      "range": "12\"",
+      "range": "18\"",
       "type": "Assault 6",
       "s": "6",
       "ap": "-2",
@@ -143,7 +143,7 @@ export const heldrake: Unit = {
       "choices": [
         {
           "name": "Hades autocannon",
-          "points": 44
+          "points": 31
         }
       ],
       "inline_pts": null,
@@ -156,7 +156,7 @@ export const heldrake: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fast, Hover mode",
-    "Vector strike: Each enemy unit which is passed by this model suffers 1D6 automatic hits with the model's melee weapon."
+    "Warpfire: All weapons with the \"Auto Hit\" ability on the model gain +6\" range (already included in the weapon's profile)."
   ],
   "unit_type": "Flyer, Vehicle",
   "keywords": [
@@ -176,6 +176,6 @@ export const heldrake: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 240
+  "min_cost": 202
 };
 

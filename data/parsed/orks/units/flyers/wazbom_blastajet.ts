@@ -13,9 +13,9 @@ export const wazbomBlastajet: Unit = {
   "models": [
     {
       "name": "Blastajet",
-      "points": 163,
+      "points": 135,
       "min": 1,
-      "max": 1,
+      "max": 2,
       "stats": {
         "M": "F",
         "WS": "-",
@@ -214,7 +214,7 @@ export const wazbomBlastajet: Unit = {
     }
   ],
   "abilities": [
-    "Dakka Dakka Dakka, Waaagh!",
+    "Dakka Dakka Dakka, Squadron",
     "Grot-guided: This weapon is fired with a BS of 4+ and gains Seeking.",
     "Grot Gunner: A weapon with a Grot gunner is fired with a BS of 4+.",
     "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation.",
@@ -237,5 +237,5 @@ export const wazbomBlastajet: Unit = {
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 163
+  "min_cost": 135
 };
