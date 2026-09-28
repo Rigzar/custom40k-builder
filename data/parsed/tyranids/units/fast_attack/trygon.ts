@@ -160,7 +160,8 @@ export const trygon: Unit = {
   ],
   "abilities": [
     "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
-    "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules."
+    "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules.",
+    "Subterranean Assault: If this model starts the game in Reserve, you may pair it with one Troops unit that is also in Reserve. Both units arrive from Reserve using a single roll. Set up the Trygon first, following the rules for the chosen deployment method, then set up the paired Troops unit wholly within 3\" of the Trygon."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [
