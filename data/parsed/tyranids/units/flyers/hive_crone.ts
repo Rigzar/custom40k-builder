@@ -54,7 +54,7 @@ export const hiveCrone: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Hive Crone is equipped with: Drool cannon; Spiked carapace; Stinger tail; 4 Tentaclids.",
+  "equipped_with": "A Hive Crone is equipped with: Bladed Spurs; Drool cannon; Stinger tail; 4 Tentaclids; Wing tips.",
   "weapons": [
     {
       "name": "Bladed Spurs",
