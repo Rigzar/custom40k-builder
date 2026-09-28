@@ -34,7 +34,7 @@
       "s": "10",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(2), Blast(4)",
+      "abilities": "AT(2), Auto Hit, Blast(4), Charge, Extra Attack(1), Limit(1), Quick(+7)",
       "p_unit": null,
       "p_char": null
     }
@@ -71,7 +71,7 @@
     {
       "name": "Living Battering Ram",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The unit causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile. Can only be taken by Monstrous Creatures.",
+      "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the \"Headlong Charge\" weapon. Can only be taken by Monstrous Creatures without the Flyer unit type.",
       "p_unit": null,
       "p_char": 15,
       "requires_keywords": [
