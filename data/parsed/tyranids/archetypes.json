@@ -9,8 +9,20 @@
       "desc": "- Carnifex Broods can be taken as Troops.\n- Only Carnifex Broods count towards the 25% Troops limitation."
     },
     {
+      "name": "Subterranean Assault",
+      "desc": "- One Trygon must be taken with the Trygon Prime upgrade and it becoes a HQ selection.\n- Ravener Broods can be taken as Troops.\n- For every 4 Ravener models, one Mawloc can be taken as Troops.\n- Only Ravener Broods and Mawlocs count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Swarming Masses",
+      "desc": "- Barbgaunts Broods, Gargoyle Broods, Hormagaunt Broods, Neurogaunt Broods, Ripper Swarms and Termagant Broods gain the \"Combat Squad\" ability.\n- Genestealer Broods and Tyranid Warrior Broods become Elite choices."
+    },
+    {
       "name": "Tyrannocyte Assault",
       "desc": "- All units must start the game as passengers inside a Tyrannocyte.\n- Half of all Tyrannocyte in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrives automatically in the second battle round."
+    },
+    {
+      "name": "Vanguard Onslaught",
+      "desc": "- One Deathleaper must be taken and it becomes a HQ selection.\n- Von Ryan's Leaper Broods can be taken as Troops.\n- Only Von Ryan's Leaper Broods count towards the 25% Troops limitation."
     }
   ],
   "legacies": [

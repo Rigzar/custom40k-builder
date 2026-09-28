@@ -44,6 +44,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Parasite of Mortrex": fastAttack.parasiteOfMortrex,
   "Psychophage": fastAttack.psychophage,
   "Pyrovore Brood": fastAttack.pyrovoreBrood,
+  "Ravener Alpha": fastAttack.ravenerAlpha,
   "Ravener Brood": fastAttack.ravenerBrood,
   "Spore Mine Cluster": fastAttack.sporeMineCluster,
   "Trygon": fastAttack.trygon,
@@ -96,6 +97,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Parasite of Mortrex",
     "Psychophage",
     "Pyrovore Brood",
+    "Ravener Alpha",
     "Ravener Brood",
     "Spore Mine Cluster",
     "Trygon"
