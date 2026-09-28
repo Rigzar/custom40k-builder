@@ -54,10 +54,10 @@ export const hiveCrone: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Hive Crone is equipped with: Bladed Spurs; Drool cannon; Stinger tail; 4 Tentaclids; Wing tips.",
+  "equipped_with": "A Hive Crone is equipped with: Bladed spurs; Drool cannon; Stinger tail; 4 Tentaclids; Wing tips.",
   "weapons": [
     {
-      "name": "Bladed Spurs",
+      "name": "Bladed spurs",
       "range": "-",
       "type": "Melee",
       "s": "U",
@@ -75,7 +75,7 @@ export const hiveCrone: Unit = {
       "abilities": "Auto Hit, Sunder(1), Monofilament"
     },
     {
-      "name": "Stinger Tail",
+      "name": "Stinger tail",
       "range": "-",
       "type": "Melee",
       "s": "x2",
@@ -102,7 +102,7 @@ export const hiveCrone: Unit = {
       "abilities": "Ammo(1), Anti-Air, Haywire, Seeking"
     },
     {
-      "name": "Winged Tips",
+      "name": "Winged tips",
       "range": "-",
       "type": "Melee",
       "s": "U",
