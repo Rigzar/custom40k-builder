@@ -13,7 +13,7 @@ export const deathleaper: Unit = {
   "models": [
     {
       "name": "Deathleaper",
-      "points": 180,
+      "points": 233,
       "min": 1,
       "max": 1,
       "stats": {
@@ -23,7 +23,7 @@ export const deathleaper: Unit = {
         "S": "6",
         "T": "5",
         "W": "5",
-        "I": "7",
+        "I": "6",
         "A": "5",
         "LD": "10",
         "SV": "4+"

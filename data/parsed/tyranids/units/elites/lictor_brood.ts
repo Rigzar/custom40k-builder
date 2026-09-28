@@ -13,7 +13,7 @@ export const lictorBrood: Unit = {
   "models": [
     {
       "name": "Lictor",
-      "points": 117,
+      "points": 116,
       "min": 1,
       "max": 2,
       "stats": {
@@ -23,7 +23,7 @@ export const lictorBrood: Unit = {
         "S": "6",
         "T": "5",
         "W": "4",
-        "I": "6",
+        "I": "5",
         "A": "4",
         "LD": "10",
         "SV": "5+"

@@ -36,7 +36,7 @@ export const hiveCrone: Unit = {
   "models": [
     {
       "name": "Hive Crone",
-      "points": 166,
+      "points": 156,
       "min": 1,
       "max": 2,
       "stats": {
@@ -54,8 +54,17 @@ export const hiveCrone: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Hive Crone is equipped with: Drool cannon; Monstrous scything talons; 4 Tentaclids.",
+  "equipped_with": "A Hive Crone is equipped with: Drool cannon; Spiked carapace; Stinger tail; 4 Tentaclids.",
   "weapons": [
+    {
+      "name": "Bladed Spurs",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
     {
       "name": "Drool cannon",
       "range": "18\"",
@@ -66,13 +75,13 @@ export const hiveCrone: Unit = {
       "abilities": "Auto Hit, Sunder(1), Monofilament"
     },
     {
-      "name": "Monstrous scything talons",
+      "name": "Stinger Tail",
       "range": "-",
       "type": "Melee",
-      "s": "U",
-      "ap": "-2",
+      "s": "x2",
+      "ap": "-3",
       "d": "2",
-      "abilities": "Extra Attack(1)"
+      "abilities": "Anti-Air, AT(2), Extra Attack(1), Limit(1)"
     },
     {
       "name": "Stinger salvo",
@@ -90,7 +99,16 @@ export const hiveCrone: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Ammo(1), Haywire, Seeking"
+      "abilities": "Ammo(1), Anti-Air, Haywire, Seeking"
+    },
+    {
+      "name": "Winged Tips",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Anti-Air, Limit(2)"
     }
   ],
   "option_groups": [

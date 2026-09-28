@@ -13,7 +13,7 @@ export const trygon: Unit = {
   "models": [
     {
       "name": "Trygon",
-      "points": 174,
+      "points": 179,
       "min": 1,
       "max": 2,
       "stats": {
