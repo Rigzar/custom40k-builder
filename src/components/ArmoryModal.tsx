@@ -2209,8 +2209,15 @@ function ArmoryItemRow({
 
   if (selectedArmoryId && onRemove) {
     return (
-      <div className="w-full flex justify-between items-start px-3 py-2 border text-left gap-2 bg-zinc-800/50 border-zinc-600">
-        <div className="min-w-0">
+      <div className="w-full flex items-start px-3 py-2 border text-left gap-2 bg-zinc-800/50 border-zinc-600">
+        <div
+          onClick={() => onRemove(selectedArmoryId)}
+          title={t('removeUnit')}
+          className="w-4 h-4 mt-0.5 border flex items-center justify-center shrink-0 cursor-pointer bg-amber-700 border-amber-600"
+        >
+          <span className="text-[8px] text-white leading-none">✓</span>
+        </div>
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1 flex-wrap">
             <span className="text-sm font-medium text-zinc-400">{displayName}</span>
             <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>
@@ -2256,7 +2263,7 @@ function ArmoryItemRow({
     <button
       onClick={onAdd}
       disabled={disabled || priceIsNull}
-      className={`w-full flex justify-between items-start px-3 py-2 border text-left gap-2 transition-all duration-200
+      className={`w-full flex items-start px-3 py-2 border text-left gap-2 transition-all duration-200
         ${inProfile
           ? 'bg-zinc-800/50 border-zinc-700 opacity-50 cursor-not-allowed'
           : (disabled || priceIsNull)
@@ -2266,7 +2273,12 @@ function ArmoryItemRow({
               : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700'
         }`}
     >
-      <div className="min-w-0">
+      <div
+        aria-hidden="true"
+        className={`w-4 h-4 mt-0.5 border flex items-center justify-center shrink-0
+          ${(disabled || priceIsNull || inProfile) ? 'bg-zinc-800 border-zinc-700' : 'bg-zinc-900 border-zinc-600'}`}
+      />
+      <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1 flex-wrap">
           <span className={`text-sm font-medium transition-colors ${justAdded ? 'text-green-400' : 'text-zinc-200'}`}>
             {displayName}
