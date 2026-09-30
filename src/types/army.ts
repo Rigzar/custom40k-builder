@@ -194,6 +194,8 @@ export interface ArmyState {
   campaignId?: number | null;
   campaignFaction?: string | null;
   army: RosterEntry[];
+  /** Saved-list layout version; 5 = Tyranid Biomorphs live in the shared Armory (GH#167). */
+  savedFormat?: number;
   alliedFaction?: string;
   /**
    * Allied Detachment's OWN Army Customisation — independent of the primary faction's

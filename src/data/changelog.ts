@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.80',
+    date: '2026-09-30',
+    title: 'Saved Tyranid lists stopped eating their Special Biomorphs',
+    changes: [
+      'Tyranids — SPECIAL BIOMORPHS CAN BE SELECTED AND KEPT AGAIN (GH#167: "I can not select special biomorphs for any of my units"). Every time a saved list is opened — My Armies, cloud saves, league lists, an imported file — the app re-ran the one-off conversion that moved the old per-datasheet Biomorph list into the shared Armory. On a list already in the new layout it read the Special Biomorph pick as an OLD Biomorph pick, turned it into a bogus Armory purchase and then deleted or shifted that option group, so the choice vanished or could not be made. The conversion now runs only on lists that prove they are old (or carry no new-format stamp AND show old-layout data); new saves are stamped with their layout.',
+    ],
+  },
+  {
     version: '1.79',
     date: '2026-09-27',
     title: 'The shared Biomorph Armory, one day old and already fixed six times over',

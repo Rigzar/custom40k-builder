@@ -227,6 +227,32 @@ export function migrateTyranidBiomorphsToArmory<T extends {
 }
 
 /**
+ * Was this Tyranid list saved BEFORE the Biomorphs moved to the shared Armory? importRoster runs
+ * on EVERY load of a saved list (cloud, local, league, JSON) and used to re-run the Biomorph
+ * migration each time — on lists already in the new layout it read the current "Special
+ * Biomorph" picks as old Biomorph picks and deleted/shifted that group, so nobody could select
+ * or keep a Special Biomorph (GH#167). New saves carry `savedFormat >= 5`; an unstamped list is
+ * treated as old only if its own data proves it: an optionQty group index past the datasheet's
+ * current group count, or a pick at the removed group's slot with a choice index the current
+ * (<=5 choice) groups cannot have.
+ */
+export function isPreArmoryTyranidList<T extends { unitName: string; optionQty?: Record<number, Record<string, number>> }>(
+  savedFormat: number | undefined, army: T[], groupCounts: Record<string, number>,
+): boolean {
+  if (savedFormat !== undefined && savedFormat >= 5) return false;
+  const table = REMOVED_OPTION_GROUPS['Tyranids'];
+  return army.some(e => {
+    const g = table[e.unitName]?.[0];
+    if (g === undefined || !e.optionQty) return false;
+    const count = groupCounts[e.unitName];
+    const pastEnd = count !== undefined && Object.entries(e.optionQty).some(([gi, ch]) =>
+      Number(gi) >= count && Object.values(ch ?? {}).some(q => !!q));
+    const oldPick = Object.entries(e.optionQty[g] ?? {}).some(([ci, q]) => ci !== '__inline' && !!q && Number(ci) > 4);
+    return pastEnd || oldPick;
+  });
+}
+
+/**
  * Drop the removed groups' selections and shift the survivors down, so a list saved against the
  * previous codex keeps pointing at the options the player actually bought.
  */
