@@ -141,7 +141,7 @@ export const GENERAL_DISCIPLINES: Record<string, WikiPower[]> = {
       effect: 'Six automatic hits with S: 5 AP: -2 D: 1; Seeking, Suppression.',
     },
     {
-      name: 'Telekinetic Blast',
+      name: 'Telekinetic Push',
       type: 'Witchfire', range: '18"', target: 'Enemy unit',
       cast_value: '5', duration: 'Instant', complexity: 'Normal',
       effect: 'The target is pushed 1D6" away from the caster in a straight line.',

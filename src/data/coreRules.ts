@@ -471,7 +471,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'retribution': {
     name: 'Retribution({X})',
-    description: 'When the model is hit by a melee attack, it inflicts 1 automatic wound with Strength: 4 AP: 0 D: 1 against the attacking unit, to a maximum of {X} automatic wounds per Battle round. If a unit contains multiple models with this rule, pool all instances of Retribution({X}) together.',
+    description: 'When the model is hit by a melee attack, it inflicts 1 automatic hit with Strength: 4 AP: 0 D: 1 against the attacking unit, to a maximum of {X} automatic hits per Battle round. If a unit contains multiple models with this rule, pool all instances of Retribution({X}) together.',
   },
   'squadron': {
     name: 'Squadron',
