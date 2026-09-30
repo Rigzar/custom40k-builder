@@ -49,7 +49,7 @@ import heavy_support_exocrine from './heavy_support/exocrine.json';
 import heavy_support_norn from './heavy_support/norn.json';
 import heavy_support_tyrannofex from './heavy_support/tyrannofex.json';
 import dedicated_transport_tyrannocyte from './dedicated_transport/tyrannocyte.json';
-import fortifications_sporecyst from './fortifications/sporecyst.json';
+import fortifications_sporocyst from './fortifications/sporocyst.json';
 import flyers_harpy from './flyers/harpy.json';
 import flyers_hive_crone from './flyers/hive_crone.json';
 
@@ -108,7 +108,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Tyrannocyte"
   ],
   "Fortifications": [
-    "Sporecyst"
+    "Sporocyst"
   ],
   "Flyers": [
     "Harpy",
@@ -157,7 +157,7 @@ export const units: Record<string, Unit> = {
   "Norn": heavy_support_norn as Unit,
   "Tyrannofex": heavy_support_tyrannofex as Unit,
   "Tyrannocyte": dedicated_transport_tyrannocyte as Unit,
-  "Sporecyst": fortifications_sporecyst as Unit,
+  "Sporocyst": fortifications_sporocyst as Unit,
   "Harpy": flyers_harpy as Unit,
   "Hive Crone": flyers_hive_crone as Unit,
 };

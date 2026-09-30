@@ -59,7 +59,7 @@ export const TYRANID_UNIT_TYPES: TyranidUnitTypeEntry[] = [
   // Dedicated Transport
   { name: 'Tyrannocyte', unit_type: 'Monstrous Creature' },
   // Fortifications
-  { name: 'Sporecyst', unit_type: 'Monstrous Creature' },
+  { name: 'Sporocyst', unit_type: 'Monstrous Creature' },
   // Flyers
   { name: 'Harpy', unit_type: 'Flyer, Monstrous Creature' },
   { name: 'Hive Crone', unit_type: 'Flyer, Monstrous Creature' },

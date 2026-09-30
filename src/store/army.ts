@@ -961,7 +961,7 @@ export const useArmyStore = create<ArmyStore>()(
     {
       name: 'custom40k-army',
       storage: createJSONStorage(() => sessionStorage),
-      version: 5,
+      version: 6,
       migrate: (persisted: unknown, fromVersion: number) => {
         const s = persisted as Record<string, unknown>;
         if (fromVersion < 1) {
@@ -1008,6 +1008,21 @@ export const useArmyStore = create<ArmyStore>()(
           if (typeof s.faction === 'string' && Array.isArray(s.army)) {
             s.army = migrateTyranidBiomorphsToArmory(s.faction, s.army as RosterEntry[]) as typeof s.army;
             s.army = applyOptionGroupRemovals(s.faction, s.army as RosterEntry[]) as typeof s.army;
+          }
+        }
+        if (fromVersion < 6) {
+          /*
+           * A unit renamed AFTER version 4 (Tyranid Sporecyst -> Sporocyst, 2026-09-30). The rename
+           * in fromVersion < 4 ran once, long ago, so an in-progress session saved under the old
+           * spelling would never be mapped forward, and a name that no longer resolves renders
+           * nothing and costs nothing (see unitRenames.ts).
+           *
+           * Renames ONLY. Not applyOptionGroupRemovals: that shifts option indices and is gated
+           * elsewhere on proof that the list is old; running it again here would slide a list that
+           * was already migrated onto the wrong options.
+           */
+          if (typeof s.faction === 'string' && Array.isArray(s.army)) {
+            s.army = applyUnitRenames(s.faction, s.army as { unitName: string }[]) as typeof s.army;
           }
         }
         return s;
