@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-9",
+        "Spore Mine",
+        "6\"",
+        "-",
+        "-",
+        1,
+        1,
+        1,
+        3,
+        1,
+        1,
+        "6+",
+        7
+    ],
+    [
+        "Every model is equipped with: Spore mine explosion."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Spore mine explosion",
+        "-",
+        "-",
+        6,
+        -2,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike, Infiltrator, Mindless, Move Through Cover"
+    ],
+    [
+        "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Spore mine explosion\" profile, if an enemy model comes within 3\" distance. Resolve one explosion per model in the unit."
+    ],
+    [
+        "Drifting Death: Instead of receiving orders as normal, Spore Mines drift aimlessly. During each Rally phase, roll 1D6 and a scatter die for every Spore Mine unit on the battlefield. The unit moves a number of inches equal to the D6 result in the direction indicated by the scatter die. If a Hit symbol is rolled, the controlling player chooses the direction instead."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Basic Bioform"
+    ]
+]

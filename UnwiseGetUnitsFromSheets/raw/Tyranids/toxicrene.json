@@ -1,0 +1,118 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Toxicrene",
+        "6\"",
+        "3+",
+        "3+",
+        7,
+        8,
+        7,
+        3,
+        4,
+        7,
+        "3+",
+        200
+    ],
+    [
+        "Every model is equipped with: Massive toxic lashes."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Massive toxic lashes"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "AT(1), Extra Attack(2), Poison(2+)"
+    ],
+    [
+        "- Ranged",
+        "12\"",
+        "Pistol 6",
+        "U",
+        -2,
+        1,
+        "AT(1), Poison(2+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Feeder Tendrils",
+        "+5 points"
+    ],
+    [
+        "- Synaptic Node",
+        "+15 points"
+    ],
+    [
+        "- Resonator",
+        "+21 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+32 points"
+    ],
+    [
+        "- Regeneration",
+        "+35 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Instinctive Behaviour, Move Through Cover, Parry, Retribution(3)"
+    ],
+    [
+        "Grasping Tendrils: Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model."
+    ],
+    [
+        "Volatile: The model always explodes like a vehicle."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature "
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

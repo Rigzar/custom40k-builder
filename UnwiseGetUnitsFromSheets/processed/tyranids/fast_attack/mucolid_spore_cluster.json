@@ -1,0 +1,50 @@
+{
+    "models": [
+        {
+            "NAME": "Mucolid Spore",
+            "M": "12\"",
+            "WS": "-",
+            "BS": "-",
+            "S": 1,
+            "T": 3,
+            "W": 3,
+            "I": 3,
+            "A": 1,
+            "LD": 1,
+            "SV": "6+",
+            "min": 1,
+            "max": 6,
+            "points": 40
+        }
+    ],
+    "equipped_with": [
+        "Every model is equipped with: -."
+    ],
+    "weapons": [
+        {
+            "name": "Mucolid spore explosion",
+            "range": "-",
+            "type": "-",
+            "s": 8,
+            "ap": -3,
+            "d": 2,
+            "abilities": "Anti-Air, AT(2)"
+        }
+    ],
+    "abilities": [
+        [
+            "ABILITIES"
+        ],
+        [
+            "Infiltrator, Mindless, Stealth"
+        ],
+        [
+            "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Mucolid mine explosion\" profile, if an enemy model comes within 3\" distance. Resolve one explosion per model in the unit."
+        ]
+    ],
+    "unit_type": "['Jump Pack Infantry']",
+    "keywords": [
+        "Tyranids",
+        "Basic Bioform"
+    ]
+}

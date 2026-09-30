@@ -1,0 +1,153 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-9",
+        "Ravener",
+        "12\"",
+        "2+",
+        "3+",
+        5,
+        5,
+        3,
+        5,
+        3,
+        6,
+        "4+",
+        55
+    ],
+    [
+        "Every model is equipped with: 2 Scything talons."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Deathspitter",
+        "24\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Devourer",
+        "18\"",
+        "Rapid Fire 2",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Rending claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Rending(5+)"
+    ],
+    [
+        "Scything talons",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "Spinefists",
+        "12\"",
+        "Pistol 2",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        " \u2022 Any model may exchange one pair of Scything talons:"
+    ],
+    [
+        "- Rending Claws",
+        "+0 points"
+    ],
+    [
+        " \u2022 Any model may take one of the following:"
+    ],
+    [
+        "- Spinefists",
+        "+3 points"
+    ],
+    [
+        "- Devourer",
+        "+6 points"
+    ],
+    [
+        "- Deathspitter",
+        "+12 points"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Scuttlers",
+        "+5 points"
+    ],
+    [
+        "- Resonator",
+        "+7 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+12 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike, Instinctive Behaviour, Massive(2), Move Through Cover, Parry"
+    ],
+    [
+        "Death From Below: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

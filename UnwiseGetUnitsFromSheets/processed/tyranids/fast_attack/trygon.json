@@ -1,0 +1,86 @@
+{
+    "models": [
+        {
+            "NAME": "Trygon",
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": 6,
+            "T": 7,
+            "W": 6,
+            "I": 4,
+            "A": 4,
+            "LD": 7,
+            "SV": "3+",
+            "min": 1,
+            "max": 2,
+            "points": 179
+        }
+    ],
+    "equipped_with": [
+        "Every model is equipped with: Bio-electric pulse; 2 Monstrous scything talons."
+    ],
+    "weapons": [
+        {
+            "name": "Bio-electric pulse",
+            "range": "12\"",
+            "type": "Assault 6",
+            "s": 5,
+            "ap": -1,
+            "d": 1,
+            "abilities": "Deflagrate(5+)"
+        },
+        {
+            "name": "Monstrous scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": -2,
+            "d": 2,
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Prehensile pincer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": -3,
+            "d": 2,
+            "abilities": "AT(2), Extra Attack(1), Limit(1)"
+        },
+        {
+            "name": "Toxinspike",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": -4,
+            "d": 3,
+            "abilities": "Extra Attack(1), Limit(1), Poison(2+)"
+        }
+    ],
+    "abilities": [
+        [
+            "ABILITIES"
+        ],
+        [
+            "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron"
+        ],
+        [
+            "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules."
+        ],
+        [
+            "Subterranean Assault: If this model starts the game in Reserve, you may pair it with one Troops unit that is also in Reserve. Both units arrive from Reserve using a single roll. Set up the Trygon first, following the rules for the chosen deployment method, then set up the paired Troops unit wholly within 3\" of the Trygon."
+        ],
+        [
+            "Upgrades:"
+        ],
+        [
+            "Trygon Prime: The model gains the \"Fearless\" and \"Synapse\" abilities. Additionally, its Bio-electric pulse weapon gains the \"Assault 12\" type."
+        ]
+    ],
+    "unit_type": "['Monstrous Creature ']",
+    "keywords": [
+        "Tyranids",
+        "Advanced Bioform"
+    ]
+}

@@ -1,0 +1,225 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-3",
+        "Carnifex",
+        "6\"",
+        "3+",
+        "3+",
+        6,
+        7,
+        5,
+        3,
+        4,
+        7,
+        "3+",
+        106
+    ],
+    [
+        "Every model is equipped with: 2 Monstrous scything talons."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bio plasma",
+        "12\"",
+        "Assault 1",
+        7,
+        -4,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "Bone mace",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        2,
+        "AT(2), Extra Attack(1), Limit(1)"
+    ],
+    [
+        "Crushing claws",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Heavy venom cannon",
+        "36\"",
+        "Assault 1",
+        9,
+        -3,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "Monstrous scything talons",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        2,
+        "Extra Attack(1)"
+    ],
+    [
+        "Spine banks",
+        "6\"",
+        "Assault 1",
+        6,
+        0,
+        1,
+        "Blast(4), Suppression(3)"
+    ],
+    [
+        "Stranglethorn cannon",
+        "36\"",
+        "Assault 1",
+        7,
+        0,
+        1,
+        "AT(1), Blast(6), Suppression(3)"
+    ],
+    [
+        "Thresher scythe",
+        "-",
+        "Melee",
+        4,
+        -1,
+        1,
+        "Deflagrate(5+), Extra Attack(3)"
+    ],
+    [
+        "Twin deathspitter with slimer maggots",
+        "24\"",
+        "Assault 4",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin devourer with brainleech worms",
+        "18\"",
+        "Rapid Fire 4",
+        "U",
+        0,
+        1,
+        "Shred"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Each model may swap one of their Monstrous scything talons:"
+    ],
+    [
+        "- Crushing claws",
+        "+3 points"
+    ],
+    [
+        "\u2022 Each model may swap one of their Monstrous scything talons:"
+    ],
+    [
+        "- Twin devourer with brainleech worms",
+        "+3 points"
+    ],
+    [
+        "- Stranglethorn cannon",
+        "+14 points"
+    ],
+    [
+        "- Twin deathspitter with slimer maggots",
+        "+19 points"
+    ],
+    [
+        "- Heavy venom cannon",
+        "+90 points"
+    ],
+    [
+        "\u2022 Each model may be equipped with one of the following:"
+    ],
+    [
+        "- Spine banks",
+        "+7 points"
+    ],
+    [
+        "- Bio plasma",
+        "+27 points"
+    ],
+    [
+        "\u2022 Each model may be equipped with one of the following:"
+    ],
+    [
+        "- Thresher scythe",
+        "+6 points"
+    ],
+    [
+        "- Bone mace",
+        "+13 points"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Resonator",
+        "+14 points"
+    ],
+    [
+        "- Synaptic Node",
+        "+15 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+21 points"
+    ],
+    [
+        "- Regeneration",
+        "+25 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Instinctive Behaviour, Move Through Cover, Squadron"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature "
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

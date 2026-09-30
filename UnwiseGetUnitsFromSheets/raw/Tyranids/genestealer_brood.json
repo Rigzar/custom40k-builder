@@ -1,0 +1,142 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Genestealer",
+        "6\"",
+        "2+",
+        "6+",
+        4,
+        4,
+        1,
+        5,
+        3,
+        10,
+        "5+",
+        15
+    ],
+    [
+        "*",
+        "Broodlord",
+        "6\"",
+        "2+",
+        "6+",
+        5,
+        5,
+        3,
+        6,
+        4,
+        10,
+        "4+",
+        67
+    ],
+    [
+        "Every model is equipped with: Piercing claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Piercing claws",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Scything talons",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One model may be upgraded to a Broodlord for +52 points."
+    ],
+    [
+        "\u2022 All models may be equipped with:"
+    ],
+    [
+        "- Scything talons",
+        "+1 point"
+    ],
+    [
+        "\u2022 May be upgraded to one of the following:"
+    ],
+    [
+        "- Ymgarl Genestealers",
+        "+0pts "
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Scuttlers",
+        "+1 point"
+    ],
+    [
+        "- Feeder Tendrils",
+        "+1 point"
+    ],
+    [
+        "- Hardened Carapace",
+        "+6 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infiltrator, Move Through Cover"
+    ],
+    [
+        "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline."
+    ],
+    [
+        "Upgrades:"
+    ],
+    [
+        "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Basic Bioform"
+    ]
+]

@@ -1,0 +1,244 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS"
+    ],
+    [
+        "Headlong charge",
+        "-",
+        "Melee",
+        10,
+        -2,
+        1,
+        "AT(2), Auto Hit, Blast(4), Charge, Extra Attack(1), Limit(1), Quick(+7)",
+        "-"
+    ],
+    [
+        "Implant Attack",
+        "-",
+        "Melee",
+        2,
+        -4,
+        1,
+        "Extra Attack(1), Limit(1), Hits automatically wound the target",
+        "-"
+    ],
+    [
+        "Symbiote Rippers",
+        "-",
+        "Melee",
+        3,
+        0,
+        1,
+        "Extra Attack(3)",
+        "-"
+    ],
+    [
+        "BASIC BIOMORPHS",
+        "POINTS"
+    ],
+    [
+        "Basic Bioform",
+        "Adv. Bioform"
+    ],
+    [
+        "Acid Maw",
+        "The unit may re-roll one to wound roll in melee per battle round.",
+        5,
+        5
+    ],
+    [
+        "Adrenal Glands",
+        "The unit gains \"Haste(2\")\".",
+        5,
+        5
+    ],
+    [
+        "Enhanced Senses",
+        "The unit gains the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Heightened Reflexes",
+        "If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
+        5,
+        5
+    ],
+    [
+        "Pathogenesis",
+        "The unit adds +3\" to all of its ranged weapons.",
+        5,
+        5
+    ],
+    [
+        "Relentless Hunger",
+        "The unit gains +3\" for its Consolidation moves.",
+        5,
+        5
+    ],
+    [
+        "Toxin Sacs",
+        "The unit gains the \"Poison(4+)\" ability for all melee attacks.",
+        5,
+        5
+    ],
+    [
+        "Point costs are paid per unit."
+    ],
+    [
+        "ADVANCED BIOMORPHS",
+        "POINTS"
+    ],
+    [
+        "Basic Bioform",
+        "Adv. Bioform"
+    ],
+    [
+        "Acid Blood",
+        "The model gains the \"Retribution(1)\" ability. Advanced Bioforms gain \"Retribution(3)\" instead.",
+        1,
+        5
+    ],
+    [
+        "Camouflage",
+        "The unit gains the benefit of light cover until its first activation.",
+        1,
+        3
+    ],
+    [
+        "Extremely Volatile",
+        "The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7.",
+        0,
+        0
+    ],
+    [
+        "Implant Attack",
+        "The model gains the \"Implant Attack\" weapon. Only for units without the Flyer type.",
+        "-",
+        5
+    ],
+    [
+        "Infrasonic Roar",
+        "All ranged weapons in the unit gain the \"Suppression(2)\" ability against targets within 12\". Advanced Bioforms gain \"Suppression(3)\".",
+        1,
+        5
+    ],
+    [
+        "Living Battering Ram",
+        "The unit gains the \"Headlong Charge\" weapon. Can only be taken by Monstrous Creatures without the Flyer unit type.",
+        "-",
+        15
+    ],
+    [
+        "Pheromone trail",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        "-",
+        10
+    ],
+    [
+        "Resonance Barb",
+        "The unit gains +1 to all tests for manifesting a psychic power.",
+        "-",
+        5
+    ],
+    [
+        "Symbiote Rippers",
+        "The unit gains the \"Symbiote Rippers\" weapon. Only for units without the Flyer type.",
+        "-",
+        3
+    ],
+    [
+        "Synaptic Disruption Organ",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        "-",
+        15
+    ],
+    [
+        "Thornback",
+        "The unit doubles the final combat result for its own army in each melee in which it participates.",
+        1,
+        5
+    ],
+    [
+        "Tusked",
+        "The unit gains +1 Strength.",
+        "-",
+        5
+    ],
+    [
+        "Warped",
+        "The unit gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        1,
+        5
+    ],
+    [
+        "Point costs are paid per model."
+    ],
+    [
+        "SPECIAL BIOMORPHS",
+        "POINTS"
+    ],
+    [
+        "Endless",
+        "If the unit is below half its starting strength or is destroyed, it can be removed from the field once per game at the end of the battle round and automatically reappears as a reserve at full starting strength in the next battle round. Additionally, you get one \"Spawning pool\" token for every started three units with the \"Endless\" ability. You may set them up after all Infiltrators have been placed during the Deployment phase. They have to be placed at least 12\" away from the enemy deployment zone and at least 6\" away from any mission objective. Units with the \"Endless\" ability may enter the game through these tokens when arriving from reserve and be given any kind of order. If an enemy unit is within 3\" of a \"Spawning pool\" token during the Reinforcement phase, the marker is removed for the rest of the game.",
+        "See datasheet"
+    ],
+    [
+        "Feeder Tendrils",
+        "The unit gains the \"Favoured Enemy(everything)\" ability for itself and any friendly unit in the same melee combat.",
+        "See datasheet"
+    ],
+    [
+        "Hardened Carapace",
+        "The unit improves its armor save by +1, to a maximum of 2+.",
+        "See datasheet"
+    ],
+    [
+        "Leaping",
+        "The unit gains the \"Frenzy(6\")\" ability.",
+        "See datasheet"
+    ],
+    [
+        "Norn Crown",
+        "The unit may cast and deny 1 more psychic power per battle round. Unique.",
+        "See datasheet"
+    ],
+    [
+        "Regeneration",
+        "The unit gains the \"Regeneration(1)\" ability.",
+        "See datasheet"
+    ],
+    [
+        "Resonator",
+        "The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability.",
+        "See datasheet"
+    ],
+    [
+        "Scuttlers",
+        "The unit gains the \"Vanguard\" ability.",
+        "See datasheet"
+    ],
+    [
+        "Synaptic Node",
+        "The unit gains the \"Fearless\" and \"Synapse\" ability. Only a single unit per army may take this Biomorph.",
+        "See datasheet"
+    ],
+    [
+        "Winged",
+        "The unit gains +6\" Movement as well as the \"Anti-Grav\" and \"Deep Strike\" abilities.",
+        "See datasheet"
+    ],
+    [
+        "Point costs are paid per model."
+    ]
+]
