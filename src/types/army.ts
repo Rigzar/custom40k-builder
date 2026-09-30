@@ -141,6 +141,18 @@ export interface RosterEntry {
    */
   ctanYngirUpgrade?: boolean;
   /**
+   * This entry is the one the archetype promotes into an HQ selection.
+   *
+   * Four Tyranid archetypes say a named unit "becomes a HQ selection" — Megafauna's Carnifex,
+   * Subterranean Assault's Trygon, Vanguard Onslaught's Deathleaper (GH#168). The promotion is
+   * per ENTRY, not per datasheet: an army may field several Carnifex Broods and only one of them
+   * is the HQ. Which rule applies, and whether an upgrade must be bought first, comes from the
+   * archetype's `hqPromotion`; this flag only says which entry claims it.
+   *
+   * Cleared when the archetype changes, the same way `ctanYngirUpgrade` is.
+   */
+  archetypeHqUpgrade?: boolean;
+  /**
    * This entry is set up using its faction's deployment rule -- Eldar/Harlequins "Webway strike",
    * Dark Eldar "Webway raid", Custodes "Lightning strike", Orks "Tellyporta". Each is an Index-tab
    * army rule costing points per Wound (or per Hull Point), capped at one unit per STARTED 1000
@@ -194,6 +206,8 @@ export interface ArmyState {
   campaignId?: number | null;
   campaignFaction?: string | null;
   army: RosterEntry[];
+  /** Saved-list layout version; 5 = Tyranid Biomorphs live in the shared Armory (GH#167). */
+  savedFormat?: number;
   alliedFaction?: string;
   /**
    * Allied Detachment's OWN Army Customisation — independent of the primary faction's

@@ -79,6 +79,9 @@ function selId() {
 }
 
 type ArmoryTab = 'general' | 'hostGeneral' | 'mark' | 'legion' | 'authority' | 'archetypeArmory';
+/** Items that buy the right to take ONE item out of another armoury (Red Corsairs Reaver Lord,
+ *  Blood Ravens I.O.U) — the item fetched is added as its own selection, tagged borrowedVia. */
+const BORROW_GATEWAYS = ['Reaver Lord', 'I.O.U'];
 type Section = 'weapons' | 'equipment' | 'daemon_weapons';
 
 function parsePrice(v: number | null | undefined | string): number | null {
@@ -103,7 +106,10 @@ function isWeaponCostSpecial(desc?: string): boolean {
   // is worse than showing "Special" and letting the player add the chosen item's cost by hand.
   return !!desc && (
     /cost\b[^.]*\bis the same as\b[^.]*\bweapon\b/i.test(desc) ||
-    /\bfor the stated cost\b/i.test(desc)
+    /\bfor the stated cost\b/i.test(desc) ||
+    // Blood Ravens "I.O.U": "Select one weapon or equipment item from the (Legacy) Armory of any
+    // other army" — same shape as the Reaver Lord, priced off the item it fetches.
+    /\bselect one weapon or equipment item from the \(legacy\) armory of any other army\b/i.test(desc)
   );
 }
 
@@ -400,6 +406,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   function getSelId(itemName: string, sec: Section): string | undefined {
     return currentArmory.find(a => a.itemName === itemName && a.section === sec)?.id;
+  }
+  /**
+   * HOW MANY copies of this item the unit has bought, not merely whether it has one.
+   *
+   * The weapon table's control used to be a checkbox: ticked when owned, and a click on a ticked
+   * box REMOVED it. So a second copy was unreachable — the click that should have bought it gave
+   * back the first (GH#170, GH#171: "only one item is added, and I can't add more", "the ability
+   * to add multiple weapons from the armory has been lost"). The store has always appended, so
+   * nothing but the control stood in the way.
+   */
+  function getSelCount(itemName: string, sec: Section): number {
+    return currentArmory.filter(a => a.itemName === itemName && a.section === sec).length;
   }
   function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
@@ -854,13 +872,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
    */
   // `currentArmory`, not `item.armory` — the prop is the snapshot the modal opened with, so
   // reading it would not see the Reaver Lord until the modal was closed and reopened.
-  const reaverSel = currentArmory.find(a => a.itemName === 'Reaver Lord');
+  const reaverSel = currentArmory.find(a => BORROW_GATEWAYS.includes(a.itemName));
   const borrowedSel = reaverSel ? currentArmory.find(a => a.borrowedVia === reaverSel.id) : undefined;
   const reaverLordCtx = (() => {
     if (!reaverSel) return undefined;
     const pools: Record<string, ArmoryItem[]> = {};
     const usable = (list?: ArmoryItem[]) =>
-      (list ?? []).filter(a => a.name !== 'Reaver Lord' && parsePrice(a.p_char) != null);
+      (list ?? []).filter(a => !BORROW_GATEWAYS.includes(a.name) && parsePrice(a.p_char) != null);
     const addPool = (label: string, arm?: { weapons?: ArmoryItem[]; equipment?: ArmoryItem[] }) => {
       const items = [...usable(arm?.weapons as ArmoryItem[]), ...usable(arm?.equipment as ArmoryItem[])];
       if (items.length) pools[label] = items;
@@ -878,7 +896,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         addArmoryItem(item.id, {
           id: selId(),
           itemName: arm.name,
-          source: `Reaver Lord · ${source}`,
+          source: `${reaverSel.itemName} · ${source}`,
           // A borrowed WEAPON has to land in the weapons section or the resolver will not turn it
           // into a profile row; everything else is equipment.
           section: (arm.profiles?.length || arm.range) ? 'weapons' : 'equipment',
@@ -1210,10 +1228,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         eqExarchPower={eqExarchPower}
                         onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                       />
-                    ) : (
-                      markItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                        : markItems.map((arm, i) => (
+                    ) : markItems.length === 0 ? (
+                      <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
+                    ) : effectiveSection === 'weapons' ? (
+                      <ArmoryWeaponTable
+                        items={markItems} justAddedName={lastAdded ?? undefined}
+                        isBlocked={arm => isAddBlocked(arm, effectiveSection)}
+                        getPts={getItemPts}
+                        getSelId={name => getSelId(name, effectiveSection)}
+                        getCount={name => getSelCount(name, effectiveSection)}
+                        onRemove={removeItem}
+                        onAdd={arm => add(arm, `${markName} Armoury`, effectiveSection)}
+                      />
+                    ) : markItems.map((arm, i) => (
                           <ArmoryItemRow
                             key={i} arm={arm} isChar={isChar}
                             justAdded={lastAdded === arm.name}
@@ -1223,8 +1250,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, `${markName} Armoury`, effectiveSection)}
                           />
-                        ))
-                    )}
+                        ))}
                   </div>
                 );
               })}
@@ -1305,10 +1331,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                         reaverLord={reaverLordCtx}
                       />
-                    ) : (
-                      legItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-4">{t('noItemsInSection')}</div>
-                        : legItems.map((arm, i) => (
+                    ) : legItems.length === 0 ? (
+                      <div className="text-zinc-500 italic text-sm text-center py-4">{t('noItemsInSection')}</div>
+                    ) : effectiveSection === 'weapons' ? (
+                      <ArmoryWeaponTable
+                        items={legItems} markless={legMarkless(legName)} justAddedName={lastAdded ?? undefined}
+                        isBlocked={arm => isAddBlocked(arm, effectiveSection)}
+                        getPts={getItemPts}
+                        getSelId={name => getSelId(name, effectiveSection)}
+                        getCount={name => getSelCount(name, effectiveSection)}
+                        onRemove={removeItem}
+                        onAdd={arm => add(arm, legName, effectiveSection)}
+                      />
+                    ) : legItems.map((arm, i) => (
                           <ArmoryItemRow
                             key={i} arm={arm} isChar={isChar} markless={legMarkless(legName)}
                             justAdded={lastAdded === arm.name}
@@ -1318,8 +1353,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, legName, effectiveSection)}
                           />
-                        ))
-                    )}
+                        ))}
                   </div>
                 );
               })
@@ -1392,24 +1426,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         eqExarchPower={eqExarchPower}
                         onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                       />
+                    ) : foreignWeapons.length === 0 ? (
+                      <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
                     ) : (
-                      foreignWeapons.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                        : foreignWeapons.map((arm, i) => {
-                          const pts = getItemPts(arm);
-                          const blocked = authorityCapReached || pts === null;
-                          return (
-                            <ArmoryItemRow
-                              key={i} arm={arm} isChar={isChar}
-                              justAdded={lastAdded === arm.name}
-                              disabled={blocked}
-                              selectedArmoryId={getSelId(arm.name, 'weapons')}
-                              ptsOverride={pts}
-                              onRemove={removeItem}
-                              onAdd={() => !blocked && add(arm, AUTHORITY_SOURCE, 'weapons')}
-                            />
-                          );
-                        })
+                      <ArmoryWeaponTable
+                        items={foreignWeapons} justAddedName={lastAdded ?? undefined}
+                        isBlocked={() => authorityCapReached}
+                        getPts={getItemPts}
+                        getSelId={name => getSelId(name, 'weapons')}
+                        getCount={name => getSelCount(name, 'weapons')}
+                        onRemove={removeItem}
+                        onAdd={arm => add(arm, AUTHORITY_SOURCE, 'weapons')}
+                      />
                     )}
                   </div>
                 );
@@ -1496,23 +1524,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 }
                 return foreignWeapons.length === 0
                   ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                  : foreignWeapons.map((arm, i) => {
-                    const pts = getItemPts(arm);
-                    const blocked = pts === null;
-                    return (
-                      <div key={i}>
-                        <ArmoryItemRow
-                          arm={arm} isChar={isChar}
-                          justAdded={lastAdded === arm.name}
-                          disabled={blocked}
-                          selectedArmoryId={getSelId(arm.name, 'weapons')}
-                          ptsOverride={pts}
-                          onRemove={removeItem}
-                          onAdd={() => !blocked && add(arm, foreignSrcLabel, 'weapons')}
-                        />
-                      </div>
-                    );
-                  });
+                  : (
+                    <ArmoryWeaponTable
+                      items={foreignWeapons} justAddedName={lastAdded ?? undefined}
+                      isBlocked={() => false}
+                      getPts={getItemPts}
+                      getSelId={name => getSelId(name, 'weapons')}
+                        getCount={name => getSelCount(name, 'weapons')}
+                      onRemove={removeItem}
+                      onAdd={arm => add(arm, foreignSrcLabel, 'weapons')}
+                    />
+                  );
               })()}
             </div>
           ) : effectiveSection === 'equipment' ? (
@@ -1558,9 +1580,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           ) : (
             (() => {
               const items = getItems(effectiveSection);
-              return items.length === 0
-                ? <div className="text-zinc-500 italic text-sm text-center py-8">{t('noItemsInSection')}</div>
-                : items.map((arm, i) => (
+              if (items.length === 0) return <div className="text-zinc-500 italic text-sm text-center py-8">{t('noItemsInSection')}</div>;
+              const armSource = tab === 'mark' ? `${effectiveMark} Armoury` : 'General';
+              return effectiveSection === 'weapons' ? (
+                <ArmoryWeaponTable
+                  items={items} markless={isMarklessFaction}
+                  justAddedName={lastAdded ?? undefined}
+                  isBlocked={arm => isAddBlocked(arm, effectiveSection)}
+                  getPts={getItemPts}
+                  getSelId={name => getSelId(name, effectiveSection)}
+                        getCount={name => getSelCount(name, effectiveSection)}
+                  onRemove={removeItem}
+                  onAdd={arm => add(arm, armSource, effectiveSection)}
+                />
+              ) : items.map((arm, i) => (
                   <ArmoryItemRow
                     key={i} arm={arm} isChar={isChar} markless={isMarklessFaction}
                     justAdded={lastAdded === arm.name}
@@ -1568,7 +1601,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     selectedArmoryId={getSelId(arm.name, effectiveSection)}
                     ptsOverride={getItemPts(arm)}
                     onRemove={removeItem}
-                    onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
+                    onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, armSource, effectiveSection)}
                   />
                 ));
             })()
@@ -1808,7 +1841,7 @@ function EquipmentGroups({
                   />
                 )}
                 {/* Reaver Lord — the cross-armoury pick, inline under the item once it is bought. */}
-                {reaverLord && arm.name === 'Reaver Lord' && getSelId?.(arm.name) && (
+                {reaverLord && BORROW_GATEWAYS.includes(arm.name) && getSelId?.(arm.name) && (
                   <ReaverLordPicker
                     pools={reaverLord.pools}
                     chosen={reaverLord.chosen}
@@ -2199,8 +2232,15 @@ function ArmoryItemRow({
 
   if (selectedArmoryId && onRemove) {
     return (
-      <div className="w-full flex justify-between items-start px-3 py-2 border text-left gap-2 bg-zinc-800/50 border-zinc-600">
-        <div className="min-w-0">
+      <div className="w-full flex items-start px-3 py-2 border text-left gap-2 bg-zinc-800/50 border-zinc-600">
+        <div
+          onClick={() => onRemove(selectedArmoryId)}
+          title={t('removeUnit')}
+          className="w-4 h-4 mt-0.5 border flex items-center justify-center shrink-0 cursor-pointer bg-amber-700 border-amber-600"
+        >
+          <span className="text-[8px] text-white leading-none">✓</span>
+        </div>
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1 flex-wrap">
             <span className="text-sm font-medium text-zinc-400">{displayName}</span>
             <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>
@@ -2246,7 +2286,7 @@ function ArmoryItemRow({
     <button
       onClick={onAdd}
       disabled={disabled || priceIsNull}
-      className={`w-full flex justify-between items-start px-3 py-2 border text-left gap-2 transition-all duration-200
+      className={`w-full flex items-start px-3 py-2 border text-left gap-2 transition-all duration-200
         ${inProfile
           ? 'bg-zinc-800/50 border-zinc-700 opacity-50 cursor-not-allowed'
           : (disabled || priceIsNull)
@@ -2256,7 +2296,12 @@ function ArmoryItemRow({
               : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700'
         }`}
     >
-      <div className="min-w-0">
+      <div
+        aria-hidden="true"
+        className={`w-4 h-4 mt-0.5 border flex items-center justify-center shrink-0
+          ${(disabled || priceIsNull || inProfile) ? 'bg-zinc-800 border-zinc-700' : 'bg-zinc-900 border-zinc-600'}`}
+      />
+      <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1 flex-wrap">
           <span className={`text-sm font-medium transition-colors ${justAdded ? 'text-green-400' : 'text-zinc-200'}`}>
             {displayName}
@@ -2310,4 +2355,119 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
     return <div className="text-[10px] text-zinc-600 italic mt-0.5">{arm.abilities}</div>;
   }
   return <div className="text-[10px] text-zinc-600 italic mt-0.5">{t('seeFactionRulesProfile')}</div>;
+}
+
+/**
+ * Checkbox-table view of the Armory's Weapons tab, requested on Discord (Unwise): "sometimes I
+ * already know what gear I want and I find the checkbox menu very intuitive and fast." Same
+ * column layout as the datasheet's own weapon-swap tables (UnitCard.tsx) — WEAPON/RANGE/TYPE/S/
+ * AP/D/ABILITIES/PTS — just fed from ArmoryItem[] instead of a Choice[], since both shapes already
+ * carry the same stat fields. Equipment stays on the card view: most equipment items have no
+ * range/S/AP/D to put in these columns.
+ *
+ * Ownership is binary (checked/unchecked), same simplification the swap tables themselves use —
+ * a multi-model unit that can buy several copies of one weapon still uses the card view's own
+ * "Add another" button for the second-and-later copies; this table only toggles the first.
+ *
+ * Multi-profile items (`arm.profiles`, e.g. a combi-weapon's separate fire modes) show their
+ * FIRST profile's stats in the row — full per-profile sub-rows belong to a future pass if this
+ * shape turns out to be common in practice; today's items are effectively all single-profile.
+ */
+function ArmoryWeaponTable({
+  items, isBlocked, getPts, getSelId, getCount, onAdd, onRemove, justAddedName, markless = false,
+}: {
+  items: ArmoryItem[];
+  isBlocked: (arm: ArmoryItem) => boolean;
+  getPts: (arm: ArmoryItem) => number | null;
+  getSelId: (name: string) => string | undefined;
+  /** How many copies are owned — see getSelCount. A weapon may be bought once per model. */
+  getCount: (name: string) => number;
+  onAdd: (arm: ArmoryItem) => void;
+  onRemove: (id: string) => void;
+  justAddedName?: string;
+  markless?: boolean;
+}) {
+  const t = useT();
+  return (
+    <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
+      {/* NOT table-fixed — same reasoning as the datasheet's own weapon-swap table: forcing the
+          declared percentages in this narrow panel piles the headers on top of each other. */}
+      <table className="w-full text-xs border-collapse">
+        <thead>
+          <tr className="border-b border-zinc-600">
+            <th className="py-1.5 pl-2 w-[7%]" />
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[22%]">{t('weapon')}</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">{t('rangeFullLabel')}</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[12%]">{t('typeFullLabel')}</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
+            <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((arm, i) => {
+            const selId = getSelId(arm.name);
+            const owned = !!selId;
+            const count = getCount(arm.name);
+            const blocked = isBlocked(arm);
+            const pts = getPts(arm);
+            const costIsSpecial = isWeaponCostSpecial(arm.desc);
+            const priceIsNull = pts === null && !costIsSpecial;
+            const disabled = !owned && (blocked || priceIsNull);
+            const ptsLabel = costIsSpecial ? 'Special' : (pts != null ? `${pts >= 0 ? '+' : ''}${pts}` : '—');
+            const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
+            const profile = arm.profiles && arm.profiles.length > 0 ? arm.profiles[0] : arm;
+            return (
+              <tr
+                key={i}
+                title={arm.desc}
+                className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-40' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
+              >
+                {/* A COUNTER, not a checkbox. Clicking the box buys another copy and shows how
+                    many are owned; the "−" beside it gives one back. The old control toggled, so
+                    the click meant to buy a second Big choppa returned the first (GH#170/#171). */}
+                <td className="py-1.5 pl-2">
+                  <div className="flex items-center gap-1">
+                    <div
+                      onClick={() => { if (!disabled) onAdd(arm); }}
+                      title={count > 0 ? `${count} — clic para añadir otra` : undefined}
+                      className={`w-4 h-4 border flex items-center justify-center transition-colors
+                        ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
+                        ${disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
+                    >
+                      {owned && (
+                        <span className="text-[8px] text-white leading-none">
+                          {count > 1 ? count : '✓'}
+                        </span>
+                      )}
+                    </div>
+                    {owned && (
+                      <button
+                        type="button"
+                        onClick={() => onRemove(selId!)}
+                        title="Quitar una"
+                        className="w-3 h-4 leading-none text-[11px] text-zinc-500 hover:text-red-400"
+                      >
+                        −
+                      </button>
+                    )}
+                  </div>
+                </td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">{displayName}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
+                <td className="py-1.5 px-1 text-zinc-300">{profile.type ?? '-'}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.ap ?? '-'}</td>
+                <td className="py-1.5 px-1 text-center text-zinc-300">{profile.d ?? '-'}</td>
+                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? profile.abilities : '—'}</td>
+                <td className="py-1.5 px-2 text-right text-amber-600 whitespace-nowrap">{ptsLabel}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 }

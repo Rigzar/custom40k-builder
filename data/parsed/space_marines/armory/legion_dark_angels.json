@@ -119,14 +119,14 @@
     {
       "name": "Teleport homing beacon",
       "term_compat": false,
-      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
       "p_unit": null,
       "p_char": 10
     },
     {
       "name": "Teleport homing beacon",
       "category": "vehicle",
-      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
       "p_unit": 10,
       "p_char": null
     }

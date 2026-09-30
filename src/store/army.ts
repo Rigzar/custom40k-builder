@@ -5,7 +5,7 @@ import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
-import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory } from '../engine/unitRenames';
+import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
 import { isPsykerOnlyTrait } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
@@ -463,8 +463,17 @@ export const useArmyStore = create<ArmyStore>()(
         const army = s.data
           ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : baseArmy;
-        return { archetype: a, army: clearYngir ? army.map((e: RosterEntry) =>
-          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : army };
+        /*
+         * An archetype's HQ promotion belongs to THAT archetype, so switching away always drops
+         * it — otherwise a Carnifex promoted under Megafauna keeps sitting in the HQ slot of an
+         * army that no longer has the rule, and the slot maths quietly goes wrong. Cleared
+         * unconditionally, unlike the Yngir flag, because every archetype that grants one names
+         * a different unit.
+         */
+        const cleared = army.map((e: RosterEntry) =>
+          e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
+        return { archetype: a, army: clearYngir ? cleared.map((e: RosterEntry) =>
+          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : cleared };
       }),
 
       setLegacy: (l: string) => set((s: S) => {
@@ -696,7 +705,11 @@ export const useArmyStore = create<ArmyStore>()(
       },
 
       updateUnit: (id: string, patch: Partial<RosterEntry>) => set((s: S) => {
-        const newArmy = s.army.map((e: RosterEntry) => e.id === id ? { ...e, ...patch } : e);
+        const newArmy = s.army.map((e: RosterEntry) => {
+          if (e.id !== id) return e;
+          const next = { ...e, ...patch };
+          return 'size' in patch && s.data ? clampOptionsToSize(next, s.data) : next;
+        });
         // Re-sync traits when the mark changes (mark uses a veteran slot) OR when a Dark Eldar
         // unit's sub-faction pick changes — the pick gates which traits it pays for.
         const army = (('mark' in patch) || ('subfaction' in patch)) && s.data
@@ -910,8 +923,14 @@ export const useArmyStore = create<ArmyStore>()(
             newState.army = applyUnitRenames(newState.faction, newState.army as RosterEntry[], s.data?.units);
             newState.army = applyArmoryRenames(newState.faction, newState.army as RosterEntry[]);
             // Must run BEFORE applyOptionGroupRemovals — see ki-tyranid-biomorph-shared-armory-01.
-            newState.army = migrateTyranidBiomorphsToArmory(newState.faction, newState.army as RosterEntry[]);
-            newState.army = applyOptionGroupRemovals(newState.faction, newState.army as RosterEntry[]);
+            const groupCounts: Record<string, number> = {};
+            for (const [n, u] of Object.entries(s.data?.units ?? {})) groupCounts[n] = (u as Unit).option_groups?.length ?? 0;
+            const legacyTyranid = newState.faction !== 'Tyranids'
+              || isPreArmoryTyranidList(parsed.savedFormat, newState.army as RosterEntry[], groupCounts);
+            if (newState.faction === 'Tyranids' && legacyTyranid)
+              newState.army = migrateTyranidBiomorphsToArmory(newState.faction, newState.army as RosterEntry[]);
+            if (legacyTyranid)
+              newState.army = applyOptionGroupRemovals(newState.faction, newState.army as RosterEntry[]);
           }
           // Migrate existing saves: apply forcedMark to non-locked units when archetype requires it.
           const importedRule = getArchetypeRule(newState.archetype);
@@ -1009,6 +1028,34 @@ export const useArmyStore = create<ArmyStore>()(
   )
 );
 
+/** Shrinking a squad used to leave size-scaled swaps at their old count (15 Gauss reapers on a
+ *  10-model Warriors squad, still charged, no warning). Trim "every"/"per_n" groups back to what
+ *  the new size allows, taking from the last-ticked choice first. Groups scoped to one model
+ *  group (`applies_to_model`) and shared-pool siblings are left alone. */
+function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
+  const unit = resolveUnit(e, data);
+  if (!unit || !e.optionQty) return e;
+  let oq = e.optionQty;
+  unit.option_groups.forEach((g, gi) => {
+    if (g.applies_to_model || g.independent_choices || !oq[gi]) return;
+    const c = g.constraint;
+    const max = c.type === 'every' ? e.size
+      : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1)
+      : null;
+    if (max === null) return;
+    const group = { ...oq[gi] };
+    let used = Object.entries(group).reduce((n, [k, v]) => k === '__inline' ? n : n + (v ?? 0), 0);
+    for (const k of Object.keys(group).filter(k => k !== '__inline').reverse()) {
+      if (used <= max) break;
+      const cut = Math.min(group[k] ?? 0, used - max);
+      used -= cut;
+      if ((group[k] ?? 0) - cut <= 0) delete group[k]; else group[k] = (group[k] ?? 0) - cut;
+    }
+    oq = { ...oq, [gi]: group };
+  });
+  return oq === e.optionQty ? e : { ...e, optionQty: oq };
+}
+
 /** Returns the subset of store state that belongs in a SavedArmy entry.
  * Keep the field list in sync with the `partialize` option above — update both together. */
 export function getSerializableState(s: {
@@ -1024,6 +1071,7 @@ export function getSerializableState(s: {
     pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype ?? '',
     legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus ?? 0,
     campaignId: s.campaignId ?? null, campaignFaction: s.campaignFaction ?? null, army: s.army,
+    savedFormat: 5,
     alliedFaction: s.alliedFaction ?? undefined, alliedArchetype: s.alliedArchetype ?? '',
     alliedLegacy: s.alliedLegacy ?? '', alliedTraitPool: s.alliedTraitPool ?? [],
     alliedHqMark: s.alliedHqMark ?? ('' as Mark),

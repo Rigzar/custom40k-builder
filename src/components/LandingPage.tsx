@@ -12,10 +12,10 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v178e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v180c_dismissed';
 
-// v1.78 (2026-09-26) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
-// banner is RESET to ONLY v1.78's own content. Everything v1.77 announced lives on in the
+// v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
+// banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
 // changelog modal; a reader who dismissed that card must not be shown its fixes again.
 //
 // LAYOUT (unchanged from v1.77, and it took two rounds to get there). Rigzar: "el banner da mucha
@@ -54,88 +54,82 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.78: the codex re-audit",
-    intro: "All nineteen codices compared against the author\u2019s own sheets, field by field \u2014 plus nine bug reports, four of them filed this week.",
+    title: "v1.80: special biomorphs, I.O.U, and a squad that shrinks properly",
+    intro: "The Tyranid biomorph bug that emptied saved lists is fixed, plus four things reported on Discord \u2014 and the new Imperial Guard sheet checked line by line.",
     install: "",
     sections: [
       { label: "Reported on GitHub", rows: [
-        ["GH#161", "Stormshroud gives Soul burn to an Overlord\u2019s weapon \u2014 it works on single-model characters again."],
-        ["GH#154", "An allied Guard platoon costs ONE Troops slot again, not one per squad."],
-        ["GH#152", "Checked on screen: the Leman Russ\u2019 Heavy bolter sponsons work \u2014 the row reads \u201c3x\u201d."],
-        ["GH#159", "A Commissar no longer frees an Elite slot for some other unit."],
-        ["GH#153", "Same fault, wearing Assassins: the slot they share is theirs, not another Elite's."],
-        ["GH#160", "The Yngir C\u2019tan\u2019s 2+ armour save prints on the sheet."],
-        ["Obeisance Phalanx", "Warriors, Immortals and Flayed Ones can no longer be taken \u2014 its own text bans them."],
-      ] },
-      { label: "From the codex review", rows: [
-        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "May be fielded in twos. Every one reads \u201c1-2\u201d and was capped at one."],
-        ["Mucolid Spore Cluster", "Up to six, not three."],
-        ["Biovore", "110 points, not 111."],
-        ["Heavy chainaxe", "9 points on both Chaos datasheets that offer it \u2014 we charged 4 and 5."],
-        ["Reaper chaincannon", "The Legionnaires\u2019 copy now matches its own sheet: Suppression(2)."],
-        ["Sslyth, Stealth Drones", "A purchase for one of them lands on its own line again."],
+        ["GH#169", "The Ork Shoota shows on the profile again, swapped in or bought as an extra."],
+        ["GH#168", "The four Tyranid archetypes move units between roles: Carnifex, Ravener and Von Ryan\u2019s to Troops, Genestealers and Warriors to Elites, and the named HQ promotions."],
+        ["GH#170, GH#171", "The armory buys more than one copy again \u2014 the box counts them, and \u201c\u2212\u201d gives one back."],
+        ["GH#167", "Special Biomorphs can be selected and kept again \u2014 opening a saved Tyranid list no longer wipes them."],
       ] },
       { label: "Reported on Discord", rows: [
-        ["Toxin Sacs", "Poison(4+) now reaches your melee weapons. So do 55 other grants that were text only."],
-        ["Trygon Prime", "Grants Fearless and Synapse and retypes the Bio-electric pulse to Assault 12."],
+        ["I.O.U", "Blood Ravens can take it: it costs whatever item you pick from another army\u2019s Legacy Armory."],
+        ["Build army", "Asks before discarding the open list, instead of silently dropping you back into it."],
+        ["Necron Warriors", "Shrinking a squad trims the swaps that scale with its size \u2014 no more 15 Gauss reapers in a squad of 10."],
+      ] },
+      { label: "From the new sheets", rows: [
+        ["Imperial Guard 1.05", "Checked against the app line by line: stats, weapons and prices already matched."],
+        ["Auspex scanner", "Grants Acute Senses in every army that has it. The Guard\u2019s old \u201cScanner\u201d is renamed and costs 10."],
+        ["Jammer, Teleport homer", "New wording in every army: 12\u2033 Jammer range, homer needs a bearer that stayed put."],
+        ["Trophy", "Stacks: each one adds another Terrifying(-1)."],
+        ["Guard veteran abilities", "Cost 2 for monstrous creatures and vehicles, as printed."],
+        ["Retribution", "Now inflicts automatic hits, not wounds. Telekinetic Blast is renamed Telekinetic Push."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.78: die Codex-Pruefung",
-    intro: "Alle neunzehn Codices Feld fuer Feld mit den Blaettern des Autors verglichen \u2014 dazu neun Fehlermeldungen, vier davon aus dieser Woche.",
+    title: "v1.80: Spezial-Biomorphe, I.O.U und ein Trupp, der richtig schrumpft",
+    intro: "Der Tyraniden-Fehler, der gespeicherte Listen leerte, ist behoben \u2014 dazu vier Discord-Meldungen und das neue Imperial-Guard-Blatt Zeile fuer Zeile geprueft.",
     install: "",
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
-        ["GH#161", "Stormshroud gibt Soul burn auf die Waffe eines Overlords \u2014 Einzelmodell-Charaktere wieder korrekt."],
-        ["GH#154", "Ein verbuendeter Garde-Zug kostet wieder EINEN Troops-Slot, nicht einen pro Trupp."],
-        ["GH#152", "Am Bildschirm geprueft: die Heavy-Bolter-Sponsons des Leman Russ funktionieren \u2014 die Zeile zeigt \u201e3x\u201c."],
-        ["GH#159", "Ein Kommissar gibt keinen Elite-Slot mehr fuer eine andere Einheit frei."],
-        ["GH#153", "Derselbe Fehler bei den Assassinen: der geteilte Slot gehoert ihnen, nicht einer anderen Elite."],
-        ["GH#160", "Die 2+ Ruestung des Yngir-C\u2019tan steht jetzt auf dem Blatt."],
-        ["Obeisance Phalanx", "Warriors, Immortals und Flayed Ones sind nicht mehr waehlbar \u2014 der eigene Text verbietet sie."],
-      ] },
-      { label: "Aus der Codex-Pruefung", rows: [
-        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Koennen zu zweit aufgestellt werden. Alle lesen \u201c1-2\u201d und waren auf eins begrenzt."],
-        ["Mucolid Spore Cluster", "Bis zu sechs, nicht drei."],
-        ["Biovore", "110 Punkte, nicht 111."],
-        ["Heavy chainaxe", "9 Punkte auf beiden Chaos-Datenblaettern \u2014 wir berechneten 4 und 5."],
-        ["Reaper chaincannon", "Die Kopie der Legionnaires entspricht jetzt ihrem Blatt: Suppression(2)."],
-        ["Sslyth, Stealth Drones", "Ein Kauf fuer eines von ihnen landet wieder in seiner eigenen Zeile."],
+        ["GH#169", "Die Ork-Shoota erscheint wieder im Profil \u2014 getauscht oder zusaetzlich gekauft."],
+        ["GH#168", "Die vier Tyraniden-Archetypen verschieben Einheiten: Carnifex, Ravener und Von Ryan\u2019s zu Troops, Genestealer und Krieger zu Elite, dazu die HQ-Bef\u00f6rderungen."],
+        ["GH#170, GH#171", "Die Armory kauft wieder mehrere Exemplare \u2014 das K\u00e4stchen z\u00e4hlt sie, \u201e\u2212\u201c gibt eines zur\u00fcck."],
+        ["GH#167", "Spezial-Biomorphe lassen sich wieder waehlen und behalten \u2014 das Oeffnen einer gespeicherten Tyraniden-Liste loescht sie nicht mehr."],
       ] },
       { label: "Auf Discord gemeldet", rows: [
-        ["Toxin Sacs", "Poison(4+) erreicht jetzt die Nahkampfwaffen \u2014 wie 55 weitere Effekte, die nur Text waren."],
-        ["Trygon Prime", "Gibt Fearless und Synapse und macht den Bio-electric pulse zu Assault 12."],
+        ["I.O.U", "Blood Ravens koennen es nehmen: es kostet, was der gewaehlte Gegenstand aus dem Legacy-Armory einer anderen Armee kostet."],
+        ["Build army", "Fragt nach, bevor die offene Liste verworfen wird."],
+        ["Necron Warriors", "Ein kleinerer Trupp kuerzt die mit der Groesse skalierenden Tauschoptionen \u2014 keine 15 Gauss reapers mehr bei 10 Modellen."],
+      ] },
+      { label: "Aus den neuen Blaettern", rows: [
+        ["Imperial Guard 1.05", "Zeile fuer Zeile mit der App verglichen: Werte, Waffen und Preise stimmten bereits."],
+        ["Auspex scanner", "Gibt in jeder Armee Acute Senses. Der alte \u201eScanner\u201c der Garde ist umbenannt und kostet 10."],
+        ["Jammer, Teleport homer", "Neuer Wortlaut in allen Armeen: Jammer 12\u2033, Homer braucht einen Traeger, der stehen blieb."],
+        ["Trophy", "Ist kumulativ: jede gibt ein weiteres Terrifying(-1)."],
+        ["Veteranenfaehigkeiten der Garde", "Kosten 2 fuer Monstroese Kreaturen und Fahrzeuge, wie gedruckt."],
+        ["Retribution", "Verursacht jetzt automatische Treffer statt Verwundungen. Telekinetic Blast heisst jetzt Telekinetic Push."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.78: la re-auditoria de codices",
-    intro: "Los diecinueve codices comparados campo a campo con las hojas del autor \u2014 mas nueve reportes, cuatro de esta semana.",
+    title: "v1.80: biomorfos especiales, I.O.U y una escuadra que encoge bien",
+    intro: "Arreglado el fallo de Tiranidos que vaciaba las listas guardadas, mas cuatro reportes de Discord \u2014 y la hoja nueva de la Guardia Imperial revisada linea por linea.",
     install: "",
     sections: [
       { label: "Reportado en GitHub", rows: [
-        ["GH#161", "Stormshroud da Soul burn al arma de un Overlord \u2014 vuelve a funcionar en personajes de un solo modelo."],
-        ["GH#154", "Un peloton de la Guardia aliada vuelve a costar UN hueco de Troops, no uno por escuadra."],
-        ["GH#152", "Comprobado en pantalla: los sponsons de bolter pesado del Leman Russ funcionan \u2014 la fila pone \u201c3x\u201d."],
-        ["GH#159", "Un Comisario ya no libera un slot de Elite para otra unidad."],
-        ["GH#153", "El mismo fallo con los Assassins: el slot que comparten es suyo, no de otra Elite."],
-        ["GH#160", "La salvacion 2+ del C\u2019tan Yngir ya sale en la hoja impresa."],
-        ["Obeisance Phalanx", "Warriors, Immortals y Flayed Ones ya no se pueden llevar \u2014 su propio texto lo prohibe."],
-      ] },
-      { label: "De la revision de codices", rows: [
-        ["Exocrine, Harpy, Hive Crone, Tyrannofex", "Se pueden llevar de a dos. Todas leen \u201c1-2\u201d y estaban topadas en una."],
-        ["Mucolid Spore Cluster", "Hasta seis, no tres."],
-        ["Biovore", "110 puntos, no 111."],
-        ["Heavy chainaxe", "9 puntos en las dos fichas de Caos que lo ofrecen \u2014 cobrabamos 4 y 5."],
-        ["Reaper chaincannon", "La copia de los Legionnaires ya coincide con su hoja: Suppression(2)."],
-        ["Sslyth, Stealth Drones", "Una compra para uno de ellos vuelve a aterrizar en su propia fila."],
+        ["GH#169", "La Shoota de los Orks vuelve a salir en el perfil, cambiada o comprada aparte."],
+        ["GH#168", "Los cuatro arquetipos tyr\u00e1nidos mueven unidades de rol: Carnifex, Ravener y Von Ryan\u2019s a Troops, Genestealers y Guerreros a Elites, y las promociones a HQ."],
+        ["GH#170, GH#171", "La armer\u00eda vuelve a comprar m\u00e1s de una copia \u2014 la casilla las cuenta y \u201c\u2212\u201d devuelve una."],
+        ["GH#167", "Los biomorfos especiales se pueden elegir y conservar otra vez \u2014 abrir una lista guardada de Tiranidos ya no los borra."],
       ] },
       { label: "Reportado en Discord", rows: [
-        ["Toxin Sacs", "Poison(4+) llega por fin a las armas de cuerpo a cuerpo. Y otros 55 efectos que eran solo texto."],
-        ["Trygon Prime", "Concede Fearless y Synapse y pasa el Bio-electric pulse a Assault 12."],
+        ["I.O.U", "Los Blood Ravens pueden llevarlo: cuesta lo que cueste el objeto que elijas del Legacy Armory de otro ejercito."],
+        ["Build army", "Pregunta antes de descartar la lista abierta, en vez de devolverte a ella sin avisar."],
+        ["Necron Warriors", "Reducir una escuadra recorta los cambios que escalan con su tamano \u2014 se acabaron los 15 Gauss reapers en 10 modelos."],
+      ] },
+      { label: "De las hojas nuevas", rows: [
+        ["Imperial Guard 1.05", "Comparada con la app linea por linea: perfiles, armas y precios ya coincidian."],
+        ["Auspex scanner", "Da Acute Senses en todos los ejercitos que lo tienen. El \u201cScanner\u201d viejo de la Guardia se renombra y cuesta 10."],
+        ["Jammer, Teleport homer", "Texto nuevo en todos los ejercitos: Jammer a 12\u2033, el homer exige portador que no se movio."],
+        ["Trophy", "Es acumulativo: cada uno suma otro Terrifying(-1)."],
+        ["Habilidades de veterano de la Guardia", "Cuestan 2 para criaturas monstruosas y vehiculos, como impreso."],
+        ["Retribution", "Ahora causa impactos automaticos, no heridas. Telekinetic Blast pasa a llamarse Telekinetic Push."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",

@@ -72,6 +72,17 @@ data/parsed/<faccion>/
 > generadas automáticamente traen un comentario `TODO`. Para AÑADIR una unidad,
 > mirá la sección de abajo: hacen falta TRES ficheros, no dos.
 
+> **Tyranids usa un formato distinto y más simple: JSON puro.** Cada unidad es un fichero `.json`
+> sin `import` ni `export`, y la carpeta tiene UN solo `.ts`, `units/index.ts`, que los importa
+> todos. El motivo es la herramienta: el colaborador del autor del códice actualiza los datos
+> automáticamente desde las hojas, y solo puede hacerlo con un fichero 100 % JSON. Para editar
+> una unidad tyránida abre su `.json`. JSON no admite comentarios, así que lo que merezca
+> recordarse de una unidad va en `units/NOTES.md`. Para AÑADIR una unidad tyránida hacen falta
+> DOS cosas: su `.json`, y un `import` más una entrada en `units` en `units/index.ts` (y su nombre
+> bajo el slot correcto en `slot_to_units`). `node scripts/convert_units_to_json.cjs <facción>`
+> convierte otra facción (simulacro por defecto) y rechaza cualquier fichero que no pueda
+> convertir sin pérdida.
+
 ### Añadir una unidad NUEVA
 
 Una unidad solo existe de verdad cuando aparece en **tres** sitios. La primera unidad aportada

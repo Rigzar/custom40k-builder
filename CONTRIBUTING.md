@@ -72,6 +72,17 @@ data/parsed/<faction>/
 > header comment; auto-generated units carry a `TODO` comment. To ADD a unit,
 > see the section below — it takes THREE files, not two.
 
+> **Tyranids use a different, simpler layout: pure JSON.** Every unit is a `.json` file with no
+> `import` and no `export`, and the folder has exactly ONE `.ts`, `units/index.ts`, which imports
+> them all. The reason is tooling: the codex author's collaborator updates data automatically
+> from the sheets, and can only do that to a file that is 100% JSON. To edit a Tyranid unit,
+> open its `.json`. JSON has no comments, so anything worth remembering about a unit goes in
+> `units/NOTES.md` instead. To ADD a Tyranid unit you need TWO things: its `.json`, and one
+> `import` plus one `units` entry in `units/index.ts` (and its name under the right slot in
+> `slot_to_units`). `node scripts/convert_units_to_json.cjs <faction>` converts another faction
+> (dry run by default) and refuses any file it cannot convert losslessly.
+>
+
 ### Adding a NEW unit
 
 A unit is only real when it appears in **three** places. This used to say "create the file and add

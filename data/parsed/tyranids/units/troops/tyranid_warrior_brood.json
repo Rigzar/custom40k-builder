@@ -1,0 +1,268 @@
+{
+  "name": "Tyranid Warrior Brood",
+  "models": [
+    {
+      "name": "Tyranid Warrior",
+      "points": 36,
+      "min": 3,
+      "max": 6,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "5",
+        "T": "5",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "10",
+        "SV": "4+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every model is equipped with: 2 Scything talons.",
+  "weapons": [
+    {
+      "name": "Barbed strangler",
+      "range": "36\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(6), Suppression(3)"
+    },
+    {
+      "name": "Boneswords",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(5+), Extra Attack(1)"
+    },
+    {
+      "name": "Deathspitter",
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Devourer",
+      "range": "18\"",
+      "type": "Rapid Fire 2",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Lash whip and Bonesword",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(5+), Quick(+1)"
+    },
+    {
+      "name": "Rending claws",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(5+)"
+    },
+    {
+      "name": "Scything talons",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Extra Attack(1)"
+    },
+    {
+      "name": "Spinefists",
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Venom cannon",
+      "range": "36\"",
+      "type": "Assault 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Blast(4)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "For every three models, one Tyranid Warrior may swap their Spinefists",
+      "constraint": {
+        "type": "per_n",
+        "per_n": 3
+      },
+      "choices": [
+        {
+          "name": "Barbed strangler",
+          "points": 19
+        },
+        {
+          "name": "Venom cannon",
+          "points": 19
+        }
+      ],
+      "replaces": [
+        "Spinefists"
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "Each model may swap one of their Scything talons",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Rending claws",
+          "points": 3
+        },
+        {
+          "name": "Boneswords",
+          "points": 6
+        },
+        {
+          "name": "Lash whip and Bonesword",
+          "points": 6
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Scything talons"
+      ]
+    },
+    {
+      "header": "Each model may swap one of their Scything talons",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Spinefists",
+          "points": 2
+        },
+        {
+          "name": "Devourer",
+          "points": 2
+        },
+        {
+          "name": "Deathspitter",
+          "points": 2
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Scything talons"
+      ]
+    },
+    {
+      "header": "May select one Special Biomorph",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Leaping",
+          "points": 6,
+          "effect": {
+            "grants_abilities": [
+              "Leaping: The unit gains the \"Frenzy(6\")\" ability."
+            ]
+          }
+        },
+        {
+          "name": "Winged",
+          "points": 7,
+          "effect": {
+            "grants_abilities": [
+              "Winged: The unit gains \"Anti-Grav\" and \"Deep Strike\"."
+            ],
+            "stat_mod": [
+              {
+                "stat": "M",
+                "delta": 6
+              }
+            ]
+          }
+        },
+        {
+          "name": "Hardened Carapace",
+          "points": 9,
+          "effect": {
+            "grants_abilities": [
+              "Hardened Carapace: The unit improves its armor save by +1."
+            ],
+            "stat_mod": [
+              {
+                "stat": "SV",
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "name": "Resonator",
+          "points": 4,
+          "effect": {
+            "grants_abilities": [
+              "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
+            ]
+          }
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "per_model": true
+    }
+  ],
+  "abilities": [
+    "Fearless, Massive(1), Move Through Cover, Synapse",
+    "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
+  ],
+  "unit_type": "Monstrous Infantry",
+  "keywords": [
+    "Tyranid",
+    "Advanced Bioform"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Troops",
+  "default_size": 3,
+  "min_cost": 108,
+  "is_monster": false
+}

@@ -377,9 +377,31 @@ export default function App() {
   // Marine ones are another codex, so they are fetched only when the Legacy that unlocks the Red
   // Corsairs Armory is actually chosen, and parked as BORROW-ONLY — no tab, nothing purchasable
   // on its own, just reachable so the borrowed item resolves and prices like any other.
+  // Blood Ravens "I.O.U" (Space Marines, Legacy of Aurelia): "Select one weapon or equipment item
+  // from the (Legacy) Armory of any other army" — same borrow-only parking, but the pool is every
+  // OTHER codex, so they are all fetched (only when that Legacy is chosen).
+  useEffect(() => {
+    if (!data || data.faction !== 'Space Marines' || legacy !== 'Legacy of Aurelia') return;
+    let live = true;
+    Promise.all(Object.entries(loaders).filter(([k]) => k !== 'space_marines').map(([, l]) => l().catch(() => null)))
+      .then(all => {
+        if (!live) return;
+        const out: Record<string, import('./types/data').Armory> = {};
+        for (const m of all) {
+          const fd = m as FactionData | null;
+          if (!fd?.armory_general) continue;
+          out[`${fd.faction} — General`] = fd.armory_general;
+          for (const [k, v] of Object.entries(fd.armory_legions ?? {})) out[`${fd.faction} — ${k}`] = v;
+        }
+        store.injectBorrowableArmories(out);
+      });
+    return () => { live = false; store.injectBorrowableArmories(null); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [legacy, data?.faction]);
+
   useEffect(() => {
     if (!data || data.faction !== 'Chaos Space Marines' || legacy !== 'Legacy of the Tyrant') {
-      store.injectBorrowableArmories(null);
+      if (data?.faction !== 'Space Marines') store.injectBorrowableArmories(null);  // SM's I.O.U effect owns it
       return;
     }
     loaders['space_marines']()
@@ -851,7 +873,19 @@ export default function App() {
           saves={saves}
           announcement={announcement}
           canResume={flowUnlocked && army.length > 0}
-          onStart={() => { setScreen('flow'); setStep('faction'); }}
+          onStart={() => {
+            // "Build army" used to drop straight back into the open list, and the next save
+            // overwrote it (Discord). A non-empty list now asks first, and a fresh start forgets
+            // which save it was linked to so it can never write over that one.
+            if (army.length > 0) {
+              if (!confirm(t('discardArmyConfirm'))) return;
+              store.clearArmy();
+              setActiveCloudRosterId(null);
+              setViewingCopyOf(null);
+              setActiveLocalSaveId(null);
+            }
+            setScreen('flow'); setStep('faction');
+          }}
           onResume={() => { setScreen('flow'); setStep('units'); }}
           onLoadArmy={handleLoadArmy}
           onShowAuth={() => setShowAuth(true)}
