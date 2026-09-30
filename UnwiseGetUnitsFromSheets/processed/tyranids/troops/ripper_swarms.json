@@ -1,17 +1,20 @@
 {
+    "name": "Ripper Swarms",
     "models": [
         {
-            "NAME": "Ripper Swarms",
-            "M": "6\"",
-            "WS": "4+",
-            "BS": "4+",
-            "S": 3,
-            "T": 3,
-            "W": 3,
-            "I": 2,
-            "A": 3,
-            "LD": 4,
-            "SV": "6+",
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "2",
+                "A": "3",
+                "LD": "4",
+                "SV": "6+"
+            },
+            "name": "Ripper Swarms",
             "min": 3,
             "max": 12,
             "points": 11
@@ -26,25 +29,19 @@
             "range": "12\"",
             "type": "Pistol 2",
             "s": "U",
-            "ap": 0,
-            "d": 1,
+            "ap": "0",
+            "d": "1",
             "abilities": "-"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Mindless, Move Through Cover, Swarm"
-        ],
-        [
-            "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
-        ]
+        "Mindless, Move Through Cover, Swarm",
+        "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
     ],
-    "unit_type": "['Infantry']",
+    "unit_type": [
+        "Infantry"
+    ],
     "keywords": [
-        "Tyranids",
         "Basic Bioform"
     ]
 }

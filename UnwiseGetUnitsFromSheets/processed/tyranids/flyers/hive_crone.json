@@ -1,17 +1,20 @@
 {
+    "name": "Hive Crone",
     "models": [
         {
-            "NAME": "Hive Crone",
-            "M": "12\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 6,
-            "T": 6,
-            "W": 5,
-            "I": 5,
-            "A": 4,
-            "LD": 7,
-            "SV": "4+",
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "6",
+                "W": "5",
+                "I": "5",
+                "A": "4",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Hive Crone",
             "min": 1,
             "max": 2,
             "points": 156
@@ -26,25 +29,25 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 1
+            "ap": "-2",
+            "d": "1"
         },
         {
             "name": "Drool cannon",
             "range": "18\"",
             "type": "Assault 6",
-            "s": 6,
-            "ap": -2,
-            "d": 1,
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
             "abilities": "Auto Hit, Sunder(1), Monofilament"
         },
         {
             "name": "Stinger salvo",
             "range": "24\"",
             "type": "Assault 2",
-            "s": 5,
-            "ap": 0,
-            "d": 1,
+            "s": "5",
+            "ap": "0",
+            "d": "1",
             "abilities": "Blast(4)"
         },
         {
@@ -52,17 +55,17 @@
             "range": "-",
             "type": "Melee",
             "s": "x2",
-            "ap": -3,
-            "d": 2,
+            "ap": "-3",
+            "d": "2",
             "abilities": "Anti-Air, AT(2), Extra Attack(1), Limit(1)"
         },
         {
             "name": "Tentaclids",
             "range": "36\"",
             "type": "Assault 1",
-            "s": 5,
-            "ap": -1,
-            "d": 1,
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
             "abilities": "Ammo(1), Anti-Air, Haywire, Seeking"
         },
         {
@@ -70,22 +73,18 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 1,
+            "ap": "-2",
+            "d": "1",
             "abilities": "Anti-Air, Limit(2)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Hover Mode, Instinctive Behaviour, Squadron"
-        ]
+        "Hover Mode, Instinctive Behaviour, Squadron"
     ],
-    "unit_type": "['Flyer, Monstrous Creature']",
+    "unit_type": [
+        "Flyer, Monstrous Creature"
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

@@ -1,419 +1,420 @@
 {
-  "name": "Hive Tyrant",
-  "models": [
-    {
-      "name": "Hive Tyrant",
-      "points": 256,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "7",
-        "T": "7",
-        "W": "6",
-        "I": "5",
-        "A": "4",
-        "LD": "10",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [
-    {
-      "name": "Legendary Hive Tyrant",
-      "points": 312,
-      "min": 0,
-      "max": 0,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "7",
-        "T": "7",
-        "W": "6",
-        "I": "5",
-        "A": "5",
-        "LD": "10",
-        "SV": "2+"
-      }
-    }
-  ],
-  "equipped_with": "A Hive Tyrant is equipped with: 2 Monstrous scything talons.",
-  "weapons": [
-    {
-      "name": "Bone sabres",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Deadly(5+), Deflect, Parry"
-    },
-    {
-      "name": "Desiccator larvae",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "1",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Poison(2+)"
-    },
-    {
-      "name": "Electroshock grubs",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Haywire"
-    },
-    {
-      "name": "Heavy venom cannon",
-      "range": "36\"",
-      "type": "Assault 1",
-      "s": "9",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(2), Blast(4)"
-    },
-    {
-      "name": "Lash whip and bonesword",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(2), Deadly(5+), Quick(+1)"
-    },
-    {
-      "name": "Monstrous scything talons",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "AT(1), Extra Attack(1)"
-    },
-    {
-      "name": "Monstrous piercing claws",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Armor piercing(5+), AT(1)"
-    },
-    {
-      "name": "Prehensile pincer",
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(3), Extra Attack(1), Limit(1)"
-    },
-    {
-      "name": "Shreddershard beetles",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "3",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Shred"
-    },
-    {
-      "name": "Stranglethorn cannon",
-      "range": "36\"",
-      "type": "Assault 1",
-      "s": "7",
-      "ap": "0",
-      "d": "1",
-      "abilities": "AT(1), Blast(6), Suppression(3)"
-    },
-    {
-      "name": "Twin deathspitter with slimer maggots",
-      "range": "24\"",
-      "type": "Assault 4",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Twin devourer with brainleech worms",
-      "range": "18\"",
-      "type": "Rapid Fire 4",
-      "s": "U",
-      "ap": "0",
-      "d": "1",
-      "abilities": "AT(1), Shred"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "One Hive Tyrant per army can be upgraded to a Legendary Hive Tyrant",
-      "constraint": {
-        "type": "unique_upgrade"
-      },
-      "choices": [],
-      "inline_pts": 56,
-      "variant_link": "Legendary Hive Tyrant",
-      "is_unique_per_army": true
-    },
-    {
-      "header": "May swap one of its Monstrous scything talons",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Hive Tyrant",
+    "models": [
         {
-          "name": "Monstrous piercing claws",
-          "points": 0
-        },
-        {
-          "name": "Lash whip and bonesword",
-          "points": 10
-        },
-        {
-          "name": "Twin devourer with brainleech worms",
-          "points": 8
-        },
-        {
-          "name": "Bone sabres",
-          "points": 17
-        },
-        {
-          "name": "Stranglethorn cannon",
-          "points": 19
-        },
-        {
-          "name": "Twin deathspitter with slimer maggots",
-          "points": 25
-        },
-        {
-          "name": "Heavy venom cannon",
-          "points": 113
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "7",
+                "T": "7",
+                "W": "6",
+                "I": "5",
+                "A": "4",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Hive Tyrant",
+            "min": 1,
+            "max": 1,
+            "points": 256
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Monstrous scything talons"
-      ]
+    ],
+    "variant_models": {
+        "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "7",
+            "T": "7",
+            "W": "6",
+            "I": "5",
+            "A": "5",
+            "LD": "10",
+            "SV": "2+"
+        },
+        "name": "Legendary Hive Tyrant",
+        "min": 0,
+        "max": 1,
+        "points": 312
     },
-    {
-      "header": "May also swap the other Monstrous scything talons",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "equipped_with": [
+        "A Hive Tyrant is equipped with: 2 Monstrous scything talons."
+    ],
+    "weapons": [
         {
-          "name": "Monstrous piercing claws",
-          "points": 0
+            "name": "Bone sabres",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Deadly(5+), Deflect, Parry"
         },
         {
-          "name": "Lash whip and bonesword",
-          "points": 10
+            "name": "Desiccator larvae",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(2+)"
         },
         {
-          "name": "Twin devourer with brainleech worms",
-          "points": 8
+            "name": "Electroshock grubs",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Haywire"
         },
         {
-          "name": "Bone sabres",
-          "points": 17
+            "name": "Heavy venom cannon",
+            "range": "36\"",
+            "type": "Assault 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Blast(4)"
         },
         {
-          "name": "Stranglethorn cannon",
-          "points": 19
+            "name": "Lash whip and bonesword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Deadly(5+), Quick(+1)"
         },
         {
-          "name": "Twin deathspitter with slimer maggots",
-          "points": 25
+            "name": "Monstrous scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Extra Attack(1)"
         },
         {
-          "name": "Heavy venom cannon",
-          "points": 113
+            "name": "Monstrous piercing claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), AT(1)"
+        },
+        {
+            "name": "Prehensile pincer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3), Extra Attack(1), Limit(1)"
+        },
+        {
+            "name": "Shreddershard beetles",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Stranglethorn cannon",
+            "range": "36\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "0",
+            "d": "1",
+            "abilities": "AT(1), Blast(6), Suppression(3)"
+        },
+        {
+            "name": "Twin deathspitter with slimer maggots",
+            "range": "24\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin devourer with brainleech worms",
+            "range": "18\"",
+            "type": "Rapid Fire 4",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "AT(1), Shred"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Monstrous scything talons"
-      ]
-    },
-    {
-      "header": "May be equipped with one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "option_groups": [
         {
-          "name": "Prehensile pincer",
-          "points": 20
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be equipped with one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Desiccator larvae",
-          "points": 7
+            "header": "One Hive Tyrant per army can be upgraded to a Legendary Hive Tyrant",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 56,
+            "variant_link": "Legendary Hive Tyrant",
+            "is_unique_per_army": true
         },
         {
-          "name": "Shreddershard beetles",
-          "points": 15
-        },
-        {
-          "name": "Electroshock grubs",
-          "points": 22
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be upgraded to one of the following specialisation",
-      "constraint": {
-        "type": "one"
-      },
-      "variant_constraint": {
-        "variant": "Legendary Hive Tyrant",
-        "constraint": {
-          "type": "fixed_max",
-          "max": 2,
-          "max_per_choice": 1,
-          "required": true
-        }
-      },
-      "choices": [
-        {
-          "name": "Alien Cunning",
-          "points": 10
-        },
-        {
-          "name": "Old Adversary",
-          "points": 10
-        },
-        {
-          "name": "Swarm Leader",
-          "points": 10
-        },
-        {
-          "name": "Hive Commander",
-          "points": 15
-        },
-        {
-          "name": "Indescribable Horror",
-          "points": 15
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May select one Special Biomorph",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Norn Crown",
-          "points": 10,
-          "effect": {
-            "grants_abilities": [
-              "Norn Crown: The unit may cast and deny 1 more psychic power per battle round."
-            ]
-          }
-        },
-        {
-          "name": "Regeneration",
-          "points": 30,
-          "effect": {
-            "grants_abilities": [
-              "Regeneration: The unit gains the \"Regeneration(1)\" ability."
-            ]
-          }
-        },
-        {
-          "name": "Winged",
-          "points": 42,
-          "effect": {
-            "grants_abilities": [
-              "Winged: The unit gains \"Anti-Grav\" and \"Deep Strike\"."
+            "header": "May swap one of its Monstrous scything talons",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Monstrous piercing claws",
+                    "points": 0
+                },
+                {
+                    "name": "Lash whip and bonesword",
+                    "points": 10
+                },
+                {
+                    "name": "Twin devourer with brainleech worms",
+                    "points": 8
+                },
+                {
+                    "name": "Bone sabres",
+                    "points": 17
+                },
+                {
+                    "name": "Stranglethorn cannon",
+                    "points": 19
+                },
+                {
+                    "name": "Twin deathspitter with slimer maggots",
+                    "points": 25
+                },
+                {
+                    "name": "Heavy venom cannon",
+                    "points": 113
+                }
             ],
-            "stat_mod": [
-              {
-                "stat": "M",
-                "delta": 6
-              }
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Monstrous scything talons"
             ]
-          }
         },
         {
-          "name": "Hardened Carapace",
-          "points": 47,
-          "effect": {
-            "grants_abilities": [
-              "Hardened Carapace: The unit improves its armor save by +1."
+            "header": "May also swap the other Monstrous scything talons",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Monstrous piercing claws",
+                    "points": 0
+                },
+                {
+                    "name": "Lash whip and bonesword",
+                    "points": 10
+                },
+                {
+                    "name": "Twin devourer with brainleech worms",
+                    "points": 8
+                },
+                {
+                    "name": "Bone sabres",
+                    "points": 17
+                },
+                {
+                    "name": "Stranglethorn cannon",
+                    "points": 19
+                },
+                {
+                    "name": "Twin deathspitter with slimer maggots",
+                    "points": 25
+                },
+                {
+                    "name": "Heavy venom cannon",
+                    "points": 113
+                }
             ],
-            "stat_mod": [
-              {
-                "stat": "SV",
-                "delta": -1
-              }
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Monstrous scything talons"
             ]
-          }
+        },
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Prehensile pincer",
+                    "points": 20
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Desiccator larvae",
+                    "points": 7
+                },
+                {
+                    "name": "Shreddershard beetles",
+                    "points": 15
+                },
+                {
+                    "name": "Electroshock grubs",
+                    "points": 22
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be upgraded to one of the following specialisation",
+            "constraint": {
+                "type": "one"
+            },
+            "variant_constraint": {
+                "variant": "Legendary Hive Tyrant",
+                "constraint": {
+                    "type": "fixed_max",
+                    "max": 2,
+                    "max_per_choice": 1,
+                    "required": true
+                }
+            },
+            "choices": [
+                {
+                    "name": "Alien Cunning",
+                    "points": 10
+                },
+                {
+                    "name": "Old Adversary",
+                    "points": 10
+                },
+                {
+                    "name": "Swarm Leader",
+                    "points": 10
+                },
+                {
+                    "name": "Hive Commander",
+                    "points": 15
+                },
+                {
+                    "name": "Indescribable Horror",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May select one Special Biomorph",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Norn Crown",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Norn Crown: The unit may cast and deny 1 more psychic power per battle round."
+                        ]
+                    }
+                },
+                {
+                    "name": "Regeneration",
+                    "points": 30,
+                    "effect": {
+                        "grants_abilities": [
+                            "Regeneration: The unit gains the \"Regeneration(1)\" ability."
+                        ]
+                    }
+                },
+                {
+                    "name": "Winged",
+                    "points": 42,
+                    "effect": {
+                        "grants_abilities": [
+                            "Winged: The unit gains \"Anti-Grav\" and \"Deep Strike\"."
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Hardened Carapace",
+                    "points": 47,
+                    "effect": {
+                        "grants_abilities": [
+                            "Hardened Carapace: The unit improves its armor save by +1."
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "SV",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
-    }
-  ],
-  "abilities": [
-    "Fearless, Move Through Cover, Synapse",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
-    "Warp Barrier: The model gains a 4+ ward save.",
-    "Hive Commander: Select two units from your army. Both gain the \"Outflank\" ability.",
-    "Indescribable Horror: Units taking a Leadership test caused by this model must roll an extra dice when taking the test and use the highest two results. In most circumstances, this will mean the unit rolls 3D6 and discards the lowest dice roll.",
-    "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round.",
-    "Legendary Hive Tyrant: Must select a specialisation and may select a second one.",
-    "Alien Cunning: You may decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after the roll has been made.",
-    "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation."
-  ],
-  "unit_type": "Monstrous Creature",
-  "keywords": [
-    "Tyranid",
-    "Advanced Bioform"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "armory_as_character": true,
-  "is_psyker": true,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "HQ",
-  "default_size": 1,
-  "min_cost": 256,
-  "is_monster": true
+    ],
+    "abilities": [
+        "Fearless, Move Through Cover, Synapse",
+        "Legendary Hive Tyrant: Must select a specialisation and may select a second one.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
+        "Warp Barrier: The model gains a 4+ ward save.",
+        "Alien Cunning: You may decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players in each phase.",
+        "Hive Commander: Select two units from your army. Both gain the \"Outflank\" ability.",
+        "Indescribable Horror: Units taking a Leadership test caused by this model must roll an extra dice when taking the test and use the highest two results. In most circumstances, this will mean the unit rolls 3D6 and discards the lowest dice roll.",
+        "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round.",
+        "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation."
+    ],
+    "unit_type": [
+        "Monstrous Creature"
+    ],
+    "keywords": [
+        "Advanced Bioform"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "armory_as_character": true,
+    "is_psyker": true,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 256,
+    "is_monster": true
 }

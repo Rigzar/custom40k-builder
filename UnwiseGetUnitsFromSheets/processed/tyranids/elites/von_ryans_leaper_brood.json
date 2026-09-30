@@ -1,17 +1,20 @@
 {
+    "name": "Von Ryan\u00b4s Leaper Brood",
     "models": [
         {
-            "NAME": "Von Ryan's Leaper",
-            "M": "6\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 4,
-            "T": 4,
-            "W": 2,
-            "I": 5,
-            "A": 3,
-            "LD": 7,
-            "SV": "5+",
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "5",
+                "A": "3",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Von Ryan's Leaper",
             "min": 3,
             "max": 6,
             "points": 36
@@ -26,25 +29,19 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 1,
+            "ap": "-2",
+            "d": "1",
             "abilities": "Rending(5+)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Infiltrator, Massive(1), Move Through Cover, Stealth, Use cover"
-        ],
-        [
-            "Leaping charge: The unit has a 12\" Charge move."
-        ]
+        "Infiltrator, Massive(1), Move Through Cover, Stealth, Use cover",
+        "Leaping charge: The unit has a 12\" Charge move."
     ],
-    "unit_type": "['Infantry']",
+    "unit_type": [
+        "Infantry"
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

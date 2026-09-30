@@ -1,17 +1,20 @@
 {
+    "name": "Mawloc",
     "models": [
         {
-            "NAME": "Mawloc",
-            "M": "6\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 6,
-            "T": 7,
-            "W": 6,
-            "I": 4,
-            "A": 4,
-            "LD": 7,
-            "SV": "3+",
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "7",
+                "W": "6",
+                "I": "4",
+                "A": "4",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Mawloc",
             "min": 1,
             "max": 2,
             "points": 147
@@ -26,8 +29,8 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 2,
+            "ap": "-2",
+            "d": "2",
             "abilities": "Extra Attack(1)"
         },
         {
@@ -35,8 +38,8 @@
             "range": "-",
             "type": "Melee",
             "s": "x2",
-            "ap": -3,
-            "d": 2,
+            "ap": "-3",
+            "d": "2",
             "abilities": "AT(2), Extra Attack(1), Limit(1)"
         },
         {
@@ -44,28 +47,20 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -4,
-            "d": 3,
+            "ap": "-4",
+            "d": "3",
             "abilities": "Extra Attack(1), Limit(1), Poison(2+)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron"
-        ],
-        [
-            "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules."
-        ],
-        [
-            "Terror from the Deep: If the model is set up via Deep Strike rules, select one enemy unit within 12\". The target unit suffers 4 automatic hits with Strength: U AP: -2 Damage: 2."
-        ]
+        "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
+        "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules.",
+        "Terror from the Deep: If the model is set up via Deep Strike rules, select one enemy unit within 12\". The target unit suffers 4 automatic hits with Strength: U AP: -2 Damage: 2."
     ],
-    "unit_type": "['Monstrous Creature ']",
+    "unit_type": [
+        "Monstrous Creature "
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

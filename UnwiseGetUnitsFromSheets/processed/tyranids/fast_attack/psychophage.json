@@ -1,17 +1,20 @@
 {
+    "name": "Psychophage",
     "models": [
         {
-            "NAME": "Psychophage",
-            "M": "12\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 6,
-            "T": 7,
-            "W": 5,
-            "I": 4,
-            "A": 4,
-            "LD": 7,
-            "SV": "3+",
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "7",
+                "W": "5",
+                "I": "4",
+                "A": "4",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Psychophage",
             "min": 1,
             "max": 2,
             "points": 134
@@ -26,34 +29,28 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 1,
+            "ap": "-2",
+            "d": "1",
             "abilities": "Extra Attack(2)"
         },
         {
             "name": "Psychoclastic torrent",
             "range": "9\"",
             "type": "Assault 4",
-            "s": 5,
-            "ap": -1,
-            "d": 1,
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
             "abilities": "Auto Hit, Seeking"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Instinctive Behaviour, Move Through Cover, Squadron"
-        ],
-        [
-            "Warp hunger: All attacks of the model gain the \"Psi-shock\" ability."
-        ]
+        "Instinctive Behaviour, Move Through Cover, Squadron",
+        "Warp hunger: All attacks of the model gain the \"Psi-shock\" ability."
     ],
-    "unit_type": "['Monstrous Creature ']",
+    "unit_type": [
+        "Monstrous Creature "
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

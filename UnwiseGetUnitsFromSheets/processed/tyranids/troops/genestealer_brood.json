@@ -1,38 +1,43 @@
 {
+    "name": "Genestealer Brood",
     "models": [
         {
-            "NAME": "Genestealer",
-            "M": "6\"",
-            "WS": "2+",
-            "BS": "6+",
-            "S": 4,
-            "T": 4,
-            "W": 1,
-            "I": 5,
-            "A": 3,
-            "LD": 10,
-            "SV": "5+",
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "6+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "5",
+                "A": "3",
+                "LD": "10",
+                "SV": "5+"
+            },
+            "name": "Genestealer",
             "min": 5,
             "max": 10,
             "points": 15
-        },
-        {
-            "NAME": "Broodlord",
+        }
+    ],
+    "variant_models": {
+        "stats": {
             "M": "6\"",
             "WS": "2+",
             "BS": "6+",
-            "S": 5,
-            "T": 5,
-            "W": 3,
-            "I": 6,
-            "A": 4,
-            "LD": 10,
-            "SV": "4+",
-            "min": 0,
-            "max": 1,
-            "points": 67
-        }
-    ],
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "6",
+            "A": "4",
+            "LD": "10",
+            "SV": "4+"
+        },
+        "name": "Broodlord",
+        "min": 0,
+        "max": 1,
+        "points": 67
+    },
     "equipped_with": [
         "Every model is equipped with: Piercing claws."
     ],
@@ -42,8 +47,8 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -3,
-            "d": 1,
+            "ap": "-3",
+            "d": "1",
             "abilities": "Armor piercing(5+)"
         },
         {
@@ -51,31 +56,20 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -1,
-            "d": 1,
+            "ap": "-1",
+            "d": "1",
             "abilities": "Extra Attack(1)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Infiltrator, Move Through Cover"
-        ],
-        [
-            "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline."
-        ],
-        [
-            "Upgrades:"
-        ],
-        [
-            "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
-        ]
+        "Infiltrator, Move Through Cover",
+        "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
+        "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
     ],
-    "unit_type": "['Infantry']",
+    "unit_type": [
+        "Infantry"
+    ],
     "keywords": [
-        "Tyranids",
         "Basic Bioform"
     ]
 }
