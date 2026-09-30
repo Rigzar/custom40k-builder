@@ -14,7 +14,7 @@
             "SV": "3+",
             "min": 1,
             "max": 1,
-            "points": 256
+            "points": 777
         },
         {
             "NAME": "Legendary Hive Tyrant",
@@ -30,7 +30,7 @@
             "SV": "2+",
             "min": 0,
             "max": 1,
-            "points": 312
+            "points": 888
         }
     ],
     "equipped_with": [
