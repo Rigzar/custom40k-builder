@@ -696,7 +696,11 @@ export const useArmyStore = create<ArmyStore>()(
       },
 
       updateUnit: (id: string, patch: Partial<RosterEntry>) => set((s: S) => {
-        const newArmy = s.army.map((e: RosterEntry) => e.id === id ? { ...e, ...patch } : e);
+        const newArmy = s.army.map((e: RosterEntry) => {
+          if (e.id !== id) return e;
+          const next = { ...e, ...patch };
+          return 'size' in patch && s.data ? clampOptionsToSize(next, s.data) : next;
+        });
         // Re-sync traits when the mark changes (mark uses a veteran slot) OR when a Dark Eldar
         // unit's sub-faction pick changes — the pick gates which traits it pays for.
         const army = (('mark' in patch) || ('subfaction' in patch)) && s.data
@@ -1014,6 +1018,34 @@ export const useArmyStore = create<ArmyStore>()(
     }
   )
 );
+
+/** Shrinking a squad used to leave size-scaled swaps at their old count (15 Gauss reapers on a
+ *  10-model Warriors squad, still charged, no warning). Trim "every"/"per_n" groups back to what
+ *  the new size allows, taking from the last-ticked choice first. Groups scoped to one model
+ *  group (`applies_to_model`) and shared-pool siblings are left alone. */
+function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
+  const unit = resolveUnit(e, data);
+  if (!unit || !e.optionQty) return e;
+  let oq = e.optionQty;
+  unit.option_groups.forEach((g, gi) => {
+    if (g.applies_to_model || g.independent_choices || !oq[gi]) return;
+    const c = g.constraint;
+    const max = c.type === 'every' ? e.size
+      : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1)
+      : null;
+    if (max === null) return;
+    const group = { ...oq[gi] };
+    let used = Object.entries(group).reduce((n, [k, v]) => k === '__inline' ? n : n + (v ?? 0), 0);
+    for (const k of Object.keys(group).filter(k => k !== '__inline').reverse()) {
+      if (used <= max) break;
+      const cut = Math.min(group[k] ?? 0, used - max);
+      used -= cut;
+      if ((group[k] ?? 0) - cut <= 0) delete group[k]; else group[k] = (group[k] ?? 0) - cut;
+    }
+    oq = { ...oq, [gi]: group };
+  });
+  return oq === e.optionQty ? e : { ...e, optionQty: oq };
+}
 
 /** Returns the subset of store state that belongs in a SavedArmy entry.
  * Keep the field list in sync with the `partialize` option above — update both together. */
