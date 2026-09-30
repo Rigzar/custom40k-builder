@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v180e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v180f_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -72,6 +72,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Necron Warriors", "Shrinking a squad trims the swaps that scale with its size \u2014 no more 15 Gauss reapers in a squad of 10."],
       ] },
       { label: "From the new sheets", rows: [
+        ["Harpy", "New option from the October codex: swap its Twin stranglethorn cannon for a Twin heavy venom cannon (+151)."],
         ["Imperial Guard 1.05", "Checked against the app line by line: stats, weapons and prices already matched."],
         ["Auspex scanner", "Grants Acute Senses in every army that has it. The Guard\u2019s old \u201cScanner\u201d is renamed and costs 10."],
         ["Jammer, Teleport homer", "New wording in every army: 12\u2033 Jammer range, homer needs a bearer that stayed put."],
@@ -100,6 +101,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Necron Warriors", "Ein kleinerer Trupp kuerzt die mit der Groesse skalierenden Tauschoptionen \u2014 keine 15 Gauss reapers mehr bei 10 Modellen."],
       ] },
       { label: "Aus den neuen Blaettern", rows: [
+        ["Harpyie", "Neue Option aus dem Oktober-Codex: Twin stranglethorn cannon gegen Twin heavy venom cannon tauschen (+151)."],
         ["Imperial Guard 1.05", "Zeile fuer Zeile mit der App verglichen: Werte, Waffen und Preise stimmten bereits."],
         ["Auspex scanner", "Gibt in jeder Armee Acute Senses. Der alte \u201eScanner\u201c der Garde ist umbenannt und kostet 10."],
         ["Jammer, Teleport homer", "Neuer Wortlaut in allen Armeen: Jammer 12\u2033, Homer braucht einen Traeger, der stehen blieb."],
@@ -128,6 +130,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Necron Warriors", "Reducir una escuadra recorta los cambios que escalan con su tamano \u2014 se acabaron los 15 Gauss reapers en 10 modelos."],
       ] },
       { label: "De las hojas nuevas", rows: [
+        ["Harpy", "Opci\u00f3n nueva del c\u00f3dice de octubre: cambiar la Twin stranglethorn cannon por una Twin heavy venom cannon (+151)."],
         ["Imperial Guard 1.05", "Comparada con la app linea por linea: perfiles, armas y precios ya coincidian."],
         ["Auspex scanner", "Da Acute Senses en todos los ejercitos que lo tienen. El \u201cScanner\u201d viejo de la Guardia se renombra y cuesta 10."],
         ["Jammer, Teleport homer", "Texto nuevo en todos los ejercitos: Jammer a 12\u2033, el homer exige portador que no se movio."],

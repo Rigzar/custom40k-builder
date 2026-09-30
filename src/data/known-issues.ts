@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-harpy-option-header-stale-weapon-01",
+    status: "known",
+    title: "The Harpy’s option header names a weapon it no longer carries",
+    description: "OPEN 2026-09-30, found while applying the Tyranids 1.08 Harpy option.\n\nThe sheet prints the option as “May replace its Twin venom cannon: Twin heavy venom cannon +151 point”, but the same sheet equips the Harpy with a Twin STRANGLETHORN cannon and has no Twin venom cannon at all. Before 1.08 the Harpy did carry the Twin venom cannon and swapped it for the stranglethorn at +1; the header appears not to have been updated when the two weapons changed places.\n\nApplied as the sheet’s FACTS and kept the sheet’s wording: the choice is the Twin heavy venom cannon at +151 (consistent with the single Heavy venom cannon at +113 on the Hive Tyrant and +90 on the Carnifex), and what it replaces is the weapon the Harpy actually carries, the stranglethorn. The header text is left exactly as printed, so a player reads “Twin venom cannon” above it.\n\nFOR THE AUTHOR: should that header read “Twin stranglethorn cannon”? Also worth confirming the price is +151 and not a typo — the sheet writes “point” in the singular."
+  },
+  {
     id: "ki-tyranid-biomorph-dual-tier-pricing-01",
     status: "fixed",
     title: "The shared Biomorph Armory (merged one day earlier) priced and gated six items wrong",
