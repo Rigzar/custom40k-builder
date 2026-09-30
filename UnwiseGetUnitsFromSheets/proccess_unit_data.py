@@ -123,6 +123,11 @@ if __name__ == "__main__":
                     app_unit_json["weapons"] = []
                     while "OPTIONS" not in unit_sheet[0]:
                         print(f"{unit_sheet[0]}")
+                        #check for no weapons
+                        if "-" == "".join(unit_sheet[0][0]):
+                            unit_sheet = unit_sheet[1:]
+                            continue
+                        #check for variant weapons
                         if "*" in unit_sheet[0][0]:
                             temp_weapon_name = unit_sheet[0][0].replace("*", "")
                             unit_sheet = unit_sheet[1:]

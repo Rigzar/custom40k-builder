@@ -39,17 +39,7 @@
         }
     ],
     "equipped_with": "Every model is equipped with: -.",
-    "weapons": [
-        {
-            "name": "-",
-            "range": "-",
-            "type": "-",
-            "s": "-",
-            "ap": "-",
-            "d": "-",
-            "abilities": "-"
-        }
-    ],
+    "weapons": [],
     "abilities": [
         "Fearless, Move Through Cover, Synapse",
         "Neurocytes: The Synapse range of this unit is limited to 3\"."

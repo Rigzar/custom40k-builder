@@ -40,17 +40,7 @@
     ],
     "variant_models": [],
     "equipped_with": "Every model is equipped with: -.",
-    "weapons": [
-        {
-            "name": "-",
-            "range": "-",
-            "type": "-",
-            "s": "-",
-            "ap": "-",
-            "d": "-",
-            "abilities": "-"
-        }
-    ],
+    "weapons": [],
     "option_groups": [
         {
             "header": "May select one Special Biomorph",
