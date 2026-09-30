@@ -49,6 +49,11 @@ export const RENAMED_UNITS: Record<string, Record<string, UnitRenameTarget>> = {
   'Tyranids': {
     'Swarmlord': { to: 'Hive Tyrant', enableVariant: 'Legendary Hive Tyrant' },
     'Swarm Lord': { to: 'Hive Tyrant', enableVariant: 'Legendary Hive Tyrant' },
+    // The app registered this fortification as "Sporecyst" while its own datasheet and the codex
+    // both say "Sporocyst" — a typo that lived in the unit index, slots.ts and unit-types.ts and
+    // was kept on purpose during the JSON conversion so nothing moved. Corrected 2026-09-30 at
+    // Unwise's request; the old spelling maps forward so no saved list loses a unit. Keep forever.
+    'Sporecyst': 'Sporocyst',
   },
 };
 

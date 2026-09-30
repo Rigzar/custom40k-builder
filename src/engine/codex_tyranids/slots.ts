@@ -70,7 +70,7 @@ export const TYRANID_SLOTS: TyranidSlotEntry[] = [
   { name: 'Tyrannocyte', slot: 'Dedicated Transport' },
 
   // --- Fortifications (1) ---
-  { name: 'Sporecyst', slot: 'Fortifications' },
+  { name: 'Sporocyst', slot: 'Fortifications' },
 
   // --- Flyers (1) ---
   { name: 'Harpy', slot: 'Flyers' },
