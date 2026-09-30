@@ -20,24 +20,26 @@
             "points": 92
         }
     ],
-    "variant_models": {
-        "stats": {
-            "M": "6\"",
-            "WS": "2+",
-            "BS": "2+",
-            "S": "5",
-            "T": "5",
-            "W": "3",
-            "I": "3",
-            "A": "2",
-            "LD": "10",
-            "SV": "5+"
-        },
-        "name": "Neurothrope",
-        "min": 0,
-        "max": 1,
-        "points": 124
-    },
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "3",
+                "A": "2",
+                "LD": "10",
+                "SV": "5+"
+            },
+            "name": "Neurothrope",
+            "min": 0,
+            "max": 1,
+            "points": 124
+        }
+    ],
     "equipped_with": "Every model is equipped with: Warp lightning.",
     "weapons": [
         {

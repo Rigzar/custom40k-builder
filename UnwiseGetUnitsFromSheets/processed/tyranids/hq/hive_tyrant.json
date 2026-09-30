@@ -20,24 +20,26 @@
             "points": 256
         }
     ],
-    "variant_models": {
-        "stats": {
-            "M": "6\"",
-            "WS": "2+",
-            "BS": "2+",
-            "S": "7",
-            "T": "7",
-            "W": "6",
-            "I": "5",
-            "A": "5",
-            "LD": "10",
-            "SV": "2+"
-        },
-        "name": "Legendary Hive Tyrant",
-        "min": 0,
-        "max": 1,
-        "points": 312
-    },
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "7",
+                "T": "7",
+                "W": "6",
+                "I": "5",
+                "A": "5",
+                "LD": "10",
+                "SV": "2+"
+            },
+            "name": "Legendary Hive Tyrant",
+            "min": 0,
+            "max": 1,
+            "points": 312
+        }
+    ],
     "equipped_with": "A Hive Tyrant is equipped with: 2 Monstrous scything talons.",
     "weapons": [
         {
