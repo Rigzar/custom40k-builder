@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Bio-electric pulse; 2 Monstrous scything talons."
-    ],
+    "equipped_with": "Every model is equipped with: Bio-electric pulse; 2 Monstrous scything talons.",
     "weapons": [
         {
             "name": "Bio-electric pulse",
@@ -156,9 +154,7 @@
         "Subterranean Assault: If this model starts the game in Reserve, you may pair it with one Troops unit that is also in Reserve. Both units arrive from Reserve using a single roll. Set up the Trygon first, following the rules for the chosen deployment method, then set up the paired Troops unit wholly within 3\" of the Trygon.",
         "Trygon Prime: The model gains the \"Fearless\" and \"Synapse\" abilities. Additionally, its Bio-electric pulse weapon gains the \"Assault 12\" type."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

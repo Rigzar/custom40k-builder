@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Barblauncher."
-    ],
+    "equipped_with": "Every model is equipped with: Barblauncher.",
     "weapons": [
         {
             "name": "Barblauncher",
@@ -85,9 +83,7 @@
     "abilities": [
         "Instinctive Behaviour, Move Through Cover"
     ],
-    "unit_type": [
-        "Infantry"
-    ],
+    "unit_type": "Infantry",
     "keywords": [
         "Basic Bioform"
     ],

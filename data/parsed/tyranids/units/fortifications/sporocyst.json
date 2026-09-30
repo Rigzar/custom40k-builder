@@ -58,9 +58,7 @@
             }
         }
     ],
-    "equipped_with": [
-        "A Sporocyst is equipped with: 5 Deathspitters."
-    ],
+    "equipped_with": "A Sporocyst is equipped with: 5 Deathspitters.",
     "weapons": [
         {
             "name": "Barbed strangler",
@@ -120,9 +118,7 @@
         "Spore Node: In addition of shooting at an enemy, a Sporocyst may create one unit of Spore Mines (3 models each) within 6\" of itself and at least 1\" away from any enemy unit.",
         "Psychic Resonator: Any Synapse creature within 6\" of the Sporocyst increases the range of its Synapse by 50%."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

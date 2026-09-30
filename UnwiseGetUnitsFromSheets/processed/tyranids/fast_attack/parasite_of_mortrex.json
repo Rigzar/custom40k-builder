@@ -20,9 +20,7 @@
             "points": 76
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Barbed ovipositor; Clawed limbs."
-    ],
+    "equipped_with": "Every model is equipped with: Barbed ovipositor; Clawed limbs.",
     "weapons": [
         {
             "name": "Barbed ovipositor",
@@ -47,9 +45,7 @@
         "Fearless, Squadron, Synapse",
         "Parasitic Infestation: The model may only make a single attack with the Barbed ovipositor per activation. If it successfully wounds the target (before any save rolls), roll 1D3. The target suffers the result in Mortal Wounds in addition (applied as 1 Mortal Wound at a time) to the normal damage and you may spawn the same amount of Ripper Swarms (as one unit) in direct base contact with the Parasite of Mortrex and/or the enemy unit, if it still has models left. The Ripper Swarms do not get an order, but can still fight in melee."
     ],
-    "unit_type": [
-        "Jump Pack Infantry"
-    ],
+    "unit_type": "Jump Pack Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

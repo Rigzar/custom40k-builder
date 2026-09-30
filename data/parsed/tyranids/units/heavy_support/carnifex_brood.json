@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: 2 Monstrous scything talons."
-    ],
+    "equipped_with": "Every model is equipped with: 2 Monstrous scything talons.",
     "weapons": [
         {
             "name": "Bio plasma",
@@ -261,9 +259,7 @@
     "abilities": [
         "Instinctive Behaviour, Move Through Cover, Squadron"
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

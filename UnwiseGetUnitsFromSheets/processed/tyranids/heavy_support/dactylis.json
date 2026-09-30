@@ -20,9 +20,7 @@
             "points": 226
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Forelimbs; Grasping Claws."
-    ],
+    "equipped_with": "Every model is equipped with: Forelimbs; Grasping Claws.",
     "weapons": [
         {
             "name": "Forelimbs - Mucolid Spore launcher",
@@ -76,9 +74,7 @@
         "Spore Mine Launcher: Instead of shooting at an enemy, a Dactylis may create a unit of \"Spore Mine Cluster\" (6 models) or a unit of \"Mucolid Spore Cluster\" (1 model) within 48\" of itself and at least 9\" away from any enemy unit.",
         "Volatile: The model always explodes like a vehicle."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ]

@@ -38,9 +38,7 @@
             "points": 10
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: -."
-    ],
+    "equipped_with": "Every model is equipped with: -.",
     "weapons": [
         {
             "name": "-",
@@ -56,9 +54,7 @@
         "Fearless, Move Through Cover, Synapse",
         "Neurocytes: The Synapse range of this unit is limited to 3\"."
     ],
-    "unit_type": [
-        "Infantry"
-    ],
+    "unit_type": "Infantry",
     "keywords": [
         "Basic Bioform"
     ]

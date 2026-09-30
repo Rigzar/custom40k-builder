@@ -20,9 +20,7 @@
             "points": 11
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: -."
-    ],
+    "equipped_with": "Every model is equipped with: -.",
     "weapons": [
         {
             "name": "Spinefists",
@@ -38,9 +36,7 @@
         "Mindless, Move Through Cover, Swarm",
         "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
     ],
-    "unit_type": [
-        "Infantry"
-    ],
+    "unit_type": "Infantry",
     "keywords": [
         "Basic Bioform"
     ]

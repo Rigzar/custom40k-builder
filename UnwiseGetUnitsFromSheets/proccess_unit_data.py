@@ -110,7 +110,7 @@ if __name__ == "__main__":
                         unit_sheet = unit_sheet[1:]
                     
                     # Process the weapon selections of the unit sheet.   
-                    app_unit_json["equipped_with"] = unit_sheet[0]
+                    app_unit_json["equipped_with"] = "".join(unit_sheet[0])
                     unit_sheet = unit_sheet[1:]
                     
                     # Make sure the weapons are in the correct format, then discard it.
@@ -151,7 +151,7 @@ if __name__ == "__main__":
                     unit_sheet = unit_sheet[1:]
                     
                     # Add the unit type, switch to the next row, which should be the keywords header.
-                    app_unit_json["unit_type"] = unit_sheet[0]
+                    app_unit_json["unit_type"] = "".join(unit_sheet[0])
                     unit_sheet = unit_sheet[1:]
                     
                     # Make sure the next row is the keywords header, then discard it.

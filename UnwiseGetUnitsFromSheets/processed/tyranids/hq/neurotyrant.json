@@ -20,9 +20,7 @@
             "points": 188
         }
     ],
-    "equipped_with": [
-        "A Neurotyrant is equipped with: Psychic scream."
-    ],
+    "equipped_with": "A Neurotyrant is equipped with: Psychic scream.",
     "weapons": [
         {
             "name": "Psychic scream",
@@ -41,9 +39,7 @@
         "Psychic Terror: Effects from the Shadow in The Warp ability start one round earlier.",
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."
     ],
-    "unit_type": [
-        "Monstrous Creature"
-    ],
+    "unit_type": "Monstrous Creature",
     "keywords": [
         "Advanced Bioform"
     ]

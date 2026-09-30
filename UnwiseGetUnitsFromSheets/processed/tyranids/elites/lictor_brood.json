@@ -20,9 +20,7 @@
             "points": 106
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Flesh hooks, Scything talons, Piercing claws."
-    ],
+    "equipped_with": "Every model is equipped with: Flesh hooks, Scything talons, Piercing claws.",
     "weapons": [
         {
             "name": "Flesh hooks",
@@ -58,9 +56,7 @@
         "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
         "Neurolictor: Select one enemy unit within 12\" during your activation. The target must pass a Leadership test or gain one Battleshock token."
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

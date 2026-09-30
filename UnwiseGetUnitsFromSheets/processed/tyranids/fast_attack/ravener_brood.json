@@ -20,9 +20,7 @@
             "points": 55
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: 2 Scything talons."
-    ],
+    "equipped_with": "Every model is equipped with: 2 Scything talons.",
     "weapons": [
         {
             "name": "Deathspitter",
@@ -74,9 +72,7 @@
         "Deep Strike, Instinctive Behaviour, Massive(2), Move Through Cover, Parry",
         "Death From Below: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
     ],
-    "unit_type": [
-        "Bike"
-    ],
+    "unit_type": "Bike",
     "keywords": [
         "Advanced Bioform"
     ]

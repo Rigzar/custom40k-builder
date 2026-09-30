@@ -38,9 +38,7 @@
         "max": 1,
         "points": 312
     },
-    "equipped_with": [
-        "A Hive Tyrant is equipped with: 2 Monstrous scything talons."
-    ],
+    "equipped_with": "A Hive Tyrant is equipped with: 2 Monstrous scything talons.",
     "weapons": [
         {
             "name": "Bone sabres",
@@ -162,9 +160,7 @@
         "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round.",
         "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation."
     ],
-    "unit_type": [
-        "Monstrous Creature"
-    ],
+    "unit_type": "Monstrous Creature",
     "keywords": [
         "Advanced Bioform"
     ]
