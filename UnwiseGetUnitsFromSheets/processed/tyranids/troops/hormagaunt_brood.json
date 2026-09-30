@@ -20,9 +20,7 @@
             "points": 5
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Scything talons"
-    ],
+    "equipped_with": "Every model is equipped with: Scything talons",
     "weapons": [
         {
             "name": "Scything talons",
@@ -37,9 +35,7 @@
     "abilities": [
         "Frenzy(6\"), Instinctive Behaviour, Move Through Cover"
     ],
-    "unit_type": [
-        "Infantry"
-    ],
+    "unit_type": "Infantry",
     "keywords": [
         "Basic Bioform"
     ]

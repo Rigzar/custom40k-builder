@@ -20,9 +20,7 @@
             "points": 223
         }
     ],
-    "equipped_with": [
-        "A Tervigon is equipped with: Monstrous scything talons; Stinger salvo."
-    ],
+    "equipped_with": "A Tervigon is equipped with: Monstrous scything talons; Stinger salvo.",
     "weapons": [
         {
             "name": "Crushing claws",
@@ -84,9 +82,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
         "Brood Progenitor: Roll 2D6 and discard the lowest die during each Reinforcement phase. You spawn the result as either Hormagaunt or Termagaunt (equipped with Flesh borers) models within 6\", but outside of engagement range with enemy models."
     ],
-    "unit_type": [
-        "Monstrous Creature"
-    ],
+    "unit_type": "Monstrous Creature",
     "keywords": [
         "Advanced Bioform"
     ]

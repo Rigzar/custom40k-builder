@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Monstrous scything talons."
-    ],
+    "equipped_with": "Every model is equipped with: Monstrous scything talons.",
     "weapons": [
         {
             "name": "Monstrous scything talons",
@@ -133,9 +131,7 @@
         "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules.",
         "Terror from the Deep: If the model is set up via Deep Strike rules, select one enemy unit within 12\". The target unit suffers 4 automatic hits with Strength: U AP: -2 Damage: 2."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

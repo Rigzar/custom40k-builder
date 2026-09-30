@@ -20,9 +20,7 @@
             "points": 144
         }
     ],
-    "equipped_with": [
-        "A Tyrannocyte is equipped with: 5 Deathspitters."
-    ],
+    "equipped_with": "A Tyrannocyte is equipped with: 5 Deathspitters.",
     "weapons": [
         {
             "name": "Barbed strangler",
@@ -58,9 +56,7 @@
         "Tyrannocyte Assault: Tyrannocytes always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!",
         "Transport: This model has a transport capacity of 20 (Monstrous) Infantry models or 1 Monstrous Creature."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ]

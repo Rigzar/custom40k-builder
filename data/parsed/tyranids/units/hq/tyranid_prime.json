@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "A Tyranid Prime is equipped with: Scything talons; Spinefists."
-    ],
+    "equipped_with": "A Tyranid Prime is equipped with: Scything talons; Spinefists.",
     "weapons": [
         {
             "name": "Boneswords",
@@ -216,9 +214,7 @@
         "Fearless, Massive(1), Move Through Cover, Synapse",
         "Alpha Warrior: A Tyranid Prime can attach to any unit like a character model. If the model is attached to a unit of Tyranid Warriors, they gain a +1 bons to Weapon Skill and Ballistic Skill."
     ],
-    "unit_type": [
-        "Character model, Monstrous Infantry"
-    ],
+    "unit_type": "Character model, Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ],

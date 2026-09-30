@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Fleshborer; Blinding Venom."
-    ],
+    "equipped_with": "Every model is equipped with: Fleshborer; Blinding Venom.",
     "weapons": [
         {
             "name": "Fleshborer",
@@ -94,9 +92,7 @@
     "abilities": [
         "Instinctive Behaviour"
     ],
-    "unit_type": [
-        "Jump Pack Infantry"
-    ],
+    "unit_type": "Jump Pack Infantry",
     "keywords": [
         "Basic Bioform"
     ],

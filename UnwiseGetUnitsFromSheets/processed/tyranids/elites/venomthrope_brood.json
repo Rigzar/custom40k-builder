@@ -20,9 +20,7 @@
             "points": 27
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Toxic lashes."
-    ],
+    "equipped_with": "Every model is equipped with: Toxic lashes.",
     "weapons": [
         {
             "name": "Toxic lashes",
@@ -39,9 +37,7 @@
         "Sporecloud: Friendly models within 3\" benefit from Obscuring cover. The range increases by +3\" for each additional Venomthrope in the unit.",
         "Volatile: The unit explodes like a vehicle upon losing its last Wound."
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

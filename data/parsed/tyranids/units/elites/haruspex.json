@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Crushing claws, Grasping tongue."
-    ],
+    "equipped_with": "Every model is equipped with: Crushing claws, Grasping tongue.",
     "weapons": [
         {
             "name": "Crushing claws",
@@ -89,9 +87,7 @@
         "Instinctive Behaviour, Move Through Cover",
         "Voracious maw: All attacks of the model gain the \"Blood Drinker\" ability."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

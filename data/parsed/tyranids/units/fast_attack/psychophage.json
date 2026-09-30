@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Betentacled maw; Psychoclastic torrent."
-    ],
+    "equipped_with": "Every model is equipped with: Betentacled maw; Psychoclastic torrent.",
     "weapons": [
         {
             "name": "Betentacled maw",
@@ -104,9 +102,7 @@
         "Instinctive Behaviour, Move Through Cover, Squadron",
         "Warp hunger: All attacks of the model gain the \"Psi-shock\" ability."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Acid spray; Monstrous scything talons; Stinger salvo."
-    ],
+    "equipped_with": "Every model is equipped with: Acid spray; Monstrous scything talons; Stinger salvo.",
     "weapons": [
         {
             "name": "Acid spray",
@@ -187,9 +185,7 @@
     "abilities": [
         "Instinctive Behaviour, Move Through Cover, Squadron"
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ],

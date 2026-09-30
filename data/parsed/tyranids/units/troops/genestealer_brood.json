@@ -38,9 +38,7 @@
         "max": 1,
         "points": 67
     },
-    "equipped_with": [
-        "Every model is equipped with: Piercing claws."
-    ],
+    "equipped_with": "Every model is equipped with: Piercing claws.",
     "weapons": [
         {
             "name": "Piercing claws",
@@ -153,9 +151,7 @@
         "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
         "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
     ],
-    "unit_type": [
-        "Infantry"
-    ],
+    "unit_type": "Infantry",
     "keywords": [
         "Basic Bioform"
     ],

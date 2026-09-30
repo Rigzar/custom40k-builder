@@ -20,9 +20,7 @@
             "points": 99
         }
     ],
-    "equipped_with": [
-        "A Malanthrope is equipped with: Grasping tail."
-    ],
+    "equipped_with": "A Malanthrope is equipped with: Grasping tail.",
     "weapons": [
         {
             "name": "Grasping tail",
@@ -41,9 +39,7 @@
         "Psychic Barrier: The model gains a 5+ ward save.",
         "Toxic Miasma: During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\"."
     ],
-    "unit_type": [
-        "Character model, Monstrous Infantry"
-    ],
+    "unit_type": "Character model, Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

@@ -20,9 +20,7 @@
             "points": 36
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Rending claws."
-    ],
+    "equipped_with": "Every model is equipped with: Rending claws.",
     "weapons": [
         {
             "name": "Rending claws",
@@ -38,9 +36,7 @@
         "Infiltrator, Massive(1), Move Through Cover, Stealth, Use cover",
         "Leaping charge: The unit has a 12\" Charge move."
     ],
-    "unit_type": [
-        "Infantry"
-    ],
+    "unit_type": "Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

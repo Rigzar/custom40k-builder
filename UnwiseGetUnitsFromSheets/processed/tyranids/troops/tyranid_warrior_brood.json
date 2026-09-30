@@ -20,9 +20,7 @@
             "points": 36
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: 2 Scything talons."
-    ],
+    "equipped_with": "Every model is equipped with: 2 Scything talons.",
     "weapons": [
         {
             "name": "Barbed strangler",
@@ -110,9 +108,7 @@
         "Fearless, Massive(1), Move Through Cover, Synapse",
         "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

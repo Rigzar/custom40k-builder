@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Rending claws; Scything talons."
-    ],
+    "equipped_with": "Every model is equipped with: Rending claws; Scything talons.",
     "weapons": [
         {
             "name": "Lash whip and Bonesword",
@@ -136,9 +134,7 @@
         "Bodyguard, Instinctive Behaviour, Massive(1), Move Through Cover",
         "Shieldwall: A Hive Tyrant or Neurotyrant can attach to the unit like a character model."
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ],

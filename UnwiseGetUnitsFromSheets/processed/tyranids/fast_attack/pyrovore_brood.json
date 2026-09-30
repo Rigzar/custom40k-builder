@@ -20,9 +20,7 @@
             "points": 75
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Acid maw; Flamespurt."
-    ],
+    "equipped_with": "Every model is equipped with: Acid maw; Flamespurt.",
     "weapons": [
         {
             "name": "Acid maw",
@@ -56,9 +54,7 @@
         "Instinctive Behaviour, Massive(2), Move Through Cover",
         "Volatile: The model always explodes like a vehicle."
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

@@ -20,9 +20,7 @@
             "points": 200
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Massive toxic lashes."
-    ],
+    "equipped_with": "Every model is equipped with: Massive toxic lashes.",
     "weapons": [
         {
             "name": "Massive toxic lashes"
@@ -51,9 +49,7 @@
         "Grasping Tendrils: Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model.",
         "Volatile: The model always explodes like a vehicle."
     ],
-    "unit_type": [
-        "Monstrous Creature "
-    ],
+    "unit_type": "Monstrous Creature ",
     "keywords": [
         "Advanced Bioform"
     ]

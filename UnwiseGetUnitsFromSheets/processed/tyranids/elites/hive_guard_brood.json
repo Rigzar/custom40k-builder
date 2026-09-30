@@ -20,9 +20,7 @@
             "points": 41
         }
     ],
-    "equipped_with": [
-        "Every model is equipped with: Shock cannon."
-    ],
+    "equipped_with": "Every model is equipped with: Shock cannon.",
     "weapons": [
         {
             "name": "Impaler cannon",
@@ -46,9 +44,7 @@
     "abilities": [
         "Instinctive Behaviour, Massive(1), Move Through Cover"
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ]

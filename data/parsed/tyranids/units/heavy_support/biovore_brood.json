@@ -21,9 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": [
-        "Every model is equipped with: Spore Mine launcher."
-    ],
+    "equipped_with": "Every model is equipped with: Spore Mine launcher.",
     "weapons": [
         {
             "name": "Spore Mine launcher",
@@ -77,9 +75,7 @@
         "Instinctive Behaviour, Massive(2), Move Through Cover",
         "Spore Mine Launcher: Instead of shooting at an enemy, a Biovore may create a unit of \"Spore Mine Cluster\" (3 models) within 48\" of itself and at least 9\" away from any enemy unit."
     ],
-    "unit_type": [
-        "Monstrous Infantry"
-    ],
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ],
