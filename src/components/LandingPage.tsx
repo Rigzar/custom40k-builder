@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v180a_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v180b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,6 +60,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Reported on GitHub", rows: [
         ["GH#167", "Special Biomorphs can be selected and kept again \u2014 opening a saved Tyranid list no longer wipes them."],
+        ["GH#170, GH#171", "The Armory can buy several copies of one weapon again \u2014 a count on the box and a minus to take one back."],
       ] },
       { label: "Reported on Discord", rows: [
         ["I.O.U", "Blood Ravens can take it: it costs whatever item you pick from another army\u2019s Legacy Armory."],
@@ -84,6 +85,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
         ["GH#167", "Spezial-Biomorphe lassen sich wieder waehlen und behalten \u2014 das Oeffnen einer gespeicherten Tyraniden-Liste loescht sie nicht mehr."],
+        ["GH#170, GH#171", "Das Armory kann wieder mehrere Exemplare einer Waffe kaufen \u2014 Zaehler am Kaestchen und ein Minus zum Zuruecknehmen."],
       ] },
       { label: "Auf Discord gemeldet", rows: [
         ["I.O.U", "Blood Ravens koennen es nehmen: es kostet, was der gewaehlte Gegenstand aus dem Legacy-Armory einer anderen Armee kostet."],
@@ -108,6 +110,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Reportado en GitHub", rows: [
         ["GH#167", "Los biomorfos especiales se pueden elegir y conservar otra vez \u2014 abrir una lista guardada de Tiranidos ya no los borra."],
+        ["GH#170, GH#171", "El Armory vuelve a poder comprar varias copias de un arma \u2014 contador en la casilla y un menos para quitar una."],
       ] },
       { label: "Reportado en Discord", rows: [
         ["I.O.U", "Los Blood Ravens pueden llevarlo: cuesta lo que cueste el objeto que elijas del Legacy Armory de otro ejercito."],

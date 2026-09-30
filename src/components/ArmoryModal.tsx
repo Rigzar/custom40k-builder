@@ -407,6 +407,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function getSelId(itemName: string, sec: Section): string | undefined {
     return currentArmory.find(a => a.itemName === itemName && a.section === sec)?.id;
   }
+  function getSelCount(itemName: string, sec: Section): number {
+    return currentArmory.filter(a => a.itemName === itemName && a.section === sec).length;
+  }
   function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
   const rule = getArchetypeRule(archetype);
@@ -1224,6 +1227,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         isBlocked={arm => isAddBlocked(arm, effectiveSection)}
                         getPts={getItemPts}
                         getSelId={name => getSelId(name, effectiveSection)}
+                        getCount={name => getSelCount(name, effectiveSection)}
                         onRemove={removeItem}
                         onAdd={arm => add(arm, `${markName} Armoury`, effectiveSection)}
                       />
@@ -1326,6 +1330,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         isBlocked={arm => isAddBlocked(arm, effectiveSection)}
                         getPts={getItemPts}
                         getSelId={name => getSelId(name, effectiveSection)}
+                        getCount={name => getSelCount(name, effectiveSection)}
                         onRemove={removeItem}
                         onAdd={arm => add(arm, legName, effectiveSection)}
                       />
@@ -1420,6 +1425,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         isBlocked={() => authorityCapReached}
                         getPts={getItemPts}
                         getSelId={name => getSelId(name, 'weapons')}
+                        getCount={name => getSelCount(name, 'weapons')}
                         onRemove={removeItem}
                         onAdd={arm => add(arm, AUTHORITY_SOURCE, 'weapons')}
                       />
@@ -1515,6 +1521,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       isBlocked={() => false}
                       getPts={getItemPts}
                       getSelId={name => getSelId(name, 'weapons')}
+                      getCount={name => getSelCount(name, 'weapons')}
                       onRemove={removeItem}
                       onAdd={arm => add(arm, foreignSrcLabel, 'weapons')}
                     />
@@ -1573,6 +1580,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   isBlocked={arm => isAddBlocked(arm, effectiveSection)}
                   getPts={getItemPts}
                   getSelId={name => getSelId(name, effectiveSection)}
+                  getCount={name => getSelCount(name, effectiveSection)}
                   onRemove={removeItem}
                   onAdd={arm => add(arm, armSource, effectiveSection)}
                 />
@@ -2357,12 +2365,13 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
  * shape turns out to be common in practice; today's items are effectively all single-profile.
  */
 function ArmoryWeaponTable({
-  items, isBlocked, getPts, getSelId, onAdd, onRemove, justAddedName, markless = false,
+  items, isBlocked, getPts, getSelId, getCount, onAdd, onRemove, justAddedName, markless = false,
 }: {
   items: ArmoryItem[];
   isBlocked: (arm: ArmoryItem) => boolean;
   getPts: (arm: ArmoryItem) => number | null;
   getSelId: (name: string) => string | undefined;
+  getCount: (name: string) => number;
   onAdd: (arm: ArmoryItem) => void;
   onRemove: (id: string) => void;
   justAddedName?: string;
@@ -2376,7 +2385,7 @@ function ArmoryWeaponTable({
       <table className="w-full text-xs border-collapse">
         <thead>
           <tr className="border-b border-zinc-600">
-            <th className="py-1.5 pl-2 w-[4%]" />
+            <th className="py-1.5 pl-2 w-[7%]" />
             <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[22%]">{t('weapon')}</th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">{t('rangeFullLabel')}</th>
             <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[12%]">{t('typeFullLabel')}</th>
@@ -2391,6 +2400,7 @@ function ArmoryWeaponTable({
           {items.map((arm, i) => {
             const selId = getSelId(arm.name);
             const owned = !!selId;
+            const count = getCount(arm.name);
             const blocked = isBlocked(arm);
             const pts = getPts(arm);
             const costIsSpecial = isWeaponCostSpecial(arm.desc);
@@ -2406,13 +2416,23 @@ function ArmoryWeaponTable({
                 className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-40' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
               >
                 <td className="py-1.5 pl-2">
-                  <div
-                    onClick={() => { if (disabled) return; if (owned) onRemove(selId!); else onAdd(arm); }}
-                    className={`w-4 h-4 border flex items-center justify-center transition-colors
-                      ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
-                      ${disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
-                  >
-                    {owned && <span className="text-[8px] text-white leading-none">✓</span>}
+                  {/* Ticking buys one copy. Weapons can be bought more than once (one per model, or
+                      per the item's own "multiple" wording), so once owned the box stays enabled
+                      while the cap allows another and a "-" takes one back. Reported as GH#170/#171:
+                      the plain toggle made a second Big choppa impossible. */}
+                  <div className="flex items-center gap-1">
+                    <div
+                      onClick={() => { if (blocked && owned) return; if (disabled) return; onAdd(arm); }}
+                      className={`w-4 h-4 border flex items-center justify-center transition-colors
+                        ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
+                        ${disabled || (owned && blocked) ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
+                    >
+                      {owned && <span className="text-[8px] text-white leading-none">{count > 1 ? count : '\u2713'}</span>}
+                    </div>
+                    {owned && (
+                      <button type="button" onClick={() => onRemove(selId!)}
+                        className="text-zinc-400 hover:text-red-400 text-xs leading-none px-0.5" title="-1">{'\u2212'}</button>
+                    )}
                   </div>
                 </td>
                 <td className="py-1.5 pr-2 font-medium text-zinc-100">{displayName}</td>
