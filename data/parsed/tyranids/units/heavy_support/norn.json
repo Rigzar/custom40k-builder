@@ -1,162 +1,165 @@
 {
-  "name": "Norn",
-  "models": [
-    {
-      "name": "Norn",
-      "points": 340,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "8",
-        "T": "8",
-        "W": "7",
-        "I": "5",
-        "A": "5",
-        "LD": "10",
-        "SV": "2+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Norn is equipped with: Monstrous scything talons; Monstrous piercing claws.",
-  "weapons": [
-    {
-      "name": "Crushing claws",
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(2)"
-    },
-    {
-      "name": "Monstrous flesh hooks",
-      "range": "6\"",
-      "type": "Pistol 8",
-      "s": "6",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Suppression(3)"
-    },
-    {
-      "name": "Monstrous piercing claws",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Armor piercing(5+), AT(1)"
-    },
-    {
-      "name": "Monstrous scything talons",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Extra Attack(1)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May swap its Monstrous piercing claws",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Norn",
+    "models": [
         {
-          "name": "Crushing claws",
-          "points": 3
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "8",
+                "T": "8",
+                "W": "7",
+                "I": "5",
+                "A": "5",
+                "LD": "10",
+                "SV": "2+"
+            },
+            "name": "Norn",
+            "min": 1,
+            "max": 1,
+            "points": 340
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Monstrous piercing claws"
-      ]
-    },
-    {
-      "header": "May be equipped with one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": [
+        "A Norn is equipped with: Monstrous scything talons; Monstrous piercing claws."
+    ],
+    "weapons": [
         {
-          "name": "Monstrous flesh hooks",
-          "points": 13
+            "name": "Crushing claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Monstrous flesh hooks",
+            "range": "6\"",
+            "type": "Pistol 8",
+            "s": "6",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Monstrous piercing claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), AT(1)"
+        },
+        {
+            "name": "Monstrous scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Extra Attack(1)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be upgraded to one of the following specialisation",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "option_groups": [
         {
-          "name": "Norn Emissary",
-          "points": 45
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May select one Special Biomorph",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Regeneration",
-          "points": 35,
-          "effect": {
-            "grants_abilities": [
-              "Regeneration: The unit gains the \"Regeneration(1)\" ability."
+            "header": "May swap its Monstrous piercing claws",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Crushing claws",
+                    "points": 3
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Monstrous piercing claws"
             ]
-          }
+        },
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Monstrous flesh hooks",
+                    "points": 13
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be upgraded to one of the following specialisation",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Norn Emissary",
+                    "points": 45
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May select one Special Biomorph",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Regeneration",
+                    "points": 35,
+                    "effect": {
+                        "grants_abilities": [
+                            "Regeneration: The unit gains the \"Regeneration(1)\" ability."
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
-    }
-  ],
-  "abilities": [
-    "Fearless, Move Through Cover, Synapse",
-    "Psychic Barrier: The model gains a 5+ ward save.",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
-    "Singular Purpose: Select one enemy unit at the beginning of the first Battle round. The model may re-roll all to hit and all to wound rolls against the target. Alternatively, select a mission objective at the beginning of the first Battle round. The model gains the \"Objective Secured!\" ability for this objective only. Additionally, it may re-roll armor save and ward saves of 1 while within 3\" of that objective.",
-    "Norn Emissary",
-    "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and two powers from a chosen discipline.",
-    "Warp Barrier: The model gains a 4+ ward save."
-  ],
-  "unit_type": "Monstrous Creature",
-  "keywords": [
-    "Tyranid",
-    "Advanced Bioform"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_psyker": true,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Heavy Support",
-  "default_size": 1,
-  "min_cost": 340,
-  "is_monster": true
+    ],
+    "abilities": [
+        "Fearless, Move Through Cover, Synapse",
+        "Psychic Barrier: The model gains a 5+ ward save.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
+        "Singular Purpose: Select one enemy unit at the beginning of the first Battle round. The model may re-roll all to hit and all to wound rolls against the target. Alternatively, select a mission objective at the beginning of the first Battle round. The model gains the \"Objective Secured!\" ability for this objective only. Additionally, it may re-roll armor save and ward saves of 1 while within 3\" of that objective.",
+        "Norn Emissary",
+        "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and two powers from a chosen discipline.",
+        "Warp Barrier: The model gains a 4+ ward save."
+    ],
+    "unit_type": [
+        "Monstrous Creature "
+    ],
+    "keywords": [
+        "Advanced Bioform"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_psyker": true,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 340,
+    "is_monster": true
 }

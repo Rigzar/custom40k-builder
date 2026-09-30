@@ -16,15 +16,17 @@ if __name__ == "__main__":
     for faction in FACTIONS:
         for category in UNIT_CATEGORIES:
             
-            print(f"Processing {faction} - {category}...")
+            print(f"\nProcessing {faction} - {category}...")
 
             update_dir = Path(f'processed/{faction}/{category}')
-            update_files = update_dir.iterdir()
-            print(f"Update files found: {[file.name for file in update_files]}")
+            update_files = [f for f in update_dir.iterdir()]
+            print(f"Update files: {[file.name for file in update_files]}")
             
             app_dir = Path(f'../data/parsed/{faction}/units/{category}')
-            app_files = app_dir.iterdir()
-            print(f"Existing files found: {[file.name for file in app_files]}")
+            app_files = [f for f in app_dir.iterdir()]
+            print(f"App files: {[file.name for file in app_files]}")
+            
+            print(f"Updating {len(list(app_files))} existing units in {app_dir} with new data from {update_dir}.")
             
             for filename in update_files:
                 if filename.name not in [file.name for file in app_files]:
@@ -45,6 +47,7 @@ if __name__ == "__main__":
                     app_unit_json[k] = v
                     
                 with open(app_dir / filename.name, "w") as f:
+                    print(f"Updating {app_dir / filename.name} with new data from {update_dir / filename.name}.")
                     json.dump(app_unit_json, f, indent=4)
                     
                     

@@ -1,136 +1,137 @@
 {
-  "name": "Zoanthrope Brood",
-  "models": [
-    {
-      "name": "Zoanthrope",
-      "points": 92,
-      "min": 1,
-      "max": 6,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "5",
-        "T": "5",
-        "W": "2",
-        "I": "3",
-        "A": "2",
-        "LD": "10",
-        "SV": "5+"
-      }
-    }
-  ],
-  "variant_models": [
-    {
-      "name": "Neurothrope",
-      "points": 124,
-      "min": 0,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "5",
-        "T": "5",
-        "W": "3",
-        "I": "3",
-        "A": "2",
-        "LD": "10",
-        "SV": "5+"
-      }
-    }
-  ],
-  "equipped_with": "Every model is equipped with: Warp lightning.",
-  "weapons": [
-    {
-      "name": "Warp lightning - Dispersed",
-      "range": "24\"",
-      "type": "Assault 1",
-      "s": "5",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Blast(4), Seeking"
-    },
-    {
-      "name": "Warp lightning - Focused",
-      "range": "18\"",
-      "type": "Assault 1",
-      "s": "10",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "AT(3), Seeking"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May select one Special Biomorph",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Zoanthrope Brood",
+    "models": [
         {
-          "name": "Hardened Carapace",
-          "points": 4,
-          "effect": {
-            "grants_abilities": [
-              "Hardened Carapace: The unit improves its armor save by +1."
-            ],
-            "stat_mod": [
-              {
-                "stat": "SV",
-                "delta": -1
-              }
-            ]
-          }
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "10",
+                "SV": "5+"
+            },
+            "name": "Zoanthrope",
+            "min": 1,
+            "max": 6,
+            "points": 92
+        }
+    ],
+    "variant_models": {
+        "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "3",
+            "A": "2",
+            "LD": "10",
+            "SV": "5+"
+        },
+        "name": "Neurothrope",
+        "min": 0,
+        "max": 1,
+        "points": 124
+    },
+    "equipped_with": [
+        "Every model is equipped with: Warp lightning."
+    ],
+    "weapons": [
+        {
+            "name": "Warp lightning - Dispersed",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Seeking"
         },
         {
-          "name": "Resonator",
-          "points": 3,
-          "effect": {
-            "grants_abilities": [
-              "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
-            ]
-          }
+            "name": "Warp lightning - Focused",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "10",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3), Seeking"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
-    },
-    {
-      "header": "One model may be upgraded to a Neurothrope for +32 points.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 32,
-      "variant_link": "Neurothrope",
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [
-    "Anti-Grav, Fearless, Massive(1), Synapse",
-    "Warp Barrier: The model gains a 4+ ward save.",
-    "Psyker: The Neurothrope can cast 1 power and deny 1 power per battle round. It knows Smite and one powers from a chosen discipline."
-  ],
-  "unit_type": "Monstrous Infantry",
-  "keywords": [
-    "Tyranid",
-    "Advanced Bioform"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_psyker": true,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 1,
-  "min_cost": 95,
-  "is_monster": false
+    ],
+    "option_groups": [
+        {
+            "header": "May select one Special Biomorph",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Hardened Carapace",
+                    "points": 4,
+                    "effect": {
+                        "grants_abilities": [
+                            "Hardened Carapace: The unit improves its armor save by +1."
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "SV",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Resonator",
+                    "points": 3,
+                    "effect": {
+                        "grants_abilities": [
+                            "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "One model may be upgraded to a Neurothrope for +32 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 32,
+            "variant_link": "Neurothrope",
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Fearless, Massive(1), Synapse",
+        "Psyker: The Neurothrope can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
+        "Warp Barrier: The model gains a 4+ ward save."
+    ],
+    "unit_type": [
+        "Monstrous Infantry"
+    ],
+    "keywords": [
+        "Advanced Bioform"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_psyker": true,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 95,
+    "is_monster": false
 }

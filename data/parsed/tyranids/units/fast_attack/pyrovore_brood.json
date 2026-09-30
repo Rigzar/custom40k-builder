@@ -1,115 +1,118 @@
 {
-  "name": "Pyrovore Brood",
-  "models": [
-    {
-      "name": "Pyrovore",
-      "points": 75,
-      "min": 1,
-      "max": 3,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "5",
-        "T": "5",
-        "W": "3",
-        "I": "2",
-        "A": "2",
-        "LD": "6",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Every model is equipped with: Acid maw; Flamespurt.",
-  "weapons": [
-    {
-      "name": "Acid maw",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Flamespurt - Burning spray",
-      "range": "12\"",
-      "type": "Assault 4",
-      "s": "6",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Flamespurt - Pyrogout",
-      "range": "18\"",
-      "type": "Assault 8",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May select one Special Biomorph",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Pyrovore Brood",
+    "models": [
         {
-          "name": "Hardened Carapace",
-          "points": 10,
-          "effect": {
-            "grants_abilities": [
-              "Hardened Carapace: The unit improves its armor save by +1."
-            ],
-            "stat_mod": [
-              {
-                "stat": "SV",
-                "delta": -1
-              }
-            ]
-          }
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "2",
+                "A": "2",
+                "LD": "6",
+                "SV": "3+"
+            },
+            "name": "Pyrovore",
+            "min": 1,
+            "max": 3,
+            "points": 75
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": [
+        "Every model is equipped with: Acid maw; Flamespurt."
+    ],
+    "weapons": [
+        {
+            "name": "Acid maw",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "-"
         },
         {
-          "name": "Resonator",
-          "points": 7,
-          "effect": {
-            "grants_abilities": [
-              "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
-            ]
-          }
+            "name": "Flamespurt - Burning spray",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Flamespurt - Pyrogout",
+            "range": "18\"",
+            "type": "Assault 8",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
-    }
-  ],
-  "abilities": [
-    "Instinctive Behaviour, Massive(2), Move Through Cover",
-    "Volatile: The model always explodes like a vehicle."
-  ],
-  "unit_type": "Monstrous Infantry",
-  "keywords": [
-    "Tyranid",
-    "Advanced Bioform"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Fast Attack",
-  "default_size": 1,
-  "min_cost": 75,
-  "is_monster": false
+    ],
+    "option_groups": [
+        {
+            "header": "May select one Special Biomorph",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Hardened Carapace",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Hardened Carapace: The unit improves its armor save by +1."
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "SV",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Resonator",
+                    "points": 7,
+                    "effect": {
+                        "grants_abilities": [
+                            "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Instinctive Behaviour, Massive(2), Move Through Cover",
+        "Volatile: The model always explodes like a vehicle."
+    ],
+    "unit_type": [
+        "Monstrous Infantry"
+    ],
+    "keywords": [
+        "Advanced Bioform"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 1,
+    "min_cost": 75,
+    "is_monster": false
 }

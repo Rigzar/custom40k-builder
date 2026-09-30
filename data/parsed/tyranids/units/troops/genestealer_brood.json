@@ -1,175 +1,176 @@
 {
-  "name": "Genestealer Brood",
-  "models": [
-    {
-      "name": "Genestealer",
-      "points": 15,
-      "min": 5,
-      "max": 10,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "6+",
-        "S": "4",
-        "T": "4",
-        "W": "1",
-        "I": "5",
-        "A": "3",
-        "LD": "10",
-        "SV": "5+"
-      }
-    }
-  ],
-  "variant_models": [
-    {
-      "name": "Broodlord",
-      "points": 67,
-      "min": 0,
-      "max": 0,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "6+",
-        "S": "5",
-        "T": "5",
-        "W": "3",
-        "I": "6",
-        "A": "4",
-        "LD": "10",
-        "SV": "4+"
-      }
-    }
-  ],
-  "equipped_with": "Every model is equipped with: Piercing claws.",
-  "weapons": [
-    {
-      "name": "Piercing claws",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Armor piercing(5+)"
-    },
-    {
-      "name": "Scything talons",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Extra Attack(1)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "One model may be upgraded to a Broodlord for +52 points.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 52,
-      "variant_link": "Broodlord",
-      "is_unique_per_army": false
-    },
-    {
-      "header": "All models may be equipped with",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    "name": "Genestealer Brood",
+    "models": [
         {
-          "name": "Scything talons",
-          "points": 1
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "6+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "5",
+                "A": "3",
+                "LD": "10",
+                "SV": "5+"
+            },
+            "name": "Genestealer",
+            "min": 5,
+            "max": 10,
+            "points": 15
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
+    ],
+    "variant_models": {
+        "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "6+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "6",
+            "A": "4",
+            "LD": "10",
+            "SV": "4+"
+        },
+        "name": "Broodlord",
+        "min": 0,
+        "max": 1,
+        "points": 67
     },
-    {
-      "header": "May be upgraded to one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "equipped_with": [
+        "Every model is equipped with: Piercing claws."
+    ],
+    "weapons": [
         {
-          "name": "Ymgarl Genestealers",
-          "points": 0
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May select one Special Biomorph",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Scuttlers",
-          "points": 1,
-          "effect": {
-            "grants_abilities": [
-              "Scuttlers: The unit gains the \"Vanguard\" ability."
-            ]
-          }
+            "name": "Piercing claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
         },
         {
-          "name": "Feeder Tendrils",
-          "points": 1,
-          "effect": {
-            "grants_abilities": [
-              "Feeder Tendrils: The unit gains the \"Favoured Enemy(everything)\" ability for itself and any friendly unit in the same melee combat."
-            ]
-          }
+            "name": "Scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One model may be upgraded to a Broodlord for +52 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 52,
+            "variant_link": "Broodlord",
+            "is_unique_per_army": false
         },
         {
-          "name": "Hardened Carapace",
-          "points": 6,
-          "effect": {
-            "grants_abilities": [
-              "Hardened Carapace: The unit improves its armor save by +1."
+            "header": "All models may be equipped with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Scything talons",
+                    "points": 1
+                }
             ],
-            "stat_mod": [
-              {
-                "stat": "SV",
-                "delta": -1
-              }
-            ]
-          }
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be upgraded to one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Ymgarl Genestealers",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May select one Special Biomorph",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Scuttlers",
+                    "points": 1,
+                    "effect": {
+                        "grants_abilities": [
+                            "Scuttlers: The unit gains the \"Vanguard\" ability."
+                        ]
+                    }
+                },
+                {
+                    "name": "Feeder Tendrils",
+                    "points": 1,
+                    "effect": {
+                        "grants_abilities": [
+                            "Feeder Tendrils: The unit gains the \"Favoured Enemy(everything)\" ability for itself and any friendly unit in the same melee combat."
+                        ]
+                    }
+                },
+                {
+                    "name": "Hardened Carapace",
+                    "points": 6,
+                    "effect": {
+                        "grants_abilities": [
+                            "Hardened Carapace: The unit improves its armor save by +1."
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "SV",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
-    }
-  ],
-  "abilities": [
-    "Infiltrator, Move Through Cover",
-    "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
-    "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
-  ],
-  "unit_type": "Infantry",
-  "keywords": [
-    "Tyranid",
-    "Basic Bioform"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_psyker": true,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Troops",
-  "default_size": 5,
-  "min_cost": 75,
-  "is_monster": false
+    ],
+    "abilities": [
+        "Infiltrator, Move Through Cover",
+        "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
+        "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
+    ],
+    "unit_type": [
+        "Infantry"
+    ],
+    "keywords": [
+        "Basic Bioform"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_psyker": true,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 5,
+    "min_cost": 75,
+    "is_monster": false
 }
