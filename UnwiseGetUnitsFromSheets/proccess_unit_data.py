@@ -16,14 +16,14 @@ MODEL_FORMAT = ["No.","NAME","M","WS","BS","S","T","W","I","A","LD","SV","POINTS
 WEAPON_FORMAT = ["WEAPON", "RANGE", "TYPE", "S", "AP", "D", "ABILITIES"]
 
 # Make a list of all the troops that exist in the faction's Index.json file. 
-def proccess_faction_troops(faction):
+def proccess_faction_troops(faction_path, faction_name):
     ret = {}
-    with open(f"raw/{faction}/index.json", "r") as f:
+    with open(f"raw/{faction_path}/index.json", "r") as f:
         #sheet is a list of lists, where each inner list is a row in the sheet. Data format: NxN
         sheet = json.load(f)
         #Make sure the correct faction is being processed. "join" is a syntax trick for converting strings. If it's correct, remove it.
-        if "".join(sheet[0]) != faction:
-            print(f"{sheet[0]} found, expected {faction}. Stopping the program.")
+        if "".join(sheet[0]) != faction_name:
+            print(f"{sheet[0]} found, expected {faction_name}. Stopping the program.")
             exit()
         sheet = sheet[1:]
             
@@ -71,18 +71,18 @@ if __name__ == "__main__":
     
     print(f"Factions found:{FACTIONS}")
     for faction in FACTIONS:
-    
+        
+        faction_path = f"{faction.lower().replace(' ', '_')}"
         print(f"Processing {faction}...")
-        faction_troops = proccess_faction_troops(faction)
+        faction_troops = proccess_faction_troops(faction_path, faction)
         print(f"Faction troops: {faction_troops}")
         
-        faction_path = f"raw{faction.lower().replace(' ', '_')}"
         proccessed_faction_units = {}
         for category, units in faction_troops.items():
             for unit in units:
                 unit_name = "".join(unit)
                 unit_lowercase_name = unit_name.lower().replace("'", "").replace(" ", "_").replace("\u00b4", "")
-                raw_unit_path = f"raw/{faction}/{unit_lowercase_name}"
+                raw_unit_path = f"raw/{faction_path}/{unit_lowercase_name}"
                 
                 app_unit_json = {"name" : unit_name, "models": []}
                 with open(f"{raw_unit_path}.json", "r") as f:
