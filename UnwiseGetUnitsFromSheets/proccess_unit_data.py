@@ -101,7 +101,7 @@ if __name__ == "__main__":
                         model = proccess_model(unit_sheet[0])
                         if "*" in str(unit_sheet[0][0]):
                             if "variant_models" not in app_unit_json:
-                                app_unit_json["variant_models"] = model
+                                app_unit_json["variant_models"] = [model]
                             else:
                                 app_unit_json["variant_models"].append(model)
                         else:
