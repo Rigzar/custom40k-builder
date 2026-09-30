@@ -12,6 +12,16 @@ export interface StructuredNote {
 
 export interface ArchetypeRule {
   troopsRemap: string[];
+  /**
+   * NAMED units that become Elite choices — the datasheet stays selectable, in a different slot.
+   *
+   * Distinct from `demoteOtherTroops`, which moves EVERY Troops datasheet the archetype did not
+   * promote. Tyranid Swarming Masses names exactly two ("Genestealer Broods and Tyranid Warrior
+   * Broods become Elite choices") and leaves the gaunts where they are — in the same breath it
+   * grants them Combat Squad, so they are plainly still Troops. Using the blanket flag there
+   * would have demoted six gaunt broods the sheet never mentions.
+   */
+  elitesRemap?: string[];
   forcedMark: string | null;
   requireForcedMarkOnly: boolean;
   bannedUnits: string[];
@@ -173,6 +183,19 @@ export interface ArchetypeRule {
    * choices (not armory) by exact name.
    */
   requiresHqUpgrade?: { unitNameContains: string; choiceName: string } | null;
+  /**
+   * A named unit that this archetype PROMOTES into an HQ selection, one entry per army.
+   *
+   * Four Tyranid archetypes read "One X must be taken ... and it becomes a HQ selection"
+   * (GH#168). `requiresChoice`, when set, is the upgrade the sheet ties the promotion to — the
+   * Trygon Prime upgrade, the Regeneration(1) biomorph — matched against the entry's own option
+   * choices by exact name.
+   *
+   * Distinct from `hqAllowed`, which RESTRICTS which HQ datasheets may be taken and cannot move
+   * a Heavy Support unit into the HQ slot, and from `requiresHqUpgrade`, which only demands that
+   * an already-HQ unit carry an upgrade.
+   */
+  hqPromotion?: { unitNameContains: string; requiresChoice?: string } | null;
   /**
    * Caps how many Troops selections OTHER than `anchorUnit` are allowed, scaled by how many
    * copies of `anchorUnit` are in the army — e.g. IG Whiteshields' "You are only allowed one

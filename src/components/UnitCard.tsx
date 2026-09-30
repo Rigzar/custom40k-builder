@@ -641,6 +641,43 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
         );
       })()}
 
+      {/* ── The archetype's own HQ promotion: "One X ... becomes a HQ selection" (GH#168) ──
+           One entry in the army claims it, so the toggle disables once another already has it,
+           the same hard enforcement the Yngir C'tan uses. Shown only on the unit the active
+           archetype names. */}
+      {(() => {
+        const promo = getArchetypeRule(itemArchetype)?.hqPromotion;
+        if (item.factionSource || !promo) return null;
+        if (!u.name.toLowerCase().includes(promo.unitNameContains.toLowerCase())) return null;
+        const otherActive = army.some(e => e.id !== item.id && e.archetypeHqUpgrade
+          && e.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase()));
+        const checked = !!item.archetypeHqUpgrade;
+        const needed = promo.requiresChoice;
+        // The upgrade the sheet ties the promotion to, if any — REPORTED rather than enforced by
+        // hiding the toggle, so the reason is visible instead of the control silently missing.
+        const missingChoice = !!needed && !(u.option_groups ?? []).some((g, gi) =>
+          (g.choices ?? []).some((c, ci) => c.name === needed && !!item.optionQty?.[gi]?.[ci]));
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+            <label
+              onClick={() => { if (!otherActive || checked) updateUnit(item.id, { archetypeHqUpgrade: !checked }); }}
+              className={`flex items-center gap-2 text-[11px] ${otherActive && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
+              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
+                {checked && <span className="text-[8px] text-white leading-none">✓</span>}
+              </div>
+              <span className="text-zinc-300">↳ {itemArchetype}: HQ selection</span>
+            </label>
+            {otherActive && !checked && (
+              <span className="text-[10px] text-red-400/80">Another {promo.unitNameContains} already has it</span>
+            )}
+            {checked && missingChoice && (
+              <span className="text-[10px] text-amber-400/80">Needs “{needed}”</span>
+            )}
+          </div>
+        );
+      })()}
+
       {/* ── Gue'vesa Lasgun/Hot-shot lasgun → Pulse rifle swap (per model, ods-verbatim) ── */}
       {data?.faction === 'Imperial Guard' && archetype === 'Gue\'vesa' && !item.factionSource && !u.is_vehicle && (() => {
         const hasLasgun = (u.equipped_with ?? '').includes('Lasgun');

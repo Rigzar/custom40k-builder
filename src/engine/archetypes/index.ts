@@ -550,11 +550,62 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
+  /*
+   * The four archetypes below are transcribed from Tyranids 1.08, Army Customisation (GH#168:
+   * "Megafauna, subterranean assault, swarming masses, and vanguard onslaught ... change the
+   * battlefield roles of various tyranids but this isn't applied yet in the app").
+   *
+   * Three of them were missing from the app entirely; Megafauna had its Troops half and not its
+   * HQ half.
+   */
   'Megafauna': { ...BASE,
     troopsRemap: ['Carnifex Brood'], troopsCount: 'remap',
+    // "One Carnifex must be taken with the Regeneration(1) Special Biomorph and it becomes a HQ
+    // selection." The biomorph is bought from the shared Armory, not from the datasheet's own
+    // option groups, so the promotion is not gated on a choice name here — the note carries the
+    // requirement and the validator would need the Armory selection to check it.
+    hqPromotion: { unitNameContains: 'Carnifex' },
     notes: [
+      'One Carnifex with the Regeneration(1) Special Biomorph becomes an HQ selection.',
+      'Regeneration(1) becomes Regeneration(2) for that model, and does not block a second Special Biomorph.',
       'Carnifex Broods count as Troops.',
       'Only Carnifex Broods count towards the 25% Troops requirement.',
+    ],
+  },
+
+  'Subterranean Assault': { ...BASE,
+    troopsRemap: ['Ravener Brood', 'Mawloc'], troopsCount: 'remap',
+    // "One Trygon must be taken with the Trygon Prime upgrade and it becomes a HQ selection."
+    hqPromotion: { unitNameContains: 'Trygon', requiresChoice: 'Trygon Prime' },
+    // "For every 4 Ravener models, one Mawloc can be taken as Troops." Models, not units.
+    troopsModelRatioCap: { sourceUnits: ['Ravener Brood'], modelsPerUnit: 4, cappedUnit: 'Mawloc' },
+    notes: [
+      'One Trygon with the Trygon Prime upgrade becomes an HQ selection.',
+      'Ravener Broods count as Troops.',
+      'For every 4 Ravener models, one Mawloc may also count as Troops.',
+      'Only Ravener Broods and Mawlocs count towards the 25% Troops requirement.',
+    ],
+  },
+
+  'Swarming Masses': { ...BASE,
+    // "Genestealer Broods and Tyranid Warrior Broods become Elite choices." NAMED, so the gaunt
+    // broods stay Troops — the same sentence grants them Combat Squad.
+    elitesRemap: ['Genestealer Brood', 'Tyranid Warrior Brood'],
+    notes: [
+      'Barbgaunt, Gargoyle, Hormagaunt, Neurogaunt, Ripper Swarm and Termagant Broods gain "Combat Squad".',
+      'Genestealer Broods and Tyranid Warrior Broods become Elite choices.',
+    ],
+  },
+
+  'Vanguard Onslaught': { ...BASE,
+    troopsRemap: ["Von Ryan's Leaper Brood"], troopsCount: 'remap',
+    // "One Deathleaper must be taken and it becomes a HQ selection."
+    hqPromotion: { unitNameContains: 'Deathleaper' },
+    requiresHqUnit: 'Deathleaper',
+    notes: [
+      'One Deathleaper must be taken, and it becomes an HQ selection.',
+      "Von Ryan's Leaper Broods count as Troops.",
+      "Only Von Ryan's Leaper Broods count towards the 25% Troops requirement.",
     ],
   },
 
@@ -607,10 +658,14 @@ export function cleanArchetypeName(name: string): string {
  * army leaves the Yngir archetype (`setArchetype`).
  */
 export function getEffectiveSlotFor(
-  item: { unitName: string; slot: string; ctanYngirUpgrade?: boolean },
+  item: { unitName: string; slot: string; ctanYngirUpgrade?: boolean; archetypeHqUpgrade?: boolean },
   rule: ArchetypeRule | null,
 ): string {
   if (item.ctanYngirUpgrade && /^C'tan Shard/.test(item.unitName)) return 'HQ';
+  // The archetype's own HQ promotion, claimed by one entry (GH#168). Keyed on the flag alone,
+  // exactly like the Yngir C'tan above; the flag is cleared when the archetype changes.
+  if (item.archetypeHqUpgrade && rule?.hqPromotion
+    && item.unitName.toLowerCase().includes(rule.hqPromotion.unitNameContains.toLowerCase())) return 'HQ';
   return getEffectiveSlot(item.unitName, item.slot, rule);
 }
 
@@ -620,6 +675,9 @@ export function getEffectiveSlot(
   rule: ArchetypeRule | null,
 ): string {
   if (rule && rule.troopsRemap.includes(unitName)) return 'Troops';
+  // Named demotion, read before the blanket one: an archetype that moves two units by name has
+  // said nothing about the rest (Tyranid Swarming Masses).
+  if (rule?.elitesRemap?.includes(unitName)) return 'Elites';
   if (rule?.demoteOtherTroops && originalSlot === 'Troops' && !rule.troopsRemap.includes(unitName)) return 'Elites';
   return originalSlot;
 }

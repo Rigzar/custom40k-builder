@@ -463,8 +463,17 @@ export const useArmyStore = create<ArmyStore>()(
         const army = s.data
           ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : baseArmy;
-        return { archetype: a, army: clearYngir ? army.map((e: RosterEntry) =>
-          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : army };
+        /*
+         * An archetype's HQ promotion belongs to THAT archetype, so switching away always drops
+         * it — otherwise a Carnifex promoted under Megafauna keeps sitting in the HQ slot of an
+         * army that no longer has the rule, and the slot maths quietly goes wrong. Cleared
+         * unconditionally, unlike the Yngir flag, because every archetype that grants one names
+         * a different unit.
+         */
+        const cleared = army.map((e: RosterEntry) =>
+          e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
+        return { archetype: a, army: clearYngir ? cleared.map((e: RosterEntry) =>
+          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : cleared };
       }),
 
       setLegacy: (l: string) => set((s: S) => {

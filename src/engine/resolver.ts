@@ -607,9 +607,33 @@ const optionalWeapons = new Map<string, Set<string>>();
     const bare = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim();
     for (const g of unit.option_groups) {
       for (const name of g.replaces ?? []) {
-        if (!loadoutNames(unit.equipped_with, bare(name)) && unit.weapons.some(w => w.name === name)) {
-          variantOnlyWeapons.add(name);
-        }
+        if (loadoutNames(unit.equipped_with, bare(name)) || !unit.weapons.some(w => w.name === name)) continue;
+        /*
+         * ...unless ANOTHER group sells it to the squad, in which case it is not the promoted
+         * model's private weapon at all and this flag would hide it for good.
+         *
+         * Ork Boyz (GH#169) are the reported case. They have a Nob variant, one group offers "Any
+         * number of models may replace their Choppa and Slugga with a Shoota", another sells a
+         * Shoota as an extra, and a third swaps a Shoota for a Big shoota. It is that third
+         * group's `replaces: ["Shoota"]` that trips the flag — Shoota is not in `equipped_with`
+         * and does exist in `weapons[]` — so the Shoota row never appeared however it was bought,
+         * while the Big shoota it swaps into did. Promoting the Nob, meanwhile, conjured a Shoota
+         * row nobody had bought.
+         *
+         * "ANOTHER group" is the whole distinction, and getting it wrong costs the opposite bug.
+         * The Dire Avengers' Shuriken pistol IS the Exarch's: the only group naming it is the one
+         * that swaps it away ("The Exarch can swap their Diresword and Shuriken pistol" →
+         * "Power glaive & Shuriken pistol"), which hands it back rather than selling it. Ignoring
+         * that and accepting any mention put the pistol on five ordinary Avengers and took it off
+         * the Exarch who actually carries it.
+         */
+        const soldSeparately = unit.option_groups.some(og =>
+          !(og.replaces ?? []).some(r => wkey(r) === wkey(name))
+          && (og.choices ?? []).some(c => String(c.name)
+            .split(/\s*(?:&|\band\b)\s*/i)
+            .some(part => wkey(part.trim()) === wkey(name))));
+        if (soldSeparately) continue;
+        variantOnlyWeapons.add(name);
       }
     }
   }

@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v180b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v180c_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -59,6 +59,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reported on GitHub", rows: [
+        ["GH#169", "The Ork Shoota shows on the profile again, swapped in or bought as an extra."],
+        ["GH#168", "The four Tyranid archetypes move units between roles: Carnifex, Ravener and Von Ryan\u2019s to Troops, Genestealers and Warriors to Elites, and the named HQ promotions."],
         ["GH#170, GH#171", "The armory buys more than one copy again \u2014 the box counts them, and \u201c\u2212\u201d gives one back."],
         ["GH#167", "Special Biomorphs can be selected and kept again \u2014 opening a saved Tyranid list no longer wipes them."],
       ] },
@@ -84,6 +86,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
+        ["GH#169", "Die Ork-Shoota erscheint wieder im Profil \u2014 getauscht oder zusaetzlich gekauft."],
+        ["GH#168", "Die vier Tyraniden-Archetypen verschieben Einheiten: Carnifex, Ravener und Von Ryan\u2019s zu Troops, Genestealer und Krieger zu Elite, dazu die HQ-Bef\u00f6rderungen."],
         ["GH#170, GH#171", "Die Armory kauft wieder mehrere Exemplare \u2014 das K\u00e4stchen z\u00e4hlt sie, \u201e\u2212\u201c gibt eines zur\u00fcck."],
         ["GH#167", "Spezial-Biomorphe lassen sich wieder waehlen und behalten \u2014 das Oeffnen einer gespeicherten Tyraniden-Liste loescht sie nicht mehr."],
       ] },
@@ -109,6 +113,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reportado en GitHub", rows: [
+        ["GH#169", "La Shoota de los Orks vuelve a salir en el perfil, cambiada o comprada aparte."],
+        ["GH#168", "Los cuatro arquetipos tyr\u00e1nidos mueven unidades de rol: Carnifex, Ravener y Von Ryan\u2019s a Troops, Genestealers y Guerreros a Elites, y las promociones a HQ."],
         ["GH#170, GH#171", "La armer\u00eda vuelve a comprar m\u00e1s de una copia \u2014 la casilla las cuenta y \u201c\u2212\u201d devuelve una."],
         ["GH#167", "Los biomorfos especiales se pueden elegir y conservar otra vez \u2014 abrir una lista guardada de Tiranidos ya no los borra."],
       ] },
