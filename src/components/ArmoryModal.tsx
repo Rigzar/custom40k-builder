@@ -79,6 +79,9 @@ function selId() {
 }
 
 type ArmoryTab = 'general' | 'hostGeneral' | 'mark' | 'legion' | 'authority' | 'archetypeArmory';
+/** Items that buy the right to take ONE item out of another armoury (Red Corsairs Reaver Lord,
+ *  Blood Ravens I.O.U) — the item fetched is added as its own selection, tagged borrowedVia. */
+const BORROW_GATEWAYS = ['Reaver Lord', 'I.O.U'];
 type Section = 'weapons' | 'equipment' | 'daemon_weapons';
 
 function parsePrice(v: number | null | undefined | string): number | null {
@@ -103,7 +106,10 @@ function isWeaponCostSpecial(desc?: string): boolean {
   // is worse than showing "Special" and letting the player add the chosen item's cost by hand.
   return !!desc && (
     /cost\b[^.]*\bis the same as\b[^.]*\bweapon\b/i.test(desc) ||
-    /\bfor the stated cost\b/i.test(desc)
+    /\bfor the stated cost\b/i.test(desc) ||
+    // Blood Ravens "I.O.U": "Select one weapon or equipment item from the (Legacy) Armory of any
+    // other army" — same shape as the Reaver Lord, priced off the item it fetches.
+    /\bselect one weapon or equipment item from the \(legacy\) armory of any other army\b/i.test(desc)
   );
 }
 
@@ -854,13 +860,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
    */
   // `currentArmory`, not `item.armory` — the prop is the snapshot the modal opened with, so
   // reading it would not see the Reaver Lord until the modal was closed and reopened.
-  const reaverSel = currentArmory.find(a => a.itemName === 'Reaver Lord');
+  const reaverSel = currentArmory.find(a => BORROW_GATEWAYS.includes(a.itemName));
   const borrowedSel = reaverSel ? currentArmory.find(a => a.borrowedVia === reaverSel.id) : undefined;
   const reaverLordCtx = (() => {
     if (!reaverSel) return undefined;
     const pools: Record<string, ArmoryItem[]> = {};
     const usable = (list?: ArmoryItem[]) =>
-      (list ?? []).filter(a => a.name !== 'Reaver Lord' && parsePrice(a.p_char) != null);
+      (list ?? []).filter(a => !BORROW_GATEWAYS.includes(a.name) && parsePrice(a.p_char) != null);
     const addPool = (label: string, arm?: { weapons?: ArmoryItem[]; equipment?: ArmoryItem[] }) => {
       const items = [...usable(arm?.weapons as ArmoryItem[]), ...usable(arm?.equipment as ArmoryItem[])];
       if (items.length) pools[label] = items;
@@ -878,7 +884,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         addArmoryItem(item.id, {
           id: selId(),
           itemName: arm.name,
-          source: `Reaver Lord · ${source}`,
+          source: `${reaverSel.itemName} · ${source}`,
           // A borrowed WEAPON has to land in the weapons section or the resolver will not turn it
           // into a profile row; everything else is equipment.
           section: (arm.profiles?.length || arm.range) ? 'weapons' : 'equipment',
@@ -1818,7 +1824,7 @@ function EquipmentGroups({
                   />
                 )}
                 {/* Reaver Lord — the cross-armoury pick, inline under the item once it is bought. */}
-                {reaverLord && arm.name === 'Reaver Lord' && getSelId?.(arm.name) && (
+                {reaverLord && BORROW_GATEWAYS.includes(arm.name) && getSelId?.(arm.name) && (
                   <ReaverLordPicker
                     pools={reaverLord.pools}
                     chosen={reaverLord.chosen}
