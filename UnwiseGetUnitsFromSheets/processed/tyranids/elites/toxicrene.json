@@ -1,17 +1,20 @@
 {
+    "name": "Toxicrene",
     "models": [
         {
-            "NAME": "Toxicrene",
-            "M": "6\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 7,
-            "T": 8,
-            "W": 7,
-            "I": 3,
-            "A": 4,
-            "LD": 7,
-            "SV": "3+",
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "7",
+                "T": "8",
+                "W": "7",
+                "I": "3",
+                "A": "4",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Toxicrene",
             "min": 1,
             "max": 1,
             "points": 200
@@ -29,8 +32,8 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 1,
+            "ap": "-2",
+            "d": "1",
             "abilities": "AT(1), Extra Attack(2), Poison(2+)"
         },
         {
@@ -38,28 +41,20 @@
             "range": "12\"",
             "type": "Pistol 6",
             "s": "U",
-            "ap": -2,
-            "d": 1,
+            "ap": "-2",
+            "d": "1",
             "abilities": "AT(1), Poison(2+)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Instinctive Behaviour, Move Through Cover, Parry, Retribution(3)"
-        ],
-        [
-            "Grasping Tendrils: Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model."
-        ],
-        [
-            "Volatile: The model always explodes like a vehicle."
-        ]
+        "Instinctive Behaviour, Move Through Cover, Parry, Retribution(3)",
+        "Grasping Tendrils: Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model.",
+        "Volatile: The model always explodes like a vehicle."
     ],
-    "unit_type": "['Monstrous Creature ']",
+    "unit_type": [
+        "Monstrous Creature "
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

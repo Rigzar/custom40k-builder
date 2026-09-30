@@ -1,17 +1,20 @@
 {
+    "name": "Ravener Alpha",
     "models": [
         {
-            "NAME": "Ravener Alpha",
-            "M": "12\"",
-            "WS": "2+",
-            "BS": "3+",
-            "S": 6,
-            "T": 7,
-            "W": 5,
-            "I": 6,
-            "A": 4,
-            "LD": 7,
-            "SV": "3+",
+            "stats": {
+                "M": "12\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "6",
+                "T": "7",
+                "W": "5",
+                "I": "6",
+                "A": "4",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Ravener Alpha",
             "min": 1,
             "max": 2,
             "points": 163
@@ -26,28 +29,20 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 2,
+            "ap": "-2",
+            "d": "2",
             "abilities": "Extra Attack(1)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Deep Strike, Frenzy(3\"), Haste(3\"), Instinctive Behaviour, Move Through Cover, Parry, Squadron"
-        ],
-        [
-            "Death From Below: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
-        ],
-        [
-            "Swallow Whole: All attacks of the model gain the \"Blood Drinker\" ability."
-        ]
+        "Deep Strike, Frenzy(3\"), Haste(3\"), Instinctive Behaviour, Move Through Cover, Parry, Squadron",
+        "Death From Below: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models.",
+        "Swallow Whole: All attacks of the model gain the \"Blood Drinker\" ability."
     ],
-    "unit_type": "['Monstrous Creature']",
+    "unit_type": [
+        "Monstrous Creature"
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

@@ -1,17 +1,20 @@
 {
+    "name": "Termagant Brood",
     "models": [
         {
-            "NAME": "Termagants",
-            "M": "6\"",
-            "WS": "4+",
-            "BS": "4+",
-            "S": 3,
-            "T": 3,
-            "W": 1,
-            "I": 4,
-            "A": 1,
-            "LD": 5,
-            "SV": "6+",
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "4",
+                "A": "1",
+                "LD": "5",
+                "SV": "6+"
+            },
+            "name": "Termagants",
             "min": 10,
             "max": 20,
             "points": 5
@@ -25,9 +28,9 @@
             "name": "Fleshborer",
             "range": "12\"",
             "type": "Assault 1",
-            "s": 4,
-            "ap": -1,
-            "d": 1,
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
             "abilities": "-"
         },
         {
@@ -35,26 +38,26 @@
             "range": "18\"",
             "type": "Rapid Fire 1",
             "s": "U",
-            "ap": 0,
-            "d": 1,
+            "ap": "0",
+            "d": "1",
             "abilities": "-"
         },
         {
             "name": "Shardlauncher ",
             "range": "18\"",
             "type": "Assault 1",
-            "s": 5,
-            "ap": 0,
-            "d": 1,
+            "s": "5",
+            "ap": "0",
+            "d": "1",
             "abilities": "Blast(4)"
         },
         {
             "name": "Spike rifle",
             "range": "24\"",
             "type": "Assault 1",
-            "s": 5,
-            "ap": -2,
-            "d": 2,
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
             "abilities": "Armor piercing(5+)"
         },
         {
@@ -62,31 +65,27 @@
             "range": "12\"",
             "type": "Pistol 2",
             "s": "U",
-            "ap": 0,
-            "d": 1,
+            "ap": "0",
+            "d": "1",
             "abilities": "-"
         },
         {
             "name": "Strangleweb",
             "range": "9\"",
             "type": "Assault 4",
-            "s": 2,
-            "ap": 0,
-            "d": 1,
+            "s": "2",
+            "ap": "0",
+            "d": "1",
             "abilities": " Auto Hit, Monofilament, Sunder(1)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Instinctive Behaviour, Move Through Cover"
-        ]
+        "Instinctive Behaviour, Move Through Cover"
     ],
-    "unit_type": "['Infantry']",
+    "unit_type": [
+        "Infantry"
+    ],
     "keywords": [
-        "Tyranids",
         "Basic Bioform"
     ]
 }

@@ -38,4 +38,4 @@ if __name__ == "__main__":
                       
             print(f"Sheet: {sheet}")
             print(values)
-            json.dump(values, open(f"raw/{faction}/{sheet}.json", "w"), indent=4)
+            json.dump(values, open(f"raw/{faction.lower().replace(" ","_")}/{sheet}.json", "w"), indent=4)

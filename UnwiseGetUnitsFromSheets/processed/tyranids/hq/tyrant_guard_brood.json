@@ -1,17 +1,20 @@
 {
+    "name": "Tyrant Guard Brood",
     "models": [
         {
-            "NAME": "Tyrant Guard",
-            "M": "6\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 5,
-            "T": 6,
-            "W": 3,
-            "I": 4,
-            "A": 2,
-            "LD": 7,
-            "SV": "3+",
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Tyrant Guard",
             "min": 1,
             "max": 6,
             "points": 55
@@ -26,8 +29,8 @@
             "range": "-",
             "type": "Melee",
             "s": "+1",
-            "ap": -3,
-            "d": 1,
+            "ap": "-3",
+            "d": "1",
             "abilities": "Deadly(5+), Quick(+1)"
         },
         {
@@ -35,8 +38,8 @@
             "range": "-",
             "type": "Melee",
             "s": "+3",
-            "ap": -3,
-            "d": 2,
+            "ap": "-3",
+            "d": "2",
             "abilities": "AT(2), Slow(-2)"
         },
         {
@@ -44,8 +47,8 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 1,
+            "ap": "-2",
+            "d": "1",
             "abilities": "Rending(5+)"
         },
         {
@@ -53,25 +56,19 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -1,
-            "d": 1,
+            "ap": "-1",
+            "d": "1",
             "abilities": "Extra Attack(1)"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Bodyguard, Instinctive Behaviour, Massive(1), Move Through Cover"
-        ],
-        [
-            "Shieldwall: A Hive Tyrant or Neurotyrant can attach to the unit like a character model."
-        ]
+        "Bodyguard, Instinctive Behaviour, Massive(1), Move Through Cover",
+        "Shieldwall: A Hive Tyrant or Neurotyrant can attach to the unit like a character model."
     ],
-    "unit_type": "['Monstrous Infantry']",
+    "unit_type": [
+        "Monstrous Infantry"
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }

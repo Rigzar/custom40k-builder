@@ -1,17 +1,20 @@
 {
+    "name": "Tervigon",
     "models": [
         {
-            "NAME": "Tervigon",
-            "M": "6\"",
-            "WS": "3+",
-            "BS": "3+",
-            "S": 7,
-            "T": 8,
-            "W": 7,
-            "I": 3,
-            "A": 4,
-            "LD": 7,
-            "SV": "3+",
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "7",
+                "T": "8",
+                "W": "7",
+                "I": "3",
+                "A": "4",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Tervigon",
             "min": 1,
             "max": 1,
             "points": 223
@@ -26,26 +29,26 @@
             "range": "-",
             "type": "Melee",
             "s": "x2",
-            "ap": -3,
-            "d": 2,
+            "ap": "-3",
+            "d": "2",
             "abilities": "AT(2)"
         },
         {
             "name": "Desiccator larvae",
             "range": "9\"",
             "type": "Assault 4",
-            "s": 1,
-            "ap": 0,
-            "d": 1,
+            "s": "1",
+            "ap": "0",
+            "d": "1",
             "abilities": "Poison(2+)"
         },
         {
             "name": "Electroshock grubs",
             "range": "9\"",
             "type": "Assault 4",
-            "s": 5,
-            "ap": -1,
-            "d": 1,
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
             "abilities": "Haywire"
         },
         {
@@ -53,46 +56,38 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": -2,
-            "d": 2,
+            "ap": "-2",
+            "d": "2",
             "abilities": "AT(1), Extra Attack(1)"
         },
         {
             "name": "Shreddershard beetles",
             "range": "9\"",
             "type": "Assault 4",
-            "s": 3,
-            "ap": -1,
-            "d": 1,
+            "s": "3",
+            "ap": "-1",
+            "d": "1",
             "abilities": "Shred"
         },
         {
             "name": "Stinger salvo",
             "range": "24\"",
             "type": "Rapid Fire 4",
-            "s": 5,
-            "ap": -1,
-            "d": 1,
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
             "abilities": "-"
         }
     ],
     "abilities": [
-        [
-            "ABILITIES"
-        ],
-        [
-            "Fearless, Move Through Cover, Synapse"
-        ],
-        [
-            "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline."
-        ],
-        [
-            "Brood Progenitor: Roll 2D6 and discard the lowest die during each Reinforcement phase. You spawn the result as either Hormagaunt or Termagaunt (equipped with Flesh borers) models within 6\", but outside of engagement range with enemy models."
-        ]
+        "Fearless, Move Through Cover, Synapse",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
+        "Brood Progenitor: Roll 2D6 and discard the lowest die during each Reinforcement phase. You spawn the result as either Hormagaunt or Termagaunt (equipped with Flesh borers) models within 6\", but outside of engagement range with enemy models."
     ],
-    "unit_type": "['Monstrous Creature']",
+    "unit_type": [
+        "Monstrous Creature"
+    ],
     "keywords": [
-        "Tyranids",
         "Advanced Bioform"
     ]
 }
