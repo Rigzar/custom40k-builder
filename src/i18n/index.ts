@@ -58,7 +58,7 @@ export type TranslationKey =
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
   | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
-  | 'navDiscord' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
+  | 'navDiscord' | 'navDiscordJoin' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
@@ -560,6 +560,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     navFieldManual: 'Field Manual',
     navCommunityArmies: 'Community Armies',
     navDiscord: 'Discord',
+
+    navDiscordJoin: 'Join the Discord',
     navCampaignAlphaAdmin: 'Campaign — Alpha (Admin)',
     navCampaignComingSoon: 'Campaign — Coming Soon (Alpha)',
     howToActivate: 'How to activate',
@@ -1450,6 +1452,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     navFieldManual: 'Feldhandbuch',
     navCommunityArmies: 'Community-Armeen',
     navDiscord: 'Discord',
+
+    navDiscordJoin: 'Discord beitreten',
     navCampaignAlphaAdmin: 'Feldzug — Alpha (Admin)',
     navCampaignComingSoon: 'Feldzug — Demnächst (Alpha)',
     howToActivate: 'Aktivierung',
@@ -2338,6 +2342,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     navFieldManual: 'Manual de Campo',
     navCommunityArmies: 'Ejércitos de la Comunidad',
     navDiscord: 'Discord',
+
+    navDiscordJoin: 'Unirse al Discord',
     navCampaignAlphaAdmin: 'Campaña — Alpha (Admin)',
     navCampaignComingSoon: 'Campaña — Próximamente (Alpha)',
     howToActivate: 'Cómo activarlo',
