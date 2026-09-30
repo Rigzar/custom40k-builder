@@ -5,7 +5,7 @@ import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
-import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory } from '../engine/unitRenames';
+import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
 import { isPsykerOnlyTrait } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
@@ -910,8 +910,14 @@ export const useArmyStore = create<ArmyStore>()(
             newState.army = applyUnitRenames(newState.faction, newState.army as RosterEntry[], s.data?.units);
             newState.army = applyArmoryRenames(newState.faction, newState.army as RosterEntry[]);
             // Must run BEFORE applyOptionGroupRemovals — see ki-tyranid-biomorph-shared-armory-01.
-            newState.army = migrateTyranidBiomorphsToArmory(newState.faction, newState.army as RosterEntry[]);
-            newState.army = applyOptionGroupRemovals(newState.faction, newState.army as RosterEntry[]);
+            const groupCounts: Record<string, number> = {};
+            for (const [n, u] of Object.entries(s.data?.units ?? {})) groupCounts[n] = (u as Unit).option_groups?.length ?? 0;
+            const legacyTyranid = newState.faction !== 'Tyranids'
+              || isPreArmoryTyranidList(parsed.savedFormat, newState.army as RosterEntry[], groupCounts);
+            if (newState.faction === 'Tyranids' && legacyTyranid)
+              newState.army = migrateTyranidBiomorphsToArmory(newState.faction, newState.army as RosterEntry[]);
+            if (legacyTyranid)
+              newState.army = applyOptionGroupRemovals(newState.faction, newState.army as RosterEntry[]);
           }
           // Migrate existing saves: apply forcedMark to non-locked units when archetype requires it.
           const importedRule = getArchetypeRule(newState.archetype);
@@ -1024,6 +1030,7 @@ export function getSerializableState(s: {
     pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype ?? '',
     legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus ?? 0,
     campaignId: s.campaignId ?? null, campaignFaction: s.campaignFaction ?? null, army: s.army,
+    savedFormat: 5,
     alliedFaction: s.alliedFaction ?? undefined, alliedArchetype: s.alliedArchetype ?? '',
     alliedLegacy: s.alliedLegacy ?? '', alliedTraitPool: s.alliedTraitPool ?? [],
     alliedHqMark: s.alliedHqMark ?? ('' as Mark),
