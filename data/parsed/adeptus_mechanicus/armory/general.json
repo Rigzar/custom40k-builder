@@ -532,7 +532,7 @@
     {
       "name": "Teleport homing beacon",
       "term_compat": false,
-      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
       "p_unit": 10,
       "p_char": 10
     },
@@ -652,7 +652,7 @@
     {
       "name": "Jammer",
       "term_compat": false,
-      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "desc": "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
       "p_unit": 15,
       "p_char": null,
       "category": "vehicle"
