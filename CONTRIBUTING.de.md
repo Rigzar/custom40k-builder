@@ -72,6 +72,19 @@ data/parsed/<fraktion>/
 > Header; automatisch generierte Einheiten tragen einen `TODO`-Kommentar. Zum
 > HINZUFUEGEN einer Einheit siehe den Abschnitt unten: es sind DREI Dateien.
 
+
+> **Tyraniden nutzen ein anderes, einfacheres Format: reines JSON.** Jede Einheit ist eine
+> `.json`-Datei ohne `import` und ohne `export`, und der Ordner enthält genau EINE `.ts`,
+> `units/index.ts`, die alle importiert. Der Grund ist das Werkzeug: der Mitarbeiter des
+> Codex-Autors aktualisiert die Daten automatisch aus den Tabellen und kann das nur mit einer
+> Datei tun, die zu 100 % JSON ist. Um eine Tyraniden-Einheit zu bearbeiten, öffne ihre `.json`.
+> JSON kennt keine Kommentare; was man sich zu einer Einheit merken will, steht in
+> `units/NOTES.md`. Zum HINZUFÜGEN einer Tyraniden-Einheit braucht es ZWEI Dinge: ihre `.json`
+> und je einen `import` plus einen `units`-Eintrag in `units/index.ts` (und ihren Namen unter dem
+> richtigen Slot in `slot_to_units`). `node scripts/convert_units_to_json.cjs <Fraktion>`
+> konvertiert eine weitere Fraktion (standardmäßig Probelauf) und lehnt jede Datei ab, die
+> sich nicht verlustfrei konvertieren lässt.
+
 ### Eine NEUE Einheit hinzufuegen
 
 Eine Einheit existiert erst, wenn sie an **drei** Stellen steht. Die erste von ausserhalb des Teams

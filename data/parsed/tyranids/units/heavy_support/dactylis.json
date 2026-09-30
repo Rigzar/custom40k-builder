@@ -1,0 +1,158 @@
+{
+  "name": "Dactylis",
+  "models": [
+    {
+      "name": "Dactylis",
+      "points": 226,
+      "min": 1,
+      "max": 2,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "T": "7",
+        "W": "6",
+        "I": "4",
+        "A": "4",
+        "LD": "7",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every model is equipped with: Forelimbs; Grasping Claws.",
+  "weapons": [
+    {
+      "name": "Forelimbs - Mucolid Spore launcher",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Anti-Air, AT(2), Blast(4), Indirect"
+    },
+    {
+      "name": "Forelimbs - Spore Mine launcher",
+      "range": "48\"",
+      "type": "Heavy 3",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
+    },
+    {
+      "name": "Grasping claws",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Spasmic launcher - Mucolid Spore spasm",
+      "range": "12\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Anti-Air, AT(2), Blast(4), Indirect"
+    },
+    {
+      "name": "Spasmic launcher - Spore Mine spasm",
+      "range": "12\"",
+      "type": "Grenade 3",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "Each model may be equipped with one of the following",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Spasmic Launcher",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May select one Special Biomorph",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Regeneration",
+          "points": 30,
+          "effect": {
+            "grants_abilities": [
+              "Regeneration: The unit gains the \"Regeneration(1)\" ability."
+            ]
+          }
+        },
+        {
+          "name": "Hardened Carapace",
+          "points": 27,
+          "effect": {
+            "grants_abilities": [
+              "Hardened Carapace: The unit improves its armor save by +1."
+            ],
+            "stat_mod": [
+              {
+                "stat": "SV",
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "name": "Resonator",
+          "points": 18,
+          "effect": {
+            "grants_abilities": [
+              "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
+            ]
+          }
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "per_model": true
+    }
+  ],
+  "abilities": [
+    "Instinctive Behaviour, Move Through Cover, Squadron",
+    "Forelimb locomotion: The model may only fire with its Forelimbs with a Stand & Shoot order, even if it is not firing indirectly.",
+    "Spore Mine Launcher: Instead of shooting at an enemy, a Dactylis may create a unit of \"Spore Mine Cluster\" (6 models) or a unit of \"Mucolid Spore Cluster\" (1 model) within 48\" of itself and at least 9\" away from any enemy unit."
+  ],
+  "unit_type": "Monstrous Creature",
+  "keywords": [
+    "Tyranid",
+    "Advanced Bioform"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Heavy Support",
+  "default_size": 1,
+  "min_cost": 226,
+  "is_monster": true
+}

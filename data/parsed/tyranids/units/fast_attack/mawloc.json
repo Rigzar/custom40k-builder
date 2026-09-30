@@ -1,0 +1,153 @@
+{
+  "name": "Mawloc",
+  "models": [
+    {
+      "name": "Mawloc",
+      "points": 147,
+      "min": 1,
+      "max": 2,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "T": "7",
+        "W": "6",
+        "I": "4",
+        "A": "4",
+        "LD": "7",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every model is equipped with: Monstrous scything talons.",
+  "weapons": [
+    {
+      "name": "Monstrous scything talons",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Extra Attack(1)"
+    },
+    {
+      "name": "Prehensile pincer",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Extra Attack(1), Limit(1)"
+    },
+    {
+      "name": "Toxinspike",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Extra Attack(1), Limit(1), Poison(2+)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "Each model may be equipped with one of the following",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Prehensile pincer",
+          "points": 16
+        },
+        {
+          "name": "Toxinspike",
+          "points": 20
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May select one Special Biomorph",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Synaptic Node",
+          "points": 15,
+          "effect": {
+            "grants_abilities": [
+              "Synaptic Node: The unit gains the \"Fearless\" and \"Synapse\" abilities. Only a single unit per army may take this Biomorph."
+            ]
+          }
+        },
+        {
+          "name": "Hardened Carapace",
+          "points": 27,
+          "effect": {
+            "grants_abilities": [
+              "Hardened Carapace: The unit improves its armor save by +1."
+            ],
+            "stat_mod": [
+              {
+                "stat": "SV",
+                "delta": -1
+              }
+            ]
+          }
+        },
+        {
+          "name": "Regeneration",
+          "points": 30,
+          "effect": {
+            "grants_abilities": [
+              "Regeneration: The unit gains the \"Regeneration(1)\" ability."
+            ]
+          }
+        },
+        {
+          "name": "Resonator",
+          "points": 18,
+          "effect": {
+            "grants_abilities": [
+              "Resonator: The unit gains a 6+ ward save while within 6\" of a unit with the \"Synapse\" ability. Can be within range of itself, if it has the \"Synapse\" ability."
+            ]
+          }
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "per_model": true
+    }
+  ],
+  "abilities": [
+    "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
+    "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules.",
+    "Terror from the Deep: If the model is set up via Deep Strike rules, select one enemy unit within 12\". The target unit suffers 4 automatic hits with the \"Monstrous scything talons\" profile."
+  ],
+  "unit_type": "Monstrous Creature",
+  "keywords": [
+    "Tyranid",
+    "Advanced Bioform"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Fast Attack",
+  "default_size": 1,
+  "min_cost": 147,
+  "is_monster": true
+}
