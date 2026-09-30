@@ -1,0 +1,102 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Ravener Alpha",
+        "12\"",
+        "2+",
+        "3+",
+        6,
+        7,
+        5,
+        6,
+        4,
+        7,
+        "3+",
+        163
+    ],
+    [
+        "Every model is equipped with: Monstrous scything talons."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Monstrous scything talons",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        2,
+        "Extra Attack(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Synaptic Node",
+        "+15 points"
+    ],
+    [
+        "- Resonator",
+        "+16 points"
+    ],
+    [
+        "- Regeneration",
+        "+25 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+30 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike, Frenzy(3\"), Haste(3\"), Instinctive Behaviour, Move Through Cover, Parry, Squadron"
+    ],
+    [
+        "Death From Below: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
+    ],
+    [
+        "Swallow Whole: All attacks of the model gain the \"Blood Drinker\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

@@ -1,0 +1,68 @@
+{
+    "models": [
+        {
+            "NAME": "Exocrine",
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": 7,
+            "T": 8,
+            "W": 7,
+            "I": 3,
+            "A": 4,
+            "LD": 7,
+            "SV": "3+",
+            "min": 1,
+            "max": 2,
+            "points": 218
+        }
+    ],
+    "equipped_with": [
+        "Every model is equipped with: Bio-plasmic cannon; Monstrous scything talons."
+    ],
+    "weapons": [
+        {
+            "name": "Bio-plasmic cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": 7,
+            "ap": -4,
+            "d": 2,
+            "abilities": "Armorbane, AT(3), Blast(6)"
+        },
+        {
+            "name": "Monstrous scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": -2,
+            "d": 2,
+            "abilities": "AT(1), Extra Attack(1)"
+        },
+        {
+            "name": "Thresher scythe",
+            "range": "-",
+            "type": "Melee",
+            "s": 4,
+            "ap": -1,
+            "d": 1,
+            "abilities": "Extra Attack(3)"
+        }
+    ],
+    "abilities": [
+        [
+            "ABILITIES"
+        ],
+        [
+            "Instinctive Behaviour, Move Through Cover, Squadron"
+        ],
+        [
+            "Symbiotic targeting: The model gains a +1 bonus to ranged hit rolls with a \"Stand & Shoot\" order."
+        ]
+    ],
+    "unit_type": "['Monstrous Creature ']",
+    "keywords": [
+        "Tyranids",
+        "Advanced Bioform"
+    ]
+}

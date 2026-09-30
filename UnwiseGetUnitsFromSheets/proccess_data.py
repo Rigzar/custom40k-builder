@@ -1,0 +1,156 @@
+import json
+
+FACTIONS = []
+UNIT_CATEGORIES = ["HQ","Troops","Elite","Fast Attack","Heavy Support", "Transports", "Fortifications", "Flyers"]
+UNIT_PATH = {
+    "HQ":"hq",
+    "Troops":"troops",
+    "Elite":"elites",
+    "Fast Attack":"fast_attack",
+    "Heavy Support":"heavy_support",
+    "Transports":"dedicated_transport",
+    "Fortifications":"fortifications",
+    "Flyers":"flyers"
+}
+MODEL_FORMAT = ["No.","NAME","M","WS","BS","S","T","W","I","A","LD","SV","POINTS"]
+WEAPON_FORMAT = ["WEAPON", "RANGE", "TYPE", "S", "AP", "D", "ABILITIES"]
+
+# Make a list of all the troops that exist in the faction's Index.json file. 
+def proccess_faction_troops(faction):
+    ret = {}
+    with open(f"raw/{faction}/index.json", "r") as f:
+        #sheet is a list of lists, where each inner list is a row in the sheet. Data format: NxN
+        sheet = json.load(f)
+        #Make sure the correct faction is being processed. "join" is a syntax trick for converting strings. If it's correct, remove it.
+        if "".join(sheet[0]) != faction:
+            print(f"{sheet[0]} found, expected {faction}. Stopping the program.")
+            exit()
+        sheet = sheet[1:]
+            
+        #special rules are placed on the same collumn as HQ, so we remove them.
+        sheet[0] = sheet[0][:sheet[0].index("Special rules")]
+            
+        for troop_category in sheet:
+            # The first element of each troop_category should be the category name, check if it is valid
+            category = "".join(troop_category[0])
+            if category not in UNIT_CATEGORIES:
+                print(f"{category} is not a valid unit category: {UNIT_CATEGORIES}. Stopping the program.")
+                exit()
+                
+            ret[category] = troop_category[1:]
+                
+    return ret
+
+def proccess_model(model_data):
+    m, M = 1,1
+    if "-" in str(model_data[0]):
+        m, M = model_data[0].split("-")
+    elif "*" in str(model_data[0]):
+        m, M = 0, 1
+    
+    ret_unit = dict(zip(MODEL_FORMAT[1:-1], model_data[1:-1]))
+    ret_unit["min"] = int(m)
+    ret_unit["max"] = int(M)
+    ret_unit["points"] = int(model_data[-1]) if "-" not in str(model_data[-1]) else 1
+    
+    print(ret_unit)
+    return ret_unit
+
+def proccess_weapons(weapon_data):
+    APP_FORMAT = "name", "range","type", "s", "ap", "d", "abilities"
+    ret_weapon = dict(zip(APP_FORMAT, weapon_data))
+    return ret_weapon
+
+# Take the formatted data and update all existing units.
+if __name__ == "__main__":
+    
+    with open("factions.csv", "r") as f:
+        FACTIONS = [line.split(",")[0] for line in f.readlines() if line.strip()]
+    
+    print(f"Factions found:{FACTIONS}")
+    for faction in FACTIONS:
+    
+        print(f"Processing {faction}...")
+        faction_troops = proccess_faction_troops(faction)
+        print(f"Faction troops: {faction_troops}")
+        
+        faction_path = f"raw{faction.lower().replace(' ', '_')}"
+        proccessed_faction_units = {}
+        for category, units in faction_troops.items():
+            for unit in units:
+                unit_lowercase_name = unit.lower().replace("'", "").replace(" ", "_").replace("\u00b4", "")
+                raw_unit_path = f"raw/{faction}/{unit_lowercase_name}"
+                
+                app_unit_json = {"models": []}
+                with open(f"{raw_unit_path}.json", "r") as f:
+                    unit_sheet = json.load(f)
+                    print(f"\nProcessing {unit} at {raw_unit_path}.json")
+                    
+                    # Make sure the models are in the correct format, then discard it.
+                    if unit_sheet[0] != MODEL_FORMAT:
+                        print(f"Model format mismatch for {unit}. Expected {MODEL_FORMAT}, got {unit_data[0]}. Stopping the program.")
+                        exit()
+                    unit_sheet = unit_sheet[1:]
+                    
+                    # Process all models in the unit sheet until we reach the weapons section.
+                    while("is equipped with" not in "".join(str(unit_sheet[0]))):
+                        print(f"raw data: {unit_sheet[0]}")
+                        model = proccess_model(unit_sheet[0])
+                        app_unit_json["models"].append(model)
+                        unit_sheet = unit_sheet[1:]
+                    
+                    # Process the weapon selections of the unit sheet.   
+                    app_unit_json["equipped_with"] = unit_sheet[0]
+                    unit_sheet = unit_sheet[1:]
+                    
+                    # Make sure the weapons are in the correct format, then discard it.
+                    if unit_sheet[0] != WEAPON_FORMAT:
+                        print(f"Weapon format mismatch for {unit}. Expected {WEAPON_FORMAT}, got {unit_data[0]}. Stopping the program.")
+                        exit()
+                    unit_sheet = unit_sheet[1:]
+                    
+                    # Process all weapons in the unit sheet until we reach the options section.
+                    app_unit_json["weapons"] = []
+                    while "OPTIONS" not in unit_sheet[0]:
+                        print(f"{unit_sheet[0]}")
+                        if "*" in unit_sheet[0][0]:
+                            temp_weapon_name = unit_sheet[0][0].replace("*", "")
+                            unit_sheet = unit_sheet[1:]
+                            while "-" in unit_sheet[0][0]:
+                                unit_sheet[0][0] = temp_weapon_name + unit_sheet[0][0]
+                                app_unit_json["weapons"].append(proccess_weapons(unit_sheet[0]))
+                                unit_sheet = unit_sheet[1:]
+                        else:
+                            app_unit_json["weapons"].append(proccess_weapons(unit_sheet[0]))
+                            unit_sheet = unit_sheet[1:]
+                                
+                    #  FOR NOW WE IGNORE THE OPTIONS SECTION, AS IT IS MANUAL
+                    while "ABILITIES" not in unit_sheet[0]:
+                        unit_sheet = unit_sheet[1:]
+                    
+                    app_unit_json["abilities"] = []
+                    
+                    # Process all abilities in the unit sheet until we reach the keywords section.
+                    while "UNIT TYPE" not in unit_sheet[0]:
+                        app_unit_json["abilities"].append(unit_sheet[0])
+                        unit_sheet = unit_sheet[1:]
+                    unit_sheet = unit_sheet[1:]
+                    
+                    # Add the unit type, switch to the next row, which should be the keywords header.
+                    app_unit_json["unit_type"] = "".join(str(unit_sheet[0]))
+                    unit_sheet = unit_sheet[1:]
+                    
+                    # Make sure the next row is the keywords header, then discard it.
+                    if unit_sheet[0] != ["KEYWORDS"]:
+                        print(f"Keywords format mismatch for {unit}. Expected ['KEYWORDS'], got {unit_sheet[0]}. Stopping the program.")
+                        exit()
+                    unit_sheet = unit_sheet[1:]
+                    
+                    app_unit_json["keywords"] = [faction] + unit_sheet[0]
+        
+                # Save the processed unit data to its respective path.
+                proccessed_unit_path = f"processed/{faction.lower().replace(' ', '_')}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
+                with open(proccessed_unit_path, "w") as f:
+                    json.dump(app_unit_json, f, indent=4)
+                    
+                    

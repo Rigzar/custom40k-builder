@@ -1,0 +1,172 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Tervigon",
+        "6\"",
+        "3+",
+        "3+",
+        7,
+        8,
+        7,
+        3,
+        4,
+        7,
+        "3+",
+        223
+    ],
+    [
+        "A Tervigon is equipped with: Monstrous scything talons; Stinger salvo."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Crushing claws",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Desiccator larvae",
+        "9\"",
+        "Assault 4",
+        1,
+        0,
+        1,
+        "Poison(2+)"
+    ],
+    [
+        "Electroshock grubs",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Haywire"
+    ],
+    [
+        "Monstrous scything talons",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        2,
+        "AT(1), Extra Attack(1)"
+    ],
+    [
+        "Shreddershard beetles",
+        "9\"",
+        "Assault 4",
+        3,
+        -1,
+        1,
+        "Shred"
+    ],
+    [
+        "Stinger salvo",
+        "24\"",
+        "Rapid Fire 4",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap its Monstrous scything talons:"
+    ],
+    [
+        "- Crushing claws",
+        "+6 points"
+    ],
+    [
+        "\u2022 May be equipped with one of the following:"
+    ],
+    [
+        "- Desiccator larvae",
+        "+7 points"
+    ],
+    [
+        "- Shreddershard beetles",
+        "+9 points"
+    ],
+    [
+        "- Electroshock grubs",
+        "+13 points"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Norn Crown",
+        "+10 points"
+    ],
+    [
+        "- Resonator",
+        "+21 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+32 points"
+    ],
+    [
+        "- Regeneration",
+        "+35 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "\u2022 May additionally select items from the Hive Fleet Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Fearless, Move Through Cover, Synapse"
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline."
+    ],
+    [
+        "Brood Progenitor: Roll 2D6 and discard the lowest die during each Reinforcement phase. You spawn the result as either Hormagaunt or Termagaunt (equipped with Flesh borers) models within 6\", but outside of engagement range with enemy models."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

@@ -1,0 +1,77 @@
+{
+    "models": [
+        {
+            "NAME": "Lictor",
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": 6,
+            "T": 5,
+            "W": 4,
+            "I": 5,
+            "A": 4,
+            "LD": 10,
+            "SV": "5+",
+            "min": 1,
+            "max": 2,
+            "points": 106
+        }
+    ],
+    "equipped_with": [
+        "Every model is equipped with: Flesh hooks, Scything talons, Piercing claws."
+    ],
+    "weapons": [
+        {
+            "name": "Flesh hooks",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": 4,
+            "ap": 0,
+            "d": 1,
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Piercing claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": -3,
+            "d": 1,
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": -1,
+            "d": 1,
+            "abilities": "Extra Attack(1)"
+        }
+    ],
+    "abilities": [
+        [
+            "ABILITIES"
+        ],
+        [
+            "Deep Strike, Hit & Run, Infiltrate, Move Through Cover, Stealth, Squadron, Terrifying(-1), Use Cover"
+        ],
+        [
+            "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls."
+        ],
+        [
+            "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike."
+        ],
+        [
+            "Upgrades:"
+        ],
+        [
+            "Neurolictor: Select one enemy unit within 12\" during your activation. The target must pass a Leadership test or gain one Battleshock token."
+        ]
+    ],
+    "unit_type": "['Monstrous Infantry']",
+    "keywords": [
+        "Tyranids",
+        "Advanced Bioform"
+    ]
+}

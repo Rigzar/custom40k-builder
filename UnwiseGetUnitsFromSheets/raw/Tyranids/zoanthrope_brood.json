@@ -1,0 +1,123 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-6",
+        "Zoanthrope",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        2,
+        3,
+        2,
+        10,
+        "5+",
+        92
+    ],
+    [
+        "*",
+        "Neurothrope",
+        "6\"",
+        "2+",
+        "2+",
+        5,
+        5,
+        3,
+        3,
+        2,
+        10,
+        "5+",
+        124
+    ],
+    [
+        "Every model is equipped with: Warp lightning."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Warp lightning *"
+    ],
+    [
+        "- Dispersed",
+        "24\"",
+        "Assault 1",
+        5,
+        -3,
+        1,
+        "Blast(4), Seeking"
+    ],
+    [
+        "- Focused",
+        "18\"",
+        "Assault 1",
+        10,
+        -4,
+        3,
+        "AT(3), Seeking"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One model may be upgraded to a Neurothrope for +32 points."
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Hardened Carapace",
+        "+4 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Fearless, Massive(1), Synapse"
+    ],
+    [
+        "Psyker: The Neurothrope can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline."
+    ],
+    [
+        "Warp Barrier: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

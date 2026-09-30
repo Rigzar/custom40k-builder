@@ -1,0 +1,124 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Exocrine",
+        "6\"",
+        "3+",
+        "3+",
+        7,
+        8,
+        7,
+        3,
+        4,
+        7,
+        "3+",
+        218
+    ],
+    [
+        "Every model is equipped with: Bio-plasmic cannon; Monstrous scything talons."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bio-plasmic cannon",
+        "24\"",
+        "Heavy 1",
+        7,
+        -4,
+        2,
+        "Armorbane, AT(3), Blast(6)"
+    ],
+    [
+        "Monstrous scything talons",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        2,
+        "AT(1), Extra Attack(1)"
+    ],
+    [
+        "Thresher scythe",
+        "-",
+        "Melee",
+        4,
+        -1,
+        1,
+        "Extra Attack(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Each model may be equipped with one of the following:"
+    ],
+    [
+        "- Thresher scythe",
+        "+6 points"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Synaptic Node",
+        "+15 points"
+    ],
+    [
+        "- Resonator",
+        "+21 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+32 points"
+    ],
+    [
+        "- Regeneration",
+        "+35 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Instinctive Behaviour, Move Through Cover, Squadron"
+    ],
+    [
+        "Symbiotic targeting: The model gains a +1 bonus to ranged hit rolls with a \"Stand & Shoot\" order."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature "
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]
