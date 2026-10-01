@@ -13,14 +13,19 @@
         "POINTS"
     ],
     [
+        "Basic Bioform",
+        "Adv. Bioform"
+    ],
+    [
         "Headlong charge",
         "-",
         "Melee",
         10,
         -2,
         1,
-        "AT(2), Auto Hit, Blast(4), Charge, Extra Attack(1), Limit(1), Quick(+7)",
-        "-"
+        "AT(2), Auto Hit, Blast(4), Charge, Extra Attack(1), Limit(1), Quick(+7). Can only be taken by Monstrous Creatures without the Flyer unit type.",
+        "-",
+        15
     ],
     [
         "Implant Attack",
@@ -29,8 +34,9 @@
         2,
         -4,
         1,
-        "Extra Attack(1), Limit(1), Hits automatically wound the target",
-        "-"
+        "Extra Attack(1), Limit(1), Hits automatically wound the target. Only for units without the Flyer type.",
+        "-",
+        5
     ],
     [
         "Symbiote Rippers",
@@ -39,8 +45,9 @@
         3,
         0,
         1,
-        "Extra Attack(3)",
-        "-"
+        "Extra Attack(3), Only for units without the Flyer type.",
+        "-",
+        5
     ],
     [
         "BASIC BIOMORPHS",

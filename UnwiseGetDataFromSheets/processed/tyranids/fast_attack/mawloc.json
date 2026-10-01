@@ -17,7 +17,7 @@
             "name": "Mawloc",
             "min": 1,
             "max": 2,
-            "points": 147
+            "points": 139
         }
     ],
     "equipped_with": "Every model is equipped with: Monstrous scything talons.",
@@ -52,8 +52,7 @@
     ],
     "abilities": [
         "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
-        "Burrow: The model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep Strike rules.",
-        "Terror from the Deep: If the model is set up via Deep Strike rules, select one enemy unit within 12\". The target unit suffers 4 automatic hits with Strength: U AP: -2 Damage: 2."
+        "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
     ],
     "unit_type": "Monstrous Creature ",
     "keywords": [

@@ -10,7 +10,7 @@ def check_nan(value):
     return value == 'nan' or value == 'null'
 
 # First step. Get the raw text from the google sheets and remove all empty rows and columns, leaving only useful raw data. 
-def get_units_from_sheets():
+def main():
     
     factions = {}
     with open("factions.csv", "r") as f:
@@ -42,4 +42,4 @@ def get_units_from_sheets():
             json.dump(values, open(f"raw/{faction.lower().replace(" ","_")}/{sheet}.json", "w"), indent=4)
             
 if __name__ == "__main__":
-    get_units_from_sheets()
+    main()
