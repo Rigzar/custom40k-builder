@@ -7,7 +7,8 @@ from io import BytesIO
 
 UNIT_CATEGORIES = ["hq","troops","elites","fast_attack","heavy_support", "dedicated_transport", "fortifications", "flyers"]
 
-if __name__ == "__main__":
+# Takes the processed unit data and updates the app's unit data with it. 
+def replace_app_units_with_proccessed_units():
     
     with open("factions.csv", "r") as f:
         FACTIONS = [line.split(",")[0] for line in f.readlines() if line.strip()]
@@ -53,3 +54,5 @@ if __name__ == "__main__":
                     
     print("All units updated successfully.")
                 
+if __name__ == "__main__":
+    replace_app_units_with_proccessed_units()
