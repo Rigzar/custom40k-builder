@@ -20,6 +20,7 @@
             "points": 36
         }
     ],
+    "min_cost": 108,
     "equipped_with": "Every model is equipped with: Rending claws.",
     "weapons": [
         {

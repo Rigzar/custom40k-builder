@@ -20,6 +20,7 @@
             "points": 40
         }
     ],
+    "min_cost": 40,
     "equipped_with": "Every model is equipped with: -.",
     "weapons": [
         {

@@ -20,6 +20,7 @@
             "points": 75
         }
     ],
+    "min_cost": 75,
     "equipped_with": "Every model is equipped with: Acid maw; Flamespurt.",
     "weapons": [
         {

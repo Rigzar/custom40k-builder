@@ -130,6 +130,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 95,
+    "min_cost": 92,
     "is_monster": false
 }

@@ -169,6 +169,6 @@
     "advisor": false,
     "slot": "Flyers",
     "default_size": 1,
-    "min_cost": 177,
+    "min_cost": 184,
     "is_monster": true
 }

@@ -20,6 +20,7 @@
             "points": 41
         }
     ],
+    "min_cost": 41,
     "equipped_with": "Every model is equipped with: Shock cannon.",
     "weapons": [
         {

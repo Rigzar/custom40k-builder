@@ -53,7 +53,7 @@ def proccess_model(model_data):
     ret_model["name"] = model_data[1]
     ret_model["min"] = int(m)
     ret_model["max"] = int(M)
-    ret_model["points"] = int(model_data[-1]) if "-" not in str(model_data[-1]) else 1
+    ret_model["points"] = int(model_data[-1]) if "-" not in str(model_data[-1]) else 0
     
     print(ret_model)
     return ret_model
@@ -95,6 +95,7 @@ def main():
                         exit()
                     unit_sheet = unit_sheet[1:]
                     
+                    ### MODELS
                     # Process all models in the unit sheet until we reach the weapons section.
                     while("is equipped with" not in "".join(str(unit_sheet[0]))):
                         print(f"raw data: {unit_sheet[0]}")
@@ -109,7 +110,12 @@ def main():
                         
                         unit_sheet = unit_sheet[1:]
                     
-                    # Process the weapon selections of the unit sheet.   
+                    # calculate the min_cost of the unit based on the models and their points values
+                    app_unit_json["min_cost"] = sum([(m["points"] * m["min"]) for m in app_unit_json["models"]])
+                    # set the default size of the unit
+                    app_unit_json["default_size"] = sum([m["min"] for m in app_unit_json["models"]])
+                    
+                    ### WEAPONS
                     app_unit_json["equipped_with"] = "".join(unit_sheet[0])
                     unit_sheet = unit_sheet[1:]
                     
@@ -118,7 +124,8 @@ def main():
                         print(f"Weapon format mismatch for {unit}. Expected {WEAPON_FORMAT}, got {unit_data[0]}. Stopping the program.")
                         exit()
                     unit_sheet = unit_sheet[1:]
-                    
+                   
+                   
                     # Process all weapons in the unit sheet until we reach the options section.
                     app_unit_json["weapons"] = []
                     while "OPTIONS" not in unit_sheet[0]:
@@ -138,12 +145,14 @@ def main():
                         else:
                             app_unit_json["weapons"].append(proccess_weapons(unit_sheet[0]))
                             unit_sheet = unit_sheet[1:]
-                                
+                    
+                    ### OPTIONS           
                     #  FOR NOW WE IGNORE THE OPTIONS SECTION, AS IT IS MANUAL
                     while "ABILITIES" not in unit_sheet[0]:
                         unit_sheet = unit_sheet[1:]
-                    
                     unit_sheet = unit_sheet[1:]
+                    
+                    ### ABILITIES
                     app_unit_json["abilities"] = []
                     # Process all abilities in the unit sheet until we reach the keywords section.
                     while "UNIT TYPE" not in unit_sheet[0]:
@@ -155,6 +164,7 @@ def main():
                         unit_sheet = unit_sheet[1:]
                     unit_sheet = unit_sheet[1:]
                     
+                    ### UNIT TYPE
                     # Add the unit type, switch to the next row, which should be the keywords header.
                     app_unit_json["unit_type"] = "".join(unit_sheet[0])
                     unit_sheet = unit_sheet[1:]
@@ -165,6 +175,7 @@ def main():
                         exit()
                     unit_sheet = unit_sheet[1:]
                     
+                    ### KEYWORDS
                     app_unit_json["keywords"] = unit_sheet[0]
         
                 # Save the processed unit data to its respective path.

@@ -150,6 +150,6 @@
     "advisor": false,
     "slot": "HQ",
     "default_size": 1,
-    "min_cost": 43,
+    "min_cost": 55,
     "is_monster": false
 }

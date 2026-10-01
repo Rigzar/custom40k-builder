@@ -40,6 +40,7 @@
             "points": 124
         }
     ],
+    "min_cost": 92,
     "equipped_with": "Every model is equipped with: Warp lightning.",
     "weapons": [
         {

@@ -20,6 +20,7 @@
             "points": 55
         }
     ],
+    "min_cost": 165,
     "equipped_with": "Every model is equipped with: 2 Scything talons.",
     "weapons": [
         {

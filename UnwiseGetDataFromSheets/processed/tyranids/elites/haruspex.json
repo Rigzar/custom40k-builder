@@ -20,6 +20,7 @@
             "points": 200
         }
     ],
+    "min_cost": 200,
     "equipped_with": "Every model is equipped with: Crushing claws, Grasping tongue.",
     "weapons": [
         {

@@ -20,6 +20,7 @@
             "points": 9
         }
     ],
+    "min_cost": 90,
     "equipped_with": "Every model is equipped with: Fleshborer; Blinding Venom.",
     "weapons": [
         {

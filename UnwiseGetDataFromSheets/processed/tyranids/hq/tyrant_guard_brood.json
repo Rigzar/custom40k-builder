@@ -20,6 +20,7 @@
             "points": 55
         }
     ],
+    "min_cost": 55,
     "equipped_with": "Every model is equipped with: Rending claws; Scything talons.",
     "weapons": [
         {

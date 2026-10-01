@@ -40,6 +40,7 @@
             "points": 312
         }
     ],
+    "min_cost": 256,
     "equipped_with": "A Hive Tyrant is equipped with: 2 Monstrous scything talons.",
     "weapons": [
         {
