@@ -165,6 +165,7 @@
         "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation."
     ],
     "unit_type": "Monstrous Creature",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

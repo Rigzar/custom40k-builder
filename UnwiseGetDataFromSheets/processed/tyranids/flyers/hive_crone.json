@@ -82,6 +82,7 @@
         "Hover Mode, Instinctive Behaviour, Squadron"
     ],
     "unit_type": "Flyer, Monstrous Creature",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

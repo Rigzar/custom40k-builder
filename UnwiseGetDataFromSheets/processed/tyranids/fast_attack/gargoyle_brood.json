@@ -47,6 +47,7 @@
         "Instinctive Behaviour"
     ],
     "unit_type": "Jump Pack Infantry",
+    "is_monster": false,
     "keywords": [
         "Basic Bioform"
     ]

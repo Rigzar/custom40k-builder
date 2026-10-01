@@ -85,6 +85,7 @@
         "Brood Progenitor: Roll 2D6 and discard the lowest die during each Reinforcement phase. You spawn the result as either Hormagaunt or Termagaunt (equipped with Flesh borers) models within 6\", but outside of engagement range with enemy models."
     ],
     "unit_type": "Monstrous Creature",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

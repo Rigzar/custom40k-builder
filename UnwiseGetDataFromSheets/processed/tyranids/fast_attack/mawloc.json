@@ -57,6 +57,7 @@
         "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

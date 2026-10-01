@@ -68,6 +68,7 @@
         "Trygon Prime: The model gains the \"Fearless\" and \"Synapse\" abilities. Additionally, its Bio-electric pulse weapon gains the \"Assault 12\" type."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

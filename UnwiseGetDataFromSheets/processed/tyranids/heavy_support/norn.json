@@ -71,6 +71,7 @@
         "Warp Barrier: The model gains a 4+ ward save."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

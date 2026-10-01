@@ -39,6 +39,7 @@
         "Leaping charge: The unit has a 12\" Charge move."
     ],
     "unit_type": "Infantry",
+    "is_monster": false,
     "keywords": [
         "Advanced Bioform"
     ]

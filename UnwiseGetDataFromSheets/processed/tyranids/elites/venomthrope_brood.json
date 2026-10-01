@@ -40,6 +40,7 @@
         "Volatile: The unit explodes like a vehicle upon losing its last Wound."
     ],
     "unit_type": "Monstrous Infantry",
+    "is_monster": false,
     "keywords": [
         "Advanced Bioform"
     ]

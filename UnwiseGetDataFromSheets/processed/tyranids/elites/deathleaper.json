@@ -59,6 +59,7 @@
         "Unnatural Speed: The model has a 5+ ward save."
     ],
     "unit_type": "Monstrous Infantry",
+    "is_monster": false,
     "keywords": [
         "Advanced Bioform"
     ]

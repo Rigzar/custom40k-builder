@@ -40,6 +40,7 @@
         "Drifting Death: Instead of receiving orders as normal, Spore Mines drift aimlessly. During each Rally phase, roll 1D6 and a scatter die for every Spore Mine unit on the battlefield. The unit moves a number of inches equal to the D6 result in the direction indicated by the scatter die. If a Hit symbol is rolled, the controlling player chooses the direction instead."
     ],
     "unit_type": "Infantry",
+    "is_monster": false,
     "keywords": [
         "Basic Bioform"
     ]

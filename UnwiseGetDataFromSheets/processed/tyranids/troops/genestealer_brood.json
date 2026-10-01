@@ -69,6 +69,7 @@
         "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
     ],
     "unit_type": "Infantry",
+    "is_monster": false,
     "keywords": [
         "Basic Bioform"
     ]

@@ -57,6 +57,7 @@
         "Symbiotic targeting: The model gains a +1 bonus to ranged hit rolls with a \"Stand & Shoot\" order."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

@@ -79,6 +79,7 @@
         "Psychic Resonator: Any Synapse creature within 6\" of the Sporocyst increases the range of its Synapse by 50%."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

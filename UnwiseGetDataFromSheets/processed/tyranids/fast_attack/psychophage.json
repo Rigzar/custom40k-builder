@@ -48,6 +48,7 @@
         "Warp hunger: All attacks of the model gain the \"Psi-shock\" ability."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

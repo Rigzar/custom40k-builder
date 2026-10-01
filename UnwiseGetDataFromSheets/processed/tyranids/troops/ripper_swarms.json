@@ -39,6 +39,7 @@
         "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
     ],
     "unit_type": "Infantry",
+    "is_monster": false,
     "keywords": [
         "Basic Bioform"
     ]

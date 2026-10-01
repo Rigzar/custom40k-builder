@@ -101,6 +101,7 @@
         "Instinctive Behaviour, Move Through Cover, Squadron"
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

@@ -83,6 +83,7 @@
         "Instinctive Behaviour, Move Through Cover"
     ],
     "unit_type": "Infantry",
+    "is_monster": false,
     "keywords": [
         "Basic Bioform"
     ]

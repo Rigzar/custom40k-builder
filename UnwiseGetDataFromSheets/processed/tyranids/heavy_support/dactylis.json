@@ -77,6 +77,7 @@
         "Volatile: The model always explodes like a vehicle."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

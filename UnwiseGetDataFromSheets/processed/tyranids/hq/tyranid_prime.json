@@ -93,6 +93,7 @@
         "Alpha Warrior: A Tyranid Prime can attach to any unit like a character model. If the model is attached to a unit of Tyranid Warriors, they gain a +1 bons to Weapon Skill and Ballistic Skill."
     ],
     "unit_type": "Character model, Monstrous Infantry",
+    "is_monster": false,
     "keywords": [
         "Advanced Bioform"
     ]

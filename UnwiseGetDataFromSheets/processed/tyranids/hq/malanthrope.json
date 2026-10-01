@@ -42,6 +42,7 @@
         "Toxic Miasma: During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\"."
     ],
     "unit_type": "Character model, Monstrous Infantry",
+    "is_monster": false,
     "keywords": [
         "Advanced Bioform"
     ]

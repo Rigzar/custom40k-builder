@@ -59,6 +59,7 @@
         "Transport: This model has a transport capacity of 20 (Monstrous) Infantry models or 1 Monstrous Creature."
     ],
     "unit_type": "Monstrous Creature ",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

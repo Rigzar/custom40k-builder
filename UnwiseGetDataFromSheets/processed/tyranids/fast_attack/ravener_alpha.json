@@ -40,6 +40,7 @@
         "Swallow Whole: All attacks of the model gain the \"Blood Drinker\" ability."
     ],
     "unit_type": "Monstrous Creature",
+    "is_monster": true,
     "keywords": [
         "Advanced Bioform"
     ]

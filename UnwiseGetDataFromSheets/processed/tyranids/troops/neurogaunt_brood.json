@@ -47,6 +47,7 @@
         "Neurocytes: The Synapse range of this unit is limited to 3\"."
     ],
     "unit_type": "Infantry",
+    "is_monster": false,
     "keywords": [
         "Basic Bioform"
     ]

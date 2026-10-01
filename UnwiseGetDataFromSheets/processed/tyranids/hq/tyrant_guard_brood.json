@@ -66,6 +66,7 @@
         "Shieldwall: A Hive Tyrant or Neurotyrant can attach to the unit like a character model."
     ],
     "unit_type": "Monstrous Infantry",
+    "is_monster": false,
     "keywords": [
         "Advanced Bioform"
     ]

@@ -166,6 +166,7 @@ def main():
                     ### UNIT TYPE
                     # Add the unit type, switch to the next row, which should be the keywords header.
                     app_unit_json["unit_type"] = "".join(unit_sheet[0])
+                    app_unit_json["is_monster"] = "Monstrous Creature" in app_unit_json["unit_type"]
                     unit_sheet = unit_sheet[1:]
                     
                     # Make sure the next row is the keywords header, then discard it.
@@ -176,6 +177,8 @@ def main():
                     
                     ### KEYWORDS
                     app_unit_json["keywords"] = unit_sheet[0]
+                    # calculate is_monster
+                    
         
                 # Save the processed unit data to its respective path.
                 proccessed_unit_path = f"processed/{faction.lower().replace(' ', '_')}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
