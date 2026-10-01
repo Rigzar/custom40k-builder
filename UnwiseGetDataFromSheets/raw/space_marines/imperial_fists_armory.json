@@ -1,0 +1,104 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Fist of Terra\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-1)",
+        18,
+        22
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Auric Aquila\u1d33 \u1d40",
+        "The model gains a 4+ ward save. Additionally, once per game, the model may gain a 3+ ward save until the start of its next activation. Unique.",
+        "-",
+        45
+    ],
+    [
+        "Bone of Osrak\u1d33 \u1d40",
+        "The models gains +1 to all tests for manifesting a psychic power from the Geokinesis discipline.",
+        "-",
+        5
+    ],
+    [
+        "Gatebreaker bolts\u1d33 \u1d40",
+        "One Bolt weapon of the model gains a -1 bonus to its AP and the \"Blast(4)\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Marksman pistol\u1d33",
+        "One Pistol type weapon of the model gains the \"Seeking\" ability.",
+        5,
+        5
+    ],
+    [
+        "The Angel of Sacrifice\u1d33 \u1d40",
+        "If the model loses its last Wound, it is only removed after the last possible activation of the owning player (for the current battle round) and may perform all valid actions until then. During this time, the model gains the \"Fearless\" ability. Unique. Only for Chaplains.",
+        "-",
+        10
+    ],
+    [
+        "The Banner of Staganda\u1d33 \u1d40",
+        "The model and its attached unit gain the \"Blind Rage\" and \"Counter-Attack\" abilities. Only for Ancients.",
+        "-",
+        5
+    ],
+    [
+        "The Eye of Hypnoth\u1d33 \u1d40",
+        "Select one enemy unit within 18\" during your activation. The target suffers a -1 penalty to its armor save or to its AV until the start of the model's next activation. Unique.",
+        15,
+        15
+    ],
+    [
+        "Warden's Cuirass\u1d33 \u1d40",
+        "The model gains +1 Wound.",
+        10,
+        15
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "-",
+        "-",
+        "-"
+    ]
+]

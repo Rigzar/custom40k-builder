@@ -12,7 +12,8 @@ UNIT_PATH = {
     "Fortifications":"fortifications",
     "Flyers":"flyers"
 }
-MODEL_FORMAT = ["No.","NAME","M","WS","BS","S","T","W","I","A","LD","SV","POINTS"]
+CREATURE_FORMAT = ["No.","NAME","M","WS","BS","S","T","W","I","A","LD","SV","POINTS"]
+VEHICLE_FORMAT = ["No.","NAME","M","WS","BS","S","FRONT", "SIDE", "REAR", "I","A","HP", "POINTS"]
 WEAPON_FORMAT = ["WEAPON", "RANGE", "TYPE", "S", "AP", "D", "ABILITIES"]
 
 # Make a list of all the troops that exist in the faction's Index.json file. 
@@ -41,7 +42,7 @@ def proccess_faction_troops(faction_path, faction_name):
                 
     return ret
 
-def proccess_model(model_data):
+def proccess_model(model_data, model_format):
     m, M = 1,1
     if "-" in str(model_data[0]):
         m, M = model_data[0].split("-")
@@ -49,7 +50,7 @@ def proccess_model(model_data):
         m, M = 0, 1
     
     model_data = [str(x) for x in model_data]
-    ret_model = {"stats": dict(zip(MODEL_FORMAT[2:-1], model_data[2:-1]))}
+    ret_model = {"stats": dict(zip(model_format[2:-1], model_data[2:-1]))}
     ret_model["name"] = model_data[1]
     ret_model["min"] = int(m)
     ret_model["max"] = int(M)
@@ -58,6 +59,7 @@ def proccess_model(model_data):
     print(ret_model)
     return ret_model
 
+# Takes a weapon column from the unit sheet and formats it into the app's weapon data format. Returns a dictionary with the weapon data.
 def proccess_weapons(weapon_data):
     APP_FORMAT = "name", "range","type", "s", "ap", "d", "abilities"
     weapon_data = [str(x) for x in weapon_data]
@@ -90,16 +92,22 @@ def main():
                     print(f"\nProcessing {unit} at {raw_unit_path}.json")
                     
                     # Make sure the models are in the correct format, then discard it.
-                    if unit_sheet[0] != MODEL_FORMAT:
-                        print(f"Model format mismatch for {unit}. Expected {MODEL_FORMAT}, got {unit_data[0]}. Stopping the program.")
-                        exit()
+                    if unit_sheet[0] != CREATURE_FORMAT:
+                        if unit_sheet[0] != VEHICLE_FORMAT:
+                            print(f"Model format mismatch for {unit}. Expected {CREATURE_FORMAT}, got {unit_sheet[0]}. Stopping the program.")
+                            exit()
+                        else:
+                            model_format = VEHICLE_FORMAT
+                    else:
+                        model_format = CREATURE_FORMAT
+                    
                     unit_sheet = unit_sheet[1:]
                     
                     ### MODELS
                     # Process all models in the unit sheet until we reach the weapons section.
                     while("is equipped with" not in "".join(str(unit_sheet[0]))):
                         print(f"raw data: {unit_sheet[0]}")
-                        model = proccess_model(unit_sheet[0])
+                        model = proccess_model(unit_sheet[0], model_format)
                         if "*" in str(unit_sheet[0][0]):
                             if "variant_models" not in app_unit_json:
                                 app_unit_json["variant_models"] = [model]
@@ -116,12 +124,14 @@ def main():
                     app_unit_json["default_size"] = sum([m["min"] for m in app_unit_json["models"]])
                     
                     ### WEAPONS
-                    app_unit_json["equipped_with"] = "".join(unit_sheet[0])
-                    unit_sheet = unit_sheet[1:]
+                    app_unit_json["equipped_with"] = ""
+                    while "equipped with" in "".join(unit_sheet[0]):
+                        app_unit_json["equipped_with"] += "".join(unit_sheet[0])
+                        unit_sheet = unit_sheet[1:]
                     
                     # Make sure the weapons are in the correct format, then discard it.
                     if unit_sheet[0] != WEAPON_FORMAT:
-                        print(f"Weapon format mismatch for {unit}. Expected {WEAPON_FORMAT}, got {unit_data[0]}. Stopping the program.")
+                        print(f"Weapon format mismatch for {unit}. Expected {WEAPON_FORMAT}, got {unit_sheet[0]}. Stopping the program.")
                         exit()
                     unit_sheet = unit_sheet[1:]
                    
@@ -169,14 +179,16 @@ def main():
                     app_unit_json["is_monster"] = "Monstrous Creature" in app_unit_json["unit_type"]
                     unit_sheet = unit_sheet[1:]
                     
-                    # Make sure the next row is the keywords header, then discard it.
-                    if unit_sheet[0] != ["KEYWORDS"]:
+                    ### KEYWORDS  
+                    #if there are no keywords this will be the last row, so we check for that and set keywords to an empty list if so.
+                    if len(unit_sheet) == 0:
+                        app_unit_json["keywords"] = []
+                    elif unit_sheet[0] != ["KEYWORDS"]:
                         print(f"Keywords format mismatch for {unit}. Expected ['KEYWORDS'], got {unit_sheet[0]}. Stopping the program.")
                         exit()
-                    unit_sheet = unit_sheet[1:]
-                    
-                    ### KEYWORDS
-                    app_unit_json["keywords"] = unit_sheet[0]
+                    else:
+                        unit_sheet = unit_sheet[1:]
+                        app_unit_json["keywords"] = unit_sheet[0]
                     # calculate is_monster
                     
         

@@ -1,0 +1,106 @@
+{
+    "name": "Land Raider Ares",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Land Raider Ares",
+            "min": 1,
+            "max": 1,
+            "points": 581
+        }
+    ],
+    "min_cost": 581,
+    "default_size": 1,
+    "equipped_with": "A Land Raider Ares is a single model and is equipped with: Demolisher cannon; Twin assault cannon; 2 Twin heavy flamers.",
+    "weapons": [
+        {
+            "name": "Demolisher cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(4), Blast(6), Tank hunter"
+        },
+        {
+            "name": "Hurricane Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 6",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin assault cannon",
+            "range": "24\"",
+            "type": "Heavy 8",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Twin heavy flamer",
+            "range": "9\"",
+            "type": "Assault 8",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Twin plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Twin plasma cannon - Overcharged",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        }
+    ],
+    "abilities": [
+        "Siege shield: The model automatically passes tests for difficult terrain and is not slowed down by it. Additionally, attacks from the front always treat the model as being in cover."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

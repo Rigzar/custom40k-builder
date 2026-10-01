@@ -1,0 +1,120 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Soldier's Blade\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "U",
+        -4,
+        1,
+        "Unique",
+        "-",
+        6
+    ],
+    [
+        "Sunwrath Pistol\u1d33",
+        "12\"",
+        "Pistol 1",
+        8,
+        -3,
+        2,
+        "AT(2), Unique",
+        "-",
+        18
+    ],
+    [
+        "Vengeance of Ultramar\u1d33 \u1d40",
+        "24\"",
+        "Rapid Fire 3",
+        4,
+        -1,
+        1,
+        "Poison(2+), Unique",
+        "-",
+        26
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Adept of the Codex\u1d33 \u1d40",
+        "The model and its attached unit may select one Space Marine trait they do not have to be under the effect of. Cannot select cursed founding, path of damnation, purity of all, expanded armory or sons of mars. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Helm of Censure\u1d33 \u1d40",
+        "The model gains 1 cumulative hit and wound re-roll. Unique.",
+        10,
+        10
+    ],
+    [
+        "Laurels of Victory\u1d33 \u1d40",
+        "Each wound the model does in combat counts as 2 for combat resolution.",
+        5,
+        5
+    ],
+    [
+        "Librarius pendant\u1d33 \u1d40",
+        "The model gains a +1 bonus to manifest powers from the Librarius discipline.",
+        "-",
+        5
+    ],
+    [
+        "Sanctic halo\u1d33 \u1d40",
+        "The model gains a 4+ ward save and the \"Aegis(4+)\" ability.                ",
+        "-",
+        35
+    ],
+    [
+        "Tarentian Cloak\u1d33 \u1d40",
+        "The model gains the \"Regeneration(1)\" ability.",
+        8,
+        12
+    ],
+    [
+        "Tyrannic War Veteran\u1d33 \u1d40",
+        "The model and its attached unit gain +1 to wound rolls against Monstrous Infantry and Monstrous Creatures in melee.",
+        10,
+        10
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Supply Vehicle",
+        "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Space Marine unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
+        5
+    ]
+]

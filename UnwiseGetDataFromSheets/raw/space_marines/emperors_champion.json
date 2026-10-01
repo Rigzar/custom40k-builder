@@ -1,0 +1,134 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Emperor's Champion",
+        "6\"",
+        "2+",
+        "3+",
+        4,
+        4,
+        4,
+        5,
+        3,
+        8,
+        "2+",
+        141
+    ],
+    [
+        "An Emperor's Champion is equipped with: The Black Sword; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "The Black Sword *"
+    ],
+    [
+        "- Swing attack",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "Extra Attack(1)"
+    ],
+    [
+        "- Piercing strike",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 An army may only contain 1 Emperor's Champion. He also counts as a Chapter champion."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "They Shall Know No Fear"
+    ],
+    [
+        "The Armor of Faith: The model gains a 4+ ward save."
+    ],
+    [
+        "Honor or Death: At the start of the activation, if an enemy HQ or Character model is within 10\", the placed Order is converted to \"Charge\". The Emperor's Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
+    ],
+    [
+        "Martial superiority: The model may re-roll 1 to hit and 1 to wound roll."
+    ],
+    [
+        "Oath: Choose an oath at the start of the first battle round. The effects are active throughout the game for all of your Space Marine creatures (=> no vehicles) from the same army organization plan."
+    ],
+    [
+        "ABHOR THE WITCH, DESTROY THE WITCH: All units gain the \u201cAegis(5+)\u201d and \"Vanguard\" abilities. May only be selected if the enemy army includes at least one psyker and if the own army does not include any psykers."
+    ],
+    [
+        "ACCEPT ANY CHALLENGE, NO MATTER THE ODDS: All units gain +1 to their melee hit rolls, but they may never use the \"Escape\" order."
+    ],
+    [
+        "SUFFER NOT THE UNCLEAN TO LIVE: All units gain +2 Strength, but they suffer a -1 penalty to their Initiative."
+    ],
+    [
+        "UPHOLD THE HONOR OF THE EMPEROR: All units gain +1 to their armor saves, but they may never benefit from any cover (including Obscuring cover)."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

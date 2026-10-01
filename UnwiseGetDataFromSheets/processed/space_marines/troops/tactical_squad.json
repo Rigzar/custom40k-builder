@@ -1,0 +1,234 @@
+{
+    "name": "Tactical Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Tactical Marine",
+            "min": 4,
+            "max": 9,
+            "points": 36
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Tactical Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 36
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Veteran Tactical Sergeant",
+            "min": 0,
+            "max": 1,
+            "points": 46
+        }
+    ],
+    "min_cost": 180,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Boltgun; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grav cannon",
+            "range": "30\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Grav"
+        },
+        {
+            "name": "Grav gun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Grav"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lascannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Missile launcher Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Plasma cannon - Overheating",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        }
+    ],
+    "abilities": [
+        "Combat squads, They Shall Know No Fear"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

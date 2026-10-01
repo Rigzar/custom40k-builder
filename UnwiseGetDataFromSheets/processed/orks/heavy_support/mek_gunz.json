@@ -1,0 +1,130 @@
+{
+    "name": "Mek Gunz",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "2",
+                "T": "7",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "5",
+                "SV": "3"
+            },
+            "name": "Mek Gun",
+            "min": 1,
+            "max": 2,
+            "points": 23
+        }
+    ],
+    "min_cost": 23,
+    "default_size": 1,
+    "equipped_with": "A Mek Gun is equipped with: -.",
+    "weapons": [
+        {
+            "name": "Bubblechukka"
+        },
+        {
+            "name": "- Weedy",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(2), Blast(4), Sunder(2), Bubbles"
+        },
+        {
+            "name": "- Big",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(6), Sunder(2), Bubbles"
+        },
+        {
+            "name": "- 'Uge",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(8), Sunder(2), Bubbles"
+        },
+        {
+            "name": "Kannon - Frag",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Kannon - Shell",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Kannon Kustom mega-kannon",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(6), Overheating"
+        },
+        {
+            "name": "Lobba",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Indirect"
+        },
+        {
+            "name": "Smasha gun",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Blast(4), Grav"
+        },
+        {
+            "name": "Traktor kannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "3",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Zzap gun",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "2D6",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        }
+    ],
+    "abilities": [
+        "Squadron",
+        "Bubbles: When a unit shoots with this weapon, before selecting a target roll a D6. On a result of 1-2, all bubblechukkas in the unit must use the \"Weedy\" profile. On a result of 3-4, they must all use the \"Big\" profile. On a result of 5-6, they must all ust the \"'Uge\" profile.",
+        "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit\u2019s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
+        "Traktor kannon: Attacks against vehicles receive an additional +1 bonus on hit rolls."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

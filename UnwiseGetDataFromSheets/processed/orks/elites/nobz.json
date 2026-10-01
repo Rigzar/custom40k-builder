@@ -1,0 +1,43 @@
+{
+    "name": "Nobz",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Nob",
+            "min": 3,
+            "max": 10,
+            "points": 21
+        }
+    ],
+    "min_cost": 63,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Stikkbombz.",
+    "weapons": [
+        {
+            "name": "Stikkbombz",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

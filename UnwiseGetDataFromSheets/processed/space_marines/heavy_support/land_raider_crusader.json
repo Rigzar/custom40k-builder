@@ -1,0 +1,71 @@
+{
+    "name": "Land Raider Crusader",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Land Raider Crusader",
+            "min": 1,
+            "max": 1,
+            "points": 369
+        }
+    ],
+    "min_cost": 369,
+    "default_size": 1,
+    "equipped_with": "A Land Raider Crusader is a single model and is equipped with: 2 Hurricane Boltgun; Twin assault cannon.",
+    "weapons": [
+        {
+            "name": "Hurricane Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 6",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin assault cannon",
+            "range": "24\"",
+            "type": "Heavy 8",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        }
+    ],
+    "abilities": [
+        "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
+        "Transport: This model has a transport capacity of 16 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

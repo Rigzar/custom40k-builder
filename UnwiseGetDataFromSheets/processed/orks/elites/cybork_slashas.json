@@ -1,0 +1,165 @@
+{
+    "name": "Cybork Slashas",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Cybork Slasha",
+            "min": 4,
+            "max": 9,
+            "points": 30
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Cybork Painboy",
+            "min": 1,
+            "max": 1,
+            "points": 40
+        }
+    ],
+    "min_cost": 160,
+    "default_size": 5,
+    "equipped_with": "Each Cybork Slasha is equipped with: Choppa, Slugga, StikkbombzEach Cybork Painboy is equipped with: 'Urty Syringe, Slugga, Stikkbombz, Narthecium",
+    "weapons": [
+        {
+            "name": "Big Choppa",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Choppa",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kombi-burna- Shoota",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Kombi-burna- Burna",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
+        },
+        {
+            "name": "Kombi-burnaKombi-rokkit launcha*"
+        },
+        {
+            "name": "Kombi-burna- Shoota",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Kombi-burna- Rokkit launcha",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air, Combi"
+        },
+        {
+            "name": "Power Klaw",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Slugga",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Stikkbombz",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Twin shoota",
+            "range": "18\"",
+            "type": "Assault 6",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "'Urty Syringe",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(4+)"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!",
+        "Cybork Body: Each model has a 5+ ward save.",
+        "Dok's Speriments: After deployment and before the start of the first battle round, roll on the table below for each Cybork Slasha unit in the army:",
+        "D6",
+        "Result",
+        "1-2",
+        "Turbo Killas: The unit gains the Haste (1\") and Frenzy (1\") abilities. Whenever the unit activates with an Advance or Charge order, roll a D6 for each model in the unit. For each dice result of 1, the unit suffers a single wound; saves may be taken as normal and any unsaved wounds do not count towards Combat Results and cannot trigger a Leadership test if they cause the unit to drop below half strength.     ",
+        "3-4",
+        "Tinboy Brutes: All models in the unit gain +1 Toughness and the Unyielding ability.   ",
+        "5-6",
+        "Short Circuit: The Ork player may choose either Turbo Killas or Tinboy Brutes and apply it to the unit. Whenever the unit activates, roll a D6. On a result of 2-6, the unit activates normally. On a result of 1, the unit's order is immediately changed to \"Fight\", even if it is not in combat.   ",
+        "Narthecium: Once per battle round, the damage of a wound against the unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,117 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "10-20",
+        "Beast Snagga Boy",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        1,
+        3,
+        2,
+        5,
+        "6+",
+        12
+    ],
+    [
+        "*",
+        "Nob",
+        "6\"",
+        "3+",
+        "5+",
+        5,
+        4,
+        2,
+        3,
+        3,
+        6,
+        "6+",
+        27
+    ],
+    [
+        "Every model is equipped with: Choppa; Slugga."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Slugga",
+        "12\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Choppa",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Thump gun",
+        "18\"",
+        "Assault 2",
+        6,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 10 models, one Beast Snagga Boy may swap their Choppa and Slugga:"
+    ],
+    [
+        "- Thump gun",
+        "+2 points"
+    ],
+    [
+        "\u2022 One Beast Snagga Boy may be upgraded to a Nob for +15 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!, <Wildork>"
+    ],
+    [
+        "Wildork: The model receives the <Wildork> keyword and a 6+ ward saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

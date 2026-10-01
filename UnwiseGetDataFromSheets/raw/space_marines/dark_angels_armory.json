@@ -1,0 +1,104 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Caliban greatsword\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        1,
+        "Unwieldy",
+        5,
+        7
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Brazier of Judgement\u1d33 \u1d40",
+        "The model automatically succeeds at pursuit rolls to catch fleeing units.",
+        2,
+        2
+    ],
+    [
+        "Conversion field\u1d33 \u1d40",
+        "The model gains a 4+ ward save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
+        "-",
+        35
+    ],
+    [
+        "Eye of the Unseen\u1d33 \u1d40",
+        "The model gains the \"Favoured Enemy\" ability. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Foe-smiter\u1d33 \u1d40",
+        "One ranged weapon of the model gains the \"Shred\" ability. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Heavenfall blade\u1d33 \u1d40",
+        "One melee weapon of the model gains one of the following:\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        10,
+        10
+    ],
+    [
+        "Monster Slayer\u1d33 \u1d40",
+        "The model gains the \"Tank hunter\" ability.",
+        2,
+        4
+    ],
+    [
+        "Shroud of Heroes\u1d33 \u1d40",
+        "The model gains the \"Stealth\" ability, while it is not attached to a unit. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Watchers in the Dark\u1d33 \u1d40",
+        "The model and its attached unit gain the \"Aegis(4+)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Teleport homing beacon",
+        "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        10
+    ]
+]

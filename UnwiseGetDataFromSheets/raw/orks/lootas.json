@@ -1,0 +1,178 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-15",
+        "Loota",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        1,
+        3,
+        2,
+        6,
+        "6+",
+        24
+    ],
+    [
+        "*",
+        "Spanna",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        1,
+        3,
+        2,
+        6,
+        "6+",
+        10
+    ],
+    [
+        "Every Loota is equipped with: Deffgun.\nEvery Spanna is equipped with: Choppa; Slugga."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Big shoota",
+        "36\"",
+        "Assault 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Choppa",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Deffgun"
+    ],
+    [
+        "- Shooty",
+        "48\"",
+        "Assault 2",
+        7,
+        -2,
+        1,
+        "AT(1), Looted"
+    ],
+    [
+        "- Beamy",
+        "48\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Looted"
+    ],
+    [
+        "Kustom mega-blasta",
+        "24\"",
+        "Assault 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4), Overheating"
+    ],
+    [
+        "Rokkit launcha",
+        "24\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Slugga",
+        "12\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The entire squad may receive one of the following upgrades per model:"
+    ],
+    [
+        "- Wildork",
+        "+5 points"
+    ],
+    [
+        "- 'Eavy armour",
+        "+6 points"
+    ],
+    [
+        "\u2022 Up to three Lootas may be upgraded to Spannas for -14 points each."
+    ],
+    [
+        "\u2022Every Spanna may swap their Choppa and Slugga:"
+    ],
+    [
+        "- Big shoota",
+        "+6 points"
+    ],
+    [
+        "- Rokkit launcha",
+        "+11 points"
+    ],
+    [
+        "- Kustom mega-blasta",
+        "+12 points"
+    ],
+    [
+        "\u2022 Spannas have access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!"
+    ],
+    [
+        "Looted: When a unit shoots with this weapon, before selecting a target roll a D6. On a result of 1-3, all deffguns in the unit must use the \"Shooty\" profile. On a result of 4-6, they must all use the \"Beamy\" profile."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

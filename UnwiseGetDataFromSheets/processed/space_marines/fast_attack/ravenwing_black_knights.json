@@ -1,0 +1,134 @@
+{
+    "name": "Ravenwing Black Knights",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Black Knight",
+            "min": 2,
+            "max": 5,
+            "points": 80
+        },
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Huntsmaster",
+            "min": 1,
+            "max": 1,
+            "points": 85
+        }
+    ],
+    "min_cost": 245,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Bolt pistol; Corvus hammer; Frag grenades; Krak grenades; Plasma talon.",
+    "weapons": [
+        {
+            "name": "Corvus hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "AT(1), Armor piercing(5+)"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma talon",
+            "range": "18\"",
+            "type": "Rapid Fire 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Ravenwing Grenade launcher - Frag grenade",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Ravenwing Grenade launcher - Krak grenade",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Ravenwing Grenade launcher - Rad grenade",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Rad"
+        },
+        {
+            "name": "Ravenwing Grenade launcher - Stasis grenade",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Outflank, Terrain Expert, They Shall Know No Fear, Vanguard",
+        "Stasis Anomaly: An enemy unit hit by a Stasis grenade reduces its Ballistic Skill and Weapon Skill by -1 until the end of this unit's activation."
+    ],
+    "unit_type": "Bike",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,131 @@
+{
+    "name": "Kommandos",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "3",
+                "A": "2",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Kommando",
+            "min": 5,
+            "max": 15,
+            "points": 12
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Nob",
+            "min": 0,
+            "max": 1,
+            "points": 27
+        }
+    ],
+    "min_cost": 60,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Choppa; Slugga; Stikkbombz.",
+    "weapons": [
+        {
+            "name": "Burna"
+        },
+        {
+            "name": "- Ranged",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Big shoota",
+            "range": "36\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bomb squig",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "3",
+            "d": "2",
+            "abilities": "AT(2), Ammo(1)"
+        },
+        {
+            "name": "Choppa",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Rokkit launcha",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Slugga",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Stikkbombz",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Furious charge, Infiltrator, Mob, Move through cover, Use cover, Waaagh!",
+        "Bomb squig: During their activation, a Kommando can release a Bomb squig. Roll 1D6. On a 2+, the Bomb squig automatically hits the nearest enemy unit within 18\". On a 1, it automatically hits the nearest friendly unit within 18\". Vehicles are favored in both cases.",
+        "Distraction grot: The unit can use a Distraction grot once per game:\n- During activation.\n- If it has not yet executed its command this turn and is targeted by an enemy unit.\nThe unit gains the \"Deflect\" trait."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

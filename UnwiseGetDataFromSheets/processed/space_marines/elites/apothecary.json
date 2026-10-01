@@ -1,0 +1,75 @@
+{
+    "name": "Apothecary",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Apothecary",
+            "min": 1,
+            "max": 1,
+            "points": 51
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Chief Apothecary",
+            "min": 0,
+            "max": 1,
+            "points": 66
+        }
+    ],
+    "min_cost": 51,
+    "default_size": 1,
+    "equipped_with": "A Apothecarius is a single character and is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Command squad, They Shall Know No Fear",
+        "Advisor: For every HQ selection, one Apothecarius may be selected without taking up an Elite slot.",
+        "Chief Apothecary: A Chief Apothecary may use \"Narthecium\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively.",
+        "Narthecium: Once per battle round, the damage of a wound against the model or attached unit May be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

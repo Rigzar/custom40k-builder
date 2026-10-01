@@ -1,0 +1,135 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Reiver Marine",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        42
+    ],
+    [
+        1,
+        "Reiver Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        47
+    ],
+    [
+        "Every model is equipped with: Bolt carbine; Heavy bolt pistol; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt carbine",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Seeking"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Pair of combat knifes",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models in the unit may swap their Bolt carbine:"
+    ],
+    [
+        "- Pair of combat knifes",
+        "+0 points"
+    ],
+    [
+        "\u2022 The whole squad may be equipped with Grav-chutes and Grappling hooks for +2 points per model."
+    ],
+    [
+        "\u2022 The Reiver Sergeant has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Move through cover, Terrifying(-1), They Shall Know No Fear"
+    ],
+    [
+        "Grav-chute and Grappling hooks: The unit gains the \"Deep Strike\" and \"Infiltrator\" ability. It ignores vertical distances when moving."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

@@ -1,0 +1,110 @@
+{
+    "name": "Techmarine",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Techmarine",
+            "min": 1,
+            "max": 1,
+            "points": 140
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Master of the Forge",
+            "min": 0,
+            "max": 1,
+            "points": 155
+        }
+    ],
+    "min_cost": 140,
+    "default_size": 1,
+    "equipped_with": "A Techmarine is equipped with: Grav pistol; Omnissiah-Power axe; Forge bolter; Servo arm; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Forge bolter",
+            "range": "24\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Extra Attack(1), Limit(1)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grav pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Grav"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Omnissiah power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2"
+        },
+        {
+            "name": "Servo arm",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra Attack(1), Limit(1), Slow(-5)"
+        }
+    ],
+    "abilities": [
+        "Command squad, They Shall Know No Fear",
+        "Advisor: For every HQ selection, one Techmarine may be selected without taking up an Elite slot.",
+        "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" may reroll a hit roll and a wound or armor penetration roll.",
+        "Master of the Forge: A Master of the Forge may use \"Blessing of the Omnissiah\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

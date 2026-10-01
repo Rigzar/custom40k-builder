@@ -1,0 +1,135 @@
+{
+    "name": "Eliminator Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Eliminator Marine",
+            "min": 2,
+            "max": 5,
+            "points": 64
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Eliminator Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 64
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Veteran Eliminator Sergeant",
+            "min": 0,
+            "max": 1,
+            "points": 74
+        }
+    ],
+    "min_cost": 192,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Bolt sniper rifle; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt sniper rifle - Executor ammo",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Armor piercing(5+), Sunder(2), Suppression(6)"
+        },
+        {
+            "name": "Bolt sniper rifle - Hyper frag ammo",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Suppression(3)"
+        },
+        {
+            "name": "Bolt sniper rifle - Mortis ammo",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Deadly(5+), Suppression(6)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las fusil",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Move through cover, Stealth, They Shall Know No Fear"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

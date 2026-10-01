@@ -1,0 +1,45 @@
+{
+    "name": "Lord of Change",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "8",
+                "W": "7",
+                "I": "4",
+                "A": "3",
+                "LD": "10",
+                "SV": "4+"
+            },
+            "name": "Lord of Change",
+            "min": 1,
+            "max": 1,
+            "points": 440
+        }
+    ],
+    "min_cost": 440,
+    "default_size": 1,
+    "equipped_with": "A Lord of Change is equipped with: Staff of Tzeentch.",
+    "weapons": [
+        {
+            "name": "Staff of Tzeentch",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Each time when a Character model is slain with this weapon a Chaos Spawn enters the battlefield at the exact spot under your command."
+        }
+    ],
+    "abilities": [
+        "Deep strike, Fearless, Greater Daemon, Mark of Tzeentch, Terrifying(-2)",
+        "Master of Magic: A Lord of Change can never peril. Additionally, he uses 3 dice and discards the lowest while manifesting and denying psychic powers.",
+        "Psyker: The model can cast 3 powers and deny 3 powers per battle round. It knows Smite and all powers from all general disciplines and the discipline of Change."
+    ],
+    "unit_type": "Monstrous creature, Jump pack infantry",
+    "is_monster": false,
+    "keywords": []
+}

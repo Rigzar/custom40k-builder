@@ -1,0 +1,167 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Predator",
+        "12\"",
+        "6+",
+        "3+",
+        6,
+        13,
+        11,
+        10,
+        4,
+        1,
+        3,
+        204
+    ],
+    [
+        "A Predator is a single model and is equipped with: Twin flamestorm cannon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Lascannon",
+        "48\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Predator autocannon",
+        "48\"",
+        "Heavy 3",
+        7,
+        -3,
+        2,
+        "AT(1), Armor piercing(5+)"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin assault cannon",
+        "24\"",
+        "Heavy 8",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twin flamestorm cannon",
+        "12\"",
+        "Heavy 12",
+        6,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Twin lascannon",
+        "48\"",
+        "Heavy 2",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap their Twin assault cannon:"
+    ],
+    [
+        "- Twin assault cannon",
+        "+4 points"
+    ],
+    [
+        "- Predator autocannon",
+        "+28 points"
+    ],
+    [
+        "- Twin lascannon",
+        "+78 points"
+    ],
+    [
+        "\u2022 May be equipped with one of the following:"
+    ],
+    [
+        "- 2 Heavy flamers",
+        "+26 points"
+    ],
+    [
+        "- 2 Heavy bolter",
+        "+36 points"
+    ],
+    [
+        "- 2 Lascannons",
+        "+138 points"
+    ],
+    [
+        "\u2022 May be equipped with an additional Storm bolter for +11 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "<Codex>"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

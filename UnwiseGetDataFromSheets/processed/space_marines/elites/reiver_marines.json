@@ -1,0 +1,98 @@
+{
+    "name": "Reiver Marines",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Reiver Marine",
+            "min": 4,
+            "max": 9,
+            "points": 42
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Reiver Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 47
+        }
+    ],
+    "min_cost": 215,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Bolt carbine; Heavy bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt carbine",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Seeking"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Pair of combat knifes",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        }
+    ],
+    "abilities": [
+        "Move through cover, Terrifying(-1), They Shall Know No Fear",
+        "Grav-chute and Grappling hooks: The unit gains the \"Deep Strike\" and \"Infiltrator\" ability. It ignores vertical distances when moving."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

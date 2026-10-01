@@ -1,0 +1,251 @@
+[
+    [
+        "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy, 0-2 Traits\n\nIf a Trait is taken, all models / units in the army must be upgraded with it, unless stated otherwise."
+    ],
+    [
+        "ARCHETYPES"
+    ],
+    [
+        "1st Company",
+        "The army may only consist of the following units:\n- 1x Captain Dreadnought or 1x Lieutenant, 1x Chaplain or 1x Chaplain Dreadnought, 1x Emperor's Champion, 1x Librarian or 1x Librarian Dreadnought\n- 1x Ancient, 1x Apothecary, Deathwing Knights, Dreadnoughts (including variants), Honor Guard, 1x Judiciar, 1x Company Champion, Terminators, 1x Techmarine\n- Land Raider (including variants), Repulsor (including variants)\n- Drop Pods\n- HQ models must gain their \"once per army\" upgrade, if possible.\n- Deathwing Knights, Honor Guard and Terminators May be taken as Troops.\n- Honor Guard units are not limited to 1x per HQ selection anymore.\n- All units gain the special rule \"Objective secured!\"."
+    ],
+    [
+        "Chamber Militant",
+        "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Xenos\" was selected as Legacy.\n- Must select \"Legacy of the Alien Hunters\"."
+    ],
+    [
+        "Death from Above",
+        "- Assault Squad units May be taken as Troops.\n- Only Assault Squad units count towards the 25% Troops limitation.\n- At least half of all Assault Squad models must start the game in reserves, even if the mission does not allow reserves."
+    ],
+    [
+        "Drop Pod Assault",
+        "- All units must start the game as passengers inside a Drop Pod.\n- Half of all Drop Pods in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrives automatically in the second battle round."
+    ],
+    [
+        "Forlorn Brothers",
+        "The army may only consist of the following units:\n- Creature units with the \"Black Rage\" equipment (see Blood Angels Armory).\n- Dreadnoughts, Redemptor Dreadnoughts.\n- Drop Pods, Impulsors, Razorbacks, Rhinos. \n- Death Company units May be taken as Troops and are not limited to one per army anymore."
+    ],
+    [
+        "Legion",
+        "- The army has access to everything from the Horus Heresy Legiones Astartes supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation."
+    ],
+    [
+        "Librarian Conclave",
+        "- The army gets 4 HQ slots in total and has only access to Librarians, Chief Librarians and Librarian Dreadnoughts as HQ models. Librarians gain the \"Command Squad\" ability.\n- All of these models must be set up within 12\" of each other. \n- While a Chief Librarian is within 12\" of a Librarian, they may manifest all powers known to the Librarian and receive a +1 bonus to manifesting and dispelling psychic powers."
+    ],
+    [
+        "Renegades",
+        "- Renegades are treated like \"Chaos Space Marines\" in the Ally matrix.\n- May select one Trait from the \"Chaos Space Marines\" list instead of the normal selection.\n- All units from the codex \"Space Marines\" count as having the keyword \"Chaos Space Marine\"."
+    ],
+    [
+        "Swift as the Wind",
+        "- Bikes and Outriders May be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    ],
+    [
+        "LEGACIES"
+    ],
+    [
+        "Legacy of Aurelia",
+        "The army has access to the Blood Ravens Armory."
+    ],
+    [
+        "Legacy of the Alien Hunters",
+        "The army has access to the Death Watch Armory and each model may receive the \"Special ammunition\" equipment, regardless of whether it has access to the armory."
+    ],
+    [
+        "Legacy of the Angel",
+        "The army has access to the Blood Angels Armory and the Sanguine psychic discipline."
+    ],
+    [
+        "Legacy of the Avenging Son",
+        "The army has access to the Ultramarines Armory."
+    ],
+    [
+        "Legacy of the Crusader",
+        "The army has access to the Black Templars Armory and Prayers of the Faithful."
+    ],
+    [
+        "Legacy of the Damned",
+        "The army has access to the Relictors Armory."
+    ],
+    [
+        "Legacy of the Drake",
+        "The army has access to the Salamanders Armory."
+    ],
+    [
+        "Legacy of the Forge",
+        "The army has access to the Iron Hands Armory and the Technomancy psychic discipline."
+    ],
+    [
+        "Legacy of the Khan",
+        "The army has access to the White Scars Armory and the Stormspeaking psychic discipline."
+    ],
+    [
+        "Legacy of the Liberator",
+        "The army has access to the Raven Guard Armory and the Umbromancy psychic discipline."
+    ],
+    [
+        "Legacy of the Lion",
+        "The army has access to the Dark Angels Armory and the Interromancy psychic discipline."
+    ],
+    [
+        "Legacy of the Praetorian",
+        "The army has access to the Imperial Fists Armory and the Geokinesis psychic discipline."
+    ],
+    [
+        "Legacy of the Wolf",
+        "The army has access to the Space Wolves Armory and the Tempestus psychic discipline."
+    ],
+    [
+        "TRAITS",
+        "POINTS PER UNIT"
+    ],
+    [
+        "NORMAL",
+        "CHARACTER MODELS",
+        "MONSTROUS CREATURES & VEHICLES"
+    ],
+    [
+        "Blitz Attack",
+        "The unit may fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Blood Hunger",
+        "The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock token or if the enemy unit is outnumbered.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Bolter Drill",
+        "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Codex Discipline",
+        "The unit gains +1 Leadership.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Cursed Founding",
+        "Select one improvement that must be applied to any creature unit:\n- Apparitions: The unit gains the \"Deep Strike\" ability and must use it during the DEPLOYMENT PHASE instead of being set up as normal. It may deep strike anywhere that isn't the enemy's deployment zone, but may scatter into it. Additionally, the unit gains the \"Warded\" ability.\n- Aura of Doom: The unit gains the \"Terrifying(-2)\" ability.\n- Berserkers: The unit gains the \"Blind Rage\" ability.\n- Immolation: The model gains the \"Retribution(1)\" ability.\n- Ossific Blades: The model gains the \"Ossific Blades\" weapon. (See Armory).",
+        5,
+        0,
+        5
+    ],
+    [
+        "Expanded Armory",
+        "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+        0,
+        0,
+        0
+    ],
+    [
+        "Forged in Battle",
+        "The unit may re-roll one armor penetration or wound roll per activation.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Knowledge is Power",
+        "The model may re-roll one psychic test per activation. Only for Psykers.",
+        "-",
+        0,
+        5
+    ],
+    [
+        "Path of Damnation",
+        "One model of the army must gain the \"Demon weapon\" equipment from the \"Chaos Space Marines\" codex to enhance one of its weapons (chosen from the Space Marine codex). The Demon weapon ability May be from any Armory.",
+        "-",
+        "Special",
+        "-"
+    ],
+    [
+        "Purity above All",
+        "One non-character model per squad with access to gear from the Armory May be upgraded to an Apothecary and gains the \"Narthecium\" ability.",
+        5,
+        "-",
+        "-"
+    ],
+    [
+        "Rapid Deployment",
+        "The unit gains the \"Haste(2\")\" ability.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Red Thirst",
+        "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round. Only for creature models and Walkers.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Righteous Wrath",
+        "The unit gains the \"Frenzy(1\")\" ability. Only for creature models and Walkers.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Siege Experts",
+        "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Sons of Mars",
+        "One non-character model per squad with access to gear from the Armory May be upgraded to a Techmarine and gains the \"Blessing of the Omnissiah\" ability.",
+        5,
+        "-",
+        "-"
+    ],
+    [
+        "Stalwart",
+        "The unit may reroll one armor save per battle round. Only for creature models.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Stoic",
+        "The unit does not suffer the to hit penalty from Defensive Fire.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Strike from the Shadows",
+        "The unit gains the benefit of light cover until its first activation.",
+        3,
+        0,
+        3
+    ],
+    [
+        "The Flesh is Weak",
+        "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
+        "2*",
+        0,
+        "5*"
+    ],
+    [
+        "Unleashed Hunters",
+        "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round. Only for creature models and Walkers.",
+        5,
+        0,
+        5
+    ],
+    [
+        "The point costs for traits have to be paid per unit. If point costs are marked with *, then they must be paid for every Wound or Hull point in the unit."
+    ]
+]

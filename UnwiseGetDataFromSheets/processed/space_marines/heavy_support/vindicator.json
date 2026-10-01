@@ -1,0 +1,53 @@
+{
+    "name": "Vindicator",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Vindicator",
+            "min": 1,
+            "max": 1,
+            "points": 373
+        }
+    ],
+    "min_cost": 373,
+    "default_size": 1,
+    "equipped_with": "A Vindicator is a single model and is equipped with: Demolisher cannon.",
+    "weapons": [
+        {
+            "name": "Demolisher cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(4), Blast(6), Tank hunter"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "<Codex>",
+        "Siege shield: The model automatically passes tests for difficult terrain and is not slowed down by it. Additionally, attacks from the front always treat the model as being in light cover."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

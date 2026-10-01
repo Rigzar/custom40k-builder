@@ -1,0 +1,71 @@
+{
+    "name": "Flesh Hounds",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "6+"
+            },
+            "name": "Flesh Hound",
+            "min": 4,
+            "max": 23,
+            "points": 25
+        },
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "6+"
+            },
+            "name": "Gore Hound",
+            "min": 1,
+            "max": 1,
+            "points": 34
+        }
+    ],
+    "min_cost": 134,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Gore-drenched fangs.The Gore Hound is additionally equipped with: Burning roar.",
+    "weapons": [
+        {
+            "name": "Burning roar",
+            "range": "12\"",
+            "type": "Pistol 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1), Suppression(3)"
+        },
+        {
+            "name": "Gore-drenched fangs",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Deadly(5+)"
+        }
+    ],
+    "abilities": [
+        "Deepstrike, Daemon, Daemonic instability, Mark of Khorne, Move through cover, Terrifying(-1)",
+        "Collar of Khorne: The unit can dispel 1 psychic power per battle round."
+    ],
+    "unit_type": "Bike",
+    "is_monster": false,
+    "keywords": []
+}
