@@ -1,0 +1,128 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-10",
+        "Custodian Guard",
+        "6\"",
+        "2+",
+        "2+",
+        5,
+        5,
+        2,
+        4,
+        3,
+        9,
+        "2+",
+        72
+    ],
+    [
+        "All models are equipped with: Bolt caster; Guardian spear."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Adrathic destructor",
+        "18\"",
+        "Pistol 1",
+        5,
+        -3,
+        2,
+        "-"
+    ],
+    [
+        "Bolt caster",
+        "12\"",
+        "Pistol 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Guardian spear",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Quick(+1)"
+    ],
+    [
+        "Melta beam",
+        "12\"",
+        "Pistol 1",
+        8,
+        -5,
+        1,
+        "AT(1), Beam, Melta"
+    ],
+    [
+        "Sentinel blade",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every model with a Guardian spear may swap their Bolt caster:"
+    ],
+    [
+        "- Adrathic destructor",
+        "+5 points"
+    ],
+    [
+        "- Melta beam",
+        "+6 points"
+    ],
+    [
+        "\u2022 Every model with a Bolt caster may swap their Guardian spear:"
+    ],
+    [
+        "- Sentinel blade & Storm shield",
+        "+0 points"
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Massive(1), Shield Host"
+    ],
+    [
+        "Custodian armor: The model gains a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

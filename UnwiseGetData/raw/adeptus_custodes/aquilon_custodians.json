@@ -1,0 +1,128 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Aquilon Custodian",
+        "6\"",
+        "2+",
+        "2+",
+        5,
+        6,
+        3,
+        4,
+        4,
+        9,
+        "2+",
+        143
+    ],
+    [
+        "All models are equipped with: Infernus firepike; Solerite power gauntlet."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Infernus firepike",
+        "12\"",
+        "Assault 6",
+        5,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Lastrum storm bolter",
+        "24\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Solerite power gauntlet",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-1)"
+    ],
+    [
+        "Solerite power talon",
+        "-",
+        "Melee",
+        "x2",
+        -4,
+        3,
+        "Armorbane, AT(3), Slow(-2)"
+    ],
+    [
+        "Twin adrathic destructor",
+        "18\"",
+        "Pistol 2",
+        5,
+        -3,
+        2,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every model may swap their Infernus firepike:"
+    ],
+    [
+        "- Lastrum storm bolter",
+        "+19 points"
+    ],
+    [
+        "- Twin adrathic destructor",
+        "+22 points"
+    ],
+    [
+        "\u2022 Every model may swap their Solerite power gauntlet:"
+    ],
+    [
+        "- Solerite power talon",
+        "+11 points"
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Massive(1), Shield Host, Unyielding"
+    ],
+    [
+        "Custodian terminator armor: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

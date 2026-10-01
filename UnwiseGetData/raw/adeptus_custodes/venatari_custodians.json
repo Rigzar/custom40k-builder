@@ -1,0 +1,117 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Venatari Custodian",
+        "12\"",
+        "2+",
+        "2+",
+        5,
+        5,
+        2,
+        4,
+        3,
+        9,
+        "3+",
+        75
+    ],
+    [
+        "All models are equipped with: Venatari lance."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Kinetic destroyer",
+        "18\"",
+        "Pistol 3",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Tarsus buckler",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Venatari lance *"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Quick(+1)"
+    ],
+    [
+        "- Shooting",
+        "12\"",
+        "Pistol 2",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every model may swap their Venatari lance:"
+    ],
+    [
+        "-  Kinetic destroyer and Tarsus buckler",
+        "+5 points"
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Shield Host"
+    ],
+    [
+        "Custodian armor: The model gains a 5+ ward save."
+    ],
+    [
+        "Tarsus buckler: The model gains the \"Deflect\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump Pack Infantry"
+    ]
+]

@@ -1,0 +1,133 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Shield-Captain",
+        "6\"",
+        "2+",
+        "2+",
+        5,
+        5,
+        4,
+        5,
+        4,
+        10,
+        "2+",
+        177
+    ],
+    [
+        "A Shield-Captain is equipped with: Relic bolt caster; Relic guardian spear."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Relic balistus grenade launcher",
+        "18\"",
+        "Pistol 1",
+        6,
+        -2,
+        2,
+        "-"
+    ],
+    [
+        "Relic bolt caster",
+        "12\"",
+        "Pistol 2",
+        4,
+        -1,
+        2,
+        "-"
+    ],
+    [
+        "Relic castellan axe",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        3,
+        "AT(2)"
+    ],
+    [
+        "Relic guardian spear",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        2,
+        "Quick(+1)"
+    ],
+    [
+        "Relic sentinel blade",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Shield-Captain per army."
+    ],
+    [
+        "\u2022 Can replace the Guardian spear:"
+    ],
+    [
+        "- Sentinel blade & Storm shield",
+        "+5 points"
+    ],
+    [
+        "- Castellan axe",
+        "+9 points"
+    ],
+    [
+        "\u2022 A Shield-Captain with either a Guardian spear or a Castellan axe may get an Allarus terminator armor and Relic balistus grenade launcher for +33 points."
+    ],
+    [
+        "\u2022 Has acces to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Massive(1), Shield Host"
+    ],
+    [
+        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have."
+    ],
+    [
+        "Custodian armor: The model gains a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

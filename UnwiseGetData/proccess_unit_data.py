@@ -105,7 +105,7 @@ def main():
                     
                     ### MODELS
                     # Process all models in the unit sheet until we reach the weapons section.
-                    while("is equipped with" not in "".join(str(unit_sheet[0]))):
+                    while("equipped with" not in "".join(str(unit_sheet[0]))):
                         print(f"raw data: {unit_sheet[0]}")
                         model = proccess_model(unit_sheet[0], model_format)
                         if "*" in str(unit_sheet[0][0]):
@@ -143,7 +143,7 @@ def main():
                         if "-" == "".join(unit_sheet[0][0]):
                             unit_sheet = unit_sheet[1:]
                             continue
-                        #check for variant weapons
+                        #check for variant weapons. HILARIOUS - this accidentally handles the case where a unit has "* Choose one of the following profiles" at the end by deleting it.
                         if "*" in unit_sheet[0][0]:
                             temp_weapon_name = unit_sheet[0][0].replace("*", "")
                             unit_sheet = unit_sheet[1:]
