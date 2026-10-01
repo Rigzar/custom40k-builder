@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 110,
+    "default_size": 5,
     "equipped_with": "Every model is equipped with: Barblauncher.",
     "weapons": [
         {

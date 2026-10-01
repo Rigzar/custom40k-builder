@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 179,
+    "default_size": 1,
     "equipped_with": "Every model is equipped with: Bio-electric pulse; 2 Monstrous scything talons.",
     "weapons": [
         {

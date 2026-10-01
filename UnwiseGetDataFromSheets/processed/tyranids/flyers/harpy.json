@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 184,
+    "default_size": 1,
     "equipped_with": "A Harpy is equipped with: Spore Mine cysts; Twin stranglethorn cannon.",
     "weapons": [
         {

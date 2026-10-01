@@ -125,7 +125,6 @@ def main():
                         exit()
                     unit_sheet = unit_sheet[1:]
                    
-                   
                     # Process all weapons in the unit sheet until we reach the options section.
                     app_unit_json["weapons"] = []
                     while "OPTIONS" not in unit_sheet[0]:

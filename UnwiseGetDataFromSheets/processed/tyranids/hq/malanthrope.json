@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 99,
+    "default_size": 1,
     "equipped_with": "A Malanthrope is equipped with: Grasping tail.",
     "weapons": [
         {

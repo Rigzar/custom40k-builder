@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 188,
+    "default_size": 1,
     "equipped_with": "A Neurotyrant is equipped with: Psychic scream.",
     "weapons": [
         {

@@ -41,6 +41,7 @@
         }
     ],
     "min_cost": 75,
+    "default_size": 5,
     "equipped_with": "Every model is equipped with: Piercing claws.",
     "weapons": [
         {

@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 144,
+    "default_size": 1,
     "equipped_with": "A Tyrannocyte is equipped with: 5 Deathspitters.",
     "weapons": [
         {

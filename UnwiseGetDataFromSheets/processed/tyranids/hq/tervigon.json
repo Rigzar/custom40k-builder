@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 223,
+    "default_size": 1,
     "equipped_with": "A Tervigon is equipped with: Monstrous scything talons; Stinger salvo.",
     "weapons": [
         {

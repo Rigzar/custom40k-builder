@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 223,
+    "default_size": 1,
     "equipped_with": "A Deathleaper is equipped with: Flesh hooks, Scything talons, Piercing claws.",
     "weapons": [
         {

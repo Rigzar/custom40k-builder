@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 50,
+    "default_size": 10,
     "equipped_with": "Every model is equipped with: Scything talons",
     "weapons": [
         {

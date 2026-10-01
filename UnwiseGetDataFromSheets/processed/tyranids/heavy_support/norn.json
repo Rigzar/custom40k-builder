@@ -21,6 +21,7 @@
         }
     ],
     "min_cost": 340,
+    "default_size": 1,
     "equipped_with": "A Norn is equipped with: Monstrous scything talons; Monstrous piercing claws.",
     "weapons": [
         {

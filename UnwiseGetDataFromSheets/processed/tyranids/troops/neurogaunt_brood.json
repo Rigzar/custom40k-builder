@@ -39,6 +39,7 @@
         }
     ],
     "min_cost": 60,
+    "default_size": 11,
     "equipped_with": "Every model is equipped with: -.",
     "weapons": [],
     "abilities": [
