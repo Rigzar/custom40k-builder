@@ -9,7 +9,8 @@ def check_nan(value):
     value = str(value).lower()
     return value == 'nan' or value == 'null'
 
-if __name__ == "__main__":
+# First step. Get the raw text from the google sheets and remove all empty rows and columns, leaving only useful raw data. 
+def main():
     
     factions = {}
     with open("factions.csv", "r") as f:
@@ -39,3 +40,6 @@ if __name__ == "__main__":
             print(f"Sheet: {sheet}")
             print(values)
             json.dump(values, open(f"raw/{faction.lower().replace(" ","_")}/{sheet}.json", "w"), indent=4)
+            
+if __name__ == "__main__":
+    main()

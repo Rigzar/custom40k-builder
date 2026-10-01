@@ -63,8 +63,8 @@ def proccess_weapons(weapon_data):
     weapon_data = [str(x) for x in weapon_data]
     return dict(zip(APP_FORMAT, weapon_data))
 
-# Take the formatted data and update all existing units.
-if __name__ == "__main__":
+# Intermediary step. Take the formatted data and format it into the app's unit data format. Save it to the processed folder.
+def main():
     
     with open("factions.csv", "r") as f:
         FACTIONS = [line.split(",")[0] for line in f.readlines() if line.strip()]
@@ -172,4 +172,5 @@ if __name__ == "__main__":
                 with open(proccessed_unit_path, "w") as f:
                     json.dump(app_unit_json, f, indent=4)
                     
-                    
+if __name__ == "__main__":
+    main()
