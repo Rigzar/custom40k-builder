@@ -34,7 +34,7 @@ import elites_cultist_firebrand from './elites/cultist_firebrand.json';
 import elites_dark_commune from './elites/dark_commune.json';
 import elites_deathshroud_terminators from './elites/deathshroud_terminators.json';
 import elites_eightbound from './elites/eightbound.json';
-import elites_exalted_plague_champion from './elites/exalted_plague_champion.json';
+import elites_foetid_virion from './elites/foetid_virion.json';
 import elites_flawless_blades from './elites/flawless_blades.json';
 import elites_helbrute from './elites/helbrute.json';
 import elites_khorne_berzerkers from './elites/khorne_berzerkers.json';
@@ -65,7 +65,7 @@ import heavy_support_blood_slaughterer from './heavy_support/blood_slaughterer.j
 import heavy_support_chaos_land_raider from './heavy_support/chaos_land_raider.json';
 import heavy_support_chaos_predator from './heavy_support/chaos_predator.json';
 import heavy_support_chaos_vindicator from './heavy_support/chaos_vindicator.json';
-import heavy_support_decimator from './heavy_support/decimator.json';
+import heavy_support_chaos_decimator from './heavy_support/chaos_decimator.json';
 import heavy_support_defiler from './heavy_support/defiler.json';
 import heavy_support_forgefiend from './heavy_support/forgefiend.json';
 import heavy_support_havocs from './heavy_support/havocs.json';
@@ -206,7 +206,7 @@ export const units: Record<string, Unit> = {
   "Dark Commune": elites_dark_commune as Unit,
   "Deathshroud Terminators": elites_deathshroud_terminators as Unit,
   "Eightbound": elites_eightbound as Unit,
-  "Foetid Virion": elites_exalted_plague_champion as Unit,
+  "Foetid Virion": elites_foetid_virion as Unit,
   "Flawless Blades": elites_flawless_blades as Unit,
   "Helbrute": elites_helbrute as Unit,
   "Khorne Berzerkers": elites_khorne_berzerkers as Unit,
@@ -237,7 +237,7 @@ export const units: Record<string, Unit> = {
   "Chaos Land Raider": heavy_support_chaos_land_raider as Unit,
   "Chaos Predator": heavy_support_chaos_predator as Unit,
   "Chaos Vindicator": heavy_support_chaos_vindicator as Unit,
-  "Chaos Decimator": heavy_support_decimator as Unit,
+  "Chaos Decimator": heavy_support_chaos_decimator as Unit,
   "Defiler": heavy_support_defiler as Unit,
   "Forgefiend": heavy_support_forgefiend as Unit,
   "Havocs": heavy_support_havocs as Unit,
