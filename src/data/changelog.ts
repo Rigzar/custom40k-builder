@@ -1,4 +1,5 @@
 import type { Language } from '../i18n';
+import CHANGELOG_I18N from './changelog.i18n.json';
 
 /** A plain string or a per-language record. The modal resolves it with the active language, falling back to 'en'. */
 export type I18nString = string | Partial<Record<Language, string>>;
@@ -29,7 +30,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-10-02',
     title: 'October sheets in every army, Russian and Japanese, and a squad that shrinks properly',
     changes: [
-      'GENERAL — THE APP AND THE WIKI ARE NOW ALSO IN RUSSIAN AND JAPANESE, next to English, German and Spanish. Every interface label (943 keys), the front-page banner, the Field Manual cheat sheets, the supplement cards, the changelog / known-issues chrome, the messages window, the update prompt and the rules glossary descriptions (151 special rules and weapon abilities) exist in both. Rule and ability NAMES stay English — they are the keywords printed on every datasheet. The wiki is now built once per language into one site (English at the root, /de, /es, /ru, /ja) with a language switcher in its header, translated navigation, headings, force-organisation slots, unit badges and home page; its Core Rules and Missions pages are still English in every language, as are the datasheet ability texts in the app. The Russian and Japanese texts were produced by Claude and have not been read by native speakers yet — corrections are welcome from the admin translation editor, which now covers all four non-English languages.',
+      'GENERAL — THE APP AND THE WIKI ARE NOW ALSO IN RUSSIAN AND JAPANESE, next to English, German and Spanish. Every interface label (943 keys), the front-page banner, the Field Manual cheat sheets, the supplement cards, the changelog / known-issues chrome, the messages window, the update prompt and the rules glossary descriptions (151 special rules and weapon abilities) exist in both. Rule and ability NAMES stay English — they are the keywords printed on every datasheet. The wiki is now built once per language into one site (English at the root, /de, /es, /ru, /ja) with a language switcher in its header, translated navigation, headings, force-organisation slots, unit badges and home page; its Core Rules and Missions pages, the datasheet ability texts and the latest changelog entries are translated too. The Russian and Japanese texts were produced by Claude and have not been read by native speakers yet — corrections are welcome from the admin translation editor, which now covers all four non-English languages.',
       'Inquisition — HERETIC AND ICONOCLAST NOW CHANGE WHAT AUTHORITY OF THE INQUISITION OFFERS. Under Heretic the single borrowed Armory item comes from a Chaos codex (Chaos Space Marines, Chaos Daemons); under Iconoclast from a Xenos one (Eldar, Dark Eldar, Harlequins, Necrons, Orks, Tau, Tyranids, Genestealer Cults, Votann), instead of the Imperial list. The two Horus Heresy “Legion” archetypes now have distinct names, “Legion SM” and “Legion CSM”; saved lists are renamed automatically.',
       'Tyranids — THE NEW ARCHETYPE RULES ARE WIRED, NOT JUST WRITTEN. Megafauna: the promoted Carnifex needs the Regeneration biomorph, its Regeneration(1) reads Regeneration(2), and it may take a second Special Biomorph. Swarming Masses: the Barbgaunt, Gargoyle, Hormagaunt, Neurogaunt, Ripper Swarm and Termagant Broods show the Combat squads ability. Archetype texts for Grey Knights, Dark Eldar and Space Marines follow the sheet.',
       'Necrons — CANOPTEK SCARABS: the upgrades read as printed, Frenzied Scarabs really give +2 Initiative and Flensing Scarabs really add Poison(2+) and Rending(5+) to their melee attacks (not to the explosion). Space Marines Infiltrators’ smoke grenades give Deflect only until the next activation; Orks Weirdboy’s Waaagh! energy and the Tankbustas’ Bomb squig read as printed.',
@@ -676,3 +677,14 @@ export const CHANGELOG: ChangelogEntry[] = [
     ],
   },
 ];
+
+// The latest four versions are also written out in the other languages (changelog.i18n.json,
+// same bullet order as the English). Older entries stay English-only: the modal falls back to 'en'.
+for (const entry of CHANGELOG) {
+  const tr = (CHANGELOG_I18N as Record<string, { title: Record<string, string>; changes: Record<string, string[]> }>)[entry.version];
+  if (!tr || typeof entry.title !== 'string' || !Array.isArray(entry.changes)) continue;
+  const english = entry.changes;
+  if (Object.values(tr.changes).some(a => a.length !== english.length)) continue; // out of step: keep English
+  entry.title = { en: entry.title, ...tr.title };
+  entry.changes = { en: english, ...tr.changes };
+}

@@ -18,6 +18,7 @@
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
+import { translatePage } from './translate-pages.mjs';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -67,7 +68,11 @@ for (const lang of langs.filter(l => l !== 'en')) {
     if (file.endsWith('.html')) {
       const dest = join(DIST, lang, rel);
       mkdirSync(dirname(dest), { recursive: true });
-      writeFileSync(dest, localise(readFileSync(file, 'utf8'), lang), 'utf8');
+      let html = localise(readFileSync(file, 'utf8'), lang);
+      // the long hand-written pages have no string table: translate them block by block
+      const long = rel.split('\\').join('/').match(/^(rules|missions)\/index\.html$/);
+      if (long) html = translatePage(html, lang, long[1]);
+      writeFileSync(dest, html, 'utf8');
       pages++;
     } else if (!existsSync(join(DIST, rel))) {
       // a hashed bundle that only this language produced — keep it so its pages still load

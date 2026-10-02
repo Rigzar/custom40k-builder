@@ -61,8 +61,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "New in this version", rows: [
         ["Languages", "Interface, front-page banner, Field Manual, supplement cards, messages and the rules glossary are available in Russian and Japanese. Pick the language at the top of the page."],
-        ["Wiki", "One site in five languages \u2014 a language switcher in the header, translated navigation, headings, slots, badges and home page. The Core Rules and Missions pages are still English."],
-        ["Still English", "Datasheet ability texts, the changelog entries and the Core Rules / Missions wiki pages."],
+        ["Wiki", "One site in five languages \u2014 a language switcher in the header, translated navigation, headings, slots, badges and home page. The Core Rules and Missions pages are translated too."],
+        ["Still English", "The Known Issues entries."],
         ["Native speakers wanted", "The Russian and Japanese texts were written by Claude and nobody native has read them yet \u2014 corrections on Discord are very welcome."],
       ] },
       { label: "October rules, wired in the app", rows: [
@@ -116,8 +116,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Neu in dieser Version", rows: [
         ["Sprachen", "Oberfl\u00e4che, Banner, Feldhandbuch, Erweiterungskarten, Nachrichten und das Regelglossar gibt es auf Russisch und Japanisch. Die Sprache oben auf der Seite w\u00e4hlen."],
-        ["Wiki", "Eine Seite in f\u00fcnf Sprachen \u2014 Sprachumschalter im Kopf, \u00fcbersetzte Navigation, \u00dcberschriften, Slots, Abzeichen und Startseite. Grundregeln und Missionen sind noch englisch."],
-        ["Noch englisch", "Fähigkeitstexte der Datenblätter, die Änderungsprotokoll-Einträge und die Wiki-Seiten Grundregeln / Missionen."],
+        ["Wiki", "Eine Seite in f\u00fcnf Sprachen \u2014 Sprachumschalter im Kopf, \u00fcbersetzte Navigation, \u00dcberschriften, Slots, Abzeichen und Startseite. Grundregeln und Missionen sind ebenfalls übersetzt."],
+        ["Noch englisch", "Die Einträge unter Bekannte Probleme."],
         ["Muttersprachler gesucht", "Die russischen und japanischen Texte hat Claude geschrieben, kein Muttersprachler hat sie bisher gelesen \u2014 Korrekturen auf Discord sind sehr willkommen."],
       ] },
       { label: "Oktober-Regeln, in der App verdrahtet", rows: [
@@ -171,8 +171,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Nuevo en esta versi\u00f3n", rows: [
         ["Idiomas", "Interfaz, banner, Manual de Campo, tarjetas de suplemento, mensajes y el glosario de reglas est\u00e1n en ruso y japon\u00e9s. Elige el idioma arriba en la p\u00e1gina."],
-        ["Wiki", "Un solo sitio en cinco idiomas \u2014 selector de idioma en la cabecera, navegaci\u00f3n, t\u00edtulos, slots, insignias y portada traducidos. Reglas b\u00e1sicas y Misiones siguen en ingl\u00e9s."],
-        ["Sigue en ingl\u00e9s", "Los textos de habilidades de las fichas, las entradas del registro de cambios y las p\u00e1ginas de Reglas b\u00e1sicas / Misiones de la wiki."],
+        ["Wiki", "Un solo sitio en cinco idiomas \u2014 selector de idioma en la cabecera, navegaci\u00f3n, t\u00edtulos, slots, insignias y portada traducidos. Reglas b\u00e1sicas y Misiones tambi\u00e9n est\u00e1n traducidas."],
+        ["Sigue en ingl\u00e9s", "Las entradas de Problemas conocidos."],
         ["Se buscan nativos", "Los textos en ruso y japon\u00e9s los escribi\u00f3 Claude y ning\u00fan nativo los ha le\u00eddo todav\u00eda \u2014 las correcciones en Discord son muy bienvenidas."],
       ] },
       { label: "Reglas de octubre, cableadas en la app", rows: [
@@ -226,8 +226,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Новое в этой версии", rows: [
         ["Языки", "Интерфейс, баннер, Полевое руководство, карточки дополнений, сообщения и глоссарий правил доступны на русском и японском. Выберите язык вверху страницы."],
-        ["Вики", "Один сайт на пяти языках — переключатель языка в шапке, переведены навигация, заголовки, слоты, значки и главная. Основные правила и Миссии пока на английском."],
-        ["Пока на английском", "Тексты способностей в датащитах, записи истории изменений и страницы вики «Основные правила» / «Миссии»."],
+        ["Вики", "Один сайт на пяти языках — переключатель языка в шапке, переведены навигация, заголовки, слоты, значки и главная. Основные правила и Миссии тоже переведены."],
+        ["Пока на английском", "Записи раздела «Известные проблемы»."],
         ["Нужны носители языка", "Русские и японские тексты написал Claude, и ни один носитель их ещё не читал — исправления в Discord очень приветствуются."],
       ] },
       { label: "Октябрьские правила, подключённые в приложении", rows: [
@@ -281,8 +281,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "このバージョンの新機能", rows: [
         ["言語", "インターフェース、バナー、フィールドマニュアル、サプリメントカード、メッセージ、ルール用語集がロシア語と日本語で利用できます。ページ上部で言語を選んでください。"],
-        ["Wiki", "5言語の1サイト — ヘッダーの言語切り替え、翻訳されたナビゲーション、見出し、枠、バッジ、ホームページ。基本ルールとミッションのページはまだ英語です。"],
-        ["まだ英語", "データシートの能力テキスト、更新履歴の項目、Wikiの基本ルール／ミッションのページ。"],
+        ["Wiki", "5言語の1サイト — ヘッダーの言語切り替え、翻訳されたナビゲーション、見出し、枠、バッジ、ホームページ。基本ルールとミッションのページも翻訳済みです。"],
+        ["まだ英語", "既知の問題の項目。"],
         ["ネイティブの方募集", "ロシア語と日本語のテキストはClaudeが書いたもので、ネイティブの方はまだ誰も読んでいません — Discordでの修正を大歓迎します。"],
       ] },
       { label: "10月のルール、アプリに反映", rows: [
