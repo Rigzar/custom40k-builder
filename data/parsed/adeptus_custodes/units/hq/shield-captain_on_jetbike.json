@@ -1,5 +1,5 @@
 {
-    "name": "Vertus Praetors",
+    "name": "Shield-Captain on Jetbike",
     "models": [
         {
             "stats": {
@@ -8,20 +8,20 @@
                 "BS": "2+",
                 "S": "5",
                 "T": "6",
-                "W": "3",
-                "I": "4",
-                "A": "3",
-                "LD": "9",
+                "W": "5",
+                "I": "5",
+                "A": "4",
+                "LD": "10",
                 "SV": "2+"
             },
-            "name": "Vertus Praetor",
-            "min": 3,
-            "max": 6,
-            "points": 154
+            "name": "Shield-Captain",
+            "min": 1,
+            "max": 1,
+            "points": 274
         }
     ],
     "variant_models": [],
-    "equipped_with": "All models are equipped with: Frag grenades; Interceptor lance; Lastrum bolt cannon; Melta bombs.",
+    "equipped_with": "A Shield-Captain on Jetbike is equipped with: Relic Interceptor lance; Lastrum bolt cannon.",
     "weapons": [
         {
             "name": "Adrathic devastator",
@@ -51,24 +51,6 @@
             "abilities": "-"
         },
         {
-            "name": "Interceptor lance - Charge",
-            "range": "-",
-            "type": "Melee",
-            "s": "+3",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "AT(2), Charge, Quick(+1)"
-        },
-        {
-            "name": "Interceptor lance - Melee",
-            "range": "-",
-            "type": "Melee",
-            "s": "+1",
-            "ap": "-3",
-            "d": "1",
-            "abilities": "Unwieldy"
-        },
-        {
             "name": "Lastrum bolt cannon",
             "range": "36\"",
             "type": "Rapid Fire 2",
@@ -85,6 +67,27 @@
             "ap": "-5",
             "d": "2",
             "abilities": "Armorbane, AT(3)"
+        },
+        {
+            "name": "Relic interceptor lance"
+        },
+        {
+            "name": "- Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Charge, Quick(+1)"
+        },
+        {
+            "name": "- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Unwieldy"
         },
         {
             "name": "Salvo launcher",
@@ -107,9 +110,19 @@
     ],
     "option_groups": [
         {
-            "header": "Any model may swap their Lastrum bolt cannon",
+            "header": "Only one Shield-Captain per army.",
             "constraint": {
-                "type": "every"
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May swap the Lastrum bolt cannon",
+            "constraint": {
+                "type": "one"
             },
             "choices": [
                 {
@@ -139,22 +152,23 @@
     ],
     "abilities": [
         "Shield Host",
+        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
         "Custodian armor: The model gains a 5+ ward save."
     ],
-    "unit_type": "Jetbike",
+    "unit_type": "Character model, Jetbike",
     "keywords": [],
     "is_vehicle": false,
-    "is_character": false,
+    "is_character": true,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": false,
+    "has_armory_access": true,
     "champion_has_armory": false,
     "has_veteran_abilities": true,
     "veteran_required": false,
     "veteran_max": 1,
     "locked_mark": null,
     "advisor": false,
-    "slot": "Fast Attack",
-    "default_size": 3,
-    "min_cost": 462
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 274
 }
