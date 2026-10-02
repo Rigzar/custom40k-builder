@@ -1,0 +1,133 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Infernal Acolyte",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        4,
+        5,
+        2,
+        8,
+        "3+",
+        92
+    ],
+    [
+        "*",
+        "Infernal Master",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        4,
+        5,
+        3,
+        9,
+        "3+",
+        107
+    ],
+    [
+        "An Infernal Acolyte is a single model equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May receive a Mark of Chaos:"
+    ],
+    [
+        "- Undivided",
+        "+0 points"
+    ],
+    [
+        "- Khorne",
+        "+8 points"
+    ],
+    [
+        "- Slaanesh",
+        "+8 points"
+    ],
+    [
+        "- Nurgle",
+        "+20 points"
+    ],
+    [
+        "- Tzeentch",
+        "+15 points"
+    ],
+    [
+        "\u2022 One Infernal Acolyte per army can be upgraded to an Infernal Master for +15 points."
+    ],
+    [
+        "\u2022 May have up to 1 veteran ability."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infernal Pact: An Infernal Acolyte may attempt to make one pact per activation. A pact is successful on a 3+. An Infernal Acolyte knows all Infernal Pacts."
+    ],
+    [
+        "Infernal Master: An Infernal Master may attempt to make one additional pact each activation."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

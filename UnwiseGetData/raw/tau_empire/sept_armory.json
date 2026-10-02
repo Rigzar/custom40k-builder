@@ -1,0 +1,65 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Academy Luminary",
+        "You gain an additional 25% Victory Points (VP) from secondary objectives. Unique. Vior\u2019la Sept only.",
+        15
+    ],
+    [
+        "For the Greater Good",
+        "The model's Invocation range is increased to 36\". Additionally, it may target two friendly units at the same time with each Invocation. Unique. T'au Sept only.",
+        10
+    ],
+    [
+        "Grav-Inhibitor Field",
+        "Select one enemy unit in direct base contact. The unit suffers a -1 penalty to its Initiative for the remaining battleround. Unique. Sa\u2019cea Sept only.",
+        10
+    ],
+    [
+        "Integrated Auxiliaries",
+        "Allied units benefit of the effect from Tactical philosophies. Unique. Dal\u2019yth Sept only.",
+        5
+    ],
+    [
+        "Master of the Killing Blow",
+        "During this model's activation, enemy units within 12\" are treated as having one more Markerlight token on them than they actually do. Unique. Farsight Enclaves only.",
+        5
+    ],
+    [
+        "Nomadic Hunter",
+        "This model and its attached unit may shoot \"Heavy\" weapons with a -1 penalty and \"Rapid Fire\" weapons at full range with a \"Move & Shoot\" order, and they may fire Assault weapons, Grenades, and Pistols without a to hit penalty with \"Advance\" and \"Charge\" orders. Unique. Kroot Kindred only.",
+        15
+    ],
+    [
+        "Overdrive Power Systems",
+        "All ranged weapons of the model gain +1 Strength. Unique. Bork\u2019an Sept only.",
+        10
+    ]
+]

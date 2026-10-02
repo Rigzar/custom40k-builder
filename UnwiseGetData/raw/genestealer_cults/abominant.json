@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Abominant",
+        "6\"",
+        "3+",
+        "6+",
+        5,
+        5,
+        3,
+        4,
+        3,
+        7,
+        "5+",
+        55
+    ],
+    [
+        "A Primus is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 500 points of game size, one Abominant may be included in the army that does not take up an Elite slot."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Berserk, Infiltrator, Massive(1), Regeneration(1), Use cover"
+    ],
+    [
+        "Mindwyrm familiar: The model can re-roll 1 to hit and 1 to wound roll."
+    ],
+    [
+        "The Chosen One: All melee weapons of the Abominant and its attached unit gain the \"Deflagrate(5+)\" ability."
+    ],
+    [
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Monstrous Infantry"
+    ]
+]

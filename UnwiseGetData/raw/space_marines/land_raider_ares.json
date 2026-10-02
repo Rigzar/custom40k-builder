@@ -1,0 +1,164 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Land Raider Ares",
+        "12\"",
+        "6+",
+        "3+",
+        7,
+        14,
+        14,
+        14,
+        4,
+        1,
+        4,
+        581
+    ],
+    [
+        "A Land Raider Ares is a single model and is equipped with: Demolisher cannon; Twin assault cannon; 2 Twin heavy flamers."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Demolisher cannon",
+        "24\"",
+        "Heavy 1",
+        10,
+        -4,
+        3,
+        "AT(4), Blast(6), Tank hunter"
+    ],
+    [
+        "Hurricane Boltgun",
+        "24\"",
+        "Rapid Fire 6",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin assault cannon",
+        "24\"",
+        "Heavy 8",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twin heavy flamer",
+        "9\"",
+        "Assault 8",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Twin plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 2",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overcharged",
+        "36\"",
+        "Heavy 2",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap their Twin assault cannon:"
+    ],
+    [
+        "- Twin plasma cannon",
+        "+132 points"
+    ],
+    [
+        "\u2022 May swap their Twin heavy flamer:"
+    ],
+    [
+        "- 2 Hurricane Boltguns",
+        "+38 points"
+    ],
+    [
+        "\u2022 May be equipped with:"
+    ],
+    [
+        "- Multi-melta",
+        "+35 points"
+    ],
+    [
+        "\u2022 May be equipped with an additional Storm bolter for +11 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Siege shield: The model automatically passes tests for difficult terrain and is not slowed down by it. Additionally, attacks from the front always treat the model as being in cover."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

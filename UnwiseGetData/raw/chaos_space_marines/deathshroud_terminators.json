@@ -1,0 +1,125 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-6",
+        "Deathshroud Terminator",
+        "6\"",
+        "2+",
+        "3+",
+        4,
+        6,
+        3,
+        4,
+        3,
+        9,
+        "2+",
+        117
+    ],
+    [
+        1,
+        "Deathshroud Terminator Champion",
+        "6\"",
+        "2+",
+        "3+",
+        4,
+        6,
+        3,
+        4,
+        3,
+        9,
+        "2+",
+        122
+    ],
+    [
+        "Every model is equipped with: Manreaper; Plaguespurt gauntlet."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Manreaper *"
+    ],
+    [
+        "- Cleave",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "AT(1), Poison(4+), Slow(-1), Unwieldy"
+    ],
+    [
+        "- Scythe",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Extra Attack(1), Poison(4+), Unwieldy"
+    ],
+    [
+        "Plaguespurt gauntlet",
+        "6\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Poison(4+), Sunder(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The Terminator Champion has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard, Deepstrike, Mark of Nurgle, Massive(1), Unyielding"
+    ],
+    [
+        "Cataphractii armor: The model has a 4+ ward save."
+    ],
+    [
+        "Eyes of Mortarion: Attached HQ models gain +1 attack in melee."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Death Guard"
+    ]
+]

@@ -1,0 +1,112 @@
+{
+    "name": "Chaos Land Raider",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Chaos Land Raider",
+            "min": 1,
+            "max": 1,
+            "points": 558
+        }
+    ],
+    "min_cost": 558,
+    "default_size": 1,
+    "equipped_with": "A Chaos Land Raider is equipped with: Twin heavy bolter; 2 Twin Lascannons.",
+    "weapons": [
+        {
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
+        },
+        {
+            "name": "Combi-flamer Combi-melta *"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Havoc launcher",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Anti-Air, Blast(4)"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        }
+    ],
+    "abilities": [
+        "Assault Ramp: Passengers may perform a Charge command, even if the vehicle moved up to 12\".",
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

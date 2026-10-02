@@ -1,0 +1,89 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Spoilpox Scrivener",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        5,
+        4,
+        3,
+        3,
+        7,
+        "6+",
+        56
+    ],
+    [
+        "A Spoilpox Scrivener is equipped with: Distended maw; Disgusting sneezes."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Distended maw",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Poison(4+)"
+    ],
+    [
+        "Disgusting sneezes",
+        "6\"",
+        "Pistol 3",
+        3,
+        0,
+        1,
+        "Poison(4+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command squad, Deepstrike, Daemon, Daemonic instability, Mark of Nurgle, Terrifying(-1)"
+    ],
+    [
+        "Entourage: For each Greater Daemon of the same Chaos god, up to two units with this rule can be can be chosen that do not occupy an HQ slot."
+    ],
+    [
+        "Herald: Up to two units with this rule can be taken as a single HQ choice."
+    ],
+    [
+        "Keep Counting! Meet your Quota!: During the activation, select a friendly Mark of Nurgle unit that is within 7\" of the Spoilpox Scrivener. All models in that unit gain +1 to hit rolls."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

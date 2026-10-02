@@ -1,0 +1,112 @@
+{
+    "name": "Howling Banshees",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Howling Banshee",
+            "min": 5,
+            "max": 10,
+            "points": 25
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "5",
+                "A": "3",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Howling Banshee Exarch",
+            "min": 0,
+            "max": 1,
+            "points": 46
+        }
+    ],
+    "min_cost": 125,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Banshee blade; Shuriken pistol.",
+    "weapons": [
+        {
+            "name": "Banshee blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Executioner",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Mirrorswords",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Extra Attack(2), Unwieldy"
+        },
+        {
+            "name": "Shuriken pistol",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shuriken"
+        },
+        {
+            "name": "Triskele"
+        },
+        {
+            "name": "- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "- Shooting",
+            "range": "12\"",
+            "type": "Pistol 3",
+            "s": "4",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        }
+    ],
+    "abilities": [
+        "Battle Focus, Deflect, Furious Charge, Parry, <Aspect>",
+        "Aspect armor: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

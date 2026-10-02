@@ -1,0 +1,55 @@
+{
+    "name": "Canoptek Tomb Stalker",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "6",
+                "T": "7",
+                "W": "5",
+                "I": "4",
+                "A": "4",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Tomb Stalker",
+            "min": 1,
+            "max": 2,
+            "points": 180
+        }
+    ],
+    "min_cost": 180,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: 2 Gauss flayers; Monstrous automaton claws.",
+    "weapons": [
+        {
+            "name": "Gauss flayer",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Gauss"
+        },
+        {
+            "name": "Monstrous automaton claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Acute Senses, Deep Strike, Move Through Cover, Regeneration(1), Squadron",
+        "Dark prison: The model can dispel 1 psychic power per battle round."
+    ],
+    "unit_type": "Monstrous Creature",
+    "is_monster": true,
+    "keywords": [
+        "Canoptek"
+    ]
+}

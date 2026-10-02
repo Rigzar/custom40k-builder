@@ -1,0 +1,317 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        4,
+        "Veteran",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "5+",
+        9
+    ],
+    [
+        "Every model is equipped with: Lasgun; Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autocannon",
+        "48\"",
+        "Heavy 2",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Grenade launcher *"
+    ],
+    [
+        "- Frag grenade",
+        "24\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak grenade",
+        "24\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Lascannon",
+        "48\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Lasgun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Anti-air, AT(2)"
+    ],
+    [
+        "Mortar",
+        "36\"",
+        "Heavy 1",
+        5,
+        0,
+        1,
+        "Blast(4), Indirect, Suppression(3)"
+    ],
+    [
+        "Plasma gun *"
+    ],
+    [
+        "- Overheating",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "Sniper rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Sniper, Suppression(6)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For each HQ selection, one Company Command Squad may be selected that does not occupy an Elite slot."
+    ],
+    [
+        "\u2022 One Veteran may be equipped with: +5 points Banner."
+    ],
+    [
+        "\u2022 One Veteran may be equipped with: +5 points Vox."
+    ],
+    [
+        "\u2022 One Veteran may be equipped with: +5 points Medical bag."
+    ],
+    [
+        "\u2022 One Veteran may be equipped with: +10 points Heavy flamer."
+    ],
+    [
+        "\u2022 Two Veterans may form a Heavy weapons team:"
+    ],
+    [
+        "- Mortar",
+        "+13 points"
+    ],
+    [
+        "- Heavy bolter",
+        "+15 points"
+    ],
+    [
+        "- Autocannon",
+        "+24 points"
+    ],
+    [
+        "- Missile launcher",
+        "+38 points"
+    ],
+    [
+        "- Lascannon",
+        "+66 points"
+    ],
+    [
+        "\u2022 Two Veterans may be equipped with a Melee weapon:"
+    ],
+    [
+        "- Las pistol and power sword",
+        "+2 points"
+    ],
+    [
+        "- Las pistol and power fist",
+        "+9 points"
+    ],
+    [
+        "\u2022 Each remaining Guardman may swap their Lasgun:"
+    ],
+    [
+        "- Flamer",
+        "+2 points"
+    ],
+    [
+        "- Grenade launcher",
+        "+5 points"
+    ],
+    [
+        "- Melta",
+        "+10 points"
+    ],
+    [
+        "- Plasma gun",
+        "+19 points"
+    ],
+    [
+        "- Sniper rifle",
+        "+20 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Banner: Friendly units within 12\" gain +1 Leadership."
+    ],
+    [
+        "Medical bag: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

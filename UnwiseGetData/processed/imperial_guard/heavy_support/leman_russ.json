@@ -1,0 +1,169 @@
+{
+    "name": "Leman Russ",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "14",
+                "SIDE": "13",
+                "REAR": "10",
+                "I": "3",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Leman Russ",
+            "min": 1,
+            "max": 1,
+            "points": 263
+        }
+    ],
+    "min_cost": 263,
+    "default_size": 1,
+    "equipped_with": "A Leman Russ is equipped with: Punisher gatling cannon; Heavy bolter.",
+    "weapons": [
+        {
+            "name": "Battle cannon",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Blast(6), Tank hunter"
+        },
+        {
+            "name": "Demolisher battle cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3), Blast(6), Tank hunter"
+        },
+        {
+            "name": "Eradicator nova cannon",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(6), Seeking"
+        },
+        {
+            "name": "Executioner plasma cannon - Overheating",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Executioner plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Exterminator autocannon",
+            "range": "48\"",
+            "type": "Heavy 8",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Suppression(2)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Lascannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma cannon - Overheating",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Punisher gatling cannon",
+            "range": "24\"",
+            "type": "Heavy 10",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Vanquisher battle cannon",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "4",
+            "abilities": "AT(4), Lance(2), Tank hunter"
+        }
+    ],
+    "abilities": [
+        "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.        "
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

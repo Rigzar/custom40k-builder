@@ -1,0 +1,149 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "8-17",
+        "Tzaangor",
+        "6\"",
+        "4+",
+        "4+",
+        4,
+        4,
+        1,
+        4,
+        2,
+        6,
+        "5+",
+        10
+    ],
+    [
+        1,
+        "Twistbray",
+        "6\"",
+        "4+",
+        "4+",
+        4,
+        4,
+        1,
+        4,
+        2,
+        6,
+        "5+",
+        10
+    ],
+    [
+        "*",
+        "Aspiring Twistbray",
+        "6\"",
+        "4+",
+        "4+",
+        4,
+        4,
+        1,
+        4,
+        2,
+        7,
+        "5+",
+        15
+    ],
+    [
+        "Each model is equipped with: Chainsword, Machine pistol"
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autopistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Tzaangor blade",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One model may be equipped with:"
+    ],
+    [
+        "- Icon of Chaos",
+        "+10 points"
+    ],
+    [
+        "\u2022 Another model may be equipped with:"
+    ],
+    [
+        "- Instrument of Chaos",
+        "+5 points"
+    ],
+    [
+        "\u2022 Each model's Autopistol and Chainsword may be replaced:"
+    ],
+    [
+        "- Eldritch shield and Tzaangor blade",
+        "+2 points"
+    ],
+    [
+        "\u2022 The Twistbray can be promoted to an Aspiring Twistbray for +5pts and gains access to the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Mark of Tzeentch"
+    ],
+    [
+        "Eldritch Shield: The model gains the abilities \"Deflect\" and \"Parry\"."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cultist, Thousand Sons"
+    ]
+]

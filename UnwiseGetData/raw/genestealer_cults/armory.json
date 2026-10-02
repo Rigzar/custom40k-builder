@@ -1,0 +1,363 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Autopistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-",
+        1,
+        1
+    ],
+    [
+        "Blasting charges",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "Blast(4)",
+        5,
+        5
+    ],
+    [
+        "Bio-dagger",
+        "-",
+        "Melee",
+        1,
+        -3,
+        1,
+        "Extra Attack(1), Poison(2+), Precision",
+        3,
+        5
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-",
+        2,
+        2
+    ],
+    [
+        "Bone sword",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-",
+        2,
+        2
+    ],
+    [
+        "Cult claws",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "-",
+        3,
+        3
+    ],
+    [
+        "Force stave",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "Force weapon",
+        "-",
+        3
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)",
+        1,
+        1
+    ],
+    [
+        "Hypermorph tail",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)",
+        1,
+        2
+    ],
+    [
+        "Power hammer",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        -2,
+        "AT(2), Slow(-2)",
+        11,
+        13
+    ],
+    [
+        "Power maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-",
+        3,
+        3
+    ],
+    [
+        "Power pick",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        1,
+        "-",
+        3,
+        3
+    ],
+    [
+        "Scything talons",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)",
+        1,
+        2
+    ],
+    [
+        "Web pistol",
+        "12\"",
+        "Pistol 1",
+        1,
+        0,
+        1,
+        "Monofilament",
+        1,
+        1
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Alchemicus familiar",
+        "The model's Genomic enhancement range is increased to 12\".",
+        "-",
+        10
+    ],
+    [
+        "Amulet of the Voidwyrm",
+        "The model gains a 4+ ward save. Unique.",
+        5,
+        20
+    ],
+    [
+        "Atalan bike",
+        "The model gains +6\" movement, +1 Toughness, +1 Wound, Atalan small arms and the \"Bike\" type. Only for infantry.",
+        "-",
+        15
+    ],
+    [
+        "Cranial inlay",
+        "The army adds +1 to rolls during the Reinforcement phase. Unique.",
+        10,
+        10
+    ],
+    [
+        "Crown of Ascendancy",
+        "The model can manifest and deny 1 psychic power per turn. It knows Smite and all powers from the Broodmind discipline. Unique.",
+        30,
+        30
+    ],
+    [
+        "Cult relic",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "-",
+        10
+    ],
+    [
+        "Elixir of Dark Vistas ",
+        "The model gains +1 Leadership.",
+        5,
+        5
+    ],
+    [
+        "Familiar",
+        "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for psykers.",
+        "-",
+        5
+    ],
+    [
+        "Instinctive counter-strike",
+        "The model and its attached unit gain the \"Counter-Attack\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Lash whip",
+        "The model may re-roll one (additional) hit roll per activation in melee.",
+        5,
+        5
+    ],
+    [
+        "Locator beacon",
+        "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        10,
+        10
+    ],
+    [
+        "Marksman honours",
+        "The model gains +1 Ballistic skill.",
+        4,
+        5
+    ],
+    [
+        "Master-crafted weapon",
+        "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        2,
+        2
+    ],
+    [
+        "Pennant of Ascension",
+        "The unit gains an additional bonus of +1 to the combat result, as well as +1 attack per model. Only for models with a Cult icon. Unique.",
+        15,
+        "-"
+    ],
+    [
+        "Pervasion veil",
+        "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
+        "-",
+        15
+    ],
+    [
+        "Preternatural senses",
+        "The model gains a 5+ ward save.",
+        3,
+        13
+    ],
+    [
+        "Psychic training",
+        "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        5,
+        5
+    ],
+    [
+        "Shadow stalker",
+        "The model gains the \"Deflect\" and \"Parry\" abilities.",
+        4,
+        8
+    ],
+    [
+        "Survey scanner",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Swordsman honours",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Synaptic weapon",
+        "The model may re-roll all to hit and to wound rolls in melee. Unique.",
+        "-",
+        15
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Unwilling Orb",
+        "The model can deny 1 additional psychic power per turn and may deny psychic powers from any range.",
+        6,
+        6
+    ],
+    [
+        "VEHICLE EQUIPMENT ",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Flare launcher",
+        "The model gains the \"Deflect\" ability.",
+        5
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Signal scrambler",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        15
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ],
+    [
+        "Spotter",
+        "The model gains +6\" range with all ranged weapons.",
+        5
+    ],
+    [
+        "Survey augur",
+        "The model ignores the -1 to hit modifier for cover.",
+        5
+    ]
+]

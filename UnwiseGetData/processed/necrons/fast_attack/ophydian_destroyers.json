@@ -1,0 +1,55 @@
+{
+    "name": "Ophydian Destroyers",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "10",
+                "SV": "4+"
+            },
+            "name": "Destroyer",
+            "min": 3,
+            "max": 6,
+            "points": 53
+        }
+    ],
+    "min_cost": 159,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Hyperphase threshers.",
+    "weapons": [
+        {
+            "name": "Hyperphase reap-blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Extra Attack(2), Slow(-1)"
+        },
+        {
+            "name": "Hyperphase threshers",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(2)"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Massive(1), Parry, Reanimation Protocols",
+        "Tunneling Horrors: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
+    ],
+    "unit_type": "Jump pack infantry",
+    "is_monster": false,
+    "keywords": [
+        "Necron"
+    ]
+}

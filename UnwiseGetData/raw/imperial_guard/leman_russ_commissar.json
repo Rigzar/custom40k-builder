@@ -1,0 +1,273 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Leman Russ Tank Commissar",
+        "6\"",
+        "-",
+        "3+",
+        7,
+        14,
+        13,
+        10,
+        3,
+        1,
+        4,
+        288
+    ],
+    [
+        "A Leman Russ Tank Commissar is equipped with: Punisher gatling cannon; Heavy flamer."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Battle cannon",
+        "72\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(2), Blast(6), Tank hunter"
+    ],
+    [
+        "Demolisher battle cannon",
+        "24\"",
+        "Heavy 1",
+        10,
+        -4,
+        3,
+        "AT(3), Blast(6), Tank hunter"
+    ],
+    [
+        "Eradicator nova cannon",
+        "36\"",
+        "Heavy 2",
+        6,
+        -2,
+        1,
+        "Blast(6), Seeking"
+    ],
+    [
+        "Executioner plasma cannon *"
+    ],
+    [
+        "- Overheating",
+        "36\"",
+        "Heavy 2",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 2",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "Exterminator autocannon",
+        "48\"",
+        "Heavy 8",
+        7,
+        -3,
+        1,
+        "AT(1), Suppression(2)"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Lascannon",
+        "48\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Plasma cannon *"
+    ],
+    [
+        "- Overheating",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "Punisher gatling cannon",
+        "24\"",
+        "Heavy 10",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twin lascannon",
+        "48\"",
+        "Heavy 2",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Vanquisher battle cannon",
+        "72\"",
+        "Heavy 1",
+        8,
+        -5,
+        4,
+        "AT(4), Lance(2), Tank hunter"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Leman Russ Commissar per army."
+    ],
+    [
+        "\u2022 May swap the Punisher gatling cannon:"
+    ],
+    [
+        "- Eradicator nova cannon",
+        "+0 points"
+    ],
+    [
+        "- Exterminator autocannon",
+        "+37 points"
+    ],
+    [
+        "- Vanquisher battle cannon",
+        "+44 points"
+    ],
+    [
+        "- Twin lascannon",
+        "+58 points"
+    ],
+    [
+        "- Executioner plasma cannon",
+        "+116 points"
+    ],
+    [
+        "- Battle cannon",
+        "+138 points"
+    ],
+    [
+        "- Demolisher battle cannon",
+        "+147 points"
+    ],
+    [
+        "\u2022 May be equipped with sponsons:"
+    ],
+    [
+        "- two Heavy flamers",
+        "+26 points"
+    ],
+    [
+        "- two Heavy bolters",
+        "+36 points"
+    ],
+    [
+        "- two Multi-meltas",
+        "+73 points"
+    ],
+    [
+        "- two Plasma cannonn",
+        "+196 points"
+    ],
+    [
+        "\u2022 May swap the Heavy flamer:"
+    ],
+    [
+        "- Heavy bolter",
+        "+5 points"
+    ],
+    [
+        "- Lascannon",
+        "+56 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.        "
+    ],
+    [
+        "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

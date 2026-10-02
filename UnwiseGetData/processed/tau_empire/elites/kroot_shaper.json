@@ -1,0 +1,139 @@
+{
+    "name": "Kroot Shaper",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "4+",
+                "S": "4",
+                "T": "3",
+                "W": "2",
+                "I": "5",
+                "A": "3",
+                "LD": "7",
+                "SV": "6+"
+            },
+            "name": "Shaper",
+            "min": 1,
+            "max": 1,
+            "points": 11
+        }
+    ],
+    "min_cost": 11,
+    "default_size": 1,
+    "equipped_with": "A Shaper is equipped with: -.",
+    "weapons": [
+        {
+            "name": "Bladestave",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Dart-bow",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Armor piercing(5+), Deadly(5+)"
+        },
+        {
+            "name": "Kroot carbine- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kroot carbine- Ranged",
+            "range": "18\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kroot pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kroot rifle - Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kroot rifle - Ranged",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kroot scattergun- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Kroot scattergun- Ranged",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Shaper's blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Twin ritualistic blades",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Supporting Fire, Use Cover",
+        "Upgrades",
+        "Flesh Shaper: The model and its attached unit gain \"Deflagrate(6+)\" for all melee attacks.",
+        "Trail Shaper: After all units have been placed in the Deployment phase, you may remove and redeploy this model and its attached unit.",
+        "War Shaper: The model and its attached unit automatically remove all Battleshock tokens during each Reinforcement phase."
+    ],
+    "unit_type": "Character, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Kroot"
+    ]
+}

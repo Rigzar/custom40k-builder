@@ -1,0 +1,89 @@
+{
+    "name": "Adept of Possession",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Adept of Possession",
+            "min": 1,
+            "max": 1,
+            "points": 77
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Master of Possession",
+            "min": 0,
+            "max": 1,
+            "points": 92
+        }
+    ],
+    "min_cost": 77,
+    "default_size": 1,
+    "equipped_with": "An Adept of Possession is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Daemon",
+        "Daemonic corruption: Roll 2D6 at the start of the activation if this model is accompanied by a unit and set up on the battlefield (being in a transporter does not count towards being on the battlefield for that purpose). Apply following results to that unit permanently:",
+        1,
+        "+2\" Movement",
+        2,
+        "+1 Strength",
+        3,
+        "+1 Toughness",
+        4,
+        "+1 Initiative",
+        5,
+        "+1 Wound",
+        6,
+        "+1 Attack",
+        "If a result is applied for the third time, the unit is destroyed. Place a chaos spawn for every fourth wound (rounded down) within 3\" of the model with this ability.",
+        "Master of Possession: You may roll 1D6 or 2D6 on the \"Daemonic corruption\" table."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

@@ -1,0 +1,122 @@
+[
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "18\"",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Friendly model",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        5,
+        "Cast value:",
+        6,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "The target gains +2 Strength and +2 Attacks.",
+        "Effect:",
+        "The target suffers one automatic hit with S: 8 AP: 0 D: 1; AT(2), Blast(6), Seeking.",
+        "Effect:",
+        "The target receives a -1 penalty to hit rolls."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Warpath",
+        "Name:",
+        "Da Jump",
+        "Name:",
+        "Da Krunch"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire"
+    ],
+    [
+        "Range:",
+        "18\"",
+        "Range:",
+        "12\"",
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        7,
+        "Cast value:",
+        8
+    ],
+    [
+        "Effect:",
+        "All models of the target gain +1 Attack.",
+        "Effect:",
+        "Remove the unit from the field and immediately redeploy it according to the rules for Deep strike. The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance.",
+        "Effect:",
+        "One automatic hit with S: D AP: -4 D: 3; AT(3), Seeking."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Complex",
+        "Complexity:",
+        "Normal"
+    ]
+]

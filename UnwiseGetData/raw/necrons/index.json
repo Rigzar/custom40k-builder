@@ -1,0 +1,74 @@
+[
+    [
+        "Necrons"
+    ],
+    [
+        "HQ",
+        "Ancient Destructor Lord",
+        "Cryptek",
+        "Lord",
+        "Royal Warden",
+        "Skorpekh Lord",
+        "Special rules",
+        "Gauss: To wound rolls of 5+ against creatures are always successful. Armor penetration rolls of 5+ against vehicles gain a cumulative +1 AT and always inflict a Glancing Hit, unless the result is already sufficient for a Penetrating Hit.",
+        "Tesla: To hit rolls of 5+ are always successful and the target suffers 2 additional automatic hits.",
+        "Reanimation Protocols: The army receives 3 Reanimation Points (RPoints) for every 500 points of game size. These points can be used to heal wounded or fallen models.\n\nDuring the Reinforcement phase, each unit must be allocated at least as many RPoints with this rule as the number of wounds it has lost so far (including slain models).\nIf the RPoints are not enough for all models, the player can decide which units receive the RPoints.\nA unit can only gain more RPoints than lost wounds if there is no other unit that has not yet gained as many RPoints as it has lost wounds.\n\nRoll one die for every RPoint. On a 4+, the unit regains one wound and the RPoint is retained for the upcoming Reinforcement phase. Damaged models have to be healed up first before any slain model can return to the unit.\nOn a 3, the unit gains no wound and the RPoint is retained for the upcoming Reinforcement phase.\nOn a 1 or 2, the unit gains no wound and the RPoint is lost for the rest of the game.\nIf a unit has been completely wiped out, remove all remaining Battleshock tokens and leave the last model on the field until the next Reinfocement phase, where it may be revived with RPoints. Such units take a -1 penalty on the roll. If the unit is not revived (either because no roll was successful or no attempt was made), it is permanently removed from play.\n\nSlain models that are restored with RPoints have to be placed into direct base contact with as many of the remaining models of the unit as possible. Unless the unit is still engaged with an enemy in melee, they may not be placed in direct base contact with an enemy model (and only with models that their unit is already engaged with).\nIf the unit was completely killed, put them as close as possible to their last position into direction to their own deployment zone, outside of base contact with enemy models. \n\nSome units are able to gain \"temporary RPoints\". These RPoints are resolved normally as described above, but will be discarded automatically at the end of the current battle round and have no effect on the remaining RPoint pool of the player.\n\nIf a model is killed by a weapon that has at least twice the Strength of its own Toughness, it cannot use Reanimation Protocols.\n\nFor rules like \"Blood Tithe\" and \"Power through Pain\", a unit is only considered eliminated when it can no longer use RP, or no models make or succeed in their RP rolls in the upcoming Reinforcement phase. If it is the last round of a game, the unit is considered destroyed when it loses its last wound.",
+        "Experimental Rules",
+        "Any rule presented here is currently undergoing playtesting and is completely optional for you to use in your games. Changes are marked in red.",
+        "Reanimation Protocols:\nDuring the Reinforcement phase, living models with this rule regain all of their lost wounds. \n\nAdditionally, roll 1D6 for each lost Wound on a model that was slain in the previous battle round.\n- For each result of 5+, the unit restores one lost Wound. Damaged models must be fully healed before any other slain model can return to the unit.\n- Any model that can't regain at least one Wound is permanently destroyed and cannot attempt further rolls.\n\nRestored models must be placed in base-to-base contact with as many models of their unit as possible. They may not be placed in contact with enemy models unless the unit is already engaged in melee (and only with models that their unit is already engaged with).\nIf a destroyed unit is restored via Reanimation Protocols, the models are placed as close as possible to the last that was removed from that unit, outside of melee range with any enemy and remove any remaining Battleshock tokens on them.\n\nFor the purposes of abilities such as Blood Tithe or Power through Pain, a unit is only considered destroyed if no models succeed in their Reanimation Protocol rolls in the upcoming Reinforcement phase.\nIf it is the final battle round, a unit is considered destroyed immediately when it loses its last Wound."
+    ],
+    [
+        "Troops",
+        "Flayed Ones",
+        "Immortals",
+        "Warriors"
+    ],
+    [
+        "Elite",
+        "C'tan Shard",
+        "C'tan Shard of the Deceiver",
+        "C'tan Shard of the Dragon",
+        "C'tan Shard of the Nightbringer",
+        "Canoptek Reanimator",
+        "Canoptek Spyders",
+        "Cryptothralls",
+        "Deathmarks",
+        "Hexmark Destroyer",
+        "Lychguard",
+        "Pariahs",
+        "Plasmacyte",
+        "Skorpekh Destroyers",
+        "Triarch Stalker"
+    ],
+    [
+        "Fast Attack",
+        "Canoptek Scarabs",
+        "Canoptek Wraiths",
+        "Ophydian Destroyers",
+        "Tomb Blades",
+        "Triarch Praetorians"
+    ],
+    [
+        "Heavy Support",
+        "Annihilation Barge",
+        "Canoptek Doomstalker",
+        "Canoptek Tomb Stalker",
+        "Doomsday Ark",
+        "Lokhust Destroyers",
+        "Monolith"
+    ],
+    [
+        "Transports",
+        "Ghost Ark",
+        "Catacomb Command Barge"
+    ],
+    [
+        "Fortifications",
+        "Convergence of Dominion"
+    ],
+    [
+        "Flyers",
+        "Doom Scythe",
+        "Night Scythe"
+    ]
+]

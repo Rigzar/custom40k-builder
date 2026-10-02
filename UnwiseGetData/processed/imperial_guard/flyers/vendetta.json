@@ -1,0 +1,62 @@
+{
+    "name": "Vendetta",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "3",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Vendetta",
+            "min": 1,
+            "max": 1,
+            "points": 471
+        }
+    ],
+    "min_cost": 471,
+    "default_size": 1,
+    "equipped_with": "A Vendetta is equipped with: 3 Twin lascannons.",
+    "weapons": [
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Hellstrike missiles",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Anti-air, AT(2)"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Fast, Hover mode",
+        "Transport: This model has a transport capacity of 12 infantry models."
+    ],
+    "unit_type": "Flyer, Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,217 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "9-29",
+        "Cultist",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        5,
+        "6+",
+        5
+    ],
+    [
+        1,
+        "Champion",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        5,
+        "6+",
+        5
+    ],
+    [
+        "*",
+        "Aspiring Cultist Champion",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "6+",
+        10
+    ],
+    [
+        "Every model is equipped with: Machine gun; Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Crude melee weapon",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Flamer",
+        "9''",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Grenade launcher *"
+    ],
+    [
+        "- Frag grenade",
+        "24\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak grenade",
+        "24\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy machine gun",
+        "36\"",
+        "Heavy 3",
+        4,
+        0,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "Machine gun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Machine pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a mark of chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+1 points"
+    ],
+    [
+        "- Slaanesh",
+        "+1 points"
+    ],
+    [
+        "- Nurgle",
+        "+1 points"
+    ],
+    [
+        "- Tzeentch",
+        "+2 points"
+    ],
+    [
+        "\u2022 Any model can swap their Machine gun:"
+    ],
+    [
+        "- Crude melee weapon & Machine pistol",
+        "+0 points"
+    ],
+    [
+        "\u2022 For every 10 models, one Cultist may swap their Machine gun:"
+    ],
+    [
+        "- Grenade launcher",
+        "+4 points"
+    ],
+    [
+        "- Flamer",
+        "+5 points"
+    ],
+    [
+        "- Heavy machine gun",
+        "+9 points"
+    ],
+    [
+        "\u2022 A Champion may be upgraded to an Aspiring Cultist Champion for +5 points. The Aspiring Cultist Champion has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cultist"
+    ]
+]

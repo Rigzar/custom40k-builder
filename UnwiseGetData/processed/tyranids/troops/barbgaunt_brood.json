@@ -1,0 +1,45 @@
+{
+    "name": "Barbgaunt Brood",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "4",
+                "A": "1",
+                "LD": "5",
+                "SV": "4+"
+            },
+            "name": "Barbgaunts",
+            "min": 5,
+            "max": 10,
+            "points": 22
+        }
+    ],
+    "min_cost": 110,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Barblauncher.",
+    "weapons": [
+        {
+            "name": "Barblauncher",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Indirect, Suppression(3)"
+        }
+    ],
+    "abilities": [
+        "Instinctive Behaviour, Move Through Cover"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Basic Bioform"
+    ]
+}

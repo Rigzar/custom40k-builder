@@ -1,0 +1,66 @@
+{
+    "name": "Eversor",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "6",
+                "A": "4",
+                "LD": "9",
+                "SV": "6+"
+            },
+            "name": "Eversor",
+            "min": 1,
+            "max": 1,
+            "points": 130
+        }
+    ],
+    "min_cost": 130,
+    "default_size": 1,
+    "equipped_with": "A Eversor is equipped with: Executioner pistol; Melta bombs; Neuro gauntlet.",
+    "weapons": [
+        {
+            "name": "Executioner pistol",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Poison(2+)"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
+        {
+            "name": "Neuro gauntlet",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Extra Attack(2), Shred"
+        }
+    ],
+    "abilities": [
+        "Deep Strike, Deflect, Frenzy(6\"), Furious Charge, Hit & Run, Infiltrator, Move through cover, Parry",
+        "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls.",
+        "Bio Meltdown: After the unit is eliminated, all units within a 6\" radius suffer 2D3 Mortal Wounds.",
+        "Hyper metabolism: The model gets 1D6+1 bonus attacks for charging instead of just 1.",
+        "Lightning reflexes: The model gains a 4+ ward save.",
+        "Stim Overdrive: Once per game the unit can double its attacks. Decide to use this rule when it is the Eversor's turn to fight in melee. Then remove the unit and execute the \u201cBio meltdown\u201d rule."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

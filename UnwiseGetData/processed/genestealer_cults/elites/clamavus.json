@@ -1,0 +1,47 @@
+{
+    "name": "Clamavus",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Clamavus",
+            "min": 1,
+            "max": 1,
+            "points": 37
+        }
+    ],
+    "min_cost": 37,
+    "default_size": 1,
+    "equipped_with": "A Clamavus is equipped with: Autopistol.",
+    "weapons": [
+        {
+            "name": "Autopistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Ambush, Command Squad, Infiltrator, Use cover",
+        "Proclamation Hailer: Friendly units within 12\" automatically pass Leadership tests during the Rally phase.",
+        "Scrambler array: Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability.",
+        "Voice of New Truths: Enemy units within 12\" suffer a -1 penalty to their Leadership value."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

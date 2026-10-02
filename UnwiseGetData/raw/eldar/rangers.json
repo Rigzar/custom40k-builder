@@ -1,0 +1,97 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Ranger",
+        "6\"",
+        "3+",
+        "2+",
+        3,
+        3,
+        1,
+        5,
+        1,
+        8,
+        "5+",
+        33
+    ],
+    [
+        "Every Ranger is equipped with: Ranger long rifle; Shuriken pistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Ranger long rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Sniper, Suppression(3)"
+    ],
+    [
+        "Shuriken pistol",
+        "12\"",
+        "Assault 1",
+        4,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 5 Rangers, 1 model can be equipped with:"
+    ],
+    [
+        "- Gloom field",
+        "+5 points"
+    ],
+    [
+        "- Wireweave net",
+        "+5 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Battle Focus, Infiltrator, Move through cover, Use cover"
+    ],
+    [
+        "Gloom field: Enemies that target the unit and are at least 12\" away from it reduce their weapon range by 6\"."
+    ],
+    [
+        "Pathfinder ambush: Once an enemy unit emerges from reserve, a Ranger unit in reserve may perform an intercept. The unit is immediately deployed within 18\" but at least 9\" of the enemy reserve unit. The Rangers can then fire at that unit as if they had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action."
+    ],
+    [
+        "Wireweave net: Once per game, after this unit used Defensive fire, the attacker suffers 1D6+1 automatic wounds and reduces their charging range by 2\"."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

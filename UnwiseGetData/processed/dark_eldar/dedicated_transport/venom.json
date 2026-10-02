@@ -1,0 +1,66 @@
+{
+    "name": "Venom",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "10",
+                "SIDE": "10",
+                "REAR": "10",
+                "I": "5",
+                "A": "1",
+                "HP": "2"
+            },
+            "name": "Venom",
+            "min": 1,
+            "max": 1,
+            "points": 174
+        }
+    ],
+    "min_cost": 174,
+    "default_size": 1,
+    "equipped_with": "A Venom is a single model and equipped with: Bladevanes; Splinter cannon; Twin splinter rifle.",
+    "weapons": [
+        {
+            "name": "Bladevanes",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Splinter cannon",
+            "range": "36\"",
+            "type": "Assault 4",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        },
+        {
+            "name": "Twin splinter rifle",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "2",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Fast, Open",
+        "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit.",
+        "Transport: This model has a transport capacity of 6 infantry models.",
+        "Vector Strike: Any unit this model overflows takes an automatic hit with its melee weapon profile."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": [
+        "-"
+    ]
+}

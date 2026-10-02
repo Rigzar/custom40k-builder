@@ -1,0 +1,73 @@
+{
+    "name": "Eightbound",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "4",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Eightbound",
+            "min": 2,
+            "max": 7,
+            "points": 52
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "4",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Eightbound Champion",
+            "min": 1,
+            "max": 1,
+            "points": 52
+        }
+    ],
+    "min_cost": 156,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Eviscerating blades.",
+    "weapons": [
+        {
+            "name": "Eviscerating blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Heavy chainglaive",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Quick(1), Shred, Unwieldy"
+        }
+    ],
+    "abilities": [
+        "Berserk(5+), Blind Rage, Massive(1), Mark of Khorne",
+        "Exalted Eightbound: The model gains +1 Wound and the \"Daemon\" ability."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "World Eaters"
+    ]
+}

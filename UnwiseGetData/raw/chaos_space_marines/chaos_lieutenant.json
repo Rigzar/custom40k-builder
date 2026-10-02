@@ -1,0 +1,133 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Chaos Lieutenant",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        4,
+        5,
+        2,
+        8,
+        "3+",
+        79
+    ],
+    [
+        "*",
+        "Chaos Lord",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        4,
+        5,
+        3,
+        9,
+        "3+",
+        94
+    ],
+    [
+        "A Chaos Lieutenant is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May receive a Mark of Chaos:"
+    ],
+    [
+        "- Undivided",
+        "+0 points"
+    ],
+    [
+        "- Khorne",
+        "+8 points"
+    ],
+    [
+        "- Slaanesh",
+        "+8 points"
+    ],
+    [
+        "- Nurgle",
+        "+20 points"
+    ],
+    [
+        "- Tzeentch",
+        "+15 points"
+    ],
+    [
+        "\u2022 One Chaos Lieutenant per army can be upgraded to a Chaos Lord for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Veterans of the Long War: The Chaos Lieutenant can assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the veteran ability and it must be the same ability. It does not count against the limit on how many veteran abilities a unit can have."
+    ],
+    [
+        "Chaos Lord: A Chaos Lord may use Veterans of the Long War a second time."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

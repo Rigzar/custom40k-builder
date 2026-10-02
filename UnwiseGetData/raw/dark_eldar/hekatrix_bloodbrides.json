@@ -1,0 +1,155 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-19",
+        "Bloodbride",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        2,
+        8,
+        "6+",
+        12
+    ],
+    [
+        1,
+        "Syren",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        3,
+        8,
+        "6+",
+        17
+    ],
+    [
+        "Every model is equipped with: Hekatarii blade; Splinter pistol; Plasma grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Shardnet and impaler",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Enemy models in base contact reduce their Attacks by 1 (minimum 1)"
+    ],
+    [
+        "Hekatarii blade",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Hydra gauntlets",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(3)"
+    ],
+    [
+        "Razorflails",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Re-roll to hit and to wound rolls, Extra Attack(1)"
+    ],
+    [
+        "Plasma grenade",
+        "-",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Splinter pistol",
+        "12\"",
+        "Pistol 1",
+        2,
+        0,
+        1,
+        "Poison(3+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every Succubus selection, the army may include one Hekatrix Bloodbrides unit."
+    ],
+    [
+        "\u2022 For each 5 models, up to four Bloodbrides my replace their Hekatarii blade:"
+    ],
+    [
+        "- Hydra gauntlets",
+        "+1 point"
+    ],
+    [
+        "- Razorflails",
+        "+1 point"
+    ],
+    [
+        "- Shardnet and impaler",
+        "+1 point"
+    ],
+    [
+        "\u2022 The Syren has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat drugs, Deflect, Power through Pain, Parry"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cult"
+    ]
+]

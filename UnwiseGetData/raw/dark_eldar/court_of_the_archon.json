@@ -1,0 +1,164 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "0-4",
+        "Lhaemaean",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        5,
+        2,
+        8,
+        "4+",
+        31
+    ],
+    [
+        "0-4",
+        "Medusae",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        5,
+        1,
+        8,
+        "4+",
+        38
+    ],
+    [
+        "0-6",
+        "Sslyth",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        3,
+        3,
+        3,
+        8,
+        "4+",
+        53
+    ],
+    [
+        "0-10",
+        "Ur-Ghul",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        3,
+        2,
+        5,
+        4,
+        8,
+        "6+",
+        24
+    ],
+    [
+        "Every Lhaemaean is equipped with: Splinter pistol; Venom blade."
+    ],
+    [
+        "Every Medusae is equipped with: Eyeburst."
+    ],
+    [
+        "Every Sslyth is equipped with: -."
+    ],
+    [
+        "Every Ur-Ghul is equipped with: Rending claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Eyeburst",
+        "9\"",
+        "Assault 4",
+        5,
+        -2,
+        1,
+        "Seeking, Suppression(2)"
+    ],
+    [
+        "Rending claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Rending(5+)"
+    ],
+    [
+        "Splinter pistol",
+        "12\"",
+        "Pistol 1",
+        2,
+        0,
+        1,
+        "Poison(3+)"
+    ],
+    [
+        "Venom blade",
+        "-",
+        "Melee",
+        "U",
+        -4,
+        1,
+        "Poison(2+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every Archon selection, the army may include one Court of the Archon unit. The unit consists of 3 to 10 models in any combination."
+    ],
+    [
+        "\u2022 Sslyth have access to weapons from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard (Sslyth only), Berserk(5+) (Sslyth and Ur-Ghul only), Furious Charge (Ur-Ghul only), Massive(1) (Sslyth only), Power through Pain"
+    ],
+    [
+        "Mistress of Poisons: While a Lhaemaean is alive in the unit, all weapons gain the \"Poison(2+)\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Kabal"
+    ]
+]

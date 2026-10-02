@@ -1,0 +1,52 @@
+{
+    "name": "Death Company",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Death Company Marine",
+            "min": 5,
+            "max": 15,
+            "points": 41
+        }
+    ],
+    "min_cost": 205,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Berserker(5+), Blind rage, Furious charge"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

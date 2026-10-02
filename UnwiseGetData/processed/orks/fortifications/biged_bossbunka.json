@@ -1,0 +1,71 @@
+{
+    "name": "Big'ed Bossbunka",
+    "models": [
+        {
+            "stats": {
+                "M": "-",
+                "WS": "-",
+                "BS": "5+",
+                "S": "-",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "-",
+                "A": "-",
+                "HP": "3"
+            },
+            "name": "Big'ed Bossbunka",
+            "min": 1,
+            "max": 1,
+            "points": 192
+        }
+    ],
+    "min_cost": 192,
+    "default_size": 1,
+    "equipped_with": "A Big'ed Bossbunka is equipped with: Big shoota; Gaze of Gork",
+    "weapons": [
+        {
+            "name": "Big shoota",
+            "range": "36\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Gaze of Gork - Squint",
+            "range": "18\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3), Auto Hit, Beam, Sunder(1)"
+        },
+        {
+            "name": "Gaze of Gork - Glare",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Beam, Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Open, Waaagh!",
+        "Transport: This model has a transport capacity of 10 infantry models.",
+        "Ramshackle: Roll on the table when the vehicle is destroyed.",
+        "D6",
+        "Result",
+        "1-2",
+        "Kaboom! The vehicle explodes with a radius of 6\".",
+        "3-4",
+        "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction.",
+        "5-6",
+        "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as wreckage."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

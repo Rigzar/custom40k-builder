@@ -1,0 +1,347 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Magos",
+        "6\"",
+        "3+",
+        "2+",
+        4,
+        5,
+        4,
+        4,
+        2,
+        7,
+        "3+",
+        100
+    ],
+    [
+        "*",
+        "Archmagos",
+        "6\"",
+        "3+",
+        "2+",
+        4,
+        5,
+        4,
+        4,
+        3,
+        8,
+        "3+",
+        115
+    ],
+    [
+        "A Magos is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Conversion beamer*"
+    ],
+    [
+        "- Short range",
+        "0\" - 24\"",
+        "Heavy 1",
+        6,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Mid range",
+        "24\" - 48\"",
+        "Heavy 1",
+        7,
+        -2,
+        2,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Long range",
+        "48\" - 72\"",
+        "Heavy 1",
+        8,
+        -3,
+        3,
+        "AT(2), Blast(6)"
+    ],
+    [
+        "Eradication ray"
+    ],
+    [
+        "- Short range",
+        "1\" - 12\"",
+        "Heavy 1",
+        8,
+        -5,
+        3,
+        "AT(2)"
+    ],
+    [
+        "- Mid range",
+        "12\" - 24\"",
+        "Heavy 1",
+        6,
+        -3,
+        2,
+        "Blast(4)"
+    ],
+    [
+        "Grav serpenta",
+        "18\"",
+        "Assault 1",
+        5,
+        -3,
+        1,
+        "Blast(4), Grav"
+    ],
+    [
+        "Magnarail lance",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        2,
+        "AT(1), Beam"
+    ],
+    [
+        "Meltagun",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Photon thruster",
+        "24\"",
+        "Assault 2",
+        6,
+        -4,
+        2,
+        "AT(1), Beam, Blind, Lance(2), Overheating"
+    ],
+    [
+        "Plasma fusil *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Heavy 2",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "24\"",
+        "Heavy 2",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Rad cleanser",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Rad, Sunder(1)"
+    ],
+    [
+        "Rotor cannon",
+        "30\"",
+        "Assault 4",
+        3,
+        0,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "Servo-arc claw",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Extra attack(1), Haywire, Limit(1)"
+    ],
+    [
+        "Transonic cannon",
+        "12\"",
+        "Assault 4",
+        4,
+        -1,
+        1,
+        "Auto Hit, Armor piercing(5+), Sunder(1), Suppression(3)"
+    ],
+    [
+        "Volkite blaster",
+        "24\"",
+        "Heavy 3",
+        6,
+        -1,
+        1,
+        "Soul burn(6+)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Magos per army can be upgraded to an Archmagos for +15 points."
+    ],
+    [
+        "\u2022 May be equipped with up to two different weapons:"
+    ],
+    [
+        "- Transonic cannon",
+        "+8 points"
+    ],
+    [
+        "- Rad cleanser",
+        "+13 points"
+    ],
+    [
+        "- Servo-arc claw",
+        "+13 points"
+    ],
+    [
+        "- Rotor cannon",
+        "+17 points"
+    ],
+    [
+        "- Meltagun",
+        "+21 points"
+    ],
+    [
+        "- Volkite blaster",
+        "+25 points"
+    ],
+    [
+        "- Grav serpenta",
+        "+28 points"
+    ],
+    [
+        "- Magnarail lance",
+        "+29 points"
+    ],
+    [
+        "- Photon thruster",
+        "+53 points"
+    ],
+    [
+        "- Plasma Fusil",
+        "+55 points"
+    ],
+    [
+        "- Eradication ray",
+        "+64 points"
+    ],
+    [
+        "- Conversion beamer",
+        "+71 points"
+    ],
+    [
+        "\u2022 May be upgraded to one of the following:"
+    ],
+    [
+        "- Datasmith",
+        "+5 points"
+    ],
+    [
+        "- Engineseer",
+        "+5 points"
+    ],
+    [
+        "- Manipulus",
+        "+5 points"
+    ],
+    [
+        "- Myrmidax",
+        "+5 points"
+    ],
+    [
+        "- Technoarchaeologist",
+        "+5 points"
+    ],
+    [
+        "- Underseer",
+        "+5 points"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah, Choir Master, Unyielding"
+    ],
+    [
+        "Archmagos: The range of this model's Canticles of the Omnissiah is extended by 3\"."
+    ],
+    [
+        "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll."
+    ],
+    [
+        "Mechandrite Harness: This model may use up to three ranged weapons per activation, regardless of their type."
+    ],
+    [
+        "Enhanced Bionics: This model receives a 5+ ward save."
+    ],
+    [
+        "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1."
+    ],
+    [
+        "Enginseer:\nImproved Blessing of the Omnissiah: This model may use Blessing of the Omnissiah one additional time per activation and the roll is successfull on a 3+."
+    ],
+    [
+        "Manipulus\nGalvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1."
+    ],
+    [
+        "Myrmidax\nBringer of Blessed Ruin: This model gains the Favored Enemy ability."
+    ],
+    [
+        "Technoarchaeologist\nSeekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\"."
+    ],
+    [
+        "Underseer\nMaster of Menials: As long as this model is attached to a unit of Servitors, it and the attached unit may receive an Advance order and pursue fleeing units, even if they are Unyielding. Any attached Tech-thralls gain +1 to all hit rolls."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

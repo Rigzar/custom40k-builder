@@ -1,0 +1,188 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        6,
+        "Guardsman",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "5+",
+        9
+    ],
+    [
+        "Every model is equipped with: Lasgun; Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Demolition charge",
+        "6\"",
+        "Assault 1",
+        8,
+        -2,
+        2,
+        "Ammo(1), AT(2), Blast(6)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Grenade launcher *"
+    ],
+    [
+        "- Frag grenade",
+        "24\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak grenade",
+        "24\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Lasgun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Plasma gun *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Sniper rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Sniper, Suppression(6)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Guardsman may be equipped with a Vox for +5 points."
+    ],
+    [
+        "\u2022 Three Guardsmen must swap their Lasguns with:"
+    ],
+    [
+        "- Flamer",
+        "+5 points"
+    ],
+    [
+        "- Grenade launcher",
+        "+5 points"
+    ],
+    [
+        "- Melta",
+        "+11 points"
+    ],
+    [
+        "- Plasma gun",
+        "+13 points"
+    ],
+    [
+        "- Demolition charge",
+        "+13 points"
+    ],
+    [
+        "- Sniper rifle",
+        "+16 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infiltrate"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

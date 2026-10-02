@@ -1,0 +1,63 @@
+{
+    "name": "Trukk",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "5+",
+                "S": "5",
+                "FRONT": "10",
+                "SIDE": "10",
+                "REAR": "10",
+                "I": "3",
+                "A": "1",
+                "HP": "2"
+            },
+            "name": "Trukk",
+            "min": 1,
+            "max": 1,
+            "points": 112
+        }
+    ],
+    "min_cost": 112,
+    "default_size": 1,
+    "equipped_with": "A Trukk is equipped with: Big shoota.",
+    "weapons": [
+        {
+            "name": "Big shoota",
+            "range": "36\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Rokkit launcha",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Open, Waaagh!",
+        "Transport: This model has a transport capacity of 12 infantry models.",
+        "Ramshackle: Roll on the table when the vehicle is destroyed.",
+        "D6",
+        "Result",
+        "1-2",
+        "Kaboom! The vehicle explodes with a radius of 6\".",
+        "3-4",
+        "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction.",
+        "5-6",
+        "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as wreckage.",
+        "If the vehicle has been immobilized, the controlling player can roll with any command on the \"Ramshackle\" table in the next activation and apply the result."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

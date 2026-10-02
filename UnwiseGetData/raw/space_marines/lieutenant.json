@@ -1,0 +1,107 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Lieutenant",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        4,
+        5,
+        2,
+        8,
+        "3+",
+        77
+    ],
+    [
+        "*",
+        "Captain",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        4,
+        5,
+        3,
+        9,
+        "3+",
+        92
+    ],
+    [
+        "A Lieutenant is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Lieutenant per army May be upgraded to a Captain for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "They Shall Know No Fear"
+    ],
+    [
+        "Combat Tactics: The Lieutenant may assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have."
+    ],
+    [
+        "Captain: A Captain may use Combat Tactics a second time."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

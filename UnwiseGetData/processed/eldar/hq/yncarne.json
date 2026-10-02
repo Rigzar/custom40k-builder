@@ -1,0 +1,45 @@
+{
+    "name": "Yncarne",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "6",
+                "T": "6",
+                "W": "5",
+                "I": "7",
+                "A": "5",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Yncarne",
+            "min": 1,
+            "max": 1,
+            "points": 222
+        }
+    ],
+    "min_cost": 222,
+    "default_size": 1,
+    "equipped_with": "A Yncarne is equipped with: The Sword of Souls.",
+    "weapons": [
+        {
+            "name": "The Sword of Souls",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(1), Poison(2+), Soul burn(2+)"
+        }
+    ],
+    "abilities": [
+        "Deflect, Fearless, Greater Demon, Parry, Terrifying(-2), <Ynnari>",
+        "Inevitable death: Once per game, after a friendly unit is removed, the Yncarne can be set up immediately to that position. Set the Yncarne up within 6\" of the last removed model. You have to keep at least 1\" away from enemy units. This way of moving does not count as an activation and can not be used while being in an ongoing melee combat.",
+        "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    "unit_type": "Monstrous Creature",
+    "is_monster": true,
+    "keywords": []
+}

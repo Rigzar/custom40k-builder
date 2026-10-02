@@ -1,0 +1,133 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Phoenix",
+        "12\"",
+        "-",
+        "3+",
+        5,
+        11,
+        11,
+        10,
+        5,
+        1,
+        2,
+        428
+    ],
+    [
+        "A Phoenix is equipped with: 2 Phoenix missile launchers; Pulse laser; Twin shuriken cannon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Phoenix missile launcher *"
+    ],
+    [
+        "- Sunburst",
+        "48\"",
+        "Heavy 2",
+        4,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Starshot",
+        "48\"",
+        "Heavy 2",
+        8,
+        -3,
+        2,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "Pulse laser",
+        "48\"",
+        "Heavy 2",
+        8,
+        -3,
+        2,
+        "AT(2), Lance(+1)"
+    ],
+    [
+        "Twin bright lance",
+        "36\"",
+        "Heavy 2",
+        8,
+        -4,
+        3,
+        "AT(3), Lance(+2)"
+    ],
+    [
+        "Twin shuriken cannon",
+        "36\"",
+        "Heavy 6",
+        6,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "Twin starcannon",
+        "36\"",
+        "Heavy 4",
+        6,
+        -4,
+        2,
+        "AT(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap the Pulse laser:"
+    ],
+    [
+        "- Twin starcannon",
+        "+12 points"
+    ],
+    [
+        "- Twin bright lance",
+        "+25 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deflect"
+    ],
+    [
+        "Vector Dancer: The model gains a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Flyer"
+    ]
+]

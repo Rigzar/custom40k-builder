@@ -1,0 +1,648 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Blessed sword",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        1,
+        "Deadly(5+), Slow(-1)",
+        "-",
+        6
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-",
+        2,
+        3
+    ],
+    [
+        "Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-",
+        5,
+        7
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-",
+        2,
+        3
+    ],
+    [
+        "Combi flamer *",
+        11,
+        7
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Flamer",
+        "9\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Auto Hit, Combi, Sunder(1)"
+    ],
+    [
+        "Combi melta *",
+        16,
+        24
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Combi, Melta"
+    ],
+    [
+        "Combi plasma gun *",
+        21,
+        27
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1), Combi"
+    ],
+    [
+        "- Overheat",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Combi, Overheating"
+    ],
+    [
+        "Combi stake thrower *",
+        7,
+        11
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Stake",
+        "24\"",
+        "Assault 2",
+        3,
+        -1,
+        1,
+        "Combi, Psi-shock"
+    ],
+    [
+        "Condemnor bolt pistol *",
+        3,
+        4
+    ],
+    [
+        "- Bolt",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Stake",
+        "12\"",
+        "Pistol 1",
+        3,
+        -1,
+        1,
+        "Psi-shock"
+    ],
+    [
+        "Eviscerator",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2), Armorbane",
+        "-",
+        13
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)",
+        5,
+        3
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)",
+        1,
+        1
+    ],
+    [
+        "Hand flamer",
+        "6\"",
+        "Pistole 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)",
+        2,
+        1
+    ],
+    [
+        "Hunter-killer missile",
+        "120\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Ammo(1), AT(2)",
+        "-",
+        "-"
+    ],
+    [
+        "Inferno pistol",
+        "6\"",
+        "Pistol 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta",
+        8,
+        10
+    ],
+    [
+        "Krak grenades",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-",
+        1,
+        1
+    ],
+    [
+        "Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta",
+        17,
+        21
+    ],
+    [
+        "Melta bombs",
+        "3\"",
+        "Granate",
+        8,
+        -5,
+        2,
+        "AT(3), Armorbane",
+        5,
+        5
+    ],
+    [
+        "Null mace",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "Psi-shock",
+        5,
+        6
+    ],
+    [
+        "Neural whip",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Quick(+1)",
+        4,
+        5
+    ],
+    [
+        "Plasma gun *",
+        "Only for Missionary",
+        "-",
+        22
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheat",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Plasma pistol *",
+        10,
+        13
+    ],
+    [
+        "- Standard",
+        "12\"",
+        "Pistol 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheat",
+        "12\"",
+        "Pistol 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Power axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "-",
+        4,
+        5
+    ],
+    [
+        "Power halberd",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Quick(+1)",
+        4,
+        5
+    ],
+    [
+        "Power maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-",
+        4,
+        5
+    ],
+    [
+        "Power stake",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Psi-shock",
+        2,
+        3
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-",
+        4,
+        5
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-",
+        11,
+        13
+    ],
+    [
+        "Tempest heavy flamer",
+        "9\"",
+        "Assault 16",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)",
+        "-",
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Anointment",
+        "The models generates +1 Faith Point for the army.",
+        "-",
+        10
+    ],
+    [
+        "Aquila Imperialis",
+        "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game. Unique",
+        5,
+        5
+    ],
+    [
+        "Armorium cherub",
+        "Instead of using its own weapons, the model can use the Armorium cherub to let another model in the same unit or attached unit fire a weapon twice during one activation. Each unit can benefit from this effect only once per round. Ammo(1).",
+        5,
+        5
+    ],
+    [
+        "Auspex scanner",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Blessed ammunition",
+        "One bolt weapon of the model ignores cover. Must be purchased separately for each bolt weapon.",
+        "-",
+        5
+    ],
+    [
+        "Blessing",
+        "The model knows one additional Hymn of Battle. Can be taken multiple times.",
+        "-",
+        5
+    ],
+    [
+        "Book of St. Lucius",
+        "All friendly units within 6\" always use their unmodified Leadership value for tests. Unique.",
+        15,
+        15
+    ],
+    [
+        "Censer cherub",
+        "The model and its attached unit gain the \"Haste(1\")\" ability.",
+        5,
+        5
+    ],
+    [
+        "Digital weapons",
+        "The model can make one additional melee attack per round. S:2 AP:-4 D:1. Hits automatically wound.",
+        "-",
+        5
+    ],
+    [
+        "Dominion",
+        "The model gains the \"Vanguard\" ability. Only for infantry.",
+        "-",
+        5
+    ],
+    [
+        "Holy pulpit",
+        "The model gains +3 Strength, +3 Toughness, +2 Wounds, the \"Anti-Grav\" ability, the \"Monstrous Infantry\" unit type and loses the \"Character model\" ability. Additionally, it gains a Tempest heavy flamer. Only for infantry. Unique.",
+        "-",
+        89
+    ],
+    [
+        "Holy weapon",
+        "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Palantines.",
+        "-",
+        "Special"
+    ],
+    [
+        "Jump pack",
+        "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
+        "-",
+        16
+    ],
+    [
+        "Marksman honours",
+        "The model gains +1 Ballistic Skill.",
+        4,
+        5
+    ],
+    [
+        "Master-crafted armor",
+        "The model gains a 2+ armor save. Not combinable with other armors.",
+        7,
+        12
+    ],
+    [
+        "Master-crafted weapon",
+        "The model can reroll one hit roll with this weapon per round. Must be purchased separately for each weapon.",
+        2,
+        2
+    ],
+    [
+        "Order banner",
+        "The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit can not be contested by enemy units. Additionally, all models in the unot gain +1 Attack. Unique.",
+        15,
+        "-"
+    ],
+    [
+        "Plate armor",
+        "The model gains a 4+ armor save. Not combinable with other armors.",
+        "-",
+        5
+    ],
+    [
+        "Power armor",
+        "The model gains a 3+ armor save. Not combinable with other armors.",
+        "-",
+        10
+    ],
+    [
+        "Praesidium Protectiva",
+        "The model gains a 4+ ward save.",
+        8,
+        13
+    ],
+    [
+        "Purity seal",
+        "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+        2,
+        2
+    ],
+    [
+        "Relic of the order",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "-",
+        10
+    ],
+    [
+        "Simulacrum Imperialis",
+        "The unit receives a +1 bonus to the combat results and can benefit from a maximum of two Acts of Faith at the same time.",
+        5,
+        5
+    ],
+    [
+        "Storm shield",
+        "The model gains the abilities \"Deflect\" and \"Parry\".",
+        2,
+        6
+    ],
+    [
+        "Swordsman honours",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Teleport homing beacon",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        10,
+        10
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Anointment",
+        "The models generates +1 Faith Point for the army.",
+        10
+    ],
+    [
+        "Blessed ammunition",
+        "One bolt weapon of the model ignores cover. Must be purchased separately for each bolt weapon.",
+        10
+    ],
+    [
+        "Holy icon",
+        "Friendly units within a 6\" radius receive +1 to their Leadership value.",
+        5
+    ],
+    [
+        "Holy promethium",
+        "The Immolator's Twin heavy flamer gains +1 Strength and \"Suppression(3)\".",
+        5
+    ],
+    [
+        "Hunter-killer missile",
+        "The model gains a Hunter-killer missile.",
+        5
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Jammer",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        15
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ]
+]

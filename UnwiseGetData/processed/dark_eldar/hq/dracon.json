@@ -1,0 +1,67 @@
+{
+    "name": "Dracon",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "6",
+                "A": "3",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Dracon",
+            "min": 1,
+            "max": 1,
+            "points": 42
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "6",
+                "A": "4",
+                "LD": "9",
+                "SV": "4+"
+            },
+            "name": "Archon",
+            "min": 0,
+            "max": 1,
+            "points": 57
+        }
+    ],
+    "min_cost": 42,
+    "default_size": 1,
+    "equipped_with": "A Dracon is equipped with: Plasma grenade.",
+    "weapons": [
+        {
+            "name": "Plasma grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Power through Pain",
+        "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy two of his units.",
+        "Archon: Another two unit may be redeployed."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Kabal"
+    ]
+}

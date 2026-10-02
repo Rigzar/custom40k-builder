@@ -1,0 +1,101 @@
+{
+    "name": "Reavers",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "5",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Reaver",
+            "min": 3,
+            "max": 12,
+            "points": 35
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Arena Champion",
+            "min": 0,
+            "max": 1,
+            "points": 45
+        }
+    ],
+    "min_cost": 105,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Bladevanes; Splinter pistol; Splinter rifle.",
+    "weapons": [
+        {
+            "name": "Bladevanes",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Blaster",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Lance(+1)"
+        },
+        {
+            "name": "Heat lance",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Lance(+2), Melta"
+        },
+        {
+            "name": "Splinter pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "2",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        },
+        {
+            "name": "Splinter rifle",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "2",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        }
+    ],
+    "abilities": [
+        "Combat drugs, Hit & Run, Power through Pain"
+    ],
+    "unit_type": "Jetbike",
+    "is_monster": false,
+    "keywords": [
+        "Cult"
+    ]
+}

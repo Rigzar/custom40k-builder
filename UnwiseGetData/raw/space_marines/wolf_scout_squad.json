@@ -1,0 +1,231 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Wolf Scout",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "4+",
+        25
+    ],
+    [
+        1,
+        "Scout Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "4+",
+        35
+    ],
+    [
+        "Every model is equipped with: Combat knife; Frag grenades; Bolt pistol; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Astartes shotgun",
+        "18\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Combat knife",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Sniper rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Suppression(6)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every Wolf Scout may swap their Combat knife:"
+    ],
+    [
+        "- Astartes shotgun",
+        "+2 point"
+    ],
+    [
+        "- Boltgun",
+        "+2 point"
+    ],
+    [
+        "- Sniper rifle",
+        "+19 points"
+    ],
+    [
+        "\u2022 One Wolf Scout may swap their Combat knife:"
+    ],
+    [
+        "- Flamer",
+        "+2 points"
+    ],
+    [
+        "- Heavy bolter",
+        "+14 points"
+    ],
+    [
+        "- Melta",
+        "+14 points"
+    ],
+    [
+        "- Plasma gun",
+        "+19 points"
+    ],
+    [
+        "- Missile launcher",
+        "+37 points"
+    ],
+    [
+        "\u2022 Two Wolf Scouts may swap their Bolt pistol:"
+    ],
+    [
+        "- Power sword",
+        "+5 points"
+    ],
+    [
+        "- Plasma pistol",
+        "+8 points"
+    ],
+    [
+        "\u2022 The whole squad may be equipped with Camo cloaks for +11 points per model."
+    ],
+    [
+        "\u2022 The Scout Sergeant got access to weapons and gear from the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat squads, Infiltrator, They Shall Know No Fear"
+    ],
+    [
+        "Camo cloak: The model gains the \"Stealth\" ability."
+    ],
+    [
+        "Sniper: A model equipped with a Sniper rifle improves its BS by +1."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

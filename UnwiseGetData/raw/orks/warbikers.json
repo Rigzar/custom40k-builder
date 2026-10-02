@@ -1,0 +1,107 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Warbiker",
+        "12\"",
+        "3+",
+        "5+",
+        4,
+        5,
+        2,
+        3,
+        2,
+        5,
+        "4+",
+        47
+    ],
+    [
+        "*",
+        "Nob",
+        "12\"",
+        "3+",
+        "5+",
+        5,
+        5,
+        3,
+        3,
+        3,
+        6,
+        "4+",
+        67
+    ],
+    [
+        "Every model is equipped with: Choppa; Dakkagun; Slugga."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Choppa",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Dakkagun",
+        "18\"",
+        "Assault 6",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Slugga",
+        "12\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Warbiker may be upgraded to a Nob for +20 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Mob, Furious charge, Waaagh!"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike"
+    ]
+]

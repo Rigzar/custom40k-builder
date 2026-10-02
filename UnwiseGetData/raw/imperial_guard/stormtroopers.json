@@ -1,0 +1,223 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Stormtrooper",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "4+",
+        16
+    ],
+    [
+        1,
+        "Stormtrooper Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "4+",
+        21
+    ],
+    [
+        "Every model is equipped with: Hot-shot lasgun; Frag grenades; Krak grenades; Vox."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Grenade launcher *"
+    ],
+    [
+        "- Frag grenade",
+        "24\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak grenade",
+        "24\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Hot-shot lasgun",
+        "18\"",
+        "Rapid Fire 1",
+        3,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Hot-shot volley gun",
+        "24\"",
+        "Rapid Fire 2",
+        3,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Plasma gun *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Sniper rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Sniper, Suppression(6)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 5 models, two Stormtroopers may swap their Hot-shot lasguns:"
+    ],
+    [
+        "- Flamer",
+        "-1 point"
+    ],
+    [
+        "- Grenade launcher",
+        "+2 points"
+    ],
+    [
+        "- Hot-shot volley gun",
+        "+6 points"
+    ],
+    [
+        "- Melta",
+        "+11 points"
+    ],
+    [
+        "- plasma gun",
+        "+16 points"
+    ],
+    [
+        "- Sniper rifle",
+        "+17 points"
+    ],
+    [
+        "\u2022 The unit may get one of these abilities (points per model):"
+    ],
+    [
+        "- Deep strike",
+        "+1 point"
+    ],
+    [
+        "- Infiltrator",
+        "+1 point"
+    ],
+    [
+        "\u2022 The Stormtrooper Sergeant has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

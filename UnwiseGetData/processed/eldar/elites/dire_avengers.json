@@ -1,0 +1,101 @@
+{
+    "name": "Dire Avengers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Dire Avenger",
+            "min": 5,
+            "max": 10,
+            "points": 29
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "5",
+                "A": "3",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Dire Avenger Exarch",
+            "min": 0,
+            "max": 1,
+            "points": 40
+        }
+    ],
+    "min_cost": 145,
+    "default_size": 5,
+    "equipped_with": "Every Dire Avenger is equipped with: Avenger shuriken catapult; Plasma grenades.The Dire Avenger Exarch is equipped with: Diresword, Plasma grenades, Shuriken pistol.",
+    "weapons": [
+        {
+            "name": "Avenger shuriken catapult",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shuriken"
+        },
+        {
+            "name": "Diresword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Deadly(5+)"
+        },
+        {
+            "name": "Plasma grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Power glaive",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+        },
+        {
+            "name": "Shuriken pistol",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shuriken"
+        }
+    ],
+    "abilities": [
+        "Battle Focus, <Aspect>",
+        "Aspect armor: The model gains a 5+ ward save.",
+        "Shimmershield: The model and its attached unit gain a 4+ ward save in melee."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,115 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-6",
+        "Dragoon",
+        "12\"",
+        "3+",
+        "3+",
+        5,
+        6,
+        4,
+        3,
+        3,
+        7,
+        "3+",
+        107
+    ],
+    [
+        "Every model is equipped with: Bionics; Taser lance."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Phosphor serpenta",
+        "18\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "Luminagen"
+    ],
+    [
+        "Radium jezzail",
+        "30\"",
+        "Heavy 2",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Rad, Suppression(6)"
+    ],
+    [
+        "Taser lance"
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "AT(2), Quick(+1), Tesla"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "AT(2), Deflagrate(5+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap the Taser lance:"
+    ],
+    [
+        "- Radium jezzail",
+        "+32 points"
+    ],
+    [
+        "\u2022 May be equipped with:"
+    ],
+    [
+        "- Phosphor serpenta",
+        "+5 points"
+    ],
+    [
+        "\u2022 The unit may select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah, Deflect, Squadron"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike, Monstrous creature"
+    ]
+]

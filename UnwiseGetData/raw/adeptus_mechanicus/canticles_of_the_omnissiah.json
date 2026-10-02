@@ -1,0 +1,67 @@
+[
+    [
+        "Effect:",
+        "The unit may re-roll ranged hit rolls of 1.",
+        "Effect:",
+        "The unit may re-roll melee hit rolls of 1.",
+        "Effect:",
+        "The target can't gain Battleshock tokens by any means and loses all current tokens."
+    ],
+    [
+        "Name:",
+        "Invocation of Machine-might",
+        "Name:",
+        "Litany of the Electromancer",
+        "Name:",
+        "Shroudpsalm"
+    ],
+    [
+        "Effect:",
+        "The unit gains +2 Strength.",
+        "Effect:",
+        "The unit's melee attacks gain \"Tesla\". Weapons that already have the \"Tesla\" special rule always hit on a 4+.",
+        "Effect:",
+        "The unit gains \"Deflect\""
+    ],
+    [
+        "Canticles of Legacy",
+        "Name:",
+        "Citation in Savagery",
+        "Name:",
+        "Luminescent Blessing",
+        "Name:",
+        "Mantra of Discipline"
+    ],
+    [
+        "Effect:",
+        "The unit gains \"Furious Charge\".",
+        "Effect:",
+        "The unit gains \"Warded\".",
+        "Effect:",
+        "After performing a Defensive Reaction, the unit's order is not removed. Instead, replace it with a \"Fight\" order."
+    ],
+    [
+        "Name:",
+        "Panegyric Procession",
+        "Name:",
+        "Plea of the Veiled Hunter",
+        "Name:",
+        "Tribute of Emphatic Veneration"
+    ],
+    [
+        "Effect:",
+        "The unit increases the Strength of all of its Heavy weapons by 1.",
+        "Effect:",
+        "A single unit that passes its Canticle roll is removed from the battlefield and placed into reserves. It may later redeploy as though it had \"Outflank\".",
+        "Effect:",
+        "The unit's ranged weapons gain \"Suppression(3)\"."
+    ],
+    [
+        "Name:",
+        "Verse of Vengeance"
+    ],
+    [
+        "Effect:",
+        "Destroyed models in this unit are not removed until they complete their activation this turn."
+    ]
+]

@@ -1,0 +1,116 @@
+{
+    "name": "Field Ordnance Battery",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "5",
+                "W": "3",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Field Ordnance Battery",
+            "min": 1,
+            "max": 4,
+            "points": 39
+        }
+    ],
+    "min_cost": 39,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: 2 Lasguns; Frag grenades.",
+    "weapons": [
+        {
+            "name": "Bombast field gun",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Blast(6), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy lascannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-5",
+            "d": "4",
+            "abilities": "AT(4)"
+        },
+        {
+            "name": "Heavy mortar",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Blast(6), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Heavy quad launcher",
+            "range": "36\"",
+            "type": "Heavy 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Lasgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Malleus rocket launcher",
+            "range": "48\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Multiple rocket launcher",
+            "range": "36\"",
+            "type": "Heavy 5",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Siege cannon",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3), Blast(6), Indirect, Suppression(3)"
+        }
+    ],
+    "abilities": [
+        "Massive(2), Squadron",
+        "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit\u2019s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

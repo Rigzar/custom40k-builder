@@ -1,0 +1,82 @@
+{
+    "name": "Warptalons",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Warp Talon",
+            "min": 4,
+            "max": 9,
+            "points": 63
+        },
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Warp Talon Champion",
+            "min": 1,
+            "max": 1,
+            "points": 68
+        }
+    ],
+    "min_cost": 320,
+    "default_size": 5,
+    "equipped_with": "Each model is equipped with: Warpclaws; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Warpclaws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        }
+    ],
+    "abilities": [
+        "Deep strike, Daemon",
+        "Daemonic charge: Enemy units suffer an additional -1 to hit penalty during Defensive fire."
+    ],
+    "unit_type": "Jump pack infantry",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

@@ -1,0 +1,167 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Ghostkeel Shas'vre",
+        "12\"",
+        "4+",
+        "4+",
+        6,
+        6,
+        4,
+        2,
+        3,
+        8,
+        "3+",
+        197
+    ],
+    [
+        2,
+        "Stealth Drone",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        4,
+        1,
+        6,
+        "4+",
+        0
+    ],
+    [
+        "A Ghostkeel Shas'vre is a single model and equipped with: Cyclic ion raker; Drone controller; 2 Flamers; 2 Stealth Drones."
+    ],
+    [
+        "Stealth Drones are equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Burst cannon",
+        "18\"",
+        "Rapid Fire 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Cyclic ion raker *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 4",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "24\"",
+        "Rapid Fire 4",
+        8,
+        -2,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Fusion blaster",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
+    ],
+    [
+        "Fusion collider",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        3,
+        "Armorbane, AT(3), Blast(4)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap its Cyclic ion raker:"
+    ],
+    [
+        "- Fusion collider",
+        "+49 points/model"
+    ],
+    [
+        "\u2022 May swap each flamer:"
+    ],
+    [
+        "- Burst cannon",
+        "+5 points/model"
+    ],
+    [
+        "- Fusion blaster",
+        "+19 points/model"
+    ],
+    [
+        "\u2022 Any Ghostkeel Shas'vre may pick up to two SUPPORT SYSTEMS from the armory."
+    ],
+    [
+        "\u2022 Any Ghostkeel Shas'vre has access to weapons and gear from the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infiltrator, Supporting Fire"
+    ],
+    [
+        "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties."
+    ],
+    [
+        "Shrouded: Stealth Drones confer the ability \"Stealth\" and \"Use cover\" to themselves and their attached units."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack, Monstrous Creature"
+    ]
+]

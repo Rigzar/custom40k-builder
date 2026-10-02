@@ -1,0 +1,54 @@
+{
+    "name": "Hive Guard Brood",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "5",
+                "T": "6",
+                "W": "2",
+                "I": "2",
+                "A": "2",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Hive Guard",
+            "min": 1,
+            "max": 6,
+            "points": 41
+        }
+    ],
+    "min_cost": 41,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: Shock cannon.",
+    "weapons": [
+        {
+            "name": "Impaler cannon",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Seeking, Indirect"
+        },
+        {
+            "name": "Shock cannon",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "AT(1), Blast(4), Haywire"
+        }
+    ],
+    "abilities": [
+        "Instinctive Behaviour, Massive(1), Move Through Cover"
+    ],
+    "unit_type": "Monstrous Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Advanced Bioform"
+    ]
+}

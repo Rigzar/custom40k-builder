@@ -1,0 +1,196 @@
+{
+    "name": "Blightlord Terminators",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Terminator",
+            "min": 4,
+            "max": 13,
+            "points": 109
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Terminator Champion",
+            "min": 1,
+            "max": 1,
+            "points": 114
+        }
+    ],
+    "min_cost": 550,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Balesword; Combi-bolter.",
+    "weapons": [
+        {
+            "name": "Balesword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Poison(4+)"
+        },
+        {
+            "name": "Blight launcher",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Poison(4+)"
+        },
+        {
+            "name": "Bubotic axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Poison(4+)"
+        },
+        {
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Poison(4+)"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi, Poison(4+)"
+        },
+        {
+            "name": "Combi-flamer - Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
+        },
+        {
+            "name": "Combi-flamer Combi-melta *"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi, Poison(4+)"
+        },
+        {
+            "name": "Combi-flamer - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Combi-flamer Combi-plasma *"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi, Poison(4+)"
+        },
+        {
+            "name": "Combi-flamer - Plasma gun (Standard)",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Combi"
+        },
+        {
+            "name": "Combi-flamer - Plasma gun (Supercharged)",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Combi, Overheating"
+        },
+        {
+            "name": "Heavy plague weapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Poison(4+), Slow(-1), Unwieldy"
+        },
+        {
+            "name": "Plague spewer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(4+), Sunder(1)"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Reaper autocannon",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        }
+    ],
+    "abilities": [
+        "Deep strike, Mark of Nurgle, Massive(1), Unyielding",
+        "Cataphractii armor: The model has a 4+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Death Guard"
+    ]
+}

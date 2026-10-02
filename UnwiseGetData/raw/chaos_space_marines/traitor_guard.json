@@ -1,0 +1,216 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "10-30",
+        "Traitor Guardsman",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "5+",
+        8
+    ],
+    [
+        "*",
+        "Traitor Sergeant",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "5+",
+        13
+    ],
+    [
+        "0-3",
+        "Chaos Ogryn",
+        "6\"",
+        "4+",
+        "-",
+        5,
+        5,
+        3,
+        3,
+        4,
+        6,
+        "5+",
+        28
+    ],
+    [
+        "Every Traitor Guardsman is equipped with: Lasgun, Frag grenades."
+    ],
+    [
+        "Every Chaos Ogryn is equipped with: Power maul"
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Lasgun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Laspistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Melter",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melter"
+    ],
+    [
+        "Plasma gun *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheat"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a mark of chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+1 points"
+    ],
+    [
+        "- Slaanesh",
+        "+1 points"
+    ],
+    [
+        "- Nurgle",
+        "+1 points"
+    ],
+    [
+        "- Tzeentch",
+        "+2 points"
+    ],
+    [
+        "\u2022 Each model's Lasgun may be replaced by a Chainsword and a Laspistol."
+    ],
+    [
+        "\u2022 For each 10 models, one Traitor Guardsman's Lasgun may be replaced by:"
+    ],
+    [
+        "- Flamer",
+        "+5 points"
+    ],
+    [
+        "- Melter",
+        "+11 points"
+    ],
+    [
+        "- Plasma gun",
+        "+15 points"
+    ],
+    [
+        "\u2022 One Traitor Guardman may be promoted to a Traitor Sergeant for +5pts and gains access to the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard (Chaos Ogryn only): Wounds inflicted must first be allocated to the model before other models in the unit can be selected. Attacks with the \u201cPrecision\u201d rule take a -1 hit penalty if they affect an attached character."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cultist"
+    ]
+]

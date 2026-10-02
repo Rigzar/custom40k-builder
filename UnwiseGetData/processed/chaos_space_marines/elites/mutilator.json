@@ -1,0 +1,82 @@
+{
+    "name": "Mutilator",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Mutilator",
+            "min": 1,
+            "max": 3,
+            "points": 115
+        }
+    ],
+    "min_cost": 115,
+    "default_size": 1,
+    "equipped_with": "A Mutilator is equipped with: An array of Fleshmetal weapons",
+    "weapons": [
+        {
+            "name": "Chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane, AT(3), Slow(-3)"
+        },
+        {
+            "name": "Lightning claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power maul",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Deadly(6+), Slow(-1)"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Deepstrike, Daemon, Unyielding",
+        "Fleshmetal weapons: The model is equipped with all melee weapons listed above, but may not use the same melee weapon in two consecutive battle rounds."
+    ],
+    "unit_type": "Monstrous Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

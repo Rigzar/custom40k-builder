@@ -1,0 +1,109 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Knight-Centura",
+        6,
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        5,
+        3,
+        9,
+        "3+",
+        58
+    ],
+    [
+        "A Knight-Centura is equipped with: Flamer; Psyk-out grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Executioner greatblade",
+        "-",
+        "Melee",
+        "+2",
+        -4,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Psyk-out grenade",
+        "6\"",
+        "Grenade 1",
+        1,
+        0,
+        1,
+        "Psi-shock"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can swap the Flamer:"
+    ],
+    [
+        "- Boltgun",
+        "+3 points"
+    ],
+    [
+        "- Executioner greatblade",
+        "+3 points"
+    ],
+    [
+        "\u2022 Has acces to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Blank, Deflect, Parry"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

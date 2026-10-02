@@ -1,0 +1,122 @@
+[
+    [
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "18\"",
+        "Range:",
+        "18\"",
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Friendly unit"
+    ],
+    [
+        "Cast value:",
+        5,
+        "Cast value:",
+        6,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "Remove all Judgement tokens from the target. For each token, units receive one automatic wound or penetrating hit with S:8 AP:-2 D:2, AT(1), Seeking. ",
+        "Effect:",
+        "The target unit receives 3 hits +1 for each Judgement token on the target unit. The hits are resolved with S:5 AP:-2 D:1, Seeking.",
+        "Effect:",
+        "The target gains +1 Toughness and the \"Berserk(5+)\" ability."
+    ],
+    [
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Interface Echo",
+        "Name:",
+        "Crushing Contempt",
+        "Name:",
+        "Null Vortex"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Malediction",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "18''",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        7,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "The target may change the result of a single die roll of their own dice to any result during their own activation.",
+        "Effect:",
+        "The target loses its ability to hold objectives and suffers a penalty of -1 on hit rolls.",
+        "Effect:",
+        "Attacks against the target unit gain the (cumulative) Shieldbreaker(-1) ability. If that unit has two Judgement tokens, attacks gain (cumulative) Shieldbreaker(-2) instead."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ]
+]

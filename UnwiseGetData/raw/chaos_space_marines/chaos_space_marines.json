@@ -1,0 +1,328 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-19",
+        "Chaos Space Marine",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        37
+    ],
+    [
+        1,
+        "Chaos Space Marine Champion",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        37
+    ],
+    [
+        "*",
+        "Aspiring Champion",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        47
+    ],
+    [
+        "Every model is equipped with: Astartes Chainsword; Bolter; Bolt pistol; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Astartes Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Autocannon",
+        "48\"",
+        "Heavy 2",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy chainaxe",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "AT(1), Deadly(5+), Slow(-1), Unwieldy"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Lascannon",
+        "48\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Meltagun",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-Air"
+    ],
+    [
+        "Plasma gun *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheat"
+    ],
+    [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "Reaper chaincannon",
+        "24\"",
+        "Assault 4",
+        5,
+        -1,
+        -1,
+        "Suppression(2)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+2 points"
+    ],
+    [
+        "- Slaanesh",
+        "+2 points"
+    ],
+    [
+        "- Nurgle",
+        "+2 points"
+    ],
+    [
+        "- Tzeentch",
+        "+5 points"
+    ],
+    [
+        "\u2022 For each 5 models, one Chaos Space Marine may swap their Bolter:"
+    ],
+    [
+        "- Flamer",
+        "+0 points"
+    ],
+    [
+        "- Heavy bolter",
+        "+13 points"
+    ],
+    [
+        "- Meltagun",
+        "+13 points"
+    ],
+    [
+        "- Plasma gun",
+        "+17 points"
+    ],
+    [
+        "- Reaper chaincannon",
+        "+19 points"
+    ],
+    [
+        "- Autocannon",
+        "+21 points"
+    ],
+    [
+        "- Missle launcher",
+        "+35 points"
+    ],
+    [
+        "- Lascannon",
+        "+64 points"
+    ],
+    [
+        "\u2022 For each 5 models, one other Chaos Space Marine may swap their Astartes Chainsword and Bolter:"
+    ],
+    [
+        "- Heavy chainaxe",
+        "+9 points"
+    ],
+    [
+        "- Power fist",
+        "+10 points"
+    ],
+    [
+        "\u2022 The Chaos Space Marine Champion may be upgraded to an Aspiring Chaos Space Marine Champion for +10pts and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May have up to 1 veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

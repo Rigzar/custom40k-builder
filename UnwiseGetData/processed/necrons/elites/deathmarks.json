@@ -1,0 +1,46 @@
+{
+    "name": "Deathmarks",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "2",
+                "A": "1",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Deathmark",
+            "min": 5,
+            "max": 10,
+            "points": 63
+        }
+    ],
+    "min_cost": 315,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Synaptic disintegrator.",
+    "weapons": [
+        {
+            "name": "Synaptic disintegrator",
+            "range": "36\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Armor piercing(5+), Sniper, Suppression(5)"
+        }
+    ],
+    "abilities": [
+        "Deep Strike, Reanimation Protocols",
+        "Aetheric Interception: Deathmarks roll two dice less for scatter when deep striking. Additionally, once an enemy unit emerges from reserve, a Deathmark unit that has not yet used its order this round of combat may perform an intercept. The Deathmark unit is removed from the field or from reserves and immediately deployed within 18\" of the enemy reserve unit. The Deathmarks can then fire at that unit as if it had been given the \"Move & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Necron"
+    ]
+}

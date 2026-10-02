@@ -1,0 +1,143 @@
+{
+    "name": "Repulsor",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Repulsor",
+            "min": 1,
+            "max": 1,
+            "points": 394
+        }
+    ],
+    "min_cost": 394,
+    "default_size": 1,
+    "equipped_with": "A Repulsor is a single model and is equipped with: Ironhail heavy stubber; 3 Fragstorm grenade launcher; Heavy onslaught gatling cannon; 2 Krakstorm grenade launcher; Twin heavy bolter.",
+    "weapons": [
+        {
+            "name": "Fragstorm grenade launcher",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy onslaught gatling cannon",
+            "range": "30\"",
+            "type": "Heavy 6",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Icarus Ironhail heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Anti-air"
+        },
+        {
+            "name": "Icarus rocket pod",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Anti-air"
+        },
+        {
+            "name": "Ironhail heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krakstorm grenade launcher",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las-talon",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Onslaught gatling cannon",
+            "range": "24\"",
+            "type": "Heavy 5",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        }
+    ],
+    "abilities": [
+        "Anti-grav",
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

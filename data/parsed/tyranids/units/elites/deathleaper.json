@@ -101,7 +101,7 @@
     "abilities": [
         "Deep Strike, Deflect, Hit & Run, Infiltrate, Move Through Cover, Parry, Stealth, Terrifying(-2), Use Cover",
         "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls.",
-        "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
+        "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, it can gain Charge benefits normally and doesn't have to make a Disorderly Charge. ",
         "Unnatural Speed: The model has a 5+ ward save."
     ],
     "unit_type": "Monstrous Infantry",
@@ -120,6 +120,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 180,
+    "min_cost": 223,
     "is_monster": false
 }

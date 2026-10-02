@@ -1,0 +1,86 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Earthfire flamer\u1d33 \u1d40",
+        "9\"",
+        "Assault 4",
+        5,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)",
+        "-",
+        11
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Anvil sigil\u1d33 \u1d40",
+        "The model and its attached unit gain +1 Attack until the end of the current Battle round, if it successfully recited a prayer.",
+        "-",
+        20
+    ],
+    [
+        "Drake-scale cloak\u1d33 \u1d40",
+        "All to wound rolls against the model suffer a -1 penalty. Unique.",
+        "-",
+        15
+    ],
+    [
+        "Drake-smiter\u1d33 \u1d40",
+        "If the model is equipped with a Thunder hammer, it may choose to make some or all melee attacks at Initiative 1, but gains Strength: D for these attacks. Unique.",
+        5,
+        5
+    ],
+    [
+        "Promethean masterwork\u1d33 \u1d40",
+        "A \"Bolt\" weapon of the model gains +1 Strength and the \"Rending(5+)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Tome of Vel'cona\u1d33 \u1d40",
+        "The model gains a +1 bonus to manifest powers from the Pyromancy discipline.",
+        "-",
+        5
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Flameforged hull",
+        "Enemy attacks receive a -1 AT penalty (to a minimum of 0).",
+        10
+    ]
+]

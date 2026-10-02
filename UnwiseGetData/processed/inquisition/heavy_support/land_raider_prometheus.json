@@ -1,0 +1,63 @@
+{
+    "name": "Land Raider Prometheus",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Land Raider",
+            "min": 1,
+            "max": 1,
+            "points": 378
+        }
+    ],
+    "min_cost": 378,
+    "default_size": 1,
+    "equipped_with": "A Land Raider is a single model and equipped with: 2 Quad heavy bolters.",
+    "weapons": [
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Quad heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 8",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Improved Comms: You may re-roll one Reserve roll per turn.",
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

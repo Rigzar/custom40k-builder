@@ -1,0 +1,88 @@
+{
+    "name": "Sicaran Ruststalkers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "3",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Ruststalker",
+            "min": 4,
+            "max": 9,
+            "points": 32
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "3",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Ruststalker Princeps",
+            "min": 1,
+            "max": 1,
+            "points": 32
+        }
+    ],
+    "min_cost": 160,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Enhanced Bionics; Transonic blades; Mindscrambler Grenades.",
+    "weapons": [
+        {
+            "name": "Chordclaw",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Extra attack(1), Limit(1)"
+        },
+        {
+            "name": "Mindscrambler grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4), Suppression(3)"
+        },
+        {
+            "name": "Transonic blades",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armor piercing(5+), Extra Attack(1)"
+        },
+        {
+            "name": "Transonic razor",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        }
+    ],
+    "abilities": [
+        "Canticles of the Omnissiah, Massive(1), Move through cover, Use cover"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

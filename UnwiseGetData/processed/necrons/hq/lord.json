@@ -1,0 +1,59 @@
+{
+    "name": "Lord",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "5",
+                "T": "5",
+                "W": "4",
+                "I": "4",
+                "A": "3",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Lord",
+            "min": 1,
+            "max": 1,
+            "points": 115
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "5",
+                "T": "5",
+                "W": "5",
+                "I": "4",
+                "A": "4",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Overlord",
+            "min": 0,
+            "max": 1,
+            "points": 130
+        }
+    ],
+    "min_cost": 115,
+    "default_size": 1,
+    "equipped_with": "A Lord is equipped with: -.",
+    "weapons": [],
+    "abilities": [
+        "Regeneration(1)",
+        "My Will Be Done: Select one <Necron> unit during your Reinforcement phase. The unit gains the \"Fearless\" ability until the end of the current battle round.",
+        "Overlord: An Overlord may use My Will Be Done a second time.",
+        "Royal Court: If an Overlord is present, up to four Lords can be chosen that do not occupy an HQ slot.",
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Lord, Necron"
+    ]
+}

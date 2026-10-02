@@ -1,0 +1,43 @@
+{
+    "name": "Arco-flagellants",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "6+",
+                "S": "4",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "7",
+                "SV": "6+"
+            },
+            "name": "Arco-flagellant",
+            "min": 1,
+            "max": 10,
+            "points": 21
+        }
+    ],
+    "min_cost": 21,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: Arco flail.",
+    "weapons": [
+        {
+            "name": "Arco flail",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Berserk(5+), Blind rage"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

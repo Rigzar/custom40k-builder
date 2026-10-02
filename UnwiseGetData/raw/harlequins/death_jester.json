@@ -1,0 +1,152 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Death Jester",
+        "8\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        2,
+        5,
+        3,
+        9,
+        "6+",
+        64
+    ],
+    [
+        "Every model is equipped with: Harlequin weapons; Plasma grenade; Shrieker cannon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Aeldari missile launcher *"
+    ],
+    [
+        "- Sunburst",
+        "48\"",
+        "Heavy 1",
+        4,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Starshot",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "Bright lance",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        3,
+        "AT(3), Lance(+2)"
+    ],
+    [
+        "Harlequin weapons",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "Precision(5+)"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Shrieker cannon",
+        "30\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "Bio-explosion, Poison(2+), Shuriken, Suppression(6)"
+    ],
+    [
+        "Shuriken cannon",
+        "24\"",
+        "Heavy 3",
+        6,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every model can swap their Shrieker cannon:"
+    ],
+    [
+        "- Shuriken cannon",
+        "+0 point"
+    ],
+    [
+        "- Aeldari missile launcher",
+        "+26 points"
+    ],
+    [
+        "- Bright lance",
+        "+45 points"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>"
+    ],
+    [
+        "Bio-explosion: If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking."
+    ],
+    [
+        "Holo-suit: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

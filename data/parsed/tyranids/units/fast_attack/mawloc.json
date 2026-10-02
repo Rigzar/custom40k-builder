@@ -146,6 +146,6 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 1,
-    "min_cost": 147,
+    "min_cost": 139,
     "is_monster": true
 }

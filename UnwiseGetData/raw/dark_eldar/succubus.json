@@ -1,0 +1,98 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Succubus",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        6,
+        4,
+        7,
+        "6+",
+        23
+    ],
+    [
+        "*",
+        "Master Succubus",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        6,
+        5,
+        8,
+        "6+",
+        38
+    ],
+    [
+        "A Succubus is a single character model and equipped with: Plasma grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Succubus per army can be upgraded to a Master Succubus for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat drugs, Deflect, Power through Pain, Parry"
+    ],
+    [
+        "Master Succubus: The model may select a second Combat drug."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cult"
+    ]
+]

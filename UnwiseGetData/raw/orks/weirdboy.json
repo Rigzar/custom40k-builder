@@ -1,0 +1,101 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Weirdboy",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        2,
+        3,
+        2,
+        6,
+        4,
+        58
+    ],
+    [
+        "*",
+        "Warphead",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        3,
+        3,
+        3,
+        7,
+        "4+",
+        73
+    ],
+    [
+        "A Weirdboy is equipped with: Stikkbombz."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Stikkbombz",
+        "6\"",
+        "Grenade 1",
+        3,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Weirdboy per army can be upgraded to a Warphead for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Mob, Furious charge, Waaagh!"
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle roand. It knows Smite and all powers from a chosen discipline."
+    ],
+    [
+        "Waaagh! energy: The model gains a +1 bonus to manifest and deny psychic powers from the \"Waaagh!\" discipline as long as there are 20 or more models with the \"Mob\" rule within 12\" of it."
+    ],
+    [
+        "Warphead: The model can cast and deny 1 additional power per battle roand."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

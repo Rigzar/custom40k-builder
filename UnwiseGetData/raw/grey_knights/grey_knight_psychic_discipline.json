@@ -1,0 +1,428 @@
+[
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "24\"",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Cast value:",
+        7,
+        "Cast value:",
+        6,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "All melee attacks of the target gain the (cumulative) \"Shield breaker(-1)\" ability.",
+        "Effect:",
+        "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the target\u2019s total is greater than the Psyker\u2019s total, nothing happens. If the Psyker\u2019s total is greater than or equal to the target\u2019s total, the target unit suffers one Mortal Wound.",
+        "Effect:",
+        "The target gains the \"Aegis(4+) and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Astral Aim",
+        "Name:",
+        "Hammerhand",
+        "Name:",
+        "Destruction"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire"
+    ],
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "-",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        7,
+        "Cast value:",
+        7,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "The target gains the \"Indirect\" and \"Seeking\" abilities for ranged attacks.",
+        "Effect:",
+        "The target gains +2 Strength.",
+        "Effect:",
+        "The target suffers one automatic hit with S: 5 AP: -2 D: 1; Blast(6), Poison(2+), Seeking."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal"
+    ],
+    [
+        "Dominus",
+        "Name:",
+        "Warp Shaping",
+        "Name:",
+        "Empyric Amplification",
+        "Name:",
+        "Ghostly Bonds"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "-",
+        "Target:",
+        "Self + attached unit ",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        7,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "All psychic tests (of all players) receive a bonus OR penalty of 1.",
+        "Effect:",
+        "Ranged attacks of the target gain (cumulative) -1 AP and AT(1).",
+        "Effect:",
+        "The target receives one Battleshock marker. Only works on targets that do not already have any Battleshock markers."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Complex",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Gate",
+        "Name:",
+        "Psy-steel Armor",
+        "Name:",
+        "Vortex"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "12\"",
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Self + attached unit ",
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        8,
+        "Cast value:",
+        7,
+        "Cast value:",
+        8
+    ],
+    [
+        "Effect:",
+        "Remove the unit immediately and place it on the table again via the rules for Deep Strike. The scatter die is always a \"hit\". The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance. Can only be cast once per battle round.",
+        "Effect:",
+        "The target improves its Saving throw by +2.",
+        "Effect:",
+        "The target suffers one automatic wound or penetrating hit with S: D AP: -4 D: 3; AT(4), Seeking."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Complex",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal"
+    ],
+    [
+        "Legacy\n",
+        "Name:",
+        "Empyric Lodestone",
+        "Name:",
+        "Inescapable Pursuit",
+        "Name:",
+        "Projection of Purity"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "18\"",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Cast value:",
+        8,
+        "Cast value:",
+        7,
+        "Cast value:",
+        8
+    ],
+    [
+        "Effect:",
+        "Ranged attacks of the target gain (cumulative) -2 AP and AT(2).",
+        "Effect:",
+        "The target gains +3\" charge range.",
+        "Effect:",
+        "All melee attacks of the target gain the (cumulative) \"Shield breaker(-2)\" ability."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Fatal Precognition",
+        "Name:",
+        "Aegis Eternal",
+        "Name:",
+        "Symphonic Strike"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "-",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        7,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "The army receives a cumulative +1 bonus to rolls during the next Reinforcement and Initiative phase. Stacks with itself.",
+        "Effect:",
+        "The target gains the (cumulative) \"Narthecium\" ability.",
+        "Effect:",
+        "All melee attacks of the target gain the \"Precision(5+)\" ability."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Complex",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Purge Soul",
+        "Name:",
+        "Temporal Accuracy"
+    ],
+    [
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "18\"",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Cast value:",
+        7,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "Select one enemy unit within range. Both the caster and the target roll 1D6 and add their Leadership values to their rolls. If the caster's roll is equal or higher, the target unit suffers one Mortal Wound plus one for each point of difference (minimum one damage).",
+        "Effect:",
+        "All models in the target unit gain the \"Deflagrate(5+)\" ability."
+    ],
+    [
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ]
+]

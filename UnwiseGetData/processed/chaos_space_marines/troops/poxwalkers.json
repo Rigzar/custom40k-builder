@@ -1,0 +1,47 @@
+{
+    "name": "Poxwalkers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "5",
+                "SV": "6+"
+            },
+            "name": "Poxwalker",
+            "min": 10,
+            "max": 21,
+            "points": 3
+        }
+    ],
+    "min_cost": 30,
+    "default_size": 10,
+    "equipped_with": "Every model is equipped with: Improvised weapons.",
+    "weapons": [
+        {
+            "name": "Improvised weapons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Mark of Nurgle",
+        "Mindless: The unit automatically passes every Leadership test. It can contest mission objectives, but never hold them.",
+        "Slaves of Darkness: You may not select more Poxwalker units than Plague Marine units."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Cultist, Death Guard"
+    ]
+}

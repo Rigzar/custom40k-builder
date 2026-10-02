@@ -1,0 +1,54 @@
+{
+    "name": "Great Harlequin",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "7",
+                "A": "5",
+                "LD": "9",
+                "SV": "6+"
+            },
+            "name": "Great Harlequin",
+            "min": 1,
+            "max": 1,
+            "points": 73
+        }
+    ],
+    "min_cost": 73,
+    "default_size": 1,
+    "equipped_with": "A Solitaire is equipped with: Great Harlequin weapons.",
+    "weapons": [
+        {
+            "name": "Great Harlequin weapons",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Precision(5+)"
+        },
+        {
+            "name": "Plasma grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Anti-grav, Deflect, Parry, Terrifying(-1), <Harlequins>",
+        "Cegorach\u2019s Favour: The model may re-roll any one die per activation.",
+        "Holo-suit: The model gains a 4+ ward save."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

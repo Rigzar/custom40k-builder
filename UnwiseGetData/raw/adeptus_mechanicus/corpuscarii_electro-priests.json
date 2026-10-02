@@ -1,0 +1,86 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-20",
+        "Electro-Priest",
+        "6\"",
+        "4+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        2,
+        7,
+        "6+",
+        25
+    ],
+    [
+        "Every model is equipped with: Electrostatic gauntlets."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Electrostatic gauntlets"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+2",
+        -1,
+        1,
+        "Tesla"
+    ],
+    [
+        "- Ranged",
+        "12\"",
+        "Pistol 2",
+        5,
+        -1,
+        1,
+        "Tesla"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Blind Rage, Canticles of the Omnissiah, Choir Master, Furious Charge"
+    ],
+    [
+        "Voltagheist Field: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

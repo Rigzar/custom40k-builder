@@ -1,0 +1,143 @@
+{
+    "name": "Shining Spears",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Shining Spear",
+            "min": 3,
+            "max": 6,
+            "points": 76
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "3",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Shining Spear Exarch",
+            "min": 0,
+            "max": 1,
+            "points": 102
+        }
+    ],
+    "min_cost": 228,
+    "default_size": 3,
+    "equipped_with": "Every Shining Spear is equipped with: Laser lance; Twin shuriken catapult.The Shining Spear Exarch is equipped with: Paragon sabre; Twin shuriken catapult",
+    "weapons": [
+        {
+            "name": "Laser lance"
+        },
+        {
+            "name": "- Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Charge, Quick(+1)"
+        },
+        {
+            "name": "- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "- Ranged",
+            "range": "6\"",
+            "type": "Pistol",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Paragon sabre",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Star lance"
+        },
+        {
+            "name": "- Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+5",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Charge, Quick(+1)"
+        },
+        {
+            "name": "- Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(2), Unwieldy"
+        },
+        {
+            "name": "- Ranged",
+            "range": "6\"",
+            "type": "Pistol",
+            "s": "8",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Shuriken cannon",
+            "range": "24\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shuriken"
+        },
+        {
+            "name": "Twin shuriken catapult",
+            "range": "18\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Shuriken"
+        }
+    ],
+    "abilities": [
+        "Battle Focus, Deflect, <Aspect>",
+        "Aspect armor: The model gains a 5+ ward save.",
+        "Shimmershield: The model and its attached unit gain a 4+ ward save in melee."
+    ],
+    "unit_type": "Jetbike",
+    "is_monster": false,
+    "keywords": []
+}

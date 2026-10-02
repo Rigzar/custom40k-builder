@@ -1,0 +1,70 @@
+{
+    "name": "Kataphron Breachers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "3",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Breacher",
+            "min": 3,
+            "max": 6,
+            "points": 71
+        }
+    ],
+    "min_cost": 213,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Arc claw; Bionics; Heavy arc rifle.",
+    "weapons": [
+        {
+            "name": "Arc claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Haywire"
+        },
+        {
+            "name": "Heavy arc rifle",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Haywire"
+        },
+        {
+            "name": "Hydraulic claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Slow(-2)"
+        },
+        {
+            "name": "Torsion cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(2), Graviton"
+        }
+    ],
+    "abilities": [
+        "Massive(1), Monotask, Unyielding"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

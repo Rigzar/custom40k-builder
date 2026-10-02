@@ -1,0 +1,224 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Chaos Havoc",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        34
+    ],
+    [
+        "*",
+        "Aspiring Havoc Champion",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        44
+    ],
+    [
+        "Every model is equipped with: Bolt pistol; Bolter; Frag grenade; Krak grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autocannon",
+        "48\"",
+        "Heavy 2",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Lascannon",
+        "48''",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(2)"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(1), Anti-air"
+    ],
+    [
+        "Reaper chaincannon",
+        "24\"",
+        "Assault 4",
+        5,
+        -1,
+        -1,
+        "Suppression(3)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+2 points"
+    ],
+    [
+        "- Slaanesh",
+        "+2 points"
+    ],
+    [
+        "- Nurgle",
+        "+2 points"
+    ],
+    [
+        "- Tzeentch",
+        "+5 points"
+    ],
+    [
+        "\u2022 Up to four Chaos Havocs may replace their Bolter each:"
+    ],
+    [
+        "- Heavy bolter",
+        "+13 points"
+    ],
+    [
+        "- Reaper chaincannon",
+        "+19 points"
+    ],
+    [
+        "- Autocannon",
+        "+21 points"
+    ],
+    [
+        "- Missile launcher",
+        "+35 points"
+    ],
+    [
+        "- Lascannon",
+        "+64 points"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Aspiring Havoc Champion for +10pts and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Unyielding"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

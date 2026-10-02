@@ -1,0 +1,99 @@
+{
+    "name": "Repentia Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "2",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Repentia",
+            "min": 4,
+            "max": 19,
+            "points": 14
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Repentia Superior",
+            "min": 1,
+            "max": 1,
+            "points": 20
+        }
+    ],
+    "min_cost": 76,
+    "default_size": 5,
+    "equipped_with": "Every Repentia is equipped with: Eviscerator.The Repentia Superior is equipped with: Bolt pistol;Frag grenades; Krak grenades; Neural whip.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Eviscerator",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2), Armorbane"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Neural whip",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Quick(+1)"
+        }
+    ],
+    "abilities": [
+        "Acts of Faith, Berserk(5+), Blind rage",
+        "Absolution: Repentia reduce the Faith Point cost for \"Spirit of the Martyr\" by 1.",
+        "Shield of Faith: The Repentia Superior has a 6+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

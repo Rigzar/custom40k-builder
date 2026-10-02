@@ -1,0 +1,160 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Warpsmith",
+        "6\"",
+        "3+",
+        "2+",
+        4,
+        4,
+        4,
+        5,
+        2,
+        8,
+        "2+",
+        119
+    ],
+    [
+        "*",
+        "Daemonforge Mastersmith",
+        "6\"",
+        "3+",
+        "2+",
+        4,
+        4,
+        4,
+        5,
+        3,
+        9,
+        "2+",
+        134
+    ],
+    [
+        "A Warpsmith is equipped with: Flamer tendril; Meltagun tendril; Omnissiah power axe; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Flamer tendril",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Meltagun tendril",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta, Extra Attack(1)"
+    ],
+    [
+        "Omnissiah power axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        2,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May receive a Mark of Chaos:"
+    ],
+    [
+        "- Undivided",
+        "+0 points"
+    ],
+    [
+        "- Khorne",
+        "+8 points"
+    ],
+    [
+        "- Slaanesh",
+        "+8 points"
+    ],
+    [
+        "- Nurgle",
+        "+20 points"
+    ],
+    [
+        "- Tzeentch",
+        "+15 points"
+    ],
+    [
+        "\u2022 One Warpsmith per army can be upgraded to a Daemonforge Mastersmith for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll."
+    ],
+    [
+        "Daemonforge Mastersmith: A Daemonforge Mastersmith may use the \"Blessing of the Omnissiah\" twice."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]
