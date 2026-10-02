@@ -32,6 +32,24 @@ const IMPERIAL_AUTHORITY_FACTIONS: { key: string; label: string }[] = [
   { key: 'imperial_guard',     label: 'Imperial Guard' },
   { key: 'space_marines',      label: 'Space Marines' },
 ];
+// Inquisition archetypes (1.01): "Heretic" - the single item may come from any CHAOS faction
+// "instead of from Imperial factions"; "Iconoclast" - from any XENOS faction. Both factions
+// lists only name codices that have an Armory of their own to browse.
+const CHAOS_AUTHORITY_FACTIONS: { key: string; label: string }[] = [
+  { key: 'chaos_space_marines', label: 'Chaos Space Marines' },
+  { key: 'chaos_daemons',       label: 'Chaos Daemons' },
+];
+const XENOS_AUTHORITY_FACTIONS: { key: string; label: string }[] = [
+  { key: 'dark_eldar',        label: 'Dark Eldar' },
+  { key: 'eldar',             label: 'Eldar' },
+  { key: 'genestealer_cults', label: 'Genestealer Cults' },
+  { key: 'harlequins',        label: 'Harlequins' },
+  { key: 'leagues_of_votann', label: 'Leagues of Votann' },
+  { key: 'necrons',           label: 'Necrons' },
+  { key: 'orks',              label: 'Orks' },
+  { key: 'tau_empire',        label: 'Tau Empire' },
+  { key: 'tyranids',          label: 'Tyranids' },
+];
 const AUTHORITY_SOURCE = 'Authority of the Inquisition';
 
 /**
@@ -238,6 +256,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // `isInquisitionAcolytes` below already uses.
   const isInquisition = activeData.faction === 'Inquisition';
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
+  const authorityFactions = archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
   // Level 1 — once per model: blocked once the squad already holds one copy per model (item.size),
   // unless desc says "Can be taken multiple times". For a true Character (is_character:true) or any
@@ -1369,7 +1388,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               )}
               {!authorityFaction ? (
                 <div className="flex flex-wrap gap-2 py-2">
-                  {IMPERIAL_AUTHORITY_FACTIONS.map(f => (
+                  {authorityFactions.map(f => (
                     <button
                       key={f.key}
                       onClick={() => setAuthorityFaction(f.key)}
@@ -1381,7 +1400,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 </div>
               ) : authorityLoading || !authorityCache[authorityFaction] ? (
                 <div className="text-zinc-500 italic text-sm text-center py-8">
-                  {t('loadingPrefix')} {IMPERIAL_AUTHORITY_FACTIONS.find(f => f.key === authorityFaction)?.label}…
+                  {t('loadingPrefix')} {authorityFactions.find(f => f.key === authorityFaction)?.label}…
                 </div>
               ) : (() => {
                 const fd = authorityCache[authorityFaction];
