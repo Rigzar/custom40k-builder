@@ -1,0 +1,149 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Stormhawk Interceptor",
+        "12\"",
+        "-",
+        "3+",
+        6,
+        12,
+        11,
+        11,
+        4,
+        1,
+        3,
+        299
+    ],
+    [
+        "A Stormhawk Interceptor is equipped with: Icarus stormcannon; Twin assault cannon; Twin heavy bolter."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Icarus stormcannon",
+        "48\"",
+        "Heavy 3",
+        7,
+        -2,
+        1,
+        "Anti-Air, AT(1)"
+    ],
+    [
+        "Las-talon",
+        "24\"",
+        "Heavy 2",
+        9,
+        -4,
+        2,
+        "AT(3)"
+    ],
+    [
+        "Skyhammer missile launcher",
+        "60\"",
+        "Heavy 3",
+        7,
+        -2,
+        2,
+        "AT(1), Armorbane"
+    ],
+    [
+        "Twin assault cannon",
+        "24\"",
+        "Heavy 8",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twin heavy bolter",
+        "36\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Typhoon missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 2",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 2",
+        8,
+        -3,
+        2,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May replace the Twin heavy bolter:"
+    ],
+    [
+        "- Typhoon missile launcher",
+        "+45 points"
+    ],
+    [
+        "- Skyhammer missile launcher",
+        "+68 points"
+    ],
+    [
+        "\u2022 May replace the Icarus stormcannon:"
+    ],
+    [
+        "- Las-talon",
+        "+33 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Flyer"
+    ]
+]

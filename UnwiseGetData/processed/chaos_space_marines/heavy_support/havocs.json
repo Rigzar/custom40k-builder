@@ -1,0 +1,146 @@
+{
+    "name": "Havocs",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Chaos Havoc",
+            "min": 5,
+            "max": 10,
+            "points": 34
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Aspiring Havoc Champion",
+            "min": 0,
+            "max": 1,
+            "points": 44
+        }
+    ],
+    "min_cost": 170,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Bolt pistol; Bolter; Frag grenade; Krak grenade.",
+    "weapons": [
+        {
+            "name": "Autocannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lascannon",
+            "range": "48''",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Anti-air"
+        },
+        {
+            "name": "Reaper chaincannon",
+            "range": "24\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "-1",
+            "abilities": "Suppression(3)"
+        }
+    ],
+    "abilities": [
+        "Unyielding"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

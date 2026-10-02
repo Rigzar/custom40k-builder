@@ -1,0 +1,311 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Junka",
+        "12\"",
+        "6+",
+        "5+",
+        6,
+        11,
+        11,
+        10,
+        3,
+        1,
+        3,
+        188
+    ],
+    [
+        "A Junka is equipped with: three Big shootas."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Big drill",
+        "-",
+        "Melee",
+        10,
+        -3,
+        2,
+        "AT(3), Gruesome"
+    ],
+    [
+        "Big shoota",
+        "36\"",
+        "Assault 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Big zzappa",
+        "36\"",
+        "Heavy 1",
+        "2D6",
+        -4,
+        3,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "Grot bomm",
+        "72\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Ammo (1), AT(2), Blast(6), Indirect, Grot-guided"
+    ],
+    [
+        "Junka Shokk Attack Gun",
+        "60\"",
+        "Heavy 1",
+        "2D6",
+        -3,
+        2,
+        "AT(2), Blast(6), Mek Weapon"
+    ],
+    [
+        "Killkannon",
+        "24\"",
+        "Heavy 1",
+        7,
+        -2,
+        2,
+        "AT(1), Blast(6)"
+    ],
+    [
+        "Kustom mega-blasta",
+        "24\"",
+        "Assault 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4), Overheating"
+    ],
+    [
+        "Rokkit launcha",
+        "24\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Skorcha",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Supa-skorcha",
+        "12\"",
+        "Assault 6",
+        6,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Twin-linked big shoota",
+        "36\"",
+        "Assault 6",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin-linked rokkit launcha",
+        "36\"",
+        "Heavy 2",
+        8,
+        -2,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap any of the big shootas:"
+    ],
+    [
+        "- Kustom mega-blasta",
+        "+4 points"
+    ],
+    [
+        "- Rokkit launcha",
+        "+4 points"
+    ],
+    [
+        "- Skorcha",
+        "+11 points"
+    ],
+    [
+        "- Twin-linked big shoota",
+        "+12 points"
+    ],
+    [
+        "- Twin-linked rokkit launcha",
+        "+20 points"
+    ],
+    [
+        "\u2022 May take one big gun:"
+    ],
+    [
+        "- Killkannon",
+        "+27 points"
+    ],
+    [
+        "- Supa-skorcha",
+        "+46 points"
+    ],
+    [
+        "- Big Zzappa",
+        "+47 points"
+    ],
+    [
+        "- Two Grot bomms",
+        "+68 points"
+    ],
+    [
+        "- Junka Shokk Attack Gun",
+        "+72 points"
+    ],
+    [
+        "\u2022 If the junka doesn't have a Shokk Attack Gun, it may take one mek rig:"
+    ],
+    [
+        "- Tellyport Tunnella",
+        "+10 points"
+    ],
+    [
+        "- Big Drill",
+        "+22 points"
+    ],
+    [
+        "- Junka Force Field",
+        "+45 points"
+    ],
+    [
+        "\u2022 May be equipped with 'Eavy plates for +16 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Open, Waaagh!"
+    ],
+    [
+        "Transport: This model has a transport capacity of 12 infantry models. If equipped with a big gun, it has a transport capacity of 6 infantry models."
+    ],
+    [
+        "Big Drill: A junka equipped with a Big Drill gains the Deep Strike rule. It resolves Tank Shocks using the Big Drill weapon profile."
+    ],
+    [
+        "Eavy plates: A junka with 'Eavy plates increases its front and side armor to 12."
+    ],
+    [
+        "Grot-guided: This weapon is fired with a BS of 4+ and gains Seeking."
+    ],
+    [
+        "Junka force field: A junka equipped with a Junka Force Field and any friendly unit entirely within 9\" gains the \"Warded\" ability against ranged attacks."
+    ],
+    [
+        "Mek weapon: This weapon's profile cannot be changed by equipment or wargear."
+    ],
+    [
+        "Junka Shokk Attack Gun: Roll for the strength of this weapon after you have selected a target. If doubles are rolled, consult the following table:"
+    ],
+    [
+        "2D6",
+        "Result"
+    ],
+    [
+        1.1,
+        "Boom! The Junka receives an automatic hit with S: D AP: -4 D: 3.        "
+    ],
+    [
+        2.2,
+        "Gah! The new target is the nearest visible unit that is not engaged in melee combat (including Ork units!).        "
+    ],
+    [
+        3.3,
+        "Oops! An opponent chooses a new target (including Ork units!).        "
+    ],
+    [
+        4.4,
+        "Sploosh! The weapon changes its profile to Assault 2, S: 6 AP: -3 D: 1, Blast(6), Suppression(3)."
+    ],
+    [
+        5.5,
+        "Zoink! Remove the Junka from the field and immediately redeploy it according to the rules for Deep strike. It can no longer move, but can still shoot.        "
+    ],
+    [
+        6.6,
+        "Bzzap! The weapon fires with Strength: D and AT(3) and loses the Blast(6) rule for this activation.        "
+    ],
+    [
+        "Tellyport Tunnella: When an \"Advance\" command is given, instead of moving the model an additional 1D6\", a model with a Tellyport Tunnella is removed from the board and immediately repositioned according to the rules for Deep Strike. Then roll 1D6. On a 1 or 2, the model suffers a penetrating hit."
+    ],
+    [
+        "Ramshackle: Roll on the table when the vehicle is destroyed."
+    ],
+    [
+        "D6",
+        "Result"
+    ],
+    [
+        "1-2",
+        "Kaboom! The vehicle explodes with a radius of 6\"."
+    ],
+    [
+        "3-4",
+        "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
+    ],
+    [
+        "5-6",
+        "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as a wreck."
+    ],
+    [
+        "If the vehicle has been immobilized, the controlling player can roll with any command on the \"Ramshackle\" table in the next activation and apply the result."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

@@ -1,0 +1,45 @@
+{
+    "name": "Kroot Hounds",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "4+",
+                "S": "4",
+                "T": "3",
+                "W": "1",
+                "I": "5",
+                "A": "3",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Kroot hound",
+            "min": 3,
+            "max": 12,
+            "points": 8
+        }
+    ],
+    "min_cost": 24,
+    "default_size": 3,
+    "equipped_with": "Kroot hounds are equipped with: Ripping fangs.",
+    "weapons": [
+        {
+            "name": "Ripping fangs",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Supporting Fire, Use Cover"
+    ],
+    "unit_type": "Bike",
+    "is_monster": false,
+    "keywords": [
+        "Kroot"
+    ]
+}

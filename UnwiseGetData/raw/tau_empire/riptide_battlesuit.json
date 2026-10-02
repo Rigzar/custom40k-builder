@@ -1,0 +1,164 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Riptide Shas'vre",
+        "12\"",
+        "4+",
+        "4+",
+        7,
+        7,
+        5,
+        2,
+        3,
+        8,
+        "2+",
+        239
+    ],
+    [
+        "A Riptide Shas'vre is a single model and equipped with: Heavy burst cannon; Twin plasma rifle."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Heavy burst cannon *"
+    ],
+    [
+        "- Standard",
+        "18\"",
+        "Rapid Fire 4",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Nova-charge",
+        "18\"",
+        "Rapid Fire 6",
+        6,
+        -2,
+        1,
+        "Overheating"
+    ],
+    [
+        "Ion accelerator *"
+    ],
+    [
+        "- Standard",
+        "72\"",
+        "Heavy 3",
+        8,
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "- Nova-charge",
+        "72\"",
+        "Heavy 3",
+        9,
+        -3,
+        3,
+        "AT(3), Overheating"
+    ],
+    [
+        "Twin fusion blaster",
+        "12\"",
+        "Assault 2",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
+    ],
+    [
+        "Twin plasma rifle",
+        "24\"",
+        "Assault 4",
+        6,
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "Twin smart missile system",
+        "30\"",
+        "Heavy 6",
+        5,
+        -1,
+        1,
+        "Anti-Air, Seeking"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap the Heavy burst cannon:"
+    ],
+    [
+        "- Ion accelerator",
+        "+137 points/model"
+    ],
+    [
+        "\u2022 May swap the Twin plasma rifle:"
+    ],
+    [
+        "- Twin smart missile system",
+        "+16 points/model"
+    ],
+    [
+        "- Twin fusion blaster",
+        "+23 points/model"
+    ],
+    [
+        "\u2022 Any Riptide Shas'vre may pick up to two SUPPORT SYSTEMS from the armory, none of which may be a Shield generator."
+    ],
+    [
+        "\u2022 May buy a Drone controller for +0 points and up to two Tau Drones in any combination."
+    ],
+    [
+        "\u2022 All models have access to the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Supporting Fire, Unyielding"
+    ],
+    [
+        "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius."
+    ],
+    [
+        "Riptide shield generator: The model has a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack, Monstrous Creature"
+    ]
+]

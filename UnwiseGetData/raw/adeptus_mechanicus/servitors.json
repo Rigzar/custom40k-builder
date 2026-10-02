@@ -1,0 +1,195 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-9",
+        "Servitor",
+        "6\"",
+        "5+",
+        "5+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        5,
+        "4+",
+        10
+    ],
+    [
+        "Every Servitor is equipped with: Paired shock chargers"
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Heavy arc rifle",
+        "36\"",
+        "Heavy 2",
+        7,
+        -2,
+        1,
+        "AT(1), Haywire"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Incendine combustor",
+        "9\"",
+        "Assault 4",
+        4,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Meltagun",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Heavy 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Paired shock chargers",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "Phosphor blaster",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "Luminagen"
+    ],
+    [
+        "Plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overheating",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "Shock charger",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model may swap their Paired shock chargers for a Shock charger and one of the following:"
+    ],
+    [
+        "- Phosphor blaster",
+        "+7 points"
+    ],
+    [
+        "- Meltagun",
+        "+13 points"
+    ],
+    [
+        "- Incendine combustor",
+        "+14 points"
+    ],
+    [
+        "\u2022 For every three Servitors in the unit, one may swap their Paired shock chargers for a Shock charger and one of the following:"
+    ],
+    [
+        "- Heavy bolter",
+        "+13 points"
+    ],
+    [
+        "- Heavy arc rifle",
+        "+15 points"
+    ],
+    [
+        "- Multi-melta",
+        "+27 points"
+    ],
+    [
+        "- Plasma cannon",
+        "+50 points"
+    ],
+    [
+        "\u2022 For each Magos, Archmagos, or Tech-Priest selection, one Servitor squad may be selected that does not occupy an Elite slot."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Monotask, Unyielding"
+    ],
+    [
+        "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

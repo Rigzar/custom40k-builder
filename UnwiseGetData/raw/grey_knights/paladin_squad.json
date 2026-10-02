@@ -1,0 +1,202 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Paladin",
+        "6\"",
+        "2+",
+        "3+",
+        4,
+        5,
+        3,
+        4,
+        3,
+        9,
+        "2+",
+        107
+    ],
+    [
+        1,
+        "Paragon",
+        "6\"",
+        "2+",
+        "3+",
+        4,
+        5,
+        3,
+        4,
+        3,
+        9,
+        "2+",
+        117
+    ],
+    [
+        "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Incinerator",
+        "9\"",
+        "Assault 4",
+        5,
+        -2,
+        1,
+        "Auto Hit, Shield breaker(-1), Sunder(1)"
+    ],
+    [
+        "Nemesis daemon hammer",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+    ],
+    [
+        "Nemesis force weapon",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        1,
+        "Force weapon, Shield breaker(-1)"
+    ],
+    [
+        "Nemesis warding stave",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "AT(1), Force weapon, Shield breaker(-1)"
+    ],
+    [
+        "Psilencer",
+        "24\"",
+        "Rapid Fire 3",
+        5,
+        -1,
+        1,
+        "Shield breaker(-1), Suppression(3)"
+    ],
+    [
+        "Psycannon",
+        "24\"",
+        "Heavy 2",
+        7,
+        -2,
+        2,
+        "Armor piercing(5+), AT(1), Shield breaker(-1)"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Paladin squad per army."
+    ],
+    [
+        "\u2022 Any model can replace their Nemesis falchions:"
+    ],
+    [
+        "- Nemesis warding stave",
+        "+11 points"
+    ],
+    [
+        "- Nemesis daemon hammer",
+        "+23 points"
+    ],
+    [
+        "\u2022 For every 5 models, two Paladins may swap their Storm bolter:"
+    ],
+    [
+        "- Incinerator",
+        "+6 points"
+    ],
+    [
+        "- Psilencer",
+        "+7 points"
+    ],
+    [
+        "- Psycannon",
+        "+24 points"
+    ],
+    [
+        "\u2022 Each model may be equipped with Psy-ammunition for +1 point per model."
+    ],
+    [
+        "\u2022 The Paragon has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Aegis(5+), Brotherhood of Psykers, Combat squads, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding"
+    ],
+    [
+        "Chapter Elite: During each Rally phase, all psychic powers of the unit can be exchanged with other psychic powers from the same discipline."
+    ],
+    [
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
+    ],
+    [
+        "Terminator armor: The model gains a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

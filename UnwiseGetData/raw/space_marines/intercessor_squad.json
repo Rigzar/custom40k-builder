@@ -1,0 +1,254 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Intercessor Marine",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        37
+    ],
+    [
+        1,
+        "Intercessor Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        37
+    ],
+    [
+        "*",
+        "Veteran Intercessor Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        47
+    ],
+    [
+        "Every model is equipped with: Bolt rifle; Bolt pistol; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolt rifle *"
+    ],
+    [
+        "- Bolt ammo",
+        "30\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Stalker ammo",
+        "36\"",
+        "Heavy 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Castellan missile launcher *"
+    ],
+    [
+        "- Castellan missile",
+        "36\"",
+        "Assault 1",
+        4,
+        -1,
+        1,
+        "Blast(4), Indirect"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Plasma incinerator *"
+    ],
+    [
+        "- Standard",
+        "30\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "30\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Pyreblaster",
+        "12\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Pyrecannon",
+        "15\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 5 models, two Intercessor Marines may be equipped with:"
+    ],
+    [
+        "- Grenade launcher",
+        "+1 point"
+    ],
+    [
+        "\u2022 Alternatively, for every 5 models, two Intercessor Marines may swap their Bolt rifle:"
+    ],
+    [
+        "- Pyreblaster",
+        "+1 point"
+    ],
+    [
+        "- Pyrecannon",
+        "+8 points"
+    ],
+    [
+        "- Heavy bolter",
+        "+11 points"
+    ],
+    [
+        "- Plasma incinerator",
+        "+13 points"
+    ],
+    [
+        "- Castellan missile launcher",
+        "+33 points"
+    ],
+    [
+        "\u2022 The Intercessor Sergeant may be upgraded to a Veteran Intercessor Sergeant for +10 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat squads, They Shall Know No Fear"
+    ],
+    [
+        "Grenade launcher: Grenades carried by the model gain a range of 24\"."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

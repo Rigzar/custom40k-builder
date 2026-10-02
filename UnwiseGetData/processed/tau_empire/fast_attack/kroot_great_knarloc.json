@@ -1,0 +1,91 @@
+{
+    "name": "Kroot Great Knarloc",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "4+",
+                "S": "6",
+                "T": "5",
+                "W": "6",
+                "I": "3",
+                "A": "4",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Great Knarloc",
+            "min": 1,
+            "max": 2,
+            "points": 92
+        }
+    ],
+    "min_cost": 92,
+    "default_size": 1,
+    "equipped_with": "A Great Knarloc is equipped with: Knarloc beak; Knarloc claws.",
+    "weapons": [
+        {
+            "name": "Knarloc beak",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Knarloc claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2)"
+        },
+        {
+            "name": "Kroot bolt thrower - Iron bolts",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "4",
+            "ap": "-1",
+            "d": "2",
+            "abilities": "Poison(3+)"
+        },
+        {
+            "name": "Kroot bolt thrower - Explosive bolts",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Blast(4)"
+        },
+        {
+            "name": "Kroot long gun",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), Suppression(6)"
+        },
+        {
+            "name": "Repeater cannon",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Squadron, Supporting Fire, Use Cover",
+        "Knarloc armor: The model gains a 4+ armor save."
+    ],
+    "unit_type": "Monstrous Creature",
+    "is_monster": true,
+    "keywords": [
+        "Kroot"
+    ]
+}

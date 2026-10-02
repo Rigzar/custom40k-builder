@@ -1,0 +1,71 @@
+{
+    "name": "Hammerfall Bunker",
+    "models": [
+        {
+            "stats": {
+                "M": "0\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "-",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "-",
+                "A": "-",
+                "HP": "3"
+            },
+            "name": "Hammerfall Bunker",
+            "min": 1,
+            "max": 1,
+            "points": 290
+        }
+    ],
+    "min_cost": 290,
+    "default_size": 1,
+    "equipped_with": "A Hammerfall Bunker is a single model and is equipped with: Hammerstrike missile launcher; 2 Heavy bolter arrays.",
+    "weapons": [
+        {
+            "name": "Hammerstrike missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4), Anti-air"
+        },
+        {
+            "name": "Hammerstrike missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Heavy bolter array",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer array",
+            "range": "9\"",
+            "type": "Assault 8",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "abilities": [
+        "Deep Strike",
+        "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and may never stray closer than 6\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Primus",
+        "6\"",
+        "2+",
+        "3+",
+        4,
+        3,
+        3,
+        4,
+        3,
+        8,
+        "5+",
+        38
+    ],
+    [
+        "A Primus is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Primus per army."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Infiltrator, Use cover"
+    ],
+    [
+        "Cult Demagogue: The Primus and its attached unit gain the \"Favoured enemy(everything)\" ability."
+    ],
+    [
+        "Ringleader: You may select up to two units with this ability for a single HQ slot. Each unit may only be taken once."
+    ],
+    [
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

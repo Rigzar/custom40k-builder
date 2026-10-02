@@ -1,0 +1,80 @@
+{
+    "name": "Custodian Wardens",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Custodian Warden",
+            "min": 3,
+            "max": 10,
+            "points": 74
+        }
+    ],
+    "min_cost": 222,
+    "default_size": 3,
+    "equipped_with": "All models are equipped with: Bolt caster; Frag grenades; Guardian spear; Melta bombs.",
+    "weapons": [
+        {
+            "name": "Bolt caster",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Castellan axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Guardian spear",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        }
+    ],
+    "abilities": [
+        "Bodyguard, Massive(1), Shield Host",
+        "Custodian armor: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

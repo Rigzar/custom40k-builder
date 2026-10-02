@@ -1,0 +1,139 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Seraphim",
+        "12\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        8,
+        "3+",
+        28
+    ],
+    [
+        1,
+        "Seraphim Superior",
+        "12\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        8,
+        "3+",
+        33
+    ],
+    [
+        "Every model is equipped with: 2 Bolt pistols; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Hand flamer",
+        "6\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Inferno pistol",
+        "6\"",
+        "Pistol 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Up to two Seraphim may swap both Bolt pistols:"
+    ],
+    [
+        "- 2 Hand flamers",
+        "+2 points"
+    ],
+    [
+        "- 2 Inferno pistols",
+        "+13 points"
+    ],
+    [
+        "\u2022 The Seraphim Superior has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Hit & Run, Shield of Faith"
+    ],
+    [
+        "Angelic Visage: The model gains a 5+ ward save."
+    ],
+    [
+        "Pious: A Seraphim Superior increases the Faith Points by +1."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry, Jump pack infantry"
+    ]
+]

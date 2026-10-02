@@ -1,0 +1,89 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Vindicator",
+        "12\"",
+        "6+",
+        "3+",
+        6,
+        13,
+        11,
+        10,
+        4,
+        1,
+        3,
+        373
+    ],
+    [
+        "A Vindicator is a single model and is equipped with: Demolisher cannon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Demolisher cannon",
+        "24\"",
+        "Heavy 1",
+        10,
+        -4,
+        3,
+        "AT(4), Blast(6), Tank hunter"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May be equipped with an additional Storm bolter for +11 points."
+    ],
+    [
+        "\u2022 May be equipped with a Siege shield for +15 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "<Codex>"
+    ],
+    [
+        "Siege shield: The model automatically passes tests for difficult terrain and is not slowed down by it. Additionally, attacks from the front always treat the model as being in light cover."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

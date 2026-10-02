@@ -1,0 +1,886 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Absolvor bolt pistol\u1d33",
+        "12\"",
+        "Pistol 1",
+        5,
+        -2,
+        1,
+        "Apothecary and Chaplain only",
+        "-",
+        4
+    ],
+    [
+        "Assault-Flamer *",
+        11,
+        11
+    ],
+    [
+        "- Pyre blaster",
+        "12\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Combi, Sunder(1)"
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "Combi"
+    ],
+    [
+        "Assault-Plasma *",
+        22,
+        29
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "Combi"
+    ],
+    [
+        "- Plasma (Standard)",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1), Combi"
+    ],
+    [
+        "- Plasma (Overcharged)",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Combi, Overheating"
+    ],
+    [
+        "Astartes chainsword\u1d33",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-",
+        3,
+        3
+    ],
+    [
+        "Auto boltstorm gauntlet\u1d33",
+        "Gravis armor only",
+        23,
+        28
+    ],
+    [
+        "- Ranged",
+        "18\"",
+        "Pistol 2",
+        4,
+        -1,
+        1,
+        "Suppression(2)"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-1)"
+    ],
+    [
+        "Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-",
+        5,
+        7
+    ],
+    [
+        "Bolt pistol\u1d33",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-",
+        2,
+        3
+    ],
+    [
+        "Bolt rifle",
+        7,
+        9
+    ],
+    [
+        "- Bolt ammo",
+        "30\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Stalker ammo",
+        "36\"",
+        "Heavy 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Combat knife",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "-",
+        1,
+        1
+    ],
+    [
+        "Combi-flamer\u1d40 *",
+        11,
+        7
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Flamer",
+        "9\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Auto Hit, Combi, Sunder(1)"
+    ],
+    [
+        "Combi-melta\u1d40 *",
+        16,
+        24
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Combi, Melta"
+    ],
+    [
+        "Combi-plasma\u1d40 *",
+        21,
+        27
+    ],
+    [
+        "- Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Plasma (Standard)",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1), Combi"
+    ],
+    [
+        "- Plasma (Overcharged)",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Combi, Overheating"
+    ],
+    [
+        "Force axe\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Force weapon",
+        "-",
+        6
+    ],
+    [
+        "Force staff\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "AT(1), Force weapon",
+        "-",
+        6
+    ],
+    [
+        "Force sword\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Force weapon",
+        "-",
+        6
+    ],
+    [
+        "Grav gun\u1d33",
+        "24\"",
+        "Rapid Fire 1",
+        5,
+        -3,
+        1,
+        "Grav",
+        9,
+        11
+    ],
+    [
+        "Grav pistol\u1d33",
+        "12\"",
+        "Pistol 1",
+        5,
+        -3,
+        1,
+        "Grav",
+        4,
+        5
+    ],
+    [
+        "Hand flamer\u1d33",
+        "6\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)",
+        2,
+        1
+    ],
+    [
+        "Heavy bolt pistol\u1d33",
+        "12\"",
+        "Pistol 1",
+        4,
+        -2,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Heavy bolt rifle\u1d33 *",
+        8,
+        10
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        5,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "- Stalker ammo",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Bolt ammo",
+        "30\"",
+        "Rapid Fire 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Hunter-killer missile",
+        "120\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Ammo(1), AT(2)",
+        "-",
+        "-"
+    ],
+    [
+        "Lightning claw\u1d40",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Shred",
+        4,
+        5
+    ],
+    [
+        "Melta bombs\u1d33 \u1d40",
+        "3\"",
+        "Grenade",
+        8,
+        -5,
+        2,
+        "AT(3), Armorbane",
+        5,
+        5
+    ],
+    [
+        "Modified bolt rifle\u1d33 *",
+        "-",
+        18
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        4,
+        0,
+        2,
+        "-"
+    ],
+    [
+        "- Bolt ammo",
+        "30\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        2,
+        "-"
+    ],
+    [
+        "- Stalker ammo",
+        "36\"",
+        "Heavy 1",
+        4,
+        -2,
+        2,
+        "-"
+    ],
+    [
+        "Neo volkite pistol\u1d33",
+        "12\"",
+        "Pistol 2",
+        5,
+        -1,
+        1,
+        "Deadly(5+)",
+        5,
+        6
+    ],
+    [
+        "Ossific Blades\u1d40",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)",
+        "-",
+        "-"
+    ],
+    [
+        "Pair of lightning claws\u1d40",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(2), Shred, Unwieldy",
+        6,
+        7
+    ],
+    [
+        "Plasma pistol\u1d33 *",
+        10,
+        13
+    ],
+    [
+        "- Standard",
+        "12\"",
+        "Pistol 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "12\"",
+        "Pistol 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Power axe\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "-",
+        5,
+        6
+    ],
+    [
+        "Power fist\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)",
+        13,
+        17
+    ],
+    [
+        "Power lance",
+        10,
+        10
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "AT(1), Charge, Quick(+1)"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "Power maul\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-",
+        5,
+        6
+    ],
+    [
+        "Power sword\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-",
+        5,
+        6
+    ],
+    [
+        "Pyre pistol\u1d33",
+        "9\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)",
+        3,
+        2
+    ],
+    [
+        "Storm bolter\u1d33 \u1d40",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-",
+        11,
+        13
+    ],
+    [
+        "Thunder hammer\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(3), Slow(-3)",
+        20,
+        25
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphractii or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Aquila Imperialis\u1d33 \u1d40",
+        "Instead of rolling for it, the model and the attached unit may automatically pass a Leadership test once per game. Unique",
+        5,
+        5
+    ],
+    [
+        "Armorium cherub\u1d33 \u1d40",
+        "Instead of using its own weapons, the model may use the Armorium cherub to let another model in the same unit or attached unit fire a weapon twice during one activation. Each unit May benefit from this effect only once per round. Ammo(1).\n",
+        5,
+        5
+    ],
+    [
+        "Astartes bionics\u1d33 \u1d40",
+        "The model gains the \"Warded\" ability.",
+        "-",
+        14
+    ],
+    [
+        "Auspex scanner\u1d33 \u1d40",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Auxiliary grenade launcher\u1d33 \u1d40",
+        "All grenades of the model have four times the range.",
+        5,
+        5
+    ],
+    [
+        "Book of Malcador\u1d33 \u1d40",
+        "The model knows one more psychic power from any psychic discipline it normally has access to. Unique. Only for Librarians.",
+        "-",
+        5
+    ],
+    [
+        "Chapter banner\u1d40",
+        "The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit may not be contested by enemy units. Additionally, all models in the unit gain +1 Attack. Unique. Only for Ancients.",
+        "-",
+        15
+    ],
+    [
+        "Familiar\u1d33 \u1d40",
+        "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Librarians.",
+        "-",
+        5
+    ],
+    [
+        "Gravis armor",
+        "The model gains +1 Toughness, a 6+ ward save and the special rules \"Massive(1)\" and \"Unyielding\". Not combinable with other armors.",
+        6,
+        13
+    ],
+    [
+        "Iron halo\u1d33 \u1d40",
+        "The model gains a 4+ ward save.",
+        "-",
+        30
+    ],
+    [
+        "Jump pack\u1d33",
+        "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
+        9,
+        19
+    ],
+    [
+        "Marksman honours\u1d33 \u1d40",
+        "The model gains +1 Ballistic Skill.",
+        4,
+        5
+    ],
+    [
+        "Master-crafted armor\u1d33 \u1d40",
+        "The model gains a 2+ armor save. Not combinable with other armors.",
+        7,
+        15
+    ],
+    [
+        "Master-crafted weapon\u1d33 \u1d40",
+        "One weapon of the model gains the ability \"Master-crafted\".",
+        2,
+        2
+    ],
+    [
+        "Omniscope\u1d33 \u1d40",
+        "The bearer and their attached unit gain the \"Seeking\" ability against enemy units within 12\".",
+        "-",
+        15
+    ],
+    [
+        "Parry shield",
+        "The model gains the ability \"Parry\".",
+        2,
+        4
+    ],
+    [
+        "Phobos armor",
+        "The model gains the abilities \"Move Through Cover\" and \"Infiltrator.\" Not combinable with other armors.",
+        3,
+        6
+    ],
+    [
+        "Power armor",
+        "The model gains a 3+ armor save. Not combinable with other armors.",
+        7,
+        "-"
+    ],
+    [
+        "Psychic training\u1d40",
+        "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. May be taken multiple times.",
+        5,
+        5
+    ],
+    [
+        "Purity seal\u1d33 \u1d40",
+        "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+        2,
+        2
+    ],
+    [
+        "Refractor field\u1d33",
+        "The model gains a 5+ ward save.",
+        11,
+        20
+    ],
+    [
+        "Relic blade\u1d33 \u1d40",
+        "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. May only be used on weapons with D:1. Only for Lieutenants.",
+        "-",
+        "Special"
+    ],
+    [
+        "Relic of the Chapter\u1d33 \u1d40",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. May be taken multiple times.",
+        "-",
+        10
+    ],
+    [
+        "Selfless healer\u1d40",
+        "At the end of its movement, the model may attempt to heal a creature within 3\". On a 4+, a model regains up to 1 lost Wound. Only for Apothecaries. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Signum\u1d33 \u1d40",
+        "Instead of using their own ranged weapons, the model may grant a friendly creature model within 6\" range +1 to hit rolls this round.",
+        5,
+        5
+    ],
+    [
+        "Space Marine bike",
+        "The model gains +6\" movement, +1 Toughness, +1 Wound, a Twin bolt rifle, the \"Bike\" type, and \"Devastating Charge\" (see Outrider Squads). Only for infantry.",
+        36,
+        47
+    ],
+    [
+        "Storm shield\u1d40",
+        "The model gains the abilities \"Deflect\" and \"Parry\". Only for Infantry and Jump pack units.",
+        4,
+        8
+    ],
+    [
+        "Swordsman honours\u1d33 \u1d40",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Teleport homing beacon\u1d33 \u1d40",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.\n",
+        10,
+        10
+    ],
+    [
+        "Terminator armor",
+        "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1)\", \"Deep Strike\" and \"Unyielding.\" Only for infantry. Not combinable with other armors.",
+        23,
+        46
+    ],
+    [
+        "Trophy\u1d33 \u1d40",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphractii or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VETERAN ABILITIES",
+        "POINTS",
+        "POINTS MONSTROUS CREATUES & VEHICLES"
+    ],
+    [
+        "Counter-attack",
+        "The model gains the ability \"Counter-attack\".",
+        1,
+        2
+    ],
+    [
+        "Favoured enemy",
+        "The model gains the ability \"Favoured enemy\".",
+        1,
+        2
+    ],
+    [
+        "Furious charge",
+        "The model gains the ability \"Furious charge\".",
+        1,
+        2
+    ],
+    [
+        "Infiltrator",
+        "The model gains the ability \"Infiltrator\".",
+        1,
+        "-"
+    ],
+    [
+        "Outflank",
+        "The model gains the ability \"Outflank\".",
+        1,
+        2
+    ],
+    [
+        "Tank hunter",
+        "The model gains the ability \"Tank hunter\".",
+        1,
+        2
+    ],
+    [
+        "Terrain expert",
+        "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+        1,
+        2
+    ],
+    [
+        "Vanguard",
+        "The model gains the ability \"Vanguard\".",
+        1,
+        "-"
+    ],
+    [
+        "Point costs must be paid for every model in the unit and per Wound or Hull point of the model."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Hunter-killer missile",
+        "The model gains a Hunter-killer missile.",
+        5
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and may choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Jammer",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.\n",
+        15
+    ],
+    [
+        "Machine spirit",
+        "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
+        5
+    ],
+    [
+        "Smoke Launcher",
+        "The model may use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units may only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ]
+]

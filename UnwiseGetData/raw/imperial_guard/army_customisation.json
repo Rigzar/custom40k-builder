@@ -1,0 +1,218 @@
+[
+    [
+        "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy, 0-2 Traits\n\nIf a Trait is taken, all models / units in the army must be upgraded with it, unless stated otherwise."
+    ],
+    [
+        "ARCHETYPES"
+    ],
+    [
+        "Airborne Assault Company",
+        "- The army doubles the amount of units that may enter from reserves each round during the Reinforcement phase. Roll one die for each unit.\n- May not select any Heavy Support units."
+    ],
+    [
+        "Brood Brothers",
+        "- Brood Brothers are treated like \"Genestealer Cults\" in the Ally matrix.\n- All creature units must gain the \"Ambush\" ability (see Genestealer Cults) for 1 point per Wound.\n- Models with access to the Armory can also access the Genestealer Cult Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+    ],
+    [
+        "Cavalry Regiment",
+        "- Rough Riders can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all.                                                                                     "
+    ],
+    [
+        "Gue'vesa",
+        "- Gue'vesa are treated like \"Tau\" in the Ally matrix.\n- All units must gain the \"Supporting Fire\" ability (see Tau Empire) for 1 point per Wound or 2 points per Hull point.\n- All creature units that are equipped with a Lasgun may exchange it for +3 points for a Pulse rifle.\n- All creature units that are equipped with a Hot-shot lasgun may exchange it for +2 points for a Pulse rifle.\n- Models with access to the Armory can also access the Tau Empire Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+    ],
+    [
+        "Jungle Fighters",
+        "- All units gain the \"Move through cover\" and \"Use cover\" abilities.\n- All creature units additionally gain the \"Infiltrate\" ability. \n- All creature units reduce their armor save by -1. \n- Creature units that have access to Lascannons may select a Heavy Flamer for +5 points in its place."
+    ],
+    [
+        "Mechanised Company",
+        "- Transport vehicles from Mechanised Infantry squads count towards the 25% requirement for Troop selections with 75% of their point costs.\n- All creature units with less than 12\" Movement must start the game as passengers inside a transport.\n- Can not take a Leman Russ Tank Commander or a Leman Russ Commissar.\n- May only take a single Heavy Support selection."
+    ],
+    [
+        "Ogryn Regiment",
+        "- Bullgryns, Ogryns and Ogryn Brutes can be taken as Troops.\n- All other Troop units become Elite choices."
+    ],
+    [
+        "Ratling Company",
+        "- All Creature units gain +1 Ballistic Skill.\n- All Creature units suffer -1 Strength and -1 Toughness.\n- Bullgryns, Ogryns, Ogryn Bodyguard, Ogryn Brutes, Stormtroopers and Stormtrooper Command Squads may not be selected. "
+    ],
+    [
+        "Tempestus Scions",
+        "- The army only has access to the following units, regardless of other traits:\n- Lord Commissars, Commissars, Stormtroopers, Stormtrooper Command Squads, Taurox and Valkyries.\n- Stormtroopers can be taken as Troops selections.\n- All units receive the ability \"Objective secured!\"."
+    ],
+    [
+        "Traitor Guard",
+        "- Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Models with access to the Armory and a Mark of a God can also access the god specific Armory.\n- Models with the \"Psyker\" ability and a Mark of a God can also access that god specific psychic discipline.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- Must adhere to the \"Animosity of the Gods\" rule (see Chaos Space Marines).\n- Must adhere to the \"Summoning\" rule (see Chaos Space Marines).\n- May not select a Legacy."
+    ],
+    [
+        "Veteran Company",
+        "- Veterans can be taken as Troops.\n- All units in the army gain the ability to and must select a Veteran ability."
+    ],
+    [
+        "Whiteshields",
+        "- Conscript Infantry Platoons can be taken without a Platoon Command Squad.\n- You are only allowed one other Troop selection per Conscript Infantry Platoon in your army."
+    ],
+    [
+        "LEGACIES"
+    ],
+    [
+        "Death World",
+        "The army gains access to the \"Burn them out! order."
+    ],
+    [
+        "Desert World",
+        "The army gains access to the \"Get around behind them!\" order."
+    ],
+    [
+        "Fortress World",
+        "The army gains access to the \"Suppressive fire!\" order."
+    ],
+    [
+        "Frozen World",
+        "The army gains access to the \"Fire on my command!\" order."
+    ],
+    [
+        "Industrial World",
+        "The army gains access to the \"Mount up!\" order."
+    ],
+    [
+        "Macropol World",
+        "The army gains access to the \"Form firing squad!\" order."
+    ],
+    [
+        "Ministorum World",
+        "The army must select two Traits and may then select a third Trait that is paid per unit (not per model). That Trait is free."
+    ],
+    [
+        "TRAITS",
+        "POINTS PER UNIT"
+    ],
+    [
+        "NORMAL",
+        "CHARACTER MODELS",
+        "MONSTROUS CREATURES & VEHICLES"
+    ],
+    [
+        "Abhuman Auxiliaries",
+        "Select one improvement that can be applied to any creature unit (except Halflings and Ogryns):\n- Afriel Strain: The unit gains the \"They Shall Know No Fear\" ability (see Space Marines).\n- Beasts: The unit gains the \"Furious Charge\" ability.\n- Gland Warriors: The unit gains +2 Strength. During every activation it needs to pass a Dangerous Terrain test.\n- Nightsiders: The unit gains the \"Acute Senses\" ability.\n- Slave Levies: The unit gains the \"Unyielding\" ability.",
+        5,
+        "-",
+        "-"
+    ],
+    [
+        "Bionic Improvement",
+        "Creature models gain a 6+ ward save. Only for creature models that do not already have an ward save from their datasheet or Armory.",
+        "1*",
+        0,
+        "1*"
+    ],
+    [
+        "Born Soldiers",
+        "The unit may re-roll ranged to hit rolls of 1 with Assault, Grenade, Pistol and Rapid Fire weapons.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Cameleolin",
+        "The unit gains a cumulative +1 bonus to armor save rolls while benefitting from cover.",
+        5,
+        0,
+        "-"
+    ],
+    [
+        "Close Combat Specialists",
+        "Each model may swap their Lasgun for a Las pistol and a Close combat weapon.",
+        0,
+        0,
+        "-"
+    ],
+    [
+        "Close Order Drill",
+        "If all models of a unit are in base to base contact, they gain +1 Initiative and +1 Leadership. Weapons with the \"Blast(4)\" or \"Auto Hit\" ability always score +1 additional hit against the unit while the benefits of this trait are active. Blast(6) weapons score +2 hits and Blast(8) weapons cause +3 hits. Can only be used by Infantry type units without the \"Massive(x)\" ability. The Initiative bonus is not cumulative with the bonus from the \"Fix bayonets!\" order.",
+        0,
+        0,
+        "-"
+    ],
+    [
+        "Combined Regiments",
+        "The army must select a second Legacy.",
+        0,
+        0,
+        0
+    ],
+    [
+        "Disciplined Shooters",
+        "The unit does not suffer the to hit penalty from Defensive Fire.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Fanatism",
+        "The unit gains the \"Blind Rage\" ability.",
+        0,
+        0,
+        "-"
+    ],
+    [
+        "Hardened Fighters",
+        "The unit gains +1 Weapon skill.",
+        5,
+        0,
+        "-"
+    ],
+    [
+        "Heavy Infantry",
+        "The unit gains Krak grenades and Plate armor. Can't be combined with \"Jungle Fighters\". Only for creature models that do not already have a 4+ armor save from their datasheet or Armory.",
+        "3*",
+        0,
+        "-"
+    ],
+    [
+        "Heirloom Weapons",
+        "The unit can re-roll one armor penetration or wound roll per activation.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Iron Discipline",
+        "The unit gains +1 Leadership.",
+        5,
+        0,
+        "-"
+    ],
+    [
+        "Jury-rigged repairs",
+        "Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.",
+        "-",
+        0,
+        "5*"
+    ],
+    [
+        "Las Fusilade",
+        "The unit gains the \"Deflagrate(5+)\" ability with Las weapons. Does not apply to \"Heavy\" weapons.",
+        5,
+        0,
+        5
+    ],
+    [
+        "Rapid Assault",
+        "The unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+        5,
+        0,
+        0
+    ],
+    [
+        "Shock Troops",
+        "The unit gains the \"Deep strike\" ability.",
+        5,
+        0,
+        "-"
+    ],
+    [
+        "The point costs for traits have to be paid per unit. If point costs are marked with *, then they must be paid for every Wound or Hull point in the unit."
+    ]
+]

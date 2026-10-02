@@ -1,0 +1,110 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Palatine",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        4,
+        2,
+        8,
+        "3+",
+        54
+    ],
+    [
+        "*",
+        "Canoness",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        9,
+        "3+",
+        69
+    ],
+    [
+        "A Palatine is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Canoness or Canoness in Paragon Warsuit per army."
+    ],
+    [
+        "\u2022 One Palatine per army can be upgraded to a Canoness for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Shield of Faith"
+    ],
+    [
+        "Canoness: A Canoness may use Emperor's Grace a second time."
+    ],
+    [
+        "Emperor's Grace: Select one unit during your Reinforcement phase with the Shield of Faith ability. The unit gains the \"Warded\" ability until the end of the current battle round."
+    ],
+    [
+        "Pious: A Palatine increases the Faith Points by +1, a Canoness by +2."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

@@ -1,0 +1,126 @@
+{
+    "name": "Centurion Devastator Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "2+"
+            },
+            "name": "Centurion",
+            "min": 1,
+            "max": 1,
+            "points": 120
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "2+"
+            },
+            "name": "Centurion Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 120
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Veteran Centurion Sergeant",
+            "min": 0,
+            "max": 1,
+            "points": 130
+        }
+    ],
+    "min_cost": 240,
+    "default_size": 2,
+    "equipped_with": "Every model is equipped with: Grav cannon; Hurricane Boltgun.",
+    "weapons": [
+        {
+            "name": "Grav cannon",
+            "range": "30\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Grav"
+        },
+        {
+            "name": "Hurricane Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 6",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        }
+    ],
+    "abilities": [
+        "Massive(2), They Shall Know No Fear, Unyielding"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

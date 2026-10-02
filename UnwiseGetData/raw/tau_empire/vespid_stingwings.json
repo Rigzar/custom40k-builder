@@ -1,0 +1,128 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-9",
+        "Stingwing",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        1,
+        5,
+        1,
+        5,
+        "5+",
+        20
+    ],
+    [
+        1,
+        "Strain Leader",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        1,
+        5,
+        1,
+        8,
+        "5+",
+        25
+    ],
+    [
+        "All models are equipped with: Neutron blaster."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Neutron blaster",
+        "12\"",
+        "Assault 1",
+        5,
+        -3,
+        2,
+        "-"
+    ],
+    [
+        "Neutron grenade launcher",
+        "12\"",
+        "Assault 1",
+        4,
+        -2,
+        2,
+        "Blast(4)"
+    ],
+    [
+        "Neutron rail rifle",
+        "30\"",
+        "Assault 1",
+        8,
+        -4,
+        2,
+        "AT(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 5 models, one Stingwing may swap their Neutron blaster:"
+    ],
+    [
+        "- Flamer",
+        "-4 points"
+    ],
+    [
+        "- Neutron grenade launcher",
+        "+11 points"
+    ],
+    [
+        "- Neutron rail rifle",
+        "+16 points"
+    ],
+    [
+        "\u2022 The Strain Leader has access to weapons and gear from the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Supporting Fire"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump Pack Infantry"
+    ]
+]

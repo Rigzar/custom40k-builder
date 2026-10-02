@@ -1,0 +1,105 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Kan",
+        "-",
+        "-",
+        "5+",
+        5,
+        10,
+        10,
+        10,
+        "-",
+        "-",
+        2,
+        102
+    ],
+    [
+        "A Kan is a single model and is equipped with: Kontrol Thrustas."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Kontrol Thrustas",
+        "-",
+        "Melee",
+        8,
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike"
+    ],
+    [
+        "It's Raining Kans: Kans always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!"
+    ],
+    [
+        "Kontrolled Landing: A Kan must be initially placed at least 6\" away from any unit, enemy or friendly, when it Deep Strikes. If it then scatters to within 1\" of any unit, friendly or enemy, resolve D6 Hits with its Kontrol Thrustas weapon on the unit it has scattered into. The Kan then takes a Glancing Hit."
+    ],
+    [
+        "Transport: This model has a transport capacity of 15 infantry models, 1 Deff Dread, or 3 Killa Kans."
+    ],
+    [
+        "Ramshackle: Roll on the table when the vehicle is destroyed."
+    ],
+    [
+        "D6",
+        "Result"
+    ],
+    [
+        "1-2",
+        "Kaboom! The vehicle explodes with a radius of 6\"."
+    ],
+    [
+        "3-4",
+        "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
+    ],
+    [
+        "5-6",
+        "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as wreckage."
+    ],
+    [
+        "If the vehicle has been immobilized, the controlling player can roll with any command on the \"Ramshackle\" table in the next activation and apply the result."
+    ],
+    [
+        "Unorked: A Kan cannot contest or hold mission objectives."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

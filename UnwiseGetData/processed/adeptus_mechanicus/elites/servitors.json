@@ -1,0 +1,125 @@
+{
+    "name": "Servitors",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "5+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "5",
+                "SV": "4+"
+            },
+            "name": "Servitor",
+            "min": 3,
+            "max": 9,
+            "points": 10
+        }
+    ],
+    "min_cost": 30,
+    "default_size": 3,
+    "equipped_with": "Every Servitor is equipped with: Paired shock chargers",
+    "weapons": [
+        {
+            "name": "Heavy arc rifle",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Haywire"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Incendine combustor",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Paired shock chargers",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Phosphor blaster",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Luminagen"
+        },
+        {
+            "name": "Plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Plasma cannon - Overheating",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Shock charger",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Monotask, Unyielding",
+        "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

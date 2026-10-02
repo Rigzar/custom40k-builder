@@ -1,0 +1,86 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Imagifier",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        3,
+        2,
+        8,
+        "3+",
+        37
+    ],
+    [
+        "A Imagifier is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Command squad, Shield of Faith"
+    ],
+    [
+        "Advisor: For every HQ selection, one Imagifier may be selected without taking up an Elite slot."
+    ],
+    [
+        "Litany of Glorious Deeds: At the start of each activation, the Imagifier may choose a legend for themselves and an attached unit:\n1. Legend of the Devout - The unit gains +1\" Movement.\n2. Legend of the Defiant - The unit gains +1 Toughness.\n3. Legend of the Warriors - The unit gains +1 Strength.\nThe effect lasts until the Imagifier's next activation."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

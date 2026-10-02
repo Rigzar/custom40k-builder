@@ -1,0 +1,55 @@
+{
+    "name": "Venomcrawler",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "11",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "3",
+                "HP": "2"
+            },
+            "name": "Venomcrawler",
+            "min": 1,
+            "max": 2,
+            "points": 156
+        }
+    ],
+    "min_cost": 156,
+    "default_size": 1,
+    "equipped_with": "A Venomcrawler is equipped with: 2 Excruciator cannons, Soulflayer tendrils.",
+    "weapons": [
+        {
+            "name": "Excruciator cannon",
+            "range": "36\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Soulflayer tendrils",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Extra Attack(2)"
+        }
+    ],
+    "abilities": [
+        "Move through cover, Squadron",
+        "Soul-shredding Explosion: If the Venomcrawler is destroyed, it explodes automatically with a 6\" radius."
+    ],
+    "unit_type": "Walker",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

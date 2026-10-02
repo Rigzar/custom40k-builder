@@ -1,0 +1,130 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "9-29",
+        "Penal Legionnaire",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "5+",
+        5
+    ],
+    [
+        1,
+        "Penal Custodian",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "5+",
+        10
+    ],
+    [
+        "Every model is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Close combat weapon",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Lasgun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The entire squad may receive one of the following upgrades per model:"
+    ],
+    [
+        "- Knife fighters",
+        "+1 point"
+    ],
+    [
+        "- Gunslingers",
+        "+2 point"
+    ],
+    [
+        "\u2022 The Penal Custodian has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Explosive Collars: Each time this unit fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+    ],
+    [
+        "Last Chancers: This unit may not make use of any order."
+    ],
+    [
+        "Upgrades:"
+    ],
+    [
+        "Gunslingers: The model gains a Lasgun."
+    ],
+    [
+        "Knife Fighters: The model gains a Close combat weapon and a Las pistol."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

@@ -1,0 +1,246 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "0-10",
+        "Neophyte",
+        "6\"",
+        "4+",
+        "4+",
+        4,
+        4,
+        1,
+        4,
+        2,
+        6,
+        "4+",
+        15
+    ],
+    [
+        "4-9",
+        "Initiate",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        35
+    ],
+    [
+        1,
+        "Sword Brother",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        36
+    ],
+    [
+        "Every Neophyte is equipped with: Astartes chainsword; Frag grenades; Bolt pistol; Krak grenades."
+    ],
+    [
+        "Every Initiate is equipped with: Astartes chainsword; Frag grenades; Heavy bolt pistol; Krak grenades."
+    ],
+    [
+        "The Sword Brother is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Astartes shotgun",
+        "18\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Bolt carbine",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolt rifle *"
+    ],
+    [
+        "- Bolt ammo",
+        "30\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Stalker ammo",
+        "36\"",
+        "Heavy 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Assault ammo",
+        "24\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Pyreblaster",
+        "12\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Pyre pistol",
+        "9\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Heavy bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All Neophytes may swap their Astartes chainsword:"
+    ],
+    [
+        "- Astartes shotgun",
+        "+1 point"
+    ],
+    [
+        "- Bolt carbine",
+        "+1 point"
+    ],
+    [
+        "\u2022 Each Initiate may swap their Astartes chainsword:"
+    ],
+    [
+        "- Bolt rifle",
+        "+2 points"
+    ],
+    [
+        "\u2022 For every 10 models, two Initiates may swap their Astartes chainsword:"
+    ],
+    [
+        "- Pyreblaster",
+        "+1 point"
+    ],
+    [
+        "- Power fist",
+        "+11 points"
+    ],
+    [
+        "\u2022 For every 10 models, two Initiates may swap their Heavy bolt pistols:"
+    ],
+    [
+        "- Pyre pistol",
+        "+2 points"
+    ],
+    [
+        "- Plasma pistol",
+        "+7 points"
+    ],
+    [
+        "\u2022 The Sword Brother has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat squads, They Shall Know No Fear"
+    ],
+    [
+        "Squires: Neophytes may always be removed first as casualties and use their own defensive profile, even if they are no the majority in the unit."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

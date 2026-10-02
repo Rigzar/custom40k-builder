@@ -1,0 +1,128 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Infernus Marine",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        36
+    ],
+    [
+        1,
+        "Infernus Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        36
+    ],
+    [
+        "*",
+        "Veteran Infernus Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        46
+    ],
+    [
+        "Every model is equipped with: Pyroblaster; Bolt pistol; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Pyroblaster",
+        "12\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The Infernus Sergeant may be upgraded to a Veteran Infernus Sergeant for +10 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat squads, They Shall Know No Fear"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

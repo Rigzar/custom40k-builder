@@ -1,0 +1,52 @@
+{
+    "name": "Ogryn Brutes",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "4+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "3",
+                "A": "4",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Brute",
+            "min": 3,
+            "max": 10,
+            "points": 33
+        }
+    ],
+    "min_cost": 99,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Crude weapon.",
+    "weapons": [
+        {
+            "name": "Crude weapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power drill",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Slow(-3)"
+        }
+    ],
+    "abilities": [
+        "Furious Charge, Massive(1)"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

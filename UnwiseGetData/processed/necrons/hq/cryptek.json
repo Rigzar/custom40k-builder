@@ -1,0 +1,128 @@
+{
+    "name": "Cryptek",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "10",
+                "SV": "4+"
+            },
+            "name": "Cryptek",
+            "min": 1,
+            "max": 1,
+            "points": 30
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "3",
+                "A": "2",
+                "LD": "10",
+                "SV": "4+"
+            },
+            "name": "Dynasty Scion",
+            "min": 0,
+            "max": 1,
+            "points": 44
+        }
+    ],
+    "min_cost": 30,
+    "default_size": 1,
+    "equipped_with": "A Cryptek is equipped with: -.A Chronomancer is equipped with: Aeonstave.A Dynasty Scion is equipped with: -.A Psychomancer is equipped with: Abyssal lance.A Plasmancer is equipped with: Plasmic lance.An Ethermancer is equipped with: Voltaic staff.A Geomancer is equipped with: Tremorstave.An Astromancer is equipped with: Staff of Time.A Technomancer is equipped with: Staff of Light.",
+    "weapons": [
+        {
+            "name": "Abyssal lance",
+            "range": "9\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "*",
+            "d": "*",
+            "abilities": "Wound rolls are done against the target's Leadership value. Successfull wounds cause one Mortal Wound each."
+        },
+        {
+            "name": "Aeonstave",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Shield breaker(-3)"
+        },
+        {
+            "name": "Plasmic lance",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Staff of Light",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Staff of Time",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+3)"
+        },
+        {
+            "name": "Tremorstave",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Monofilament"
+        },
+        {
+            "name": "Voltaic staff",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Haywire"
+        }
+    ],
+    "abilities": [
+        "Command squad, Regeneration(1)",
+        "Royal Court: If an Overlord is present, up to four Crypteks can be chosen that do not occupy an HQ slot. If a Lord is present, up to two Crypteks can be chosen that do not occupy an HQ slot.",
+        "Astromancer: Prescient strike grants this model 2 re-rolls each. Additionally, this model's rolls for \"The Stars Are Right\" are always reduced by 1 (to a minimum of 0).",
+        "Chronomancer: A Chronometron's ability may be used for this model or its attached unit. Additionally, a Timesplinter mantle grants \"Deflect\" and \"Parry\" to this model and its attached unit.",
+        "Dynasty Scion: The model gains an improved profile (see above) and has additionally access to Lord equipment in the Armory.",
+        "Ethermancer: An Ether crystal used by this model causes 2D3 hits. Additionally, this model's Lightning Field grants the \"Retribution(1)\" ability to its attached unit.",
+        "Geomancer: A Harp of Dissonance used by this model has unlimited range. Additionally, a Seismic crucible grants its effect to this model and its attached unit.",
+        "Plasmancer: A Gaze of Flame's effect may be used for this model and its attached unit. Additionally, this model and its attached unit are not affected by a Solar Pulse.",
+        "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness scatters 1D6 less (so normally only 1D6\") when used by this model.",
+        "Technomancer: A Canoptek Cloak used by this model may repair 2 Wounds or 2 vehicle damage results per turn. Additionally, it may use a Canoptek Control Node a second time each activation."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Cryptek, Necron"
+    ]
+}

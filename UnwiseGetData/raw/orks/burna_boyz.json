@@ -1,0 +1,175 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-15",
+        "Burna Boy",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        1,
+        3,
+        2,
+        6,
+        "6+",
+        16
+    ],
+    [
+        "*",
+        "Spanna",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        1,
+        3,
+        2,
+        6,
+        "6+",
+        16
+    ],
+    [
+        "Every Burna Boy is equipped with: Burna.\nEvery Spanna is equipped with: Choppa; Slugga."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Burna"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "- Ranged",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Big shoota",
+        "36\"",
+        "Assault 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Choppa",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Kustom mega-blasta",
+        "24\"",
+        "Assault 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4), Overheating"
+    ],
+    [
+        "Rokkit launcha",
+        "24\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Slugga",
+        "12\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The entire squad may receive one of the following upgrades per model:"
+    ],
+    [
+        "- Wildork",
+        "+2 points"
+    ],
+    [
+        "- 'Eavy armour",
+        "+6 points"
+    ],
+    [
+        "\u2022 Up to three Burna Boyz may be upgraded to Spannas for +0 points each."
+    ],
+    [
+        "\u2022Every Spanna may swap their Choppa and Slugga:"
+    ],
+    [
+        "- Big shoota",
+        "+6 points"
+    ],
+    [
+        "- Rokkit launcha",
+        "+11 points"
+    ],
+    [
+        "- Kustom mega-blasta",
+        "+12 points"
+    ],
+    [
+        "\u2022 Spannas got access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

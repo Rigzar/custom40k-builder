@@ -1,0 +1,64 @@
+{
+    "name": "Pyrovore Brood",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "2",
+                "A": "2",
+                "LD": "6",
+                "SV": "3+"
+            },
+            "name": "Pyrovore",
+            "min": 1,
+            "max": 3,
+            "points": 75
+        }
+    ],
+    "min_cost": 75,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: Acid maw; Flamespurt.",
+    "weapons": [
+        {
+            "name": "Acid maw",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Flamespurt - Burning spray",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Flamespurt - Pyrogout",
+            "range": "18\"",
+            "type": "Assault 8",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "abilities": [
+        "Instinctive Behaviour, Massive(2), Move Through Cover",
+        "Volatile: The model always explodes like a vehicle."
+    ],
+    "unit_type": "Monstrous Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Advanced Bioform"
+    ]
+}

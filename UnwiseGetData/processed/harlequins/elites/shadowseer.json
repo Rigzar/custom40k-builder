@@ -1,0 +1,45 @@
+{
+    "name": "Shadowseer",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "6+"
+            },
+            "name": "Shadowseer",
+            "min": 1,
+            "max": 2,
+            "points": 66
+        }
+    ],
+    "min_cost": 66,
+    "default_size": 1,
+    "equipped_with": "A Shadowseer is equipped with: Plasma grenades.",
+    "weapons": [
+        {
+            "name": "Plasma grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>",
+        "Holo-suit: The model gains a 4+ ward save.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

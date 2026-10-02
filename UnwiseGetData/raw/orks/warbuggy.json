@@ -1,0 +1,372 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-3",
+        "Warbuggy",
+        "12\"",
+        "-",
+        "5+",
+        5,
+        10,
+        10,
+        10,
+        3,
+        1,
+        2,
+        88
+    ],
+    [
+        "Every model is equipped with: -"
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Big shoota",
+        "36\"",
+        "Assault 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Burna bottles",
+        "6\"",
+        "Grenade 2",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Grot bomm",
+        "72\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Ammo (1), AT(2), Blast(6), Indirect, Grot Gunner, Seeking"
+    ],
+    [
+        "Kannon*"
+    ],
+    [
+        "- Frag",
+        "36\"",
+        "Heavy 1",
+        5,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Shell",
+        "36\"",
+        "Heavy 1",
+        8,
+        -2,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Lobba",
+        "36\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "Blast(4), Indirect"
+    ],
+    [
+        "Mek speshul",
+        "30\"",
+        "Assault 9",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Rivet gun",
+        "24\"",
+        "Assault 6",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Rokkit kannon",
+        "24\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "Rokkit launcha",
+        "24\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Shokk rifle",
+        "24\"",
+        "Assault 1",
+        "2D6",
+        -3,
+        2,
+        "AT(2), Blast(4), Mek Weapon, Shokk Tunnel"
+    ],
+    [
+        "Skorcha",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Squig launcha",
+        "24\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "Blast(4), Indirect"
+    ],
+    [
+        "Stikkbombz",
+        "6\"",
+        "Grenade 1",
+        3,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Twin-linked big shoota",
+        "36\"",
+        "Assault 6",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin-linked rokkit launcha",
+        "24\"",
+        "Assault 2",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Zzap gun",
+        "36\"",
+        "Heavy 1",
+        "2D6",
+        -4,
+        3,
+        "AT(2)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May be equipped with one big gun:"
+    ],
+    [
+        "- Lobba",
+        "+11 points"
+    ],
+    [
+        "- Kannon",
+        "+16 points"
+    ],
+    [
+        "- Zzap gun",
+        "+20 points"
+    ],
+    [
+        "- Squig launcha with Grot Gunner",
+        "+25 points"
+    ],
+    [
+        "- Rivet gun",
+        "+26 points"
+    ],
+    [
+        "- Grot bomm",
+        "+34 points"
+    ],
+    [
+        "- Mek speshul",
+        "+36 points"
+    ],
+    [
+        "- Shokk rifle with Grot Gunner",
+        "+41 points"
+    ],
+    [
+        "\u2022 May be equipped with one small gun. If the warbuggy doesn't have a big gun, it may take up to three small guns:"
+    ],
+    [
+        "- Big shoota",
+        "+12 points"
+    ],
+    [
+        "- Rokkit launcha",
+        "+16 points"
+    ],
+    [
+        "- Squig launcha*",
+        "+16 points"
+    ],
+    [
+        "- Skorcha",
+        "+22 points"
+    ],
+    [
+        "- Twin-linked big shoota",
+        "+23 points"
+    ],
+    [
+        "- Twin-linked rokkit launcha",
+        "+31 points"
+    ],
+    [
+        "- Rokkit kannon*",
+        "+43 points"
+    ],
+    [
+        "*A warbuggy may only take one of these small weapons in total."
+    ],
+    [
+        "\u2022 May take a crew weapon:"
+    ],
+    [
+        "- Stikkbombz",
+        "+1 point"
+    ],
+    [
+        "- Burna bottles",
+        "+4 points"
+    ],
+    [
+        "- Big shoota with Grot Gunner",
+        "+17 points"
+    ],
+    [
+        "- Twin-linked Big shoota with Grot Gunner",
+        "+35 points"
+    ],
+    [
+        "\u2022 May take Pointy Bitz for +21 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Squadron, Waaagh!"
+    ],
+    [
+        "Grot Gunner: A weapon with a Grot gunner is fired with a BS of 4+."
+    ],
+    [
+        "Mek weapon: This weapon's profile cannot be changed by equipment or wargear."
+    ],
+    [
+        "Pointy Bitz: The model inflicts D6 hits with S:6 AP:-2 D:1 when it makes a Charge move."
+    ],
+    [
+        "Ramshackle: Roll on the table when the vehicle is destroyed."
+    ],
+    [
+        "1-3",
+        "Kaboom! The vehicle explodes with a radius of 6\"."
+    ],
+    [
+        "4-6",
+        "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
+    ],
+    [
+        "If the vehicle has been immobilized, the controlling player can roll with any command on the \"Ramshackle\" table in the next activation and apply the result."
+    ],
+    [
+        "Shokk Rifle: Roll for the strength of the weapon after you have selected a target. If doubles are rolled, consult the following table:"
+    ],
+    [
+        "2D6",
+        "Result"
+    ],
+    [
+        1.1,
+        "Boom! The warbuggy receives an automatic hit with S: D AP: -4 D: 3.        "
+    ],
+    [
+        2.2,
+        "Gah! The new target is the nearest visible unit that is not engaged in melee combat (including Ork units!).        "
+    ],
+    [
+        3.3,
+        "Oops! An opponent chooses a new target (including Ork units!).        "
+    ],
+    [
+        4.4,
+        "Sploosh! The weapon changes its profile to Assault 2, S: 6 AP: -3 D: 1, Blast(4), Suppression(3)."
+    ],
+    [
+        5.5,
+        "Zoink! Remove the warbuggy from the field and immediately redeploy it according to the rules for Deep strike. It can no longer move, but can still shoot.        "
+    ],
+    [
+        6.6,
+        "Bzzap! The weapon fires with Strength: D and AT(3) and loses the Blast(4) rule for this activation.        "
+    ],
+    [
+        "Shokk Tunnel: When an \"Advance\" command is given, instead of moving the model an additional 1D6\", a model with this weapon is removed from the board and immediately repositioned according to the rules for Deep Strike. Then roll 1D6. On a 1 or 2, the model suffers a penetrating hit."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

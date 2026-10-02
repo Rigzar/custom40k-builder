@@ -1,0 +1,93 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Destroyer",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        3,
+        1,
+        10,
+        "4+",
+        53
+    ],
+    [
+        "Every model is equipped with: Hyperphase threshers."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Hyperphase reap-blade",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "AT(1), Extra Attack(2), Slow(-1)"
+    ],
+    [
+        "Hyperphase threshers",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Extra Attack(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 3 Destroyers, one Destroyer may swap their Hyperphase threshers:"
+    ],
+    [
+        "- Hyperphase reap-blade",
+        "+6 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infiltrator, Massive(1), Parry, Reanimation Protocols"
+    ],
+    [
+        "Tunneling Horrors: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Necron"
+    ]
+]

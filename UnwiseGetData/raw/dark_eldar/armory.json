@@ -1,0 +1,587 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Agonizer",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Poison(3+)",
+        7,
+        9
+    ],
+    [
+        "Archite glaive\u1d9c\u1d58",
+        "-",
+        "Melee",
+        "+2",
+        -4,
+        2,
+        "Unwieldy",
+        11,
+        13
+    ],
+    [
+        "Blaster\u1d37",
+        "18\"",
+        "Assault 1",
+        8,
+        -4,
+        2,
+        "AT(2), Lance(+1)",
+        33,
+        41
+    ],
+    [
+        "Blaster pistol",
+        "12\"",
+        "Pistol 1",
+        8,
+        -4,
+        2,
+        "AT(2), Lance(+1)",
+        16,
+        20
+    ],
+    [
+        "Casket of Flensing\u1d9c\u1d52",
+        "12\"",
+        "Assault 6",
+        "W6",
+        "W6",
+        "W6",
+        "Ammo(1)",
+        "-",
+        20
+    ],
+    [
+        "Dark gate",
+        "12\"",
+        "Assault 1",
+        10,
+        0,
+        "*",
+        "Ammo(1), AT(4), Blast(6), Units hit must pass a Strength test or suffer three Mortal Wounds.",
+        "-",
+        15
+    ],
+    [
+        "Djinn blade\u1d37",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "Extra Attack(3)",
+        9,
+        10
+    ],
+    [
+        "Electrocorrosive whip",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Poison(3+), All models that were hit half their Strength until the bearers next activation.",
+        6,
+        8
+    ],
+    [
+        "Flesh gauntlet\u1d9c\u1d52",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        2,
+        "Deadly(5+), Extra Attack(1), Limit(1), Poison(2+)",
+        8,
+        10
+    ],
+    [
+        "Haywire grenade",
+        "6\"",
+        "Grenade 1",
+        3,
+        0,
+        1,
+        "AT(2), Haywire",
+        5,
+        5
+    ],
+    [
+        "Hekatarii blade\u1d9c\u1d58",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-",
+        1,
+        2
+    ],
+    [
+        "Hellglaive",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Extra Attack(1), Quick(1)",
+        5,
+        6
+    ],
+    [
+        "Hex rifle\u1d9c\u1d52",
+        "36\"",
+        "Assault 1",
+        4,
+        -5,
+        2,
+        "Poison(3+), Precision",
+        30,
+        35
+    ],
+    [
+        "Husk blade\u1d37",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "Soul burn(5+)",
+        9,
+        10
+    ],
+    [
+        "Hydra gauntlet\u1d9c\u1d58",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(3)",
+        6,
+        6
+    ],
+    [
+        "Ichor injector\u1d9c\u1d52",
+        "-",
+        "Melee",
+        "*",
+        "-",
+        "-",
+        "Extra Attack(1), Limit(1), For each successful hit roll with this weapon, the target must pass a Toughness test. If the test fails, the model dies immediately. Doesn't work against vehicles.",
+        "-",
+        10
+    ],
+    [
+        "Liquifier gun\u1d9c\u1d52",
+        "9\"",
+        "Assault 4",
+        4,
+        -3,
+        1,
+        "Auto Hit, Sunder(1)",
+        19,
+        13
+    ],
+    [
+        "Orb of despair",
+        "6\"",
+        "Assault 1",
+        8,
+        -5,
+        3,
+        "Ammo(1), Blast(4), To wound rolls are rolled against the target's Leadership value",
+        "-",
+        5
+    ],
+    [
+        "Plasma grenade",
+        "-",
+        "Melee",
+        4,
+        -2,
+        1,
+        "Blast(4)",
+        1,
+        1
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-",
+        4,
+        5
+    ],
+    [
+        "Razorflails\u1d9c\u1d58",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Re-roll to hit and to wound rolls",
+        6,
+        6
+    ],
+    [
+        "Scissorhand\u1d9c\u1d52",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Poison(3+), Extra Attack(1)",
+        5,
+        6
+    ],
+    [
+        "Scythe blade\u1d9c\u1d52",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Poison(3+)",
+        4,
+        5
+    ],
+    [
+        "Shadow bomb",
+        "3\"",
+        "Grenade",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)",
+        5,
+        5
+    ],
+    [
+        "Shardcarbine",
+        "18\"",
+        "Assault 3",
+        2,
+        0,
+        1,
+        "Poison(3+)",
+        7,
+        8
+    ],
+    [
+        "Shardnet and impaler\u1d9c\u1d58",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Enemy models in base contact reduce their Attacks by 1 (minimum 1)",
+        6,
+        6
+    ],
+    [
+        "Splinter pistol",
+        "12\"",
+        "Pistol 1",
+        2,
+        0,
+        1,
+        "Poison(3+)",
+        2,
+        2
+    ],
+    [
+        "Stinger pistol\u1d9c\u1d52",
+        "12\"",
+        "Pistol 1",
+        2,
+        0,
+        1,
+        "Poison(2+)",
+        4,
+        6
+    ],
+    [
+        "Venom blade",
+        "-",
+        "Melee",
+        "U",
+        -4,
+        1,
+        "Poison(2+)",
+        6,
+        7
+    ],
+    [
+        "Only for <Coven>\u1d9c\u1d52"
+    ],
+    [
+        "Only for <Cult>\u1d9c\u1d58"
+    ],
+    [
+        "Only for <Kabal>\u1d37"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "A league apart\u1d9c\u1d58",
+        "If the Initiative value of the Succubus is higher than that of any enemy in direct base contact, she gets +2 Attacks. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Animus Vitae\u1d9c\u1d52",
+        "If the wearer eliminated an enemy model during their activation, they gain an additional \"Power through Pain\" token. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Archangel of Pain",
+        "One enemy unit within 12\" must pass a Leadership test or have WS 6+ and Initiative 1 until the end of their next activation. Ammo(1). Unique.",
+        5,
+        5
+    ],
+    [
+        "Artefact of Commoragh",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "-",
+        10
+    ],
+    [
+        "Blood dancer\u1d9c\u1d58",
+        "The model and its attached unit gain +2\" charge range.",
+        "-",
+        5
+    ],
+    [
+        "Clone field",
+        "The bearer ignores the first two hits each game.",
+        "-",
+        5
+    ],
+    [
+        "Crucible of Malediction",
+        "All psykers within 12\" must pass a Leadership test or be killed immediately. Ammo(1). Unique.",
+        10,
+        10
+    ],
+    [
+        "Crystal heart",
+        "The bearer and an attached unit are immune to psychic powers. Unique.",
+        10,
+        10
+    ],
+    [
+        "Decapitator",
+        "All melee attacks of the model gain the \"Deadly(5+)\" ability. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Executioner\u2019s armour",
+        "The model gains a 2+ save.",
+        6,
+        23
+    ],
+    [
+        "Farseer bones",
+        "Once per game, after both players have rolled for Initiative, the bearer's roll can be increased by +2. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Ghostplate armor",
+        "The bearer gains a 5+ ward save.",
+        3,
+        12
+    ],
+    [
+        "Marksman honours",
+        "The model gains +1 Ballistic skill.",
+        4,
+        5
+    ],
+    [
+        "Master of Pain\u1d9c\u1d52",
+        "The model gains the \"Narthecium\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Master-crafted weapon",
+        "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        2,
+        2
+    ],
+    [
+        "Preysense array",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Realspace raider\u1d37",
+        "All rolls for reserves are automatically successfull.",
+        "-",
+        5
+    ],
+    [
+        "Shadow field\u1d37",
+        "The bearer got a 2+ ward save. If the saving throw fails once, the Shadow field can't be used for the rest of the game. Unique.",
+        "-",
+        40
+    ],
+    [
+        "Skybike",
+        "The bearer gains +6\" Movement, +1 Toughness, +1 Wound and the \"Jetbike\" ability.",
+        "-",
+        27
+    ],
+    [
+        "Skyboard",
+        "The bearer gains +6\" Movement and the \"Jump pack\" ability.",
+        "-",
+        11
+    ],
+    [
+        "Soul trap",
+        "Everytime the bearer destroys an enemy character model or monstrous creature, they add the Strength value to their own for the rest of the game.",
+        2,
+        2
+    ],
+    [
+        "Stimulant supply",
+        "The bearer may select an additional Combat drug.",
+        3,
+        3
+    ],
+    [
+        "Swordsman honours",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Twilight shroud",
+        "The model and its attached unit gain the \"Stealth\" ability.",
+        "-",
+        20
+    ],
+    [
+        "Vexator mask",
+        "The model gains (cumulative) \"Parry\".",
+        "-",
+        5
+    ],
+    [
+        "Webway lure",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        10,
+        10
+    ],
+    [
+        "Only for <Coven>\u1d9c\u1d52"
+    ],
+    [
+        "Only for <Cult>\u1d9c\u1d58"
+    ],
+    [
+        "Only for <Kabal>\u1d37"
+    ],
+    [
+        "COMBAT DRUGS"
+    ],
+    [
+        "Adrenalight",
+        "The unit gains +1 Attack."
+    ],
+    [
+        "Grave lotus",
+        "The unit gains +1 Strength."
+    ],
+    [
+        "Hypex",
+        "The unit automatically advances 6\" instead of rolling for the distance."
+    ],
+    [
+        "Serpentin",
+        "The unit gains +1 to hit rolls in melee."
+    ],
+    [
+        "Painbringer",
+        "The unit gains +1 Toughness."
+    ],
+    [
+        "VEHICLE EQUIPMENT ",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Bladevanes",
+        "The model gains the \"Vector strike\" ability and the following weapon: S:+1 AP:-2 D:1, Unwieldy.",
+        5
+    ],
+    [
+        "Flickerfield",
+        "The model gains a 5+ ward save.",
+        "-"
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Night shield",
+        "Enemy models reduce their weapons range by 12\" (to a minimum of 6\"), if they target the bearer.",
+        10
+    ],
+    [
+        "Shadowfield projector",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        15
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ],
+    [
+        "Trophy",
+        "Enemy units within a 6\" radius suffer -1 to their Leadership.",
+        10
+    ]
+]

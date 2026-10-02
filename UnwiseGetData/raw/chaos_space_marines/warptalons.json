@@ -1,0 +1,135 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Warp Talon",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        63
+    ],
+    [
+        1,
+        "Warp Talon Champion",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        68
+    ],
+    [
+        "Each model is equipped with: Warpclaws; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Warpclaws",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Extra Attack(2), Shred, Unwieldy"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+2 points"
+    ],
+    [
+        "- Slaanesh",
+        "+2 points"
+    ],
+    [
+        "- Nurgle",
+        "+2 points"
+    ],
+    [
+        "- Tzeentch",
+        "+5 points"
+    ],
+    [
+        "\u2022 The Warp Talon Champion has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Daemon"
+    ],
+    [
+        "Daemonic charge: Enemy units suffer an additional -1 to hit penalty during Defensive fire."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

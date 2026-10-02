@@ -1,0 +1,124 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Br\u00f4khyr Thunderkyn",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        2,
+        3,
+        2,
+        7,
+        "3+",
+        57
+    ],
+    [
+        "Every model is equipped with: Bolt cannon; Omni-visor."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt cannon",
+        "36\"",
+        "Assault 2",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Graviton blast cannon",
+        "18\"",
+        "Heavy 1",
+        5,
+        -3,
+        2,
+        "Blast(4), Graviton"
+    ],
+    [
+        "SP heavy conversion beamer *"
+    ],
+    [
+        "- Short range",
+        "1\" - 10\"",
+        "Heavy 1",
+        9,
+        -3,
+        3,
+        "AT(3), Blast(6)"
+    ],
+    [
+        "- Mid range",
+        "11\" - 20\"",
+        "Heavy 1",
+        8,
+        -2,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "- Long range",
+        "21\" - 30\"",
+        "Heavy 1",
+        7,
+        -1,
+        1,
+        "AT(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may swap their Bolt cannon:"
+    ],
+    [
+        "- Graviton blast cannon",
+        "+25 points/model"
+    ],
+    [
+        "- SP heavy conversion beamer",
+        "+54 points/model"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Eye of the Ancestors, Massive(1), Steady Advance, Void armor"
+    ],
+    [
+        "Omni-visors: The model ignores the -1 to hit modifier for cover."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

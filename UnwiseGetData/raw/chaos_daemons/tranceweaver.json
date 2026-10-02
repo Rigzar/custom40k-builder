@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Tranceweaver",
+        "8\"",
+        "3+",
+        "4+",
+        3,
+        3,
+        3,
+        6,
+        4,
+        6,
+        "6+",
+        45
+    ],
+    [
+        "A Tranceweaver is equipped with: Ravaging claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Ravaging claws",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        2,
+        "Armor piercing(5+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deepstrike, Daemon, Daemonic instability, Mark of Slaanesh, Terrifying(-1)"
+    ],
+    [
+        "Entourage: For each Greater Daemon of the same Chaos god, up to two units with this rule can be can be chosen that do not occupy an HQ slot."
+    ],
+    [
+        "Herald: Up to two units with this rule can be taken as a single HQ choice."
+    ],
+    [
+        "Locus of Slaanesh: The model and its attached unit can move an additional D6\" with a charge order."
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from the discipline of Excess."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

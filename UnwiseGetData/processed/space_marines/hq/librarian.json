@@ -1,0 +1,75 @@
+{
+    "name": "Librarian",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Librarian",
+            "min": 1,
+            "max": 1,
+            "points": 97
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Chief Librarian",
+            "min": 0,
+            "max": 1,
+            "points": 112
+        }
+    ],
+    "min_cost": 97,
+    "default_size": 1,
+    "equipped_with": "A Librarian is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear",
+        "Chief Librarian: The model may cast and deny 1 additional power per battle round.",
+        "Psychic hood: Add +1 to rolls to deny enemy psychic powers.",
+        "Psyker: The model may cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

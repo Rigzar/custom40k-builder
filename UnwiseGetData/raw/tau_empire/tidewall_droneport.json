@@ -1,0 +1,77 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Tidewall Droneport",
+        "6\"",
+        "-",
+        "4+",
+        "-",
+        12,
+        12,
+        12,
+        "-",
+        "-",
+        3,
+        157
+    ],
+    [
+        "A Tidewall Shieldline is a single model and equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May buy up to four Tau Drones in any combination."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Open"
+    ],
+    [
+        "Transport: This model has a transport capacity of 10 models."
+    ],
+    [
+        "Mobile defenses: The model can only move if it has embarked passengers inside."
+    ],
+    [
+        "Tidewall shield generator: The model and all embarked units have a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

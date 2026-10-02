@@ -1,0 +1,70 @@
+{
+    "name": "Knight-Centura",
+    "models": [
+        {
+            "stats": {
+                "M": "6",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Knight-Centura",
+            "min": 1,
+            "max": 1,
+            "points": 58
+        }
+    ],
+    "min_cost": 58,
+    "default_size": 1,
+    "equipped_with": "A Knight-Centura is equipped with: Flamer; Psyk-out grenade.",
+    "weapons": [
+        {
+            "name": "Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Executioner greatblade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Psyk-out grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Psi-shock"
+        }
+    ],
+    "abilities": [
+        "Blank, Deflect, Parry"
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

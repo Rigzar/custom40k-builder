@@ -1,0 +1,101 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Dracon",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        6,
+        3,
+        8,
+        "4+",
+        42
+    ],
+    [
+        "*",
+        "Archon",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        6,
+        4,
+        9,
+        "4+",
+        57
+    ],
+    [
+        "A Dracon is equipped with: Plasma grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Dracon per army can be upgraded to an Archon for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Power through Pain"
+    ],
+    [
+        "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy two of his units."
+    ],
+    [
+        "Archon: Another two unit may be redeployed."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Kabal"
+    ]
+]

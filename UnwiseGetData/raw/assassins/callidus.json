@@ -1,0 +1,95 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Callidus",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        4,
+        6,
+        4,
+        9,
+        "6+",
+        147
+    ],
+    [
+        "A Callidus is equipped with: Neural shredder; Phase sword."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Neural shredder",
+        "9\"",
+        "Pistol 4",
+        "*",
+        "*",
+        "*",
+        "Auto Hit"
+    ],
+    [
+        "Phase sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "Shield breaker(-3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike, Deflect, Hit & Run, Infiltrator, Move through cover, Parry"
+    ],
+    [
+        "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls."
+    ],
+    [
+        "Lightning reflexes: The model gains a 4+ ward save."
+    ],
+    [
+        "Neural shredder: Roll 2D6+3 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value."
+    ],
+    [
+        "Polymorphine: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike."
+    ],
+    [
+        "Reign of Confusion: You may demand to re-roll either your or your enemy's first Initiative roll. Additionally you may decide whether your enemy rolls for Reinforcements during the first battle round."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

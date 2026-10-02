@@ -1,0 +1,89 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Avatar",
+        "8\"",
+        "2+",
+        "2+",
+        8,
+        7,
+        7,
+        6,
+        6,
+        10,
+        "2+",
+        432
+    ],
+    [
+        "An Avatar of Khaine is equipped with: The Wailing Doom."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "The Wailing Doom"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "x2",
+        -5,
+        3,
+        "AT(3)"
+    ],
+    [
+        "- Ranged",
+        "12\"",
+        "Pistol 1",
+        8,
+        -5,
+        3,
+        "Armorbane, Beam"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Avatar of Khaine per army."
+    ],
+    [
+        "\u2022 Can not be the mandatory HQ selection."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Fearless, Greater Demon, Terrifying(-2)"
+    ],
+    [
+        "Molten body: Enemy attacks reduce their AP value by -2 (to a minimum of 0). If the model loses its last Wound, it explodes like a vehicle."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature"
+    ]
+]

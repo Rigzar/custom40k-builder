@@ -1,0 +1,80 @@
+{
+    "name": "Hellhounds",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "10",
+                "REAR": "10",
+                "I": "3",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Hellhound",
+            "min": 1,
+            "max": 2,
+            "points": 207
+        }
+    ],
+    "min_cost": 207,
+    "default_size": 1,
+    "equipped_with": "A Hellhounds is equipped with: Inferno cannon; Heavy bolter.",
+    "weapons": [
+        {
+            "name": "Chem cannon",
+            "range": "12\"",
+            "type": "Heavy 6",
+            "s": "1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(3+), Sunder(1)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Inferno cannon",
+            "range": "12\"",
+            "type": "Heavy 6",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Melta cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Melta"
+        }
+    ],
+    "abilities": [
+        "Fast, Squadron",
+        "Explosive ammunition container: If the Hellhound is destroyed, it explodes automatically. The explosion range is 6\" and the automatic hit is handled with the profile of the turret weapon."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

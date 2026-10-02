@@ -1,0 +1,94 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Angel of Hatred\u1d40",
+        "The model gains the \"Furious Charge\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Armor of Badab\u1d40",
+        "The model and its attached unit gain the \"warded\" ability. Unique.",
+        "-",
+        25
+    ],
+    [
+        "Corpsemaster\u1d40",
+        "The model gains the \"Narthecium\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Dark Raider\u1d40",
+        "The model and its attached unit gain the \"Haste(2\")\" ability.",
+        5,
+        5
+    ],
+    [
+        "Hamadrya familiar\u1d40",
+        "The model may re-roll one die per activation. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Maelstrom Weapon\u1d40",
+        "One ranged weapon of the model gains +1 Strength for all of its profiles.",
+        5,
+        5
+    ],
+    [
+        "Reaver Lord\u1d40",
+        "Select a single item from any Space Marine or Chaos Space Marine Armory for the stated cost. Requirements like \"Only for psykers\" must be met. Unique.",
+        "-",
+        "Special"
+    ],
+    [
+        "Reaver Weapon\u1d40",
+        "One melee weapon of the model gains +1 Strength for all of its profiles.",
+        5,
+        5
+    ],
+    [
+        "Traitor's Laurels\u1d40",
+        "The model gains +1 Attack. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Trophy taker\u1d40",
+        "You gain 1 Trophy point each time this models kills at least one model in melee, but not more than 1 point per unique enemy unit. The model gains +x Leadership and the \"Terrifying(-x)\" ability, where x is the amount of Trophy points you have.",
+        5,
+        5
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ]
+]

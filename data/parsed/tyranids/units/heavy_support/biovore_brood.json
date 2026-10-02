@@ -91,6 +91,6 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 111,
+    "min_cost": 110,
     "is_monster": false
 }

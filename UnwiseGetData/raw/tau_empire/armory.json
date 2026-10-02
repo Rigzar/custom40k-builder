@@ -1,0 +1,506 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS HQ"
+    ],
+    [
+        "Dawn blade",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        2,
+        "AT(2), Furious Charge, Extra Attack(2), Terrifying(-1), Unique, Unwieldy",
+        "-",
+        23
+    ],
+    [
+        "Fusion blade",
+        "-",
+        "Melee",
+        8,
+        -5,
+        2,
+        "AT(3), Armorbane, Extra Attack(1), Unwieldy",
+        13,
+        19
+    ],
+    [
+        "Hunting javelin",
+        "Only for Kroot Shapers with Krootox steed",
+        "-",
+        9
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        2,
+        "AT(1), Charge, Quick(+1)"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "Knarloc talons",
+        "-",
+        "Melee",
+        "+2",
+        -1,
+        1,
+        "Extra Attack(1), Limit(1)",
+        "-",
+        "-"
+    ],
+    [
+        "Krootox fist",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "Melta bombs\u1d35",
+        "3\"",
+        "Grenade",
+        8,
+        -5,
+        2,
+        "AT(3), Armorbane. Kroot only.",
+        5,
+        5
+    ],
+    [
+        "Onager gauntlet",
+        "-",
+        "Melee",
+        "x2",
+        -4,
+        3,
+        "AT(4), Life curse, Slow(-2), Tankhunter, Unique, Unwieldy",
+        "-",
+        26
+    ],
+    [
+        "Plasma blade\u1d35",
+        "-",
+        "Melee",
+        6,
+        -4,
+        2,
+        "Extra Attack(1), Unwieldy",
+        10,
+        15
+    ],
+    [
+        "Seeker missile",
+        "120\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Ammo(1), Anti-Air, AT(2)",
+        "-",
+        "-"
+    ],
+    [
+        "Infantry models may only use equipment marked with \u1d35."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS HQ"
+    ],
+    [
+        "Blademaster\u1d35",
+        "The model may chose to either gain the \"Armor piercing(5+)\" or \"Parry\" ability during each activation. \"Parry\" is the default ability. Only for Ethereals. Unique.",
+        "-",
+        3
+    ],
+    [
+        "Blood of the Stalker\u1d35",
+        "When this model and its attached unit are set up as Infiltrators, they may be set up 6\" closer to enemy units than normal. Kroot only.",
+        10,
+        10
+    ],
+    [
+        "Bonding knife\u1d35",
+        "The model and its unit may re-roll failed Leadership tests.",
+        5,
+        5
+    ],
+    [
+        "Drone controller\u1d35",
+        "The model can be accompanied by up to two Tau Drones. The Drones are subject to \"Drone protocols\" (see Tau Drones).",
+        "-",
+        "-"
+    ],
+    [
+        "Ejection system",
+        "If the model loses its last wound, replace it with a pilot. The model loses 2 Strength, 2 Toughness, got 1 Wound and a Pulse pistol.",
+        "-",
+        5
+    ],
+    [
+        "Failsafe detonator\u1d35",
+        "Activate when the model or its unit are fleeing from melee. Move the unit as normal, while the model stays in place. All remaining models within 6\" suffer an automatic hit with Strength 8, AP 0, Damage 1. Remaining units may not pursue the fleeing unit. Remove the model that used the Failsafe detonator afterwards.",
+        0,
+        0
+    ],
+    [
+        "Hover drone\u1d35",
+        "The model gains +6\" Movement, +1 Toughness, +1 Wound and the \"Jet bike\" ability. Only for Ethereals.",
+        "-",
+        17
+    ],
+    [
+        "Iridium armor plate",
+        "The model gains a 2+ armor safe and loses 6\" movement. Cant' be combined with other battlesuits.",
+        0,
+        0
+    ],
+    [
+        "Kalamandra steed\u1d35",
+        "The model gains +6\" Movement, +2 Strength, +2 Toughness, +2 Wounds, a 5+ Save and the \"Bike\" ability. Only for Kroot Shapers.",
+        "-",
+        31
+    ],
+    [
+        "Knarloc steed\u1d35",
+        "The model gains +6\" Movement, +2 Toughness, +1 Wound, a 5+ Save, a Knarloc talons, the \"Vanguard\" ability, and changes its unit type to \"Bike\". Kroot infantry only.",
+        25,
+        33
+    ],
+    [
+        "Kroothawk Totem\u1d35",
+        "This model's controller may re-roll one of their dice in each Initiative phase. Unique. Kroot only.",
+        10,
+        10
+    ],
+    [
+        "Krootox steed\u1d35",
+        "The model gains +2 Strength, +2 Toughness, +2 Wounds, a 5+ Save, a Krootox fist, and changes its unit type to \"Monstrous Infantry\". Kroot infantry only.",
+        31,
+        39
+    ],
+    [
+        "Mark of the Favored Child\u1d35",
+        "The model gains a 4+ ward save. Unique. Kroot only.",
+        18,
+        29
+    ],
+    [
+        "Markerlight\u1d35",
+        "The model gains a Markerlight, see Index. Only for Infantry.",
+        10,
+        "-"
+    ],
+    [
+        "Master-crafted suit",
+        "The model gains a 2+ save. Can be combined with other battlesuits.",
+        "-",
+        20
+    ],
+    [
+        "Master-crafted weapon\u1d35",
+        "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        2,
+        2
+    ],
+    [
+        "Multi-Spectrum Sensor\u1d35",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "No longer flesh and blood",
+        "The model gains a Leadership value of 10. Can't be given to a mandatory HQ selection. Unique.",
+        5,
+        10
+    ],
+    [
+        "Paradox of Duality\u1d35",
+        "Roll 1D6 after suffering an unsaved Wound. If the roll is lower than the inversed AP of the weapon, the damage is nullified. Example: If a weapon with AP:-3 causes the wound, the roll needs to be 1 or 2 to be successfull (lower than 3). A 6 is always a failure. Only for Ethereals. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Pech'ra\u1d35",
+        "All ranged weapons carried by this model and its accompanied unit gain the \"Sunder(1)\" ability. Kroot only.",
+        10,
+        10
+    ],
+    [
+        "Prototype system\u1d35",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "-",
+        10
+    ],
+    [
+        "Puretide engram neurochip\u1d35",
+        "During your activation, pick one ability: Counter-attack, Favored enemy, Furious charge or Tank hunter. The ability is active for the model and its attached unit until their next activation. Unique",
+        10,
+        15
+    ],
+    [
+        "Stimulant injector\u1d35",
+        "The model gains a 5+ ward save. Does not work against weapons with strength 8 and above.",
+        12,
+        22
+    ],
+    [
+        "Surefoot Charm\u1d35",
+        "This model and its attached unit gains the \"Haste(2\")\" ability. Kroot only.",
+        5,
+        5
+    ],
+    [
+        "Swordsman honours\u1d35",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Tactical philosophies\u1d35",
+        "Select and announce which one of the philosophies you use at the beginning of the deployment. Unique.\n\n1. Kauyon\n- Select up to one mission objective or friendly unit as \"bait\" in any combination for every started 1500 points of game size and announce them to all other players after you decided who places the first unit in the deployment phase.\n- All friendly units (except the bait itself) gain +1 Strength for ranged attacks against enemy units that are within 6\" range of any bait.\n\n2. Mont'ka\n- All units may be set up using the rules for \"Deep strike\".\n- If a unit already got this ability, it reduces the scatter distance by 1D6 for itself.\n- In addition to the regular reserve rolls, one unit automatically arrives from reserves each round.\n\n3. Rinyon\n- All units get the \"Outflank\" ability.\n- All units automatically advance 6\" instead of rolling for it.\n\n4. Rip'yka\n- Each time after a unit from this codex shoots at an enemy unit, the enemy unit receives two Markerlight tokens afterwards.",
+        "-",
+        "10p per 500p game size"
+    ],
+    [
+        "Talisman protection chip",
+        "The model may attempt to deny one psychic power per battle round and receives a +1 bonus to the roll.",
+        5,
+        5
+    ],
+    [
+        "Teleport homing beacon\u1d35",
+        "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        10,
+        10
+    ],
+    [
+        "Trophy\u1d35",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Wings\u1d35",
+        "The model gains +6\" Movement and changes its unit type to \"Jump Pack Infantry\". Kroot infantry only.",
+        3,
+        4
+    ],
+    [
+        "XV22 Stalker battlesuit",
+        "The models gains the +1 Initiative, as well as the \"Infiltrator\" and \"Stealth\" ability. Can't be combined with other battlesuits.",
+        "-",
+        38
+    ],
+    [
+        "XV81 Crisis battlesuit",
+        "The model gains a Smart missile system. Can't be combined with other battlesuits.",
+        "-",
+        14
+    ],
+    [
+        "XV84 Crisis battlesuit",
+        "The model gains a Markerlight and a Target Lock. Can't be combined with other battlesuits.",
+        "-",
+        15
+    ],
+    [
+        "XV85 Enforcer battlesuit",
+        "The model gains +1 Wound and a 2+ armor save. Additionally, it may select one more weapon or support system. Can't be combined with other battlesuits.",
+        "-",
+        44
+    ],
+    [
+        "XV86 Coldstar battlesuit",
+        "The models gains +1 Wound, the \"Jetbike\" unit type and the \"Hit & Run\" ability. Can't be combined with other battlesuits.",
+        "-",
+        25
+    ],
+    [
+        "XV86 Supernova battlesuit",
+        "The model gains +1 Wound, +1 Attack, +1 Initiative and becomes a \"Monstrous Creature\". Can't be combined with other battlesuits.",
+        "-",
+        26
+    ],
+    [
+        "Infantry models may only use equipment marked with \u1d35."
+    ],
+    [
+        "SUPPORT SYSTEMS",
+        "POINTS",
+        "POINTS HQ"
+    ],
+    [
+        "Blacksun filter\u1d35",
+        "The model ignores the -1 to hit modifier for cover.",
+        5,
+        10
+    ],
+    [
+        "Command and control node\u1d35",
+        "The army adds +1 to rolls during the Initative and Rally phase.",
+        "-",
+        5
+    ],
+    [
+        "Counterfire defence system",
+        "Instead of using its own weapons, the model may count as being in cover until its next activation.",
+        0,
+        0
+    ],
+    [
+        "Early warning override",
+        "The model ignores the -1 to hit modifier for Defensive fire.",
+        5,
+        10
+    ],
+    [
+        "Earth caste pilot array",
+        "The model gains a 4+ save against losing a wound from Overheating.",
+        5,
+        10
+    ],
+    [
+        "Multi-tracker\u1d35",
+        "The model gains a +1 to hit modifier, if it is shooting at a target consisting of 6 or more models.",
+        5,
+        5
+    ],
+    [
+        "Neuroweb system jammer",
+        "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        5,
+        5
+    ],
+    [
+        "Photon caster\u1d35",
+        "Reduce enemy Charge movements that target the model or its attached unit by 2\".",
+        5,
+        5
+    ],
+    [
+        "Positional relay\u1d35",
+        "The army adds +1 to rolls during the Reinforcement phase. Not cumulative with itself.",
+        "-",
+        10
+    ],
+    [
+        "Repulsor impact field\u1d35",
+        "After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every model that made it into base contact with this model.",
+        5,
+        5
+    ],
+    [
+        "Shield generator\u1d35",
+        "The model gains a 4+ ward save.",
+        19,
+        39
+    ],
+    [
+        "Target lock",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "-",
+        5
+    ],
+    [
+        "Vectored retro-thrusters",
+        "The model gains the \"Hit & Run\" ability.",
+        5,
+        5
+    ],
+    [
+        "Velocity tracker",
+        "All weapons of the model gain the \"Anti-Air\" ability.",
+        5,
+        5
+    ],
+    [
+        "Infantry models may only use equipment marked with \u1d35 and pick a single SUPPORT SYSTEM."
+    ],
+    [
+        "VEHICLE EQUIPMENT",
+        "POINTS"
+    ],
+    [
+        "Blacksun filter",
+        "The model ignores the -1 to hit modifier for cover.",
+        5
+    ],
+    [
+        "Countermeasure array",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        15
+    ],
+    [
+        "Decoy launchers",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Disruption pod",
+        "Enemy units targeting this model from 12\" or further away reduce their weapon range by 6\".",
+        5
+    ],
+    [
+        "Failsafe detonator",
+        "Activate when the model or its unit are fleeing from melee. Move the unit as normal, while the model stays in place. All remaining models within 6\" suffer an automatic hit with Strength 8, AP 0, Damage 1. Remaining units may not pursue the fleeing unit. Remove the model that used the Failsafe detonator afterwards.",
+        10
+    ],
+    [
+        "Flechette discharger",
+        "Enemy models are automatically wounded with S:4 AP:0 D:1 in melee on a roll of 4+. Roll for each model in direct base contact. This is done at Initiative 10.",
+        5
+    ],
+    [
+        "Landing gear",
+        "In every turn where the model does not move, it loses its Anti-Grav rule until the its next activation.",
+        5
+    ],
+    [
+        "Multi-tracker",
+        "The model gains a +1 to hit modifier, if it is shooting at a target consisting of 6 or more models.",
+        5
+    ],
+    [
+        "Seeker missile",
+        "The model gains a Seeker missile. May be taken up to 2 times per model.",
+        5
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ],
+    [
+        "Target lock",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ]
+]

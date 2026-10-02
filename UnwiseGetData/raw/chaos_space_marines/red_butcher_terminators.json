@@ -1,0 +1,114 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-8",
+        "Red Butcher Terminator",
+        "6\"",
+        "2+",
+        "3+",
+        5,
+        5,
+        2,
+        4,
+        4,
+        8,
+        "2+",
+        73
+    ],
+    [
+        1,
+        "Red Butcher Champion",
+        "6\"",
+        "2+",
+        "3+",
+        5,
+        5,
+        2,
+        4,
+        4,
+        8,
+        "2+",
+        78
+    ],
+    [
+        "Each model is equipped with: Twin Power axes."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Twin chainfist",
+        "-",
+        "Melee",
+        "x2",
+        -4,
+        3,
+        "Armorbane, AT(3), Extra Attack(1), Slow(-3)"
+    ],
+    [
+        "Twin power axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The Red Butcher Champion may swap their Twin power axe:"
+    ],
+    [
+        "- Twin chainfist",
+        "+26 pts"
+    ],
+    [
+        "\u2022 The Red Butcher Champion has access to gear from the Armory."
+    ],
+    [
+        "\u2022 May have up to 1 veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Blind Rage, Deep strike, Mark of Khorne, Massive(1), Unyielding"
+    ],
+    [
+        "Cataphractii armor: The model has a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "World Eaters"
+    ]
+]

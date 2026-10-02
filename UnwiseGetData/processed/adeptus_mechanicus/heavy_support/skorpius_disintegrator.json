@@ -1,0 +1,70 @@
+{
+    "name": "Skorpius Disintegrator",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "11",
+                "I": "3",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Skorpius Disintegrator",
+            "min": 1,
+            "max": 1,
+            "points": 309
+        }
+    ],
+    "min_cost": 309,
+    "default_size": 1,
+    "equipped_with": "An Skorpius Disintegrator is equipped with: Belleros energy cannon; 3 Cognis heavy stubbers; Disruptor missile launcher.",
+    "weapons": [
+        {
+            "name": "Belleros energy cannon",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Indirect"
+        },
+        {
+            "name": "Cognis heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Cognis"
+        },
+        {
+            "name": "Disruptor missile launcher",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Anti-air, AT(1), Blast(4)"
+        },
+        {
+            "name": "Ferrumite cannon",
+            "range": "48\"",
+            "type": "Heavy 3",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

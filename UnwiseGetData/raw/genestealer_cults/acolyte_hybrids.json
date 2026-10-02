@@ -1,0 +1,190 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-15",
+        "Acolyte Hybrid",
+        "6\"",
+        "3+",
+        "4+",
+        4,
+        4,
+        1,
+        4,
+        2,
+        6,
+        "5+",
+        11
+    ],
+    [
+        "*",
+        "Acolyte Leader",
+        "6\"",
+        "3+",
+        "4+",
+        4,
+        4,
+        1,
+        4,
+        2,
+        7,
+        "5+",
+        16
+    ],
+    [
+        "Every model is equipped with: Autopistol; Blasting charges; Claws and knives."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autopistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Blasting charges",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Claws and knives",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "Extra Attack(2)"
+    ],
+    [
+        "Demolition charge",
+        "6\"",
+        "Assault 1",
+        8,
+        -2,
+        2,
+        "Ammo(1), AT(2), Blast(6), Seeking"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Hand flamer",
+        "6\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Heavy rock cutter",
+        "-",
+        "Melee",
+        "x2",
+        -4,
+        3,
+        "Armorbane, AT(3), Decimate, Slow(-3), Unwieldy"
+    ],
+    [
+        "Heavy rock drill",
+        "-",
+        "Melee",
+        "x2",
+        -2,
+        1,
+        "AT(1), Slow(-1), Unwieldy"
+    ],
+    [
+        "Heavy rock saw",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Decimate, Slow(-2), Unwieldy"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model may replace their Autopistol:"
+    ],
+    [
+        "- Hand flamer",
+        "+2 points"
+    ],
+    [
+        "\u2022 One model may replace their Autopistol with a Cult icon for +15pts."
+    ],
+    [
+        "\u2022 For each 5 models, two Acolytes may swap their Autopistol and Claws and knives:"
+    ],
+    [
+        "- Heavy rock drill",
+        "+5 points"
+    ],
+    [
+        "- Heavy rock saw",
+        "+12 points"
+    ],
+    [
+        "- Demolition charge",
+        "+13 points"
+    ],
+    [
+        "- Heavy rock cutter",
+        "+21 points"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Acolyte Leader for +5 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Infiltrator, Use cover"
+    ],
+    [
+        "Cult icon: During each Reinforcement phase, 1D6 slain models return to the unit."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

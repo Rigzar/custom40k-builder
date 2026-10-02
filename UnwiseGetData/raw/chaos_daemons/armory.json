@@ -1,0 +1,322 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS GREATER DEMON"
+    ],
+    [
+        "Aura of acquiescence\u02e2",
+        "Enemy units in close combat lose 1 Initiative to a minimum of 1.",
+        10,
+        10
+    ],
+    [
+        "Blood throne\u1d37",
+        "The model gains +6\" Movement, +2 Toughness, +3 Wounds, +2 Attacks and the \"Bike\" ability. It loses the \"Character\" ability.",
+        80,
+        "-"
+    ],
+    [
+        "Boon of Mutation",
+        "During your activation, pick an enemy model within 6\" and roll to hit. If the hit is successful, the target must make a Toughness test or become a helpless spawn and removed from play. Character models and Monstrous creatures can't be targeted.",
+        10,
+        15
+    ],
+    [
+        "Breath of Chaos",
+        "During your activation, pick a target unit within 9\". Roll 4D6. For every 4+ the unit suffers a wound with S:4 AP:-5 D:1, Seeking.",
+        20,
+        30
+    ],
+    [
+        "Chaos artefact",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "-",
+        10
+    ],
+    [
+        "Cloud of flies\u1d3a",
+        "The model and its attached unit gain the \"Deflect\" ability.",
+        4,
+        15
+    ],
+    [
+        "Dreamcatcher talisman\u1d40",
+        "One enemy psyker per battle-round can be forced to reroll a psychic test to manifest a power.",
+        15,
+        15
+    ],
+    [
+        "Eldritch Bolt\u1d40",
+        "The model can make an additional attack with the following profile: Range: 24\" Type: Assault 1 Strength: 8 AP: -5 Damage: 2, AT(1).",
+        35,
+        35
+    ],
+    [
+        "Exalted butcher",
+        "The model gains +1 Weapon skill.",
+        4,
+        10
+    ],
+    [
+        "Exalted hunter",
+        "The model gains +1 Ballistic skill.",
+        4,
+        10
+    ],
+    [
+        "Eye of Tzeentch\u1d40",
+        "The model can reroll a single die each activation.",
+        10,
+        20
+    ],
+    [
+        "Full to Bursting\u1d3a",
+        "When this model is killed, it explodes like a vehicle. Cumulative with \"Popping Plague\".",
+        5,
+        5
+    ],
+    [
+        "Girdle of the Realm Racer\u02e2",
+        "The model gains +2\" Movement and the \"Anti-grav\" ability.",
+        10,
+        15
+    ],
+    [
+        "Hellfire armor\u1d37",
+        "The model gains a 2+ save.",
+        35,
+        65
+    ],
+    [
+        "Icon of Chaos",
+        "A friendly Daemon unit arriving within 3\" of the bearer via Deep strike does not scatter. If the arriving unit has the same Mark of Chaos as the bearer, it can instead be placed within 6\". Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.                                                                                                ",
+        "-",
+        "-"
+    ],
+    [
+        "Illusionist\u1d40",
+        "Enemy models reduce their weapons range by 6\" (to a minimum of 6\"), if they target the bearer or its attached unit.",
+        5,
+        5
+    ],
+    [
+        "Instrument of Chaos",
+        "The unit reduces the amount of Mortal Wounds suffered from Daemonic Instability by 1.",
+        "-",
+        "-"
+    ],
+    [
+        "Interdimensional Knowledge\u1d40",
+        "The model may pick 2 additional psychic powers from any general psychic discipline.",
+        10,
+        10
+    ],
+    [
+        "Juggernaut of Khorne\u1d37",
+        "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the \"Bike\" ability.",
+        55,
+        "-"
+    ],
+    [
+        "Khorne necklace\u1d37",
+        "The model is immune against psychic attacks and effects.",
+        10,
+        20
+    ],
+    [
+        "Let None Survive\u1d37",
+        "The model automatically succeeds at pursuit rolls to catch fleeing units.",
+        5,
+        5
+    ],
+    [
+        "Magical boon\u1d40",
+        "The model can manifest 1 more psychic power per activation than usual. If it did not know any psychic powers before, it can pick 1.",
+        5,
+        5
+    ],
+    [
+        "Master-crafted weapon",
+        "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        2,
+        2
+    ],
+    [
+        "Noxious touch\u1d3a",
+        "All melee attacks of the model gain Poison(2+).",
+        15,
+        15
+    ],
+    [
+        "Nurgle's decay\u1d3a",
+        "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with S:4 DS:0 D:1 and the \"Seeking\" ability. Unique.",
+        15,
+        15
+    ],
+    [
+        "Obsidian blade\u1d37",
+        "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
+        10,
+        20
+    ],
+    [
+        "Overwhelming power\u1d40",
+        "Psychic tests of 9 or higher can never be denied.",
+        10,
+        10
+    ],
+    [
+        "Palanquin of Nurgle\u1d3a",
+        "The model gains +1 Wound and +1 Attack. Only for Heralds.",
+        8,
+        "-"
+    ],
+    [
+        "Personal icon",
+        "A friendly Daemon unit arriving within 3\" of the bearer via Deep Strike does not scatter. If the bearer has a Mark of Chaos, only Daemons with the same mark can use the icon. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        5,
+        5
+    ],
+    [
+        "Plague outburst\u1d3a",
+        "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 1D3 automatic wound with S:4 DS:0 D:1 and the \"Seeking\" ability.",
+        5,
+        5
+    ],
+    [
+        "Psychic training",
+        "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        5,
+        5
+    ],
+    [
+        "Revoltingly Resilient\u1d3a",
+        "The model gains Regeneration(1). Unique.",
+        15,
+        40
+    ],
+    [
+        "Rune of brass\u1d37",
+        "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results.",
+        15,
+        15
+    ],
+    [
+        "Screamer of Tzeentch\u1d40",
+        "The model gains +6\" Movement, +1 Toughness, +1 Wound, 2 Attacks with the \"Warp jaws\" weapon (see Screamers) and the \"Jet bike\" ability.",
+        35,
+        "-"
+    ],
+    [
+        "Seeker of Slaanesh\u02e2",
+        "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack, additional Haste(2\") and the \"Bike\" ability.",
+        15,
+        "-"
+    ],
+    [
+        "Soporific musk\u02e2",
+        "The model gains the \"Deflect\" and \"Parry\" ability.",
+        6,
+        15
+    ],
+    [
+        "Soulstealer\u02e2",
+        "Once per round, after killing at least one enemy model, the bearer regains 1 wound up to its maximum. Unique.",
+        10,
+        20
+    ],
+    [
+        "Sow\u1d3a",
+        "After the model loses its last Wound, create a Nurglings unit with 1D3 models as close as possible outside of direct base contact with any enemy unit. The Nurglings get an unused order of your choice.",
+        24,
+        24
+    ],
+    [
+        "Spiked Armor\u1d37",
+        "The model and its attached unit gain the \"Retribution(1)\" ability.",
+        10,
+        5
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        10
+    ],
+    [
+        "Thrill Seeker\u02e2",
+        "The Model and its attached unit gain +1 to all Wound rolls and suffer -1 Toughness.",
+        0,
+        0
+    ],
+    [
+        "Transfixing gaze\u02e2",
+        "Enemy models in close combat lose 1 Attack to a minimum of 1.",
+        15,
+        30
+    ],
+    [
+        "Unbound fury\u1d37",
+        "The model and its attached unit gain the \"Furious charge\" ability.",
+        15,
+        10
+    ],
+    [
+        "Unholy might",
+        "The model gains +1 Strength.",
+        5,
+        15
+    ],
+    [
+        "Warp conduit",
+        "The army adds +1 to rolls during the Reinforcement phase. Unique.",
+        10,
+        10
+    ],
+    [
+        "Warp sense",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "\u1d37 Only for models with Mark of Khorne"
+    ],
+    [
+        "\u1d3a Only for models with Mark of Nurgle"
+    ],
+    [
+        "\u02e2 Only for models with Mark of Slaanesh"
+    ],
+    [
+        "\u1d40 Only for models with Mark of Tzeentch"
+    ],
+    [
+        "VEHICLE EQUIPMENT",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ],
+    [
+        "We are legion",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Warp distortion",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.\n",
+        15
+    ]
+]

@@ -1,0 +1,52 @@
+{
+    "name": "Pariahs",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Pariah",
+            "min": 4,
+            "max": 10,
+            "points": 56
+        }
+    ],
+    "min_cost": 224,
+    "default_size": 4,
+    "equipped_with": "Every model is equipped with: Void scythe with inbuilt Gauss caster.",
+    "weapons": [
+        {
+            "name": "Gauss caster",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Gauss"
+        },
+        {
+            "name": "Void scythe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Shield breaker(-3), Unwieldy"
+        }
+    ],
+    "abilities": [
+        "Blank, Deflect, Parry"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

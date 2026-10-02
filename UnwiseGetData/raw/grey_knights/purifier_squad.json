@@ -1,0 +1,220 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Purifier",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        9,
+        "3+",
+        66
+    ],
+    [
+        1,
+        "Knight of the Flame",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        9,
+        "3+",
+        76
+    ],
+    [
+        "Every model is equipped with: Cleansing flame; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Cleansing flame"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        5,
+        -2,
+        1,
+        "Auto Hit, Extra Attack(1), Limit(1), Shield breaker(-1), Soul burn(5+), Sunder(1)"
+    ],
+    [
+        "- Ranged",
+        "12\"",
+        "Pistol 1",
+        5,
+        -2,
+        1,
+        "Auto Hit, Extra Attack(1), Limit(1), Shield breaker(-1), Soul burn(5+), Sunder(1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Incinerator",
+        "9\"",
+        "Assault 4",
+        5,
+        -2,
+        1,
+        "Auto Hit, Shield breaker(-1), Sunder(1)"
+    ],
+    [
+        "Nemesis daemon hammer",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+    ],
+    [
+        "Nemesis force weapon",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        1,
+        "Force weapon, Shield breaker(-1)"
+    ],
+    [
+        "Nemesis warding stave",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "AT(1), Force weapon, Shield breaker(-1)"
+    ],
+    [
+        "Psilencer",
+        "24\"",
+        "Rapid Fire 3",
+        5,
+        -1,
+        1,
+        "Shield breaker(-1), Suppression(3)"
+    ],
+    [
+        "Psycannon",
+        "24\"",
+        "Heavy 2",
+        7,
+        -2,
+        2,
+        "Armor piercing(5+), AT(1), Shield breaker(-1)"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Purifier squad per army."
+    ],
+    [
+        "\u2022 Any model can replace their Nemesis force weapon:"
+    ],
+    [
+        "- Nemesis warding stave",
+        "+9 points"
+    ],
+    [
+        "- Nemesis daemon hammer",
+        "+19 points"
+    ],
+    [
+        "\u2022 For every 5 models, two Purifiers may swap their Nemesis falchions and Storm bolter:"
+    ],
+    [
+        "- Incinerator",
+        "+1 point"
+    ],
+    [
+        "- Psilencer",
+        "+2 points"
+    ],
+    [
+        "- Psycannon",
+        "+19 points"
+    ],
+    [
+        "\u2022 Each model may be equipped with Psy-ammunition for +1 point per model."
+    ],
+    [
+        "\u2022 The Knight of the Flame has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Aegis(4+), Brotherhood of Psykers, Combat squads, Shrouding, They Shall Know No Fear, True Grit"
+    ],
+    [
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
+    ],
+    [
+        "Soulfire: The model has a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

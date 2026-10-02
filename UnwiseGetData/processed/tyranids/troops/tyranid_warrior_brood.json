@@ -1,0 +1,118 @@
+{
+    "name": "Tyranid Warrior Brood",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "10",
+                "SV": "4+"
+            },
+            "name": "Tyranid Warrior",
+            "min": 3,
+            "max": 6,
+            "points": 36
+        }
+    ],
+    "min_cost": 108,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: 2 Scything talons.",
+    "weapons": [
+        {
+            "name": "Barbed strangler",
+            "range": "36\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(6), Suppression(3)"
+        },
+        {
+            "name": "Boneswords",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Deadly(5+), Extra Attack(1)"
+        },
+        {
+            "name": "Deathspitter",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Devourer",
+            "range": "18\"",
+            "type": "Rapid Fire 2",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lash whip and Bonesword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Deadly(5+), Quick(+1)"
+        },
+        {
+            "name": "Rending claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Rending(5+)"
+        },
+        {
+            "name": "Scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Spinefists",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Venom cannon",
+            "range": "36\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Fearless, Massive(1), Move Through Cover, Synapse",
+        "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
+    ],
+    "unit_type": "Monstrous Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Advanced Bioform"
+    ]
+}

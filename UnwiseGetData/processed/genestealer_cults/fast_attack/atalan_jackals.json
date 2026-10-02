@@ -1,0 +1,153 @@
+{
+    "name": "Atalan Jackals",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Atalan Jackal",
+            "min": 4,
+            "max": 8,
+            "points": 27
+        },
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Atalan Wolfquad",
+            "min": 0,
+            "max": 2,
+            "points": 38
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Atalan Leader",
+            "min": 0,
+            "max": 1,
+            "points": 37
+        }
+    ],
+    "min_cost": 108,
+    "default_size": 4,
+    "equipped_with": "Every model is equipped with: Atalan small arms; Blasting charges.Every Atalan Wolfquad is additionally equipped with: Heavy stubber.",
+    "weapons": [
+        {
+            "name": "Atalan incinerator",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Atalan power weapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Atalan small arms",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Blasting charges",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Demolition charge",
+            "range": "6\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2), Blast(6), Seeking"
+        },
+        {
+            "name": "Grenade launcher - Frag",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grenade launcher - Krak",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Mining laser",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Ambush, Infiltrator, Outflank, Use cover, Vanguard"
+    ],
+    "unit_type": "Bike",
+    "is_monster": false,
+    "keywords": []
+}

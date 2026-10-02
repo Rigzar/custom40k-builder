@@ -1,0 +1,581 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODEL"
+    ],
+    [
+        "Arc grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Haywire",
+        5,
+        5
+    ],
+    [
+        "Arc maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "Haywire",
+        5,
+        6
+    ],
+    [
+        "Arc pistol",
+        "6\"",
+        "Pistol 1",
+        6,
+        -1,
+        1,
+        "Haywire",
+        4,
+        5
+    ],
+    [
+        "Archeo-revolver",
+        "12\"",
+        "Pistol 1",
+        5,
+        -2,
+        2,
+        "-",
+        6,
+        8
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-",
+        2,
+        3
+    ],
+    [
+        "Eradication pistol",
+        14,
+        18
+    ],
+    [
+        "- Focused",
+        "6\"",
+        "Pistol 1",
+        6,
+        -3,
+        2,
+        "Blast(4)"
+    ],
+    [
+        "- Dissipated",
+        "12\"",
+        "Pistol 1",
+        6,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Flechette blaster",
+        "12\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "Blast(4), Shred",
+        4,
+        5
+    ],
+    [
+        "Macrostubber",
+        "12\"",
+        "Pistol 3",
+        4,
+        -1,
+        1,
+        "-",
+        6,
+        8
+    ],
+    [
+        "Maxima bolter",
+        "12\"",
+        "Assault 3",
+        4,
+        -1,
+        1,
+        "-",
+        12,
+        15
+    ],
+    [
+        "Mechanicus pistol",
+        "12\"",
+        "Pistol 2",
+        4,
+        -2,
+        1,
+        "-",
+        5,
+        7
+    ],
+    [
+        "Omnissian axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        2,
+        "-",
+        "-",
+        8
+    ],
+    [
+        "Omnissian staff",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        2,
+        "AT(1)",
+        6,
+        8
+    ],
+    [
+        "Phosphor blast pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Blast(4), Luminagen",
+        5,
+        7
+    ],
+    [
+        "Phosphor serpenta",
+        "18\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "Luminagen",
+        5,
+        7
+    ],
+    [
+        "Photon gauntlet",
+        "12\"",
+        "Assault 2",
+        5,
+        -4,
+        1,
+        "AT(1), Beam, Blind, Lance(2), Overheating",
+        "-",
+        22
+    ],
+    [
+        "Plasma pistol*",
+        10,
+        13
+    ],
+    [
+        "- Standard",
+        "12\"",
+        "Pistol 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "12\"",
+        "Pistol 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Power axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Power maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Radium pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "Rad",
+        1,
+        1
+    ],
+    [
+        "Radium serpenta",
+        "18\"",
+        "Assault 1",
+        3,
+        0,
+        1,
+        "Rad",
+        1,
+        1
+    ],
+    [
+        "Sulphur breath",
+        "9\"",
+        "Pistol 2",
+        4,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)",
+        "-",
+        "-"
+    ],
+    [
+        "Taser goad",
+        "-",
+        "Melee",
+        "+2",
+        -1,
+        1,
+        "Tesla",
+        3,
+        4
+    ],
+    [
+        "Volkite serpenta",
+        "9\"",
+        "Pistol 1",
+        5,
+        -1,
+        1,
+        "Soul burn(6+)",
+        2,
+        3
+    ],
+    [
+        "Voltaic blaster",
+        "9\"",
+        "Pistol 1",
+        6,
+        -1,
+        1,
+        "Rending(5+), Shred, Tesla",
+        4,
+        5
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODEL"
+    ],
+    [
+        "Aquila Imperialis",
+        "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game. Unique",
+        5,
+        5
+    ],
+    [
+        "Auspex scanner",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Bionics",
+        "The model receives a 6+ ward save.",
+        3,
+        9
+    ],
+    [
+        "Chain-taser protocols",
+        "All taser weapons of the model and its attached unit cause one additional hit when they trigger their Tesla ability.",
+        10,
+        10
+    ],
+    [
+        "Clandestine infiltration",
+        "The model and its attached unit gain the \"Infiltrator\" ability.",
+        10,
+        10
+    ],
+    [
+        "Conversion field",
+        "The model receives a 4+ ward save.",
+        10,
+        26
+    ],
+    [
+        "Data-blessed Autosermon",
+        "The model automatically succeeds at one roll to sing a canticle per battle round.",
+        "-",
+        5
+    ],
+    [
+        "Digital weapons",
+        "The model can make one additional melee attack per round. S:2 AP:-4 D:1. Hits automatically wound.",
+        "-",
+        5
+    ],
+    [
+        "Enhanced Bionics",
+        "The model receives a 5+ ward save.",
+        7,
+        17
+    ],
+    [
+        "Enhanced data-tether",
+        "The model and its attached unit gains a +1 Leadership.",
+        "-",
+        "-"
+    ],
+    [
+        "Enriched rounds",
+        "All rad weapons of the model and its attached unit gain an additional -1 AP.",
+        10,
+        10
+    ],
+    [
+        "Infoslave skull",
+        "The unit ignores the to hit penalty for Defensive fire.",
+        5,
+        5
+    ],
+    [
+        "Kardiocore Galvanus",
+        "The model and its attached unit gain +1\" movement when using an \"Advance\" or \"Charge\" command.",
+        5,
+        5
+    ],
+    [
+        "Marksman honours",
+        "The model gains +1 Ballistic Skill.",
+        4,
+        5
+    ],
+    [
+        "Master-crafted armor",
+        "The model gains a 2+ armor save. Not combinable with other armors.",
+        13,
+        10
+    ],
+    [
+        "Master-crafted weapon",
+        "The model can reroll one hit roll with this weapon per round. Must be purchased separately for each weapon.",
+        2,
+        2
+    ],
+    [
+        "Masterwork autocaduceus",
+        "The model gains \"Regeneration(1)\".",
+        "-",
+        9
+    ],
+    [
+        "Omnispex",
+        "Ranged weapons of the model and its attached unit gain -1 AP against units in cover.",
+        10,
+        10
+    ],
+    [
+        "Overloaded systems",
+        "All arc weapons of the model and its attached unit gain an additional AT(1).",
+        10,
+        "-"
+    ],
+    [
+        "Pteraxii wings",
+        "The model gains +6\" Movement, +1 Wound and the \"Jump pack\" rule. Only for infantry.",
+        "-",
+        41
+    ],
+    [
+        "Purity seal",
+        "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+        2,
+        2
+    ],
+    [
+        "Raiment of the Technomartyr",
+        "All weapons of the model gain the \"Cognis\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Relic of the Forgeworld",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "-",
+        10
+    ],
+    [
+        "Sacrifactum Autorepulsor",
+        "Enemy units receive a -2\" movement penalty when charging the model or its attached unit.",
+        10,
+        10
+    ],
+    [
+        "Serberys steed",
+        "The model gains +6\" movement, +1 Toughness, +1 Wound, Sulphur breath and the \"Bike\" type. Only for infantry.",
+        "-",
+        30
+    ],
+    [
+        "Stasis field",
+        "The model may use its Stasis field once per game to receive a 2+ invulverability save until its next activation. It can't use any weapons or abilities while the Stasis field is active.",
+        "-",
+        10
+    ],
+    [
+        "Swordsman honours",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Teleport homing beacon",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.                                                                                        ",
+        10,
+        10
+    ],
+    [
+        "Temporcopia",
+        "The model gains +1 Initiative.",
+        5,
+        5
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "DOCTRINA IMPERATIVES",
+        "POINTS",
+        "POINTS MONSTROUS CREATUES & VEHICLES"
+    ],
+    [
+        "Aggressor Imperative",
+        "The model gains +2\" Movement.",
+        1,
+        2
+    ],
+    [
+        "Bulwark Imperative",
+        "The unit gains the ability \"Narthecium\".",
+        1,
+        2
+    ],
+    [
+        "Conqueror Imperative",
+        "The model gains the ability \"Furious charge\".",
+        1,
+        2
+    ],
+    [
+        "Protector Imperative",
+        "The model gains the ability \"Unyielding\".",
+        0,
+        0
+    ],
+    [
+        "Point costs must be paid for every model in the unit and per Wound or Hull point of the model."
+    ],
+    [
+        "VEHICLE EQUIPMENT ",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Broad spectrum data-tether",
+        "Friendly units within 12\" radius gain +1 Leadership.",
+        5
+    ],
+    [
+        "Cognis manipulator",
+        "The model repairs one vehicle damage (Crew Shaken, Engine Damage, Weapon Damage, Structural Damage) on a 4+ during each Reinforcement phase.",
+        10
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Infoslave skull",
+        "The unit ignores the to hit penalty for Defensive fire.",
+        10
+    ],
+    [
+        "Jammer",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        15
+    ],
+    [
+        "Machine spirit",
+        "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
+        5
+    ],
+    [
+        "Mindscanner probe",
+        "If a friendly unit within 6\" gets charged by an enemy, the enemy unit does not receive any bonus (f.e. bonus attacks) for charging.",
+        10
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ]
+]

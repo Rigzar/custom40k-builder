@@ -1,0 +1,65 @@
+{
+    "name": "Autarch",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "6",
+                "A": "3",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Autarch",
+            "min": 1,
+            "max": 1,
+            "points": 43
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "6",
+                "A": "4",
+                "LD": "9",
+                "SV": "4+"
+            },
+            "name": "Exalted Autarch",
+            "min": 0,
+            "max": 1,
+            "points": 58
+        }
+    ],
+    "min_cost": 43,
+    "default_size": 1,
+    "equipped_with": "An Autarch is equipped with: Plasma grenades.",
+    "weapons": [
+        {
+            "name": "Plasma grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Battle Focus",
+        "Perfected warfare: An Autarch can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players.",
+        "Exalted Autarch: The Autarch may use Perfected warfare twice per game."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

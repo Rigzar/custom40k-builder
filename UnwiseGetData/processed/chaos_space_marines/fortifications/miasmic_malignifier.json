@@ -1,0 +1,48 @@
+{
+    "name": "Miasmic Malignifier",
+    "models": [
+        {
+            "stats": {
+                "M": "-",
+                "WS": "-",
+                "BS": "6+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "-",
+                "A": "-",
+                "HP": "3"
+            },
+            "name": "Miasmic Malignifier",
+            "min": 1,
+            "max": 1,
+            "points": 125
+        }
+    ],
+    "min_cost": 125,
+    "default_size": 1,
+    "equipped_with": "A Miasmic Malignifier is equipped with: Noxious stink.",
+    "weapons": [
+        {
+            "name": "Noxious stink",
+            "range": "6\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(4+), Sunder(1)"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Mark of Nurgle",
+        "Unmanned: A Miasmic Malignifier can't contest or capture mission objectives.",
+        "Pest explosion: If the model is destroyed, it always explodes. The explosion range is 6\".",
+        "Putrescent Fog: At the start of each activation, the model can create a Putrescent Fog with a \"Stand & Shoot\" command. To do so, place a Putrescent Fog marker (a 3\" radius circle) within 7\" of any friendly unit bearing the Mark of Nurgle. All enemy units treat the zone as difficult terrain and must take one Toughness test per model if they touch or move over the circle during their activation. For each failed test, the unit suffers one Mortal Wound."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": [
+        "Death Guard, Fortification                                                                                                "
+    ]
+}

@@ -1,0 +1,184 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Captain",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        5,
+        4,
+        5,
+        4,
+        9,
+        "2+",
+        152
+    ],
+    [
+        "A Captain is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Incinerator",
+        "9\"",
+        "Assault 4",
+        5,
+        -2,
+        1,
+        "Auto Hit, Shield breaker(-1), Sunder(1)"
+    ],
+    [
+        "Nemesis daemon hammer",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+    ],
+    [
+        "Nemesis force weapon",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        1,
+        "Force weapon, Shield breaker(-1)"
+    ],
+    [
+        "Nemesis warding stave",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "AT(1), Force weapon, Shield breaker(-1)"
+    ],
+    [
+        "Psilencer",
+        "24\"",
+        "Rapid Fire 3",
+        5,
+        -1,
+        1,
+        "Shield breaker(-1), Suppression(3)"
+    ],
+    [
+        "Psycannon",
+        "24\"",
+        "Heavy 2",
+        7,
+        -2,
+        2,
+        "Armor piercing(5+), AT(1), Shield breaker(-1)"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can replace the Nemesis force weapon:"
+    ],
+    [
+        "- Nemesis warding stave",
+        "+11 points"
+    ],
+    [
+        "- Nemesis daemon hammer",
+        "+23 points"
+    ],
+    [
+        "\u2022 Can replace the Storm bolter:"
+    ],
+    [
+        "- Incinerator",
+        "-2 points"
+    ],
+    [
+        "- Psilencer",
+        "+9 points"
+    ],
+    [
+        "- Psycannon",
+        "+31 points"
+    ],
+    [
+        "\u2022 Only one Captain or Captain in Nemesis Armor per army."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding"
+    ],
+    [
+        "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have."
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
+    ],
+    [
+        "Terminator armor: The model gains a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

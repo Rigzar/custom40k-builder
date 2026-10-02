@@ -1,0 +1,201 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Dark Executioner",
+        "6\"",
+        "4+",
+        "-",
+        4,
+        3,
+        1,
+        3,
+        2,
+        6,
+        "4+",
+        13
+    ],
+    [
+        1,
+        "Cult Demagogue",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "4+",
+        42
+    ],
+    [
+        1,
+        "Mindsorcerer",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "4+",
+        20
+    ],
+    [
+        1,
+        "Cult Bannerbearer",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "4+",
+        15
+    ],
+    [
+        "Every Dark Executioner is equipped with: Executioners blade, Frag grenades"
+    ],
+    [
+        "The Cult Demagogue is equipped with: Unholy stave, Las pistol, Frag grenade"
+    ],
+    [
+        "The Mindsorcerer is equipped with: Witchcane, Balefire tome, Frag grenades"
+    ],
+    [
+        "The Cult Standardbearer is equipped with: Laspistol, Frag grenades"
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Executioners blade",
+        "-",
+        "Melee",
+        "+2",
+        2,
+        1,
+        "Slow(-1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Unholy stave",
+        "-",
+        "Melee",
+        "+2",
+        1,
+        1,
+        "-"
+    ],
+    [
+        "Witchcane"
+    ],
+    [
+        "- Sinister bolt",
+        "12\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+2",
+        -1,
+        1,
+        "Force weapon"
+    ],
+    [
+        "Laspistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a mark of chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+1 points"
+    ],
+    [
+        "- Slaanesh",
+        "+1 points"
+    ],
+    [
+        "- Nurgle",
+        "+1 points"
+    ],
+    [
+        "- Tzeentch",
+        "+2 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Faithful: A Cult Demagogue may pray once per battle round. A prayer is successful at a roll of 3+. A Cult Demagogue knows all prayers from the Lower Prayers discipline."
+    ],
+    [
+        "Chaos banner: Cultists within 6\" use the Ld of the bearer."
+    ],
+    [
+        "Command squad: For every HQ choice you may buy one Dark Commune unit which doesn't take an Elite slot."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cultist"
+    ]
+]

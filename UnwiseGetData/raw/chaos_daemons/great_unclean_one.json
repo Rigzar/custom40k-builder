@@ -1,0 +1,142 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Great Unclean One",
+        "6\"",
+        "3+",
+        "4+",
+        7,
+        9,
+        8,
+        3,
+        4,
+        10,
+        "4+",
+        350
+    ],
+    [
+        "A Great Unclean One is equipped with: Bileblade; Doomsday bell; Nurgling infestation; Putrid vomit."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bileblade",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        2,
+        "AT(1), Poison(2+)"
+    ],
+    [
+        "Bilesword",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Poison(2+), Slow(-2)"
+    ],
+    [
+        "Doomsday bell",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "AT(1), Poison(2+)"
+    ],
+    [
+        "Nurgling infestation",
+        "-",
+        "Melee",
+        2,
+        0,
+        1,
+        "The bearer inflicts 4 automatic hits with this weapon in close combat, Poison(4+)"
+    ],
+    [
+        "Plague flail",
+        "7\"",
+        "Pistol 3",
+        "U",
+        -3,
+        2,
+        "AT(1), Poison(2+)"
+    ],
+    [
+        "Putrid vomit",
+        "12\"",
+        "Assault 1",
+        5,
+        -2,
+        1,
+        "Blast(6), Poison(2+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can exchange its Bileblade:"
+    ],
+    [
+        "- Plague flail",
+        "+0 points"
+    ],
+    [
+        "\u2022 Can exchange its Doomsday bell:"
+    ],
+    [
+        "- Bilesword",
+        "+0 points"
+    ],
+    [
+        "\u2022 Only one Greater Daemon of each type per army."
+    ],
+    [
+        "\u2022 Has access to gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Fearless, Greater Daemon, Mark of Nurgle, Regeneration(1), Terrifying(-2)"
+    ],
+    [
+        "Bileblade: The model may suffer 1 Mortal Wound in exchange for getting a bonus of +1 to the next manifestation or deny of a psychic power."
+    ],
+    [
+        "Doomsday bell: The model may heal a friendly unit within 7\" for D3 wounds during its activation. Dead models may be revived with this ability. Injured models have to be fully healed first. Only works on models that have the \"Daemon\" and \"Mark of Nurgle\" abilities. Character models and vehicles are always excluded."
+    ],
+    [
+        "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from the discipline of Decay."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous creature"
+    ]
+]

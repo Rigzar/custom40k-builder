@@ -1,0 +1,98 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Farseer",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        6,
+        2,
+        8,
+        "4+",
+        65
+    ],
+    [
+        "*",
+        "Exalted Farseer",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        6,
+        3,
+        9,
+        "4+",
+        80
+    ],
+    [
+        "A Farseer is equipped with: Plasma grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Farseer per army."
+    ],
+    [
+        "\u2022 One Farseer per army can be upgraded to an Exalted Farseer for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Battle Focus"
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    [
+        "Exalted Farseer: The model can cast and deny 1 additional power per battle round."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

@@ -1,0 +1,115 @@
+{
+    "name": "Gladiator",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "11",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Gladiator",
+            "min": 1,
+            "max": 1,
+            "points": 281
+        }
+    ],
+    "min_cost": 281,
+    "default_size": 1,
+    "equipped_with": "A Gladiator is a single model and is equipped with: Twin Heavy onslaught gatling cannon; 2 Fragstorm grenade launcher.",
+    "weapons": [
+        {
+            "name": "Fragstorm grenade launcher",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Icarus rocket pod",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Anti-air"
+        },
+        {
+            "name": "Ironhail heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Laser destroyer",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-6",
+            "d": "4",
+            "abilities": "AT(4), Tank hunter"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Tempest Boltgun",
+            "range": "30\"",
+            "type": "Rapid Fire 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin Heavy onslaught gatling cannon",
+            "range": "30\"",
+            "type": "Heavy 12",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Twin Las-talon",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "9",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(3)"
+        }
+    ],
+    "abilities": [
+        "Anti-grav"
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

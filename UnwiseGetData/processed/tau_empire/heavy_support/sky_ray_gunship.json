@@ -1,0 +1,79 @@
+{
+    "name": "Sky Ray Gunship",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "2",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Sky Ray",
+            "min": 1,
+            "max": 1,
+            "points": 381
+        }
+    ],
+    "min_cost": 381,
+    "default_size": 1,
+    "equipped_with": "A Sky Ray is a single model and equipped with: Seeker missiles rack; 2 Markerlights; 2 Twin pulse carbines; Velocity tracker.",
+    "weapons": [
+        {
+            "name": "Markerlight",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "*",
+            "ap": "*",
+            "d": "*",
+            "abilities": "Markerlight"
+        },
+        {
+            "name": "Seeker missile rack",
+            "range": "120\"",
+            "type": "Heavy 4",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-Air"
+        },
+        {
+            "name": "Burst cannon",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin pulse carbine",
+            "range": "24\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Smart missile system",
+            "range": "30\"",
+            "type": "Heavy 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Anti-Air, Seeking"
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Supporting Fire"
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

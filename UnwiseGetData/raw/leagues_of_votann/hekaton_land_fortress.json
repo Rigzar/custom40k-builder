@@ -1,0 +1,206 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Hekaton Land Fortress",
+        "12\"",
+        "-",
+        "3+",
+        6,
+        13,
+        13,
+        13,
+        3,
+        1,
+        3,
+        393
+    ],
+    [
+        "A Hekaton Land Fortress is a single model and equipped with: MATR autocannon; Pan spectral scanner; SP heavy conversion beamer; 2 Twin bolt cannons."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Ancestor\u2019s vengeance warhead",
+        "36\"",
+        "Heavy 3",
+        6,
+        -2,
+        1,
+        "Ammo(1), Haywire, Indirect"
+    ],
+    [
+        "Cyclic ion cannon",
+        "24\"",
+        "Heavy 3",
+        8,
+        -2,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Heavy magna-rail cannon",
+        "36\"",
+        "Heavy 1",
+        10,
+        -5,
+        4,
+        "AT(4), Beam, Decimate, Tank hunter"
+    ],
+    [
+        "Kin\u2019s wrath warhead",
+        "36\"",
+        "Heavy 3",
+        6,
+        -2,
+        1,
+        "Ammo(1), Blast(4), Indirect"
+    ],
+    [
+        "MATR autocannon",
+        "24\"",
+        "Heavy 4",
+        7,
+        -2,
+        2,
+        "AT(1)"
+    ],
+    [
+        "Mountain breaker warhead",
+        "36\"",
+        "Heavy 1",
+        10,
+        -3,
+        4,
+        "Ammo(1), AT(4), Indirect, Lance(1)"
+    ],
+    [
+        "SP heavy conversion beamer *"
+    ],
+    [
+        "- Short range",
+        "1\" - 10\"",
+        "Heavy 1",
+        9,
+        -3,
+        3,
+        "AT(3), Blast(6)"
+    ],
+    [
+        "- Mid range",
+        "11\" - 20\"",
+        "Heavy 1",
+        8,
+        -2,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "- Long range",
+        "21\" - 30\"",
+        "Heavy 1",
+        7,
+        -1,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Twin bolt cannon",
+        "36\"",
+        "Assault 4",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin ion beamer",
+        "18\"",
+        "Heavy 4",
+        7,
+        -2,
+        2,
+        "AT(1), Beam"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can replace the SP heavy conversion beamer:"
+    ],
+    [
+        "- Cyclic ion cannon",
+        "+17 points"
+    ],
+    [
+        "- Heavy magna-rail cannon",
+        "+21 points"
+    ],
+    [
+        "\u2022 Can replace each Twin bolt cannon:"
+    ],
+    [
+        "- Twin ion beamer",
+        "+25 points"
+    ],
+    [
+        "\u2022 Can replace the Pan spectral scanner:"
+    ],
+    [
+        "- Ancestor's vengeance warhead",
+        "+0 points"
+    ],
+    [
+        "- Kin's wrath warhead",
+        "+10 points"
+    ],
+    [
+        "- Mountain breaker warhead",
+        "+10 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Eye of the Ancestors, Void armor"
+    ],
+    [
+        "Pan spectral scanner: All weapons of the unit gain Sunder(1)"
+    ],
+    [
+        "Transport: This model has a transport capacity of 12 infantry models."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

@@ -1,0 +1,233 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Shas'el Commander",
+        "12\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        4,
+        3,
+        2,
+        8,
+        "3+",
+        86
+    ],
+    [
+        "*",
+        "Shas'o Commander",
+        "12\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        4,
+        3,
+        3,
+        9,
+        "3+",
+        101
+    ],
+    [
+        "A Shas'el is a single character model and equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Airbursting fragmentation projector",
+        "18\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(6), Indirect, Suppression(3)"
+    ],
+    [
+        "Burst cannon",
+        "18\"",
+        "Rapid Fire 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Cyclic ion blaster\u02e3 *"
+    ],
+    [
+        "- Standard",
+        "18\"",
+        "Rapid Fire 3",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "18\"",
+        "Rapid Fire 3",
+        8,
+        -2,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Fusion blaster",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
+    ],
+    [
+        "High-intensity plasma rifle\u02e3",
+        "24\"",
+        "Assault 2",
+        7,
+        -4,
+        2,
+        "AT(1)"
+    ],
+    [
+        "High-output burst cannon\u02e3",
+        "18\"",
+        "Rapid Fire 5",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Missile pod",
+        "30\"",
+        "Assault 3",
+        7,
+        -2,
+        1,
+        "AT(1), Anti-Air"
+    ],
+    [
+        "Plasma rifle",
+        "24\"",
+        "Assault 2",
+        6,
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "\u02e3 = Experimental weapons are unique"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can be equipped with up to three of the following:"
+    ],
+    [
+        "- Flamer",
+        "+5 points"
+    ],
+    [
+        "- Airbursting fragmentation projector",
+        "+10 points"
+    ],
+    [
+        "- Burst cannon",
+        "+12 points"
+    ],
+    [
+        "- Plasma rifle",
+        "+19 points"
+    ],
+    [
+        "- High-output burst cannon\u02e3",
+        "+27 points"
+    ],
+    [
+        "- Missile pod",
+        "+28 points"
+    ],
+    [
+        "- Fusion blaster",
+        "+34 points"
+    ],
+    [
+        "- High-intensity plasma rifle\u02e3",
+        "+45 points"
+    ],
+    [
+        "- Cyclic ion blaster\u02e3",
+        "+53 points"
+    ],
+    [
+        "\u2022 One Shas'el per army can be upgraded to a Shas'o for +15 points."
+    ],
+    [
+        "\u2022 May pick up to two SUPPORT SYSTEMS from the armory."
+    ],
+    [
+        "\u2022 May buy a Drone controller for +0 points and up to two Tau Drones in any combination."
+    ],
+    [
+        "\u2022 Has access to gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Supporting Fire"
+    ],
+    [
+        "Crisis bodyguard: The Commander may join a unit of Crisis Honor Guard."
+    ],
+    [
+        "Shas'o Commander: The model may select another unit during each Reinforcement phase. The target gains the same ability to move 1D6\" after shooting until the end of the current Battle round."
+    ],
+    [
+        "Tactical Acumen: The model and its attached unit may make a 1D6\" move after they have used their ranged weapons. Can not be used with a Charge command."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack, Monstrous Infantry"
+    ]
+]

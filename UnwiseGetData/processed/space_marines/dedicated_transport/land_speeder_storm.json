@@ -1,0 +1,53 @@
+{
+    "name": "Land Speeder Storm",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "11",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "2",
+                "HP": "2"
+            },
+            "name": "Land Speeder Storm",
+            "min": 1,
+            "max": 1,
+            "points": 135
+        }
+    ],
+    "min_cost": 135,
+    "default_size": 1,
+    "equipped_with": "A Land Speeder Storm is a single model and is equipped with: Cerberus launcher; Heavy bolter.",
+    "weapons": [
+        {
+            "name": "Cerberus launcher",
+            "range": "18\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(6), Suppression(3)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Deep Strike, Open",
+        "Transport: This model has a transport capacity of 5 Scouts."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,60 @@
+{
+    "name": "Chosen",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Chosen",
+            "min": 1,
+            "max": 10,
+            "points": 34
+        }
+    ],
+    "min_cost": 34,
+    "default_size": 1,
+    "equipped_with": "A Chosen is equipped with: Krak grenades; Frag grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Command squad, Squadron",
+        "Accursed Weaponry: The model gains the \"Deflagrate(5+)\" ability for all melee attacks.",
+        "Clad in Midnight: The model gains the \"Stealth\" ability.",
+        "Dark Crusaders: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order.",
+        "Malicious Ammuniton: The model gains the \"Deflagrate(5+)\" ability for all ranged attacks.",
+        "Monstrous Visages: The model gains the \"Parry\" ability and additionally the \"Gruesome\" ability for all melee weapons.",
+        "Tip of the Spear: When set up using the Infiltrator rules, the model can always be placed outside 12\" of an enemy unit, even if there is direct line of sight."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Chaos Space Marine"
+    ]
+}

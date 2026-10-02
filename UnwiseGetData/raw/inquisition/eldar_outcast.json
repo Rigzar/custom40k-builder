@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Ranger",
+        "6\"",
+        "3+",
+        "2+",
+        3,
+        3,
+        2,
+        5,
+        1,
+        8,
+        "5+",
+        44
+    ],
+    [
+        "Every Ranger is equipped with: Ranger long rifle; Shuriken pistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Ranger long rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Suppression(6)"
+    ],
+    [
+        "Shuriken pistol",
+        "12\"",
+        "Assault 1",
+        4,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Battle Focus (see Codex Eldar), Infiltrator, Move through cover, Use cover"
+    ],
+    [
+        "Unmatched reconnaissance: While an Eldar Outcast is alive, the unit gains the \"Infiltrator\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

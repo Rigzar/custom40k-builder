@@ -1,0 +1,88 @@
+{
+    "name": "Deffkoptas",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "5",
+                "SV": "5+"
+            },
+            "name": "Killakopta",
+            "min": 3,
+            "max": 6,
+            "points": 45
+        }
+    ],
+    "min_cost": 135,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Kustom mega-blasta; Spinnin'blades; Stikkbombz.",
+    "weapons": [
+        {
+            "name": "Big bomb",
+            "range": "6\"",
+            "type": "Assault 1",
+            "s": "10",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), AT(3), Blast(6)"
+        },
+        {
+            "name": "Kopta rokkits",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Kustom mega-blasta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4), Overheating"
+        },
+        {
+            "name": "Spinnin'blades",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Stikkbombz",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Twin big shoota",
+            "range": "36\"",
+            "type": "Assault 6",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Deep strike, Furious charge, Mob, Waaagh!"
+    ],
+    "unit_type": "Jetbike",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,98 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Autarch",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        6,
+        3,
+        8,
+        "4+",
+        43
+    ],
+    [
+        "*",
+        "Exalted Autarch",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        6,
+        4,
+        9,
+        "4+",
+        58
+    ],
+    [
+        "An Autarch is equipped with: Plasma grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Autarch per army."
+    ],
+    [
+        "\u2022 One Autarch per army can be upgraded to an Exalted Autarch for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Battle Focus"
+    ],
+    [
+        "Perfected warfare: An Autarch can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players."
+    ],
+    [
+        "Exalted Autarch: The Autarch may use Perfected warfare twice per game."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

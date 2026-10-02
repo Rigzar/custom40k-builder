@@ -1,0 +1,105 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Spiritseer",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        5,
+        2,
+        8,
+        "4+",
+        27
+    ],
+    [
+        "A Spiritseer is equipped with: Plasma grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every unit of Wraithblades, Wraithguard or Wraithlord, one Spiritseer may be selected without using a HQ slot."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Battle Focus, Command squad"
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Craftsong."
+    ],
+    [
+        "Name:",
+        "Craftsong"
+    ],
+    [
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Friendly <Wraith> unit"
+    ],
+    [
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "The target unit regains 2 lost wounds. Dead models may be revived with this. Living models have to be healed completly first. Can only be successfully manifested once per round and per psyker."
+    ],
+    [
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Complex"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

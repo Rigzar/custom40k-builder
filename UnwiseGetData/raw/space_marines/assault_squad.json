@@ -1,0 +1,200 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Assault Marine",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        44
+    ],
+    [
+        1,
+        "Assault Marine Sergeant",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        7,
+        "3+",
+        44
+    ],
+    [
+        "*",
+        "Veteran Assault Marine Sergeant",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        54
+    ],
+    [
+        "Every model is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Jump pack; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Astartes chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Eviscerator",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2), Armorbane"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Plasma pistol *"
+    ],
+    [
+        "- Standard",
+        "12\"",
+        "Pistol 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "12\"",
+        "Pistol 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may remove their Jump packs for -9 points each. They lose -6\" Movement by doing so and change their unit type to solely \"Infantry\"."
+    ],
+    [
+        "\u2022 All models may be equipped with Heavy bolt pistols for +1 point each."
+    ],
+    [
+        "\u2022 Up to two Assault Marines may swap their Astartes chainswords and Bolt pistols:"
+    ],
+    [
+        "- Flamer",
+        "+0 points"
+    ],
+    [
+        "- Astartes chainsword und Plasma pistol",
+        "+8 points"
+    ],
+    [
+        "- Eviscerator und Bolt pistol",
+        "+11 points"
+    ],
+    [
+        "\u2022 The Assault Marine Sergeant may be upgraded to a Veteran Assault Marine Sergeant for +10 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat squads, They Shall Know No Fear"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry, Jump pack"
+    ]
+]

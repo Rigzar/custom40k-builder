@@ -1,0 +1,122 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Grimnyr",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        3,
+        4,
+        2,
+        8,
+        "4+",
+        72
+    ],
+    [
+        "*",
+        "Ancient Grimnyr",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        3,
+        4,
+        3,
+        9,
+        "4+",
+        87
+    ],
+    [
+        "0-2",
+        "CORV",
+        "6\"",
+        "4+",
+        "4+",
+        4,
+        4,
+        1,
+        3,
+        1,
+        6,
+        "5+",
+        15
+    ],
+    [
+        "A Grimnyr is equipped with: Gravitic concussion grenades.\nEach CORV is equipped with: Autoch-pattern bolter."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autoch-pattern bolter",
+        "24\"",
+        "Rapid Fire 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Gravitic concussion grenades",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "Blast(4), Graviton"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Grimnyr per army can be upgraded to an Ancient Grimnyr for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Eye of the Ancestors, Steady Advance, Void armor"
+    ],
+    [
+        "Ancient Grimnyr: The model can cast and deny 1 additional power per battle round."
+    ],
+    [
+        "Companions: CORVs do not prevent a Grimnyr from joining another unit and do not count towards passenger capacity in a transport."
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

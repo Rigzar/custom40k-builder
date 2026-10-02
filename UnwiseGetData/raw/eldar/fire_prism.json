@@ -1,0 +1,120 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Fire Prism",
+        "12\"",
+        "-",
+        "3+",
+        6,
+        12,
+        12,
+        10,
+        5,
+        1,
+        3,
+        312
+    ],
+    [
+        "A Fire Prism is equipped with: Prism cannon; Twin shuriken catapult."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Prism cannon *"
+    ],
+    [
+        "- Dispersed",
+        "60\"",
+        "Heavy 1",
+        6,
+        -3,
+        1,
+        "Blast(6), Suppression(3)"
+    ],
+    [
+        "- Focused",
+        "60\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "- Lance",
+        "60\"",
+        "Heavy 1",
+        10,
+        -5,
+        4,
+        "AT(4), Beam, Decimate, Lance(+2)"
+    ],
+    [
+        "Shuriken cannon",
+        "24\"",
+        "Heavy 3",
+        6,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "Twin shuriken catapult",
+        "18\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Shuriken"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap the Twin shuriken catapult:"
+    ],
+    [
+        "- Shuriken cannon",
+        "+9 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Battle Focus"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

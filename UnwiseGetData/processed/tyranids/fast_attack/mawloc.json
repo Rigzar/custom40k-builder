@@ -1,0 +1,64 @@
+{
+    "name": "Mawloc",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "T": "7",
+                "W": "6",
+                "I": "4",
+                "A": "4",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Mawloc",
+            "min": 1,
+            "max": 2,
+            "points": 139
+        }
+    ],
+    "min_cost": 139,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: Monstrous scything talons.",
+    "weapons": [
+        {
+            "name": "Monstrous scything talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Prehensile pincer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra Attack(1), Limit(1)"
+        },
+        {
+            "name": "Toxinspike",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Extra Attack(1), Limit(1), Poison(2+)"
+        }
+    ],
+    "abilities": [
+        "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
+        "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
+    ],
+    "unit_type": "Monstrous Creature ",
+    "is_monster": true,
+    "keywords": [
+        "Advanced Bioform"
+    ]
+}

@@ -1,0 +1,127 @@
+{
+    "name": "Combat Engineers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Combat Engineer",
+            "min": 4,
+            "max": 9,
+            "points": 11
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Watchmaster",
+            "min": 1,
+            "max": 1,
+            "points": 11
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Veteran Watchmaster",
+            "min": 0,
+            "max": 1,
+            "points": 16
+        }
+    ],
+    "min_cost": 55,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Lasgun; Frag grenades; Trench Club.",
+    "weapons": [
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Machine pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Remote mine",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Ammo(1)"
+        },
+        {
+            "name": "Shotgun",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Trench club",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Vanguard",
+        "Remote mine: During activation, the unit can release a Remote mine. Roll 1D6. On a 2+, the Remote mine hits one enemy unit within 18\"."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

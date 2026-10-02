@@ -1,0 +1,80 @@
+{
+    "name": "Pteraxii Sterylizors",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Sterylizor",
+            "min": 4,
+            "max": 9,
+            "points": 44
+        },
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Sterylizor Alpha",
+            "min": 1,
+            "max": 1,
+            "points": 49
+        }
+    ],
+    "min_cost": 225,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Phosphor torch; Pteraxii Talons.",
+    "weapons": [
+        {
+            "name": "Arc grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Haywire"
+        },
+        {
+            "name": "Phosphor torch",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Luminagen, Sunder(1)"
+        },
+        {
+            "name": "Pteraxii talons",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        }
+    ],
+    "abilities": [
+        "Canticles of the Omnissiah",
+        "Sky Dive: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
+    ],
+    "unit_type": "Jump pack infantry",
+    "is_monster": false,
+    "keywords": []
+}

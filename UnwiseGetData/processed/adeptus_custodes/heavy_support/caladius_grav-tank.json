@@ -1,0 +1,62 @@
+{
+    "name": "Caladius Grav-Tank",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "2+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "13",
+                "REAR": "12",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Caladius Grav-Tank",
+            "min": 1,
+            "max": 1,
+            "points": 378
+        }
+    ],
+    "min_cost": 378,
+    "default_size": 1,
+    "equipped_with": "A Caladius Grav-Tank is equipped with: Twin lastrum bolt cannon; Twin iliastus accelerator cannon.",
+    "weapons": [
+        {
+            "name": "Twin arachnus heavy blaze cannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "10",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Twin lastrum bolt cannon",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin iliastus accelerator cannon",
+            "range": "48\"",
+            "type": "Assault 4",
+            "s": "8",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+), AT(1)"
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Shield Host",
+        "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 0)."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

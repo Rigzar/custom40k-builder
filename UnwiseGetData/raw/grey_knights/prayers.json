@@ -1,0 +1,163 @@
+[
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Effect:",
+        "The target gains +1 to hit rolls in ranged combat.",
+        "Effect:",
+        "The target and all friendly psykers within 18\" range gain a +1 bonus to manifest and deny psychic powers.",
+        "Effect:",
+        "The target gains +1 to hit rolls in melee combat."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Refrain of Convergence",
+        "Name:",
+        "Words of Power"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self"
+    ],
+    [
+        "Effect:",
+        "The target is immune against Maledictions and Witchfires. Enemy psykers within 12\" range suffer a -1 penalty to manifest psychic powers.",
+        "Effect:",
+        "The target gains the \"Armor piercing(5+)\" and \"Shred\" abilities."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Prayers of Battle",
+        "Name:",
+        "Catechism of Fire",
+        "Name:",
+        "Focus Recitation",
+        "Name:",
+        "Litany of Faith"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Effect:",
+        "The target gains the \"Deflagrate(5+)\" ability for all melee OR ranged weapons.",
+        "Effect:",
+        "The target gains a 5+ ward save.",
+        "Effect:",
+        "The target gains the \"Aegis(4+)\" ability."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Litany of Hate",
+        "Name:",
+        "Mantra of Strength"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self"
+    ],
+    [
+        "Effect:",
+        "The target gains +1 to hit rolls in ranged OR melee combat.",
+        "Effect:",
+        "The target gains +1 Strength and -1 AP for melee attacks."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ]
+]

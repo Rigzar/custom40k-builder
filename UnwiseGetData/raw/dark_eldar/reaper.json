@@ -1,0 +1,101 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Reaper",
+        "12\"",
+        "-",
+        "3+",
+        5,
+        11,
+        11,
+        10,
+        5,
+        1,
+        2,
+        197
+    ],
+    [
+        "A Reaper is equipped with: Sharpened prow; Storm vortex projector."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Storm vortex projector"
+    ],
+    [
+        "- Beam",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        4,
+        " AT(3), Beam, Lance(+2)"
+    ],
+    [
+        "- Blast",
+        "24\"",
+        "Heavy 1",
+        6,
+        -1,
+        1,
+        "Blast(6), Suppression(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can be equipped with a Flickerfield for +42 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Fast, Squadron"
+    ],
+    [
+        "Aerial assault: The unit may fire all ranged weapons if it moved up to 12\"."
+    ],
+    [
+        "Sharpened prow: When performing a Tank Shock, the front AV is considered to be 13 instead of 11 and the Strength is considered to be 8 instead of 5."
+    ],
+    [
+        "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "-"
+    ]
+]
