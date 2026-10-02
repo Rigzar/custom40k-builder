@@ -10,7 +10,7 @@
     },
     {
       "name": "Death from Above",
-      "desc": "- Assault Squad units can be taken as Troops.\n- Only Assault Squad units count towards the 25% Troops limitation.\n- At least half of all Assault Squad models must start the game in reserves, even if the mission does not allow reserves."
+      "desc": "- Assault Squad units May be taken as Troops.\n- Only Assault Squad units count towards the 25% Troops limitation.\n- At least half of all Assault Squad models must start the game in reserves, even if the mission does not allow reserves."
     },
     {
       "name": "Drop Pod Assault",
@@ -18,7 +18,7 @@
     },
     {
       "name": "Forlorn Brothers",
-      "desc": "The army may only consist of the following units:\n- Creature units with the \"Black Rage\" equipment (see Blood Angels Armory).\n- Dreadnoughts, Redemptor Dreadnoughts.\n- Drop Pods, Impulsors, Razorbacks, Rhinos. \n- Death Company units can be taken as Troops and are not limited to one per army anymore."
+      "desc": "The army may only consist of the following units:\n- Creature units with the \"Black Rage\" equipment (see Blood Angels Armory).\n- Dreadnoughts, Redemptor Dreadnoughts.\n- Drop Pods, Impulsors, Razorbacks, Rhinos.\n- Death Company units May be taken as Troops and are not limited to one per army anymore."
     },
     {
       "name": "Legion (Space Marines)",
@@ -26,7 +26,7 @@
     },
     {
       "name": "Librarian Conclave",
-      "desc": "- The army gets 4 HQ slots in total and has only access to Librarians, Chief Librarians and Librarian Dreadnoughts as HQ models. Librarians gain the \"Command Squad\" ability.\n- All of these models must be set up within 12\" of each other. \n- While a Chief Librarian is within 12\" of a Librarian, they can manifest all powers known to the Librarian and receive a +1 bonus to manifesting and dispelling psychic powers."
+      "desc": "- The army gets 4 HQ slots in total and has only access to Librarians, Chief Librarians and Librarian Dreadnoughts as HQ models. Librarians gain the \"Command Squad\" ability.\n- All of these models must be set up within 12\" of each other.\n- While a Chief Librarian is within 12\" of a Librarian, they may manifest all powers known to the Librarian and receive a +1 bonus to manifesting and dispelling psychic powers."
     },
     {
       "name": "Renegades",
@@ -34,7 +34,7 @@
     },
     {
       "name": "Swift as the Wind",
-      "desc": "- Bikes and Outriders can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+      "desc": "- Bikes and Outriders May be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
     }
   ],
   "legacies": [

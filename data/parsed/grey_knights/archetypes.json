@@ -2,11 +2,11 @@
   "archetypes": [
     {
       "name": "Chamber of Purity",
-      "desc": "- Purifier Squads can be taken as Troops.\n- All other Troops become Elite choices."
+      "desc": "- Purifier Squads can be taken as Troops and are no longer limited to 1 unit per army.\n- All other Troops become Elite choices."
     },
     {
       "name": "Hall of Champions",
-      "desc": "- Paladin Squads can be taken as Troops.\n- All other Troops become Elite choices."
+      "desc": "- Paladin Squads can be taken as Troops and are no longer limited to 1 unit per army.\n- All other Troops become Elite choices."
     },
     {
       "name": "Chamber Militant",
