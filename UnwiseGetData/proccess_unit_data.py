@@ -17,7 +17,7 @@ VEHICLE_FORMAT = ["No.","NAME","M","WS","BS","S","FRONT", "SIDE", "REAR", "I","A
 WEAPON_FORMAT = ["WEAPON", "RANGE", "TYPE", "S", "AP", "D", "ABILITIES"]
 
 # Make a list of all the troops that exist in the faction's Index.json file. 
-def proccess_faction_troops(faction_path, faction_name):
+def proccess_faction_units(faction_path, faction_name):
     ret = {}
     with open(f"raw/{faction_path}/index.json", "r") as f:
         #sheet is a list of lists, where each inner list is a row in the sheet. Data format: NxN
@@ -60,7 +60,7 @@ def proccess_model(model_data, model_format):
     return ret_model
 
 # Takes a weapon column from the unit sheet and formats it into the app's weapon data format. Returns a dictionary with the weapon data.
-def proccess_weapons(weapon_data):
+def proccess_weapon(weapon_data):
     APP_FORMAT = "name", "range","type", "s", "ap", "d", "abilities"
     weapon_data = [str(x) for x in weapon_data]
     return dict(zip(APP_FORMAT, weapon_data))
@@ -76,11 +76,11 @@ def main():
         
         faction_path = f"{faction.lower().replace(' ', '_').replace("'", '')}"
         print(f"Processing {faction}...")
-        faction_troops = proccess_faction_troops(faction_path, faction)
-        print(f"Faction troops: {faction_troops}")
+        faction_units = proccess_faction_units(faction_path, faction)
+        print(f"Faction troops: {faction_units}")
         
         proccessed_faction_units = {}
-        for category, units in faction_troops.items():
+        for category, units in faction_units.items():
             for unit in units:
                 unit_name = "".join(unit)
                 unit_lowercase_name = unit_name.lower().replace("'", "").replace(" ", "_").replace("\u00b4", "")
@@ -149,14 +149,14 @@ def main():
                             unit_sheet = unit_sheet[1:]
                             while "-" in unit_sheet[0][0]:
                                 unit_sheet[0][0] = temp_weapon_name + unit_sheet[0][0]
-                                app_unit_json["weapons"].append(proccess_weapons(unit_sheet[0]))
+                                app_unit_json["weapons"].append(proccess_weapon(unit_sheet[0]))
                                 unit_sheet = unit_sheet[1:]
                         else:
-                            app_unit_json["weapons"].append(proccess_weapons(unit_sheet[0]))
+                            app_unit_json["weapons"].append(proccess_weapon(unit_sheet[0]))
                             unit_sheet = unit_sheet[1:]
                     
                     ### OPTIONS           
-                    #  FOR NOW WE IGNORE THE OPTIONS SECTION, AS IT IS MANUAL
+                    #  FOR NOW WE IGNORE THE OPTIONS SECTION AND KEEP IT MANUAL. TODO: ACCOUNT FOR ALL THE OPTIONS.
                     while "ABILITIES" not in unit_sheet[0]:
                         unit_sheet = unit_sheet[1:]
                     unit_sheet = unit_sheet[1:]
