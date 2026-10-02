@@ -27,16 +27,9 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.81',
     date: '2026-10-02',
-    title: 'Russian and Japanese, in the app and the wiki',
+    title: 'October sheets in every army, Russian and Japanese, and a squad that shrinks properly',
     changes: [
       'GENERAL — THE APP AND THE WIKI ARE NOW ALSO IN RUSSIAN AND JAPANESE, next to English, German and Spanish. Every interface label (943 keys), the front-page banner, the Field Manual cheat sheets, the supplement cards, the changelog / known-issues chrome, the messages window, the update prompt and the rules glossary descriptions (151 special rules and weapon abilities) exist in both. Rule and ability NAMES stay English — they are the keywords printed on every datasheet. The wiki is now built once per language into one site (English at the root, /de, /es, /ru, /ja) with a language switcher in its header, translated navigation, headings, force-organisation slots, unit badges and home page; its Core Rules and Missions pages are still English in every language, as are the datasheet ability texts in the app. The Russian and Japanese texts were produced by Claude and have not been read by native speakers yet — corrections are welcome from the admin translation editor, which now covers all four non-English languages.',
-    ],
-  },
-  {
-    version: '1.80',
-    date: '2026-09-30',
-    title: 'Special Biomorphs, I.O.U, and a squad that finally shrinks properly',
-    changes: [
       'Inquisition — HERETIC AND ICONOCLAST NOW CHANGE WHAT AUTHORITY OF THE INQUISITION OFFERS. Under Heretic the single borrowed Armory item comes from a Chaos codex (Chaos Space Marines, Chaos Daemons); under Iconoclast from a Xenos one (Eldar, Dark Eldar, Harlequins, Necrons, Orks, Tau, Tyranids, Genestealer Cults, Votann), instead of the Imperial list. The two Horus Heresy “Legion” archetypes now have distinct names, “Legion SM” and “Legion CSM”; saved lists are renamed automatically.',
       'Tyranids — THE NEW ARCHETYPE RULES ARE WIRED, NOT JUST WRITTEN. Megafauna: the promoted Carnifex needs the Regeneration biomorph, its Regeneration(1) reads Regeneration(2), and it may take a second Special Biomorph. Swarming Masses: the Barbgaunt, Gargoyle, Hormagaunt, Neurogaunt, Ripper Swarm and Termagant Broods show the Combat squads ability. Archetype texts for Grey Knights, Dark Eldar and Space Marines follow the sheet.',
       'Necrons — CANOPTEK SCARABS: the upgrades read as printed, Frenzied Scarabs really give +2 Initiative and Flensing Scarabs really add Poison(2+) and Rending(5+) to their melee attacks (not to the explosion). Space Marines Infiltrators’ smoke grenades give Deflect only until the next activation; Orks Weirdboy’s Waaagh! energy and the Tankbustas’ Bomb squig read as printed.',
@@ -62,6 +55,13 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Imperial Guard — THE OCTOBER SHEET (1.05): the Valkyrie costs 175 (was 220), and every sniper rifle has the Sniper weapon ability, replacing the old “+1 BS” ability lines.',
       'GENERAL — A LIST CAN NO LONGER BE SAVED UNDER THE WRONG FACTION (GH#186). Reported: a Necron army “saved as chaos space marines” and then emptied itself on loading. The list the player sent held seven Necron units under the Chaos Space Marines label. The most likely cause is a slow phone: codex files load asynchronously, and if you clicked one faction and then another, the first faction’s data could arrive last and relabel the second. A superseded faction load is now ignored, and saving writes the faction you actually picked. A corrected copy of the player’s list was sent back.',
       'GENERAL — EVERY FACTION’S UNIT FILES ARE PURE JSON NOW, not just the Tyranids. Nothing changes on screen: all 692 units were compared field by field and key by key before and after (byte-identical), and so were the 3838 profile-snapshot rows. For the codex author’s collaborator, who updates units automatically from the sheets and can only touch a file that is 100% JSON. The header notes the old .ts files carried now live in `unit-notes.md` per faction. The 13 Tau drone-option files had the shared drone list written out in full, since JSON cannot import one.',
+    ],
+  },
+  {
+    version: '1.80',
+    date: '2026-09-30',
+    title: 'Special Biomorphs, I.O.U, and a squad that finally shrinks properly',
+    changes: [
       'Orks — THE WARBUGGY CAN TAKE UP TO THREE SMALL GUNS WHEN IT HAS NO BIG GUN (GH#185). Reported: only one small gun could be selected. The sheet reads “one small gun. If the warbuggy doesn’t have a big gun, it may take up to three small guns”; the group was a flat one-pick. It now allows three, and drops to one as soon as a big gun is chosen (new optional `reduced_when_selected` on a constraint, read through `groupConstraint` like every other cap).',
       'GENERAL — THE SIMPLE PRINT VIEW SHOWS ARMORY EQUIPMENT. Requested on Discord: choosing the simple view when printing a list left out the armory equipment on HQs and everything else. The simple card now ends with an Equipment line naming every non-weapon armory item and tick-box wargear the unit carries, the same list the full card prints (weapons were already in the weapon tables).',
       'Necrons — THE ATOMIC ENERGY MANIPULATOR AND THE STARS ARE RIGHT NO LONGER CHANGE THE BEARER’S STATS. Reported on Discord: the Manipulator boosts a friendly infantry unit (never a character) by one randomly rolled stat, yet the builder added +1 Strength to its own bearer; The Stars Are Right only triggers on a random turn, yet it added +2 Strength, +2 Toughness and +1 Attack permanently. Both texts stay on the sheet as rules.',
