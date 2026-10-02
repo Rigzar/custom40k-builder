@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v180h_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v180i_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,6 +60,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reported on GitHub", rows: [
+        ["GH#186", "A list can no longer be saved under the wrong faction — a slow phone could relabel it."],
         ["GH#185", "Warbuggy: Up to three small guns when no big gun is taken; with a big gun, one."],
         ["GH#169", "The Ork Shoota shows on the profile again, swapped in or bought as an extra."],
         ["GH#168", "The four Tyranid archetypes move units between roles: Carnifex, Ravener and Von Ryan\u2019s to Troops, Genestealers and Warriors to Elites, and the named HQ promotions."],
@@ -96,6 +97,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
+        ["GH#186", "Eine Liste kann nicht mehr unter der falschen Fraktion gespeichert werden — ein langsames Handy konnte sie umetikettieren."],
         ["GH#185", "Warbuggy: Bis zu drei kleine Waffen ohne grosse Waffe; mit grosser Waffe eine."],
         ["GH#169", "Die Ork-Shoota erscheint wieder im Profil \u2014 getauscht oder zusaetzlich gekauft."],
         ["GH#168", "Die vier Tyraniden-Archetypen verschieben Einheiten: Carnifex, Ravener und Von Ryan\u2019s zu Troops, Genestealer und Krieger zu Elite, dazu die HQ-Bef\u00f6rderungen."],
@@ -132,6 +134,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reportado en GitHub", rows: [
+        ["GH#186", "Una lista ya no se puede guardar con la facción equivocada — un móvil lento podia cambiarle la etiqueta."],
         ["GH#185", "Warbuggy: Hasta tres armas pequenas si no lleva arma grande; con arma grande, una."],
         ["GH#169", "La Shoota de los Orks vuelve a salir en el perfil, cambiada o comprada aparte."],
         ["GH#168", "Los cuatro arquetipos tyr\u00e1nidos mueven unidades de rol: Carnifex, Ravener y Von Ryan\u2019s a Troops, Genestealers y Guerreros a Elites, y las promociones a HQ."],

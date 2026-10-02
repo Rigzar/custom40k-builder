@@ -32,6 +32,11 @@ const path = require('path');
 
 const faction = process.argv[2];
 const write = process.argv.includes('--write');
+// --lenient: a body that is not literal JSON (comments, unquoted keys, a shared constant spread
+// in) is LOADED instead of parsed, and the VALUE is written out. Run it under tsx
+// (`npx tsx scripts/convert_units_to_json.cjs <faction> --lenient --write`) so the unit's own
+// imports resolve. The caller must diff the loaded data before and after.
+const lenient = process.argv.includes('--lenient');
 if (!faction) { console.error('usage: node scripts/convert_units_to_json.cjs <faction> [--write]'); process.exit(1); }
 
 const unitsDir = path.join('data', 'parsed', faction, 'units');
@@ -65,6 +70,7 @@ function stripTrailingCommas(src) {
 const converted = [];
 const refused = [];
 const realHeaders = [];
+const headerText = {};
 
 const slots = fs.readdirSync(unitsDir, { withFileTypes: true }).filter(e => e.isDirectory()).map(e => e.name);
 
@@ -107,12 +113,16 @@ for (const slot of slots) {
       .replace(/^\s*import\s+type\s+\{[^}]*\}\s+from\s+['"][^'"]+['"];?\s*$/gm, '')
       .replace(/\/\/.*$/gm, '')
       .trim();
-    if (residue) { refused.push([full, `código fuera del objeto: ${residue.slice(0, 50)}`]); continue; }
-    if (header && !STUB.test(header)) realHeaders.push(full);
+    if (residue && !lenient) { refused.push([full, `código fuera del objeto: ${residue.slice(0, 50)}`]); continue; }
+    if (header && !STUB.test(header)) { realHeaders.push(full); headerText[full] = header; }
 
     let body;
     try { body = JSON.parse(stripTrailingCommas(m[2])); }
-    catch (e) { refused.push([full, `el cuerpo no es JSON: ${String(e.message).slice(0, 60)}`]); continue; }
+    catch (e) {
+      if (!lenient) { refused.push([full, `el cuerpo no es JSON: ${String(e.message).slice(0, 60)}`]); continue; }
+      try { body = JSON.parse(JSON.stringify(require(path.resolve(full))[m[1]])); }
+      catch (e2) { refused.push([full, `ni siquiera se puede cargar: ${String(e2.message).slice(0, 60)}`]); continue; }
+    }
 
     // The registration key: what the OLD index called this export, falling back to the unit's own
     // name only for a unit the old index did not list.
@@ -181,6 +191,21 @@ export const units: Record<string, Unit> = {
 ${entries.join('\n')}
 };
 `;
+
+// A header that is not the TODO stub is real audit/rule notes. JSON cannot hold a comment, so keep
+// them next to the units instead of throwing them away.
+if (realHeaders.length) {
+  const NL = String.fromCharCode(10);
+  const strip = h => h.split(NL)
+    .map(l => l.replace(/^[ \t]*(\/\*+|\*+\/|\*)[ ]?/, '').replace(/[ \t]*\*+\/[ \t]*$/, ''))
+    .join(NL).trim();
+  const notes = realHeaders.map(f =>
+    '## ' + path.relative(unitsDir, f).split(path.sep).join('/').replace(/[.]ts$/, '.json') + NL + NL + strip(headerText[f]) + NL);
+  fs.writeFileSync(path.join('data', 'parsed', faction, 'unit-notes.md'),
+    '# ' + faction + ' - notes kept from the unit files' + NL + NL +
+    'These were the header comments of the old .ts unit files. The unit files are pure JSON now, which cannot carry a comment.' +
+    NL + NL + notes.join(NL));
+}
 
 // Write the JSON first, then the new index; only then remove the old files, so a failure part-way
 // leaves the original .ts in place and the app still loads.

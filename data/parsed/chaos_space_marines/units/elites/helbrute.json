@@ -1,0 +1,282 @@
+{
+  "name": "Helbrute",
+  "models": [
+    {
+      "name": "Helbrute",
+      "points": 174,
+      "min": 1,
+      "max": 2,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "FRONT": "12",
+        "SIDE": "12",
+        "REAR": "10",
+        "I": "4",
+        "A": "3",
+        "HP": "3"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Helbrute is equipped with: Helbrute fist; Power scourge.",
+  "weapons": [
+    {
+      "name": "Combi-bolter",
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Heavy flamer",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Helbrute fist",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
+      "name": "Helbrute hammer",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(3), Armorbane"
+    },
+    {
+      "name": "Helbrute plasma cannon",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Blast(4), Overheat"
+    },
+    {
+      "name": "Multi-melta",
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(2), Melta"
+    },
+    {
+      "name": "Power scourge",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Extra Attack(4)"
+    },
+    {
+      "name": "Reaper autocannon",
+      "range": "36\"",
+      "type": "Heavy 4",
+      "s": "7",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Twin heavy bolter",
+      "range": "36\"",
+      "type": "Rapid Fire 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Twin lascannon",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3)"
+    },
+    {
+      "name": "Missile launcher - Frag missile",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Missile launcher - Krak missile",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Anti-air"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May receive a Mark of Chaos",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 10
+        },
+        {
+          "name": "Nurgle",
+          "points": 10
+        },
+        {
+          "name": "Slaanesh",
+          "points": 10
+        },
+        {
+          "name": "Tzeentch",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May replace its Helbrute fist",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Reaper autocannon",
+          "points": 15
+        },
+        {
+          "name": "Twin heavy bolter",
+          "points": 20
+        },
+        {
+          "name": "Multi-melta",
+          "points": 21
+        },
+        {
+          "name": "Helbrute plasma cannon",
+          "points": 86
+        },
+        {
+          "name": "Twin lascannon",
+          "points": 122
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Helbrute fist"
+      ]
+    },
+    {
+      "header": "May replace its Power scourge",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Helbrute fist",
+          "points": 0
+        },
+        {
+          "name": "Helbrute hammer",
+          "points": 7
+        },
+        {
+          "name": "Missile launcher",
+          "points": 24
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Power scourge"
+      ]
+    },
+    {
+      "header": "For every Helbrute fist, it may be equipped with one of the following",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Combi-bolter",
+          "points": 11
+        },
+        {
+          "name": "Heavy flamer",
+          "points": 13
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "If the Mark of Tzeentch is taken, can be upgraded to a psyker for +5 points.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 5,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "available_if": {
+        "type": "instanceOf",
+        "scope": "unit",
+        "keyword": "Tzeentch"
+      }
+    }
+  ],
+  "abilities": [
+    "Squadron",
+    "Furioso: If the model is equipped with two melee weapons, it gains +2 attacks.",
+    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
+  ],
+  "unit_type": "Walker",
+  "keywords": [
+    "Chaos Space Marine",
+    "Vehicle"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 1,
+  "min_cost": 174
+}

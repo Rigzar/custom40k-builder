@@ -1,0 +1,171 @@
+{
+  "name": "Rubric Marines",
+  "models": [
+    {
+      "name": "Rubric Marine",
+      "points": 41,
+      "min": 4,
+      "max": 8,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    },
+    {
+      "name": "Aspiring Sorcerer",
+      "points": 51,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every Rubric Marine is equipped with: Inferno bolter. The Aspiring Sorcerer is equipped with: Inferno bolt pistol; Force staff.",
+  "weapons": [
+    {
+      "name": "Inferno bolter",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Inferno bolt pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Force staff",
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "AT(1), Force weapon"
+    },
+    {
+      "name": "Soulreaper cannon",
+      "range": "24\"",
+      "type": "Heavy 4",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+)"
+    },
+    {
+      "name": "Warpflamer",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "Each model's Inferno bolter may be replaced with",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Warpflamer",
+          "points": 4
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Inferno bolter"
+      ],
+      "applies_to_model": "Rubric Marine"
+    },
+    {
+      "header": "One Rubric Marine's Inferno bolter may be replaced with",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Soulreaper cannon",
+          "points": 25
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Inferno bolter"
+      ]
+    },
+    {
+      "header": "If the unit consists of 9 models, another Rubric Marine's Inferno bolter may be replaced with a Soulreaper cannon.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Soulreaper cannon",
+          "points": 25
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Inferno bolter"
+      ]
+    }
+  ],
+  "abilities": [
+    "Mark of Tzeentch, Unyielding",
+    "Psyker: An Aspiring Sorcerer may cast and/or deny 1 psychic power. He knows smite as well as one psychic power of a chosen discipline."
+  ],
+  "unit_type": "Infantry",
+  "keywords": [
+    "Thousand Sons",
+    "Psyker",
+    "Sorcerer"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": true,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 1,
+  "locked_mark": "Tzeentch",
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 5,
+  "min_cost": 215
+}

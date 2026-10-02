@@ -1,0 +1,123 @@
+{
+  "name": "Warptalons",
+  "models": [
+    {
+      "name": "Warp Talon",
+      "points": 63,
+      "min": 4,
+      "max": 9,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    },
+    {
+      "name": "Warp Talon Champion",
+      "points": 68,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Each model is equipped with: Warpclaws; Frag grenades; Krak grenades.",
+  "weapons": [
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Krak grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Warpclaws",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(2), Shred, Unwieldy"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "All models may receive a Mark of Chaos (points per model)",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 2
+        },
+        {
+          "name": "Slaanesh",
+          "points": 2
+        },
+        {
+          "name": "Nurgle",
+          "points": 2
+        },
+        {
+          "name": "Tzeentch",
+          "points": 5
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Deep strike, Daemon",
+    "Daemonic charge: Enemy units suffer an additional -1 to hit penalty during Defensive fire."
+  ],
+  "unit_type": "Jump Pack Infantry",
+  "keywords": [
+    "Chaos Space Marine"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Fast Attack",
+  "default_size": 5,
+  "min_cost": 320
+}

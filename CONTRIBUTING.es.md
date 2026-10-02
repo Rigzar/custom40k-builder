@@ -51,11 +51,12 @@ Esta es la forma de contribución con mayor impacto. Cada facción vive en su pr
 
 ```
 data/parsed/<faccion>/
-  units/              ← un .ts por unidad (las 19 facciones)
+  units/              <- un .json puro por unidad (todas las facciones)
     troops/
-      traitor_guard.ts   ← una unidad, exportada como `Unit`
-      index.ts           ← reexporta todas las unidades de ese slot
-    hq/  elites/  ...     ← una carpeta por slot, cada una con su index.ts
+      traitor_guard.json  <- una unidad: solo JSON, sin import/export
+    hq/  elites/  ...      <- una carpeta por slot
+    index.ts           <- el UNICO .ts: importa todos los .json y exporta faction, slot_to_units, units
+  unit-notes.md       <- (algunas facciones) los antiguos comentarios de cabecera, que JSON no admite
     index.ts          ← arma el slot_to_units + units de la facción
   armory/
     general.json      ← armería general (todos los modelos)
@@ -66,33 +67,23 @@ data/parsed/<faccion>/
   psychic/            ← disciplinas, plegarias, daemonkin
 ```
 
-> Las 19 facciones usan el layout `units/` por slot. Cada unidad vive en su
-> propio `.ts` bajo `units/<slot>/<unidad>.ts`. Las unidades auditadas contra
-> el `.ods` canónico tienen un comentario de cabecera con la fuente; las
-> generadas automáticamente traen un comentario `TODO`. Para AÑADIR una unidad,
-> mirá la sección de abajo: hacen falta TRES ficheros, no dos.
-
-> **Tyranids usa un formato distinto y más simple: JSON puro.** Cada unidad es un fichero `.json`
-> sin `import` ni `export`, y la carpeta tiene UN solo `.ts`, `units/index.ts`, que los importa
-> todos. El motivo es la herramienta: el colaborador del autor del códice actualiza los datos
-> automáticamente desde las hojas, y solo puede hacerlo con un fichero 100 % JSON. Para editar
-> una unidad tyránida abre su `.json`. JSON no admite comentarios, así que lo que merezca
-> recordarse de una unidad va en `units/NOTES.md`. Para AÑADIR una unidad tyránida hacen falta
-> DOS cosas: su `.json`, y un `import` más una entrada en `units` en `units/index.ts` (y su nombre
-> bajo el slot correcto en `slot_to_units`). `node scripts/convert_units_to_json.cjs <facción>`
-> convierte otra facción (simulacro por defecto) y rechaza cualquier fichero que no pueda
-> convertir sin pérdida.
+> **Todas las facciones usan el mismo layout: JSON puro.** Cada unidad es un `.json` sin `import` ni `export`,
+> y la carpeta tiene UN solo `.ts`, `units/index.ts`, que los importa todos. La razón es la herramienta: el
+> colaborador del autor actualiza los datos automáticamente desde las hojas y solo puede hacerlo sobre un archivo
+> 100% JSON. Para editar una unidad, abrí su `.json`. JSON no admite comentarios, así que las notas de cabecera
+> de los antiguos `.ts` viven ahora en `data/parsed/<faccion>/unit-notes.md` (Tyranids: `units/NOTES.md`). Para
+> AÑADIR una unidad hacen falta DOS cosas: su `.json`, y un `import` más una entrada en `units` en
+> `units/index.ts` (y su nombre bajo el slot correcto en `slot_to_units`).
+> `node scripts/convert_units_to_json.cjs <faccion>` convierte una facción que siga en el formato antiguo
+> (simulacro por defecto). No ejecutes el conversor ni los scripts de actualización sobre tus datos sin preguntar.
 
 ### Añadir una unidad NUEVA
 
-Una unidad solo existe de verdad cuando aparece en **tres** sitios. La primera unidad aportada
-desde fuera del equipo entró inalcanzable justamente por esto, así que queda escrito.
+Una unidad solo existe de verdad cuando aparece en **dos** sitios. Un nombre que está en uno solo es inalcanzable.
 
-1. **`data/parsed/<faccion>/units/<slot>/<unidad>.ts`** — la ficha.
-2. **`data/parsed/<faccion>/units/<slot>/index.ts`** — una línea:
-   `export { dactylis } from './dactylis';`
-3. **`data/parsed/<faccion>/units/index.ts`** — **DOS** entradas, y este es el paso que se olvida:
-   - en el mapa `units`: `"Dactylis": heavySupport.dactylis,`
+1. **`data/parsed/<faccion>/units/<slot>/<unidad>.json`** — la ficha.
+2. **`data/parsed/<faccion>/units/index.ts`** — **DOS** entradas, y este es el paso que se olvida:
+   - una línea `import dactylis from './heavy_support/dactylis.json';` y, en el mapa `units`: `"Dactylis": dactylis as Unit,`
    - en `slot_to_units`, bajo el slot correcto: `"Dactylis",`
 
 **Un nombre en `slot_to_units` sin entrada en el mapa `units` sale en el catálogo y no resuelve a
@@ -126,8 +117,8 @@ que discrepa de la hoja.
 
 ### Proceso
 
-1. Navegá a `data/parsed/<faccion>/units/<slot>/` y abrí el `.ts` correspondiente.
-2. El objeto exportado usa los nombres de campo de la tabla de abajo. El comentario de cabecera documenta la fuente canónica y el perfil — mantenelo sincronizado si cambiás un valor.
+1. Navegá a `data/parsed/<faccion>/units/<slot>/` y abrí el `.json` correspondiente.
+2. El objeto usa los nombres de campo de la tabla de abajo. JSON no admite comentarios: si una unidad necesita una nota, ponela en `unit-notes.md`, junto a `units/`.
 3. Compará cada campo con tu copia del reglamento.
 4. Corregí lo que está mal y ejecutá `npm run build` para confirmar que el JSON es válido y la app sigue compilando.
 5. Abrí un Pull Request.

@@ -1,0 +1,206 @@
+{
+  "name": "Jakhals",
+  "models": [
+    {
+      "name": "Jakhal",
+      "points": 7,
+      "min": 7,
+      "max": 11,
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "3",
+        "A": "2",
+        "LD": "5",
+        "SV": "6+"
+      }
+    },
+    {
+      "name": "Jakhal Pack Leader",
+      "points": 7,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "3",
+        "A": "2",
+        "LD": "5",
+        "SV": "6+"
+      }
+    },
+    {
+      "name": "Dishonored",
+      "points": 7,
+      "min": 0,
+      "max": 4,
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "4",
+        "T": "3",
+        "W": "1",
+        "I": "3",
+        "A": "2",
+        "LD": "5",
+        "SV": "6+"
+      }
+    }
+  ],
+  "variant_models": [
+    {
+      "name": "Aspiring Jakhal Champion",
+      "points": 12,
+      "min": 0,
+      "max": 0,
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "3",
+        "A": "2",
+        "LD": "6",
+        "SV": "6+"
+      }
+    }
+  ],
+  "equipped_with": "Every Jakhal and Jakhal Pack Leader is equipped with: Autopistol; Chainblades. Every Dishonored is equipped with: Chainblades.",
+  "weapons": [
+    {
+      "name": "Autopistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Chainblade",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Blood harpoon",
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Beam"
+    },
+    {
+      "name": "Mauler chainblade",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Skullsmasher",
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "For every 8 models in the unit, one Jakhal may swap their Chainblade",
+      "constraint": {
+        "type": "per_n",
+        "per_n": 8,
+        "count_per_n": 1
+      },
+      "applies_to_model": "Jakhal",
+      "choices": [
+        {
+          "name": "Mauler chainblade",
+          "points": 1
+        },
+        {
+          "name": "Blood harpoon",
+          "points": 3
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Chainblade"
+      ]
+    },
+    {
+      "header": "For every 8 models in the unit, two Dishonored may swap their Chainblades",
+      "constraint": {
+        "type": "per_n",
+        "per_n": 8,
+        "count_per_n": 2
+      },
+      "applies_to_model": "Dishonored",
+      "choices": [
+        {
+          "name": "Skullsmasher",
+          "points": 2
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Chainblade"
+      ]
+    },
+    {
+      "header": "The Jakhal Pack Leader can be promoted to an Aspiring Jakhal Champion for +5pts and gains access to the armory.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 5,
+      "variant_link": "Aspiring Jakhal Champion",
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Berserk(5+), Mark of Khorne"
+  ],
+  "unit_type": "Infantry",
+  "keywords": [
+    "World Eaters"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": "Khorne",
+  "advisor": false,
+  "slot": "Troops",
+  "default_size": 8,
+  "min_cost": 56
+}

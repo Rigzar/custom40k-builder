@@ -1,0 +1,124 @@
+{
+  "name": "Maulerfiend",
+  "models": [
+    {
+      "name": "Maulerfiend",
+      "points": 187,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "FRONT": "12",
+        "SIDE": "12",
+        "REAR": "11",
+        "I": "4",
+        "A": "5",
+        "HP": "3"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Maulerfiend is a single model and equipped with: Lasher tendrils; Maulerfiend fists.",
+  "weapons": [
+    {
+      "name": "Lasher tendrils",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Extra Attack(4)"
+    },
+    {
+      "name": "Magma cutter",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(2), Melta"
+    },
+    {
+      "name": "Maulerfiend fists",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May receive a Mark of Chaos",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 10
+        },
+        {
+          "name": "Nurgle",
+          "points": 10
+        },
+        {
+          "name": "Slaanesh",
+          "points": 10
+        },
+        {
+          "name": "Tzeentch",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May replace its Lasher tendrils",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "two Magma cutters",
+          "points": 17
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Lasher tendrils"
+      ]
+    }
+  ],
+  "abilities": [
+    "Move through cover",
+    "Charge: The unit has a 12\" Charge move."
+  ],
+  "unit_type": "Walker",
+  "keywords": [
+    "Chaos Space Marine",
+    "Vehicle"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Heavy Support",
+  "default_size": 1,
+  "min_cost": 187
+}

@@ -1,0 +1,114 @@
+{
+  "name": "Knight Desecrator",
+  "models": [
+    {
+      "name": "Knight Desecrator",
+      "points": 547,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "7",
+        "FRONT": "13",
+        "SIDE": "12",
+        "REAR": "12",
+        "I": "4",
+        "A": "3",
+        "HP": "4"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Knight Desecrator is equipped with: Heavy stubber; Knight melee weapon; Laser destructor.",
+  "weapons": [
+    {
+      "name": "Heavy stubber",
+      "range": "36\"",
+      "type": "Heavy 3",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Suppression(3)"
+    },
+    {
+      "name": "Knight melee weapon - Strike",
+      "range": "-",
+      "type": "Melee",
+      "s": "D",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3)"
+    },
+    {
+      "name": "Knight melee weapon - Sweep",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Extra Attack(3)"
+    },
+    {
+      "name": "Laser destructor",
+      "range": "72\"",
+      "type": "Heavy 2",
+      "s": "10",
+      "ap": "-5",
+      "d": "3",
+      "abilities": "AT(4), Tank hunter"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May receive a Mark of Chaos",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 20
+        },
+        {
+          "name": "Nurgle",
+          "points": 20
+        },
+        {
+          "name": "Slaanesh",
+          "points": 20
+        },
+        {
+          "name": "Tzeentch",
+          "points": 20
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Ion shield: The model gains a 4+ ward save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
+  ],
+  "unit_type": "Super-heavy Vehicle",
+  "keywords": [
+    "Chaos Space Marine",
+    "Lord of War",
+    "Vehicle"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "advisor": false,
+  "locked_mark": null,
+  "slot": "Lords of War",
+  "default_size": 1,
+  "min_cost": 547
+}

@@ -1,0 +1,201 @@
+{
+  "name": "Scarab Occult Terminators",
+  "models": [
+    {
+      "name": "Scarab Occult Terminator",
+      "points": 79,
+      "min": 4,
+      "max": 8,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "5",
+        "W": "2",
+        "I": "4",
+        "A": "3",
+        "LD": "9",
+        "SV": "2+"
+      }
+    },
+    {
+      "name": "Scarab Occult Sorcerer",
+      "points": 89,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "5",
+        "W": "2",
+        "I": "4",
+        "A": "3",
+        "LD": "9",
+        "SV": "2+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Each Scarab Occult Terminator is equipped with: Inferno combi-bolter; Prosperine khopesh. The Scarab Occult Sorcerer is equipped with: Force stave; Inferno combi-bolter.",
+  "weapons": [
+    {
+      "name": "Force stave",
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Force weapon"
+    },
+    {
+      "name": "Heavy warpflamer",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Hellfyre missile rack",
+      "range": "36\"",
+      "type": "Heavy 2",
+      "s": "8",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(2), Anti-air"
+    },
+    {
+      "name": "Inferno combi-bolter",
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Prosperine khopesh",
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Soul burn(5+)"
+    },
+    {
+      "name": "Soulreaper cannon",
+      "range": "24\"",
+      "type": "Heavy 4",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "One Scarab Occult Terminator's Inferno Combi-bolter may be replaced by",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Heavy warpflamer",
+          "points": 4
+        },
+        {
+          "name": "Soulreaper cannon",
+          "points": 19
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Inferno combi-bolter"
+      ]
+    },
+    {
+      "header": "If the unit consists of 9 models, another Scarab Occult Terminator's Inferno Combi-bolter may be replaced.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Heavy warpflamer",
+          "points": 4
+        },
+        {
+          "name": "Soulreaper cannon",
+          "points": 19
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Inferno combi-bolter"
+      ]
+    },
+    {
+      "header": "One model may receive a Hellfyre Missile rack for +64 points.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Hellfyre missile rack",
+          "points": 64
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "If the unit consists of 9 models, an additional Scarab Occult Terminator may receive a Hellfyre missile rack.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Hellfyre missile rack",
+          "points": 64
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Deep strike, Mark of Tzeentch, Massive(1), Unyielding",
+    "Crux Terminatus: This unit has a 5+ ward save.",
+    "Psyker: A Scarab Occult Sorcerer may cast and/or deny 1 psychic power. He knows smite as well as one psychic power of a chosen discipline."
+  ],
+  "unit_type": "Infantry",
+  "keywords": [
+    "Thousand Sons",
+    "Psyker",
+    "Sorcerer"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": true,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 1,
+  "locked_mark": "Tzeentch",
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 5,
+  "min_cost": 405,
+  "armourKeyword": "Terminator"
+}

@@ -1,0 +1,152 @@
+{
+  "name": "Lord of Skulls",
+  "models": [
+    {
+      "name": "Lord of Skulls",
+      "points": 680,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "10",
+        "FRONT": "13",
+        "SIDE": "13",
+        "REAR": "11",
+        "I": "4",
+        "A": "4",
+        "HP": "5"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Lord of Skulls is equipped with: Great cleaver of Khorne; Hades gatling cannon; Ichor cannon.",
+  "weapons": [
+    {
+      "name": "Daemongore cannon",
+      "range": "15\"",
+      "type": "Heavy 4",
+      "s": "9",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(3), Auto Hit, Sunder(1), Overheating"
+    },
+    {
+      "name": "Gorestorm cannon",
+      "range": "15\"",
+      "type": "Heavy 6",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Great cleaver of Khorne - Strike",
+      "range": "-",
+      "type": "Melee",
+      "s": "D",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(5)"
+    },
+    {
+      "name": "Great cleaver of Khorne - Sweep",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(3), Extra Attack(3)"
+    },
+    {
+      "name": "Hades gatling cannon",
+      "range": "48\"",
+      "type": "Heavy 12",
+      "s": "8",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(2), Suppression(3)"
+    },
+    {
+      "name": "Ichor cannon",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "7",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "AT(1), Blast(6), Seeking"
+    },
+    {
+      "name": "Skullhurler",
+      "range": "60\"",
+      "type": "Heavy 1",
+      "s": "9",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(3), Blast(8)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May swap the Ichor cannon",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Gorestorm cannon",
+          "points": 49
+        },
+        {
+          "name": "Daemongore cannon",
+          "points": 61
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Ichor cannon"
+      ]
+    },
+    {
+      "header": "May swap the Hades gatling cannon",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Skullhurler",
+          "points": 171
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Hades gatling cannon"
+      ]
+    }
+  ],
+  "abilities": [],
+  "unit_type": "Super-heavy Vehicle",
+  "keywords": [
+    "Chaos Space Marine",
+    "Lord of War",
+    "Vehicle"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "advisor": false,
+  "locked_mark": "Khorne",
+  "slot": "Lords of War",
+  "default_size": 1,
+  "min_cost": 680
+}

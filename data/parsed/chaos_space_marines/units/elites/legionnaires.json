@@ -1,0 +1,307 @@
+{
+  "name": "Legionnaires",
+  "models": [
+    {
+      "name": "Legionnaire",
+      "points": 38,
+      "min": 4,
+      "max": 9,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    },
+    {
+      "name": "Legionnaire Champion",
+      "points": 43,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Each model is equipped with: Astartes Chainsword; Bolter; Bolt pistol; Frag grenades; Krak grenades.",
+  "weapons": [
+    {
+      "name": "Astartes Chainsword",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Autocannon",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "7",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Bolt pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Bolter",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Flamer",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Heavy bolter",
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Heavy chainaxe",
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy"
+    },
+    {
+      "name": "Krak grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Lascannon",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3)"
+    },
+    {
+      "name": "Meltagun",
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta"
+    },
+    {
+      "name": "Reaper chaincannon",
+      "range": "24\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "-1",
+      "abilities": "Suppression(2)"
+    },
+    {
+      "name": "Missile launcher - Frag missile",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Missile launcher - Krak missile",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Anti-Air"
+    },
+    {
+      "name": "Plasma gun - Standard",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Plasma gun - Overcharged",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheat"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "All models may receive a Mark of Chaos (points per model)",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 2
+        },
+        {
+          "name": "Slaanesh",
+          "points": 2
+        },
+        {
+          "name": "Nurgle",
+          "points": 2
+        },
+        {
+          "name": "Tzeentch",
+          "points": 5
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "For each 5 models, two Legionnaires may swap their Bolter",
+      "constraint": {
+        "type": "per_n",
+        "per_n": 5,
+        "count_per_n": 2
+      },
+      "choices": [
+        {
+          "name": "Flamer",
+          "points": 0
+        },
+        {
+          "name": "Heavy bolter",
+          "points": 13
+        },
+        {
+          "name": "Meltagun",
+          "points": 13
+        },
+        {
+          "name": "Plasma gun",
+          "points": 17
+        },
+        {
+          "name": "Reaper chaincannon",
+          "points": 19
+        },
+        {
+          "name": "Autocannon",
+          "points": 21
+        },
+        {
+          "name": "Missile launcher",
+          "points": 35
+        },
+        {
+          "name": "Lascannon",
+          "points": 64
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Bolter"
+      ]
+    },
+    {
+      "header": "For each 5 models, two other Legionnaires may swap their Astartes Chainsword, Bolter and Bolt pistol",
+      "constraint": {
+        "type": "per_n",
+        "per_n": 5,
+        "count_per_n": 2
+      },
+      "choices": [
+        {
+          "name": "Heavy chainaxe",
+          "points": 9
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "replaces": [
+        "Astartes Chainsword",
+        "Bolter",
+        "Bolt pistol"
+      ],
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [],
+  "unit_type": "Infantry",
+  "keywords": [
+    "Chaos Space Marine"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": true,
+  "veteran_required": true,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 5,
+  "min_cost": 195
+}

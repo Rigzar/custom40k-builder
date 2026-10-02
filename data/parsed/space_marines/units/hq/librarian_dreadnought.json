@@ -1,0 +1,127 @@
+{
+  "name": "Librarian Dreadnought",
+  "models": [
+    {
+      "name": "Librarian Dreadnought",
+      "points": 278,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "2+",
+        "BS": "2+",
+        "S": "6",
+        "FRONT": "12",
+        "SIDE": "12",
+        "REAR": "10",
+        "I": "5",
+        "A": "3",
+        "HP": "3"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Librarian Dreadnought is equipped with: Dreadnought close combat weapon; Furioso psy halberd; Heavy flamer.",
+  "weapons": [
+    {
+      "name": "Dreadnought close combat weapon",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
+      "name": "Furioso psy halberd",
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Extra Attack(1), Limit(1), Force weapon"
+    },
+    {
+      "name": "Melta",
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta"
+    },
+    {
+      "name": "Heavy flamer",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Storm bolter",
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May swap the Heavy flamer",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Storm bolter",
+          "points": 5
+        },
+        {
+          "name": "Melta",
+          "points": 13
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Heavy flamer"
+      ]
+    },
+    {
+      "header": "Only one Chief Librarian or Librarian Dreadnought per army.",
+      "constraint": {
+        "type": "unique_upgrade"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": true
+    }
+  ],
+  "abilities": [
+    "Psionic shield: The model receives a 5+ ward save.",
+    "Psychic hood: Add +1 to rolls to deny enemy psychic powers.",
+    "Psyker: The model can cast 2 power and deny 2 power per battle round. It knows Smite and all powers from a chosen discipline."
+  ],
+  "unit_type": "Vehicle, Walker",
+  "keywords": [],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": true,
+  "has_armory_access": true,
+  "champion_has_armory": false,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 1,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "HQ",
+  "default_size": 1,
+  "min_cost": 278
+}

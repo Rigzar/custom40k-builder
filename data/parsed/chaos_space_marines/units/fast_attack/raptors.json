@@ -1,0 +1,261 @@
+{
+  "name": "Raptors",
+  "models": [
+    {
+      "name": "Raptor",
+      "points": 43,
+      "min": 4,
+      "max": 14,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "7",
+        "SV": "3+"
+      }
+    },
+    {
+      "name": "Raptor Champion",
+      "points": 43,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "7",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [
+    {
+      "name": "Aspiring Raptor Champion",
+      "points": 53,
+      "min": 0,
+      "max": 0,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    }
+  ],
+  "equipped_with": "Each model is equipped with: Astartes Chainsword; Bolt pistol; Frag grenades; Krak grenades.",
+  "weapons": [
+    {
+      "name": "Astartes Chainsword",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Bolt pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Flamer",
+      "range": "9''",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Krak grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Meltagun",
+      "range": "12''",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta"
+    },
+    {
+      "name": "Plasma gun - Standard",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Plasma gun - Overcharged",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheat"
+    },
+    {
+      "name": "Plasma pistol - Standard",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Plasma pistol - Overcharged",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheat"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "All models may receive a Mark of Chaos (points per model)",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 2
+        },
+        {
+          "name": "Slaanesh",
+          "points": 2
+        },
+        {
+          "name": "Nurgle",
+          "points": 2
+        },
+        {
+          "name": "Tzeentch",
+          "points": 5
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "Two Raptors may swap their Bolt pistols each",
+      "constraint": {
+        "type": "fixed_max",
+        "max": 2
+      },
+      "choices": [
+        {
+          "name": "Plasma pistol",
+          "points": 8
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Bolt pistol"
+      ]
+    },
+    {
+      "header": "Alternatively, two Raptors may swap their Astartes chainswords and Bolt pistols each",
+      "constraint": {
+        "type": "fixed_max",
+        "max": 2
+      },
+      "choices": [
+        {
+          "name": "Flamer",
+          "points": 0
+        },
+        {
+          "name": "Meltagun",
+          "points": 12
+        },
+        {
+          "name": "Plasma gun",
+          "points": 17
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Astartes Chainsword",
+        "Bolt pistol"
+      ]
+    },
+    {
+      "header": "The Raptor Champion may be upgraded to an Aspiring Raptor Champion for +10pts and gains access to weapons and gear from the Armory.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 10,
+      "variant_link": "Aspiring Raptor Champion",
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Deep strike"
+  ],
+  "unit_type": "Jump Pack Infantry",
+  "keywords": [
+    "Chaos Space Marine"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Fast Attack",
+  "default_size": 5,
+  "min_cost": 215
+}

@@ -51,11 +51,12 @@ Das ist die wirkungsvollste Art beizutragen. Jede Fraktion liegt in einem eigene
 
 ```
 data/parsed/<fraktion>/
-  units/              <- eine .ts pro Einheit (alle 19 Fraktionen)
+  units/              <- eine reine .json pro Einheit (alle Fraktionen)
     troops/
-      traitor_guard.ts   <- eine Einheit, exportiert als `Unit`
-      index.ts           <- reexportiert alle Einheiten dieses Slots
-    hq/  elites/  ...     <- ein Ordner pro Slot, je mit eigener index.ts
+      traitor_guard.json  <- eine Einheit: nur JSON, kein import/export
+    hq/  elites/  ...      <- ein Ordner pro Slot
+    index.ts           <- die EINZIGE .ts: importiert alle .json, exportiert faction, slot_to_units, units
+  unit-notes.md       <- (manche Fraktionen) die alten Kopfkommentare, die JSON nicht aufnehmen kann
     index.ts          <- baut slot_to_units + units der Fraktion zusammen
   armory/
     general.json      <- allgemeine Ruestkammer (alle Modelle)
@@ -66,36 +67,23 @@ data/parsed/<fraktion>/
   psychic/            <- Disziplinen, Gebete, Daemonkin
 ```
 
-> Alle 19 Fraktionen verwenden das `units/`-Layout pro Slot. Jede Einheit
-> liegt in einer eigenen `.ts`-Datei unter `units/<slot>/<einheit>.ts`.
-> Gegenueber `.ods` geprueft Einheiten haben einen Quell-Kommentarblock im
-> Header; automatisch generierte Einheiten tragen einen `TODO`-Kommentar. Zum
-> HINZUFUEGEN einer Einheit siehe den Abschnitt unten: es sind DREI Dateien.
-
-
-> **Tyraniden nutzen ein anderes, einfacheres Format: reines JSON.** Jede Einheit ist eine
-> `.json`-Datei ohne `import` und ohne `export`, und der Ordner enthält genau EINE `.ts`,
-> `units/index.ts`, die alle importiert. Der Grund ist das Werkzeug: der Mitarbeiter des
-> Codex-Autors aktualisiert die Daten automatisch aus den Tabellen und kann das nur mit einer
-> Datei tun, die zu 100 % JSON ist. Um eine Tyraniden-Einheit zu bearbeiten, öffne ihre `.json`.
-> JSON kennt keine Kommentare; was man sich zu einer Einheit merken will, steht in
-> `units/NOTES.md`. Zum HINZUFÜGEN einer Tyraniden-Einheit braucht es ZWEI Dinge: ihre `.json`
-> und je einen `import` plus einen `units`-Eintrag in `units/index.ts` (und ihren Namen unter dem
-> richtigen Slot in `slot_to_units`). `node scripts/convert_units_to_json.cjs <Fraktion>`
-> konvertiert eine weitere Fraktion (standardmäßig Probelauf) und lehnt jede Datei ab, die
-> sich nicht verlustfrei konvertieren lässt.
+> **Alle Fraktionen nutzen dasselbe Layout: reines JSON.** Jede Einheit ist eine `.json` ohne `import` und `export`,
+> und der Ordner hat genau EINE `.ts`, `units/index.ts`, die alle importiert. Der Grund ist das Werkzeug: der
+> Mitarbeiter des Codex-Autors aktualisiert die Daten automatisch aus den Tabellen und kann das nur bei einer
+> Datei, die zu 100 % JSON ist. Zum Bearbeiten einer Einheit oeffne ihre `.json`. JSON kennt keine Kommentare, die
+> Kopfnotizen der alten `.ts` stehen deshalb in `data/parsed/<fraktion>/unit-notes.md` (Tyraniden: `units/NOTES.md`).
+> Zum HINZUFUEGEN einer Einheit braucht es ZWEI Dinge: ihre `.json` und je einen `import` plus einen
+> `units`-Eintrag in `units/index.ts` (und ihren Namen unter dem richtigen Slot in `slot_to_units`).
+> `node scripts/convert_units_to_json.cjs <fraktion>` konvertiert eine Fraktion im alten Format (Trockenlauf
+> als Standard). Fuehre den Konverter oder die Update-Skripte nicht ohne Rueckfrage auf deinen Daten aus.
 
 ### Eine NEUE Einheit hinzufuegen
 
-Eine Einheit existiert erst, wenn sie an **drei** Stellen steht. Die erste von ausserhalb des Teams
-beigesteuerte Einheit war genau deswegen nicht erreichbar, deshalb steht es jetzt hier.
+Eine Einheit existiert erst, wenn sie an **zwei** Stellen steht. Ein Name, der nur an einer steht, ist unerreichbar.
 
-1. **`data/parsed/<fraktion>/units/<slot>/<einheit>.ts`** — das Datenblatt selbst.
-2. **`data/parsed/<fraktion>/units/<slot>/index.ts`** — eine Zeile:
-   `export { dactylis } from './dactylis';`
-3. **`data/parsed/<fraktion>/units/index.ts`** — **ZWEI** Eintraege, und dieser Schritt wird
-   vergessen:
-   - in der `units`-Map: `"Dactylis": heavySupport.dactylis,`
+1. **`data/parsed/<fraktion>/units/<slot>/<einheit>.json`** — das Datenblatt selbst.
+2. **`data/parsed/<fraktion>/units/index.ts`** — **ZWEI** Eintraege, und dieser Schritt wird vergessen:
+   - eine Zeile `import dactylis from './heavy_support/dactylis.json';` und in der `units`-Map: `"Dactylis": dactylis as Unit,`
    - in `slot_to_units` unter dem richtigen Slot: `"Dactylis",`
 
 **Ein Name in `slot_to_units` ohne Eintrag in der `units`-Map erscheint im Katalog und loest sich
@@ -128,8 +116,8 @@ Codex-Vergleich laufen lassen sollen.
 
 ### Vorgehensweise
 
-1. Navigiere zu `data/parsed/<fraktion>/units/<slot>/` und oeffne die passende `.ts`-Datei.
-2. Das exportierte Objekt verwendet die Feldnamen der untenstehenden Tabelle. Der Kommentarblock im Kopf dokumentiert die kanonische Quelle -- halte ihn synchron, wenn du einen Wert aenderst.
+1. Navigiere zu `data/parsed/<fraktion>/units/<slot>/` und oeffne die passende `.json`-Datei.
+2. Das Objekt nutzt die Feldnamen der Tabelle unten. JSON kennt keine Kommentare: braucht eine Einheit eine Notiz, gehoert sie in `unit-notes.md` neben `units/`.
 3. Vergleiche die Felder mit deinem Regelwerk.
 4. Korrigiere, was falsch ist, und fuehre dann `npm run build` aus.
 5. Erstelle einen Pull Request.

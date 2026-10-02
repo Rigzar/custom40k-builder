@@ -271,8 +271,15 @@ export default function App() {
     const loader = loaders[selectedFaction];
     if (!loader) { setLoadingFaction(false); return; }
 
+    // A faction that was clicked and then replaced must not land on top of its replacement.
+    // Codex chunks are large and a phone can resolve them out of order: pick Chaos Space Marines,
+    // change your mind to Necrons, and the slower Chaos chunk arrived LAST, so setData stamped
+    // 'Chaos Space Marines' onto a Necron roster, and the next save carried that label (GH#186).
+    let stale = false;
+
     loader()
       .then(m => {
+        if (stale) return;
         setData(m as FactionData);
         setLoadingFaction(false);
         if (pendingLoad.current) {
@@ -282,9 +289,11 @@ export default function App() {
         }
       })
       .catch(e => {
+        if (stale) return;
         console.error('Error loading faction data', e);
         setLoadingFaction(false);
       });
+    return () => { stale = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFaction]);
 
@@ -597,8 +606,10 @@ export default function App() {
     }, 0);
 
     const baseName = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
+    // The faction the player picked, not whatever the store last held (see the loader effect).
+    const savedFaction = FACTION_NAMES[selectedFaction] ?? faction;
     const stateSnapshot = {
-      armyName: baseName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
+      armyName: baseName, faction: savedFaction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
       campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction,
       alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
     };
@@ -649,7 +660,7 @@ export default function App() {
       savedAt: Date.now(),
       totalPts: total,
       unitCount: army.length,
-      state: getSerializableState({ armyName: name, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army, campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
+      state: getSerializableState({ armyName: name, faction: savedFaction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army, campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
     };
 
     saveArmy(entry);

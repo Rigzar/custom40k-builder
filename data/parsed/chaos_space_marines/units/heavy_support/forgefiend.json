@@ -1,0 +1,127 @@
+{
+  "name": "Forgefiend",
+  "models": [
+    {
+      "name": "Forgefiend",
+      "points": 269,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "FRONT": "12",
+        "SIDE": "12",
+        "REAR": "10",
+        "I": "3",
+        "A": "1",
+        "HP": "3"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Forgefiend is equipped with: two Hades autocannons.",
+  "weapons": [
+    {
+      "name": "Ectoplasma gun",
+      "range": "36\"",
+      "type": "Heavy 2",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
+      "name": "Hades autocannon",
+      "range": "36\"",
+      "type": "Heavy 4",
+      "s": "8",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(2), Suppression(3)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May receive a Mark of Chaos",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 10
+        },
+        {
+          "name": "Nurgle",
+          "points": 10
+        },
+        {
+          "name": "Slaanesh",
+          "points": 10
+        },
+        {
+          "name": "Tzeentch",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May replace the two Hades autocannon",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "two Ectoplasma guns",
+          "points": 21
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Hades autocannon"
+      ]
+    },
+    {
+      "header": "May be equipped with an additional Ectoplasma gun for +75pts.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Ectoplasma gun",
+          "points": 75
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [],
+  "unit_type": "Walker",
+  "keywords": [
+    "Chaos Space Marine",
+    "Vehicle"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Heavy Support",
+  "default_size": 1,
+  "min_cost": 269
+}

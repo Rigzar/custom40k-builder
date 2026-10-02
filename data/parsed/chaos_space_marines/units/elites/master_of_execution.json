@@ -1,0 +1,110 @@
+{
+  "name": "Master of Execution",
+  "models": [
+    {
+      "name": "Master of Execution",
+      "points": 70,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "2+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "3",
+        "I": "4",
+        "A": "2",
+        "LD": "8",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Master of Execution is equipped with: Axe of dismemberment; Frag grenades; Krak grenades.",
+  "weapons": [
+    {
+      "name": "Axe of dismemberment",
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Deadly(5+)"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Krak grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May receive a Mark of Chaos",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Undivided",
+          "points": 0
+        },
+        {
+          "name": "Khorne",
+          "points": 6
+        },
+        {
+          "name": "Slaanesh",
+          "points": 6
+        },
+        {
+          "name": "Nurgle",
+          "points": 17
+        },
+        {
+          "name": "Tzeentch",
+          "points": 12
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Command squad",
+    "Advisor: For every HQ unit, you may select one Master of Execution without using up an Elite slot.",
+    "Trophy-taker: The model can re-roll 1 hit roll and 1 wound roll per activation."
+  ],
+  "unit_type": "Infantry",
+  "keywords": [
+    "Chaos Space Marine"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": true,
+  "champion_has_armory": false,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": true,
+  "slot": "Elites",
+  "default_size": 1,
+  "min_cost": 70
+}

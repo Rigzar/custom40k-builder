@@ -1,0 +1,124 @@
+{
+  "name": "Heldrake",
+  "models": [
+    {
+      "name": "Heldrake",
+      "points": 202,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "12\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "6",
+        "FRONT": "12",
+        "SIDE": "12",
+        "REAR": "10",
+        "I": "4",
+        "A": "3",
+        "HP": "3"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Heldrake is a single model and equipped with: Bale flamer; Heldrake claws.",
+  "weapons": [
+    {
+      "name": "Baleflamer",
+      "range": "18\"",
+      "type": "Assault 6",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
+    },
+    {
+      "name": "Heldrake claws",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Anti-air, Armorbane"
+    },
+    {
+      "name": "Hades autocannon",
+      "range": "36\"",
+      "type": "Heavy 4",
+      "s": "8",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(2), Suppression(3)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May receive a Mark of Chaos",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 10
+        },
+        {
+          "name": "Nurgle",
+          "points": 10
+        },
+        {
+          "name": "Slaanesh",
+          "points": 10
+        },
+        {
+          "name": "Tzeentch",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May replace its Baleflamer",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Hades autocannon",
+          "points": 31
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Baleflamer"
+      ]
+    }
+  ],
+  "abilities": [
+    "Anti-Grav, Fast, Hover mode",
+    "Warpfire: All weapons with the \"Auto Hit\" ability on the model gain +6\" range (already included in the weapon's profile)."
+  ],
+  "unit_type": "Flyer, Vehicle",
+  "keywords": [
+    "Chaos Space Marine",
+    "Vehicle"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": true,
+  "veteran_required": false,
+  "veteran_max": 2,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Flyers",
+  "default_size": 1,
+  "min_cost": 202
+}

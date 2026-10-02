@@ -1,1 +1,0 @@
-export { troupe } from './troupe';
