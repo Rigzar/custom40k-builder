@@ -40,7 +40,7 @@
     ],
     "min_cost": 75,
     "default_size": 5,
-    "equipped_with": "Every Guardian Defender is equipped with: Plasma grenade; Shuriken catapult.Every Heavy weapon platform is equipped with: Scatter laser.",
+    "equipped_with": "Every Guardian Defender is equipped with: Plasma grenades; Shuriken catapult.Every Heavy weapon platform is equipped with: Scatter laser.",
     "weapons": [
         {
             "name": "Aeldari missile launcher - Sunburst",
@@ -70,7 +70,7 @@
             "abilities": "AT(3), Lance(+2)"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

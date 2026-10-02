@@ -1,42 +1,41 @@
 {
-    "name": "Penitents",
+    "name": "Arco-flagellants",
     "models": [
         {
             "stats": {
                 "M": "6\"",
-                "WS": "4+",
-                "BS": "4+",
-                "S": "3",
+                "WS": "3+",
+                "BS": "6+",
+                "S": "4",
                 "T": "3",
                 "W": "2",
                 "I": "3",
-                "A": "1",
+                "A": "3",
                 "LD": "7",
-                "SV": "5+"
+                "SV": "6+"
             },
-            "name": "Penitent",
+            "name": "Arco-flagellant",
             "min": 1,
-            "max": 2,
-            "points": 16
+            "max": 10,
+            "points": 21
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every model is equipped with: Las pistol.",
+    "equipped_with": "Every model is equipped with: Arco flail.",
     "weapons": [
         {
-            "name": "Las pistol",
-            "range": "12\"",
-            "type": "Pistol 1",
-            "s": "3",
-            "ap": "0",
+            "name": "Arco flail",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
             "d": "1",
             "abilities": "-"
         }
     ],
     "option_groups": [],
     "abilities": [
-        "Command Squad, Squadron",
-        "Pariah: While a Penitent is alive, the unit gains the Aegis(5+) special ability. If two Penitents are alive, they gain Aegis(4+) instead."
+        "Berserk(5+), Blind rage"
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -53,5 +52,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 16
+    "min_cost": 21
 }

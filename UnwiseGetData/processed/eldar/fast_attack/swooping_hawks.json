@@ -42,7 +42,7 @@
     ],
     "min_cost": 185,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Lasblaster; Haywire grenade; Plasma grenade.",
+    "equipped_with": "Every model is equipped with: Lasblaster; Haywire grenades; Plasma grenades.",
     "weapons": [
         {
             "name": "Hawk's talon",
@@ -54,7 +54,7 @@
             "abilities": "Precision(5+)"
         },
         {
-            "name": "Haywire grenade",
+            "name": "Haywire grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "3",
@@ -72,7 +72,7 @@
             "abilities": "Precision(5+)"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

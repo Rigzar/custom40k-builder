@@ -42,7 +42,7 @@
     ],
     "min_cost": 55,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Hekatarii blade; Splinter pistol; Plasma grenade.",
+    "equipped_with": "Every model is equipped with: Hekatarii blade; Splinter pistol; Plasma grenades.",
     "weapons": [
         {
             "name": "Shardnet and impaler",
@@ -81,7 +81,7 @@
             "abilities": "Re-roll to hit and to wound rolls, Extra Attack(1)"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "-",
             "type": "Grenade 1",
             "s": "4",

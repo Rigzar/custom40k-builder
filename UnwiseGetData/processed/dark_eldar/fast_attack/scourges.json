@@ -42,7 +42,7 @@
     ],
     "min_cost": 170,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Shardcarbine; Plasma grenade.",
+    "equipped_with": "Every model is equipped with: Shardcarbine; Plasma grenades.",
     "weapons": [
         {
             "name": "Blaster",
@@ -81,7 +81,7 @@
             "abilities": "Lance(+2), Melta"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

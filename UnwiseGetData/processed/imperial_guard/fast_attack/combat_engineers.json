@@ -60,7 +60,7 @@
     ],
     "min_cost": 55,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Lasgun; Frag grenades; Trench Club.",
+    "equipped_with": "Every model is equipped with: Frag grenades; Machine pistol; Trench Club.",
     "weapons": [
         {
             "name": "Flamer",
@@ -72,7 +72,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

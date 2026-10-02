@@ -52,7 +52,7 @@
             "abilities": "Armor piercing(5+)"
         },
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
