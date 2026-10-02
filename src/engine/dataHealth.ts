@@ -130,6 +130,7 @@ export async function runDataHealth(): Promise<HealthFinding[]> {
       check('hqAllowed', rule.hqAllowed);
       check('grantVetAbilities', rule.grantVetAbilities);
       check('grantsCommandSquad', rule.grantsCommandSquad);
+      check('grantsAbility', rule.grantsAbility?.units);
       check('allowedUnitsOnly', rule.allowedUnitsOnly);
       check('troopsCountExclude', rule.troopsCountExclude);
       check('liftsUniqueLimit', rule.liftsUniqueLimit);

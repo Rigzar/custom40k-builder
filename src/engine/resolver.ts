@@ -1636,6 +1636,17 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   if (rule?.grantsCommandSquad?.includes(item.unitName)) {
     ruleNotes.push('Command squad');
   }
+  // Archetype-granted ability on named units (Swarming Masses -> Combat squads).
+  if (rule?.grantsAbility?.units.includes(item.unitName)) {
+    ruleNotes.push(rule.grantsAbility.ability);
+  }
+  // The promoted model improves an ability value (Megafauna: Regeneration(1) -> Regeneration(2)).
+  const abilityUp = item.archetypeHqUpgrade ? rule?.hqPromotion?.abilityUpgrade : undefined;
+  if (abilityUp) {
+    const up = (t: string) => t.split(abilityUp.from).join(abilityUp.to);
+    equipMods.grantedAbilities = equipMods.grantedAbilities.map(up);
+    for (let i = 0; i < optionAbilities.length; i++) optionAbilities[i] = up(optionAbilities[i]);
+  }
 
   // The faction's deployment rule, bought on this entry: the unit is set up with Infiltrators
   // (Webway strike / Webway raid) or Deep Strike (Lightning strike / Tellyporta). Shown as a rule

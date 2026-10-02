@@ -154,6 +154,7 @@ export function unitMatchesKeyword(
 }
 
 export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
+  if (group.promoted_constraint && item.archetypeHqUpgrade) return group.promoted_constraint;
   const vc = group.variant_constraint;
   const base = !vc ? group.constraint
     : getActiveVariant(item, unit)?.variant.name === vc.variant ? vc.constraint : group.constraint;

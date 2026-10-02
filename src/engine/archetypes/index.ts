@@ -567,7 +567,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // selection." The biomorph is bought from the shared Armory, not from the datasheet's own
     // option groups, so the promotion is not gated on a choice name here — the note carries the
     // requirement and the validator would need the Armory selection to check it.
-    hqPromotion: { unitNameContains: 'Carnifex' },
+    hqPromotion: { unitNameContains: 'Carnifex', requiresChoice: 'Regeneration', abilityUpgrade: { from: 'Regeneration(1)', to: 'Regeneration(2)' } },
     notes: [
       'One Carnifex with the Regeneration(1) Special Biomorph becomes an HQ selection.',
       'Regeneration(1) becomes Regeneration(2) for that model, and does not block a second Special Biomorph.',
@@ -594,6 +594,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // "Genestealer Broods and Tyranid Warrior Broods become Elite choices." NAMED, so the gaunt
     // broods stay Troops — the same sentence grants them Combat Squad.
     elitesRemap: ['Genestealer Brood', 'Tyranid Warrior Brood'],
+    grantsAbility: { ability: 'Combat squads', units: ['Barbgaunt Brood', 'Gargoyle Brood', 'Hormagaunt Brood', 'Neurogaunt Brood', 'Ripper Swarms', 'Termagant Brood'] },
     notes: [
       'Barbgaunt, Gargoyle, Hormagaunt, Neurogaunt, Ripper Swarm and Termagant Broods gain "Combat Squad".',
       'Genestealer Broods and Tyranid Warrior Broods become Elite choices.',

@@ -215,6 +215,13 @@ export interface OptionGroup {
    * the cap or the required flag matters.
    */
   variant_constraint?: { variant: string; constraint: Constraint };
+  /**
+   * The constraint that applies INSTEAD while the entry has claimed its archetype's HQ promotion
+   * (`RosterEntry.archetypeHqUpgrade`). Megafauna: the promoted Carnifex "may take a second
+   * Special Biomorph" - the Regeneration(1) it must carry does not use up the one the datasheet
+   * allows. Read through `groupConstraint`, like every other constraint.
+   */
+  promoted_constraint?: Constraint;
   choices: Choice[];
   inline_pts: number | null;
   variant_link: string | null;

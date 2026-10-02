@@ -195,7 +195,22 @@ export interface ArchetypeRule {
    * a Heavy Support unit into the HQ slot, and from `requiresHqUpgrade`, which only demands that
    * an already-HQ unit carry an upgrade.
    */
-  hqPromotion?: { unitNameContains: string; requiresChoice?: string } | null;
+  hqPromotion?: {
+    unitNameContains: string; requiresChoice?: string;
+    /**
+     * An ability value the promoted model improves: Megafauna's "The Regeneration(1) ability becomes
+     * Regeneration(2) for that model". Applied to the granted-ability texts of the entry that
+     * claimed the promotion (`archetypeHqUpgrade`), and only to it.
+     */
+    abilityUpgrade?: { from: string; to: string };
+  } | null;
+  /**
+   * An ability every listed unit gains while this archetype is active, shown on the profile like
+   * Objective secured!: Swarming Masses' "Barbgaunt, Gargoyle, Hormagaunt, Neurogaunt, Ripper
+   * Swarm and Termagant Broods gain the 'Combat Squad' ability". Unit names are checked by
+   * dataHealth, like every other list in this file.
+   */
+  grantsAbility?: { ability: string; units: string[] } | null;
   /**
    * Caps how many Troops selections OTHER than `anchorUnit` are allowed, scaled by how many
    * copies of `anchorUnit` are in the army — e.g. IG Whiteshields' "You are only allowed one
