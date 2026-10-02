@@ -237,7 +237,7 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
   // SOURCE — Legion:
   // - The army has access to everything from the Horus Heresy Legiones Astartes supplement.
   // - Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops.
-  'Legion': { ...BASE,
+  'Legion CSM': { ...BASE,
     troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
     troopsCount: 'remap',
     alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',

@@ -10,6 +10,7 @@ const CSM_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Ambition for Perfection':   '/legion-symbols/emperors-children.svg',
   'Blood for the Blood God!':  '/legion-symbols/world-eaters.svg',
   'Plaguehost':                '/legion-symbols/death-guard.svg',
+  'Legion CSM':                '/faction-symbols/horus-heresy.svg',
   'Legion':                    '/faction-symbols/horus-heresy.svg',
 };
 
@@ -26,6 +27,7 @@ const CSM_LEGACY_SYMBOL: Record<string, string> = {
 
 const SM_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Renegades':             '/legion-symbols/renegade-and-heretics.svg',
+  'Legion SM':             '/faction-symbols/horus-heresy.svg',
   'Legion (Space Marines)':'/faction-symbols/horus-heresy.svg',
 };
 

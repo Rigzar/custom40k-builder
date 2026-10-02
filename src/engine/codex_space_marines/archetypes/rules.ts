@@ -43,7 +43,7 @@ export const SM_STRUCTURED_NOTES: Record<string, StructuredNote[]> = {
     { category: 'mechanic',     text: 'Death Company units are no longer limited to one per army.' },
   ],
 
-  'Legion (Space Marines)': [
+  'Legion SM': [
     { category: 'mechanic',     text: 'Access to all Horus Heresy Legiones Astartes supplement units.' },
     { category: 'restriction',  text: 'Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops requirement.' },
   ],

@@ -75,7 +75,7 @@ export const CSM_STRUCTURED_NOTES: Record<string, StructuredNote[]> = {
     { category: 'in_game',     text: 'At least half of all Raptor models must start the game in reserves, even if the mission does not allow reserves.' },
   ],
 
-  'Legion': [
+  'Legion CSM': [
     { category: 'mechanic',    text: 'Access to all Horus Heresy Legiones Astartes supplement units.' },
     { category: 'restriction', text: 'Only HH Troops (Breacher, Tactical, Tactical Support Squads) count towards the 25% Troops requirement.' },
   ],

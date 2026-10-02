@@ -629,6 +629,8 @@ const RENAMED_ARCHETYPES: Record<string, string> = {
   'Titan Legion': 'Taghmata',           // Adeptus Mechanicus, 2026-08 codex
   'Sector Protector': 'Sector Lord',    // Inquisition, 2026-09 codex (1.01)
   'War Hawks': 'Airborne Assault Company',  // Imperial Guard, 2026-09-17 sheet
+  'Legion (Space Marines)': 'Legion SM',   // Space Marines, October 2026: the two Legion archetypes got distinct names
+  'Legion': 'Legion CSM',                  // Chaos Space Marines (the Space Marines one was "Legion (Space Marines)")
   'Bloodbrides': 'Bloodbride Raid',        // Dark Eldar, 1.01 codex
   'Haemoxytes': 'Haemoxyte Raid',          // Dark Eldar, 1.01 codex
   'Trueborn': 'Trueborn Raid',             // Dark Eldar, 1.01 codex
