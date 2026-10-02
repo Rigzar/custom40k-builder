@@ -40,7 +40,7 @@
     ],
     "min_cost": 160,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Enhanced Bionics; Transonic blades; Mindscrambler Grenades.",
+    "equipped_with": "Every model is equipped with: Enhanced Bionics; Transonic blades; Mindscrambler grenades.",
     "weapons": [
         {
             "name": "Chordclaw",
@@ -52,7 +52,7 @@
             "abilities": "Extra attack(1), Limit(1)"
         },
         {
-            "name": "Mindscrambler grenade",
+            "name": "Mindscrambler grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "2",

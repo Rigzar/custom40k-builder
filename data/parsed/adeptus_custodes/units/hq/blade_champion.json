@@ -24,7 +24,7 @@
     "equipped_with": "A Blade Champion is equipped with: Frag grenades; Melta bombs; Vaultswords.",
     "weapons": [
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -33,7 +33,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Melta bomb",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade 1",
             "s": "8",

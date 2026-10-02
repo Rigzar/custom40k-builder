@@ -70,7 +70,7 @@
             "abilities": "AT(1), Beam, Melta"
         },
         {
-            "name": "Melta bomb",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade 1",
             "s": "8",

@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Shield-Captain on Jetbike is equipped with: Relic Interceptor lance; Lastrum bolt cannon.",
+    "equipped_with": "A Shield-Captain on Jetbike is equipped with: Frag grenades; Melta bombs; Relic Interceptor lance; Lastrum bolt cannon.",
     "weapons": [
         {
             "name": "Adrathic devastator",
@@ -60,7 +60,7 @@
             "abilities": "-"
         },
         {
-            "name": "Melta bomb",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade 1",
             "s": "8",
