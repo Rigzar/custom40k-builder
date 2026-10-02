@@ -61,7 +61,7 @@
             "abilities": "AT(2), Slow(-2), Armorbane"
         },
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -70,7 +70,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Krak grenade",
+            "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "6",

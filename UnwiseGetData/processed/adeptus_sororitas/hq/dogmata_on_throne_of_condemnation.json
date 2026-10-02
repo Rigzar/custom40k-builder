@@ -25,7 +25,7 @@
     "equipped_with": "A Dogmata on Throne of Condemnation is equipped with: Frag grenades; Krak grenades; Mace of the righteous; Melta missiles; Twin heavy bolter; Twin heavy flamer.",
     "weapons": [
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -34,7 +34,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Krak grenade",
+            "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "6",
