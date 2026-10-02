@@ -63,7 +63,7 @@
             "abilities": "Deadly(5+)"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

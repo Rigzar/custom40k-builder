@@ -94,7 +94,7 @@
     ],
     "min_cost": 80,
     "default_size": 5,
-    "equipped_with": "Every Voidscarred and Felarch is equipped with: Plasma grenade; Shuriken rifle.A Shade Runner is equipped with: Paired Hekatarii blades; Plasma grenade; Shuriken pistol.A Soul Weaver is equipped with: Channeler stones; Plasma grenade; Power sword; Shuriken pistol.A Way Seeker is equipped with: Plasma grenade; Shuriken pistol; Witch staff.",
+    "equipped_with": "Every Voidscarred and Felarch is equipped with: Plasma grenades; Shuriken rifle.A Shade Runner is equipped with: Paired Hekatarii blades; Plasma grenades; Shuriken pistol.A Soul Weaver is equipped with: Channeler stones; Plasma grenades; Power sword; Shuriken pistol.A Way Seeker is equipped with: Plasma grenades; Shuriken pistol; Witch staff.",
     "weapons": [
         {
             "name": "Blaster",
@@ -142,7 +142,7 @@
             "abilities": "-"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -166,7 +166,7 @@
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), Suppression(3)"
+            "abilities": "Armor piercing(5+), Sniper, Suppression(3)"
         },
         {
             "name": "Shuriken cannon",
@@ -222,8 +222,7 @@
         "Mistshield: The model and it's attached unit gain a 5+ ward save against ranged attacks.",
         "Neuro disruptor: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",
         "Psyker: The Way Seeker can cast 1 power and deny 1 power per battle round. They know Smite and 1 power from either the Battle or Fate discipline.",
-        "Shade Runner Assault: After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact.",
-        "Sniper: A model equipped with a Ranger long rifle increases their BS by +1."
+        "Shade Runner Assault: After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact."
     ],
     "unit_type": "Infantry",
     "is_monster": false,

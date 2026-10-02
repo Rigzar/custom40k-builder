@@ -42,10 +42,10 @@
     ],
     "min_cost": 28,
     "default_size": 1,
-    "equipped_with": "A Haemonculus is equipped with: Plasma grenade.",
+    "equipped_with": "A Haemonculus is equipped with: Plasma grenades.",
     "weapons": [
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
