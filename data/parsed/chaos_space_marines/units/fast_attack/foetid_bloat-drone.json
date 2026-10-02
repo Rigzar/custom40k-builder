@@ -1,0 +1,110 @@
+{
+    "name": "Foetid Bloat-Drone",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "11",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "1",
+                "HP": "2"
+            },
+            "name": "Foetid Bloat-Drone",
+            "min": 1,
+            "max": 2,
+            "points": 136
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Foetid Bloat-Drone is equipped with: Fleshmower; Plague probe.",
+    "weapons": [
+        {
+            "name": "Fleshmower",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Extra Attack(4), Deflagrate(5+), Poison(4+)"
+        },
+        {
+            "name": "Heavy blight launcher",
+            "range": "36\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armorbane, AT(1), Blast(4), Poison(4+)"
+        },
+        {
+            "name": "Plague probe",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Poison(4+)"
+        },
+        {
+            "name": "Plague spewer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(4+), Sunder(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Can replace the Fleshmower",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Two plague spewers",
+                    "points": 41
+                },
+                {
+                    "name": "Heavy blight launcher",
+                    "points": 74
+                }
+            ],
+            "replaces": [
+                "Fleshmower"
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Fast, Mark of Nurgle, Squadron",
+        "Fleshmower: The model gains WS 3+ if it starts the game with this weapon.",
+        "Pest explosion: If the Foetid Bloat-Drone is destroyed, it always explodes. The explosion range is 6\"."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [
+        "Death Guard"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": "Nurgle",
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 1,
+    "min_cost": 136
+}

@@ -1,107 +1,107 @@
 {
-  "name": "Red Butcher Terminators",
-  "models": [
-    {
-      "name": "Red Butcher Terminator",
-      "points": 73,
-      "min": 4,
-      "max": 8,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "3+",
-        "S": "5",
-        "T": "5",
-        "W": "2",
-        "I": "4",
-        "A": "4",
-        "LD": "8",
-        "SV": "2+"
-      }
-    },
-    {
-      "name": "Red Butcher Champion",
-      "points": 78,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "3+",
-        "S": "5",
-        "T": "5",
-        "W": "2",
-        "I": "4",
-        "A": "4",
-        "LD": "8",
-        "SV": "2+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Each model is equipped with: Twin Power axes.",
-  "weapons": [
-    {
-      "name": "Twin chainfist",
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "Armorbane, AT(3), Extra Attack(1), Slow(-3)"
-    },
-    {
-      "name": "Twin power axe",
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Extra Attack(1)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "The Red Butcher Champion may swap their Twin power axe",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Red Butcher Terminators",
+    "models": [
         {
-          "name": "Twin chainfist",
-          "points": 26
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "4",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Red Butcher Terminator",
+            "min": 4,
+            "max": 8,
+            "points": 73
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "4",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Red Butcher Champion",
+            "min": 1,
+            "max": 1,
+            "points": 78
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Twin power axe"
-      ]
-    }
-  ],
-  "abilities": [
-    "Blind Rage, Deep strike, Mark of Khorne, Massive(1), Unyielding",
-    "Cataphractii armor: The model has a 4+ ward save."
-  ],
-  "unit_type": "Infantry",
-  "keywords": [
-    "World Eaters"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "armory_gear_only": true,
-  "champion_has_armory": true,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 1,
-  "locked_mark": "Khorne",
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 5,
-  "min_cost": 370,
-  "armourKeyword": "Cataphractii"
+    ],
+    "variant_models": [],
+    "equipped_with": "Each model is equipped with: Twin Power axes.",
+    "weapons": [
+        {
+            "name": "Twin chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane, AT(3), Extra Attack(1), Slow(-3)"
+        },
+        {
+            "name": "Twin power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "The Red Butcher Champion may swap their Twin power axe",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin chainfist",
+                    "points": 26
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin power axe"
+            ]
+        }
+    ],
+    "abilities": [
+        "Blind Rage, Deep strike, Mark of Khorne, Massive(1), Unyielding",
+        "Cataphractii armor: The model has a 4+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "World Eaters"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "armory_gear_only": true,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": "Khorne",
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 370,
+    "armourKeyword": "Cataphractii"
 }

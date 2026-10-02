@@ -1,67 +1,67 @@
 {
-  "name": "Flawless Blades",
-  "models": [
-    {
-      "name": "Flawless Blade",
-      "points": 54,
-      "min": 3,
-      "max": 6,
-      "stats": {
-        "M": "8\"",
-        "WS": "2+",
-        "BS": "3+",
-        "S": "5",
-        "T": "5",
-        "W": "2",
-        "I": "5",
-        "A": "2",
-        "LD": "8",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Each model is equipped with: Blissblade; Bolt pistol.",
-  "weapons": [
-    {
-      "name": "Blissblade",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Master-crafted, Precision(3+)"
-    },
-    {
-      "name": "Bolt pistol",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    }
-  ],
-  "option_groups": [],
-  "abilities": [
-    "Daemon, Mark of Slaanesh, Parry"
-  ],
-  "unit_type": "Infantry",
-  "keywords": [
-    "Emperor's Children"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 1,
-  "locked_mark": "Slaanesh",
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 3,
-  "min_cost": 162
+    "name": "Flawless Blades",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Flawless Blade",
+            "min": 3,
+            "max": 6,
+            "points": 54
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Each model is equipped with: Blissblade; Bolt pistol.",
+    "weapons": [
+        {
+            "name": "Blissblade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Master-crafted, Precision(3+)"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Daemon, Mark of Slaanesh, Parry"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Emperor's Children"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": "Slaanesh",
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 3,
+    "min_cost": 162
 }

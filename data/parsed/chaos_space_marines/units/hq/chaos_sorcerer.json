@@ -1,126 +1,125 @@
 {
-  "name": "Chaos Sorcerer",
-  "slot": "HQ",
-  "models": [
-    {
-      "name": "Chaos Sorcerer",
-      "points": 92,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "4",
-        "T": "4",
-        "W": "4",
-        "I": "5",
-        "A": "2",
-        "LD": "8",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [
-    {
-      "name": "Master of Sorcery",
-      "points": 107,
-      "min": 0,
-      "max": 0,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "4",
-        "T": "4",
-        "W": "4",
-        "I": "5",
-        "A": "3",
-        "LD": "9",
-        "SV": "3+"
-      }
-    }
-  ],
-  "equipped_with": "A Chaos Sorcerer is equipped with: Frag grenades; Krak grenades.",
-  "weapons": [
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May receive a Mark of Chaos",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Chaos Sorcerer",
+    "slot": "HQ",
+    "models": [
         {
-          "name": "Undivided",
-          "points": 0
-        },
-        {
-          "name": "Slaanesh",
-          "points": 8
-        },
-        {
-          "name": "Nurgle",
-          "points": 20
-        },
-        {
-          "name": "Tzeentch",
-          "points": 15
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Chaos Sorcerer",
+            "min": 1,
+            "max": 1,
+            "points": 92
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "One Chaos Sorcerer per army can be upgraded to a Master of Sorcery for +15 points.",
-      "constraint": {
-        "type": "unique_upgrade"
-      },
-      "choices": [],
-      "inline_pts": 15,
-      "variant_link": "Master of Sorcery",
-      "is_unique_per_army": true
-    }
-  ],
-  "abilities": [
-    "Master of Sorcery: The model can cast and deny 1 additional power per battle round.",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
-  ],
-  "unit_type": "Character Model, Infantry",
-  "keywords": [
-    "Chaos Space Marine",
-    "Psyker"
-  ],
-  "is_vehicle": false,
-  "is_character": true,
-  "is_monster": false,
-  "is_psyker": true,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 2,
-  "locked_mark": null,
-  "advisor": false,
-  "default_size": 1,
-  "min_cost": 92
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Master of Sorcery",
+            "min": 0,
+            "max": 1,
+            "points": 107
+        }
+    ],
+    "equipped_with": "A Chaos Sorcerer is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May receive a Mark of Chaos",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Undivided",
+                    "points": 0
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 8
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 20
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "One Chaos Sorcerer per army can be upgraded to a Master of Sorcery for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Master of Sorcery",
+            "is_unique_per_army": true
+        }
+    ],
+    "abilities": [
+        "Master of Sorcery: The model can cast and deny 1 additional power per battle round.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [
+        "Chaos Space Marine"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": true,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "default_size": 1,
+    "min_cost": 92
 }

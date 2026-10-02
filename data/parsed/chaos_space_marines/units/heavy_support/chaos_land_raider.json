@@ -1,189 +1,191 @@
 {
-  "name": "Chaos Land Raider",
-  "models": [
-    {
-      "name": "Chaos Land Raider",
-      "points": 558,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "12\"",
-        "WS": "-",
-        "BS": "3+",
-        "S": "7",
-        "FRONT": "14",
-        "SIDE": "14",
-        "REAR": "14",
-        "I": "4",
-        "A": "1",
-        "HP": "4"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Chaos Land Raider is equipped with: Twin heavy bolter; 2 Twin Lascannons.",
-  "weapons": [
-    {
-      "name": "Combi-bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 2",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Havoc launcher",
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Anti-Air, Blast(4)"
-    },
-    {
-      "name": "Twin heavy bolter",
-      "range": "36\"",
-      "type": "Rapid Fire 4",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Twin lascannon",
-      "range": "48\"",
-      "type": "Heavy 2",
-      "s": "9",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "AT(3)"
-    },
-    {
-      "name": "Combi-flamer - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-flamer - Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Combi, Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Combi-melta - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-melta - Melta",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Combi, Melta"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May receive a Mark of Chaos",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Chaos Land Raider",
+    "models": [
         {
-          "name": "Khorne",
-          "points": 10
-        },
-        {
-          "name": "Nurgle",
-          "points": 10
-        },
-        {
-          "name": "Slaanesh",
-          "points": 10
-        },
-        {
-          "name": "Tzeentch",
-          "points": 10
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Chaos Land Raider",
+            "min": 1,
+            "max": 1,
+            "points": 558
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be equipped with one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "A Chaos Land Raider is equipped with: Twin heavy bolter; 2 Twin Lascannons.",
+    "weapons": [
         {
-          "name": "Combi-flamer",
-          "points": 8
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         },
         {
-          "name": "Combi-bolter",
-          "points": 11
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
         },
         {
-          "name": "Combi-melta",
-          "points": 18
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be equipped with a Havoc launcher for +29pts.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+            "name": "Combi-flamer - Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
+        },
         {
-          "name": "Havoc launcher",
-          "points": 29
+            "name": "Combi-flamer Combi-melta *"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Havoc launcher",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Anti-Air, Blast(4)"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [
-    "Assault Ramp: Passengers may perform a Charge command, even if the vehicle moved up to 12\".",
-    "Transport: This model has a transport capacity of 10 infantry models."
-  ],
-  "unit_type": "Vehicle",
-  "keywords": [
-    "Chaos Space Marine",
-    "Vehicle"
-  ],
-  "is_vehicle": true,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 2,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Heavy Support",
-  "default_size": 1,
-  "min_cost": 558
+    ],
+    "option_groups": [
+        {
+            "header": "May receive a Mark of Chaos",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 10
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 10
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 10
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Combi-flamer",
+                    "points": 8
+                },
+                {
+                    "name": "Combi-bolter",
+                    "points": 11
+                },
+                {
+                    "name": "Combi-melta",
+                    "points": 18
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be equipped with a Havoc launcher for +29pts.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Havoc launcher",
+                    "points": 29
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Assault Ramp: Passengers may perform a Charge command, even if the vehicle moved up to 12\".",
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [
+        "Chaos Space Marine"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 558
 }

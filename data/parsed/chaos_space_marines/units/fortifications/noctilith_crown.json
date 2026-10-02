@@ -1,62 +1,61 @@
 {
-  "name": "Noctilith Crown",
-  "models": [
-    {
-      "name": "Noctilith Crown",
-      "points": 95,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "-",
-        "WS": "-",
-        "BS": "3+",
-        "S": "6",
-        "FRONT": "11",
-        "SIDE": "11",
-        "REAR": "11",
-        "I": "-",
-        "A": "-",
-        "HP": "2"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Noctilith Crown is equipped with: Lashing warp energies.",
-  "weapons": [
-    {
-      "name": "Lashing warp energies",
-      "range": "12\"",
-      "type": "Assault 4",
-      "s": "5",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    }
-  ],
-  "option_groups": [],
-  "abilities": [
-    "Infiltrator",
-    "Unholy Conduit: A friendly unit starting its activation within 12\" of the Noctilith Crown can attempt to pray to the Dark Gods. Roll 2D6. On a roll of 6+, the unit gains the effect of a prayer from the sheet \"Prayers to the Dark Gods\". On any roll below 6 it gets hit with the Lashing warp energies profile.",
-    "Unmanned: A Noctilith Crown can't contest or capture mission objectives.",
-    "Warp explosion: If the model is destroyed, it always explodes. The explosion range is 6\"."
-  ],
-  "unit_type": "Vehicle",
-  "keywords": [
-    "Fortification",
-    "Vehicle"
-  ],
-  "is_vehicle": true,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Fortifications",
-  "default_size": 1,
-  "min_cost": 95
+    "name": "Noctilith Crown",
+    "models": [
+        {
+            "stats": {
+                "M": "-",
+                "WS": "-",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "11",
+                "SIDE": "11",
+                "REAR": "11",
+                "I": "-",
+                "A": "-",
+                "HP": "2"
+            },
+            "name": "Noctilith Crown",
+            "min": 1,
+            "max": 1,
+            "points": 95
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Noctilith Crown is equipped with: Lashing warp energies.",
+    "weapons": [
+        {
+            "name": "Lashing warp energies",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Infiltrator",
+        "Unholy Conduit: A friendly unit starting its activation within 12\" of the Noctilith Crown can attempt to pray to the Dark Gods. Roll 2D6. On a roll of 6+, the unit gains the effect of a prayer from the sheet \"Prayers to the Dark Gods\". On any roll below 6 it gets hit with the Lashing warp energies profile.",
+        "Unmanned: A Noctilith Crown can't contest or capture mission objectives.",
+        "Warp explosion: If the model is destroyed, it always explodes. The explosion range is 6\"."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [
+        "Fortification"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fortifications",
+    "default_size": 1,
+    "min_cost": 95
 }

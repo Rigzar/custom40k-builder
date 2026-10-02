@@ -1,263 +1,270 @@
 {
-  "name": "Chaos Predator",
-  "models": [
-    {
-      "name": "Predator",
-      "points": 232,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "12\"",
-        "WS": "-",
-        "BS": "3+",
-        "S": "6",
-        "FRONT": "13",
-        "SIDE": "11",
-        "REAR": "10",
-        "I": "4",
-        "A": "1",
-        "HP": "3"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Predator is equipped with: Predator autocannon.",
-  "weapons": [
-    {
-      "name": "Combi-bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 2",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Havoc launcher",
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Anti-Air, Blast(4)"
-    },
-    {
-      "name": "Heavy bolter",
-      "range": "36\"",
-      "type": "Rapid Fire 2",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Lascannon",
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "9",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "AT(3)"
-    },
-    {
-      "name": "Predator autocannon",
-      "range": "48\"",
-      "type": "Heavy 3",
-      "s": "7",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Armor piercing(5+), AT(1)"
-    },
-    {
-      "name": "Twin lascannon",
-      "range": "48\"",
-      "type": "Heavy 2",
-      "s": "9",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "AT(3)"
-    },
-    {
-      "name": "Combi-flamer - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-flamer - Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Combi, Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Combi-melta - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-melta - Melta",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Combi, Melta"
-    },
-    {
-      "name": "Twin entropy cannon - Focused entropy",
-      "range": "48\"",
-      "type": "Heavy 2",
-      "s": "8",
-      "ap": "-5",
-      "d": "3",
-      "abilities": "AT(3)"
-    },
-    {
-      "name": "Twin entropy cannon - Entropic burst",
-      "range": "48\"",
-      "type": "Heavy 2",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Blast(4), Poison(4+)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May receive a Mark of Chaos",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Chaos Predator",
+    "models": [
         {
-          "name": "Khorne",
-          "points": 10
-        },
-        {
-          "name": "Nurgle",
-          "points": 10
-        },
-        {
-          "name": "Slaanesh",
-          "points": 10
-        },
-        {
-          "name": "Tzeentch",
-          "points": 10
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Predator",
+            "min": 1,
+            "max": 1,
+            "points": 232
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May replace the Predator autocannon",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "A Predator is equipped with: Predator autocannon.",
+    "weapons": [
         {
-          "name": "Twin entropy cannon",
-          "points": 50
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         },
         {
-          "name": "Twin lascannon",
-          "points": 50
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Predator autocannon"
-      ]
-    },
-    {
-      "header": "May be equipped with one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "two Heavy bolters",
-          "points": 54
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
         },
         {
-          "name": "two lascannons",
-          "points": 138
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be equipped with one of the following",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Combi-flamer",
-          "points": 8
+            "name": "Combi-flamer - Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
         },
         {
-          "name": "Combi-bolter",
-          "points": 11
+            "name": "Combi-flamer Combi-melta *"
         },
         {
-          "name": "Combi-melta",
-          "points": 18
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "May be equipped with a Havoc launcher for +29pts.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
         {
-          "name": "Havoc launcher",
-          "points": 29
+            "name": "Combi-flamer - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Havoc launcher",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Anti-Air, Blast(4)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lascannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Predator autocannon",
+            "range": "48\"",
+            "type": "Heavy 3",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), AT(1)"
+        },
+        {
+            "name": "Twin entropy cannon"
+        },
+        {
+            "name": "- Focused entropy",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "- Entropic burst",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Poison(4+)"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [],
-  "unit_type": "Vehicle",
-  "keywords": [
-    "Chaos Space Marine",
-    "Vehicle"
-  ],
-  "is_vehicle": true,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 2,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Heavy Support",
-  "default_size": 1,
-  "min_cost": 232
+    ],
+    "option_groups": [
+        {
+            "header": "May receive a Mark of Chaos",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 10
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 10
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 10
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May replace the Predator autocannon",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin entropy cannon",
+                    "points": 50
+                },
+                {
+                    "name": "Twin lascannon",
+                    "points": 50
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Predator autocannon"
+            ]
+        },
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "two Heavy bolters",
+                    "points": 54
+                },
+                {
+                    "name": "two lascannons",
+                    "points": 138
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Combi-flamer",
+                    "points": 8
+                },
+                {
+                    "name": "Combi-bolter",
+                    "points": 11
+                },
+                {
+                    "name": "Combi-melta",
+                    "points": 18
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be equipped with a Havoc launcher for +29pts.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Havoc launcher",
+                    "points": 29
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [
+        "Chaos Space Marine"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 232
 }
