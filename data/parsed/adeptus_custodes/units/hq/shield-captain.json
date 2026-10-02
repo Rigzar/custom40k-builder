@@ -20,8 +20,7 @@
             "points": 178
         }
     ],
-    "min_cost": 178,
-    "default_size": 1,
+    "variant_models": [],
     "equipped_with": "A Shield-Captain is equipped with: Frag grenades; Melta bombs; Relic bolt caster; Relic guardian spear.",
     "weapons": [
         {
@@ -88,6 +87,65 @@
             "abilities": "-"
         }
     ],
+    "option_groups": [
+        {
+            "header": "Only one Shield-Captain per army.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Can replace the Guardian spear",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Relic sentinel blade & Storm shield",
+                    "points": 5
+                },
+                {
+                    "name": "Relic castellan axe",
+                    "points": 9
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Relic guardian spear"
+            ]
+        },
+        {
+            "header": "A Shield-Captain with either a Guardian spear or a Castellan axe may get an Allarus terminator armor and Relic balistus grenade launcher for +33 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 33,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "effect": {
+                "stat_mod": [
+                    {
+                        "stat": "T",
+                        "delta": 1
+                    },
+                    {
+                        "stat": "A",
+                        "delta": 1
+                    }
+                ],
+                "grants_abilities": [
+                    "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities."
+                ]
+            }
+        }
+    ],
     "abilities": [
         "Massive(1), Shield Host",
         "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities.",
@@ -95,6 +153,19 @@
         "Custodian armor: The model gains a 5+ ward save."
     ],
     "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
     "is_monster": false,
-    "keywords": []
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 178
 }

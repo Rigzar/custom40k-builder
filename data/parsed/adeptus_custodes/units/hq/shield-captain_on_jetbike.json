@@ -20,8 +20,7 @@
             "points": 274
         }
     ],
-    "min_cost": 274,
-    "default_size": 1,
+    "variant_models": [],
     "equipped_with": "A Shield-Captain on Jetbike is equipped with: Frag grenades; Melta bombs; Relic Interceptor lance; Lastrum bolt cannon.",
     "weapons": [
         {
@@ -109,12 +108,67 @@
             "abilities": "AT(1)"
         }
     ],
+    "option_groups": [
+        {
+            "header": "Only one Shield-Captain per army.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May swap the Lastrum bolt cannon",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Hurricane bolter",
+                    "points": 13
+                },
+                {
+                    "name": "Adrathic devastator",
+                    "points": 38
+                },
+                {
+                    "name": "Salvo launcher",
+                    "points": 65
+                },
+                {
+                    "name": "Twin las-pulser",
+                    "points": 116
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Lastrum bolt cannon"
+            ]
+        }
+    ],
     "abilities": [
         "Shield Host",
         "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
         "Custodian armor: The model gains a 5+ ward save."
     ],
     "unit_type": "Character model, Jetbike",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
     "is_monster": false,
-    "keywords": []
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 274
 }

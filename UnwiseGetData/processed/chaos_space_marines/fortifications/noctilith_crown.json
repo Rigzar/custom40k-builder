@@ -5,7 +5,7 @@
             "stats": {
                 "M": "-",
                 "WS": "-",
-                "BS": "6+",
+                "BS": "3+",
                 "S": "6",
                 "FRONT": "11",
                 "SIDE": "11",
@@ -17,10 +17,10 @@
             "name": "Noctilith Crown",
             "min": 1,
             "max": 1,
-            "points": 100
+            "points": 95
         }
     ],
-    "min_cost": 100,
+    "min_cost": 95,
     "default_size": 1,
     "equipped_with": "A Noctilith Crown is equipped with: Lashing warp energies.",
     "weapons": [

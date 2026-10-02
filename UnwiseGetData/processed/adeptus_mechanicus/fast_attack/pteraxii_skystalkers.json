@@ -43,7 +43,7 @@
     "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Flechette carbine; Pteraxii Talons.",
     "weapons": [
         {
-            "name": "Arc grenade",
+            "name": "Arc grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

@@ -11,9 +11,9 @@
 import type { Unit } from '../../../../src/types/data';
 
 import hq_blade_champion from './hq/blade_champion.json';
-import hq_knight_centura from './hq/knight_centura.json';
-import hq_shield_captain from './hq/shield_captain.json';
-import hq_shield_captain_on_jetbike from './hq/shield_captain_on_jetbike.json';
+import hq_knight_centura from './hq/knight-centura.json';
+import hq_shield_captain from './hq/shield-captain.json';
+import hq_shield_captain_on_jetbike from './hq/shield-captain_on_jetbike.json';
 import troops_custodian_guard from './troops/custodian_guard.json';
 import troops_sagittarum_custodians from './troops/sagittarum_custodians.json';
 import troops_sisters_of_silence from './troops/sisters_of_silence.json';
@@ -24,10 +24,10 @@ import elites_custodian_wardens from './elites/custodian_wardens.json';
 import elites_venerable_contemptor_dreadnought from './elites/venerable_contemptor_dreadnought.json';
 import fast_attack_vertus_praetors from './fast_attack/vertus_praetors.json';
 import fast_attack_venatari_custodians from './fast_attack/venatari_custodians.json';
-import heavy_support_caladius_grav_tank from './heavy_support/caladius_grav_tank.json';
+import heavy_support_caladius_grav_tank from './heavy_support/caladius_grav-tank.json';
 import heavy_support_telemon_heavy_dreadnought from './heavy_support/telemon_heavy_dreadnought.json';
 import heavy_support_venerable_land_raider from './heavy_support/venerable_land_raider.json';
-import dedicated_transport_null_maiden_rhino from './dedicated_transport/null_maiden_rhino.json';
+import dedicated_transport_null_maiden_rhino from './dedicated_transport/null-maiden_rhino.json';
 import dedicated_transport_coronus_grav_carrier from './dedicated_transport/coronus_grav_carrier.json';
 
 export const faction = "Adeptus Custodes";

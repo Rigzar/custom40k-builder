@@ -1,27 +1,27 @@
 {
-    "name": "Sisters of Silence",
+    "name": "Knight-Centura",
     "models": [
         {
             "stats": {
-                "M": "6\"",
-                "WS": "3+",
-                "BS": "3+",
+                "M": "6",
+                "WS": "2+",
+                "BS": "2+",
                 "S": "3",
                 "T": "3",
-                "W": "1",
-                "I": "4",
-                "A": "2",
-                "LD": "8",
+                "W": "3",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
                 "SV": "3+"
             },
-            "name": "Sister of Silence",
-            "min": 5,
-            "max": 10,
-            "points": 23
+            "name": "Knight-Centura",
+            "min": 1,
+            "max": 1,
+            "points": 58
         }
     ],
     "variant_models": [],
-    "equipped_with": "All models are equipped with: Boltgun; Psyk-out grenades.",
+    "equipped_with": "A Knight-Centura is equipped with: Flamer; Psyk-out grenade.",
     "weapons": [
         {
             "name": "Boltgun",
@@ -62,45 +62,45 @@
     ],
     "option_groups": [
         {
-            "header": "Any model may swap its Boltgun",
+            "header": "Can swap the Flamer",
             "constraint": {
-                "type": "every"
+                "type": "one"
             },
             "choices": [
                 {
-                    "name": "Executioner greatblade",
-                    "points": 0
+                    "name": "Boltgun",
+                    "points": 3
                 },
                 {
-                    "name": "Flamer",
-                    "points": 0
+                    "name": "Executioner greatblade",
+                    "points": 3
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Boltgun"
+                "Flamer"
             ]
         }
     ],
     "abilities": [
         "Blank, Deflect, Parry"
     ],
-    "unit_type": "Infantry",
+    "unit_type": "Character model, Infantry",
     "keywords": [],
     "is_vehicle": false,
-    "is_character": false,
+    "is_character": true,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": false,
+    "has_armory_access": true,
     "champion_has_armory": false,
-    "has_veteran_abilities": true,
+    "has_veteran_abilities": false,
     "veteran_required": false,
-    "veteran_max": 1,
+    "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
-    "slot": "Troops",
-    "default_size": 5,
-    "min_cost": 115
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 58
 }
