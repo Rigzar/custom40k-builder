@@ -1,11 +1,12 @@
 ---
 import Layout from '../components/Layout.astro';
+import { wt } from '../lib/i18n';
 ---
 <Layout title="Custom40k Wiki">
   <div class="intro">
     <img src="/custom40k-logo.png" alt="Custom40k" class="intro-logo" width="260" />
     <h1 class="intro-title">Custom40k Wiki</h1>
-    <p class="intro-tagline"><span class="typing-line" data-text="Rules · Factions · Armory · Missions"></span></p>
+    <p class="intro-tagline"><span class="typing-line" data-text={wt('homeTagline')}></span></p>
 
     <div class="ordo-card-outer reveal">
       <img src="/servo-skull.png" class="ordo-skull-img" alt="" />
@@ -17,48 +18,28 @@ import Layout from '../components/Layout.astro';
         </div>
 
         <section>
-          <h2>1. What is Custom40k?</h2>
-          <p>Custom40k is a complete, ready-to-play homebrew ruleset for Warhammer 40,000 that has
-            been in development for the past 2+ years and has become the default system for a
-            local group of about ~15 people. The rules aim to modernise, streamline, and rebalance
-            the "classic era" rules (3rd–7th edition) while still supporting every model GW has ever
-            made across all armies, and bringing back army and model customisation via extensive
-            armories for every faction.</p>
+          <h2>{wt('homeH1')}</h2>
+          <p>{wt('homeP1')}</p>
         </section>
 
         <section>
-          <h2>2. What are the key differences to current 40k?</h2>
+          <h2>{wt('homeH2')}</h2>
           <ul>
-            <li><strong>Alternating activation:</strong> Each player only activates one unit at a
-              time, which leads to less downtime and less lethality.</li>
-            <li><strong>Backwards compatibility:</strong> Every model that GW released for Warhammer
-              (and will release in the future) is playable and supported with rules.</li>
-            <li><strong>Balance:</strong> Since its inception, Custom40k has been finetuned over
-              100+ games to ensure that all units are playable and have a purpose in the game.
-              Points are calculated using a unified points calculator. Balancing for a game like 40k
-              is an ever ongoing endeavour, but I'm doing my best to keep all armies and units on an
-              even level.</li>
-            <li><strong>Huge customisation:</strong> Where GW has a strict "No model, no rules"
-              policy, "Customisation" is the name of the game. Each faction features their own,
-              ever expanding armory full of options for character models, units and army
-              composition. Kitbashing and creativity is explicitly desired.</li>
-            <li><strong>Old school systems:</strong> Armor Values for vehicles and the Force
-              Organisation Chart are back.</li>
+            <li><strong>{wt('homeKey1Title')}</strong> {wt('homeKey1Text')}</li>
+            <li><strong>{wt('homeKey2Title')}</strong> {wt('homeKey2Text')}</li>
+            <li><strong>{wt('homeKey3Title')}</strong> {wt('homeKey3Text')}</li>
+            <li><strong>{wt('homeKey4Title')}</strong> {wt('homeKey4Text')}</li>
+            <li><strong>{wt('homeKey5Title')}</strong> {wt('homeKey5Text')}</li>
           </ul>
         </section>
 
         <section>
-          <h2>3. What do you need to play Custom40k?</h2>
-          <p>Apart from the regular things for a normal game of Warhammer, what you need in addition
-            are so called "Command tokens". Command tokens are used at the beginning of every battle
-            round to determine what actions a unit may be allowed to do during its activation. While
-            we 3d printed our own tokens for this, a suitable replacement would be a simple deck of
-            cards for each player. You need four different cards (hearts, diamonds, spades, clover)
-            as there are 4 different commands.</p>
+          <h2>{wt('homeH3')}</h2>
+          <p>{wt('homeP3')}</p>
         </section>
 
         <div class="card-cta">
-          <a href="/factions" class="cta">Browse the factions &rarr;</a>
+          <a href="/factions" class="cta">{wt('homeCta')}</a>
         </div>
       </div>
     </div>
@@ -68,11 +49,11 @@ import Layout from '../components/Layout.astro';
         <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
       </svg>
       <div class="discord-card-body">
-        <div class="discord-card-title">Stay up to date</div>
-        <p class="discord-card-text">Questions about the rules, balance updates, or new faction lists? The Custom40k community lives on Discord — come ask, report bugs, or just roll dice with us.</p>
+        <div class="discord-card-title">{wt('discordTitle')}</div>
+        <p class="discord-card-text">{wt('discordText')}</p>
       </div>
       <a href="https://discord.com/invite/wnGAB3TYAY" target="_blank" rel="noopener" class="discord-card-btn">
-        Join Discord
+        {wt('discordBtn')}
       </a>
     </div>
 

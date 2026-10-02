@@ -7,7 +7,7 @@ import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionUnits } from '../../../../lib/units';
 import { slugify } from '../../../../lib/slugs';
 import { getSlotIcon } from '../../../../lib/slots';
-import { wt } from '../../../../lib/i18n';
+import { wt, wtSlot, wtModels } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -38,8 +38,8 @@ const slotIcon = getSlotIcon(slot);
 const minModels = Math.min(...unit.models.map(m => m.min).filter(n => n > 0));
 const maxModels = Math.max(...unit.models.map(m => m.max).filter(n => n > 0));
 const costLabel = unit.models.length === 1
-  ? `${unit.min_cost} pts`
-  : `${unit.min_cost}+ pts`;
+  ? `${unit.min_cost} ${wt('ptsWord')}`
+  : `${unit.min_cost}+ ${wt('ptsWord')}`;
 ---
 <Layout title={`${unit.name} — ${factionLabel} — Custom40k Wiki`}>
   <p class="crumbs">
@@ -47,7 +47,7 @@ const costLabel = unit.models.length === 1
     <a href={`/factions/${factionKey}`}>{factionLabel}</a> /
     <a href={`/factions/${factionKey}/units`}>{wt('crumbUnits')}</a> /
     {slotIcon
-      ? <span class="crumb-slot"><img src={slotIcon} alt="" width="13" height="13" /> {slot}</span>
+      ? <span class="crumb-slot"><img src={slotIcon} alt="" width="13" height="13" /> {wtSlot(slot)}</span>
       : slot}
   </p>
 
@@ -68,18 +68,18 @@ const costLabel = unit.models.length === 1
       <span class="meta-cost">{costLabel}</span>
       {(minModels > 0 && maxModels > 0) && (
         <span class="meta-size">
-          {minModels === maxModels ? `${minModels}` : `${minModels}–${maxModels}`} model{maxModels !== 1 ? 's' : ''}
+          {minModels === maxModels ? wtModels(minModels) : `${minModels}–${maxModels} ${wt('modelPlural')}`}
         </span>
       )}
     </div>
     <div class="unit-badges">
-      {unit.is_character && <span class="u-badge badge-char">Character</span>}
-      {unit.is_psyker && <span class="u-badge badge-psy">Psyker</span>}
-      {unit.is_vehicle && <span class="u-badge badge-veh">Vehicle</span>}
-      {unit.is_monster && <span class="u-badge badge-mon">Monster</span>}
-      {unit.has_armory_access && <span class="u-badge badge-arm">Armory access</span>}
-      {unit.champion_has_armory && <span class="u-badge badge-arm">Champion armory</span>}
-      {unit.has_veteran_abilities && <span class="u-badge badge-vet">Veteran abilities</span>}
+      {unit.is_character && <span class="u-badge badge-char">{wt('badgeCharacter')}</span>}
+      {unit.is_psyker && <span class="u-badge badge-psy">{wt('badgePsyker')}</span>}
+      {unit.is_vehicle && <span class="u-badge badge-veh">{wt('badgeVehicle')}</span>}
+      {unit.is_monster && <span class="u-badge badge-mon">{wt('badgeMonster')}</span>}
+      {unit.has_armory_access && <span class="u-badge badge-arm">{wt('badgeArmoryAccess')}</span>}
+      {unit.champion_has_armory && <span class="u-badge badge-arm">{wt('badgeChampionArmory')}</span>}
+      {unit.has_veteran_abilities && <span class="u-badge badge-vet">{wt('badgeVeteran')}</span>}
       {unit.advisor && <span class="u-badge badge-adv">Advisor</span>}
     </div>
   </div>

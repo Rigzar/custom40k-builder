@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-ru-ja-translations-unreviewed-01",
+    status: "known",
+    title: "Russian and Japanese are new and have not been read by native speakers",
+    description: "OPEN 2026-10-02. The app and the wiki gained Russian and Japanese next to English, German and Spanish. The interface labels, banner, Field Manual, supplement cards, changelog chrome, messages window and the glossary descriptions were translated by Claude from the English text and have not been reviewed by a native reader, so wording will be off in places (rules terms such as Troops, Leadership, Battleshock or Charge are deliberately kept in English to match the datasheets). Still English in every language: the datasheet ability texts, the wiki's Core Rules and Missions pages, the Inquisitor admin panel, and the changelog / known-issues entries themselves. Corrections: send them on Discord or edit them in the admin translation editor (src/i18n/ru.json and ja.json hold the defaults).",
+  },
+  {
     id: "ki-oct-sheets-questions-for-author-01",
     status: "known",
     title: "Questions on the October sheets (all armies)",

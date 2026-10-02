@@ -217,6 +217,34 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
       ],
       armoryNote: 'Se concede a todo el ejército mediante el archetype Legion (armería compartida de Horus Heresy).',
     },
+    ru: {
+      title: 'Horus Heresy',
+      subtitle: 'Дополнение для Space Marines',
+      blurb:
+        'Легионы Астартес на заре Ереси — полный список Легиона, собственный арсенал и ' +
+        'псионические дисциплины. Это не союзная фракция: после активации отряды Легиона считаются ' +
+        'вашими собственными, а их Войска идут в зачёт минимальных 25%.',
+      activation: [
+        'Выберите армию Chaos Space Marines (или Space Marines).',
+        'В настройках армии выберите архетип **Legion**.',
+        'Отряды и арсенал Horus Heresy автоматически добавляются в ваш список.',
+      ],
+      armoryNote: 'Предоставляется всей армии через архетип Legion (общий арсенал Horus Heresy).',
+    },
+    ja: {
+      title: 'Horus Heresy',
+      subtitle: 'スペースマリーン・サプリメント',
+      blurb:
+        '異端の夜明けのレギオネス・アスタルテス — 完全なレギオン名簿、専用の武器庫、サイキック系統。' +
+        '同盟勢力ではありません：有効化すると、レギオンの部隊は自軍として扱われ、その主力部隊は' +
+        '最低25%の枠に数えられます。',
+      activation: [
+        'ケイオス・スペースマリーン（またはスペースマリーン）の軍を選びます。',
+        '軍の設定でアーキタイプ **Legion** を選択します。',
+        'Horus Heresy の部隊と武器庫が自動的にリストへ追加されます。',
+      ],
+      armoryNote: 'Legion アーキタイプにより軍全体に付与されます（Horus Heresy 共通の武器庫）。',
+    },
   },
   legio_titanicus: {
     en: {
@@ -260,6 +288,34 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'Las unidades y la armería del suplemento se añaden automáticamente a tu lista.',
       ],
       armoryNote: 'Se concede a todo el ejército mediante el archetype Titan Legion.',
+    },
+    ru: {
+      title: 'Forces of the Machine God',
+      subtitle: 'Дополнение Horus Heresy',
+      blurb:
+        'Секутарии, марширующие рядом с богами-машинами Collegia Titanica, их ополчения техно-рабов ' +
+        'и тяжёлые транспорты, что их перевозят. Как и дополнение Legiones Astartes, ' +
+        'его отряды считаются вашими собственными, а не союзниками.',
+      activation: [
+        'Выберите армию Adeptus Mechanicus.',
+        'В настройках армии выберите архетип **Taghmata**.',
+        'Отряды и арсенал дополнения автоматически добавляются в ваш список.',
+      ],
+      armoryNote: 'Предоставляется всей армии через архетип Titan Legion.',
+    },
+    ja: {
+      title: 'Forces of the Machine God',
+      subtitle: 'Horus Heresy サプリメント',
+      blurb:
+        'コレギア・タイタニカの神機の傍らを行進するセクタリイ、そのテック＝スラルの徴募兵、' +
+        'そして彼らを運ぶ重輸送車両。Legiones Astartes サプリメントと同様、' +
+        'その部隊は同盟ではなく自軍として扱われます。',
+      activation: [
+        'アデプトゥス・メカニカスの軍を選びます。',
+        '軍の設定でアーキタイプ **Taghmata** を選択します。',
+        'サプリメントの部隊と武器庫が自動的にリストへ追加されます。',
+      ],
+      armoryNote: 'Titan Legion アーキタイプにより軍全体に付与されます。',
     },
   },
   assassins: {
@@ -313,6 +369,39 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'Elige un único Assassin (cualquiera de los cuatro tipos) o uno de cada uno — el motor lo obliga y cuenta toda la selección como un solo slot de Elite.',
       ],
     },
+    ru: {
+      title: 'Assassins',
+      subtitle: '«Cults Abominatioe» / «Execution Force»',
+      blurb:
+        'Каталог из 4 отрядов (Callidus, Culexus, Eversor, Vindicare) — это не самостоятельная ' +
+        'играбельная армия. Их собственный датащит несёт два универсальных особых правила: «Cults ' +
+        'Abominatioe»: «Любая армия Хаоса может выбрать либо одного Убийцу, либо по одному из ' +
+        'каждого на один слот Элиты». / «Execution Force»: «Любая имперская армия может выбрать ' +
+        'либо одного Убийцу, либо по одному из каждого на один слот Элиты». Какое бы сочетание ни ' +
+        'было взято — один Убийца любого типа или по одному из всех четырёх — оно занимает ОДИН ' +
+        'слот Элиты, а не по одному на каждого.',
+      activation: [
+        'Выберите любую армию Хаоса (Chaos Space Marines, Chaos Daemons) или любую имперскую армию (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — собственный датащит Убийц даёт прямой доступ (без значка [Allied], без отдельного шага выбора).',
+        'Все 4 отряда Убийц появляются прямо в вашем списке Элиты, сгруппированные под заголовком «Cults Abominatioe» (Хаос) или «Execution Force» (Империум).',
+        'Возьмите либо одного Убийцу (любого из четырёх типов), либо по одному из каждого — движок это обеспечивает и считает весь выбор как один слот Элиты.',
+      ],
+    },
+    ja: {
+      title: 'Assassins',
+      subtitle: '「Cults Abominatioe」／「Execution Force」',
+      blurb:
+        '4部隊（カリダス、カルクサス、エバーソー、ウィンディカレ）のカタログです — 単独でプレイ可能な軍ではありません。' +
+        '彼らのデータシートには2つの汎用特殊ルールがあります：「Cults Abominatioe」：' +
+        '「任意のケイオス軍は、暗殺者1名、または各1名ずつを、精鋭枠1つ分として選べる。」／' +
+        '「Execution Force」：「任意の帝国軍は、暗殺者1名、または各1名ずつを、精鋭枠1つ分として選べる。」' +
+        'どの組み合わせを取っても — 任意の種類の暗殺者1名、または4種を各1名 — 消費する精鋭枠は1つだけで、' +
+        '1名ごとに1枠ではありません。',
+      activation: [
+        '任意のケイオス軍（Chaos Space Marines、Chaos Daemons）または任意の帝国軍（Space Marines、Imperial Guard、Adeptus Mechanicus、Adeptus Custodes、Adeptus Sororitas、Grey Knights、Inquisition）を選びます — 暗殺者のデータシート自体が直接の利用権を与えます（[Allied] バッジなし、別の選択手順なし）。',
+        '4つの暗殺者部隊は精鋭の名簿に直接表示され、「Cults Abominatioe」（ケイオス）または「Execution Force」（帝国）の見出しの下にまとめられます。',
+        '暗殺者1名（4種のうち任意の1種）、または各1名ずつを取ります — エンジンがこれを強制し、選択全体を精鋭枠1つとして数えます。',
+      ],
+    },
   },
   escalation: {
     en: {
@@ -354,6 +443,32 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'Elige el engagement **Epic Battle** (4000+ pts) en la Configuración del Ejército.',
         'El slot de Lords of War se desbloquea — elige del plantel super pesado de tu facción.',
         'El gasto total en Lords of War no puede superar el 33% de los puntos del ejército.',
+      ],
+    },
+    ru: {
+      title: 'Escalation',
+      subtitle: 'Lords of War',
+      blurb:
+        'Сверхтяжёлая техника, Knights и Titans. Lords of War открываются самым крупным ' +
+        'форматом боя и ограничены 33% ваших общих очков. Доступно для Chaos Space Marines, ' +
+        'Space Marines, Imperial Guard, Adeptus Sororitas, Eldar, Orks, Necrons и Tau Empire.',
+      activation: [
+        'Выберите формат **Epic Battle** (4000+ очк.) в настройках армии.',
+        'Слот Lords of War открывается — выбирайте из сверхтяжёлого списка вашей фракции.',
+        'Общие траты на Lords of War не могут превышать 33% очков армии.',
+      ],
+    },
+    ja: {
+      title: 'Escalation',
+      subtitle: 'Lords of War',
+      blurb:
+        '超重量級車両、ナイト、タイタン。戦争の王は最大の交戦規模で解禁され、総ポイントの33%が上限です。' +
+        'ケイオス・スペースマリーン、スペースマリーン、インペリアル・ガード、アデプタ・ソロリタス、エルダー、オルク、ネクロン、' +
+        'タウ・エンパイアで利用可能です。',
+      activation: [
+        '軍の設定で交戦規模 **Epic Battle**（4000pts以上）を選択します。',
+        '戦争の王の枠が解禁されます — 自勢力の超重量級名簿から選びます。',
+        '戦争の王への合計支出は、軍のポイントの33%を超えられません。',
       ],
     },
   },

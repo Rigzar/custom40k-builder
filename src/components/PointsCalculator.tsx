@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { Language } from '../i18n';
 import {
   creaturePoints, vehiclePoints, rangedPoints, meleePoints, CALC_NOTES,
   DEFAULT_TABLES, TABLE_META, isLadder, type CalcTables,
@@ -55,7 +56,7 @@ function Result({ n }: { n: number }) {
   );
 }
 
-export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
+export function PointsCalculator({ lang }: { lang: Language }) {
   const [tab, setTab] = useState<Tab>('creature');
   const [q, setQ] = useState('');
   const [tables, setTables] = useState<CalcTables>(() => {
@@ -118,7 +119,7 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
           tables: 'Tablas', export: 'Descargar copia de trabajo (.xlsx)', reset: 'Volver a v5.4', edited: 'editado', exporting: 'generando\u2026',
           tablesNote: 'Cambia un coste y todas las pesta\u00f1as de arriba recalculan al momento \u2014 la forma m\u00e1s r\u00e1pida de ver qu\u00e9 le hace un ajuste a un modelo cuyo precio ya conoces. Solo en este navegador: no cambia nada de lo que cobra la app. El archivo exportado lleva estos valores Y las f\u00f3rmulas de verdad.',
           rulesNote: 'Tal cual de su hoja, con sus palabras, sin interpretar y sin sumarse solo. "LP" son Heridas. Los puntos impresos son cuerpo MÁS armas MÁS esto.' },
-  }[lang];
+  }[lang === 'de' || lang === 'es' ? lang : 'en'];  // the calculator is the creator's tool: en/de/es only
 
   const TABS: [Tab, string][] = [
     ['creature', L.creature], ['vehicle', L.vehicle], ['ranged', L.ranged], ['melee', L.melee],

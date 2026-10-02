@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.81',
+    date: '2026-10-02',
+    title: 'Russian and Japanese, in the app and the wiki',
+    changes: [
+      'GENERAL — THE APP AND THE WIKI ARE NOW ALSO IN RUSSIAN AND JAPANESE, next to English, German and Spanish. Every interface label (943 keys), the front-page banner, the Field Manual cheat sheets, the supplement cards, the changelog / known-issues chrome, the messages window, the update prompt and the rules glossary descriptions (151 special rules and weapon abilities) exist in both. Rule and ability NAMES stay English — they are the keywords printed on every datasheet. The wiki is now built once per language into one site (English at the root, /de, /es, /ru, /ja) with a language switcher in its header, translated navigation, headings, force-organisation slots, unit badges and home page; its Core Rules and Missions pages are still English in every language, as are the datasheet ability texts in the app. The Russian and Japanese texts were produced by Claude and have not been read by native speakers yet — corrections are welcome from the admin translation editor, which now covers all four non-English languages.',
+    ],
+  },
+  {
     version: '1.80',
     date: '2026-09-30',
     title: 'Special Biomorphs, I.O.U, and a squad that finally shrinks properly',

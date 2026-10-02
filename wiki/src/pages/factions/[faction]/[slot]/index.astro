@@ -6,7 +6,7 @@ import { getFactionUnits } from '../../../../lib/units';
 import { getSlotIcon } from '../../../../lib/slots';
 import { slugify } from '../../../../lib/slugs';
 import { ESCALATION_FACTIONS } from '../../../../lib/factionMeta';
-import { wt } from '../../../../lib/i18n';
+import { wt, wtSlot } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -33,12 +33,12 @@ const slotIcon = getSlotIcon(slotLabel);
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
     <a href={`/factions/${factionKey}`}>{config.label}</a> /
-    {slotLabel}
+    {wtSlot(slotLabel)}
   </p>
 
   <h1 class="slot-heading">
     {slotIcon && <img src={slotIcon} alt="" width="26" height="26" />}
-    {slotLabel}
+    {wtSlot(slotLabel)}
     {slotLabel === 'Lords of War' && hasEscalation && (
       <img
         src="/faction-symbols/escalation.svg"

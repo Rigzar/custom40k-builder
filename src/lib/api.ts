@@ -586,7 +586,7 @@ export interface AnnouncementSetting {
   version: string;
   /** username of the admin who last saved it — shown with the Inquisitor badge on the banner */
   author?: string;
-  text: Partial<Record<'en' | 'de' | 'es', { title: string; intro: string; lines: string[]; contrib: string }>>;
+  text: Partial<Record<Language, { title: string; intro: string; lines: string[]; contrib: string }>>;
 }
 export type FactionFlags = Record<string, boolean>;
 /**
@@ -597,7 +597,7 @@ export type FactionFlags = Record<string, boolean>;
 export type CodexStatus = 'complete' | 'testing' | 'inreview' | 'unreviewed';
 export type CodexVersions = Record<string, { version: string; status: CodexStatus }>;
 /** Per-language map of translation-key → overridden string. */
-export type TranslationOverrides = Partial<Record<'en' | 'de' | 'es', Record<string, string>>>;
+export type TranslationOverrides = Partial<Record<Language, Record<string, string>>>;
 export interface PublicSettings {
   announcement: AnnouncementSetting | null;
   factionFlags: FactionFlags | null;
@@ -744,9 +744,9 @@ export interface EventGame {
    * so a reader can be told what they are about to read — it is never translated for them.
    */
   reporter_report: string | null;
-  reporter_report_lang: 'en' | 'de' | 'es' | null;
+  reporter_report_lang: Language | null;
   opponent_report: string | null;
-  opponent_report_lang: 'en' | 'de' | 'es' | null;
+  opponent_report_lang: Language | null;
   played_on: string | null;
   created_at: string;
 }

@@ -38,6 +38,20 @@ const TEXT: Record<Language, Tx> = {
     later: 'Más tarde',
     offline: 'Listo para funcionar sin conexión.',
   },
+  ru: {
+    ready: 'Доступна новая версия — она может включать изменения кодекса.',
+    update: 'Обновить сейчас',
+    updating: 'Обновление…',
+    later: 'Позже',
+    offline: 'Готово к работе офлайн.',
+  },
+  ja: {
+    ready: '新しいバージョンが利用可能です — コデックスの変更が含まれている場合があります。',
+    update: '今すぐ更新',
+    updating: '更新中…',
+    later: 'あとで',
+    offline: 'オフラインで使用する準備ができました。',
+  },
 };
 
 export function PwaUpdatePrompt() {

@@ -35,7 +35,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
     <section class="reveal">
       <h2 class="section-h">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1 L9.5 5.5 H14 L10.5 8.5 L12 13 L8 10 L4 13 L5.5 8.5 L2 5.5 H6.5 Z"/></svg>
-        Archetypes
+        {wt('headingArchetypes')}
       </h2>
       <div class="card-grid">
         {archetypes.map((a: { name: string; desc: string }) => {
@@ -58,7 +58,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
     <section class="reveal">
       <h2 class="section-h">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 13 L3 3 L5 5 L8 2 L11 5 L13 3 L13 13 Z"/></svg>
-        Legacies
+        {wt('headingLegacies')}
       </h2>
       <div class="card-grid">
         {legacies.map((l: { name: string; desc: string }) => {
@@ -81,7 +81,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
     <section class="reveal">
       <h2 class="section-h">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="3"/></svg>
-        Traits
+        {wt('headingTraits')}
       </h2>
       <div class="card-grid">
         {traits.map((t: Trait) => {

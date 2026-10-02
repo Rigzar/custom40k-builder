@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v180i_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v181_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -55,124 +55,74 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.80: special biomorphs, I.O.U, and a squad that shrinks properly",
-    intro: "The Tyranid biomorph bug that emptied saved lists is fixed, plus four things reported on Discord \u2014 and the new Imperial Guard sheet checked line by line.",
+    title: "v1.81: Russian and Japanese",
+    intro: "The app and the wiki now speak Russian and Japanese next to English, German and Spanish.",
     install: "",
     sections: [
-      { label: "Reported on GitHub", rows: [
-        ["October sheets, every army", "All 21 codices re-read against the live October sheets and wired: new points, weapons and options, Blank, Disorderly Charge, Sniper, each army’s own Auspex / homer / Jammer."],
-        ["New in the builder", "Thallax Cohort, Saturnine armor, Wraithhost Wraithlords as Troops, Null-Maiden Rhino, Furies marks, Outrider melee swaps, Chaos Bikers."],
-        ["GH#186", "A list can no longer be saved under the wrong faction — a slow phone could relabel it."],
-        ["GH#185", "Warbuggy: Up to three small guns when no big gun is taken; with a big gun, one."],
-        ["GH#169", "The Ork Shoota shows on the profile again, swapped in or bought as an extra."],
-        ["GH#168", "The four Tyranid archetypes move units between roles: Carnifex, Ravener and Von Ryan\u2019s to Troops, Genestealers and Warriors to Elites, and the named HQ promotions."],
-        ["GH#170, GH#171", "The armory buys more than one copy again \u2014 the box counts them, and \u201c\u2212\u201d gives one back."],
-        ["GH#167", "Special Biomorphs can be selected and kept again \u2014 opening a saved Tyranid list no longer wipes them."],
-      ] },
-      { label: "Reported on Discord", rows: [
-        ["Discord", "The Discord link is a proper button now \u2014 suggested by atypicalhero, so newcomers can find us."],
-        ["I.O.U", "Blood Ravens can take it: it costs whatever item you pick from another army\u2019s Legacy Armory."],
-        ["Build army", "Asks before discarding the open list, instead of silently dropping you back into it."],
-        ["Necron Warriors", "Shrinking a squad trims the swaps that scale with its size \u2014 no more 15 Gauss reapers in a squad of 10."],
-        ["Field Ordnance Battery, Heavy Weapon Squad", "One weapon and one Vox per battery or team, not one for the whole squadron."],
-        ["Honor Guard", "Each model can take its own upgrade, so a squad can mix them."],
-        ["Captain’s Plasma pistol", "The Armory box toggles it off at the per-model limit instead of counting past it."],
-        ["Tyranid biomorphs", "Extremely Volatile, Camouflage, Acid Maw, Resonance Barb, Thornback and Tusked now show their rule on the unit sheet."],
-        ["Print, simple view", "Armory equipment and bought gear now print on every card, HQs included."],
-        ["Necron Atomic Energy Manipulator, The Stars Are Right", "No longer change the bearer’s own stats — one boosts another unit, the other triggers on a random turn."],
-      ] },
-      { label: "From the new sheets", rows: [
-        ["Harpy", "New option from the October codex: swap its Twin stranglethorn cannon for a Twin heavy venom cannon (+151)."],
-        ["Imperial Guard 1.05", "Valkyrie costs 175; every sniper rifle gets the Sniper ability."],
-        ["Space Marines 1.05", "New points on a dozen characters and squads, Judicar 63, Razorback with a Twin heavy flamer, Reiver Marines reworked, Honor Guard 35."],
-        ["Auspex scanner", "Grants Acute Senses in every army that has it. The Guard\u2019s old \u201cScanner\u201d is renamed and costs 10."],
-        ["Jammer, Teleport homer", "New wording in every army: 12\u2033 Jammer range, homer needs a bearer that stayed put."],
-        ["Trophy", "Stacks: each one adds another Terrifying(-1)."],
-        ["Guard veteran abilities", "Cost 2 for monstrous creatures and vehicles, as printed."],
-        ["Retribution", "Now inflicts automatic hits, not wounds. Telekinetic Blast is renamed Telekinetic Push."],
+      { label: "New in this version", rows: [
+        ["Languages", "Interface, front-page banner, Field Manual, supplement cards, messages and the rules glossary are available in Russian and Japanese. Pick the language at the top of the page."],
+        ["Wiki", "One site in five languages \u2014 a language switcher in the header, translated navigation, headings, slots, badges and home page. The Core Rules and Missions pages are still English."],
+        ["Still English", "Datasheet ability texts, the changelog entries and the Core Rules / Missions wiki pages."],
+        ["Native speakers wanted", "The Russian and Japanese texts were written by Claude and nobody native has read them yet \u2014 corrections on Discord are very welcome."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.80: Spezial-Biomorphe, I.O.U und ein Trupp, der richtig schrumpft",
-    intro: "Der Tyraniden-Fehler, der gespeicherte Listen leerte, ist behoben \u2014 dazu vier Discord-Meldungen und das neue Imperial-Guard-Blatt Zeile fuer Zeile geprueft.",
+    title: "v1.81: Russisch und Japanisch",
+    intro: "App und Wiki sprechen jetzt Russisch und Japanisch neben Englisch, Deutsch und Spanisch.",
     install: "",
     sections: [
-      { label: "Auf GitHub gemeldet", rows: [
-        ["Oktober-Tabellen, jede Armee", "Alle 21 Codizes mit den aktuellen Oktober-Tabellen abgeglichen und eingebaut: neue Punkte, Waffen und Optionen, Blank, Disorderly Charge, Sniper, das eigene Auspex / Homer / Jammer jeder Armee."],
-        ["Neu im Builder", "Thallax Cohort, Saturnine-Ruestung, Wraithlords als Truppen im Wraithhost, Null-Maiden Rhino, Mal-Wahl der Furies, Nahkampf-Tausch der Outrider, Chaos Bikers."],
-        ["GH#186", "Eine Liste kann nicht mehr unter der falschen Fraktion gespeichert werden — ein langsames Handy konnte sie umetikettieren."],
-        ["GH#185", "Warbuggy: Bis zu drei kleine Waffen ohne grosse Waffe; mit grosser Waffe eine."],
-        ["GH#169", "Die Ork-Shoota erscheint wieder im Profil \u2014 getauscht oder zusaetzlich gekauft."],
-        ["GH#168", "Die vier Tyraniden-Archetypen verschieben Einheiten: Carnifex, Ravener und Von Ryan\u2019s zu Troops, Genestealer und Krieger zu Elite, dazu die HQ-Bef\u00f6rderungen."],
-        ["GH#170, GH#171", "Die Armory kauft wieder mehrere Exemplare \u2014 das K\u00e4stchen z\u00e4hlt sie, \u201e\u2212\u201c gibt eines zur\u00fcck."],
-        ["GH#167", "Spezial-Biomorphe lassen sich wieder waehlen und behalten \u2014 das Oeffnen einer gespeicherten Tyraniden-Liste loescht sie nicht mehr."],
-      ] },
-      { label: "Auf Discord gemeldet", rows: [
-        ["Discord", "Der Discord-Link ist jetzt ein richtiger Button \u2014 Vorschlag von atypicalhero, damit Neue uns finden."],
-        ["I.O.U", "Blood Ravens koennen es nehmen: es kostet, was der gewaehlte Gegenstand aus dem Legacy-Armory einer anderen Armee kostet."],
-        ["Build army", "Fragt nach, bevor die offene Liste verworfen wird."],
-        ["Necron Warriors", "Ein kleinerer Trupp kuerzt die mit der Groesse skalierenden Tauschoptionen \u2014 keine 15 Gauss reapers mehr bei 10 Modellen."],
-        ["Field Ordnance Battery, Heavy Weapon Squad", "Eine Waffe und ein Vox pro Batterie bzw. Team, nicht eines fuer den ganzen Trupp."],
-        ["Honor Guard", "Jedes Modell kann sein eigenes Upgrade nehmen, ein Trupp kann sie mischen."],
-        ["Plasmapistole des Captains", "Die Armory-Box schaltet sie am Limit pro Modell ab, statt weiterzuzaehlen."],
-        ["Tyraniden-Biomorphe", "Extremely Volatile, Camouflage, Acid Maw, Resonance Barb, Thornback und Tusked zeigen ihre Regel jetzt auf dem Datenblatt."],
-        ["Druck, einfache Ansicht", "Armory-Ausruestung und gekaufte Ausruestung wird jetzt auf jeder Karte gedruckt, auch bei HQs."],
-        ["Necron Atomic Energy Manipulator, The Stars Are Right", "Aendern die Werte des Traegers nicht mehr — der eine verstaerkt eine andere Einheit, der andere wirkt erst in einer zufaelligen Runde."],
-      ] },
-      { label: "Aus den neuen Blaettern", rows: [
-        ["Harpyie", "Neue Option aus dem Oktober-Codex: Twin stranglethorn cannon gegen Twin heavy venom cannon tauschen (+151)."],
-        ["Imperial Guard 1.05", "Valkyrie kostet 175; jedes Scharfschuetzengewehr bekommt die Faehigkeit Sniper."],
-        ["Space Marines 1.05", "Neue Punkte bei einem Dutzend Charakteren und Trupps, Judicar 63, Razorback mit Twin heavy flamer, Reiver Marines ueberarbeitet, Honor Guard 35."],
-        ["Auspex scanner", "Gibt in jeder Armee Acute Senses. Der alte \u201eScanner\u201c der Garde ist umbenannt und kostet 10."],
-        ["Jammer, Teleport homer", "Neuer Wortlaut in allen Armeen: Jammer 12\u2033, Homer braucht einen Traeger, der stehen blieb."],
-        ["Trophy", "Ist kumulativ: jede gibt ein weiteres Terrifying(-1)."],
-        ["Veteranenfaehigkeiten der Garde", "Kosten 2 fuer Monstroese Kreaturen und Fahrzeuge, wie gedruckt."],
-        ["Retribution", "Verursacht jetzt automatische Treffer statt Verwundungen. Telekinetic Blast heisst jetzt Telekinetic Push."],
+      { label: "Neu in dieser Version", rows: [
+        ["Sprachen", "Oberfl\u00e4che, Banner, Feldhandbuch, Erweiterungskarten, Nachrichten und das Regelglossar gibt es auf Russisch und Japanisch. Die Sprache oben auf der Seite w\u00e4hlen."],
+        ["Wiki", "Eine Seite in f\u00fcnf Sprachen \u2014 Sprachumschalter im Kopf, \u00fcbersetzte Navigation, \u00dcberschriften, Slots, Abzeichen und Startseite. Grundregeln und Missionen sind noch englisch."],
+        ["Noch englisch", "Fähigkeitstexte der Datenblätter, die Änderungsprotokoll-Einträge und die Wiki-Seiten Grundregeln / Missionen."],
+        ["Muttersprachler gesucht", "Die russischen und japanischen Texte hat Claude geschrieben, kein Muttersprachler hat sie bisher gelesen \u2014 Korrekturen auf Discord sind sehr willkommen."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.80: biomorfos especiales, I.O.U y una escuadra que encoge bien",
-    intro: "Arreglado el fallo de Tiranidos que vaciaba las listas guardadas, mas cuatro reportes de Discord \u2014 y la hoja nueva de la Guardia Imperial revisada linea por linea.",
+    title: "v1.81: ruso y japon\u00e9s",
+    intro: "La app y la wiki ahora hablan ruso y japon\u00e9s junto a ingl\u00e9s, alem\u00e1n y espa\u00f1ol.",
     install: "",
     sections: [
-      { label: "Reportado en GitHub", rows: [
-        ["Hojas de octubre, todos los ejercitos", "Los 21 codex revisados contra las hojas vivas de octubre y cableados: puntos, armas y opciones nuevos, Blank, Disorderly Charge, Sniper, el Auspex / homer / Jammer propio de cada ejercito."],
-        ["Nuevo en el builder", "Thallax Cohort, armadura Saturnine, Wraithlords como Tropas en Wraithhost, Null-Maiden Rhino, marcas de las Furies, cambios cuerpo a cuerpo de los Outriders, Chaos Bikers."],
-        ["GH#186", "Una lista ya no se puede guardar con la facción equivocada — un móvil lento podia cambiarle la etiqueta."],
-        ["GH#185", "Warbuggy: Hasta tres armas pequenas si no lleva arma grande; con arma grande, una."],
-        ["GH#169", "La Shoota de los Orks vuelve a salir en el perfil, cambiada o comprada aparte."],
-        ["GH#168", "Los cuatro arquetipos tyr\u00e1nidos mueven unidades de rol: Carnifex, Ravener y Von Ryan\u2019s a Troops, Genestealers y Guerreros a Elites, y las promociones a HQ."],
-        ["GH#170, GH#171", "La armer\u00eda vuelve a comprar m\u00e1s de una copia \u2014 la casilla las cuenta y \u201c\u2212\u201d devuelve una."],
-        ["GH#167", "Los biomorfos especiales se pueden elegir y conservar otra vez \u2014 abrir una lista guardada de Tiranidos ya no los borra."],
-      ] },
-      { label: "Reportado en Discord", rows: [
-        ["Discord", "El enlace de Discord ahora es un bot\u00f3n de verdad \u2014 idea de atypicalhero, para que los nuevos nos encuentren."],
-        ["I.O.U", "Los Blood Ravens pueden llevarlo: cuesta lo que cueste el objeto que elijas del Legacy Armory de otro ejercito."],
-        ["Build army", "Pregunta antes de descartar la lista abierta, en vez de devolverte a ella sin avisar."],
-        ["Necron Warriors", "Reducir una escuadra recorta los cambios que escalan con su tamano \u2014 se acabaron los 15 Gauss reapers en 10 modelos."],
-        ["Field Ordnance Battery, Heavy Weapon Squad", "Un arma y un Vox por bateria o equipo, no uno para toda la escuadra."],
-        ["Honor Guard", "Cada modelo puede tomar su propia mejora, asi que una escuadra puede mezclarlas."],
-        ["Pistola de plasma del Captain", "La casilla de la Armeria la quita al llegar al limite por modelo, en vez de seguir contando."],
-        ["Biomorfos tiranidos", "Extremely Volatile, Camouflage, Acid Maw, Resonance Barb, Thornback y Tusked muestran ahora su regla en la ficha."],
-        ["Impresion, vista simple", "El equipo de la Armeria y el equipamiento comprado ahora se imprimen en cada carta, tambien en los HQ."],
-        ["Necron Atomic Energy Manipulator, The Stars Are Right", "Ya no cambian las estadisticas del portador: uno mejora a otra unidad y el otro actua en un turno aleatorio."],
-      ] },
-      { label: "De las hojas nuevas", rows: [
-        ["Harpy", "Opci\u00f3n nueva del c\u00f3dice de octubre: cambiar la Twin stranglethorn cannon por una Twin heavy venom cannon (+151)."],
-        ["Imperial Guard 1.05", "La Valkyrie cuesta 175; todos los rifles de francotirador reciben la habilidad Sniper."],
-        ["Space Marines 1.05", "Puntos nuevos en una docena de personajes y escuadras, Judicar 63, Razorback con Twin heavy flamer, Reiver Marines reformados, Honor Guard 35."],
-        ["Auspex scanner", "Da Acute Senses en todos los ejercitos que lo tienen. El \u201cScanner\u201d viejo de la Guardia se renombra y cuesta 10."],
-        ["Jammer, Teleport homer", "Texto nuevo en todos los ejercitos: Jammer a 12\u2033, el homer exige portador que no se movio."],
-        ["Trophy", "Es acumulativo: cada uno suma otro Terrifying(-1)."],
-        ["Habilidades de veterano de la Guardia", "Cuestan 2 para criaturas monstruosas y vehiculos, como impreso."],
-        ["Retribution", "Ahora causa impactos automaticos, no heridas. Telekinetic Blast pasa a llamarse Telekinetic Push."],
+      { label: "Nuevo en esta versi\u00f3n", rows: [
+        ["Idiomas", "Interfaz, banner, Manual de Campo, tarjetas de suplemento, mensajes y el glosario de reglas est\u00e1n en ruso y japon\u00e9s. Elige el idioma arriba en la p\u00e1gina."],
+        ["Wiki", "Un solo sitio en cinco idiomas \u2014 selector de idioma en la cabecera, navegaci\u00f3n, t\u00edtulos, slots, insignias y portada traducidos. Reglas b\u00e1sicas y Misiones siguen en ingl\u00e9s."],
+        ["Sigue en ingl\u00e9s", "Los textos de habilidades de las fichas, las entradas del registro de cambios y las p\u00e1ginas de Reglas b\u00e1sicas / Misiones de la wiki."],
+        ["Se buscan nativos", "Los textos en ruso y japon\u00e9s los escribi\u00f3 Claude y ning\u00fan nativo los ha le\u00eddo todav\u00eda \u2014 las correcciones en Discord son muy bienvenidas."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
+  },
+  ru: {
+    title: "v1.81: русский и японский",
+    intro: "Приложение и вики теперь говорят по-русски и по-японски — рядом с английским, немецким и испанским.",
+    install: "",
+    sections: [
+      { label: "Новое в этой версии", rows: [
+        ["Языки", "Интерфейс, баннер, Полевое руководство, карточки дополнений, сообщения и глоссарий правил доступны на русском и японском. Выберите язык вверху страницы."],
+        ["Вики", "Один сайт на пяти языках — переключатель языка в шапке, переведены навигация, заголовки, слоты, значки и главная. Основные правила и Миссии пока на английском."],
+        ["Пока на английском", "Тексты способностей в датащитах, записи истории изменений и страницы вики «Основные правила» / «Миссии»."],
+        ["Нужны носители языка", "Русские и японские тексты написал Claude, и ни один носитель их ещё не читал — исправления в Discord очень приветствуются."],
+      ] },
+    ],
+    contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
+  },
+  ja: {
+    title: "v1.81：ロシア語と日本語",
+    intro: "アプリとWikiが、英語・ドイツ語・スペイン語に加えて、ロシア語と日本語に対応しました。",
+    install: "",
+    sections: [
+      { label: "このバージョンの新機能", rows: [
+        ["言語", "インターフェース、バナー、フィールドマニュアル、サプリメントカード、メッセージ、ルール用語集がロシア語と日本語で利用できます。ページ上部で言語を選んでください。"],
+        ["Wiki", "5言語の1サイト — ヘッダーの言語切り替え、翻訳されたナビゲーション、見出し、枠、バッジ、ホームページ。基本ルールとミッションのページはまだ英語です。"],
+        ["まだ英語", "データシートの能力テキスト、更新履歴の項目、Wikiの基本ルール／ミッションのページ。"],
+        ["ネイティブの方募集", "ロシア語と日本語のテキストはClaudeが書いたもので、ネイティブの方はまだ誰も読んでいません — Discordでの修正を大歓迎します。"],
+      ] },
+    ],
+    contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
   },
 };
 /* canvas-smoke placeholder — wire up here when user provides the effect */
@@ -307,6 +257,8 @@ const BROKEN_LIST_NOTE: Record<Language, string> = {
   en: '⚠️ A unit renamed to match the codex can disappear from a list that already contained it. If one of your lists comes back wrong, tell us on Discord and send us its .json — we will repair it and send it back.',
   de: '⚠️ Eine Einheit, die an den Codex angeglichen und dabei umbenannt wurde, kann aus einer Liste verschwinden, die sie bereits enthielt. Falls eine deiner Listen falsch zurückkommt, sag uns auf Discord Bescheid und schick uns ihre .json — wir reparieren sie und schicken sie zurück.',
   es: '⚠️ Una unidad renombrada para cuadrar con el códex puede desaparecer de una lista que ya la tenía. Si alguna de tus listas vuelve mal, dínoslo en Discord y mándanos su .json — te la arreglamos y te la devolvemos.',
+  ru: '⚠️ Отряд, переименованный в соответствии с кодексом, может исчезнуть из списка, где он уже был. Если какой-то из ваших списков вернулся неправильным, сообщите нам в Discord и пришлите его .json — мы починим его и вернём.',
+  ja: '⚠️ コデックスに合わせて名称変更された部隊が、すでにそれを含んでいたリストから消えることがあります。リストが正しく戻らなかった場合は、Discordでお知らせのうえ .json を送ってください — 修復してお返しします。',
 };
 
 function hashString(s: string): string {
@@ -412,6 +364,9 @@ export function LandingPage({
   onShowCampaign,
   onShowEvents,
 }: Props) {
+  const { language: wikiLang } = useLanguage();
+  // The wiki is built once per language (en at the root, the others under /<code>).
+  const wikiBase = 'https://custom40k-wiki.vercel.app' + (wikiLang === 'en' ? '' : '/' + wikiLang);
   const [showChangelog, setShowChangelog] = useState(false);
   // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
   // fractalNoise + displacement filter every update — even throttled it kept the CPU at ~12% idle
@@ -512,7 +467,7 @@ export function LandingPage({
           {/* Action buttons 2×2 */}
           <div className="grid grid-cols-2 gap-3 w-full max-w-xs anim-fade-up anim-delay-4">
             <a
-              href="https://custom40k-wiki.vercel.app"
+              href={wikiBase}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
@@ -546,7 +501,7 @@ export function LandingPage({
             )}
 
             <a
-              href="https://custom40k-wiki.vercel.app/glossary"
+              href={`${wikiBase}/glossary`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"

@@ -224,6 +224,13 @@ The `armory_key` field in each `archetypes.json` legacy entry **must match** the
 
 ## Translations
 
+> **Russian (RU) and Japanese (JA) joined in October 2026.** The app and the wiki now have five languages: EN, DE, ES, RU, JA.
+> - **UI labels:** `src/i18n/ru.json` and `src/i18n/ja.json` hold every key of the English table (same key names, same `{placeholders}`); `src/i18n/index.ts` loads them. Edit the JSON, run `npm run build`.
+> - **Glossary descriptions (special rules / weapon abilities):** `src/data/ruleDescriptions.ru.json` and `.ja.json`, keyed by the rule key. Rule *names* stay English on purpose — they are the keywords printed on every datasheet.
+> - **Banner, cheat sheets, supplement cards, changelog modal, messages:** each has its own per-language table in its component; add the `ru`/`ja` block next to `es`.
+> - **Wiki:** `wiki/src/lib/i18n-builtin.ts` (UI + home page) per language; `npm run build` in `wiki/` builds every language into one `dist/` (English at the root, the others under `/de`, `/es`, `/ru`, `/ja`). The long Core Rules and Missions pages are still English-only in every language.
+> - The Inquisitor admin panel stays English; its translation editor covers all four non-English languages.
+
 The app supports three languages: **English (EN)**, **German (DE)**, and **Spanish (ES)**. There are two separate places where translatable text lives — read both sections before starting.
 
 ### 1. UI strings — `src/i18n/index.ts`

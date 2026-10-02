@@ -4,6 +4,8 @@ const LANGS: { code: Language; label: string; flag: string }[] = [
   { code: 'en', label: 'EN', flag: '🇬🇧' },
   { code: 'de', label: 'DE', flag: '🇩🇪' },
   { code: 'es', label: 'ES', flag: '🇪🇸' },
+  { code: 'ru', label: 'RU', flag: '🇷🇺' },
+  { code: 'ja', label: 'JA', flag: '🇯🇵' },
 ];
 
 export function LanguageSelector() {

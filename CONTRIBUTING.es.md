@@ -226,6 +226,13 @@ El campo `armory_key` en cada entrada de legado en `archetypes.json` **debe coin
 
 ## Traducciones
 
+> **El ruso (RU) y el japonés (JA) se sumaron en octubre de 2026.** La app y la wiki tienen ahora cinco idiomas: EN, DE, ES, RU, JA.
+> - **Etiquetas de la interfaz:** `src/i18n/ru.json` y `src/i18n/ja.json` contienen todas las claves de la tabla en inglés (mismos nombres de clave, mismos `{placeholders}`); `src/i18n/index.ts` los carga. Edita el JSON y ejecuta `npm run build`.
+> - **Descripciones del glosario (reglas especiales / habilidades de arma):** `src/data/ruleDescriptions.ru.json` y `.ja.json`, por clave de regla. Los *nombres* de las reglas siguen en inglés a propósito: son las palabras clave impresas en cada ficha.
+> - **Banner, cheat sheets, tarjetas de suplemento, registro de cambios, mensajes:** cada componente tiene su propia tabla por idioma; añade el bloque `ru`/`ja` junto a `es`.
+> - **Wiki:** `wiki/src/lib/i18n-builtin.ts` (interfaz + portada) por idioma; `npm run build` en `wiki/` compila todos los idiomas en un solo `dist/` (inglés en la raíz, los demás bajo `/de`, `/es`, `/ru`, `/ja`). Las páginas largas de Reglas básicas y Misiones siguen solo en inglés en todos los idiomas.
+> - El panel de administración Inquisitor sigue en inglés; su editor de traducciones cubre los cuatro idiomas distintos del inglés.
+
 La app soporta tres idiomas: **Inglés (EN)**, **Alemán (DE)** y **Español (ES)**. Los textos traducibles viven en dos lugares distintos — leé ambas secciones antes de empezar.
 
 ### 1. Textos de interfaz — `src/i18n/index.ts`

@@ -1,6 +1,6 @@
 ---
 import '../styles/theme.css';
-import { wt, WIKI_LANG } from '../lib/i18n';
+import { wt, WIKI_LANG, WIKI_LANGS } from '../lib/i18n';
 
 interface Props {
   title: string;
@@ -26,6 +26,17 @@ function active(href: string) {
       <a href="/missions" class={active('/missions') ? 'nav-active' : ''}>{wt('navMissions')}</a>
       <a href="/rules" class={active('/rules') ? 'nav-active' : ''}>{wt('navRules')}</a>
       <a href="/glossary" class={active('/glossary') ? 'nav-active' : ''}>{wt('navGlossary')}</a>
+      <span class="lang-switch" aria-label={wt('langLabel')}>
+        {WIKI_LANGS.map(l => (
+          <a
+            href={(l.code === 'en' ? '' : `/${l.code}`) + (path === '/' ? '/' : path)}
+            hreflang={l.code}
+            lang={l.code}
+            data-lang-switch
+            class={l.code === WIKI_LANG ? 'lang-active' : ''}
+          >{l.code.toUpperCase()}</a>
+        ))}
+      </span>
     </header>
     <main>
       <slot />
@@ -52,6 +63,9 @@ function active(href: string) {
 </html>
 
 <style>
+  .lang-switch { margin-left: 0.8rem; display: inline-flex; gap: 0.15rem; }
+  .lang-switch a { opacity: 0.55; }
+  .lang-switch a.lang-active { opacity: 1; color: #d4a853; }
   .site-nav {
     display: flex; justify-content: center; gap: 0.2rem;
     max-width: 1000px; margin: 0 auto; padding: 0.7rem 2rem 0;

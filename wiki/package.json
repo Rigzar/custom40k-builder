@@ -8,7 +8,8 @@
     "predev": "npm run vendor",
     "dev": "astro dev",
     "prebuild": "npm run vendor && npm run sync-translations",
-    "build": "astro check && astro build",
+    "build": "astro check && node scripts/build-all.mjs",
+    "build:en": "astro check && astro build",
     "preview": "astro preview",
     "sync-translations": "node scripts/sync-translations.mjs"
   },

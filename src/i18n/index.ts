@@ -1,8 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { ruleStrings, setRuleLanguage, setRuleOverrides } from '../data/coreRules';
+import ruJson from './ru.json';
+import jaJson from './ja.json';
+import { builtinRuleString, ruleStrings, setRuleLanguage, setRuleOverrides } from '../data/coreRules';
 
-export type Language = 'en' | 'de' | 'es';
+export type Language = 'en' | 'de' | 'es' | 'ru' | 'ja';
 
 interface I18nState {
   language: Language;
@@ -465,7 +467,7 @@ export type TranslationKey =
   | 'themeHint'
   | 'evErrCreateNotAllowed';
 
-const translations: Record<Language, Record<TranslationKey, string>> = {
+export const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
     appTitle: 'Custom40k Army Builder',
     appSubtitle: 'Select your faction and configure your army to begin',
@@ -3138,6 +3140,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     themeHint: 'Se recuerda en este dispositivo.',
     evErrCreateNotAllowed: 'Por ahora solo los organizadores pueden crear un evento.',
   },
+  ru: ruJson as Record<TranslationKey, string>,
+  ja: jaJson as Record<TranslationKey, string>,
 };
 
 export function useT() {
@@ -3163,6 +3167,7 @@ export function sourceStrings(): Record<string, string> {
 /** The compiled default string for a given language+key (used to diff admin overrides). */
 export function defaultString(language: Language, key: string): string {
   return (translations[language] as Record<string, string>)[key]
+    ?? builtinRuleString(language, key)
     ?? translations.en[key as TranslationKey]
     ?? ruleStrings()[key]
     ?? '';

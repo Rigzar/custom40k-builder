@@ -810,7 +810,7 @@ async function gameReport(req, res, userId) {
   }
 
   const body = typeof text === 'string' && text.trim() ? text.trim().slice(0, 8000) : null;
-  const at = body && ['en', 'de', 'es'].includes(lang) ? lang : null;
+  const at = body && ['en', 'de', 'es', 'ru', 'ja'].includes(lang) ? lang : null;
   const r = side === 'reporter'
     ? await sql`UPDATE event_games SET reporter_report = ${body}, reporter_report_lang = ${at}
                  WHERE id = ${game.id} RETURNING *`

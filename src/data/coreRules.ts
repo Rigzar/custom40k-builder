@@ -1,3 +1,5 @@
+import RU_DESC from './ruleDescriptions.ru.json';
+import JA_DESC from './ruleDescriptions.ja.json';
 /**
  * Core Rules glossary — weapon abilities and model special rules.
  * Keys are lowercase, trimmed, with no parameters (parameters are extracted at lookup time).
@@ -878,9 +880,21 @@ export function setRuleOverrides(o: Partial<Record<string, Record<string, string
   RULE_OVERRIDES = o ?? {};
 }
 
+/** Glossary descriptions that ship with the app for the languages that have no admin-edited copy
+ *  in the database. Rule NAMES stay English (they are the keywords printed on every datasheet). */
+const BUILTIN_DESC: Record<string, Record<string, string>> = { ru: RU_DESC, ja: JA_DESC };
+
+/** The built-in translation of a glossary string ("rule.<key>.desc"), if the app ships one. */
+export function builtinRuleString(language: string, fullKey: string): string | undefined {
+  const m = fullKey.match(/^rule\.(.+)\.desc$/);
+  return m ? BUILTIN_DESC[language]?.[m[1]] : undefined;
+}
+
 /** The translated text for a glossary field, or the English original when there is none. */
 function localised(key: string, field: 'name' | 'desc', fallback: string): string {
-  return RULE_OVERRIDES[RULE_LANG]?.[ruleKey(key, field)] || fallback;
+  return RULE_OVERRIDES[RULE_LANG]?.[ruleKey(key, field)]
+    || (field === 'desc' ? BUILTIN_DESC[RULE_LANG]?.[key] : undefined)
+    || fallback;
 }
 
 /**

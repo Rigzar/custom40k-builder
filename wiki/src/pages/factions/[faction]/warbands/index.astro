@@ -3,6 +3,7 @@ import Layout from '../../../../components/Layout.astro';
 import UnitCard from '../../../../components/UnitCard.astro';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionUnits } from '../../../../lib/units';
+import { wt } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   return [{ params: { faction: 'inquisition' } }];
@@ -17,9 +18,9 @@ const warbandNames    = (slot_to_units['Troops'] ?? []).filter(n => n === 'Hench
 ---
 <Layout title={`Warbands — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
     <a href={`/factions/${factionKey}`}>{config.label}</a> /
-    Warbands
+    {wt('headingWarbands')}
   </p>
 
   <h1>Inquisitor Warbands</h1>

@@ -23,6 +23,8 @@ const STATUS_LABEL: Record<Language, Record<IssueStatus, string>> = {
   en: { known: 'Known', investigating: 'Investigating', fixed: 'Fixed', by_design: 'By Design', planned: 'Planned' },
   de: { known: 'Bekannt', investigating: 'Untersucht', fixed: 'Behoben', by_design: 'Absicht', planned: 'Geplant' },
   es: { known: 'Conocido', investigating: 'Investigando', fixed: 'Corregido', by_design: 'Diseño', planned: 'Planificado' },
+  ru: { known: 'Известно', investigating: 'Изучается', fixed: 'Исправлено', by_design: 'Так задумано', planned: 'Запланировано' },
+  ja: { known: '既知', investigating: '調査中', fixed: '修正済み', by_design: '仕様', planned: '予定' },
 };
 
 const STATUS_COLOR: Record<IssueStatus, string> = {
@@ -59,6 +61,20 @@ const UI: Record<Language, {
     bugHint: 'Consulta aquí antes de reportar un error — si está en la lista ya lo tenemos cubierto.',
     sectionOpen: 'Abiertos', sectionPipeline: 'En desarrollo', sectionFixed: 'Ya corregidos',
     close: 'Cerrar', general: 'General', noChanges: 'Todavía no hay cambios registrados para esta sección.', noIssues: 'No hay problemas conocidos para esta sección.',
+  },
+  ru: {
+    tabChangelog: 'История изменений', tabIssues: 'Известные проблемы',
+    todayBadge: 'Новое', relativeDayToday: 'Сегодня', relativeDayYesterday: 'Вчера',
+    bugHint: 'Загляните сюда, прежде чем сообщать об ошибке — если она в списке, мы о ней уже знаем.',
+    sectionOpen: 'Открытые', sectionPipeline: 'В работе', sectionFixed: 'Уже исправлено',
+    close: 'Закрыть', general: 'Общее', noChanges: 'Для этого раздела изменений пока не записано.', noIssues: 'Для этого раздела известных проблем нет.',
+  },
+  ja: {
+    tabChangelog: '更新履歴', tabIssues: '既知の問題',
+    todayBadge: '新着', relativeDayToday: '今日', relativeDayYesterday: '昨日',
+    bugHint: '不具合を報告する前にここをご確認ください — 一覧にある場合はすでに把握しています。',
+    sectionOpen: '未対応', sectionPipeline: '対応中', sectionFixed: '修正済み',
+    close: '閉じる', general: '一般', noChanges: 'このセクションの変更はまだ記録されていません。', noIssues: 'このセクションに既知の問題はありません。',
   },
 };
 

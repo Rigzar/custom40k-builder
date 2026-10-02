@@ -224,6 +224,13 @@ Das Feld `armory_key` in jedem Legacy-Eintrag in `archetypes.json` **muss** mit 
 
 ## Übersetzungen
 
+> **Russisch (RU) und Japanisch (JA) sind seit Oktober 2026 dabei.** App und Wiki haben jetzt fünf Sprachen: EN, DE, ES, RU, JA.
+> - **UI-Beschriftungen:** `src/i18n/ru.json` und `src/i18n/ja.json` enthalten jeden Schlüssel der englischen Tabelle (gleiche Schlüsselnamen, gleiche `{Platzhalter}`); `src/i18n/index.ts` lädt sie. JSON bearbeiten, `npm run build` ausführen.
+> - **Glossar-Beschreibungen (Sonderregeln / Waffenfähigkeiten):** `src/data/ruleDescriptions.ru.json` und `.ja.json`, nach Regelschlüssel sortiert. Regel*namen* bleiben absichtlich englisch — sie sind die Schlüsselwörter auf jedem Datenblatt.
+> - **Banner, Cheat Sheets, Erweiterungskarten, Änderungsprotokoll, Nachrichten:** jede Komponente hat ihre eigene Sprachtabelle; den `ru`-/`ja`-Block neben `es` ergänzen.
+> - **Wiki:** `wiki/src/lib/i18n-builtin.ts` (UI + Startseite) pro Sprache; `npm run build` in `wiki/` baut alle Sprachen in ein `dist/` (Englisch im Stamm, die anderen unter `/de`, `/es`, `/ru`, `/ja`). Die langen Seiten Grundregeln und Missionen sind in jeder Sprache noch englisch.
+> - Das Inquisitor-Adminpanel bleibt englisch; sein Übersetzungseditor deckt alle vier Nicht-Englisch-Sprachen ab.
+
 Die App unterstützt drei Sprachen: **Englisch (EN)**, **Deutsch (DE)** und **Spanisch (ES)**. Übersetzbare Texte befinden sich an zwei verschiedenen Orten – lies beide Abschnitte, bevor du anfängst.
 
 ### 1. UI-Texte — `src/i18n/index.ts`

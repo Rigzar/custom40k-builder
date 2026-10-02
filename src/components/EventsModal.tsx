@@ -1227,7 +1227,7 @@ function BattleReports({ game, username, busy, onSave }: {
   if (!side && others.length === 0) return null;
 
   const langName = (l: string | null) =>
-    l === 'de' ? t('evLangDe') : l === 'es' ? t('evLangEs') : l === 'en' ? t('evLangEn') : null;
+    l === 'de' ? t('evLangDe') : l === 'es' ? t('evLangEs') : l === 'en' ? t('evLangEn') : l === 'ru' ? 'Русский' : l === 'ja' ? '日本語' : null;
 
   return (
     <div className="border-t border-zinc-900 mt-1.5 pt-1.5 space-y-2">

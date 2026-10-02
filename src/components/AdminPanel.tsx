@@ -13,7 +13,8 @@ import { PointsCalculator } from './PointsCalculator';
 import { useAuth } from '../hooks/useAuth';
 
 // Languages a translator edits (English is the source, shown read-only).
-const TRANS_LANGS: Exclude<Language, 'en'>[] = ['de', 'es'];
+type TransLang = Exclude<Language, 'en'>;
+const TRANS_LANGS: TransLang[] = ['de', 'es', 'ru', 'ja'];
 
 /** One place a search phrase occurs, precise enough for the creator to find it in his spreadsheet. */
 type TextHit = { faction: string; where: string; field: string; text: string };
@@ -122,7 +123,7 @@ function toSheetId(input: string): string {
 
 type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'calc';
 
-const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
+const EDIT_LANGS: Language[] = ['en', 'de', 'es', 'ru', 'ja'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
 const emptyAnnFields = (): AnnFields => ({ title: '', intro: '', lines: '', contrib: '' });
 /** Read one language's fields out of a stored announcement setting (lines array → textarea text). */
@@ -295,7 +296,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transOnlyUntranslated: 'only untranslated',
     transNoDatasheets: 'Datasheet texts: none',
     transAbilitiesLoaded: n => `${n} datasheet texts, listed first`,
-    transAbilitiesHint: 'Also load one codex\'s datasheet ability texts ("Fearless, Synapse", "Advisor: …"). They are keyed by the English text, so a sentence shared by several units is translated once. Edit and save them like any other string.', transBoth: 'DE + ES',
+    transAbilitiesHint: 'Also load one codex\'s datasheet ability texts ("Fearless, Synapse", "Advisor: …"). They are keyed by the English text, so a sentence shared by several units is translated once. Edit and save them like any other string.', transBoth: 'DE + ES + RU + JA',
     annTranslate: 'auto-translate the others from this', annTranslating: 'translating…',
     backToApp: '← Back to app',
     tabOverview: 'Overview', tabUsers: 'Users', tabHealth: 'Data health', tabAudit: 'Audit log', tabAnnounce: 'Announcement', tabFactions: 'Factions', tabI18n: 'Translations',
@@ -411,7 +412,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transOnlyUntranslated: 'nur unübersetzte',
     transNoDatasheets: 'Datenblatt-Texte: keine',
     transAbilitiesLoaded: n => `${n} Datenblatt-Texte, zuerst gelistet`,
-    transAbilitiesHint: 'Zusätzlich die Fähigkeitstexte eines Codex laden („Fearless, Synapse\", „Advisor: …\"). Sie werden über den englischen Text adressiert, ein von mehreren Einheiten geteilter Satz wird also nur einmal übersetzt. Bearbeiten und speichern wie jede andere Zeichenkette.', transBoth: 'DE + ES',
+    transAbilitiesHint: 'Zusätzlich die Fähigkeitstexte eines Codex laden („Fearless, Synapse\", „Advisor: …\"). Sie werden über den englischen Text adressiert, ein von mehreren Einheiten geteilter Satz wird also nur einmal übersetzt. Bearbeiten und speichern wie jede andere Zeichenkette.', transBoth: 'DE + ES + RU + JA',
     annTranslate: 'die anderen hiervon automatisch übersetzen', annTranslating: 'übersetze…',
     backToApp: '← Zurück zur App',
     tabOverview: 'Übersicht', tabUsers: 'Nutzer', tabHealth: 'Datenintegrität', tabAudit: 'Protokoll', tabAnnounce: 'Ankündigung', tabFactions: 'Fraktionen', tabI18n: 'Übersetzungen',
@@ -527,7 +528,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transOnlyUntranslated: 'solo sin traducir',
     transNoDatasheets: 'Textos de ficha: ninguno',
     transAbilitiesLoaded: n => `${n} textos de ficha, al principio de la lista`,
-    transAbilitiesHint: 'Carga además los textos de habilidad de un códex (\"Fearless, Synapse\", \"Advisor: …\"). Se indexan por el texto en inglés, así que una frase que comparten varias unidades se traduce una sola vez. Se editan y guardan como cualquier otra cadena.', transBoth: 'DE + ES',
+    transAbilitiesHint: 'Carga además los textos de habilidad de un códex (\"Fearless, Synapse\", \"Advisor: …\"). Se indexan por el texto en inglés, así que una frase que comparten varias unidades se traduce una sola vez. Se editan y guardan como cualquier otra cadena.', transBoth: 'DE + ES + RU + JA',
     annTranslate: 'auto-traducir los demás desde este', annTranslating: 'traduciendo…',
     backToApp: '← Volver a la app',
     tabOverview: 'Resumen', tabUsers: 'Usuarios', tabHealth: 'Integridad', tabAudit: 'Registro', tabAnnounce: 'Anuncio', tabFactions: 'Facciones', tabI18n: 'Traducciones',
@@ -592,6 +593,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcGapsCount: n => `${n} cosa${n === 1 ? '' : 's'} NO se pudo comprobar`,
     srcGapsHint: 'La comparación se las saltó, así que pueden esconder problemas reales. "sheet-weapon" / "sheet-model" = está en la hoja pero falta en la app; "tab" / "block" = de esa unidad no se leyó nada.',
   },
+  // The Inquisitor panel is an admin-only tool: it stays in English for these languages. The
+  // translation editor inside it does cover ru/ja.
+  get ru() { return ADMIN_I18N.en; },
+  get ja() { return ADMIN_I18N.en; },
 };
 
 export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
@@ -627,11 +632,11 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   // Announcement editor + faction availability
   const [annEnabled, setAnnEnabled] = useState(false);
   const [annVersion, setAnnVersion] = useState('');
-  const [annText, setAnnText] = useState<Record<Language, AnnFields>>({ en: emptyAnnFields(), de: emptyAnnFields(), es: emptyAnnFields() });
+  const [annText, setAnnText] = useState<Record<Language, AnnFields>>({ en: emptyAnnFields(), de: emptyAnnFields(), es: emptyAnnFields(), ru: emptyAnnFields(), ja: emptyAnnFields() });
   const [flags, setFlags] = useState<Record<string, boolean>>({});
-  const [transEdits, setTransEdits] = useState<Record<'de' | 'es', Record<string, string>>>({ de: {}, es: {} });
+  const [transEdits, setTransEdits] = useState<Record<TransLang, Record<string, string>>>({ de: {}, es: {}, ru: {}, ja: {} });
   const [transFilter, setTransFilter] = useState('');
-  const [transLang, setTransLang] = useState<'both' | 'de' | 'es'>('both');
+  const [transLang, setTransLang] = useState<'both' | TransLang>('both');
   /** Datasheet ability texts of ONE faction, loaded on demand: there are ~1100 of them across the
    *  game, and a translator works through a codex at a time. '' = only UI labels and the glossary. */
   const [transFaction, setTransFaction] = useState('');
@@ -745,7 +750,7 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
         setAnnEnabled(ann.enabled !== false);
         setAnnVersion(ann.version ?? '');
         setAnnText({
-          en: annFieldsFrom(ann, 'en'), de: annFieldsFrom(ann, 'de'), es: annFieldsFrom(ann, 'es'),
+          en: annFieldsFrom(ann, 'en'), de: annFieldsFrom(ann, 'de'), es: annFieldsFrom(ann, 'es'), ru: annFieldsFrom(ann, 'ru'), ja: annFieldsFrom(ann, 'ja'),
         });
       }
       // hydrate faction availability (default from code, overridden by stored flags)
@@ -760,16 +765,20 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
       const tr = cfg.settings.translations ?? {};
       setStoredTrans(tr);
       setSettingsLoaded(true);
-      const de: Record<string, string> = {}, es: Record<string, string> = {};
+      const de: Record<string, string> = {}, es: Record<string, string> = {}, ru: Record<string, string> = {}, ja: Record<string, string> = {};
       for (const k of allTranslationKeys()) {
         de[k] = tr.de?.[k] ?? defaultString('de', k);
         es[k] = tr.es?.[k] ?? defaultString('es', k);
+        ru[k] = tr.ru?.[k] ?? defaultString('ru', k);
+        ja[k] = tr.ja?.[k] ?? defaultString('ja', k);
       }
       // Datasheet ability texts are keyed by their English text, so they are NOT in
       // allTranslationKeys() — without this they came back blank every time and looked deleted.
       for (const k of Object.keys(tr.de ?? {})) if (de[k] == null) de[k] = tr.de![k];
       for (const k of Object.keys(tr.es ?? {})) if (es[k] == null) es[k] = tr.es![k];
-      setTransEdits({ de, es });
+      for (const k of Object.keys(tr.ru ?? {})) if (ru[k] == null) ru[k] = tr.ru![k];
+      for (const k of Object.keys(tr.ja ?? {})) if (ja[k] == null) ja[k] = tr.ja![k];
+      setTransEdits({ de, es, ru, ja });
       // hydrate source-sheet ids (stored override merged over the built-in defaults)
       const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
       setSourceIds(ids);
@@ -1098,18 +1107,20 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     const score = (off: number) => rows.reduce((n, c) => n + (lookup(c[off] ?? '') ? 1 : 0), 0);
     const offset = score(1) > score(0) ? 1 : 0;
 
-    const de = { ...transEdits.de }, es = { ...transEdits.es };
+    const de = { ...transEdits.de }, es = { ...transEdits.es }, ru = { ...transEdits.ru }, ja = { ...transEdits.ja };
     let matched = 0; const unmatched: string[] = [];
     for (const cells of rows) {
-      const en = cells[offset] ?? '', dev = cells[offset + 1] ?? '', esv = cells[offset + 2] ?? '';
-      if (!en || (!dev && !esv)) continue;
+      const en = cells[offset] ?? '', dev = cells[offset + 1] ?? '', esv = cells[offset + 2] ?? '', ruv = cells[offset + 3] ?? '', jav = cells[offset + 4] ?? '';
+      if (!en || (!dev && !esv && !ruv && !jav)) continue;
       const key = lookup(en);
       if (!key) { unmatched.push(en); continue; }
       if (dev) de[key] = dev;
       if (esv) es[key] = esv;
+      if (ruv) ru[key] = ruv;
+      if (jav) ja[key] = jav;
       matched++;
     }
-    setTransEdits({ de, es });
+    setTransEdits({ de, es, ru, ja });
     setTransListVersion(v => v + 1);
     setTransImportMsg(L.transImportResult(matched, unmatched.length, unmatched.slice(0, 8)));
   }
@@ -1201,9 +1212,9 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   // Translation editor: source strings + filtered key list (capped when unfiltered for perf)
   const SRC = { ...sourceStrings(), ...transAbilities };
   const tq = transFilter.trim().toLowerCase();
-  const shownLangs: ('de' | 'es')[] = transLang === 'both' ? ['de', 'es'] : [transLang];
+  const shownLangs: TransLang[] = transLang === 'both' ? TRANS_LANGS : [transLang];
   // "untranslated" = the DE/ES value is empty or still identical to the English source
-  const isUntranslated = (lang: 'de' | 'es', k: string) => {
+  const isUntranslated = (lang: TransLang, k: string) => {
     const v = transEdits[lang][k];
     return v == null || v.trim() === '' || v === SRC[k];
   };
@@ -1219,7 +1230,7 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   editsRef.current = transEdits;
   const transKeysAll = useMemo(() => {
     const src = { ...sourceStrings(), ...transAbilities };
-    const stillEnglish = (lang: 'de' | 'es', k: string) => {
+    const stillEnglish = (lang: TransLang, k: string) => {
       const v = editsRef.current[lang][k];
       return v == null || v.trim() === '' || v === src[k];
     };
@@ -2029,12 +2040,14 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
                 />
                 <select
                   value={transLang}
-                  onChange={e => setTransLang(e.target.value as 'both' | 'de' | 'es')}
+                  onChange={e => setTransLang(e.target.value as 'both' | TransLang)}
                   className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
                 >
                   <option value="both">{L.transBoth}</option>
                   <option value="de">DE</option>
                   <option value="es">ES</option>
+                  <option value="ru">RU</option>
+                  <option value="ja">JA</option>
                 </select>
                 <label className="flex items-center gap-1.5 text-[10px] font-mono text-zinc-400">
                   <input type="checkbox" checked={transUntranslated} onChange={e => setTransUntranslated(e.target.checked)} />

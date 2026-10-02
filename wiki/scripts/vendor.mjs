@@ -33,6 +33,8 @@ const FACTIONS = [
 const copies = [
   ['src/types/data.ts', 'src/types/data.ts'],
   ['src/data/coreRules.ts', 'src/data/coreRules.ts'],
+  ['src/data/ruleDescriptions.ru.json', 'src/data/ruleDescriptions.ru.json'],
+  ['src/data/ruleDescriptions.ja.json', 'src/data/ruleDescriptions.ja.json'],
   ...FACTIONS.map(f => [`data/parsed/${f}`, `data/parsed/${f}`]),
   ['data/parsed/_supplements', 'data/parsed/_supplements'],
 ];

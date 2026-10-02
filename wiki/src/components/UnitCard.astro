@@ -1,6 +1,7 @@
 ---
 import type { Unit } from '../vendor/src/types/data';
 import { slugify } from '../lib/slugs';
+import { wt, wtModels } from '../lib/i18n';
 
 interface Props {
   unit: Unit;
@@ -14,20 +15,20 @@ const { unit, factionKey, slot } = Astro.props;
 const minPts = unit.min_cost;
 const sizeRange = unit.models[0];
 const sizeLabel = sizeRange && (sizeRange.min !== sizeRange.max)
-  ? `${sizeRange.min}-${sizeRange.max} models`
-  : `${unit.default_size} model${unit.default_size === 1 ? '' : 's'}`;
+  ? `${sizeRange.min}-${sizeRange.max} ${wt('modelPlural')}`
+  : wtModels(unit.default_size);
 const badges: string[] = [];
-if (unit.is_character) badges.push('Character');
-if (unit.is_vehicle) badges.push('Vehicle');
-if (unit.is_monster) badges.push('Monster');
-if (unit.is_psyker) badges.push('Psyker');
+if (unit.is_character) badges.push(wt('badgeCharacter'));
+if (unit.is_vehicle) badges.push(wt('badgeVehicle'));
+if (unit.is_monster) badges.push(wt('badgeMonster'));
+if (unit.is_psyker) badges.push(wt('badgePsyker'));
 
 const href = `/factions/${factionKey}/${slugify(slot ?? unit.slot)}/${slugify(unit.name)}`;
 ---
 <a class="unit-card" href={href}>
   <div class="unit-card-name">{unit.name}</div>
   <div class="unit-card-meta">
-    <span class="pts-label">{minPts}+ pts</span>
+    <span class="pts-label">{minPts}+ {wt('ptsWord')}</span>
     <span class="size-label">{sizeLabel}</span>
     {badges.map(b => <span class="badge">{b}</span>)}
   </div>

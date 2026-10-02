@@ -34,6 +34,20 @@ const MSG_I18N: Record<Language, MsgTx> = {
     friendRequestBadge: '👥 Solicitud de amistad', acceptButton: '✓ Aceptar', declineButton: '✕ Rechazar',
     requestAccepted: 'Aceptada', requestDeclined: 'Rechazada',
   },
+  ru: {
+    title: 'Сообщения', inbox: 'Входящие', noConversations: 'Бесед пока нет.', newMessage: '+ Новое сообщение', back: '← Входящие',
+    to: 'Кому', recipientPlaceholder: 'имя пользователя', bodyPlaceholder: 'Напишите сообщение…', send: 'Отправить', sending: 'Отправка…',
+    you: 'Вы', inquisitor: 'Инквизитор', loading: 'Загрузка…', emptyThread: 'Сообщений пока нет — поздоровайтесь.',
+    friendRequestBadge: '👥 Запрос в друзья', acceptButton: '✓ Принять', declineButton: '✕ Отклонить',
+    requestAccepted: 'Принято', requestDeclined: 'Отклонено',
+  },
+  ja: {
+    title: 'メッセージ', inbox: '受信トレイ', noConversations: 'まだ会話がありません。', newMessage: '+ 新規メッセージ', back: '← 受信トレイ',
+    to: '宛先', recipientPlaceholder: 'ユーザー名', bodyPlaceholder: 'メッセージを入力…', send: '送信', sending: '送信中…',
+    you: 'あなた', inquisitor: '審問官', loading: '読み込み中…', emptyThread: 'まだメッセージがありません — 挨拶してみましょう。',
+    friendRequestBadge: '👥 フレンド申請', acceptButton: '✓ 承認', declineButton: '✕ 拒否',
+    requestAccepted: '承認済み', requestDeclined: '拒否済み',
+  },
 };
 
 /** Admin marker: Inquisition glyph + "Inquisitor" badge, shown next to an admin's name. */
