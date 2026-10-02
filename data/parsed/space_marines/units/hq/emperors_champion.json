@@ -80,7 +80,7 @@
     "Oath: Choose an oath at the start of the first battle round. The effects are active throughout the game for all of your Space Marine creatures (=> no vehicles) from the same army organization plan.",
     "ABHOR THE WITCH, DESTROY THE WITCH: All units gain the “Aegis(5+)” and \"Vanguard\" abilities. May only be selected if the enemy army includes at least one psyker and if the own army does not include any psykers.",
     "ACCEPT ANY CHALLENGE, NO MATTER THE ODDS: All units gain +1 to their melee hit rolls, but they may never use the \"Escape\" order.",
-    "Suffer not the Unclean to Live: All units gain +2 Strength, but they suffer a -1 penalty to their Initiative.",
+    "SUFFER NOT THE UNCLEAN TO LIVE: All units gain +2 Strength, but they suffer a -1 penalty to their Initiative.",
     "UPHOLD THE HONOR OF THE EMPEROR: All units gain +1 to their armor saves, but they may never benefit from any cover (including Obscuring cover)."
   ],
   "unit_type": "Character Model, Infantry",

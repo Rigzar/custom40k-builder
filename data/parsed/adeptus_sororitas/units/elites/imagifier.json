@@ -46,7 +46,7 @@
   "abilities": [
     "Acts of Faith, Command squad, Shield of Faith",
     "Advisor: For every HQ selection, one Imagifier may be selected without taking up an Elite slot.",
-    "Litany of Glorious Deeds: At the start of each activation, the Imagifier may choose a legend for themselves and an attached unit:\n1. Legend of the Devout - The unit gains +1\" Movement.\n2. Legend of the Defiant - The unit gains +1 Toughness.\n3. Legend of the Warriors - The unit gains +1 Strength.\nThe effect lasts until the Imagifier's next activation."
+    "Litany of Glorious Deeds: At the start of each activation, the Imagifier may choose a legend for themselves and an attached unit: 1. Legend of the Devout - The unit gains +1\" Movement. 2. Legend of the Defiant - The unit gains +1 Toughness. 3. Legend of the Warriors - The unit gains +1 Strength. The effect lasts until the Imagifier's next activation."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

@@ -601,7 +601,7 @@
     {
       "name": "Trophyᴹ",
       "term_compat": false,
-      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "desc": "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
       "p_unit": 5,
       "p_char": 5
     },
@@ -619,8 +619,12 @@
       "p_unit": 27,
       "p_char": 45,
       "effect": {
-        "adds_unit_types": ["Bike"],
-        "grants_weapons": ["Dakkagun"]
+        "adds_unit_types": [
+          "Bike"
+        ],
+        "grants_weapons": [
+          "Dakkagun"
+        ]
       }
     },
     {
@@ -852,6 +856,21 @@
       "p_unit": 20,
       "p_char": null,
       "category": "vehicle"
+    },
+    {
+      "name": "Gitfinda",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Git-Konfuzza",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
     }
   ],
   "daemon_weapons": []

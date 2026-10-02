@@ -340,6 +340,13 @@
       "p_unit": 15,
       "p_char": null,
       "category": "vehicle"
+    },
+    {
+      "name": "Auspex scanner",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": null
     }
   ],
   "daemon_weapons": []

@@ -36,7 +36,7 @@
   "option_groups": [],
   "abilities": [
     "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
-    "Transport: This model has a transport capacity of 12 models. If the model is destroyed, passengers do not suffer damage, but are placed in reserve. They will automatically appear via Deep strike the next time they activate. Passengers may disembark even if the model is not in hover mode."
+    "Transport: This model has a transport capacity of 12 models. If the model is destroyed, passengers do not suffer damage, but are placed in reserve. They will automatically appear via Deep Strike the next time they activate. Passengers may disembark even if the model is not in hover mode."
   ],
   "unit_type": "Flyer",
   "keywords": [],

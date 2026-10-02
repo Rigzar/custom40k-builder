@@ -48,7 +48,7 @@
   "abilities": [
     "Command squad, Dakka Dakka Dakka, Furious charge, Mob, Squadron, Waaagh!",
     "Advisor: For every HQ selection, one Mekboy may be selected without taking up an Elite slot.",
-    "Mek tools:  At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a woand or armor penetration roll."
+    "Mek tools: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

@@ -39,7 +39,7 @@
       "s": "6",
       "ap": "-3",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Kroot javelins - Blast",
@@ -100,8 +100,7 @@
     }
   ],
   "abilities": [
-    "Infiltrator, Stealth, Squadron, Supporting Fire, Use Cover",
-    "Sniper: A model equipped with a Kroot long gun improves its BS by +1."
+    "Infiltrator, Stealth, Squadron, Supporting Fire, Use Cover"
   ],
   "unit_type": "Bike, Kroot",
   "keywords": [],

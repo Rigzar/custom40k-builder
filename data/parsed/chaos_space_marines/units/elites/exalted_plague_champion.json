@@ -139,7 +139,7 @@
             ]
           },
           "abilities": [
-            "Tainted Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and saving throws. Does not work against weapons with a Strength of 8 or higher.",
+            "Tainted Narthecium: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and saving throws. Does not work against weapons with a Strength of 8 or higher.",
             "Surgeon: The Plague Surgeon and any attached unit of Plague Marines gain the \"Warded\" ability."
           ]
         }

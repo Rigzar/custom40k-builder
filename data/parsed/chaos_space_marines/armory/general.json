@@ -954,6 +954,16 @@
       "category": "vehicle",
       "desc": "Once per game: instead of firing weapons, or if not yet activated and targeted by an enemy, the model activates smoke. Enemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15
+    },
+    {
+      "name": "Auspex scanner",
+      "term_compat": true,
+      "armour_compat": [
+        "Terminator"
+      ],
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": 10
     }
   ],
   "daemon_weapons": [

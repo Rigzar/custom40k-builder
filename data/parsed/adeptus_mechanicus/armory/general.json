@@ -511,8 +511,12 @@
       "p_unit": null,
       "p_char": 30,
       "effect": {
-        "adds_unit_types": ["Bike"],
-        "grants_weapons": ["Sulphur breath"]
+        "adds_unit_types": [
+          "Bike"
+        ],
+        "grants_weapons": [
+          "Sulphur breath"
+        ]
       }
     },
     {
@@ -546,7 +550,7 @@
     {
       "name": "Trophy",
       "term_compat": false,
-      "desc": "Enemy units within a 6\" radius suffer -1 to their morale value.",
+      "desc": "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
       "p_unit": 5,
       "p_char": 5
     },
@@ -680,6 +684,13 @@
       "p_unit": 15,
       "p_char": null,
       "category": "vehicle"
+    },
+    {
+      "name": "Auspex scanner",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": 10
     }
   ],
   "daemon_weapons": []

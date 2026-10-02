@@ -103,7 +103,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Sunder(2), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Sunder(2), Suppression(6)"
     },
     {
       "name": "Bolt sniper rifle (Hyper frag)",
@@ -112,7 +112,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Blast(4), Suppression(3)"
+      "abilities": "Blast(4), Sniper, Suppression(3)"
     },
     {
       "name": "Bolt sniper rifle (Mortis)",
@@ -121,7 +121,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Deadly(5+), Suppression(6)"
+      "abilities": "Deadly(5+), Sniper, Suppression(6)"
     }
   ],
   "option_groups": [

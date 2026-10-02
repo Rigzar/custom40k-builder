@@ -36,7 +36,7 @@
       "name": "Heldrake claws",
       "range": "-",
       "type": "Melee",
-      "s": "+1",
+      "s": "U",
       "ap": "-3",
       "d": "2",
       "abilities": "AT(1), Anti-air, Armorbane"

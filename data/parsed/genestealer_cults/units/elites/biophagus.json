@@ -57,7 +57,7 @@
   "abilities": [
     "Ambush, Command Squad, Infiltrator, Use cover",
     "Alchemicus familiar: Can be used once per battle to grant \"Poison(2+)\" for all melee weapons of an attached unit until the end of the current battle round.",
-    "Genomic enhancement: Once per activation, the model can boost a friendly creature unit within 3\" range.\n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Each unit can only be upgraded once per game.",
+    "Genomic enhancement: Once per activation, the model can boost a friendly creature unit within 3\" range. 1 - The unit gains +1 Strength. 2 - The unit gains +1 Toughness. 3 - The unit gets +1 BS and +1 WS. Character models cannot be upgraded. Each unit can only be upgraded once per game.",
     "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
   ],
   "unit_type": "Character Model, Infantry",

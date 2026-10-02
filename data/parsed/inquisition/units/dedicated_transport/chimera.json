@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Chimera is a single model and equipped with: Two Heavy flamers; Two lasgun arrays.",
+  "equipped_with": "A Chimera is a single model and equipped with: Two Heavy bolters; Two lasgun arrays.",
   "weapons": [
     {
       "name": "Autocannon",
@@ -60,7 +60,7 @@
       "abilities": "Auto Hit, Sunder(1)"
     },
     {
-      "name": "Multi-laser",
+      "name": "Multilaser",
       "range": "36\"",
       "type": "Heavy 3",
       "s": "6",
@@ -80,18 +80,18 @@
   ],
   "option_groups": [
     {
-      "header": "Can replace the Heavy flamer",
+      "header": "May swap the Heavy bolter",
       "constraint": {
         "type": "one"
       },
       "choices": [
         {
-          "name": "Heavy bolter",
-          "points": 5
+          "name": "Heavy flamer",
+          "points": 4
         },
         {
-          "name": "Multi-laser",
-          "points": 6
+          "name": "Multilaser",
+          "points": 1
         },
         {
           "name": "Autocannon",
@@ -106,25 +106,25 @@
       "variant_link": null,
       "is_unique_per_army": false,
       "replaces": [
-        "Heavy flamer"
+        "Heavy bolter"
       ]
     },
     {
-      "header": "Can replace the Heavy flamer",
+      "header": "May swap the Heavy bolter",
       "constraint": {
         "type": "one"
       },
       "choices": [
         {
-          "name": "Heavy bolter",
-          "points": 5
+          "name": "Heavy flamer",
+          "points": 4
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
       "replaces": [
-        "Heavy flamer"
+        "Heavy bolter"
       ]
     }
   ],

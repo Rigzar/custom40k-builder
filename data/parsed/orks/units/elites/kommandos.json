@@ -224,7 +224,7 @@
   "abilities": [
     "Dakka Dakka Dakka, Furious charge, Infiltrator, Mob, Move through cover, Use cover, Waaagh!",
     "Bomb squig: During activation, a Kommando can release a Bomb squig. Roll 1D6. On a 2+, the Bomb squig automatically hits the nearest enemy unit within 18\". On a 1, it automatically hits the nearest friendly unit within 18\". Vehicles are favored in both cases.",
-    "Distraction grot: The unit can use a Distraction grot once per game:\n- During activation.\n- If it has not yet executed its command this turn and is targeted by an enemy unit.\nThe unit gains the \"Deflect\" trait."
+    "Distraction grot: The unit can use a Distraction grot once per game: - During activation. - If it has not yet executed its command this turn and is targeted by an enemy unit. The unit gains the \"Deflect\" trait."
   ],
   "unit_type": "Infantry",
   "keywords": [],

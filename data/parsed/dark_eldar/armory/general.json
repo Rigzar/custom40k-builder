@@ -506,7 +506,7 @@
       "p_char": 5
     },
     {
-      "name": "Teleport homing beacon",
+      "name": "Webway lure",
       "term_compat": false,
       "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
       "p_unit": 10,
@@ -515,7 +515,7 @@
     {
       "name": "Trophy",
       "term_compat": false,
-      "desc": "Enemy units within a 6\" radius suffer -1 to their Leadership.",
+      "desc": "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
       "p_unit": 5,
       "p_char": 5
     },
@@ -623,6 +623,21 @@
       "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
+    },
+    {
+      "name": "Preysense array",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Shadowfield projector",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
     }
   ],
   "daemon_weapons": []

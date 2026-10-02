@@ -83,7 +83,16 @@ export const REMOVED_UNITS: Record<string, Record<string, string>> = {
 export const RENAMED_ARMORY_ITEMS: Record<string, Record<string, string>> = {
   'Tau Empire': {
     'Krootox steedᴵ': 'Kalamandra steedᴵ',
+    // October 2026 sheets: each army's Jammer / Teleport homer / Auspex got its own name.
+    'Jammer': 'Countermeasure array',
   },
+  'Chaos Daemons': { 'Jammer': 'Warp distortion' },
+  'Dark Eldar': { 'Teleport homing beacon': 'Webway lure' },
+  'Eldar': { 'Teleport homing beacon': 'Webway beacon', 'Jammer': 'Veilfield array' },
+  'Genestealer Cults': { 'Teleport homing beacon': 'Locator beacon', 'Jammer': 'Signal scrambler' },
+  'Harlequins': { 'Jammer': 'Mirage projector' },
+  'Leagues of Votann': { 'Teleport homing beaconᴱ': 'Void-Anchor beaconᴱ', 'Jammer': 'Interference array' },
+  'Necrons': { 'Teleport homing beacon': 'Translocation node' },
 };
 
 /**

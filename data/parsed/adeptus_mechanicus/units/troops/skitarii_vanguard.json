@@ -75,7 +75,7 @@
       "s": "7",
       "ap": "-4",
       "d": "2",
-      "abilities": "Armorbane, AT(1), Deadly(5+)"
+      "abilities": "Armorbane, AT(1), Deadly(5+), Sniper"
     },
     {
       "name": "Plasma caliver - Standard",
@@ -161,8 +161,7 @@
   ],
   "abilities": [
     "Canticles of the Omnissiah",
-    "Rad-saturation: Enemy models in direct base contact suffer a -1 penalty to their Toughness.",
-    "Sniper: A model equipped with a Transuranic arquebus improves its BS by +1."
+    "Rad-saturation: Enemy models in direct base contact suffer a -1 penalty to their Toughness."
   ],
   "unit_type": "Infantry",
   "keywords": [],

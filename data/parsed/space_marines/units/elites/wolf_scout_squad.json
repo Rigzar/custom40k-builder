@@ -111,7 +111,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Missile launcher - Frag",
@@ -230,8 +230,7 @@
   ],
   "abilities": [
     "Combat squads, Infiltrator, They Shall Know No Fear",
-    "Camo cloak: The model gains the \"Stealth\" ability.",
-    "Sniper: A model equipped with a Sniper rifle improves its BS by +1."
+    "Camo cloak: The model gains the \"Stealth\" ability."
   ],
   "unit_type": "Infantry",
   "keywords": [],

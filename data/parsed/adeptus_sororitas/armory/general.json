@@ -526,8 +526,8 @@
       "name": "Auspex scanner",
       "term_compat": false,
       "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
-      "p_unit": 5,
-      "p_char": 5
+      "p_unit": 10,
+      "p_char": 10
     },
     {
       "name": "Blessed ammunition",

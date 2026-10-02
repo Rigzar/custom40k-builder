@@ -119,7 +119,7 @@
     }
   ],
   "abilities": [
-    "Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+. A Dark Apostle knows all prayers from the Exalted Prayers discipline.",
+    "Faithful: A Dark Apostle may pray once per battle round. A prayer is successful at a roll of 3+. A Dark Apostle knows all prayers from the Exalted Prayers discipline.",
     "Seal of corruption: This model has a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",

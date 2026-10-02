@@ -84,7 +84,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Kroot pistol",
@@ -289,8 +289,7 @@
   "abilities": [
     "Infiltrator, Supporting Fire, Use Cover",
     "Bounty Hunters: After all units have been deployed, nominate an enemy unit. This unit gets +1 to hit rolls against that unit. If that unit is destroyed, you may nominate another unit.",
-    "Pech'ra: All ranged weapons carried by the unit gain the \"Sunder(1)\" ability.",
-    "Sniper: Models with a Kroot hunting rifle receive a +1 bonus to their BS value."
+    "Pech'ra: All ranged weapons carried by the unit gain the \"Sunder(1)\" ability."
   ],
   "unit_type": "Bike (Kroot hounds only), Infantry, Kroot",
   "keywords": [],

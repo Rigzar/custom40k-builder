@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Razorback",
-      "points": 142,
+      "points": 132,
       "min": 1,
       "max": 1,
       "stats": {
@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Razorback is equipped with: Twin heavy bolter.",
+  "equipped_with": "A Razorback is equipped with: Twin heavy flamer.",
   "weapons": [
     {
       "name": "Lascannon",
@@ -94,6 +94,15 @@
       "ap": "-4",
       "d": "2",
       "abilities": "AT(2), Overheating"
+    },
+    {
+      "name": "Twin heavy flamer",
+      "range": "9\"",
+      "type": "Assault 8",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)"
     }
   ],
   "option_groups": [
@@ -105,26 +114,30 @@
       "choices": [
         {
           "name": "Twin assault cannon",
-          "points": 28
+          "points": 38
         },
         {
           "name": "Twin heavy psycannon",
-          "points": 45
+          "points": 55
         },
         {
           "name": "Lascannon and Twin plasma gun",
-          "points": 77
+          "points": 87
         },
         {
           "name": "Twin lascannon",
-          "points": 102
+          "points": 112
+        },
+        {
+          "name": "Twin heavy bolter",
+          "points": 10
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
       "replaces": [
-        "Twin heavy bolter"
+        "Twin heavy flamer"
       ]
     },
     {
@@ -167,5 +180,5 @@
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 142
+  "min_cost": 132
 }

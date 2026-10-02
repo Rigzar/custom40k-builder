@@ -10,7 +10,7 @@
         "M": "12\"",
         "WS": "-",
         "BS": "3+",
-        "S": "6",
+        "S": "7",
         "FRONT": "14",
         "SIDE": "14",
         "REAR": "14",
@@ -27,7 +27,7 @@
       "name": "Flamestorm cannon",
       "range": "12\"",
       "type": "Heavy 6",
-      "s": "7",
+      "s": "6",
       "ap": "-2",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1)"

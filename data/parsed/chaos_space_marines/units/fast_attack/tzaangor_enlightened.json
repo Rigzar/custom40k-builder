@@ -75,7 +75,7 @@
       "s": "+1",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(3)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(3)"
     }
   ],
   "option_groups": [
@@ -104,8 +104,7 @@
     }
   ],
   "abilities": [
-    "Mark of Tzeentch",
-    "Sniper: Models equipped with a Fatecaster greatbow get a +1 bonus to their BS."
+    "Mark of Tzeentch"
   ],
   "unit_type": "Jetbike",
   "keywords": [

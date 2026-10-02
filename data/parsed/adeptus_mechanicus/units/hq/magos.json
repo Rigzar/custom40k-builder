@@ -314,12 +314,12 @@
     "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
     "Mechandrite Harness: This model may use up to three ranged weapons per activation, regardless of their type.",
     "Enhanced Bionics: This model receives a 5+ ward save.",
-    "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1.",
-    "Enginseer:\nImproved Blessing of the Omnissiah: This model may use Blessing of the Omnissiah one additional time per activation and the roll is successfull on a 3+.",
-    "Manipulus\nGalvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1.",
-    "Myrmidax\nBringer of Blessed Ruin: This model gains the Favored Enemy ability.",
-    "Technoarchaeologist\nSeekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\".",
-    "Underseer\nMaster of Menials: As long as this model is attached to a unit of Servitors, it and the attached unit may receive an Advance order and pursue fleeing units, even if they are Unyielding. Any attached Tech-thralls gain +1 to all hit rolls."
+    "Datasmith Cybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1.",
+    "Enginseer: Improved Blessing of the Omnissiah: This model may use Blessing of the Omnissiah one additional time per activation and the roll is successfull on a 3+.",
+    "Manipulus Galvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1.",
+    "Myrmidax Bringer of Blessed Ruin: This model gains the Favored Enemy ability.",
+    "Technoarchaeologist Seekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\".",
+    "Underseer Master of Menials: As long as this model is attached to a unit of Servitors, it and the attached unit may receive an Advance order and pursue fleeing units, even if they are Unyielding. Any attached Tech-thralls gain +1 to all hit rolls."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

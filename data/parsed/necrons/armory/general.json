@@ -428,7 +428,7 @@
       }
     },
     {
-      "name": "Teleport homing beacon",
+      "name": "Translocation node",
       "term_compat": false,
       "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
       "p_unit": 10,
@@ -521,6 +521,21 @@
       "p_unit": 15,
       "p_char": null,
       "category": "vehicle"
+    },
+    {
+      "name": "Omnispectral array",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Null-Signal matrix",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+      "p_unit": 15,
+      "p_char": null
     }
   ],
   "daemon_weapons": []

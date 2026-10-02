@@ -48,7 +48,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Kroot pistol",
@@ -182,8 +182,7 @@
     }
   ],
   "abilities": [
-    "Infiltrator, Supporting Fire, Use Cover",
-    "Sniper: Models with a Kroot hunting rifle receive a +1 bonus to their BS value."
+    "Infiltrator, Supporting Fire, Use Cover"
   ],
   "unit_type": "Jump Pack Infantry, Kroot",
   "keywords": [],
