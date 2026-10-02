@@ -1,0 +1,85 @@
+{
+    "name": "Sekhetar Robots",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "5",
+                "T": "6",
+                "W": "3",
+                "I": "3",
+                "A": "2",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Sekhetar Robot",
+            "min": 2,
+            "max": 4,
+            "points": 148
+        }
+    ],
+    "min_cost": 296,
+    "default_size": 2,
+    "equipped_with": "Every model is equipped with: Heavy warpflamer; Hellfyre missile rack; Pyreflux meltagun.",
+    "weapons": [
+        {
+            "name": "Heavy warpflamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Hellfyre missile rack",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Power claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Pyreflux meltagun",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "9",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Warpflame projector",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "abilities": [
+        "Infiltrate, Mark of Tzeentch, Unyielding",
+        "Battle Protocols: Select one Battle Protocol during each activation:",
+        "- Aegis: All models in the unit gain +1 Toughness. This is the default selection in the first battle round until the first actual activation.",
+        "- Conqueror: All models in the unit gain +1 WS.",
+        "- Protector: All models in the unit gain +1 BS."
+    ],
+    "unit_type": "Monstrous infantry",
+    "is_monster": false,
+    "keywords": [
+        "Thousand Sons"
+    ]
+}

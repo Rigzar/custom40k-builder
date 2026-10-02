@@ -1,0 +1,125 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-8",
+        "Tzaangor Enlightened",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        3,
+        8,
+        "5+",
+        27
+    ],
+    [
+        1,
+        "Aviarch",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        4,
+        3,
+        8,
+        "5+",
+        27
+    ],
+    [
+        "Every model is equipped with: Autopistol; Chainsword."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autopistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1
+    ],
+    [
+        "Divining spear",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Quick(+1)"
+    ],
+    [
+        "Fatecaster greatbow",
+        "24\"",
+        "Assault 1",
+        "+1",
+        -2,
+        2,
+        "Armor piercing(5+), Sniper, Suppression(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Each model may swap their Autopistol and Chainsword:"
+    ],
+    [
+        "- Divining spear",
+        "+2 points"
+    ],
+    [
+        "- Fatecaster greatbow",
+        "+15 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Mark of Tzeentch"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jetbike"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cultist, Thousand Sons"
+    ]
+]

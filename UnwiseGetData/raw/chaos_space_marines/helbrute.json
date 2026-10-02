@@ -1,0 +1,287 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Helbrute",
+        "6\"",
+        "3+",
+        "3+",
+        6,
+        12,
+        12,
+        10,
+        4,
+        3,
+        3,
+        174
+    ],
+    [
+        "A Helbrute is equipped with: Helbrute fist; Power scourge."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Combi-bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Helbrute fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Helbrute hammer",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(3), Armorbane"
+    ],
+    [
+        "Helbrute plasma cannon",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheat"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(2), Anti-air"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Power scourge",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(4)"
+    ],
+    [
+        "Reaper autocannon",
+        "36\"",
+        "Heavy 4",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Twin blastmaster *"
+    ],
+    [
+        "- Single frequency",
+        "36\"",
+        "Heavy 2",
+        8,
+        -2,
+        2,
+        "AT(2), Sunder(2), Suppression(6)"
+    ],
+    [
+        "- Varied frequency",
+        "24\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "Blast(4), Sunder(2), Suppression(3)"
+    ],
+    [
+        "Twin heavy bolter",
+        "36\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin lascannon",
+        "48\"",
+        "Heavy 2",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May receive a Mark of Chaos:"
+    ],
+    [
+        "- Khorne",
+        "+10 points"
+    ],
+    [
+        "- Nurgle",
+        "+10 points"
+    ],
+    [
+        "- Slaanesh",
+        "+10 points"
+    ],
+    [
+        "- Tzeentch",
+        "+10 points"
+    ],
+    [
+        "\u2022 May replace its Helbrute fist:"
+    ],
+    [
+        "- Reaper autocannon",
+        "+15 points"
+    ],
+    [
+        "- Twin heavy bolter",
+        "+20 points"
+    ],
+    [
+        "- Multi-melta",
+        "+21 points"
+    ],
+    [
+        "- Twin blastmaster",
+        "+30 points"
+    ],
+    [
+        "- Helbrute plasma cannon",
+        "+86 points"
+    ],
+    [
+        "- Twin lascannon",
+        "+122 points"
+    ],
+    [
+        "\u2022 May replace its Power scourge:"
+    ],
+    [
+        "- Helbrute fist",
+        "+0 points"
+    ],
+    [
+        "- Helbrute hammer",
+        "+7 points"
+    ],
+    [
+        "- Missile launcher",
+        "+24 points"
+    ],
+    [
+        "\u2022 For every Helbrute fist, it may be equipped with one of the following:"
+    ],
+    [
+        "- Combi-bolter",
+        "+11 points"
+    ],
+    [
+        "- Heavy flamer",
+        "+13 points"
+    ],
+    [
+        "\u2022 If the Mark of Tzeentch is taken, can be upgraded to a psyker for +5 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Squadron"
+    ],
+    [
+        "Furioso: If the model is equipped with two melee weapons, it gains +2 attacks."
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Walker"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

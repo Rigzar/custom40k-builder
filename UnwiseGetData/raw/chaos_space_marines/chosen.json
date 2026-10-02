@@ -1,0 +1,163 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-10",
+        "Chosen",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "3+",
+        34
+    ],
+    [
+        "A Chosen is equipped with: Krak grenades; Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every HQ selection, the army may include one Chosen unit."
+    ],
+    [
+        "\u2022 All models may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Undivided",
+        "+0 points"
+    ],
+    [
+        "- Khorne",
+        "+2 points"
+    ],
+    [
+        "- Slaanesh",
+        "+2 points"
+    ],
+    [
+        "- Nurgle",
+        "+2 points"
+    ],
+    [
+        "- Tzeentch",
+        "+5 points"
+    ],
+    [
+        "\u2022 The entire squad may receive one of the following upgrades per model:"
+    ],
+    [
+        "- Dark Crusaders",
+        "+2 points"
+    ],
+    [
+        "- Accursed Weaponry",
+        "+3 points"
+    ],
+    [
+        "- Monstrous Visages",
+        "+3 points"
+    ],
+    [
+        "- Malicious Ammuniton",
+        "+5 points"
+    ],
+    [
+        "- Tip of the Spear",
+        "+5 points"
+    ],
+    [
+        "- Clad in Midnight",
+        "+10 points"
+    ],
+    [
+        "\u2022 All models have access to the armory."
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command squad, Squadron"
+    ],
+    [
+        "Upgrades:"
+    ],
+    [
+        "Accursed Weaponry: The model gains the \"Deflagrate(5+)\" ability for all melee attacks."
+    ],
+    [
+        "Clad in Midnight: The model gains the \"Stealth\" ability."
+    ],
+    [
+        "Dark Crusaders: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
+    ],
+    [
+        "Malicious Ammuniton: The model gains the \"Deflagrate(5+)\" ability for all ranged attacks."
+    ],
+    [
+        "Monstrous Visages: The model gains the \"Parry\" ability and additionally the \"Gruesome\" ability for all melee weapons."
+    ],
+    [
+        "Tip of the Spear: When set up using the Infiltrator rules, the model can always be placed outside 12\" of an enemy unit, even if there is direct line of sight."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

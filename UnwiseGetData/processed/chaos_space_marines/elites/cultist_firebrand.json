@@ -1,0 +1,54 @@
+{
+    "name": "Cultist Firebrand",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Cultist Firebrand",
+            "min": 1,
+            "max": 1,
+            "points": 39
+        }
+    ],
+    "min_cost": 39,
+    "default_size": 1,
+    "equipped_with": "A Cultist Firebrand is equipped with: Baleflamer; Frag grenades.",
+    "weapons": [
+        {
+            "name": "Baleflamer",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Cultist"
+    ]
+}

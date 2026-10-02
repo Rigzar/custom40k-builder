@@ -1,0 +1,280 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory and the Mark of Tzeentch equipped can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Coruscating beam\u1d40",
+        "Unlimited",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "Ammunition(1), AT(4), Blast(6), Lance(+2)",
+        "-",
+        "-"
+    ],
+    [
+        "Inferno boltpistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -2,
+        1,
+        "-",
+        3,
+        3
+    ],
+    [
+        "Inferno combi-bolter\u1d40",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -2,
+        1,
+        "-",
+        13,
+        17
+    ],
+    [
+        "Inferno combi-warpflamer\u1d40 *",
+        20,
+        18
+    ],
+    [
+        "- Inferno bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Warpflamer",
+        "9\"",
+        "Assault 4",
+        4,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Inferno combi-melta\u1d40 *",
+        18,
+        24
+    ],
+    [
+        "- Inferno bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Inferno combi-plasma\u1d40 *",
+        27,
+        34
+    ],
+    [
+        "- Inferno bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "- Plasma (standard)",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Plasma (overcharged)",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheat"
+    ],
+    [
+        "Prosperine Khopesh\u1d40",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Soul burn(5+)",
+        5,
+        6
+    ],
+    [
+        "Warpflame pistol",
+        "9\"",
+        "Pistol 4",
+        4,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)",
+        6,
+        4
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Arcane compulsion\u1d40",
+        "Reduce enemy Charge movements targeting the bearer and their attached unit by 2\".",
+        "-",
+        5
+    ],
+    [
+        "Arch-sorcerer's staff\u1d40",
+        "Once per activation, when this model successfully manifests a psychic power, roll a D6. On a 5+, you successfully manifest Doombolt in addition and can select another target. The spell can't be denied. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Astral Grimoire\u1d40",
+        "Select one friendly unit within 12\" during the Reinforcement phase. For the remainder of the battle round the unit got a Movement value of 12\" and gains the \"Anti-Grav\" ability. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Athenaean Scroll\u1d40",
+        "If a test to manifest a psychic power rolls any doubles, the power is manifested and can't be denied (Note: a double 1 still perils). If a test to deny a psychic power rolls any doubles, the power is denied regardless of the actual result. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Blasted standard",
+        "Once per game, when this model is selected as the target of a Charge order, you immediately manifest Doombolt (see Tzeentch psychic discipline), targeting the charging unit.",
+        5,
+        "-"
+    ],
+    [
+        "Bringer of Change\u1d40",
+        "The player may demand a single die to be re-rolled each round, regardless from which player. Unique.",
+        "-",
+        20
+    ],
+    [
+        "Cult initiate\u1d40",
+        "The model may exchange one psychic power it knows with one from the list of \"Cult Powers\". All Cult Powers within an army must be the same, if any is chosen. Only for models from this Codex.",
+        0,
+        0
+    ],
+    [
+        "Disc of Tzeentch",
+        "The model gains +6\" Movement, +1 Wound, +1 Attack and the \"Jetbike\" unit type. Only for infantry.",
+        37,
+        49
+    ],
+    [
+        "Helm of the Third Eye\u1d40",
+        "The model and any attached unit ignore any or all to hit modifiers, including for Defensive Fire. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Hourglass of Manoth\u1d40",
+        "Roll a die the first time the model is eliminated: \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound. \n5,6 - Set it up again with 2 wounds. Unique.",
+        15,
+        15
+    ],
+    [
+        "Lord of the Silver Tower\u1d40",
+        "Once per game, instead of using any other ranged weapon or a psychic power, the model may shoot the Coruscating beam. Unique. Only for Master of Sorcery.",
+        "-",
+        90
+    ],
+    [
+        "Stone of siphoning\u1d40",
+        " When another friendly psyker successfully manifests a psychic power, you may immediately treat the power as dispelled. Then, this model regains 1 Wound. Cannot exceed starting Wounds. ",
+        "-",
+        5
+    ],
+    [
+        "Talisman of Tzeentch\u1d40",
+        "Can be activated once per game to grant friendly and enemy psykers a +1 bonus to manifestation rolls until the next battle round. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Weaver of Magicks\u1d40",
+        "The model may give itself one of these bonuses each round:\n- Change one \"Normal\" psychic power to \"Basic\".\n- Change one \"Complex\" psychic power to \"Normal\".\n- Get a +1 bonus to manifest one psychic power.\n- Get a +1 bonus to deny one psychic power.\nUnique.",
+        10,
+        10
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "DAEMON WEAPONS",
+        "POINTS"
+    ],
+    [
+        "Magical",
+        "The model gains +1 to manifest and deny psychic powers. Unique.",
+        5
+    ],
+    [
+        "Warping",
+        "The weapon gains a ranged profile with 18\" range. It can shoot during each activation as often as the model can attack. Can't be used on a weapon with the \"Slow\" ability. Unique.",
+        15
+    ],
+    [
+        "Weaving",
+        "Once per battle round, the model and its attached unit can change the result of a single die roll of themselves or an enemy unit they are attacking. Unique.",
+        15
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Mirror plate\n",
+        "When selected as a target of a friendly's psyker's Augmentation psychic power, you can choose a friendly unit within 12\" that this model has Line of Sight to. That unit gains the effects of the psychic power in addition of this model, if able.",
+        10
+    ],
+    [
+        "Warpflame gargoyles",
+        "When this model is set up during Deployment, choose one of its weapons with the Auto Hit ability. That weapon can always fire, ignoring distance traveled.",
+        5
+    ]
+]

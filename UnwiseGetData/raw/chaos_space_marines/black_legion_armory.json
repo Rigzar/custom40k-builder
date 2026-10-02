@@ -1,0 +1,102 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Heavy bolter\u1d40",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "Unique. Only for models with the Mark of Khorne",
+        "-",
+        23
+    ],
+    [
+        "The Eye of Night\u1d40",
+        "Unlimited",
+        "Assault 1",
+        10,
+        -5,
+        3,
+        "Ammunition(1), AT(4), Beam, Unique",
+        "-",
+        26
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Last Memory of the Yuranthos\u1d40",
+        "The model gains a +1 bonus to manifest psychic powers. Additionally, it knows \"Burning Hands\" from the Pyromancy discipline.",
+        "-",
+        10
+    ],
+    [
+        "Sightless Helm\u1d40",
+        "Worsen this model's BS by 1, then improve the AP of all your weapons by 1 to a maximum of -4.",
+        10,
+        12
+    ],
+    [
+        "Spineshiver Blade\u1d40",
+        "One weapon of the model reduces its \"Slow(x)\" value by 1.",
+        "-",
+        5
+    ],
+    [
+        "The Crucible of Lies\u1d40",
+        "The model may re-roll ward save rolls of 1. Unique.",
+        "-",
+        10
+    ],
+    [
+        "The Hand of Darkness\u1d40",
+        "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
+        "-",
+        5
+    ],
+    [
+        "The Skull of Ker\u2019ngar\u1d40",
+        "All to wound rolls against the model suffer a -1 penalty. Unique.",
+        "-",
+        15
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Unholy markings",
+        "Friendly models within 6\" range gain the \"Furious Charge\" ability.",
+        15
+    ],
+    [
+        "Unnatural hunger",
+        "During deployment, select an enemy unit. This model gains \"Favoured Enemy(x)\" when resolving attacks against that unit. If that unit is destroyed by this model, regain one Hull Point (cannot exceed maximum).",
+        5
+    ]
+]

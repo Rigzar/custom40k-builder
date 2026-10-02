@@ -1,0 +1,284 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-13",
+        "Terminator",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        6,
+        3,
+        4,
+        3,
+        8,
+        "2+",
+        109
+    ],
+    [
+        1,
+        "Terminator Champion",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        6,
+        3,
+        4,
+        3,
+        8,
+        "2+",
+        114
+    ],
+    [
+        "Every model is equipped with: Balesword; Combi-bolter."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Balesword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Poison(4+)"
+    ],
+    [
+        "Blight launcher",
+        "24\"",
+        "Assault 2",
+        6,
+        -2,
+        2,
+        "Poison(4+)"
+    ],
+    [
+        "Bubotic axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Poison(4+)"
+    ],
+    [
+        "Combi-bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "Poison(4+)"
+    ],
+    [
+        "Combi-flamer *"
+    ],
+    [
+        "- Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi, Poison(4+)"
+    ],
+    [
+        "- Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Combi, Sunder(1)"
+    ],
+    [
+        "Combi-melta *"
+    ],
+    [
+        "- Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi, Poison(4+)"
+    ],
+    [
+        "- Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Combi, Melta"
+    ],
+    [
+        "Combi-plasma *"
+    ],
+    [
+        "- Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi, Poison(4+)"
+    ],
+    [
+        "- Plasma gun (Standard)",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1), Combi"
+    ],
+    [
+        "- Plasma gun (Supercharged)",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Combi, Overheating"
+    ],
+    [
+        "Heavy plague weapon",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        2,
+        "Poison(4+), Slow(-1), Unwieldy"
+    ],
+    [
+        "Plague spewer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Poison(4+), Sunder(1)"
+    ],
+    [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "Reaper autocannon",
+        "36\"",
+        "Heavy 3",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every Terminator may swap their Combi-bolter (points per model):"
+    ],
+    [
+        "- Combi-flamer",
+        "+0 points"
+    ],
+    [
+        "- Combi-melta",
+        "+6 points"
+    ],
+    [
+        "- Combi-plasma",
+        "+10 points"
+    ],
+    [
+        "\u2022 Every Terminator may swap their Balesword (points per model):"
+    ],
+    [
+        "- Bubotic axe",
+        "+0 points"
+    ],
+    [
+        "- Power fist",
+        "+8 points"
+    ],
+    [
+        "\u2022 For every 5 models, two Terminators may swap their Combi-bolters (points per model):"
+    ],
+    [
+        "- Plague spewer",
+        "+5 points"
+    ],
+    [
+        "- Reaper autocannon",
+        "+19 points"
+    ],
+    [
+        "- Blight launcher",
+        "+34 points"
+    ],
+    [
+        "\u2022 For every 5 models, two Terminators may swap their Combi-bolters and Baleswords (points per model):"
+    ],
+    [
+        "- Heavy plague weapon",
+        "-6 points"
+    ],
+    [
+        "\u2022 The Terminator Champion has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit can gain a Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Mark of Nurgle, Massive(1), Unyielding"
+    ],
+    [
+        "Cataphractii armor: The model has a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Death Guard"
+    ]
+]
