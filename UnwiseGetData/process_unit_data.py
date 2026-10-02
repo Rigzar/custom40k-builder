@@ -17,7 +17,7 @@ VEHICLE_FORMAT = ["No.","NAME","M","WS","BS","S","FRONT", "SIDE", "REAR", "I","A
 WEAPON_FORMAT = ["WEAPON", "RANGE", "TYPE", "S", "AP", "D", "ABILITIES"]
 
 # Make a list of all the troops that exist in the faction's Index.json file. 
-def proccess_faction_units(faction_path, faction_name):
+def process_faction_units(faction_path, faction_name):
     ret = {}
     with open(f"raw/{faction_path}/index.json", "r") as f:
         #sheet is a list of lists, where each inner list is a row in the sheet. Data format: NxN
@@ -42,7 +42,7 @@ def proccess_faction_units(faction_path, faction_name):
                 
     return ret
 
-def proccess_model(model_data, model_format):
+def process_model(model_data, model_format):
     m, M = 1,1
     if "-" in str(model_data[0]):
         m, M = model_data[0].split("-")
@@ -60,7 +60,7 @@ def proccess_model(model_data, model_format):
     return ret_model
 
 # Takes a weapon column from the unit sheet and formats it into the app's weapon data format. Returns a dictionary with the weapon data.
-def proccess_weapon(weapon_data):
+def process_weapon(weapon_data):
     APP_FORMAT = "name", "range","type", "s", "ap", "d", "abilities"
     weapon_data = [str(x) for x in weapon_data]
     return dict(zip(APP_FORMAT, weapon_data))
@@ -76,10 +76,10 @@ def main():
         
         faction_path = f"{faction.lower().replace(' ', '_').replace("'", '')}"
         print(f"Processing {faction}...")
-        faction_units = proccess_faction_units(faction_path, faction)
+        faction_units = process_faction_units(faction_path, faction)
         print(f"Faction troops: {faction_units}")
         
-        proccessed_faction_units = {}
+        processed_faction_units = {}
         for category, units in faction_units.items():
             for unit in units:
                 unit_name = "".join(unit)
@@ -107,7 +107,7 @@ def main():
                     # Process all models in the unit sheet until we reach the weapons section.
                     while("equipped with" not in "".join(str(unit_sheet[0]))):
                         print(f"raw data: {unit_sheet[0]}")
-                        model = proccess_model(unit_sheet[0], model_format)
+                        model = process_model(unit_sheet[0], model_format)
                         if "*" in str(unit_sheet[0][0]):
                             if "variant_models" not in app_unit_json:
                                 app_unit_json["variant_models"] = [model]
@@ -149,10 +149,10 @@ def main():
                             unit_sheet = unit_sheet[1:]
                             while "-" in unit_sheet[0][0]:
                                 unit_sheet[0][0] = temp_weapon_name + unit_sheet[0][0]
-                                app_unit_json["weapons"].append(proccess_weapon(unit_sheet[0]))
+                                app_unit_json["weapons"].append(process_weapon(unit_sheet[0]))
                                 unit_sheet = unit_sheet[1:]
                         else:
-                            app_unit_json["weapons"].append(proccess_weapon(unit_sheet[0]))
+                            app_unit_json["weapons"].append(process_weapon(unit_sheet[0]))
                             unit_sheet = unit_sheet[1:]
                     
                     ### OPTIONS           
@@ -193,8 +193,8 @@ def main():
                     
         
                 # Save the processed unit data to its respective path.
-                proccessed_unit_path = f"processed/{faction_path}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
-                with open(proccessed_unit_path, "w") as f:
+                processed_unit_path = f"processed/{faction_path}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
+                with open(processed_unit_path, "w") as f:
                     json.dump(app_unit_json, f, indent=4)
                     
 if __name__ == "__main__":
