@@ -25,7 +25,7 @@
     "equipped_with": "A Missionary is equipped with: Frag grenades.",
     "weapons": [
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

@@ -30,7 +30,7 @@
         42
     ],
     [
-        "A Hospitaler is equipped with: Frag grenades; Krak grenades."
+        "A Dialogus is equipped with: Frag grenades; Krak grenades."
     ],
     [
         "WEAPON",
@@ -42,7 +42,7 @@
         "ABILITIES"
     ],
     [
-        "Frag grenade",
+        "Frag grenades",
         "6\"",
         "Grenade 1",
         4,
@@ -51,7 +51,7 @@
         "Blast(4)"
     ],
     [
-        "Krak grenade",
+        "Krak grenades",
         "6\"",
         "Grenade 1",
         6,

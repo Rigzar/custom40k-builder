@@ -25,7 +25,7 @@
     "equipped_with": "A Canoness in Paragon Warsuit is equipped with: Heavy flamer; Frag grenades; Krak grenades; Paragon war blade; 2 Storm bolters.",
     "weapons": [
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -52,7 +52,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Krak grenade",
+            "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "6",

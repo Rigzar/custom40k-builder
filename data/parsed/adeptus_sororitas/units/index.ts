@@ -18,7 +18,7 @@ import hq_missionary from './hq/missionary.json';
 import hq_palatine from './hq/palatine.json';
 import troops_battle_sisters_squad from './troops/battle_sisters_squad.json';
 import troops_sisters_novitiate from './troops/sisters_novitiate.json';
-import elites_arco_flagellants from './elites/arco_flagellants.json';
+import elites_arco_flagellants from './elites/arco-flagellants.json';
 import elites_celestian_squad from './elites/celestian_squad.json';
 import elites_crusaders from './elites/crusaders.json';
 import elites_dogmata from './elites/dogmata.json';
