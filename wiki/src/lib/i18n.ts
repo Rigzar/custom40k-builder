@@ -17,6 +17,7 @@
  */
 import overrides from '../data/wiki-translations.json';
 import { WIKI_BUILTIN } from './i18n-builtin';
+import { setRuleLanguage } from '../vendor/src/data/coreRules';
 import RU_RULES from '../vendor/src/data/ruleDescriptions.ru.json';
 import JA_RULES from '../vendor/src/data/ruleDescriptions.ja.json';
 
@@ -32,6 +33,8 @@ export const WIKI_LANGS: { code: WikiLang; label: string }[] = [
 // build-time env var (Node). import.meta.env only exposes PUBLIC_-prefixed vars, so read process.env.
 const RAW_LANG = (typeof process !== 'undefined' && process.env.WIKI_LANG) || 'en';
 export const WIKI_LANG: WikiLang = (['en', 'de', 'es', 'ru', 'ja'].includes(RAW_LANG) ? RAW_LANG : 'en') as WikiLang;
+// The shared rules module localises datasheet ability texts for whatever language it is told.
+setRuleLanguage(WIKI_LANG);
 
 /** English source for every UI/chrome string in the wiki. */
 export const WIKI_STRINGS = {
