@@ -129,7 +129,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Grenade launcher - Frag grenade",
@@ -337,8 +337,7 @@
     }
   ],
   "abilities": [
-    "Chain of command: Units that activate within 12\" of the Lieutenant can receive orders as if an officer were in range.",
-    "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
+    "Chain of command: Units that activate within 12\" of the Lieutenant can receive orders as if an officer were in range."
   ],
   "unit_type": "Infantry",
   "keywords": [],

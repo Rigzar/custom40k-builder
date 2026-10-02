@@ -157,7 +157,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Grenade launcher - Frag grenade",
@@ -359,8 +359,7 @@
     }
   ],
   "abilities": [
-    "Combined squads: During deployment, Infantry Squads can be combined with any number of other Infantry Squads. If at least two Infantry Squads are combined, they may additionally be combined with a Platoon Command Squad. They act as a single unit for the rest of the game.",
-    "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
+    "Combined squads: During deployment, Infantry Squads can be combined with any number of other Infantry Squads. If at least two Infantry Squads are combined, they may additionally be combined with a Platoon Command Squad. They act as a single unit for the rest of the game."
   ],
   "unit_type": "Infantry",
   "keywords": [],

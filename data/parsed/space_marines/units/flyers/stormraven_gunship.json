@@ -172,7 +172,7 @@
   ],
   "abilities": [
     "Hover mode",
-    "\tAssault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
+    "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
     "Transport: This model has a transport capacity of 10 infantry models and 1 Dreadnought."
   ],
   "unit_type": "Flyer",

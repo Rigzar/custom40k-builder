@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-oct-sheets-questions-for-author-01",
+    status: "known",
+    title: "Questions on the October sheets (Space Marines, Imperial Guard)",
+    description: "OPEN 2026-10-02. Space Marines 1.05, Imperial Guard 1.05 and Tyranids 1.08 were re-fetched from the live sheets and the differences applied (see the changelog). These are the places where the new sheet looks wrong or contradicts itself, so nothing was changed for them.\n\n1. RAZORBACK: it is now equipped with a Twin heavy flamer and the swap list offers Twin heavy bolter +10, Twin assault cannon +38, Lascannon and Twin plasma gun +87, Twin lascannon +112 — but the option header still reads \"May swap their Twin heavy bolter\". We treat it as swapping the flamer. Is the header meant to say Twin heavy flamer?\n2. BIKE SQUAD and OUTRIDER BIKES: the Veteran Sergeant row says 75 (Bike) and 79 (Outrider), but the base model costs 137 and 143 and the option says +10. The sheet contradicts itself. Which is right? Production keeps 75 and 79.\n3. VALKYRIE: 175 points now (was 220). Its ability line lists only \"Hover Mode\"; ours also carries Anti-Grav, Fast and Vanguard. Were those meant to go? Kept for now.\n4. NEPHILIM JETFIGHTER: Avenger mega bolter is 36\" with no abilities now (was 48\", Anti-Air); the sheet also drops Anti-Grav and Hover mode from the ability line, ours still has them. Intended?\n5. TYPOS in the sheets (left as production has them): Assault Squad \"Astartes chainsword und Plasma pistol\" and \"Eviscerator und Bolt pistol\"; Leman Russ \"two plasma cannonn\"; Carnodon \"Vulkite culverin\"; Ogryn Bodyguard \"Ogry Bodyguard\"; Armoured Sentinels \"Armoured  Sentinels\" (two spaces).\n6. The Sniper weapon ability was added to every sniper rifle in the Imperial Guard and Space Marines sheets, and the old \"+1 BS with a sniper rifle\" ability lines were dropped. Tau, Genestealer Cults, Inquisition, Leagues of Votann and Orks sniper rifles still print the old wording on our side — will their sheets get Sniper too?",
+  },
+  {
     id: "ki-necron-list-saved-as-csm-01",
     status: "fixed",
     title: "A Necron list saved as Chaos Space Marines loads empty (GH#186)",

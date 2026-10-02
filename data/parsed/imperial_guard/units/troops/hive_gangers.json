@@ -183,7 +183,7 @@
       "s": "4",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Gang stubber",
@@ -360,7 +360,6 @@
   ],
   "abilities": [
     "Hive Scum: This unit may not make use of any order.",
-    "Sniper: Models with a Gang sniper rifle receive a +1 bonus to their BS value.",
     "Upgrades:",
     "Cawdor: The model gains +1 Leadership.",
     "Delaque: The model gains \"Infiltrator\".",

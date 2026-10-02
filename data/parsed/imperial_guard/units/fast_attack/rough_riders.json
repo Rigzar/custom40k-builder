@@ -130,7 +130,7 @@
       "s": "4",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Frag lance (Charge)",
@@ -435,8 +435,7 @@
   ],
   "abilities": [
     "Outflank",
-    "Charge: The charge profile of each lance can only be used if the unit has executed a \"Charge\" command during its activation.",
-    "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
+    "Charge: The charge profile of each lance can only be used if the unit has executed a \"Charge\" command during its activation."
   ],
   "unit_type": "Bike",
   "keywords": [],

@@ -82,7 +82,7 @@
   ],
   "abilities": [
     "Deep Strike",
-    "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and can never stray closer than 6\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model."
+    "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and may never stray closer than 6\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

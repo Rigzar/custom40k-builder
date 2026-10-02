@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Chaplain",
-      "points": 131,
+      "points": 129,
       "min": 1,
       "max": 1,
       "stats": {
@@ -23,7 +23,7 @@
   "variant_models": [
     {
       "name": "Master of Sanctity",
-      "points": 146,
+      "points": 144,
       "min": 0,
       "max": 0,
       "stats": {
@@ -99,7 +99,7 @@
   ],
   "abilities": [
     "They Shall Know No Fear",
-    "Faithful: Can recite 1 prayer per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
+    "Faithful: May recite 1 prayer per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
     "Rosarius: The model receives a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
@@ -117,6 +117,6 @@
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 131,
+  "min_cost": 129,
   "is_priest": true
 }

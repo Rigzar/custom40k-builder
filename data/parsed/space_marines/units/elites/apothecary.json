@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Apothecary",
-      "points": 51,
+      "points": 50,
       "min": 1,
       "max": 1,
       "stats": {
@@ -23,7 +23,7 @@
   "variant_models": [
     {
       "name": "Chief Apothecary",
-      "points": 66,
+      "points": 65,
       "min": 0,
       "max": 0,
       "stats": {
@@ -98,5 +98,5 @@
   "advisor": true,
   "slot": "Elites",
   "default_size": 1,
-  "min_cost": 51
+  "min_cost": 50
 }

@@ -88,7 +88,7 @@
     }
   ],
   "abilities": [
-    "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+    "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
     "Transport: This model has a transport capacity of 16 infantry models."
   ],
   "unit_type": "Vehicle",

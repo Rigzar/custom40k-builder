@@ -18,11 +18,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { what, expected, faction } = req.body ?? {};
+    const { what, expected, faction, contact } = req.body ?? {};
     if (!what || typeof what !== 'string' || !what.trim()) {
       res.status(400).json({ error: 'Missing "what" field' });
       return;
     }
+
+    // Optional Discord name for follow-up. One short line, and unable to ping anyone or open a
+    // Markdown block: control characters, @ and backticks are dropped.
+    const contactLine = typeof contact === 'string'
+      ? contact.replace(/[\u0000-\u001f\u007f@`]/g, '').trim().slice(0, 64)
+      : '';
 
     const title = `[Bug] ${what.trim().slice(0, 80)}`;
     const body = [
@@ -35,6 +41,7 @@ export default async function handler(req, res) {
       '**Which faction or unit?**',
       faction?.trim() || '(not provided)',
       '',
+      ...(contactLine ? ['**Discord (for follow-up):**', contactLine, ''] : []),
       '_Reported via the in-app bug form._',
     ].join('\n');
 

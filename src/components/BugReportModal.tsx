@@ -4,6 +4,13 @@ const BUG_REPORT_ENDPOINT = '/api/bug-report';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
+const CONTACT_KEY = 'c40k_bug_contact';
+// Remembered between reports so a second one is one field shorter. Browser storage can be
+// blocked or throw (private windows), so it is only ever a convenience.
+function readContact(): string {
+  try { return localStorage.getItem(CONTACT_KEY) ?? ''; } catch { return ''; }
+}
+
 interface Props {
   onClose: () => void;
   currentFaction?: string;
@@ -13,11 +20,13 @@ export function BugReportModal({ onClose, currentFaction }: Props) {
   const [what, setWhat]         = useState('');
   const [expected, setExpected] = useState('');
   const [where, setWhere]       = useState(currentFaction ?? '');
+  const [contact, setContact]   = useState(readContact);
   const [status, setStatus]     = useState<Status>('idle');
 
   async function handleSubmit() {
     if (!what.trim()) return;
     setStatus('sending');
+    try { localStorage.setItem(CONTACT_KEY, contact.trim()); } catch { /* optional */ }
     try {
       const res = await fetch(BUG_REPORT_ENDPOINT, {
         method: 'POST',
@@ -26,6 +35,7 @@ export function BugReportModal({ onClose, currentFaction }: Props) {
           what: what.trim(),
           expected: expected.trim() || '(not provided)',
           faction: where.trim() || '(not provided)',
+          contact: contact.trim() || undefined,
         }),
       });
       setStatus(res.ok ? 'sent' : 'error');
@@ -125,6 +135,23 @@ export function BugReportModal({ onClose, currentFaction }: Props) {
                   placeholder="e.g. Space Marines — Rhino"
                   className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none placeholder:text-zinc-600"
                 />
+              </div>
+
+              <div>
+                <label className="block text-[11px] uppercase tracking-widest text-amber-600 mb-1">
+                  Your Discord username <span className="text-zinc-500 normal-case tracking-normal">(optional)</span>
+                </label>
+                <input
+                  value={contact}
+                  onChange={e => setContact(e.target.value)}
+                  maxLength={64}
+                  placeholder="e.g. rigzar"
+                  className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none placeholder:text-zinc-600"
+                />
+                <p className="text-zinc-500 text-[11px] mt-1 leading-snug">
+                  So we can ask you about it if the report is unclear. Reports are public on GitHub,
+                  so only fill this in if you are happy for the name to be visible there.
+                </p>
               </div>
 
               {status === 'error' && (

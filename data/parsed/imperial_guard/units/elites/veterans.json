@@ -174,7 +174,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Suppression(6)"
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     },
     {
       "name": "Grenade launcher - Frag grenade",
@@ -366,9 +366,7 @@
       ]
     }
   ],
-  "abilities": [
-    "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
-  ],
+  "abilities": [],
   "unit_type": "Infantry",
   "keywords": [],
   "is_vehicle": false,

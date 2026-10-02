@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Librarian",
-      "points": 99,
+      "points": 97,
       "min": 1,
       "max": 1,
       "stats": {
@@ -23,7 +23,7 @@
   "variant_models": [
     {
       "name": "Chief Librarian",
-      "points": 114,
+      "points": 112,
       "min": 0,
       "max": 0,
       "stats": {
@@ -91,7 +91,7 @@
   "abilities": [
     "They Shall Know No Fear",
     "Psychic hood: Add +1 to rolls to deny enemy psychic powers.",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+    "Psyker: The model may cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],
@@ -108,5 +108,5 @@
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 99
+  "min_cost": 97
 }

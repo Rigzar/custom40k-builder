@@ -25,12 +25,12 @@
   "weapons": [
     {
       "name": "Avenger mega bolter",
-      "range": "48\"",
+      "range": "36\"",
       "type": "Rapid Fire 5",
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Anti-Air"
+      "abilities": "-"
     },
     {
       "name": "Blacksword missile",

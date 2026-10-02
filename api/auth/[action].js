@@ -155,7 +155,7 @@ async function register(req, res) {
 
 /**
  * Self-service password reset using the recovery code shown once at registration (or the most
- * recent one issued by api/admin/regenerate-recovery.js). Rotates the recovery code on success
+ * recent one issued by the regenerate-recovery action in api/admin/[action].js). Rotates the recovery code on success
  * so a leaked/used code can't be replayed.
  */
 async function resetPassword(req, res) {

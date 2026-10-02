@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Intercessor Marine",
-      "points": 38,
+      "points": 37,
       "min": 4,
       "max": 9,
       "stats": {
@@ -21,7 +21,7 @@
     },
     {
       "name": "Intercessor Sergeant",
-      "points": 38,
+      "points": 37,
       "min": 1,
       "max": 1,
       "stats": {
@@ -41,7 +41,7 @@
   "variant_models": [
     {
       "name": "Veteran Intercessor Sergeant",
-      "points": 48,
+      "points": 47,
       "min": 0,
       "max": 0,
       "stats": {
@@ -206,23 +206,23 @@
       "choices": [
         {
           "name": "Pyreblaster",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Heavy bolter",
-          "points": 10
+          "points": 11
         },
         {
           "name": "Plasma incinerator",
-          "points": 12
+          "points": 13
         },
         {
           "name": "Castellan missile launcher",
-          "points": 32
+          "points": 33
         },
         {
           "name": "Pyrecannon",
-          "points": 7
+          "points": 8
         }
       ],
       "inline_pts": null,
@@ -264,5 +264,5 @@
   "advisor": false,
   "slot": "Troops",
   "default_size": 5,
-  "min_cost": 190
+  "min_cost": 185
 }

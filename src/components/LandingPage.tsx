@@ -81,7 +81,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       ] },
       { label: "From the new sheets", rows: [
         ["Harpy", "New option from the October codex: swap its Twin stranglethorn cannon for a Twin heavy venom cannon (+151)."],
-        ["Imperial Guard 1.05", "Checked against the app line by line: stats, weapons and prices already matched."],
+        ["Imperial Guard 1.05", "Valkyrie costs 175; every sniper rifle gets the Sniper ability."],
+        ["Space Marines 1.05", "New points on a dozen characters and squads, Judicar 63, Razorback with a Twin heavy flamer, Reiver Marines reworked, Honor Guard 35."],
         ["Auspex scanner", "Grants Acute Senses in every army that has it. The Guard\u2019s old \u201cScanner\u201d is renamed and costs 10."],
         ["Jammer, Teleport homer", "New wording in every army: 12\u2033 Jammer range, homer needs a bearer that stayed put."],
         ["Trophy", "Stacks: each one adds another Terrifying(-1)."],
@@ -118,7 +119,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       ] },
       { label: "Aus den neuen Blaettern", rows: [
         ["Harpyie", "Neue Option aus dem Oktober-Codex: Twin stranglethorn cannon gegen Twin heavy venom cannon tauschen (+151)."],
-        ["Imperial Guard 1.05", "Zeile fuer Zeile mit der App verglichen: Werte, Waffen und Preise stimmten bereits."],
+        ["Imperial Guard 1.05", "Valkyrie kostet 175; jedes Scharfschuetzengewehr bekommt die Faehigkeit Sniper."],
+        ["Space Marines 1.05", "Neue Punkte bei einem Dutzend Charakteren und Trupps, Judicar 63, Razorback mit Twin heavy flamer, Reiver Marines ueberarbeitet, Honor Guard 35."],
         ["Auspex scanner", "Gibt in jeder Armee Acute Senses. Der alte \u201eScanner\u201c der Garde ist umbenannt und kostet 10."],
         ["Jammer, Teleport homer", "Neuer Wortlaut in allen Armeen: Jammer 12\u2033, Homer braucht einen Traeger, der stehen blieb."],
         ["Trophy", "Ist kumulativ: jede gibt ein weiteres Terrifying(-1)."],
@@ -155,7 +157,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       ] },
       { label: "De las hojas nuevas", rows: [
         ["Harpy", "Opci\u00f3n nueva del c\u00f3dice de octubre: cambiar la Twin stranglethorn cannon por una Twin heavy venom cannon (+151)."],
-        ["Imperial Guard 1.05", "Comparada con la app linea por linea: perfiles, armas y precios ya coincidian."],
+        ["Imperial Guard 1.05", "La Valkyrie cuesta 175; todos los rifles de francotirador reciben la habilidad Sniper."],
+        ["Space Marines 1.05", "Puntos nuevos en una docena de personajes y escuadras, Judicar 63, Razorback con Twin heavy flamer, Reiver Marines reformados, Honor Guard 35."],
         ["Auspex scanner", "Da Acute Senses en todos los ejercitos que lo tienen. El \u201cScanner\u201d viejo de la Guardia se renombra y cuesta 10."],
         ["Jammer, Teleport homer", "Texto nuevo en todos los ejercitos: Jammer a 12\u2033, el homer exige portador que no se movio."],
         ["Trophy", "Es acumulativo: cada uno suma otro Terrifying(-1)."],

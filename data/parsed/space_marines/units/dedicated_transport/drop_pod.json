@@ -65,9 +65,9 @@
   ],
   "abilities": [
     "Deep Strike",
-    "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
+    "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and may never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
     "Drop Pod Assault: Drop Pods always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!",
-    "Transport: This model has a transport capacity of 10 infantry models or 1 Dreadnought.",
+    "Transport: This model has a transport capacity of 10 infantry models or 1 Dreadnought or 1 Ironclad Dreadnought.",
     "Unmanned: A Drop Pod cannot contest or hold mission objectives."
   ],
   "unit_type": "Vehicle",

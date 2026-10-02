@@ -48,7 +48,7 @@
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Seeking"
+      "abilities": "Sunder(2)"
     },
     {
       "name": "Frag grenade",
@@ -78,13 +78,13 @@
       "abilities": "-"
     },
     {
-      "name": "Pair of combat knifes",
+      "name": "Combat knife",
       "range": "-",
       "type": "Melee",
       "s": "U",
-      "ap": "0",
+      "ap": "-1",
       "d": "1",
-      "abilities": "Extra Attack(1)"
+      "abilities": "-"
     }
   ],
   "option_groups": [
@@ -95,7 +95,7 @@
       },
       "choices": [
         {
-          "name": "Pair of combat knifes",
+          "name": "Combat knife",
           "points": 0
         }
       ],
@@ -105,22 +105,12 @@
       "replaces": [
         "Bolt carbine"
       ]
-    },
-    {
-      "header": "The whole squad may be equipped with Grav-chutes and Grappling hooks for +2 points per model.",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [],
-      "inline_pts": 2,
-      "per_model": true,
-      "variant_link": null,
-      "is_unique_per_army": false
     }
   ],
   "abilities": [
-    "Move through cover, Terrifying(-1), They Shall Know No Fear",
-    "Grav-chute and Grappling hooks: The unit gains the \"Deep Strike\" and \"Infiltrator\" ability. It ignores vertical distances when moving."
+    "Deep Strike, Infiltrator, Move through cover, Terrifying(-1), They Shall Know No Fear",
+    "Precision extermination: All ranged and melee attacks gain the \"Precision(5+)\" ability.",
+    "Precision insertion: The unit does not scatter when being deployed via Deep Strike."
   ],
   "unit_type": "Infantry",
   "keywords": [],

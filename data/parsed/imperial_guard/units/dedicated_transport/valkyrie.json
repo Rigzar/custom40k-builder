@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Valkyrie",
-      "points": 220,
+      "points": 175,
       "min": 1,
       "max": 2,
       "stats": {
@@ -142,5 +142,5 @@
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 220
+  "min_cost": 175
 }
