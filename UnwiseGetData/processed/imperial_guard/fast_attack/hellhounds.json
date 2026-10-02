@@ -22,7 +22,7 @@
     ],
     "min_cost": 207,
     "default_size": 1,
-    "equipped_with": "A Hellhounds is equipped with: Inferno cannon; Heavy bolter.",
+    "equipped_with": "A Hellhound is equipped with: Inferno cannon; Heavy bolter.",
     "weapons": [
         {
             "name": "Chem cannon",

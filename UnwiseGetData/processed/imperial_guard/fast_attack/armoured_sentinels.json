@@ -22,7 +22,7 @@
     ],
     "min_cost": 97,
     "default_size": 1,
-    "equipped_with": "A Armoured  Sentinels is equipped with: Multilaser.",
+    "equipped_with": "An Armoured Sentinel is equipped with: Multilaser.",
     "weapons": [
         {
             "name": "Autocannon",
