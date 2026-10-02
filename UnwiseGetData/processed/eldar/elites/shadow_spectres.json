@@ -42,10 +42,10 @@
     ],
     "min_cost": 205,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Haywire grenade; Plasma grenade; Prism rifle.",
+    "equipped_with": "Every model is equipped with: Haywire grenades; Plasma grenade; Prism rifle.",
     "weapons": [
         {
-            "name": "Haywire grenade",
+            "name": "Haywire grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "3",
@@ -63,7 +63,7 @@
             "abilities": "AT(2), Haywire"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

@@ -40,7 +40,7 @@
     ],
     "min_cost": 75,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Plasma grenade; Shuriken rifle.",
+    "equipped_with": "Every model is equipped with: Plasma grenades; Shuriken rifle.",
     "weapons": [
         {
             "name": "Blaster",
@@ -70,7 +70,7 @@
             "abilities": "-"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

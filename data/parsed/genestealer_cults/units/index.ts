@@ -16,7 +16,7 @@ import hq_patriarch from './hq/patriarch.json';
 import hq_primus from './hq/primus.json';
 import troops_acolyte_hybrids from './troops/acolyte_hybrids.json';
 import troops_neophyte_hybrids from './troops/neophyte_hybrids.json';
-import elites_abberants from './elites/abberants.json';
+import elites_abberants from './elites/aberrants.json';
 import elites_abominant from './elites/abominant.json';
 import elites_biophagus from './elites/biophagus.json';
 import elites_clamavus from './elites/clamavus.json';

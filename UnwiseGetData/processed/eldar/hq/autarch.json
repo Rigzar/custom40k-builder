@@ -45,7 +45,7 @@
     "equipped_with": "An Autarch is equipped with: Plasma grenades.",
     "weapons": [
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
