@@ -1,170 +1,171 @@
 {
-  "name": "Shield-Captain",
-  "models": [
-    {
-      "name": "Shield-Captain",
-      "points": 178,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "5",
-        "T": "5",
-        "W": "4",
-        "I": "5",
-        "A": "4",
-        "LD": "10",
-        "SV": "2+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Shield-Captain is equipped with: Frag grenades; Melta bombs; Relic bolt caster; Relic guardian spear.",
-  "weapons": [
-    {
-      "name": "Relic balistus grenade launcher",
-      "range": "18\"",
-      "type": "Pistol 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "-"
-    },
-    {
-      "name": "Relic bolt caster",
-      "range": "12\"",
-      "type": "Pistol 2",
-      "s": "4",
-      "ap": "-1",
-      "d": "2",
-      "abilities": "-"
-    },
-    {
-      "name": "Relic castellan axe",
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-3",
-      "d": "3",
-      "abilities": "AT(2)"
-    },
-    {
-      "name": "Relic guardian spear",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Quick(+1)"
-    },
-    {
-      "name": "Relic sentinel blade",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "-"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Melta bomb",
-      "range": "3\"",
-      "type": "Grenade 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "2",
-      "abilities": "Armorbane, AT(3)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "Only one Shield-Captain per army.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "Can replace the Guardian spear",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Shield-Captain",
+    "models": [
         {
-          "name": "Relic sentinel blade & Storm shield",
-          "points": 5
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "5",
+                "T": "5",
+                "W": "4",
+                "I": "5",
+                "A": "4",
+                "LD": "10",
+                "SV": "2+"
+            },
+            "name": "Shield-Captain",
+            "min": 1,
+            "max": 1,
+            "points": 178
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Shield-Captain is equipped with: Frag grenades; Melta bombs; Relic bolt caster; Relic guardian spear.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
         },
         {
-          "name": "Relic castellan axe",
-          "points": 9
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
+        {
+            "name": "Relic balistus grenade launcher",
+            "range": "18\"",
+            "type": "Pistol 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Relic bolt caster",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Relic castellan axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Relic guardian spear",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Quick(+1)"
+        },
+        {
+            "name": "Relic sentinel blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "-"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Relic guardian spear"
-      ]
-    },
-    {
-      "header": "A Shield-Captain with either a Guardian spear or a Castellan axe may get an Allarus terminator armor and Relic balistus grenade launcher for +33 points.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 33,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "effect": {
-        "stat_mod": [
-          {
-            "stat": "T",
-            "delta": 1
-          },
-          {
-            "stat": "A",
-            "delta": 1
-          }
-        ],
-        "grants_abilities": [
-          "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities."
-        ]
-      }
-    }
-  ],
-  "abilities": [
-    "Massive(1), Shield Host",
-    "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
-    "Custodian armor: The model gains a 5+ ward save."
-  ],
-  "unit_type": "Character Model, Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": true,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 1,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "HQ",
-  "default_size": 1,
-  "min_cost": 178
+    ],
+    "option_groups": [
+        {
+            "header": "Only one Shield-Captain per army.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Can replace the Guardian spear",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Relic sentinel blade & Storm shield",
+                    "points": 5
+                },
+                {
+                    "name": "Relic castellan axe",
+                    "points": 9
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Relic guardian spear"
+            ]
+        },
+        {
+            "header": "A Shield-Captain with either a Guardian spear or a Castellan axe may get an Allarus terminator armor and Relic balistus grenade launcher for +33 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 33,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "effect": {
+                "stat_mod": [
+                    {
+                        "stat": "T",
+                        "delta": 1
+                    },
+                    {
+                        "stat": "A",
+                        "delta": 1
+                    }
+                ],
+                "grants_abilities": [
+                    "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities."
+                ]
+            }
+        }
+    ],
+    "abilities": [
+        "Massive(1), Shield Host",
+        "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities.",
+        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
+        "Custodian armor: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 178
 }

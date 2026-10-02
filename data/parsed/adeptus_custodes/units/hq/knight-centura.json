@@ -1,106 +1,106 @@
 {
-  "name": "Knight-Centura",
-  "models": [
-    {
-      "name": "Knight-Centura",
-      "points": 58,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "3",
-        "T": "3",
-        "W": "3",
-        "I": "5",
-        "A": "3",
-        "LD": "9",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Knight-Centura is equipped with: Flamer; Psyk-out grenade.",
-  "weapons": [
-    {
-      "name": "Boltgun",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Executioner greatblade",
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-4",
-      "d": "1",
-      "abilities": "Unwieldy"
-    },
-    {
-      "name": "Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Psyk-out grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "1",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Psi-shock"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "Can swap the Flamer",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Knight-Centura",
+    "models": [
         {
-          "name": "Boltgun",
-          "points": 3
+            "stats": {
+                "M": "6",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Knight-Centura",
+            "min": 1,
+            "max": 1,
+            "points": 58
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Knight-Centura is equipped with: Flamer; Psyk-out grenade.",
+    "weapons": [
+        {
+            "name": "Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         },
         {
-          "name": "Executioner greatblade",
-          "points": 3
+            "name": "Executioner greatblade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Psyk-out grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Psi-shock"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Flamer"
-      ]
-    }
-  ],
-  "abilities": [
-    "Blank, Deflect, Parry"
-  ],
-  "unit_type": "Character Model, Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": true,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "HQ",
-  "default_size": 1,
-  "min_cost": 58
+    ],
+    "option_groups": [
+        {
+            "header": "Can swap the Flamer",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Boltgun",
+                    "points": 3
+                },
+                {
+                    "name": "Executioner greatblade",
+                    "points": 3
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Flamer"
+            ]
+        }
+    ],
+    "abilities": [
+        "Blank, Deflect, Parry"
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 58
 }

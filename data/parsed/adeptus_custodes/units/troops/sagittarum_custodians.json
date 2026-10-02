@@ -1,75 +1,75 @@
 {
-  "name": "Sagittarum Custodians",
-  "models": [
-    {
-      "name": "Sagittarum Custodian",
-      "points": 86,
-      "min": 3,
-      "max": 10,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "5",
-        "T": "5",
-        "W": "2",
-        "I": "4",
-        "A": "3",
-        "LD": "9",
-        "SV": "2+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "All models are equipped with: Adrastus bolt caliver; Frag grenades; Melta bombs.",
-  "weapons": [
-    {
-      "name": "Adrastus bolt caliver",
-      "range": "24\"",
-      "type": "Assault 3",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Deflagrate(5+), Suppression(2)"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Melta bomb",
-      "range": "3\"",
-      "type": "Grenade 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "2",
-      "abilities": "Armorbane, AT(3)"
-    }
-  ],
-  "option_groups": [],
-  "abilities": [
-    "Massive(1), Shield Host",
-    "Custodian armor: The model gains a 5+ ward save."
-  ],
-  "unit_type": "Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 1,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Troops",
-  "default_size": 3,
-  "min_cost": 258
+    "name": "Sagittarum Custodians",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Sagittarum Custodian",
+            "min": 3,
+            "max": 10,
+            "points": 86
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "All models are equipped with: Adrastus bolt caliver.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
+        {
+            "name": "Adrastus bolt caliver",
+            "range": "24\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Deflagrate(5+), Suppression(2)"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Massive(1), Shield Host",
+        "Custodian armor: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 3,
+    "min_cost": 258
 }
