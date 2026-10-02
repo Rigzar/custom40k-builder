@@ -49,7 +49,16 @@
             "s": "4",
             "ap": "-1",
             "d": "1",
-            "abilities": "Seeking"
+            "abilities": "Sunder(2)"
+        },
+        {
+            "name": "Combat knife",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         },
         {
             "name": "Frag grenade",
@@ -77,20 +86,12 @@
             "ap": "-2",
             "d": "1",
             "abilities": "-"
-        },
-        {
-            "name": "Pair of combat knifes",
-            "range": "-",
-            "type": "Melee",
-            "s": "U",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Extra Attack(1)"
         }
     ],
     "abilities": [
-        "Move through cover, Terrifying(-1), They Shall Know No Fear",
-        "Grav-chute and Grappling hooks: The unit gains the \"Deep Strike\" and \"Infiltrator\" ability. It ignores vertical distances when moving."
+        "Deep Strike, Infiltrator, Move through cover, Terrifying(-1), They Shall Know No Fear",
+        "Precision extermination: All ranged and melee attacks gain the \"Precision(5+)\" ability.",
+        "Precision insertion: The unit does not scatter when being deployed via Deep Strike."
     ],
     "unit_type": "Infantry",
     "is_monster": false,

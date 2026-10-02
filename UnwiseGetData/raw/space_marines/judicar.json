@@ -27,7 +27,7 @@
         2,
         8,
         "3+",
-        96
+        63
     ],
     [
         "A Judicar is equipped with: Absolvor bolt pistol; Executioner relic blade; Frag grenades; Krak grenades."
@@ -94,9 +94,6 @@
     ],
     [
         "Advisor: For every HQ selection, one Judicar may be selected without taking up an Elite slot."
-    ],
-    [
-        "Blade barrier: The model gains a 4+ ward save in close combat."
     ],
     [
         "Tempor Mortis: The model and its attached unit always benefit from the \"Hold your ground\" meta order effect."

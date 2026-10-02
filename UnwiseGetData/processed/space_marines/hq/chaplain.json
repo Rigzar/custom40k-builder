@@ -17,7 +17,7 @@
             "name": "Chaplain",
             "min": 1,
             "max": 1,
-            "points": 131
+            "points": 129
         }
     ],
     "variant_models": [
@@ -37,10 +37,10 @@
             "name": "Master of Sanctity",
             "min": 0,
             "max": 1,
-            "points": 146
+            "points": 144
         }
     ],
-    "min_cost": 131,
+    "min_cost": 129,
     "default_size": 1,
     "equipped_with": "A Chaplain is equipped with: Crozius Arcanum; Frag grenades; Krak grenades.",
     "weapons": [

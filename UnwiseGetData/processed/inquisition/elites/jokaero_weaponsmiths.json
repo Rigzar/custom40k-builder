@@ -1,0 +1,71 @@
+{
+    "name": "Jokaero Weaponsmiths",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "6+",
+                "BS": "4+",
+                "S": "2",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "6+"
+            },
+            "name": "Jokaero Weaponsmith",
+            "min": 1,
+            "max": 3,
+            "points": 64
+        }
+    ],
+    "min_cost": 64,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: Jokaero digital weapons.",
+    "weapons": [
+        {
+            "name": "Jokaero Digital Weapons - Beams",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Jokaero Digital Weapons - Bolts",
+            "range": "48\"",
+            "type": "Assault 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Jokaero Digital Weapons - Flames",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Jokaero Digital Weapons - Strike",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Hits automatically wound"
+        }
+    ],
+    "abilities": [
+        "Infiltrator",
+        "Defence orb: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

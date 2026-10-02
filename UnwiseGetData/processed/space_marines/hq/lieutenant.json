@@ -17,7 +17,7 @@
             "name": "Lieutenant",
             "min": 1,
             "max": 1,
-            "points": 79
+            "points": 77
         }
     ],
     "variant_models": [
@@ -37,10 +37,10 @@
             "name": "Captain",
             "min": 0,
             "max": 1,
-            "points": 94
+            "points": 92
         }
     ],
-    "min_cost": 79,
+    "min_cost": 77,
     "default_size": 1,
     "equipped_with": "A Lieutenant is equipped with: Frag grenades; Krak grenades.",
     "weapons": [

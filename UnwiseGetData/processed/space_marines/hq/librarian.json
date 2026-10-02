@@ -17,7 +17,7 @@
             "name": "Librarian",
             "min": 1,
             "max": 1,
-            "points": 99
+            "points": 97
         }
     ],
     "variant_models": [
@@ -37,10 +37,10 @@
             "name": "Chief Librarian",
             "min": 0,
             "max": 1,
-            "points": 114
+            "points": 112
         }
     ],
-    "min_cost": 99,
+    "min_cost": 97,
     "default_size": 1,
     "equipped_with": "A Librarian is equipped with: Frag grenades; Krak grenades.",
     "weapons": [

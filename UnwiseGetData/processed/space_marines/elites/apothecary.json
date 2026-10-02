@@ -17,7 +17,7 @@
             "name": "Apothecary",
             "min": 1,
             "max": 1,
-            "points": 51
+            "points": 50
         }
     ],
     "variant_models": [
@@ -37,10 +37,10 @@
             "name": "Chief Apothecary",
             "min": 0,
             "max": 1,
-            "points": 66
+            "points": 65
         }
     ],
-    "min_cost": 51,
+    "min_cost": 50,
     "default_size": 1,
     "equipped_with": "A Apothecarius is a single character and is equipped with: Frag grenades; Krak grenades.",
     "weapons": [

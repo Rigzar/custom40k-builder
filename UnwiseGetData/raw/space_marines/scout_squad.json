@@ -147,7 +147,7 @@
         5,
         -2,
         2,
-        "Armor piercing(5+), Suppression(6)"
+        "Armor piercing(5+), Sniper, Suppression(6)"
     ],
     [
         "* Choose one of the following profiles"
@@ -195,9 +195,6 @@
     ],
     [
         "Camo cloak: The model gains the \"Stealth\" ability."
-    ],
-    [
-        "Sniper: A model equipped with a Sniper rifle improves its BS by +1."
     ],
     [
         "UNIT TYPE"
