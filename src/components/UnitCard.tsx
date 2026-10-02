@@ -1402,6 +1402,27 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               // Keyword-gated availability (BSData condition primitive). effectiveMark is the
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
               const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype);
+              // "One Guardsman PER Heavy Weapons Team may take a Vox": a count, not a tick-box.
+              if (g.constraint?.type === 'per_n') {
+                const cMax = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
+                const cQty = Math.min(Number(item.optionQty?.[realGi]?.['__inline'] ?? 0) || 0, cMax);
+                return (
+                  <div key={realGi} className={`border-l-2 ${cQty > 0 ? 'border-amber-700/70' : 'border-zinc-700/50'} ${blocked ? 'opacity-50' : ''}`}>
+                    <div className="flex items-center gap-2 px-2.5 py-1.5 text-[12px]">
+                      <div className="flex items-center shrink-0">
+                        <button onClick={() => setQty(realGi, '__inline', Math.max(0, cQty - 1))} disabled={blocked || cQty <= 0}
+                          className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">−</button>
+                        <span className="w-6 text-center text-zinc-100 font-mono text-[11px]">{cQty}</span>
+                        <button onClick={() => setQty(realGi, '__inline', Math.min(cMax, cQty + 1))} disabled={blocked || cQty >= cMax}
+                          className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">+</button>
+                        <span className="text-zinc-500 text-[10px] ml-1">/{cMax}</span>
+                      </div>
+                      <span className="text-zinc-300 flex-1">{g.header}</span>
+                      {!headerHasPts(g.inline_pts) && <span className="text-[11px] font-mono shrink-0 text-zinc-500">+{g.inline_pts}</span>}
+                    </div>
+                  </div>
+                );
+              }
               return (
                 <div key={realGi} className={`border-l-2 ${active ? 'border-amber-700/70' : 'border-zinc-700/50'} ${blocked ? 'opacity-50' : ''} transition-colors`}>
                   <label

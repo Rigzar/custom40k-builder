@@ -164,6 +164,12 @@ export interface Constraint {
    * own allowance — that would let this Tyrant take all five.
    */
   max_per_choice?: number;
+  /**
+   * "If the warbuggy doesn't have a big gun, it may take up to three small guns": the cap in
+   * `max` holds only while the group at index `if_group` has NOTHING selected; once it does, the
+   * cap drops to `max`. Read through `groupConstraint`, like every other constraint.
+   */
+  reduced_when_selected?: { if_group: number; max: number };
 }
 
 /**

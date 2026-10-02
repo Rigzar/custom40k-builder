@@ -119,7 +119,8 @@ export const fieldOrdnanceBattery: Unit = {
     {
       "header": "One Guardsman per Field Ordnance Battery may be equipped with: +5 points Vox.",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 1
       },
       "choices": [],
       "inline_pts": 5,
@@ -129,7 +130,7 @@ export const fieldOrdnanceBattery: Unit = {
     {
       "header": "Must pick one weapon from this list",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

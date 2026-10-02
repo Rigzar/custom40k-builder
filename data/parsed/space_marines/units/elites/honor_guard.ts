@@ -13,7 +13,7 @@ export const honorGuard: Unit = {
   "models": [
     {
       "name": "Honor Guard",
-      "points": 36,
+      "points": 35,
       "min": 1,
       "max": 10,
       "stats": {
@@ -66,9 +66,9 @@ export const honorGuard: Unit = {
     {
       "header": "The entire squad may receive one of the following upgrades per model",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 1
       },
-      "per_model": true,
       "choices": [
         {
           "name": "Inner Circle",
@@ -135,5 +135,5 @@ export const honorGuard: Unit = {
   "advisor": true,
   "slot": "Elites",
   "default_size": 1,
-  "min_cost": 36
+  "min_cost": 35
 };

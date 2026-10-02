@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v180f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v180h_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,6 +60,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reported on GitHub", rows: [
+        ["GH#185", "Warbuggy: Up to three small guns when no big gun is taken; with a big gun, one."],
         ["GH#169", "The Ork Shoota shows on the profile again, swapped in or bought as an extra."],
         ["GH#168", "The four Tyranid archetypes move units between roles: Carnifex, Ravener and Von Ryan\u2019s to Troops, Genestealers and Warriors to Elites, and the named HQ promotions."],
         ["GH#170, GH#171", "The armory buys more than one copy again \u2014 the box counts them, and \u201c\u2212\u201d gives one back."],
@@ -70,6 +71,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["I.O.U", "Blood Ravens can take it: it costs whatever item you pick from another army\u2019s Legacy Armory."],
         ["Build army", "Asks before discarding the open list, instead of silently dropping you back into it."],
         ["Necron Warriors", "Shrinking a squad trims the swaps that scale with its size \u2014 no more 15 Gauss reapers in a squad of 10."],
+        ["Field Ordnance Battery, Heavy Weapon Squad", "One weapon and one Vox per battery or team, not one for the whole squadron."],
+        ["Honor Guard", "Each model can take its own upgrade, so a squad can mix them."],
+        ["Captain’s Plasma pistol", "The Armory box toggles it off at the per-model limit instead of counting past it."],
+        ["Tyranid biomorphs", "Extremely Volatile, Camouflage, Acid Maw, Resonance Barb, Thornback and Tusked now show their rule on the unit sheet."],
+        ["Print, simple view", "Armory equipment and bought gear now print on every card, HQs included."],
+        ["Necron Atomic Energy Manipulator, The Stars Are Right", "No longer change the bearer’s own stats — one boosts another unit, the other triggers on a random turn."],
       ] },
       { label: "From the new sheets", rows: [
         ["Harpy", "New option from the October codex: swap its Twin stranglethorn cannon for a Twin heavy venom cannon (+151)."],
@@ -89,6 +96,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
+        ["GH#185", "Warbuggy: Bis zu drei kleine Waffen ohne grosse Waffe; mit grosser Waffe eine."],
         ["GH#169", "Die Ork-Shoota erscheint wieder im Profil \u2014 getauscht oder zusaetzlich gekauft."],
         ["GH#168", "Die vier Tyraniden-Archetypen verschieben Einheiten: Carnifex, Ravener und Von Ryan\u2019s zu Troops, Genestealer und Krieger zu Elite, dazu die HQ-Bef\u00f6rderungen."],
         ["GH#170, GH#171", "Die Armory kauft wieder mehrere Exemplare \u2014 das K\u00e4stchen z\u00e4hlt sie, \u201e\u2212\u201c gibt eines zur\u00fcck."],
@@ -99,6 +107,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["I.O.U", "Blood Ravens koennen es nehmen: es kostet, was der gewaehlte Gegenstand aus dem Legacy-Armory einer anderen Armee kostet."],
         ["Build army", "Fragt nach, bevor die offene Liste verworfen wird."],
         ["Necron Warriors", "Ein kleinerer Trupp kuerzt die mit der Groesse skalierenden Tauschoptionen \u2014 keine 15 Gauss reapers mehr bei 10 Modellen."],
+        ["Field Ordnance Battery, Heavy Weapon Squad", "Eine Waffe und ein Vox pro Batterie bzw. Team, nicht eines fuer den ganzen Trupp."],
+        ["Honor Guard", "Jedes Modell kann sein eigenes Upgrade nehmen, ein Trupp kann sie mischen."],
+        ["Plasmapistole des Captains", "Die Armory-Box schaltet sie am Limit pro Modell ab, statt weiterzuzaehlen."],
+        ["Tyraniden-Biomorphe", "Extremely Volatile, Camouflage, Acid Maw, Resonance Barb, Thornback und Tusked zeigen ihre Regel jetzt auf dem Datenblatt."],
+        ["Druck, einfache Ansicht", "Armory-Ausruestung und gekaufte Ausruestung wird jetzt auf jeder Karte gedruckt, auch bei HQs."],
+        ["Necron Atomic Energy Manipulator, The Stars Are Right", "Aendern die Werte des Traegers nicht mehr — der eine verstaerkt eine andere Einheit, der andere wirkt erst in einer zufaelligen Runde."],
       ] },
       { label: "Aus den neuen Blaettern", rows: [
         ["Harpyie", "Neue Option aus dem Oktober-Codex: Twin stranglethorn cannon gegen Twin heavy venom cannon tauschen (+151)."],
@@ -118,6 +132,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reportado en GitHub", rows: [
+        ["GH#185", "Warbuggy: Hasta tres armas pequenas si no lleva arma grande; con arma grande, una."],
         ["GH#169", "La Shoota de los Orks vuelve a salir en el perfil, cambiada o comprada aparte."],
         ["GH#168", "Los cuatro arquetipos tyr\u00e1nidos mueven unidades de rol: Carnifex, Ravener y Von Ryan\u2019s a Troops, Genestealers y Guerreros a Elites, y las promociones a HQ."],
         ["GH#170, GH#171", "La armer\u00eda vuelve a comprar m\u00e1s de una copia \u2014 la casilla las cuenta y \u201c\u2212\u201d devuelve una."],
@@ -128,6 +143,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["I.O.U", "Los Blood Ravens pueden llevarlo: cuesta lo que cueste el objeto que elijas del Legacy Armory de otro ejercito."],
         ["Build army", "Pregunta antes de descartar la lista abierta, en vez de devolverte a ella sin avisar."],
         ["Necron Warriors", "Reducir una escuadra recorta los cambios que escalan con su tamano \u2014 se acabaron los 15 Gauss reapers en 10 modelos."],
+        ["Field Ordnance Battery, Heavy Weapon Squad", "Un arma y un Vox por bateria o equipo, no uno para toda la escuadra."],
+        ["Honor Guard", "Cada modelo puede tomar su propia mejora, asi que una escuadra puede mezclarlas."],
+        ["Pistola de plasma del Captain", "La casilla de la Armeria la quita al llegar al limite por modelo, en vez de seguir contando."],
+        ["Biomorfos tiranidos", "Extremely Volatile, Camouflage, Acid Maw, Resonance Barb, Thornback y Tusked muestran ahora su regla en la ficha."],
+        ["Impresion, vista simple", "El equipo de la Armeria y el equipamiento comprado ahora se imprimen en cada carta, tambien en los HQ."],
+        ["Necron Atomic Energy Manipulator, The Stars Are Right", "Ya no cambian las estadisticas del portador: uno mejora a otra unidad y el otro actua en un turno aleatorio."],
       ] },
       { label: "De las hojas nuevas", rows: [
         ["Harpy", "Opci\u00f3n nueva del c\u00f3dice de octubre: cambiar la Twin stranglethorn cannon por una Twin heavy venom cannon (+151)."],

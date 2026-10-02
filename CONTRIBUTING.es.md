@@ -158,6 +158,8 @@ que discrepa de la hoja.
 | `every` | Cada modelo elige de forma independiente — costo por modelo |
 | `per_n` | M elecciones por cada N modelos (`constraint.per_n` especifica N, `constraint.count_per_n` especifica M — p. ej. "por cada 3 modelos, 1 puede intercambiar" es `per_n:3, count_per_n:1`) |
 | `fixed_max` | Hasta N elecciones en total (`constraint.max` especifica N) |
+| `fixed_max` + `reduced_when_selected` | El tope baja a un `max` menor cuando otro grupo (`if_group`, por índice) tiene una selección — p. ej. Warbuggy: 3 armas pequeñas, o 1 si lleva arma grande |
+| `per_n` en un grupo sin choices y con `inline_pts` | Casilla contada: un stepper hasta el número de bloques de N modelos, con precio por cantidad — p. ej. un Vox por Heavy Weapons Team |
 | `mark` | Selección de Marca del Caos |
 | `veteran` | Slot de habilidad veterana |
 | `unique_upgrade` | Restricción de unicidad a nivel de unidad |

@@ -843,9 +843,30 @@ const simpleSectionLabel: React.CSSProperties = {
   border: '1px solid #999', background: '#e8e8e8',
 };
 
-function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }) {
+function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: FactionData; armoryData?: FactionData }) {
   const u = resolveUnit(item, data);
   if (!u) return null;
+
+  // Armory equipment and priced tick-box wargear, by name — the same list the full card prints
+  // under "Equipment". The simple card showed none of it, so an HQ's relics and gear vanished
+  // from it (reported on Discord: "it does not show armoury equipment on HQ's").
+  const armData = armoryData ?? data;
+  const equipmentNames: string[] = [];
+  for (const sel of item.armory) {
+    if (sel.section === 'weapons') continue;
+    const arm = findArmoryItem(armData, sel.itemName, data, !!u.is_vehicle);
+    if (sel.section === 'equipment') { if (isGrantWeapon(arm?.desc)) continue; }
+    else if (sel.section === 'daemon_weapons') { if (isWeaponTrait(arm?.desc) || isGrantWeapon(arm?.desc)) continue; }
+    else if (!(arm && !arm.range && !(arm.profiles && arm.profiles.length > 0))) continue;
+    if (!equipmentNames.includes(sel.itemName)) equipmentNames.push(sel.itemName);
+  }
+  u.option_groups.forEach((g, gi) => {
+    if (g.choices.length > 0 || g.inline_pts == null || g.variant_link) return;
+    if (!item.optionQty?.[gi]?.['__inline']) return;
+    const m = g.header.match(/(?:equipped with|gains?|receives?|may take|carr(?:y|ies))\s*(?:a |an |one |: )?([a-z][a-z0-9'\-/ ]*?)(?:\s+for\b|\s*\(|[.,:]|$)/i);
+    const name = m ? m[1].trim().replace(/\b\w/, c => c.toUpperCase()) : g.header.replace(/\s+for\b.*$/i, '').trim();
+    if (name && !equipmentNames.some(e => e.toLowerCase() === name.toLowerCase())) equipmentNames.push(name);
+  });
 
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
@@ -1061,6 +1082,11 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
         </table>
       )}
 
+      {equipmentNames.length > 0 && (
+        <div style={{ fontSize: '.74em', marginBottom: 3 }}>
+          <span style={{ fontWeight: 700 }}>Equipment: </span>{equipmentNames.join(', ')}
+        </div>
+      )}
       {ruleNames.length > 0 && (
         <div style={{ fontSize: '.74em', marginBottom: 3 }}>
           <span style={{ fontWeight: 700 }}>Rules: </span>{ruleNames.join(', ')}
@@ -1810,7 +1836,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                   {showDivider && <SlotDivider slot={eff} color={primaryColor} />}
                   {mode === 'cards'
                     ? <UnitPrintCard item={item} data={data} armoryData={armoryDataFor(item.factionSource)} />
-                    : <SimpleUnitCard item={item} data={data} />}
+                    : <SimpleUnitCard item={item} data={data} armoryData={armoryDataFor(item.factionSource)} />}
                 </Fragment>
               );
             });

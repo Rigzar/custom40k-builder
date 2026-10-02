@@ -45,7 +45,12 @@
       "term_compat": false,
       "desc": "Basic Biomorph. Point costs are paid per unit. The unit may re-roll one to wound roll in melee per battle round.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "effect": {
+        "grants_abilities": [
+          "Acid Maw: The unit may re-roll one to wound roll in melee per battle round."
+        ]
+      }
     },
     {
       "name": "Adrenal Glands",
@@ -116,14 +121,24 @@
       "term_compat": false,
       "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the benefit of light cover until its first activation.",
       "p_unit": 1,
-      "p_char": 3
+      "p_char": 3,
+      "effect": {
+        "grants_abilities": [
+          "Camouflage: The unit gains the benefit of light cover until its first activation."
+        ]
+      }
     },
     {
       "name": "Extremely Volatile",
       "term_compat": false,
       "desc": "Advanced Biomorph. Point costs are paid per model. The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7.",
       "p_unit": 0,
-      "p_char": 0
+      "p_char": 0,
+      "effect": {
+        "grants_abilities": [
+          "Extremely Volatile: The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7."
+        ]
+      }
     },
     {
       "name": "Implant Attack",
@@ -149,7 +164,12 @@
       "term_compat": false,
       "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains +1 to all tests for manifesting a psychic power.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "effect": {
+        "grants_abilities": [
+          "Resonance Barb: The unit gains +1 to all tests for manifesting a psychic power."
+        ]
+      }
     },
     {
       "name": "Symbiote Rippers",
@@ -168,14 +188,30 @@
       "term_compat": false,
       "desc": "Advanced Biomorph. Point costs are paid per model. The unit doubles the final combat result for its own army in each melee in which it participates.",
       "p_unit": 1,
-      "p_char": 5
+      "p_char": 5,
+      "effect": {
+        "grants_abilities": [
+          "Thornback: The unit doubles the final combat result for its own army in each melee in which it participates."
+        ]
+      }
     },
     {
       "name": "Tusked",
       "term_compat": false,
       "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains +1 Strength.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "effect": {
+        "grants_abilities": [
+          "Tusked: The unit gains +1 Strength."
+        ],
+        "stat_mod": [
+          {
+            "stat": "S",
+            "delta": 1
+          }
+        ]
+      }
     },
     {
       "name": "Warped",

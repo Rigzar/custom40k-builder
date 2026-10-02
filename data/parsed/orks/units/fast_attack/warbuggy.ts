@@ -235,7 +235,9 @@ export const warbuggy: Unit = {
     {
       "header": "May be equipped with one small gun. If the warbuggy doesn't have a big gun, it may take up to three small guns",
       "constraint": {
-        "type": "one"
+        "type": "fixed_max",
+        "max": 3,
+        "reduced_when_selected": { "if_group": 0, "max": 1 }
       },
       "per_model": true,
       "choices": [

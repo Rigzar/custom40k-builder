@@ -146,7 +146,8 @@ export const heavyWeaponSquad: Unit = {
     {
       "header": "One Guardsman per Heavy Weapons Team may be equipped with: +5 points Vox.",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 1
       },
       "choices": [],
       "inline_pts": 5,

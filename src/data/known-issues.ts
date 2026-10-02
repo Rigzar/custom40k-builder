@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-necron-list-saved-as-csm-01",
+    status: "investigating",
+    title: "A Necron list saved as Chaos Space Marines loads empty (GH#186)",
+    description: "OPEN 2026-10-02, GH#186: \"Necron army saved as chaos space marines. I can't view the list anymore as it deletes all units upon loading.\" Not reproduced yet: the store wipes the roster whenever the loaded faction differs from the list's own (setData, factionChanged), so a save carrying the wrong faction label empties itself. Needs the saved list or the steps that produced it.\n\nASK THE REPORTER: was the faction changed while the list was open, and can they send the exported JSON?",
+  },
+  {
     id: "ki-harpy-option-header-stale-weapon-01",
     status: "known",
     title: "The Harpy’s option header names a weapon it no longer carries",

@@ -2431,8 +2431,10 @@ function ArmoryWeaponTable({
                 <td className="py-1.5 pl-2">
                   <div className="flex items-center gap-1">
                     <div
-                      onClick={() => { if (!disabled) onAdd(arm); }}
-                      title={count > 0 ? `${count} — clic para añadir otra` : undefined}
+                      // At the per-model cap (a Captain has ONE Plasma pistol slot) the click gives the
+                      // copy back, as the old checkbox did; below the cap it buys another (GH#170/171).
+                      onClick={() => { if (owned && blocked) onRemove(selId!); else if (!disabled) onAdd(arm); }}
+                      title={count > 0 ? (blocked ? `${count} — clic para quitar` : `${count} — clic para añadir otra`) : undefined}
                       className={`w-4 h-4 border flex items-center justify-center transition-colors
                         ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
                         ${disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}

@@ -160,6 +160,8 @@ Codex-Vergleich laufen lassen sollen.
 | `every` | Jedes Modell waehlt unabhaengig -- Kosten pro Modell |
 | `per_n` | M Auswahlen pro N Modelle (`constraint.per_n` gibt N an, `constraint.count_per_n` gibt M an -- z.B. "fuer je 3 Modelle darf 1 tauschen" ist `per_n:3, count_per_n:1`) |
 | `fixed_max` | Bis zu N Auswahlen insgesamt (`constraint.max` gibt N an) |
+| `fixed_max` + `reduced_when_selected` | Die Obergrenze sinkt auf ein kleineres `max`, sobald eine andere Gruppe (`if_group`, per Index) eine Auswahl hat — z. B. Warbuggy: 3 kleine Waffen, aber 1 mit grosser Waffe |
+| `per_n` bei einer Gruppe ohne choices mit `inline_pts` | Gezaehltes Kaestchen: ein Stepper bis zur Anzahl der N-Modell-Bloecke, Preis pro Anzahl — z. B. ein Vox pro Heavy Weapons Team |
 | `mark` | Auswahl des Chaos-Zeichens |
 | `veteran` | Veteranen-Faehigkeitsslot |
 | `unique_upgrade` | Einheitenbezogene Einzigartigkeitsbeschraenkung |

@@ -160,6 +160,8 @@ comparison before merging — that tool prints one line per field that disagrees
 | `every` | Every model picks independently — cost is per model |
 | `per_n` | M picks per N models (`constraint.per_n` specifies N, `constraint.count_per_n` specifies M — e.g. "for every 3 models, 1 may swap" is `per_n:3, count_per_n:1`) |
 | `fixed_max` | Up to N picks total (`constraint.max` specifies N) |
+| `fixed_max` + `reduced_when_selected` | The cap drops to a lower `max` once another group (`if_group`, by index) has a selection — e.g. Warbuggy: 3 small guns, but 1 if a big gun is taken |
+| `per_n` on a group with no choices and `inline_pts` | A counted tick-box: a stepper up to the number of N-model blocks, priced per count — e.g. one Vox per Heavy Weapons Team |
 | `mark` | Mark of Chaos selection |
 | `veteran` | Veteran ability slot |
 | `unique_upgrade` | Unit-level unique restriction |

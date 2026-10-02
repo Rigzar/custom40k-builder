@@ -155,8 +155,11 @@ export function unitMatchesKeyword(
 
 export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
   const vc = group.variant_constraint;
-  if (!vc) return group.constraint;
-  return getActiveVariant(item, unit)?.variant.name === vc.variant ? vc.constraint : group.constraint;
+  const base = !vc ? group.constraint
+    : getActiveVariant(item, unit)?.variant.name === vc.variant ? vc.constraint : group.constraint;
+  const red = base.reduced_when_selected;
+  if (red && Object.values(item.optionQty?.[red.if_group] ?? {}).some(q => Number(q) > 0)) return { ...base, max: red.max };
+  return base;
 }
 
 function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
@@ -292,7 +295,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
       if (ci === '__inline') {
         // Per-model inline upgrades ("…for +X points per model") scale with unit size; flat
         // one-off inline options (promote one Sergeant, etc.) are charged once. (per_model flag)
-        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model ? item.size : 1);
+        // A counted tick-box ("one Guardsman PER BATTERY may take a Vox") is a per_n group with no
+        // choices: its stored value is how many, not on/off.
+        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model ? item.size : g.constraint?.type === 'per_n' ? Number(qty) : 1);
         continue;
       }
       const choice = g.choices[parseInt(ci)];
