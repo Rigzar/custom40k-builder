@@ -188,6 +188,7 @@ export function isItemRequirementsBlocked(
   item: ArmoryItem,
   unitEffectiveKeywords: string[],
 ): boolean {
+  if (item.excludes_keywords?.some(x => unitEffectiveKeywords.includes(x.toLowerCase()))) return true;
   if (!item.requires_keywords?.length) return false;
   return !item.requires_keywords.some(req =>
     unitEffectiveKeywords.includes(req.toLowerCase())

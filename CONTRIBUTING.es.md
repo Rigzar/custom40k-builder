@@ -76,6 +76,8 @@ data/parsed/<faccion>/
 > `units/index.ts` (y su nombre bajo el slot correcto en `slot_to_units`).
 > `node scripts/convert_units_to_json.cjs <faccion>` convierte una facción que siga en el formato antiguo
 > (simulacro por defecto). No ejecutes el conversor ni los scripts de actualización sobre tus datos sin preguntar.
+>
+> `node scripts/unit_sync.cjs "Codex/<faccion>.ods" <faccion>` compara una hoja actualizada con los ficheros de unidades e imprime cada diferencia de puntos, estadísticas y armas (`--write` las aplica, `--equipped` reescribe también la frase "equipped with" cuando todos sus elementos son armas conocidas). Nunca toca grupos de opciones ni textos de habilidades: eso lo cablea una persona.
 
 ### Añadir una unidad NUEVA
 

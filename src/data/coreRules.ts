@@ -381,7 +381,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deep strike': {
     name: 'Deep Strike',
-    description: 'Models arriving from reserve can be placed anywhere on the battlefield. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, the unit goes back into reserve. If the first model lands in direct base contact with or on an enemy unit: Roll a D6: 1-3: The unit returns to reserve. 4-6: The opponent sets up the unit anywhere on the battlefield (except impassable terrain) using Deep Strike rules without rolling scatter. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. Units deployed this way count as having already moved up to their maximum Movement value this Battle Round and can only receive a "Move & Shoot" order. Example The first model (1) is placed on the battlefield. A circle of models (2) is formed around the first. If there are any remaining models, another circle (3) is formed, and this process continues until all models are placed.',
+    description: 'Models arriving from reserve via Deep Strike can be placed anywhere on the battlefield. They are only allowed to receive the "Charge" or "Move & Shoot" order. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, on impassable terrain or an enemy unit, the unit goes back into reserve and must take a dangerous terrain test. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. The unit counts as having moved 6" and can\'t move any further with its regular Movement profile. The unit may still make its "Charge move". The unit may only perform a "Disorderly Charge".',
   },
   'deepstrike': {
     name: 'Deep Strike',
@@ -461,7 +461,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'narthecium': {
     name: 'Narthecium',
-    description: 'Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
+    description: 'Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
   },
   'open': {
     name: 'Open',
@@ -658,7 +658,7 @@ export const RULES: Record<string, RuleEntry> = {
   // completely optional"; this is the LAST entry in the canonical Core Rules text) ───────────
   'sniper': {
     name: 'Sniper',
-    description: 'The model gains +1 Ballistic Skill. The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it.',
+    description: 'The model gains +1 Ballistic Skill when using a weapon with this ability. The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it.',
   },
 };
 

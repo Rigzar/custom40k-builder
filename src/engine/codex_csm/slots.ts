@@ -57,7 +57,7 @@ export const CSM_SLOTS: CsmSlotEntry[] = [
   {
     slot: 'Fast Attack',
     units: [
-      'Chaos Biker', 'Chaos Spawn', 'Foetid Bloat-Drone', 'Juggernaut Hellriders',
+      'Chaos Bikers', 'Chaos Spawn', 'Foetid Bloat-Drone', 'Juggernaut Hellriders',
       'Myphitic Blight-Hauler', 'Raptors', 'Tzaangor Enlightened', 'Venomcrawler',
       'Warptalons',
     ],

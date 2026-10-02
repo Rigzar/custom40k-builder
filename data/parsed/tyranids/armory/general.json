@@ -86,7 +86,10 @@
         "grants_weapons": [
           "Headlong charge"
         ]
-      }
+      },
+      "excludes_keywords": [
+        "Flyer"
+      ]
     },
     {
       "name": "Pathogenesis",
@@ -143,14 +146,17 @@
     {
       "name": "Implant Attack",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The model gains the \"Implant Attack\" weapon.",
+      "desc": "Advanced Biomorph. Point costs are paid per model. The model gains the \"Implant Attack\" weapon. Only for units without the Flyer type.",
       "p_unit": null,
       "p_char": 5,
       "effect": {
         "grants_weapons": [
           "Implant Attack"
         ]
-      }
+      },
+      "excludes_keywords": [
+        "Flyer"
+      ]
     },
     {
       "name": "Infrasonic Roar",
@@ -174,14 +180,17 @@
     {
       "name": "Symbiote Rippers",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the \"Symbiote Rippers\" weapon.",
+      "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the \"Symbiote Rippers\" weapon. Only for units without the Flyer type.",
       "p_unit": null,
       "p_char": 3,
       "effect": {
         "grants_weapons": [
           "Symbiote Rippers"
         ]
-      }
+      },
+      "excludes_keywords": [
+        "Flyer"
+      ]
     },
     {
       "name": "Thornback",
@@ -251,7 +260,7 @@
     {
       "name": "Norn Crown",
       "term_compat": false,
-      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The unit may cast and deny 1 more psychic power per battle round.",
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The unit may cast and deny 1 more psychic power per battle round. Unique.",
       "p_unit": null,
       "p_char": null
     },

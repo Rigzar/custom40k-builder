@@ -78,7 +78,7 @@ export const CSM_UNIT_TYPES: CsmUnitTypeEntry[] = [
   { unitName: 'Tzaangor Shaman', types: ['Character Model', 'Infantry'], slot: 'Elites' },
 
   // --- Fast Attack (9) ---
-  { unitName: 'Chaos Biker', types: ['Bike'], slot: 'Fast Attack' },
+  { unitName: 'Chaos Bikers', types: ['Bike'], slot: 'Fast Attack' },
   { unitName: 'Chaos Spawn', types: ['Monstrous Infantry'], slot: 'Fast Attack' },
   { unitName: 'Foetid Bloat-Drone', types: ['Vehicle'], slot: 'Fast Attack' },
   { unitName: 'Juggernaut Hellriders', types: ['Bike'], slot: 'Fast Attack' },

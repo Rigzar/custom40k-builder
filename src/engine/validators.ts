@@ -2092,7 +2092,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       g.choices.forEach((c, ci) => {
         if (!c.unique_per_army) return;
         if (item.optionQty?.[gi]?.[ci]) {
-          const key = `${item.unitName}::${c.name}`;
+          const key = c.unique_across_units ? `*::${c.name}` : `${item.unitName}::${c.name}`;
           uniqueChoiceCounts[key] = (uniqueChoiceCounts[key] ?? 0) + 1;
         }
       });
@@ -2103,7 +2103,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const [unitName, choiceName] = key.split('::');
       items.push({
         type: 'error',
-        text: `${unitName}: only 1 may take "${choiceName}" per army (have ${count}).`,
+        text: unitName === '*' ? `Only 1 "${choiceName}" is allowed per army (have ${count}).` : `${unitName}: only 1 may take "${choiceName}" per army (have ${count}).`,
       });
     }
   }

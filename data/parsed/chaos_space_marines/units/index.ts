@@ -136,7 +136,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fast Attack": [
     "Greater Blight Drone",
-    "Chaos Biker",
+    "Chaos Bikers",
     "Chaos Spawn",
     "Foetid Bloat-Drone",
     "Juggernaut Hellriders",
@@ -223,7 +223,7 @@ export const units: Record<string, Unit> = {
   "Slaughterbound": elites_slaughterbound as Unit,
   "Tzaangor Shaman": elites_tzaangor_shaman as Unit,
   "War Dog": elites_war_dog as Unit,
-  "Chaos Biker": fast_attack_chaos_bikers as Unit,
+  "Chaos Bikers": fast_attack_chaos_bikers as Unit,
   "Chaos Spawn": fast_attack_chaos_spawn as Unit,
   "Foetid Bloat-Drone": fast_attack_foetid_bloat_drone as Unit,
   "Greater Blight Drone": fast_attack_greater_blight_drone as Unit,

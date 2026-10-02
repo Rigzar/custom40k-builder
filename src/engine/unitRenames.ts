@@ -44,6 +44,10 @@ export const RENAMED_UNITS: Record<string, Record<string, UnitRenameTarget>> = {
     // October 2026: the Custodes Rhino became the Null-Maiden Rhino (Anti-Grav, Blank, 124 pts).
     'Rhino': 'Null-Maiden Rhino',
   },
+  // Chaos Space Marines 1.05 (October 2026): the Fast Attack datasheet "Chaos Biker" is now "Chaos Bikers".
+  'Chaos Space Marines': {
+    'Chaos Biker': 'Chaos Bikers',
+  },
   // Tyranids codex 2026-09: "Consolidated Swarm Lord with Hive Tyrant and added a Legendary Hive
   // Tyrant upgrade." The Swarmlord cost 339 and the Legendary Hive Tyrant costs 339, so the
   // upgrade has to come with the rename — a bare rename would hand the player a 256-point Hive

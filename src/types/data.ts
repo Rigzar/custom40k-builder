@@ -67,6 +67,12 @@ export interface Choice {
    */
   unique_per_army?: boolean;
   /**
+   * With `unique_per_army`: the cap is army-wide for this choice NAME, whichever datasheet offers
+   * it. Tyranid Norn Crown is a Special Biomorph on the Hive Tyrant, Neurotyrant and Tervigon and
+   * reads "Unique" - one Norn Crown in the army, not one per datasheet.
+   */
+  unique_across_units?: boolean;
+  /**
    * Keyword the unit must carry for this choice to be selectable. Tyranids 1.02 split every
    * datasheet into "Basic Bioform" / "Advanced Bioform" (a KEYWORDS line, per the author
    * 2026-08-18) and five Advanced Biomorphs are priced "-" for Basic Bioforms, which the Armory
@@ -491,6 +497,12 @@ export interface ArmoryItem {
    *   requires_keywords: ["Warpsmith"]             → "Only for Warpsmiths"
    */
   requires_keywords?: string[];
+  /**
+   * The opposite gate: the item is NOT available to a unit carrying ANY of these keywords or unit
+   * types. Tyranids October 2026: Implant Attack, Symbiote Rippers and the Living Battering Ram
+   * read "Only for units without the Flyer type" -> `excludes_keywords: ["Flyer"]`.
+   */
+  excludes_keywords?: string[];
 
   /**
    * Army-wide gate (distinct from `requires_keywords`, which is unit-scoped): the item is only

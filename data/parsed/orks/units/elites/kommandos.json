@@ -113,6 +113,15 @@
       "ap": "0",
       "d": "1",
       "abilities": "Blast(4)"
+    },
+    {
+      "name": "Snipa",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
     }
   ],
   "option_groups": [

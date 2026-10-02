@@ -60,6 +60,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reported on GitHub", rows: [
+        ["October sheets, every army", "All 21 codices re-read against the live October sheets and wired: new points, weapons and options, Blank, Disorderly Charge, Sniper, each army’s own Auspex / homer / Jammer."],
+        ["New in the builder", "Thallax Cohort, Saturnine armor, Wraithhost Wraithlords as Troops, Null-Maiden Rhino, Furies marks, Outrider melee swaps, Chaos Bikers."],
         ["GH#186", "A list can no longer be saved under the wrong faction — a slow phone could relabel it."],
         ["GH#185", "Warbuggy: Up to three small guns when no big gun is taken; with a big gun, one."],
         ["GH#169", "The Ork Shoota shows on the profile again, swapped in or bought as an extra."],
@@ -98,6 +100,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Auf GitHub gemeldet", rows: [
+        ["Oktober-Tabellen, jede Armee", "Alle 21 Codizes mit den aktuellen Oktober-Tabellen abgeglichen und eingebaut: neue Punkte, Waffen und Optionen, Blank, Disorderly Charge, Sniper, das eigene Auspex / Homer / Jammer jeder Armee."],
+        ["Neu im Builder", "Thallax Cohort, Saturnine-Ruestung, Wraithlords als Truppen im Wraithhost, Null-Maiden Rhino, Mal-Wahl der Furies, Nahkampf-Tausch der Outrider, Chaos Bikers."],
         ["GH#186", "Eine Liste kann nicht mehr unter der falschen Fraktion gespeichert werden — ein langsames Handy konnte sie umetikettieren."],
         ["GH#185", "Warbuggy: Bis zu drei kleine Waffen ohne grosse Waffe; mit grosser Waffe eine."],
         ["GH#169", "Die Ork-Shoota erscheint wieder im Profil \u2014 getauscht oder zusaetzlich gekauft."],
@@ -136,6 +140,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Reportado en GitHub", rows: [
+        ["Hojas de octubre, todos los ejercitos", "Los 21 codex revisados contra las hojas vivas de octubre y cableados: puntos, armas y opciones nuevos, Blank, Disorderly Charge, Sniper, el Auspex / homer / Jammer propio de cada ejercito."],
+        ["Nuevo en el builder", "Thallax Cohort, armadura Saturnine, Wraithlords como Tropas en Wraithhost, Null-Maiden Rhino, marcas de las Furies, cambios cuerpo a cuerpo de los Outriders, Chaos Bikers."],
         ["GH#186", "Una lista ya no se puede guardar con la facción equivocada — un móvil lento podia cambiarle la etiqueta."],
         ["GH#185", "Warbuggy: Hasta tres armas pequenas si no lleva arma grande; con arma grande, una."],
         ["GH#169", "La Shoota de los Orks vuelve a salir en el perfil, cambiada o comprada aparte."],

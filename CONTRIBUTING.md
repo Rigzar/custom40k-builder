@@ -76,6 +76,8 @@ data/parsed/<faction>/
 > right slot in `slot_to_units`). `node scripts/convert_units_to_json.cjs <faction>` converts a faction that is
 > still in the old format (dry run by default; `--lenient --write`, run under `npx tsx`, also loads files that
 > are not literal JSON). Do not run the converter or the update scripts on your own data without asking.
+>
+> `node scripts/unit_sync.cjs "Codex/<faction>.ods" <faction>` compares a refreshed sheet with the unit files and prints every difference in points, stats and weapons (`--write` applies them, `--equipped` also rewrites the "equipped with" sentence when every item in it is a known weapon). It never touches option groups or ability texts: those need a human to wire them.
 
 ### Adding a NEW unit
 

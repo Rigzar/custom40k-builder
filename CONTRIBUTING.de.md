@@ -76,6 +76,8 @@ data/parsed/<fraktion>/
 > `units`-Eintrag in `units/index.ts` (und ihren Namen unter dem richtigen Slot in `slot_to_units`).
 > `node scripts/convert_units_to_json.cjs <fraktion>` konvertiert eine Fraktion im alten Format (Trockenlauf
 > als Standard). Fuehre den Konverter oder die Update-Skripte nicht ohne Rueckfrage auf deinen Daten aus.
+>
+> `node scripts/unit_sync.cjs "Codex/<fraktion>.ods" <fraktion>` vergleicht eine aktualisierte Tabelle mit den Einheitendateien und gibt jede Abweichung bei Punkten, Werten und Waffen aus (`--write` wendet sie an, `--equipped` schreibt auch den Satz "equipped with" um, wenn alle Eintraege bekannte Waffen sind). Optionsgruppen und Faehigkeitstexte fasst es nie an: die muss ein Mensch verdrahten.
 
 ### Eine NEUE Einheit hinzufuegen
 
