@@ -91,6 +91,7 @@
   ],
   "abilities": [
     "Bodyguard, Massive(1), Shield Host",
+    "Advisor: For every HQ selection, one unit of Custodian Wardens may be selected without taking up an Elite slot.",
     "Custodian armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
@@ -105,7 +106,7 @@
   "veteran_required": false,
   "veteran_max": 1,
   "locked_mark": null,
-  "advisor": false,
+  "advisor": true,
   "slot": "Elites",
   "default_size": 3,
   "min_cost": 222

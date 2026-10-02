@@ -1362,6 +1362,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     for (const weapon of weapons) {
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       if ((grant.scope === 'ranged') === isMelee) continue;
+      if (grant.excludeWeapons?.includes(weapon.name)) continue;
       const granted = grant.basicBioform && (unit.keywords ?? []).includes('Basic Bioform')
         ? grant.basicBioform
         : grant.ability;
@@ -2825,12 +2826,17 @@ const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {
   scope: 'ranged' | 'melee';
   /** Value used instead when the unit is a Basic Bioform — see Infrasonic Roar. */
   basicBioform?: string;
+  /** Weapon rows that look like melee ('-' range) but are not attacks the grant should touch. */
+  excludeWeapons?: string[];
 }> = {
   // Codex 2026-09 gives this one TWO values: "All ranged weapons in the unit gain the
   // \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain
   // \"Suppression(2)\"." It is the only grant in the game that reads the unit's bioform.
   'Infrasonic Roar': { ability: 'Suppression(3)', scope: 'ranged', basicBioform: 'Suppression(2)' },
   'Zzapkrumpaz': { ability: 'Deadly(6+)', scope: 'melee' },
+  // Necron Canoptek Scarabs, October 2026: "Melee attacks gain the Poison(2+) and Rending(5+) abilities."
+  // Two abilities in one sentence, which parseWeaponAbilityGrant cannot read.
+  'Flensing Scarabs': { ability: 'Poison(2+), Rending(5+)', scope: 'melee', excludeWeapons: ['Scarab explosion'] },
 };
 
 /**

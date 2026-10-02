@@ -59,7 +59,15 @@
         },
         {
           "name": "Frenzied Scarabs",
-          "points": 3
+          "points": 3,
+          "effect": {
+            "stat_mod": [
+              {
+                "stat": "I",
+                "delta": 2
+              }
+            ]
+          }
         }
       ],
       "inline_pts": null,
@@ -79,10 +87,10 @@
   ],
   "abilities": [
     "Mindless, Swarm, Use cover",
-    "Explosion: Scarab swarms may explodes like a vehicle with a 6\" radius and with the \"Scarab explosion\" profile at the end of their movement.",
-    "Bloodswarm Scarabs: Flayed Ones that Deep Strike within 6\" do not scatter.",
-    "Flensing Scarabs: Melee attacks gain \"Poison(2+)\".",
-    "Frenzied Scarabs: The model gains +1 Initiative."
+    "Explosion: Scarab swarms may explodes like a vehicle with a 6\" radius and with the \"Scarab explosion\" profile at the end of their movement (including Advance or Charge movement).",
+    "Bloodswarm Scarabs: Flayed Ones that Deep Strike within 6\" do not scatter and may Charge normally.",
+    "Flensing Scarabs: Melee attacks gain the \"Poison(2+)\" and \"Rending(5+)\" abilities.",
+    "Frenzied Scarabs: The model gains +2 Initiative."
   ],
   "unit_type": "Jet Bike, Canoptek",
   "keywords": [],

@@ -201,7 +201,7 @@
   ],
   "abilities": [
     "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!",
-    "Bomb squig: During activation, a Kommando can release a Bomb squig. Roll 1D6. On a 2+, the Bomb squig automatically hits the nearest enemy unit within 18\". On a 1, it automatically hits the nearest friendly unit within 18\". Vehicles are favored in both cases.",
+    "Bomb squig: During their activation, a Tankbusta can release a Bomb squig. Roll 1D6. On a 2+, the Bomb squig automatically hits the nearest enemy unit within 18\". On a 1, it automatically hits the nearest friendly unit within 18\". Vehicles are favored in both cases.",
     "Glory hogs: The model receives +1 to hit rolls against vehicles and monstrous creatures when using a \"Move & Shoot\" or \"Stand & Shoot\" command. If a vehicle is in range at the start of the activation, it must shoot at it or attack in melee. Splitting fire is not allowed."
   ],
   "unit_type": "Infantry",

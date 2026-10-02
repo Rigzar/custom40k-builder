@@ -80,6 +80,7 @@
   ],
   "abilities": [
     "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+    "Improved Comms: You may re-roll one Reserve roll per turn.",
     "Transport: This model has a transport capacity of 10 infantry models."
   ],
   "unit_type": "Vehicle",

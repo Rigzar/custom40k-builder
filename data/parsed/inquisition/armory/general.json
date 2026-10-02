@@ -868,16 +868,21 @@
     {
       "name": "Gamma psyker",
       "term_compat": true,
-      "desc": "The model can manifest one additional power per activation.",
+      "desc": "The model can manifest one additional power per activation. Psyker only.",
       "p_unit": null,
       "p_char": 5
     },
     {
       "name": "Jump pack",
       "term_compat": false,
-      "desc": "The model gains the \"Jump pack\" ability.",
+      "desc": "The model gains +6\" Movement and changes its unit type to \"Jump pack infantry\". Infantry only.",
       "p_unit": null,
-      "p_char": 11
+      "p_char": 11,
+      "effect": {
+        "adds_unit_types": [
+          "Jump Pack Infantry"
+        ]
+      }
     },
     {
       "name": "Marksman honours",
@@ -959,7 +964,7 @@
     {
       "name": "Special issue ammunition",
       "term_compat": true,
-      "desc": "Every bolt weapon of the model may select one advantage per activation: \n- Seeking\n- Poison(3+)\n- +6\" range and -1 AP",
+      "desc": "All of the model's Bolt weapons can receive one of the following benefits during each activation:\n• Poison(3+)\n• Sunder(2)\n• +6\" range and -1 AP\nCombi-weapons may use this ammunition with the \"Bolt\" part of their profile.",
       "p_unit": 2,
       "p_char": 4
     },
@@ -994,7 +999,7 @@
     {
       "name": "Terminator armor",
       "term_compat": false,
-      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
+      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1)\", \"Deep strike\" and \"Unyielding.\" Infantry only.",
       "p_unit": null,
       "p_char": 43
     },
@@ -1030,7 +1035,7 @@
       "name": "Additional armor",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "desc": "The model ignores the first temporary vehicle damage each round.",
       "p_unit": 15,
       "p_char": null
     },
@@ -1038,7 +1043,7 @@
       "name": "Hunter-killer missile",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "The model gains a Hunter-killer missile.",
+      "desc": "The model may shoot once per game a Hunter-killer missile with this profile: Range 120\", Heavy 1, Strength 8, AP -3, Damage 2, AT(1).",
       "p_unit": 5,
       "p_char": null
     },
@@ -1062,7 +1067,7 @@
       "name": "Smoke Launcher",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
       "p_char": null
     },
