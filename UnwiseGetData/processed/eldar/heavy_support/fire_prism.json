@@ -1,0 +1,79 @@
+{
+    "name": "Fire Prism",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "5",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Fire Prism",
+            "min": 1,
+            "max": 1,
+            "points": 312
+        }
+    ],
+    "min_cost": 312,
+    "default_size": 1,
+    "equipped_with": "A Fire Prism is equipped with: Prism cannon; Twin shuriken catapult.",
+    "weapons": [
+        {
+            "name": "Prism cannon - Dispersed",
+            "range": "60\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(6), Suppression(3)"
+        },
+        {
+            "name": "Prism cannon - Focused",
+            "range": "60\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4)"
+        },
+        {
+            "name": "Prism cannon - Lance",
+            "range": "60\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-5",
+            "d": "4",
+            "abilities": "AT(4), Beam, Decimate, Lance(+2)"
+        },
+        {
+            "name": "Shuriken cannon",
+            "range": "24\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shuriken"
+        },
+        {
+            "name": "Twin shuriken catapult",
+            "range": "18\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Shuriken"
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Battle Focus"
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

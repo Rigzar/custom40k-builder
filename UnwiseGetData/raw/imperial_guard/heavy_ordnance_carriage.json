@@ -1,0 +1,153 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Heavy Ordnance Carriage",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        7,
+        5,
+        3,
+        3,
+        6,
+        "4+",
+        60
+    ],
+    [
+        "Every model is equipped with: 4 Lasguns; Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Earthshaker cannon *"
+    ],
+    [
+        "- HE shells",
+        "240\"",
+        "Heavy 1",
+        9,
+        -3,
+        2,
+        "AT(3), Blast(6), Indirect"
+    ],
+    [
+        "- Gas shells",
+        "240\"",
+        "Heavy 1",
+        1,
+        0,
+        2,
+        "Blast(6), Poison(2+), Indirect, Seeking"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Lasgun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Medusa siege cannon *"
+    ],
+    [
+        "- HE shells",
+        "36\"",
+        "Heavy 1",
+        10,
+        -3,
+        2,
+        "AT(4), Blast(6)"
+    ],
+    [
+        "- Bastion-breacher shells",
+        "48\"",
+        "Heavy 1",
+        10,
+        -4,
+        2,
+        "AT(4), Blast(4), Tank hunter"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Guardsman per unit may be equipped with: +5 points Vox."
+    ],
+    [
+        "\u2022 Must pick one weapon from this list:"
+    ],
+    [
+        "- Medusa siege cannon with HE shells",
+        "+115 points"
+    ],
+    [
+        "- Earthshaker cannon with HE shells",
+        "+177 points"
+    ],
+    [
+        "\u2022 A battery equipped with a Medusa siege cannon may be equipped with additional ammunition:"
+    ],
+    [
+        "- Bastion-breacher shells",
+        "+10 points"
+    ],
+    [
+        "\u2022 A battery equipped with an Earthshaker cannon may be equipped with additional ammunition:"
+    ],
+    [
+        "- Gas shells",
+        "+10 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Massive(4), Squadron"
+    ],
+    [
+        "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit\u2019s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

@@ -74,7 +74,7 @@ def main():
     print(f"Factions found:{FACTIONS}")
     for faction in FACTIONS:
         
-        faction_path = f"{faction.lower().replace(' ', '_')}"
+        faction_path = f"{faction.lower().replace(' ', '_').replace("'", '')}"
         print(f"Processing {faction}...")
         faction_troops = proccess_faction_troops(faction_path, faction)
         print(f"Faction troops: {faction_troops}")
@@ -193,7 +193,7 @@ def main():
                     
         
                 # Save the processed unit data to its respective path.
-                proccessed_unit_path = f"processed/{faction.lower().replace(' ', '_')}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
+                proccessed_unit_path = f"processed/{faction_path}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
                 with open(proccessed_unit_path, "w") as f:
                     json.dump(app_unit_json, f, indent=4)
                     

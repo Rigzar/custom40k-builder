@@ -1,0 +1,79 @@
+{
+    "name": "Castigator",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "3",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Castigator",
+            "min": 1,
+            "max": 1,
+            "points": 339
+        }
+    ],
+    "min_cost": 339,
+    "default_size": 1,
+    "equipped_with": "A Castigator is equipped with: Castigator autocannon; 3 Heavy bolters.",
+    "weapons": [
+        {
+            "name": "Castigator autocannon",
+            "range": "48\"",
+            "type": "Heavy 4",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), AT(1)"
+        },
+        {
+            "name": "Castigator battle cannon - Pyre shell",
+            "range": "72\"",
+            "type": "Heavy 2",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Seeking"
+        },
+        {
+            "name": "Castigator battle cannon - Sanctified shell",
+            "range": "72\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3), Blast(4)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Acts of Faith, Shield of Faith"
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

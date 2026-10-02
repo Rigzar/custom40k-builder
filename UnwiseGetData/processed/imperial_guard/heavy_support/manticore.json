@@ -1,0 +1,79 @@
+{
+    "name": "Manticore",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "10",
+                "REAR": "10",
+                "I": "3",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Manticore",
+            "min": 1,
+            "max": 2,
+            "points": 269
+        }
+    ],
+    "min_cost": 269,
+    "default_size": 1,
+    "equipped_with": "A Manticore is equipped with: Heavy bolter; Sky eagle rockets.",
+    "weapons": [
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Sky eagle rockets",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Anti-air, AT(3), Blast(4), Indirect"
+        },
+        {
+            "name": "Storm eagle rockets",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(3), Blast(6), Indirect"
+        },
+        {
+            "name": "Twin heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 6",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        }
+    ],
+    "abilities": [
+        "Squadron"
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,92 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Captain",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        2,
+        7,
+        "5+",
+        26
+    ],
+    [
+        "*",
+        "Colonel",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        8,
+        "5+",
+        41
+    ],
+    [
+        "A Captain is equipped with: Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Captain per army can be upgraded to a Colonel for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Officer: A Captain issues 1 order."
+    ],
+    [
+        "Colonel: A Colonel issues 1 additional order."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

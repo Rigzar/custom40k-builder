@@ -1,0 +1,325 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Voidscarred",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        2,
+        8,
+        "4+",
+        16
+    ],
+    [
+        1,
+        "Felarch",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        2,
+        8,
+        "4+",
+        16
+    ],
+    [
+        "0-1",
+        "Shade Runner",
+        "6\"",
+        "2+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        4,
+        8,
+        "4+",
+        20
+    ],
+    [
+        "0-1",
+        "Soul Weaver",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        2,
+        8,
+        "4+",
+        22
+    ],
+    [
+        "0-1",
+        "Way Seeker",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        2,
+        8,
+        "4+",
+        26
+    ],
+    [
+        "Every Voidscarred and Felarch is equipped with: Plasma grenade; Shuriken rifle."
+    ],
+    [
+        "A Shade Runner is equipped with: Paired Hekatarii blades; Plasma grenade; Shuriken pistol."
+    ],
+    [
+        "A Soul Weaver is equipped with: Channeler stones; Plasma grenade; Power sword; Shuriken pistol."
+    ],
+    [
+        "A Way Seeker is equipped with: Plasma grenade; Shuriken pistol; Witch staff."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Blaster",
+        "18\"",
+        "Assault 1",
+        8,
+        -4,
+        2,
+        "AT(2), Lance(+1)"
+    ],
+    [
+        "Shredder",
+        "18\"",
+        "Assault 1",
+        6,
+        -1,
+        1,
+        "Blast(4), Suppression(2)"
+    ],
+    [
+        "Fusion pistol",
+        "6\"",
+        "Pistol 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Neuro disruptor",
+        "12\"",
+        "Pistol 1",
+        "*",
+        "*",
+        "*",
+        "-"
+    ],
+    [
+        "Paired Hekatarii blades",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Plasma grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "Ranger long rifle",
+        "36\"",
+        "Heavy 1",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Suppression(3)"
+    ],
+    [
+        "Shuriken cannon",
+        "24\"",
+        "Heavy 3",
+        6,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "Shuriken pistol",
+        "12\"",
+        "Assault 1",
+        4,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "Shuriken rifle",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "Witch staff",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Force weapon, Poison(2+)"
+    ],
+    [
+        "Wraithcannon",
+        "18\"",
+        "Assault 2",
+        "D",
+        -4,
+        2,
+        "AT(3), Graviton"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any Voidscarred may swap their Shuriken rifle:"
+    ],
+    [
+        "- Shuriken pistol and Power sword",
+        "+1 points"
+    ],
+    [
+        "\u2022 The Felarch may swap their Shuriken pistol:"
+    ],
+    [
+        "- Neuro disruptor",
+        "+8 points"
+    ],
+    [
+        "\u2022 The Felarch may be equipped with: +15 points Mistshield."
+    ],
+    [
+        "\u2022 For every 5 models, one Voidscarred may swap their Shuriken rifle:"
+    ],
+    [
+        "- Shredder",
+        "+11 points"
+    ],
+    [
+        "- Blaster",
+        "+27 points"
+    ],
+    [
+        "\u2022 If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle:"
+    ],
+    [
+        "- Shuriken cannon",
+        "+15 points"
+    ],
+    [
+        "- Wraithcannon",
+        "+32 points"
+    ],
+    [
+        "\u2022 If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle:"
+    ],
+    [
+        "- Fusion pistol & Power sword",
+        "+15 points"
+    ],
+    [
+        "\u2022 If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle:"
+    ],
+    [
+        "- Ranger long rifle",
+        "+17 points"
+    ],
+    [
+        "\u2022 1 Voidscarred may be equipped with a Faolch\u00fa for +10 points."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "<Corsairs>"
+    ],
+    [
+        "Channeler stones: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    [
+        "Faolch\u00fa: All weapons of the unit gain Sunder(1)                                                                                  "
+    ],
+    [
+        "Ghosthelm: The Way Seeker ignores the first Perils of the warp attack each round."
+    ],
+    [
+        "Mistshield: The model and it's attached unit gain a 5+ ward save against ranged attacks."
+    ],
+    [
+        "Neuro disruptor: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value."
+    ],
+    [
+        "Psyker: The Way Seeker can cast 1 power and deny 1 power per battle round. They know Smite and 1 power from either the Battle or Fate discipline."
+    ],
+    [
+        "Shade Runner Assault: After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact."
+    ],
+    [
+        "Sniper: A model equipped with a Ranger long rifle increases their BS by +1."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

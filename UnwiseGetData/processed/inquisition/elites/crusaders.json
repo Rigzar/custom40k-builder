@@ -1,0 +1,44 @@
+{
+    "name": "Crusaders",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "7",
+                "SV": "2+"
+            },
+            "name": "Crusader",
+            "min": 1,
+            "max": 4,
+            "points": 44
+        }
+    ],
+    "min_cost": 44,
+    "default_size": 1,
+    "equipped_with": "A Crusader is equipped with: Power sword; Storm shield.",
+    "weapons": [
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Command squad, Deflect, Parry, Squadron",
+        "Crusade: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

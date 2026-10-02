@@ -27,10 +27,10 @@
         4,
         9,
         "2+",
-        125
+        121
     ],
     [
-        "A Blade Champion is equipped with: Vaultswords."
+        "A Blade Champion is equipped with: Frag grenades; Melta bombs; Vaultswords."
     ],
     [
         "WEAPON",
@@ -40,6 +40,24 @@
         "AP",
         "D",
         "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Melta bomb",
+        "3\"",
+        "Grenade 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
     ],
     [
         "Vaultswords",

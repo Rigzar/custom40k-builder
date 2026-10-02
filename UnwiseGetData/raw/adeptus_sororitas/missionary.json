@@ -1,0 +1,80 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Missionary",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        8,
+        "6+",
+        67
+    ],
+    [
+        "A Missionary is equipped with: Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "Faithful: Can recite 2 hymns per battle round. A hymn is successfully recited on a roll of 3+. Knows all Hymns of Battle."
+    ],
+    [
+        "Most Pious: A Missionary increases the Faith Points during each Reinforcement phase by 1D3."
+    ],
+    [
+        "Rosarius: This model has a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

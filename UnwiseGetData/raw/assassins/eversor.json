@@ -1,0 +1,104 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Eversor",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        4,
+        6,
+        4,
+        9,
+        "6+",
+        130
+    ],
+    [
+        "A Eversor is equipped with: Executioner pistol; Melta bombs; Neuro gauntlet."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Executioner pistol",
+        "12\"",
+        "Pistol 2",
+        4,
+        -3,
+        2,
+        "Poison(2+)"
+    ],
+    [
+        "Melta bomb",
+        "3\"",
+        "Grenade 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
+    ],
+    [
+        "Neuro gauntlet",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "Extra Attack(2), Shred"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike, Deflect, Frenzy(6\"), Furious Charge, Hit & Run, Infiltrator, Move through cover, Parry"
+    ],
+    [
+        "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls."
+    ],
+    [
+        "Bio Meltdown: After the unit is eliminated, all units within a 6\" radius suffer 2D3 Mortal Wounds."
+    ],
+    [
+        "Hyper metabolism: The model gets 1D6+1 bonus attacks for charging instead of just 1."
+    ],
+    [
+        "Lightning reflexes: The model gains a 4+ ward save."
+    ],
+    [
+        "Stim Overdrive: Once per game the unit can double its attacks. Decide to use this rule when it is the Eversor's turn to fight in melee. Then remove the unit and execute the \u201cBio meltdown\u201d rule."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

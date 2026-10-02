@@ -1,0 +1,116 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Scarab swarm",
+        "12\"",
+        "4+",
+        "6+",
+        3,
+        3,
+        3,
+        2,
+        3,
+        10,
+        "6+",
+        16
+    ],
+    [
+        "Every model is equipped with: Feeder mandibles."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Feeder mandibles",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Scarab explosion",
+        "-",
+        "-",
+        5,
+        -2,
+        1,
+        "Seeking"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For each \"Warriors\" unit, one \"Canoptek Scarabs\" unit may be selected as Troops. Can't be a mandatory unit selection."
+    ],
+    [
+        "\u2022 The entire unit may receive one of the following upgrades per model:"
+    ],
+    [
+        "- Bloodswarm Scarabs",
+        "+3 points"
+    ],
+    [
+        "- Flensing Scarabs",
+        "+3 points"
+    ],
+    [
+        "- Frenzied Scarabs",
+        "+3 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Mindless, Swarm, Use cover"
+    ],
+    [
+        "Explosion: Scarab swarms may explodes like a vehicle with a 6\" radius and with the \"Scarab explosion\" profile at the end of their movement (including Advance or Charge movement)."
+    ],
+    [
+        "Upgrades:"
+    ],
+    [
+        "Bloodswarm Scarabs: Flayed Ones that Deep Strike within 6\" do not scatter and may Charge normally."
+    ],
+    [
+        "Flensing Scarabs: Melee attacks gain the \"Poison(2+)\" and \"Rending(5+)\" abilities."
+    ],
+    [
+        "Frenzied Scarabs: The model gains +2 Initiative."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jet bike"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Canoptek"
+    ]
+]

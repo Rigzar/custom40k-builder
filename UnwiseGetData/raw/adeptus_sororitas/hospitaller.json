@@ -1,0 +1,86 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Hospitaller",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        3,
+        2,
+        8,
+        "3+",
+        37
+    ],
+    [
+        "A Hospitaler is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Command squad, Shield of Faith"
+    ],
+    [
+        "Advisor: For every HQ selection, one Hospitaller may be selected without taking up an Elite slot."
+    ],
+    [
+        "Narthecium: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

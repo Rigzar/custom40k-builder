@@ -1,0 +1,251 @@
+[
+    [
+        "Type:",
+        "Augmentation",
+        "Typ:",
+        "Witchfire",
+        "Typ:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "24\"",
+        "Range:",
+        "18\"",
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Friendly unit (Creature)",
+        "Target:",
+        "-",
+        "Target:",
+        "Friendly unit"
+    ],
+    [
+        "Cast value:",
+        4,
+        "Cast value:",
+        5,
+        "Cast value:",
+        5
+    ],
+    [
+        "Effect:",
+        "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+        "Effect:",
+        "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with S: 6 AP: -2 D: 1; Seeking.",
+        "Effect:",
+        "The target gains the \"Deflect\" ability."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Psychic Barrier",
+        "Name:",
+        "Terrifying Visions",
+        "Name:",
+        "Psychic Maelstrom"
+    ],
+    [
+        "Typ:",
+        "Augmentation",
+        "Typ:",
+        "Malediction",
+        "Typ:",
+        "Witchfire"
+    ],
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "18\"",
+        "Range:",
+        "24\""
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        5,
+        "Cast value:",
+        5,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "The target improves its Saving throw by +1.",
+        "Effect:",
+        "The target must pass a Leadership test with a -1 penalty or gain a Battleshock token.",
+        "Effect:",
+        "The target suffers one Mortal Wound on a 2+. If the roll was successful, it suffers one further Mortal Wound on a 3+. Repeat the process (adding +1 to the required result each time) until the roll is no longer successful."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal"
+    ],
+    [
+        "Psikana II",
+        "Name:",
+        "Psychic Lash",
+        "Name:",
+        "Telepathic Order",
+        "Name:",
+        "Psychic Ward"
+    ],
+    [
+        "Typ:",
+        "Augmentation",
+        "Typ:",
+        "Augmentation",
+        "Typ:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Cast value:",
+        4,
+        "Cast value:",
+        4,
+        "Cast value:",
+        5
+    ],
+    [
+        "Effect:",
+        "The target gains a melee weapon with the following profile: S: +1 AP: -3 D: 1, Extra Attack(2).",
+        "Effect:",
+        "The target gains any additional order.",
+        "Effect:",
+        "The target gains the \"Aegis(4+) and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Lightning Arc",
+        "Name:",
+        "Machine Curse",
+        "Name:",
+        "Psychic Shackles"
+    ],
+    [
+        "Typ:",
+        "Witchfire",
+        "Typ:",
+        "Witchfire",
+        "Typ:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "24\"",
+        "Range:",
+        "18\"",
+        "Range:",
+        "24\""
+    ],
+    [
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit (Vehicle)",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        6,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "The target suffers one hit with the following profile: S: 5 AP: -1 D: 1; Blast(6), Seeking.",
+        "Effect:",
+        "The target suffers 3 glancing hits.",
+        "Effect:",
+        "The target is treated as activating in difficult and dangerous terrain, even if it would normally ignore it."
+    ],
+    [
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ]
+]

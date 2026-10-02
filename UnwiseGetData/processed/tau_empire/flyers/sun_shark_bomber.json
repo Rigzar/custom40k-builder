@@ -1,0 +1,79 @@
+{
+    "name": "Sun Shark Bomber",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "2",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Sun Shark Bomber",
+            "min": 1,
+            "max": 1,
+            "points": 222
+        }
+    ],
+    "min_cost": 222,
+    "default_size": 1,
+    "equipped_with": "A Sun Shark Bomber is a single model and equipped with: 2 Ion rifles; Missile pod; Pulse bomb; 2 Seeker missiles.",
+    "weapons": [
+        {
+            "name": "Missile pod",
+            "range": "30\"",
+            "type": "Assault 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Anti-Air"
+        },
+        {
+            "name": "Ion rifle - Standard",
+            "range": "30\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Ion rifle - Overcharged",
+            "range": "30\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Pulse bomb",
+            "range": "12\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Bomb, Blast(6), Suppression(3)"
+        },
+        {
+            "name": "Seeker missile",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), Anti-Air, AT(2)"
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Flyer",
+    "is_monster": false,
+    "keywords": []
+}

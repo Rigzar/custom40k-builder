@@ -1,0 +1,107 @@
+{
+    "name": "Barracuda Air Superiority Fighter",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "2",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Barracuda",
+            "min": 1,
+            "max": 1,
+            "points": 304
+        }
+    ],
+    "min_cost": 304,
+    "default_size": 1,
+    "equipped_with": "A Barracuda is a single model and equipped with: 2 Long-barrelled burst cannons; 2 Missile pods; Swiftstrike burst cannon.",
+    "weapons": [
+        {
+            "name": "Cyclic ion blaster - Standard",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Cyclic ion blaster - Overcharged",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Ion cannon - Standard",
+            "range": "60\"",
+            "type": "Heavy 3",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Ion cannon - Overcharged",
+            "range": "60\"",
+            "type": "Heavy 3",
+            "s": "8",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Ion cannon Long-barrelled burst cannon",
+            "range": "36\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Missile pod",
+            "range": "30\"",
+            "type": "Assault 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Anti-Air"
+        },
+        {
+            "name": "Swiftstrike burst cannon",
+            "range": "36\"",
+            "type": "Rapid Fire 5",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Swiftstrike railgun",
+            "range": "60\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(3)"
+        }
+    ],
+    "abilities": [
+        "-",
+        "Dispersion field: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Flyer",
+    "is_monster": false,
+    "keywords": []
+}

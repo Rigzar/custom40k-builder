@@ -1,0 +1,139 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-12",
+        "Reaver",
+        "12\"",
+        "3+",
+        "3+",
+        3,
+        4,
+        2,
+        5,
+        1,
+        7,
+        "4+",
+        35
+    ],
+    [
+        "*",
+        "Arena Champion",
+        "12\"",
+        "3+",
+        "3+",
+        3,
+        4,
+        2,
+        5,
+        2,
+        8,
+        "4+",
+        45
+    ],
+    [
+        "Every model is equipped with: Bladevanes; Splinter pistol; Splinter rifle."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bladevanes",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "Blaster",
+        "18\"",
+        "Assault 1",
+        8,
+        -4,
+        2,
+        "AT(2), Lance(+1)"
+    ],
+    [
+        "Heat lance",
+        "18\"",
+        "Assault 1",
+        6,
+        -5,
+        2,
+        "Lance(+2), Melta"
+    ],
+    [
+        "Splinter pistol",
+        "12\"",
+        "Pistol 1",
+        2,
+        0,
+        1,
+        "Poison(3+)"
+    ],
+    [
+        "Splinter rifle",
+        "24\"",
+        "Rapid Fire 1",
+        2,
+        0,
+        1,
+        "Poison(3+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Each model may swap their Splinter rifle:"
+    ],
+    [
+        "- Heat lance",
+        "+19 points"
+    ],
+    [
+        "- Blaster",
+        "+29 points"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Arena Champion for +10pts and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Combat drugs, Hit & Run, Power through Pain"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jetbike"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Cult"
+    ]
+]

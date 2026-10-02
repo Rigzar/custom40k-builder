@@ -1,0 +1,55 @@
+[
+    [
+        "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy\n"
+    ],
+    [
+        "ARCHETYPES"
+    ],
+    [
+        "Chamber Militant",
+        "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Malleus\" was selected as Legacy."
+    ],
+    [
+        "Chamber of Purity",
+        "- Purifier Squads can be taken as Troops and are no longer limited to 1 unit per army.\n- All other Troops become Elite choices."
+    ],
+    [
+        "Hall of Champions",
+        "- Paladin Squads can be taken as Troops and are no longer limited to 1 unit per army.\n- All other Troops become Elite choices."
+    ],
+    [
+        "LEGACIES"
+    ],
+    [
+        "Blades of Victory",
+        "All Psykers know the \"Inescapable Pursuit\" psychic power in addition."
+    ],
+    [
+        "Exactors",
+        "All Psykers know the \"Purge Soul\" psychic power in addition."
+    ],
+    [
+        "Prescient Brethren",
+        "All Psykers know the \"Fatal Precognition\" psychic power in addition."
+    ],
+    [
+        "Preservers",
+        "All Psykers know the \"Aegis Eternal\" psychic power in addition."
+    ],
+    [
+        "Rapiers",
+        "All Psykers know the \"Symphonic Strike\" psychic power in addition."
+    ],
+    [
+        "Silver Blades",
+        "All Psykers know the \"Temporal Accuracy\" psychic power in addition."
+    ],
+    [
+        "Swordbearers",
+        "All Psykers know the \"Empyric Lodestone\" psychic power in addition."
+    ],
+    [
+        "Wardmakers",
+        "All Psykers know the \"Projection of Purity\" psychic power in addition."
+    ]
+]

@@ -17,10 +17,10 @@
             "name": "Aquilon Custodian",
             "min": 3,
             "max": 6,
-            "points": 143
+            "points": 147
         }
     ],
-    "min_cost": 429,
+    "min_cost": 441,
     "default_size": 3,
     "equipped_with": "All models are equipped with: Infernus firepike; Solerite power gauntlet.",
     "weapons": [

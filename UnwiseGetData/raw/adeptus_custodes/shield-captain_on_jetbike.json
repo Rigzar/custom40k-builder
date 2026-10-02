@@ -27,7 +27,7 @@
         4,
         10,
         "2+",
-        272
+        274
     ],
     [
         "A Shield-Captain on Jetbike is equipped with: Relic Interceptor lance; Lastrum bolt cannon."
@@ -51,6 +51,15 @@
         "-"
     ],
     [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
         "Hurricane bolter",
         "24\"",
         "Rapid Fire 6",
@@ -67,6 +76,15 @@
         -3,
         1,
         "-"
+    ],
+    [
+        "Melta bomb",
+        "3\"",
+        "Grenade 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
     ],
     [
         "Relic interceptor lance"

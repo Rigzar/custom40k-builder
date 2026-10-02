@@ -1,0 +1,92 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        2,
+        "Cryptothrall",
+        "6\"",
+        "4+",
+        "4+",
+        5,
+        5,
+        2,
+        2,
+        2,
+        10,
+        "3+",
+        45
+    ],
+    [
+        "Every model is equipped with: Scouring eye; Scythed limbs."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Scouring eye",
+        "12\"",
+        "Pistol 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Scythed limbs",
+        "-",
+        "Melee",
+        "T",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every Cryptek you may select a unit of Cryptothralls that take up no Elite-slot."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard, Regeneration(1)"
+    ],
+    [
+        "Servant: The unit cannot contest or hold mission objectives."
+    ],
+    [
+        "Systematic Vigour: If a Cryptek is attached to the unit, each Cryptothrall gains a bonus of +1 on to hit rolls. Cryptothralls do not prevent a Cryptek from joining another unit."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Canoptek"
+    ]
+]

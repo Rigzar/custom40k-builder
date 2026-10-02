@@ -42,6 +42,24 @@
         "ABILITIES"
     ],
     [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Melta bomb",
+        "3\"",
+        "Grenade 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
+    ],
+    [
         "Adrastus bolt caliver",
         "24\"",
         "Assault 3",

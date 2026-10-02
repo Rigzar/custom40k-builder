@@ -1,0 +1,113 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Wraith",
+        "12\"",
+        "4+",
+        "4+",
+        4,
+        5,
+        2,
+        4,
+        4,
+        10,
+        "3+",
+        71
+    ],
+    [
+        "Every model is equipped with: Vicious claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Particle caster",
+        "12\"",
+        "Pistol 1",
+        6,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Transdimensional beamer",
+        "12\"",
+        "Heavy 1",
+        4,
+        -4,
+        2,
+        "Deadly(5+), Decimate, Haywire"
+    ],
+    [
+        "Vicious claws",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model can each be equipped with one of the following:"
+    ],
+    [
+        "- Particle caster",
+        "+2 points/model"
+    ],
+    [
+        "- Transdimensional beamer",
+        "+12 points/model"
+    ],
+    [
+        "\u2022 All models can additionally be equipped with:"
+    ],
+    [
+        "- Whip coils",
+        "+5 points/model"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself."
+    ],
+    [
+        "Wraith form: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jet bike, Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Canoptek"
+    ]
+]

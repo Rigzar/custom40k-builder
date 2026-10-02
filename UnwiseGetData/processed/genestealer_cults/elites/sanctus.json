@@ -1,0 +1,62 @@
+{
+    "name": "Sanctus",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Sanctus",
+            "min": 1,
+            "max": 1,
+            "points": 57
+        }
+    ],
+    "min_cost": 57,
+    "default_size": 1,
+    "equipped_with": "A Sanctus is equipped with: Bio-dagger; Cult sniper rifle; Familiar's claws.",
+    "weapons": [
+        {
+            "name": "Bio-dagger",
+            "range": "-",
+            "type": "Melee",
+            "s": "1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(1), Poison(2+), Precision(5+)"
+        },
+        {
+            "name": "Cult sniper rifle",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+        },
+        {
+            "name": "Familiar's claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Extra Attack(2)"
+        }
+    ],
+    "abilities": [
+        "Ambush, Deflect, Infiltrator, Use cover",
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

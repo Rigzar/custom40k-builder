@@ -1,0 +1,211 @@
+{
+    "name": "Magos",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "5",
+                "W": "4",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Magos",
+            "min": 1,
+            "max": 1,
+            "points": 100
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "5",
+                "W": "4",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Archmagos",
+            "min": 0,
+            "max": 1,
+            "points": 115
+        }
+    ],
+    "min_cost": 100,
+    "default_size": 1,
+    "equipped_with": "A Magos is equipped with: -.",
+    "weapons": [
+        {
+            "name": "Conversion beamer- Short range",
+            "range": "0\" - 24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Conversion beamer- Mid range",
+            "range": "24\" - 48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Conversion beamer- Long range",
+            "range": "48\" - 72\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Blast(6)"
+        },
+        {
+            "name": "Eradication ray"
+        },
+        {
+            "name": "- Short range",
+            "range": "1\" - 12\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "- Mid range",
+            "range": "12\" - 24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grav serpenta",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Grav"
+        },
+        {
+            "name": "Magnarail lance",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Beam"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Photon thruster",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(1), Beam, Blind, Lance(2), Overheating"
+        },
+        {
+            "name": "Plasma fusil - Standard",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma fusil - Overheating",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Rad cleanser",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Rad, Sunder(1)"
+        },
+        {
+            "name": "Rotor cannon",
+            "range": "30\"",
+            "type": "Assault 4",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Servo-arc claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra attack(1), Haywire, Limit(1)"
+        },
+        {
+            "name": "Transonic cannon",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Armor piercing(5+), Sunder(1), Suppression(3)"
+        },
+        {
+            "name": "Volkite blaster",
+            "range": "24\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        }
+    ],
+    "abilities": [
+        "Canticles of the Omnissiah, Choir Master, Unyielding",
+        "Archmagos: The range of this model's Canticles of the Omnissiah is extended by 3\".",
+        "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
+        "Mechandrite Harness: This model may use up to three ranged weapons per activation, regardless of their type.",
+        "Enhanced Bionics: This model receives a 5+ ward save.",
+        "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1.",
+        "Enginseer:\nImproved Blessing of the Omnissiah: This model may use Blessing of the Omnissiah one additional time per activation and the roll is successfull on a 3+.",
+        "Manipulus\nGalvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1.",
+        "Myrmidax\nBringer of Blessed Ruin: This model gains the Favored Enemy ability.",
+        "Technoarchaeologist\nSeekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\".",
+        "Underseer\nMaster of Menials: As long as this model is attached to a unit of Servitors, it and the attached unit may receive an Advance order and pursue fleeing units, even if they are Unyielding. Any attached Tech-thralls gain +1 to all hit rolls."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

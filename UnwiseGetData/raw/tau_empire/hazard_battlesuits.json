@@ -1,0 +1,149 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-6",
+        "Hazard Shas'ui",
+        "12\"",
+        "4+",
+        "4+",
+        5,
+        5,
+        2,
+        2,
+        2,
+        7,
+        "3+",
+        72
+    ],
+    [
+        "*",
+        "Hazard Shas'vre",
+        "12\"",
+        "4+",
+        "4+",
+        5,
+        5,
+        2,
+        2,
+        2,
+        8,
+        "3+",
+        77
+    ],
+    [
+        "All models are equipped with: 2 Pulse submunition rifles."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Fusion cascade",
+        "12\"",
+        "Assault 2",
+        6,
+        -5,
+        2,
+        "Armorbane, AT(1)"
+    ],
+    [
+        "Phased ion gun"
+    ],
+    [
+        "- Standard",
+        "18\"",
+        "Rapid Fire 3",
+        4,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "- Overcharged",
+        "18\"",
+        "Rapid Fire 3",
+        5,
+        -2,
+        2,
+        "Armor piercing(5+), Overheating"
+    ],
+    [
+        "Pulse submunition rifle",
+        "24\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "Blast(6), Seeking"
+    ],
+    [
+        "Twin burst cannon",
+        "18\"",
+        "Rapid Fire 6",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model may swap each Pulse submunition rifle:"
+    ],
+    [
+        "- Phased ion gun",
+        "+4 points/model"
+    ],
+    [
+        "- Twin burst cannon",
+        "+7 points/model"
+    ],
+    [
+        "- Fusion cascade",
+        "+15 points/model"
+    ],
+    [
+        "\u2022 Any model may pick up to two SUPPORT SYSTEMS from the armory."
+    ],
+    [
+        "\u2022 One Hazard Shas'ui may be upgraded to a Shas'vre for +5pts."
+    ],
+    [
+        "\u2022 A Shas'vre may buy a Drone controller for +0 points and up to two Tau Drones in any combination."
+    ],
+    [
+        "\u2022 All models have access to the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Supporting Fire"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack, Monstrous infantry "
+    ]
+]

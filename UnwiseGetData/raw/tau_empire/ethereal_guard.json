@@ -1,0 +1,106 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-4",
+        "Ethereal Guard",
+        "6\"",
+        "3+",
+        "4+",
+        3,
+        3,
+        2,
+        3,
+        3,
+        8,
+        "5+",
+        18
+    ],
+    [
+        "Each Ethereal Guard is equipped with: Equalisers."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Equalisers",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Extra Attack(1), Unwieldy"
+    ],
+    [
+        "Honour blade",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "Honour stave",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 1 unit of Ethereal Guard can be taken for each Ethereal. Does not occupy an HQ slot."
+    ],
+    [
+        "\u2022 Each model can swap the Equalisers:"
+    ],
+    [
+        "- Honour blade",
+        "+0 points"
+    ],
+    [
+        "- Honour stave",
+        "+0 points"
+    ],
+    [
+        "\u2022 All models got access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard, Command squad, Supporting Fire"
+    ],
+    [
+        "Honor Guard: Ethereal Guards do not prevent an Ethereal from joining another unit. They will go with him!"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

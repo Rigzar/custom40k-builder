@@ -17,12 +17,12 @@
             "name": "Custodian Warden",
             "min": 3,
             "max": 10,
-            "points": 73
+            "points": 74
         }
     ],
-    "min_cost": 219,
+    "min_cost": 222,
     "default_size": 3,
-    "equipped_with": "All models are equipped with: Bolt caster; Guardian spear.",
+    "equipped_with": "All models are equipped with: Bolt caster; Frag grenades; Guardian spear; Melta bombs.",
     "weapons": [
         {
             "name": "Bolt caster",
@@ -43,6 +43,15 @@
             "abilities": "AT(2)"
         },
         {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
             "name": "Guardian spear",
             "range": "-",
             "type": "Melee",
@@ -50,6 +59,15 @@
             "ap": "-2",
             "d": "1",
             "abilities": "Quick(+1)"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
         }
     ],
     "abilities": [

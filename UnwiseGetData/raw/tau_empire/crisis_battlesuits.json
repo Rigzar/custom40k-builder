@@ -1,0 +1,167 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-6",
+        "Crisis Shas'ui",
+        "12\"",
+        "4+",
+        "4+",
+        5,
+        5,
+        2,
+        2,
+        2,
+        7,
+        "3+",
+        37
+    ],
+    [
+        "*",
+        "Crisis Shas'vre",
+        "12\"",
+        "4+",
+        "4+",
+        5,
+        5,
+        2,
+        2,
+        2,
+        8,
+        "3+",
+        42
+    ],
+    [
+        "All models are equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Airbursting fragmentation projector",
+        "18\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(6), Indirect, Suppression(3)"
+    ],
+    [
+        "Burst cannon",
+        "18\"",
+        "Rapid Fire 3",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Fusion blaster",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(3)"
+    ],
+    [
+        "Missile pod",
+        "30\"",
+        "Assault 3",
+        7,
+        -2,
+        1,
+        "AT(1), Anti-Air"
+    ],
+    [
+        "Plasma rifle",
+        "24\"",
+        "Assault 2",
+        6,
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model can be equipped with up to three of the following:"
+    ],
+    [
+        "- Flamer",
+        "+7 points/model"
+    ],
+    [
+        "- Airbursting fragmentation projector",
+        "+8 points/model"
+    ],
+    [
+        "- Burst cannon",
+        "+12 points/model"
+    ],
+    [
+        "- Plasma rifle",
+        "+14 points/model"
+    ],
+    [
+        "- Missile pod",
+        "+21 points/model"
+    ],
+    [
+        "- Fusion blaster",
+        "+26 points/model"
+    ],
+    [
+        "\u2022 Any model may pick up to two SUPPORT SYSTEMS from the armory."
+    ],
+    [
+        "\u2022 One Crisis Shas'ui may be upgraded to a Shas'vre for +5pts."
+    ],
+    [
+        "\u2022 A Shas'vre may buy a Drone controller for +0 points and up to two Tau Drones in any combination."
+    ],
+    [
+        "\u2022 All models have access to the armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Supporting Fire"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack, Monstrous infantry "
+    ]
+]

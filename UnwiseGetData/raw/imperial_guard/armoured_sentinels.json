@@ -1,0 +1,181 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-3",
+        "Armoured  Sentinel",
+        "6\"",
+        "4+",
+        "4+",
+        5,
+        11,
+        11,
+        10,
+        3,
+        1,
+        2,
+        97
+    ],
+    [
+        "A Armoured  Sentinels is equipped with: Multilaser."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autocannon",
+        "48\"",
+        "Heavy 2",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Lascannon",
+        "48\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Anti-air, AT(2)"
+    ],
+    [
+        "Multilaser",
+        "36\"",
+        "Heavy 3",
+        6,
+        0,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "Plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overheating",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "Sentinel chainsaw",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap the Multilaser:"
+    ],
+    [
+        "- Heavy flamer",
+        "+3 points"
+    ],
+    [
+        "- Autocannon",
+        "+6 points"
+    ],
+    [
+        "- Missile launcher",
+        "+16 points"
+    ],
+    [
+        "- Lascannon",
+        "+38 points"
+    ],
+    [
+        "- Plasma cannon",
+        "+59 points"
+    ],
+    [
+        "\u2022 May be equipped with: +15 points Sentinel chainsaw."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Squadron"
+    ],
+    [
+        "Sentinel chainsaw: The model gains +2 Attacks."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle, Walker"
+    ]
+]

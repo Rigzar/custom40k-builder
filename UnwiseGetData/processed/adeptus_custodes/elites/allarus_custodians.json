@@ -17,10 +17,10 @@
             "name": "Allarus Custodian",
             "min": 3,
             "max": 6,
-            "points": 123
+            "points": 122
         }
     ],
-    "min_cost": 369,
+    "min_cost": 366,
     "default_size": 3,
     "equipped_with": "All models are equipped with: Balistus grenade launcher; Bolt caster; Guardian spear.",
     "weapons": [

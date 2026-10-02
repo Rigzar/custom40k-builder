@@ -1,0 +1,46 @@
+{
+    "name": "Memnyr Strategist",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Memnyr Strategist",
+            "min": 1,
+            "max": 1,
+            "points": 41
+        }
+    ],
+    "min_cost": 41,
+    "default_size": 1,
+    "equipped_with": "A Memnyr Strategist is equipped with: Gravitic concussion grenades.",
+    "weapons": [
+        {
+            "name": "Gravitic concussion grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Graviton"
+        }
+    ],
+    "abilities": [
+        "Command squad, Eye of the Ancestors, Infantry, Steady Advance, Void armor",
+        "Advisor: For every HQ selection, one Memnyr Strategist may be selected without taking up an Elite slot.",
+        "Computational Mastermind: While the model is on the battlefield, you may change a friendly unit's order to any other order when that unit gets activated.",
+        "Predictive Guidance: The model and its attached unit do not suffer the to hit penalty from Defensive Fire."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

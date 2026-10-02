@@ -1,0 +1,45 @@
+{
+    "name": "Lord Commissar",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "4+"
+            },
+            "name": "Lord Commissar",
+            "min": 1,
+            "max": 1,
+            "points": 50
+        }
+    ],
+    "min_cost": 50,
+    "default_size": 1,
+    "equipped_with": "A Lord Commissar is equipped with: Frag grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Aura of Discipline: Friendly units in a 12\" radius use the Lord Commissar's Leadership value.              ",
+        "Officer: A Lord Commissar issues 1 order.",
+        "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

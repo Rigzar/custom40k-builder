@@ -1,0 +1,62 @@
+{
+    "name": "Ethereal Guard",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "8",
+                "SV": "5+"
+            },
+            "name": "Ethereal Guard",
+            "min": 2,
+            "max": 4,
+            "points": 18
+        }
+    ],
+    "min_cost": 36,
+    "default_size": 2,
+    "equipped_with": "Each Ethereal Guard is equipped with: Equalisers.",
+    "weapons": [
+        {
+            "name": "Equalisers",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(1), Unwieldy"
+        },
+        {
+            "name": "Honour blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Honour stave",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Bodyguard, Command squad, Supporting Fire",
+        "Honor Guard: Ethereal Guards do not prevent an Ethereal from joining another unit. They will go with him!"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

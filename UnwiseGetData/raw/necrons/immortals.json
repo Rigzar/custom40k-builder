@@ -1,0 +1,106 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Immortal",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        5,
+        2,
+        2,
+        1,
+        10,
+        "3+",
+        40
+    ],
+    [
+        "Every model is equipped with: Tesla carbine."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Disruptor field",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Gauss blaster",
+        "30\"",
+        "Rapid Fire 1",
+        5,
+        -2,
+        1,
+        "Gauss"
+    ],
+    [
+        "Tesla carbine",
+        "24\"",
+        "Assault 1",
+        5,
+        0,
+        1,
+        "Tesla"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The unit can swap their Tesla carbines:"
+    ],
+    [
+        "- Gauss Blaster",
+        "+5 points/model"
+    ],
+    [
+        "\u2022 The unit can be equipped with:"
+    ],
+    [
+        "- Disruptor field",
+        "+2 points/model"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Reanimation Protocols"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Necron"
+    ]
+]

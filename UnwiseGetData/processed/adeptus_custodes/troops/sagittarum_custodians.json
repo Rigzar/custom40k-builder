@@ -25,6 +25,24 @@
     "equipped_with": "All models are equipped with: Adrastus bolt caliver.",
     "weapons": [
         {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
+        {
             "name": "Adrastus bolt caliver",
             "range": "24\"",
             "type": "Assault 3",

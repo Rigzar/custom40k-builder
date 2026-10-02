@@ -1,0 +1,77 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Commissar",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        4,
+        2,
+        8,
+        "4+",
+        27
+    ],
+    [
+        "A Commissar is equipped with: Frag grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 For each Infantry type unit selection, one Commissar may be selected that does not occupy an Elite slot."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command Squad"
+    ],
+    [
+        "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

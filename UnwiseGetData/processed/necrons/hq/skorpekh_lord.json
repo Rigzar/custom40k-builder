@@ -1,0 +1,55 @@
+{
+    "name": "Skorpekh Lord",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "6",
+                "T": "6",
+                "W": "6",
+                "I": "4",
+                "A": "4",
+                "LD": "10",
+                "SV": "3+"
+            },
+            "name": "Skorpekh Lord",
+            "min": 1,
+            "max": 1,
+            "points": 287
+        }
+    ],
+    "min_cost": 287,
+    "default_size": 1,
+    "equipped_with": "A Skorpekh Lord is equipped with: Enmitic annihilator; Hyperhpase harvester.",
+    "weapons": [
+        {
+            "name": "Enmitic annihilator",
+            "range": "18\"",
+            "type": "Rapid Fire 2",
+            "s": "6",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Hyperphase harvester",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra Attack(2), Unwieldy"
+        }
+    ],
+    "abilities": [
+        "Favoured enemy(everything), Furious Charge, Move through cover, Regeneration(1)",
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+    ],
+    "unit_type": "Character model, Monstrous Creature",
+    "is_monster": true,
+    "keywords": [
+        "Lord, Necron"
+    ]
+}

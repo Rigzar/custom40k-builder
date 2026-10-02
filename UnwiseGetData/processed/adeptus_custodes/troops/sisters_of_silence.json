@@ -17,10 +17,10 @@
             "name": "Sister of Silence",
             "min": 5,
             "max": 10,
-            "points": 20
+            "points": 23
         }
     ],
-    "min_cost": 100,
+    "min_cost": 115,
     "default_size": 5,
     "equipped_with": "All models are equipped with: Boltgun; Psyk-out grenades.",
     "weapons": [
@@ -62,7 +62,7 @@
         }
     ],
     "abilities": [
-        "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+        "Blank, Deflect, Parry"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

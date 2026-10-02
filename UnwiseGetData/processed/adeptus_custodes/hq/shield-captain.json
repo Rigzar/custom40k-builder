@@ -17,13 +17,31 @@
             "name": "Shield-Captain",
             "min": 1,
             "max": 1,
-            "points": 177
+            "points": 178
         }
     ],
-    "min_cost": 177,
+    "min_cost": 178,
     "default_size": 1,
-    "equipped_with": "A Shield-Captain is equipped with: Relic bolt caster; Relic guardian spear.",
+    "equipped_with": "A Shield-Captain is equipped with: Frag grenades; Melta bombs; Relic bolt caster; Relic guardian spear.",
     "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
         {
             "name": "Relic balistus grenade launcher",
             "range": "18\"",
@@ -72,6 +90,7 @@
     ],
     "abilities": [
         "Massive(1), Shield Host",
+        "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities.",
         "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
         "Custodian armor: The model gains a 5+ ward save."
     ],

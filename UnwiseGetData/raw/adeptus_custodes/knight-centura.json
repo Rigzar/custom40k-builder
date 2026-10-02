@@ -27,7 +27,7 @@
         3,
         9,
         "3+",
-        56
+        58
     ],
     [
         "A Knight-Centura is equipped with: Flamer; Psyk-out grenade."
@@ -98,7 +98,7 @@
         "ABILITIES"
     ],
     [
-        "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+        "Blank, Deflect, Parry"
     ],
     [
         "UNIT TYPE"

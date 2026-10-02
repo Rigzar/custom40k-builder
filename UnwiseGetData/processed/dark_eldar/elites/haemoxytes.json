@@ -1,0 +1,82 @@
+{
+    "name": "Haemoxytes",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "4",
+                "W": "1",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "6+"
+            },
+            "name": "Haemoxyte",
+            "min": 4,
+            "max": 19,
+            "points": 13
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "4",
+                "W": "1",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "6+"
+            },
+            "name": "Haemoxyte Acothyst",
+            "min": 1,
+            "max": 1,
+            "points": 18
+        }
+    ],
+    "min_cost": 70,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Wrack blades.",
+    "weapons": [
+        {
+            "name": "Liquifier gun",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Ossefactor",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Poison(2+)"
+        },
+        {
+            "name": "Wrack blades",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        }
+    ],
+    "abilities": [
+        "Power through Pain",
+        "Further transformed shape: The unit starts with two \"Power through Pain\" tokens."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Coven"
+    ]
+}

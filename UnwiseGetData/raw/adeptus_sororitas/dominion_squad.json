@@ -1,0 +1,176 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Dominion",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "3+",
+        21
+    ],
+    [
+        1,
+        "Sister Superior",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "3+",
+        21
+    ],
+    [
+        "*",
+        "Veteran Superior",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        2,
+        8,
+        "3+",
+        26
+    ],
+    [
+        "Every model is equipped with: Bolt pistol; Boltgun; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Boltgun",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Up to four Dominions may swap their Boltgun:"
+    ],
+    [
+        "- Flamer",
+        "+0 points"
+    ],
+    [
+        "- Storm bolter",
+        "+5 points"
+    ],
+    [
+        "- Melta",
+        "+12 points"
+    ],
+    [
+        "\u2022 One model may receive a Simulacrum (see Armory) for +5 points."
+    ],
+    [
+        "\u2022 The Sister Superior may be upgraded to a Veteran Superior for +5 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Shield of Faith, Vanguard"
+    ],
+    [
+        "Pious: A Veteran Superior increases the Faith Points by +1."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

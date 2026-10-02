@@ -1,0 +1,83 @@
+{
+    "name": "Captain in Nemesis Armor",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "6",
+                "T": "6",
+                "W": "6",
+                "I": "5",
+                "A": "6",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Captain",
+            "min": 1,
+            "max": 1,
+            "points": 287
+        }
+    ],
+    "min_cost": 287,
+    "default_size": 1,
+    "equipped_with": "A Captain in Nemesis Armor is equipped with: 2 Dreadfists.",
+    "weapons": [
+        {
+            "name": "Dreadfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Shield breaker(-1)"
+        },
+        {
+            "name": "Gatling psilencer",
+            "range": "24\"",
+            "type": "Rapid Fire 6",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shield breaker(-1), Suppression(3)"
+        },
+        {
+            "name": "Heavy incinerator",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Shield breaker(-1), Sunder(1)"
+        },
+        {
+            "name": "Heavy psycannon",
+            "range": "24\"",
+            "type": "Heavy 2\n",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        },
+        {
+            "name": "Nemesis greatweapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Shield breaker(-1)"
+        }
+    ],
+    "abilities": [
+        "Aegis(5+), Shrouding, They Shall Know No Fear",
+        "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have.",
+        "Dreadknight force field: The model gains a 4+ ward save.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
+    ],
+    "unit_type": "Monstrous creature",
+    "is_monster": false,
+    "keywords": []
+}

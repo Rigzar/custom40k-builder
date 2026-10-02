@@ -17,10 +17,10 @@
             "name": "Shield-Captain",
             "min": 1,
             "max": 1,
-            "points": 272
+            "points": 274
         }
     ],
-    "min_cost": 272,
+    "min_cost": 274,
     "default_size": 1,
     "equipped_with": "A Shield-Captain on Jetbike is equipped with: Relic Interceptor lance; Lastrum bolt cannon.",
     "weapons": [
@@ -32,6 +32,15 @@
             "ap": "-3",
             "d": "3",
             "abilities": "-"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
         },
         {
             "name": "Hurricane bolter",
@@ -50,6 +59,15 @@
             "ap": "-3",
             "d": "1",
             "abilities": "-"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
         },
         {
             "name": "Relic interceptor lance"

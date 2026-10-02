@@ -1,0 +1,102 @@
+{
+    "name": "Hazard Battlesuits",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "2",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Hazard Shas'ui",
+            "min": 2,
+            "max": 6,
+            "points": 72
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "2",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Hazard Shas'vre",
+            "min": 0,
+            "max": 1,
+            "points": 77
+        }
+    ],
+    "min_cost": 144,
+    "default_size": 2,
+    "equipped_with": "All models are equipped with: 2 Pulse submunition rifles.",
+    "weapons": [
+        {
+            "name": "Fusion cascade",
+            "range": "12\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(1)"
+        },
+        {
+            "name": "Phased ion gun"
+        },
+        {
+            "name": "- Standard",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "- Overcharged",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Armor piercing(5+), Overheating"
+        },
+        {
+            "name": "Pulse submunition rifle",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(6), Seeking"
+        },
+        {
+            "name": "Twin burst cannon",
+            "range": "18\"",
+            "type": "Rapid Fire 6",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Supporting Fire"
+    ],
+    "unit_type": "Jump pack, Monstrous infantry ",
+    "is_monster": false,
+    "keywords": []
+}

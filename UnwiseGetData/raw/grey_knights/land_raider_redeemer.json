@@ -1,0 +1,157 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Land Raider Redeemer",
+        "12\"",
+        "-",
+        "3+",
+        7,
+        14,
+        14,
+        14,
+        4,
+        1,
+        4,
+        385
+    ],
+    [
+        "A Land Raider Redeemer is equipped with: 2 Flamestorm cannons; Twin assault cannon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Flamestorm cannon",
+        "12\"",
+        "Heavy 6",
+        6,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin assault cannon",
+        "24\"",
+        "Heavy 8",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twin heavy psycannon",
+        "24\"",
+        "Heavy 4",
+        8,
+        -3,
+        2,
+        "Armor piercing(5+), AT(2), Shield breaker(-1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can replace the Twin assault cannon:"
+    ],
+    [
+        "- Twin heavy psycannon",
+        "+0 points"
+    ],
+    [
+        "\u2022 Can be equipped with a Multi-melta for +37 points."
+    ],
+    [
+        "\u2022 Can be equipped with an additional Storm bolter for +11 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Aegis(5+), Shrouding"
+    ],
+    [
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit."
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude."
+    ],
+    [
+        "Transport: This model has a transport capacity of 12 infantry models."
+    ],
+    [
+        "Name:",
+        "Fortitude"
+    ],
+    [
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self"
+    ],
+    [
+        "Cast value:",
+        5
+    ],
+    [
+        "Effect:",
+        "The target unit removes one \"Crew shaken\" vehicle damage result."
+    ],
+    [
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

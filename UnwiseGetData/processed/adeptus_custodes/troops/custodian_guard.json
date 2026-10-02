@@ -17,12 +17,12 @@
             "name": "Custodian Guard",
             "min": 3,
             "max": 10,
-            "points": 72
+            "points": 73
         }
     ],
-    "min_cost": 216,
+    "min_cost": 219,
     "default_size": 3,
-    "equipped_with": "All models are equipped with: Bolt caster; Guardian spear.",
+    "equipped_with": "All models are equipped with: Bolt caster; Frag grenades; Guardian spear; Melta bombs.",
     "weapons": [
         {
             "name": "Adrathic destructor",
@@ -43,6 +43,15 @@
             "abilities": "-"
         },
         {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
             "name": "Guardian spear",
             "range": "-",
             "type": "Melee",
@@ -59,6 +68,15 @@
             "ap": "-5",
             "d": "1",
             "abilities": "AT(1), Beam, Melta"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
         },
         {
             "name": "Sentinel blade",

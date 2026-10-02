@@ -1,0 +1,153 @@
+{
+    "name": "Pathfinder Team",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Pathfinder",
+            "min": 4,
+            "max": 9,
+            "points": 26
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Pathfinder Shas'la",
+            "min": 1,
+            "max": 1,
+            "points": 26
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Pathfinder Shas'ui",
+            "min": 0,
+            "max": 1,
+            "points": 31
+        }
+    ],
+    "min_cost": 130,
+    "default_size": 5,
+    "equipped_with": "All models are equipped with: Markerlight; Photon grenades; Pulse carbine; Pulse pistol.",
+    "weapons": [
+        {
+            "name": "Ion rifle - Standard",
+            "range": "30\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Ion rifle - Overcharged",
+            "range": "30\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Markerlight",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "*",
+            "ap": "*",
+            "d": "*",
+            "abilities": "Markerlight"
+        },
+        {
+            "name": "Photon grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blind"
+        },
+        {
+            "name": "Pulse carbine",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Pulse pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Rail rifle",
+            "range": "30\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Semi-automatic grenade launcher - Fusion grenade",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane"
+        },
+        {
+            "name": "Semi-automatic grenade launcher - EMP grenade",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Haywire"
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Supporting Fire, Vanguard"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,47 @@
+{
+    "name": "Solitaire",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "7",
+                "A": "5",
+                "LD": "10",
+                "SV": "6+"
+            },
+            "name": "Solitaire",
+            "min": 1,
+            "max": 1,
+            "points": 94
+        }
+    ],
+    "min_cost": 94,
+    "default_size": 1,
+    "equipped_with": "A Solitaire is equipped with: Solitaire weapons.",
+    "weapons": [
+        {
+            "name": "Solitaire weapons",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Deadly(5+), Precision(4+)"
+        }
+    ],
+    "abilities": [
+        "Anti-grav, Deep strike, Deflect, Fearless, Parry, Terrifying(-1), <Harlequins>",
+        "Blitz: Once per battle you can make a Blitz move. Add 1D6\" to the Charge and Attack characteristics until the end of this turn.",
+        "Holo-suit: The model gains a 4+ ward save.",
+        "Impossible Form: The model can't be targeted by anything outside of 18\".",
+        "Path of Damnation: The model can never be joined by other units."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

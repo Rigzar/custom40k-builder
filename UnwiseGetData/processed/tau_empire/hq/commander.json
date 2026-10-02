@@ -1,0 +1,150 @@
+{
+    "name": "Commander",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "4",
+                "I": "3",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Shas'el Commander",
+            "min": 1,
+            "max": 1,
+            "points": 86
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "4",
+                "I": "3",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Shas'o Commander",
+            "min": 0,
+            "max": 1,
+            "points": 101
+        }
+    ],
+    "min_cost": 86,
+    "default_size": 1,
+    "equipped_with": "A Shas'el is a single character model and equipped with: -.",
+    "weapons": [
+        {
+            "name": "Airbursting fragmentation projector",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(6), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Burst cannon",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Cyclic ion blaster\u02e3 - Standard",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Cyclic ion blaster\u02e3 - Overcharged",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Fusion blaster",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
+        {
+            "name": "High-intensity plasma rifle\u02e3",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "High-output burst cannon\u02e3",
+            "range": "18\"",
+            "type": "Rapid Fire 5",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Missile pod",
+            "range": "30\"",
+            "type": "Assault 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Anti-Air"
+        },
+        {
+            "name": "Plasma rifle",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "\u02e3 = Experimental weapons are unique"
+        }
+    ],
+    "abilities": [
+        "Supporting Fire",
+        "Crisis bodyguard: The Commander may join a unit of Crisis Honor Guard.",
+        "Shas'o Commander: The model may select another unit during each Reinforcement phase. The target gains the same ability to move 1D6\" after shooting until the end of the current Battle round.",
+        "Tactical Acumen: The model and its attached unit may make a 1D6\" move after they have used their ranged weapons. Can not be used with a Charge command."
+    ],
+    "unit_type": "Jump pack, Monstrous Infantry",
+    "is_monster": false,
+    "keywords": []
+}

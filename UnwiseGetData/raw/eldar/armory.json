@@ -1,0 +1,800 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS PSYKER",
+        "POINTS AUTARCH"
+    ],
+    [
+        "Aeldari missile launcher *",
+        "-",
+        51
+    ],
+    [
+        "- Sunburst",
+        "48\"",
+        "Heavy 1",
+        4,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Starshot",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "Avenger shuriken catapult",
+        "18\"",
+        "Assault 3",
+        4,
+        -1,
+        1,
+        "Shuriken",
+        18
+    ],
+    [
+        "Banshee blade",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "-",
+        "-",
+        6
+    ],
+    [
+        "Biting blade",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Extra Attack(3)",
+        "-",
+        8
+    ],
+    [
+        "Death spinner",
+        "12\"",
+        "Assault 2",
+        6,
+        0,
+        1,
+        "Armor piercing(5+), Monofilament, Suppression(2)",
+        "-",
+        8
+    ],
+    [
+        "Diresword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Deadly(5+)",
+        "-",
+        5
+    ],
+    [
+        "Dragon fusion gun",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "Armorbane, AT(2)",
+        "-",
+        43
+    ],
+    [
+        "Dragon's breath flamer",
+        "12\"",
+        "Assault 4",
+        6,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)",
+        "-",
+        13
+    ],
+    [
+        "Executioner",
+        "-",
+        "Melee",
+        "+2",
+        -4,
+        2,
+        "Unwieldy",
+        "-",
+        13
+    ],
+    [
+        "Firepike",
+        "18\"",
+        "Assault 1",
+        8,
+        -5,
+        3,
+        "Armorbane, AT(4)",
+        "-",
+        66
+    ],
+    [
+        "Fusion pistol",
+        "6\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta",
+        8,
+        10
+    ],
+    [
+        "Hawk's talon",
+        "24\"",
+        "Assault 3",
+        5,
+        -1,
+        1,
+        "Precision(5+)",
+        "-",
+        23
+    ],
+    [
+        "Haywire grenade",
+        "6\"",
+        "Grenade 1",
+        3,
+        0,
+        1,
+        "AT(2), Haywire",
+        5,
+        5
+    ],
+    [
+        "Lasblaster",
+        "24\"",
+        "Assault 3",
+        4,
+        -1,
+        1,
+        "Precision(5+)",
+        "-",
+        20
+    ],
+    [
+        "Laser lance",
+        "Only for models on a Jetbike",
+        "-",
+        14
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "Charge, Quick(+1)"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "- Ranged",
+        "6\"",
+        "Pistol 1",
+        6,
+        3,
+        1,
+        "-"
+    ],
+    [
+        "Mirrorswords",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "Extra Attack(2), Unwieldy",
+        "-",
+        8
+    ],
+    [
+        "Paragon sabre",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Extra Attack(1)",
+        "-",
+        6
+    ],
+    [
+        "Power glaive",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Quick(+1)",
+        "-",
+        6
+    ],
+    [
+        "Powerblades",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(2), Shred, Unwieldy",
+        "-",
+        8
+    ],
+    [
+        "Prism rifle",
+        "-",
+        9
+    ],
+    [
+        "- Dispersed",
+        "12\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "- Focused",
+        "18\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "Beam"
+    ],
+    [
+        "Reaper missile launcher *",
+        "-",
+        102
+    ],
+    [
+        "- Sunburst",
+        "48\"",
+        "Heavy 2",
+        4,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Starshot",
+        "48\"",
+        "Heavy 2",
+        8,
+        -3,
+        2,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "Scorpion chainsword",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Extra Attack(1)",
+        "-",
+        5
+    ],
+    [
+        "Scorpion claw",
+        "-",
+        18
+    ],
+    [
+        "- Melee",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "Slow(-1)"
+    ],
+    [
+        "- Shooting",
+        "12\"",
+        "Pistol 2",
+        4,
+        -1,
+        1,
+        "Shuriken"
+    ],
+    [
+        "Shuriken cannon",
+        "24\"",
+        "Heavy 3",
+        6,
+        -1,
+        1,
+        "Shuriken",
+        "-",
+        25
+    ],
+    [
+        "Shuriken pistol",
+        "12\"",
+        "Assault 1",
+        4,
+        -1,
+        1,
+        "Shuriken",
+        3,
+        3
+    ],
+    [
+        "Singing spear",
+        17,
+        "-"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Armorbane, AT(2), Force weapon, Poison(2+)"
+    ],
+    [
+        "- Shooting",
+        "12\"",
+        "Pistol 1",
+        "U",
+        -3,
+        1,
+        "Armorbane, AT(2), Force weapon, Poison(2+)"
+    ],
+    [
+        "Star lance",
+        "Only for models on a Jetbike",
+        "-",
+        21
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+5",
+        -4,
+        2,
+        "AT(2), Charge, Quick(+1)"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "AT(2), Unwieldy"
+    ],
+    [
+        "- Ranged",
+        "6\"",
+        "Pistol 1",
+        8,
+        -4,
+        1,
+        "AT(2)"
+    ],
+    [
+        "Tempest launcher",
+        "36\"",
+        "Heavy 1",
+        4,
+        -2,
+        1,
+        "Blast(6), Indirect fire, Suppression(3)",
+        "-",
+        40
+    ],
+    [
+        "Triskele",
+        "-",
+        22
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "- Shooting",
+        "12\"",
+        "Pistol 3",
+        5,
+        -4,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twilight spear",
+        "-",
+        23
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "Unwieldy"
+    ],
+    [
+        "- Shooting",
+        "18\"",
+        "Pistol 1",
+        6,
+        -4,
+        2,
+        "Beam"
+    ],
+    [
+        "Twin Avenger shuriken catapult",
+        "18\"",
+        "Assault 6",
+        4,
+        -2,
+        1,
+        "Shuriken",
+        "-",
+        45
+    ],
+    [
+        "Twin shuriken catapult",
+        "18\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Shuriken",
+        "-",
+        13
+    ],
+    [
+        "Witchblade",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Force weapon, Poison(2+)",
+        8,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS PSYKER",
+        "POINTS AUTARCH"
+    ],
+    [
+        "Aspect armor",
+        "The model gains a 5+ ward save.",
+        "-",
+        12
+    ],
+    [
+        "Crystal body",
+        "The model gains +1 Toughness. Unique.",
+        1,
+        "-"
+    ],
+    [
+        "Eldar jetbike",
+        "The model gains +6\" Movement, +1 Toughness, +1 Wound, a twin shuriken catapult and the ability \"Jet bike\". Only for infantry.",
+        37,
+        41
+    ],
+    [
+        "Faolchu's wings",
+        "The model gains +6\" Movement and the ability \"Jump pack\". Additionally, it gains the \"Sky Dive\" ability (see Swooping Hawks). Only for infantry.",
+        11,
+        13
+    ],
+    [
+        "Fire blade",
+        "One melee weapon of the model gains Precision(5+) and cumulative -2 AP. Unique. Can't be combined with other blades.",
+        5,
+        5
+    ],
+    [
+        "Forcefield",
+        "The model gains a 4+ ward save.",
+        "-",
+        17
+    ],
+    [
+        "Ghosthelm",
+        "The model ignores the first Perils of the warp attack of the game.",
+        5,
+        "-"
+    ],
+    [
+        "Heavy armor plating",
+        "The model gains a 3+ save.",
+        "-",
+        12
+    ],
+    [
+        "Mandiblaster",
+        "During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1.",
+        "-",
+        2
+    ],
+    [
+        "Marksman honours",
+        "The model gains +1 Ballistic skill.",
+        4,
+        5
+    ],
+    [
+        "Master-crafted weapon",
+        "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        2,
+        2
+    ],
+    [
+        "Paragon of fate",
+        "The model gains +1 Toughness, Wounds and Attacks. The model and its attached unit may re-roll any single die per activation. Unique.",
+        20,
+        "-"
+    ],
+    [
+        "Paragon of war",
+        "The model gains +1 Strength, Toughness, Wounds and Attacks. It can chose a single Exarch power. Unique.",
+        "-",
+        17
+    ],
+    [
+        "Phoenix gem",
+        "Roll a die the first time the model is eliminated: \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound. \n5,6 - Set it up again with 2 wounds. Unique.",
+        15,
+        15
+    ],
+    [
+        "Psychic mastery",
+        "The models gains +1 to all tests for manifesting a psychic power.",
+        5,
+        "-"
+    ],
+    [
+        "Psychic training",
+        "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        5,
+        "-"
+    ],
+    [
+        "Rune armor",
+        "The model gains a 4+ ward save.",
+        17,
+        "-"
+    ],
+    [
+        "Runes of warding",
+        "Add +1 to rolls to deny enemy psychic powers.",
+        5,
+        "-"
+    ],
+    [
+        "Shrine relic",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "-",
+        10
+    ],
+    [
+        "Spirit stones",
+        "The model can manifest and deny an additional psychic power per turn.",
+        5,
+        "-"
+    ],
+    [
+        "Spiritseeker array",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Swordsman honours",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "Vaul's cuirass",
+        "The model gains a 2+ save.",
+        22,
+        23
+    ],
+    [
+        "Warp jump generator",
+        "The model gains +6\" Movement and the ability \"Jump pack\". Additionally, it gains the \"Shunting\" ability (see Warp Spiders). Only for infantry.",
+        11,
+        13
+    ],
+    [
+        "Webway beacon",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        10,
+        10
+    ],
+    [
+        "EXARCH POWERS",
+        "POINTS"
+    ],
+    [
+        "Bladestorm",
+        "The model and its unit trigger the \"Shuriken\" special rule on each to wound roll.",
+        5
+    ],
+    [
+        "Burning heat",
+        "Ranged weapons of the model gain an additional -1 AP against units in cover.",
+        5
+    ],
+    [
+        "Crack shot",
+        "One ranged weapon of the model gets the \"Seeking\" ability each round.",
+        5
+    ],
+    [
+        "Crushing blows",
+        "The model may re-roll one to wound or armor penetration roll in melee.",
+        5
+    ],
+    [
+        "Defensive stance",
+        "The model may use Defensive fire twice when getting charged.",
+        5
+    ],
+    [
+        "Dragon's bite",
+        "Ranged weapons of the model gain a cumulative AT(1).",
+        5
+    ],
+    [
+        "Graceful avoidance",
+        "The model and its unit got a 4+ ward save against melee attacks.",
+        5
+    ],
+    [
+        "Heartstrike",
+        "Melee attacks of the model gain Deadly(5+). If the model already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
+        5
+    ],
+    [
+        "Lightning attacks",
+        "The model and its unit may consolidate 6\" after winning a melee combat. If it consolidates into an enemy unit, that unit may not use Defensive Fire.",
+        5
+    ],
+    [
+        "Piercing strike",
+        "Melee attacks of the model gain Armor piercing(5+).                                                                                  ",
+        5
+    ],
+    [
+        "Rapid redeployment",
+        "The model and its unit gain the \"Hit & Run\" ability.",
+        5
+    ],
+    [
+        "Reaper's reach",
+        "Ranged weapons of the model and its attached unit gain +6\" range.",
+        5
+    ],
+    [
+        "Scorpion's sting",
+        "Melee attacks of the model gain Precision(5+).                                                                                  ",
+        5
+    ],
+    [
+        "Skyhunter",
+        "All ranged weapons of the model gain Anti-Air.",
+        5
+    ],
+    [
+        "Stand firm",
+        "The model and its unit gain the \"Objective secured!\" ability.",
+        5
+    ],
+    [
+        "Surprise assault",
+        "If the model used the \"Shunting\" ability this round, it may shoot one additional time with each equipped Death spinner. If the model used the \"Sky dive\" ability this round, it doubles their shots with a Hawk's talon or Lasblaster.",
+        5
+    ],
+    [
+        "Every Exarch power is unique."
+    ],
+    [
+        "VEHICLE EQUIPMENT ",
+        "POINTS"
+    ],
+    [
+        "Crystal targeting matrix",
+        "The model ignores negative to hit modifiers from equipment or abilities.",
+        5
+    ],
+    [
+        "Ghostwalk matrix",
+        "The model gains \"Move through cover\".",
+        2
+    ],
+    [
+        "Holo-field",
+        "Roll one die for each glancing and penetrating hit against the model. You may substitute one of the following vehicle damage results with your own roll.",
+        10
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ],
+    [
+        "Spirit stones",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Star engines",
+        "The model gains the \"Fast\" ability.",
+        5
+    ],
+    [
+        "Veilfield array",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.\n",
+        15
+    ]
+]

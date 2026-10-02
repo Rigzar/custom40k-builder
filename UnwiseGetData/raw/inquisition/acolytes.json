@@ -1,0 +1,74 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-12",
+        "Acolyte",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        2,
+        3,
+        1,
+        7,
+        "5+",
+        12
+    ],
+    [
+        "Every model is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models got access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

@@ -1,0 +1,64 @@
+{
+    "name": "Grotesques",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "10",
+                "SV": "6+"
+            },
+            "name": "Grotesque",
+            "min": 3,
+            "max": 10,
+            "points": 36
+        }
+    ],
+    "min_cost": 108,
+    "default_size": 3,
+    "equipped_with": "Every model is equipped with: Flesh gauntlet; Monstrous cleaver.",
+    "weapons": [
+        {
+            "name": "Flesh gauntlet",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Deadly(5+), Extra Attack(1), Limit(1), Poison(2+)"
+        },
+        {
+            "name": "Monstrous cleaver",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Liquifier gun",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "abilities": [
+        "Massive(1), Power through Pain",
+        "Transformed shape: The unit starts with a \"Power through Pain\" token."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Coven"
+    ]
+}

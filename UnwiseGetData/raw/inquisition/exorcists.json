@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Exorcist",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        2,
+        3,
+        1,
+        7,
+        "5+",
+        22
+    ],
+    [
+        "Every model is equipped with: Chainsword; Las pistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command Squad, Squadron"
+    ],
+    [
+        "Aura of Faith: While an Exorcist is alive, the unit gains a 6+ ward save against melee weapons. If two are alive, they gain a 5+ ward save instead."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

@@ -1,0 +1,104 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        2,
+        "Geminae Superia",
+        "12\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        1,
+        4,
+        2,
+        8,
+        "2+",
+        43
+    ],
+    [
+        "Every model is equipped with: Bolt pistol; Frag grenades; Krak grenades; Power sword."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every Living Saint, the army may include one Geminae Superia unit that does not take up an HQ slot."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Bodyguard, Command Squad, Shield of Faith"
+    ],
+    [
+        "Bound by Faith: The models have to start the game as a unit together with the Living Saint and may not voluntarily leave the unit. They do not pay points for any army traits."
+    ],
+    [
+        "Saintly Visage: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry, Jump pack infantry"
+    ]
+]
