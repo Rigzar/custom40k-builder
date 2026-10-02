@@ -39,7 +39,7 @@
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Ammo(1), Blast(6), Bomb, Suppression(3)"
+      "abilities": "Bomb, Blast(6), Suppression(3)"
     },
     {
       "name": "Seeker missile",

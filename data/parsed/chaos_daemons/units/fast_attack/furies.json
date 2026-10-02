@@ -33,7 +33,35 @@
       "abilities": "-"
     }
   ],
-  "option_groups": [],
+  "option_groups": [
+    {
+      "header": "All models may receive a Mark of Chaos (points per model)",
+      "constraint": {
+        "type": "mark"
+      },
+      "choices": [
+        {
+          "name": "Khorne",
+          "points": 1
+        },
+        {
+          "name": "Slaanesh",
+          "points": 1
+        },
+        {
+          "name": "Nurgle",
+          "points": 1
+        },
+        {
+          "name": "Tzeentch",
+          "points": 3
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
   "abilities": [
     "Deepstrike, Daemon, Daemonic instability, Terrifying(-1)",
     "Prey on the weak: Everytime an enemy unit within 12\" fails a Leadership test, one model of the unit is slain. Character models and Monstrous Creatures are unaffected."

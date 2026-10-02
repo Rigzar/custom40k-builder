@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Blade Champion",
-      "points": 125,
+      "points": 121,
       "min": 1,
       "max": 1,
       "stats": {
@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Blade Champion is equipped with: Vaultswords.",
+  "equipped_with": "A Blade Champion is equipped with: Frag grenades; Melta bombs; Vaultswords.",
   "weapons": [
     {
       "name": "Vaultswords",
@@ -31,6 +31,24 @@
       "ap": "-3",
       "d": "2",
       "abilities": "-"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Melta bomb",
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane, AT(3)"
     }
   ],
   "option_groups": [],
@@ -55,5 +73,5 @@
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 125
+  "min_cost": 121
 }

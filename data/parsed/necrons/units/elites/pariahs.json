@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Pariah",
-      "points": 52,
+      "points": 56,
       "min": 4,
       "max": 10,
       "stats": {
@@ -44,7 +44,7 @@
   ],
   "option_groups": [],
   "abilities": [
-    "Psionic Abomination: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+    "Blank, Deflect, Parry"
   ],
   "unit_type": "Infantry",
   "keywords": [],
@@ -61,5 +61,5 @@
   "advisor": false,
   "slot": "Elites",
   "default_size": 4,
-  "min_cost": 208
+  "min_cost": 224
 }

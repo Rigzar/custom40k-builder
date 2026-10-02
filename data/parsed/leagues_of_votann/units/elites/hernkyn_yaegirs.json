@@ -85,7 +85,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     },
     {
       "name": "Plasma knife",
@@ -154,7 +154,7 @@
   "abilities": [
     "Eye of the Ancestors, Infiltrator, Steady Advance, Use cover, Void armor"
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Infantry, Sniper: Models with a Magna-coil rifle receive a +1 bonus to their BS value.",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

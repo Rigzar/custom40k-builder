@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Aquilon Custodian",
-      "points": 143,
+      "points": 147,
       "min": 3,
       "max": 6,
       "stats": {
@@ -130,5 +130,5 @@
   "advisor": false,
   "slot": "Elites",
   "default_size": 3,
-  "min_cost": 429
+  "min_cost": 441
 }

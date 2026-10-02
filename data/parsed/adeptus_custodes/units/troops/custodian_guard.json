@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Custodian Guard",
-      "points": 72,
+      "points": 73,
       "min": 3,
       "max": 10,
       "stats": {
@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "All models are equipped with: Bolt caster; Guardian spear.",
+  "equipped_with": "All models are equipped with: Bolt caster; Frag grenades; Guardian spear; Melta bombs.",
   "weapons": [
     {
       "name": "Adrathic destructor",
@@ -67,6 +67,24 @@
       "ap": "-3",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Melta bomb",
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane, AT(3)"
     }
   ],
   "option_groups": [
@@ -130,5 +148,5 @@
   "advisor": false,
   "slot": "Troops",
   "default_size": 3,
-  "min_cost": 216
+  "min_cost": 219
 }

@@ -138,7 +138,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+      "abilities": "Armor piercing(5+), Suppression(6)"
     }
   ],
   "option_groups": [
@@ -209,7 +209,9 @@
       "per_model": true
     }
   ],
-  "abilities": [],
+  "abilities": [
+    "Sniper: Models equipped with a Sniper rifle get a +1 bonus to their BS."
+  ],
   "unit_type": "Infantry",
   "keywords": [],
   "is_vehicle": false,

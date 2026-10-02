@@ -82,7 +82,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Gaze Into The Future',
       type: 'Augmentation', range: '-', target: 'Self',
       cast_value: '8', duration: 'Until the caster\'s next activation', complexity: 'Basic',
-      effect: 'The target may re-roll all rolls.',
+      effect: 'Roll 3D6 and set the results aside. You may substitute any one of these results for a roll made by the caster, its attached unit, or an enemy unit it is interacting with.',
     },
   ],
   'Pyromancy': [
@@ -107,8 +107,8 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Inferno',
       type: 'Malediction', range: '24"', target: 'Terrain piece',
-      cast_value: '6', duration: 'Until the end of the game', complexity: 'Normal',
-      effect: 'The terrain piece becomes dangerous terrain.',
+      cast_value: '6', duration: 'Instant', complexity: 'Normal',
+      effect: 'The target must make a dangerous terrain test. If it was standing inside or on a terrain piece, the terrain becomes dangerous terrain until the end of the game.',
     },
     {
       name: 'Magma Beam',
@@ -134,7 +134,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Telekinetic Push',
       type: 'Witchfire', range: '18"', target: 'Enemy unit',
       cast_value: '5', duration: 'Instant', complexity: 'Normal',
-      effect: 'The target is pushed 1D6" away from the caster in a straight line.',
+      effect: 'The target is pushed 2D3" away from the caster in a straight line.',
     },
     {
       name: 'Force Field',
@@ -145,7 +145,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Levitation',
       type: 'Augmentation', range: '12"', target: 'Friendly unit',
-      cast_value: '5', duration: 'Until the caster\'s next activation', complexity: 'Basic',
+      cast_value: '6', duration: 'Until the caster\'s next activation', complexity: 'Basic',
       effect: 'The target gains +2" Movement (to a maximum of 12") and the "Anti-Grav" ability.',
     },
     {
@@ -157,7 +157,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Psionic Storm',
       type: 'Witchfire', range: '18"', target: 'Enemy unit',
-      cast_value: '7', duration: 'Instant', complexity: 'Complex',
+      cast_value: '7', duration: 'Instant', complexity: 'Normal',
       effect: 'The target suffers one automatic hit with Strength: 9 AP: -3 D: 1; AT(2), Blast(6), Seeking, Suppression(3).',
     },
   ],
@@ -184,7 +184,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Psychic Shriek',
       type: 'Witchfire', range: '12"', target: 'Enemy unit (Creature)',
       cast_value: '6', duration: 'Instant', complexity: 'Normal',
-      effect: 'Roll 3D6 and subtract the target\'s Leadership. If the result is >0, the target suffers 1 Mortal Wound and gains a Battleshock token.',
+      effect: 'Roll 3D6 and substract the target\'s Leadership. If the result is >0, the target suffers 1 Mortal Wound and gains a Battleshock token.',
     },
     {
       name: 'Dominate',

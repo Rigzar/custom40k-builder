@@ -51,15 +51,15 @@
       "choices": [
         {
           "name": "Bloodswarm Scarabs",
-          "points": 5
+          "points": 3
         },
         {
           "name": "Flensing Scarabs",
-          "points": 5
+          "points": 3
         },
         {
           "name": "Frenzied Scarabs",
-          "points": 5
+          "points": 3
         }
       ],
       "inline_pts": null,

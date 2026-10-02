@@ -24,7 +24,9 @@ export const CUSTODES_SPECIAL_ABILITIES: CustodesSpecialAbilityEntry[] = [
       'in the same table quarter and hold a mission objective while being within 12" of it, ' +
       'instead of the regular 3". Additionally, the model gains \'Objective secured!\'. ' +
       'Additionally, if the model would gain two Battleshock tokens, it instead is set to one ' +
-      'token. Additionally, all attacks gain \'Precision(5+)\'." The defining Custodes army-wide ' +
+      'token. Additionally, if the model would lose a Melee combat, the result is changed to a draw. ' +
+      'Additionally, the model may never receive the "Escape" order or "Take Cover" Meta order. ' +
+      'Additionally, all attacks gain \'Precision(5+)\'." The defining Custodes army-wide ' +
       'rule.',
   },
   {

@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Destroyer",
-      "points": 50,
+      "points": 53,
       "min": 3,
       "max": 6,
       "stats": {
@@ -66,7 +66,7 @@
   ],
   "abilities": [
     "Infiltrator, Massive(1), Parry, Reanimation Protocols",
-    "Tunneling Horrors: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
+    "Tunneling Horrors: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
   ],
   "unit_type": "Jump Pack Infantry, Necron",
   "keywords": [],
@@ -83,5 +83,5 @@
   "advisor": false,
   "slot": "Fast Attack",
   "default_size": 3,
-  "min_cost": 156
+  "min_cost": 165
 }

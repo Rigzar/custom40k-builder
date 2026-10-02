@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Venatari Custodian",
-      "points": 75,
+      "points": 77,
       "min": 3,
       "max": 6,
       "stats": {
@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "All models are equipped with: Venatari lance.",
+  "equipped_with": "All models are equipped with: Frag grenades; Melta bombs; Venatari lance.",
   "weapons": [
     {
       "name": "Kinetic destroyer",
@@ -58,6 +58,24 @@
       "ap": "-2",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Melta bomb",
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane, AT(3)"
     }
   ],
   "option_groups": [
@@ -101,5 +119,5 @@
   "advisor": false,
   "slot": "Fast Attack",
   "default_size": 3,
-  "min_cost": 225
+  "min_cost": 231
 }

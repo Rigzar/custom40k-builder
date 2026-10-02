@@ -1444,19 +1444,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Cadre: 1 Ghostkeel Battlesuits per 6 Stealth Shas'ui/Shas've models). troopsRemap already
     // lets cappedUnit count as Troops unconditionally; this adds the ratio ceiling as an error.
     if (rule.troopsModelRatioCap) {
-      const { sourceUnits, modelsPerUnit, cappedUnit } = rule.troopsModelRatioCap;
-      let sourceModels = 0;
+      const { sourceUnits, modelsPerUnit, cappedUnit, also = [] } = rule.troopsModelRatioCap;
+      const groups = [{ sourceUnits, modelsPerUnit }, ...also];
+      const modelsByGroup = groups.map(() => 0);
       let cappedCount = 0;
       for (const item of state.army) {
         if (item.factionSource) continue;
-        if (sourceUnits.includes(item.unitName)) sourceModels += item.size;
+        const gi = groups.findIndex(g => g.sourceUnits.includes(item.unitName));
+        if (gi >= 0) modelsByGroup[gi] += item.size;
         else if (item.unitName === cappedUnit) cappedCount++;
       }
-      const allowed = Math.floor(sourceModels / modelsPerUnit);
+      const allowed = groups.reduce((s, g, i) => s + Math.floor(modelsByGroup[i] / g.modelsPerUnit), 0);
+      const sourceModels = modelsByGroup.reduce((s, n) => s + n, 0);
       if (cappedCount > allowed) {
         items.push({
           type: 'error',
-          text: T('valArchetypeTroopsModelRatioCap', { archetype: cleanArchetypeName(state.archetype), allowed, cappedUnit, have: cappedCount, sourceModels, sourceUnits: sourceUnits.join('/'), modelsPerUnit }),
+          text: T('valArchetypeTroopsModelRatioCap', {
+            archetype: cleanArchetypeName(state.archetype), allowed, cappedUnit, have: cappedCount, sourceModels,
+            sourceUnits: groups.flatMap(g => g.sourceUnits).join('/'), modelsPerUnit: groups.map(g => g.modelsPerUnit).join('/'),
+          }),
         });
       }
     }

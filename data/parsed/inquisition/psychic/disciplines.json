@@ -100,7 +100,7 @@
       "cast_value": "5",
       "effect": "Both the caster and the target roll a D6 and add their respective Leadership values. If the target's total is greater than the caster's total, nothing happens. If the Psyker's total is greater than or equal to the target's total, the target model suffers a -3 penalty to its Leadership.",
       "duration": "Until the end of the game",
-      "complexity": "Basic"
+      "complexity": "Normal"
     },
     {
       "name": "Divine Pronouncement",

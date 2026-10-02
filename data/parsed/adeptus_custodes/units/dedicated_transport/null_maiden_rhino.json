@@ -1,9 +1,9 @@
 {
-  "name": "Rhino",
+  "name": "Null-Maiden Rhino",
   "models": [
     {
       "name": "Rhino",
-      "points": 112,
+      "points": 124,
       "min": 1,
       "max": 1,
       "stats": {
@@ -46,8 +46,7 @@
     }
   ],
   "abilities": [
-    "Fire hatches(2)",
-    "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\".",
+    "Anti-Grav, Blank, Fire hatches(2)",
     "Transport: This model has a transport capacity of 10 infantry models, excluding \"Massive\" models."
   ],
   "unit_type": "Vehicle",
@@ -65,5 +64,5 @@
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 112
+  "min_cost": 124
 }

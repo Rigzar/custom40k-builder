@@ -201,9 +201,12 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Windhost': fastArchetype(['Windriders']),
 
   'Wraithhost': { ...BASE,
-    troopsRemap: ['Wraithblades', 'Wraithguard'], demoteOtherTroops: true,
+    troopsRemap: ['Wraithblades', 'Wraithguard', 'Wraithlord'], demoteOtherTroops: true,
+    // October 2026: "For every 4 Wraithblade or every 3 Wraithguard models, one Wraithlord unit can be taken as Troops."
+    troopsModelRatioCap: { sourceUnits: ['Wraithblades'], modelsPerUnit: 4, cappedUnit: 'Wraithlord', also: [{ sourceUnits: ['Wraithguard'], modelsPerUnit: 3 }] },
     notes: [
       'Wraithblades and Wraithguard count as Troops.',
+      'For every 4 Wraithblade or every 3 Wraithguard models, one Wraithlord unit counts as Troops.',
       'Non-Wraith Troops are moved to the Elites slot.',
     ],
   },

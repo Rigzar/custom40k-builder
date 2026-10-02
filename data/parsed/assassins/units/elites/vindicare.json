@@ -30,7 +30,7 @@
       "s": "4",
       "ap": "-4",
       "d": "3",
-      "abilities": "Poison(2+)"
+      "abilities": "Poison(2+), Sniper"
     },
     {
       "name": "Exitus rifle - Hellfire",
@@ -39,7 +39,7 @@
       "s": "4",
       "ap": "-4",
       "d": "3",
-      "abilities": "Poison(2+), Sunder(2), Suppression(6)"
+      "abilities": "Poison(2+), Sniper, Sunder(2), Suppression(6)"
     },
     {
       "name": "Exitus rifle - Turbo penetrator",
@@ -48,7 +48,7 @@
       "s": "8",
       "ap": "-5",
       "d": "4",
-      "abilities": "Armorbane, AT(3)"
+      "abilities": "Armorbane, AT(3), Sniper"
     }
   ],
   "option_groups": [],
@@ -56,6 +56,7 @@
     "Deep Strike, Deflect, Hit & Run, Infiltrator, Move through cover, Parry",
     "Headshot: If an enemy model suffers a wound from the Exitus rifle or pistol but is not eliminated, roll 1D6. On a 3+ the model suffers one Mortal Wound.",
     "Lightning reflexes: The model gains a 4+ ward save.",
+    "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls.",
     "Perfect aim: The model ignores any negative to hit modifications. The player may chose which model in the target unit has to be removed as a casualty.",
     "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
     "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."

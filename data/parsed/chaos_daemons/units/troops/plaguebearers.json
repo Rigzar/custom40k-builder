@@ -85,8 +85,8 @@
   ],
   "abilities": [
     "Deepstrike, Daemon, Daemonic instability, Mark of Nurgle, Terrifying(-1)",
-    "Icon of Chaos: A friendly Daemon unit arriving within 3\" of the bearer via Deep strike does not scatter. If the arriving unit has the same Mark of Chaos as the bearer, it can instead be placed within 6\". The icon must be present on the table at the beginning of the battle round in order to be used.",
-    "Instrument of Chaos: The unit gains a bonus of +1 to Combat resolutions."
+    "Icon of Chaos: A friendly Daemon unit arriving within 3\" of the bearer via Deep strike does not scatter. If the arriving unit has the same Mark of Chaos as the bearer, it can instead be placed within 6\". Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+    "Instrument of Chaos: The unit reduces the amount of Mortal Wounds suffered from Daemonic Instability by 1."
   ],
   "unit_type": "Infantry",
   "keywords": [],

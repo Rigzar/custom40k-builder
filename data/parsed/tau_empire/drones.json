@@ -3,7 +3,18 @@
     {
       "name": "Grav Inhibitor Drone",
       "points": 10,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "-",
       "weapons": [],
       "abilities": [
@@ -15,10 +26,29 @@
     {
       "name": "Gun Drone",
       "points": 12,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "Twin pulse carbine",
       "weapons": [
-        { "name": "Twin pulse carbine", "range": "24\"", "type": "Assault 4", "s": "5", "ap": "0", "d": "1", "abilities": "Suppression(3)" }
+        {
+          "name": "Twin pulse carbine",
+          "range": "24\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression(3)"
+        }
       ],
       "abilities": [
         "Unyielding",
@@ -28,10 +58,29 @@
     {
       "name": "Marker Drone",
       "points": 10,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "Drone markerlight",
       "weapons": [
-        { "name": "Drone markerlight", "range": "18\"", "type": "Heavy 1", "s": "*", "ap": "*", "d": "*", "abilities": "Markerlight" }
+        {
+          "name": "Drone markerlight",
+          "range": "18\"",
+          "type": "Heavy 1",
+          "s": "*",
+          "ap": "*",
+          "d": "*",
+          "abilities": "Markerlight"
+        }
       ],
       "abilities": [
         "Unyielding",
@@ -41,7 +90,18 @@
     {
       "name": "Pulse Accelerator Drone",
       "points": 10,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "-",
       "weapons": [],
       "abilities": [
@@ -53,10 +113,29 @@
     {
       "name": "Recon Drone",
       "points": 16,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "Burst cannon; Target lock",
       "weapons": [
-        { "name": "Burst cannon", "range": "18\"", "type": "Rapid Fire 3", "s": "5", "ap": "-1", "d": "1", "abilities": "-" }
+        {
+          "name": "Burst cannon",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
       ],
       "abilities": [
         "Unyielding",
@@ -66,7 +145,18 @@
     {
       "name": "Shield Drone",
       "points": 20,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "-",
       "weapons": [],
       "abilities": [
@@ -78,10 +168,29 @@
     {
       "name": "Missile Drone",
       "points": 16,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "Missile pod",
       "weapons": [
-        { "name": "Missile pod", "range": "30\"", "type": "Assault 3", "s": "7", "ap": "-2", "d": "1", "abilities": "AT(1), Anti-Air" }
+        {
+          "name": "Missile pod",
+          "range": "30\"",
+          "type": "Assault 3",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1), Anti-Air"
+        }
       ],
       "abilities": [
         "Unyielding",
@@ -91,10 +200,29 @@
     {
       "name": "Sniper Drone",
       "points": 24,
-      "stats": { "M": "*", "WS": "5+", "BS": "3+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "3+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "Longshot pulse rifles",
       "weapons": [
-        { "name": "Longshot pulse rifle", "range": "48\"", "type": "Heavy 1", "s": "5", "ap": "-2", "d": "2", "abilities": "Armor piercing(5+), Suppression(6)" }
+        {
+          "name": "Longshot pulse rifle",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "5",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+        }
       ],
       "abilities": [
         "Unyielding",
@@ -105,7 +233,18 @@
     {
       "name": "Stealth Drone",
       "points": null,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "-",
       "weapons": [],
       "abilities": [
@@ -117,7 +256,18 @@
     {
       "name": "Warscaper Drone",
       "points": 5,
-      "stats": { "M": "*", "WS": "5+", "BS": "4+", "S": "3", "T": "3", "W": "1", "I": "4", "A": "1", "LD": "6", "SV": "4+" },
+      "stats": {
+        "M": "*",
+        "WS": "5+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "4",
+        "A": "1",
+        "LD": "6",
+        "SV": "4+"
+      },
       "equipped_with": "-",
       "weapons": [],
       "abilities": [

@@ -148,7 +148,7 @@
   ],
   "abilities": [
     "Anti-Grav, Battle Focus",
-    "Transport: This model has a transport capacity of 12 infantry models.",
+    "Transport: This model has a transport capacity of 12 Infantry models or 6 Monstrous Infantry models.",
     "Wave Serpent Shield: The model has a 5+ ward save."
   ],
   "unit_type": "Vehicle",

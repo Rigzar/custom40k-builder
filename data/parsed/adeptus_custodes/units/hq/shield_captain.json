@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Shield-Captain",
-      "points": 177,
+      "points": 178,
       "min": 1,
       "max": 1,
       "stats": {
@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Shield-Captain is equipped with: Relic bolt caster; Relic guardian spear.",
+  "equipped_with": "A Shield-Captain is equipped with: Frag grenades; Melta bombs; Relic bolt caster; Relic guardian spear.",
   "weapons": [
     {
       "name": "Relic balistus grenade launcher",
@@ -67,6 +67,24 @@
       "ap": "-3",
       "d": "2",
       "abilities": "-"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Melta bomb",
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane, AT(3)"
     }
   ],
   "option_groups": [
@@ -110,7 +128,22 @@
       "choices": [],
       "inline_pts": 33,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "effect": {
+        "stat_mod": [
+          {
+            "stat": "T",
+            "delta": 1
+          },
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ],
+        "grants_abilities": [
+          "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities."
+        ]
+      }
     }
   ],
   "abilities": [
@@ -133,5 +166,5 @@
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 177
+  "min_cost": 178
 }

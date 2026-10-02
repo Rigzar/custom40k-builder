@@ -331,7 +331,17 @@ export const RULES: Record<string, RuleEntry> = {
   // ── Model special rules ───────────────────────────────────────────────────
   'acute senses': {
     name: 'Acute Senses',
-    description: 'Infiltrators always have to stay 18" apart during deployment, even if there is no direct Line of Sight to this unit.',
+    description: 'Infiltrators always have to stay more than 18" away during deployment, even if there is no direct Line of Sight to this unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 12" that is deployed from reserves as if it had been given the "Stand & Shoot" order. The attack resolves after the enemy unit has been deployed and before it takes another action.',
+  },
+  // Core Rules 1.278 (October update): the Pariahs' "Psionic Abomination" became a general ability.
+  'blank': {
+    name: 'Blank',
+    description: 'Any model with this rule can never be targeted by any psychic power. Additionally, the model cannot be targeted by anything outside of 18". Additionally, all psykers within 18" suffer a -1 penalty to manifest and deny psychic powers. Additionally, all units within 12" suffer a -1 penalty to their Leadership values.',
+  },
+  // Core Rules 1.278, "Disorderly Charge": a term other rules refer to (a unit arriving from Deep Strike may only perform one).
+  'disorderly charge': {
+    name: 'Disorderly Charge',
+    description: 'Some rules refer to a unit only being able to perform a "Disorderly Charge". In this case, the unit may only select a single target for its Charge order and does not gain any Charge bonus or other benefit for charging.',
   },
   'aegis': {
     name: 'Aegis({X})',
@@ -592,7 +602,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'shield host': {
     name: 'Shield Host',
-    description: 'The model can contest a mission objective while in the same table quarter and hold one while within 12" (instead of the normal 3"). It gains "Objective secured!" and "Precision(5+)". If it would gain two Battleshock tokens, it is set to one instead.',
+    description: 'The model can contest a mission objective while in the same table quarter and hold one while within 12" (instead of the normal 3"). It gains "Objective secured!". If it would gain two Battleshock tokens, it is set to one instead. If it would lose a melee combat, the result is changed to a draw. It may never receive the "Escape" order or the "Take Cover" Meta order. All its attacks gain "Precision(5+)".',
   },
   'power through pain': {
     name: 'Power Through Pain',

@@ -243,7 +243,7 @@
       "name": "Warp amp",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "Enemy units within 12\" have -1 Ld and -2 Ld if within 6\". Cannot be taken if the model already has a Dirge Caster.",
+      "desc": "The Leadership penalty for enemy units from the Mark of Slaanesh is increased by 1.",
       "p_unit": 10
     },
     {

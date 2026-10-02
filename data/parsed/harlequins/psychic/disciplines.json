@@ -18,7 +18,7 @@
       "cast_value": "6",
       "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the target’s total is greater than the Psyker’s total, nothing happens. If the Psyker’s total is greater than or equal to the target’s total, the target model suffers one Mortal Wound. Continue this roll off until the target is dead or beats the Psyker's roll.",
       "duration": "Instant",
-      "complexity": "Basic"
+      "complexity": "Normal"
     },
     {
       "name": "Misdirection",
@@ -28,7 +28,7 @@
       "cast_value": "6",
       "effect": "The target can not be selected for a Charge command.",
       "duration": "Until the caster's next activation",
-      "complexity": "Normal"
+      "complexity": "Basic"
     },
     {
       "name": "Twilight Pathways",
@@ -38,7 +38,7 @@
       "cast_value": "6",
       "effect": "The target may immediately move up to its Movement value.",
       "duration": "Instant",
-      "complexity": "Normal"
+      "complexity": "Basic"
     },
     {
       "name": "Veil of Tears",
@@ -48,7 +48,7 @@
       "cast_value": "6",
       "effect": "The target can't selected any units outside of 18\" as its target.",
       "duration": "Until the caster's next activation",
-      "complexity": "Normal"
+      "complexity": "Basic"
     },
     {
       "name": "Shards of Light",

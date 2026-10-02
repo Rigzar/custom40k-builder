@@ -133,6 +133,33 @@
       "abilities": "Armor piercing(5+)"
     },
     {
+      "name": "Power fist",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)"
+    },
+    {
+      "name": "Power sword",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Twin bolt rifle (Assault ammo)",
+      "range": "24\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
       "name": "Twin bolt rifle (Bolt ammo)",
       "range": "30\"",
       "type": "Rapid Fire 2",
@@ -147,15 +174,6 @@
       "type": "Heavy 2",
       "s": "4",
       "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Twin bolt rifle (Assault ammo)",
-      "range": "24\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
       "d": "1",
       "abilities": "-"
     }
@@ -188,6 +206,30 @@
       "inline_pts": 10,
       "variant_link": "Veteran Outrider Sergeant",
       "is_unique_per_army": false
+    },
+    {
+      "header": "For every three models, one Outrider Marine may swap their Astartes chainsword",
+      "constraint": {
+        "type": "per_n",
+        "per_n": 3,
+        "count_per_n": 1
+      },
+      "choices": [
+        {
+          "name": "Power sword",
+          "points": 2
+        },
+        {
+          "name": "Power fist",
+          "points": 11
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Astartes chainsword"
+      ]
     }
   ],
   "abilities": [

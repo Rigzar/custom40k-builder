@@ -2553,12 +2553,20 @@
             {
               "name": "Leviathan siege claws with in-built Melta",
               "points": 33,
-              "effect": { "grants_weapons": ["Melta"] }
+              "effect": {
+                "grants_weapons": [
+                  "Melta"
+                ]
+              }
             },
             {
               "name": "Leviathan siege drill with in-built Melta",
               "points": 43,
-              "effect": { "grants_weapons": ["Melta"] }
+              "effect": {
+                "grants_weapons": [
+                  "Melta"
+                ]
+              }
             },
             {
               "name": "Quad autocannon",
@@ -3088,8 +3096,16 @@
         "armourKeyword": "Cataphractii",
         "term_compat": false,
         "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
-        "p_unit": null,
-        "p_char": 80
+        "p_unit": 44,
+        "p_char": 61
+      },
+      {
+        "name": "Saturnine armor",
+        "armourKeyword": "Saturnine",
+        "term_compat": false,
+        "desc": "The model gains +2 Toughness, +1 Wound, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(2)\" and \"Unyielding\". Only for infantry.",
+        "p_unit": 77,
+        "p_char": 96
       },
       {
         "name": "Crusade weapon",

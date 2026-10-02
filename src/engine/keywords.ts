@@ -26,7 +26,7 @@ export function stripMarkGlyph(name: string): string {
 }
 
 /** Names that denote a Terminator-class armour profile (Terminator / Cataphractii / Tartaros). */
-const TERM_ARMOUR_RE = /terminator|cataphractii|tartaros/i;
+const TERM_ARMOUR_RE = /terminator|cataphractii|saturnine|tartaros/i;
 export function isTerminatorArmourName(name: string): boolean {
   return TERM_ARMOUR_RE.test(name);
 }

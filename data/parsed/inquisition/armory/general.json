@@ -704,7 +704,7 @@
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Sniper, Suppression(6). Attacks with this weapon receive a +1 bonus to their BS value.",
+      "abilities": "Armor piercing(5+), Suppression(6). Attacks with this weapon receive a +1 bonus to their BS value.",
       "p_unit": 18,
       "p_char": 23
     }

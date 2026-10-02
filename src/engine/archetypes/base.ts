@@ -216,7 +216,15 @@ export interface ArchetypeRule {
    * than dynamically un-remapping individual entries (keeps the existing slot-membership
    * computation chain untouched).
    */
-  troopsModelRatioCap?: { sourceUnits: string[]; modelsPerUnit: number; cappedUnit: string } | null;
+  troopsModelRatioCap?: {
+    sourceUnits: string[]; modelsPerUnit: number; cappedUnit: string;
+    /**
+     * Further sources with their own ratio, ADDED to the allowance: Eldar Wraithhost's "For every
+     * 4 Wraithblade or every 3 Wraithguard models, one Wraithlord unit can be taken as Troops" is
+     * floor(blades / 4) + floor(guard / 3), not one pooled count.
+     */
+    also?: { sourceUnits: string[]; modelsPerUnit: number }[];
+  } | null;
   /**
    * Grants a free HQ slot for `unitName`, scaled by game size rather than by another unit's
    * count — e.g. Votann Hearthfyre Arsenal's "For every 500 points of game size, a single

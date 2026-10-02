@@ -51,6 +51,6 @@ export const CUSTODES_SLOTS: CustodesSlotEntry[] = [
   { name: 'Venerable Land Raider', slot: 'Heavy Support' },
 
   // --- Dedicated Transport (2) ---
-  { name: 'Rhino', slot: 'Dedicated Transport' },
+  { name: 'Null-Maiden Rhino', slot: 'Dedicated Transport' },
   { name: 'Coronus Grav-carrier', slot: 'Dedicated Transport' },
 ];

@@ -264,9 +264,9 @@
       "range": "12\" radius",
       "target": "Self",
       "cast_value": "6",
-      "effect": "Roll 1D6 for each enemy unit in range, adding +1 if the unit is a Flyer or has Anti-Grav. On a 3+, the unit suffers one Mortal Wound.",
+      "effect": "Roll 1D6 for each enemy unit in range, adding +1 if the unit has the \"Anti-Grav\" ability or is a Flyer or Jump Pack unit. On a 3+, the unit suffers one Mortal Wound.",
       "duration": "Instant",
-      "complexity": "Basic"
+      "complexity": "Normal"
     },
     {
       "name": "Lightning Call",
@@ -296,7 +296,7 @@
       "cast_value": "6",
       "effect": "The target receives a -1 penalty to their Leadership and to all hit rolls.",
       "duration": "Until the caster's next activation",
-      "complexity": "Normal"
+      "complexity": "Basic"
     },
     {
       "name": "Storm-Wreathed",
@@ -328,7 +328,7 @@
       "cast_value": "5",
       "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
       "duration": "Until the target's next activation",
-      "complexity": "Basic"
+      "complexity": "Normal"
     },
     {
       "name": "Lightning Strike",
@@ -368,7 +368,7 @@
       "cast_value": "6",
       "effect": "All models of the target suffer an automatic wound with Strength: 4 AP: 0 D: 1; Seeking. Additionally, the target gains one Battleshock token.",
       "duration": "Instant",
-      "complexity": "Basic"
+      "complexity": "Normal"
     }
   ],
   "Technomancy (Legacy)": [
@@ -442,7 +442,7 @@
       "cast_value": "5",
       "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
       "duration": "Until the target's next activation",
-      "complexity": "Basic"
+      "complexity": "Normal"
     },
     {
       "name": "Spectral Blade",

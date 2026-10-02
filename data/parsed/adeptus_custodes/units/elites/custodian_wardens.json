@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Custodian Warden",
-      "points": 73,
+      "points": 74,
       "min": 3,
       "max": 10,
       "stats": {
@@ -21,7 +21,7 @@
     }
   ],
   "variant_models": [],
-  "equipped_with": "All models are equipped with: Bolt caster; Guardian spear.",
+  "equipped_with": "All models are equipped with: Bolt caster; Frag grenades; Guardian spear; Melta bombs.",
   "weapons": [
     {
       "name": "Bolt caster",
@@ -49,6 +49,24 @@
       "ap": "-2",
       "d": "1",
       "abilities": "Quick(+1)"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)"
+    },
+    {
+      "name": "Melta bomb",
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane, AT(3)"
     }
   ],
   "option_groups": [
@@ -90,5 +108,5 @@
   "advisor": false,
   "slot": "Elites",
   "default_size": 3,
-  "min_cost": 219
+  "min_cost": 222
 }

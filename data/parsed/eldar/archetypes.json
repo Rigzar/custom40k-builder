@@ -18,7 +18,7 @@
     },
     {
       "name": "Wraithhost",
-      "desc": "- Wraithblades and Wraithguard units can be taken as Troops.\n- Non-<Wraith> Troops become Elite choices."
+      "desc": "- Wraithblades and Wraithguard units can be taken as Troops.\n- For every 4 Wraithblade or every 3 Wraithguard models, one Wraithlord unit can be taken as Troops.\n- Non-<Wraith> Troops become Elite choices."
     },
     {
       "name": "Ynnari",

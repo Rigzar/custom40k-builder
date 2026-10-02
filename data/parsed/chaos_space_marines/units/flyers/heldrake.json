@@ -99,7 +99,7 @@
     }
   ],
   "abilities": [
-    "Anti-Grav, Fast, Hover mode",
+    "Hover Mode",
     "Warpfire: All weapons with the \"Auto Hit\" ability on the model gain +6\" range (already included in the weapon's profile)."
   ],
   "unit_type": "Flyer, Vehicle",

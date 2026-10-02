@@ -3,7 +3,7 @@
   "models": [
     {
       "name": "Allarus Custodian",
-      "points": 123,
+      "points": 122,
       "min": 3,
       "max": 6,
       "stats": {
@@ -99,5 +99,5 @@
   "advisor": false,
   "slot": "Elites",
   "default_size": 3,
-  "min_cost": 369
+  "min_cost": 366
 }

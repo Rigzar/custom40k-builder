@@ -36,6 +36,6 @@ export const CUSTODES_UNIT_TYPES: CustodesUnitTypeEntry[] = [
   { name: 'Telemon Heavy Dreadnought', unit_type: 'Vehicle, Walker' },
   { name: 'Venerable Land Raider', unit_type: 'Vehicle' },
   // Dedicated Transport
-  { name: 'Rhino', unit_type: 'Vehicle' },
+  { name: 'Null-Maiden Rhino', unit_type: 'Vehicle' },
   { name: 'Coronus Grav-carrier', unit_type: 'Vehicle' },
 ];

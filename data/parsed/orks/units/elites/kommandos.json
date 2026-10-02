@@ -190,6 +190,10 @@
         {
           "name": "Rokkit launcha",
           "points": 13
+        },
+        {
+          "name": "Snipa",
+          "points": 10
         }
       ],
       "inline_pts": null,

@@ -149,7 +149,7 @@
   "abilities": [
     "Anti-Grav, Battle Focus, Deep strike",
     "Cloudstrike: The model scatters only 1D6\" when being deployed via Deep strike.",
-    "Transport: This model has a transport capacity of 6 infantry models."
+    "Transport: This model has a transport capacity of 6 Infantry models or 3 Monstrous Infantry models."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

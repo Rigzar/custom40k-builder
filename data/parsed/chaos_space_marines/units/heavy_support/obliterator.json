@@ -154,7 +154,7 @@
   ],
   "abilities": [
     "Deepstrike, Daemon, Unyielding",
-    "Fleshmetal guns: The model may not use the same ranged weapon in two consecutive battle rounds."
+    "Fleshmetal guns: The model is equipped with all ranged weapons listed above, but may not use the same ranged weapon in two consecutive battle rounds."
   ],
   "unit_type": "Monstrous Infantry",
   "keywords": [

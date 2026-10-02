@@ -46,7 +46,7 @@
     }
   ],
   "abilities": [
-    "Command squad, Deflect, Parry",
+    "Command squad, Deflect, Parry, Squadron",
     "Crusade: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
   ],
   "unit_type": "Character Model, Infantry, Squadron",

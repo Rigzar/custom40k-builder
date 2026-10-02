@@ -108,15 +108,6 @@
       "abilities": "-"
     },
     {
-      "name": "Meltagun",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Melta"
-    },
-    {
       "name": "Plasma gun - Standard",
       "range": "24\"",
       "type": "Rapid Fire 1",
@@ -142,6 +133,15 @@
       "ap": "-1",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Melter",
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melter"
     }
   ],
   "option_groups": [
@@ -205,7 +205,7 @@
           "points": 5
         },
         {
-          "name": "Meltagun",
+          "name": "Melter",
           "points": 11
         },
         {

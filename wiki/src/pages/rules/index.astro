@@ -347,7 +347,7 @@ import Layout from '../../components/Layout.astro';
     </div>
 
     <div class="rule-section reveal">
-      <div class="section-divider"><span>Vehicle Damage Chart</span></div>
+      <div class="section-divider"><span>Vehicle Damage Chart</span></div>
       <p class="note">Against a vehicle you do not follow the normal rules for wounding models — you resolve an <strong>Armor penetration roll</strong> instead, and consult this chart on a penetrating hit.</p>
       <table class="ref-table">
         <thead><tr><th>D6</th><th>Result</th><th>Effect</th></tr></thead>
@@ -690,9 +690,11 @@ import Layout from '../../components/Layout.astro';
 
     <div class="ability-grid">
 
-      <div class="ability-card"><div class="ability-name">Acute Senses</div><p>Infiltrators always stay 18″ apart during deployment, even without direct LOS.</p></div>
+      <div class="ability-card"><div class="ability-name">Acute Senses</div><p>Infiltrators always stay more than 18″ away during deployment, even without direct LOS. If the unit has not activated this turn, it may use up its order to fire at an enemy unit within 12″ that is deployed from reserves, as if it had the "Stand &amp; Shoot" order. The attack resolves after the enemy is deployed and before it acts.</p></div>
       <div class="ability-card"><div class="ability-name">Aegis (X+)</div><p>Dispel any psychic power directly targeting this model on X+. Also prevent Perils of the Warp on X+. Best Aegis in unit applies.</p></div>
       <div class="ability-card"><div class="ability-name">Anti-Grav</div><p>Ignores terrain, units, and vertical movement costs when moving.</p></div>
+      <div class="ability-card"><div class="ability-name">Blank</div><p>Can never be targeted by any psychic power, nor by anything from outside 18″. All psykers within 18″ suffer -1 to manifest and deny psychic powers, and all units within 12″ suffer -1 to their Leadership.</p></div>
+      <div class="ability-card"><div class="ability-name">Disorderly Charge</div><p>A unit that can only perform a Disorderly Charge may select just one target for its Charge order and gains no Charge bonus or other benefit for charging.</p></div>
       <div class="ability-card"><div class="ability-name">Berserk (X+)</div><p>Gain X+ ward save (doesn't work vs S8+). Cannot use Escape or Take Cover.</p></div>
       <div class="ability-card"><div class="ability-name">Blind Rage</div><p>Instead of Battleshock tests: move D6″ toward nearest enemy (may trigger charge). In melee: fail Ld test → lose D3 wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
       <div class="ability-card"><div class="ability-name">Bodyguard</div><p>Ranged wounds assigned to Bodyguard before characters. Attacks in melee must target Bodyguard first. Can pile in simultaneously with characters.</p></div>
