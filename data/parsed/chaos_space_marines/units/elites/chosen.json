@@ -1,167 +1,167 @@
 {
-  "name": "Chosen",
-  "models": [
-    {
-      "name": "Chosen",
-      "points": 34,
-      "min": 1,
-      "max": 10,
-      "stats": {
-        "M": "6\"",
-        "WS": "2+",
-        "BS": "2+",
-        "S": "4",
-        "T": "4",
-        "W": "2",
-        "I": "4",
-        "A": "2",
-        "LD": "8",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Chosen is equipped with: Krak grenades; Frag grenades.",
-  "weapons": [
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "For every HQ selection, the army may include one Chosen unit.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "All models may receive a Mark of Chaos (points per model)",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Chosen",
+    "models": [
         {
-          "name": "Undivided",
-          "points": 0
-        },
-        {
-          "name": "Khorne",
-          "points": 2
-        },
-        {
-          "name": "Slaanesh",
-          "points": 2
-        },
-        {
-          "name": "Nurgle",
-          "points": 2
-        },
-        {
-          "name": "Tzeentch",
-          "points": 5
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Chosen",
+            "min": 1,
+            "max": 10,
+            "points": 34
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "The entire squad may receive one of the following upgrades per model",
-      "per_model": true,
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "A Chosen is equipped with: Krak grenades; Frag grenades.",
+    "weapons": [
         {
-          "name": "Dark Crusaders",
-          "points": 2,
-          "effect": {
-            "grants_abilities": [
-              "Frenzy(1\")"
-            ]
-          }
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
         },
         {
-          "name": "Accursed Weaponry",
-          "points": 3
-        },
-        {
-          "name": "Monstrous Visages",
-          "points": 3,
-          "effect": {
-            "grants_abilities": [
-              "Parry"
-            ]
-          }
-        },
-        {
-          "name": "Malicious Ammuniton",
-          "points": 5
-        },
-        {
-          "name": "Tip of the Spear",
-          "points": 5
-        },
-        {
-          "name": "Clad in Midnight",
-          "points": 10,
-          "effect": {
-            "grants_abilities": [
-              "Stealth"
-            ]
-          }
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [
-    "Command squad, Squadron",
-    "Accursed Weaponry: The model gains the \"Deflagrate(5+)\" ability for all melee attacks.",
-    "Clad in Midnight: The model gains the \"Stealth\" ability.",
-    "Dark Crusaders: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order.",
-    "Malicious Ammuniton: The model gains the \"Deflagrate(5+)\" ability for all ranged attacks.",
-    "Monstrous Visages: The model gains the \"Parry\" ability and additionally the \"Gruesome\" ability for all melee weapons.",
-    "Tip of the Spear: When set up using the Infiltrator rules, the model can always be placed outside 12\" of an enemy unit, even if there is direct line of sight."
-  ],
-  "unit_type": "Command Squad, Infantry, Squadron",
-  "keywords": [
-    "Chaos Space Marine"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 2,
-  "is_squadron": true,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 1,
-  "min_cost": 34
+    ],
+    "option_groups": [
+        {
+            "header": "For every HQ selection, the army may include one Chosen unit.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "All models may receive a Mark of Chaos (points per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Undivided",
+                    "points": 0
+                },
+                {
+                    "name": "Khorne",
+                    "points": 2
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 2
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 2
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "The entire squad may receive one of the following upgrades per model",
+            "per_model": true,
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Crusaders",
+                    "points": 2,
+                    "effect": {
+                        "grants_abilities": [
+                            "Frenzy(1\")"
+                        ]
+                    }
+                },
+                {
+                    "name": "Accursed Weaponry",
+                    "points": 3
+                },
+                {
+                    "name": "Monstrous Visages",
+                    "points": 3,
+                    "effect": {
+                        "grants_abilities": [
+                            "Parry"
+                        ]
+                    }
+                },
+                {
+                    "name": "Malicious Ammuniton",
+                    "points": 5
+                },
+                {
+                    "name": "Tip of the Spear",
+                    "points": 5
+                },
+                {
+                    "name": "Clad in Midnight",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Stealth"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Command squad, Squadron",
+        "Accursed Weaponry: The model gains the \"Deflagrate(5+)\" ability for all melee attacks.",
+        "Clad in Midnight: The model gains the \"Stealth\" ability.",
+        "Dark Crusaders: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order.",
+        "Malicious Ammuniton: The model gains the \"Deflagrate(5+)\" ability for all ranged attacks.",
+        "Monstrous Visages: The model gains the \"Parry\" ability and additionally the \"Gruesome\" ability for all melee weapons.",
+        "Tip of the Spear: When set up using the Infiltrator rules, the model can always be placed outside 12\" of an enemy unit, even if there is direct line of sight."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Chaos Space Marine"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "is_squadron": true,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 34
 }

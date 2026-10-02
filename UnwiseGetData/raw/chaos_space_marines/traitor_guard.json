@@ -93,7 +93,7 @@
         "Auto Hit, Sunder(1)"
     ],
     [
-        "Frag grenade",
+        "Frag grenades",
         "6\"",
         "Grenade 1",
         4,
@@ -120,13 +120,13 @@
         "-"
     ],
     [
-        "Melter",
+        "Meltagun",
         "12\"",
         "Assault 1",
         8,
         -5,
         1,
-        "AT(1), Melter"
+        "AT(1), Melta"
     ],
     [
         "Plasma gun *"
@@ -185,7 +185,7 @@
         "+5 points"
     ],
     [
-        "- Melter",
+        "- Meltagun",
         "+11 points"
     ],
     [

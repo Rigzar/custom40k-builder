@@ -1,109 +1,109 @@
 {
-  "name": "Possessed",
-  "models": [
-    {
-      "name": "Possessed",
-      "points": 50,
-      "min": 5,
-      "max": 10,
-      "stats": {
-        "M": "8\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "5",
-        "T": "5",
-        "W": "2",
-        "I": "4",
-        "A": "3",
-        "LD": "8",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Each model is equipped with: Malefic mutations",
-  "weapons": [
-    {
-      "name": "Malefic mutations",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Armor piercing(5+)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "All models may receive a Mark of Chaos (points per model)",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Possessed",
+    "models": [
         {
-          "name": "Khorne",
-          "points": 3
-        },
-        {
-          "name": "Slaanesh",
-          "points": 3
-        },
-        {
-          "name": "Nurgle",
-          "points": 3
-        },
-        {
-          "name": "Tzeentch",
-          "points": 9
+            "stats": {
+                "M": "8\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Possessed",
+            "min": 5,
+            "max": 10,
+            "points": 50
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "All model may be equipped with Jump packs for +11 points per model.",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "Each model is equipped with: Malefic mutations",
+    "weapons": [
         {
-          "name": "Jump packs",
-          "points": 11
+            "name": "Malefic mutations",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "effect": {
-        "adds_unit_types": [
-          "Jump Pack Infantry"
-        ],
-        "grants_abilities": [
-          "Deep Strike"
-        ]
-      }
-    }
-  ],
-  "abilities": [
-    "Daemon"
-  ],
-  "unit_type": "Infantry",
-  "keywords": [
-    "Chaos Space Marine"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 2,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 5,
-  "min_cost": 250
+    ],
+    "option_groups": [
+        {
+            "header": "All models may receive a Mark of Chaos (points per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 3
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 3
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 3
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 9
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "All model may be equipped with Jump packs for +11 points per model.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Jump packs",
+                    "points": 11
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "effect": {
+                "adds_unit_types": [
+                    "Jump Pack Infantry"
+                ],
+                "grants_abilities": [
+                    "Deep Strike"
+                ]
+            }
+        }
+    ],
+    "abilities": [
+        "Daemon"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Chaos Space Marine"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 250
 }

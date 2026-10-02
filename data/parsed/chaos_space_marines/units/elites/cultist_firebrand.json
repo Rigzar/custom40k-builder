@@ -1,107 +1,109 @@
 {
-  "name": "Cultist Firebrand",
-  "models": [
-    {
-      "name": "Cultist Firebrand",
-      "points": 39,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "3",
-        "T": "3",
-        "W": "2",
-        "I": "3",
-        "A": "1",
-        "LD": "7",
-        "SV": "5+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Cultist Firebrand is equipped with: Baleflamer; Frag grenades.",
-  "weapons": [
-    {
-      "name": "Baleflamer",
-      "range": "12\"",
-      "type": "Assault 4",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "May receive a Mark of Chaos",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Cultist Firebrand",
+    "models": [
         {
-          "name": "Undivided",
-          "points": 0
-        },
-        {
-          "name": "Khorne",
-          "points": 8
-        },
-        {
-          "name": "Slaanesh",
-          "points": 8
-        },
-        {
-          "name": "Nurgle",
-          "points": 20
-        },
-        {
-          "name": "Tzeentch",
-          "points": 15
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Cultist Firebrand",
+            "min": 1,
+            "max": 1,
+            "points": 39
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "For each Cultists unit, one Cultist Firebrand unit may be selected that does not occupy an Elite slot.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [],
-  "unit_type": "Character Model, Infantry",
-  "keywords": [
-    "Cultist"
-  ],
-  "is_vehicle": false,
-  "is_character": true,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 1,
-  "min_cost": 39
+    ],
+    "variant_models": [],
+    "equipped_with": "A Cultist Firebrand is equipped with: Baleflamer; Frag grenades.",
+    "weapons": [
+        {
+            "name": "Baleflamer",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May receive a Mark of Chaos",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Undivided",
+                    "points": 0
+                },
+                {
+                    "name": "Khorne",
+                    "points": 8
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 8
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 20
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "For each Cultists unit, one Cultist Firebrand unit may be selected that does not occupy an Elite slot.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [
+        "Cultist"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 39
 }

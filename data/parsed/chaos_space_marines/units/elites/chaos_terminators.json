@@ -1,353 +1,359 @@
 {
-  "name": "Chaos Terminators",
-  "models": [
-    {
-      "name": "Chaos Terminator",
-      "points": 68,
-      "min": 4,
-      "max": 9,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "4",
-        "T": "5",
-        "W": "2",
-        "I": "4",
-        "A": "3",
-        "LD": "8",
-        "SV": "2+"
-      }
-    },
-    {
-      "name": "Terminator Champion",
-      "points": 73,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "4",
-        "T": "5",
-        "W": "2",
-        "I": "4",
-        "A": "3",
-        "LD": "8",
-        "SV": "2+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Each model is equipped with: Combi-Bolter; Power sword.",
-  "weapons": [
-    {
-      "name": "Chainfist",
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "Armorbane, AT(3), Slow(-3)"
-    },
-    {
-      "name": "Lightning claw",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Shred"
-    },
-    {
-      "name": "Combi-bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 2",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Combi-flamer - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-flamer - Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Combi, Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Combi-melta - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-melta - Melta",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Combi, Melta"
-    },
-    {
-      "name": "Combi-plasma - Bolter",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Combi"
-    },
-    {
-      "name": "Combi-plasma - Standard",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)"
-    },
-    {
-      "name": "Combi-plasma - Overcharged",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheat"
-    },
-    {
-      "name": "Heavy Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Pair of lightning claws",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Extra Attack(2), Shred, Unwieldy"
-    },
-    {
-      "name": "Power axe",
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Power fist",
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(2), Slow(-2)"
-    },
-    {
-      "name": "Power maul",
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Power sword",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Reaper autocannon",
-      "range": "36\"",
-      "type": "Heavy 3",
-      "s": "7",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "AT(1)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "All models may receive a Mark of Chaos (pts per model)",
-      "constraint": {
-        "type": "mark"
-      },
-      "choices": [
+    "name": "Chaos Terminators",
+    "models": [
         {
-          "name": "Khorne",
-          "points": 2
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Chaos Terminator",
+            "min": 4,
+            "max": 9,
+            "points": 68
         },
         {
-          "name": "Slaanesh",
-          "points": 2
-        },
-        {
-          "name": "Nurgle",
-          "points": 2
-        },
-        {
-          "name": "Tzeentch",
-          "points": 5
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Terminator Champion",
+            "min": 1,
+            "max": 1,
+            "points": 73
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "Every Chaos Terminator may swap their Combi-bolter with",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "Each model is equipped with: Combi-Bolter; Power sword.",
+    "weapons": [
         {
-          "name": "Combi-flamer",
-          "points": 0
+            "name": "Chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane, AT(3), Slow(-3)"
         },
         {
-          "name": "Combi-melta",
-          "points": 5
+            "name": "Lightning claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Shred"
         },
         {
-          "name": "Combi-plasma",
-          "points": 10
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
+        },
+        {
+            "name": "Combi-flamer Combi-melta *"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Combi-flamer Combi-plasma *"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Plasma (Standard)",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Combi"
+        },
+        {
+            "name": "Combi-flamer - Plasma (Overcharged)",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Combi, Overheating"
+        },
+        {
+            "name": "Heavy Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Pair of lightning claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        },
+        {
+            "name": "Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Power maul",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Reaper autocannon",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Combi-bolter"
-      ]
-    },
-    {
-      "header": "Every Chaos Terminator may swap their Power sword with",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    ],
+    "option_groups": [
         {
-          "name": "Power axe",
-          "points": 0
+            "header": "All models may receive a Mark of Chaos (pts per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 2
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 2
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 2
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         },
         {
-          "name": "Power maul",
-          "points": 0
+            "header": "Every Chaos Terminator may swap their Combi-bolter with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Combi-flamer",
+                    "points": 0
+                },
+                {
+                    "name": "Combi-melta",
+                    "points": 5
+                },
+                {
+                    "name": "Combi-plasma",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ]
         },
         {
-          "name": "Lightning claw",
-          "points": 1
+            "header": "Every Chaos Terminator may swap their Power sword with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Power axe",
+                    "points": 0
+                },
+                {
+                    "name": "Power maul",
+                    "points": 0
+                },
+                {
+                    "name": "Lightning claw",
+                    "points": 1
+                },
+                {
+                    "name": "Power fist",
+                    "points": 9
+                },
+                {
+                    "name": "Chainfist",
+                    "points": 17
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Power sword"
+            ]
         },
         {
-          "name": "Power fist",
-          "points": 9
+            "header": "Every Chaos Terminator may swap their Combi-bolter and Power sword with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Pair of lightning claws",
+                    "points": -13
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter",
+                "Power sword"
+            ]
         },
         {
-          "name": "Chainfist",
-          "points": 17
+            "header": "For each 5 models, two Terminators may swap their Combi-bolters with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 2
+            },
+            "choices": [
+                {
+                    "name": "Heavy Flamer",
+                    "points": 2
+                },
+                {
+                    "name": "Reaper autocannon",
+                    "points": 20
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ]
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Power sword"
-      ]
-    },
-    {
-      "header": "Every Chaos Terminator may swap their Combi-bolter and Power sword with",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
-        {
-          "name": "Pair of lightning claws",
-          "points": -13
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Combi-bolter",
-        "Power sword"
-      ]
-    },
-    {
-      "header": "For each 5 models, two Terminators may swap their Combi-bolters with",
-      "constraint": {
-        "type": "per_n",
-        "per_n": 5,
-        "count_per_n": 2
-      },
-      "choices": [
-        {
-          "name": "Heavy Flamer",
-          "points": 2
-        },
-        {
-          "name": "Reaper autocannon",
-          "points": 20
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Combi-bolter"
-      ]
-    }
-  ],
-  "abilities": [
-    "Deep strike, Massive(1), Unyielding",
-    "Crux Terminatus: This unit has a 5+ ward save."
-  ],
-  "unit_type": "Infantry",
-  "keywords": [
-    "Chaos Space Marine"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 2,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 5,
-  "min_cost": 345,
-  "armourKeyword": "Terminator"
+    ],
+    "abilities": [
+        "Deep strike, Massive(1), Unyielding",
+        "Crux Terminatus: This unit has a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Chaos Space Marine"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 345,
+    "armourKeyword": "Terminator"
 }

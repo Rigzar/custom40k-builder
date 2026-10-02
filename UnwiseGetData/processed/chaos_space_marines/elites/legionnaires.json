@@ -88,7 +88,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -115,7 +115,7 @@
             "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy"
         },
         {
-            "name": "Krak grenade",
+            "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "6",

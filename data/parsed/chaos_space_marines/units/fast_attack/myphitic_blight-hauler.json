@@ -1,0 +1,110 @@
+{
+    "name": "Myphitic Blight-Hauler",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "11",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "2",
+                "HP": "2"
+            },
+            "name": "Myphitic Blight-Hauler",
+            "min": 1,
+            "max": 2,
+            "points": 174
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Myphitic Blight-Hauler is equipped with: Gnashing maw; Missile launcher; Multi-melta.                                                                                    ",
+    "weapons": [
+        {
+            "name": "Bile spurt",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(4+), Sunder(1)"
+        },
+        {
+            "name": "Gnashing maw",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Anti-Air, AT(2)"
+        },
+        {
+            "name": "Missile launcher Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with Bile spurt for +19 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Bile spurt",
+                    "points": 19
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Mark of Nurgle, Squadron"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [
+        "Death Guard"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": "Nurgle",
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 1,
+    "min_cost": 174
+}

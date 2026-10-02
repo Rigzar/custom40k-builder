@@ -1,141 +1,143 @@
 {
-  "name": "Plagueburst Crawler",
-  "models": [
-    {
-      "name": "Plagueburst Crawler",
-      "points": 324,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "12\"",
-        "WS": "-",
-        "BS": "3+",
-        "S": "7",
-        "FRONT": "13",
-        "SIDE": "12",
-        "REAR": "11",
-        "I": "4",
-        "A": "2",
-        "HP": "3"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Plagueburst Crawler is equipped with: Plagueburst mortar; two Plague spewers; Rothail volley gun.",
-  "weapons": [
-    {
-      "name": "Heavy slugger",
-      "range": "36\"",
-      "type": "Heavy 3",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Plagueburst mortar",
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(1), Blast(6), Indirect, Poison(4+)"
-    },
-    {
-      "name": "Plague spewer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1), Poison(4+)"
-    },
-    {
-      "name": "Rothail volley gun",
-      "range": "24\"",
-      "type": "Rapid Fire 2",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Poison(4+)"
-    },
-    {
-      "name": "Entropy cannon - Focused entropy",
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "3",
-      "abilities": "AT(3)"
-    },
-    {
-      "name": "Entropy cannon - Entropic burst",
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Blast(4), Poison(4+)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "Can replace the Rothail volley gun:",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    "name": "Plagueburst Crawler",
+    "models": [
         {
-          "name": "Heavy slugger",
-          "points": 5
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "11",
+                "I": "4",
+                "A": "2",
+                "HP": "3"
+            },
+            "name": "Plagueburst Crawler",
+            "min": 1,
+            "max": 1,
+            "points": 324
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Rothail volley gun"
-      ]
-    },
-    {
-      "header": "Can replace two Plague spewers:",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "A Plagueburst Crawler is equipped with: Plagueburst mortar; two Plague spewers; Rothail volley gun.",
+    "weapons": [
         {
-          "name": "two Entropy cannons",
-          "points": 27
+            "name": "Entropy cannon"
+        },
+        {
+            "name": "- Focused entropy",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "- Entropic burst",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Poison(4+)"
+        },
+        {
+            "name": "Heavy slugger",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plagueburst mortar",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Blast(6), Indirect, Poison(4+)"
+        },
+        {
+            "name": "Plague spewer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(4+), Sunder(1)"
+        },
+        {
+            "name": "Rothail volley gun",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Poison(4+)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Plague spewer"
-      ]
-    }
-  ],
-  "abilities": [
-    "Mark of Nurgle"
-  ],
-  "unit_type": "Vehicle",
-  "keywords": [
-    "Death Guard",
-    "Vehicle"
-  ],
-  "is_vehicle": true,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": "Nurgle",
-  "advisor": false,
-  "slot": "Heavy Support",
-  "default_size": 1,
-  "min_cost": 324
+    ],
+    "option_groups": [
+        {
+            "header": "Can replace the Rothail volley gun:",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Heavy slugger",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Rothail volley gun"
+            ]
+        },
+        {
+            "header": "Can replace two Plague spewers:",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "two Entropy cannons",
+                    "points": 27
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Plague spewer"
+            ]
+        }
+    ],
+    "abilities": [
+        "Mark of Nurgle"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [
+        "Death Guard"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": "Nurgle",
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 324
 }

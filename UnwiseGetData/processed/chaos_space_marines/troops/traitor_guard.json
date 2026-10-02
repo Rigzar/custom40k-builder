@@ -81,7 +81,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -108,13 +108,13 @@
             "abilities": "-"
         },
         {
-            "name": "Melter",
+            "name": "Meltagun",
             "range": "12\"",
             "type": "Assault 1",
             "s": "8",
             "ap": "-5",
             "d": "1",
-            "abilities": "AT(1), Melter"
+            "abilities": "AT(1), Melta"
         },
         {
             "name": "Plasma gun - Standard",
