@@ -22,7 +22,7 @@
     ],
     "min_cost": 73,
     "default_size": 1,
-    "equipped_with": "A Solitaire is equipped with: Great Harlequin weapons.",
+    "equipped_with": "A Solitaire is equipped with: Great Harlequin weapons; Plasma grenades.",
     "weapons": [
         {
             "name": "Great Harlequin weapons",
@@ -34,7 +34,7 @@
             "abilities": "Precision(5+)"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

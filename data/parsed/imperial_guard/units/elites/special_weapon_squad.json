@@ -1,221 +1,203 @@
 {
-  "name": "Special Weapon Squad",
-  "models": [
-    {
-      "name": "Guardsman",
-      "points": 9,
-      "min": 6,
-      "max": 6,
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "3",
-        "T": "3",
-        "W": "1",
-        "I": "3",
-        "A": "1",
-        "LD": "6",
-        "SV": "5+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
-  "weapons": [
-    {
-      "name": "Las pistol",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Close combat weapon",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "0",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Demolition charge",
-      "range": "6\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Ammo(1), AT(2), Blast(6)"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Lasgun",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Melta",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Melta"
-    },
-    {
-      "name": "Sniper rifle",
-      "range": "36\"",
-      "type": "Heavy 1",
-      "s": "5",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
-    },
-    {
-      "name": "Grenade launcher - Frag grenade",
-      "range": "24\"",
-      "type": "Assault 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Grenade launcher - Krak grenade",
-      "range": "24\"",
-      "type": "Assault 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Plasma gun - Standard",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)"
-    },
-    {
-      "name": "Plasma gun - Overheating",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheating"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "One Guardsman may be equipped with a Vox for +5 points.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 5,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "Three Guardsmen must be equipped with a Special weapon",
-      "constraint": {
-        "type": "fixed_max",
-        "max": 3
-      },
-      "choices": [
+    "name": "Special Weapon Squad",
+    "models": [
         {
-          "name": "Flamer",
-          "points": 5
-        },
-        {
-          "name": "Grenade launcher",
-          "points": 5
-        },
-        {
-          "name": "Melta",
-          "points": 11
-        },
-        {
-          "name": "Plasma gun",
-          "points": 13
-        },
-        {
-          "name": "Demolition charge",
-          "points": 13
-        },
-        {
-          "name": "Sniper rifle",
-          "points": 16
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Guardsman",
+            "min": 1,
+            "max": 1,
+            "points": 9
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "Close Combat Specialists: each model may swap their Lasgun",
-      "requires_trait": "Close Combat Specialists",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
+    "weapons": [
         {
-          "name": "Las pistol & Close combat weapon",
-          "points": 0
+            "name": "Demolition charge",
+            "range": "6\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2), Blast(6)"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Grenade launcher - Frag grenade",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grenade launcher - Krak grenade",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lasgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Sniper rifle",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Lasgun"
-      ]
-    }
-  ],
-  "abilities": [
-    "Infiltrate"
-  ],
-  "unit_type": "Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 6,
-  "min_cost": 54
+    ],
+    "option_groups": [
+        {
+            "header": "One Guardsman may be equipped with a Vox for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Three Guardsmen must be equipped with a Special weapon",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 3
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 5
+                },
+                {
+                    "name": "Grenade launcher",
+                    "points": 5
+                },
+                {
+                    "name": "Melta",
+                    "points": 11
+                },
+                {
+                    "name": "Plasma gun",
+                    "points": 13
+                },
+                {
+                    "name": "Demolition charge",
+                    "points": 13
+                },
+                {
+                    "name": "Sniper rifle",
+                    "points": 16
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Close Combat Specialists: each model may swap their Lasgun",
+            "requires_trait": "Close Combat Specialists",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Las pistol & Close combat weapon",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Lasgun"
+            ]
+        }
+    ],
+    "abilities": [
+        "Infiltrate"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 9
 }

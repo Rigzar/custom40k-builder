@@ -42,7 +42,7 @@
     ],
     "min_cost": 115,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Harlequin weapons; Plasma grenade; Shuriken pistol.",
+    "equipped_with": "Every model is equipped with: Harlequin weapons; Plasma grenades; Shuriken pistol.",
     "weapons": [
         {
             "name": "Fusion pistol",
@@ -72,7 +72,7 @@
             "abilities": "Neuro disruptor"
         },
         {
-            "name": "Plasma grenade",
+            "name": "Plasma grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",

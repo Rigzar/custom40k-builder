@@ -18,7 +18,7 @@ import elites_deathcult_assassins from './elites/deathcult_assassins.json';
 import elites_acolytes from './elites/acolytes.json';
 import elites_alien_world_scouts from './elites/alien_world_scouts.json';
 import elites_archaeotech_researchers from './elites/archaeotech_researchers.json';
-import elites_arco_flagellants from './elites/arco_flagellants.json';
+import elites_arco_flagellants from './elites/arco-flagellants.json';
 import elites_chirurgeons from './elites/chirurgeons.json';
 import elites_crusaders from './elites/crusaders.json';
 import elites_daemonhosts from './elites/daemonhosts.json';
