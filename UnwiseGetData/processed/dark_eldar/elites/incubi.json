@@ -42,7 +42,7 @@
     ],
     "min_cost": 125,
     "default_size": 5,
-    "equipped_with": "Every Incubi is equipped with: Klaive.The Klaivex is equipped with: Demiklaives.",
+    "equipped_with": "Every Incubi is equipped with: Klaive. The Klaivex is equipped with: Demiklaives.",
     "weapons": [
         {
             "name": "Demiklaives - Dual blades",

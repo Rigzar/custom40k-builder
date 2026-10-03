@@ -41,7 +41,7 @@
     "variant_models": [],
     "min_cost": 65,
     "default_size": 5,
-    "equipped_with": "Every Storm Guardian is equipped with: Aeldari chainsword; Plasma grenades; Shuriken pistol.Every Serpent scale platform is equipped with: Serpent shield.",
+    "equipped_with": "Every Storm Guardian is equipped with: Aeldari chainsword; Plasma grenades; Shuriken pistol. Every Serpent scale platform is equipped with: Serpent shield.",
     "weapons": [
         {
             "name": "Aeldari chainsword",

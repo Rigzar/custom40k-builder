@@ -78,7 +78,7 @@
     ],
     "min_cost": 195,
     "default_size": 3,
-    "equipped_with": "Every Attack Bike is equipped with: Heavy bolter; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun.Every Biker is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun.",
+    "equipped_with": "Every Attack Bike is equipped with: Heavy bolter; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun. Every Biker is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun.",
     "weapons": [
         {
             "name": "Astartes chainsword",

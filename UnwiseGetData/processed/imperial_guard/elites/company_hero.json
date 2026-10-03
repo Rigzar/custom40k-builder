@@ -41,7 +41,7 @@
     "variant_models": [],
     "min_cost": 17,
     "default_size": 1,
-    "equipped_with": "A Company Hero is equipped with: Frag grenades.An Animal Companion is equipped with: Claws & Teeth.",
+    "equipped_with": "A Company Hero is equipped with: Frag grenades. An Animal Companion is equipped with: Claws & Teeth.",
     "weapons": [
         {
             "name": "Claws & Teeth",
