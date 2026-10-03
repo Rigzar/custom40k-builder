@@ -78,10 +78,7 @@
             "abilities": "Auto Hit, Combi, Sunder(1)"
         },
         {
-            "name": "Kombi-burnaKombi-rokkit launcha*"
-        },
-        {
-            "name": "Kombi-burna- Shoota",
+            "name": "Kombi-rokkit launcha- Shoota",
             "range": "18\"",
             "type": "Assault 3",
             "s": "4",
@@ -90,7 +87,7 @@
             "abilities": "Combi"
         },
         {
-            "name": "Kombi-burna- Rokkit launcha",
+            "name": "Kombi-rokkit launcha- Rokkit launcha",
             "range": "24\"",
             "type": "Assault 1",
             "s": "8",

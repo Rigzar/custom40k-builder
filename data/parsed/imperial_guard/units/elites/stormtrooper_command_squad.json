@@ -60,7 +60,7 @@
             "abilities": "-"
         },
         {
-            "name": "Grenade launcher Hot-shot lasgun",
+            "name": "Hot-shot lasgun",
             "range": "18\"",
             "type": "Rapid Fire 1",
             "s": "3",
@@ -69,7 +69,7 @@
             "abilities": "-"
         },
         {
-            "name": "Grenade launcher Hot-shot volley gun",
+            "name": "Hot-shot volley gun",
             "range": "24\"",
             "type": "Rapid Fire 2",
             "s": "3",

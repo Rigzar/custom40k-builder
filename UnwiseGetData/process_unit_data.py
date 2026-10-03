@@ -154,7 +154,7 @@ def main():
                         if "*" in unit_sheet[0][0]:
                             temp_weapon_name = unit_sheet[0][0].replace("*", "")
                             unit_sheet = unit_sheet[1:]
-                            while "-" in unit_sheet[0][0]:
+                            while "- " in unit_sheet[0][0]:
                                 unit_sheet[0][0] = temp_weapon_name + unit_sheet[0][0]
                                 app_unit_json["weapons"].append(process_weapon(unit_sheet[0]))
                                 unit_sheet = unit_sheet[1:]
