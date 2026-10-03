@@ -2,11 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
-import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
-import { overrideKey } from '../engine/dataOverrides';
-import { CHANGELOG } from '../data/changelog';
 import { abilityKey, ruleStrings } from '../data/coreRules';
-import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS, DEFAULT_CODEX_VERSIONS } from '../data/factionCatalog';
 import { PointsCalculator } from './PointsCalculator';
@@ -41,8 +37,9 @@ function walkStrings(node: unknown, path: string[], emit: (path: string[], text:
  * Default source spreadsheets by faction (creator's live Google Sheets). Extracted straight from
  * the hyperlinks embedded in the creator's own Custom40k Core Rules document (2026-08-23) —
  * every faction/supplement it links to a sheet for, keyed to match FACTION_LOADERS. The admin
- * can still add/override any of these from the Source tab; a value saved in source_sheets always
- * wins over this default.
+ * can still override any of these through the source_sheets setting, which always
+ * wins over this default. The codex version / content checks send this map to the server;
+ * the Source check tab that used to edit it was retired on 2026-10-04.
  *
  * RESOLVED 2026-08-24: the Core Rules doc links "Tyranids" to two different sheet ids
  * (1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M and 1-oox_d8xDqNM7hlMKLey1779tDGhUPpPJ3KeHRusGqA).
@@ -74,54 +71,14 @@ const DEFAULT_SOURCE_IDS: Record<string, string> = {
   legio_titanicus: '1SrBhi_8b77QwqoI03xNDxgOwgt-ePmqRQvA5dyquYtM',
 };
 
-/**
- * A Google Sheet id is only these characters. Mirrors the server-side check — never interpolate an
- * unvalidated id into a URL, and don't offer a link for one we haven't validated.
- */
-const SHEET_ID_RE = /^[A-Za-z0-9_-]+$/;
-
-/**
- * Everything the source check can compare — driven by FACTION_LOADERS, not by the landing page's
- * ALL_FACTIONS. The two differ: Assassins and the Horus Heresy supplement have loadable datasets
- * but appear on the landing page as supplements rather than faction cards, so keying off
- * ALL_FACTIONS silently left them out of both the picker and "Compare all". (Escalation has no
- * dataset of its own — its Lords of War live inside each faction's data and are checked there.)
- */
+/** Every dataset the app can load, by key and display name (the "Find text" tab and the datasheet-text picker). */
 const SOURCE_FACTIONS: { key: string; name: string }[] = Object.keys(FACTION_LOADERS).map(key => ({
   key,
   name: ALL_FACTIONS.find(f => f.key === key)?.name
     ?? key.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' '),
 }));
 
-/** Where a faction's SECOND workbook id is stored in the same source_sheets map — the supplement
- *  (Escalation, Horus Heresy) that holds datasheets for units the army can field but whose tabs
- *  are not in the army's own spreadsheet. */
-const supplementKey = (factionKey: string) => `${factionKey}#supplement`;
-
-/**
- * Escalation, used as the default second workbook for every faction. Its Lords of War (Fellblade,
- * Spartan, Warhound, the Knights, War Dog, Armiger, Lord of Skulls…) appear in many armies' unit
- * lists but their datasheets live only here, so without it those units are never compared at all.
- * A per-faction id saved in the second field overrides this.
- */
-const DEFAULT_SUPPLEMENT_ID = '1i9o9KowRslsN4e1UXjzqME5OzcH5A9nR78LjvTVwXRY';
-
-/** One faction's source-check result: what differs, what couldn't be checked, and how much loaded. */
-interface SourceRun {
-  findings: SourceFinding[];
-  gaps: SourceGap[];
-  coverage: { fetched: number; total: number };
-  /** set instead of results when that faction's fetch threw, so one failure doesn't stop the sweep */
-  error?: string;
-}
-/** Accept a pasted full sheet URL as well as a bare id. */
-function toSheetId(input: string): string {
-  const s = input.trim();
-  const m = s.match(/\/spreadsheets\/d\/([A-Za-z0-9_-]+)/);
-  return m ? m[1] : s;
-}
-
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'calc';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'find' | 'calc';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es', 'ru', 'ja'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -210,28 +167,12 @@ interface AdminTx {
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabCalc: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabCalc: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabFind: string; tabCalc: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabFind: string; helpTabCalc: string;
   catDashboard: string; catUsers: string; catContent: string; catDataAudit: string; catTools: string;
   codexVerTitle: string; codexVerHint: string;
   findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
   findNone: string; findCount: (hits: number, factions: number) => string; findExport: string; findScanning: (f: string) => string;
-  srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
-  srcCoverage: (fetched: number, total: number) => string;
-  srcWhereSheet: string; srcWhereReview: string; srcWhereReviewHint: string;
-  fixSheet: string; fixCode: string; fixUnknown: string;
-  srcIgnore: string; srcUnignore: string; srcIgnoreHint: string; srcUnignoreHint: string;
-  srcShowIgnored: (n: number) => string; srcHideIgnored: (n: number) => string;
-  srcSupplementId: string; srcSupplementHint: string;
-  fixSheetHint: string; fixCodeHint: string; fixUnknownHint: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
-  srcApply: string; srcApplying: string; srcUndo: string; srcAppliedTag: string;
-  srcApplyHint: string; srcApplied: (unit: string, field: string, value: string) => string; srcUndone: string;
-  srcExport: string; srcExportHint: string;
-  srcCompareAll: string; srcAllTitle: string; srcAllFailed: string; srcNoSheetIds: string;
-  srcAllProgress: (done: number, total: number, current: string) => string;
-  srcAllDiffs: (n: number) => string; srcAllGaps: (n: number) => string;
-  srcGapsNone: string; srcGapsCount: (n: number) => string; srcGapsHint: string;
-  srcOverridesActive: (n: number) => string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -307,8 +248,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabAnnounce: 'Write and enable the landing announcement banner; auto-translate it to the other languages.',
     helpTabFactions: 'Turn each faction on or off in the builder.',
     helpTabI18n: 'Edit the German / Spanish text of any interface string.',
-    tabSource: 'Source check',
-    helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
     tabFind: 'Find text',
     tabCalc: 'Calculator',
     helpTabCalc: 'The game author\u2019s own points calculator, with his special-rule price list. Reference only \u2014 it changes nothing in the app.',
@@ -323,43 +262,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     findNone: 'Not found anywhere.',
     findCount: (h, f) => `${h} ${h === 1 ? 'hit' : 'hits'} in ${f} ${f === 1 ? 'faction' : 'factions'}`,
     findExport: 'Export .json', findScanning: f => `Scanning ${f}…`,
-    srcHint: 'Pick a faction and paste its Google Sheet ID (from the sheet URL). "Compare" fetches every unit tab and lists point differences vs the app. Read-only — nothing is changed automatically.',
-    srcSpreadsheetId: 'Google Sheet ID', srcCompare: 'Compare', srcComparing: 'Comparing…', srcNoDiff: 'No point differences — the app matches the sheet.',
-    srcCol: (unit, model) => `${unit} · ${model}`,
-    srcCoverage: (f, t) => f < t
-      ? `Read ${f}/${t} unit tabs — ${t - f} could not be read (renamed tab, or the sheet rate-limited us). Those units were NOT checked.`
-      : `Read all ${t} unit tabs.`,
-    srcWhereSheet: 'sheet', srcWhereReview: 'review',
-    fixSheet: 'sheet', fixCode: 'code', fixUnknown: 'check',
-    srcIgnore: 'ignore', srcUnignore: 'restore',
-    srcIgnoreHint: 'Mark as known and accepted so it stops appearing on every run. Nothing is deleted — ignored rows stay counted and can be brought back.',
-    srcUnignoreHint: 'Show this row again on every run.',
-    srcShowIgnored: n => `show ${n} ignored`, srcHideIgnored: n => `hide ${n} ignored`,
-    srcSupplementId: 'Supplement sheet ID (optional)',
-    srcSupplementHint: 'A second workbook to look in for units this army can field whose tabs are not in its own spreadsheet — the Escalation Lords of War, the Horus Heresy datasheets. Only the units missing from the main workbook are looked up here.',
-    fixSheetHint: 'The evidence points at the spreadsheet. Nothing for us to change — the line below says which tab and cell.',
-    fixCodeHint: 'Ours to fix: the app data or the comparison itself is wrong. Nothing to do on the spreadsheet.',
-    fixUnknownHint: 'Neither side is proven wrong. The line below says what to look at to decide.',
-    srcWhereReviewHint: 'The app and the sheet simply disagree — nothing here proves which side is wrong. Open the unit tab to decide: fix the sheet there, or Apply to take the sheet value into the app.',
-    srcOpenSheet: 'Open the spreadsheet ↗',
-    srcTabHint: tab => `In the spreadsheet: tab "${tab}". In the app: this faction's unit of the same name.`,
-    srcApply: 'Apply', srcApplying: '…', srcUndo: 'Undo', srcAppliedTag: 'applied',
-    srcApplyHint: 'Apply writes the sheet value into the live app for everyone, straight away, without a redeploy. Only points, stats and weapon fields can be patched; Undo restores the built-in value.',
-    srcApplied: (unit, field, value) => `Applied: ${unit} · ${field} → ${value}. Live for all players.`,
-    srcUndone: 'Correction removed — the built-in value is used again.',
-    srcOverridesActive: n => `${n} correction${n === 1 ? '' : 's'} active for this faction.`,
-    srcExport: 'Export .json',
-    srcExportHint: 'Download the whole check as one file — every faction, what differs and what could not be compared — instead of copying rows out by hand.',
-    srcCompareAll: 'Compare all',
-    srcAllTitle: 'All factions — click one to see its findings',
-    srcAllFailed: 'fetch failed',
-    srcNoSheetIds: 'No spreadsheet ids stored yet. Compare a faction once to save its id, then "Compare all" will include it.',
-    srcAllProgress: (done, total, current) => `Comparing ${done + 1}/${total} — ${current}…`,
-    srcAllDiffs: n => `${n} diff${n === 1 ? '' : 's'}`,
-    srcAllGaps: n => `${n} unchecked`,
-    srcGapsNone: 'Everything was checked — every tab loaded and every name lines up.',
-    srcGapsCount: n => `${n} thing${n === 1 ? '' : 's'} could NOT be checked`,
-    srcGapsHint: 'These were skipped by the comparison, so they can hide real problems. "sheet-weapon" / "sheet-model" = it is on the sheet but missing from the app; "tab" / "block" = nothing was read for that unit at all.',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -423,8 +325,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabAnnounce: 'Ankündigungsbanner schreiben und aktivieren; in die anderen Sprachen übersetzen.',
     helpTabFactions: 'Jede Fraktion im Builder ein- oder ausschalten.',
     helpTabI18n: 'Den deutschen / spanischen Text jeder Oberflächen-Zeichenkette bearbeiten.',
-    tabSource: 'Quellenabgleich',
-    helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
     tabFind: 'Text suchen',
     tabCalc: 'Rechner',
     helpTabCalc: 'Der Punkterechner des Autors, mit seiner Sonderregel-Preisliste. Nur Nachschlagewerk \u2014 \u00e4ndert nichts in der App.',
@@ -439,43 +339,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     findNone: 'Nirgends gefunden.',
     findCount: (h, f) => `${h} ${h === 1 ? 'Treffer' : 'Treffer'} in ${f} ${f === 1 ? 'Fraktion' : 'Fraktionen'}`,
     findExport: '.json exportieren', findScanning: f => `Durchsuche ${f}…`,
-    srcHint: 'Fraktion wählen und die Google-Sheet-ID (aus der Sheet-URL) einfügen. "Vergleichen" lädt jede Einheiten-Registerkarte und listet Punkt-Abweichungen gegenüber der App. Nur Lesen — nichts wird automatisch geändert.',
-    srcSpreadsheetId: 'Google-Sheet-ID', srcCompare: 'Vergleichen', srcComparing: 'Vergleiche…', srcNoDiff: 'Keine Punkt-Abweichungen — die App stimmt mit dem Sheet überein.',
-    srcCol: (unit, model) => `${unit} · ${model}`,
-    srcCoverage: (f, t) => f < t
-      ? `${f}/${t} Einheiten-Registerkarten gelesen — ${t - f} nicht lesbar (umbenannt oder Rate-Limit). Diese Einheiten wurden NICHT geprüft.`
-      : `Alle ${t} Einheiten-Registerkarten gelesen.`,
-    srcWhereSheet: 'Tabelle', srcWhereReview: 'prüfen',
-    fixSheet: 'Sheet', fixCode: 'Code', fixUnknown: 'prüfen',
-    srcIgnore: 'ignorieren', srcUnignore: 'zurückholen',
-    srcIgnoreHint: 'Als bekannt und akzeptiert markieren, damit es nicht bei jedem Lauf wieder erscheint. Nichts wird gelöscht — ignorierte Zeilen bleiben gezählt und lassen sich zurückholen.',
-    srcUnignoreHint: 'Diese Zeile wieder bei jedem Lauf anzeigen.',
-    srcShowIgnored: n => `${n} ignorierte zeigen`, srcHideIgnored: n => `${n} ignorierte ausblenden`,
-    srcSupplementId: 'Sheet-ID des Supplements (optional)',
-    srcSupplementHint: 'Eine zweite Arbeitsmappe für Einheiten dieser Armee, deren Tabs nicht in ihrer eigenen Tabelle liegen — die Escalation Lords of War, die Horus-Heresy-Datenblätter. Nur die in der Hauptmappe fehlenden Einheiten werden hier gesucht.',
-    fixSheetHint: 'Die Hinweise deuten auf die Tabelle. Für uns nichts zu tun — die Zeile darunter nennt Tab und Zelle.',
-    fixCodeHint: 'Unsere Sache: die App-Daten oder der Vergleich selbst sind falsch. An der Tabelle ist nichts zu ändern.',
-    fixUnknownHint: 'Keine Seite ist bewiesen falsch. Die Zeile darunter sagt, was zu prüfen ist.',
-    srcWhereReviewHint: 'App und Sheet widersprechen sich einfach — nichts beweist hier, welche Seite falsch ist. Öffne den Einheiten-Tab und entscheide: dort das Sheet korrigieren, oder mit Übernehmen den Sheet-Wert in die App holen.',
-    srcOpenSheet: 'Tabelle öffnen ↗',
-    srcTabHint: tab => `In der Tabelle: Registerkarte "${tab}". In der App: die gleichnamige Einheit dieser Fraktion.`,
-    srcApply: 'Übernehmen', srcApplying: '…', srcUndo: 'Rückgängig', srcAppliedTag: 'übernommen',
-    srcApplyHint: 'Übernehmen schreibt den Sheet-Wert sofort und für alle in die Live-App, ohne neues Deployment. Nur Punkte, Werte und Waffenfelder sind änderbar; Rückgängig stellt den eingebauten Wert wieder her.',
-    srcApplied: (unit, field, value) => `Übernommen: ${unit} · ${field} → ${value}. Für alle Spieler live.`,
-    srcUndone: 'Korrektur entfernt — es gilt wieder der eingebaute Wert.',
-    srcOverridesActive: n => `${n} Korrektur${n === 1 ? '' : 'en'} für diese Fraktion aktiv.`,
-    srcExport: '.json exportieren',
-    srcExportHint: 'Die gesamte Prüfung als eine Datei herunterladen — alle Fraktionen, was abweicht und was nicht verglichen werden konnte — statt Zeilen von Hand herauszukopieren.',
-    srcCompareAll: 'Alle vergleichen',
-    srcAllTitle: 'Alle Fraktionen — zum Anzeigen der Befunde anklicken',
-    srcAllFailed: 'Abruf fehlgeschlagen',
-    srcNoSheetIds: 'Noch keine Sheet-IDs gespeichert. Vergleiche eine Fraktion einmal, dann nimmt „Alle vergleichen" sie mit auf.',
-    srcAllProgress: (done, total, current) => `Vergleiche ${done + 1}/${total} — ${current}…`,
-    srcAllDiffs: n => `${n} Abweichung${n === 1 ? '' : 'en'}`,
-    srcAllGaps: n => `${n} ungeprüft`,
-    srcGapsNone: 'Alles geprüft — jeder Tab geladen und alle Namen passen zusammen.',
-    srcGapsCount: n => `${n} Sache${n === 1 ? '' : 'n'} konnte${n === 1 ? '' : 'n'} NICHT geprüft werden`,
-    srcGapsHint: 'Diese hat der Vergleich übersprungen, sie können echte Probleme verbergen. „sheet-weapon" / „sheet-model" = steht im Sheet, fehlt aber in der App; „tab" / „block" = für diese Einheit wurde gar nichts gelesen.',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -539,8 +402,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabAnnounce: 'Escribe y activa el banner de anuncio; auto-traduce a los otros idiomas.',
     helpTabFactions: 'Activa o desactiva cada facción en el builder.',
     helpTabI18n: 'Edita el texto en alemán / español de cualquier cadena de la interfaz.',
-    tabSource: 'Comparar fuente',
-    helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
     tabFind: 'Buscar texto',
     tabCalc: 'Calculadora',
     helpTabCalc: 'La calculadora de puntos del autor, con su lista de precios de reglas especiales. Solo consulta \u2014 no cambia nada en la app.',
@@ -555,43 +416,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     findNone: 'No aparece en ningún sitio.',
     findCount: (h, f) => `${h} ${h === 1 ? 'resultado' : 'resultados'} en ${f} ${f === 1 ? 'facción' : 'facciones'}`,
     findExport: 'Exportar .json', findScanning: f => `Buscando en ${f}…`,
-    srcHint: 'Elige una facción y pega el ID de su hoja de Google (de la URL de la hoja). "Comparar" descarga cada pestaña de unidad y lista las diferencias de puntos vs la app. Solo lectura — no se cambia nada automáticamente.',
-    srcSpreadsheetId: 'ID de la hoja de Google', srcCompare: 'Comparar', srcComparing: 'Comparando…', srcNoDiff: 'Sin diferencias de puntos — la app coincide con la hoja.',
-    srcCol: (unit, model) => `${unit} · ${model}`,
-    srcCoverage: (f, t) => f < t
-      ? `Leídas ${f}/${t} pestañas de unidad — ${t - f} no se pudieron leer (pestaña renombrada, o la hoja nos limitó). Esas unidades NO se comprobaron.`
-      : `Leídas las ${t} pestañas de unidad.`,
-    srcWhereSheet: 'hoja', srcWhereReview: 'revisar',
-    fixSheet: 'hoja', fixCode: 'código', fixUnknown: 'revisar',
-    srcIgnore: 'ignorar', srcUnignore: 'recuperar',
-    srcIgnoreHint: 'Marcar como conocido y aceptado para que deje de salir en cada pasada. No se borra nada — las filas ignoradas se siguen contando y se pueden recuperar.',
-    srcUnignoreHint: 'Volver a mostrar esta fila en cada pasada.',
-    srcShowIgnored: n => `ver ${n} ignoradas`, srcHideIgnored: n => `ocultar ${n} ignoradas`,
-    srcSupplementId: 'ID de la hoja del suplemento (opcional)',
-    srcSupplementHint: 'Un segundo libro donde buscar las unidades que este ejército puede llevar pero cuyas pestañas no están en su propia hoja — los Lords of War de Escalation, las fichas de Horus Heresy. Aquí solo se buscan las unidades que faltaban en el libro principal.',
-    fixSheetHint: 'Las pistas apuntan a la hoja. Por nuestra parte no hay nada que cambiar — la línea de abajo dice qué pestaña y qué celda.',
-    fixCodeHint: 'Nos toca a nosotros: los datos de la app o la propia comparación están mal. En la hoja no hay nada que tocar.',
-    fixUnknownHint: 'Ninguno de los dos lados está demostrado. La línea de abajo dice qué mirar para decidir.',
-    srcWhereReviewHint: 'La app y la hoja simplemente no coinciden — nada demuestra aquí cuál de las dos está mal. Abre la pestaña de la unidad y decide: corregir ahí la hoja, o pulsar Aplicar para llevar el valor de la hoja a la app.',
-    srcOpenSheet: 'Abrir la hoja ↗',
-    srcTabHint: tab => `En la hoja: pestaña "${tab}". En la app: la unidad con ese mismo nombre en esta facción.`,
-    srcApply: 'Aplicar', srcApplying: '…', srcUndo: 'Deshacer', srcAppliedTag: 'aplicado',
-    srcApplyHint: 'Aplicar escribe el valor de la hoja en la app en vivo, para todos y al instante, sin volver a desplegar. Solo se pueden corregir puntos, características y campos de arma; Deshacer restaura el valor original.',
-    srcApplied: (unit, field, value) => `Aplicado: ${unit} · ${field} → ${value}. En vivo para todos los jugadores.`,
-    srcUndone: 'Corrección eliminada — vuelve a usarse el valor original.',
-    srcOverridesActive: n => `${n} corrección${n === 1 ? '' : 'es'} activa${n === 1 ? '' : 's'} en esta facción.`,
-    srcExport: 'Exportar .json',
-    srcExportHint: 'Descarga el chequeo entero en un archivo — todas las facciones, lo que difiere y lo que no se pudo comparar — en vez de copiar filas a mano.',
-    srcCompareAll: 'Comparar todas',
-    srcAllTitle: 'Todas las facciones — pulsa una para ver sus hallazgos',
-    srcAllFailed: 'fallo al descargar',
-    srcNoSheetIds: 'Todavía no hay ids de hoja guardados. Compara una facción una vez y "Comparar todas" ya la incluirá.',
-    srcAllProgress: (done, total, current) => `Comparando ${done + 1}/${total} — ${current}…`,
-    srcAllDiffs: n => `${n} diferencia${n === 1 ? '' : 's'}`,
-    srcAllGaps: n => `${n} sin comprobar`,
-    srcGapsNone: 'Se comprobó todo — todas las pestañas cargaron y todos los nombres cuadran.',
-    srcGapsCount: n => `${n} cosa${n === 1 ? '' : 's'} NO se pudo comprobar`,
-    srcGapsHint: 'La comparación se las saltó, así que pueden esconder problemas reales. "sheet-weapon" / "sheet-model" = está en la hoja pero falta en la app; "tab" / "block" = de esa unidad no se leyó nada.',
   },
   // The Inquisitor panel is an admin-only tool: it stays in English for these languages. The
   // translation editor inside it does cover ru/ja.
@@ -667,35 +491,8 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   const [findHits, setFindHits] = useState<TextHit[] | null>(null);
   const [findRunning, setFindRunning] = useState(false);
   const [findProgress, setFindProgress] = useState('');
-  // Source-compare tool
+  // Sheet ids the codex checks send to the server: the built-in map with any stored override on top.
   const [sourceIds, setSourceIds] = useState<Record<string, string>>(DEFAULT_SOURCE_IDS);
-  const [srcFaction, setSrcFaction] = useState<string>('chaos_space_marines');
-  const [srcId, setSrcId] = useState<string>(DEFAULT_SOURCE_IDS.chaos_space_marines ?? '');
-  const [srcRunning, setSrcRunning] = useState(false);
-  /** Optional second workbook for this faction's supplement units (see supplementKey). */
-  const [srcSuppId, setSrcSuppId] = useState<string>('');
-  const [srcFindings, setSrcFindings] = useState<SourceFinding[] | null>(null);
-  /** Admin corrections currently stored in app_settings.data_overrides, keyed by faction. */
-  const [dataOverrides, setDataOverrides] = useState<api.DataOverrides>({});
-  /** overrideKey of the row whose save is in flight (disables just that row's buttons). */
-  const [srcApplying, setSrcApplying] = useState<string | null>(null);
-  const [srcCoverage, setSrcCoverage] = useState<{ fetched: number; total: number } | null>(null);
-  /** What the comparison could NOT check for the selected faction (unfetched tabs, names present
-   *  on one side only) — a diff that finds nothing is meaningless if half the sheet never loaded. */
-  const [srcGaps, setSrcGaps] = useState<SourceGap[] | null>(null);
-  const [srcShowGaps, setSrcShowGaps] = useState(false);
-  /** "Compare all": per-faction results, so one run covers the whole codex set and clicking a row
-   *  just swaps the already-computed findings in (no refetch, Apply stays scoped to that faction). */
-  const [srcAll, setSrcAll] = useState<Record<string, SourceRun> | null>(null);
-  const [srcAllProgress, setSrcAllProgress] = useState<{ done: number; total: number; current: string } | null>(null);
-  /** Which "Compare all" faction rows are unfolded — each shows its own findings + Apply buttons
-   *  in place, so a correction can be made without leaving the summary. */
-  const [srcExpanded, setSrcExpanded] = useState<Record<string, boolean>>({});
-  /** Rows marked "known and accepted" — hidden from the lists but counted, and restorable. Lets a
-   *  difference both sides are happy with (a naming convention, a unit whose tab lives in another
-   *  workbook) stop drowning the rows that still need doing. Nothing is ever dropped silently. */
-  const [srcIgnores, setSrcIgnores] = useState<api.SourceIgnores>({});
-  const [srcShowIgnored, setSrcShowIgnored] = useState(false);
   // Codex versions live beside the availability flags because they are the same decision seen
   // twice: which factions are open, and how finished each one is.
   const [codexVer, setCodexVer] = useState<api.CodexVersions>(DEFAULT_CODEX_VERSIONS);
@@ -783,13 +580,7 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
       for (const k of Object.keys(tr.ru ?? {})) if (ru[k] == null) ru[k] = tr.ru![k];
       for (const k of Object.keys(tr.ja ?? {})) if (ja[k] == null) ja[k] = tr.ja![k];
       setTransEdits({ de, es, ru, ja });
-      // hydrate source-sheet ids (stored override merged over the built-in defaults)
-      const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
-      setSourceIds(ids);
-      setSrcId(ids[srcFaction] ?? '');
-      setSrcSuppId(ids[supplementKey(srcFaction)] ?? DEFAULT_SUPPLEMENT_ID);
-      setDataOverrides((cfg.settings.data_overrides ?? {}) as api.DataOverrides);
-      setSrcIgnores((cfg.settings.source_ignores ?? {}) as api.SourceIgnores);
+      setSourceIds({ ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) });
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -850,114 +641,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     try { setHealth(await runDataHealth()); }
     catch (e) { setMsg(String(e)); }
     finally { setHealthRunning(false); }
-  }
-
-  /** Fetch one faction's sheet and diff it. Shared by the single-faction and "compare all" runs. */
-  async function runSourceCompare(factionKey: string, id: string): Promise<SourceRun> {
-    const loader = FACTION_LOADERS[factionKey];
-    if (!loader) throw new Error(`No data for ${factionKey}`);
-    const data = await loader();
-    const names = Object.keys(data.units);
-    const resp = await api.adminSourceSheets(id, names);
-    const csv = { ...resp.data };
-    let fetched = resp.fetched;
-
-    // Units the faction's own workbook doesn't have a tab for are not necessarily missing: a
-    // supplement keeps its datasheets in its OWN spreadsheet (the Escalation Lords of War — Chaos
-    // Fellblade, Knight Rampager, War Dog…— are in the army's list but live in the Escalation
-    // workbook). Look the leftovers up there before calling them uncomparable.
-    const extraId = toSheetId(sourceIds[supplementKey(factionKey)] ?? DEFAULT_SUPPLEMENT_ID);
-    const missing = names.filter(n => !csv[n]);
-    if (missing.length > 0 && SHEET_ID_RE.test(extraId)) {
-      const extra = await api.adminSourceSheets(extraId, missing);
-      for (const [n, text] of Object.entries(extra.data)) if (text) { csv[n] = text; fetched++; }
-    }
-
-    return {
-      findings: compareFaction(data, csv),
-      gaps: coverageGaps(data, csv),
-      coverage: { fetched, total: resp.total },
-    };
-  }
-
-  async function handleSourceCompare() {
-    const id = toSheetId(srcId);
-    if (!SHEET_ID_RE.test(id)) return;
-    setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setSrcGaps(null); setSrcAll(null); setMsg('');
-    try {
-      const run = await runSourceCompare(srcFaction, id);
-      setSrcFindings(run.findings); setSrcGaps(run.gaps); setSrcCoverage(run.coverage);
-      // remember the id for this faction
-      const next = { ...sourceIds, [srcFaction]: id, [supplementKey(srcFaction)]: toSheetId(srcSuppId) };
-      setSourceIds(next);
-      api.adminSetSetting('source_sheets', next).catch(() => {});
-    } catch (e) { setMsg(String(e)); }
-    finally { setSrcRunning(false); }
-  }
-
-  /**
-   * Run the comparison for every faction that has a spreadsheet id stored, one after another —
-   * each run fetches ~60 tabs from Google, so they are sequential on purpose (parallel bursts come
-   * back empty and would read as "no differences"). A faction that throws is recorded with its
-   * error instead of aborting the sweep.
-   */
-  async function handleSourceCompareAll() {
-    const targets = SOURCE_FACTIONS
-      .map(f => ({ key: f.key, name: f.name, id: toSheetId(sourceIds[f.key] ?? '') }))
-      .filter(t => SHEET_ID_RE.test(t.id) && FACTION_LOADERS[t.key]);
-    if (targets.length === 0) { setMsg(L.srcNoSheetIds); return; }
-    setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setSrcGaps(null); setMsg('');
-    const results: Record<string, SourceRun> = {};
-    for (const [i, t] of targets.entries()) {
-      setSrcAllProgress({ done: i, total: targets.length, current: t.name });
-      try { results[t.key] = await runSourceCompare(t.key, t.id); }
-      catch (e) { results[t.key] = { findings: [], gaps: [], coverage: { fetched: 0, total: 0 }, error: String(e) }; }
-      setSrcAll({ ...results });
-    }
-    setSrcAllProgress(null);
-    setSrcRunning(false);
-  }
-
-  /**
-   * Apply one Source-check finding to the live app: store the sheet's value as a data override so
-   * every player sees the corrected number immediately, without waiting for a redeploy. Only the
-   * three value kinds are patchable — a 'sheet' finding is a problem in the source document, so
-   * there is nothing to copy into the app.
-   */
-  async function handleApplyFinding(f: SourceFinding, factionKey: string = srcFaction) {
-    if (f.kind === 'sheet') return;
-    const key = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
-    const next: api.DataOverrides = { ...dataOverrides };
-    const list = (next[factionKey] ?? []).filter(o => overrideKey(o) !== key);
-    next[factionKey] = [...list, {
-      unit: f.unit, kind: f.kind, target: f.target, field: f.field, value: f.source,
-      by: adminUsername ?? undefined, at: new Date().toISOString(),
-    }];
-    setSrcApplying(key);
-    try {
-      await api.adminSetSetting('data_overrides', next);
-      setDataOverrides(next);
-      refreshDataOverrides();               // next faction load re-reads them
-      setMsg(L.srcApplied(f.unit, f.field, f.source));
-    } catch (e) { setMsg(String(e)); }
-    finally { setSrcApplying(null); }
-  }
-
-  /** Drop a previously applied override, so the bundled value takes over again. */
-  async function handleUndoFinding(f: SourceFinding, factionKey: string = srcFaction) {
-    if (f.kind === 'sheet') return;
-    const key = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
-    const next: api.DataOverrides = { ...dataOverrides };
-    next[factionKey] = (next[factionKey] ?? []).filter(o => overrideKey(o) !== key);
-    if (next[factionKey].length === 0) delete next[factionKey];
-    setSrcApplying(key);
-    try {
-      await api.adminSetSetting('data_overrides', next);
-      setDataOverrides(next);
-      refreshDataOverrides();
-      setMsg(L.srcUndone);
-    } catch (e) { setMsg(String(e)); }
-    finally { setSrcApplying(null); }
   }
 
   async function handlePromote(userId: number, username: string, makeAdmin: boolean) {
@@ -1271,78 +954,7 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   // filter are what actually narrow it down.
   const transKeys = transKeysAll.slice(0, 400);
 
-  // normalised + validated sheet id (accepts a pasted URL); gates both the request and the link
-  const srcSheetId = toSheetId(srcId);
-  const srcIdOk = SHEET_ID_RE.test(srcSheetId);
-
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
-
-  /**
-   * Mark a row as known-and-accepted (or bring it back). Stored per faction in app_settings so the
-   * decision survives sessions and is shared between admins — the alternative is everyone re-reading
-   * the same accepted difference on every run until the real ones get ignored too.
-   */
-  async function toggleIgnore(row: SourceFinding | SourceGap, factionKey: string, label: string) {
-    const key = ignoreKey(row);
-    const list = srcIgnores[factionKey] ?? [];
-    const next: api.SourceIgnores = { ...srcIgnores };
-    next[factionKey] = list.some(i => i.key === key)
-      ? list.filter(i => i.key !== key)
-      : [...list, { key, label, by: adminUsername ?? undefined, at: new Date().toISOString() }];
-    if (next[factionKey].length === 0) delete next[factionKey];
-    setSrcIgnores(next);
-    try { await api.adminSetSetting('source_ignores', next); }
-    catch (e) { setMsg(String(e)); }
-  }
-
-  const isIgnored = (row: SourceFinding | SourceGap, factionKey: string) =>
-    (srcIgnores[factionKey] ?? []).some(i => i.key === ignoreKey(row));
-
-  /** The small "ignore / bring back" control shared by both lists. */
-  function ignoreButton(row: SourceFinding | SourceGap, factionKey: string, label: string) {
-    const ignored = isIgnored(row, factionKey);
-    return (
-      <button
-        onClick={() => toggleIgnore(row, factionKey, label)}
-        title={ignored ? L.srcUnignoreHint : L.srcIgnoreHint}
-        className={`shrink-0 text-[9px] uppercase px-1.5 py-0.5 border ${
-          ignored ? 'border-zinc-700 text-zinc-400 hover:text-zinc-200'
-                  : 'border-zinc-800 text-zinc-600 hover:border-zinc-600 hover:text-zinc-300'
-        }`}
-      >{ignored ? L.srcUnignore : L.srcIgnore}</button>
-    );
-  }
-
-  /**
-   * Download the whole source check as one .json — every faction that was run, what differs and
-   * what could not be compared. The long "action" sentences are left out: they are generated from
-   * the other fields, and the point of the file is to be small enough to hand over instead of
-   * pasting hundreds of rows.
-   */
-  function handleExportReport() {
-    const runs: Record<string, SourceRun> = srcAll
-      ?? (srcFindings ? { [srcFaction]: { findings: srcFindings, gaps: srcGaps ?? [], coverage: srcCoverage ?? { fetched: 0, total: 0 } } } : {});
-    if (Object.keys(runs).length === 0) return;
-    const report = {
-      generatedAt: new Date().toISOString(),
-      appVersion: CHANGELOG[0]?.version ?? null,
-      factions: Object.fromEntries(Object.entries(runs).map(([key, run]) => [key, {
-        coverage: run.coverage,
-        ...(run.error ? { error: run.error } : {}),
-        findings: run.findings.map(f => ({
-          fix: f.fix, kind: f.kind, unit: f.unit, target: f.target, field: f.field,
-          app: f.prod, sheet: f.source,
-          ...(isIgnored(f, key) ? { ignored: true } : {}),
-        })),
-        gaps: run.gaps.map(g => ({
-          fix: g.fix, kind: g.kind, unit: g.unit, what: g.what,
-          ...(isIgnored(g, key) ? { ignored: true } : {}),
-        })),
-      }])),
-    };
-    downloadText(`custom40k-source-check-${new Date().toISOString().slice(0, 10)}.json`,
-      JSON.stringify(report, null, 2), 'application/json');
-  }
 
   /**
    * Load one faction's datasheet ability texts into the translation editor. Keyed by the English
@@ -1414,104 +1026,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     } catch (e) { setMsg(String(e)); }
   }
 
-  /** Who has to make the fix — the first thing to read on every row, so nobody hunts a spreadsheet
-   *  cell for something only we can change (or waits on us for a typo in a tab). */
-  function fixBadge(fix: FixOwner) {
-    const style = fix === 'sheet' ? 'border-amber-700 text-amber-400 bg-amber-950/30'
-      : fix === 'code' ? 'border-sky-800 text-sky-400 bg-sky-950/30'
-      : 'border-zinc-700 text-zinc-500';
-    return (
-      <span
-        title={fix === 'sheet' ? L.fixSheetHint : fix === 'code' ? L.fixCodeHint : L.fixUnknownHint}
-        className={`shrink-0 w-14 text-center text-[8px] uppercase px-1 rounded border cursor-help ${style}`}
-      >{fix === 'sheet' ? L.fixSheet : fix === 'code' ? L.fixCode : L.fixUnknown}</span>
-    );
-  }
-
-  /** The list of things the comparison could not check. Same markup inline under a faction row in
-   *  "Compare all" and under the single-faction panel. */
-  function renderGaps(gaps: SourceGap[], factionKey: string) {
-    const shown = srcShowIgnored ? gaps : gaps.filter(g => !isIgnored(g, factionKey));
-    if (shown.length === 0) return null;
-    return (
-      <div className="mt-1 space-y-1.5 max-h-[45vh] overflow-y-auto border border-zinc-800 p-2">
-        <p className="text-zinc-600 text-[10px] font-mono mb-1">{L.srcGapsHint}</p>
-        {shown.map((g, i) => (
-          <div key={i} className={`text-[11px] font-mono ${isIgnored(g, factionKey) ? 'opacity-40' : ''}`}>
-            <div className="flex gap-2 items-center">
-              {fixBadge(g.fix)}
-              <span className="shrink-0 w-28 text-[9px] uppercase text-zinc-600">{g.kind}</span>
-              <span className="text-zinc-300 shrink-0">{g.unit}</span>
-              <span className="text-zinc-400 flex-1 truncate" title={g.what}>{g.what}</span>
-              {ignoreButton(g, factionKey, `${g.unit}: ${g.what}`)}
-            </div>
-            {/* the action is the point of the row — always visible, never only a tooltip */}
-            <div className="text-[10px] text-zinc-500 pl-[6.5rem] leading-snug">{g.action}</div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  /**
-   * The findings list, with the Apply/Undo buttons bound to `factionKey` — so it works both under
-   * the single-faction panel and expanded inline under a "Compare all" row, without first having to
-   * switch the whole screen to that faction.
-   */
-  function renderFindings(factionKey: string, findings: SourceFinding[]) {
-    const shown = srcShowIgnored ? findings : findings.filter(f => !isIgnored(f, factionKey));
-    if (shown.length === 0) return <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>;
-    return (
-      <div className="space-y-1.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
-        {shown.map((f, i) => (
-          <div key={i} className={`text-[11px] font-mono ${isIgnored(f, factionKey) ? 'opacity-40' : ''}`}>
-          <div className="flex gap-2 items-center">
-            {fixBadge(f.fix)}
-            <span className={`shrink-0 w-14 text-[9px] uppercase ${
-              f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
-              : f.kind === 'sheet' ? 'text-red-500' : f.kind === 'option' ? 'text-emerald-500'
-              : 'text-fuchsia-500'
-            }`}>{f.kind}</span>
-            <span className="text-zinc-300 flex-1 truncate" title={L.srcTabHint(f.unit)}>
-              {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
-            </span>
-            <span className="text-zinc-500 shrink-0">app <span className="text-red-400">{f.prod || '—'}</span></span>
-            <span className="text-zinc-600 shrink-0">→</span>
-            <span className="text-zinc-500 shrink-0">sheet <span className="text-green-400">{f.source}</span></span>
-            {(() => {
-              // 'sheet' findings are a problem in the source document — there is no trustworthy
-              // value to copy into the app, so no button is offered.
-              if (f.kind === 'sheet') return null;
-              const k = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
-              const active = (dataOverrides[factionKey] ?? []).find(o => overrideKey(o) === k);
-              const busy = srcApplying === k;
-              return active ? (
-                <span className="shrink-0 flex items-center gap-1">
-                  <span className="text-[8px] uppercase px-1 rounded border border-green-800 text-green-400 bg-green-950/30">{L.srcAppliedTag}</span>
-                  <button
-                    onClick={() => handleUndoFinding(f, factionKey)}
-                    disabled={busy}
-                    className="text-[9px] uppercase px-1.5 py-0.5 border border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 disabled:opacity-40"
-                  >{busy ? L.srcApplying : L.srcUndo}</button>
-                </span>
-              ) : (
-                <button
-                  onClick={() => handleApplyFinding(f, factionKey)}
-                  disabled={busy}
-                  title={L.srcApplyHint}
-                  className="shrink-0 text-[9px] uppercase px-1.5 py-0.5 border border-amber-800 text-amber-500 hover:border-amber-600 hover:text-amber-300 disabled:opacity-40"
-                >{busy ? L.srcApplying : L.srcApply}</button>
-              );
-            })()}
-            {ignoreButton(f, factionKey, `${f.unit} · ${f.target} · ${f.field}`)}
-          </div>
-          <div className="text-[10px] text-zinc-500 pl-[4.5rem] leading-snug">{f.action}</div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   // Grouped by what kind of work the tab is for, not just listed flat — a dashboard/log reading,
   // user account management, content the author publishes himself, read-only data-correctness
   // audits, and reference-only tools are different jobs and used at different moments.
@@ -1523,7 +1037,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     { id: 'factions', label: L.tabFactions, help: L.helpTabFactions, category: L.catContent },
     { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n,     category: L.catContent },
     { id: 'health',   label: L.tabHealth,   help: L.helpTabHealth,   category: L.catDataAudit },
-    { id: 'source',   label: L.tabSource,   help: L.helpTabSource,   category: L.catDataAudit },
     { id: 'find',     label: L.tabFind,     help: L.helpTabFind,     category: L.catDataAudit },
     { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc,     category: L.catTools },
   ];
@@ -2180,153 +1693,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
             </div>
             )}
 
-            {tab === 'source' && (
-            <div>
-              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.tabSource}</div>
-              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.srcHint} {L.srcApplyHint}</p>
-              {(dataOverrides[srcFaction]?.length ?? 0) > 0 && (
-                <p className="text-green-600 text-[10px] font-mono mb-2">
-                  {L.srcOverridesActive(dataOverrides[srcFaction].length)}
-                </p>
-              )}
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <select
-                  value={srcFaction}
-                  onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcSuppId(sourceIds[supplementKey(e.target.value)] ?? DEFAULT_SUPPLEMENT_ID); setSrcFindings(null); }}
-                  className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
-                >
-                  {SOURCE_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
-                </select>
-                <input
-                  value={srcId}
-                  onChange={e => setSrcId(e.target.value)}
-                  placeholder={L.srcSpreadsheetId}
-                  className="flex-1 min-w-[200px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
-                />
-                <input
-                  value={srcSuppId}
-                  onChange={e => setSrcSuppId(e.target.value)}
-                  placeholder={L.srcSupplementId}
-                  title={L.srcSupplementHint}
-                  className="flex-1 min-w-[200px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
-                />
-                <button onClick={handleSourceCompare} disabled={srcRunning || !srcIdOk} className={toolbarBtn}>
-                  {srcRunning ? L.srcComparing : L.srcCompare}
-                </button>
-                <button onClick={handleSourceCompareAll} disabled={srcRunning} className={toolbarBtn}>
-                  {L.srcCompareAll}
-                </button>
-                <button
-                  onClick={handleExportReport}
-                  disabled={srcRunning || (!srcAll && !srcFindings)}
-                  title={L.srcExportHint}
-                  className={toolbarBtn}
-                >{L.srcExport}</button>
-                {(() => {
-                  const n = Object.values(srcIgnores).reduce((s, l) => s + l.length, 0);
-                  if (n === 0) return null;
-                  return (
-                    <button onClick={() => setSrcShowIgnored(v => !v)} className={toolbarBtn} title={L.srcIgnoreHint}>
-                      {srcShowIgnored ? L.srcHideIgnored(n) : L.srcShowIgnored(n)}
-                    </button>
-                  );
-                })()}
-              </div>
-              {srcAllProgress && (
-                <p className="text-amber-500 text-[10px] font-mono mb-2">
-                  {L.srcAllProgress(srcAllProgress.done, srcAllProgress.total, srcAllProgress.current)}
-                </p>
-              )}
-              {srcAll && (
-                <div className="mb-3 border border-zinc-800">
-                  <div className="text-[9px] uppercase tracking-widest text-zinc-500 px-2 py-1 border-b border-zinc-800">{L.srcAllTitle}</div>
-                  {Object.entries(srcAll).map(([key, run]) => {
-                    const name = SOURCE_FACTIONS.find(f => f.key === key)?.name ?? key;
-                    const missing = run.coverage.total - run.coverage.fetched;
-                    const open = !!srcExpanded[key];
-                    const sheetId = toSheetId(sourceIds[key] ?? '');
-                    return (
-                      <div key={key} className="border-b border-zinc-900">
-                        <button
-                          onClick={() => setSrcExpanded(m => ({ ...m, [key]: !m[key] }))}
-                          className={`w-full text-left text-[11px] font-mono flex gap-3 items-center px-2 py-1 hover:bg-zinc-900 ${open ? 'bg-zinc-900' : ''}`}
-                        >
-                          <span className="shrink-0 text-zinc-600">{open ? '▾' : '▸'}</span>
-                          <span className="flex-1 truncate text-zinc-300">{name}</span>
-                          {run.error ? (
-                            <span className="text-red-500 truncate max-w-[50%]" title={run.error}>{L.srcAllFailed}</span>
-                          ) : (
-                            <>
-                              <span className={missing > 0 ? 'text-amber-500' : 'text-zinc-600'}>
-                                {run.coverage.fetched}/{run.coverage.total}
-                              </span>
-                              <span className={run.findings.length > 0 ? 'text-fuchsia-400' : 'text-green-600'}>
-                                {L.srcAllDiffs(run.findings.length)}
-                              </span>
-                              <span className={run.gaps.length > 0 ? 'text-amber-500' : 'text-zinc-600'}>
-                                {L.srcAllGaps(run.gaps.length)}
-                              </span>
-                            </>
-                          )}
-                        </button>
-                        {open && (
-                          <div className="px-2 pb-2">
-                            {run.error ? (
-                              <p className="text-red-400 text-[10px] font-mono break-all">{run.error}</p>
-                            ) : (
-                              <>
-                                <div className="flex flex-wrap items-center gap-3 mb-1">
-                                  {SHEET_ID_RE.test(sheetId) && (
-                                    <a
-                                      href={`https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/edit`}
-                                      target="_blank" rel="noopener noreferrer"
-                                      className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
-                                    >{L.srcOpenSheet}</a>
-                                  )}
-                                  {(dataOverrides[key]?.length ?? 0) > 0 && (
-                                    <span className="text-green-600 text-[10px] font-mono">{L.srcOverridesActive(dataOverrides[key].length)}</span>
-                                  )}
-                                </div>
-                                {run.gaps.length > 0 && renderGaps(run.gaps, key)}
-                                <div className="mt-1">{renderFindings(key, run.findings)}</div>
-                              </>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-              {srcCoverage && (
-                <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <p className={`text-[10px] font-mono ${srcCoverage.fetched < srcCoverage.total ? 'text-amber-500' : 'text-zinc-500'}`}>
-                    {L.srcCoverage(srcCoverage.fetched, srcCoverage.total)}
-                  </p>
-                  {srcIdOk && (
-                    <a
-                      href={`https://docs.google.com/spreadsheets/d/${encodeURIComponent(srcSheetId)}/edit`}
-                      target="_blank" rel="noopener noreferrer"
-                      className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
-                    >{L.srcOpenSheet}</a>
-                  )}
-                </div>
-              )}
-              {srcGaps && (
-                <div className="mb-2">
-                  <button
-                    onClick={() => setSrcShowGaps(v => !v)}
-                    className={`text-[10px] font-mono underline ${srcGaps.length > 0 ? 'text-amber-500 hover:text-amber-300' : 'text-green-600'}`}
-                  >
-                    {srcGaps.length === 0 ? L.srcGapsNone : `${srcShowGaps ? '▾' : '▸'} ${L.srcGapsCount(srcGaps.length)}`}
-                  </button>
-                  {srcShowGaps && srcGaps.length > 0 && renderGaps(srcGaps, srcFaction)}
-                </div>
-              )}
-              {srcFindings && renderFindings(srcFaction, srcFindings)}
-            </div>
-            )}
-
             {tab === 'find' && (
             <div>
               <p className="text-zinc-500 text-[11px] font-mono mb-2">{L.findHint}</p>
@@ -2377,7 +1743,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
               )}
             </div>
             )}
-
 
             {tab === 'calc' && <PointsCalculator lang={language} />}
 

@@ -1,10 +1,8 @@
 /** Thin fetch wrappers for the account/cloud-saves backend (api/*.js). Cookie-based session —
  * every call sends credentials so the HttpOnly session cookie round-trips automatically. */
 import type { DataOverrides } from '../engine/dataOverrides';
-import type { SourceIgnores } from '../engine/sourceCompare';
 import { t, tpl, useLanguage, type Language } from '../i18n';
 export type { DataOverride, DataOverrides } from '../engine/dataOverrides';
-export type { SourceIgnore, SourceIgnores } from '../engine/sourceCompare';
 
 async function call<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -611,14 +609,10 @@ export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; source_ignores?: SourceIgnores; codex_versions?: CodexVersions; codex_content_hashes?: Record<string, Record<string, string>>; codex_content_alerts?: Record<string, { newTabs?: string[]; removedTabs?: string[]; changedTabs?: string[]; flaggedAt?: string }> } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; codex_versions?: CodexVersions; codex_content_hashes?: Record<string, Record<string, string>>; codex_content_alerts?: Record<string, { newTabs?: string[]; removedTabs?: string[]; changedTabs?: string[]; flaggedAt?: string }> } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'source_ignores' | 'codex_versions' | 'codex_content_hashes' | 'codex_content_alerts', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'codex_versions' | 'codex_content_hashes' | 'codex_content_alerts', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
-}
-/** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */
-export function adminSourceSheets(id: string, sheets: string[]) {
-  return call<{ ok: true; data: Record<string, string | null>; fetched: number; total: number }>('/api/admin/source-sheets', { method: 'POST', body: JSON.stringify({ id, sheets }) });
 }
 /** Best-effort machine translation of short admin strings (announcement editor). */
 export function adminTranslate(texts: string[], from: string, to: string) {

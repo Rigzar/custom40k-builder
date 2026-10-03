@@ -116,7 +116,6 @@ export default async function handler(req, res) {
     case 'get-settings':      return getSettings(req, res);
     case 'set-setting':       return setSetting(req, res);
     case 'translate':         return translate(req, res);
-    case 'source-sheets':     return sourceSheets(req, res);
     case 'codex-versions-check': return codexVersionsCheck(req, res);
     case 'codex-content-check': return codexContentCheck(req, res);
     case 'update-units':        return updateUnits(req, res);
@@ -424,81 +423,6 @@ async function exportData(req, res) {
   }
 }
 
-// POST { id, sheets: [names] } — batch-fetch tabs of a public Google Sheet as CSV (server-side
-// proxy so the browser isn't blocked by CORS). Best-effort: a tab that fails comes back null.
-async function sourceSheets(req, res) {
-  if (req.method !== 'POST') return res.status(405).end();
-  if (!await requireAdmin(req, res)) return;
-  const { id, sheets } = req.body ?? {};
-  if (!id || !/^[A-Za-z0-9_-]+$/.test(String(id))) return res.status(400).json({ error: 'Bad spreadsheet id' });
-  if (!Array.isArray(sheets) || sheets.length === 0) return res.status(400).json({ error: 'Missing sheets' });
-  const names = sheets.slice(0, 120).map(String);
-  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
-  // Google rate-limits bursts: firing every tab at once makes most come back empty, which would
-  // silently look like "no differences". Fetch with small concurrency + a retry instead.
-  async function fetchTab(name) {
-    const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
-    for (let attempt = 0; attempt < 2; attempt++) {
-      try {
-        const r = await fetch(url, { headers: { 'User-Agent': 'custom40k-builder' } });
-        if (r.ok) {
-          const text = await r.text();
-          // gviz returns an HTML error page for a missing tab; only keep real CSV
-          if (!text.startsWith('<')) return text;
-        }
-      } catch { /* retry */ }
-      await sleep(400);
-    }
-    return null;
-  }
-
-  try {
-    // Google's gviz endpoint does NOT fail on an unknown tab name: it silently returns the FIRST
-    // tab of the workbook (the Index). Taken at face value that looks like a successful fetch of a
-    // datasheet with no headers, so a unit whose tab is misnamed — or that lives in another
-    // workbook entirely, like the Escalation Lords of War — reads as "compared, no differences".
-    // Fetch one deliberately impossible name up front and treat any tab that comes back identical
-    // to it as missing.
-    const fallback = await fetchTab('__c40k_no_such_tab__');
-
-    const isMissing = (text) => text == null || (fallback != null && text === fallback);
-
-    // The two sides don't always spell a tab the same way ("Chaos Biker" vs the app's "Chaos
-    // Bikers", "Daemon Prince" vs "Daemon prince"). Rather than report the whole datasheet as
-    // uncomparable over an 's' or a capital letter, try the obvious variants before giving up.
-    const variants = (name) => [
-      name.replace(/s$/, ''),
-      `${name}s`,
-      name.replace(/\w\S*/g, w => w[0].toUpperCase() + w.slice(1)),
-      name.toLowerCase(),
-    ].filter((v, i, all) => v !== name && all.indexOf(v) === i);
-
-    const data = {};
-    let cursor = 0;
-    const worker = async () => {
-      while (cursor < names.length) {
-        const name = names[cursor++];
-        let text = await fetchTab(name);
-        if (isMissing(text)) {
-          for (const v of variants(name)) {
-            const alt = await fetchTab(v);
-            if (!isMissing(alt)) { text = alt; break; }
-            await sleep(80);
-          }
-        }
-        data[name] = isMissing(text) ? null : text;
-        await sleep(80);
-      }
-    };
-    await Promise.all(Array.from({ length: Math.min(4, names.length) }, worker));
-    const fetched = Object.values(data).filter(Boolean).length;
-    res.status(200).json({ ok: true, data, fetched, total: names.length, fallbackDetected: fallback != null });
-  } catch (err) {
-    res.status(502).json({ error: 'Fetch failed', detail: String(err) });
-  }
-}
-
 // POST { ids: { factionKey: sheetId } } — best-effort: fetch each Google Sheet's own title (the
 // creator names each workbook "<Faction> <version>", e.g. "Chaos Space Marines 1.03") and pull
 // the version number straight out of it, instead of an admin re-typing it by hand in the Factions
@@ -569,7 +493,7 @@ async function codexContentCheck(req, res) {
 // Only these keys can be read/written through the settings admin API.
 // 'codex_versions' was missing here — the Factions tab's Save button for codex version/status
 // was rejected with "Unknown setting key" every time (found 2026-08-23, fixed same edit).
-const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides', 'source_ignores', 'codex_versions', 'codex_content_hashes', 'codex_content_alerts']);
+const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides', 'codex_versions', 'codex_content_hashes', 'codex_content_alerts']);
 
 // GET — all editable app settings as a { key: value } map. An Interrogator (translations-only
 // rank, not a full admin) only ever gets the 'translations' key back — the announcement draft,

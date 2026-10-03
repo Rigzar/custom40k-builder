@@ -1,8 +1,9 @@
 /**
  * sourceCompare.ts — compare production data against the creator's live Google Sheet (same data as
- * the .ods: one workbook per faction, one tab per unit). Fetching is done by the admin API proxy
- * (api/admin/source-sheets, avoids browser CORS); this module only parses the returned CSV and
- * diffs it against the loaded faction data.
+ * the .ods: one workbook per faction, one tab per unit). The admin "Source check" tab and its
+ * server proxy were retired on 2026-10-04 (the unit-update button brings the sheets in as a pull
+ * request instead); this module stays because the audit scripts in scripts/ still use it. It only
+ * parses CSV text and diffs it against the loaded faction data.
  *
  * Compares model POINTS, model STATS (header-driven, so infantry M/WS/BS/S/T/W/I/A/LD/SV and
  * vehicle FRONT/SIDE/REAR/HP both work), WEAPON profiles (range/type/S/AP/D/abilities) and
