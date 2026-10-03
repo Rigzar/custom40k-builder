@@ -8,7 +8,7 @@
  * derived Expired/Matched, no double match, privacy of chats, the unread counts, limits.
  */
 import { PGlite } from '@electric-sql/pglite';
-import { gitfinda, gitfindaSchema, ARMIES, ENGAGEMENTS, LIMITS, Refusal, validatePost } from '../api/_lib/gitfinda.js';
+import { gitfinda, gitfindaSchema, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
 import fs from 'node:fs';
 
 const db = new PGlite();
@@ -84,7 +84,9 @@ ok(l[0].id === p3 && l[2].id === p1, 'newest first by default', l.map(p => p.id)
 ok(l.every(p => p.status === 'active'), 'fresh posts are active');
 ok(!JSON.stringify(l).match(/password|email|user_id|userId/i), 'nothing private in the listing');
 ok(l.find(p => p.id === p1).slots.length === 2 && l.find(p => p.id === p1).eventName === 'Online League #2', 'slots and event name come with the post');
-ok((await g.list(A, {})).posts.length === 1, 'a player does not see their own posts in Browse');
+const ownList = (await g.list(A, {})).posts;
+ok(ownList.length === 3 && ownList.filter(p => p.mine).length === 2 && ownList.find(p => p.id === p3).mine === false, 'a player sees their own posts in Browse, flagged mine, next to everybody else\'s');
+ok(!(await g.list(C, {})).posts.some(p => p.mine), 'nobody else\'s post is flagged mine');
 ok((await g.list(C, { army: 'orks' })).posts.length === 1, 'army filter');
 ok((await g.list(C, { engagement: 'epic' })).posts.map(p => p.id).join() === String(p2), 'engagement filter');
 ok((await g.list(C, { eventId: 1 })).posts.map(p => p.id).join() === String(p1), 'event filter');

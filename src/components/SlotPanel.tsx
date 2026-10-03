@@ -9,6 +9,7 @@ import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { useT, type TranslationKey } from '../i18n';
+import { nm } from '../utils/localName';
 
 const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
   'HQ': 'hq', 'Troops': 'troops', 'Elites': 'elites', 'Fast Attack': 'fastAttack',
@@ -246,7 +247,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           }`}
                         >
                           <span className="text-[11px] text-emerald-900 group-hover:text-emerald-500 transition-colors w-3 shrink-0 text-center">+</span>
-                          <span className="text-zinc-300 group-hover:text-emerald-300 text-[12px] flex-1 transition-colors">{entry.name}</span>
+                          <span className="text-zinc-300 group-hover:text-emerald-300 text-[12px] flex-1 transition-colors">{nm(entry.name)}</span>
                           <span className="text-zinc-500 group-hover:text-emerald-700/70 text-[11px] tabular-nums transition-colors">{entry.minCost ?? '?'} pts</span>
                         </button>
                       );
@@ -486,7 +487,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           }`}
                         >
                           <span className="text-[11px] text-amber-900 group-hover:text-amber-500 transition-colors w-3 shrink-0 text-center">+</span>
-                          <span className="text-zinc-300 group-hover:text-amber-300 text-[12px] flex-1 transition-colors">{entry.name}</span>
+                          <span className="text-zinc-300 group-hover:text-amber-300 text-[12px] flex-1 transition-colors">{nm(entry.name)}</span>
                           {entry.factionSource && !entry.injected && (
                             <span className="text-[10px] text-zinc-600">{t('alliedBadge')}</span>
                           )}

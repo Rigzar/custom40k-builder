@@ -736,6 +736,16 @@ Its first run caught four bugs before the file ever reached the game, the worst 
 `ipairs` stops at the first `nil` hole in a table literal — which silently deleted every prayer's
 range/target/duration line, re-breaking exactly what v1.70 had just fixed. See `tts/README.md`.
 
+### Names in katakana (`src/utils/localName.ts`, `src/data/names.ja.json`)
+
+A Japanese player asked for names in katakana. **The data is never translated**: unit, weapon and option names are the keys the engine matches on, so changing them would silently break rules and saved lists. A name is turned into katakana only at the moment it is **drawn**, and only when the language is Japanese: `nm(w.name)` for names, `rl(w.type)` / `rl(w.abilities)` for weapon types and abilities, `eqText(equipped_with)` for the loadout line.
+
+- `names.ja.json` is `{ "lower-cased English": "katakana" }` (~4,500 entries) and is a **separate lazy chunk** — the other four languages never download it. A name it does not know is shown in English, never blank.
+- `jaName()` also understands `Plasma gun - Standard`, `Plasma gun (Standard)`, `A and B`, `Two lascannons`, `The X` and a trailing marker glyph (`ᴹ`).
+- The loadout line is translated by **template**, not sentence by sentence (98% of them have the frame `Every X is equipped with: A; B.`), in all five languages; only Japanese also changes the names. A sentence that does not fit the frame is shown as written.
+- To add a name, add a line to the table and run `npx tsx scripts/_ja_names_test.ts`: it reports, for every unit, model, weapon and option in the game, what is still English.
+- A new place that draws a name needs `nm()` around it; nothing else.
+
 ### Gitfinda — looking for a game (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
 A board where players post "I want a game" (army, Skirmish / Pitched / Epic, points, an IANA time zone and the times they are free), others browse and press **Match**, and each match gets a private chat. Built to Dominic's requirements document; **beta** — see `ki-gitfinda-beta-scope-01` for what it deliberately does not do yet (no email, no blocking).

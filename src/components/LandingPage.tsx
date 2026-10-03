@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -65,6 +65,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Codex versions", "The update also checks every sheet's title and moves the version badge when the author ships a new codex number."],
         ["Rule texts translated", "Archetypes, the Armory, psychic powers, prayers, army rules and the faction introductions are now in German, Spanish, Russian and Japanese, in the app and on the wiki. Russian headings use a font that has Cyrillic."],
         ["Gitfinda (beta)", "A new board to find someone to play with: post your army, points and the times you are free, browse other players' posts with the times shown in your own time zone, match, and chat. Open it from the Gitfinda button on the start page."],
+        ["Japanese in katakana", "On the Japanese version, unit, weapon, option and Armory names, the weapon types and abilities and the loadout line now appear in katakana, as a Japanese player asked. The long rule texts and option headings are still English."],
       ] },
       { label: "Also fixed", rows: [
         ["Razorback", "The pairing \"Lascannon and Twin plasma gun\" shows its own name and one price, and the swap header says Twin heavy flamer."],
@@ -85,6 +86,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Codex-Versionen", "Das Update prüft außerdem den Titel jedes Blatts und setzt das Versionsabzeichen um, wenn der Autor eine neue Codex-Nummer veröffentlicht."],
         ["Regeltexte übersetzt", "Archetypen, Armory, psychische Kräfte, Prayers, Armeeregeln und die Fraktionseinführungen gibt es jetzt auf Deutsch, Spanisch, Russisch und Japanisch, in der App und im Wiki. Russische Überschriften nutzen eine Schrift mit Kyrillisch."],
         ["Gitfinda (Beta)", "Eine neue Tafel, um Mitspieler zu finden: veröffentliche Armee, Punkte und freie Zeiten, durchsuche die Beiträge anderer mit Zeiten in deiner Zeitzone, matche und chatte. Du öffnest sie mit dem Gitfinda-Knopf auf der Startseite."],
+        ["Japanisch in Katakana", "In der japanischen Version erscheinen Namen von Einheiten, Waffen, Optionen und Armory, Waffenarten, Fähigkeiten und die Ausrüstungszeile jetzt in Katakana, auf Wunsch eines japanischen Spielers. Lange Regeltexte und Optionsüberschriften sind noch Englisch."],
       ] },
       { label: "Außerdem behoben", rows: [
         ["Razorback", "Die Paarung „Lascannon and Twin plasma gun“ zeigt ihren eigenen Namen und einen Preis, und die Tausch-Überschrift nennt den Twin heavy flamer."],
@@ -105,6 +107,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Versiones de códex", "La actualización también comprueba el título de cada hoja y mueve la insignia de versión cuando el autor publica un número nuevo de códex."],
         ["Textos de reglas traducidos", "Arquetipos, Armory, poderes psíquicos, prayers, reglas de ejército y las introducciones de facción están en alemán, español, ruso y japonés, en la app y en la wiki. Los títulos en ruso usan una fuente con cirílico."],
         ["Gitfinda (beta)", "Un tablón nuevo para encontrar con quién jugar: publica tu ejército, puntos y las horas en que estás libre, mira los anuncios de otros con las horas en tu zona horaria, haz match y chatea. Se abre con el botón de Gitfinda de la pantalla de inicio."],
+        ["Japonés en katakana", "En la versión japonesa, los nombres de unidades, armas, opciones y Armory, los tipos y habilidades de arma y la línea de equipo salen ahora en katakana, como pidió un jugador japonés. Los textos largos de reglas y los encabezados de opciones siguen en inglés."],
       ] },
       { label: "También corregido", rows: [
         ["Razorback", "La pareja «Lascannon and Twin plasma gun» muestra su propio nombre y un solo precio, y la cabecera del cambio dice Twin heavy flamer."],
@@ -125,6 +128,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Версии кодексов", "Обновление также проверяет название каждого листа и меняет значок версии, когда автор выпускает новый номер кодекса."],
         ["Тексты правил переведены", "Архетипы, Armory, псионические силы, prayers, правила армии и описания фракций теперь на немецком, испанском, русском и японском — в приложении и на вики. Русские заголовки используют шрифт с кириллицей."],
         ["Gitfinda (бета)", "Новая доска, чтобы найти с кем сыграть: опубликуйте армию, очки и свободное время, смотрите объявления других со временем в вашем часовом поясе, нажимайте «Матч» и общайтесь в чате. Открывается кнопкой Gitfinda на стартовой странице."],
+        ["Японский катаканой", "В японской версии названия юнитов, оружия, опций и Armory, типы и способности оружия и строка снаряжения теперь записаны катаканой — по просьбе японского игрока. Длинные тексты правил и заголовки опций пока на английском."],
       ] },
       { label: "Также исправлено", rows: [
         ["Razorback", "Пара «Lascannon and Twin plasma gun» показывает своё название и одну цену, а заголовок замены говорит Twin heavy flamer."],
@@ -145,6 +149,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["コデックスのバージョン", "更新では各シートのタイトルも確認し、作者が新しいコデックス番号を公開するとバージョンバッジを移します。"],
         ["ルール文を翻訳", "アーキタイプ、Armory、サイキックパワー、prayer、軍ルール、勢力紹介が、アプリとWikiでドイツ語・スペイン語・ロシア語・日本語になりました。ロシア語の見出しはキリル文字対応のフォントを使います。"],
         ["Gitfinda（ベータ）", "対戦相手を見つける新しい掲示板です。軍・ポイント・空いている時間を投稿し、ほかのプレイヤーの投稿を自分のタイムゾーンで見て、マッチしてチャットできます。スタートページのGitfindaボタンから開きます。"],
+        ["日本語をカタカナで", "日本語版で、ユニット・武器・オプション・Armoryの名称、武器タイプとアビリティ、装備行がカタカナ表示になりました（日本のプレイヤーからの要望）。長いルール文とオプションの見出しはまだ英語です。"],
       ] },
       { label: "その他の修正", rows: [
         ["Razorback", "「Lascannon and Twin plasma gun」の組み合わせは、自身の名前と1つの価格を表示し、交換の見出しはTwin heavy flamerになりました。"],
@@ -642,7 +647,7 @@ export function LandingPage({
                 <img src="/gitfinda/matched_gits_users.png" alt="" aria-hidden className="w-4 h-4 object-contain" />
                 {t('gfButton')}
                 <span className="border border-orange-500/70 text-orange-300 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
-                {loggedIn && gfUnread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
+                {gfUnread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
               </button>
             ) : (
               <button

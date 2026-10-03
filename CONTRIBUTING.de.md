@@ -946,6 +946,16 @@ deaktiviert, genau wie bei Campaign.
 
 **⚠ Vor jedem neuen Endpoint unter `api/` das Limit von Vercel-Funktionen beachten.**
 
+### Namen in Katakana (`src/utils/localName.ts`, `src/data/names.ja.json`)
+
+Ein japanischer Spieler wollte die Namen in Katakana. **Die Daten werden nie übersetzt**: Namen von Einheiten, Waffen und Optionen sind die Schlüssel, mit denen die Engine vergleicht; sie zu ändern würde Regeln und gespeicherte Listen stillschweigend kaputt machen. Ein Name wird nur im Moment des **Zeichnens** in Katakana umgesetzt, und nur bei japanischer Sprache: `nm(w.name)` für Namen, `rl(w.type)` / `rl(w.abilities)` für Waffenarten und Fähigkeiten, `eqText(equipped_with)` für die Ausrüstungszeile.
+
+- `names.ja.json` ist `{ "englisch klein": "Katakana" }` (~4.500 Einträge) und ein **eigener, bei Bedarf geladener Chunk** — die anderen vier Sprachen laden ihn nie. Ein unbekannter Name wird englisch angezeigt, nie leer.
+- `jaName()` versteht auch `Plasma gun - Standard`, `Plasma gun (Standard)`, `A and B`, `Two lascannons`, `The X` und ein Marker-Zeichen am Ende (`ᴹ`).
+- Die Ausrüstungszeile wird per **Vorlage** übersetzt, nicht Satz für Satz (98 % haben den Rahmen `Every X is equipped with: A; B.`), in allen fünf Sprachen; nur Japanisch ändert zusätzlich die Namen. Ein Satz, der nicht passt, wird unverändert gezeigt.
+- Um einen Namen hinzuzufügen, eine Zeile in die Tabelle schreiben und `npx tsx scripts/_ja_names_test.ts` ausführen: Es zeigt für jede Einheit, jedes Modell, jede Waffe und Option, was noch englisch ist.
+- Eine neue Stelle, die einen Namen zeichnet, braucht `nm()` drumherum; mehr nicht.
+
 ### Gitfinda — Spieler gesucht (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
 Eine Tafel, auf der Spieler „ich suche ein Spiel“ veröffentlichen (Armee, Skirmish / Pitched / Epic, Punkte, eine IANA-Zeitzone und ihre freien Zeiten); andere durchsuchen sie und drücken **Match**, und jedes Match bekommt einen privaten Chat. Nach Dominics Anforderungsdokument gebaut; **Beta** — was bewusst noch fehlt (keine E-Mail, kein Blockieren), steht in `ki-gitfinda-beta-scope-01`.

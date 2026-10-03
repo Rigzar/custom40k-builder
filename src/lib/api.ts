@@ -982,6 +982,8 @@ export interface GitfindaPost {
   slots: GitfindaSlot[]; status: GitfindaStatus;
   /** Browse only: did I already match this one? */
   matchedByMe?: boolean;
+  /** Browse only: is this MY post? (shown, but with no Match button) */
+  mine?: boolean;
   /** My Posts only. */
   matchCount?: number;
 }

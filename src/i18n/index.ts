@@ -576,7 +576,8 @@ export type TranslationKey =
   | 'gfErrRate'
   | 'gfButton'
   | 'gfButtonSignIn'
-  | 'gfButtonTitle';
+  | 'gfButtonTitle'
+  | 'gfYourPost';
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1575,6 +1576,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButton: 'GITFINDA — FIND A GAME',
     gfButtonSignIn: 'GITFINDA — SIGN IN',
     gfButtonTitle: 'Find someone to play Custom40k with',
+    gfYourPost: 'Your post',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -2570,6 +2572,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButton: 'GITFINDA — SPIEL FINDEN',
     gfButtonSignIn: 'GITFINDA — ANMELDEN',
     gfButtonTitle: 'Finde jemanden zum Custom40k-Spielen',
+    gfYourPost: 'Dein Beitrag',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -3565,6 +3568,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButton: 'GITFINDA — BUSCA PARTIDA',
     gfButtonSignIn: 'GITFINDA — INICIA SESIÓN',
     gfButtonTitle: 'Encuentra con quién jugar a Custom40k',
+    gfYourPost: 'Tu anuncio',
   },
   ru: ruJson as Record<TranslationKey, string>,
   ja: jaJson as Record<TranslationKey, string>,

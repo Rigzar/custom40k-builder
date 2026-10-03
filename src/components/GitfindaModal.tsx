@@ -301,9 +301,11 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
       <div className="space-y-2">
         {posts?.map(p => (
           <PostCard key={p.id} t={t} locale={locale} post={p} zone={shownZone}
-            action={p.matchedByMe
-              ? <button className={btnGhost} onClick={goMatches}>{t('gfMatched')} ✓</button>
-              : <button className={btnOrange} disabled={busy === p.id} onClick={() => doMatch(p)}>{t('gfMatch')} {icon('button_chevron_right', 'w-3 h-3')}</button>} />
+            action={p.mine
+              ? <button className={btnGhost} onClick={goPosts}>{t('gfYourPost')}</button>
+              : p.matchedByMe
+                ? <button className={btnGhost} onClick={goMatches}>{t('gfMatched')} ✓</button>
+                : <button className={btnOrange} disabled={busy === p.id} onClick={() => doMatch(p)}>{t('gfMatch')} {icon('button_chevron_right', 'w-3 h-3')}</button>} />
         ))}
       </div>
       <div className="grid grid-cols-2 gap-2 pt-1">

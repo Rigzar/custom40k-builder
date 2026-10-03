@@ -10,6 +10,7 @@ import { SLOT_ICONS } from '../assets/slotIcons';
 import { useT, type TranslationKey } from '../i18n';
 import { removedUnitNote } from '../engine/unitRenames';
 import type { RosterEntry } from '../types/army';
+import { nm } from '../utils/localName';
 
 const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
   'HQ': 'hq', 'Troops': 'troops', 'Elites': 'elites', 'Fast Attack': 'fastAttack',
@@ -38,7 +39,7 @@ function MissingUnitCard({ item, faction }: { item: RosterEntry; faction: string
     <div className="mb-2 border border-red-900/60 bg-red-950/20">
       <div className="flex items-center gap-2 px-3 py-2 border-b border-red-900/40">
         <span className="text-red-500 text-[13px] leading-none" aria-hidden="true">⚠</span>
-        <span className="font-cinzel text-[12px] uppercase tracking-wider text-zinc-200 flex-1">{item.unitName}</span>
+        <span className="font-cinzel text-[12px] uppercase tracking-wider text-zinc-200 flex-1">{nm(item.unitName)}</span>
         <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-red-800/70 text-red-400 shrink-0">
           {t('unitNotInCodexTitle')}
         </span>

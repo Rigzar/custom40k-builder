@@ -25,6 +25,7 @@ import { markStatMods } from '../lib/markMods';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { paginate } from '../utils/printPagination';
+import { nm, eqText } from '../utils/localName';
 
 
 /**
@@ -607,7 +608,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
             )}
             {rp.equippedWith && (
               <span style={{ ...pillBase, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.13)', color: 'rgba(255,255,255,.75)' }}>
-                {rp.equippedWith}
+                {eqText(rp.equippedWith)}
               </span>
             )}
             {joinedName && (
@@ -975,7 +976,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
     <div className="pv-card" style={{ marginBottom: 14, pageBreakInside: 'avoid', breakInside: 'avoid', fontFamily: "'Trebuchet MS', sans-serif", color: '#111' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '2px solid #111', paddingBottom: 2, marginBottom: 4 }}>
         <span style={{ fontWeight: 800, fontSize: '1em' }}>
-          {item.customName || u.name}{variant ? ` › ${variant.name}` : ''}
+          {item.customName || nm(u.name)}{variant ? ` › ${nm(variant.name)}` : ''}
         </span>
         <span style={{ fontWeight: 700, fontSize: '.85em' }}>{pts} pts</span>
       </div>
@@ -994,7 +995,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
             return (
               <tr key={mi}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>
-                  {modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name}
+                  {modelCounts[mi] != null ? `${modelCounts[mi]}× ${nm(m.name)}` : nm(m.name)}
                 </td>
                 {statKeys.map(k => <td key={k} style={simpleTd}>{modStats[k] ?? '-'}</td>)}
               </tr>
@@ -1054,7 +1055,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
           <tbody>
             {ranged.map((w, i) => (
               <tr key={i}>
-                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.name}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{nm(w.name)}</td>
                 <td style={simpleTd}>{w.range}</td><td style={simpleTd}>{w.s}</td><td style={simpleTd}>{w.ap}</td><td style={simpleTd}>{w.d}</td>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
               </tr>
@@ -1073,7 +1074,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
           <tbody>
             {melee.map((w, i) => (
               <tr key={i}>
-                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.name}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{nm(w.name)}</td>
                 <td style={simpleTd}>{w.range}</td><td style={simpleTd}>{w.s}</td><td style={simpleTd}>{w.ap}</td><td style={simpleTd}>{w.d}</td>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
               </tr>
@@ -1572,7 +1573,7 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
       }}>
         <div style={{ flex: 1 }}>
           <span style={{ fontWeight: 700, fontSize: '.85em', color: '#111' }}>
-            {item.customName || u.name}{rpRow.variant ? ` › ${rpRow.variant.name}` : ''}
+            {item.customName || nm(u.name)}{rpRow.variant ? ` › ${nm(rpRow.variant.name)}` : ''}
           </span>
           <span style={{ fontSize: '.74em', color: '#888', marginLeft: 6 }}>{buildModelCountLabel(item, u)}</span>
           {wargear.length > 0 && (

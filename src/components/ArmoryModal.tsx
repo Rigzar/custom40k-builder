@@ -19,6 +19,7 @@ import {
 } from '../engine/keywords';
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
+import { nm } from '../utils/localName';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
 // unenforced-01): every model with Armory access may select a single item from any Imperial
@@ -2030,7 +2031,7 @@ function ReaverLordPicker({
         <div className="flex items-center justify-between gap-2">
           <div className="min-w-0">
             <div className="text-[10px] text-amber-600 uppercase tracking-widest">{t('reaverLordChosenLabel')}</div>
-            <div className="text-sm text-zinc-200 truncate">{chosen.itemName}</div>
+            <div className="text-sm text-zinc-200 truncate">{nm(chosen.itemName)}</div>
             <div className="text-[10px] text-zinc-500">{chosen.source}</div>
           </div>
           <div className="flex flex-col items-end gap-1 shrink-0">
@@ -2089,7 +2090,7 @@ function ReaverLordPicker({
                         }`}
                       >
                         <span className="min-w-0">
-                          <span className="block truncate">{arm.name}</span>
+                          <span className="block truncate">{nm(arm.name)}</span>
                           {arm.desc && <span className="block text-[10px] text-zinc-500 truncate">{localiseAbility(arm.desc)}</span>}
                         </span>
                         <span className="shrink-0 font-bold">
@@ -2149,7 +2150,7 @@ function DaemonWeaponPicker({
             <div className="flex justify-between items-start px-2 py-1.5 gap-2">
               <div className="min-w-0">
                 <div className="flex items-center gap-1 flex-wrap">
-                  <span className={`text-[12px] font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>{arm.name}</span>
+                  <span className={`text-[12px] font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>{nm(arm.name)}</span>
                   {lastAdded === arm.name && <span className="text-green-500 text-[10px] font-bold">{t('addedBadge')}</span>}
                   {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">{t('uniqueBadge')}</span>}
                   {sel && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>}
@@ -2262,7 +2263,7 @@ function ArmoryItemRow({
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1 flex-wrap">
-            <span className="text-sm font-medium text-zinc-400">{displayName}</span>
+            <span className="text-sm font-medium text-zinc-400">{nm(displayName)}</span>
             <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>
             {requiredMark && (
               <span className={`text-[9px] border px-1 py-0.5 uppercase tracking-wide ${markBadgeClass}`}>{requiredMark}</span>
@@ -2477,7 +2478,7 @@ function ArmoryWeaponTable({
                     )}
                   </div>
                 </td>
-                <td className="py-1.5 pr-2 font-medium text-zinc-100">{displayName}</td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">{nm(displayName)}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
                 <td className="py-1.5 px-1 text-zinc-300">{profile.type ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>

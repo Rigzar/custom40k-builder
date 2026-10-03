@@ -30,6 +30,7 @@ import { powerMetaByName } from '../utils/psychicFormat';
 import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
+import { nm, rl } from '../utils/localName';
 
 const STAT_INF = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV'];
 const STAT_VEH = ['M', 'WS', 'BS', 'S', 'FRONT', 'SIDE', 'REAR', 'I', 'A', 'HP'];
@@ -55,13 +56,13 @@ function WeaponTable({ rows, title }: { rows: Weapon[]; title: string }) {
           <tbody>
             {rows.map((w, i) => (
               <tr key={`${w.name}-${i}`} className="border-t border-zinc-800/70 align-top">
-                <td className="text-zinc-200 py-0.5 pr-1">{w.name}</td>
+                <td className="text-zinc-200 py-0.5 pr-1">{nm(w.name)}</td>
                 <td className="text-zinc-400 text-right px-1 tabular-nums">{w.range}</td>
-                <td className="text-zinc-400 px-1">{w.type}</td>
+                <td className="text-zinc-400 px-1">{rl(w.type)}</td>
                 <td className="text-zinc-300 text-right px-1 tabular-nums">{w.s}</td>
                 <td className="text-zinc-300 text-right px-1 tabular-nums">{w.ap}</td>
                 <td className="text-zinc-300 text-right px-1 tabular-nums">{w.d}</td>
-                <td className="text-zinc-500 px-1">{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
+                <td className="text-zinc-500 px-1">{w.abilities && w.abilities !== '-' ? rl(w.abilities) : ''}</td>
               </tr>
             ))}
           </tbody>
@@ -160,7 +161,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
                   {models.map((m: any, i: number) => (
                     <tr key={`${m.name}-${i}`} className="border-t border-zinc-800/70">
                       <td className="text-zinc-200 py-0.5 pr-1">
-                        {counts[i] != null ? `${counts[i]}x ` : ''}{m.name}
+                        {counts[i] != null ? `${counts[i]}x ` : ''}{nm(m.name)}
                       </td>
                       {statKeys.map(k => {
                         const { display, source } = statOf(m, i, k);

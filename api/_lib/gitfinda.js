@@ -205,12 +205,12 @@ export function gitfinda(sql) {
         EXISTS (SELECT 1 FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) AS has_future_slot,
         (SELECT COUNT(*) FROM gitfinda_matches m WHERE m.post_id = p.id)::int AS match_count,
         EXISTS (SELECT 1 FROM gitfinda_matches m WHERE m.post_id = p.id AND m.matcher_user_id = ${userId}) AS matched_by_me,
-        (SELECT MIN(s.starts_at) FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) AS next_start
+        (SELECT MIN(s.starts_at) FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) AS next_start,
+        (p.user_id = ${userId}) AS mine
       FROM gitfinda_posts p
       JOIN users u ON u.id = p.user_id
       LEFT JOIN events e ON e.id = p.event_id
       WHERE p.status = 'active'
-        AND p.user_id <> ${userId}
         AND EXISTS (SELECT 1 FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now())
         AND (${army}::text IS NULL OR p.army = ${army})
         AND (${engagement}::text IS NULL OR p.engagement = ${engagement})
@@ -225,7 +225,9 @@ export function gitfinda(sql) {
         CASE WHEN ${sort} = 'soonest' THEN (SELECT MIN(s.starts_at) FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) END ASC,
         p.created_at DESC
       LIMIT ${LIMITS.listMax}`;
-    return { posts: rowsOf(r).map(row => shapePost(row, { matchedByMe: row.matched_by_me })) };
+    // Your own posts are listed too (flagged `mine`, the browser shows no Match button on them):
+    // hiding them made a freshly created post look as if it had not been published.
+    return { posts: rowsOf(r).map(row => shapePost(row, { matchedByMe: row.matched_by_me, mine: row.mine })) };
   }
 
   async function myPosts(userId) {

@@ -29,6 +29,7 @@ import { getFactionCat, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { useT, tpl } from '../i18n';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
+import { nm, eqText, rl } from '../utils/localName';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -421,13 +422,13 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   return (
                     <>
                       <span className="font-cinzel text-white font-bold text-base uppercase tracking-wider leading-tight">
-                        {item.customName || evolvedName}
+                        {item.customName || nm(evolvedName)}
                       </span>
                       {item.customName && (
-                        <span className="text-zinc-500 font-normal text-[10px]">({evolvedName})</span>
+                        <span className="text-zinc-500 font-normal text-[10px]">({nm(evolvedName)})</span>
                       )}
                       {variant && u.is_character && !item.customName && (
-                        <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>
+                        <span className="text-zinc-500 font-normal text-[10px]">({nm(u.name)})</span>
                       )}
                     </>
                   );
@@ -782,7 +783,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           {equippedWith && (
             <div className="md:col-span-2 px-3 py-1.5 bg-zinc-800/50 border-b border-zinc-700/60 text-[11px] text-zinc-400">
               <span className="text-zinc-500 text-[10px] uppercase tracking-widest mr-1.5">{t('defaultLoadoutLabel')}</span>
-              {equippedWith}
+              {eqText(equippedWith)}
             </div>
           )}
 
@@ -864,7 +865,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     (modelsToShow.length === 1 && m.max > 1 ? item.size : null);
                   return (
                     <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/40' : ''} ${isVar ? 'text-amber-300' : 'text-zinc-100'}`}>
-                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{rowCount != null ? `${rowCount}x ` : ''}{m.name}{isVar ? ' ★' : ''}</td>
+                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{rowCount != null ? `${rowCount}x ` : ''}{nm(m.name)}{isVar ? ' ★' : ''}</td>
                       {statKeys.map(k => {
                         // InvSv is a derived stat — not in m.stats, computed at unit level
                         if (k === 'InvSv') {
@@ -926,7 +927,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             {attachedDrones.map(({ drone, count }) => (
               <div key={drone.name} className="mt-2 border border-sky-900/50 bg-sky-950/10">
                 <div className="px-3 py-1 text-[10px] uppercase tracking-wide text-sky-400/90 font-cinzel">
-                  🛰 {count}x {drone.name}
+                  🛰 {count}x {nm(drone.name)}
                 </div>
                 <ModelProfileRow m={{ name: drone.name, points: (drone.points ?? 0) * count, min: 0, max: 0, stats: drone.stats }} statKeys={STAT_KEYS_INF} />
                 {drone.weapons.length > 0 && <WeaponTable weapons={drone.weapons} count={count} />}
@@ -1024,7 +1025,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 const isFixed = m.min === max;
                 return (
                   <div key={m.name} className="flex items-center gap-2 text-[12px] text-zinc-400">
-                    <span className="w-40 truncate text-zinc-300">{m.name}:</span>
+                    <span className="w-40 truncate text-zinc-300">{nm(m.name)}:</span>
                     {isFixed ? (
                       <span className="text-zinc-500">{m.min} <span className="text-zinc-600 text-[11px]">{t('fixedLabel')}</span></span>
                     ) : (
@@ -1723,8 +1724,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                               <tr key={ci} className={rowClass} title={blockTitle}>
                                 <td colSpan={7} className="py-1.5 pl-2 pr-2 font-medium text-zinc-100">
                                   {showRowControl ? (
-                                    <span className="inline-flex items-center gap-1.5">{control}<span>{c.name}</span></span>
-                                  ) : c.name}
+                                    <span className="inline-flex items-center gap-1.5">{control}<span>{nm(c.name)}</span></span>
+                                  ) : nm(c.name)}
                                 </td>
                                 <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
                               </tr>
@@ -1744,8 +1745,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                           const rows = weapons.map((w, wi) => (
                             <tr key={`${ci}-${wi}`} className={rowClass} title={blockTitle}>
                               <td className="py-1.5 pl-2 pr-2 font-medium text-zinc-100 whitespace-nowrap">
-                                {weapons.length > 1 ? <span className="text-zinc-400 pl-2">{profileName(w)}</span> : (
-                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control}<span>{profileName(w)}</span></span>
+                                {weapons.length > 1 ? <span className="text-zinc-400 pl-2">{nm(profileName(w))}</span> : (
+                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control}<span>{nm(profileName(w))}</span></span>
                                 )}
                               </td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
@@ -1756,7 +1757,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                                   return (
                                     <span className="flex flex-wrap items-center gap-x-1 leading-tight">
                                       {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
-                                      <span>{w.type}</span>
+                                      <span>{rl(w.type)}</span>
                                     </span>
                                   );
                                 })()}
@@ -1764,7 +1765,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? w.abilities : '—'}</td>
+                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? rl(w.abilities) : '—'}</td>
                               {compound ? (
                                 // The banner row above carries the one price for the whole pairing.
                                 <td className="py-1.5 px-2" />
@@ -1777,7 +1778,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                             rows.unshift(
                               <tr key={`${ci}-banner`} className="border-b border-zinc-700/40 bg-zinc-800/60">
                                 <td colSpan={7} className="py-1 pl-2 pr-2 font-semibold text-zinc-200">
-                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {compound ? c.name : resolvedBaseName}</span>
+                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {nm(compound ? c.name : resolvedBaseName)}</span>
                                 </td>
                                 <td className="py-1 px-2 text-right text-amber-600">{ptsLabel}</td>
                               </tr>
@@ -1808,7 +1809,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                           }}
                         >
                           {control}
-                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{c.name}</span>
+                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{nm(c.name)}</span>
                           {/* Ork "Da Booma" ("One weapon of the vehicle gains +12\" range and
                               +1 Strength") is the one Kustom Job that names no fixed weapon of
                               its own — every other one either affects a single named weapon or
@@ -2014,7 +2015,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               return (
                 <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <div className="flex justify-between items-center">
-                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{a.itemName}</span>
+                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{nm(a.itemName)}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-amber-600">{livePts >= 0 ? '+' : ''}{livePts} pts</span>
                       <button
@@ -2101,7 +2102,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   return (
                     <div key={t.name} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                       <div className="flex justify-between items-start gap-2">
-                        <span className="text-zinc-300">{t.name}</span>
+                        <span className="text-zinc-300">{nm(t.name)}</span>
                         <span className="text-amber-600 whitespace-nowrap">+{t.points}{t.perWound ? '/W' : ''} pts</span>
                       </div>
                       {traitDef?.desc && (
@@ -2511,7 +2512,7 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
       </thead>
       <tbody>
         <tr className="border-b border-zinc-700/40 text-zinc-100">
-          <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{m.name}</td>
+          <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{nm(m.name)}</td>
           {statKeys.map(k => (
             <td key={k} className="text-center py-2 px-2 font-mono text-xs text-zinc-100">
               {(m.stats as Record<string, string>)[k] ?? '-'}
@@ -2585,7 +2586,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
             const modeRow = isModeRow(weapons, i);
             const startsModeGroup = modeRow && !(i > 0 && weaponBaseName(weapons[i - 1].name) === base);
             const rowCount = modeRow ? null : rowCountRaw;
-            const displayName = modeRow ? `— ${weaponMode(w.name)}` : w.name;
+            const displayName = modeRow ? `— ${nm(weaponMode(w.name))}` : nm(w.name);
             const extraTraits = traitMap?.get(w.name) ?? [];
             const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
             // Merge: keeps best value per ability type. Returns improved (replaced) + added (new).
@@ -2604,7 +2605,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
               {startsModeGroup && (
                 <tr className="border-b border-zinc-700/40">
                   <td className="pt-1.5 pr-2 font-medium text-zinc-100 break-words">
-                    {rowCountRaw != null ? `${rowCountRaw}x ` : ''}{base}
+                    {rowCountRaw != null ? `${rowCountRaw}x ` : ''}{nm(base)}
                   </td>
                   <td colSpan={6} />
                 </tr>
@@ -2619,7 +2620,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                     return (
                       <span className="flex items-center gap-1">
                         {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
-                        <span>{w.type}</span>
+                        <span>{rl(w.type)}</span>
                       </span>
                     );
                   })()}
@@ -2627,7 +2628,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities}</td>
+                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{rl(displayAbilities)}</td>
               </tr>
               </Fragment>
             );

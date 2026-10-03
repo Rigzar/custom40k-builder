@@ -935,6 +935,16 @@ admins, igual que Campaign.
 
 **⚠ Antes de añadir cualquier endpoint en `api/`, lee la nota del tope de funciones de Vercel.**
 
+### Nombres en katakana (`src/utils/localName.ts`, `src/data/names.ja.json`)
+
+Un jugador japonés pidió los nombres en katakana. **Los datos nunca se traducen**: los nombres de unidades, armas y opciones son las claves con las que el motor compara, así que cambiarlos rompería reglas y listas guardadas sin avisar. Un nombre se pasa a katakana solo en el momento de **dibujarlo**, y solo si el idioma es japonés: `nm(w.name)` para nombres, `rl(w.type)` / `rl(w.abilities)` para tipos y habilidades de arma, `eqText(equipped_with)` para la línea de equipo.
+
+- `names.ja.json` es `{ "inglés en minúsculas": "katakana" }` (~4.500 entradas) y es un **trozo aparte que se carga bajo demanda**: los otros cuatro idiomas nunca lo descargan. Un nombre que no conoce se muestra en inglés, nunca en blanco.
+- `jaName()` entiende también `Plasma gun - Standard`, `Plasma gun (Standard)`, `A and B`, `Two lascannons`, `The X` y un símbolo final (`ᴹ`).
+- La línea de equipo se traduce **por plantilla**, no frase a frase (el 98% tiene el marco `Every X is equipped with: A; B.`), en los cinco idiomas; solo el japonés cambia además los nombres. Una frase que no encaja se muestra como está escrita.
+- Para añadir un nombre, añade una línea a la tabla y ejecuta `npx tsx scripts/_ja_names_test.ts`: te dice, para cada unidad, modelo, arma y opción del juego, qué sigue en inglés.
+- Un sitio nuevo que dibuje un nombre necesita `nm()` alrededor; nada más.
+
 ### Gitfinda — busco partida (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
 Un tablón donde los jugadores publican «quiero una partida» (ejército, Skirmish / Pitched / Epic, puntos, una zona horaria IANA y las horas en que están libres), otros navegan y pulsan **Match**, y cada match tiene un chat privado. Hecho según el documento de requisitos de Dominic; **beta** — mira `ki-gitfinda-beta-scope-01` para lo que a propósito aún no hace (sin email, sin bloqueo).
