@@ -381,5 +381,6 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 10,
-    "min_cost": 45
+    "min_cost": 45,
+    "variant_models": []
 }

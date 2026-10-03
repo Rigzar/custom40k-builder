@@ -169,5 +169,6 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 1,
-    "min_cost": 97
+    "min_cost": 97,
+    "variant_models": []
 }

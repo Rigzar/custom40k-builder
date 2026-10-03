@@ -198,5 +198,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 6,
-    "min_cost": 54
+    "min_cost": 54,
+    "variant_models": []
 }

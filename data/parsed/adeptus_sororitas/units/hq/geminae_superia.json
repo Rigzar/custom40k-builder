@@ -91,5 +91,6 @@
     "advisor": false,
     "slot": "HQ",
     "default_size": 2,
-    "min_cost": 86
+    "min_cost": 86,
+    "variant_models": []
 }
