@@ -732,6 +732,8 @@ Mantenelo así: si te encontrás metiendo lógica de reglas en el Lua, el arregl
 `TTS_SCHEMA` (TypeScript) y `SCHEMA` (Lua) tienen que coincidir; subí los dos juntos cuando cambie
 la forma del payload.
 
+**Esquema 2 (loadouts).** Una unidad cuyos modelos llevan equipo distinto se exporta como una entrada de `models[]` por loadout, cada una con un `count` entero y una lista `modelWeapons` que apunta a `weapons[].id`. La división es `splitGroup()` en `ttsExport.ts`; lee los grupos de armas del resolver, así que un recuento mal ahí es un problema del resolver o de la hoja, no del export. Tras tocarlo, ejecutá `npx tsx scripts/_tts_sweep.ts` (cada unidad x cada opción x dos tamaños; indica qué unidades salen con `loadoutsExact: false` y por qué) y `npx tsx scripts/_tts_one.ts <facción> "<unidad>" '<optionQty json>'` para mirar una.
+
 **El Lua tiene test — ejecutalo antes de tocarlo.** TTS no tiene modo headless, así que el script
 corre bajo la VM de Lua `fengari` con los globales de TTS simulados, alimentado con una
 exportación real:

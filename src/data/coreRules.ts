@@ -925,6 +925,9 @@ export function abilityKey(text: string): string {
 
 /** The translated datasheet ability, or the English original when there is none. */
 export function localiseAbility(raw: string): string {
+  // Data fields are optional at runtime (an Armory item with no desc): hand them back untouched
+  // rather than crash the modal that renders them (GH#199).
+  if (typeof raw !== 'string') return raw;
   const k = abilityKey(raw);
   return RULE_OVERRIDES[RULE_LANG]?.[k] || BUILTIN_AB[RULE_LANG]?.[k] || raw;
 }

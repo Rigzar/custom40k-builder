@@ -2870,7 +2870,7 @@ function applyBiomorphRangeBoosts(unit: Unit, item: RosterEntry, groups: WeaponG
   const boost = (w: Weapon): Weapon => {
     const isMelee = w.range === '-' || /^melee/i.test(w.type ?? '');
     if (isMelee) return w;
-    const m = w.range.match(/^(\d+)"$/);
+    const m = (w.range ?? '').match(/^(\d+)"$/);
     if (!m) return w;
     return { ...w, range: `${parseInt(m[1], 10) + delta}"` };
   };
@@ -2987,7 +2987,7 @@ function applyExarchAllWeaponsRangeBoost(unit: Unit, item: RosterEntry, groups: 
   const boost = (w: Weapon): Weapon => {
     const isMelee = w.range === '-' || /^melee/i.test(w.type ?? '');
     if (isMelee) return w;
-    const m = w.range.match(/^(\d+)"$/);
+    const m = (w.range ?? '').match(/^(\d+)"$/);
     if (!m) return w;
     return { ...w, range: `${parseInt(m[1], 10) + delta}"` };
   };

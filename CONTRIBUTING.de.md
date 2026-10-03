@@ -744,6 +744,8 @@ Workshop-Eintrags. Halte es so: wer Regel-Logik ins Lua schreiben will, gehört 
 `TTS_SCHEMA` (TypeScript) und `SCHEMA` (Lua) müssen übereinstimmen; erhöhe beide gemeinsam, wenn
 sich die Form der Nutzlast ändert.
 
+**Schema 2 (Loadouts).** Eine Einheit, deren Modelle unterschiedliche Ausrüstung tragen, wird als ein `models[]`-Eintrag pro Loadout exportiert, jeweils mit ganzzahligem `count` und einer `modelWeapons`-Liste, die auf `weapons[].id` zeigt. Die Aufteilung ist `splitGroup()` in `ttsExport.ts`; sie liest die Waffengruppen des Resolvers, eine falsche Zahl dort ist also ein Resolver- oder Datenblattproblem, kein Exportproblem. Nach Änderungen `npx tsx scripts/_tts_sweep.ts` ausführen (jede Einheit x jede Option x zwei Größen; zeigt, welche Einheiten mit `loadoutsExact: false` herauskommen und warum) und `npx tsx scripts/_tts_one.ts <Fraktion> "<Einheit>" '<optionQty json>'`, um eine einzelne anzusehen.
+
 **Das Lua ist getestet — führe den Test aus, bevor du es anfasst.** TTS hat keinen Headless-Modus,
 also läuft das Skript in der Lua-VM `fengari` mit gestubbten TTS-Globals und einem echten Export:
 

@@ -19,7 +19,7 @@
   else on the table.
 --]]
 
-local SCHEMA        = 1
+local SCHEMA        = 2
 local NOTEBOOK_TAB  = 'Custom40k'   -- tab this script reads the army from
 local SPAWN_TAG     = 'c40k_spawn'  -- so CLEAR only ever deletes our own objects
 
@@ -112,7 +112,9 @@ local function say(msg, color) printToAll('[Custom40k] ' .. msg, color or { 1, 0
 
 local NAME_COL = 26
 
---- One "Name  M WS BS ..." line per model, with a shared header row above it.
+--- One "Name  M WS BS ..." line per model, with a shared header row above it. The export splits
+--- a model into one entry per loadout (2 Plague Marines with a belcher, 2 with a Bolter), but the
+--- statline is the same, so the card shows each model once with the loadouts summed.
 local function modelBlock(models)
   if not models or #models == 0 then return '' end
   local out = {}
@@ -122,13 +124,42 @@ local function modelBlock(models)
   for _, k in ipairs(keys) do header = header .. pad(k, 5) end
   out[#out + 1] = header
 
+  local order, byName = {}, {}
   for _, m in ipairs(models) do
-    local label = m.name .. (m.count and (' x' .. num(m.count)) or '')
-    local row = pad(label, NAME_COL)
-    for _, k in ipairs(keys) do row = row .. pad((m.stats or {})[k] or '-', 5) end
-    out[#out + 1] = row
+    local row = byName[m.name]
+    if not row then row = { m = m, count = 0 }; byName[m.name] = row; order[#order + 1] = row end
+    row.count = row.count + (m.count or 0)
+  end
+  for _, row in ipairs(order) do
+    local label = row.m.name .. (row.count > 0 and (' x' .. num(row.count)) or '')
+    local line = pad(label, NAME_COL)
+    for _, k in ipairs(keys) do line = line .. pad((row.m.stats or {})[k] or '-', 5) end
+    out[#out + 1] = line
   end
   return table.concat(out, '\n')
+end
+
+--- Which models carry what: "2x Plague Marine: Plague belcher, Krak grenades". Only worth a section
+--- when the unit really has more than one loadout.
+local function loadoutBlock(u)
+  local models = u.models
+  if not models or #models < 2 then return '' end
+  local names = {}
+  for _, w in ipairs(u.weapons or {}) do names[w.id] = w.name end
+  local lines = {}
+  for _, m in ipairs(models) do
+    local parts = {}
+    for _, mw in ipairs(m.modelWeapons or {}) do
+      local n = names[mw.weaponId] or mw.weaponId
+      parts[#parts + 1] = (mw.count and mw.count > 1) and (num(mw.count) .. 'x ' .. n) or n
+    end
+    if #parts > 0 then
+      local who = m.name
+      if m.loadoutName and m.loadoutName ~= m.name then who = who .. ' (' .. m.loadoutName .. ')' end
+      lines[#lines + 1] = num(m.count) .. 'x ' .. who .. ': ' .. table.concat(parts, ', ')
+    end
+  end
+  return table.concat(lines, '\n')
 end
 
 local function weaponBlock(weapons)
@@ -163,6 +194,7 @@ local function unitCardText(u)
               num(u.points) .. ' pts'))
 
   local mb = modelBlock(u.models); if mb ~= '' then sections[#sections + 1] = mb end
+  local lb = loadoutBlock(u); if lb ~= '' then sections[#sections + 1] = 'LOADOUTS\n' .. lb end
 
   if not isBlank(u.equippedWith) then
     sections[#sections + 1] = 'EQUIPPED WITH\n' .. u.equippedWith

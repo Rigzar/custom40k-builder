@@ -722,6 +722,8 @@ the Lua, the fix belongs in the export instead.
 `TTS_SCHEMA` (TypeScript) and `SCHEMA` (Lua) must match; bump both together when the payload shape
 changes.
 
+**Schema 2 (loadouts).** A unit whose models carry different gear is exported as one `models[]` entry per loadout, each with an integer `count` and a `modelWeapons` list pointing at `weapons[].id`. The splitting is `splitGroup()` in `ttsExport.ts`; it reads the resolver's weapon groups, so a wrong count there is a resolver or sheet problem, not an export one. After touching it run `npx tsx scripts/_tts_sweep.ts` (every unit x every single option x two sizes; it prints which units come out `loadoutsExact: false` and why) and `npx tsx scripts/_tts_one.ts <faction> "<unit>" '<optionQty json>'` to look at one.
+
 **The Lua is tested — run the test before you touch it.** TTS has no headless mode, so the script
 runs under the `fengari` Lua VM with TTS's globals stubbed, fed a real export:
 

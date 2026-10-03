@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-armory-modal-crash-no-desc-01",
+    status: "fixed",
+    title: "Armory button sends you back to the main screen (GH#199)",
+    description: "FIXED 2026-10-03. Opening the Armory on the Succubus (or any HQ) crashed the screen: each row's tooltip ran the item's rules text through the translation lookup, and an item with no text gave it an empty value. Introduced earlier the same day with the translated rule texts, found from the in-app bug report. The lookup now returns an empty value untouched.",
+  },
+  {
+    id: "ki-loadout-clause-names-unit-sheets-01",
+    status: "known",
+    title: "Loadout sentences that name no model of the unit (7 units)",
+    description: "OPEN 2026-10-03. Found while giving the Tabletop Simulator export a per-model loadout list: a loadout sentence (\"Every X is equipped with: ...\") has to name a model row of the same unit, and these do not. The app then cannot tell which model carries those weapons, so they are missing from the unit card and from the export. Sheet names to fix at source (the unit update script copies them as written): Chaos Space Marines / Scarab Occult Terminators: the clause says \"Scarab Occult Sorceror\", the model is \"Scarab Occult Sorcerer\"; the same sentence says \"Infero combi-bolter\" (Inferno), so the Terminator's combi-bolter matches no weapon. Space Marines / Bike Squad: the clause says \"Biker\", the model is \"Space Marine Biker\". Space Marines / Outrider Bikes: the clause says \"Outrider\", the models are \"Outrider Marine\" and \"Outrider Sergeant\". Tau Empire / R'varna Battlesuit: the clause says \"R’varna Battlesuit\", the model is \"R’varna Shas'vre\". Tau Empire / Y'vahra Battlesuit: the clause says \"Y'vahra Battlesuit\", the model is \"Y'vahra Shas'vre\". Necrons / Cryptek: seven clauses (Chronomancer, Psychomancer, Plasmancer, Ethermancer, Geomancer, Astromancer, Technomancer) but the only model row is \"Cryptek\". Dark Eldar / Incubi: the clause says \"Incubi\", the model is \"Incubus\". The unit update from 2026-10-03 (27d9a3da) also overwrote our earlier corrections of the first one, so the typo is the sheet's, not ours. Court of the Archon and Henchman Warband are not errors: with no model chosen yet they have nothing to attach a loadout to.",
+  },
+  {
     id: "ki-unit-update-github-setup-01",
     status: "known",
     title: "Unit auto-update button needs two one-off GitHub settings",

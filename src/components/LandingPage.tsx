@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -68,6 +68,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Also fixed", rows: [
         ["Razorback", "The pairing \"Lascannon and Twin plasma gun\" shows its own name and one price, and the swap header says Twin heavy flamer."],
         ["Sheets", "Traitor Guard Meltagun, Harpy header, Foetid Virion options (Biologus Putrifier +10, Plague Surgeon +5) and the Chaos Decimator follow the sheets."],
+        ["Armory button", "Opening the Armory on the Succubus or any other HQ sent you back to the main screen (GH#199). Fixed."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -86,6 +87,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Außerdem behoben", rows: [
         ["Razorback", "Die Paarung „Lascannon and Twin plasma gun“ zeigt ihren eigenen Namen und einen Preis, und die Tausch-Überschrift nennt den Twin heavy flamer."],
         ["Datenblätter", "Meltagun der Traitor Guard, Harpy-Überschrift, Optionen des Foetid Virion (Biologus Putrifier +10, Plague Surgeon +5) und der Chaos Decimator folgen den Blättern."],
+        ["Armory-Knopf", "Das Öffnen des Armory bei der Succubus oder einem anderen HQ brachte dich zum Hauptbildschirm zurück (GH#199). Behoben."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -104,6 +106,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "También corregido", rows: [
         ["Razorback", "La pareja «Lascannon and Twin plasma gun» muestra su propio nombre y un solo precio, y la cabecera del cambio dice Twin heavy flamer."],
         ["Hojas", "El Meltagun del Traitor Guard, la cabecera del Harpy, las opciones del Foetid Virion (Biologus Putrifier +10, Plague Surgeon +5) y el Chaos Decimator siguen las hojas."],
+        ["Botón de Armory", "Abrir la Armory de la Succubus o de cualquier otro HQ te devolvía a la pantalla principal (GH#199). Corregido."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -122,6 +125,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Также исправлено", rows: [
         ["Razorback", "Пара «Lascannon and Twin plasma gun» показывает своё название и одну цену, а заголовок замены говорит Twin heavy flamer."],
         ["Листы", "Meltagun у Traitor Guard, заголовок Harpy, опции Foetid Virion (Biologus Putrifier +10, Plague Surgeon +5) и Chaos Decimator следуют листам."],
+        ["Кнопка Armory", "Открытие Armory у Succubus или любого другого HQ возвращало на главный экран (GH#199). Исправлено."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -140,6 +144,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "その他の修正", rows: [
         ["Razorback", "「Lascannon and Twin plasma gun」の組み合わせは、自身の名前と1つの価格を表示し、交換の見出しはTwin heavy flamerになりました。"],
         ["シート", "Traitor GuardのMeltagun、Harpyの見出し、Foetid Virionのオプション（Biologus Putrifier +10、Plague Surgeon +5）、Chaos Decimatorがシートに従います。"],
+        ["Armoryボタン", "SuccubusなどのHQでArmoryを開くとメイン画面に戻る問題 (GH#199) を修正しました。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
