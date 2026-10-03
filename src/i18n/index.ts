@@ -24,6 +24,12 @@ export const useLanguage = create<I18nState>()(
   )
 );
 
+// Keep <html lang> in step with the language: the CSS picks a Cyrillic-capable display font for 'ru'.
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = useLanguage.getState().language;
+  useLanguage.subscribe((s) => { document.documentElement.lang = s.language; });
+}
+
 // Runtime translation overrides (admin-edited, fetched from the DB). Merged over the compiled
 // `translations` below; empty by default so nothing changes until an override is loaded.
 let OVERRIDES: Partial<Record<Language, Record<string, string>>> = {};
