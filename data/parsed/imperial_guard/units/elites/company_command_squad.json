@@ -2,10 +2,6 @@
     "name": "Company Command Squad",
     "models": [
         {
-            "name": "Veteran",
-            "points": 9,
-            "min": 4,
-            "max": 4,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -17,9 +13,14 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "5+"
-            }
+            },
+            "name": "Veteran",
+            "min": 4,
+            "max": 4,
+            "points": 9
         }
     ],
+    "variant_models": [],
     "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
     "weapons": [
         {
@@ -366,6 +367,5 @@
     "advisor": true,
     "slot": "Elites",
     "default_size": 4,
-    "min_cost": 36,
-    "variant_models": []
+    "min_cost": 36
 }

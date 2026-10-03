@@ -15,8 +15,8 @@
                 "SV": "5+"
             },
             "name": "Guardsman",
-            "min": 1,
-            "max": 1,
+            "min": 4,
+            "max": 4,
             "points": 8
         },
         {
@@ -38,8 +38,8 @@
             "points": 13
         }
     ],
-    "min_cost": 21,
-    "default_size": 2,
+    "min_cost": 45,
+    "default_size": 5,
     "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
     "weapons": [
         {

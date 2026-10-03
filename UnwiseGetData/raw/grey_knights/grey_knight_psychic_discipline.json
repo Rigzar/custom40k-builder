@@ -424,5 +424,34 @@
         "Normal",
         "Complexity:",
         "Basic"
+    ],
+    [
+        "Defiance\n(Vehicles only)",
+        "Name:",
+        "Fortitude"
+    ],
+    [
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self"
+    ],
+    [
+        "Cast value:",
+        5
+    ],
+    [
+        "Effect:",
+        "The target unit removes one \"Crew shaken\" vehicle damage result."
+    ],
+    [
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic"
     ]
 ]

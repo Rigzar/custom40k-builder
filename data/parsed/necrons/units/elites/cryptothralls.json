@@ -2,10 +2,6 @@
     "name": "Cryptothralls",
     "models": [
         {
-            "name": "Cryptothrall",
-            "points": 45,
-            "min": 2,
-            "max": 2,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -17,7 +13,11 @@
                 "A": "2",
                 "LD": "10",
                 "SV": "3+"
-            }
+            },
+            "name": "Cryptothrall",
+            "min": 2,
+            "max": 2,
+            "points": 45
         }
     ],
     "variant_models": [],

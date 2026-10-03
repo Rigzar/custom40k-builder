@@ -2,10 +2,6 @@
     "name": "Stormtrooper Command Squad",
     "models": [
         {
-            "name": "Stormtrooper",
-            "points": 17,
-            "min": 4,
-            "max": 4,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -17,9 +13,14 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "4+"
-            }
+            },
+            "name": "Stormtrooper",
+            "min": 4,
+            "max": 4,
+            "points": 17
         }
     ],
+    "variant_models": [],
     "equipped_with": "Every model is equipped with: Hot-shot lasgun; Frag grenades; Krak grenades; Vox.",
     "weapons": [
         {
@@ -234,6 +235,5 @@
     "advisor": true,
     "slot": "Elites",
     "default_size": 4,
-    "min_cost": 68,
-    "variant_models": []
+    "min_cost": 68
 }

@@ -48,6 +48,8 @@ def process_model(model_data, model_format):
         m, M = model_data[0].split("-")
     elif "*" in str(model_data[0]):
         m, M = 0, 1
+    else:
+        m, M = model_data[0], model_data[0]
     
     model_data = [str(x) for x in model_data]
     ret_model = {"stats": dict(zip(model_format[2:-1], model_data[2:-1]))}

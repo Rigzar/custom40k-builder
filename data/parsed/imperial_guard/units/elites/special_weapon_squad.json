@@ -2,10 +2,6 @@
     "name": "Special Weapon Squad",
     "models": [
         {
-            "name": "Guardsman",
-            "points": 9,
-            "min": 6,
-            "max": 6,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -17,9 +13,14 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "5+"
-            }
+            },
+            "name": "Guardsman",
+            "min": 6,
+            "max": 6,
+            "points": 9
         }
     ],
+    "variant_models": [],
     "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
     "weapons": [
         {
@@ -198,6 +199,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 6,
-    "min_cost": 54,
-    "variant_models": []
+    "min_cost": 54
 }

@@ -2,10 +2,6 @@
     "name": "Sisters Novitiate",
     "models": [
         {
-            "name": "Sister Novitiate",
-            "points": 13,
-            "min": 9,
-            "max": 9,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -17,13 +13,13 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "4+"
-            }
+            },
+            "name": "Sister Novitiate",
+            "min": 9,
+            "max": 9,
+            "points": 13
         },
         {
-            "name": "Sister Superior",
-            "points": 20,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -35,7 +31,11 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "3+"
-            }
+            },
+            "name": "Sister Superior",
+            "min": 1,
+            "max": 1,
+            "points": 20
         }
     ],
     "variant_models": [
