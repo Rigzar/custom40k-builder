@@ -1,5 +1,6 @@
 ---
-import Layout from '../../../../components/Layout.astro';
+import Layout from '../../../../components/Layout.astro';
+import { localiseAbility } from '../../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { findClanIcon } from '../../../../lib/clans';
@@ -46,7 +47,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
                 {icon && <img src={icon} alt="" width="20" height="20" class="entry-icon" />}
                 <span>{a.name}</span>
               </div>
-              {a.desc && <p class="entry-desc">{a.desc}</p>}
+              {a.desc && <p class="entry-desc">{localiseAbility(a.desc)}</p>}
             </div>
           );
         })}
@@ -69,7 +70,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
                 {icon && <img src={icon} alt="" width="20" height="20" class="entry-icon" />}
                 <span>{l.name}</span>
               </div>
-              {l.desc && <p class="entry-desc">{l.desc}</p>}
+              {l.desc && <p class="entry-desc">{localiseAbility(l.desc)}</p>}
             </div>
           );
         })}
@@ -89,7 +90,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
           return (
             <div class="entry-card">
               <div class="entry-card-title"><span>{t.name}</span></div>
-              {t.desc && <p class="entry-desc">{t.desc}</p>}
+              {t.desc && <p class="entry-desc">{localiseAbility(t.desc)}</p>}
               {ptsList.length > 0 && (
                 <div class="pts-row">
                   {ptsList.map(row => (

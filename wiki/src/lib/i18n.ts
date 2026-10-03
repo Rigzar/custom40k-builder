@@ -17,7 +17,7 @@
  */
 import overrides from '../data/wiki-translations.json';
 import { WIKI_BUILTIN } from './i18n-builtin';
-import { setRuleLanguage } from '../vendor/src/data/coreRules';
+import { setRuleLanguage, localiseAbility } from '../vendor/src/data/coreRules';
 import RU_RULES from '../vendor/src/data/ruleDescriptions.ru.json';
 import JA_RULES from '../vendor/src/data/ruleDescriptions.ja.json';
 
@@ -146,5 +146,5 @@ export function wtf(key: WikiKey, vars: Record<string, string | number>): string
 const BUILTIN_RULES: Partial<Record<WikiLang, Record<string, string>>> = { ru: RU_RULES, ja: JA_RULES };
 export function wtContent(namespace: 'glossary' | 'armyRules', id: string, english: string): string {
   const builtin = namespace === 'glossary' ? BUILTIN_RULES[WIKI_LANG]?.[id] : undefined;
-  return O[WIKI_LANG]?.[namespace]?.[id] ?? builtin ?? english;
+  return O[WIKI_LANG]?.[namespace]?.[id] ?? builtin ?? localiseAbility(english);
 }

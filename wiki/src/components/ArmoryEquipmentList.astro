@@ -1,5 +1,6 @@
 ---
 import type { ArmoryItem } from '../vendor/src/types/data';
+import { localiseAbility } from '../vendor/src/data/coreRules';
 import { findClanIcon } from '../lib/clans';
 
 interface Props {
@@ -25,7 +26,7 @@ function pts(item: ArmoryItem): string {
           <span class="equipment-name">{item.name}</span>
           <span class="equipment-pts">{pts(item)}</span>
         </div>
-        {item.desc && <p class="equipment-desc">{item.desc}</p>}
+        {item.desc && <p class="equipment-desc">{localiseAbility(item.desc)}</p>}
       </div>
     );
   })}

@@ -1,5 +1,6 @@
 ---
-import Layout from '../../../../components/Layout.astro';
+import Layout from '../../../../components/Layout.astro';
+import { localiseAbility } from '../../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { wt } from '../../../../lib/i18n';
@@ -97,7 +98,7 @@ const tabs = [
               <td class="center">{p.range ?? '-'}</td>
               <td class="center">{p.target ?? '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
-              <td class="effect">{p.effect ?? '-'}</td>
+              <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
               <td class="center">{p.duration ?? '-'}</td>
               <td class="center">{p.complexity ?? '-'}</td>
             </tr>
@@ -131,7 +132,7 @@ const tabs = [
               <td class="center">{p.range ?? '-'}</td>
               <td class="center">{p.target ?? '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
-              <td class="effect">{p.effect ?? '-'}</td>
+              <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
               <td class="center">{p.duration ?? '-'}</td>
               <td class="center">{p.complexity ?? '-'}</td>
             </tr>

@@ -1,5 +1,6 @@
 ---
-import Layout from '../../../components/Layout.astro';
+import Layout from '../../../components/Layout.astro';
+import { localiseAbility } from '../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../lib/factions';
 import { getFactionExtras } from '../../../lib/factionExtras';
 import { getFactionDescription, getFactionVersion } from '../../../lib/factionMeta';
@@ -102,7 +103,7 @@ const TAG_COLORS: Record<string, string> = {
         <div class="desc-chain"></div>
       </div>
       <div class="desc-card">
-        <p class="desc-text">{description}</p>
+        <p class="desc-text">{localiseAbility(description)}</p>
       </div>
     </div>
 
@@ -179,7 +180,7 @@ const TAG_COLORS: Record<string, string> = {
                 {baseCanticles.map(c => (
                   <tr>
                     <td class="canticle-name">{c.name}</td>
-                    <td>{c.effect}</td>
+                    <td>{localiseAbility(c.effect)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -197,7 +198,7 @@ const TAG_COLORS: Record<string, string> = {
                   <tr>
                     <td class="canticle-name">{c.name}</td>
                     <td class="legacy-name">{c.grantedByLegacy}</td>
-                    <td>{c.effect}</td>
+                    <td>{localiseAbility(c.effect)}</td>
                   </tr>
                 ))}
               </tbody>
