@@ -5,7 +5,7 @@ import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../type
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword } from '../engine/points';
-import { parseAbility } from '../data/coreRules';
+import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
@@ -1766,7 +1766,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
                               <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? w.abilities : '—'}</td>
                               {compound ? (
-                                <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
+                                // The banner row above carries the one price for the whole pairing.
+                                <td className="py-1.5 px-2" />
                               ) : weapons.length === 1 ? (
                                 <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
                               ) : null}
@@ -1776,7 +1777,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                             rows.unshift(
                               <tr key={`${ci}-banner`} className="border-b border-zinc-700/40 bg-zinc-800/60">
                                 <td colSpan={7} className="py-1 pl-2 pr-2 font-semibold text-zinc-200">
-                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {resolvedBaseName}</span>
+                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {compound ? c.name : resolvedBaseName}</span>
                                 </td>
                                 <td className="py-1 px-2 text-right text-amber-600">{ptsLabel}</td>
                               </tr>
@@ -2036,10 +2037,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   )}
                   {/* Daemon weapon trait / equipment: show description (only if not a weapon-targeting trait already displayed) */}
                   {isDaemonWeaponTrait && !weaponTargetingTrait && armItem?.desc && (
-                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
+                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{localiseAbility(armItem.desc)}</div>
                   )}
                   {!isArmoryWeapon && !isDaemonWeaponTrait && armItem?.desc && (
-                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
+                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{localiseAbility(armItem.desc)}</div>
                   )}
                   {/* Eldar "Paragon of war" — show the chosen Exarch Power */}
                   {a.itemName === 'Paragon of war' && a.chosenPower && (
@@ -2104,7 +2105,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-amber-600 whitespace-nowrap">+{t.points}{t.perWound ? '/W' : ''} pts</span>
                       </div>
                       {traitDef?.desc && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{traitDef.desc}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{localiseAbility(traitDef.desc)}</div>
                       )}
                     </div>
                   );
@@ -2347,7 +2348,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('traitBadge')}</span>
                     </div>
                     {ta.desc && (
-                      <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{ta.desc}</div>
+                      <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{localiseAbility(ta.desc)}</div>
                     )}
                   </div>
                 ))}
