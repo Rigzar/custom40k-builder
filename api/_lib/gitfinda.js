@@ -306,7 +306,10 @@ export function gitfinda(sql) {
   /** The caller's matches, newest activity first, with how many messages they have not read. */
   async function myMatches(userId) {
     const r = await sql`
-      SELECT m.id, m.created_at, m.status, m.owner_user_id, m.matcher_user_id,
+      -- m and p both have id, created_at and status; a result row keeps ONE value per name (the real
+      -- driver keeps the LAST), so the match's own are renamed. This was a live bug: the chat asked
+      -- for the POST's id as if it were the match's ("Unknown match.").
+      SELECT m.id AS match_id, m.created_at AS match_created_at, m.status AS match_status, m.owner_user_id, m.matcher_user_id,
         CASE WHEN m.owner_user_id = ${userId} THEN m.owner_read_at ELSE m.matcher_read_at END AS my_read_at,
         ou.username AS owner_name, mu.username AS matcher_name,
         p.id, p.army, p.engagement, p.points, p.timezone, p.event_id, p.created_at, p.status AS stored_status,
@@ -331,7 +334,7 @@ export function gitfinda(sql) {
       LIMIT 100`;
     return {
       matches: rowsOf(r).map(row => ({
-        id: row.id, createdAt: row.created_at, status: row.status, unread: row.unread,
+        id: row.match_id, createdAt: row.match_created_at, status: row.match_status, unread: row.unread,
         lastMessage: row.last_body, lastActivity: row.last_activity,
         // The OTHER player. The post is always the owner's, so both sides see the same game details.
         opponent: row.owner_user_id === userId ? row.matcher_name : row.owner_name,

@@ -15,8 +15,12 @@ const db = new PGlite();
 // @vercel/postgres' `sql` as a tagged template, on top of PGlite.
 const sql = async (strings, ...vals) => {
   const text = strings.reduce((a, s, i) => a + (i ? '$' + i : '') + s, '');
-  const r = await db.query(text, vals);
-  return { rows: r.rows, rowCount: r.affectedRows ?? r.rows.length };
+  // Rows become objects the way node-postgres builds them: when two columns share a name the LAST one
+  // wins (PGlite's own objects keep the first, which hid a real bug: match id vs post id).
+  const r = await db.query(text, vals, { rowMode: 'array' });
+  const names = r.fields.map(f => f.name);
+  const rows = r.rows.map(a => { const o = {}; names.forEach((n, i) => { o[n] = a[i]; }); return o; });
+  return { rows, rowCount: r.affectedRows ?? rows.length };
 };
 
 let pass = 0, fail = 0;
@@ -39,6 +43,8 @@ await gitfindaSchema(sql);
 await gitfindaSchema(sql);   // idempotent, like ensureSchema
 const [A, B, C, D] = [1, 2, 3, 4];
 const g = gitfinda(sql);
+// Posts and matches count from different numbers, so using one where the other belongs shows up.
+await db.exec("SELECT setval('gitfinda_matches_id_seq', 500); SELECT setval('gitfinda_messages_id_seq', 9000)");
 
 const inH = h => new Date(Date.now() + h * 3600000);
 const slot = (fromH, hours = 3) => ({ start: inH(fromH).toISOString(), end: inH(fromH + hours).toISOString() });
@@ -124,6 +130,8 @@ ok(mm.length === 2 && mm.every(m => m.iAmOwner), 'the owner sees both matches');
 ok(new Set(mm.map(m => m.opponent)).size === 2 && mm.some(m => m.opponent === 'carol'), 'the owner sees who matched');
 mm = (await g.myMatches(C)).matches;
 ok(mm.length === 1 && mm[0].opponent === 'alice' && !mm[0].iAmOwner, 'the matcher sees the owner as the opponent');
+ok(mm[0].id === m1 && mm[0].post.id === p1 && mm[0].id !== mm[0].post.id, "a match carries ITS OWN id, not its post's", JSON.stringify([mm[0].id, mm[0].post.id, m1, p1]));
+ok(mm[0].createdAt && new Date(mm[0].createdAt) >= new Date(mm[0].post.createdAt), "a match carries its own creation time, not its post's");
 ok(mm[0].post.army === 'orks' && mm[0].post.points === 2000, 'both sides see the same game details');
 ok((await g.myMatches(D)).matches.length === 0, 'a third player sees nothing');
 ok((await g.unread(A)).unread === 2, 'the owner is told about two fresh matches', JSON.stringify(await g.unread(A)));
