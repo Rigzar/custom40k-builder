@@ -955,6 +955,7 @@ Ein japanischer Spieler wollte die Namen in Katakana. **Die Daten werden nie üb
 - Die Ausrüstungszeile wird per **Vorlage** übersetzt, nicht Satz für Satz (98 % haben den Rahmen `Every X is equipped with: A; B.`), in allen fünf Sprachen; nur Japanisch ändert zusätzlich die Namen. Ein Satz, der nicht passt, wird unverändert gezeigt.
 - Um einen Namen hinzuzufügen, eine Zeile in die Tabelle schreiben und `npx tsx scripts/_ja_names_test.ts` ausführen: Es zeigt für jede Einheit, jedes Modell, jede Waffe und Option, was noch englisch ist.
 - Eine neue Stelle, die einen Namen zeichnet, braucht `nm()` drumherum; mehr nicht.
+- **Überschriften von Optionsgruppen** (`g.header`, der Satz über jedem Optionsblock) werden Satz für Satz über `localiseAbility()` und `src/data/abilityTexts.<lang>.json` übersetzt, Schlüssel ist ein Hash des englischen Textes, genau wie bei einem Regeltext. Eine von den Blättern umformulierte Überschrift hat keine Übersetzung, bis sie ergänzt wird; `npx tsx scripts/_headers_test.ts` listet jede Überschrift des Spiels ohne Übersetzung auf, in allen vier Sprachen.
 
 ### Gitfinda — Spieler gesucht (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 

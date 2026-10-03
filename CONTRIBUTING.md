@@ -745,6 +745,7 @@ A Japanese player asked for names in katakana. **The data is never translated**:
 - The loadout line is translated by **template**, not sentence by sentence (98% of them have the frame `Every X is equipped with: A; B.`), in all five languages; only Japanese also changes the names. A sentence that does not fit the frame is shown as written.
 - To add a name, add a line to the table and run `npx tsx scripts/_ja_names_test.ts`: it reports, for every unit, model, weapon and option in the game, what is still English.
 - A new place that draws a name needs `nm()` around it; nothing else.
+- **Option-group headings** (`g.header`, the sentence above each option block) are translated sentence by sentence through `localiseAbility()` and `src/data/abilityTexts.<lang>.json`, keyed by a hash of the English text, exactly like a rule text. A heading the sheets reword has no translation until it is added; `npx tsx scripts/_headers_test.ts` lists every heading in the game that has none, in each of the four languages.
 
 ### Gitfinda — looking for a game (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 

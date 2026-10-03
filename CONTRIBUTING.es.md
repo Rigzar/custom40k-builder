@@ -944,6 +944,7 @@ Un jugador japonés pidió los nombres en katakana. **Los datos nunca se traduce
 - La línea de equipo se traduce **por plantilla**, no frase a frase (el 98% tiene el marco `Every X is equipped with: A; B.`), en los cinco idiomas; solo el japonés cambia además los nombres. Una frase que no encaja se muestra como está escrita.
 - Para añadir un nombre, añade una línea a la tabla y ejecuta `npx tsx scripts/_ja_names_test.ts`: te dice, para cada unidad, modelo, arma y opción del juego, qué sigue en inglés.
 - Un sitio nuevo que dibuje un nombre necesita `nm()` alrededor; nada más.
+- Los **encabezados de grupos de opciones** (`g.header`, la frase sobre cada bloque de opciones) se traducen frase a frase con `localiseAbility()` y `src/data/abilityTexts.<lang>.json`, con clave un hash del texto en inglés, igual que un texto de regla. Un encabezado que las hojas reescriben no tiene traducción hasta añadirla; `npx tsx scripts/_headers_test.ts` lista cada encabezado del juego que no la tiene, en los cuatro idiomas.
 
 ### Gitfinda — busco partida (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 

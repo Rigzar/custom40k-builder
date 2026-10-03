@@ -1359,7 +1359,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       }}
                     />
                     )}
-                    <span className={`font-cinzel text-[11px] uppercase tracking-wider flex-1 ${uniqueTakenElsewhere ? 'text-zinc-600' : 'text-zinc-100'}`}>{g.variant_link ?? g.header}</span>
+                    <span className={`font-cinzel text-[11px] uppercase tracking-wider flex-1 ${uniqueTakenElsewhere ? 'text-zinc-600' : 'text-zinc-100'}`}>{g.variant_link ? nm(g.variant_link) : localiseAbility(g.header)}</span>
                     {uniqueTakenElsewhere && (
                       <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-zinc-700 bg-zinc-900/60 text-zinc-500 shrink-0">{t('uniqueTakenBadge')}</span>
                     )}
@@ -1418,7 +1418,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                           className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">+</button>
                         <span className="text-zinc-500 text-[10px] ml-1">/{cMax}</span>
                       </div>
-                      <span className="text-zinc-300 flex-1">{g.header}</span>
+                      <span className="text-zinc-300 flex-1">{localiseAbility(g.header)}</span>
                       {!headerHasPts(g.inline_pts) && <span className="text-[11px] font-mono shrink-0 text-zinc-500">+{g.inline_pts}</span>}
                     </div>
                   </div>
@@ -1433,7 +1433,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${active ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
                       {active && <span className="text-[8px] text-white leading-none">✓</span>}
                     </div>
-                    <span className="text-zinc-300 flex-1">{g.header}</span>
+                    <span className="text-zinc-300 flex-1">{localiseAbility(g.header)}</span>
                     {!headerHasPts(g.inline_pts) && (
                       <span className={`text-[11px] font-mono shrink-0 ${active ? 'text-amber-400' : 'text-zinc-500'}`}>
                         {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts}
@@ -1679,7 +1679,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             return (
               <details key={realGi} open className="border border-zinc-800 bg-zinc-900/30 text-[12px]">
                 <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
-                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{g.header}</span>
+                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{localiseAbility(g.header)}</span>
                   {headerQty?.control}
                   {(isPerN || isFixedMax) && groupMax !== null && !g.independent_choices && (
                     <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>
