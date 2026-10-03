@@ -81,7 +81,7 @@
             "abilities": "AT(1), Ghostlight"
         },
         {
-            "name": "Prism rifle- Dispersed",
+            "name": "Prism rifle - Dispersed",
             "range": "9\"",
             "type": "Assault 4",
             "s": "5",
@@ -90,7 +90,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Prism rifle- Focused",
+            "name": "Prism rifle - Focused",
             "range": "18\"",
             "type": "Assault 1",
             "s": "6",
