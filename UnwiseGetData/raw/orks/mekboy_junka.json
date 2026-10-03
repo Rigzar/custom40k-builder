@@ -254,27 +254,27 @@
         "Result"
     ],
     [
-        1.1,
+        "\"1,1\"",
         "Boom! The Junka receives an automatic hit with S: D AP: -4 D: 3.        "
     ],
     [
-        2.2,
+        "\"2,2\"",
         "Gah! The new target is the nearest visible unit that is not engaged in melee combat (including Ork units!).        "
     ],
     [
-        3.3,
+        "\"3,3\"",
         "Oops! An opponent chooses a new target (including Ork units!).        "
     ],
     [
-        4.4,
+        "\"4,4\"",
         "Sploosh! The weapon changes its profile to Assault 2, S: 6 AP: -3 D: 1, Blast(6), Suppression(3)."
     ],
     [
-        5.5,
+        "\"5,5\"",
         "Zoink! Remove the Junka from the field and immediately redeploy it according to the rules for Deep strike. It can no longer move, but can still shoot.        "
     ],
     [
-        6.6,
+        "\"6,6\"",
         "Bzzap! The weapon fires with Strength: D and AT(3) and loses the Blast(6) rule for this activation.        "
     ],
     [
@@ -288,15 +288,15 @@
         "Result"
     ],
     [
-        "1-2",
+        "\"1-2\"",
         "Kaboom! The vehicle explodes with a radius of 6\"."
     ],
     [
-        "3-4",
+        "\"3-4\"",
         "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
     ],
     [
-        "5-6",
+        "\"5-6\"",
         "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as a wreck."
     ],
     [

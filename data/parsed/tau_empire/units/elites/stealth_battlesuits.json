@@ -1,172 +1,172 @@
 {
-  "name": "Stealth Battlesuits",
-  "models": [
-    {
-      "name": "Stealth Shas'ui",
-      "points": 34,
-      "min": 3,
-      "max": 6,
-      "stats": {
-        "M": "12\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "4",
-        "T": "4",
-        "W": "1",
-        "I": "2",
-        "A": "2",
-        "LD": "7",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [
-    {
-      "name": "Stealth Shas'vre",
-      "points": 44,
-      "min": 0,
-      "max": 0,
-      "stats": {
-        "M": "12\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "4",
-        "T": "4",
-        "W": "1",
-        "I": "2",
-        "A": "2",
-        "LD": "8",
-        "SV": "3+"
-      }
-    }
-  ],
-  "equipped_with": "All models are equipped with: Burst cannon.",
-  "weapons": [
-    {
-      "name": "Burst cannon",
-      "range": "18\"",
-      "type": "Rapid Fire 3",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Fusion blaster",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "2",
-      "abilities": "Armorbane, AT(3)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "Every model may swap their Burst cannon",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    "name": "Stealth Battlesuits",
+    "models": [
         {
-          "name": "Fusion blaster",
-          "points": 15
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "2",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Stealth Shas'ui",
+            "min": 3,
+            "max": 6,
+            "points": 34
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Burst cannon"
-      ]
-    },
-    {
-      "header": "One Stealth Shas'ui may be upgraded to a Shas'vre for +10 points.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 10,
-      "variant_link": "Stealth Shas'vre",
-      "is_unique_per_army": false
-    },
-    {
-      "header": "Any model may pick up to two SUPPORT SYSTEMS from the armory.",
-      "constraint": {
-        "type": "fixed_max",
-        "max": 2
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "A Shas'vre may buy a Drone controller for +0 points and up to two Tau Drones in any combination.",
-      "constraint": {
-        "type": "fixed_max",
-        "max": 2
-      },
-      "choices": [
+    ],
+    "variant_models": [
         {
-          "name": "Grav Inhibitor Drone",
-          "points": 10
-        },
-        {
-          "name": "Gun Drone",
-          "points": 12
-        },
-        {
-          "name": "Marker Drone",
-          "points": 10
-        },
-        {
-          "name": "Pulse Accelerator Drone",
-          "points": 10
-        },
-        {
-          "name": "Recon Drone",
-          "points": 16
-        },
-        {
-          "name": "Shield Drone",
-          "points": 20
-        },
-        {
-          "name": "Missile Drone",
-          "points": 16
-        },
-        {
-          "name": "Sniper Drone",
-          "points": 24
-        },
-        {
-          "name": "Warscaper Drone",
-          "points": 5
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "2",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Stealth Shas'vre",
+            "min": 0,
+            "max": 1,
+            "points": 44
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [
-    "Infiltrator, Stealth, Supporting Fire"
-  ],
-  "unit_type": "Infantry, Jump Pack Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 3,
-  "min_cost": 102
+    ],
+    "equipped_with": "All models are equipped with: Burst cannon.",
+    "weapons": [
+        {
+            "name": "Burst cannon",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Fusion blaster",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Every model may swap their Burst cannon",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Fusion blaster",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Burst cannon"
+            ]
+        },
+        {
+            "header": "One Stealth Shas'ui may be upgraded to a Shas'vre for +10 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Stealth Shas'vre",
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Any model may pick up to two SUPPORT SYSTEMS from the armory.",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 2
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "A Shas'vre may buy a Drone controller for +0 points and up to two Tau Drones in any combination.",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 2
+            },
+            "choices": [
+                {
+                    "name": "Grav Inhibitor Drone",
+                    "points": 10
+                },
+                {
+                    "name": "Gun Drone",
+                    "points": 12
+                },
+                {
+                    "name": "Marker Drone",
+                    "points": 10
+                },
+                {
+                    "name": "Pulse Accelerator Drone",
+                    "points": 10
+                },
+                {
+                    "name": "Recon Drone",
+                    "points": 16
+                },
+                {
+                    "name": "Shield Drone",
+                    "points": 20
+                },
+                {
+                    "name": "Missile Drone",
+                    "points": 16
+                },
+                {
+                    "name": "Sniper Drone",
+                    "points": 24
+                },
+                {
+                    "name": "Warscaper Drone",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Infiltrator, Stealth, Supporting Fire"
+    ],
+    "unit_type": "Infantry, Jump pack",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 3,
+    "min_cost": 102
 }

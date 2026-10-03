@@ -10,9 +10,9 @@
 
 import type { Unit } from '../../../../src/types/data';
 
-import hq_br_khyr_iron_master from './hq/br_khyr_iron_master.json';
+import hq_br_khyr_iron_master from './hq/brôkhyr_iron-master.json';
 import hq_grimnyr from './hq/grimnyr.json';
-import hq_k_hl from './hq/k_hl.json';
+import hq_k_hl from './hq/kâhl.json';
 import troops_hearthkyn_warriors from './troops/hearthkyn_warriors.json';
 import troops_ironkin_steeljacks from './troops/ironkin_steeljacks.json';
 import elites_arkanyst_evaluator from './elites/arkanyst_evaluator.json';
@@ -24,7 +24,7 @@ import elites_memnyr_strategist from './elites/memnyr_strategist.json';
 import fast_attack_hearthkyn_skyriggers from './fast_attack/hearthkyn_skyriggers.json';
 import fast_attack_hernkyn_pioneers from './fast_attack/hernkyn_pioneers.json';
 import fast_attack_kapricus_defender from './fast_attack/kapricus_defender.json';
-import heavy_support_br_khyr_thunderkyn from './heavy_support/br_khyr_thunderkyn.json';
+import heavy_support_br_khyr_thunderkyn from './heavy_support/brôkhyr_thunderkyn.json';
 import heavy_support_cthonian_earthshakers from './heavy_support/cthonian_earthshakers.json';
 import heavy_support_hekaton_land_fortress from './heavy_support/hekaton_land_fortress.json';
 import dedicated_transport_kapricus_carrier from './dedicated_transport/kapricus_carrier.json';

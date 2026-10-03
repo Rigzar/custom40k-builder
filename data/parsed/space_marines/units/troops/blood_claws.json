@@ -1,226 +1,226 @@
 {
-  "name": "Blood Claws",
-  "models": [
-    {
-      "name": "Blood Claw",
-      "points": 35,
-      "min": 9,
-      "max": 9,
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "4",
-        "T": "4",
-        "W": "2",
-        "I": "4",
-        "A": "2",
-        "LD": "6",
-        "SV": "3+"
-      }
-    },
-    {
-      "name": "Blood Claw Pack Leader",
-      "points": 35,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "4",
-        "T": "4",
-        "W": "2",
-        "I": "4",
-        "A": "2",
-        "LD": "6",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Every model is equipped with: Astartes Chainsword; Bolt pistol; Frag grenades; Krak grenades.",
-  "weapons": [
-    {
-      "name": "Astartes chainsword",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Bolt pistol",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Flamer",
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Auto Hit, Sunder(1)"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Melta",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Melta"
-    },
-    {
-      "name": "Plasma pistol (Standard)",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)"
-    },
-    {
-      "name": "Plasma pistol (Overcharged)",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheating"
-    },
-    {
-      "name": "Plasma gun (Standard)",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)"
-    },
-    {
-      "name": "Plasma gun (Overheating)",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheating"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "All models may gain Jump packs for +8 points each. They gain +6\" Movement by doing so and change their unit type to \"Jump pack infantry\". Additionally, they count as \"Fast Attack\" units by doing so.",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    "name": "Blood Claws",
+    "models": [
         {
-          "name": "Jump pack",
-          "points": 8,
-          "effect": {
-            "stat_mod": [
-              {
-                "stat": "M",
-                "delta": 6
-              }
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "6",
+                "SV": "3+"
+            },
+            "name": "Blood Claw",
+            "min": 1,
+            "max": 1,
+            "points": 35
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "6",
+                "SV": "3+"
+            },
+            "name": "Blood Claw Pack Leader",
+            "min": 1,
+            "max": 1,
+            "points": 35
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Astartes Chainsword; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overcharged",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All models may gain Jump packs for +8 points each. They gain +6\" Movement by doing so and change their unit type to \"Jump pack infantry\". Additionally, they count as \"Fast Attack\" units by doing so.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Jump pack",
+                    "points": 8,
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 6
+                            }
+                        ],
+                        "set_unit_type": "Jump Pack Infantry"
+                    }
+                }
             ],
-            "set_unit_type": "Jump Pack Infantry"
-          }
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "Two Blood Claws may swap their Astartes chainsword",
-      "constraint": {
-        "type": "fixed_max",
-        "max": 2
-      },
-      "choices": [
-        {
-          "name": "Flamer",
-          "points": 3
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         },
         {
-          "name": "Melta",
-          "points": 9
+            "header": "Two Blood Claws may swap their Astartes chainsword",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 2
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 3
+                },
+                {
+                    "name": "Melta",
+                    "points": 9
+                },
+                {
+                    "name": "Plasma gun",
+                    "points": 13
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
+            ]
         },
         {
-          "name": "Plasma gun",
-          "points": 13
+            "header": "One Blood Claw may swap their Bolt pistol",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Plasma pistol",
+                    "points": 4
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Astartes chainsword"
-      ]
-    },
-    {
-      "header": "One Blood Claw may swap their Bolt pistol",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Plasma pistol",
-          "points": 4
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Bolt pistol"
-      ]
-    }
-  ],
-  "abilities": [
-    "Blind Rage, Furious Charge, They Shall Know No Fear"
-  ],
-  "unit_type": "Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "armory_weapons_only": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Troops",
-  "default_size": 10,
-  "min_cost": 350
+    ],
+    "abilities": [
+        "Blind Rage, Furious Charge, They Shall Know No Fear"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "armory_weapons_only": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 2,
+    "min_cost": 70
 }

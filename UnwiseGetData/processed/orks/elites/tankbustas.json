@@ -42,7 +42,7 @@
     ],
     "min_cost": 85,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Smasha hamma; Tankbusta bomb.",
+    "equipped_with": "Every model is equipped with: Smasha hamma; Tankbusta bombs.",
     "weapons": [
         {
             "name": "Rokkit launcha",
@@ -81,7 +81,7 @@
             "abilities": "AT(2), Unwieldy"
         },
         {
-            "name": "Tankbusta bomb",
+            "name": "Tankbusta bombs",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "5",
