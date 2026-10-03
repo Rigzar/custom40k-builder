@@ -2,6 +2,10 @@
     "name": "Deathcult Assassins",
     "models": [
         {
+            "name": "Deathcult Assassin",
+            "points": 23,
+            "min": 1,
+            "max": 6,
             "stats": {
                 "M": "6\"",
                 "WS": "2+",
@@ -13,11 +17,7 @@
                 "A": "3",
                 "LD": "7",
                 "SV": "6+"
-            },
-            "name": "Deathcult Assassin",
-            "min": 1,
-            "max": 6,
-            "points": 23
+            }
         }
     ],
     "equipped_with": "Every model is equipped with: Power sword.",
@@ -51,7 +51,7 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Elites",
-    "default_size": 1,
+    "default_size": 2,
     "min_cost": 23,
     "variant_models": []
 }

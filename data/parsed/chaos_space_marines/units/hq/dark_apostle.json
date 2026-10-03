@@ -2,6 +2,10 @@
     "name": "Dark Apostle",
     "models": [
         {
+            "name": "Dark Apostle",
+            "points": 134,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "2+",
@@ -13,29 +17,7 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "3+"
-            },
-            "name": "Dark Apostle",
-            "min": 1,
-            "max": 1,
-            "points": 134
-        },
-        {
-            "stats": {
-                "M": "6\"",
-                "WS": "2+",
-                "BS": "3+",
-                "S": "4",
-                "T": "4",
-                "W": "4",
-                "I": "5",
-                "A": "3",
-                "LD": "9",
-                "SV": "3+"
-            },
-            "name": "Sinister Bishop",
-            "min": 1,
-            "max": 1,
-            "points": 154
+            }
         }
     ],
     "variant_models": [
@@ -157,7 +139,7 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "HQ",
-    "default_size": 2,
-    "min_cost": 288,
+    "default_size": 1,
+    "min_cost": 134,
     "is_priest": true
 }

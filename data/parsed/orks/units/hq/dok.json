@@ -2,6 +2,10 @@
     "name": "Dok",
     "models": [
         {
+            "name": "Dok",
+            "points": 61,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -13,29 +17,7 @@
                 "A": "2",
                 "LD": "6",
                 "SV": "4+"
-            },
-            "name": "Dok",
-            "min": 1,
-            "max": 1,
-            "points": 61
-        },
-        {
-            "stats": {
-                "M": "6\"",
-                "WS": "3+",
-                "BS": "5+",
-                "S": "5",
-                "T": "5",
-                "W": "4",
-                "I": "4",
-                "A": "3",
-                "LD": "7",
-                "SV": "4+"
-            },
-            "name": "Pain Boss",
-            "min": 1,
-            "max": 1,
-            "points": 76
+            }
         }
     ],
     "variant_models": [
@@ -116,6 +98,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "HQ",
-    "default_size": 2,
-    "min_cost": 137
+    "default_size": 1,
+    "min_cost": 61
 }
