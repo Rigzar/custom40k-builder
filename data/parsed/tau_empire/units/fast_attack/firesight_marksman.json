@@ -2,6 +2,10 @@
     "name": "Firesight Marksman",
     "models": [
         {
+            "name": "Firesight Marksman",
+            "points": 20,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "5+",
@@ -13,13 +17,13 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "4+"
-            },
-            "name": "Firesight Marksman",
-            "min": 1,
-            "max": 1,
-            "points": 20
+            }
         },
         {
+            "name": "Sniper Drone",
+            "points": 34,
+            "min": 3,
+            "max": 3,
             "stats": {
                 "M": "*",
                 "WS": "5+",
@@ -31,11 +35,7 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "4+"
-            },
-            "name": "Sniper Drone",
-            "min": 1,
-            "max": 1,
-            "points": 34
+            }
         }
     ],
     "variant_models": [],
@@ -89,6 +89,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Fast Attack",
-    "default_size": 2,
-    "min_cost": 54
+    "default_size": 4,
+    "min_cost": 122
 }

@@ -2,6 +2,10 @@
     "name": "Y'vahra Battlesuit",
     "models": [
         {
+            "name": "Y'vahra Shas'vre",
+            "points": 357,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "12\"",
                 "WS": "4+",
@@ -13,13 +17,13 @@
                 "A": "3",
                 "LD": "8",
                 "SV": "2+"
-            },
-            "name": "Y'vahra Shas'vre",
-            "min": 1,
-            "max": 1,
-            "points": 357
+            }
         },
         {
+            "name": "Missile Drone",
+            "points": 0,
+            "min": 2,
+            "max": 2,
             "stats": {
                 "M": "*",
                 "WS": "4+",
@@ -31,11 +35,7 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "4+"
-            },
-            "name": "Missile Drone",
-            "min": 1,
-            "max": 1,
-            "points": 0
+            }
         }
     ],
     "variant_models": [],
@@ -120,6 +120,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Fast Attack",
-    "default_size": 2,
+    "default_size": 3,
     "min_cost": 357
 }
