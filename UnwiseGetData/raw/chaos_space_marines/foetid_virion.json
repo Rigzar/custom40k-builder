@@ -30,6 +30,51 @@
         62
     ],
     [
+        "*",
+        "Biologus Putrifier",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        5,
+        4,
+        4,
+        2,
+        8,
+        "5+",
+        72
+    ],
+    [
+        "*",
+        "Foul Blightspawn",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        5,
+        4,
+        4,
+        2,
+        8,
+        "5+",
+        91
+    ],
+    [
+        "*",
+        "Noxious Blightbringer",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        5,
+        4,
+        4,
+        2,
+        8,
+        "5+",
+        70
+    ],
+    [
         "A Foetid Virion is equipped with: Blight grenades; Krak grenades; Plague knife."
     ],
     [
@@ -39,7 +84,7 @@
         "A Foul Blightspawn is additionally equipped with: Plague sprayer."
     ],
     [
-        "A Noxious Blightbringer is additionally equipped with: Cursed plague bell"
+        "A Noxious Blightbringer is additionally equipped with: Cursed plague bell."
     ],
     [
         "WEAPON",
