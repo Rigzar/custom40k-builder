@@ -60,7 +60,7 @@
     ],
     "min_cost": 108,
     "default_size": 4,
-    "equipped_with": "Every model is equipped with: Atalan small arms; Blasting charges.Every Atalan Wolfquad is additionally equipped with: Heavy stubber.",
+    "equipped_with": "Every model is equipped with: Atalan small arms; Blasting charges. Every Atalan Wolfquad is additionally equipped with: Heavy stubber.",
     "weapons": [
         {
             "name": "Atalan incinerator",

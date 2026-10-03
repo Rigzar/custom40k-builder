@@ -60,7 +60,7 @@
     ],
     "min_cost": 137,
     "default_size": 10,
-    "equipped_with": "Every Sister Novitiate is equipped with: Autogun; Auto pistol; Frag grenades; Krak grenades.The Sister Superior is equipped with: Boltgun; Frag grenades; Krak grenades.",
+    "equipped_with": "Every Sister Novitiate is equipped with: Autogun; Auto pistol; Frag grenades; Krak grenades. The Sister Superior is equipped with: Boltgun; Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Auto pistol",

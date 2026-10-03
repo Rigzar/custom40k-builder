@@ -42,7 +42,7 @@
     ],
     "min_cost": 295,
     "default_size": 5,
-    "equipped_with": "Every Dark Reaper is equipped with: Aeldari missile launcher.The Dark Reaper Exarch is equipped with: Shuriken cannon.",
+    "equipped_with": "Every Dark Reaper is equipped with: Aeldari missile launcher. The Dark Reaper Exarch is equipped with: Shuriken cannon.",
     "weapons": [
         {
             "name": "Aeldari missile launcher - Sunburst",

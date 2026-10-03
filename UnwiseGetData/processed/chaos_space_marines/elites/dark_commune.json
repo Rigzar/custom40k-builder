@@ -77,7 +77,7 @@
     "variant_models": [],
     "min_cost": 90,
     "default_size": 4,
-    "equipped_with": "Every Dark Executioner is equipped with: Executioners blade, Frag grenadesThe Cult Demagogue is equipped with: Unholy stave, Las pistol, Frag grenadeThe Mindsorcerer is equipped with: Witchcane, Balefire tome, Frag grenadesThe Cult Standardbearer is equipped with: Laspistol, Frag grenades",
+    "equipped_with": "Every Dark Executioner is equipped with: Executioners blade, Frag grenades The Cult Demagogue is equipped with: Unholy stave, Las pistol, Frag grenade The Mindsorcerer is equipped with: Witchcane, Balefire tome, Frag grenades The Cult Standardbearer is equipped with: Laspistol, Frag grenades",
     "weapons": [
         {
             "name": "Executioners blade",

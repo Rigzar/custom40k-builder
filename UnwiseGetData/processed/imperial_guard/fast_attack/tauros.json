@@ -42,7 +42,7 @@
     ],
     "min_cost": 108,
     "default_size": 1,
-    "equipped_with": "A Tauros is equipped with: Tauros grenade launcher.A Tauros Venator is equipped with: Twin-linked heavy stubber.",
+    "equipped_with": "A Tauros is equipped with: Tauros grenade launcher. A Tauros Venator is equipped with: Twin-linked heavy stubber.",
     "weapons": [
         {
             "name": "Heavy flamer",

@@ -42,7 +42,7 @@
     ],
     "min_cost": 145,
     "default_size": 5,
-    "equipped_with": "Every Dire Avenger is equipped with: Avenger shuriken catapult; Plasma grenades.The Dire Avenger Exarch is equipped with: Diresword, Plasma grenades, Shuriken pistol.",
+    "equipped_with": "Every Dire Avenger is equipped with: Avenger shuriken catapult; Plasma grenades. The Dire Avenger Exarch is equipped with: Diresword, Plasma grenades, Shuriken pistol.",
     "weapons": [
         {
             "name": "Avenger shuriken catapult",

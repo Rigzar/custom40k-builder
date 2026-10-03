@@ -95,7 +95,7 @@
     "variant_models": [],
     "min_cost": 80,
     "default_size": 5,
-    "equipped_with": "Every Voidscarred and Felarch is equipped with: Plasma grenades; Shuriken rifle.A Shade Runner is equipped with: Paired Hekatarii blades; Plasma grenades; Shuriken pistol.A Soul Weaver is equipped with: Channeler stones; Plasma grenades; Power sword; Shuriken pistol.A Way Seeker is equipped with: Plasma grenades; Shuriken pistol; Witch staff.",
+    "equipped_with": "Every Voidscarred and Felarch is equipped with: Plasma grenades; Shuriken rifle. A Shade Runner is equipped with: Paired Hekatarii blades; Plasma grenades; Shuriken pistol. A Soul Weaver is equipped with: Channeler stones; Plasma grenades; Power sword; Shuriken pistol. A Way Seeker is equipped with: Plasma grenades; Shuriken pistol; Witch staff.",
     "weapons": [
         {
             "name": "Blaster",
