@@ -42,7 +42,7 @@
     ],
     "min_cost": 265,
     "default_size": 5,
-    "equipped_with": "Every Fire Dragon is equipped with: Dragon fusion gun.The Fire Dragon Exarch is equipped with: Dragon's breath flamer.",
+    "equipped_with": "Every Fire Dragon is equipped with: Dragon fusion gun. The Fire Dragon Exarch is equipped with: Dragon's breath flamer.",
     "weapons": [
         {
             "name": "Dragon fusion gun",

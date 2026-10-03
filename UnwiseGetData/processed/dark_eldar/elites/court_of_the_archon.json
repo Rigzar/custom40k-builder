@@ -77,7 +77,7 @@
     "variant_models": [],
     "min_cost": 1,
     "default_size": 0,
-    "equipped_with": "Every Lhaemaean is equipped with: Splinter pistol; Venom blade.Every Medusae is equipped with: Eyeburst.Every Sslyth is equipped with: -.Every Ur-Ghul is equipped with: Rending claws.",
+    "equipped_with": "Every Lhaemaean is equipped with: Splinter pistol; Venom blade. Every Medusae is equipped with: Eyeburst. Every Sslyth is equipped with: -. Every Ur-Ghul is equipped with: Rending claws.",
     "weapons": [
         {
             "name": "Eyeburst",
