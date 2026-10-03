@@ -1,4 +1,6 @@
 ﻿import { useState } from 'react';
+import { nm } from '../utils/localName';
+import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
@@ -329,7 +331,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               : hasPrayers && hasPacts ? t('prayersAndPactsLabel')
               : hasPrayers ? t('prayersLabel')
               : hasPacts ? t('infernalPactsLabel')
-              : powersLabel} — {unit.name}
+              : powersLabel} — {nm(unit.name)}
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
@@ -379,11 +381,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
-                  <span className="text-amber-300 font-semibold text-sm">Smite</span>
+                  <span className="text-amber-300 font-semibold text-sm">{nm('Smite')}</span>
                 </div>
                 {smite && (
                   <div className="text-[10px] text-zinc-500 mt-0.5">
-                    {t('castLabel')} {smite.cast_value} · {smite.type} · {smite.duration} — {smite.effect}
+                    {t('castLabel')} {smite.cast_value} · {localiseAbility(smite.type)} · {localiseAbility(smite.duration)} — {localiseAbility(smite.effect)}
                   </div>
                 )}
               </div>
@@ -395,13 +397,13 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
-                  <span className="text-amber-300 font-semibold text-sm">{unit.fixed_power.name}</span>
+                  <span className="text-amber-300 font-semibold text-sm">{nm(unit.fixed_power.name)}</span>
                 </div>
                 <div className="text-[10px] text-zinc-500 mt-0.5">
                   {t('castLabel')} {unit.fixed_power.cast_value}
                   {unit.fixed_power.range && unit.fixed_power.range !== '-' ? ` · ${unit.fixed_power.range}` : ''}
                   {unit.fixed_power.duration ? ` · ${unit.fixed_power.duration}` : ''}
-                  {unit.fixed_power.effect ? ` — ${unit.fixed_power.effect}` : ''}
+                  {unit.fixed_power.effect ? ` — ${localiseAbility(unit.fixed_power.effect)}` : ''}
                 </div>
               </div>
             )}
@@ -411,11 +413,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
-                  <span className="text-amber-300 font-semibold text-sm">{legacyPower.name}</span>
+                  <span className="text-amber-300 font-semibold text-sm">{nm(legacyPower.name)}</span>
                   <span className="text-[9px] text-zinc-500 ml-auto">{t('legacyTag')}</span>
                 </div>
                 <div className="text-[10px] text-zinc-500 mt-0.5">
-                  {t('castLabel')} {legacyPower.details.cast_value} · {legacyPower.details.type} · {legacyPower.details.duration} — {legacyPower.details.effect}
+                  {t('castLabel')} {legacyPower.details.cast_value} · {localiseAbility(legacyPower.details.type)} · {localiseAbility(legacyPower.details.duration)} — {localiseAbility(legacyPower.details.effect)}
                 </div>
               </div>
             )}
@@ -466,7 +468,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                     {/* Discipline header — the whole row toggles open/close; in all_from_one mode the
                         "Choose" badge (which selects the whole discipline) is a separate control. */}
                     <summary className="flex items-center justify-between gap-2 px-2.5 py-1.5 cursor-pointer select-none hover:bg-zinc-800/40">
-                      <span className={`text-[11px] uppercase tracking-widest ${isChosen ? 'text-amber-400' : 'text-amber-700'}`}>{discName}</span>
+                      <span className={`text-[11px] uppercase tracking-widest ${isChosen ? 'text-amber-400' : 'text-amber-700'}`}>{nm(discName)}</span>
                       {psykerMode === 'all_from_one' ? (
                         <button
                           onClick={e => { e.preventDefault(); e.stopPropagation(); chooseAllFromDisc(discName); }}
@@ -504,17 +506,17 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                               }`}
                           >
                             <div className="text-sm font-medium flex items-center gap-1.5">
-                              {p.name}
+                              {nm(p.name)}
                               {psykerMode === 'all_from_one' && isChosen && (
                                 <span className="text-[8px] text-amber-600 uppercase tracking-wide">{t('includedBadge')}</span>
                               )}
                             </div>
                             <div className="text-[10px] text-zinc-500 mt-0.5">
-                              {[p.type, bumpRange(p.range), p.cast_value ? `Cast: ${p.cast_value}` : null]
+                              {[localiseAbility(p.type), bumpRange(p.range), p.cast_value ? `${t('castLabel')} ${p.cast_value}` : null]
                                 .filter(Boolean).join(' · ')}
                             </div>
                             {p.effect && (
-                              <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
+                              <div className="text-[11px] text-zinc-400 mt-1">{localiseAbility(p.effect)}</div>
                             )}
                           </button>
                         );
@@ -542,14 +544,14 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                         : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700 text-zinc-200'
                       }`}
                   >
-                    <div className="text-sm font-medium">{p.name}</div>
+                    <div className="text-sm font-medium">{nm(p.name)}</div>
                     {/* Range/target/duration used to be dropped here, so a prayer's own reach was
                         invisible everywhere in the app (v1.70). Shown like psychic powers already do. */}
                     {powerMetaLine(p) && (
                       <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p)}</div>
                     )}
                     {p.effect && (
-                      <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
+                      <div className="text-[11px] text-zinc-400 mt-1">{localiseAbility(p.effect)}</div>
                     )}
                   </button>
                 );
@@ -572,12 +574,12 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                         : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700 text-zinc-200'
                       }`}
                   >
-                    <div className="text-sm font-medium">{p.name}</div>
+                    <div className="text-sm font-medium">{nm(p.name)}</div>
                     {powerMetaLine(p) && (
                       <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p)}</div>
                     )}
                     {p.effect && (
-                      <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
+                      <div className="text-[11px] text-zinc-400 mt-1">{localiseAbility(p.effect)}</div>
                     )}
                   </button>
                 );

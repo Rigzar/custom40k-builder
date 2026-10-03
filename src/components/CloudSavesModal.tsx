@@ -1,3 +1,4 @@
+import { nm } from '../utils/localName';
 import { useEffect, useRef, useState } from 'react';
 import * as api from '../lib/api';
 import type { PublicArmySummary, FriendRow, UserSearchResult, FriendRequestRow, RosterShareUser, SharedArmySummary, EventSummary } from '../lib/api';
@@ -642,7 +643,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                     <button
                       onClick={() => handleVote(a, 1)}
                       disabled={votingId === a.id}
-                      title="Upvote"
+                      title={t('voteUp')}
                       className={`flex items-center gap-0.5 text-[11px] px-1.5 py-1 border transition-colors disabled:opacity-50 ${
                         a.user_vote === 1
                           ? 'bg-green-900/40 border-green-700 text-green-400'
@@ -654,7 +655,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                     <button
                       onClick={() => handleVote(a, -1)}
                       disabled={votingId === a.id}
-                      title="Downvote"
+                      title={t('voteDown')}
                       className={`flex items-center gap-0.5 text-[11px] px-1.5 py-1 border transition-colors disabled:opacity-50 ${
                         a.user_vote === -1
                           ? 'bg-red-900/40 border-red-700 text-red-400'
@@ -894,7 +895,7 @@ function FriendsTab() {
                 disabled={busy === f.username}
                 onClick={() => handleRemove(f.username)}
                 className="text-zinc-600 hover:text-red-400 text-sm disabled:opacity-50"
-                title="Remove friend"
+                title={t('removeFriend')}
               >×</button>
             </div>
           ))}
@@ -1085,16 +1086,16 @@ const AVATAR_GROUPS: { label: string; items: { key: string; label: string }[] }[
 ];
 
 const AVATAR_PALETTE = [
-  { label: 'White',  hex: '#ffffff' },
-  { label: 'Gold',   hex: '#d4af37' },
-  { label: 'Red',    hex: '#ef4444' },
-  { label: 'Blue',   hex: '#3b82f6' },
-  { label: 'Green',  hex: '#22c55e' },
-  { label: 'Purple', hex: '#a855f7' },
-  { label: 'Orange', hex: '#f97316' },
-  { label: 'Cyan',   hex: '#06b6d4' },
-  { label: 'Pink',   hex: '#f43f5e' },
-  { label: 'Bone',   hex: '#e8dcc8' },
+  { labelKey: 'colWhite' as const, hex: '#ffffff' },
+  { labelKey: 'colGold' as const, hex: '#d4af37' },
+  { labelKey: 'colRed' as const, hex: '#ef4444' },
+  { labelKey: 'colBlue' as const, hex: '#3b82f6' },
+  { labelKey: 'colGreen' as const, hex: '#22c55e' },
+  { labelKey: 'colPurple' as const, hex: '#a855f7' },
+  { labelKey: 'colOrange' as const, hex: '#f97316' },
+  { labelKey: 'colCyan' as const, hex: '#06b6d4' },
+  { labelKey: 'colPink' as const, hex: '#f43f5e' },
+  { labelKey: 'colBone' as const, hex: '#e8dcc8' },
 ];
 
 const SOCIAL_PLATFORMS: { key: string; label: string; placeholder: string }[] = [
@@ -1254,7 +1255,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
             <span className="text-[10px] text-zinc-500 uppercase tracking-wide shrink-0">{t('colorLabel')}</span>
             <div className="flex flex-wrap gap-1.5">
               {AVATAR_PALETTE.map(c => (
-                <button key={c.hex} onClick={() => setSelColor(c.hex)} title={c.label}
+                <button key={c.hex} onClick={() => setSelColor(c.hex)} title={t(c.labelKey)}
                   className={`w-5 h-5 rounded-full border-2 transition-transform ${selColor === c.hex ? 'border-amber-400 scale-110' : 'border-transparent hover:border-zinc-400'}`}
                   style={{ background: c.hex }} />
               ))}
@@ -1286,7 +1287,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
                     groupHasSel ? 'text-amber-400 bg-amber-900/20' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'
                   }`}
                 >
-                  <span>{group.label}</span>
+                  <span>{nm(group.label)}</span>
                   <span className="text-zinc-600">{open ? '▾' : '▸'}</span>
                 </button>
                 {open && (
@@ -1295,7 +1296,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
                       <button
                         key={item.key}
                         onClick={() => { setSelKey(item.key); setSelCustom(null); }}
-                        title={item.label}
+                        title={nm(item.label)}
                         className={`aspect-square flex items-center justify-center rounded border ${
                           selKey === item.key && !selCustom
                             ? 'border-amber-500 bg-amber-900/30'
@@ -1498,7 +1499,7 @@ export function CloudSavesModal({
                   }}
                   aria-hidden="true"
                 />
-                Inquisidor
+                {t('inquisitorPanel')}
               </button>
             )}
           </div>

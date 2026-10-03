@@ -1,4 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
+import { slotLabel } from '../utils/slotLabel';
+import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
 import { t, tpl, type Language } from '../i18n';
@@ -1127,7 +1129,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // Helper: is this item an integrated supplement unit?
   const isSupplItem = (item: { factionSource?: string | null }) =>
     isIntegratedSuppl && item.factionSource === state.alliedFaction;
-  const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => tpl(t(language, key), vars ?? {});
+  // Names in the message are drawn in the reader's script: slots by their own label, everything else
+  // through the katakana table (Japanese only; every other language gets the name as written).
+  const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => {
+    const shown: Record<string, string | number> = {};
+    for (const [k, v] of Object.entries(vars ?? {})) {
+      if (typeof v !== 'string') { shown[k] = v; continue; }
+      const asSlot = slotLabel(language, v);
+      shown[k] = asSlot !== v ? asSlot : language === 'ja' ? jaName(v) : v;
+    }
+    return tpl(t(language, key), shown);
+  };
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);

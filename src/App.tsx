@@ -1,3 +1,5 @@
+import { engName } from './utils/engagementText';
+import { nm } from './utils/localName';
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { factionForEntry } from './engine/points';
 import { useArmyStore, getSerializableState } from './store/army';
@@ -13,7 +15,6 @@ import { FactionSymbol } from './components/FactionSymbol';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { getRelationship, allySide, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
-import { ENGAGEMENTS } from './engine/engagements';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
 import { getArmySymbolPair } from './utils/getArmySymbolUrl';
@@ -24,7 +25,7 @@ import { useSavedArmies, type SavedArmy, AUTOSAVE_ID, AUTOSAVE_DISMISSED_KEY } f
 import { LegalFooter } from './components/LegalModal';
 import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
-import { useT, setTranslationOverrides } from './i18n';
+import { useT, setTranslationOverrides, tpl } from './i18n';
 import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { PwaUpdatePrompt } from './components/PwaUpdatePrompt';
@@ -577,7 +578,7 @@ export default function App() {
   /** Moving on from the Config step. Names the army if the player never did. */
   function handleBuild() {
     if (!armyName.trim() && selectedFaction) {
-      setArmyName(`${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`);
+      setArmyName(tpl(t('defaultArmyName'), { faction: nm(FACTION_NAMES[selectedFaction] ?? selectedFaction) }));
     }
     if (!data || !selectedFaction) return;
     setStep('units');
@@ -607,7 +608,7 @@ export default function App() {
       return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store), factionForEntry(i, store.data), store.pointLimit) : 0);
     }, 0);
 
-    const baseName = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
+    const baseName = armyName.trim() || tpl(t('defaultArmyName'), { faction: nm(FACTION_NAMES[selectedFaction] ?? selectedFaction) });
     // The faction the player picked, not whatever the store last held (see the loader effect).
     const savedFaction = FACTION_NAMES[selectedFaction] ?? faction;
     const stateSnapshot = {
@@ -819,7 +820,7 @@ export default function App() {
                     <FactionSymbol factionKey={selectedFaction} size={24} overrideUrl={armySymbolOverride ?? undefined} />
                     {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={24} overrideUrl={armySymbolSecondary} />}
                   </div>
-                  <span className="hidden sm:inline text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
+                  <span className="hidden sm:inline text-zinc-600 text-xs shrink-0">{nm(factionLabel)} ·</span>
                   <ArmyNameEditor />
                 </div>
 
@@ -841,17 +842,17 @@ export default function App() {
                   {!loggedIn && (
                     <button
                       onClick={() => setShowArmies(true)}
-                      title="My Armies"
+                      title={t('tabMyArmies')}
                       className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2 py-1 transition-colors"
                     >
                       <span className="sm:hidden">📋</span>
-                      <span className="hidden sm:inline">My Armies</span>
+                      <span className="hidden sm:inline">{t('tabMyArmies')}</span>
                     </button>
                   )}
                   {data && (
                     <button
                       onClick={() => setShowPrint(true)}
-                      title="Print"
+                      title={t('print')}
                       className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2 py-1 transition-colors"
                     >
                       <span className="sm:hidden">🖨</span>
@@ -860,18 +861,18 @@ export default function App() {
                   )}
                   <button
                     onClick={() => setShowPrefs(true)}
-                    title="Preferences"
+                    title={t('prefsTitle')}
                     className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2 py-1 transition-colors"
                   >
                     ⚙
                   </button>
                   <button
                     onClick={() => setShowBugReport(true)}
-                    title="Report a bug"
+                    title={t('bugReportTitle')}
                     className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-2 py-1 transition-colors"
                   >
                     <span className="sm:hidden">🐛</span>
-                    <span className="hidden sm:inline">Bug</span>
+                    <span className="hidden sm:inline">{t('bugButton')}</span>
                   </button>
                 </div>
               </div>
@@ -942,7 +943,7 @@ export default function App() {
                   second copy of the same two controls. */}
               <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-zinc-900 border border-zinc-800 border-l-4 border-l-amber-800">
                 <span className="text-[11px] text-zinc-400">
-                  <span className="text-amber-600 uppercase tracking-wide">{ENGAGEMENTS[engagement].name}</span>
+                  <span className="text-amber-600 uppercase tracking-wide">{engName(t, engagement)}</span>
                   <span className="text-zinc-600"> · </span>
                   <span className="tabular-nums">{pointLimit} pts</span>
                 </span>

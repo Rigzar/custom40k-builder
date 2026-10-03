@@ -1,4 +1,5 @@
 import { useSavedArmies, type SavedArmy } from '../hooks/useSavedArmies';
+import { useT } from '../i18n';
 
 interface Props {
   onLoad: (save: SavedArmy) => void;
@@ -12,6 +13,7 @@ function formatDate(ts: number): string {
 }
 
 export function SavedArmiesModal({ onLoad, onClose }: Props) {
+  const t = useT();
   const { saves, deleteArmy } = useSavedArmies();
 
   return (
@@ -21,7 +23,7 @@ export function SavedArmiesModal({ onLoad, onClose }: Props) {
     >
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-xl my-4">
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
-          <h3 className="text-amber-400 uppercase tracking-widest text-sm">My Armies</h3>
+          <h3 className="text-amber-400 uppercase tracking-widest text-sm">{t('tabMyArmies')}</h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl leading-none">✕</button>
         </div>
 
@@ -49,12 +51,12 @@ export function SavedArmiesModal({ onLoad, onClose }: Props) {
                       onClick={() => { onLoad(save); onClose(); }}
                       className="text-[11px] px-3 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide transition-colors"
                     >
-                      Load
+                      {t('loadButton')}
                     </button>
                     <button
                       onClick={() => deleteArmy(save.id)}
                       className="text-zinc-600 hover:text-red-400 text-xl leading-none transition-colors"
-                      title="Delete"
+                      title={t('delete')}
                     >
                       ×
                     </button>
@@ -70,7 +72,7 @@ export function SavedArmiesModal({ onLoad, onClose }: Props) {
             onClick={onClose}
             className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide"
           >
-            Close
+            {t('close')}
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { nm } from '../utils/localName';
 import { useEffect, useState } from 'react';
 import type { Unit, Weapon, Model, Armory } from '../types/data';
 import { useT, useLanguage, type Language } from '../i18n';
@@ -520,7 +521,7 @@ function StatTable({ unit }: { unit: Unit }) {
         <tbody>
           {models.map((m, mi) => (
             <tr key={mi} className="border-t border-zinc-800">
-              <td className="text-zinc-200 pr-2 py-1">{m.name}</td>
+              <td className="text-zinc-200 pr-2 py-1">{nm(m.name)}</td>
               {keys.map(k => <td key={k} className="px-1 py-1 text-center text-zinc-300">{m.stats[k] ?? '-'}</td>)}
               <td className="px-1 py-1 text-right text-amber-400">{m.points}</td>
             </tr>
@@ -551,7 +552,7 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
         <tbody>
           {weapons.map((w, wi) => (
             <tr key={wi} className="border-t border-zinc-800">
-              <td className="text-zinc-200 pr-2 py-1">{w.name}</td>
+              <td className="text-zinc-200 pr-2 py-1">{nm(w.name)}</td>
               <td className="px-1 py-1 text-center text-zinc-300">{w.range}</td>
               <td className="px-1 py-1 text-center text-zinc-300">{w.type}</td>
               <td className="px-1 py-1 text-center text-zinc-300">{w.s}</td>
@@ -602,7 +603,7 @@ function UnitFiche({ unit }: { unit: Unit }) {
                 <ul className="mt-0.5 ml-3 space-y-0.5">
                   {g.choices.map((c, ci) => (
                     <li key={ci} className="text-zinc-500 flex justify-between gap-3">
-                      <span>{c.name}</span>
+                      <span>{nm(c.name)}</span>
                       <span className="text-amber-700 shrink-0">{t('ptsSuffixLabel').replace('{pts}', c.points >= 0 ? `+${c.points}` : String(c.points))}</span>
                     </li>
                   ))}
@@ -683,7 +684,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
           <button
             onClick={onClose}
             className="flex items-center justify-center w-8 h-8 text-zinc-500 hover:text-zinc-100 hover:bg-zinc-800 transition-colors rounded shrink-0"
-            aria-label="Close"
+            aria-label={t('close')}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <line x1="1" y1="1" x2="13" y2="13" />
@@ -766,7 +767,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
                     <div className="text-[10px] uppercase tracking-wide text-zinc-600 mb-1">{t('weapon')}</div>
                     <ul className="space-y-0.5">
                       {content.armory.weapons.map((it, i) => (
-                        <li key={i} className="text-[11px] text-zinc-400">{it.name}</li>
+                        <li key={i} className="text-[11px] text-zinc-400">{nm(it.name)}</li>
                       ))}
                     </ul>
                   </div>
@@ -776,7 +777,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
                     <div className="text-[10px] uppercase tracking-wide text-zinc-600 mb-1">{t('equipment')}</div>
                     <ul className="space-y-0.5">
                       {content.armory.equipment.map((it, i) => (
-                        <li key={i} className="text-[11px] text-zinc-400">{it.name}</li>
+                        <li key={i} className="text-[11px] text-zinc-400">{nm(it.name)}</li>
                       ))}
                     </ul>
                   </div>

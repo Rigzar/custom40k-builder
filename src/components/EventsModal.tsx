@@ -384,7 +384,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
     void api.listRosters().then(r => setMyRosters(r.rosters.map(x => ({ id: x.id, name: x.name })))).catch(() => {});
   }, [data?.me?.status]);
 
-  if (!data) return <p className="text-zinc-500 text-[11px]">Loading…</p>;
+  if (!data) return <p className="text-zinc-500 text-[11px]">{t('loadingText')}</p>;
   const ev = data.event;
 
   const act = async (fn: () => Promise<unknown>) => {

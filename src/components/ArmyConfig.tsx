@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { engName, engNotes } from '../utils/engagementText';
+import { nm } from '../utils/localName';
+import { useState } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
@@ -69,13 +71,13 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         : 'bg-zinc-800/60 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'
                       }`}
                   >
-                    {ENGAGEMENTS[e].name}
+                    {engName(t, e)}
                   </button>
                 ))}
               </div>
               {ENGAGEMENTS[engagement].notes && (
                 <div className="mt-2 text-[10px] text-zinc-500 border-l-2 border-amber-900/50 pl-2 leading-relaxed">
-                  {ENGAGEMENTS[engagement].notes}
+                  {engNotes(t, engagement, ENGAGEMENTS[engagement].notes)}
                 </div>
               )}
             </div>
@@ -176,13 +178,13 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       : 'bg-zinc-800/60 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'
                     }`}
                 >
-                  {ENGAGEMENTS[e].name}
+                  {engName(t, e)}
                 </button>
               ))}
             </div>
             {ENGAGEMENTS[engagement].notes && (
               <div className="mt-2 text-[10px] text-zinc-500 border-l-2 border-amber-900/50 pl-2 leading-relaxed">
-                {ENGAGEMENTS[engagement].notes}
+                {engNotes(t, engagement, ENGAGEMENTS[engagement].notes)}
               </div>
             )}
           </div>
@@ -210,8 +212,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
           <SectionHeader icon="/phase-icons/command.svg" label={t('armyDoctrine')} />
           <div className="p-4">
             <div className="text-[11px] text-zinc-500 border-l-4 border-amber-900/50 pl-3 space-y-1">
-              <div className="text-amber-700 font-semibold uppercase tracking-wide text-[10px]">Engine support coming soon</div>
-              <div>Archetype, Legacy and Traits are available for <span className="text-amber-600">Chaos Space Marines</span>, <span className="text-amber-600">Chaos Daemons</span> and <span className="text-amber-600">Space Marines</span>. More factions are being added.</div>
+              <div className="text-amber-700 font-semibold uppercase tracking-wide text-[10px]">{t('engineSoonTitle')}</div>
+              <div>{t('engineSoonBody')}</div>
             </div>
           </div>
         </div>
@@ -234,7 +236,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       className={`${selectClass} ${engagement === 'skirmish' ? 'opacity-40 cursor-not-allowed' : ''}`}
                     >
                       <option value="">{t('noArchetype')}</option>
-                      {data.archetypes.map(a => <option key={a.name} value={a.name}>{cleanArchetypeName(a.name)}</option>)}
+                      {data.archetypes.map(a => <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>)}
                     </select>
                     {engagement === 'skirmish' && (
                       <div className="text-[10px] text-red-500/80 mt-1 pl-1">{t('notAvailableInSkirmish')}</div>
@@ -278,7 +280,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                 {data.legacies.length > 0 && (
                   noLegacy ? (
                     <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
-                      {t('legaciesNotAvailableWithArchetype')} <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
+                      {t('legaciesNotAvailableWithArchetype')} <span className={accentText}>{nm(cleanArchetypeName(archetype))}</span>.
                     </div>
                   ) : (
                     <div>
@@ -289,7 +291,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         className={selectClass}
                       >
                         <option value="">{t('noLegacy')}</option>
-                        {data.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
+                        {data.legacies.map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
                       </select>
                       {legacy && (
                         <div className={`mt-2 text-[10px] text-zinc-400 border-l-2 ${accentBorder} pl-3 leading-relaxed`}>
@@ -307,7 +309,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                           >
                             <option value="">{t('secondLegacyNone')}</option>
                             {data.legacies.filter(l => l.name !== legacy).map(l => (
-                              <option key={l.name} value={l.name}>{l.name}</option>
+                              <option key={l.name} value={l.name}>{nm(l.name)}</option>
                             ))}
                           </select>
                           {legacy2 && (

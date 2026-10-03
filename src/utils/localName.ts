@@ -64,6 +64,12 @@ export function jaName(raw: string): string {
     const rest = jaName(counted[2]);
     if (rest !== counted[2]) return `${NUMBER_WORDS[counted[1].toLowerCase()]} ${rest}`;
   }
+  // "2 Heavy flamers" / "- Melee": a figure or a dash in front of the name stays where it is.
+  const lead = s.match(/^(\d+x?|\d+ ×|-|—)\s+(.+)$/);
+  if (lead) {
+    const rest = jaName(lead[2]);
+    if (rest !== lead[2]) return `${lead[1]} ${rest}`;
+  }
   // "The Sword of Souls"
   const article = s.match(/^the\s+(.+)$/i);
   if (article) { const rest = jaName(article[1]); if (rest !== article[1]) return rest; }

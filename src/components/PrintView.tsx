@@ -9,12 +9,15 @@ import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
-import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
+import { SLOT_ORDER } from '../engine/engagements';
+import { slotLabel } from '../utils/slotLabel';
+import { unitTypeLabel } from '../utils/unitTypeLabel';
+import { engName } from '../utils/engagementText';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { applyDelta, applyEquipDeltas } from '../utils/statMods';
 import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
-import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
+import { lookupRuleGeneric, lookupWeaponType, localiseAbility } from '../data/coreRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import { wardSave, ownWardAbilities } from '../lib/wardSave';
@@ -25,7 +28,7 @@ import { markStatMods } from '../lib/markMods';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { paginate } from '../utils/printPagination';
-import { nm, eqText } from '../utils/localName';
+import { nm, rl, eqText } from '../utils/localName';
 
 
 /**
@@ -312,21 +315,21 @@ function WeaponRow({ weapon: w, shade, color }: { weapon: PrintWeapon; shade: bo
   // lines (GitHub #77, Lieutenant with a Plasma pistol).
   if (!w.isProfileHeader && !w.range && !w.type && !w.s) return null;
   const typeTag = w.type && w.type !== '-'
-    ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${w.type}]</span>`
+    ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${rl(w.type)}]</span>`
     : '';
   const hasAbilities = !!w.abilities && w.abilities !== '-';
   // Short keyword tags (Rending, Twin-linked...) read inline next to the name; longer merged
   // trait text (from option-group abilities) stays in its own row so it isn't cut off.
   const inlineAbilities = hasAbilities && w.abilities.length <= 45;
   const abilityTag = inlineAbilities
-    ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${w.abilities}]</span>`
+    ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${rl(w.abilities)}]</span>`
     : '';
   const bg = shade ? PARCH_ALT : PARCHMENT;
   return (
     <>
       <tr style={{ backgroundColor: bg }}>
         <td style={{ textAlign: 'left', padding: '2px 7px', fontSize: '.79em', color: '#111', borderLeft: `2px solid ${color}28` }}>
-          <span dangerouslySetInnerHTML={{ __html: w.name + typeTag + abilityTag }} />
+          <span dangerouslySetInnerHTML={{ __html: nm(w.name) + typeTag + abilityTag }} />
         </td>
         {[w.range ?? '-', w.s ?? '-', w.ap ?? '-', w.d ?? '-'].map((v, i) => (
           <td key={i} style={{ textAlign: 'center', padding: '2px 4px', fontSize: '.79em', color: '#444' }}>{v}</td>
@@ -356,23 +359,23 @@ function buildModelCountLabel(item: RosterEntry, u: Unit): string {
     const rawCount = item.modelSizes?.[promoted.name] ?? item.size;
     const baseCount = Math.max(rawCount, promoted.min) - active.count;
     const parts: string[] = [];
-    if (baseCount > 0) parts.push(`${baseCount} × ${promoted.name}`);
-    parts.push(`${active.count} × ${active.variant.name}`);
+    if (baseCount > 0) parts.push(`${baseCount} × ${nm(promoted.name)}`);
+    parts.push(`${active.count} × ${nm(active.variant.name)}`);
     for (const m of models) {
       if (m === promoted || m.min === 0) continue;
-      parts.push(`${m.min} × ${m.name}`);
+      parts.push(`${m.min} × ${nm(m.name)}`);
     }
     return parts.join(' + ');
   }
   if (models.length === 0) return '';
-  if (models.length === 1) return `${item.size} × ${models[0].name}`;
+  if (models.length === 1) return `${item.size} × ${nm(models[0].name)}`;
   const fixed = models.slice(1);
   const fixedCount = fixed.reduce((s, m) => s + m.min, 0);
   const mainCount = item.size - fixedCount;
   const parts: string[] = [];
-  if (mainCount > 0) parts.push(`${mainCount} × ${models[0].name}`);
+  if (mainCount > 0) parts.push(`${mainCount} × ${nm(models[0].name)}`);
   for (const m of fixed) {
-    if (m.min > 0) parts.push(`${m.min} × ${m.name}`);
+    if (m.min > 0) parts.push(`${m.min} × ${nm(m.name)}`);
   }
   return parts.join(' + ');
 }
@@ -490,7 +493,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     return { label: g.label, ranged, melee };
   }).concat(attachedDrones.map(({ drone, count }) => ({
-    label: `${count}x ${drone.name}`,
+    label: `${count}x ${nm(drone.name)}`,
     ranged: drone.weapons.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '').map(w => ({ ...w, name: `${count}x ${w.name}` })),
     melee: drone.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee').map(w => ({ ...w, name: `${count}x ${w.name}` })),
   })));
@@ -561,12 +564,12 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                 letterSpacing: '.04em', lineHeight: 1,
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
               }}>
-                {item.customName || u.name}
+                {item.customName || nm(u.name)}
               </div>
               {(item.customName || variant) && (
                 <div style={{ fontSize: '.7em', color: `${color}cc`, fontWeight: 600, marginTop: 2, letterSpacing: '.02em' }}>
-                  {item.customName ? u.name : ''}
-                  {variant ? `  ›  ${variant.name}` : ''}
+                  {item.customName ? nm(u.name) : ''}
+                  {variant ? `  ›  ${nm(variant.name)}` : ''}
                 </div>
               )}
             </div>
@@ -591,11 +594,11 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               <img src={SLOT_ICONS[rp.effectiveSlot]} alt="" style={{ width: 11, height: 11, opacity: .62, filter: 'invert(1)', flexShrink: 0 }} />
             )}
             <span style={{ ...pillBase, background: `${color}bb`, border: `1px solid ${color}`, color: '#fff' }}>
-              {rp.effectiveSlot}
+              {slotLabel(lang, rp.effectiveSlot)}
             </span>
             {u.unit_type && (
               <span style={{ ...pillBase, background: 'rgba(255,255,255,.1)', border: '1px solid rgba(255,255,255,.17)', color: 'rgba(255,255,255,.88)' }}>
-                {u.unit_type}
+                {unitTypeLabel(lang, u.unit_type)}
               </span>
             )}
             {effectiveMark && (
@@ -664,7 +667,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
                     modelLabel={modelsToShow.length > 1
-                      ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name)
+                      ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${nm(m.name)}` : nm(m.name))
                       : undefined}
                     color={color} />
                   {mi === 0 && effectiveInvSv !== null && (
@@ -675,7 +678,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
             })}
             {attachedDrones.map(({ drone, count }) => (
               <StatRow key={drone.name} keys={STAT_KEYS_INF} stats={drone.stats as Record<string, string>} mods={[]}
-                showLabels={false} modelLabel={`${count}× ${drone.name}`} color={color} />
+                showLabels={false} modelLabel={`${count}× ${nm(drone.name)}`} color={color} />
             ))}
           </div>
         </div>
@@ -743,7 +746,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               {/* Names only — descriptions live in the Special Rules section at the end of the sheet. */}
               {armEquip.map((eq, i) => (
                 <div key={i} style={{ fontSize: '.76em', lineHeight: 1.35, marginBottom: 1, color: '#222', fontWeight: 700 }}>
-                  {eq.name}
+                  {nm(eq.name)}
                 </div>
               ))}
             </div>
@@ -765,8 +768,9 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               {/* Names only — the full rule text is collected once in the Special Rules section
                   at the end of the sheet, so it isn't repeated (and clipped) on every card. */}
               {abilitiesList.map((ab, i) => {
-                const ci = ab.indexOf(':');
-                const name = ci > 0 && ci < 52 ? ab.slice(0, ci) : ab;
+                const locAb = localiseAbility(ab);
+                const ci = locAb.indexOf(':');
+                const name = nm(ci > 0 && ci < 52 ? locAb.slice(0, ci) : locAb);
                 return (
                   <div key={i} style={{
                     fontSize: '.75em', lineHeight: 1.35, color: '#222', fontWeight: 700,
@@ -783,7 +787,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                     {tFn(lang, 'veteranAbilities')}
                   </div>
                   {traitList.map((t, i) => (
-                    <div key={i} style={{ fontSize: '.75em', fontWeight: 600, color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55` }}>{t}</div>
+                    <div key={i} style={{ fontSize: '.75em', fontWeight: 600, color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55` }}>{nm(t)}</div>
                   ))}
                 </div>
               )}
@@ -791,7 +795,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               {(powerList.length > 0 || prayerList.length > 0) && (
                 <div style={{ borderTop: `1px solid ${color}28`, paddingTop: 4, marginTop: 2 }}>
                   <div style={{ fontFamily: CONDUIT, fontSize: '.6em', fontWeight: 800, textTransform: 'uppercase', color, letterSpacing: '.08em', marginBottom: 3 }}>
-                    {powerList.length > 0 ? 'Psychic Powers' : 'Prayers'}
+                    {powerList.length > 0 ? tFn(lang, 'prPsychicPowers') : tFn(lang, 'prPrayers')}
                   </div>
                   {/* Printed sheets used to carry the NAME only, which made them useless at the
                       table — you could not look up a prayer's range or effect on your own list
@@ -801,9 +805,9 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                     const eff = powerEffectByName(p, data);
                     return (
                       <div key={i} style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55`, marginBottom: 2 }}>
-                        <span style={{ fontWeight: 600 }}>{p}</span>
+                        <span style={{ fontWeight: 600 }}>{/^(.*?) \((.*)\)$/.test(p) ? p.replace(/^(.*?) \((.*)\)$/, (_m, a, b) => `${nm(a)} (${nm(b)})`) : nm(p)}</span>
                         {meta && <span style={{ color: '#777' }}> · {meta}</span>}
-                        {eff && <div style={{ fontSize: '.92em', color: '#555', lineHeight: 1.25 }}>{eff}</div>}
+                        {eff && <div style={{ fontSize: '.92em', color: '#555', lineHeight: 1.25 }}>{localiseAbility(eff)}</div>}
                       </div>
                     );
                   })}
@@ -845,6 +849,7 @@ const simpleSectionLabel: React.CSSProperties = {
 };
 
 function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: FactionData; armoryData?: FactionData }) {
+  const { language: lang } = useLanguage();
   const u = resolveUnit(item, data);
   if (!u) return null;
 
@@ -970,7 +975,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
       return true;
     };
   })());
-  const ruleNames = abilitiesList.map(ab => { const ci = ab.indexOf(':'); return ci > 0 && ci < 52 ? ab.slice(0, ci) : ab; });
+  const ruleNames = abilitiesList.map(rawAb => { const ab = localiseAbility(rawAb); const ci = ab.indexOf(':'); return nm(ci > 0 && ci < 52 ? ab.slice(0, ci) : ab); });
 
   return (
     <div className="pv-card" style={{ marginBottom: 14, pageBreakInside: 'avoid', breakInside: 'avoid', fontFamily: "'Trebuchet MS', sans-serif", color: '#111' }}>
@@ -983,9 +988,9 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
 
       <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
         <thead>
-          <tr><th colSpan={statKeys.length + 1} style={simpleSectionLabel}>Unit</th></tr>
+          <tr><th colSpan={statKeys.length + 1} style={simpleSectionLabel}>{tFn(lang, 'prUnit')}</th></tr>
           <tr>
-            <th style={{ ...simpleTh, textAlign: 'left' }}>Model</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'modelHeader')}</th>
             {statKeys.map(k => <th key={k} style={simpleTh}>{STAT_LABEL[k] ?? k}</th>)}
           </tr>
         </thead>
@@ -1010,16 +1015,16 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
       {attachedDrones.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
           <thead>
-            <tr><th colSpan={STAT_KEYS_INF.length + 1} style={simpleSectionLabel}>Drones</th></tr>
+            <tr><th colSpan={STAT_KEYS_INF.length + 1} style={simpleSectionLabel}>{tFn(lang, 'prDrones')}</th></tr>
             <tr>
-              <th style={{ ...simpleTh, textAlign: 'left' }}>Model</th>
+              <th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'modelHeader')}</th>
               {STAT_KEYS_INF.map(k => <th key={k} style={simpleTh}>{k}</th>)}
             </tr>
           </thead>
           <tbody>
             {attachedDrones.map(({ drone, count }) => (
               <tr key={drone.name}>
-                <td style={{ ...simpleTd, textAlign: 'left' }}>{count}× {drone.name}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{count}× {nm(drone.name)}</td>
                 {STAT_KEYS_INF.map(k => <td key={k} style={simpleTd}>{(drone.stats as Record<string, string>)[k] ?? '-'}</td>)}
               </tr>
             ))}
@@ -1029,14 +1034,15 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
 
       {abilitiesList.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
-          <thead><tr><th style={{ ...simpleTh, textAlign: 'left' }}>Abilities</th><th style={{ ...simpleTh, textAlign: 'left' }}>Description</th></tr></thead>
+          <thead><tr><th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'abilities')}</th><th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'prDescription')}</th></tr></thead>
           <tbody>
-            {abilitiesList.map((ab, i) => {
+            {abilitiesList.map((rawAb, i) => {
+              const ab = localiseAbility(rawAb);
               const ci = ab.indexOf(':');
               const split = ci > 0 && ci < 52;
               return (
                 <tr key={i}>
-                  <td style={{ ...simpleTd, textAlign: 'left', fontWeight: 700 }}>{split ? ab.slice(0, ci) : ab}</td>
+                  <td style={{ ...simpleTd, textAlign: 'left', fontWeight: 700 }}>{nm(split ? ab.slice(0, ci) : ab)}</td>
                   <td style={{ ...simpleTd, textAlign: 'left' }}>{split ? ab.slice(ci + 1).trim() : ''}</td>
                 </tr>
               );
@@ -1048,16 +1054,16 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
       {ranged.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
           <thead><tr>
-            <th style={{ ...simpleTh, textAlign: 'left' }}>Ranged Weapons</th>
-            <th style={simpleTh}>Range</th><th style={simpleTh}>S</th><th style={simpleTh}>AP</th><th style={simpleTh}>D</th>
-            <th style={{ ...simpleTh, textAlign: 'left' }}>Keywords</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'rangedWeaponsHeader')}</th>
+            <th style={simpleTh}>{tFn(lang, 'range')}</th><th style={simpleTh}>S</th><th style={simpleTh}>AP</th><th style={simpleTh}>D</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'keywords')}</th>
           </tr></thead>
           <tbody>
             {ranged.map((w, i) => (
               <tr key={i}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>{nm(w.name)}</td>
                 <td style={simpleTd}>{w.range}</td><td style={simpleTd}>{w.s}</td><td style={simpleTd}>{w.ap}</td><td style={simpleTd}>{w.d}</td>
-                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? rl(w.abilities) : ''}</td>
               </tr>
             ))}
           </tbody>
@@ -1067,16 +1073,16 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
       {melee.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
           <thead><tr>
-            <th style={{ ...simpleTh, textAlign: 'left' }}>Melee Weapons</th>
-            <th style={simpleTh}>Range</th><th style={simpleTh}>S</th><th style={simpleTh}>AP</th><th style={simpleTh}>D</th>
-            <th style={{ ...simpleTh, textAlign: 'left' }}>Keywords</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'meleeWeaponsHeader')}</th>
+            <th style={simpleTh}>{tFn(lang, 'range')}</th><th style={simpleTh}>S</th><th style={simpleTh}>AP</th><th style={simpleTh}>D</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>{tFn(lang, 'keywords')}</th>
           </tr></thead>
           <tbody>
             {melee.map((w, i) => (
               <tr key={i}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>{nm(w.name)}</td>
                 <td style={simpleTd}>{w.range}</td><td style={simpleTd}>{w.s}</td><td style={simpleTd}>{w.ap}</td><td style={simpleTd}>{w.d}</td>
-                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? rl(w.abilities) : ''}</td>
               </tr>
             ))}
           </tbody>
@@ -1085,17 +1091,17 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
 
       {equipmentNames.length > 0 && (
         <div style={{ fontSize: '.74em', marginBottom: 3 }}>
-          <span style={{ fontWeight: 700 }}>Equipment: </span>{equipmentNames.join(', ')}
+          <span style={{ fontWeight: 700 }}>{tFn(lang, 'equipment')}: </span>{equipmentNames.join(', ')}
         </div>
       )}
       {ruleNames.length > 0 && (
         <div style={{ fontSize: '.74em', marginBottom: 3 }}>
-          <span style={{ fontWeight: 700 }}>Rules: </span>{ruleNames.join(', ')}
+          <span style={{ fontWeight: 700 }}>{tFn(lang, 'prRules')}: </span>{ruleNames.join(', ')}
         </div>
       )}
       {u.keywords.length > 0 && (
         <div style={{ fontSize: '.74em', color: '#444' }}>
-          <span style={{ fontWeight: 700 }}>Categories: </span>{u.keywords.join(', ')}
+          <span style={{ fontWeight: 700 }}>{tFn(lang, 'prCategories')}: </span>{u.keywords.join(', ')}
         </div>
       )}
     </div>
@@ -1106,6 +1112,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
 function RadarChart({ labels, values, color, title, size = 190, subLabels }: {
   labels: string[]; values: number[]; color: string; title: string; size?: number; subLabels?: string[];
 }) {
+  const { language: lang } = useLanguage();
   const n   = labels.length;
   const cx  = size / 2;
   const cy  = size / 2;
@@ -1133,7 +1140,7 @@ function RadarChart({ labels, values, color, title, size = 190, subLabels }: {
       </div>
       {subLabels && (
         <div style={{ fontSize: '.58em', color: '#999', fontStyle: 'italic' }}>
-          Each axis scaled to its own cap — see values below labels
+          {tFn(lang, 'prRadarCaption')}
         </div>
       )}
       <svg width={size} height={size} style={{ overflow: 'visible' }}>
@@ -1207,6 +1214,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string; symbolUrl: string;
   slotMap: Map<string, string>;
 }) {
+  const { language: lang } = useLanguage();
   const storeState = useArmyStore.getState();
   const units = army.flatMap(item => {
     const u = resolveUnit(item, data);
@@ -1283,10 +1291,10 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
           }} />
         )}
         <span style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '1.05em', textTransform: 'uppercase', letterSpacing: '.06em', position: 'relative', zIndex: 1 }}>
-          {factionName} — Army Overview
+          {nm(factionName)} — {tFn(lang, 'prArmyOverview')}
         </span>
         <span style={{ fontSize: '.85em', opacity: .8, position: 'relative', zIndex: 1, fontFamily: CONDUIT, fontWeight: 700, letterSpacing: '.04em' }}>
-          {grandPts} pts · {units.length} units
+          {grandPts} pts · {units.length} {tFn(lang, 'prUnitsWord')}
         </span>
       </div>
 
@@ -1299,10 +1307,10 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
             padding: '3px 10px', color, letterSpacing: '.07em', textTransform: 'uppercase',
             borderBottom: `1px solid ${color}33`,
           }}>
-            <span>Unit</span>
+            <span>{tFn(lang, 'prUnit')}</span>
             <span style={{ textAlign: 'right' }}>W</span>
-            <span style={{ textAlign: 'right' }}>Pts/W</span>
-            <span style={{ textAlign: 'right' }}>Pts</span>
+            <span style={{ textAlign: 'right' }}>{tFn(lang, 'prPtsPerWound')}</span>
+            <span style={{ textAlign: 'right' }}>{tFn(lang, 'ptsHeader')}</span>
           </div>
 
           {sortedBySlot.map((x, i) => (
@@ -1314,9 +1322,9 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
             }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <span style={{ fontFamily: CONDUIT, fontSize: '.68em', color, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.04em', width: '4.4em', flexShrink: 0 }}>
-                  {x.slot.replace('Dedicated Transport', 'DT').replace('Fortifications', 'Fort')}
+                  {slotLabel(lang, x.slot)}
                 </span>
-                {x.item.customName || x.u.name}
+                {x.item.customName || nm(x.u.name)}
               </span>
               <span style={{ textAlign: 'right', color: '#666' }}>{x.totalW}</span>
               <span style={{ textAlign: 'right', color: '#666' }}>{x.totalW > 0 ? (x.pts / x.totalW).toFixed(1) : '—'}</span>
@@ -1330,7 +1338,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
             background: color, color: '#fff', fontWeight: 800, fontFamily: CONDUIT,
             letterSpacing: '.04em', textTransform: 'uppercase',
           }}>
-            <span>Total</span>
+            <span>{tFn(lang, 'prTotal')}</span>
             <span style={{ textAlign: 'right' }}>{grandW}</span>
             <span style={{ textAlign: 'right' }}>{grandW > 0 ? (grandPts / grandW).toFixed(1) : '—'}</span>
             <span style={{ textAlign: 'right' }}>{grandPts}</span>
@@ -1339,10 +1347,10 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
 
         {/* Radar charts */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '8px 4px', borderRight: `2px solid ${color}33`, background: '#fff' }}>
-          <RadarChart title="Unit Composition" labels={COMP_LABELS} values={compValues} subLabels={compSubLabels} color={color} size={185} />
+          <RadarChart title={tFn(lang, 'prUnitComposition')} labels={COMP_SLOTS.map(sl => slotLabel(lang, sl))} values={compValues} subLabels={compSubLabels} color={color} size={185} />
         </div>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '8px 4px', background: '#fff' }}>
-          <RadarChart title="Army Power" labels={['Move', 'Attacks', 'Tough', 'Wounds', 'Save', 'Shoot']} values={powerValues} subLabels={powerSubLabels} color={color} size={185} />
+          <RadarChart title={tFn(lang, 'prArmyPower')} labels={[tFn(lang, 'prAxisMove'), tFn(lang, 'prAxisAttacks'), tFn(lang, 'prAxisTough'), tFn(lang, 'prAxisWounds'), tFn(lang, 'prAxisSave'), tFn(lang, 'prAxisShoot')]} values={powerValues} subLabels={powerSubLabels} color={color} size={185} />
         </div>
       </div>
     </div>
@@ -1356,18 +1364,19 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
   legacy: string | null; legacy2: string | null; traits: string[]; totalPts: number; pointLimit: number;
   symbolUrl: string; slotMap: Map<string, string>;
 }) {
+  const { language: lang } = useLanguage();
   const compCounts = COMP_SLOTS.map(slot => {
     const eff = slot === 'Transport' ? 'Dedicated Transport' : slot;
     return army.filter(i => (slotMap.get(i.id) ?? i.slot) === eff).length;
   });
   const configRows: [string, string][] = [
-    ['Engagement', ENGAGEMENTS[engagement as keyof typeof ENGAGEMENTS]?.name ?? engagement],
-    ['Points', `${totalPts} / ${pointLimit}`],
-    ...(archetype ? [['Archetype', archetype] as [string, string]] : []),
-    ...(legacy ? [['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')] as [string, string]] : []),
-    ...(traits.length > 0 ? [['Traits', traits.join(', ')] as [string, string]] : []),
+    [tFn(lang, 'engagement'), engName((k) => tFn(lang, k), engagement)],
+    [tFn(lang, 'points'), `${totalPts} / ${pointLimit}`],
+    ...(archetype ? [[tFn(lang, 'archetype'), nm(archetype)] as [string, string]] : []),
+    ...(legacy ? [[tFn(lang, 'legacy'), nm(legacy) + (legacy2 ? ` / ${nm(legacy2)}` : '')] as [string, string]] : []),
+    ...(traits.length > 0 ? [[tFn(lang, 'prTraits'), traits.map(nm).join(', ')] as [string, string]] : []),
   ];
-  const fillIn = ['Player', 'Warlord'];
+  const fillIn = [tFn(lang, 'prPlayer'), tFn(lang, 'prWarlord')];
 
   return (
     <div style={{
@@ -1413,15 +1422,15 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
         )}
         <div style={{ position: 'relative', zIndex: 1, padding: '26px 190px 22px 26px' }}>
           <div style={{ fontFamily: CONDUIT, color: `${color}cc`, fontSize: '.74em', textTransform: 'uppercase', letterSpacing: '.24em', fontWeight: 800 }}>
-            {factionName}
+            {nm(factionName)}
           </div>
           <div style={{ fontFamily: CONDUIT, color: '#fff', fontSize: '2.7em', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.02em', lineHeight: 1.01, marginTop: 7 }}>
-            {armyName || 'Army Roster'}
+            {armyName || tFn(lang, 'prArmyRoster')}
           </div>
           {/* Colored accent bar under name */}
           <div style={{ width: 80, height: 3, background: color, marginTop: 10, marginBottom: 8, opacity: .85 }} />
           <div style={{ fontFamily: CONDUIT, color: 'rgba(255,255,255,.68)', fontSize: '.96em', fontWeight: 700, letterSpacing: '.05em' }}>
-            {totalPts} / {pointLimit} pts  ·  {army.length} units
+            {totalPts} / {pointLimit} pts  ·  {army.length} {tFn(lang, 'prUnitsWord')}
           </div>
         </div>
       </div>
@@ -1432,7 +1441,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
         {/* Config column */}
         <div style={{ flex: 1.2, borderRight: `2px solid ${color}33`, padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 9 }}>
           <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.7em', textTransform: 'uppercase', letterSpacing: '.12em', color, marginBottom: 2 }}>
-            Configuration
+            {tFn(lang, 'prConfiguration')}
           </div>
           {configRows.map(([label, value]) => (
             <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: `1px dotted ${color}44`, paddingBottom: 4 }}>
@@ -1441,7 +1450,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
             </div>
           ))}
           <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.7em', textTransform: 'uppercase', letterSpacing: '.12em', color, marginTop: 4, marginBottom: 2 }}>
-            Match Info
+            {tFn(lang, 'prMatchInfo')}
           </div>
           {fillIn.map(label => (
             <div key={label} style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
@@ -1454,7 +1463,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
         {/* Force composition column */}
         <div style={{ flex: 1, padding: '14px 18px', background: '#fff' }}>
           <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.7em', textTransform: 'uppercase', letterSpacing: '.12em', color, marginBottom: 8 }}>
-            Force Composition
+            {tFn(lang, 'prForceComposition')}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', rowGap: 5, columnGap: 10 }}>
             {COMP_LABELS.map((label, i) => compCounts[i] > 0 ? (
@@ -1466,7 +1475,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
                       alt="" style={{ width: 12, height: 12, opacity: .5 }}
                     />
                   )}
-                  {label}
+                  {slotLabel(lang, COMP_SLOTS[i])}
                 </span>
                 <span style={{ fontFamily: CONDUIT, fontSize: '.82em', fontWeight: 800, color, textAlign: 'right' }}>{compCounts[i]}</span>
               </Fragment>
@@ -1480,6 +1489,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
 
 // ── Slot divider ──────────────────────────────────────────────────────────────
 function SlotDivider({ slot, color }: { slot: string; color: string }) {
+  const { language: lang } = useLanguage();
   const iconSrc = SLOT_ICONS[slot];
   return (
     <div style={{ display: 'flex', alignItems: 'stretch', margin: '10px 0 6px', breakInside: 'avoid', breakAfter: 'avoid', pageBreakAfter: 'avoid' }}>
@@ -1497,7 +1507,7 @@ function SlotDivider({ slot, color }: { slot: string; color: string }) {
           fontFamily: CONDUIT, fontWeight: 800, fontSize: '.9em',
           textTransform: 'uppercase', letterSpacing: '.15em', color,
         }}>
-          {slot}
+          {slotLabel(lang, slot)}
         </span>
       </div>
       {/* Fading line */}
@@ -1527,6 +1537,7 @@ function DetachmentHeader({ label, color }: { label: string; color: string }) {
 
 // ── Compact list view ─────────────────────────────────────────────────────────
 function CompactList({ army, data, color }: { army: RosterEntry[]; data: FactionData; color: string }) {
+  const { language: lang } = useLanguage();
   const storeState = useArmyStore.getState();
   const slotIdx = (slot: string) => { const i = SLOT_ORDER.indexOf(slot as typeof SLOT_ORDER[number]); return i === -1 ? 99 : i; };
   // Effective slot (archetype troopsRemap — e.g. Windhost → Windriders as Troops), matching the builder.
@@ -1594,7 +1605,7 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
         fontFamily: CONDUIT, fontWeight: 800, fontSize: '.88em',
         textTransform: 'uppercase', letterSpacing: '.06em',
       }}>
-        <span>Total</span><span>{grand} pts</span>
+        <span>{tFn(lang, 'prTotal')}</span><span>{grand} pts</span>
       </div>
     </div>
   );
@@ -1662,10 +1673,10 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   };
 
   const parseGeneric = (raw: string) => {
-    const trimmed  = raw.trim();
+    const trimmed  = localiseAbility(raw).trim();
     const colonIdx = trimmed.indexOf(': ');
     if (colonIdx > 0 && colonIdx < 70 && trimmed.length - colonIdx > 10) {
-      addRule(trimmed.slice(0, colonIdx).trim(), trimmed.slice(colonIdx + 2).trim());
+      addRule(nm(trimmed.slice(0, colonIdx).trim()), trimmed.slice(colonIdx + 2).trim());
       return;
     }
     for (const token of trimmed.split(',')) {
@@ -1673,8 +1684,8 @@ export function PrintView({ onClose }: { onClose: () => void }) {
       if (!t) continue;
       if (NON_RULE_TOKENS.has(t.toLowerCase())) continue;
       const found = lookupRuleGeneric(t);
-      if (found) addRule(found.displayName, found.description);
-      else addRule(t, null);
+      if (found) addRule(nm(found.displayName), found.description);
+      else addRule(nm(t), null);
     }
   };
 
@@ -1720,7 +1731,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
       if (w.abilities && w.abilities !== '-') parseGeneric(w.abilities);
       if (w.type) {
         const wt = lookupWeaponType(w.type);
-        if (wt) addRule(wt.displayName, wt.description);
+        if (wt) addRule(nm(wt.displayName), wt.description);
       }
     }
 
@@ -1770,7 +1781,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
       {/* Toolbar — wraps on narrow screens so it can never force horizontal overflow */}
       <div className="print:hidden sticky top-0 z-10 bg-zinc-900 border-b border-zinc-700 px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">
-          <span className="text-amber-400 font-bold text-xs sm:text-sm uppercase tracking-widest">{data.faction}</span>
+          <span className="text-amber-400 font-bold text-xs sm:text-sm uppercase tracking-widest">{nm(data.faction)}</span>
           <span className="text-zinc-400 text-xs sm:text-sm whitespace-nowrap">{totalPts} / {pointLimit} pts</span>
           {archetype && <span className="text-zinc-500 text-xs hidden sm:inline">{archetype}</span>}
           {legacy && <span className="text-zinc-500 text-xs hidden sm:inline">{legacy}{legacy2 ? ` · ${legacy2}` : ''}</span>}
@@ -1780,7 +1791,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             {(['cards', 'simple', 'list'] as const).map(m => (
               <button key={m} onClick={() => setMode(m)}
                 className={`px-2 sm:px-3 py-1.5 text-[10px] sm:text-xs uppercase tracking-wide border transition-colors ${mode === m ? 'bg-amber-800 border-amber-600 text-white' : 'bg-zinc-700 border-zinc-600 text-zinc-300 hover:bg-zinc-600'}`}>
-                {m === 'cards' ? 'Cards' : m === 'simple' ? 'Simple' : 'List'}
+                {m === 'cards' ? tFn(rootLang, 'prModeCards') : m === 'simple' ? tFn(rootLang, 'prModeSimple') : tFn(rootLang, 'prModeList')}
               </button>
             ))}
           </div>
@@ -1788,17 +1799,17 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           {/* Tabletop Simulator: downloads the army fully RESOLVED (final stats, weapons, rules)
               so the TTS mod stays a dumb renderer and never needs a copy of the codex. */}
           <button onClick={() => downloadTtsExport(storeState, data)}
-            title="Download a resolved JSON for the Tabletop Simulator mod"
+            title={tFn(rootLang, 'ttsButtonTitle')}
             className="px-3 sm:px-4 py-1.5 bg-zinc-700 hover:bg-zinc-600 border border-zinc-600 text-zinc-200 text-xs sm:text-sm uppercase tracking-wide transition-colors">
             TTS
           </button>
           <button onClick={() => window.print()}
             className="px-3 sm:px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-xs sm:text-sm uppercase tracking-wide transition-colors">
-            Print
+            {tFn(rootLang, 'print')}
           </button>
           <button onClick={onClose}
             className="px-3 sm:px-4 py-1.5 bg-zinc-700 hover:bg-zinc-600 border border-zinc-600 text-zinc-200 text-xs sm:text-sm uppercase tracking-wide transition-colors">
-            ← Back
+            {tFn(rootLang, 'back')}
           </button>
         </div>
       </div>
@@ -1884,7 +1895,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
             }}>
               <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
-              <span style={{ position: 'relative', zIndex: 1 }}>Archetype Rules</span>
+              <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'prArchetypeRules')}</span>
             </div>
             <div style={{ padding: '8px 14px', background: PARCHMENT }}>
               {rule.notes.map((note, ni) => (
@@ -1921,7 +1932,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                 letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
               }}>
                 <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
-                <span style={{ position: 'relative', zIndex: 1 }}>Officer Orders</span>
+                <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'prOfficerOrders')}</span>
               </div>
               <div style={{
                 padding: '6px 14px', background: PARCHMENT,
@@ -1934,7 +1945,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                     paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55`,
                   }}>
                     <div style={{ fontWeight: 700 }}>
-                      {o.name}
+                      {nm(o.name)}
                       {o.legacyGrant && <span style={{ fontWeight: 400, color: '#777' }}> ({o.legacyGrant})</span>}
                     </div>
                     <div style={{ color: '#777', fontStyle: 'italic', marginBottom: 1 }}>{o.when}</div>

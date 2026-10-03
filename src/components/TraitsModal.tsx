@@ -1,4 +1,6 @@
+import { nm } from '../utils/localName';
 import { useState } from 'react';
+import { useT } from '../i18n';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit } from '../types/data';
@@ -18,6 +20,7 @@ interface Props {
  * subset of the army's unit traits to assign to this unit.
  */
 export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props) {
+  const tr = useT();
   const { data: primaryData, alliedData, alliedFaction, traitPool: primaryTraitPool, alliedTraitPool, setUnitTraitChoice } = useArmyStore();
   // An allied unit picks from its OWN detachment's trait pool and trait definitions (Core Rules:
   // allies use their own Army Customisation), never the primary army's.
@@ -84,7 +87,7 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-xl flex flex-col max-h-[80vh]">
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
-            Traits — {unit.name} ({selected.length}/{maxTraits})
+            Traits — {nm(unit.name)} ({selected.length}/{maxTraits})
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
@@ -125,10 +128,10 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
                   }`}
               >
                 <div>
-                  <div className="text-sm font-medium">{t.name}</div>
+                  <div className="text-sm font-medium">{nm(t.name)}</div>
                   <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(t.desc)}</div>
                   {!applicable && (
-                    <div className="text-[10px] text-zinc-600 mt-0.5 italic">Not applicable to this unit type</div>
+                    <div className="text-[10px] text-zinc-600 mt-0.5 italic">{tr('traitNotApplicable')}</div>
                   )}
                 </div>
                 {applicable && (
@@ -144,13 +147,13 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
             onClick={onClose}
             className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide"
           >
-            Cancel
+            {tr('cancel')}
           </button>
           <button
             onClick={save}
             className="px-4 py-1.5 bg-amber-800 border border-amber-600 text-white text-sm hover:bg-amber-700 uppercase tracking-wide"
           >
-            Apply
+            {tr('applyBtn')}
           </button>
         </div>
       </div>

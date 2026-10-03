@@ -195,7 +195,7 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
           </button>
           <span className="text-zinc-700 text-[10px]">·</span>
           <span className="text-[10px] text-zinc-600">
-            {t('useBugButtonPart1')} <span className="text-red-500/70">Bug</span> {t('useBugButtonPart2')}
+            {t('useBugButtonPart1')} <span className="text-red-500/70">{t('bugButton')}</span> {t('useBugButtonPart2')}
           </span>
         </div>
       )}

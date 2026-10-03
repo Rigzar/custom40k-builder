@@ -36,6 +36,7 @@ const STAT_INF = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV'];
 const STAT_VEH = ['M', 'WS', 'BS', 'S', 'FRONT', 'SIDE', 'REAR', 'I', 'A', 'HP'];
 
 function WeaponTable({ rows, title }: { rows: Weapon[]; title: string }) {
+  const t = useT();
   if (!rows.length) return null;
   return (
     <div className="mt-2">
@@ -46,11 +47,11 @@ function WeaponTable({ rows, title }: { rows: Weapon[]; title: string }) {
             <tr className="text-zinc-600 text-[9px] uppercase tracking-wide">
               <th className="text-left font-normal pb-0.5">·</th>
               <th className="text-right font-normal px-1">Rng</th>
-              <th className="text-left  font-normal px-1">Type</th>
+              <th className="text-left  font-normal px-1">{t('weaponTypeLabel')}</th>
               <th className="text-right font-normal px-1">S</th>
               <th className="text-right font-normal px-1">AP</th>
               <th className="text-right font-normal px-1">D</th>
-              <th className="text-left  font-normal px-1">Abilities</th>
+              <th className="text-left  font-normal px-1">{t('abilities')}</th>
             </tr>
           </thead>
           <tbody>
@@ -153,7 +154,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
               <table className="w-full text-[11px] border-collapse">
                 <thead>
                   <tr className="text-zinc-600 text-[9px] uppercase tracking-wide">
-                    <th className="text-left font-normal pb-0.5">Model</th>
+                    <th className="text-left font-normal pb-0.5">{t('modelHeader')}</th>
                     {statKeys.map(k => <th key={k} className="text-right font-normal px-1">{k}</th>)}
                   </tr>
                 </thead>
@@ -183,7 +184,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
           )}
           {ward !== null && (
             <div className="mt-1 text-[10px] text-amber-300/90">
-              <span className="uppercase tracking-wide text-zinc-500">Ward save</span>{' '}
+              <span className="uppercase tracking-wide text-zinc-500">{t('wardSaveLabel')}</span>{' '}
               <span className="font-mono font-semibold">{ward}+</span>
             </div>
           )}

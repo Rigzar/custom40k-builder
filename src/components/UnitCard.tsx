@@ -26,7 +26,9 @@ import { PsychicModal } from './PsychicModal';
 import { hasMarkStatMods } from '../lib/markMods';
 import { resolveStatValue } from '../lib/statPipeline';
 import { getFactionCat, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
-import { useT, tpl } from '../i18n';
+import { useT, tpl, useLanguage } from '../i18n';
+import { slotLabel } from '../utils/slotLabel';
+import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 import { nm, eqText, rl } from '../utils/localName';
@@ -162,6 +164,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
 
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
+  const { language: uiLang } = useLanguage();
   const store = useArmyStore();
   const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
@@ -445,16 +448,16 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
             <span className="text-[10px] text-zinc-400 uppercase tracking-widest">
               {effectiveSlot !== item.slot
-                ? <><span className="line-through text-zinc-600">{item.slot}</span> → {effectiveSlot}</>
-                : effectiveSlot}
+                ? <><span className="line-through text-zinc-600">{slotLabel(uiLang, item.slot)}</span> → {slotLabel(uiLang, effectiveSlot)}</>
+                : slotLabel(uiLang, effectiveSlot)}
             </span>
             <span className="text-zinc-600 text-[10px]">·</span>
             <span className="text-[10px] text-zinc-500 uppercase tracking-wide">
               {optionSetUnitType && optionSetUnitType !== u.unit_type
-                ? <><span className="line-through text-zinc-600">{u.unit_type}</span> → <span className="text-violet-400">{[optionSetUnitType, ...optionAddedUnitTypes].join(', ')}</span></>
+                ? <><span className="line-through text-zinc-600">{unitTypeLabel(uiLang, u.unit_type)}</span> → <span className="text-violet-400">{unitTypeLabel(uiLang, [optionSetUnitType, ...optionAddedUnitTypes].join(', '))}</span></>
                 : optionAddedUnitTypes.length > 0
-                  ? <><span>{u.unit_type}</span><span className="text-violet-400">, {optionAddedUnitTypes.join(', ')}</span></>
-                  : unitTypeDisplay}
+                  ? <><span>{unitTypeLabel(uiLang, u.unit_type)}</span><span className="text-violet-400">, {unitTypeLabel(uiLang, optionAddedUnitTypes.join(', '))}</span></>
+                  : unitTypeLabel(uiLang, unitTypeDisplay)}
             </span>
             {blackCrusadeChampion ? (
               <span className="inline-flex items-center gap-0.5 ml-1">
@@ -485,7 +488,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             <span className="font-cinzel text-[9px] uppercase tracking-widest px-2 py-0.5 border bg-black/30 text-amber-400"
               style={{ borderColor: HDR_BORDER[factionCat] }}
             >
-              {effectiveSlot !== item.slot ? effectiveSlot : effectiveSlot}
+              {slotLabel(uiLang, effectiveSlot)}
             </span>
             <button
               onClick={() => setCollapsed(c => !c)}
@@ -768,7 +771,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-not-allowed'
                         : 'bg-zinc-800 border-zinc-600 text-zinc-300 hover:border-fuchsia-700'}`}
                   >
-                    {d.name}
+                    {nm(d.name)}
                   </button>
                 );
               })}
@@ -832,7 +835,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
                   <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">{t('modelHeader')}</th>
                   {statKeys.map(k => {
-                    const label = k === 'InvSv' ? 'Ward' : k;
+                    const label = k === 'InvSv' ? nm('Ward') : k;
                     const icon = STAT_ICONS[k];
                     return (
                       <th key={k} className={`font-bold text-center py-1.5 px-0.5 sm:px-1 text-[10px] uppercase tracking-wide min-w-[1.6rem] sm:min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>
@@ -847,7 +850,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       </th>
                     );
                   })}
-                  <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">Pts</th>
+                  <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">{t('ptsHeader')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -1047,9 +1050,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               {variantActive && (
                 <div className="text-[11px] text-amber-600/90">
                   {modelsToShow.map((m, i) => {
-                    if (modelCounts[i] != null) return `${modelCounts[i]}x ${m.name}`;
-                    if (m === variant) return `1x ${m.name}`;
-                    if (item.modelSizes?.[m.name]) return `${item.modelSizes[m.name]}x ${m.name}`;
+                    if (modelCounts[i] != null) return `${modelCounts[i]}x ${nm(m.name)}`;
+                    if (m === variant) return `1x ${nm(m.name)}`;
+                    if (item.modelSizes?.[m.name]) return `${item.modelSizes[m.name]}x ${nm(m.name)}`;
                     return null;
                   }).filter(Boolean).join(' + ')}
                 </div>
@@ -1061,9 +1064,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               is already shown in the table above, this block just surfaces the Armory link. */}
           {championArmoryInOwnBlock && builtInChampion && (
             <details open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
-              <summary className="cursor-pointer px-2 py-1 select-none text-zinc-300">▲ {builtInChampion.name}</summary>
+              <summary className="cursor-pointer px-2 py-1 select-none text-zinc-300">▲ {nm(builtInChampion.name)}</summary>
               <div className="px-2 pb-2 text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
-                <span>{t('theWord')} {builtInChampion.name} {t('armoryAccessSuffix')}</span>
+                <span>{t('theWord')} {nm(builtInChampion.name)} {t('armoryAccessSuffix')}</span>
                 <button
                   onClick={() => { setArmoryOpen(true); }}
                   className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
@@ -1093,7 +1096,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const mRanged = mWeapons.filter(w => w.range && w.range !== '-' && w.type !== 'Melee');
             const mMelee = mWeapons.filter(w => !w.range || w.range === '-' || w.type === 'Melee');
             const mAbilities = u.abilities.filter(a => a.includes(`(${m.name}`));
-            const headerText = m.name;
+            const headerText = nm(m.name);
             return (
               <details key={m.name} className="border border-zinc-700 bg-zinc-900/40 text-[12px]">
                 <summary className="cursor-pointer px-2 py-1.5 select-none flex items-center gap-2 bg-zinc-800/40 border-b border-zinc-700/60">
@@ -1110,7 +1113,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 </summary>
                 <div className="px-2 pb-2 space-y-2">
                   {equipText && (
-                    <div className="text-zinc-400 text-[11px]">{t('everyWord')} {m.name} {t('isEquippedWithSuffix')} {equipText}.</div>
+                    <div className="text-zinc-400 text-[11px]">{t('everyWord')} {nm(m.name)} {t('isEquippedWithSuffix')} {equipText}.</div>
                   )}
                   <ModelProfileRow m={m} statKeys={STAT_KEYS_INF} />
                   {mAbilities.length > 0 && (
@@ -1377,7 +1380,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
                       {(u.champion_has_armory || u.has_armory_access || /armory/i.test(g.header)) && (
                         <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
-                          <span>{t('theWord')} {variantModel.name} {t('armoryAccessSuffix')}</span>
+                          <span>{t('theWord')} {nm(variantModel.name)} {t('armoryAccessSuffix')}</span>
                           {active ? (
                             <button
                               onClick={() => { setArmoryOpen(true); }}
@@ -1709,7 +1712,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                           <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
                           <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
                           <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
-                          <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">Pts</th>
+                          <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">{t('ptsHeader')}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1976,9 +1979,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     : hasPrayers
                       ? `${t('prayers')} (${item.prayers.length})`
                       : hasChosenDisc
-                        ? `${t('powersLabel')} · ${chosenDiscName}`
+                        ? `${t('powersLabel')} · ${nm(chosenDiscName ?? '')}`
                         : knowsSmiteUnit
-                          ? `${t('powersLabel')} (Smite${realPowers > 0 ? ` +${realPowers}` : ''})`
+                          ? `${t('powersLabel')} (${nm('Smite')}${realPowers > 0 ? ` +${realPowers}` : ''})`
                           : `${t('powersLabel')} (${realPowers})`;
               return (
                 <button onClick={() => setPsyOpen(true)}
@@ -2128,7 +2131,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               {/* Smite — always known, shown as fixed (not removable) */}
               {u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite')) && (
                 <div className="flex justify-between items-center bg-amber-900/20 border border-amber-800/40 px-2 py-1 text-[11px]">
-                  <span className="text-amber-400">Smite <span className="text-amber-700">{t('smiteAlwaysKnownSuffix')}</span></span>
+                  <span className="text-amber-400">{nm('Smite')} <span className="text-amber-700">{t('smiteAlwaysKnownSuffix')}</span></span>
                 </div>
               )}
               {/* Selected powers — filter out internal __discipline__ marker */}
@@ -2143,7 +2146,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 return (
                   <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                     <div className="min-w-0">
-                      <div className="text-zinc-300">{p.powerName} <span className="text-zinc-600">({p.disciplineName})</span></div>
+                      <div className="text-zinc-300">{nm(p.powerName)} <span className="text-zinc-600">({nm(p.disciplineName)})</span></div>
                       {meta && <div className="text-[10px] text-amber-600/90 uppercase tracking-wide">{meta}</div>}
                       {eff && <div className="text-[10px] text-zinc-500 leading-snug">{eff}</div>}
                     </div>
@@ -2161,7 +2164,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 const disc = item.powers.find(p => p.powerName === '__discipline__')!;
                 return (
                   <div className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                    <span className="text-violet-300">{t('allOfPrefix')} <span className="text-zinc-300">{disc.disciplineName}</span></span>
+                    <span className="text-violet-300">{t('allOfPrefix')} <span className="text-zinc-300">{nm(disc.disciplineName)}</span></span>
                     <button
                       onClick={() => useArmyStore.getState().removePower(item.id, disc.disciplineName, '__discipline__')}
                       className="text-red-500 hover:text-red-300"
@@ -2327,14 +2330,14 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       : [];
                     return (
                       <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
-                        <div className="text-[11px] text-zinc-200 font-medium">{part.displayName}</div>
+                        <div className="text-[11px] text-zinc-200 font-medium">{nm(part.displayName)}</div>
                         {part.description && (
                           <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
                         )}
                         {baseCanticles.length > 0 && (
                           <ul className="text-[10px] text-zinc-500 mt-1 leading-relaxed space-y-0.5 list-none">
                             {baseCanticles.map(c => (
-                              <li key={c.name}><span className="text-zinc-400">{c.name}:</span> {c.effect}</li>
+                              <li key={c.name}><span className="text-zinc-400">{nm(c.name)}:</span> {c.effect}</li>
                             ))}
                           </ul>
                         )}
@@ -2345,7 +2348,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 {traitAbilities.map((ta, i) => (
                   <div key={`ta-${i}`} className="border-b border-zinc-700/40 pb-1.5">
                     <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
-                      {ta.name}
+                      {nm(ta.name)}
                       <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('traitBadge')}</span>
                     </div>
                     {ta.desc && (
@@ -2359,7 +2362,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   parseAbility(a).map((part, j) => (
                     <div key={`ma-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
-                        {part.displayName}
+                        {nm(part.displayName)}
                         <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('mark')}</span>
                       </div>
                       {part.description && (
@@ -2372,7 +2375,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   parseAbility(a).map((part, j) => (
                     <div key={`rn-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
-                        {part.displayName}
+                        {nm(part.displayName)}
                         <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('ruleBadge')}</span>
                       </div>
                       {part.description && (
@@ -2385,7 +2388,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   parseAbility(a).map((part, j) => (
                     <div key={`oa-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
-                        {part.displayName}
+                        {nm(part.displayName)}
                         <span className="text-[9px] bg-cyan-900/50 text-cyan-400 border border-cyan-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('optionBadge')}</span>
                       </div>
                       {part.description && (
@@ -2399,7 +2402,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   parseAbility(ab).map((part, j) => (
                     <div key={`eq-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
-                        {part.displayName}
+                        {nm(part.displayName)}
                         <span className="text-[9px] bg-violet-900/50 text-violet-400 border border-violet-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('equipBadge')}</span>
                       </div>
                       {part.description && (
@@ -2455,7 +2458,7 @@ function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryIte
       <div className={`${cls} space-y-0.5`}>
         {armItem.profiles.map((p, i) => (
           <div key={i}>
-            <span className="text-zinc-600 italic">{p.name}:</span>{' '}
+            <span className="text-zinc-600 italic">{nm(p.name)}:</span>{' '}
             {p.range} · {p.type} · S{p.s} AP{p.ap} D{p.d}
             {(p.abilities && p.abilities !== '-' || extraTraits.length > 0) && (
               <span className={extraTraits.length > 0 ? 'text-violet-400' : 'text-zinc-600'}> · {appendTraits(p.abilities)}</span>
@@ -2507,7 +2510,7 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
               </th>
             );
           })}
-          <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">Pts</th>
+          <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">{t('ptsHeader')}</th>
         </tr>
       </thead>
       <tbody>

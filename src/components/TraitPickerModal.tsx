@@ -1,3 +1,4 @@
+import { nm } from '../utils/localName';
 import { useState } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import { useT } from '../i18n';
@@ -112,7 +113,7 @@ export function TraitPickerModal({ traits, excludedNames, currentValue, slotLabe
               >
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[12px] font-semibold text-zinc-100">{tr.name}</span>
+                    <span className="text-[12px] font-semibold text-zinc-100">{nm(tr.name)}</span>
                     {isCurrent && (
                       <span className="text-[9px] bg-zinc-700 text-zinc-300 px-1 py-0.5 uppercase tracking-wide">{t('selectedBadge')}</span>
                     )}

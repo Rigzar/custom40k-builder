@@ -1,4 +1,5 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
+import { t, useLanguage } from '../i18n';
 
 interface Props {
   children: ReactNode;
@@ -29,15 +30,15 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     const { error } = this.state;
     if (!error) return this.props.children;
+    const lang = useLanguage.getState().language;
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-6">
         <div className="max-w-lg w-full bg-zinc-900 border-2 border-red-800 rounded p-5 text-zinc-200">
           <div className="text-red-400 font-cinzel uppercase tracking-widest text-sm mb-2">
-            {this.props.label ?? 'Something went wrong'}
+            {this.props.label ?? t(lang, 'errTitle')}
           </div>
           <p className="text-[13px] text-zinc-300 mb-2">
-            This view hit an error and couldn't render. The rest of the app is fine — close this and
-            try again. If it keeps happening, please report it with the message below.
+            {t(lang, 'errBody')}
           </p>
           <pre className="text-[11px] text-red-300 bg-black/40 border border-zinc-700 rounded p-2 overflow-auto max-h-40 whitespace-pre-wrap">
             {error.message}
@@ -47,7 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
               onClick={() => { this.setState({ error: null }); this.props.onClose?.(); }}
               className="px-4 py-1.5 bg-red-900/60 border border-red-700 text-red-200 text-sm hover:bg-red-800/60 uppercase tracking-wide rounded"
             >
-              Close
+              {t(lang, 'close')}
             </button>
           </div>
         </div>

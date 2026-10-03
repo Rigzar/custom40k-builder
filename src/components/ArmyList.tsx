@@ -133,7 +133,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
                 {t(SLOT_LABEL_KEY[slot] ?? 'hq')}
               </span>
               <span className="text-zinc-500 text-[11px] tabular-nums">
-                {slotUnits.length} {slotUnits.length === 1 ? 'unit' : 'units'} · {slotPts} pts
+                {slotUnits.length} {slotUnits.length === 1 ? t('prUnitWord') : t('prUnitsWord')} · {slotPts} pts
               </span>
             </div>
             {slotUnits.map(item => (resolveUnit(item, data)

@@ -1,5 +1,7 @@
 import type { FactionData, Power } from '../types/data';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
+import { localiseAbility } from '../data/coreRules';
+import { t, useLanguage } from '../i18n';
 
 /**
  * Shared formatting + lookup for prayers, infernal pacts and psychic powers.
@@ -51,12 +53,18 @@ export function findPowerByName(name: string, data: FactionData | null | undefin
  */
 export function powerMetaLine(p: Power | undefined): string {
   if (!p) return '';
+  const lang = useLanguage.getState().language;
+  // "Cast" is the interface's own word for it; the descriptive fields go through the text table.
+  const cast = t(lang, 'castLabel').replace(/[:：]\s*$/, '');
+  const loc = (s: string | null | undefined) => (s ? localiseAbility(s) : s);
+  const range = p.range && p.range !== '-'
+    ? p.range.replace(/\s*radius$/i, ` ${localiseAbility('radius')}`) : null;
   return [
-    p.type,
-    p.range && p.range !== '-' ? p.range : null,
-    p.cast_value ? `Cast ${p.cast_value}` : null,
-    p.target,
-    p.duration,
+    loc(p.type),
+    range,
+    p.cast_value ? `${cast} ${p.cast_value}` : null,
+    loc(p.target),
+    loc(p.duration),
   ].filter(Boolean).join(' · ');
 }
 

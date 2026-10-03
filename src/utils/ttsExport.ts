@@ -373,13 +373,17 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
 
 /**
  * The file text, with an integrity check at the very end. The check is SHA-256 (lowercase hex) of the
- * compact JSON text of everything before it: remove the trailing `,"checksum":{...}` and put the
+ * compact, ASCII-only JSON text of everything before it: remove the trailing `,"checksum":{...}` and put the
  * closing `}` back, and what is left is exactly the text that was hashed. Because it is the text that
  * is hashed, a line damaged while copying into Tabletop Simulator shows up, and the check itself is
  * never part of what it covers. The army and the units come first; the faction reference comes last.
  */
 export async function serializeTtsExport(payload: TtsExport): Promise<string> {
-  const body = JSON.stringify(payload);
+  // ASCII only: every non-ASCII character (the inch mark ″, accents) is written as a \uXXXX escape,
+  // which any JSON reader turns back into the same character. Tabletop Simulator's input box
+  // normalises non-ASCII characters while you paste, which changed the text and broke the hash
+  // although the game itself read the data fine (reported by the Russian translator).
+  const body = JSON.stringify(payload).replace(/[\u007f-\uffff]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body));
   const hex = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
   return `${body.slice(0, -1)},"checksum":{"alg":"sha256","value":"${hex}"}}`;

@@ -1,3 +1,5 @@
+import { engName, engNotes } from '../utils/engagementText';
+import { nm } from '../utils/localName';
 import { useState } from 'react';
 import type * as api from '../lib/api';
 import { useArmyStore } from '../store/army';
@@ -81,13 +83,13 @@ export function FactionStep({
                         : 'bg-zinc-800/60 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'
                       }`}
                   >
-                    {ENGAGEMENTS[e].name}
+                    {engName(t, e)}
                   </button>
                 ))}
               </div>
               {ENGAGEMENTS[engagement].notes && (
                 <div className="mt-2 text-[10px] text-zinc-500 border-l-2 border-amber-900/50 pl-2 leading-relaxed">
-                  {ENGAGEMENTS[engagement].notes}
+                  {engNotes(t, engagement, ENGAGEMENTS[engagement].notes)}
                 </div>
               )}
             </div>
@@ -195,12 +197,12 @@ export function FactionStep({
               <div className="flex items-center gap-2.5 mb-3">
                 <img
                   src={cat.icon}
-                  alt={cat.name}
+                  alt=""
                   className="shrink-0 symbol-tint"
                   style={{ width: cat.name === 'Imperium' ? 68 : 52, height: cat.name === 'Imperium' ? 68 : 52, opacity: 0.60 }}
                 />
                 <span className="font-cinzel text-[11px] uppercase tracking-widest shrink-0" style={{ color: theme === 'light' ? cat.pillFgLight : cat.pillFg }}>
-                  {cat.name}
+                  {cat.name === 'Chaos' ? t('catChaos') : cat.name === 'Imperium' ? t('catImperium') : cat.name === 'Xenos' ? t('catXenos') : cat.name}
                 </span>
                 <div className="flex-1 h-px" style={{ background: cat.dividerColor }} />
               </div>
@@ -250,7 +252,7 @@ export function FactionStep({
                       )}
                       <FactionSymbol factionKey={f.key} size={40} />
                       <span className={`text-[11px] leading-tight ${selected ? 'text-amber-200' : 'text-zinc-300'}`}>
-                        {f.name}
+                        {nm(f.name)}
                       </span>
                       {f.version && (
                         <span className="font-cinzel text-[8px] uppercase tracking-widest text-amber-600/80 -mt-1">

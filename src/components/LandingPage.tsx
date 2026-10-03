@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182e_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -179,6 +179,7 @@ function ClipSvg() {
 
 function CommunityAnnouncement() {
   const { language } = useLanguage();
+  const tClose = useT()('close');
   const tx = ANNOUNCEMENT_TEXT[language];
   const [dismissed, setDismissed] = useState(
     () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
@@ -217,7 +218,7 @@ function CommunityAnnouncement() {
           <button
             onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
             className="text-red-500 hover:text-red-300 text-lg leading-none shrink-0 transition-colors"
-            title="Dismiss"
+            title={tClose}
           >
             ×
           </button>
@@ -304,6 +305,7 @@ function hashString(s: string): string {
 
 function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | null }) {
   const { language } = useLanguage();
+  const tClose = useT()('close');
   // Dismissal is keyed off the announcement's CONTENT, and stored as the hash of the announcement
   // that was dismissed under ONE stable key. Earlier versions wrote a separate `..._<hash>_dismissed`
   // flag per announcement, which meant a browser that had dismissed anything under the older
@@ -341,7 +343,7 @@ function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | nul
             setDismissedHash(contentHash);
           }}
           className="text-red-500 hover:text-red-300 text-lg leading-none shrink-0 transition-colors"
-          title="Dismiss"
+          title={tClose}
         >×</button>
       </div>
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
@@ -597,7 +599,7 @@ export function LandingPage({
             {loggedIn && (isAdmin || isInterrogator) ? (
               <button
                 onClick={onShowCampaign}
-                title="Campaign mode — alpha access (admin)"
+                title={t('navCampaignAlphaAdmin')}
                 className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
@@ -606,7 +608,7 @@ export function LandingPage({
             ) : (
               <button
                 disabled
-                title="Campaign mode is still in alpha testing"
+                title={t('navCampaignComingSoon')}
                 className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
@@ -620,20 +622,20 @@ export function LandingPage({
             {loggedIn ? (
               <button
                 onClick={onShowEvents}
-                title="Events & Leagues"
+                title={t('navEvents')}
                 className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
-                EVENTS &amp; LEAGUES
+                {t('navEvents')}
               </button>
             ) : (
               <button
                 disabled
-                title="Sign in to join an event or a league"
+                title={t('navEventsSignIn')}
                 className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
-                EVENTS &amp; LEAGUES — SIGN IN
+                {t('navEventsSignIn')}
               </button>
             )}
 
@@ -693,9 +695,9 @@ export function LandingPage({
               <div className="absolute inset-0 bg-gradient-to-r from-red-950/30 to-transparent pointer-events-none" />
               <img src="/faction-symbols/horus-heresy.svg" alt="" className="relative z-10 shrink-0 symbol-tint" style={{ width: 54, height: 54, opacity: 0.75 }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
-                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Horus Heresy</div>
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">{t('suppHH')}</div>
                 <div className="text-zinc-500 text-[10px] leading-relaxed">{t('hhCardDesc')}</div>
-                <div className="text-red-900 group-hover:text-red-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Legiones Astartes</div>
+                <div className="text-red-900 group-hover:text-red-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">{t('suppLegiones')}</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-red-900 group-hover:text-red-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -711,7 +713,7 @@ export function LandingPage({
               <div className="relative z-10 flex-1 min-w-0">
                 <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">{t('mgCardTitle')}</div>
                 <div className="text-zinc-500 text-[10px] leading-relaxed">{t('mgCardDesc')}</div>
-                <div className="text-orange-900 group-hover:text-orange-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Taghmata</div>
+                <div className="text-orange-900 group-hover:text-orange-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">{t('suppTaghmata')}</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-orange-900 group-hover:text-orange-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -725,7 +727,7 @@ export function LandingPage({
               <div className="absolute inset-0 bg-gradient-to-r from-amber-950/30 to-transparent pointer-events-none" />
               <img src="/faction-symbols/escalation.svg" alt="" className="relative z-10 shrink-0 symbol-tint" style={{ width: 54, height: 54, opacity: 0.75 }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
-                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Escalation</div>
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">{t('suppEsc')}</div>
                 <div className="text-zinc-500 text-[10px] leading-relaxed">{t('escCardDesc')}</div>
                 <div className="text-amber-800 group-hover:text-amber-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">{t('lordsOfWar')}</div>
               </div>
@@ -741,9 +743,9 @@ export function LandingPage({
               <div className="absolute inset-0 bg-gradient-to-r from-zinc-800/40 to-transparent pointer-events-none" />
               <img src="/faction-symbols/assassins.svg" alt="" className="relative z-10 shrink-0 symbol-tint" style={{ width: 54, height: 54, opacity: 0.75 }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
-                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Assassins</div>
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">{t('suppAss')}</div>
                 <div className="text-zinc-500 text-[10px] leading-relaxed">{t('assCardDesc')}</div>
-                <div className="text-zinc-500 group-hover:text-zinc-300 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Execution Force</div>
+                <div className="text-zinc-500 group-hover:text-zinc-300 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">{t('suppExec')}</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-zinc-600 group-hover:text-zinc-300 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
@@ -19,7 +19,7 @@ import {
 } from '../engine/keywords';
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
-import { nm } from '../utils/localName';
+import { nm, rl } from '../utils/localName';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
 // unenforced-01): every model with Armory access may select a single item from any Imperial
@@ -1075,10 +1075,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
             {filterCategory === 'veteran'
-              ? `${t('veteranAbilities')} — ${unit.name}`
+              ? `${t('veteranAbilities')} — ${nm(unit.name)}`
               : filterCategory === 'vehicle'
-                ? `${t('armoryTitleVehicle')} — ${unit.name}`
-                : `${t('armourySuffix')} — ${unit.name}`
+                ? `${t('armoryTitleVehicle')} — ${nm(unit.name)}`
+                : `${t('armourySuffix')} — ${nm(unit.name)}`
             }
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
@@ -1396,13 +1396,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       onClick={() => setAuthorityFaction(f.key)}
                       className="px-3 py-2 bg-zinc-800 border border-zinc-600 text-zinc-200 hover:border-amber-600 hover:text-amber-300 text-[11px] uppercase tracking-wide transition-colors"
                     >
-                      {f.label}
+                      {nm(f.label)}
                     </button>
                   ))}
                 </div>
               ) : authorityLoading || !authorityCache[authorityFaction] ? (
                 <div className="text-zinc-500 italic text-sm text-center py-8">
-                  {t('loadingPrefix')} {authorityFactions.find(f => f.key === authorityFaction)?.label}…
+                  {t('loadingPrefix')} {nm(authorityFactions.find(f => f.key === authorityFaction)?.label ?? '')}…
                 </div>
               ) : (() => {
                 const fd = authorityCache[authorityFaction];
@@ -2325,7 +2325,7 @@ function ArmoryItemRow({
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1 flex-wrap">
           <span className={`text-sm font-medium transition-colors ${justAdded ? 'text-green-400' : 'text-zinc-200'}`}>
-            {displayName}
+            {nm(displayName)}
           </span>
           {justAdded && <span className="text-green-500 text-xs font-bold">{t('addedBadge')}</span>}
           {inProfile && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase tracking-wide">{t('inProfileBadge')}</span>}
@@ -2357,8 +2357,8 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
         {arm.profiles.map((p, i) => (
           <div key={i} className="text-[10px] text-zinc-600">
             <span className="text-zinc-500 italic">{p.name}:</span>{' '}
-            {p.range} · {p.type} · S{p.s} AP{p.ap} D{p.d}
-            {p.abilities && p.abilities !== '-' && <span> · {p.abilities}</span>}
+            {p.range} · {rl(p.type)} · S{p.s} AP{p.ap} D{p.d}
+            {p.abilities && p.abilities !== '-' && <span> · {rl(p.abilities)}</span>}
           </div>
         ))}
       </div>
@@ -2367,13 +2367,13 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
   if (arm.range) {
     return (
       <div className="text-[10px] text-zinc-600 mt-0.5">
-        {arm.range} · {arm.type} · S{arm.s} AP{arm.ap} D{arm.d}
-        {arm.abilities && arm.abilities !== '-' && <span> · {arm.abilities}</span>}
+        {arm.range} · {rl(arm.type)} · S{arm.s} AP{arm.ap} D{arm.d}
+        {arm.abilities && arm.abilities !== '-' && <span> · {rl(arm.abilities)}</span>}
       </div>
     );
   }
   if (arm.abilities) {
-    return <div className="text-[10px] text-zinc-600 italic mt-0.5">{arm.abilities}</div>;
+    return <div className="text-[10px] text-zinc-600 italic mt-0.5">{rl(arm.abilities)}</div>;
   }
   return <div className="text-[10px] text-zinc-600 italic mt-0.5">{t('seeFactionRulesProfile')}</div>;
 }
@@ -2424,7 +2424,7 @@ function ArmoryWeaponTable({
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
             <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
-            <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">Pts</th>
+            <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">{t('ptsHeader')}</th>
           </tr>
         </thead>
         <tbody>
@@ -2437,7 +2437,7 @@ function ArmoryWeaponTable({
             const costIsSpecial = isWeaponCostSpecial(arm.desc);
             const priceIsNull = pts === null && !costIsSpecial;
             const disabled = !owned && (blocked || priceIsNull);
-            const ptsLabel = costIsSpecial ? 'Special' : (pts != null ? `${pts >= 0 ? '+' : ''}${pts}` : '—');
+            const ptsLabel = costIsSpecial ? t('armSpecial') : (pts != null ? `${pts >= 0 ? '+' : ''}${pts}` : '—');
             const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
             const profile = arm.profiles && arm.profiles.length > 0 ? arm.profiles[0] : arm;
             return (
@@ -2470,7 +2470,7 @@ function ArmoryWeaponTable({
                       <button
                         type="button"
                         onClick={() => onRemove(selId!)}
-                        title="Quitar una"
+                        title={t('armRemoveOne')}
                         className="w-3 h-4 leading-none text-[11px] text-zinc-500 hover:text-red-400"
                       >
                         −
@@ -2480,11 +2480,11 @@ function ArmoryWeaponTable({
                 </td>
                 <td className="py-1.5 pr-2 font-medium text-zinc-100">{nm(displayName)}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
-                <td className="py-1.5 px-1 text-zinc-300">{profile.type ?? '-'}</td>
+                <td className="py-1.5 px-1 text-zinc-300">{rl(profile.type ?? '-')}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.ap ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.d ?? '-'}</td>
-                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? profile.abilities : '—'}</td>
+                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? rl(profile.abilities) : '—'}</td>
                 <td className="py-1.5 px-2 text-right text-amber-600 whitespace-nowrap">{ptsLabel}</td>
               </tr>
             );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { LEGAL_DOCS, GW_DISCLAIMER, type LegalDocKey } from '../data/legalDocs';
+import { useT } from '../i18n';
+import { LEGAL_DOCS, type LegalDocKey } from '../data/legalDocs';
 
 interface Props {
   docKey: LegalDocKey;
@@ -49,14 +50,15 @@ export function LegalModal({ docKey, onClose }: Props) {
 
 // ── Footer link set used by both LandingPage and App ─────────────────────────
 export function LegalFooter() {
+  const t = useT();
   const [open, setOpen] = useState<LegalDocKey | null>(null);
 
   const links: { key: LegalDocKey; label: string }[] = [
-    { key: 'privacy',        label: 'Privacy Policy' },
-    { key: 'terms',          label: 'Terms of Use' },
-    { key: 'cookies',        label: 'Cookie Policy' },
-    { key: 'legal-notice',   label: 'Legal Notice' },
-    { key: 'accessibility',  label: 'Accessibility' },
+    { key: 'privacy',        label: t('legalPrivacy') },
+    { key: 'terms',          label: t('legalTerms') },
+    { key: 'cookies',        label: t('legalCookies') },
+    { key: 'legal-notice',   label: t('legalNotice') },
+    { key: 'accessibility',  label: t('legalAccessibility') },
   ];
 
   return (
@@ -65,12 +67,12 @@ export function LegalFooter() {
         <div className="max-w-screen-xl mx-auto space-y-3">
           {/* GW disclaimer */}
           <p className="text-zinc-700 text-[10px] leading-relaxed">
-            {GW_DISCLAIMER}
+            {t('gwDisclaimer')}
           </p>
           {/* Bottom row */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-zinc-900 pt-3">
             <p className="text-zinc-600 text-[11px] text-center sm:text-left">
-              © {new Date().getFullYear()} Custom40k Army Builder — Non-commercial fan project.
+              © {new Date().getFullYear()} Custom40k Army Builder — {t('footerFan')}
             </p>
             <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
               {links.map(({ key, label }) => (
