@@ -2,6 +2,10 @@
     "name": "Blue Horrors",
     "models": [
         {
+            "name": "Blue Horror",
+            "points": 21,
+            "min": 9,
+            "max": 27,
             "stats": {
                 "M": "6\"",
                 "WS": "5+",
@@ -13,29 +17,7 @@
                 "A": "1",
                 "LD": "9",
                 "SV": "6+"
-            },
-            "name": "Blue Horror",
-            "min": 9,
-            "max": 27,
-            "points": 21
-        },
-        {
-            "stats": {
-                "M": "6\"",
-                "WS": "6+",
-                "BS": "5+",
-                "S": "1",
-                "T": "1",
-                "W": "1",
-                "I": "3",
-                "A": "1",
-                "LD": "9",
-                "SV": "6+"
-            },
-            "name": "Brimstone Horror",
-            "min": 1,
-            "max": 1,
-            "points": 0
+            }
         }
     ],
     "variant_models": [
@@ -120,6 +102,6 @@
     "locked_mark": "Tzeentch",
     "advisor": false,
     "slot": "Troops",
-    "default_size": 10,
+    "default_size": 9,
     "min_cost": 189
 }

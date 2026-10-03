@@ -2,6 +2,10 @@
     "name": "Hive Gangers",
     "models": [
         {
+            "name": "Hive Ganger",
+            "points": 4,
+            "min": 9,
+            "max": 9,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -13,13 +17,13 @@
                 "A": "1",
                 "LD": "5",
                 "SV": "6+"
-            },
-            "name": "Hive Ganger",
-            "min": 1,
-            "max": 1,
-            "points": 4
+            }
         },
         {
+            "name": "Gang Champion",
+            "points": 9,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -31,14 +35,9 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "6+"
-            },
-            "name": "Gang Champion",
-            "min": 1,
-            "max": 1,
-            "points": 9
+            }
         }
     ],
-    "variant_models": [],
     "equipped_with": "Every model is equipped with: Gang firearm; Gang pistol.",
     "weapons": [
         {
@@ -381,6 +380,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Troops",
-    "default_size": 2,
-    "min_cost": 13
+    "default_size": 10,
+    "min_cost": 45
 }

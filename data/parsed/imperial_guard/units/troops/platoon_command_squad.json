@@ -2,6 +2,10 @@
     "name": "Platoon Command Squad",
     "models": [
         {
+            "name": "Guardsman",
+            "points": 8,
+            "min": 4,
+            "max": 4,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -13,13 +17,13 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "5+"
-            },
-            "name": "Guardsman",
-            "min": 1,
-            "max": 1,
-            "points": 8
+            }
         },
         {
+            "name": "Lieutenant",
+            "points": 13,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -31,14 +35,9 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "5+"
-            },
-            "name": "Lieutenant",
-            "min": 1,
-            "max": 1,
-            "points": 13
+            }
         }
     ],
-    "variant_models": [],
     "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
     "weapons": [
         {
@@ -344,6 +343,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Troops",
-    "default_size": 2,
-    "min_cost": 21
+    "default_size": 5,
+    "min_cost": 45
 }

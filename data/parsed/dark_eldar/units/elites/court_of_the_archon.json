@@ -2,6 +2,10 @@
     "name": "Court of the Archon",
     "models": [
         {
+            "name": "Lhaemaean",
+            "points": 31,
+            "min": 0,
+            "max": 4,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -13,13 +17,13 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "4+"
-            },
-            "name": "Lhaemaean",
-            "min": 0,
-            "max": 4,
-            "points": 31
+            }
         },
         {
+            "name": "Medusae",
+            "points": 38,
+            "min": 0,
+            "max": 4,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -31,13 +35,13 @@
                 "A": "1",
                 "LD": "8",
                 "SV": "4+"
-            },
-            "name": "Medusae",
-            "min": 0,
-            "max": 4,
-            "points": 38
+            }
         },
         {
+            "name": "Sslyth",
+            "points": 53,
+            "min": 0,
+            "max": 6,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -49,13 +53,13 @@
                 "A": "3",
                 "LD": "8",
                 "SV": "4+"
-            },
-            "name": "Sslyth",
-            "min": 0,
-            "max": 6,
-            "points": 53
+            }
         },
         {
+            "name": "Ur-Ghul",
+            "points": 24,
+            "min": 0,
+            "max": 10,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -67,14 +71,9 @@
                 "A": "4",
                 "LD": "8",
                 "SV": "6+"
-            },
-            "name": "Ur-Ghul",
-            "min": 0,
-            "max": 10,
-            "points": 24
+            }
         }
     ],
-    "variant_models": [],
     "equipped_with": "Every Lhaemaean is equipped with: Splinter pistol; Venom blade.Every Medusae is equipped with: Eyeburst.Every Sslyth is equipped with: -.Every Ur-Ghul is equipped with: Rending claws.",
     "weapons": [
         {
@@ -135,6 +134,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Elites",
-    "default_size": 0,
-    "min_cost": 0
+    "default_size": 3,
+    "min_cost": 72
 }

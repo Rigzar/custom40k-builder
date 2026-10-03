@@ -2,6 +2,10 @@
     "name": "Geminae Superia",
     "models": [
         {
+            "name": "Geminae Superia",
+            "points": 43,
+            "min": 2,
+            "max": 2,
             "stats": {
                 "M": "12\"",
                 "WS": "2+",
@@ -13,14 +17,9 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "2+"
-            },
-            "name": "Geminae Superia",
-            "min": 1,
-            "max": 1,
-            "points": 43
+            }
         }
     ],
-    "variant_models": [],
     "equipped_with": "Every model is equipped with: Bolt pistol; Frag grenades; Krak grenades; Power sword.",
     "weapons": [
         {
@@ -91,6 +90,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "HQ",
-    "default_size": 1,
-    "min_cost": 43
+    "default_size": 2,
+    "min_cost": 86
 }
