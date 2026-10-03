@@ -285,35 +285,13 @@
         "ABILITIES"
     ],
     [
-        "Dakka Dakka Dakka, Open, Waaagh!"
+        "Dakka Dakka Dakka, Open, Ramshackle, Waaagh!"
     ],
     [
         "Lifta: When this weapon scores a hit on a vehicle, the Battlewagon's controlling player may move the target anywhere within D6\" of its starting location that is not within 1\" of another model. Then resolve the rest of the attack."
     ],
     [
         "Transport: This model has a transport capacity of 20 infantry models. When equipped with Flakka gunz, a Big lobba, Killkannon, or Big Zzappa, it has a transport capacity of 12 infantry models. When equipped with a Supa-lobba, Supa-kannon, or Lifta-droppa, it has a transport capacity of 6 infantry models."
-    ],
-    [
-        "Ramshackle: Roll on the table when the vehicle is destroyed."
-    ],
-    [
-        "D6",
-        "Result"
-    ],
-    [
-        "\"1-2\"",
-        "Kaboom! The vehicle explodes with a radius of 6\"."
-    ],
-    [
-        "\"3-4\"",
-        "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
-    ],
-    [
-        "\"5-6\"",
-        "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as a wreck."
-    ],
-    [
-        "If the vehicle has been immobilized, the controlling player can roll with any command on the \"Ramshackle\" table in the next activation and apply the result."
     ],
     [
         "UNIT TYPE"
