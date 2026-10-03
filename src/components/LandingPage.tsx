@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v181_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v181b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "New in this version", rows: [
         ["Languages", "Interface, front-page banner, Field Manual, supplement cards, messages and the rules glossary are available in Russian and Japanese. Pick the language at the top of the page."],
+        ["Fixed squads", "A bad data update had shrunk fixed-size squads to 1 Guardsman + 1 Sergeant (Infantry Squad, Veterans, Command Squads and units in several armies, GH#194). They are back to full size. Veteran abilities now also print their rule text in the Special Rules section, and Russian headings use a font that has Cyrillic."],
         ["Wiki", "One site in five languages \u2014 a language switcher in the header, translated navigation, headings, slots, badges and home page. The Core Rules and Missions pages are translated too."],
         ["Still English", "The Known Issues entries."],
         ["Native speakers wanted", "The Russian and Japanese texts were written by Claude and nobody native has read them yet \u2014 corrections on Discord are very welcome."],
@@ -116,6 +117,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Neu in dieser Version", rows: [
         ["Sprachen", "Oberfl\u00e4che, Banner, Feldhandbuch, Erweiterungskarten, Nachrichten und das Regelglossar gibt es auf Russisch und Japanisch. Die Sprache oben auf der Seite w\u00e4hlen."],
+        ["Reparierte Trupps", "Ein fehlerhaftes Daten-Update hatte Trupps mit fester Größe auf 1 Guardsman + 1 Sergeant schrumpfen lassen (Infantry Squad, Veterans, Command Squads und Einheiten in mehreren Armeen, GH#194). Sie haben wieder ihre volle Größe. Veteranenfähigkeiten drucken jetzt auch ihren Regeltext bei den Sonderregeln, und russische Überschriften nutzen eine Schrift mit Kyrillisch."],
         ["Wiki", "Eine Seite in f\u00fcnf Sprachen \u2014 Sprachumschalter im Kopf, \u00fcbersetzte Navigation, \u00dcberschriften, Slots, Abzeichen und Startseite. Grundregeln und Missionen sind ebenfalls übersetzt."],
         ["Noch englisch", "Die Einträge unter Bekannte Probleme."],
         ["Muttersprachler gesucht", "Die russischen und japanischen Texte hat Claude geschrieben, kein Muttersprachler hat sie bisher gelesen \u2014 Korrekturen auf Discord sind sehr willkommen."],
@@ -171,6 +173,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Nuevo en esta versi\u00f3n", rows: [
         ["Idiomas", "Interfaz, banner, Manual de Campo, tarjetas de suplemento, mensajes y el glosario de reglas est\u00e1n en ruso y japon\u00e9s. Elige el idioma arriba en la p\u00e1gina."],
+        ["Escuadras reparadas", "Una actualización de datos defectuosa había reducido las escuadras de tamaño fijo a 1 Guardsman + 1 Sergeant (Infantry Squad, Veterans, Command Squads y unidades de varios ejércitos, GH#194). Vuelven a su tamaño completo. Las habilidades de veterano ahora también imprimen su texto en Reglas especiales, y los títulos en ruso usan una fuente con cirílico."],
         ["Wiki", "Un solo sitio en cinco idiomas \u2014 selector de idioma en la cabecera, navegaci\u00f3n, t\u00edtulos, slots, insignias y portada traducidos. Reglas b\u00e1sicas y Misiones tambi\u00e9n est\u00e1n traducidas."],
         ["Sigue en ingl\u00e9s", "Las entradas de Problemas conocidos."],
         ["Se buscan nativos", "Los textos en ruso y japon\u00e9s los escribi\u00f3 Claude y ning\u00fan nativo los ha le\u00eddo todav\u00eda \u2014 las correcciones en Discord son muy bienvenidas."],
@@ -226,6 +229,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Новое в этой версии", rows: [
         ["Языки", "Интерфейс, баннер, Полевое руководство, карточки дополнений, сообщения и глоссарий правил доступны на русском и японском. Выберите язык вверху страницы."],
+        ["Исправленные отряды", "Неудачное обновление данных сократило отряды фиксированного размера до 1 Guardsman + 1 Sergeant (Infantry Squad, Veterans, Command Squads и юниты в нескольких армиях, GH#194). Теперь они снова полного размера. Способности ветерана теперь печатают и текст правила в разделе особых правил, а русские заголовки используют шрифт с кириллицей."],
         ["Вики", "Один сайт на пяти языках — переключатель языка в шапке, переведены навигация, заголовки, слоты, значки и главная. Основные правила и Миссии тоже переведены."],
         ["Пока на английском", "Записи раздела «Известные проблемы»."],
         ["Нужны носители языка", "Русские и японские тексты написал Claude, и ни один носитель их ещё не читал — исправления в Discord очень приветствуются."],
@@ -281,6 +285,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "このバージョンの新機能", rows: [
         ["言語", "インターフェース、バナー、フィールドマニュアル、サプリメントカード、メッセージ、ルール用語集がロシア語と日本語で利用できます。ページ上部で言語を選んでください。"],
+        ["スクワッドの修正", "データ更新の不具合で、固定サイズのスクワッドが Guardsman 1 + Sergeant 1 に縮んでいました（Infantry Squad、Veterans、Command Squads など複数の軍のユニット、GH#194）。元のサイズに戻りました。ベテランアビリティは印刷時にスペシャルルールへ本文も載るようになり、ロシア語の見出しはキリル文字対応のフォントを使います。"],
         ["Wiki", "5言語の1サイト — ヘッダーの言語切り替え、翻訳されたナビゲーション、見出し、枠、バッジ、ホームページ。基本ルールとミッションのページも翻訳済みです。"],
         ["まだ英語", "既知の問題の項目。"],
         ["ネイティブの方募集", "ロシア語と日本語のテキストはClaudeが書いたもので、ネイティブの方はまだ誰も読んでいません — Discordでの修正を大歓迎します。"],
