@@ -39,6 +39,13 @@ const copies = [
   ['src/data/abilityTexts.es.json', 'src/data/abilityTexts.es.json'],
   ['src/data/abilityTexts.ru.json', 'src/data/abilityTexts.ru.json'],
   ['src/data/abilityTexts.ja.json', 'src/data/abilityTexts.ja.json'],
+  // Names in katakana, unit-type labels: the same pure helpers the app draws names with.
+  ['src/data/names.ja.json', 'src/data/names.ja.json'],
+  // The general psychic disciplines: the wiki had its own copy and it had drifted (9 powers differed).
+  ['src/data/generalDisciplines.ts', 'src/data/generalDisciplines.ts'],
+  ['src/utils/localName.ts', 'src/utils/localName.ts'],
+  ['src/utils/jaProse.ts', 'src/utils/jaProse.ts'],
+  ['src/utils/unitTypeLabel.ts', 'src/utils/unitTypeLabel.ts'],
   ...FACTIONS.map(f => [`data/parsed/${f}`, `data/parsed/${f}`]),
   ['data/parsed/_supplements', 'data/parsed/_supplements'],
 ];
@@ -49,6 +56,19 @@ for (const [from, to] of copies) {
   mkdirSync(dirname(dest), { recursive: true });
   cpSync(src, dest, { recursive: true });
 }
+
+// localName.ts reads the language through the app's zustand store (src/i18n), which the wiki must
+// not drag in. The wiki is built once per language, so a three-line stand-in is enough.
+mkdirSync(join(vendorRoot, 'src', 'i18n'), { recursive: true });
+writeFileSync(join(vendorRoot, 'src', 'i18n', 'index.ts'), [
+  "export type Language = 'en' | 'de' | 'es' | 'ru' | 'ja';",
+  "const lang = ((typeof process !== 'undefined' && process.env.WIKI_LANG) || 'en') as Language;",
+  'export const useLanguage = {',
+  '  getState: () => ({ language: lang, i18nVersion: 0 }),',
+  '  setState: (_update: unknown) => {},',
+  '};',
+  '',
+].join('\n'));
 
 // The codex version printed on each faction hub used to be a second, hand-typed map inside the
 // wiki, and 11 of its 19 entries had gone stale (Space Marines read 1.01 against a real 1.05).

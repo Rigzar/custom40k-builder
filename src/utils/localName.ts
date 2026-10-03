@@ -18,6 +18,7 @@
  * nothing and never a wrong word.
  */
 import { useLanguage } from '../i18n';
+import { setProseTable } from './jaProse';
 
 let TABLE: Record<string, string> | null = null;
 let loading = false;
@@ -34,6 +35,7 @@ function ensureLoaded() {
   loading = true;
   import('../data/names.ja.json').then(m => {
     TABLE = (m as unknown as { default: Record<string, string> }).default;
+    setProseTable(TABLE);
     // Same nudge the admin translation editor uses: components subscribed through useT() redraw.
     useLanguage.setState(s => ({ i18nVersion: s.i18nVersion + 1 }));
   }).catch(() => { loading = false; });
@@ -179,5 +181,6 @@ export function rl(raw: string): string {
   return useLanguage.getState().language === 'ja' ? jaRules(raw) : raw;
 }
 
-/** For the scripts that measure coverage: hand it the table directly. */
-export function _setTableForTests(t: Record<string, string> | null) { TABLE = t; }
+/** For the scripts that measure coverage and for the wiki (a static build cannot wait for the lazy import): hand it the table directly. */
+export function _setTableForTests(t: Record<string, string> | null) { TABLE = t; setProseTable(t); }
+export const setNameTable = _setTableForTests;

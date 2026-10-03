@@ -1,5 +1,6 @@
 ---
 import { parseAbility, normaliseKey } from '../lib/glossary';
+import { wr } from '../lib/loc';
 
 interface Props {
   abilities: string[];
@@ -15,9 +16,9 @@ const parsed = abilities.flatMap(a => parseAbility(a));
     return (
       <li>
         {hasGlossaryEntry ? (
-          <a href={`/glossary/${encodeURIComponent(key)}`}><strong>{part.displayName}</strong></a>
+          <a href={`/glossary/${encodeURIComponent(key)}`}><strong>{wr(part.displayName)}</strong></a>
         ) : (
-          <strong>{part.displayName}</strong>
+          <strong>{wr(part.displayName)}</strong>
         )}
         {part.description && <span>: {part.description}</span>}
       </li>

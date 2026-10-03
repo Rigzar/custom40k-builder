@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import { RULES, normaliseKey } from '../../lib/glossary';
 import { wt, wtContent } from '../../lib/i18n';
+import { wr } from '../../lib/loc';
 
 export async function getStaticPaths() {
   return Object.keys(RULES).map(key => ({ params: { rule: key }, props: { entry: RULES[key] } }));
@@ -12,13 +13,13 @@ const { entry } = Astro.props;
 const ruleKey = String(Astro.params.rule);
 const description = wtContent('glossary', ruleKey, entry.description).replace(/\{X\}/g, 'X');
 ---
-<Layout title={`${entry.name} — Custom40k Wiki Glossary`}>
+<Layout title={`${wr(entry.name)} — Custom40k Wiki ${wt('navGlossary')}`}>
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
     <a href="/glossary">{wt('crumbGlossary')}</a> /
-    {entry.name}
+    {wr(entry.name)}
   </p>
-  <h1>{entry.name}</h1>
+  <h1>{wr(entry.name)}</h1>
   <div class="rule-card reveal">
     <div class="rule-icon-row">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">

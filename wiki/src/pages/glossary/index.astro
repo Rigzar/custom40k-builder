@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import { RULES } from '../../lib/glossary';
 import { wt, wtf } from '../../lib/i18n';
+import { wr } from '../../lib/loc';
 
 const keys = Object.keys(RULES).sort();
 
@@ -12,7 +13,7 @@ for (const k of keys) {
 }
 const letters = Object.keys(byLetter).sort();
 ---
-<Layout title="Glossary — Custom40k Wiki">
+<Layout title={`${wt('navGlossary')} — Custom40k Wiki`}>
   <p class="crumbs"><a href="/">&larr; {wt('crumbHome')}</a></p>
   <h1>{wt('glossaryHeading')}</h1>
   <p class="page-intro">{wtf('glossaryIntro', { n: keys.length })}</p>
@@ -22,7 +23,7 @@ const letters = Object.keys(byLetter).sort();
       <h2 class="letter-heading">{letter}</h2>
       <ul class="glossary-list">
         {byLetter[letter].map(e => (
-          <li><a href={`/glossary/${encodeURIComponent(e.key)}`}>{e.name}</a></li>
+          <li><a href={`/glossary/${encodeURIComponent(e.key)}`}>{wr(e.name)}</a></li>
         ))}
       </ul>
     </section>

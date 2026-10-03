@@ -2,6 +2,7 @@
 import type { Unit } from '../vendor/src/types/data';
 import { slugify } from '../lib/slugs';
 import { wt, wtModels } from '../lib/i18n';
+import { wn } from '../lib/loc';
 
 interface Props {
   unit: Unit;
@@ -26,7 +27,7 @@ if (unit.is_psyker) badges.push(wt('badgePsyker'));
 const href = `/factions/${factionKey}/${slugify(slot ?? unit.slot)}/${slugify(unit.name)}`;
 ---
 <a class="unit-card" href={href}>
-  <div class="unit-card-name">{unit.name}</div>
+  <div class="unit-card-name">{wn(unit.name)}</div>
   <div class="unit-card-meta">
     <span class="pts-label">{minPts}+ {wt('ptsWord')}</span>
     <span class="size-label">{sizeLabel}</span>

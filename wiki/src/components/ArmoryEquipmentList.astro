@@ -2,6 +2,7 @@
 import type { ArmoryItem } from '../vendor/src/types/data';
 import { localiseAbility } from '../vendor/src/data/coreRules';
 import { findClanIcon } from '../lib/clans';
+import { wn, wp } from '../lib/loc';
 
 interface Props {
   items: ArmoryItem[];
@@ -10,9 +11,9 @@ const { items } = Astro.props;
 
 function pts(item: ArmoryItem): string {
   const parts: string[] = [];
-  if (item.p_unit != null) parts.push(`${item.p_unit}/model`);
-  if (item.p_char != null) parts.push(`${item.p_char} (char)`);
-  if (item.p_veh != null) parts.push(`${item.p_veh} (veh)`);
+  if (item.p_unit != null) parts.push(`${item.p_unit}${wp('/model')}`);
+  if (item.p_char != null) parts.push(`${item.p_char} ${wp('(char)')}`);
+  if (item.p_veh != null) parts.push(`${item.p_veh} ${wp('(veh)')}`);
   return parts.length > 0 ? parts.join(' · ') : '—';
 }
 ---
@@ -23,7 +24,7 @@ function pts(item: ArmoryItem): string {
       <div class="equipment-card">
         <div class="equipment-header">
           {clan && <img src={clan.icon} alt={clan.name} title={clan.name} width="18" height="18" class="clan-icon" />}
-          <span class="equipment-name">{item.name}</span>
+          <span class="equipment-name">{wn(item.name)}</span>
           <span class="equipment-pts">{pts(item)}</span>
         </div>
         {item.desc && <p class="equipment-desc">{localiseAbility(item.desc)}</p>}

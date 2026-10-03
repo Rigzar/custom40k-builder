@@ -4,12 +4,13 @@ interface Props {
   symbol: string;
   href?: string;
 }
+import { wn } from '../lib/loc';
 const { label, symbol, href } = Astro.props;
 const Tag = href ? 'a' : 'div';
 ---
 <Tag href={href} class="faction-header">
   <img src={`/faction-symbols/${symbol}`} alt={`${label} symbol`} width="36" height="36" />
-  <span>{label}</span>
+  <span>{wn(label)}</span>
 </Tag>
 
 <style>

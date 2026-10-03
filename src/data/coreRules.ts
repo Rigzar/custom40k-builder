@@ -4,6 +4,7 @@ import AB_DE from './abilityTexts.de.json';
 import AB_ES from './abilityTexts.es.json';
 import AB_RU from './abilityTexts.ru.json';
 import AB_JA from './abilityTexts.ja.json';
+import { jaProse } from '../utils/jaProse';
 /**
  * Core Rules glossary — weapon abilities and model special rules.
  * Keys are lowercase, trimmed, with no parameters (parameters are extracted at lookup time).
@@ -899,9 +900,11 @@ export function builtinRuleString(language: string, fullKey: string): string | u
 
 /** The translated text for a glossary field, or the English original when there is none. */
 function localised(key: string, field: 'name' | 'desc', fallback: string): string {
-  return RULE_OVERRIDES[RULE_LANG]?.[ruleKey(key, field)]
-    || (field === 'desc' ? BUILTIN_DESC[RULE_LANG]?.[key] : undefined)
-    || fallback;
+  const found = RULE_OVERRIDES[RULE_LANG]?.[ruleKey(key, field)]
+    || (field === 'desc' ? BUILTIN_DESC[RULE_LANG]?.[key] : undefined);
+  if (!found) return fallback;
+  // Japanese: the names inside the translated prose go into katakana too (src/utils/jaProse.ts).
+  return RULE_LANG === 'ja' && field === 'desc' ? jaProse(found) : found;
 }
 
 /**
@@ -929,7 +932,9 @@ export function localiseAbility(raw: string): string {
   // rather than crash the modal that renders them (GH#199).
   if (typeof raw !== 'string') return raw;
   const k = abilityKey(raw);
-  return RULE_OVERRIDES[RULE_LANG]?.[k] || BUILTIN_AB[RULE_LANG]?.[k] || raw;
+  const found = RULE_OVERRIDES[RULE_LANG]?.[k] || BUILTIN_AB[RULE_LANG]?.[k];
+  if (!found) return raw;
+  return RULE_LANG === 'ja' ? jaProse(found) : found;
 }
 
 /**

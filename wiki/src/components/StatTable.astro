@@ -1,6 +1,7 @@
 ---
 import type { Model } from '../vendor/src/types/data';
 import { wt } from '../lib/i18n';
+import { wn, wp } from '../lib/loc';
 
 interface Props {
   models: Model[];
@@ -21,13 +22,13 @@ const usedCols = cols.filter(c => models.some(m => m.stats[c] !== undefined));
         <th class="col-pts">{wt('colPts')}</th>
         <th>{wt('colMin')}</th>
         <th>{wt('colMax')}</th>
-        {usedCols.map(c => <th class={COMBAT_COLS.has(c) ? 'col-stat' : ''}>{c}</th>)}
+        {usedCols.map(c => <th class={COMBAT_COLS.has(c) ? 'col-stat' : ''}>{wp(c)}</th>)}
       </tr>
     </thead>
     <tbody>
       {models.map((m, i) => (
         <tr class={i % 2 === 1 ? 'alt' : ''}>
-          <td class="col-name">{m.name}</td>
+          <td class="col-name">{wn(m.name)}</td>
           <td class="col-pts">{m.points}</td>
           <td class="col-dim">{m.min}</td>
           <td class="col-dim">{m.max}</td>

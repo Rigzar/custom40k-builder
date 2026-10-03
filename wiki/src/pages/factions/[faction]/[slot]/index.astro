@@ -6,7 +6,8 @@ import { getFactionUnits } from '../../../../lib/units';
 import { getSlotIcon } from '../../../../lib/slots';
 import { slugify } from '../../../../lib/slugs';
 import { ESCALATION_FACTIONS } from '../../../../lib/factionMeta';
-import { wt, wtSlot } from '../../../../lib/i18n';
+import { wt } from '../../../../lib/i18n';
+import { wn, wp, wSlot } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -29,21 +30,21 @@ const hasEscalation = ESCALATION_FACTIONS.includes(factionKey!);
 const unitNames = (slot_to_units[slotLabel] ?? []).filter(n => units[n]);
 const slotIcon = getSlotIcon(slotLabel);
 ---
-<Layout title={`${slotLabel} — ${config.label} — Custom40k Wiki`}>
+<Layout title={`${wSlot(slotLabel)} — ${wn(config.label)} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> /
-    {wtSlot(slotLabel)}
+    <a href={`/factions/${factionKey}`}>{wn(config.label)}</a> /
+    {wSlot(slotLabel)}
   </p>
 
   <h1 class="slot-heading">
     {slotIcon && <img src={slotIcon} alt="" width="26" height="26" />}
-    {wtSlot(slotLabel)}
+    {wSlot(slotLabel)}
     {slotLabel === 'Lords of War' && hasEscalation && (
       <img
         src="/faction-symbols/escalation.svg"
-        alt="Escalation supplement"
-        title="Unlocked via the Escalation supplement (Epic Battle engagement)"
+        alt={wp('Escalation supplement')}
+        title={wp('Unlocked via the Escalation supplement (Epic Battle engagement)')}
         width="18" height="18"
         class="supplement-badge"
       />

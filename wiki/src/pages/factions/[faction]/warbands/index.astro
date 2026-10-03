@@ -4,6 +4,7 @@ import UnitCard from '../../../../components/UnitCard.astro';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionUnits } from '../../../../lib/units';
 import { wt } from '../../../../lib/i18n';
+import { wn, wp } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   return [{ params: { faction: 'inquisition' } }];
@@ -16,28 +17,22 @@ const { units, slot_to_units } = await getFactionUnits(factionKey!);
 const specialistNames = (slot_to_units['Elites'] ?? []).filter(n => units[n]);
 const warbandNames    = (slot_to_units['Troops'] ?? []).filter(n => n === 'Henchman Warband' && units[n]);
 ---
-<Layout title={`Warbands — ${config.label} — Custom40k Wiki`}>
+<Layout title={`${wt('headingWarbands')} — ${wn(config.label)} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> /
+    <a href={`/factions/${factionKey}`}>{wn(config.label)}</a> /
     {wt('headingWarbands')}
   </p>
 
-  <h1>Inquisitor Warbands</h1>
+  <h1>{wp('Inquisitor Warbands')}</h1>
 
   <div class="warband-intro reveal">
-    <p>
-      Every Inquisitor may select a single <strong>Henchman Warband</strong> and must start the
-      game attached to it. A Warband consists of specialists chosen from the list below.
-      An Inquisitor may select up to <strong>6 specialist models</strong>; an
-      <strong>Inquisitor Lord</strong> may select up to <strong>12</strong>.
-      Each specialist type may only be added once.
-    </p>
+    <p set:html={wp('Every Inquisitor may select a single <strong>Henchman Warband</strong> and must start the game attached to it. A Warband consists of specialists chosen from the list below. An Inquisitor may select up to <strong>6 specialist models</strong>; an <strong>Inquisitor Lord</strong> may select up to <strong>12</strong>. Each specialist type may only be added once.')} />
   </div>
 
   {warbandNames.length > 0 && (
     <section class="reveal">
-      <h2 class="sec-heading">Henchman Warband</h2>
+      <h2 class="sec-heading">{wp('Henchman Warband')}</h2>
       <div class="unit-grid">
         {warbandNames.map(name => (
           <UnitCard unit={units[name]} factionKey={factionKey!} slot="Troops" />
@@ -47,7 +42,7 @@ const warbandNames    = (slot_to_units['Troops'] ?? []).filter(n => n === 'Hench
   )}
 
   <section class="reveal">
-    <h2 class="sec-heading">Warband Specialists</h2>
+    <h2 class="sec-heading">{wp('Warband Specialists')}</h2>
     <div class="unit-grid">
       {specialistNames.map(name => (
         <UnitCard unit={units[name]} factionKey={factionKey!} slot="Elites" />

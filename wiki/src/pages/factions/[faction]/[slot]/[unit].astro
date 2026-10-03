@@ -7,7 +7,8 @@ import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionUnits } from '../../../../lib/units';
 import { slugify } from '../../../../lib/slugs';
 import { getSlotIcon } from '../../../../lib/slots';
-import { wt, wtSlot, wtModels } from '../../../../lib/i18n';
+import { wt, wtModels } from '../../../../lib/i18n';
+import { wn, wp, wPhrase, wEquipped, wUnitType, wSlot } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -41,13 +42,13 @@ const costLabel = unit.models.length === 1
   ? `${unit.min_cost} ${wt('ptsWord')}`
   : `${unit.min_cost}+ ${wt('ptsWord')}`;
 ---
-<Layout title={`${unit.name} — ${factionLabel} — Custom40k Wiki`}>
+<Layout title={`${wn(unit.name)} — ${wn(factionLabel)} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
-    <a href={`/factions/${factionKey}`}>{factionLabel}</a> /
+    <a href={`/factions/${factionKey}`}>{wn(factionLabel)}</a> /
     <a href={`/factions/${factionKey}/units`}>{wt('crumbUnits')}</a> /
     {slotIcon
-      ? <span class="crumb-slot"><img src={slotIcon} alt="" width="13" height="13" /> {wtSlot(slot)}</span>
+      ? <span class="crumb-slot"><img src={slotIcon} alt="" width="13" height="13" /> {wSlot(slot)}</span>
       : slot}
   </p>
 
@@ -58,12 +59,12 @@ const costLabel = unit.models.length === 1
       {slotIcon && (
         <span class="unit-slot-pill">
           <img src={slotIcon} alt="" width="14" height="14" />
-          {slot}
+          {wSlot(slot)}
         </span>
       )}
     </div>
-    <h1 class="unit-name">{unit.name}</h1>
-    <p class="unit-type-line">{unit.unit_type}</p>
+    <h1 class="unit-name">{wn(unit.name)}</h1>
+    <p class="unit-type-line">{wUnitType(unit.unit_type)}</p>
     <div class="unit-meta-row">
       <span class="meta-cost">{costLabel}</span>
       {(minModels > 0 && maxModels > 0) && (
@@ -80,21 +81,21 @@ const costLabel = unit.models.length === 1
       {unit.has_armory_access && <span class="u-badge badge-arm">{wt('badgeArmoryAccess')}</span>}
       {unit.champion_has_armory && <span class="u-badge badge-arm">{wt('badgeChampionArmory')}</span>}
       {unit.has_veteran_abilities && <span class="u-badge badge-vet">{wt('badgeVeteran')}</span>}
-      {unit.advisor && <span class="u-badge badge-adv">Advisor</span>}
+      {unit.advisor && <span class="u-badge badge-adv">{wp('Advisor')}</span>}
     </div>
   </div>
 
   <!-- Stats -->
   <section class="reveal">
     <StatTable models={unit.models} />
-    {unit.variant_models.length > 0 && <StatTable models={unit.variant_models} title="Variants" />}
+    {unit.variant_models.length > 0 && <StatTable models={unit.variant_models} title={wp('Variants')} />}
   </section>
 
   <!-- Equipped with -->
   {unit.equipped_with && (
     <p class="equipped-with reveal">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" style="opacity:0.6;vertical-align:middle;margin-right:0.3rem"><path d="M2 10 L6 2 L10 10 L7.5 8.5 L6 11 L4.5 8.5 Z"/></svg>
-      {unit.equipped_with}
+      {wEquipped(unit.equipped_with)}
     </p>
   )}
 
@@ -114,7 +115,7 @@ const costLabel = unit.models.length === 1
         {unit.option_groups.map(g => (
           <div class="option-group">
             <p class="option-header">
-              {g.header}
+              {wPhrase(g.header)}
               {g.inline_pts != null && g.inline_pts > 0 && (
                 <span class="option-pts">+{g.inline_pts} pts</span>
               )}
@@ -123,9 +124,9 @@ const costLabel = unit.models.length === 1
               <ul class="option-choices">
                 {g.choices.map((c: { name: string; points: number }) => (
                   <li>
-                    <span class="choice-name">{c.name}</span>
+                    <span class="choice-name">{wn(c.name)}</span>
                     {c.points > 0 && <span class="choice-pts">+{c.points} pts</span>}
-                    {c.points === 0 && <span class="choice-pts free">free</span>}
+                    {c.points === 0 && <span class="choice-pts free">{wp('free')}</span>}
                   </li>
                 ))}
               </ul>
@@ -145,13 +146,13 @@ const costLabel = unit.models.length === 1
       <div class="fixed-power-card">
         <div class="fixed-power-head">
           <span class="fp-badge">{wt('alwaysKnownBadge')}</span>
-          <span class="fp-name">{unit.fixed_power.name}</span>
+          <span class="fp-name">{wn(unit.fixed_power.name)}</span>
         </div>
         <div class="fp-line">
           {wt('castLabel')} {unit.fixed_power.cast_value ?? '-'}
           {unit.fixed_power.range && unit.fixed_power.range !== '-' ? ` · ${unit.fixed_power.range}` : ''}
-          {unit.fixed_power.duration ? ` · ${unit.fixed_power.duration}` : ''}
-          {unit.fixed_power.effect ? ` — ${unit.fixed_power.effect}` : ''}
+          {unit.fixed_power.duration ? ` · ${wPhrase(unit.fixed_power.duration)}` : ''}
+          {unit.fixed_power.effect ? ` — ${wPhrase(unit.fixed_power.effect)}` : ''}
         </div>
       </div>
     </section>

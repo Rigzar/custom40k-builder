@@ -2,6 +2,7 @@
 import type { Weapon } from '../vendor/src/types/data';
 import { parseAbility, normaliseKey } from '../lib/glossary';
 import { wt } from '../lib/i18n';
+import { wn, wr } from '../lib/loc';
 
 interface Props {
   weapons: Weapon[];
@@ -26,9 +27,9 @@ const { weapons } = Astro.props;
         const parts = w.abilities && w.abilities !== '-' ? parseAbility(w.abilities) : [];
         return (
           <tr class={i % 2 === 1 ? 'alt' : ''}>
-            <td class="col-name">{w.name}</td>
+            <td class="col-name">{wn(w.name)}</td>
             <td class="col-center">{w.range}</td>
-            <td class="col-center col-type">{w.type}</td>
+            <td class="col-center col-type">{wr(w.type)}</td>
             <td class="col-stat">{w.s}</td>
             <td class="col-stat">{w.ap}</td>
             <td class="col-stat">{w.d}</td>
@@ -41,8 +42,8 @@ const { weapons } = Astro.props;
                   <>
                     {pi > 0 && <span class="ability-sep">, </span>}
                     {hasGlossaryEntry
-                      ? <a class="ability-link" href={`/glossary/${encodeURIComponent(key)}`}>{part.displayName}</a>
-                      : <span class="ability-plain">{part.displayName}</span>
+                      ? <a class="ability-link" href={`/glossary/${encodeURIComponent(key)}`}>{wr(part.displayName)}</a>
+                      : <span class="ability-plain">{wr(part.displayName)}</span>
                     }
                   </>
                 );

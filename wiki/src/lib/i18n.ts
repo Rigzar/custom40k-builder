@@ -18,6 +18,7 @@
 import overrides from '../data/wiki-translations.json';
 import { WIKI_BUILTIN } from './i18n-builtin';
 import { setRuleLanguage, localiseAbility } from '../vendor/src/data/coreRules';
+import { jaProse } from '../vendor/src/utils/jaProse';
 import RU_RULES from '../vendor/src/data/ruleDescriptions.ru.json';
 import JA_RULES from '../vendor/src/data/ruleDescriptions.ja.json';
 
@@ -146,5 +147,8 @@ export function wtf(key: WikiKey, vars: Record<string, string | number>): string
 const BUILTIN_RULES: Partial<Record<WikiLang, Record<string, string>>> = { ru: RU_RULES, ja: JA_RULES };
 export function wtContent(namespace: 'glossary' | 'armyRules', id: string, english: string): string {
   const builtin = namespace === 'glossary' ? BUILTIN_RULES[WIKI_LANG]?.[id] : undefined;
-  return O[WIKI_LANG]?.[namespace]?.[id] ?? builtin ?? localiseAbility(english);
+  const found = O[WIKI_LANG]?.[namespace]?.[id] ?? builtin;
+  // Japanese: the game's names inside a translated text go into katakana (the table is set in ./loc).
+  if (found !== undefined) return WIKI_LANG === 'ja' ? jaProse(found) : found;
+  return localiseAbility(english);
 }

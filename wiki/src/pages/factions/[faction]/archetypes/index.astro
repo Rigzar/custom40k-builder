@@ -6,6 +6,7 @@ import { getFactionExtras } from '../../../../lib/factionExtras';
 import { findClanIcon } from '../../../../lib/clans';
 import { getLegacyIcon } from '../../../../lib/legacyIcons';
 import { wt } from '../../../../lib/i18n';
+import { wn, wp } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -25,10 +26,10 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
   return rows;
 }
 ---
-<Layout title={`Army Customisation — ${config.label} — Custom40k Wiki`}>
+<Layout title={`${wt('headingArmyCustomisation')} — ${wn(config.label)} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / {wt('headingArmyCustomisation')}
+    <a href={`/factions/${factionKey}`}>{wn(config.label)}</a> / {wt('headingArmyCustomisation')}
   </p>
   <h1>{wt('headingArmyCustomisation')}</h1>
 
@@ -45,7 +46,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
             <div class="entry-card">
               <div class="entry-card-title">
                 {icon && <img src={icon} alt="" width="20" height="20" class="entry-icon" />}
-                <span>{a.name}</span>
+                <span>{wn(a.name)}</span>
               </div>
               {a.desc && <p class="entry-desc">{localiseAbility(a.desc)}</p>}
             </div>
@@ -68,7 +69,7 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
             <div class="entry-card">
               <div class="entry-card-title">
                 {icon && <img src={icon} alt="" width="20" height="20" class="entry-icon" />}
-                <span>{l.name}</span>
+                <span>{wn(l.name)}</span>
               </div>
               {l.desc && <p class="entry-desc">{localiseAbility(l.desc)}</p>}
             </div>
@@ -89,12 +90,12 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
           const ptsList = ptsEntries(t);
           return (
             <div class="entry-card">
-              <div class="entry-card-title"><span>{t.name}</span></div>
+              <div class="entry-card-title"><span>{wn(t.name)}</span></div>
               {t.desc && <p class="entry-desc">{localiseAbility(t.desc)}</p>}
               {ptsList.length > 0 && (
                 <div class="pts-row">
                   {ptsList.map(row => (
-                    <span class="pts-pill"><span class="pts-label">{row.label}</span> {row.pts} pts</span>
+                    <span class="pts-pill"><span class="pts-label">{wp(row.label)}</span> {row.pts} pts</span>
                   ))}
                 </div>
               )}

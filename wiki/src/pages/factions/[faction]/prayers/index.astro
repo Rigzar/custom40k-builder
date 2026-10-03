@@ -4,6 +4,7 @@ import { localiseAbility } from '../../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { wt } from '../../../../lib/i18n';
+import { wn, wp, wPhrase, wRange } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -38,25 +39,25 @@ const PRAYER_LABELS: Record<string, string> = {
   tau_empire:        'Mantras',
   // chaos_space_marines → 'Prayers' (default); handled separately for '& Pacts'
 };
-const prayerLabel = PRAYER_LABELS[factionKey!] ?? 'Prayers';
+const prayerLabel = wp(PRAYER_LABELS[factionKey!] ?? 'Prayers');
 const prayerSingular: Record<string, string> = {
   Litanies: 'Litany', Mantras: 'Mantra', Prayers: 'Prayer',
 };
-const prayerColHead = prayerSingular[prayerLabel] ?? prayerLabel;
-const pageTitle = hasPacts ? `${prayerLabel} & Pacts` : prayerLabel;
+const prayerColHead = wp(prayerSingular[PRAYER_LABELS[factionKey!] ?? 'Prayers'] ?? 'Prayer');
+const pageTitle = hasPacts ? wp('Prayers & Pacts') : prayerLabel;
 
 const tabs = [
   ...(hasPrayers ? [{ id: tabId('prayers'), label: prayerLabel, icon: `/faction-symbols/${config.symbol}` }] : []),
-  ...(hasPacts   ? [{ id: tabId('pacts'),   label: 'Daemonic Pacts', icon: '/faction-symbols/chaos-daemons.svg' }] : []),
+  ...(hasPacts   ? [{ id: tabId('pacts'),   label: wp('Daemonic Pacts'), icon: '/faction-symbols/chaos-daemons.svg' }] : []),
 ];
 ---
-<Layout title={`${pageTitle} — ${config.label} — Custom40k Wiki`}>
+<Layout title={`${pageTitle} — ${wn(config.label)} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / {pageTitle}
+    <a href={`/factions/${factionKey}`}>{wn(config.label)}</a> / {pageTitle}
   </p>
   <h1>{pageTitle}</h1>
-  <p class="page-note">These are <strong>not</strong> psychic powers. They are spoken by specific non-psyker units (e.g. Dark Apostle, Chaplain) or represent pacts made with daemons. No Warp charge is required.</p>
+  <p class="page-note" set:html={wp('These are <strong>not</strong> psychic powers. They are spoken by specific non-psyker units (e.g. Dark Apostle, Chaplain) or represent pacts made with daemons. No Warp charge is required.')} />
 
   {!singleTab && (
     <div class="tab-bar" role="tablist">
@@ -81,26 +82,26 @@ const tabs = [
         <thead>
           <tr>
             <th>{prayerColHead}</th>
-            <th>Type</th>
-            <th>Range</th>
-            <th>Target</th>
-            <th>Cast</th>
-            <th>Effect</th>
-            <th>Duration</th>
-            <th>Complexity</th>
+            <th>{wt('colType')}</th>
+            <th>{wt('colRange')}</th>
+            <th>{wt('colTarget')}</th>
+            <th>{wt('colCast')}</th>
+            <th>{wp('Effect')}</th>
+            <th>{wp('Duration')}</th>
+            <th>{wp('Complexity')}</th>
           </tr>
         </thead>
         <tbody>
           {prayers!.map(p => (
             <tr>
-              <td class="power-name">{p.name}</td>
-              <td class="center">{p.type ?? '-'}</td>
-              <td class="center">{p.range ?? '-'}</td>
-              <td class="center">{p.target ?? '-'}</td>
+              <td class="power-name">{wn(p.name)}</td>
+              <td class="center">{p.type ? wPhrase(p.type) : '-'}</td>
+              <td class="center">{p.range ? wRange(p.range) : '-'}</td>
+              <td class="center">{p.target ? wPhrase(p.target) : '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
               <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
-              <td class="center">{p.duration ?? '-'}</td>
-              <td class="center">{p.complexity ?? '-'}</td>
+              <td class="center">{p.duration ? wPhrase(p.duration) : '-'}</td>
+              <td class="center">{p.complexity ? wp(p.complexity) : '-'}</td>
             </tr>
           ))}
         </tbody>
@@ -110,31 +111,31 @@ const tabs = [
 
   {hasPacts && (
     <div id={tabId('pacts')} class={`tab-panel${!hasPrayers ? ' active' : ''}`}>
-      {singleTab && <h2>Daemonic Pacts</h2>}
+      {singleTab && <h2>{wp('Daemonic Pacts')}</h2>}
       <table class="power-table">
         <thead>
           <tr>
-            <th>Pact</th>
-            <th>Type</th>
-            <th>Range</th>
-            <th>Target</th>
-            <th>Cast</th>
-            <th>Effect</th>
-            <th>Duration</th>
-            <th>Complexity</th>
+            <th>{wp('Pact')}</th>
+            <th>{wt('colType')}</th>
+            <th>{wt('colRange')}</th>
+            <th>{wt('colTarget')}</th>
+            <th>{wt('colCast')}</th>
+            <th>{wp('Effect')}</th>
+            <th>{wp('Duration')}</th>
+            <th>{wp('Complexity')}</th>
           </tr>
         </thead>
         <tbody>
           {pacts!.map(p => (
             <tr>
-              <td class="power-name">{p.name}</td>
-              <td class="center">{p.type ?? '-'}</td>
-              <td class="center">{p.range ?? '-'}</td>
-              <td class="center">{p.target ?? '-'}</td>
+              <td class="power-name">{wn(p.name)}</td>
+              <td class="center">{p.type ? wPhrase(p.type) : '-'}</td>
+              <td class="center">{p.range ? wRange(p.range) : '-'}</td>
+              <td class="center">{p.target ? wPhrase(p.target) : '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
               <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
-              <td class="center">{p.duration ?? '-'}</td>
-              <td class="center">{p.complexity ?? '-'}</td>
+              <td class="center">{p.duration ? wPhrase(p.duration) : '-'}</td>
+              <td class="center">{p.complexity ? wp(p.complexity) : '-'}</td>
             </tr>
           ))}
         </tbody>

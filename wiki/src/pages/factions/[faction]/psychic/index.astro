@@ -3,8 +3,9 @@ import Layout from '../../../../components/Layout.astro';
 import { localiseAbility } from '../../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
-import { GENERAL_DISCIPLINES } from '../../../../lib/generalDisciplines';
+import { GENERAL_DISCIPLINES } from '../../../../vendor/src/data/generalDisciplines';
 import { wt } from '../../../../lib/i18n';
+import { wn, wp, wPhrase, wRange } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -57,11 +58,11 @@ function getDiscIcon(name: string): string {
   return DISC_ICONS[factionKey!]?.[name] ?? `/faction-symbols/${config.symbol}`;
 }
 ---
-<Layout title={`Psychic Powers — ${config.label} — Custom40k Wiki`}>
+<Layout title={`${wt('headingPsychicPowers')} — ${wn(config.label)} — Custom40k Wiki`}>
   <!-- Disciplines only: prayers and pacts have their own page at /prayers -->
   <p class="crumbs">
     <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / {wt('headingPsychicPowers')}
+    <a href={`/factions/${factionKey}`}>{wn(config.label)}</a> / {wt('headingPsychicPowers')}
   </p>
   <h1>{wt('headingPsychicPowers')}</h1>
 
@@ -77,7 +78,7 @@ function getDiscIcon(name: string): string {
             aria-selected={i === 0 ? 'true' : 'false'}
           >
             {icon && <img src={icon} alt="" width="16" height="16" class="tab-icon" />}
-            {name}
+            {wn(name)}
           </button>
         );
       })}
@@ -86,11 +87,11 @@ function getDiscIcon(name: string): string {
 
   {disciplineNames.map((name, i) => (
     <div id={tabId(name)} class={`tab-panel${(singleTab || i === 0) ? ' active' : ''}`}>
-      {singleTab && <h2>{name}</h2>}
+      {singleTab && <h2>{wn(name)}</h2>}
       {!singleTab && (
         <div class="disc-header">
           {getDiscIcon(name) && <img src={getDiscIcon(name)!} alt="" width="28" height="28" class="disc-icon" />}
-          <span class="disc-name">{name}</span>
+          <span class="disc-name">{wn(name)}</span>
         </div>
       )}
       <table class="power-table">
@@ -101,22 +102,22 @@ function getDiscIcon(name: string): string {
             <th>{wt('colRange')}</th>
             <th>{wt('colTarget')}</th>
             <th>{wt('colCast')}</th>
-            <th>Effect</th>
-            <th>Duration</th>
-            <th>Complexity</th>
+            <th>{wp('Effect')}</th>
+            <th>{wp('Duration')}</th>
+            <th>{wp('Complexity')}</th>
           </tr>
         </thead>
         <tbody>
           {allDisciplines[name].map(p => (
             <tr>
-              <td class="power-name">{p.name}</td>
-              <td class="center">{p.type ?? '-'}</td>
-              <td class="center">{p.range ?? '-'}</td>
-              <td class="center">{p.target ?? '-'}</td>
+              <td class="power-name">{wn(p.name)}</td>
+              <td class="center">{p.type ? wPhrase(p.type) : '-'}</td>
+              <td class="center">{p.range ? wRange(p.range) : '-'}</td>
+              <td class="center">{p.target ? wPhrase(p.target) : '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
               <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
-              <td class="center">{p.duration ?? '-'}</td>
-              <td class="center">{p.complexity ?? '-'}</td>
+              <td class="center">{p.duration ? wPhrase(p.duration) : '-'}</td>
+              <td class="center">{p.complexity ? wp(p.complexity) : '-'}</td>
             </tr>
           ))}
         </tbody>

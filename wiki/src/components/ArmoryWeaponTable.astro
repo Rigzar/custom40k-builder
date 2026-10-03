@@ -1,6 +1,8 @@
 ---
 import type { ArmoryItem } from '../vendor/src/types/data';
 import { parseAbility, normaliseKey } from '../lib/glossary';
+import { wt } from '../lib/i18n';
+import { wn, wr, wp } from '../lib/loc';
 
 interface Props {
   items: ArmoryItem[];
@@ -9,9 +11,9 @@ const { items } = Astro.props;
 
 function pts(item: ArmoryItem): string {
   const parts: string[] = [];
-  if (item.p_unit != null) parts.push(`${item.p_unit}/model`);
-  if (item.p_char != null) parts.push(`${item.p_char} (char)`);
-  if (item.p_veh != null) parts.push(`${item.p_veh} (veh)`);
+  if (item.p_unit != null) parts.push(`${item.p_unit}${wp('/model')}`);
+  if (item.p_char != null) parts.push(`${item.p_char} ${wp('(char)')}`);
+  if (item.p_veh != null) parts.push(`${item.p_veh} ${wp('(veh)')}`);
   return parts.length > 0 ? parts.join(' · ') : '—';
 }
 
@@ -19,13 +21,13 @@ interface Row { label: string; range: string; type: string; s: string; ap: strin
 const rows: Row[] = items.flatMap(item => {
   if (item.profiles && item.profiles.length > 0) {
     return item.profiles.map(p => ({
-      label: `${item.name} — ${p.name}`,
+      label: `${wn(item.name)} — ${wn(p.name)}`,
       range: p.range, type: p.type, s: p.s, ap: p.ap, d: p.d, abilities: p.abilities,
       points: pts(item),
     }));
   }
   return [{
-    label: item.name,
+    label: wn(item.name),
     range: item.range ?? '—', type: item.type ?? '—', s: item.s ?? '—', ap: item.ap ?? '—', d: item.d ?? '—',
     abilities: item.abilities ?? '—',
     points: pts(item),
@@ -36,14 +38,14 @@ const rows: Row[] = items.flatMap(item => {
   <table class="weapon-table">
     <thead>
       <tr>
-        <th class="col-name">Weapon</th>
-        <th>Range</th>
-        <th>Type</th>
+        <th class="col-name">{wt('colWeapon')}</th>
+        <th>{wt('colRange')}</th>
+        <th>{wt('colType')}</th>
         <th class="col-stat">S</th>
         <th class="col-stat">AP</th>
         <th class="col-stat">D</th>
-        <th class="col-abilities">Abilities</th>
-        <th class="col-pts">Points</th>
+        <th class="col-abilities">{wt('colAbilities')}</th>
+        <th class="col-pts">{wp('Points')}</th>
       </tr>
     </thead>
     <tbody>
@@ -53,7 +55,7 @@ const rows: Row[] = items.flatMap(item => {
           <tr class={i % 2 === 1 ? 'alt' : ''}>
             <td class="col-name">{r.label}</td>
             <td class="col-center">{r.range}</td>
-            <td class="col-center col-type">{r.type}</td>
+            <td class="col-center col-type">{wr(r.type)}</td>
             <td class="col-stat">{r.s}</td>
             <td class="col-stat">{r.ap}</td>
             <td class="col-stat">{r.d}</td>
@@ -66,8 +68,8 @@ const rows: Row[] = items.flatMap(item => {
                   <>
                     {pi > 0 && <span class="ability-sep">, </span>}
                     {hasGlossaryEntry
-                      ? <a class="ability-link" href={`/glossary/${encodeURIComponent(key)}`}>{part.displayName}</a>
-                      : <span class="ability-plain">{part.displayName}</span>
+                      ? <a class="ability-link" href={`/glossary/${encodeURIComponent(key)}`}>{wr(part.displayName)}</a>
+                      : <span class="ability-plain">{wr(part.displayName)}</span>
                     }
                   </>
                 );
