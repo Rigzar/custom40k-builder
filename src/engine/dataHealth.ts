@@ -38,6 +38,8 @@ const INFORMATIONAL_HEADER_RE = new RegExp([
 
 const FREE_SLOT_RE = /doesn'?t take (a|an) .*slot|does not (occupy|take up) (a|an) .*slot|without using (a|an|up)/i;
 const baseName = (n: string) => n.split(' - ')[0];
+/** The weapon's name without its mode, in either spelling: "Bolt rifle - Bolt ammo" and "Bolt rifle (Bolt ammo)" are both "bolt rifle". */
+const bareWeapon = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim().toLowerCase();
 
 /** Load every faction's data and run all checks. Returns findings grouped-friendly (flat list). */
 export async function runDataHealth(): Promise<HealthFinding[]> {
@@ -81,10 +83,14 @@ export async function runDataHealth(): Promise<HealthFinding[]> {
       }
       // F) replaces referencing a weapon not on the unit
       const weaponNames = new Set((unit.weapons ?? []).flatMap(w => [w.name, baseName(w.name)]));
+      // The sheets write a multi-profile weapon's modes with a dash ("Bolt rifle - Bolt ammo") and our
+      // option lists with brackets ("Bolt rifle (Bolt ammo)"); the app treats both as one weapon, so
+      // the check must too, or it reports 27 phantom "ghost" weapons.
+      const bareWeaponNames = new Set((unit.weapons ?? []).map(w => bareWeapon(w.name)));
       const choiceNames = new Set((unit.option_groups ?? []).flatMap(g => g.choices.map(c => c.name)));
       for (const g of unit.option_groups ?? []) {
         for (const r of g.replaces ?? []) {
-          if (!(weaponNames.has(r) || choiceNames.has(r) || (unit.equipped_with?.includes(r) ?? false))) {
+          if (!(weaponNames.has(r) || bareWeaponNames.has(bareWeapon(r)) || choiceNames.has(r) || (unit.equipped_with?.includes(r) ?? false))) {
             findings.push({ category: 'F', faction: slug, unit: unit.name, message: `"${g.header}".replaces: "${r}" not in weapons[]/choices/equipped_with` });
           }
         }
@@ -103,7 +109,9 @@ export async function runDataHealth(): Promise<HealthFinding[]> {
       }
       // H) duplicate weapon names
       const seen = new Map<string, number>();
-      for (const w of unit.weapons ?? []) seen.set(w.name, (seen.get(w.name) ?? 0) + 1);
+      // Rows starting with "-" ("- Melee", "- Charge") are the sub-profiles of whichever weapon sits
+      // above them, so the same text under two different weapons is not a duplicate.
+      for (const w of unit.weapons ?? []) { if (!w.name.trim().startsWith('-')) seen.set(w.name, (seen.get(w.name) ?? 0) + 1); }
       for (const [name, count] of seen) {
         if (count > 1) findings.push({ category: 'H', faction: slug, unit: unit.name, message: `weapon "${name}" appears ${count}× in weapons[]` });
       }

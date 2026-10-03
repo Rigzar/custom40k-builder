@@ -679,8 +679,14 @@ async function updateUnits(req, res) {
       body: JSON.stringify({ ref: process.env.GITHUB_REF || 'main', inputs: { requested_by: who } }),
     });
     if (r.status !== 204) {
-      const detail = (await r.text()).slice(0, 300);
-      return res.status(502).json({ error: `GitHub answered ${r.status}`, detail });
+      // Say what GitHub said: a bare "403" does not tell the admin which permission is missing.
+      const raw = (await r.text()).slice(0, 400);
+      let why = raw;
+      try { why = JSON.parse(raw).message || raw; } catch { /* not JSON */ }
+      const hint = r.status === 403 || r.status === 404
+        ? ' The token needs "Actions: Read and write" on this repository (a fine-grained token) or the "workflow" scope (a classic one).'
+        : '';
+      return res.status(502).json({ error: `GitHub answered ${r.status}: ${why}.${hint}`, detail: raw });
     }
     await logAction(adminId, 'update_units', null, null, 'dispatch');
     res.status(200).json({ ok: true });

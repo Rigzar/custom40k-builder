@@ -45,6 +45,25 @@ jobs:
 
       - run: npm ci
 
+      # The script walks every faction x slot and does iterdir() on processed/<faction>/<slot> and
+      # data/parsed/<faction>/units/<slot>. Git does not store empty folders, so a slot a faction has
+      # no units in (Custodes' fortifications) exists on Unwise's PC but not in a fresh checkout, and
+      # the run died with FileNotFoundError (first run, 2026-10-03). Recreate them here.
+      - name: Create the empty slot folders the script expects
+        working-directory: UnwiseGetData
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          cats = ["hq","troops","elites","fast_attack","heavy_support","dedicated_transport","fortifications","flyers"]
+          for line in open("factions.csv"):
+              if not line.strip():
+                  continue
+              f = line.split(",")[0].lower().replace(" ", "_").replace("'", "").replace("\u00b4", "")
+              for c in cats:
+                  Path(f"processed/{f}/{c}").mkdir(parents=True, exist_ok=True)
+                  Path(f"../data/parsed/{f}/units/{c}").mkdir(parents=True, exist_ok=True)
+          PY
+
       - name: Run Unwise's update (downloads every sheet, takes a few minutes)
         working-directory: UnwiseGetData
         run: python update_units.py
