@@ -65,8 +65,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Codex versions", "The update also checks every sheet's title and moves the version badge when the author ships a new codex number."],
         ["Rule texts translated", "Archetypes, the Armory, psychic powers, prayers, army rules and the faction introductions are now in German, Spanish, Russian and Japanese, in the app and on the wiki. Russian headings use a font that has Cyrillic."],
       ] },
-      { label: "Reviewed after the first automatic updates", rows: [
-        ["Glued sentences", "The script had joined the \"equipped with\" sentences of 35 units into one run (\"…knife.A Biologus…\"). Fixed in the data and in the script."],
+      { label: "Also fixed", rows: [
         ["Razorback", "The pairing \"Lascannon and Twin plasma gun\" shows its own name and one price, and the swap header says Twin heavy flamer."],
         ["Sheets", "Traitor Guard Meltagun, Harpy header, Foetid Virion options (Biologus Putrifier +10, Plague Surgeon +5) and the Chaos Decimator follow the sheets."],
       ] },
@@ -84,8 +83,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Codex-Versionen", "Das Update prüft außerdem den Titel jedes Blatts und setzt das Versionsabzeichen um, wenn der Autor eine neue Codex-Nummer veröffentlicht."],
         ["Regeltexte übersetzt", "Archetypen, Armory, psychische Kräfte, Prayers, Armeeregeln und die Fraktionseinführungen gibt es jetzt auf Deutsch, Spanisch, Russisch und Japanisch, in der App und im Wiki. Russische Überschriften nutzen eine Schrift mit Kyrillisch."],
       ] },
-      { label: "Nach den ersten automatischen Updates geprüft", rows: [
-        ["Zusammengeklebte Sätze", "Das Skript hatte die „equipped with“-Sätze von 35 Einheiten zu einem Block verklebt („…knife.A Biologus…“). In den Daten und im Skript behoben."],
+      { label: "Außerdem behoben", rows: [
         ["Razorback", "Die Paarung „Lascannon and Twin plasma gun“ zeigt ihren eigenen Namen und einen Preis, und die Tausch-Überschrift nennt den Twin heavy flamer."],
         ["Datenblätter", "Meltagun der Traitor Guard, Harpy-Überschrift, Optionen des Foetid Virion (Biologus Putrifier +10, Plague Surgeon +5) und der Chaos Decimator folgen den Blättern."],
       ] },
@@ -103,8 +101,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Versiones de códex", "La actualización también comprueba el título de cada hoja y mueve la insignia de versión cuando el autor publica un número nuevo de códex."],
         ["Textos de reglas traducidos", "Arquetipos, Armory, poderes psíquicos, prayers, reglas de ejército y las introducciones de facción están en alemán, español, ruso y japonés, en la app y en la wiki. Los títulos en ruso usan una fuente con cirílico."],
       ] },
-      { label: "Revisado tras las primeras actualizaciones automáticas", rows: [
-        ["Frases pegadas", "El script había unido las frases «equipped with» de 35 unidades en una sola tirada («…knife.A Biologus…»). Corregido en los datos y en el script."],
+      { label: "También corregido", rows: [
         ["Razorback", "La pareja «Lascannon and Twin plasma gun» muestra su propio nombre y un solo precio, y la cabecera del cambio dice Twin heavy flamer."],
         ["Hojas", "El Meltagun del Traitor Guard, la cabecera del Harpy, las opciones del Foetid Virion (Biologus Putrifier +10, Plague Surgeon +5) y el Chaos Decimator siguen las hojas."],
       ] },
@@ -122,8 +119,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Версии кодексов", "Обновление также проверяет название каждого листа и меняет значок версии, когда автор выпускает новый номер кодекса."],
         ["Тексты правил переведены", "Архетипы, Armory, псионические силы, prayers, правила армии и описания фракций теперь на немецком, испанском, русском и японском — в приложении и на вики. Русские заголовки используют шрифт с кириллицей."],
       ] },
-      { label: "Проверено после первых автоматических обновлений", rows: [
-        ["Склеенные предложения", "Скрипт склеил предложения «equipped with» у 35 юнитов в одну строку («…knife.A Biologus…»). Исправлено в данных и в скрипте."],
+      { label: "Также исправлено", rows: [
         ["Razorback", "Пара «Lascannon and Twin plasma gun» показывает своё название и одну цену, а заголовок замены говорит Twin heavy flamer."],
         ["Листы", "Meltagun у Traitor Guard, заголовок Harpy, опции Foetid Virion (Biologus Putrifier +10, Plague Surgeon +5) и Chaos Decimator следуют листам."],
       ] },
@@ -141,8 +137,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["コデックスのバージョン", "更新では各シートのタイトルも確認し、作者が新しいコデックス番号を公開するとバージョンバッジを移します。"],
         ["ルール文を翻訳", "アーキタイプ、Armory、サイキックパワー、prayer、軍ルール、勢力紹介が、アプリとWikiでドイツ語・スペイン語・ロシア語・日本語になりました。ロシア語の見出しはキリル文字対応のフォントを使います。"],
       ] },
-      { label: "最初の自動更新の後に確認", rows: [
-        ["つながっていた文", "スクリプトが35ユニットの「equipped with」の文を1つに連結していました（「…knife.A Biologus…」）。データとスクリプトの両方で修正しました。"],
+      { label: "その他の修正", rows: [
         ["Razorback", "「Lascannon and Twin plasma gun」の組み合わせは、自身の名前と1つの価格を表示し、交換の見出しはTwin heavy flamerになりました。"],
         ["シート", "Traitor GuardのMeltagun、Harpyの見出し、Foetid Virionのオプション（Biologus Putrifier +10、Plague Surgeon +5）、Chaos Decimatorがシートに従います。"],
       ] },
