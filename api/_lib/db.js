@@ -6,6 +6,7 @@
  * handler that touches the DB — there is no separate migration step to remember to run.
  */
 import { sql } from '@vercel/postgres';
+import { gitfindaSchema } from './gitfinda.js';
 
 let schemaReady = false;
 
@@ -499,6 +500,9 @@ export async function ensureSchema() {
   // what every event created before this column did in practice.
   await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS engagement TEXT`;
   await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS allies_allowed BOOLEAN NOT NULL DEFAULT true`;
+
+  // Gitfinda (looking for a game): posts, time slots, matches and chat.
+  await gitfindaSchema(sql);
 
   schemaReady = true;
 }

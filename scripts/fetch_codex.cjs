@@ -15,7 +15,7 @@
 const XLSX = require('xlsx');
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 /** key → [google sheet id, local filename in Codex/ (null = we hold no copy)] */
 const SHEETS = {
@@ -67,8 +67,8 @@ const keys = wanted.length ? wanted : Object.keys(SHEETS);
  */
 const liveTitle = (id) => {
   try {
-    const head = execSync(
-      `curl -sIL --max-time 30 "https://docs.google.com/spreadsheets/d/${id}/export?format=ods"`,
+    const head = execFileSync('curl',
+      ['-sIL', '--max-time', '30', `https://docs.google.com/spreadsheets/d/${id}/export?format=ods`],
       { encoding: 'utf8', maxBuffer: 1 << 22 });
     const m = head.match(/filename\*?=(?:UTF-8''|")?([^";\r\n]+)/i);
     // The header strips spaces out of the name, so compare on alphanumerics only.
@@ -106,7 +106,7 @@ for (const key of keys) {
   const [id, local] = entry;
   const dest = path.join(CACHE, `${key}.ods`);
   try {
-    execSync(`curl -sL --max-time 120 -o "${dest}" "https://docs.google.com/spreadsheets/d/${id}/export?format=ods"`, { stdio: 'pipe' });
+    execFileSync('curl', ['-sL', '--max-time', '120', '-o', dest, `https://docs.google.com/spreadsheets/d/${id}/export?format=ods`], { stdio: 'pipe' });
   } catch { console.log(`❌ ${key} — download failed`); continue; }
   if (!fs.existsSync(dest) || fs.readFileSync(dest).slice(0, 2).toString('latin1') !== 'PK') {
     console.log(`❌ ${key} — not a spreadsheet (sheet probably not public any more)`);

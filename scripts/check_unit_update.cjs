@@ -14,11 +14,13 @@
  * REVIEW (reported, never blocking — a real sheet edit looks exactly the same): a squad's model
  * names / min / max / default size changed · min cost changed · files added or removed.
  */
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const fs = require('fs');
 
-const sh = (cmd) => execSync(cmd, { encoding: 'utf8', maxBuffer: 1 << 28, stdio: ['pipe', 'pipe', 'ignore'] });
-const changed = sh('git -c core.quotepath=false status --porcelain --untracked-files=all -- data/parsed')
+// git is started directly with an argument list, never through a shell: the file names below come
+// from the repository and may contain anything.
+const git = (...args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 1 << 28, stdio: ['pipe', 'pipe', 'ignore'] });
+const changed = git('-c', 'core.quotepath=false', 'status', '--porcelain', '--untracked-files=all', '--', 'data/parsed')
   .split('\n').filter(Boolean)
   .map(l => ({ st: l.slice(0, 2).trim(), file: l.slice(3).replace(/^"|"$/g, '') }))
   .filter(x => /units\/.*\.json$/.test(x.file));
@@ -73,7 +75,7 @@ for (const { st, file } of changed) {
   if (!Array.isArray(now.models) || !now.models.length) blocking.push(`${short}: no models`);
   if (!now.default_size || !now.min_cost) blocking.push(`${short}: default_size ${now.default_size} / min_cost ${now.min_cost}`);
   let old = null;
-  try { old = JSON.parse(sh(`git show HEAD:${file}`)); } catch { /* new file */ }
+  try { old = JSON.parse(git('show', `HEAD:${file}`)); } catch { /* new file */ }
   if (!old) { added.push(short); continue; }
   if ('variant_models' in old && !('variant_models' in now)) blocking.push(`${short}: lost the variant_models key`);
   const d = diffUnit(old, now);

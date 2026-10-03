@@ -935,6 +935,35 @@ admins, igual que Campaign.
 
 **⚠ Antes de añadir cualquier endpoint en `api/`, lee la nota del tope de funciones de Vercel.**
 
+### Gitfinda — busco partida (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
+
+Un tablón donde los jugadores publican «quiero una partida» (ejército, Skirmish / Pitched / Epic, puntos, una zona horaria IANA y las horas en que están libres), otros navegan y pulsan **Match**, y cada match tiene un chat privado. Hecho según el documento de requisitos de Dominic; **beta** — mira `ki-gitfinda-beta-scope-01` para lo que a propósito aún no hace (sin email, sin bloqueo).
+
+| Archivo | Para qué |
+|---|---|
+| `api/_lib/gitfinda.js` | **Todas las reglas y todo el SQL.** Recibe `sql` como parámetro en vez de importarlo, así se puede probar contra un Postgres real |
+| `api/gitfinda/[action].js` | Una ruta fina: identifica al usuario, elige la acción, convierte un `Refusal` en JSON. Es la **función 12 y última** que permite el plan Hobby de Vercel — fusiona una ruta en otra antes de añadir más |
+| `src/components/GitfindaModal.tsx` | Explorar, Crear, Mis anuncios, Mis matches + chat |
+| `src/lib/gitfindaTime.ts` | Zonas horarias: una franja se escribe como hora de reloj en la zona de quien publica, se guarda como instante y se muestra convertida |
+| `public/gitfinda/*.png` | Los 9 iconos limpios del paquete de maquetas. Los emblemas de facción del paquete NO se usaron (su README avisa de que pueden parecerse a iconografía existente) — los ejércitos usan `public/faction-symbols/` |
+
+Cosas fáciles de hacer mal:
+
+- **Solo se guardan `active` y `cancelled`.** *Expired* (todas las franjas pasaron) y *Matched* (alguien hizo match) se derivan al leer: no hay tarea que ejecutar ni nada que mantener sincronizado.
+- **Un rechazo lleva una clave de traducción** (`gfErrArmy`, …) que el navegador busca, para que el jugador lo lea en su idioma. Un rechazo nuevo necesita la clave en `src/i18n/index.ts` (en, de, es) y en `ru.json` / `ja.json`.
+- **Nunca pongas `t` ni un callback en línea en las dependencias de un hook.** `useT()` devuelve una función nueva en cada render; hacerlo reiniciaba los efectos sin parar (un bucle infinito de peticiones y un chat que se vaciaba solo). El componente guarda los últimos valores en referencias (`useLatest`).
+- **La lista de ejércitos del navegador es una copia de la del servidor** (`GITFINDA_ARMIES` / `ARMIES`); la prueba falla si se separan.
+
+Pruebas — ejecuta las dos tras tocar cualquier cosa:
+
+```
+npm i --no-save @electric-sql/pglite      # una vez; un Postgres solo para desarrollo, en memoria
+node scripts/_gitfinda_test.mjs           # cada regla, contra SQL real
+npx tsx scripts/_gitfinda_time_test.ts    # las zonas horarias, incluidos los cambios de hora
+```
+
+`_gitfinda_test.mjs` se comprobó rompiendo el código a propósito (quitando la comprobación de propiedad, el índice único…) y falló donde debía; haz lo mismo al añadir una regla.
+
 ### El tope de 12 funciones (`api/`)
 
 El plan Hobby de Vercel limita un deploy a **12 funciones serverless** y `api/` está justo en 12.

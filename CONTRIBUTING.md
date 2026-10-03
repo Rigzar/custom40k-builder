@@ -736,6 +736,35 @@ Its first run caught four bugs before the file ever reached the game, the worst 
 `ipairs` stops at the first `nil` hole in a table literal — which silently deleted every prayer's
 range/target/duration line, re-breaking exactly what v1.70 had just fixed. See `tts/README.md`.
 
+### Gitfinda — looking for a game (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
+
+A board where players post "I want a game" (army, Skirmish / Pitched / Epic, points, an IANA time zone and the times they are free), others browse and press **Match**, and each match gets a private chat. Built to Dominic's requirements document; **beta** — see `ki-gitfinda-beta-scope-01` for what it deliberately does not do yet (no email, no blocking).
+
+| File | Job |
+|---|---|
+| `api/_lib/gitfinda.js` | **All the rules and all the SQL.** It receives `sql` as a parameter instead of importing it, so it can be tested against a real Postgres |
+| `api/gitfinda/[action].js` | A thin route: logs the caller in, picks the action, turns a `Refusal` into JSON. It is the **12th and last** Vercel function the Hobby plan allows — fold a route into another before adding any more |
+| `src/components/GitfindaModal.tsx` | Browse, Create, My posts, My matches + chat |
+| `src/lib/gitfindaTime.ts` | Time zones: a slot is typed as wall-clock time in the poster's zone, stored as an instant, shown converted |
+| `public/gitfinda/*.png` | The 9 clean icons from the mockup pack. The pack's faction emblems were NOT used (its README warns they may resemble existing iconography) — armies use `public/faction-symbols/` |
+
+Things that are easy to get wrong:
+
+- **Only `active` and `cancelled` are stored.** *Expired* (every slot has passed) and *Matched* (somebody matched) are derived when read — there is no job to run and nothing to keep in sync.
+- **A refusal carries a translation key** (`gfErrArmy`, …) that the browser looks up, so the player reads it in their own language. A new refusal needs the key in `src/i18n/index.ts` (en, de, es) and `ru.json` / `ja.json`.
+- **Never put `t` or an inline callback in a hook's dependencies.** `useT()` returns a new function on every render; doing it restarted the effects forever (an endless request loop and a chat that emptied itself). The component keeps the latest values in refs (`useLatest`).
+- **The browser's army list is a copy of the server's** (`GITFINDA_ARMIES` / `ARMIES`); the test fails if they drift.
+
+Tests — run both after touching any of it:
+
+```
+npm i --no-save @electric-sql/pglite      # once; a dev-only Postgres that runs in memory
+node scripts/_gitfinda_test.mjs           # every rule, against real SQL
+npx tsx scripts/_gitfinda_time_test.ts    # the time zone maths, including the daylight-saving edges
+```
+
+`_gitfinda_test.mjs` was checked by breaking the code on purpose (dropping the ownership check, the unique index…) and it failed where it should; do the same when you add a rule.
+
 ### When to edit legacy files
 
 `legacies.ts` (top-level) is a thin cross-faction dispatcher — it controls **which disciplines and prayers the psychic modal shows** based on the active legacy, and which extra power a legacy always grants. Each faction's own legacy data (armory-access rules, mark restrictions, discipline/prayer maps) lives in that faction's `codex_<faction>/legacies.ts`, read through the dispatcher.

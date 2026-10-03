@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182c_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -64,6 +64,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["What updates itself", "About 45% of the game data does today: every unit's models, stats, points, weapons, abilities and keywords. The other 55% is still by hand — option lists (22%), the Armory (18%), archetypes (5%), psychic powers and the rest. Roughly 35 of those 55 points are plain text and prices a script can read; about 20 need a person to wire what an option does."],
         ["Codex versions", "The update also checks every sheet's title and moves the version badge when the author ships a new codex number."],
         ["Rule texts translated", "Archetypes, the Armory, psychic powers, prayers, army rules and the faction introductions are now in German, Spanish, Russian and Japanese, in the app and on the wiki. Russian headings use a font that has Cyrillic."],
+        ["Gitfinda (beta)", "A new board to find someone to play with: post your army, points and the times you are free, browse other players' posts with the times shown in your own time zone, match, and chat. Open it from the Gitfinda button on the start page."],
       ] },
       { label: "Also fixed", rows: [
         ["Razorback", "The pairing \"Lascannon and Twin plasma gun\" shows its own name and one price, and the swap header says Twin heavy flamer."],
@@ -83,6 +84,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Was sich selbst aktualisiert", "Heute etwa 45 % der Spieldaten: Modelle, Werte, Punkte, Waffen, Fähigkeiten und Schlüsselwörter jeder Einheit. Die anderen 55 % sind noch Handarbeit — Optionslisten (22 %), das Armory (18 %), Archetypen (5 %), psychische Kräfte und der Rest. Etwa 35 dieser 55 Punkte sind einfacher Text und Preise, die ein Skript lesen kann; etwa 20 brauchen einen Menschen, der festlegt, was eine Option bewirkt."],
         ["Codex-Versionen", "Das Update prüft außerdem den Titel jedes Blatts und setzt das Versionsabzeichen um, wenn der Autor eine neue Codex-Nummer veröffentlicht."],
         ["Regeltexte übersetzt", "Archetypen, Armory, psychische Kräfte, Prayers, Armeeregeln und die Fraktionseinführungen gibt es jetzt auf Deutsch, Spanisch, Russisch und Japanisch, in der App und im Wiki. Russische Überschriften nutzen eine Schrift mit Kyrillisch."],
+        ["Gitfinda (Beta)", "Eine neue Tafel, um Mitspieler zu finden: veröffentliche Armee, Punkte und freie Zeiten, durchsuche die Beiträge anderer mit Zeiten in deiner Zeitzone, matche und chatte. Du öffnest sie mit dem Gitfinda-Knopf auf der Startseite."],
       ] },
       { label: "Außerdem behoben", rows: [
         ["Razorback", "Die Paarung „Lascannon and Twin plasma gun“ zeigt ihren eigenen Namen und einen Preis, und die Tausch-Überschrift nennt den Twin heavy flamer."],
@@ -102,6 +104,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Qué se actualiza solo", "Hoy, alrededor del 45% de los datos del juego: modelos, estadísticas, puntos, armas, habilidades y palabras clave de cada unidad. El otro 55% sigue siendo manual — listas de opciones (22%), la Armory (18%), arquetipos (5%), poderes psíquicos y el resto. Unos 35 de esos 55 puntos son texto y precios que un script puede leer; unos 20 necesitan a una persona que cablee lo que hace cada opción."],
         ["Versiones de códex", "La actualización también comprueba el título de cada hoja y mueve la insignia de versión cuando el autor publica un número nuevo de códex."],
         ["Textos de reglas traducidos", "Arquetipos, Armory, poderes psíquicos, prayers, reglas de ejército y las introducciones de facción están en alemán, español, ruso y japonés, en la app y en la wiki. Los títulos en ruso usan una fuente con cirílico."],
+        ["Gitfinda (beta)", "Un tablón nuevo para encontrar con quién jugar: publica tu ejército, puntos y las horas en que estás libre, mira los anuncios de otros con las horas en tu zona horaria, haz match y chatea. Se abre con el botón de Gitfinda de la pantalla de inicio."],
       ] },
       { label: "También corregido", rows: [
         ["Razorback", "La pareja «Lascannon and Twin plasma gun» muestra su propio nombre y un solo precio, y la cabecera del cambio dice Twin heavy flamer."],
@@ -121,6 +124,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Что обновляется само", "Сегодня около 45% игровых данных: модели, характеристики, очки, оружие, способности и ключевые слова каждого юнита. Остальные 55% пока вручную — списки опций (22%), Armory (18%), архетипы (5%), псионические силы и остальное. Примерно 35 из этих 55 пунктов — обычный текст и цены, которые скрипт может прочитать; около 20 требуют человека, который свяжет, что делает опция."],
         ["Версии кодексов", "Обновление также проверяет название каждого листа и меняет значок версии, когда автор выпускает новый номер кодекса."],
         ["Тексты правил переведены", "Архетипы, Armory, псионические силы, prayers, правила армии и описания фракций теперь на немецком, испанском, русском и японском — в приложении и на вики. Русские заголовки используют шрифт с кириллицей."],
+        ["Gitfinda (бета)", "Новая доска, чтобы найти с кем сыграть: опубликуйте армию, очки и свободное время, смотрите объявления других со временем в вашем часовом поясе, нажимайте «Матч» и общайтесь в чате. Открывается кнопкой Gitfinda на стартовой странице."],
       ] },
       { label: "Также исправлено", rows: [
         ["Razorback", "Пара «Lascannon and Twin plasma gun» показывает своё название и одну цену, а заголовок замены говорит Twin heavy flamer."],
@@ -140,6 +144,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["自動で更新される範囲", "現在、ゲームデータの約45%：各ユニットのモデル、能力値、ポイント、兵器、アビリティ、キーワード。残りの55%は手作業です — オプション一覧（22%）、Armory（18%）、アーキタイプ（5%）、サイキックパワーなど。この55のうち約35は、スクリプトが読み取れる普通のテキストと価格で、約20は、オプションの効果を人が配線する必要があります。"],
         ["コデックスのバージョン", "更新では各シートのタイトルも確認し、作者が新しいコデックス番号を公開するとバージョンバッジを移します。"],
         ["ルール文を翻訳", "アーキタイプ、Armory、サイキックパワー、prayer、軍ルール、勢力紹介が、アプリとWikiでドイツ語・スペイン語・ロシア語・日本語になりました。ロシア語の見出しはキリル文字対応のフォントを使います。"],
+        ["Gitfinda（ベータ）", "対戦相手を見つける新しい掲示板です。軍・ポイント・空いている時間を投稿し、ほかのプレイヤーの投稿を自分のタイムゾーンで見て、マッチしてチャットできます。スタートページのGitfindaボタンから開きます。"],
       ] },
       { label: "その他の修正", rows: [
         ["Razorback", "「Lascannon and Twin plasma gun」の組み合わせは、自身の名前と1つの価格を表示し、交換の見出しはTwin heavy flamerになりました。"],
@@ -380,6 +385,7 @@ interface Props {
   onShowCommunity?: () => void;
   onShowCampaign?: () => void;
   onShowEvents?: () => void;
+  onShowGitfinda?: () => void;
   onShowCheatSheets: () => void;
 }
 
@@ -388,6 +394,7 @@ export function LandingPage({
   onStart, onResume, onLoadArmy, onShowAuth, onShowCloudSaves, onShowCommunity, onShowCheatSheets,
   onShowCampaign,
   onShowEvents,
+  onShowGitfinda,
 }: Props) {
   const { language: wikiLang } = useLanguage();
   // The wiki is built once per language (en at the root, the others under /<code>).
@@ -405,6 +412,15 @@ export function LandingPage({
   const { loggedIn, username, avatar, isAdmin, isInterrogator } = useAuth();
   const refreshUnread = () => { api.getUnreadCount().then(r => setUnread(r.count)).catch(() => {}); };
   useEffect(() => { if (loggedIn) refreshUnread(); else setUnread(0); }, [loggedIn]);
+  // Gitfinda: how many unread chat messages / fresh matches are waiting, shown on its button.
+  const [gfUnread, setGfUnread] = useState(0);
+  useEffect(() => {
+    if (!loggedIn) return;
+    const load = () => api.gitfindaUnread().then(r => setGfUnread(r.unread)).catch(() => {});
+    load();
+    const id = setInterval(load, 60000);
+    return () => clearInterval(id);
+  }, [loggedIn]);
 
   const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
 
@@ -613,6 +629,29 @@ export function LandingPage({
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
                 EVENTS &amp; LEAGUES — SIGN IN
+              </button>
+            )}
+
+            {/* Gitfinda — looking for a game. Open to every signed-in player. */}
+            {loggedIn ? (
+              <button
+                onClick={onShowGitfinda}
+                title={t('gfButtonTitle')}
+                className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-orange-800/70 hover:border-orange-500 text-orange-400/90 hover:text-orange-300 text-[12px] uppercase tracking-wider transition-colors"
+              >
+                <img src="/gitfinda/matched_gits_users.png" alt="" aria-hidden className="w-4 h-4 object-contain" />
+                {t('gfButton')}
+                <span className="border border-orange-500/70 text-orange-300 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
+                {loggedIn && gfUnread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
+              </button>
+            ) : (
+              <button
+                disabled
+                title={t('gfButtonTitle')}
+                className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
+              >
+                {t('gfButtonSignIn')}
+                <span className="border border-zinc-700 text-zinc-500 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
               </button>
             )}
           </div>

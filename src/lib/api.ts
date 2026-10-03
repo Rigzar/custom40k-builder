@@ -971,3 +971,46 @@ export function seedTestPlayers(id: number, players = 4) {
 export function resetTestEvents() {
   return call<{ deleted: number; deletedUsers: number }>('/api/events/reset-test', { method: 'POST' });
 }
+
+// ── Gitfinda: the "looking for a game" board ────────────────────────────────────────────────────
+export type GitfindaEngagement = 'skirmish' | 'pitched' | 'epic';
+export type GitfindaStatus = 'active' | 'matched' | 'cancelled' | 'expired';
+export interface GitfindaSlot { start: string; end: string }
+export interface GitfindaPost {
+  id: number; username: string; army: string; engagement: GitfindaEngagement; points: number;
+  timezone: string; eventId: number | null; eventName: string | null; createdAt: string;
+  slots: GitfindaSlot[]; status: GitfindaStatus;
+  /** Browse only: did I already match this one? */
+  matchedByMe?: boolean;
+  /** My Posts only. */
+  matchCount?: number;
+}
+export interface GitfindaMatch {
+  id: number; createdAt: string; status: string; unread: number; lastMessage: string | null; lastActivity: string;
+  /** The OTHER player. */
+  opponent: string; iAmOwner: boolean; post: GitfindaPost;
+}
+export interface GitfindaMessage { id: number; username: string; mine: boolean; body: string; createdAt: string }
+export interface GitfindaFilters { army?: string; engagement?: string; eventId?: number | ''; q?: string; sort?: string }
+export interface GitfindaNewPost {
+  army: string; engagement: GitfindaEngagement; points: number; timezone: string; eventId: number | null; slots: GitfindaSlot[];
+}
+
+const gfQuery = (o: Record<string, string | number | undefined | null>) => {
+  const p = new URLSearchParams();
+  for (const [k, v] of Object.entries(o)) if (v !== undefined && v !== null && v !== '') p.set(k, String(v));
+  const s = p.toString();
+  return s ? '?' + s : '';
+};
+export const gitfindaEvents = () => call<{ events: { id: number; name: string; isLeague: boolean }[] }>('/api/gitfinda/events');
+export const gitfindaList = (f: GitfindaFilters) => call<{ posts: GitfindaPost[] }>('/api/gitfinda/list' + gfQuery({ ...f }));
+export const gitfindaMyPosts = () => call<{ posts: GitfindaPost[] }>('/api/gitfinda/my-posts');
+export const gitfindaCreate = (p: GitfindaNewPost) => call<{ ok: true; id: number }>('/api/gitfinda/create', { method: 'POST', body: JSON.stringify(p) });
+export const gitfindaCancel = (id: number) => call<{ ok: true }>('/api/gitfinda/cancel', { method: 'POST', body: JSON.stringify({ id }) });
+export const gitfindaMatch = (id: number) => call<{ ok: true; matchId: number }>('/api/gitfinda/match', { method: 'POST', body: JSON.stringify({ id }) });
+export const gitfindaMyMatches = () => call<{ matches: GitfindaMatch[] }>('/api/gitfinda/my-matches');
+export const gitfindaMessages = (matchId: number, after = 0) =>
+  call<{ messages: GitfindaMessage[] }>('/api/gitfinda/messages' + gfQuery({ matchId, after }));
+export const gitfindaSend = (matchId: number, body: string) =>
+  call<{ ok: true; id: number; createdAt: string }>('/api/gitfinda/send', { method: 'POST', body: JSON.stringify({ matchId, body }) });
+export const gitfindaUnread = () => call<{ unread: number }>('/api/gitfinda/unread');

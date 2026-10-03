@@ -13,7 +13,7 @@
  * database) still wins over this default at run time.
  */
 const fs = require('fs');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const dry = process.argv.includes('--dry');
 const fetchSrc = fs.readFileSync('scripts/fetch_codex.cjs', 'utf8');
@@ -28,7 +28,8 @@ const NOT_CANON = new Set(['tyranids_test', 'psychic']);
 
 const liveTitle = (id) => {
   try {
-    const head = execSync(`curl -sIL --max-time 30 "https://docs.google.com/spreadsheets/d/${id}/export?format=ods"`,
+    const head = execFileSync('curl',
+      ['-sIL', '--max-time', '30', `https://docs.google.com/spreadsheets/d/${id}/export?format=ods`],
       { encoding: 'utf8', maxBuffer: 1 << 22 });
     const m = head.match(/filename\*?=(?:UTF-8''|")?([^";\r\n]+)/i);
     return m ? decodeURIComponent(m[1]).replace(/\.ods$/i, '') : null;

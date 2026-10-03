@@ -37,6 +37,7 @@ const AuthModal        = lazy(() => import('./components/AuthModal').then(m => (
 const CloudSavesModal  = lazy(() => import('./components/CloudSavesModal').then(m => ({ default: m.CloudSavesModal })));
 const CampaignModal    = lazy(() => import('./components/CampaignModal').then(m => ({ default: m.CampaignModal })));
 const EventsModal      = lazy(() => import('./components/EventsModal').then(m => ({ default: m.EventsModal })));
+const GitfindaModal    = lazy(() => import('./components/GitfindaModal').then(m => ({ default: m.GitfindaModal })));
 const PrefsModal       = lazy(() => import('./components/PrefsModal').then(m => ({ default: m.PrefsModal })));
 const AdminPanel       = lazy(() => import('./components/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
@@ -185,6 +186,7 @@ export default function App() {
   // Events & Leagues is alpha-gated the same way Campaign is: built, but only reachable by
   // admins until it has been run through with test data (see LandingPage's gated button).
   const [showEvents, setShowEvents]             = useState(false);
+  const [showGitfinda, setShowGitfinda]         = useState(false);
   // Set when opened via the Account tab's "My Campaigns" quick-open, so CampaignModal expands
   // straight to that campaign instead of the plain index.
   const [campaignInitialOpenId, setCampaignInitialOpenId] = useState<number | undefined>(undefined);
@@ -907,6 +909,7 @@ export default function App() {
           }
           onShowCampaign={loggedIn ? () => setShowCampaign(true) : () => setShowAuth(true)}
           onShowEvents={loggedIn ? () => setShowEvents(true) : () => setShowAuth(true)}
+          onShowGitfinda={loggedIn ? () => setShowGitfinda(true) : () => setShowAuth(true)}
           onShowCheatSheets={() => setShowCheatSheets(true)}
         />
       )}
@@ -1173,6 +1176,9 @@ export default function App() {
             canCreate={isAdmin || isInterrogator}
             onClose={() => setShowEvents(false)}
           />
+        )}
+        {showGitfinda && username && (
+          <GitfindaModal username={username} onClose={() => setShowGitfinda(false)} />
         )}
       </Suspense>
 

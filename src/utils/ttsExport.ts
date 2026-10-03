@@ -67,6 +67,8 @@ export interface TtsExport {
     archetype: string; legacy: string; legacy2: string; traits: string[];
   };
   units: TtsUnit[];
+  /** Units that could not be exported, and why. Empty when everything made it. */
+  warnings: string[];
   /** Whole-faction reference, so the table can show rules for things not currently taken. */
   reference: { prayers: Power[]; pacts: Power[]; disciplines: Record<string, Power[]> };
 }
@@ -147,7 +149,9 @@ function splitGroup(g: WeaponGroup, n: number, unit: Unit, label: string, notes:
     const replaced = new Set((choiceOf(ws[0])?.og.replaces ?? []).map(r => bareName(r)));
     // With no `replaces` on the option, drop the base weapons cut by exactly this many models.
     const dropped = (w: Weapon) => (replaced.size ? replaced.has(bareName(w.name)) : countOf(w) === n - k);
-    out.push({ name: ws.map(w => w.name).join(' + '), count: k,
+    // Named after the OPTION taken ("Combi-flamer"), not after every sub-profile row it brought.
+    const optName = [...new Set(ws.map(w => choiceOf(w)?.c.name ?? w.name))].join(' + ');
+    out.push({ name: optName, count: k,
       weapons: [...asRows(shared), ...asRows(base.filter(w => !dropped(w))), ...asRows(ws)] });
   }
   if (used > n) {
@@ -190,11 +194,14 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     ...Object.values(GENERAL_DISCIPLINES),
   ] as unknown[]).filter((p): p is Power[] => Array.isArray(p));
   const units: TtsUnit[] = [];
+  const warnings: string[] = [];
   let total = 0;
 
   for (const item of state.army) {
     const unit = resolveUnit(item, data);
-    if (!unit) continue;
+    // Never drop a unit without saying so: an Allied Detachment whose data was not loaded used to
+    // vanish from the table with nothing to show for it.
+    if (!unit) { warnings.push(`"${item.customName || item.unitName}" (${item.unitName}${item.factionSource ? ', ' + item.factionSource : ''}) could not be resolved and is not in this export`); continue; }
     const rp = resolveUnitProfile(item, unit, state, data);
     total += rp.pts;
 
@@ -307,8 +314,9 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
 
     units.push({
       id: item.id,
-      unitName: item.unitName,
-      displayName: item.customName || item.unitName,
+      // The unit's CURRENT name: a list saved before a rename keeps the old one in item.unitName.
+      unitName: unit.name || item.unitName,
+      displayName: item.customName || unit.name || item.unitName,
       slot: rp.effectiveSlot,
       size: item.size,
       points: rp.pts,
@@ -348,6 +356,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       traits: state.traitPool ?? [],
     },
     units,
+    warnings,
     reference: {
       prayers: data.prayers ?? [],
       pacts: data.pacts ?? [],
@@ -365,7 +374,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
 /** Trigger a browser download of the export. */
 export function downloadTtsExport(state: ArmyState, data: FactionData) {
   const payload = buildTtsExport(state, data);
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

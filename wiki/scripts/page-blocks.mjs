@@ -33,7 +33,9 @@ export function leafBlocks(html) {
       const isLeaf = (BLOCK.has(ch.nodeName) && ch.nodeName !== 'svg' || ch.nodeName === 'text') && !containsBlock(ch);
       if (isLeaf && loc?.startTag && loc?.endTag) {
         const inner = html.slice(loc.startTag.endOffset, loc.endTag.startOffset);
-        const plain = inner.replace(/<[^>]*>/g, '').replace(/[<>]/g, ''); // only used to ask "is there any text here"
+        let plain = inner, before;
+        do { before = plain; plain = plain.replace(/<[^>]*>/g, ''); } while (plain !== before);   // until stable: one pass can leave a tag behind
+        plain = plain.replace(/[<>]/g, ''); // only used to ask "is there any text here"
         if (/[A-Za-z]{2,}/.test(plain)) out.push({ start: loc.startTag.endOffset, end: loc.endTag.startOffset, inner });
         continue;
       }

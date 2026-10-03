@@ -946,6 +946,35 @@ deaktiviert, genau wie bei Campaign.
 
 **⚠ Vor jedem neuen Endpoint unter `api/` das Limit von Vercel-Funktionen beachten.**
 
+### Gitfinda — Spieler gesucht (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
+
+Eine Tafel, auf der Spieler „ich suche ein Spiel“ veröffentlichen (Armee, Skirmish / Pitched / Epic, Punkte, eine IANA-Zeitzone und ihre freien Zeiten); andere durchsuchen sie und drücken **Match**, und jedes Match bekommt einen privaten Chat. Nach Dominics Anforderungsdokument gebaut; **Beta** — was bewusst noch fehlt (keine E-Mail, kein Blockieren), steht in `ki-gitfinda-beta-scope-01`.
+
+| Datei | Aufgabe |
+|---|---|
+| `api/_lib/gitfinda.js` | **Alle Regeln und das ganze SQL.** Es bekommt `sql` als Parameter statt es zu importieren, damit es gegen ein echtes Postgres getestet werden kann |
+| `api/gitfinda/[action].js` | Eine dünne Route: meldet den Aufrufer an, wählt die Aktion, macht aus einem `Refusal` JSON. Sie ist die **12. und letzte** Vercel-Funktion, die der Hobby-Plan erlaubt — leg eine Route in eine andere, bevor du weitere hinzufügst |
+| `src/components/GitfindaModal.tsx` | Durchsuchen, Erstellen, Meine Beiträge, Meine Matches + Chat |
+| `src/lib/gitfindaTime.ts` | Zeitzonen: Eine Zeit wird als Uhrzeit in der Zone des Posters eingegeben, als Zeitpunkt gespeichert und umgerechnet angezeigt |
+| `public/gitfinda/*.png` | Die 9 sauberen Symbole aus dem Mockup-Paket. Die Fraktionsembleme des Pakets wurden NICHT verwendet (die README warnt vor Ähnlichkeit mit bestehender Ikonografie) — Armeen nutzen `public/faction-symbols/` |
+
+Leicht falsch zu machen:
+
+- **Nur `active` und `cancelled` werden gespeichert.** *Expired* (alle Zeiten vorbei) und *Matched* (jemand hat gematcht) werden beim Lesen abgeleitet — es gibt keinen Job und nichts zu synchronisieren.
+- **Eine Ablehnung trägt einen Übersetzungsschlüssel** (`gfErrArmy`, …), den der Browser nachschlägt, damit der Spieler sie in seiner Sprache liest. Eine neue Ablehnung braucht den Schlüssel in `src/i18n/index.ts` (en, de, es) und in `ru.json` / `ja.json`.
+- **Nie `t` oder einen Inline-Callback in die Abhängigkeiten eines Hooks setzen.** `useT()` gibt bei jedem Rendern eine neue Funktion zurück; das startete die Effekte endlos neu (eine Endlosschleife von Anfragen und ein Chat, der sich selbst leerte). Die Komponente hält die letzten Werte in Refs (`useLatest`).
+- **Die Armeeliste des Browsers ist eine Kopie der des Servers** (`GITFINDA_ARMIES` / `ARMIES`); der Test schlägt fehl, wenn sie auseinanderlaufen.
+
+Tests — nach jeder Änderung beide ausführen:
+
+```
+npm i --no-save @electric-sql/pglite      # einmalig; ein reines Entwicklungs-Postgres im Speicher
+node scripts/_gitfinda_test.mjs           # jede Regel, gegen echtes SQL
+npx tsx scripts/_gitfinda_time_test.ts    # die Zeitzonenrechnung, auch die Zeitumstellungen
+```
+
+`_gitfinda_test.mjs` wurde geprüft, indem der Code absichtlich kaputt gemacht wurde (Besitzprüfung, Unique-Index…), und er schlug an der richtigen Stelle fehl; mach dasselbe, wenn du eine Regel hinzufügst.
+
 ### Das 12-Funktionen-Limit (`api/`)
 
 Vercels Hobby-Plan begrenzt ein Deployment auf **12 Serverless-Funktionen**, und `api/` liegt genau
