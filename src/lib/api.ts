@@ -632,6 +632,16 @@ export function adminCheckCodexVersions(ids: Record<string, string>) {
   );
 }
 
+export interface UnitUpdateRun { id: number; status: string; conclusion: string | null; createdAt: string; url: string }
+/** Inquisitor only: asks GitHub to run the unit auto-update (UnwiseGetData/update_units.py) and open a pull request. */
+export function adminRunUnitUpdate() {
+  return call<{ ok: true }>('/api/admin/update-units', { method: 'POST', body: JSON.stringify({}) });
+}
+/** The last few runs of that update, newest first. `configured: false` when the server has no GitHub token yet. */
+export function adminUnitUpdateStatus() {
+  return call<{ ok: true; configured: boolean; runs: UnitUpdateRun[] }>('/api/admin/update-units-status');
+}
+
 export interface CodexContentCheckResult {
   status: 'no_baseline' | 'unchanged' | 'changed' | 'error';
   tabCount?: number;

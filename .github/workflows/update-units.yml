@@ -1,0 +1,99 @@
+name: Update units from the sheets
+
+# Started from the Inquisitor panel ("RUN UNIT UPDATE", api/admin/[action].js → workflow_dispatch)
+# or by hand from the Actions tab. It runs UnwiseGetData/update_units.py, which downloads every
+# faction's Google Sheet and rewrites the unit files, then checks the result and opens a PULL
+# REQUEST. Nothing is ever pushed to main by this job: a human reads the report and merges.
+#
+# One-off repository setting needed: Settings → Actions → General → "Allow GitHub Actions to create
+# and approve pull requests".
+
+on:
+  workflow_dispatch:
+    inputs:
+      requested_by:
+        description: 'Who asked for the update (shown in the PR)'
+        required: false
+        default: 'manual'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-units
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'   # the script nests quotes inside f-strings (3.12+ only)
+
+      - name: Install the script's Python dependencies
+        run: pip install openpyxl pandas requests simplejson
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run Unwise's update (downloads every sheet, takes a few minutes)
+        working-directory: UnwiseGetData
+        run: python update_units.py
+
+      - name: Check the result and look for codex version bumps
+        id: check
+        run: |
+          set +e
+          node scripts/check_unit_update.cjs > /tmp/report.md
+          echo "guard_exit=$?" >> "$GITHUB_OUTPUT"
+          node scripts/sync_codex_versions.cjs >> /tmp/report.md
+          cat /tmp/report.md
+
+      - name: Does the app still build?
+        id: build
+        run: |
+          set +e
+          npx tsc -b && npm run build > /tmp/build.log 2>&1
+          echo "build_exit=$?" >> "$GITHUB_OUTPUT"
+          tail -5 /tmp/build.log
+
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REQUESTED_BY: ${{ github.event.inputs.requested_by }}
+          GUARD_EXIT: ${{ steps.check.outputs.guard_exit }}
+          BUILD_EXIT: ${{ steps.build.outputs.build_exit }}
+        run: |
+          if [ -z "$(git status --porcelain data src UnwiseGetData)" ]; then
+            echo "The sheets and the app already agree: nothing to open." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          branch="auto/unit-update-$(date -u +%Y%m%d-%H%M)"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data src UnwiseGetData
+          git commit -m "Unit update from the sheets (requested by $REQUESTED_BY)"
+          git push origin "$branch"
+          draft=""
+          title="Unit update from the sheets"
+          if [ "$GUARD_EXIT" != "0" ] || [ "$BUILD_EXIT" != "0" ]; then
+            draft="--draft"; title="[NEEDS FIXING] $title"
+          fi
+          {
+            echo "Started by **$REQUESTED_BY** from the Inquisitor panel."
+            echo
+            echo "Guard exit code: \`$GUARD_EXIT\` · build exit code: \`$BUILD_EXIT\` (0 = clean)."
+            echo
+            cat /tmp/report.md
+          } > /tmp/body.md
+          gh pr create $draft --base main --head "$branch" --title "$title" --body-file /tmp/body.md

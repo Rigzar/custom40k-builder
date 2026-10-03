@@ -996,3 +996,12 @@ PRs that do not pass the build check will not be reviewed until they do.
 ## License
 
 By contributing, you agree that your contributions will be licensed under the same [CC BY-NC-SA 4.0](LICENSE) license as the rest of the project.
+
+## Unit auto-update (Inquisitor button)
+
+`UnwiseGetData/update_units.py` downloads every faction's Google Sheet (`factions.csv` lists the sheet ids) and rewrites the **sheet-owned** keys of each unit file in `data/parsed/<faction>/units/` — name, models, variant models, min cost, default size, equipped with, weapons, abilities, unit type, is_monster and keywords. It never creates units and never touches `option_groups`, the flags (`has_armory_access`, `is_character`, …), the Armory, archetypes, psychic powers or prayers.
+
+- **Run it from the app:** Inquisitor panel → Factions → *Unit auto-update* → **Run unit update**. That starts `.github/workflows/update-units.yml` (GitHub Actions), which runs the script, then `scripts/check_unit_update.cjs` (blocking problems: invalid JSON, non-text abilities, a lost `variant_models` key, empty models) and `scripts/sync_codex_versions.cjs` (moves the version badge in `src/data/factionCatalog.ts` when a sheet title changed), builds the app and opens a **pull request**. Nothing reaches `main` without a person merging it.
+- **Server setup (one-off):** the Vercel project needs `GITHUB_DISPATCH_TOKEN` (fine-grained token for this repository with *Actions: read and write*); the repository needs *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests*.
+- **Run it locally:** `cd UnwiseGetData && python update_units.py` (Python 3.12+; `pip install openpyxl pandas requests simplejson`), then `node scripts/check_unit_update.cjs`.
+- A file in `data/parsed/.../units/` must be named after its unit (`foetid_virion.json`), or the script cannot find it.

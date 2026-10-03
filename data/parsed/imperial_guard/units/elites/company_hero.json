@@ -75,7 +75,7 @@
             "points": 6
         }
     ],
-    "equipped_with": "A Company Hero is equipped with: Frag grenades.An Animal Companion is equipped with: Claws & Teeth.",
+    "equipped_with": "A Company Hero is equipped with: Frag grenades. An Animal Companion is equipped with: Claws & Teeth.",
     "abilities": [
         "Command Squad",
         "Advisor: For each HQ selection, one Company Hero may be selected that does not occupy an Elite slot.",

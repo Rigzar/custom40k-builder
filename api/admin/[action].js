@@ -119,6 +119,8 @@ export default async function handler(req, res) {
     case 'source-sheets':     return sourceSheets(req, res);
     case 'codex-versions-check': return codexVersionsCheck(req, res);
     case 'codex-content-check': return codexContentCheck(req, res);
+    case 'update-units':        return updateUnits(req, res);
+    case 'update-units-status': return updateUnitsStatus(req, res);
     default:                  res.status(404).json({ error: 'Unknown action' });
   }
 }
@@ -631,6 +633,75 @@ async function setSetting(req, res) {
     `;
     await logAction(auth.userId, 'set_setting', null, null, key);
     res.status(200).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+/**
+ * POST — start the unit auto-update (Inquisitor only). The update itself is UnwiseGetData/update_units.py,
+ * which downloads every faction's Google Sheet and takes minutes, so it cannot run inside a Vercel
+ * function: this only asks GitHub to run .github/workflows/update-units.yml, which opens a pull
+ * request for a person to read and merge. Nothing here touches production data.
+ *
+ * Needs the env var GITHUB_DISPATCH_TOKEN: a fine-grained personal access token for this repo with
+ * "Actions: read and write". GITHUB_REPO (default Rigzar/custom40k-builder) and GITHUB_REF
+ * (default main) can override the target.
+ */
+const GH_REPO = () => process.env.GITHUB_REPO || 'Rigzar/custom40k-builder';
+const GH_HEADERS = () => ({
+  Authorization: `Bearer ${process.env.GITHUB_DISPATCH_TOKEN}`,
+  Accept: 'application/vnd.github+json',
+  'X-GitHub-Api-Version': '2022-11-28',
+  'User-Agent': 'custom40k-builder',
+});
+
+async function updateUnits(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  const adminId = await requireAdmin(req, res);
+  if (!adminId) return;
+  if (!process.env.GITHUB_DISPATCH_TOKEN) {
+    return res.status(501).json({ error: 'GITHUB_DISPATCH_TOKEN is not set on the server' });
+  }
+  try {
+    // One run at a time: a second click while one is queued or running would only repeat the work.
+    const open = await fetch(`https://api.github.com/repos/${GH_REPO()}/actions/workflows/update-units.yml/runs?per_page=5`, { headers: GH_HEADERS() });
+    if (open.ok) {
+      const j = await open.json();
+      const busy = (j.workflow_runs || []).find(x => x.status === 'queued' || x.status === 'in_progress');
+      if (busy) return res.status(409).json({ error: 'An update is already running', url: busy.html_url });
+    }
+    const a = await sql`SELECT username FROM users WHERE id = ${adminId}`;
+    const who = a.rows[0]?.username ?? 'an Inquisitor';
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO()}/actions/workflows/update-units.yml/dispatches`, {
+      method: 'POST',
+      headers: { ...GH_HEADERS(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: process.env.GITHUB_REF || 'main', inputs: { requested_by: who } }),
+    });
+    if (r.status !== 204) {
+      const detail = (await r.text()).slice(0, 300);
+      return res.status(502).json({ error: `GitHub answered ${r.status}`, detail });
+    }
+    await logAction(adminId, 'update_units', null, null, 'dispatch');
+    res.status(200).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+// GET — the last few runs of the unit update (status, result, link), for the panel to show.
+async function updateUnitsStatus(req, res) {
+  if (req.method !== 'GET') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  if (!process.env.GITHUB_DISPATCH_TOKEN) return res.status(200).json({ ok: true, configured: false, runs: [] });
+  try {
+    const r = await fetch(`https://api.github.com/repos/${GH_REPO()}/actions/workflows/update-units.yml/runs?per_page=5`, { headers: GH_HEADERS() });
+    if (!r.ok) return res.status(502).json({ error: `GitHub answered ${r.status}` });
+    const j = await r.json();
+    const runs = (j.workflow_runs || []).map(x => ({
+      id: x.id, status: x.status, conclusion: x.conclusion, createdAt: x.created_at, url: x.html_url,
+    }));
+    res.status(200).json({ ok: true, configured: true, runs });
   } catch (err) {
     res.status(500).json({ error: String(err) });
   }

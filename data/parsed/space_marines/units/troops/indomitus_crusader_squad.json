@@ -57,7 +57,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every Neophyte is equipped with: Astartes chainsword; Frag grenades; Bolt pistol; Krak grenades.Every Initiate is equipped with: Astartes chainsword; Frag grenades; Heavy bolt pistol; Krak grenades.The Sword Brother is equipped with: Frag grenades; Krak grenades.",
+    "equipped_with": "Every Neophyte is equipped with: Astartes chainsword; Frag grenades; Bolt pistol; Krak grenades. Every Initiate is equipped with: Astartes chainsword; Frag grenades; Heavy bolt pistol; Krak grenades. The Sword Brother is equipped with: Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Astartes shotgun",

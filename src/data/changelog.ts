@@ -26,6 +26,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.82',
+    date: '2026-10-03',
+    title: "Unit updates on a button, and 45% of the game data refreshes itself",
+    changes: [
+      "GENERAL — UNIT UPDATES ON A BUTTON (Inquisitors only). The Inquisitor panel has a Run unit update button that starts Unwise's update_units.py in GitHub Actions: it downloads every faction's sheet, refreshes the unit files and opens a PULL REQUEST with a report (squad sizes that moved, flattened tables, lost keys) for a person to read and merge. The live site never changes by itself. The server needs a GITHUB_DISPATCH_TOKEN and the repository setting that lets Actions open pull requests; until then the panel says so.",
+      "GENERAL — HOW MUCH OF THE GAME DATA UPDATES ITSELF: about 45% (by volume) — every unit's models, stats, points, weapons, abilities, unit type and keywords. The other 55% is still by hand: unit option lists 22%, the Armory 18%, archetypes 5%, psychic powers, prayers and the rest 10%. Of those 55 points, roughly 35 are plain text and prices a script can read (Armory entries, archetype, discipline and prayer texts, option names and prices) and about 20 need a person to wire what an option does (what it replaces, what it grants).",
+      "GENERAL — CODEX VERSIONS FOLLOW THE SHEETS. The same run reads every sheet's title and moves the version badge in the faction catalog when the author ships a new number. Today it would move Custodes 1.01 → 1.02, Eldar 1.01 → 1.02 and Necrons 1.11 → 1.13.",
+      "GENERAL — THE FIRST AUTOMATIC UPDATES WERE REVIEWED. All 19 codices were compared with the live sheets: models, stats, points and weapon profiles agree. Found and fixed: the script had glued the \"equipped with\" sentences of 35 units into one run (\"…knife.A Biologus…\"), in the data and in the script itself.",
+      "GENERAL — CODEX RULE TEXTS IN FOUR LANGUAGES. Archetypes, the Armory, psychic powers, prayers, army rules and the faction introductions are now in German, Spanish, Russian and Japanese, in the app and on the wiki. Russian headings use Alumni Sans, which has Cyrillic (suggested by the Russian translator).",
+      "Space Marines — THE RAZORBACK SWAP TABLE shows a paired choice (Lascannon and Twin plasma gun) under its own name and one price instead of the first weapon's name, and its header says Twin heavy flamer, as the sheet now does (reported by Dominic).",
+      "Chaos Space Marines — THE FOETID VIRION AND THE CHAOS DECIMATOR FOLLOW THEIR SHEETS. Their files were named after older units, which is why the auto-update could not find them. Biologus Putrifier costs +10, Plague Surgeon +5 and no longer grants Warded (the line is gone from the sheet), the Traitor Guard's Meltagun is a Meltagun with Melta again, and the Tyranid Harpy's option header names the right weapon.",
+    ],
+  },
+  {
     version: '1.81',
     date: '2026-10-02',
     title: 'October sheets in every army, Russian and Japanese, and a squad that shrinks properly',

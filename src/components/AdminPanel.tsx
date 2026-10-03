@@ -704,6 +704,10 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   // Reads each faction's own Google Sheet title ("Chaos Space Marines 1.03") instead of an admin
   // re-typing the version by hand every time a codex ships — see codex-versions-check.
   const [checkingVersions, setCheckingVersions] = useState(false);
+  // Unit auto-update (UnwiseGetData/update_units.py run by a GitHub Action that opens a pull request).
+  const [unitUpdate, setUnitUpdate] = useState<{ configured: boolean; runs: api.UnitUpdateRun[] } | null>(null);
+  const [unitUpdateBusy, setUnitUpdateBusy] = useState(false);
+  const [unitUpdateMsg, setUnitUpdateMsg] = useState<string | null>(null);
   const [versionCheck, setVersionCheck] = useState<Record<string, { title: string; version: string | null } | null> | null>(null);
   // Content-level check (one level deeper than the title check above) — hashes every tab of the
   // live sheet and compares against the last-accepted baseline, so a silent cell edit (no title
@@ -1021,6 +1025,28 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
 
   function handleSaveFlags() {
     saveSetting('faction_flags', flags);
+  }
+
+  async function refreshUnitUpdate() {
+    try {
+      const r = await api.adminUnitUpdateStatus();
+      setUnitUpdate({ configured: r.configured, runs: r.runs });
+    } catch { /* the status line is a convenience */ }
+  }
+
+  async function handleRunUnitUpdate() {
+    if (!window.confirm('Download the sheet of every faction and open a pull request with the changes? It takes a few minutes and changes nothing on the live site until the pull request is merged.')) return;
+    setUnitUpdateBusy(true);
+    setUnitUpdateMsg(null);
+    try {
+      await api.adminRunUnitUpdate();
+      setUnitUpdateMsg('Started. The pull request appears on GitHub in a few minutes.');
+    } catch (e) {
+      setUnitUpdateMsg(e instanceof Error ? e.message : 'Could not start the update');
+    } finally {
+      setUnitUpdateBusy(false);
+      void refreshUnitUpdate();
+    }
   }
 
   async function handleCheckVersions() {
@@ -1908,6 +1934,35 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
               {/* ── Codex version + readiness, editable without a deploy ──
                   The point of this block is that the game's author can ship a document and mark it
                   himself the same minute, instead of asking us to change a line of code. */}
+              {/* ── Unit auto-update (Inquisitors only: this whole tab is) ── */}
+              <div className="mt-5 mb-4 border border-zinc-800 p-3">
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="text-[10px] uppercase tracking-widest text-amber-600">Unit auto-update</div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={refreshUnitUpdate} className={toolbarBtn}>⟳ STATUS</button>
+                    <button onClick={handleRunUnitUpdate} disabled={unitUpdateBusy} className={toolbarBtn}>
+                      {unitUpdateBusy ? 'STARTING…' : '▶ RUN UNIT UPDATE'}
+                    </button>
+                  </div>
+                </div>
+                <p className="text-zinc-600 text-[10px] font-mono mb-2">
+                  Runs Unwise's update_units.py: downloads every faction's sheet and refreshes the models, stats, points, weapons, abilities and keywords of the units. It opens a pull request for a person to read and merge — the live site does not change until then. Options, the Armory, archetypes and psychic powers are not part of it yet.
+                </p>
+                {unitUpdateMsg && <p className="text-amber-500 text-[11px] font-mono mb-1">{unitUpdateMsg}</p>}
+                {unitUpdate && !unitUpdate.configured && (
+                  <p className="text-red-400 text-[11px] font-mono">The server has no GITHUB_DISPATCH_TOKEN yet, so the button cannot start anything.</p>
+                )}
+                {unitUpdate?.configured && unitUpdate.runs.length === 0 && (
+                  <p className="text-zinc-500 text-[11px] font-mono">No runs yet.</p>
+                )}
+                {unitUpdate?.runs.map(run => (
+                  <div key={run.id} className="text-[11px] font-mono text-zinc-400">
+                    {new Date(run.createdAt).toLocaleString()} — {run.status === 'completed' ? (run.conclusion ?? 'done') : run.status}
+                    {' '}<a href={run.url} target="_blank" rel="noreferrer" className="text-amber-600 hover:text-amber-400">open on GitHub</a>
+                  </div>
+                ))}
+              </div>
+
               <div className="flex items-center justify-between mt-5 mb-1">
                 <div className="text-[10px] uppercase tracking-widest text-amber-600">{L.codexVerTitle}</div>
                 <button onClick={handleCheckVersions} disabled={checkingVersions} className={toolbarBtn}>

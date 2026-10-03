@@ -128,7 +128,7 @@ def main():
                     ### WEAPONS
                     app_unit_json["equipped_with"] = ""
                     while "equipped with" in "".join(unit_sheet[0]):
-                        app_unit_json["equipped_with"] += "".join(unit_sheet[0])
+                        app_unit_json["equipped_with"] = (app_unit_json["equipped_with"] + " " + "".join(unit_sheet[0])).strip()
                         unit_sheet = unit_sheet[1:]
                     
                     # Make sure the weapons are in the correct format, then discard it.

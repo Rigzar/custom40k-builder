@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-unit-update-github-setup-01",
+    status: "known",
+    title: "Unit auto-update button needs two one-off GitHub settings",
+    description: "OPEN 2026-10-03. The Run unit update button (Inquisitor panel) starts a GitHub Action that runs UnwiseGetData/update_units.py and opens a pull request. It cannot start until (1) the Vercel project has a GITHUB_DISPATCH_TOKEN (fine-grained token for this repository with Actions: read and write) and (2) the repository allows Actions to create pull requests (Settings, Actions, General). Until then the panel says the token is missing. The script updates the unit stat lines, points, weapons, abilities and keywords only — about 45% of the game data by volume; options, the Armory, archetypes, psychic powers and prayers stay manual.",
+  },
+  {
     id: "ki-ru-ja-translations-unreviewed-01",
     status: "known",
     title: "Russian and Japanese are new and have not been read by native speakers",

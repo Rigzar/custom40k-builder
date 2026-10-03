@@ -1,5 +1,5 @@
 {
-    "name": "Br\u00f4khyr Iron-master",
+    "name": "Brôkhyr Iron-master",
     "models": [
         {
             "stats": {
@@ -14,7 +14,7 @@
                 "LD": "8",
                 "SV": "4+"
             },
-            "name": "Br\u00f4khyr Iron-master",
+            "name": "Brôkhyr Iron-master",
             "min": 1,
             "max": 1,
             "points": 67
@@ -52,13 +52,13 @@
                 "LD": "9",
                 "SV": "4+"
             },
-            "name": "Br\u00f4khyr Forge-master",
+            "name": "Brôkhyr Forge-master",
             "min": 0,
             "max": 1,
             "points": 82
         }
     ],
-    "equipped_with": "A Br\u00f4khyr Iron-master is equipped with: Gravitic concussion grenades; Graviton hammer.All E-COGs are equipped with: -.",
+    "equipped_with": "A Brôkhyr Iron-master is equipped with: Gravitic concussion grenades; Graviton hammer. All E-COGs are equipped with: -.",
     "weapons": [
         {
             "name": "Gravitic concussion grenades",
@@ -81,27 +81,27 @@
     ],
     "option_groups": [
         {
-            "header": "One Br\u00f4khyr Iron-master per army can be upgraded to a Br\u00f4khyr Forge-master for +15pts.",
+            "header": "One Brôkhyr Iron-master per army can be upgraded to a Brôkhyr Forge-master for +15pts.",
             "constraint": {
                 "type": "unique_upgrade"
             },
             "choices": [],
             "inline_pts": 15,
-            "variant_link": "Br\u00f4khyr Forge-master",
+            "variant_link": "Brôkhyr Forge-master",
             "is_unique_per_army": true,
             "effect": {
                 "grants_abilities": [
-                    "Br\u00f4khyr Forge-master: A Br\u00f4khyr Forge-master may use Br\u00f4khyr\u2019s Guild twice."
+                    "Brôkhyr Forge-master: A Brôkhyr Forge-master may use Brôkhyr’s Guild twice."
                 ]
             }
         }
     ],
     "abilities": [
         "Eye of the Ancestors, Steady Advance, Void armor",
-        "Br\u00f4khyr\u2019s Guild: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
-        "Br\u00f4khyr Forge-master: A Br\u00f4khyr Forge-master may use Br\u00f4khyr\u2019s Guild twice.",
-        "Companions: E-COGs do not prevent a Br\u00f4khyr Iron-master from joining another unit and do not count towards passenger capacity in a transport.",
-        "E-COG support: Add +1 to every Br\u00f4khyr's Guild roll for each E-COG in the unit."
+        "Brôkhyr’s Guild: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
+        "Brôkhyr Forge-master: A Brôkhyr Forge-master may use Brôkhyr’s Guild twice.",
+        "Companions: E-COGs do not prevent a Brôkhyr Iron-master from joining another unit and do not count towards passenger capacity in a transport.",
+        "E-COG support: Add +1 to every Brôkhyr's Guild roll for each E-COG in the unit."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],
