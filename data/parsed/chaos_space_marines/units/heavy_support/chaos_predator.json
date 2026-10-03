@@ -51,10 +51,7 @@
             "abilities": "Auto Hit, Combi, Sunder(1)"
         },
         {
-            "name": "Combi-flamer Combi-melta *"
-        },
-        {
-            "name": "Combi-flamer - Bolter",
+            "name": "Combi-melta - Bolter",
             "range": "24\"",
             "type": "Rapid Fire 1",
             "s": "4",
@@ -63,7 +60,7 @@
             "abilities": "Combi"
         },
         {
-            "name": "Combi-flamer - Melta",
+            "name": "Combi-melta - Melta",
             "range": "12\"",
             "type": "Assault 1",
             "s": "8",

@@ -36,7 +36,7 @@
     "option_groups": [],
     "abilities": [
         "Anti-Grav",
-        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase.",
         "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase.",
         "Repair Barge: During the Reinforcement Phase, you may target up to three units that are either within 3\" of it or are on board as passengers. Each unit automatically succeeds at 1 Reanimation Protocol roll. The same unit can be targeted multiple times.",
         "Transport: This model has a transport capacity of 10 models."

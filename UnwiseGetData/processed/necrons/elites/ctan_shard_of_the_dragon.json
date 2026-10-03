@@ -26,7 +26,7 @@
     "equipped_with": "A Dragon is equipped with: Spear of the Dragon.",
     "weapons": [
         {
-            "name": "Spear of the Dragon -Ranged",
+            "name": "-Ranged",
             "range": "12\"",
             "type": "Heavy 1",
             "s": "9",
@@ -35,7 +35,7 @@
             "abilities": "Armorbane, AT(4), Beam, Tank hunter"
         },
         {
-            "name": "Spear of the Dragon - Melee",
+            "name": "- Melee",
             "range": "-",
             "type": "Melee",
             "s": "+3",

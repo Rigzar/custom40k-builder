@@ -178,7 +178,7 @@
             "abilities": "AT(2), Anti-air"
         },
         {
-            "name": "Missile launcher Multi-melta",
+            "name": "Multi-melta",
             "range": "24\"",
             "type": "Assault 1",
             "s": "8",

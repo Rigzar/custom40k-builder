@@ -62,7 +62,7 @@
             "abilities": "AT(2), Overheating"
         },
         {
-            "name": "Ion cannon Long-barrelled burst cannon",
+            "name": "Long-barrelled burst cannon",
             "range": "36\"",
             "type": "Rapid Fire 3",
             "s": "5",

@@ -87,7 +87,7 @@
             "abilities": "AT(3), Blast(4), Overheating"
         },
         {
-            "name": "Macro plasma incinerator Multi-melta",
+            "name": "Multi-melta",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "8",

@@ -106,10 +106,7 @@
             "abilities": "Auto Hit, Combi, Sunder(1)"
         },
         {
-            "name": "Combi-flamer Combi-melta *"
-        },
-        {
-            "name": "Combi-flamer - Bolter",
+            "name": "Combi-melta - Bolter",
             "range": "24\"",
             "type": "Rapid Fire 1",
             "s": "4",
@@ -118,7 +115,7 @@
             "abilities": "Combi"
         },
         {
-            "name": "Combi-flamer - Melta",
+            "name": "Combi-melta - Melta",
             "range": "12\"",
             "type": "Assault 1",
             "s": "8",
@@ -127,10 +124,7 @@
             "abilities": "AT(1), Combi, Melta"
         },
         {
-            "name": "Combi-flamer Combi-plasma *"
-        },
-        {
-            "name": "Combi-flamer - Bolter",
+            "name": "Combi-plasma - Bolter",
             "range": "24\"",
             "type": "Rapid Fire 1",
             "s": "4",
@@ -139,7 +133,7 @@
             "abilities": "Combi"
         },
         {
-            "name": "Combi-flamer - Plasma (Standard)",
+            "name": "Combi-plasma - Plasma (Standard)",
             "range": "24\"",
             "type": "Rapid Fire 1",
             "s": "7",
@@ -148,7 +142,7 @@
             "abilities": "AT(1), Combi"
         },
         {
-            "name": "Combi-flamer - Plasma (Overcharged)",
+            "name": "Combi-plasma - Plasma (Overcharged)",
             "range": "24\"",
             "type": "Rapid Fire 1",
             "s": "8",
