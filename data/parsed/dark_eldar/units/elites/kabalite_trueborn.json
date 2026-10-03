@@ -2,6 +2,10 @@
     "name": "Kabalite Trueborn",
     "models": [
         {
+            "name": "Trueborn",
+            "points": 15,
+            "min": 4,
+            "max": 19,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -13,33 +17,13 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "4+"
-            },
-            "name": "Trueborn",
-            "min": 4,
-            "max": 19,
-            "points": 15
+            }
         },
         {
-            "stats": {
-                "M": "6\"",
-                "WS": "3+",
-                "BS": "3+",
-                "S": "3",
-                "T": "3",
-                "W": "1",
-                "I": "5",
-                "A": "3",
-                "LD": "8",
-                "SV": "4+"
-            },
             "name": "Dracon",
+            "points": 20,
             "min": 1,
             "max": 1,
-            "points": 20
-        }
-    ],
-    "variant_models": [
-        {
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -51,11 +35,7 @@
                 "A": "3",
                 "LD": "8",
                 "SV": "4+"
-            },
-            "name": "Dracon",
-            "min": 0,
-            "max": 1,
-            "points": 20
+            }
         }
     ],
     "equipped_with": "Every model is equipped with: Splinter rifle.",
@@ -176,5 +156,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 80
+    "min_cost": 80,
+    "variant_models": []
 }
