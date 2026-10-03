@@ -105,35 +105,7 @@
         "Mek tools:  At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a woand or armor penetration roll."
     ],
     [
-        "Shokk attack gun: Roll for the strength of the weapon after you have selected a target:"
-    ],
-    [
-        "2D6",
-        "Result"
-    ],
-    [
-        "\"1,1\"",
-        "Awups! The Mek and its attached unit gain one Battleshock token. In addition, they receive one automatic hit with S: D AP: -4 D: 3.        "
-    ],
-    [
-        "\"2,2\"",
-        "Grah! The new target is the nearest visible unit that is not engaged in melee combat (including Ork units!).        "
-    ],
-    [
-        "\"3,3\"",
-        "Oops! An opponent chooses a new target (including Ork units!).        "
-    ],
-    [
-        "\"4,4\"",
-        "Splash! The weapon changes its profile to Assault 2, S: 6 AP: -3 D: 1, Blast(6), Suppression(3)."
-    ],
-    [
-        "\"5,5\"",
-        "Big wrong button! Remove the Mek from the field and immediately redeploy it according to the rules for Deep strike. It can no longer move, but can still shoot.        "
-    ],
-    [
-        "\"6,6\"",
-        "Big red button! The weapon fires with Strength: D and AT(3) and loses the Blast(6) rule for this activation.        "
+        "Shokk attack gun: Roll for the strength of the weapon after you have selected a target:\n\n1,1 - Awups! The Mek and its attached unit gain one Battleshock token. In addition, they receive one automatic hit with S: D AP: -4 D: 3.\n2,2 - Grah! The new target is the nearest visible unit that is not engaged in melee combat (including Ork units!).\n3,3 - Oops! An opponent chooses a new target (including Ork units!).\n4,4 - Splash! The weapon changes its profile to Assault 2, S: 6 AP: -3 D: 1, Blast(6), Suppression(3).\n5,5 - Big wrong button! Remove the Mek from the field and immediately redeploy it according to the rules for Deep strike.\n6,6 - Big red button! The weapon fires with Strength: D, D: 4 and AT(4) and loses the Blast(6) rule for this activation. "
     ],
     [
         "UNIT TYPE"
