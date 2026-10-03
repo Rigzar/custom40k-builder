@@ -20,6 +20,7 @@
             "points": 75
         }
     ],
+    "variant_models": [],
     "min_cost": 225,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: Ranger long rifle; Scatter laser; Shuriken pistol.",

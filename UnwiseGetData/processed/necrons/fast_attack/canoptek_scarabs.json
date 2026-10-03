@@ -20,6 +20,7 @@
             "points": 16
         }
     ],
+    "variant_models": [],
     "min_cost": 48,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: Feeder mandibles.",

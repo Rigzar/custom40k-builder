@@ -38,6 +38,7 @@
             "points": 42
         }
     ],
+    "variant_models": [],
     "min_cost": 126,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: Dissecting claws.",

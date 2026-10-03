@@ -18,7 +18,9 @@
             "min": 1,
             "max": 1,
             "points": 61
-        },
+        }
+    ],
+    "variant_models": [
         {
             "stats": {
                 "M": "6\"",
@@ -33,13 +35,13 @@
                 "SV": "4+"
             },
             "name": "Pain Boss",
-            "min": 1,
+            "min": 0,
             "max": 1,
             "points": 76
         }
     ],
-    "min_cost": 137,
-    "default_size": 2,
+    "min_cost": 61,
+    "default_size": 1,
     "equipped_with": "A Painboy is equipped with: Stikkbombz.",
     "weapons": [
         {

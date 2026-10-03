@@ -20,6 +20,7 @@
             "points": 25
         }
     ],
+    "variant_models": [],
     "min_cost": 125,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Electroleech stave.",

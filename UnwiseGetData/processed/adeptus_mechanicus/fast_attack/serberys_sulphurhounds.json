@@ -38,6 +38,7 @@
             "points": 40
         }
     ],
+    "variant_models": [],
     "min_cost": 110,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: 2 Phosphor pistols, Bionics; Sulphur breath.",

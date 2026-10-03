@@ -38,6 +38,7 @@
             "points": 18
         }
     ],
+    "variant_models": [],
     "min_cost": 70,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Wrack blades.",

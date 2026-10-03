@@ -38,6 +38,7 @@
             "points": 49
         }
     ],
+    "variant_models": [],
     "min_cost": 225,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Phosphor torch; Pteraxii Talons.",

@@ -20,6 +20,7 @@
             "points": 23
         }
     ],
+    "variant_models": [],
     "min_cost": 115,
     "default_size": 5,
     "equipped_with": "All models are equipped with: Boltgun; Psyk-out grenades.",

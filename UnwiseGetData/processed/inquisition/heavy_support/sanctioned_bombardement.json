@@ -20,7 +20,8 @@
             "points": 0
         }
     ],
-    "min_cost": 0,
+    "variant_models": [],
+    "min_cost": 1,
     "default_size": 1,
     "equipped_with": "Every model is equipped with: -.",
     "weapons": [

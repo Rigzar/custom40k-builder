@@ -20,6 +20,7 @@
             "points": 24
         }
     ],
+    "variant_models": [],
     "min_cost": 72,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: Diseased claws and teeth.",

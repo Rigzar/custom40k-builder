@@ -20,6 +20,7 @@
             "points": 8
         }
     ],
+    "variant_models": [],
     "min_cost": 24,
     "default_size": 3,
     "equipped_with": "Kroot hounds are equipped with: Ripping fangs.",
