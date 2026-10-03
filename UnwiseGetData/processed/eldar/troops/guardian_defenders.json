@@ -38,6 +38,7 @@
             "points": 30
         }
     ],
+    "variant_models": [],
     "min_cost": 75,
     "default_size": 5,
     "equipped_with": "Every Guardian Defender is equipped with: Plasma grenades; Shuriken catapult.Every Heavy weapon platform is equipped with: Scatter laser.",

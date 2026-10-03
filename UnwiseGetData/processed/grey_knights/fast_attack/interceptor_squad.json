@@ -38,6 +38,7 @@
             "points": 70
         }
     ],
+    "variant_models": [],
     "min_cost": 310,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",

@@ -38,6 +38,7 @@
             "points": 78
         }
     ],
+    "variant_models": [],
     "min_cost": 370,
     "default_size": 5,
     "equipped_with": "Each model is equipped with: Twin Power axes.",

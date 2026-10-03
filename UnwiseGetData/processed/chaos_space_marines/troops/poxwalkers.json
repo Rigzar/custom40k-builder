@@ -20,6 +20,7 @@
             "points": 3
         }
     ],
+    "variant_models": [],
     "min_cost": 30,
     "default_size": 10,
     "equipped_with": "Every model is equipped with: Improvised weapons.",

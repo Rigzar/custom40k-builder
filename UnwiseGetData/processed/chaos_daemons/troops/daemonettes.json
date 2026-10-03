@@ -38,6 +38,7 @@
             "points": 11
         }
     ],
+    "variant_models": [],
     "min_cost": 66,
     "default_size": 6,
     "equipped_with": "Every model is equipped with: Piercing claws.",

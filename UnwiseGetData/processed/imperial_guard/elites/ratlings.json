@@ -20,6 +20,7 @@
             "points": 30
         }
     ],
+    "variant_models": [],
     "min_cost": 150,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Sniper rifle.",

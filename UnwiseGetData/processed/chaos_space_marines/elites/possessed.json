@@ -20,6 +20,7 @@
             "points": 50
         }
     ],
+    "variant_models": [],
     "min_cost": 250,
     "default_size": 5,
     "equipped_with": "Each model is equipped with: Malefic mutations",

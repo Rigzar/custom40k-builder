@@ -20,6 +20,7 @@
             "points": 255
         }
     ],
+    "variant_models": [],
     "min_cost": 255,
     "default_size": 1,
     "equipped_with": "A Storm Speeder is equipped with: Onslaught gatling cannon; 2 Fragstorm grenade launcher; Twin Icarus rocket pod.",

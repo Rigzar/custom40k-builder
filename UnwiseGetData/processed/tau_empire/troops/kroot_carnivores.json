@@ -38,6 +38,7 @@
             "points": 10
         }
     ],
+    "variant_models": [],
     "min_cost": 100,
     "default_size": 10,
     "equipped_with": "Carnivores and Long-quills are equipped with: Kroot rifle.",

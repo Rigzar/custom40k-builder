@@ -38,6 +38,7 @@
             "points": 14
         }
     ],
+    "variant_models": [],
     "min_cost": 95,
     "default_size": 10,
     "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",

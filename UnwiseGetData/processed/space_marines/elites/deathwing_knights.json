@@ -38,6 +38,7 @@
             "points": 68
         }
     ],
+    "variant_models": [],
     "min_cost": 320,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Power sword; Storm shield.",

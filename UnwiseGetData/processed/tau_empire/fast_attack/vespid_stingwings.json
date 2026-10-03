@@ -38,6 +38,7 @@
             "points": 25
         }
     ],
+    "variant_models": [],
     "min_cost": 85,
     "default_size": 4,
     "equipped_with": "All models are equipped with: Neutron blaster.",

@@ -38,6 +38,7 @@
             "points": 10
         }
     ],
+    "variant_models": [],
     "min_cost": 55,
     "default_size": 10,
     "equipped_with": "Every model is equipped with: -.",

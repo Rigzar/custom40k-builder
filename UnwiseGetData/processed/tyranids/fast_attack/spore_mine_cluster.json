@@ -20,6 +20,7 @@
             "points": 7
         }
     ],
+    "variant_models": [],
     "min_cost": 7,
     "default_size": 1,
     "equipped_with": "Every model is equipped with: Spore mine explosion.",

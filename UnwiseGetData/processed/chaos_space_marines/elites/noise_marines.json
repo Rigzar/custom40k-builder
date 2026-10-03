@@ -38,6 +38,7 @@
             "points": 42
         }
     ],
+    "variant_models": [],
     "min_cost": 190,
     "default_size": 5,
     "equipped_with": "Each model is equipped with: Astartes Chainsword; Bolt pistol; Frag grenades; Krak grenades.",

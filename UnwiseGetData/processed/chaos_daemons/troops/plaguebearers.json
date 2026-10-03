@@ -38,6 +38,7 @@
             "points": 20
         }
     ],
+    "variant_models": [],
     "min_cost": 140,
     "default_size": 7,
     "equipped_with": "Every model is equipped with: Plaguesword.",

@@ -14,12 +14,13 @@
                 "A": "1",
                 "HP": "2"
             },
-            "name": "Armoured  Sentinel",
+            "name": "Armoured Sentinel",
             "min": 1,
             "max": 3,
             "points": 97
         }
     ],
+    "variant_models": [],
     "min_cost": 97,
     "default_size": 1,
     "equipped_with": "An Armoured Sentinel is equipped with: Multilaser.",

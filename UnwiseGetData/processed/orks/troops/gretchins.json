@@ -38,6 +38,7 @@
             "points": 4
         }
     ],
+    "variant_models": [],
     "min_cost": 34,
     "default_size": 11,
     "equipped_with": "Every Gretchin is equipped with: Grot blasta.Every Runtherd is equipped with: Grabba stikk; Slugga, Squig hound.",

@@ -38,6 +38,7 @@
             "points": 60
         }
     ],
+    "variant_models": [],
     "min_cost": 170,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: Flamestorm gauntlet; Gravis armor.",

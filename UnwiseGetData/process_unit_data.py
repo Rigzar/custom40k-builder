@@ -118,10 +118,15 @@ def main():
                         else:
                             app_unit_json["models"].append(model)
                         
+                        # Make sure there is a variant_models field
+                        if "variant_models" not in app_unit_json:
+                            app_unit_json["variant_models"] = []
+                        
                         unit_sheet = unit_sheet[1:]
                     
                     # calculate the min_cost of the unit based on the models and their points values
-                    app_unit_json["min_cost"] = sum([(m["points"] * m["min"]) for m in app_unit_json["models"]])
+                    app_unit_json["min_cost"] = max(1, sum([(m["points"] * m["min"]) for m in app_unit_json["models"]]))
+                    # make sure the min_cost isnt zero, if it is, set it to 1. 
                     # set the default size of the unit
                     app_unit_json["default_size"] = sum([m["min"] for m in app_unit_json["models"]])
                     

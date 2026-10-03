@@ -38,6 +38,7 @@
             "points": 35
         }
     ],
+    "variant_models": [],
     "min_cost": 135,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Combat knife; Frag grenades; Bolt pistol; Krak grenades.",

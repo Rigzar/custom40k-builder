@@ -20,6 +20,7 @@
             "points": 32
         }
     ],
+    "variant_models": [],
     "min_cost": 32,
     "default_size": 1,
     "equipped_with": "A Nexos is equipped with: Autopistol.",

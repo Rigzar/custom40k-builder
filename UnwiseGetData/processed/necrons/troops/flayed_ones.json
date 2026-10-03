@@ -20,6 +20,7 @@
             "points": 20
         }
     ],
+    "variant_models": [],
     "min_cost": 100,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Flayer claws.",

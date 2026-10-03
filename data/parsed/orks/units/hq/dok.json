@@ -18,7 +18,9 @@
             "min": 1,
             "max": 1,
             "points": 61
-        },
+        }
+    ],
+    "variant_models": [
         {
             "stats": {
                 "M": "6\"",
@@ -33,29 +35,9 @@
                 "SV": "4+"
             },
             "name": "Pain Boss",
-            "min": 1,
+            "min": 0,
             "max": 1,
             "points": 76
-        }
-    ],
-    "variant_models": [
-        {
-            "name": "Pain Boss",
-            "points": 76,
-            "min": 0,
-            "max": 0,
-            "stats": {
-                "M": "6\"",
-                "WS": "3+",
-                "BS": "5+",
-                "S": "5",
-                "T": "5",
-                "W": "4",
-                "I": "4",
-                "A": "3",
-                "LD": "7",
-                "SV": "4+"
-            }
         }
     ],
     "equipped_with": "A Painboy is equipped with: Stikkbombz.",
@@ -116,6 +98,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "HQ",
-    "default_size": 2,
-    "min_cost": 137
+    "default_size": 1,
+    "min_cost": 61
 }

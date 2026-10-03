@@ -38,6 +38,7 @@
             "points": 22
         }
     ],
+    "variant_models": [],
     "min_cost": 90,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Bionics; Galvanic rifle.",

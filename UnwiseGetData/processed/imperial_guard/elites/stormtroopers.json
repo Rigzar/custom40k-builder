@@ -38,6 +38,7 @@
             "points": 21
         }
     ],
+    "variant_models": [],
     "min_cost": 85,
     "default_size": 5,
     "equipped_with": "Every model is equipped with: Hot-shot lasgun; Frag grenades; Krak grenades; Vox.",

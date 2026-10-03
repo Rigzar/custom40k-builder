@@ -20,6 +20,7 @@
             "points": 64
         }
     ],
+    "variant_models": [],
     "min_cost": 192,
     "default_size": 3,
     "equipped_with": "Every model is equipped with: D-scythe.",

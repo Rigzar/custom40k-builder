@@ -20,6 +20,7 @@
             "points": 128
         }
     ],
+    "variant_models": [],
     "min_cost": 128,
     "default_size": 1,
     "equipped_with": "A Patriach is equipped with: Patriarch Claws.",

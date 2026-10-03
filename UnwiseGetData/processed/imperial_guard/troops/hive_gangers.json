@@ -38,6 +38,7 @@
             "points": 9
         }
     ],
+    "variant_models": [],
     "min_cost": 45,
     "default_size": 10,
     "equipped_with": "Every model is equipped with: Gang firearm; Gang pistol.",

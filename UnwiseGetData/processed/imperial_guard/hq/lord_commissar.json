@@ -20,6 +20,7 @@
             "points": 50
         }
     ],
+    "variant_models": [],
     "min_cost": 50,
     "default_size": 1,
     "equipped_with": "A Lord Commissar is equipped with: Frag grenades.",

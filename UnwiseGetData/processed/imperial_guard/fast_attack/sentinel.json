@@ -20,6 +20,7 @@
             "points": 100
         }
     ],
+    "variant_models": [],
     "min_cost": 100,
     "default_size": 1,
     "equipped_with": "A Sentinel is equipped with: Multilaser",
