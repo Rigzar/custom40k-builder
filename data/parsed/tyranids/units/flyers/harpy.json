@@ -62,7 +62,7 @@
     ],
     "option_groups": [
         {
-            "header": "May replace its Twin venom cannon",
+            "header": "May replace its Twin stranglethorn cannon",
             "constraint": {
                 "type": "one"
             },

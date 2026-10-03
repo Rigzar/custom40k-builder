@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { localiseAbility } from '../data/coreRules';
 import { useT } from '../i18n';
 import type { Trait } from '../types/data';
 
@@ -134,7 +135,7 @@ export function TraitPickerModal({ traits, excludedNames, currentValue, slotLabe
                       {costParts.join(' · ')}
                     </div>
                   )}
-                  <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{tr.desc}</div>
+                  <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{localiseAbility(tr.desc)}</div>
                 </div>
               </div>
             );

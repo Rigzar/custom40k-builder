@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit } from '../types/data';
 import { useArmyStore } from '../store/army';
@@ -125,7 +126,7 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
               >
                 <div>
                   <div className="text-sm font-medium">{t.name}</div>
-                  <div className="text-[11px] text-zinc-500 mt-0.5">{t.desc}</div>
+                  <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(t.desc)}</div>
                   {!applicable && (
                     <div className="text-[10px] text-zinc-600 mt-0.5 italic">Not applicable to this unit type</div>
                   )}

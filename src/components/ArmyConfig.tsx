@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState } from 'react';
+import { localiseAbility } from '../data/coreRules';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
@@ -241,7 +242,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     {archetype && (
                       <div className={`mt-2 border-l-2 ${accentBorder} pl-3 space-y-0.5`}>
                         <div className="text-[10px] text-zinc-400 leading-relaxed">
-                          {data.archetypes.find(a => a.name === archetype)?.desc}
+                          {localiseAbility(data.archetypes.find(a => a.name === archetype)?.desc ?? "")}
                         </div>
                         {getArchetypeMark(archetype) && (
                           <div className={`text-[10px] ${isAllied ? 'text-emerald-600/80' : 'text-amber-600/80'}`}>
@@ -292,7 +293,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       </select>
                       {legacy && (
                         <div className={`mt-2 text-[10px] text-zinc-400 border-l-2 ${accentBorder} pl-3 leading-relaxed`}>
-                          {data.legacies.find(l => l.name === legacy)?.desc}
+                          {localiseAbility(data.legacies.find(l => l.name === legacy)?.desc ?? "")}
                         </div>
                       )}
 
@@ -311,7 +312,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                           </select>
                           {legacy2 && (
                             <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
-                              {data.legacies.find(l => l.name === legacy2)?.desc}
+                              {localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
                             </div>
                           )}
                         </div>
@@ -477,7 +478,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                               ) : (
                                 <span className="text-amber-600 ml-1.5">{costParts.join(' · ')}</span>
                               )}
-                              <span className="text-zinc-500 ml-1.5">— {tr.desc}</span>
+                              <span className="text-zinc-500 ml-1.5">— {localiseAbility(tr.desc)}</span>
                             </div>
                           );
                         })}

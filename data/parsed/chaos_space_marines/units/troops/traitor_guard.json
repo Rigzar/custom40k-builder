@@ -194,7 +194,7 @@
                     "points": 5
                 },
                 {
-                    "name": "Melter",
+                    "name": "Meltagun",
                     "points": 11
                 },
                 {
@@ -221,7 +221,7 @@
         }
     ],
     "abilities": [
-        "Bodyguard (Chaos Ogryn only): Wounds inflicted must first be allocated to the model before other models in the unit can be selected. Attacks with the \u201cPrecision\u201d rule take a -1 hit penalty if they affect an attached character."
+        "Bodyguard (Chaos Ogryn only): Wounds inflicted must first be allocated to the model before other models in the unit can be selected. Attacks with the “Precision” rule take a -1 hit penalty if they affect an attached character."
     ],
     "unit_type": "Infantry",
     "keywords": [

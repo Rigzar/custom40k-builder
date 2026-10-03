@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
@@ -2089,7 +2090,7 @@ function ReaverLordPicker({
                       >
                         <span className="min-w-0">
                           <span className="block truncate">{arm.name}</span>
-                          {arm.desc && <span className="block text-[10px] text-zinc-500 truncate">{arm.desc}</span>}
+                          {arm.desc && <span className="block text-[10px] text-zinc-500 truncate">{localiseAbility(arm.desc)}</span>}
                         </span>
                         <span className="shrink-0 font-bold">
                           {taken ? t('takenByAnotherUnit') : pts == null ? '—' : `+${pts}`}
@@ -2154,7 +2155,7 @@ function DaemonWeaponPicker({
                   {sel && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>}
                   {takenElsewhere && !sel && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">{t('takenByAnotherUnit')}</span>}
                 </div>
-                {arm.desc && <div className="text-[10px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+                {arm.desc && <div className="text-[10px] text-zinc-500 mt-0.5">{localiseAbility(arm.desc)}</div>}
               </div>
               <div className="flex flex-col items-end gap-1 shrink-0">
                 {arm.p_char != null && (
@@ -2273,7 +2274,7 @@ function ArmoryItemRow({
               <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">{t('termBadge')}</span>
             )}
           </div>
-          {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+          {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(arm.desc)}</div>}
           <ArmoryWeaponStats arm={arm} />
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
@@ -2337,7 +2338,7 @@ function ArmoryItemRow({
             <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">{t('termBadge')}</span>
           )}
         </div>
-        {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+        {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(arm.desc)}</div>}
         <ArmoryWeaponStats arm={arm} />
       </div>
       <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : priceIsNull ? 'text-zinc-500' : 'text-amber-500'}`}>
@@ -2441,7 +2442,7 @@ function ArmoryWeaponTable({
             return (
               <tr
                 key={i}
-                title={arm.desc}
+                title={localiseAbility(arm.desc)}
                 className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-40' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
               >
                 {/* A COUNTER, not a checkbox. Clicking the box buys another copy and shows how

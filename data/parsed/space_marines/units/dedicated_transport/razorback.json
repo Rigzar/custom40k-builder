@@ -98,7 +98,7 @@
     ],
     "option_groups": [
         {
-            "header": "May swap their Twin heavy bolter",
+            "header": "May swap their Twin heavy flamer",
             "constraint": {
                 "type": "one"
             },
