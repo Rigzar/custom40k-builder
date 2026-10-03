@@ -371,10 +371,24 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
   };
 }
 
+/**
+ * The file text, with an integrity check at the very end. The check is SHA-256 (lowercase hex) of the
+ * compact JSON text of everything before it: remove the trailing `,"checksum":{...}` and put the
+ * closing `}` back, and what is left is exactly the text that was hashed. Because it is the text that
+ * is hashed, a line damaged while copying into Tabletop Simulator shows up, and the check itself is
+ * never part of what it covers. The army and the units come first; the faction reference comes last.
+ */
+export async function serializeTtsExport(payload: TtsExport): Promise<string> {
+  const body = JSON.stringify(payload);
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body));
+  const hex = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
+  return `${body.slice(0, -1)},"checksum":{"alg":"sha256","value":"${hex}"}}`;
+}
+
 /** Trigger a browser download of the export. */
-export function downloadTtsExport(state: ArmyState, data: FactionData) {
+export async function downloadTtsExport(state: ArmyState, data: FactionData) {
   const payload = buildTtsExport(state, data);
-  const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+  const blob = new Blob([await serializeTtsExport(payload)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
