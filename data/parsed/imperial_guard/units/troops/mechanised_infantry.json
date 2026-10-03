@@ -15,8 +15,8 @@
                 "SV": "5+"
             },
             "name": "Guardsman",
-            "min": 1,
-            "max": 1,
+            "min": 9,
+            "max": 9,
             "points": 8
         },
         {
@@ -347,6 +347,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Troops",
-    "default_size": 2,
-    "min_cost": 16
+    "default_size": 10,
+    "min_cost": 80
 }

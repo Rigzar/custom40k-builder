@@ -441,5 +441,34 @@
         "Basic",
         "Complexity:",
         "Normal"
+    ],
+    [
+        "Spirit\n(Spiritseer only)",
+        "Name:",
+        "Craftsong"
+    ],
+    [
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Friendly <Wraith> unit"
+    ],
+    [
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "The target unit regains 2 lost wounds. Dead models may be revived with this. Living models have to be healed completly first. Can only be successfully manifested once per round and per psyker."
+    ],
+    [
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Complex"
     ]
 ]

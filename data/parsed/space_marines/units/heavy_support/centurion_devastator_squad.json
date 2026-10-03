@@ -15,8 +15,8 @@
                 "SV": "2+"
             },
             "name": "Centurion",
-            "min": 1,
-            "max": 1,
+            "min": 2,
+            "max": 2,
             "points": 120
         },
         {
@@ -184,6 +184,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Heavy Support",
-    "default_size": 2,
-    "min_cost": 240
+    "default_size": 3,
+    "min_cost": 360
 }

@@ -170,34 +170,6 @@
         "Transport: This model has a transport capacity of 6 infantry models. It can't transport models in Terminator armor."
     ],
     [
-        "Name:",
-        "Fortitude"
-    ],
-    [
-        "Range:",
-        "-"
-    ],
-    [
-        "Target:",
-        "Self"
-    ],
-    [
-        "Cast value:",
-        5
-    ],
-    [
-        "Effect:",
-        "The target unit removes one \"Crew shaken\" vehicle damage result."
-    ],
-    [
-        "Duration:",
-        "Instant"
-    ],
-    [
-        "Complexity:",
-        "Basic"
-    ],
-    [
         "UNIT TYPE"
     ],
     [

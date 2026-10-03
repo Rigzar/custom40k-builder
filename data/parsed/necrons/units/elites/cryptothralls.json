@@ -15,8 +15,8 @@
                 "SV": "3+"
             },
             "name": "Cryptothrall",
-            "min": 1,
-            "max": 1,
+            "min": 2,
+            "max": 2,
             "points": 45
         }
     ],
@@ -75,6 +75,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Elites",
-    "default_size": 1,
-    "min_cost": 45
+    "default_size": 2,
+    "min_cost": 90
 }

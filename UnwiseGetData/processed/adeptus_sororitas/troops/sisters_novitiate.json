@@ -15,8 +15,8 @@
                 "SV": "4+"
             },
             "name": "Sister Novitiate",
-            "min": 1,
-            "max": 1,
+            "min": 9,
+            "max": 9,
             "points": 13
         },
         {
@@ -58,8 +58,8 @@
             "points": 25
         }
     ],
-    "min_cost": 33,
-    "default_size": 2,
+    "min_cost": 137,
+    "default_size": 10,
     "equipped_with": "Every Sister Novitiate is equipped with: Autogun; Auto pistol; Frag grenades; Krak grenades.The Sister Superior is equipped with: Boltgun; Frag grenades; Krak grenades.",
     "weapons": [
         {

@@ -33,8 +33,8 @@
                 "SV": "6+"
             },
             "name": "Brimstone Horror",
-            "min": 1,
-            "max": 1,
+            "min": 0,
+            "max": 0,
             "points": 0
         }
     ],
@@ -120,6 +120,6 @@
     "locked_mark": "Tzeentch",
     "advisor": false,
     "slot": "Troops",
-    "default_size": 10,
+    "default_size": 9,
     "min_cost": 189
 }
