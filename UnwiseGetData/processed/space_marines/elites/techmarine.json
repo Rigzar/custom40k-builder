@@ -54,7 +54,7 @@
             "abilities": "Extra Attack(1), Limit(1)"
         },
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -72,7 +72,7 @@
             "abilities": "Grav"
         },
         {
-            "name": "Krak grenade",
+            "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "6",

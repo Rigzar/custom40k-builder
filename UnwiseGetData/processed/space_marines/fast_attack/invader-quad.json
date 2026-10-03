@@ -25,7 +25,7 @@
     "equipped_with": "Every model is equipped with: Heavy bolt pistol; Frag grenades; Krak grenades; Onslaught gatling cannon, Twin bolt rifle.",
     "weapons": [
         {
-            "name": "Frag grenade",
+            "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "4",
@@ -43,7 +43,7 @@
             "abilities": "-"
         },
         {
-            "name": "Krak grenade",
+            "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
             "s": "6",

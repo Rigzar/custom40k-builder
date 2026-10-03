@@ -1,0 +1,122 @@
+{
+    "name": "Br\u00f4khyr Iron-master",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Br\u00f4khyr Iron-master",
+            "min": 1,
+            "max": 1,
+            "points": 67
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "E-COG",
+            "min": 0,
+            "max": 3,
+            "points": 10
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "4+"
+            },
+            "name": "Br\u00f4khyr Forge-master",
+            "min": 0,
+            "max": 1,
+            "points": 82
+        }
+    ],
+    "equipped_with": "A Br\u00f4khyr Iron-master is equipped with: Gravitic concussion grenades; Graviton hammer.All E-COGs are equipped with: -.",
+    "weapons": [
+        {
+            "name": "Gravitic concussion grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Graviton hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Graviton, Slow(-3)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One Br\u00f4khyr Iron-master per army can be upgraded to a Br\u00f4khyr Forge-master for +15pts.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Br\u00f4khyr Forge-master",
+            "is_unique_per_army": true,
+            "effect": {
+                "grants_abilities": [
+                    "Br\u00f4khyr Forge-master: A Br\u00f4khyr Forge-master may use Br\u00f4khyr\u2019s Guild twice."
+                ]
+            }
+        }
+    ],
+    "abilities": [
+        "Eye of the Ancestors, Steady Advance, Void armor",
+        "Br\u00f4khyr\u2019s Guild: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
+        "Br\u00f4khyr Forge-master: A Br\u00f4khyr Forge-master may use Br\u00f4khyr\u2019s Guild twice.",
+        "Companions: E-COGs do not prevent a Br\u00f4khyr Iron-master from joining another unit and do not count towards passenger capacity in a transport.",
+        "E-COG support: Add +1 to every Br\u00f4khyr's Guild roll for each E-COG in the unit."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 67
+}

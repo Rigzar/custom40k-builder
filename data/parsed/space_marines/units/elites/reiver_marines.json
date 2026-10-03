@@ -1,131 +1,131 @@
 {
-  "name": "Reiver Marines",
-  "models": [
-    {
-      "name": "Reiver Marine",
-      "points": 42,
-      "min": 4,
-      "max": 9,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "4",
-        "T": "4",
-        "W": "2",
-        "I": "4",
-        "A": "2",
-        "LD": "8",
-        "SV": "3+"
-      }
-    },
-    {
-      "name": "Reiver Sergeant",
-      "points": 47,
-      "min": 1,
-      "max": 1,
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "4",
-        "T": "4",
-        "W": "2",
-        "I": "4",
-        "A": "2",
-        "LD": "8",
-        "SV": "3+"
-      }
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "Every model is equipped with: Bolt carbine; Heavy bolt pistol; Frag grenades; Krak grenades.",
-  "weapons": [
-    {
-      "name": "Bolt carbine",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Sunder(2)"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Blast(4)"
-    },
-    {
-      "name": "Heavy bolt pistol",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "4",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Combat knife",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "All models in the unit may swap their Bolt carbine",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    "name": "Reiver Marines",
+    "models": [
         {
-          "name": "Combat knife",
-          "points": 0
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Reiver Marine",
+            "min": 4,
+            "max": 9,
+            "points": 42
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Reiver Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 47
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Bolt carbine"
-      ]
-    }
-  ],
-  "abilities": [
-    "Deep Strike, Infiltrator, Move through cover, Terrifying(-1), They Shall Know No Fear",
-    "Precision extermination: All ranged and melee attacks gain the \"Precision(5+)\" ability.",
-    "Precision insertion: The unit does not scatter when being deployed via Deep Strike."
-  ],
-  "unit_type": "Infantry",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Elites",
-  "default_size": 5,
-  "min_cost": 215
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Bolt carbine; Heavy bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt carbine",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Sunder(2)"
+        },
+        {
+            "name": "Combat knife",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All models in the unit may swap their Bolt carbine",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Combat knife",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt carbine"
+            ]
+        }
+    ],
+    "abilities": [
+        "Deep Strike, Infiltrator, Move through cover, Terrifying(-1), They Shall Know No Fear",
+        "Precision extermination: All ranged and melee attacks gain the \"Precision(5+)\" ability.",
+        "Precision insertion: The unit does not scatter when being deployed via Deep Strike."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 215
 }

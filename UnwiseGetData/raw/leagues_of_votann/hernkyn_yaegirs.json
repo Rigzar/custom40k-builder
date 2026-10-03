@@ -99,7 +99,7 @@
         5,
         -2,
         2,
-        "Armor piercing(5+), Suppression(6)"
+        "Armor piercing(5+), Sniper, Suppression(6)"
     ],
     [
         "Plasma knife",
@@ -139,9 +139,6 @@
     ],
     [
         "Eye of the Ancestors, Infiltrator, Steady Advance, Use cover, Void armor"
-    ],
-    [
-        "Sniper: Models with a Magna-coil rifle receive a +1 bonus to their BS value."
     ],
     [
         "UNIT TYPE"
