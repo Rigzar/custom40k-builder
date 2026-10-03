@@ -40,7 +40,7 @@
     ],
     "min_cost": 54,
     "default_size": 2,
-    "equipped_with": "The Firesight Marksman ist equipped with: Markerlight; Pulse pistol.Every Sniper drone is equipped with: Longshot pulse rifle.",
+    "equipped_with": "The Firesight Marksman is equipped with: Markerlight; Pulse pistol.Every Sniper drone is equipped with: Longshot pulse rifle.",
     "weapons": [
         {
             "name": "Longshot pulse rifle",

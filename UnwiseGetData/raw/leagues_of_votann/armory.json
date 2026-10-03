@@ -14,7 +14,7 @@
         "POINTS CHARACTER"
     ],
     [
-        "Abyss grenade",
+        "Abyss grenades",
         "3\"",
         "Grenade 1",
         8,
@@ -310,7 +310,7 @@
     ],
     [
         "Skimmer bike",
-        "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Magna-coil autogun, the ability \"Jet bike\" and \"Vanguard\". Only for infantry.",
+        "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Magna-coil autocannon, the ability \"Jet bike\" and \"Vanguard\". Only for infantry.",
         "-",
         85
     ],

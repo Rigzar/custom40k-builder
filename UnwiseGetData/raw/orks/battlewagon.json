@@ -301,15 +301,15 @@
         "Result"
     ],
     [
-        "1-2",
+        "\"1-2\"",
         "Kaboom! The vehicle explodes with a radius of 6\"."
     ],
     [
-        "3-4",
+        "\"3-4\"",
         "Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
     ],
     [
-        "5-6",
+        "\"5-6\"",
         "Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as a wreck."
     ],
     [

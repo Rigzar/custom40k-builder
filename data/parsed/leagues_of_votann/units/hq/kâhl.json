@@ -1,0 +1,93 @@
+{
+    "name": "K\u00e2hl",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "K\u00e2hl",
+            "min": 1,
+            "max": 1,
+            "points": 59
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "High K\u00e2hl",
+            "min": 0,
+            "max": 1,
+            "points": 74
+        }
+    ],
+    "equipped_with": "A K\u00e2hl is a character model and equipped with: Gravitic concussion grenades.",
+    "weapons": [
+        {
+            "name": "Gravitic concussion grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Graviton"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One K\u00e2hl per army can be upgraded to a High K\u00e2hl for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "High K\u00e2hl",
+            "is_unique_per_army": true,
+            "effect": {
+                "grants_abilities": [
+                    "High K\u00e2hl: The model can use \"Grim Efficiency\" twice per battle round."
+                ]
+            }
+        }
+    ],
+    "abilities": [
+        "Eye of the Ancestors, Infantry, Steady Advance, Void armor",
+        "Grim Efficiency: When activating this unit, select one enemy unit on the battlefield. It gains a Judgement token.",
+        "High K\u00e2hl: The model can use \"Grim Efficiency\" twice per battle round."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 59
+}
