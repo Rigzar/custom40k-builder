@@ -33,7 +33,7 @@ for (const [fac, ods] of Object.entries(FILES)) {
         const line = raw.replace(/\s+/g, ' ').trim();
         if (line.length < 4 || HEADERS.has(line.toLowerCase()) || /^[\d.\-+\/x"' ,]+$/.test(line) || /^[0-9]+-[0-9]+$/.test(line)) continue;
         if (/^\*? ?Choose one of the following|^Upgrades:?$/i.test(line)) continue;
-        if (/^[+-]?\d+ points?$/i.test(line) || /access to (weapons|vehicle)|can gain (one )?a? ?Veteran|may gain one Veteran|gain a Veteran ability|Armory\.?$/i.test(line)) continue;
+        if (/^[+-]?\d+ points?$/i.test(line) || /access to (weapons|vehicle)|can gain (one )?a? ?Veteran|may gain one Veteran|gain a Veteran ability/i.test(line) || /Armory\.?$/i.test(line)) continue;
         // an ability list ("A, B(3), C"): every token must be present, in any order
         if (line.includes(', ') && !line.includes(':') && line.split(/,\s*(?![^()]*\))/).every(tk => u.t.includes(nz(tk)))) continue;
         // a bullet that carries its own price ("... for +46 points"): the item name before it must be present

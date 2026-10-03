@@ -36,6 +36,11 @@
   --font-body: Georgia, 'Times New Roman', serif;
   --font-ui: 'BankGothic', system-ui, sans-serif;
 }
+/* Conduit and BankGothic have no Cyrillic; Alumni Sans does (suggested by the Russian translator). */
+:lang(ru) {
+  --font-heading: 'Alumni Sans', 'Arial Narrow', sans-serif;
+  --font-ui: 'Alumni Sans', system-ui, sans-serif;
+}
 
 body {
   font-family: var(--font-body);

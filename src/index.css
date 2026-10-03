@@ -345,6 +345,10 @@
 body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 .font-cinzel { font-family: var(--font-cinzel); }
 .font-bankgothic { font-family: var(--font-bankgothic); }
+/* Cinzel, Conduit and BankGothic have no Cyrillic, so Russian headings fell back to Georgia.
+   Alumni Sans covers Cyrillic and suits the display look (suggested by the Russian translator).
+   It is a narrow face with a small x-height, hence the size nudge. */
+html:lang(ru) .font-cinzel, html:lang(ru) .font-bankgothic { font-family: 'Alumni Sans', 'Arial Narrow', sans-serif; font-size-adjust: 0.5; }
 #root { min-height: 100vh; }
 
 /* ── Landing page entrance animations ── */
