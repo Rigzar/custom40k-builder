@@ -2,6 +2,10 @@
     "name": "Furies",
     "models": [
         {
+            "name": "Fury",
+            "points": 16,
+            "min": 5,
+            "max": 30,
             "stats": {
                 "M": "12\"",
                 "WS": "4+",
@@ -13,14 +17,9 @@
                 "A": "2",
                 "LD": "7",
                 "SV": "6+"
-            },
-            "name": "Fury",
-            "min": 5,
-            "max": 30,
-            "points": 16
+            }
         }
     ],
-    "variant_models": [],
     "equipped_with": "Every model is equipped with: Daemonic claws.",
     "weapons": [
         {
@@ -80,6 +79,7 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Fast Attack",
-    "default_size": 5,
-    "min_cost": 80
+    "default_size": 10,
+    "min_cost": 160,
+    "variant_models": []
 }

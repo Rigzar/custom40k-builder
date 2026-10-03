@@ -1706,6 +1706,13 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     for (const ab of rpForRules.injectedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
     for (const ab of rpForRules.optionAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
     for (const ab of rpForRules.equipMods.grantedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
+    // Veteran abilities / traits are printed on the card by NAME; their rule text belongs in the
+    // Special Rules section too (Discord: "descriptions of Veteran abilities do not show in Print").
+    const traitSource = armoryDataFor(item.factionSource);
+    for (const tr of item.traits) {
+      const def = traitSource.traits.find(d => d.name === tr.name) ?? data.traits.find(d => d.name === tr.name);
+      if (def?.desc) addRule(tr.name, def.desc);
+    }
     const shownWeapons = rpForRules.weapons
       .filter(w => !optWpnNames.has(w.name) || selWpnNames.has(w.name));
     for (const w of shownWeapons) {

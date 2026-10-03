@@ -2,6 +2,10 @@
     "name": "Beastpack",
     "models": [
         {
+            "name": "Beastmaster",
+            "points": 26,
+            "min": 1,
+            "max": 1,
             "stats": {
                 "M": "12\"",
                 "WS": "3+",
@@ -13,13 +17,13 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "5+"
-            },
-            "name": "Beastmaster",
-            "min": 1,
-            "max": 1,
-            "points": 26
+            }
         },
         {
+            "name": "Clawed Fiend",
+            "points": 32,
+            "min": 0,
+            "max": 10,
             "stats": {
                 "M": "6\"",
                 "WS": "4+",
@@ -31,13 +35,13 @@
                 "A": "3",
                 "LD": "5",
                 "SV": "6+"
-            },
-            "name": "Clawed Fiend",
-            "min": 0,
-            "max": 10,
-            "points": 32
+            }
         },
         {
+            "name": "Khymerae",
+            "points": 24,
+            "min": 0,
+            "max": 10,
             "stats": {
                 "M": "12\"",
                 "WS": "3+",
@@ -49,13 +53,13 @@
                 "A": "2",
                 "LD": "5",
                 "SV": "6+"
-            },
-            "name": "Khymerae",
-            "min": 0,
-            "max": 10,
-            "points": 24
+            }
         },
         {
+            "name": "Razorwing Flock",
+            "points": 28,
+            "min": 0,
+            "max": 10,
             "stats": {
                 "M": "12\"",
                 "WS": "5+",
@@ -67,14 +71,9 @@
                 "A": "3",
                 "LD": "5",
                 "SV": "6+"
-            },
-            "name": "Razorwing Flock",
-            "min": 0,
-            "max": 10,
-            "points": 28
+            }
         }
     ],
-    "variant_models": [],
     "equipped_with": "Every Beastmaster is equipped with: Agonizer; Splinter pistol.Every Clawed Fiend is equipped with: Clawed fists.Every Khymerae is equipped with: Claws and talons.Every Razorwing Flock is equipped with: Razor feathers.",
     "weapons": [
         {
@@ -145,6 +144,7 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Fast Attack",
-    "default_size": 1,
-    "min_cost": 26
+    "default_size": 3,
+    "min_cost": 74,
+    "variant_models": []
 }
