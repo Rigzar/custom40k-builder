@@ -643,6 +643,7 @@
  "valFixedMaxExceeded": "{unit}: «{header}» — {used} замен, максимум {max}.",
  "valDisjointSquadSize": "{unit}: размер отряда должен быть {min} или {squadMin}-{max} (сейчас {size}).",
  "valRatioPerNExceeded": "{unit}: {model} требует {ratioPerN} {ratioOf} на модель (есть {have}, допускается только {max} при {primaryCount} {ratioOf}).",
+ "valMustPickWeapon": "{unit}: нужно выбрать одно оружие из списка (ничего не выбрано).",
  "valCrossGroupPoolExceeded": "{unit}: выбрано {used} замен {weapon} в нескольких опциях, но заменить можно только {pool} моделей.",
  "valLowEpicOnly": "Владыки войны допускаются только в Эпической битве (сейчас {count}).",
  "valLowExceeds33": "Владыки войны превышают 33% очков ({pts}/{cap}).",

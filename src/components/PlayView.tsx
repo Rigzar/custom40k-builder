@@ -24,7 +24,7 @@ import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile } from '../engine/resolver';
 import { selectedAbilities, battleWeapons, selectedExtras } from '../lib/battleProfile';
 import { resolveStatValue } from '../lib/statPipeline';
-import { wardSave, ownWardAbilities } from '../lib/wardSave';
+import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { powerMetaByName } from '../utils/psychicFormat';
 import { useT } from '../i18n';
@@ -97,6 +97,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   const ward = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: rp.equipMods?.invulnSave,
     optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities,
+    markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, u.abilities),
   });
   // At the table the number you roll against is the FINAL one, so this runs the whole chain the
   // unit card runs — Marks, traits, wargear and options — not just the Marks. Reported the day

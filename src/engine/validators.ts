@@ -1250,7 +1250,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const armours = item.armory
       .map(a => findArmoryItem(data, a)?.armourKeyword)
       .filter((k): k is string => !!k);
-    if (armours.length > 1) {
+    // The rule is one armour PER MODEL, but each purchase is one model's, so a five-model squad
+    // legitimately holds five. Counting selections against 1 called a Chosen squad with five
+    // Saturnine armours an error ("Saturnine, Saturnine, Saturnine, Saturnine, Saturnine").
+    if (armours.length > Math.max(1, item.size)) {
       const u = resolveUnit(item, data);
       items.push({
         type: 'error',
@@ -1305,6 +1308,16 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           const joinerIsSuppl = isSupplItem(joiner);
           const targetIsSuppl = isSupplItem(target);
           if (isIntegratedSuppl && (joinerIsSuppl || !joiner.factionSource) && (targetIsSuppl || !target.factionSource)) {
+            continue;
+          }
+          // The same holds when the supplement comes from the ARCHETYPE (Legion) rather than from
+          // the Allied Detachment picker: the army never has an `alliedFaction`, so the check above
+          // never fired and a Chaos Lord could not lead the Legion Terminators the archetype hands
+          // him -- the supplement has no characters of its own, so nothing could.
+          const grant = rule?.alliedFaction;
+          if (grant && !state.alliedFaction
+              && (joiner.factionSource === grant || !joiner.factionSource)
+              && (target.factionSource === grant || !target.factionSource)) {
             continue;
           }
           const targetName = resolveUnit(target, data)?.name ?? target.unitName;
@@ -2842,6 +2855,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           text: T('valCrossGroupPoolExceeded', { unit: item.unitName, used, weapon: g.replaces![0], pool: poolSize }),
         });
       }
+    });
+  }
+
+  // "Must pick one weapon from this list" is a REQUIREMENT, not an offer: a unit whose datasheet
+  // prints it has no weapon of its own until one is chosen (Field Ordnance Battery, Heavy
+  // Ordnance Carriage, the Dreadnought patterns). Nothing checked it, so a battery with no gun
+  // validated cleanly and priced at its crew alone.
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    u.option_groups.forEach((g, gi) => {
+      if (!/^\s*must pick one\b/i.test(g.header ?? '') || !g.choices?.length) return;
+      const picked = Object.entries(item.optionQty?.[gi] ?? {}).reduce((s, [k, v]) => k === '__inline' ? s : s + (v ?? 0), 0);
+      if (picked < 1) items.push({ type: 'error', text: T('valMustPickWeapon', { unit: item.customName || item.unitName }) });
     });
   }
 

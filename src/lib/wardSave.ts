@@ -36,6 +36,28 @@ export interface WardSources {
   optionAbilities?: string[] | null;
   /** Trait-granted abilities; an `inv_save` effect arrives as "5+ Ward Save", Berserk as its own name. */
   traitAbilities?: Array<{ name: string }> | null;
+  /**
+   * Instances of "Warded" the roster entry gains from a MARK (Mark of Tzeentch). Not an ability on
+   * the datasheet and not injected into any list the ward derivation reads, so it was never
+   * applied: a Traitor Guard Primaris Psyker with the Mark showed no ward save at all. It is a
+   * modifier, so it lands AFTER the best flat source -- see `applyMarkWarded`.
+   */
+  markWarded?: number;
+}
+
+/** 0 or 1: the Mark of Tzeentch's "Warded", unless the datasheet already carries its own. */
+export function markWardedCount(
+  statModMark: string | null | undefined, blackCrusadeChampion: boolean | null | undefined,
+  ownAbilities: string[] | null | undefined,
+): number {
+  if (statModMark !== 'Tzeentch' && !blackCrusadeChampion) return 0;
+  return (ownAbilities ?? []).some(a => /(^|[^A-Za-z])Warded\b/i.test(a)) ? 0 : 1;
+}
+
+/** "Gains a 6+ ward save, or improves an existing one by +1, to a maximum of 4+." */
+function applyMarkWarded(best: number | null, n: number | undefined): number | null {
+  if (!n) return best;
+  return Math.max(4, best === null ? Math.min(6, 7 - n) : best - n);
 }
 
 /**
@@ -97,7 +119,7 @@ export function wardSave(src: WardSources): number | null {
     fromNamedAbilities(src.optionAbilities),
     fromTraitAbilities(src.traitAbilities),
   ].filter((v): v is number => v !== null);
-  return candidates.length ? Math.min(...candidates) : null;
+  return applyMarkWarded(candidates.length ? Math.min(...candidates) : null, src.markWarded);
 }
 
 /**
@@ -118,7 +140,7 @@ export function wardSources(src: WardSources): {
   const option = parseInvSaveFromAbilities(src.optionAbilities ?? []);
   const trait = fromTraitAbilities(src.traitAbilities);
   const present = [datasheet, equipment, option, trait].filter((v): v is number => v !== null);
-  return { value: present.length ? Math.min(...present) : null, datasheet, equipment, option, trait };
+  return { value: applyMarkWarded(present.length ? Math.min(...present) : null, src.markWarded), datasheet, equipment, option, trait };
 }
 
 /**

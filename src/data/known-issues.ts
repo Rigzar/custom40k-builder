@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-weapon-header-without-star-orphan-modes-01",
+    status: "known",
+    title: "Unbought weapon modes show on the profile (Chaos Predator Twin entropy cannon and ~40 more units)",
+    description: "OPEN, data side (Unwise's update script). A weapon header row WITHOUT a trailing * on the sheet (Chaos Predator row 17 'Twin entropy cannon', Plagueburst Crawler 'Entropy cannon') followed by '- Mode' rows is written by process_unit_data.py as a weapon with empty stats plus orphan '- Focused entropy' / '- Entropic burst' rows that carry no parent name, so a Predator that never bought the option still lists them. Starred headers get the parent name prefixed and work. About 40 units in 15 factions use the unstarred form (Aggressor Squad, Squiggoth, Hazard Battlesuits, Howling Banshees...). Fix on Unwise's side: add the * to those header cells, or let the script treat any stat-less row followed by '- ' rows like a starred one. Not hand-fixed in the JSON, because the next unit update would overwrite it.",
+  },
+  {
     id: "ki-armory-modal-crash-no-desc-01",
     status: "fixed",
     title: "Armory button sends you back to the main screen (GH#199)",

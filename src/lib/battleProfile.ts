@@ -80,6 +80,17 @@ export function selectedAbilities(u: Unit, item: RosterEntry, rp: BattleProfileI
     });
   });
 
+  // An INLINE upgrade ("One Captain per army can be upgraded to a Colonel for +15") has no
+  // choices, so nothing above knew its rule text belonged to something not bought: the datasheet
+  // printed "Colonel: ..." under every plain Captain. Its group-level effect abilities are hidden
+  // until the upgrade is taken, which is when `optionAbilities` adds them back.
+  const unboughtInlineTexts = new Set<string>();
+  (u.option_groups ?? []).forEach((g, gi) => {
+    if (g.inline_pts == null || (g.choices ?? []).length > 0) return;
+    if ((item.optionQty?.[gi] as Record<string, number> | undefined)?.__inline) return;
+    for (const ab of (g.effect?.grants_abilities ?? [])) unboughtInlineTexts.add(ab.toLowerCase());
+  });
+
   const selectedChoiceAbilityTexts = new Set(rp.injectedAbilities.map(a => a.toLowerCase()));
   const hasUnboughtPsykerOption = rp.psykerGroupIdx >= 0 && !rp.effectivePsyker;
 
@@ -89,6 +100,7 @@ export function selectedAbilities(u: Unit, item: RosterEntry, rp: BattleProfileI
     if (unselectedOptionalWeapons.has(label)) return false;
     if (allChoiceAbilityTexts.has(ab.toLowerCase()) && !selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
     if (unselectedChoiceNames.has(label)) return false;
+    if (unboughtInlineTexts.has(ab.toLowerCase())) return false;
     if (hasUnboughtPsykerOption && label === 'psyker') return false;
     return true;
   });
@@ -152,7 +164,7 @@ export function battleWeapons(rp: BattleProfileInput): BattleWeaponGroup[] {
 export function selectedExtras(item: RosterEntry, _data?: FactionData) {
   return {
     traits: item.traits.map(t => t.name),
-    powers: item.powers.map(p => `${p.powerName} (${p.disciplineName})`),
+    powers: item.powers.filter(p => p.powerName !== '__discipline__').map(p => `${p.powerName} (${p.disciplineName})`),
     prayers: [...item.prayers],
   };
 }

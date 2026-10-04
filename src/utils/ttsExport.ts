@@ -337,7 +337,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       prayers: lookupAll(item.prayers, pools),
       pacts: lookupAll(item.pacts, pools),
       // item.powers is PowerSelection[] ({ disciplineName, powerName }), not plain names.
-      powers: lookupAll((item.powers ?? []).map(p => p.powerName), pools),
+      powers: lookupAll((item.powers ?? []).filter(p => p.powerName !== '__discipline__').map(p => p.powerName), pools),
     });
   }
 

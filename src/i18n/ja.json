@@ -643,6 +643,7 @@
  "valFixedMaxExceeded": "{unit}：「{header}」— 交換 {used} 件。最大 {max} 件です。",
  "valDisjointSquadSize": "{unit}：分隊の規模は {min}、または {squadMin}〜{max} である必要があります（現在 {size}）。",
  "valRatioPerNExceeded": "{unit}：{model} にはモデル1体につき {ratioPerN} の {ratioOf} が必要です（現在 {have}。{primaryCount} の {ratioOf} につき {max} まで）。",
+ "valMustPickWeapon": "{unit}：リストから武器を1つ選択する必要があります（未選択）。",
  "valCrossGroupPoolExceeded": "{unit}：複数のオプションにまたがって {weapon} の交換が {used} 件選択されていますが、交換できるモデルは {pool} 体のみです。",
  "valLowEpicOnly": "戦争の王は大会戦でのみ使用できます（現在 {count}）。",
  "valLowExceeds33": "戦争の王がポイントの33%を超えています（{pts}/{cap}）。",

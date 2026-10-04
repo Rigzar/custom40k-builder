@@ -180,7 +180,7 @@ export type TranslationKey =
   | 'valSkirmishCombinedArmour' | 'valSkirmishArmourSaveGain' | 'valSkirmishInvSaveGain' | 'valSkirmishToughnessGain'
   | 'valSkirmishArmourSaveBase' | 'valSkirmishInvSaveBase' | 'valSkirmishToughnessBase'
   | 'valSkirmishDamageGain' | 'valPerNExceeded' | 'valFixedMaxExceeded' | 'valDisjointSquadSize'
-  | 'valRatioPerNExceeded' | 'valCrossGroupPoolExceeded' | 'valLowEpicOnly' | 'valLowExceeds33' | 'valLowOk'
+  | 'valRatioPerNExceeded' | 'valCrossGroupPoolExceeded' | 'valMustPickWeapon' | 'valLowEpicOnly' | 'valLowExceeds33' | 'valLowOk'
   | 'valPlatoonLinkedCount' | 'valPlatoonUnlinkedInfantry' | 'valSlotOverMax' | 'valUsingAops' | 'valAlliedNeedAtLeast'
   | 'valAlliedTransportOverMax' | 'valAlliedSlotNotAllowed' | 'valAlliedSlotOverMax' | 'valAlliedRatioExceedsTroops'
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
@@ -1222,6 +1222,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valFixedMaxExceeded: '{unit}: "{header}" — {used} swaps, maximum {max}.',
     valDisjointSquadSize: '{unit}: squad size must be {min} or {squadMin}-{max} (have {size}).',
     valRatioPerNExceeded: '{unit}: {model} requires {ratioPerN} {ratioOf} per model (have {have}, only {max} allowed with {primaryCount} {ratioOf}).',
+    valMustPickWeapon: '{unit}: must pick one weapon from the list (none selected).',
     valCrossGroupPoolExceeded: '{unit}: {used} {weapon} swaps selected across multiple options, but only {pool} models can be swapped.',
     valLowEpicOnly: 'Lords of War are only allowed in Epic Battle (have {count}).',
     valLowExceeds33: 'Lords of War exceed 33% of points ({pts}/{cap}).',
@@ -2314,6 +2315,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valFixedMaxExceeded: '{unit}: „{header}" — {used} Tauschoptionen, Maximum {max}.',
     valDisjointSquadSize: '{unit}: Truppgröße muss {min} oder {squadMin}-{max} sein (haben {size}).',
     valRatioPerNExceeded: '{unit}: {model} erfordert {ratioPerN} {ratioOf} pro Modell (haben {have}, nur {max} erlaubt bei {primaryCount} {ratioOf}).',
+    valMustPickWeapon: '{unit}: eine Waffe aus der Liste muss gewählt werden (keine gewählt).',
     valCrossGroupPoolExceeded: '{unit}: {used} {weapon}-Tausche über mehrere Optionen gewählt, aber nur {pool} Modelle können getauscht werden.',
     valLowEpicOnly: 'Lords of War sind nur in Epic Battle erlaubt (haben {count}).',
     valLowExceeds33: 'Lords of War überschreiten 33% der Punkte ({pts}/{cap}).',
@@ -3406,6 +3408,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valFixedMaxExceeded: '{unit}: "{header}" — {used} intercambios, máximo {max}.',
     valDisjointSquadSize: '{unit}: el tamaño de escuadra debe ser {min} o {squadMin}-{max} (tienes {size}).',
     valRatioPerNExceeded: '{unit}: {model} requiere {ratioPerN} {ratioOf} por modelo (tienes {have}, solo {max} permitidos con {primaryCount} {ratioOf}).',
+    valMustPickWeapon: '{unit}: debe elegir un arma de la lista (ninguna elegida).',
     valCrossGroupPoolExceeded: '{unit}: {used} intercambios de {weapon} seleccionados entre varias opciones, pero solo {pool} modelos pueden intercambiarse.',
     valLowEpicOnly: 'Los Lords of War solo están permitidos en Epic Battle (tienes {count}).',
     valLowExceeds33: 'Los Lords of War exceden el 33% de los puntos ({pts}/{cap}).',

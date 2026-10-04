@@ -9,7 +9,8 @@ import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
-import { SLOT_ORDER } from '../engine/engagements';
+import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
+import { countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { slotLabel } from '../utils/slotLabel';
 import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { engName } from '../utils/engagementText';
@@ -20,7 +21,7 @@ import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType, localiseAbility } from '../data/coreRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
-import { wardSave, ownWardAbilities } from '../lib/wardSave';
+import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { capStat } from '../lib/statPipeline';
 import { resolveUnitProfile } from '../engine/resolver';
 import { selectedAbilities } from '../lib/battleProfile';
@@ -407,6 +408,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // affected. Same derivation as the unit card now.
   const effectiveInvSv = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave, optionAbilities, traitAbilities,
+    markWarded: markWardedCount(statModMark, rp.blackCrusadeChampion, u.abilities),
   });
   const color = getThemeColor(data.faction, effectiveMark);
 
@@ -504,7 +506,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // two copies staying in step. Same logic, same order, moved verbatim.
   const abilitiesList = selectedAbilities(u, item, rp as any);
   const traitList  = item.traits.map(t => t.name);
-  const powerList  = item.powers.map(p => `${p.powerName} (${p.disciplineName})`);
+  const powerList  = item.powers.filter(p => p.powerName !== '__discipline__').map(p => `${p.powerName} (${p.disciplineName})`);
   const prayerList = item.prayers;
   const hasAbilities = abilitiesList.length > 0 || traitList.length > 0 || powerList.length > 0 || prayerList.length > 0;
 
@@ -1208,7 +1210,6 @@ const POWER_MAX = [14, 6, 10, 16, 5, 5];
 // ── Summary page ──────────────────────────────────────────────────────────────
 const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers', 'Lords of War'] as const;
 const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers', 'LoW'];
-const COMP_MAX    = [2, 6, 3, 3, 3, 3, 1, 3];
 
 function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string; symbolUrl: string;
@@ -1235,7 +1236,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
 
   const compCountsForRadar = COMP_SLOTS.map(slot => {
     const effectiveSlot = slot === 'Transport' ? 'Dedicated Transport' : slot;
-    return units.filter(x => x.slot === effectiveSlot).length;
+    return units.filter(x => x.slot === effectiveSlot && countsTowardOwnSlot(x.item, army)).length;
   });
   // Dedicated Transport has no fixed cap: the AOP is "0-ᵀ" = one transport per Infantry-type
   // selection. So the Transport axis max is the number of Infantry units in the army, not a flat 3
@@ -1244,7 +1245,16 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
     const u = resolveUnit(item, data);
     return !!u && !u.is_vehicle && (u.unit_type ?? '').toLowerCase().includes('infantry');
   }).length;
-  const compMax = COMP_MAX.map((m, i) => (COMP_SLOTS[i] === 'Transport' ? Math.max(infantryCount, 1) : m));
+  // The cap is the engagement's own AOP row, not a table of flat numbers: those were the Pitched
+  // values for every battle size, so Skirmish read "2/6" Troops and Epic never showed its extra
+  // detachments. A platoon member folded into its Command Squad's slot is not counted (it was,
+  // which printed "7/6" for a legal six-selection list).
+  const engagement = ENGAGEMENTS[storeState.engagement] ?? ENGAGEMENTS.pitched;
+  const compMax = COMP_SLOTS.map(slot => {
+    if (slot === 'Transport') return Math.max(infantryCount, 1);
+    const cap = engagement.aop[(slot === 'Fast Attack' ? 'Fast Attack' : slot) as keyof typeof engagement.aop]?.[1] ?? 0;
+    return Math.max(cap, 1);
+  });
   const compValues = compCountsForRadar.map((count, i) => Math.min((count / compMax[i]) * 10, 10));
   const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${compMax[i]}`);
 
@@ -1367,7 +1377,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
   const { language: lang } = useLanguage();
   const compCounts = COMP_SLOTS.map(slot => {
     const eff = slot === 'Transport' ? 'Dedicated Transport' : slot;
-    return army.filter(i => (slotMap.get(i.id) ?? i.slot) === eff).length;
+    return army.filter(i => (slotMap.get(i.id) ?? i.slot) === eff && countsTowardOwnSlot(i, army)).length;
   });
   const configRows: [string, string][] = [
     [tFn(lang, 'engagement'), engName((k) => tFn(lang, k), engagement)],
@@ -1560,7 +1570,7 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
     const wargear = [
       ...item.armory.map(a => a.itemName),
       ...item.traits.map(tr => tr.name),
-      ...item.powers.map(p => p.powerName),
+      ...item.powers.filter(p => p.powerName !== '__discipline__').map(p => p.powerName),
       ...item.prayers,
     ];
     if (eff !== lastSlot) {

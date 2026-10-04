@@ -7,7 +7,7 @@ import { useArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
-import { wardSources, ownWardAbilities } from '../lib/wardSave';
+import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
@@ -228,6 +228,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const ward = wardSources({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave,
     optionAbilities, traitAbilities,
+    markWarded: markWardedCount(statModMark, blackCrusadeChampion, u.abilities),
   });
   const effectiveInvSv = ward.value;
   // Source markers for the ◆ indicator — the card's own tie-breaking, unchanged: equipment
