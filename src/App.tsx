@@ -778,6 +778,8 @@ export default function App() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
       {/* ── Field Manual — floating button, always visible on every screen ── */}
+      {/* Hidden while Gitfinda is open: on a phone it sat right over the chat's Send button. */}
+      {!showGitfinda && (
       <button
         onClick={() => setShowCheatSheets(true)}
         title={t('navFieldManual')}
@@ -786,6 +788,7 @@ export default function App() {
         <span>📜</span>
         <span className="hidden sm:inline">{t('navFieldManual')}</span>
       </button>
+      )}
 
       {/* ── Navigation chrome — one sticky block for the whole flow ──
            Row 1 is the four steps, row 2 is the army it applies to. Hidden on the front door,

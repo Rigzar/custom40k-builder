@@ -201,6 +201,12 @@ function Meta({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
+/** "Already converted to your time zone (America/Edmonton)": the slots a poster typed in their own
+ *  zone are shown in the viewer's, and nothing on the card said so (Unwise asked for exactly this). */
+function zoneNote(t: TFn, zone: string): string {
+  return tpl(t(zone === myZone() ? 'gfSlotsYourZone' : 'gfSlotsInZone'), { zone });
+}
+
 function PostCard({ t, locale, post, zone, action }: { t: TFn; locale: string; post: GitfindaPost; zone: string; action?: React.ReactNode }) {
   const a = ago(post.createdAt);
   const agoKey = a.unit === 'm' ? 'gfAgoM' : a.unit === 'h' ? 'gfAgoH' : 'gfAgoD';
@@ -220,7 +226,7 @@ function PostCard({ t, locale, post, zone, action }: { t: TFn; locale: string; p
             <Meta label={t('gfFZone')}>{offsetLabel(post.timezone)}</Meta>
           </div>
           <div className="mt-2 text-[12px]">
-            <div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfFSlots')}</div>
+            <div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfFSlots')} <span className="normal-case tracking-normal text-orange-300/60">· {zoneNote(t, zone)}</span></div>
             <Slots post={post} zone={zone} locale={locale} />
           </div>
           {post.eventName && <div className="mt-1 text-[11px] text-orange-300/80">{icon('engagement_crossed_swords', 'w-3.5 h-3.5')} {post.eventName}</div>}
@@ -612,7 +618,7 @@ function MatchDetail({ t, locale, username, match, zone, onBack, onRead, onGone 
           <Meta label={t('gfFPoints')}>{p.points}</Meta>
           <Meta label={t('gfFZone')}>{offsetLabel(p.timezone)}</Meta>
         </div>
-        <div className="mt-2 text-[12px]"><div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfAvailability')}</div><Slots post={p} zone={zone} locale={locale} /></div>
+        <div className="mt-2 text-[12px]"><div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfAvailability')} <span className="normal-case tracking-normal text-orange-300/60">· {zoneNote(t, zone)}</span></div><Slots post={p} zone={zone} locale={locale} /></div>
         {p.eventName && <div className="mt-1 text-[11px] text-orange-300/80">{icon('engagement_crossed_swords', 'w-3.5 h-3.5')} {p.eventName}</div>}
         {/* Only the player who matched can take it back; the post's owner has Cancel for the whole post. */}
         {!match.iAmOwner && (askingUnmatch

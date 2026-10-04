@@ -1088,6 +1088,8 @@
  "gfFPoints": "ポイント",
  "gfFZone": "タイムゾーン",
  "gfFSlots": "空いている時間帯",
+ "gfSlotsYourZone": "あなたのタイムゾーン（{zone}）に変換済み",
+ "gfSlotsInZone": "{zone}で表示",
  "gfFEvent": "イベント",
  "gfNoEvent": "イベントなし",
  "gfCustom": "カスタム…",

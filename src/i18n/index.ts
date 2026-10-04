@@ -509,7 +509,7 @@ export type TranslationKey =
   | 'gfFEngagement'
   | 'gfFPoints'
   | 'gfFZone'
-  | 'gfFSlots'
+  | 'gfFSlots' | 'gfSlotsYourZone' | 'gfSlotsInZone'
   | 'gfFEvent'
   | 'gfNoEvent'
   | 'gfCustom'
@@ -1612,6 +1612,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfFPoints: 'Point size',
     gfFZone: 'Time zone',
     gfFSlots: 'Available time slots',
+    gfSlotsYourZone: 'already converted to your time zone ({zone})',
+    gfSlotsInZone: 'shown in {zone}',
     gfFEvent: 'Event',
     gfNoEvent: 'No event',
     gfCustom: 'Custom…',
@@ -2719,6 +2721,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfFPoints: 'Punktegröße',
     gfFZone: 'Zeitzone',
     gfFSlots: 'Verfügbare Zeiten',
+    gfSlotsYourZone: 'bereits in deine Zeitzone umgerechnet ({zone})',
+    gfSlotsInZone: 'angezeigt in {zone}',
     gfFEvent: 'Event',
     gfNoEvent: 'Kein Event',
     gfCustom: 'Eigener Wert…',
@@ -3826,6 +3830,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfFPoints: 'Tamaño en puntos',
     gfFZone: 'Zona horaria',
     gfFSlots: 'Franjas disponibles',
+    gfSlotsYourZone: 'ya convertidas a tu zona horaria ({zone})',
+    gfSlotsInZone: 'mostradas en {zone}',
     gfFEvent: 'Evento',
     gfNoEvent: 'Sin evento',
     gfCustom: 'Otro valor…',
