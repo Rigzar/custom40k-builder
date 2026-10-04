@@ -1,7 +1,9 @@
 import { Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
-import { useLanguage, type Language } from '../i18n';
+import { useLanguage, t as tFn, type Language } from '../i18n';
+import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
+import { nm } from '../utils/localName';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
@@ -1937,6 +1939,40 @@ function DisciplineSheet({ lang, name, powers, general }:
   );
 }
 
+/**
+ * Imperial Guard Officer Orders: the 9 infantry/creature and 3 vehicle orders plus the one Legacy
+ * order the army's Legacy unlocks. They were only on the Print View, so a Guard player looking at
+ * the Field Manual (or anywhere else in the app) found no trace of them. Texts are the sheet's own,
+ * verbatim (English); the headings follow the sheet's "Infantry (Creatures)" / "Vehicles" split,
+ * which tells a reader which orders a vehicle may be given.
+ */
+function OfficerOrdersSheet({ lang, legacy, legacy2 }: { lang: Language; legacy: string; legacy2: string }) {
+  const active = IG_LEGACY_ORDERS.filter(o => o.legacyGrant === legacy || o.legacyGrant === legacy2);
+  const groups: [string, OfficerOrderEntry[]][] = [
+    [tFn(lang, 'prOrdersInfantry'), IG_INFANTRY_ORDERS],
+    [tFn(lang, 'prOrdersVehicles'), IG_VEHICLE_ORDERS],
+    [tFn(lang, 'prOrdersLegacy'), active],
+  ];
+  return (
+    <RefCard title={tFn(lang, 'prOfficerOrders')} sub="Imperial Guard">
+      {groups.filter(([, list]) => list.length > 0).map(([label, list]) => (
+        <div key={label} style={{ marginBottom: 10 }}>
+          <SectionTitle>{label}</SectionTitle>
+          {list.map(o => (
+            <div key={o.name} style={{ marginBottom: 9 }}>
+              <div style={{ fontWeight: 700, fontSize: '0.92rem', color: ACCENT }}>
+                {nm(o.name)}{o.legacyGrant ? <span style={{ fontWeight: 400, color: MUTED }}> ({o.legacyGrant})</span> : null}
+              </div>
+              <div style={{ fontSize: '0.78rem', fontStyle: 'italic', color: MUTED, marginTop: 1 }}>{o.when}</div>
+              <div style={{ fontSize: '0.86rem', lineHeight: 1.4, marginTop: 2 }}>{o.effect}</div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </RefCard>
+  );
+}
+
 function PageSection({ children }: { children: ReactNode }) {
   return <div style={{ pageBreakBefore: 'always', breakBefore: 'page' }}>{children}</div>;
 }
@@ -1948,6 +1984,8 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
   // The faction reference pages below are driven by whatever army is currently loaded, so the
   // Field Manual carries YOUR prayers/pacts/powers to the table alongside the core rules.
   const data = useArmyStore(s => s.data);
+  const legacy = useArmyStore(s => s.legacy);
+  const legacy2 = useArmyStore(s => s.legacy2);
   const prayers = data?.prayers ?? [];
   const pacts = data?.pacts ?? [];
   const disciplines = Object.entries(data?.disciplines ?? {}).filter(([, ps]) => ps.length > 0);
@@ -1996,6 +2034,9 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
           <PageSection><MeleeSheet lang={language} /></PageSection>
           <PageSection><PsychicSheet lang={language} /></PageSection>
           <PageSection><OrdersSheet lang={language} /></PageSection>
+          {data?.faction === 'Imperial Guard' && (
+            <PageSection><OfficerOrdersSheet lang={language} legacy={legacy} legacy2={legacy2} /></PageSection>
+          )}
           {/* Faction reference — only the pages the loaded army actually has. */}
           {prayers.length > 0 && (
             <PageSection><PrayersSheet lang={language} prayers={prayers} /></PageSection>

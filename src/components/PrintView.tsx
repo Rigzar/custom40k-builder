@@ -1948,7 +1948,20 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                 padding: '6px 14px', background: PARCHMENT,
                 columnCount: 2, columnGap: 20,
               }}>
-                {[...IG_INFANTRY_ORDERS, ...IG_VEHICLE_ORDERS, ...activeLegacyOrders].map((o: OfficerOrderEntry) => (
+                {([
+                  [tFn(rootLang, 'prOrdersInfantry'), IG_INFANTRY_ORDERS],
+                  [tFn(rootLang, 'prOrdersVehicles'), IG_VEHICLE_ORDERS],
+                  [tFn(rootLang, 'prOrdersLegacy'), activeLegacyOrders],
+                ] as [string, OfficerOrderEntry[]][]).filter(([, list]) => list.length > 0).flatMap(([label, list]) => [
+                  // The sheet files the orders under "Infantry (Creatures)" and "Vehicles"; the printout ran
+                  // them together, so a reader could not tell which orders a vehicle may be given
+                  // (Dominic: "some orders are creature / vehicle only").
+                  <div key={'hdr-' + label} style={{
+                    breakInside: 'avoid', breakAfter: 'avoid', fontFamily: CONDUIT, fontWeight: 800,
+                    textTransform: 'uppercase', letterSpacing: '.08em', fontSize: '.72em',
+                    color: primaryColor, borderBottom: `1px solid ${primaryColor}66`, margin: '4px 0 6px',
+                  }}>{label}</div>,
+                  ...list.map((o: OfficerOrderEntry) => (
                   <div key={o.name} style={{
                     breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.3,
                     color: '#222', marginBottom: 7,
@@ -1961,7 +1974,8 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                     <div style={{ color: '#777', fontStyle: 'italic', marginBottom: 1 }}>{o.when}</div>
                     <div style={{ color: '#555' }}>{o.effect}</div>
                   </div>
-                ))}
+                  )),
+                ])}
               </div>
             </div>
           );

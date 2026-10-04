@@ -15,6 +15,7 @@ import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { markAccess } from '../lib/markAccess';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
+import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS } from '../engine/codex_imperial_guard/special-abilities';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
 import { unitSubfactions, DE_SUBFACTIONS } from '../engine/codex_dark_eldar/subfaction';
@@ -2334,6 +2335,27 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <div className="text-[11px] text-zinc-200 font-medium">{nm(part.displayName)}</div>
                         {part.description && (
                           <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        )}
+                        {/* The orders an Imperial Guard officer can issue. They lived only on the Print View, so
+                            nothing in the builder told a Guard player what an "order" is; grouped the way the
+                            sheet files them (infantry and creatures / vehicles) with the army's own Legacy order. */}
+                        {data.faction === 'Imperial Guard' && part.displayName.toLowerCase() === 'officer' && (
+                          <div className="mt-1 space-y-1.5">
+                            {([
+                              [t('prOrdersInfantry'), IG_INFANTRY_ORDERS],
+                              [t('prOrdersVehicles'), IG_VEHICLE_ORDERS],
+                              [t('prOrdersLegacy'), IG_LEGACY_ORDERS.filter(o => o.legacyGrant === legacy || o.legacyGrant === legacy2)],
+                            ] as const).filter(([, list]) => list.length > 0).map(([label, list]) => (
+                              <div key={label}>
+                                <div className="text-[9px] uppercase tracking-widest text-amber-700">{label}</div>
+                                <ul className="text-[10px] text-zinc-500 leading-relaxed space-y-0.5 list-none">
+                                  {list.map(o => (
+                                    <li key={o.name}><span className="text-zinc-400">{nm(o.name)}</span> <span className="italic">{o.when}</span> {o.effect}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
                         )}
                         {baseCanticles.length > 0 && (
                           <ul className="text-[10px] text-zinc-500 mt-1 leading-relaxed space-y-0.5 list-none">

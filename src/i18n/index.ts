@@ -164,7 +164,7 @@ export type TranslationKey =
   | 'viewingCopyOf' | 'editMyCopy'
   | 'filterByEvent' | 'filterAnyEvent' | 'filterClear' | 'noEventArmies'
   | 'valPointsToGo'
-  | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'valSelectionIncomplete' | 'valSelectionOneListOnly' | 'valOnlyOneArmour'
+  | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'prOrdersInfantry' | 'prOrdersVehicles' | 'prOrdersLegacy' | 'valSelectionIncomplete' | 'valSelectionOneListOnly' | 'valOnlyOneArmour'
   | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
   | 'valArchetypeSlotNotAllowed' | 'valArchetypeRequiresHqUnit' | 'valArchetypeRequiresHqUpgrade'
   | 'valArchetypeTroopsRatioCap' | 'valArchetypeRequiresEscort' | 'valArchetypeTroopsModelRatioCap'
@@ -763,6 +763,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Army Power',
     prArchetypeRules: 'Archetype Rules',
     prOfficerOrders: 'Officer Orders',
+    prOrdersInfantry: 'Infantry and creatures',
+    prOrdersVehicles: 'Vehicles',
+    prOrdersLegacy: 'Legacy order',
     ttsButtonTitle: 'Download a resolved JSON for the Tabletop Simulator mod',
     wardSaveLabel: 'Ward save',
     suppHH: 'Horus Heresy', suppLegiones: 'Legiones Astartes', suppTaghmata: 'Taghmata', suppEsc: 'Escalation', suppAss: 'Assassins', suppExec: 'Execution Force',
@@ -1860,6 +1863,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Armeestärke',
     prArchetypeRules: 'Archetyp-Regeln',
     prOfficerOrders: 'Offiziersbefehle',
+    prOrdersInfantry: 'Infanterie und Kreaturen',
+    prOrdersVehicles: 'Fahrzeuge',
+    prOrdersLegacy: 'Legacy-Befehl',
     ttsButtonTitle: 'Eine aufgelöste JSON-Datei für die Tabletop-Simulator-Mod herunterladen',
     wardSaveLabel: 'Ward-Wurf',
     suppHH: 'Horus-Häresie', suppLegiones: 'Legiones Astartes', suppTaghmata: 'Taghmata', suppEsc: 'Eskalation', suppAss: 'Assassinen', suppExec: 'Hinrichtungstrupp',
@@ -2955,6 +2961,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Poder del ejército',
     prArchetypeRules: 'Reglas de arquetipo',
     prOfficerOrders: 'Órdenes de oficial',
+    prOrdersInfantry: 'Infantería y criaturas',
+    prOrdersVehicles: 'Vehículos',
+    prOrdersLegacy: 'Orden de Legacy',
     ttsButtonTitle: 'Descargar un JSON resuelto para el mod de Tabletop Simulator',
     wardSaveLabel: 'Salvación de protección',
     suppHH: 'Herejía de Horus', suppLegiones: 'Legiones Astartes', suppTaghmata: 'Taghmata', suppEsc: 'Escalada', suppAss: 'Asesinos', suppExec: 'Fuerza de ejecución',
