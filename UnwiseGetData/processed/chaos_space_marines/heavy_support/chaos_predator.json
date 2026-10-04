@@ -107,10 +107,7 @@
             "abilities": "Armor piercing(5+), AT(1)"
         },
         {
-            "name": "Twin entropy cannon"
-        },
-        {
-            "name": "- Focused entropy",
+            "name": "Twin entropy cannon - Focused entropy",
             "range": "48\"",
             "type": "Heavy 2",
             "s": "8",
@@ -119,7 +116,7 @@
             "abilities": "AT(3)"
         },
         {
-            "name": "- Entropic burst",
+            "name": "Twin entropy cannon - Entropic burst",
             "range": "48\"",
             "type": "Heavy 2",
             "s": "5",

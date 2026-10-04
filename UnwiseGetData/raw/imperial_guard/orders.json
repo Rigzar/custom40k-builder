@@ -35,7 +35,7 @@
         "Effect:",
         "All laser weapons in the unit receive the \"Decimate\" ability.",
         "Effect:",
-        "The unit swaps its command for \"Advance\" and rolls 2W6 for the additional movement, taking only the highest roll.",
+        "The unit swaps its command for \"Advance\" and rolls 2D6 for the additional movement, taking only the highest roll.",
         "Effect:",
         "The unit can re-roll all wound and armor penetration rolls against Monstrous Infantry, Monstrous Creatures and Vehicles."
     ],
