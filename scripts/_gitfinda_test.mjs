@@ -186,6 +186,20 @@ await db.exec(`UPDATE gitfinda_slots SET starts_at = now() - interval '5 hours',
 ok(!(await g.list(D, {})).posts.some(p => p.id === p2), 'a post whose slots are all in the past leaves the listing');
 ok((await g.myPosts(A)).posts.find(p => p.id === p2).status === 'expired', 'and shows as Expired in My Posts');
 await refuses(() => g.match(D, { id: p2 }), 'gfErrClosed', 'an expired post cannot be matched');
+await refuses(() => g.send(B, { matchId: m2, body: 'late' }), 'gfErrMatchCancelled', 'the chat of a game whose time has passed is closed too');
+
+// ── withdrawing a match ──
+const pU = (await g.create(B, post({ slots: [slot(30)] }))).id;
+const mU = (await g.match(C, { id: pU })).matchId;
+await g.send(B, { matchId: mU, body: 'hello' });
+await refuses(() => g.unmatch(B, { matchId: mU }), 'gfErrNotMatcher', "the post owner cannot withdraw someone else's match");
+await refuses(() => g.unmatch(D, { matchId: mU }), 'gfErrNoMatch', 'a stranger cannot touch the match');
+await g.unmatch(C, { matchId: mU });
+ok(!(await g.myMatches(C)).matches.some(m => m.id === mU) && !(await g.myMatches(B)).matches.some(m => m.id === mU), 'withdrawing removes the match for both players');
+ok((await db.query('SELECT COUNT(*)::int AS n FROM gitfinda_messages WHERE match_id = ' + mU)).rows[0].n === 0, 'and its messages');
+ok((await g.list(D, {})).posts.some(p => p.id === pU), 'the post stays open');
+const mU2 = (await g.match(C, { id: pU })).matchId;
+ok(mU2 > 0, 'the same player can match it again after withdrawing');
 
 // ── cascade ──
 await db.exec(`DELETE FROM users WHERE id = ${A}`);

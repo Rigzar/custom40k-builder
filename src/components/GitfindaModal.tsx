@@ -543,7 +543,7 @@ function MatchesTab({ t, locale, username, initialId, onRead, goBrowse }: {
           </div>
           <div className={`${showDetailOnly ? '' : 'hidden md:block'}`}>
             {current ? (
-              <MatchDetail key={current.id} t={t} locale={locale} username={username} match={current} zone={shownZone} onBack={() => setSelected(null)} onRead={() => { onRead(); load(); }} />
+              <MatchDetail key={current.id} t={t} locale={locale} username={username} match={current} zone={shownZone} onBack={() => setSelected(null)} onRead={() => { onRead(); load(); }} onGone={() => { setSelected(null); onRead(); load(); }} />
             ) : <div className="hidden md:flex items-center justify-center h-full text-orange-200/40 text-[12px] border border-dashed border-orange-900/50 min-h-[200px]">{icon('chat', 'w-8 h-8 opacity-50')}</div>}
           </div>
         </div>
@@ -552,9 +552,14 @@ function MatchesTab({ t, locale, username, initialId, onRead, goBrowse }: {
   );
 }
 
-function MatchDetail({ t, locale, username, match, zone, onBack, onRead }: {
-  t: TFn; locale: string; username: string; match: GitfindaMatch; zone: string; onBack: () => void; onRead: () => void;
+function MatchDetail({ t, locale, username, match, zone, onBack, onRead, onGone }: {
+  t: TFn; locale: string; username: string; match: GitfindaMatch; zone: string; onBack: () => void; onRead: () => void; onGone: () => void;
 }) {
+  const [askingUnmatch, setAskingUnmatch] = useState(false);
+  const withdraw = async () => {
+    try { await api.gitfindaUnmatch(match.id); onGone(); }
+    catch (e) { setErr(e instanceof Error ? e.message : t('gfLoadFail')); setAskingUnmatch(false); }
+  };
   const [msgs, setMsgs] = useState<GitfindaMessage[]>([]);
   const [text, setText] = useState('');
   const [err, setErr] = useState('');
@@ -609,6 +614,16 @@ function MatchDetail({ t, locale, username, match, zone, onBack, onRead }: {
         </div>
         <div className="mt-2 text-[12px]"><div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfAvailability')}</div><Slots post={p} zone={zone} locale={locale} /></div>
         {p.eventName && <div className="mt-1 text-[11px] text-orange-300/80">{icon('engagement_crossed_swords', 'w-3.5 h-3.5')} {p.eventName}</div>}
+        {/* Only the player who matched can take it back; the post's owner has Cancel for the whole post. */}
+        {!match.iAmOwner && (askingUnmatch
+          ? (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-[12px]">
+              <span className="flex-1 min-w-[160px]">{t('gfUnmatchAsk')}</span>
+              <button className={btnOrange} onClick={withdraw}>{t('gfUnmatch')}</button>
+              <button className={btnGhost} onClick={() => setAskingUnmatch(false)}>{t('gfKeep')}</button>
+            </div>
+          )
+          : <div className="mt-2"><button className={btnGhost} onClick={() => setAskingUnmatch(true)}>{t('gfUnmatch')}</button></div>)}
       </div>
       <div className={`${cardBox} flex flex-col`}>
         <div className="px-3 py-1.5 border-b border-orange-800/40 text-[11px] uppercase tracking-wider text-orange-300">{icon('chat')} {tpl(t('gfChatWith'), { name: match.opponent })}</div>
@@ -623,10 +638,10 @@ function MatchDetail({ t, locale, username, match, zone, onBack, onRead }: {
           ))}
         </div>
         {err && <div className="text-red-400 text-[11px] px-2">{err}</div>}
-        {p.status === 'cancelled' && (
+        {(p.status === 'cancelled' || p.status === 'expired') && (
           <div className="px-3 py-2 border-t border-orange-800/40 text-[12px] text-zinc-400">{t('gfChatClosed')}</div>
         )}
-        <div className={`flex gap-2 p-2 border-t border-orange-800/40 ${p.status === 'cancelled' ? 'hidden' : ''}`}>
+        <div className={`flex gap-2 p-2 border-t border-orange-800/40 ${p.status === 'cancelled' || p.status === 'expired' ? 'hidden' : ''}`}>
           <input className={field} value={text} maxLength={1000} placeholder={t('gfTypeMessage')}
             onChange={e => setText(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); void send(); } }} />
           <button className={btnOrange} disabled={sending || !text.trim()} onClick={send} aria-label={t('gfSend')}>{icon('send', 'w-4 h-4')}</button>

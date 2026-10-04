@@ -317,6 +317,21 @@ export function gitfinda(sql) {
     return { ok: true, matchId: ins.rows[0].id };
   }
 
+  /**
+   * The player who matched takes the match back (they clicked the wrong game). Only the matcher can:
+   * the post's owner already has Cancel for the whole post, and a match is not theirs to delete. The
+   * match goes with its messages (ON DELETE CASCADE), and the same player may match the post again
+   * later, since the unique pair no longer exists.
+   */
+  async function unmatch(userId, body) {
+    const matchId = Number(body?.matchId);
+    if (!Number.isInteger(matchId)) throw new Refusal('Unknown match.', 404, 'gfErrNoMatch');
+    const m = await participant(userId, matchId);
+    if (m.matcher_user_id !== userId) throw new Refusal('Only the player who matched can withdraw it.', 403, 'gfErrNotMatcher');
+    await sql`DELETE FROM gitfinda_matches WHERE id = ${matchId} AND matcher_user_id = ${userId}`;
+    return { ok: true };
+  }
+
   /** The caller's matches, newest activity first, with how many messages they have not read. */
   async function myMatches(userId) {
     const r = await sql`
@@ -360,7 +375,8 @@ export function gitfinda(sql) {
 
   async function participant(userId, matchId) {
     const r = await sql`
-      SELECT m.id, m.owner_user_id, m.matcher_user_id, p.status AS post_status
+      SELECT m.id, m.owner_user_id, m.matcher_user_id, p.status AS post_status,
+        EXISTS (SELECT 1 FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) AS post_live
       FROM gitfinda_matches m JOIN gitfinda_posts p ON p.id = m.post_id WHERE m.id = ${matchId}`;
     const m = r.rows[0];
     // Same answer for "no such match" and "not yours": do not confirm that a match exists.
@@ -394,9 +410,10 @@ export function gitfinda(sql) {
     const matchId = Number(body?.matchId);
     if (!Number.isInteger(matchId)) throw new Refusal('Unknown match.', 404, 'gfErrNoMatch');
     const m = await participant(userId, matchId);
-    // The owner cancelled the game: the chat is read-only from then on, so a cancelled game does not
-    // keep looking alive (reported by the author: cancelled games still active).
-    if (m.post_status === 'cancelled') throw new Refusal('This game was cancelled.', 409, 'gfErrMatchCancelled');
+    // The game was cancelled, or every time slot has passed: the chat is read-only from then on, so a
+    // finished game does not keep looking alive (reported by the author: the chat of a cancelled game
+    // was still active).
+    if (m.post_status === 'cancelled' || !m.post_live) throw new Refusal('This game is closed.', 409, 'gfErrMatchCancelled');
     const text = typeof body?.body === 'string' ? body.body.trim() : '';
     if (!text) throw new Refusal('Write a message first.', 400, 'gfErrEmpty');
     if (text.length > LIMITS.messageMaxChars) {
@@ -432,5 +449,5 @@ export function gitfinda(sql) {
     return { unread: r.rows[0].n + fresh.rows[0].n };
   }
 
-  return { events, list, myPosts, create, cancel, match, myMatches, messages, send, unread };
+  return { events, list, myPosts, create, cancel, match, unmatch, myMatches, messages, send, unread };
 }

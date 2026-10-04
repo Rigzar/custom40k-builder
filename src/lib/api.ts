@@ -1006,6 +1006,7 @@ export const gitfindaMyPosts = () => call<{ posts: GitfindaPost[] }>('/api/gitfi
 export const gitfindaCreate = (p: GitfindaNewPost) => call<{ ok: true; id: number }>('/api/gitfinda/create', { method: 'POST', body: JSON.stringify(p) });
 export const gitfindaCancel = (id: number) => call<{ ok: true }>('/api/gitfinda/cancel', { method: 'POST', body: JSON.stringify({ id }) });
 export const gitfindaMatch = (id: number) => call<{ ok: true; matchId: number }>('/api/gitfinda/match', { method: 'POST', body: JSON.stringify({ id }) });
+export const gitfindaUnmatch = (matchId: number) => call<{ ok: true }>('/api/gitfinda/unmatch', { method: 'POST', body: JSON.stringify({ matchId }) });
 export const gitfindaMyMatches = () => call<{ matches: GitfindaMatch[] }>('/api/gitfinda/my-matches');
 export const gitfindaMessages = (matchId: number, after = 0) =>
   call<{ messages: GitfindaMessage[] }>('/api/gitfinda/messages' + gfQuery({ matchId, after }));

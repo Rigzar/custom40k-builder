@@ -29,6 +29,7 @@ export default async function handler(req, res) {
       case 'create':     return post(req, res, () => g.create(userId, body));
       case 'cancel':     return post(req, res, () => g.cancel(userId, body));
       case 'match':      return post(req, res, () => g.match(userId, body));
+      case 'unmatch':    return post(req, res, () => g.unmatch(userId, body));
       case 'send':       return post(req, res, () => g.send(userId, body));
       default:
         res.status(404).json({ error: 'Unknown gitfinda action' });

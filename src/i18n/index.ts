@@ -567,7 +567,7 @@ export type TranslationKey =
   | 'gfErrSlotFar'
   | 'gfErrTooManyPosts'
   | 'gfErrNoPost'
-  | 'gfErrClosed' | 'gfErrNotInEvent' | 'gfErrMatchCancelled' | 'gfNeedsEvent' | 'gfChatClosed'
+  | 'gfErrClosed' | 'gfUnmatch' | 'gfUnmatchAsk' | 'gfKeep' | 'gfErrNotMatcher' | 'gfErrNotInEvent' | 'gfErrMatchCancelled' | 'gfNeedsEvent' | 'gfChatClosed'
   | 'gfErrOwnPost'
   | 'gfErrAlreadyMatched'
   | 'gfErrNoMatch'
@@ -1669,10 +1669,14 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfErrTooManyPosts: 'You can have {max} active posts at most. Cancel one first.',
     gfErrNoPost: 'Unknown post.',
     gfErrClosed: 'This post is no longer open.',
+    gfUnmatch: 'Withdraw match',
+    gfUnmatchAsk: 'Withdraw your match? The chat is deleted, the post stays open and you can match it again.',
+    gfKeep: 'Keep it',
+    gfErrNotMatcher: 'Only the player who matched can withdraw it.',
     gfErrNotInEvent: 'This game belongs to an event you have not joined.',
-    gfErrMatchCancelled: 'This game was cancelled.',
+    gfErrMatchCancelled: 'This game is closed.',
     gfNeedsEvent: 'Only for players of this event',
-    gfChatClosed: 'This game was cancelled, so the chat is closed.',
+    gfChatClosed: 'This game was cancelled or its time has passed, so the chat is closed.',
     gfErrOwnPost: 'You cannot match your own post.',
     gfErrAlreadyMatched: 'You already matched this post.',
     gfErrNoMatch: 'Unknown match.',
@@ -2771,10 +2775,14 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfErrTooManyPosts: 'Du kannst höchstens {max} aktive Beiträge haben. Brich zuerst einen ab.',
     gfErrNoPost: 'Unbekannter Beitrag.',
     gfErrClosed: 'Dieser Beitrag ist nicht mehr offen.',
+    gfUnmatch: 'Match zurückziehen',
+    gfUnmatchAsk: 'Match zurückziehen? Der Chat wird gelöscht, der Beitrag bleibt offen und du kannst erneut matchen.',
+    gfKeep: 'Behalten',
+    gfErrNotMatcher: 'Nur der Spieler, der gematcht hat, kann es zurückziehen.',
     gfErrNotInEvent: 'Dieses Spiel gehört zu einem Event, dem du nicht beigetreten bist.',
-    gfErrMatchCancelled: 'Dieses Spiel wurde abgesagt.',
+    gfErrMatchCancelled: 'Dieses Spiel ist geschlossen.',
     gfNeedsEvent: 'Nur für Spieler dieses Events',
-    gfChatClosed: 'Dieses Spiel wurde abgesagt, der Chat ist geschlossen.',
+    gfChatClosed: 'Dieses Spiel wurde abgesagt oder die Zeit ist vorbei, der Chat ist geschlossen.',
     gfErrOwnPost: 'Du kannst deinen eigenen Beitrag nicht matchen.',
     gfErrAlreadyMatched: 'Du hast diesen Beitrag schon gematcht.',
     gfErrNoMatch: 'Unbekanntes Match.',
@@ -3873,10 +3881,14 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfErrTooManyPosts: 'Puedes tener como máximo {max} anuncios activos. Cancela uno primero.',
     gfErrNoPost: 'Anuncio desconocido.',
     gfErrClosed: 'Este anuncio ya no está abierto.',
+    gfUnmatch: 'Retirar match',
+    gfUnmatchAsk: '¿Retirar tu match? El chat se borra, el anuncio sigue abierto y puedes volver a hacer match.',
+    gfKeep: 'Mantener',
+    gfErrNotMatcher: 'Solo el jugador que hizo el match puede retirarlo.',
     gfErrNotInEvent: 'Esta partida pertenece a un evento al que no te has unido.',
-    gfErrMatchCancelled: 'Esta partida se canceló.',
+    gfErrMatchCancelled: 'Esta partida está cerrada.',
     gfNeedsEvent: 'Solo para jugadores de este evento',
-    gfChatClosed: 'Esta partida se canceló, así que el chat está cerrado.',
+    gfChatClosed: 'Esta partida se canceló o su hora ya pasó, así que el chat está cerrado.',
     gfErrOwnPost: 'No puedes hacer match con tu propio anuncio.',
     gfErrAlreadyMatched: 'Ya hiciste match con este anuncio.',
     gfErrNoMatch: 'Match desconocido.',
