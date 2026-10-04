@@ -432,10 +432,7 @@ export function LandingPage({
   // The wiki is built once per language (en at the root, the others under /<code>).
   const wikiBase = 'https://custom40k-wiki.vercel.app' + (wikiLang === 'en' ? '' : '/' + wikiLang);
   const [showChangelog, setShowChangelog] = useState(false);
-  // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
-  // fractalNoise + displacement filter every update — even throttled it kept the CPU at ~12% idle
-  // and spun up fans. The static turbulence renders once and then just composites, so idle CPU
-  // drops to ~0 while the fog still looks the same. (No rAF loop, no per-frame recompute.)
+  // The fog is a pre-rendered image (see .fog-layer in index.css): no filter, no animation.
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
   const [showMessages, setShowMessages] = useState(false);
   const [unread, setUnread] = useState(0);
@@ -458,15 +455,6 @@ export function LandingPage({
 
   return (
       <div className="relative min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-hidden">
-        {/* SVG fog filter */}
-        <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
-          <defs>
-            <filter id="c40k-fog" x="0%" y="0%" width="100%" height="100%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" />
-              <feDisplacementMap in="SourceGraphic" scale="55" />
-            </filter>
-          </defs>
-        </svg>
         <div className="fog-layer" />
 
         {/* Top bar */}

@@ -128,7 +128,23 @@ function isExplicitGeneralIssue(title: string): boolean {
   return /^(GENERAL|CROSS-FACTION)\s*—/.test(title);
 }
 
+/** How long a FIXED issue stays on the board. Rigzar: "elimina los que tengan 30 dias o mas": a
+ *  fix older than a month is in the changelog already, and every entry on the board is rendered,
+ *  so a list of 227 fixed items the reader will never scroll to only makes the modal heavier.
+ *  The entries stay in known-issues.ts (ids are referenced from memory notes and tests) -- they are
+ *  just not shown. The date is the "FIXED YYYY-MM-DD" every fixed entry's text opens with; one
+ *  without it cannot be aged, so it stays. */
+const FIXED_ISSUE_DAYS_SHOWN = 30;
+function isStaleFixedIssue(issue: { status: string; description: Parameters<typeof tsEn>[0] }): boolean {
+  if (issue.status !== 'fixed') return false;
+  const m = tsEn(issue.description).match(/FIXED (\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return false;
+  const fixedOn = Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return Date.now() - fixedOn >= FIXED_ISSUE_DAYS_SHOWN * 86400000;
+}
+
 for (const issue of KNOWN_ISSUES) {
+  if (isStaleFixedIssue(issue)) continue;
   if (isExplicitGeneralIssue(tsEn(issue.title))) {
     FACTION_ISSUES[GENERAL].push(issue);
     continue;
