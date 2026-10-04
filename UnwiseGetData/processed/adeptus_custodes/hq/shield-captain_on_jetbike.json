@@ -71,10 +71,7 @@
             "abilities": "Armorbane, AT(3)"
         },
         {
-            "name": "Relic interceptor lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Relic interceptor lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -83,7 +80,7 @@
             "abilities": "AT(2), Charge, Quick(+1)"
         },
         {
-            "name": "- Melee",
+            "name": "Relic interceptor lance - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+1",

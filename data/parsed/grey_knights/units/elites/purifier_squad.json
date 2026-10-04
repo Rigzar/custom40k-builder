@@ -42,10 +42,7 @@
     "equipped_with": "Every model is equipped with: Cleansing flame; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
     "weapons": [
         {
-            "name": "Cleansing flame"
-        },
-        {
-            "name": "- Melee",
+            "name": "Cleansing flame - Melee",
             "range": "-",
             "type": "Melee",
             "s": "5",
@@ -54,7 +51,7 @@
             "abilities": "Auto Hit, Extra Attack(1), Limit(1), Shield breaker(-1), Soul burn(5+), Sunder(1)"
         },
         {
-            "name": "- Ranged",
+            "name": "Cleansing flame - Ranged",
             "range": "12\"",
             "type": "Pistol 1",
             "s": "5",

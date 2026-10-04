@@ -35,10 +35,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Meltacutters"
-        },
-        {
-            "name": "- Blast",
+            "name": "Meltacutters - Blast",
             "range": "12\"",
             "type": "Heavy 3",
             "s": "8",
@@ -47,7 +44,7 @@
             "abilities": "AT(1), Melta"
         },
         {
-            "name": "- Ram",
+            "name": "Meltacutters - Ram",
             "range": "-",
             "type": "Melee",
             "s": "8",

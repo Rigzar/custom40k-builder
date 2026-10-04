@@ -43,10 +43,7 @@
     "armourKeyword": "Gravis",
     "weapons": [
         {
-            "name": "Auto boltstorm gauntlet"
-        },
-        {
-            "name": "- Melee",
+            "name": "Auto boltstorm gauntlet - Melee",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -55,7 +52,7 @@
             "abilities": "AT(2), Slow(-1)"
         },
         {
-            "name": "- Ranged",
+            "name": "Auto boltstorm gauntlet - Ranged",
             "range": "18\"",
             "type": "Pistol 4",
             "s": "4",
@@ -64,10 +61,7 @@
             "abilities": "Suppression(2)"
         },
         {
-            "name": "Flamestorm gauntlet"
-        },
-        {
-            "name": "- Melee",
+            "name": "Flamestorm gauntlet - Melee",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -76,7 +70,7 @@
             "abilities": "AT(2), Slow(-1)"
         },
         {
-            "name": "- Ranged",
+            "name": "Flamestorm gauntlet - Ranged",
             "range": "12\"",
             "type": "Pistol 6",
             "s": "4",

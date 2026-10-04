@@ -81,10 +81,7 @@
             "abilities": "Shuriken"
         },
         {
-            "name": "Triskele"
-        },
-        {
-            "name": "- Melee",
+            "name": "Triskele - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+1",
@@ -93,7 +90,7 @@
             "abilities": "Armor piercing(5+)"
         },
         {
-            "name": "- Shooting",
+            "name": "Triskele - Shooting",
             "range": "12\"",
             "type": "Pistol 3",
             "s": "4",

@@ -63,10 +63,7 @@
             "abilities": "-"
         },
         {
-            "name": "Deffgun"
-        },
-        {
-            "name": "- Shooty",
+            "name": "Deffgun - Shooty",
             "range": "48\"",
             "type": "Assault 2",
             "s": "7",
@@ -75,7 +72,7 @@
             "abilities": "AT(1), Looted"
         },
         {
-            "name": "- Beamy",
+            "name": "Deffgun - Beamy",
             "range": "48\"",
             "type": "Assault 1",
             "s": "8",

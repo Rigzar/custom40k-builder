@@ -42,10 +42,7 @@
     "equipped_with": "A R\u2019varna Shas'vre is a single model and is equipped with: 2 Pulse submunitions cannons. Every Missile Drone is equipped with: Missile pod.",
     "weapons": [
         {
-            "name": "Pulse submunitions cannon"
-        },
-        {
-            "name": "- Standard",
+            "name": "Pulse submunitions cannon - Standard",
             "range": "60\"",
             "type": "Heavy 1",
             "s": "6",
@@ -54,7 +51,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "- Nova-charge",
+            "name": "Pulse submunitions cannon - Nova-charge",
             "range": "60\"",
             "type": "Heavy 1",
             "s": "6",

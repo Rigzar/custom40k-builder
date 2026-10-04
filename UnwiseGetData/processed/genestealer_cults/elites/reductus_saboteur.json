@@ -35,7 +35,7 @@
             "abilities": "-"
         },
         {
-            "name": "Remote explosives",
+            "name": "Remote explosives - Blasting charges",
             "range": "24\"",
             "type": "Assault 1",
             "s": "5",
@@ -44,16 +44,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "- Blasting charges",
-            "range": "24\"",
-            "type": "Assault 1",
-            "s": "5",
-            "ap": "-1",
-            "d": "1",
-            "abilities": "Blast(4)"
-        },
-        {
-            "name": "- Demolition charge",
+            "name": "Remote explosives - Demolition charge",
             "range": "6\"",
             "type": "Assault 1",
             "s": "8",

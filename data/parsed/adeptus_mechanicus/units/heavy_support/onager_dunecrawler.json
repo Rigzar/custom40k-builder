@@ -33,10 +33,7 @@
             "abilities": "Cognis"
         },
         {
-            "name": "Eradication beamer"
-        },
-        {
-            "name": "- Short range",
+            "name": "Eradication beamer - Short range",
             "range": "1\" - 9\"",
             "type": "Heavy 1",
             "s": "10",
@@ -45,7 +42,7 @@
             "abilities": "AT(3)"
         },
         {
-            "name": "- Mid range",
+            "name": "Eradication beamer - Mid range",
             "range": "9\" - 18\"",
             "type": "Heavy 1",
             "s": "8",
@@ -54,7 +51,7 @@
             "abilities": "AT(2), Blast(4)"
         },
         {
-            "name": "- Long range",
+            "name": "Eradication beamer - Long range",
             "range": "18\" - 36\"",
             "type": "Heavy 1",
             "s": "6",
@@ -63,10 +60,7 @@
             "abilities": "Blast(6)"
         },
         {
-            "name": "Icarus array"
-        },
-        {
-            "name": "- Daedalus missile launcher",
+            "name": "Icarus array - Daedalus missile launcher",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "7",
@@ -75,7 +69,7 @@
             "abilities": "AT(1), Anti-air"
         },
         {
-            "name": "- Gatling rocket launcher",
+            "name": "Icarus array - Gatling rocket launcher",
             "range": "48\"",
             "type": "Heavy 5",
             "s": "6",
@@ -84,7 +78,7 @@
             "abilities": "Anti-air"
         },
         {
-            "name": "- Twin icarus autocannon",
+            "name": "Icarus array - Twin icarus autocannon",
             "range": "48\"",
             "type": "Heavy 4",
             "s": "7",

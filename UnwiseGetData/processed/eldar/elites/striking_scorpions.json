@@ -54,10 +54,7 @@
             "abilities": "Extra Attack(3)"
         },
         {
-            "name": "Scorpion claw"
-        },
-        {
-            "name": "- Melee",
+            "name": "Scorpion claw - Melee",
             "range": "Melee",
             "type": "x2",
             "s": "-3",
@@ -65,7 +62,7 @@
             "d": "Slow(-1)"
         },
         {
-            "name": "- Shooting",
+            "name": "Scorpion claw - Shooting",
             "range": "12\"",
             "type": "Pistol 2",
             "s": "4",

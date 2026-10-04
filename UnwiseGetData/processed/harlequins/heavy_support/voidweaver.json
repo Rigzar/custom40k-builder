@@ -44,10 +44,7 @@
             "abilities": "Shuriken"
         },
         {
-            "name": "Prismatic cannon"
-        },
-        {
-            "name": "- Dispersed",
+            "name": "Prismatic cannon - Dispersed",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "3",
@@ -56,7 +53,7 @@
             "abilities": "Blast(6), Suppression(3)"
         },
         {
-            "name": "- Focused",
+            "name": "Prismatic cannon - Focused",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "5",
@@ -65,7 +62,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "- Lance",
+            "name": "Prismatic cannon - Lance",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "7",
