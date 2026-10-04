@@ -24,10 +24,7 @@
     "equipped_with": "A Plagueburst Crawler is equipped with: Plagueburst mortar; two Plague spewers; Rothail volley gun.",
     "weapons": [
         {
-            "name": "Entropy cannon"
-        },
-        {
-            "name": "- Focused entropy",
+            "name": "Entropy cannon - Focused entropy",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "8",
@@ -36,7 +33,7 @@
             "abilities": "AT(3)"
         },
         {
-            "name": "- Entropic burst",
+            "name": "Entropy cannon - Entropic burst",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "5",
