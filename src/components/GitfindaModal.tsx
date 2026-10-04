@@ -306,7 +306,10 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
               ? <button className={btnGhost} onClick={goPosts}>{t('gfYourPost')}</button>
               : p.matchedByMe
                 ? <button className={btnGhost} onClick={goMatches}>{t('gfMatched')} ✓</button>
-                : <button className={btnOrange} disabled={busy === p.id} onClick={() => doMatch(p)}>{t('gfMatch')} {icon('button_chevron_right', 'w-3 h-3')}</button>} />
+                : p.canMatch === false
+                  // A game tied to an event or league is only for that event's players.
+                  ? <span className="text-[11px] text-orange-200/60 max-w-[160px] text-right leading-tight">{t('gfNeedsEvent')}</span>
+                  : <button className={btnOrange} disabled={busy === p.id} onClick={() => doMatch(p)}>{t('gfMatch')} {icon('button_chevron_right', 'w-3 h-3')}</button>} />
         ))}
       </div>
       <div className="grid grid-cols-2 gap-2 pt-1">
@@ -521,11 +524,14 @@ function MatchesTab({ t, locale, username, initialId, onRead, goBrowse }: {
             <div className="text-[11px] uppercase tracking-wider text-orange-300">{icon('matched_gits_users', 'w-4 h-4')} {tpl(t('gfMatchedGits'), { n: matches.length })}</div>
             {matches.map(m => (
               <button key={m.id} onClick={() => { setSelected(m.id); onRead(); }}
-                className={`${cardBox} w-full text-left p-2.5 ${selected === m.id ? '!border-orange-400 bg-orange-950/30' : ''}`}>
+                className={`${cardBox} w-full text-left p-2.5 ${selected === m.id ? '!border-orange-400 bg-orange-950/30' : ''} ${m.post.status === 'cancelled' || m.post.status === 'expired' ? 'opacity-60' : ''}`}>
                 <div className="flex items-center gap-2">
                   <ArmyBadge army={m.post.army} size="w-7 h-7" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2"><span className="text-orange-300 font-bold text-[13px] truncate">{m.opponent}</span>
+                      {(m.post.status === 'cancelled' || m.post.status === 'expired') && (
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${STATUS_COLOUR[m.post.status]}`}>{t(STATUS_KEY[m.post.status])}</span>
+                      )}
                       {m.unread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{m.unread}</span>}
                     </div>
                     <div className="text-[11px] text-orange-100/70 truncate">{factionLabel(m.post.army)} · {t(ENGAGEMENT_KEY[m.post.engagement])} · {m.post.points}</div>
@@ -617,7 +623,10 @@ function MatchDetail({ t, locale, username, match, zone, onBack, onRead }: {
           ))}
         </div>
         {err && <div className="text-red-400 text-[11px] px-2">{err}</div>}
-        <div className="flex gap-2 p-2 border-t border-orange-800/40">
+        {p.status === 'cancelled' && (
+          <div className="px-3 py-2 border-t border-orange-800/40 text-[12px] text-zinc-400">{t('gfChatClosed')}</div>
+        )}
+        <div className={`flex gap-2 p-2 border-t border-orange-800/40 ${p.status === 'cancelled' ? 'hidden' : ''}`}>
           <input className={field} value={text} maxLength={1000} placeholder={t('gfTypeMessage')}
             onChange={e => setText(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); void send(); } }} />
           <button className={btnOrange} disabled={sending || !text.trim()} onClick={send} aria-label={t('gfSend')}>{icon('send', 'w-4 h-4')}</button>

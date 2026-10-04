@@ -978,6 +978,8 @@ export interface GitfindaPost {
   matchedByMe?: boolean;
   /** Browse only: is this MY post? (shown, but with no Match button) */
   mine?: boolean;
+  /** Browse only: false for a game tied to an event the viewer is not a player of. */
+  canMatch?: boolean;
   /** My Posts only. */
   matchCount?: number;
 }

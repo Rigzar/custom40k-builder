@@ -567,7 +567,7 @@ export type TranslationKey =
   | 'gfErrSlotFar'
   | 'gfErrTooManyPosts'
   | 'gfErrNoPost'
-  | 'gfErrClosed'
+  | 'gfErrClosed' | 'gfErrNotInEvent' | 'gfErrMatchCancelled' | 'gfNeedsEvent' | 'gfChatClosed'
   | 'gfErrOwnPost'
   | 'gfErrAlreadyMatched'
   | 'gfErrNoMatch'
@@ -1669,6 +1669,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfErrTooManyPosts: 'You can have {max} active posts at most. Cancel one first.',
     gfErrNoPost: 'Unknown post.',
     gfErrClosed: 'This post is no longer open.',
+    gfErrNotInEvent: 'This game belongs to an event you have not joined.',
+    gfErrMatchCancelled: 'This game was cancelled.',
+    gfNeedsEvent: 'Only for players of this event',
+    gfChatClosed: 'This game was cancelled, so the chat is closed.',
     gfErrOwnPost: 'You cannot match your own post.',
     gfErrAlreadyMatched: 'You already matched this post.',
     gfErrNoMatch: 'Unknown match.',
@@ -2767,6 +2771,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfErrTooManyPosts: 'Du kannst höchstens {max} aktive Beiträge haben. Brich zuerst einen ab.',
     gfErrNoPost: 'Unbekannter Beitrag.',
     gfErrClosed: 'Dieser Beitrag ist nicht mehr offen.',
+    gfErrNotInEvent: 'Dieses Spiel gehört zu einem Event, dem du nicht beigetreten bist.',
+    gfErrMatchCancelled: 'Dieses Spiel wurde abgesagt.',
+    gfNeedsEvent: 'Nur für Spieler dieses Events',
+    gfChatClosed: 'Dieses Spiel wurde abgesagt, der Chat ist geschlossen.',
     gfErrOwnPost: 'Du kannst deinen eigenen Beitrag nicht matchen.',
     gfErrAlreadyMatched: 'Du hast diesen Beitrag schon gematcht.',
     gfErrNoMatch: 'Unbekanntes Match.',
@@ -3865,6 +3873,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfErrTooManyPosts: 'Puedes tener como máximo {max} anuncios activos. Cancela uno primero.',
     gfErrNoPost: 'Anuncio desconocido.',
     gfErrClosed: 'Este anuncio ya no está abierto.',
+    gfErrNotInEvent: 'Esta partida pertenece a un evento al que no te has unido.',
+    gfErrMatchCancelled: 'Esta partida se canceló.',
+    gfNeedsEvent: 'Solo para jugadores de este evento',
+    gfChatClosed: 'Esta partida se canceló, así que el chat está cerrado.',
     gfErrOwnPost: 'No puedes hacer match con tu propio anuncio.',
     gfErrAlreadyMatched: 'Ya hiciste match con este anuncio.',
     gfErrNoMatch: 'Match desconocido.',

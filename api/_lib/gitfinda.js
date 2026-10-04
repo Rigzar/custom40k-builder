@@ -206,6 +206,10 @@ export function gitfinda(sql) {
         (SELECT COUNT(*) FROM gitfinda_matches m WHERE m.post_id = p.id)::int AS match_count,
         EXISTS (SELECT 1 FROM gitfinda_matches m WHERE m.post_id = p.id AND m.matcher_user_id = ${userId}) AS matched_by_me,
         (SELECT MIN(s.starts_at) FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) AS next_start,
+        (p.event_id IS NULL OR EXISTS (
+          SELECT 1 FROM events ev WHERE ev.id = p.event_id
+            AND (ev.organiser_user_id = ${userId}
+                 OR EXISTS (SELECT 1 FROM event_players ep WHERE ep.event_id = ev.id AND ep.user_id = ${userId} AND ep.status = 'approved')))) AS can_match,
         (p.user_id = ${userId}) AS mine
       FROM gitfinda_posts p
       JOIN users u ON u.id = p.user_id
@@ -227,7 +231,7 @@ export function gitfinda(sql) {
       LIMIT ${LIMITS.listMax}`;
     // Your own posts are listed too (flagged `mine`, the browser shows no Match button on them):
     // hiding them made a freshly created post look as if it had not been published.
-    return { posts: rowsOf(r).map(row => shapePost(row, { matchedByMe: row.matched_by_me, mine: row.mine })) };
+    return { posts: rowsOf(r).map(row => shapePost(row, { matchedByMe: row.matched_by_me, mine: row.mine, canMatch: row.can_match })) };
   }
 
   async function myPosts(userId) {
@@ -288,12 +292,22 @@ export function gitfinda(sql) {
     const id = Number(body?.id);
     if (!Number.isInteger(id)) throw new Refusal('Unknown post.', 404, 'gfErrNoPost');
     const p = await sql`
-      SELECT p.id, p.user_id, p.status,
+      SELECT p.id, p.user_id, p.status, p.event_id,
         EXISTS (SELECT 1 FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()) AS live
       FROM gitfinda_posts p WHERE p.id = ${id}`;
     const post = p.rows[0];
     if (!post || post.status !== 'active' || !post.live) throw new Refusal('This post is no longer open.', 404, 'gfErrClosed');
     if (post.user_id === userId) throw new Refusal('You cannot match your own post.', 400, 'gfErrOwnPost');
+    // A game tied to an event or league is for the players of that event: free games are open to
+    // everyone, these only to someone approved in it (or running it). Without this a player who was
+    // never in the league could match a league game (reported by the author).
+    if (post.event_id !== null && post.event_id !== undefined) {
+      const acc = await sql`
+        SELECT 1 FROM events ev WHERE ev.id = ${post.event_id}
+          AND (ev.organiser_user_id = ${userId}
+               OR EXISTS (SELECT 1 FROM event_players ep WHERE ep.event_id = ev.id AND ep.user_id = ${userId} AND ep.status = 'approved'))`;
+      if (!acc.rows[0]) throw new Refusal('This game belongs to an event you have not joined.', 403, 'gfErrNotInEvent');
+    }
     const ins = await sql`
       INSERT INTO gitfinda_matches (post_id, owner_user_id, matcher_user_id)
       VALUES (${id}, ${post.user_id}, ${userId})
@@ -345,7 +359,9 @@ export function gitfinda(sql) {
   }
 
   async function participant(userId, matchId) {
-    const r = await sql`SELECT id, owner_user_id, matcher_user_id FROM gitfinda_matches WHERE id = ${matchId}`;
+    const r = await sql`
+      SELECT m.id, m.owner_user_id, m.matcher_user_id, p.status AS post_status
+      FROM gitfinda_matches m JOIN gitfinda_posts p ON p.id = m.post_id WHERE m.id = ${matchId}`;
     const m = r.rows[0];
     // Same answer for "no such match" and "not yours": do not confirm that a match exists.
     if (!m || (m.owner_user_id !== userId && m.matcher_user_id !== userId)) {
@@ -378,6 +394,9 @@ export function gitfinda(sql) {
     const matchId = Number(body?.matchId);
     if (!Number.isInteger(matchId)) throw new Refusal('Unknown match.', 404, 'gfErrNoMatch');
     const m = await participant(userId, matchId);
+    // The owner cancelled the game: the chat is read-only from then on, so a cancelled game does not
+    // keep looking alive (reported by the author: cancelled games still active).
+    if (m.post_status === 'cancelled') throw new Refusal('This game was cancelled.', 409, 'gfErrMatchCancelled');
     const text = typeof body?.body === 'string' ? body.body.trim() : '';
     if (!text) throw new Refusal('Write a message first.', 400, 'gfErrEmpty');
     if (text.length > LIMITS.messageMaxChars) {

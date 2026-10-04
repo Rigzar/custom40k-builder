@@ -34,7 +34,9 @@ const refuses = async (fn, key, name) => {
 await db.exec(`
   CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT UNIQUE NOT NULL);
   CREATE TABLE events (id SERIAL PRIMARY KEY, name TEXT NOT NULL, visibility TEXT NOT NULL DEFAULT 'public',
-                       is_league BOOLEAN NOT NULL DEFAULT false, ends_on DATE);
+                       is_league BOOLEAN NOT NULL DEFAULT false, ends_on DATE, organiser_user_id INTEGER);
+  CREATE TABLE event_players (id SERIAL PRIMARY KEY, event_id INTEGER NOT NULL, user_id INTEGER NOT NULL,
+                              status TEXT NOT NULL DEFAULT 'pending', UNIQUE(event_id, user_id));
   INSERT INTO users (username) VALUES ('alice'), ('bob'), ('carol'), ('dave');
   INSERT INTO events (name, visibility) VALUES ('Online League #2', 'public'), ('Secret', 'private');
   INSERT INTO events (name, visibility, ends_on) VALUES ('Finished', 'public', '2020-01-01');
@@ -114,6 +116,15 @@ await refuses(() => g.create(D, post()), 'gfErrTooManyPosts', `a ${LIMITS.active
 
 // ── match ──
 await refuses(() => g.match(A, { id: p1 }), 'gfErrOwnPost', 'cannot match your own post');
+// ── a game tied to an event is for that event's players ──
+// B and C are approved in event 1, D is not in it at all, and a pending registration does not count.
+await db.exec("INSERT INTO event_players (event_id, user_id, status) VALUES (1, 2, 'approved'), (1, 3, 'approved')");
+await refuses(() => g.match(D, { id: p1 }), 'gfErrNotInEvent', 'a player who is not in the league cannot match a league game');
+await db.exec("INSERT INTO event_players (event_id, user_id, status) VALUES (1, 4, 'pending')");
+await refuses(() => g.match(D, { id: p1 }), 'gfErrNotInEvent', 'a pending registration does not give access');
+ok((await g.list(D, {})).posts.find(p => p.id === p1).canMatch === false, 'the listing says a non-member cannot match it');
+ok((await g.list(D, {})).posts.find(p => p.id === p2).canMatch === true, 'a free game can be matched by anyone');
+ok((await g.list(C, {})).posts.find(p => p.id === p1).canMatch === true, 'an approved player can match the league game');
 await refuses(() => g.match(C, { id: 99999 }), 'gfErrClosed', 'cannot match a post that does not exist');
 const m1 = (await g.match(C, { id: p1 })).matchId;
 await refuses(() => g.match(C, { id: p1 }), 'gfErrAlreadyMatched', 'the same player cannot match the same post twice');
@@ -163,6 +174,8 @@ await refuses(() => g.send(C, { matchId: m1, body: 'one more' }), 'gfErrRate', '
 // ── cancel, expire ──
 await refuses(() => g.cancel(B, { id: p1 }), 'gfErrNoPost', 'nobody cancels another player\'s post');
 await g.cancel(A, { id: p1 });
+await refuses(() => g.send(C, { matchId: m1, body: 'still there?' }), 'gfErrMatchCancelled', 'the chat of a cancelled game is closed');
+ok((await g.myMatches(C)).matches.find(m => m.id === m1).post.status === 'cancelled', 'and the match carries the cancelled status');
 ok(!(await g.list(D, {})).posts.some(p => p.id === p1), 'a cancelled post leaves the public listing');
 ok((await g.myPosts(A)).posts.find(p => p.id === p1).status === 'cancelled', 'My Posts keeps it, as Cancelled');
 await refuses(() => g.match(D, { id: p1 }), 'gfErrClosed', 'a cancelled post cannot be matched');
