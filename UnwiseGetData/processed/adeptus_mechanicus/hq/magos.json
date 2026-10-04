@@ -45,7 +45,7 @@
     "equipped_with": "A Magos is equipped with: -.",
     "weapons": [
         {
-            "name": "Conversion beamer- Short range",
+            "name": "Conversion beamer - Short range",
             "range": "0\" - 24\"",
             "type": "Heavy 1",
             "s": "6",
@@ -54,7 +54,7 @@
             "abilities": "-"
         },
         {
-            "name": "Conversion beamer- Mid range",
+            "name": "Conversion beamer - Mid range",
             "range": "24\" - 48\"",
             "type": "Heavy 1",
             "s": "7",
@@ -63,7 +63,7 @@
             "abilities": "AT(1), Blast(4)"
         },
         {
-            "name": "Conversion beamer- Long range",
+            "name": "Conversion beamer - Long range",
             "range": "48\" - 72\"",
             "type": "Heavy 1",
             "s": "8",
@@ -72,10 +72,7 @@
             "abilities": "AT(2), Blast(6)"
         },
         {
-            "name": "Eradication ray"
-        },
-        {
-            "name": "- Short range",
+            "name": "Eradication ray - Short range",
             "range": "1\" - 12\"",
             "type": "Heavy 1",
             "s": "8",
@@ -84,7 +81,7 @@
             "abilities": "AT(2)"
         },
         {
-            "name": "- Mid range",
+            "name": "Eradication ray - Mid range",
             "range": "12\" - 24\"",
             "type": "Heavy 1",
             "s": "6",

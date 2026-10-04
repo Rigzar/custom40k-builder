@@ -54,10 +54,7 @@
             "abilities": "Armorbane, AT(1)"
         },
         {
-            "name": "Phased ion gun"
-        },
-        {
-            "name": "- Standard",
+            "name": "Phased ion gun - Standard",
             "range": "18\"",
             "type": "Rapid Fire 3",
             "s": "4",
@@ -66,7 +63,7 @@
             "abilities": "Armor piercing(5+)"
         },
         {
-            "name": "- Overcharged",
+            "name": "Phased ion gun - Overcharged",
             "range": "18\"",
             "type": "Rapid Fire 3",
             "s": "5",

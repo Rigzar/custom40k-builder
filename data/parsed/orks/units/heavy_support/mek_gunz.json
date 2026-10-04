@@ -24,10 +24,7 @@
     "equipped_with": "A Mek Gun is equipped with: -.",
     "weapons": [
         {
-            "name": "Bubblechukka"
-        },
-        {
-            "name": "- Weedy",
+            "name": "Bubblechukka - Weedy",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "8",
@@ -36,7 +33,7 @@
             "abilities": "AT(2), Blast(4), Sunder(2), Bubbles"
         },
         {
-            "name": "- Big",
+            "name": "Bubblechukka - Big",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "6",
@@ -45,7 +42,7 @@
             "abilities": "Blast(6), Sunder(2), Bubbles"
         },
         {
-            "name": "- 'Uge",
+            "name": "Bubblechukka - 'Uge",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "5",

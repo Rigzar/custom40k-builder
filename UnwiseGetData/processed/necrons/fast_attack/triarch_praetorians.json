@@ -35,10 +35,7 @@
             "abilities": "-"
         },
         {
-            "name": "Rod of covenant"
-        },
-        {
-            "name": "- Shooting",
+            "name": "Rod of covenant - Shooting",
             "range": "12\"",
             "type": "Pistol 1",
             "s": "5",
@@ -47,7 +44,7 @@
             "abilities": "-"
         },
         {
-            "name": "- Melee",
+            "name": "Rod of covenant - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+3",

@@ -60,10 +60,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Twin-linked Deffgun"
-        },
-        {
-            "name": "- Shooty",
+            "name": "Twin-linked Deffgun - Shooty",
             "range": "48\"",
             "type": "Assault 4",
             "s": "7",
@@ -72,7 +69,7 @@
             "abilities": "AT(1), Looted"
         },
         {
-            "name": "- Beamy",
+            "name": "Twin-linked Deffgun - Beamy",
             "range": "48\"",
             "type": "Assault 2",
             "s": "8",

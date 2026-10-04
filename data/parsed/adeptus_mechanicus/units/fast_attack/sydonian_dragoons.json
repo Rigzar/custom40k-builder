@@ -42,10 +42,7 @@
             "abilities": "Armor piercing(5+), Rad, Suppression(6)"
         },
         {
-            "name": "Taser lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Taser lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -54,7 +51,7 @@
             "abilities": "AT(2), Quick(+1), Tesla"
         },
         {
-            "name": "- Melee",
+            "name": "Taser lance - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+1",

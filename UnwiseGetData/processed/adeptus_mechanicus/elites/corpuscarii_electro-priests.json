@@ -26,10 +26,7 @@
     "equipped_with": "Every model is equipped with: Electrostatic gauntlets.",
     "weapons": [
         {
-            "name": "Electrostatic gauntlets"
-        },
-        {
-            "name": "- Melee",
+            "name": "Electrostatic gauntlets - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+2",
@@ -38,7 +35,7 @@
             "abilities": "Tesla"
         },
         {
-            "name": "- Ranged",
+            "name": "Electrostatic gauntlets - Ranged",
             "range": "12\"",
             "type": "Pistol 2",
             "s": "5",

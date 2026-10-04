@@ -79,10 +79,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Frag lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Frag lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+1",
@@ -91,7 +88,7 @@
             "abilities": "Charge, Quick(+1)"
         },
         {
-            "name": "- Normal",
+            "name": "Frag lance - Normal",
             "range": "-",
             "type": "Melee",
             "s": "+1",
@@ -127,10 +124,7 @@
             "abilities": "-"
         },
         {
-            "name": "Goad lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Goad lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+2",
@@ -139,7 +133,7 @@
             "abilities": "Charge, Quick(+1), Deflagrate(5+)"
         },
         {
-            "name": "- Normal",
+            "name": "Goad lance - Normal",
             "range": "-",
             "type": "Melee",
             "s": "+1",
@@ -196,10 +190,7 @@
             "abilities": "AT(1), Melta"
         },
         {
-            "name": "Melta lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Melta lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+5",
@@ -208,7 +199,7 @@
             "abilities": "Armorbane, AT(4), Charge, Quick(+1)"
         },
         {
-            "name": "- Normal",
+            "name": "Melta lance - Normal",
             "range": "-",
             "type": "Melee",
             "s": "+1",

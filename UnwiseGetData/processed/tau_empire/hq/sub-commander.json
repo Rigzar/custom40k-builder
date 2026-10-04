@@ -44,10 +44,7 @@
             "abilities": "Blind"
         },
         {
-            "name": "Pulse blaster"
-        },
-        {
-            "name": "- Short range",
+            "name": "Pulse blaster - Short range",
             "range": "9\"",
             "type": "Assault 2",
             "s": "6",
@@ -56,7 +53,7 @@
             "abilities": "-"
         },
         {
-            "name": "- Long range",
+            "name": "Pulse blaster - Long range",
             "range": "15\"",
             "type": "Assault 2",
             "s": "5",

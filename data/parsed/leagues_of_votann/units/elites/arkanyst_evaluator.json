@@ -33,10 +33,7 @@
             "abilities": "Blast(4), Graviton"
         },
         {
-            "name": "Transmatter inverter"
-        },
-        {
-            "name": "- Standard",
+            "name": "Transmatter inverter - Standard",
             "range": "24\"",
             "type": "Rapid Fire 3",
             "s": "7",
@@ -45,7 +42,7 @@
             "abilities": "AT(1)"
         },
         {
-            "name": "- Overheating",
+            "name": "Transmatter inverter - Overheating",
             "range": "24\"",
             "type": "Heavy 3",
             "s": "8",

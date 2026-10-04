@@ -26,10 +26,7 @@
     "equipped_with": "A Reaper is equipped with: Sharpened prow; Storm vortex projector.",
     "weapons": [
         {
-            "name": "Storm vortex projector"
-        },
-        {
-            "name": "- Beam",
+            "name": "Storm vortex projector - Beam",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "8",
@@ -38,7 +35,7 @@
             "abilities": " AT(3), Beam, Lance(+2)"
         },
         {
-            "name": "- Blast",
+            "name": "Storm vortex projector - Blast",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "6",

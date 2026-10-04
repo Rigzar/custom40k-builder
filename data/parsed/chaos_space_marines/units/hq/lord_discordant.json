@@ -51,10 +51,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Impaler chainglaive"
-        },
-        {
-            "name": "- Charge",
+            "name": "Impaler chainglaive - Charge",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -63,7 +60,7 @@
             "abilities": "AT(2), Charge"
         },
         {
-            "name": "- Melee",
+            "name": "Impaler chainglaive - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+2",

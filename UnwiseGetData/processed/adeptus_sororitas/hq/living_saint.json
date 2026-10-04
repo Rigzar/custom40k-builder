@@ -26,10 +26,7 @@
     "equipped_with": "A Living Saint is equipped with: Ardent Blade.",
     "weapons": [
         {
-            "name": "Ardent Blade"
-        },
-        {
-            "name": "- Melee",
+            "name": "Ardent Blade - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+4",
@@ -38,7 +35,7 @@
             "abilities": "AT(1), Master-crafted, Soul burn(5+)"
         },
         {
-            "name": "- Ranged",
+            "name": "Ardent Blade - Ranged",
             "range": "9\"",
             "type": "Pistol 4",
             "s": "5",

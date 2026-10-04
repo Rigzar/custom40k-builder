@@ -45,10 +45,7 @@
     "equipped_with": "Every Shining Spear is equipped with: Laser lance; Twin shuriken catapult. The Shining Spear Exarch is equipped with: Paragon sabre; Twin shuriken catapult",
     "weapons": [
         {
-            "name": "Laser lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Laser lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -57,7 +54,7 @@
             "abilities": "Charge, Quick(+1)"
         },
         {
-            "name": "- Melee",
+            "name": "Laser lance - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+1",
@@ -66,7 +63,7 @@
             "abilities": "Unwieldy"
         },
         {
-            "name": "- Ranged",
+            "name": "Laser lance - Ranged",
             "range": "6\"",
             "type": "Pistol",
             "s": "6",
@@ -84,10 +81,7 @@
             "abilities": "Extra Attack(1)"
         },
         {
-            "name": "Star lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Star lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+5",
@@ -96,7 +90,7 @@
             "abilities": "AT(2), Charge, Quick(+1)"
         },
         {
-            "name": "- Melee",
+            "name": "Star lance - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+1",
@@ -105,7 +99,7 @@
             "abilities": "AT(2), Unwieldy"
         },
         {
-            "name": "- Ranged",
+            "name": "Star lance - Ranged",
             "range": "6\"",
             "type": "Pistol",
             "s": "8",

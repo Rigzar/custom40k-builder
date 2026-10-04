@@ -53,10 +53,7 @@
             "abilities": "Blast(4), Suppression(2)"
         },
         {
-            "name": "Ripper gun"
-        },
-        {
-            "name": "- Melee",
+            "name": "Ripper gun - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+2",
@@ -65,7 +62,7 @@
             "abilities": "AT(1)"
         },
         {
-            "name": "- Ranged",
+            "name": "Ripper gun - Ranged",
             "range": "12\"",
             "type": "Pistol 3",
             "s": "5",

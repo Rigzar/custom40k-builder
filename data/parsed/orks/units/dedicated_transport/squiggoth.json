@@ -33,10 +33,7 @@
             "abilities": "AT(2), Extra Attack(3)"
         },
         {
-            "name": "Kannon"
-        },
-        {
-            "name": "- Frag",
+            "name": "Kannon - Frag",
             "range": "36\"",
             "type": "Heavy 4",
             "s": "5",
@@ -45,7 +42,7 @@
             "abilities": "Blast(6)"
         },
         {
-            "name": "- Shell",
+            "name": "Kannon - Shell",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "8",

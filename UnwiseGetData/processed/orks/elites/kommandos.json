@@ -45,10 +45,7 @@
     "equipped_with": "Every model is equipped with: Choppa; Slugga; Stikkbombz.",
     "weapons": [
         {
-            "name": "Burna"
-        },
-        {
-            "name": "- Ranged",
+            "name": "Burna - Ranged",
             "range": "9\"",
             "type": "Assault 4",
             "s": "4",
@@ -57,7 +54,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "- Melee",
+            "name": "Burna - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",

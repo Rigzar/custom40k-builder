@@ -43,10 +43,7 @@
     "equipped_with": "Every Burna Boy is equipped with: Burna.\nEvery Spanna is equipped with: Choppa; Slugga.",
     "weapons": [
         {
-            "name": "Burna"
-        },
-        {
-            "name": "- Melee",
+            "name": "Burna - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -55,7 +52,7 @@
             "abilities": "Unwieldy"
         },
         {
-            "name": "- Ranged",
+            "name": "Burna - Ranged",
             "range": "9\"",
             "type": "Assault 4",
             "s": "4",

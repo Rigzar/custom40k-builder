@@ -26,10 +26,7 @@
     "equipped_with": "An Avatar of Khaine is equipped with: The Wailing Doom.",
     "weapons": [
         {
-            "name": "The Wailing Doom"
-        },
-        {
-            "name": "- Melee",
+            "name": "The Wailing Doom - Melee",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -38,7 +35,7 @@
             "abilities": "AT(3)"
         },
         {
-            "name": "- Ranged",
+            "name": "The Wailing Doom - Ranged",
             "range": "12\"",
             "type": "Pistol 1",
             "s": "8",
