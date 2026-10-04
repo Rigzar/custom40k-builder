@@ -181,7 +181,7 @@ export type TranslationKey =
   | 'valSkirmishArmourSaveBase' | 'valSkirmishInvSaveBase' | 'valSkirmishToughnessBase'
   | 'valSkirmishDamageGain' | 'valPerNExceeded' | 'valFixedMaxExceeded' | 'valDisjointSquadSize'
   | 'valRatioPerNExceeded' | 'valCrossGroupPoolExceeded' | 'valMustPickWeapon' | 'valLowEpicOnly' | 'valLowExceeds33' | 'valLowOk'
-  | 'valPlatoonLinkedCount' | 'valPlatoonUnlinkedInfantry' | 'valSlotOverMax' | 'valUsingAops' | 'valAlliedNeedAtLeast'
+  | 'valPlatoonLinkedCount' | 'valPlatoonUnlinkedInfantry' | 'valSlotOverMax' | 'valUsingAops' | 'valSecondAopNeedsFull' | 'valAlliedNeedAtLeast'
   | 'valAlliedTransportOverMax' | 'valAlliedSlotNotAllowed' | 'valAlliedSlotOverMax' | 'valAlliedRatioExceedsTroops'
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
   | 'valLockedMarkIncompatibleAllyHq' | 'valOnlyTwoTraits' | 'valSectorLordAcolytes' | 'valScarabsAsTroopsCap' | 'valUnitNotInCodex' | 'valUnitRemovedFromCodex' | 'valMinistorumThirdTraitPerUnit'
@@ -1236,6 +1236,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valPlatoonUnlinkedInfantry: '{count} Infantry Squad(s) are not linked to a Platoon Command Squad — every Infantry Squad must belong to a platoon (2-5 per Platoon Command Squad). Add a Platoon Command Squad, then pick it in the "↳ Platoon" dropdown on each squad.',
     valSlotOverMax: '{slot} over maximum ({used}/{max}).',
     valUsingAops: 'Using {n} AOPs.',
+    valSecondAopNeedsFull: 'A second AOP only opens once the whole first one is filled: 2 HQ, 6 Troops, 3 Elites, 3 Fast Attack and 3 Heavy Support (Transports, Fortifications and Flyers do not have to be).',
     valAlliedNeedAtLeast: 'Allied detachment: need at least {min} {slot} (have {used}).',
     valAlliedTransportOverMax: 'Allied detachment: Dedicated Transport over maximum ({used}/{max}).',
     valAlliedSlotNotAllowed: 'Allied detachment: {slot} not allowed (have {used}).',
@@ -2342,6 +2343,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valPlatoonUnlinkedInfantry: '{count} Infanterietrupp(s) sind mit keinem Zugkommandotrupp verknüpft — jeder Infanterietrupp muss zu einem Zug gehören (2-5 pro Zugkommandotrupp). Stelle einen Zugkommandotrupp auf und wähle ihn dann im Feld „↳ Zug" jedes Trupps aus.',
     valSlotOverMax: '{slot} über Maximum ({used}/{max}).',
     valUsingAops: 'Verwendet {n} AOPs.',
+    valSecondAopNeedsFull: 'Ein zweiter AOP öffnet sich erst, wenn der gesamte erste gefüllt ist: 2 HQ, 6 Standard, 3 Elite, 3 Sturm und 3 Schwere Unterstützung (Transporter, Festungen und Flieger müssen nicht gefüllt sein).',
     valAlliedNeedAtLeast: 'Verbündete Abteilung: mindestens {min} {slot} benötigt (haben {used}).',
     valAlliedTransportOverMax: 'Verbündete Abteilung: Transportfahrzeug über Maximum ({used}/{max}).',
     valAlliedSlotNotAllowed: 'Verbündete Abteilung: {slot} nicht erlaubt (haben {used}).',
@@ -3448,6 +3450,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valPlatoonUnlinkedInfantry: '{count} Escuadra(s) de Infantería sin vincular a un Escuadrón de Mando de Pelotón — toda Escuadra de Infantería debe pertenecer a un pelotón (2-5 por Escuadrón de Mando). Añade un Escuadrón de Mando de Pelotón y elígelo en el desplegable "↳ Pelotón" de cada escuadra.',
     valSlotOverMax: '{slot} por encima del máximo ({used}/{max}).',
     valUsingAops: 'Usando {n} AOPs.',
+    valSecondAopNeedsFull: 'Un segundo AOP solo se abre cuando el primero está completo: 2 HQ, 6 Tropas, 3 Élites, 3 Ataque Rápido y 3 Apoyo Pesado (Transportes, Fortificaciones y Voladores no hace falta llenarlos).',
     valAlliedNeedAtLeast: 'Destacamento aliado: se necesitan al menos {min} {slot} (tienes {used}).',
     valAlliedTransportOverMax: 'Destacamento aliado: Transporte Dedicado por encima del máximo ({used}/{max}).',
     valAlliedSlotNotAllowed: 'Destacamento aliado: {slot} no permitido (tienes {used}).',

@@ -656,6 +656,7 @@
  "valPlatoonLinkedCount": "{pcs}：リンクされた {member} が {count}（許容 {min}〜{max}）。",
  "valPlatoonUnlinkedInfantry": "歩兵分隊 {count} 個が小隊指揮分隊にリンクされていません — すべての歩兵分隊はいずれかの小隊に属する必要があります（小隊指揮分隊1つにつき2〜5個）。小隊指揮分隊を追加し、各分隊の「↳ 小隊」ドロップダウンで選択してください。",
  "valSlotOverMax": "{slot} が最大数を超えています（{used}/{max}）。",
+ "valSecondAopNeedsFull": "2つ目のAOPは、最初のAOP全体が埋まって初めて開きます：HQ 2、トゥループ 6、エリート 3、ファストアタック 3、ヘビーサポート 3（トランスポート、要塞、フライヤーは不要）。",
  "valUsingAops": "{n} 個のAOPを使用中。",
  "valAlliedNeedAtLeast": "同盟分遣隊：{slot} が最低 {min} 必要です（現在 {used}）。",
  "valAlliedTransportOverMax": "同盟分遣隊：専用輸送車両が最大数を超えています（{used}/{max}）。",

@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182i_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182j_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -76,6 +76,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial Guard orders", "The Officer Orders are grouped as the sheet files them (infantry and creatures / vehicles, plus your Legacy order) on the Print View, on a new Field Manual page and on every officer's unit card."],
         ["Gitfinda", "A game tied to a league or event can only be matched by that event's players, and a cancelled game now shows as Cancelled in Matches with its chat closed."],
         ["Gitfinda matches", "A Withdraw match button lets you take back a wrong match without the post's owner deleting the post, and the chat of a cancelled or finished game is now closed."],
+        ["Second AOP", "It opens only once the whole first AOP is filled (2 HQ, 6 Troops, 3 Elites, 3 Fast Attack, 3 Heavy Support), not when one slot goes over. Then a third HQ or a seventh Troops is allowed."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -102,6 +103,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial-Guard-Befehle", "Die Offiziersbefehle sind so gruppiert wie im Blatt (Infanterie und Kreaturen / Fahrzeuge, dazu dein Legacy-Befehl): in der Druckansicht, auf einer neuen Field-Manual-Seite und auf der Einheitenkarte jedes Offiziers."],
         ["Gitfinda", "Ein an eine Liga oder ein Event gebundenes Spiel können nur Spieler dieses Events matchen, und ein abgesagtes Spiel erscheint unter Matches als Abgesagt, mit geschlossenem Chat."],
         ["Gitfinda-Matches", "Ein Knopf Match zurückziehen nimmt ein falsches Match zurück, ohne dass der Besitzer den Beitrag löschen muss, und der Chat eines abgesagten oder beendeten Spiels ist jetzt geschlossen."],
+        ["Zweiter AOP", "Er öffnet sich erst, wenn der ganze erste AOP gefüllt ist (2 HQ, 6 Standard, 3 Elite, 3 Sturm, 3 Schwere Unterstützung), nicht wenn ein Slot überschritten wird. Dann sind ein drittes HQ oder eine siebte Standardeinheit erlaubt."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -128,6 +130,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Órdenes de la Guardia Imperial", "Las órdenes de oficial están agrupadas como las archiva la hoja (infantería y criaturas / vehículos, más tu orden de Legacy) en la vista de impresión, en una página nueva del Field Manual y en la ficha de cada oficial."],
         ["Gitfinda", "Una partida ligada a una liga o evento solo la pueden aceptar los jugadores de ese evento, y una partida cancelada aparece como Cancelada en Matches con el chat cerrado."],
         ["Matches de Gitfinda", "Un botón Retirar match deshace un match equivocado sin que el dueño borre el anuncio, y el chat de una partida cancelada o terminada ahora se cierra."],
+        ["Segundo AOP", "Se abre solo cuando el primer AOP está completo (2 HQ, 6 Tropas, 3 Élites, 3 Ataque Rápido, 3 Apoyo Pesado), no cuando un slot se pasa. Entonces se permiten un tercer HQ o una séptima Tropa."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -154,6 +157,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Приказы Имперской Гвардии", "Приказы офицеров сгруппированы так же, как в листе (пехота и существа / техника, плюс приказ вашего Legacy): в печатном виде, на новой странице Field Manual и на карточке каждого офицера."],
         ["Gitfinda", "Игру, привязанную к лиге или событию, могут принять только игроки этого события, а отменённая игра в Matches помечена как Отменено, и её чат закрыт."],
         ["Матчи Gitfinda", "Кнопка Отозвать матч отменяет ошибочный матч, и владельцу не нужно удалять объявление; чат отменённой или завершённой игры теперь закрыт."],
+        ["Второй AOP", "Он открывается, только когда полностью заполнен первый AOP (2 HQ, 6 Troops, 3 Elites, 3 Fast Attack, 3 Heavy Support), а не когда один слот превышен. Тогда разрешены третий HQ или седьмой Troops."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -180,6 +184,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["インペリアルガードの命令", "士官の命令をシートの分類どおり（歩兵とクリーチャー／ビークル、およびレガシー命令）に整理し、印刷ビュー、新しいFieldManualページ、各士官のユニットカードで表示します。"],
         ["Gitfinda", "リーグやイベントに紐付いた対戦は、そのイベントの参加者だけがマッチできます。中止された対戦はMatchesで「中止」と表示され、チャットは閉じられます。"],
         ["Gitfindaのマッチ", "「マッチを取り消す」ボタンで、投稿の主が投稿を削除しなくても間違ったマッチを取り消せます。中止または終了した対戦のチャットは閉じられます。"],
+        ["2つ目のAOP", "最初のAOP全体（HQ2、トゥループ6、エリート3、ファストアタック3、ヘビーサポート3）が埋まって初めて開きます。1つのスロットが上限を超えても開きません。開いた後は3つ目のHQや7つ目のトゥループが可能です。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

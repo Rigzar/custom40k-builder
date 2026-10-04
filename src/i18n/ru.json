@@ -656,6 +656,7 @@
  "valPlatoonLinkedCount": "{pcs}: {count} связанных {member} (допускается {min}-{max}).",
  "valPlatoonUnlinkedInfantry": "{count} пехотн. отряд(ов) не привязаны к командному отряду взвода — каждый пехотный отряд должен входить во взвод (2-5 на командный отряд взвода). Добавьте командный отряд взвода, затем выберите его в списке «↳ Взвод» у каждого отряда.",
  "valSlotOverMax": "{slot} превышает максимум ({used}/{max}).",
+ "valSecondAopNeedsFull": "Второй AOP открывается, только когда полностью заполнен первый: 2 HQ, 6 Troops, 3 Elites, 3 Fast Attack и 3 Heavy Support (транспорт, укрепления и авиацию заполнять не обязательно).",
  "valUsingAops": "Используется AOP: {n}.",
  "valAlliedNeedAtLeast": "Союзный контингент: нужно минимум {min} {slot} (есть {used}).",
  "valAlliedTransportOverMax": "Союзный контингент: Транспорт превышает максимум ({used}/{max}).",

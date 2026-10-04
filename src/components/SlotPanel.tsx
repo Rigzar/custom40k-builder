@@ -3,10 +3,9 @@ import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage } from '../engine/validators';
+import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
-import type { RosterEntry } from '../types/army';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { useT, type TranslationKey } from '../i18n';
 import { nm } from '../utils/localName';
@@ -41,36 +40,6 @@ interface SlotEntry {
   disabledReason?: string;
 }
 
-
-/** Mirrors the validator's AOP multiplier so the slot panel shows correct limits. */
-function computeAopMult(
-  army: RosterEntry[],
-  data: FactionData,
-  aop: Record<string, [number, number]>,
-  multiAop: boolean,
-  rule: ReturnType<typeof getArchetypeRule>,
-  alliedFaction?: string | null,
-  engagement?: string,
-  freeSlots?: { elites: number; fa: number; hs: number },
-): number {
-  if (!multiAop) return 1;
-  let aops = 1;
-  for (const slot of SLOT_ORDER) {
-    if (slot === 'HQ') continue;
-    const max = aop[slot][1];
-    if (max <= 0) continue;
-    // Same subtraction the validator makes: a unit that occupies no slot cannot demand a whole
-    // extra AOP (GH#133).
-    const raw = getSlotUsage(army, data, slot, rule, alliedFaction ?? undefined, false, engagement);
-    const adj = slot === 'Elites' ? (freeSlots?.elites ?? 0)
-      : slot === 'Fast Attack' ? (freeSlots?.fa ?? 0)
-      : slot === 'Heavy Support' ? (freeSlots?.hs ?? 0)
-      : 0;
-    const used = Math.max(0, raw - adj);
-    if (used > max) aops = Math.max(aops, Math.ceil(used / max));
-  }
-  return aops;
-}
 
 /**
  * Shared unit catalogue for BOTH the primary army and an Allied Detachment —
@@ -401,8 +370,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const freeSlots = computeFreeSlotAdjustments(army, primaryData, rule, store);
   // AFTER freeSlots, because the multiplier has to subtract them: an exempt unit must not
   // conjure a second AOP (GH#133). Skirmish grants no exemptions at all, so none are passed.
-  const aopMult = computeAopMult(army, primaryData, eng.aop as unknown as Record<string, [number, number]>,
-    eng.multiAop, rule, alliedFaction, engagement, engagement === 'skirmish' ? undefined : freeSlots);
+  // The caps scale with the AOPs the list has EARNED (the whole first one filled), the same number the
+  // validator uses, so a "+" is greyed out exactly when the validator would reject the unit.
+  const aopMult = getAopState(army, primaryData, engagement, rule, alliedFaction ?? undefined,
+    engagement === 'skirmish' ? undefined : freeSlots).unlocked;
 
   return (
     <div className="divide-y divide-zinc-800/50">

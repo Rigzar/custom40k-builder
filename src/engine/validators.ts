@@ -288,31 +288,92 @@ function countInfantrySelections(state: ArmyState, data: FactionData, countAllie
  * Restrictions: "All units occupy an Army Organisation slot, even if their rules state otherwise"),
  * and the caller passes them already zeroed.
  */
+export interface AopState {
+  /** AOPs the list is USING: the most any slot needs, i.e. ceil(used / cap). Drives the minimums. */
+  taken: number;
+  /** AOPs the list has EARNED: one, plus one for every time the whole AOP is filled. Drives the caps. */
+  unlocked: number;
+}
+
+/** The slots that must all be full before another AOP opens (Core Rules, Exceeding the AOP:
+ *  "Transports, Fortifications and Flyers do not have to be filled out"). */
+const AOP_FILL_SLOTS = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support'] as const;
+
+/**
+ * Army Organisation Plans, by the Core Rules:
+ *   "If a player fully utilizes their current AOP, they gain access to a second, identical AOP.
+ *    Transports, Fortifications and Flyers do not have to be filled out to get another AOP.
+ *    Each additional AOP must meet the same minimum requirements for HQ and Troop units."
+ * and the rules author, in the Discord: "The whole AOP must be filled before you get a second one
+ * ... Simply filling out a single slot type is not enough to get a new AOP."
+ *
+ * This used to hand out a second AOP the moment ANY slot but HQ went past its cap, so a fourth
+ * Elite with three Troops opened one and three HQs never did (a player with 3 HQs and 4 Troops
+ * asked for one). Now `unlocked` counts how many times every one of HQ, Troops, Elites, Fast Attack
+ * and Heavy Support is at its cap, and the slot caps scale with THAT; `taken` is what the list
+ * actually uses and scales the minimums, so a second AOP still needs 1 more HQ and 2 more Troops.
+ * A slot the faction has no unit for counts as filled ("If a faction cannot fill a slot ... that
+ * slot counts as filled", Missions). An archetype's own HQ count (Sorcerer Circle, Abaddon's
+ * Chosen) is neither scaled nor measured against the engagement's 1-2 for `taken`.
+ *
+ * `freeSlots` is what `computeFreeSlotAdjustments` returned for this army. It has to be subtracted
+ * HERE and not only in the slot-max check: a unit that occupies no slot must not demand a whole
+ * extra AOP, nor fill one (GH#133). Skirmish has no second AOP and the caller passes no free slots.
+ */
+export function getAopState(
+  army: RosterEntry[],
+  data: FactionData,
+  engKey: string,
+  rule: Rule,
+  alliedFaction?: string,
+  freeSlots?: { elites: number; fa: number; hs: number; hq?: number },
+): AopState {
+  const eng = ENGAGEMENTS[engKey];
+  if (!eng.multiAop) return { taken: 1, unlocked: 1 };
+  const usedOf = (slot: typeof SLOT_ORDER[number]): number => {
+    // Exclude allied units from main AOP calculation
+    const raw = getSlotUsage(army, data, slot, rule, alliedFaction, false, engKey);
+    const adj = slot === 'HQ' ? (freeSlots?.hq ?? 0)
+      : slot === 'Elites' ? (freeSlots?.elites ?? 0)
+      : slot === 'Fast Attack' ? (freeSlots?.fa ?? 0)
+      : slot === 'Heavy Support' ? (freeSlots?.hs ?? 0)
+      : 0;
+    return Math.max(0, raw - adj);
+  };
+  const hqOwn = !!rule?.hqOverride;
+  let taken = 1;
+  for (const slot of SLOT_ORDER) {
+    if (slot === 'Dedicated Transport') continue;   // dynamic cap ("1 per Infantry selection"), not a flat one
+    if (slot === 'HQ' && hqOwn) continue;
+    const [, max] = eng.aop[slot];
+    if (max <= 0) continue;
+    const used = usedOf(slot);
+    if (used > max) taken = Math.max(taken, Math.ceil(used / max));
+  }
+  let unlocked = 1;
+  for (let guard = 0; guard < 10; guard++) {
+    const allFull = AOP_FILL_SLOTS.every(slot => {
+      if ((data.slot_to_units?.[slot] ?? []).length === 0) return true;     // the faction has nothing to put there
+      const cap = slot === 'HQ' && hqOwn ? getEffectiveHqLimits(rule, eng.aop.HQ)[1] : eng.aop[slot][1];
+      const need = slot === 'HQ' && hqOwn ? cap : cap * unlocked;
+      return usedOf(slot) >= need;
+    });
+    if (!allFull) break;
+    unlocked++;
+  }
+  return { taken, unlocked };
+}
+
+/** AOPs the list is using (see getAopState). */
 export function getAopRequirement(
   army: RosterEntry[],
   data: FactionData,
   engKey: string,
   rule: Rule,
   alliedFaction?: string,
-  freeSlots?: { elites: number; fa: number; hs: number },
+  freeSlots?: { elites: number; fa: number; hs: number; hq?: number },
 ): number {
-  const eng = ENGAGEMENTS[engKey];
-  if (!eng.multiAop) return 1;
-  let aops = 1;
-  for (const slot of SLOT_ORDER) {
-    if (slot === 'HQ') continue;
-    const [, max] = eng.aop[slot];
-    if (max <= 0) continue;
-    // Exclude allied units from main AOP calculation
-    const raw = getSlotUsage(army, data, slot, rule, alliedFaction, false, engKey);
-    const adj = slot === 'Elites' ? (freeSlots?.elites ?? 0)
-      : slot === 'Fast Attack' ? (freeSlots?.fa ?? 0)
-      : slot === 'Heavy Support' ? (freeSlots?.hs ?? 0)
-      : 0;
-    const used = Math.max(0, raw - adj);
-    if (used > max) aops = Math.max(aops, Math.ceil(used / max));
-  }
-  return aops;
+  return getAopState(army, data, engKey, rule, alliedFaction, freeSlots).taken;
 }
 
 // Animosity of the Gods only exists as a mechanic for factions that actually carry a
@@ -2332,8 +2393,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const summoningExcl = (data.faction === 'Chaos Space Marines' && state.archetype !== 'Daemonkin')
     ? ['chaos_daemons']
     : undefined;
-  const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction,
+  const aopState = getAopState(state.army, data, state.engagement, rule, state.alliedFaction,
     state.engagement === 'skirmish' ? undefined : freeSlots);
+  const aopMult = aopState.taken;
   for (const slot of SLOT_ORDER) {
     if (slot === 'Lords of War') continue; // Escalation: Epic-only + 33% pts cap, handled separately
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
@@ -3035,7 +3097,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       ? countInfantrySelections(state, data, false)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
-        : (eng.multiAop ? engMax * aopMult : engMax);
+        : (eng.multiAop ? engMax * aopState.unlocked : engMax);
     const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
@@ -3043,6 +3105,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
   if (eng.multiAop && aopMult > 1) {
     items.push({ type: 'ok', text: T('valUsingAops', { n: aopMult }) });
+  }
+  if (eng.multiAop && aopState.taken > aopState.unlocked) {
+    // The slot is over the first AOP, and the second one only opens once the whole first is filled.
+    items.push({ type: 'warn', text: T('valSecondAopNeedsFull') });
   }
 
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
