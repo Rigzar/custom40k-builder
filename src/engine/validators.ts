@@ -1203,11 +1203,54 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
+    // The Leviathan Dreadnought prints "Must pick two weapons from this list" TWICE, with different
+    // weapons. It has two arms, not four: the two lists are alternative configurations (two from
+    // one list, none from the other), so they are judged together and not one by one.
+    const pickTwoLists = u.option_groups
+      .map((g, gi) => ({ g, gi }))
+      .filter(({ g }) => /^\s*must pick two(?![a-z])/i.test(g.header ?? '') && g.constraint.type === 'fixed_max' && (g.constraint.max ?? 1) > 1);
+    const altHeaders = new Set(pickTwoLists.map(x => x.g.header).filter(h => pickTwoLists.filter(y => y.g.header === h).length > 1));
+    const altLists = pickTwoLists.filter(x => altHeaders.has(x.g.header));
+    if (altLists.length > 1) {
+      const qtyOf = (gi: number, g: typeof altLists[number]['g']) =>
+        g.choices.reduce((s, _, ci) => s + (item.optionQty?.[gi]?.[ci] ?? 0), 0);
+      const used = altLists.filter(({ g, gi }) => qtyOf(gi, g) > 0);
+      const header = altLists[0].g.header;
+      if (used.length === 0) {
+        items.push({ type: 'error', text: T('valSelectionRequired', { unit: u.name, header }) });
+      } else if (used.length > 1) {
+        items.push({ type: 'error', text: T('valSelectionOneListOnly', { unit: u.name, header }) });
+      } else {
+        const { g, gi } = used[0];
+        const have = qtyOf(gi, g);
+        const need = g.constraint.max ?? 2;
+        if (have < need) {
+          items.push({
+            type: 'error',
+            text: T('valSelectionIncomplete', { unit: u.name, header, choices: g.choices.slice(0, 3).map(c => c.name).join(' / '), need, have }),
+          });
+        }
+      }
+    }
     for (const [gi, g] of u.option_groups.entries()) {
+      if (altLists.some(x => x.gi === gi)) continue;
       // Through groupConstraint: a promotion can make an optional group mandatory (the Legendary
       // Hive Tyrant MUST take a specialisation where the plain one may).
       if (!groupConstraint(g, item, u).required) continue;
       const hasSelection = g.choices.some((_, ci) => (item.optionQty?.[gi]?.[ci] ?? 0) > 0);
+      // "Must pick TWO weapons from this list" is a requirement of two, not of at least one: a
+      // Contemptor with a single weapon validated cleanly. Only the Horus Heresy Dreadnoughts
+      // print it; every other required group is a single pick.
+      const need = g.constraint.type === 'fixed_max' ? (g.constraint.max ?? 1) : 1;
+      if (need > 1 && hasSelection) {
+        const have = g.choices.reduce((s, _, ci) => s + (item.optionQty?.[gi]?.[ci] ?? 0), 0);
+        if (have < need) {
+          items.push({
+            type: 'error',
+            text: T('valSelectionIncomplete', { unit: u.name, header: g.header, choices: g.choices.slice(0, 3).map(c => c.name).join(' / '), need, have }),
+          });
+        }
+      }
       if (!hasSelection) {
         items.push({
           type: 'error',

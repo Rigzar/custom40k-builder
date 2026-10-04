@@ -586,6 +586,8 @@
  "valPitchedCap": "Лимит Генерального сражения — 3500 очк. (сейчас: {total}).",
  "valOverPointsLimit": "Превышен лимит очков ({total}/{limit}).",
  "valWithinLimit": "В пределах лимита ({total}/{limit}).",
+ "valSelectionOneListOnly": "{unit}: «{header}» — берите оружие из ОДНОГО из двух списков, не из обоих (две руки).",
+ "valSelectionIncomplete": "{unit}: «{header}» ({choices}) — нужно выбрать {need}, выбрано {have}.",
  "valSelectionRequired": "{unit}: «{header}» — необходимо сделать выбор.",
  "valOnlyOneArmour": "{unit}: только одна броня на модель ({armours}).",
  "valOnlyOneCharacterAttached": "{unit}: к отряду одновременно может быть присоединён только один персонаж (сейчас присоединены {count}: {names}) — для дополнительных персонажей нужна способность «Command Squad».",

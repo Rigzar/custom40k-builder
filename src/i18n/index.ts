@@ -164,7 +164,7 @@ export type TranslationKey =
   | 'viewingCopyOf' | 'editMyCopy'
   | 'filterByEvent' | 'filterAnyEvent' | 'filterClear' | 'noEventArmies'
   | 'valPointsToGo'
-  | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'valOnlyOneArmour'
+  | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'valSelectionIncomplete' | 'valSelectionOneListOnly' | 'valOnlyOneArmour'
   | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
   | 'valArchetypeSlotNotAllowed' | 'valArchetypeRequiresHqUnit' | 'valArchetypeRequiresHqUpgrade'
   | 'valArchetypeTroopsRatioCap' | 'valArchetypeRequiresEscort' | 'valArchetypeTroopsModelRatioCap'
@@ -1166,6 +1166,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOverPointsLimit: 'Over points limit ({total}/{limit}).',
     valWithinLimit: 'Within limit ({total}/{limit}).',
     valSelectionRequired: '{unit}: "{header}" — a selection is required.',
+    valSelectionIncomplete: '{unit}: "{header}" ({choices}) — pick {need}, {have} selected.',
+    valSelectionOneListOnly: '{unit}: "{header}" — take the weapons from ONE of the two lists, not both (two arms).',
     valOnlyOneArmour: '{unit}: only one armour per model ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: only one character may be attached to a unit at a time (currently joined by {count}: {names}) — additional characters need the "Command Squad" ability.',
     valArchetypeUnitNotAllowed: 'Archetype "{archetype}": {unit} is not allowed.',
@@ -2259,6 +2261,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOverPointsLimit: 'Über dem Punktelimit ({total}/{limit}).',
     valWithinLimit: 'Innerhalb des Limits ({total}/{limit}).',
     valSelectionRequired: '{unit}: „{header}" — eine Auswahl ist erforderlich.',
+    valSelectionIncomplete: '{unit}: „{header}" ({choices}) — {need} wählen, {have} gewählt.',
+    valSelectionOneListOnly: '{unit}: „{header}" — Waffen aus EINER der beiden Listen wählen, nicht aus beiden (zwei Arme).',
     valOnlyOneArmour: '{unit}: nur eine Rüstung pro Modell ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: nur ein Charakter darf gleichzeitig einer Einheit angeschlossen sein (derzeit angeschlossen von {count}: {names}) — weitere Charaktere benötigen die Fähigkeit „Command Squad".',
     valArchetypeUnitNotAllowed: 'Archetyp „{archetype}": {unit} ist nicht erlaubt.',
@@ -3352,6 +3356,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOverPointsLimit: 'Por encima del límite de puntos ({total}/{limit}).',
     valWithinLimit: 'Dentro del límite ({total}/{limit}).',
     valSelectionRequired: '{unit}: "{header}" — se requiere una selección.',
+    valSelectionIncomplete: '{unit}: "{header}" ({choices}) — elige {need}, hay {have} elegidas.',
+    valSelectionOneListOnly: '{unit}: "{header}" — elige las armas de UNA de las dos listas, no de ambas (dos brazos).',
     valOnlyOneArmour: '{unit}: solo una armadura por modelo ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: solo un personaje puede estar unido a una unidad a la vez (actualmente unidos {count}: {names}) — los personajes adicionales necesitan la habilidad "Command Squad".',
     valArchetypeUnitNotAllowed: 'Arquetipo "{archetype}": {unit} no está permitido.',

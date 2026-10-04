@@ -1865,10 +1865,19 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       // exactly one of it, and only while the promotion is taken: the Lootas showed a Spanna row
       // holding a Choppa with no Spanna in the squad, then showed it as "x0" once there was one.
       const isVariantLabel = (unit.variant_models ?? []).some(v => eq(v.name, label));
-      const variantTaken = isVariantLabel && profile.variantActive && eq(profile.variant?.name ?? '', label);
+      // A model row can be named after an option CHOICE with no `variant_link` behind it: since the
+      // 2026-10-03 unit update every Cryptek specialisation has its own row in `variant_models`, but
+      // only the Dynasty Scion links to it. `profile.variantActive` is then false for the other seven,
+      // so their loadout clause ("A Chronomancer is equipped with: Aeonstave.") was read as a
+      // promotion not taken and the weapon went with it — a Cryptek showed NO weapon at all, bought
+      // specialisation or not (GH#204). A choice the player actually took counts as taking it.
+      const chosenChoice = unit.option_groups.some((g, gi) => g.choices.some((c, ci) =>
+        (item.optionQty?.[gi]?.[ci] ?? 0) > 0 && eq(c.name, label)));
+      const variantByLink = profile.variantActive && eq(profile.variant?.name ?? '', label);
+      const variantTaken = isVariantLabel && (variantByLink || chosenChoice);
       // How many were promoted — 1 everywhere except the two Ork squads that read "Up to three …
       // may be upgraded to Spannas" (author, 2026-08-16: "up to three per unit").
-      const variantCount = variantTaken ? (getActiveVariant(item, unit)?.count ?? 1) : 0;
+      const variantCount = variantTaken ? (variantByLink ? (getActiveVariant(item, unit)?.count ?? 1) : 1) : 0;
       const idx = profile.modelsToShow.findIndex(m => eq(m.name, label));
       const m = idx >= 0 ? profile.modelsToShow[idx] : null;
       // A clause can cover TWO model rows at once — "Every Jakhal and Jakhal Pack Leader is
@@ -1898,7 +1907,13 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       const clauseModel = unit.models.find(x => eq(x.name, label));
       const optionalAndAbsent = !!item.modelSizes && !!clauseModel && clauseModel.min === 0 &&
         (item.modelSizes[clauseModel.name] ?? clauseModel.min) === 0;
-      if (isVariantLabel && !variantTaken) continue;      // promotion not taken: no such model
+      if (isVariantLabel && !variantTaken) {
+        // Promotion not taken: no such model. Its weapons were marked used above so the unbought ones
+        // stay off the card, but one the player BOUGHT (an Armory Abyssal lance on a Dynasty Scion)
+        // belongs to nobody else and has to fall through to the first row instead of vanishing.
+        for (const w of gWeapons) if (grantedSet.has(w.name) && !groups.some(g => g.weapons.includes(w))) used.delete(w.name);
+        continue;
+      }
       // The whole row was promoted away — a 1-model Tauros squadron upgraded to a Venator leaves no
       // plain Tauros. Its clause row is dropped ONLY when the promoted model has a loadout line of
       // its own: the Tauros Venator does ("A Tauros Venator is equipped with: Twin-linked heavy

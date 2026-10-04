@@ -586,6 +586,8 @@
  "valPitchedCap": "会戦の上限は3500pts（現在：{total}）。",
  "valOverPointsLimit": "ポイント上限を超過しています（{total}/{limit}）。",
  "valWithinLimit": "上限内です（{total}/{limit}）。",
+ "valSelectionOneListOnly": "{unit}：「{header}」— 2つのリストのうち片方からのみ武器を選んでください（腕は2本）。",
+ "valSelectionIncomplete": "{unit}：「{header}」（{choices}）— {need}個選択する必要があります（現在{have}個）。",
  "valSelectionRequired": "{unit}：「{header}」— 選択が必要です。",
  "valOnlyOneArmour": "{unit}：モデル1体につきアーマーは1つまでです（{armours}）。",
  "valOnlyOneCharacterAttached": "{unit}：部隊に同時に合流できるキャラクターは1名のみです（現在 {count} 名が合流：{names}）— 追加のキャラクターには「Command Squad」能力が必要です。",

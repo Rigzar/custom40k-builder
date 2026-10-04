@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-cryptek-specialisation-weapons-vanish-01",
+    status: "fixed",
+    title: "Cryptek shows no weapon (GH#204, Abyssal lance)",
+    description: "FIXED 2026-10-04. The 2026-10-03 unit update (5fbc5778) added all eight Cryptek specialisations to variant_models, but only the Dynasty Scion choice carries a variant_link. computeWeaponGroups read every other clause (A Psychomancer is equipped with: Abyssal lance) as a promotion not taken, marked its weapon used and dropped the clause, so the weapon reached no row: a Cryptek printed '-' for every specialisation, and an Armoury-bought Abyssal lance vanished with it. A choice the player took now counts as taking the variant, and a bought weapon of a skipped clause falls through to the first row. Profile snapshot of every unit before and after: exactly the seven Cryptek specialisations changed. The data side is not wrong (the sheet has a stat row per specialisation), so nothing to tell Unwise, but any future variant_models entry without a variant_link now behaves the same way here.",
+  },
+  {
     id: "ki-weapon-header-without-star-orphan-modes-01",
     status: "known",
     title: "Unbought weapon modes show on the profile (Chaos Predator Twin entropy cannon and ~40 more units)",
