@@ -9,7 +9,7 @@
  *
  * Everything here is derived from the RESOLVED profile, never re-derived from the datasheet.
  */
-import type { FactionData, Unit, Weapon } from '../types/data';
+import type { FactionData, Model, Unit, Weapon } from '../types/data';
 import type { RosterEntry } from '../types/army';
 
 /** The subset of `resolveUnitProfile`'s result this module needs. */
@@ -158,6 +158,26 @@ export function battleWeapons(rp: BattleProfileInput): BattleWeaponGroup[] {
       melee: live.filter(isMelee).map(merge),
     };
   }).filter(g => g.ranged.length || g.melee.length);
+}
+
+/**
+ * Does THIS model row take the Armory's stat changes (a save, WS, T...)? When Armory access belongs
+ * to one model -- a squad's built-in Leader/Champion, or a promoted variant -- the purchase changes
+ * that model alone: a Platoon Lieutenant in Plate armor is 4+ while his Guardsmen stay 5+; a Gang
+ * Champion with Swordsman honours is WS 3+ and the Gangers stay 4+ (GitHub #208). The unit card has
+ * always scoped this (the Nob / Rough Rider fix), but the printed card, the simple printout and the
+ * battle view each applied the change to EVERY row, so the same list read differently on screen
+ * and on paper. This is the unit card's own rule, moved here so all four read one answer.
+ * Unit-wide Armory access (`has_armory_access`) still changes every row.
+ */
+export function equipTargetsModel(u: Unit, m: Model, variant?: Model | null): boolean {
+  if (u.has_armory_access) return true;
+  const gatedByVariant = u.option_groups.some(g =>
+    g.variant_link && (/armory/i.test(g.header) || u.champion_has_armory));
+  const champion = u.models.length > 1 && u.models[1].min === 1 && u.models[1].max === 1 ? u.models[1] : null;
+  const scoped = (!!champion && u.champion_has_armory && !gatedByVariant) || gatedByVariant;
+  if (!scoped) return true;
+  return (!!variant && m === variant) || m === champion;
 }
 
 /** Traits, psychic powers and prayers the player chose — named, ready to print in a list. */

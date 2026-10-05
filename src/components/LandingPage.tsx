@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182k_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182l_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -78,6 +78,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gitfinda matches", "A Withdraw match button lets you take back a wrong match without the post's owner deleting the post, and the chat of a cancelled or finished game is now closed."],
         ["Second AOP", "It opens only once the whole first AOP is filled (2 HQ, 6 Troops, 3 Elites, 3 Fast Attack, 3 Heavy Support), not when one slot goes over. Then a third HQ or a seventh Troops is allowed."],
         ["Gitfinda times", "Time slots now say they are already converted to your time zone, and on a phone the Field Manual button no longer covers the chat's Send button."],
+        ["Leader gear (GH#207, GH#208)", "A Lieutenant's Plate armor or a Gang Champion's Swordsman honours changes only that model on the printed card and the battle view, as on the unit card."],
+        ["Light mode", "Gitfinda and the landing page's orange labels are readable in light mode."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -106,6 +108,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gitfinda-Matches", "Ein Knopf Match zurückziehen nimmt ein falsches Match zurück, ohne dass der Besitzer den Beitrag löschen muss, und der Chat eines abgesagten oder beendeten Spiels ist jetzt geschlossen."],
         ["Zweiter AOP", "Er öffnet sich erst, wenn der ganze erste AOP gefüllt ist (2 HQ, 6 Standard, 3 Elite, 3 Sturm, 3 Schwere Unterstützung), nicht wenn ein Slot überschritten wird. Dann sind ein drittes HQ oder eine siebte Standardeinheit erlaubt."],
         ["Gitfinda-Zeiten", "Die Zeitfenster nennen jetzt, dass sie schon in deine Zeitzone umgerechnet sind, und auf dem Handy verdeckt der Field-Manual-Knopf nicht mehr Senden."],
+        ["Anführer-Ausrüstung (GH#207, GH#208)", "Plate armor eines Leutnants oder Swordsman honours eines Gang Champions ändert auf gedruckter Karte und Kampfansicht nur dieses Modell, wie auf der Einheitenkarte."],
+        ["Heller Modus", "Gitfinda und die orangen Beschriftungen der Startseite sind im hellen Modus lesbar."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -134,6 +138,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Matches de Gitfinda", "Un botón Retirar match deshace un match equivocado sin que el dueño borre el anuncio, y el chat de una partida cancelada o terminada ahora se cierra."],
         ["Segundo AOP", "Se abre solo cuando el primer AOP está completo (2 HQ, 6 Tropas, 3 Élites, 3 Ataque Rápido, 3 Apoyo Pesado), no cuando un slot se pasa. Entonces se permiten un tercer HQ o una séptima Tropa."],
         ["Horas de Gitfinda", "Las franjas indican que ya están convertidas a tu zona horaria, y en el móvil el botón del Field Manual ya no tapa Enviar."],
+        ["Equipo del líder (GH#207, GH#208)", "La Plate armor de un Lieutenant o los Swordsman honours de un Gang Champion cambian solo a ese modelo en la ficha impresa y la vista de batalla, como en la ficha de unidad."],
+        ["Modo claro", "Gitfinda y las etiquetas naranjas de la portada se leen en modo claro."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -162,6 +168,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Матчи Gitfinda", "Кнопка Отозвать матч отменяет ошибочный матч, и владельцу не нужно удалять объявление; чат отменённой или завершённой игры теперь закрыт."],
         ["Второй AOP", "Он открывается, только когда полностью заполнен первый AOP (2 HQ, 6 Troops, 3 Elites, 3 Fast Attack, 3 Heavy Support), а не когда один слот превышен. Тогда разрешены третий HQ или седьмой Troops."],
         ["Время в Gitfinda", "В окнах времени теперь указано, что оно уже пересчитано в ваш пояс, а на телефоне кнопка Field Manual больше не закрывает «Отправить»."],
+        ["Снаряжение лидера (GH#207, GH#208)", "Plate armor лейтенанта или Swordsman honours Gang Champion меняют только эту модель в печатной карточке и боевом виде, как в карточке юнита."],
+        ["Светлая тема", "Gitfinda и оранжевые подписи на главной странице читаются в светлой теме."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -190,6 +198,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gitfindaのマッチ", "「マッチを取り消す」ボタンで、投稿の主が投稿を削除しなくても間違ったマッチを取り消せます。中止または終了した対戦のチャットは閉じられます。"],
         ["2つ目のAOP", "最初のAOP全体（HQ2、トゥループ6、エリート3、ファストアタック3、ヘビーサポート3）が埋まって初めて開きます。1つのスロットが上限を超えても開きません。開いた後は3つ目のHQや7つ目のトゥループが可能です。"],
         ["Gitfindaの時間", "時間帯があなたのタイムゾーンに変換済みと表示され、スマホではFieldManualボタンが送信ボタンを隠さなくなりました。"],
+        ["リーダーの装備（GH#207、GH#208）", "ルテナントのプレートアーマーやギャング・チャンピオンのソードマンズ・オナーは、ユニットカードと同じく、印刷カードとバトルビューでもそのモデルだけを変えます。"],
+        ["ライトモード", "Gitfindaとトップページのオレンジ色の表示がライトモードでも読めます。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

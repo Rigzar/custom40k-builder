@@ -392,6 +392,37 @@ html:lang(ru) .font-cinzel, html:lang(ru) .font-bankgothic { font-family: 'Alumn
   background: url('/fog.webp') center / cover no-repeat;
 }
 
+/* ── Gitfinda in light mode ──
+   The board is an orange-on-black HUD: a hard-coded #0b0806 panel, orange-100..400 text and black/NN
+   fields. The generated light theme mirrors only the zinc ramp and a few orange steps, so the panel
+   stayed black while its cards flipped to pale grey and every orange label was light ink on a light
+   card (reported: "Gitfinda looks a bit weird in bright mode"). Tailwind v4 reads colours from the
+   --color-* variables, so redefining them inside the dialog re-tones every utility, opacity variants
+   included, with no per-class rules: a warm paper ground, white fields, and the orange text range
+   pulled down into a legible dark band (same reasoning as the amber range above). */
+[data-theme="light"] .gf-dialog {
+  background: oklch(97.5% .014 70);
+  --color-black: oklch(100% 0 0);
+}
+/* The orange text range is pulled down globally (the landing page's Gitfinda button and a few
+   badges use it too, and measured 1.6-2.1:1 on the light ground). */
+[data-theme="light"] {
+  --color-orange-50: oklch(24% .07 45);
+  --color-orange-100: oklch(27% .08 45);
+  --color-orange-200: oklch(31% .10 45);
+  --color-orange-300: oklch(36% .13 46);
+  --color-orange-400: oklch(40% .15 48);
+  --color-orange-500: oklch(46% .17 48);
+}
+/* The two rose steps no one had redefined (a "foreign faction" tag in the Trait picker). */
+[data-theme="light"] {
+  --color-rose-300: oklch(40% .16 15);
+  --color-rose-950: oklch(97% .02 15);
+}
+/* The faintest secondary lines (the "3 h ago" stamp) were 2.4:1 at 40% of the darkened colour. */
+[data-theme="light"] .gf-dialog .text-orange-200\/40,
+[data-theme="light"] .gf-dialog .text-orange-200\/50 { color: color-mix(in oklab, var(--color-orange-200) 66%, transparent); }
+
 /* ── Servo skull blinking eye ── */
 @keyframes servo-eye-blink {
   /* ambient dim glow */

@@ -161,7 +161,7 @@ function Shell({ onClose, children }: { onClose: () => void; children: React.Rea
   return (
     <div className="fixed inset-0 z-50 bg-black/85 flex items-start sm:items-center justify-center overflow-y-auto" onClick={onClose}>
       <div role="dialog" aria-modal="true" aria-label="Gitfinda"
-        className="relative w-full sm:max-w-3xl my-0 sm:my-6 bg-[#0b0806] border-2 border-orange-600/70 sm:rounded-md shadow-[0_0_40px_rgba(249,115,22,0.25)] min-h-screen sm:min-h-0"
+        className="gf-dialog relative w-full sm:max-w-3xl my-0 sm:my-6 bg-[#0b0806] border-2 border-orange-600/70 sm:rounded-md shadow-[0_0_40px_rgba(249,115,22,0.25)] min-h-screen sm:min-h-0"
         onClick={e => e.stopPropagation()}>
         <button onClick={onClose} aria-label={t('close')} className="absolute top-2 right-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none z-10">×</button>
         {children}

@@ -24,7 +24,7 @@ import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equi
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { capStat } from '../lib/statPipeline';
 import { resolveUnitProfile } from '../engine/resolver';
-import { selectedAbilities } from '../lib/battleProfile';
+import { selectedAbilities, equipTargetsModel } from '../lib/battleProfile';
 import { markStatMods } from '../lib/markMods';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
@@ -642,7 +642,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               fits, so print and desktop are untouched. */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 3, marginTop: 5 }}>
             {modelsToShow.map((m, mi) => {
-              const modStats = applyEquipDeltas(applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle), traitEquipMods, u.is_vehicle);
+              const modStats = applyEquipDeltas(equipTargetsModel(u, m, variant) ? applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle) : { ...(m.stats as Record<string, string>) }, traitEquipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
               }
@@ -894,6 +894,9 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
   }
   const weaponGroupsPrint = rp.weaponGroups.map(g => {
     const tm     = g.traitMap ?? weaponTraitMap;
+    // This list is flat, so it loses which model carries what: a Lieutenant's Power sword read as
+    // part of everyone's kit (GitHub #207). With more than one row group, each line names its group.
+    const tag = rp.weaponGroups.length > 1 && g.label ? ` (${nm(g.label)})` : '';
     const prefixFor = (w: Weapon) => {
       const c = g.countOverrides?.get(w.name) ?? g.count;
       return c != null ? `${c}x ` : '';
@@ -910,12 +913,12 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
     };
     const withCounts = (list: Weapon[]) => list.flatMap((w, i) => {
       const base = weaponBaseName(w.name);
-      if (!isModeRow(list, i)) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
+      if (!isModeRow(list, i)) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name + tag }];
       const row = { ...mergeTraits(w, tm), name: `— ${weaponMode(w.name)}` };
       const prevSame = i > 0 && weaponBaseName(list[i - 1].name) === base;
       return prevSame
         ? [row]
-        : [{ ...mergeTraits(w, tm), name: groupPrefix(list, base) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
+        : [{ ...mergeTraits(w, tm), name: groupPrefix(list, base) + base + tag, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
@@ -998,7 +1001,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
         </thead>
         <tbody>
           {modelsToShow.map((m, mi) => {
-            const modStats = applyEquipDeltas(applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle), traitEquipMods, u.is_vehicle);
+            const modStats = applyEquipDeltas(equipTargetsModel(u, m, variant) ? applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle) : { ...(m.stats as Record<string, string>) }, traitEquipMods, u.is_vehicle);
             return (
               <tr key={mi}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>

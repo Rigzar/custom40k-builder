@@ -22,7 +22,7 @@ import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile } from '../engine/resolver';
-import { selectedAbilities, battleWeapons, selectedExtras } from '../lib/battleProfile';
+import { selectedAbilities, battleWeapons, selectedExtras, equipTargetsModel } from '../lib/battleProfile';
 import { resolveStatValue } from '../lib/statPipeline';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
@@ -114,9 +114,10 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
     optionStatSets: rp.optionStatSets ?? {},
     equipMods: rp.equipMods,
     traitEquipMods: rp.traitEquipMods,
-    // Every row in this view is the unit as fielded; a champion's own purchases already sit on
-    // the champion's model row, which is the row this renders.
-    isEquipTarget: true,
+    // Only the row the Armory purchase belongs to: a Lieutenant's Plate armor is not the Guardsmen's
+    // (GitHub #208). This used to be `true` for every row on the grounds that the champion's
+    // purchases "already sit on the champion's row", which is exactly what they did not.
+    isEquipTarget: equipTargetsModel(u, m, rp.variant),
     ctanYngirActive: rp.ctanYngirActive,
   });
 
