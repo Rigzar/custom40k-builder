@@ -194,6 +194,11 @@ export function gitfinda(sql) {
     const army = ARMIES.includes(q.army) ? q.army : null;
     const engagement = ENGAGEMENTS.includes(q.engagement) ? q.engagement : null;
     const eventId = q.eventId != null && q.eventId !== '' && Number.isInteger(Number(q.eventId)) ? Number(q.eventId) : null;
+    // Points range: either end may be left open. Anything that is not a whole number is ignored
+    // rather than refused, like the other filters.
+    const pts = v => (v != null && v !== '' && Number.isInteger(Number(v)) ? Number(v) : null);
+    const minPoints = pts(q.minPoints);
+    const maxPoints = pts(q.maxPoints);
     const text = typeof q.q === 'string' && q.q.trim() ? q.q.trim().slice(0, 60) : null;
     const sort = ['newest', 'oldest', 'soonest', 'points'].includes(q.sort) ? q.sort : 'newest';
     const r = await sql`
@@ -219,6 +224,8 @@ export function gitfinda(sql) {
         AND (${army}::text IS NULL OR p.army = ${army})
         AND (${engagement}::text IS NULL OR p.engagement = ${engagement})
         AND (${eventId}::int IS NULL OR p.event_id = ${eventId})
+        AND (${minPoints}::int IS NULL OR p.points >= ${minPoints})
+        AND (${maxPoints}::int IS NULL OR p.points <= ${maxPoints})
         AND (${text}::text IS NULL
              OR u.username ILIKE '%' || ${text} || '%'
              OR REPLACE(p.army, '_', ' ') ILIKE '%' || ${text} || '%'

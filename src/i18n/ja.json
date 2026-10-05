@@ -1068,6 +1068,8 @@
  "gfAllArmies": "すべての軍",
  "gfAllTypes": "すべてのタイプ",
  "gfAllEvents": "すべてのイベント",
+ "gfMinPoints": "最小ポイント",
+ "gfMaxPoints": "最大ポイント",
  "gfSortNewest": "新しい順",
  "gfSortOldest": "古い順",
  "gfSortSoonest": "最も早い空き",

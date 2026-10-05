@@ -489,7 +489,7 @@ export type TranslationKey =
   | 'gfSearchPh'
   | 'gfAllArmies'
   | 'gfAllTypes'
-  | 'gfAllEvents'
+  | 'gfAllEvents' | 'gfMinPoints' | 'gfMaxPoints'
   | 'gfSortNewest'
   | 'gfSortOldest'
   | 'gfSortSoonest'
@@ -1592,6 +1592,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfAllArmies: 'All armies',
     gfAllTypes: 'All types',
     gfAllEvents: 'All events',
+    gfMinPoints: 'Min points',
+    gfMaxPoints: 'Max points',
     gfSortNewest: 'Newest first',
     gfSortOldest: 'Oldest first',
     gfSortSoonest: 'Soonest availability',
@@ -2701,6 +2703,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfAllArmies: 'Alle Armeen',
     gfAllTypes: 'Alle Arten',
     gfAllEvents: 'Alle Events',
+    gfMinPoints: 'Mindestpunkte',
+    gfMaxPoints: 'Höchstpunkte',
     gfSortNewest: 'Neueste zuerst',
     gfSortOldest: 'Älteste zuerst',
     gfSortSoonest: 'Früheste Verfügbarkeit',
@@ -3810,6 +3814,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfAllArmies: 'Todos los ejércitos',
     gfAllTypes: 'Todos los tipos',
     gfAllEvents: 'Todos los eventos',
+    gfMinPoints: 'Puntos mínimos',
+    gfMaxPoints: 'Puntos máximos',
     gfSortNewest: 'Más recientes',
     gfSortOldest: 'Más antiguos',
     gfSortSoonest: 'Disponibilidad más próxima',

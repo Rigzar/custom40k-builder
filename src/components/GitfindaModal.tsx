@@ -253,6 +253,8 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
   const [engagement, setEngagement] = useState('');
   const [eventId, setEventId] = useState<number | ''>('');
   const [sort, setSort] = useState('newest');
+  const [minPoints, setMinPoints] = useState<number | ''>('');
+  const [maxPoints, setMaxPoints] = useState<number | ''>('');
   const [zone, setZone] = useState('my');
   const [busy, setBusy] = useState<number | null>(null);
   const shownZone = zone === 'my' ? myZone() : zone;
@@ -262,12 +264,12 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
   useEffect(() => {
     // Typing in the search box should not fire a request per key.
     const id = setTimeout(() => {
-      api.gitfindaList({ q, army, engagement, eventId, sort })
+      api.gitfindaList({ q, army, engagement, eventId, sort, minPoints, maxPoints })
         .then(r => { setPosts(r.posts); setErr(''); })
         .catch(e => { setErr(e instanceof Error ? e.message : tr.current('gfLoadFail')); setPosts([]); });
     }, 250);
     return () => clearTimeout(id);
-  }, [q, army, engagement, eventId, sort, tr]);
+  }, [q, army, engagement, eventId, sort, minPoints, maxPoints, tr]);
 
   const doMatch = async (p: GitfindaPost) => {
     setBusy(p.id); setErr('');
@@ -301,12 +303,17 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
           <option value="soonest">{t('gfSortSoonest')}</option>
           <option value="points">{t('gfSortPoints')}</option>
         </select>
+        {/* Points range: the board could be filtered by army, type and event, but not by size. */}
+        <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMinPoints')} aria-label={t('gfMinPoints')}
+          value={minPoints} onChange={e => setMinPoints(e.target.value === '' ? '' : Number(e.target.value))} />
+        <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMaxPoints')} aria-label={t('gfMaxPoints')}
+          value={maxPoints} onChange={e => setMaxPoints(e.target.value === '' ? '' : Number(e.target.value))} />
       </div>
       <ZonePicker t={t} value={zone} onChange={setZone} />
       {err && <div className="text-red-400 text-[12px] border border-red-900/60 bg-red-950/30 px-2 py-1">{err}</div>}
       {posts === null && <div className="text-orange-200/60 text-[12px]">{t('gfLoading')}</div>}
       {posts && posts.length === 0 && !err && (
-        <div className="text-orange-200/60 text-[13px] text-center py-8">{q || army || engagement || eventId ? t('gfNoPostsFiltered') : t('gfNoPosts')}</div>
+        <div className="text-orange-200/60 text-[13px] text-center py-8">{q || army || engagement || eventId || minPoints !== '' || maxPoints !== '' ? t('gfNoPostsFiltered') : t('gfNoPosts')}</div>
       )}
       <div className="space-y-2">
         {posts?.map(p => (

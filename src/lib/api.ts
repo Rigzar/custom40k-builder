@@ -989,7 +989,7 @@ export interface GitfindaMatch {
   opponent: string; iAmOwner: boolean; post: GitfindaPost;
 }
 export interface GitfindaMessage { id: number; username: string; mine: boolean; body: string; createdAt: string }
-export interface GitfindaFilters { army?: string; engagement?: string; eventId?: number | ''; q?: string; sort?: string }
+export interface GitfindaFilters { army?: string; engagement?: string; eventId?: number | ''; q?: string; sort?: string; minPoints?: number | ''; maxPoints?: number | '' }
 export interface GitfindaNewPost {
   army: string; engagement: GitfindaEngagement; points: number; timezone: string; eventId: number | null; slots: GitfindaSlot[];
 }

@@ -98,6 +98,13 @@ ok(!(await g.list(C, {})).posts.some(p => p.mine), 'nobody else\'s post is flagg
 ok((await g.list(C, { army: 'orks' })).posts.length === 1, 'army filter');
 ok((await g.list(C, { engagement: 'epic' })).posts.map(p => p.id).join() === String(p2), 'engagement filter');
 ok((await g.list(C, { eventId: 1 })).posts.map(p => p.id).join() === String(p1), 'event filter');
+// points range: either end may be open
+const idsAt = async q => (await g.list(C, q)).posts.map(p => p.id);
+ok((await idsAt({ minPoints: 2000 })).includes(p1), 'min points keeps a post at exactly that size');
+ok(!(await idsAt({ minPoints: 2001 })).includes(p1), 'min points drops a smaller post');
+ok(!(await idsAt({ maxPoints: 1999 })).includes(p1), 'max points drops a bigger post');
+ok((await idsAt({ minPoints: 1500, maxPoints: 2500 })).includes(p1), 'a range keeps a post inside it');
+ok((await idsAt({ minPoints: 'abc', maxPoints: '' })).includes(p1), 'a value that is not a number is ignored');
 ok((await g.list(C, { q: 'bob' })).posts.map(p => p.id).join() === String(p3), 'search by username');
 ok((await g.list(C, { q: 'space marines' })).posts.length === 1, 'search by army name');
 ok((await g.list(C, { q: 'league' })).posts.length === 1, 'search by event name');

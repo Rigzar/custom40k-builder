@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182l_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182m_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -80,6 +80,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gitfinda times", "Time slots now say they are already converted to your time zone, and on a phone the Field Manual button no longer covers the chat's Send button."],
         ["Leader gear (GH#207, GH#208)", "A Lieutenant's Plate armor or a Gang Champion's Swordsman honours changes only that model on the printed card and the battle view, as on the unit card."],
         ["Light mode", "Gitfinda and the landing page's orange labels are readable in light mode."],
+        ["Gitfinda filters", "The board can now be filtered by points (min and max), as well as by army, battle type and event."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -110,6 +111,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gitfinda-Zeiten", "Die Zeitfenster nennen jetzt, dass sie schon in deine Zeitzone umgerechnet sind, und auf dem Handy verdeckt der Field-Manual-Knopf nicht mehr Senden."],
         ["Anführer-Ausrüstung (GH#207, GH#208)", "Plate armor eines Leutnants oder Swordsman honours eines Gang Champions ändert auf gedruckter Karte und Kampfansicht nur dieses Modell, wie auf der Einheitenkarte."],
         ["Heller Modus", "Gitfinda und die orangen Beschriftungen der Startseite sind im hellen Modus lesbar."],
+        ["Gitfinda-Filter", "Die Tafel lässt sich jetzt auch nach Punkten (Minimum und Maximum) filtern, zusätzlich zu Armee, Schlachtart und Event."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -140,6 +142,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Horas de Gitfinda", "Las franjas indican que ya están convertidas a tu zona horaria, y en el móvil el botón del Field Manual ya no tapa Enviar."],
         ["Equipo del líder (GH#207, GH#208)", "La Plate armor de un Lieutenant o los Swordsman honours de un Gang Champion cambian solo a ese modelo en la ficha impresa y la vista de batalla, como en la ficha de unidad."],
         ["Modo claro", "Gitfinda y las etiquetas naranjas de la portada se leen en modo claro."],
+        ["Filtros de Gitfinda", "El tablón se puede filtrar ahora también por puntos (mínimo y máximo), además de por ejército, tipo de batalla y evento."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -170,6 +173,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Время в Gitfinda", "В окнах времени теперь указано, что оно уже пересчитано в ваш пояс, а на телефоне кнопка Field Manual больше не закрывает «Отправить»."],
         ["Снаряжение лидера (GH#207, GH#208)", "Plate armor лейтенанта или Swordsman honours Gang Champion меняют только эту модель в печатной карточке и боевом виде, как в карточке юнита."],
         ["Светлая тема", "Gitfinda и оранжевые подписи на главной странице читаются в светлой теме."],
+        ["Фильтры Gitfinda", "Доску теперь можно фильтровать и по очкам (минимум и максимум), помимо армии, типа битвы и события."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -200,6 +204,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gitfindaの時間", "時間帯があなたのタイムゾーンに変換済みと表示され、スマホではFieldManualボタンが送信ボタンを隠さなくなりました。"],
         ["リーダーの装備（GH#207、GH#208）", "ルテナントのプレートアーマーやギャング・チャンピオンのソードマンズ・オナーは、ユニットカードと同じく、印刷カードとバトルビューでもそのモデルだけを変えます。"],
         ["ライトモード", "Gitfindaとトップページのオレンジ色の表示がライトモードでも読めます。"],
+        ["Gitfindaの絞り込み", "掲示板を、軍、戦闘タイプ、イベントに加えて、ポイント（最小・最大）でも絞り込めるようになりました。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
