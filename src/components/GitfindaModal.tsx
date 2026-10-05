@@ -121,13 +121,15 @@ export function GitfindaModal({ onClose, username }: Props) {
   }
 
   return (
-    <Shell onClose={onClose}>
+    <Shell onClose={onClose} closeInBar>
       <div className="px-4 pt-3 pb-2 text-center border-b border-orange-800/40">
         <div className="text-3xl font-black text-orange-400 tracking-wide leading-none">Gitfinda <span className="align-middle border border-orange-500/70 text-orange-300 text-[10px] font-bold tracking-widest px-1.5 py-0.5 rounded-sm">BETA</span></div>
         <div className="text-[11px] uppercase tracking-[0.3em] text-orange-300/80 mt-1">{t(subtitle[tab])}</div>
         <div className="flex justify-center mt-1">{icon('small_skull_divider', 'w-6 h-4')}</div>
       </div>
-      <div className="flex border-b border-orange-800/40 text-[11px] uppercase tracking-wider overflow-x-auto">
+      {/* The tab bar stays at the top while the list scrolls (it scrolled away once posts piled up), and
+          carries the close button for the same reason. */}
+      <div className="gf-sticky sticky top-0 z-20 flex border-b border-orange-800/40 text-[11px] uppercase tracking-wider overflow-x-auto">
         {nav.map(n => (
           <button key={n.id} onClick={() => setTab(n.id)}
             className={`flex-1 min-w-[96px] px-2 py-2 flex items-center justify-center gap-1.5 border-b-2 whitespace-nowrap ${tab === n.id ? 'border-orange-400 text-orange-300 bg-orange-950/30' : 'border-transparent text-orange-200/50 hover:text-orange-200'}`}>
@@ -135,6 +137,7 @@ export function GitfindaModal({ onClose, username }: Props) {
             {n.id === 'matches' && unread > 0 && <span className="ml-1 bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{unread}</span>}
           </button>
         ))}
+        <button onClick={onClose} aria-label={t('close')} className="gf-sticky sticky right-0 shrink-0 px-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none">×</button>
       </div>
       <div className="p-3 sm:p-4">
         {tab === 'browse' && <BrowseTab t={t} locale={locale} onMatched={id => { setOpenMatch(id); setTab('matches'); refreshUnread(); }} goCreate={() => setTab('create')} goPosts={() => setTab('posts')} goMatches={() => setTab('matches')} />}
@@ -151,7 +154,7 @@ function localDay(d: Date) {
   return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 }
 
-function Shell({ onClose, children }: { onClose: () => void; children: React.ReactNode }) {
+function Shell({ onClose, children, closeInBar }: { onClose: () => void; children: React.ReactNode; closeInBar?: boolean }) {
   const t = useT();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -163,7 +166,7 @@ function Shell({ onClose, children }: { onClose: () => void; children: React.Rea
       <div role="dialog" aria-modal="true" aria-label="Gitfinda"
         className="gf-dialog relative w-full sm:max-w-3xl my-0 sm:my-6 bg-[#0b0806] border-2 border-orange-600/70 sm:rounded-md shadow-[0_0_40px_rgba(249,115,22,0.25)] min-h-screen sm:min-h-0"
         onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} aria-label={t('close')} className="absolute top-2 right-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none z-10">×</button>
+        {!closeInBar && <button onClick={onClose} aria-label={t('close')} className="absolute top-2 right-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none z-10">×</button>}
         {children}
       </div>
     </div>

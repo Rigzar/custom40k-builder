@@ -400,6 +400,9 @@ html:lang(ru) .font-cinzel, html:lang(ru) .font-bankgothic { font-family: 'Alumn
    --color-* variables, so redefining them inside the dialog re-tones every utility, opacity variants
    included, with no per-class rules: a warm paper ground, white fields, and the orange text range
    pulled down into a legible dark band (same reasoning as the amber range above). */
+/* The sticky tab bar needs a ground of its own or the list shows through it. */
+.gf-sticky { background: #0b0806; }
+[data-theme="light"] .gf-sticky { background: oklch(97.5% .014 70); }
 [data-theme="light"] .gf-dialog {
   background: oklch(97.5% .014 70);
   --color-black: oklch(100% 0 0);
