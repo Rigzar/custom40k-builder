@@ -489,7 +489,7 @@ export type TranslationKey =
   | 'gfSearchPh'
   | 'gfAllArmies'
   | 'gfAllTypes'
-  | 'gfAllEvents' | 'gfMinPoints' | 'gfMaxPoints'
+  | 'gfAllEvents' | 'gfFilters' | 'gfMinPoints' | 'gfMaxPoints'
   | 'gfSortNewest'
   | 'gfSortOldest'
   | 'gfSortSoonest'
@@ -1592,6 +1592,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfAllArmies: 'All armies',
     gfAllTypes: 'All types',
     gfAllEvents: 'All events',
+    gfFilters: 'Filters',
     gfMinPoints: 'Min points',
     gfMaxPoints: 'Max points',
     gfSortNewest: 'Newest first',
@@ -2703,6 +2704,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfAllArmies: 'Alle Armeen',
     gfAllTypes: 'Alle Arten',
     gfAllEvents: 'Alle Events',
+    gfFilters: 'Filter',
     gfMinPoints: 'Mindestpunkte',
     gfMaxPoints: 'Höchstpunkte',
     gfSortNewest: 'Neueste zuerst',
@@ -3814,6 +3816,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfAllArmies: 'Todos los ejércitos',
     gfAllTypes: 'Todos los tipos',
     gfAllEvents: 'Todos los eventos',
+    gfFilters: 'Filtros',
     gfMinPoints: 'Puntos mínimos',
     gfMaxPoints: 'Puntos máximos',
     gfSortNewest: 'Más recientes',

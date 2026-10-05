@@ -79,6 +79,18 @@ export function GitfindaModal({ onClose, username }: Props) {
   const language = useLanguage(s => s.language);
   const locale = LOCALE[language] ?? 'en-GB';
   const [tab, setTab] = useState<Tab>('browse');
+  // The Browse search row sticks right under the tab bar, so it needs the bar's real height.
+  const barRef = useRef<HTMLDivElement>(null);
+  const [barH, setBarH] = useState(40);
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const measure = () => setBarH(Math.round(el.getBoundingClientRect().height));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const [intro, setIntro] = useState(() => { try { return localStorage.getItem(INTRO_KEY) !== '1'; } catch { return true; } });
   const [introHide, setIntroHide] = useState(false);
   const [unread, setUnread] = useState(0);
@@ -129,7 +141,7 @@ export function GitfindaModal({ onClose, username }: Props) {
       </div>
       {/* The tab bar stays at the top while the list scrolls (it scrolled away once posts piled up), and
           carries the close button for the same reason. */}
-      <div className="gf-sticky sticky top-0 z-20 flex border-b border-orange-800/40 text-[11px] uppercase tracking-wider overflow-x-auto">
+      <div ref={barRef} className="gf-sticky sticky top-0 z-20 flex border-b border-orange-800/40 text-[11px] uppercase tracking-wider overflow-x-auto">
         {nav.map(n => (
           <button key={n.id} onClick={() => setTab(n.id)}
             className={`flex-1 min-w-[96px] px-2 py-2 flex items-center justify-center gap-1.5 border-b-2 whitespace-nowrap ${tab === n.id ? 'border-orange-400 text-orange-300 bg-orange-950/30' : 'border-transparent text-orange-200/50 hover:text-orange-200'}`}>
@@ -140,7 +152,7 @@ export function GitfindaModal({ onClose, username }: Props) {
         <button onClick={onClose} aria-label={t('close')} className="gf-sticky sticky right-0 shrink-0 px-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none">×</button>
       </div>
       <div className="p-3 sm:p-4">
-        {tab === 'browse' && <BrowseTab t={t} locale={locale} onMatched={id => { setOpenMatch(id); setTab('matches'); refreshUnread(); }} goCreate={() => setTab('create')} goPosts={() => setTab('posts')} goMatches={() => setTab('matches')} />}
+        {tab === 'browse' && <BrowseTab stickyTop={barH} t={t} locale={locale} onMatched={id => { setOpenMatch(id); setTab('matches'); refreshUnread(); }} goCreate={() => setTab('create')} goPosts={() => setTab('posts')} goMatches={() => setTab('matches')} />}
         {tab === 'create' && <CreateTab t={t} locale={locale} onDone={() => setTab('posts')} />}
         {tab === 'posts' && <PostsTab t={t} locale={locale} goMatches={() => setTab('matches')} goCreate={() => setTab('create')} />}
         {tab === 'matches' && <MatchesTab t={t} locale={locale} username={username} initialId={openMatch} onRead={refreshUnread} goBrowse={() => setTab('browse')} />}
@@ -242,7 +254,8 @@ function PostCard({ t, locale, post, zone, action }: { t: TFn; locale: string; p
 
 // ── Browse ──────────────────────────────────────────────────────────────────────────────────────
 
-function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
+function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyTop }: {
+  stickyTop: number;
   t: TFn; locale: string; onMatched: (matchId: number) => void; goCreate: () => void; goPosts: () => void; goMatches: () => void;
 }) {
   const [posts, setPosts] = useState<GitfindaPost[] | null>(null);
@@ -256,6 +269,8 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
   const [minPoints, setMinPoints] = useState<number | ''>('');
   const [maxPoints, setMaxPoints] = useState<number | ''>('');
   const [zone, setZone] = useState('my');
+  const [open, setOpen] = useState(false);
+  const activeFilters = [army, engagement, eventId, minPoints, maxPoints].filter(v => v !== '').length + (sort !== 'newest' ? 1 : 0);
   const [busy, setBusy] = useState<number | null>(null);
   const shownZone = zone === 'my' ? myZone() : zone;
   const tr = useLatest(t);
@@ -280,36 +295,48 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches }: {
 
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-        <label className="col-span-2 sm:col-span-4 relative">
-          <span className="absolute left-2 top-1/2 -translate-y-1/2">{icon('search')}</span>
-          <input className={`${field} pl-8`} placeholder={t('gfSearchPh')} value={q} onChange={e => setQ(e.target.value)} maxLength={60} />
-        </label>
-        <select className={field} value={army} onChange={e => setArmy(e.target.value)}>
-          <option value="">{t('gfAllArmies')}</option>
-          {GITFINDA_ARMIES.map(a => <option key={a} value={a}>{factionLabel(a)}</option>)}
-        </select>
-        <select className={field} value={engagement} onChange={e => setEngagement(e.target.value)}>
-          <option value="">{t('gfAllTypes')}</option>
-          {ENGAGEMENTS.map(e => <option key={e} value={e}>{t(ENGAGEMENT_KEY[e])}</option>)}
-        </select>
-        <select className={field} value={eventId} onChange={e => setEventId(e.target.value ? Number(e.target.value) : '')}>
-          <option value="">{t('gfAllEvents')}</option>
-          {events.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
-        </select>
-        <select className={field} value={sort} onChange={e => setSort(e.target.value)}>
-          <option value="newest">{t('gfSortNewest')}</option>
-          <option value="oldest">{t('gfSortOldest')}</option>
-          <option value="soonest">{t('gfSortSoonest')}</option>
-          <option value="points">{t('gfSortPoints')}</option>
-        </select>
-        {/* Points range: the board could be filtered by army, type and event, but not by size. */}
-        <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMinPoints')} aria-label={t('gfMinPoints')}
-          value={minPoints} onChange={e => setMinPoints(e.target.value === '' ? '' : Number(e.target.value))} />
-        <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMaxPoints')} aria-label={t('gfMaxPoints')}
-          value={maxPoints} onChange={e => setMaxPoints(e.target.value === '' ? '' : Number(e.target.value))} />
+      {/* Search and a Filters button stay under the tab bar while the list scrolls; the filters themselves
+          open on demand. They used to sit at the top of the list, so with a few posts they scrolled out of
+          reach ("no se ve"). The count says how many are active, so a closed panel is not a hidden one. */}
+      <div className="gf-sticky sticky z-10 -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 border-b border-orange-800/40" style={{ top: stickyTop }}>
+        <div className="flex gap-2">
+          <label className="flex-1 relative min-w-0">
+            <span className="absolute left-2 top-1/2 -translate-y-1/2">{icon('search')}</span>
+            <input className={`${field} pl-8`} placeholder={t('gfSearchPh')} value={q} onChange={e => setQ(e.target.value)} maxLength={60} />
+          </label>
+          <button className={`${btnGhost} shrink-0`} onClick={() => setOpen(o => !o)} aria-expanded={open}>
+            {t('gfFilters')}{activeFilters > 0 ? ` (${activeFilters})` : ''} {open ? '▴' : '▾'}
+          </button>
+        </div>
+        {open && (
+          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-[55vh] overflow-y-auto">
+          <select className={field} value={army} onChange={e => setArmy(e.target.value)}>
+            <option value="">{t('gfAllArmies')}</option>
+            {GITFINDA_ARMIES.map(a => <option key={a} value={a}>{factionLabel(a)}</option>)}
+          </select>
+          <select className={field} value={engagement} onChange={e => setEngagement(e.target.value)}>
+            <option value="">{t('gfAllTypes')}</option>
+            {ENGAGEMENTS.map(e => <option key={e} value={e}>{t(ENGAGEMENT_KEY[e])}</option>)}
+          </select>
+          <select className={field} value={eventId} onChange={e => setEventId(e.target.value ? Number(e.target.value) : '')}>
+            <option value="">{t('gfAllEvents')}</option>
+            {events.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
+          </select>
+          <select className={field} value={sort} onChange={e => setSort(e.target.value)}>
+            <option value="newest">{t('gfSortNewest')}</option>
+            <option value="oldest">{t('gfSortOldest')}</option>
+            <option value="soonest">{t('gfSortSoonest')}</option>
+            <option value="points">{t('gfSortPoints')}</option>
+          </select>
+          {/* Points range: the board could be filtered by army, type and event, but not by size. */}
+          <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMinPoints')} aria-label={t('gfMinPoints')}
+            value={minPoints} onChange={e => setMinPoints(e.target.value === '' ? '' : Number(e.target.value))} />
+          <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMaxPoints')} aria-label={t('gfMaxPoints')}
+            value={maxPoints} onChange={e => setMaxPoints(e.target.value === '' ? '' : Number(e.target.value))} />
+            <div className="col-span-2 sm:col-span-4"><ZonePicker t={t} value={zone} onChange={setZone} /></div>
+          </div>
+        )}
       </div>
-      <ZonePicker t={t} value={zone} onChange={setZone} />
       {err && <div className="text-red-400 text-[12px] border border-red-900/60 bg-red-950/30 px-2 py-1">{err}</div>}
       {posts === null && <div className="text-orange-200/60 text-[12px]">{t('gfLoading')}</div>}
       {posts && posts.length === 0 && !err && (
