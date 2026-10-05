@@ -134,10 +134,9 @@ export function GitfindaModal({ onClose, username }: Props) {
 
   return (
     <Shell onClose={onClose} closeInBar>
-      <div className="px-4 pt-3 pb-2 text-center border-b border-orange-800/40">
-        <div className="text-3xl font-black text-orange-400 tracking-wide leading-none">Gitfinda <span className="align-middle border border-orange-500/70 text-orange-300 text-[10px] font-bold tracking-widest px-1.5 py-0.5 rounded-sm">BETA</span></div>
-        <div className="text-[11px] uppercase tracking-[0.3em] text-orange-300/80 mt-1">{t(subtitle[tab])}</div>
-        <div className="flex justify-center mt-1">{icon('small_skull_divider', 'w-6 h-4')}</div>
+      <div className="px-4 py-2 text-center border-b border-orange-800/40">
+        <div className="text-2xl font-black text-orange-400 tracking-wide leading-none">Gitfinda <span className="align-middle border border-orange-500/70 text-orange-300 text-[10px] font-bold tracking-widest px-1.5 py-0.5 rounded-sm">BETA</span></div>
+        <div className="sr-only">{t(subtitle[tab])}</div>
       </div>
       {/* The tab bar stays at the top while the list scrolls (it scrolled away once posts piled up), and
           carries the close button for the same reason. */}
@@ -174,10 +173,12 @@ function Shell({ onClose, children, closeInBar }: { onClose: () => void; childre
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 flex items-start sm:items-center justify-center overflow-y-auto" onClick={onClose}>
+    // A full screen, not a floating window: the board is a place you stay in, and a centred card with
+    // margins, a title block and two sticky rows left a short laptop window almost no list (reported:
+    // "ahora no se ve el primer post"). The page scrolls as a whole and its bars stick to the top.
+    <div className="gf-dialog fixed inset-0 z-50 overflow-y-auto bg-[#0b0806]">
       <div role="dialog" aria-modal="true" aria-label="Gitfinda"
-        className="gf-dialog relative w-full sm:max-w-3xl my-0 sm:my-6 bg-[#0b0806] border-2 border-orange-600/70 sm:rounded-md shadow-[0_0_40px_rgba(249,115,22,0.25)] min-h-screen sm:min-h-0"
-        onClick={e => e.stopPropagation()}>
+        className="relative w-full max-w-3xl mx-auto min-h-full border-x-2 border-orange-600/60 shadow-[0_0_40px_rgba(249,115,22,0.18)]">
         {!closeInBar && <button onClick={onClose} aria-label={t('close')} className="absolute top-2 right-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none z-10">×</button>}
         {children}
       </div>
