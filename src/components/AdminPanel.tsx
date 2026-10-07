@@ -3,7 +3,8 @@ import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { abilityKey, ruleStrings } from '../data/coreRules';
-import { FACTION_LOADERS } from '../data/loaders';
+import { FACTION_LOADERS, loadBundledFaction, refreshDataOverrides } from '../data/loaders';
+import { checkOverride, type DataOverride } from '../engine/dataOverrides';
 import { ALL_FACTIONS, DEFAULT_CODEX_VERSIONS } from '../data/factionCatalog';
 import { PointsCalculator } from './PointsCalculator';
 import { useAuth } from '../hooks/useAuth';
@@ -956,6 +957,59 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
+  // -- Data overrides that no longer agree with the bundled data --------------------------------
+  // An override is the sheet's value as it was on the day an admin applied it. The unit update now
+  // rewrites the files from the sheets, so an old override HIDES the update (Biovore: file 41,
+  // override 110, every player saw 110). The Source-check tab that used to manage them is gone, so
+  // this is the only place that can see or remove them.
+  type OvRow = { faction: string; o: DataOverride; status: 'differs' | 'gone'; current: string; pick: boolean };
+  const [ovRows, setOvRows] = useState<OvRow[] | null>(null);
+  const [ovMsg, setOvMsg] = useState('');
+  const [ovBusy, setOvBusy] = useState(false);
+  const ovKey = (faction: string, o: DataOverride) => `${faction}|${o.unit}|${o.kind}|${o.target}|${o.field}|${o.value}`;
+  async function checkOverrides() {
+    setOvBusy(true); setOvMsg(''); setOvRows(null);
+    try {
+      const cfg = await api.adminGetSettings();
+      const all = (cfg.settings.data_overrides ?? {}) as Record<string, DataOverride[]>;
+      const rows: OvRow[] = [];
+      let total = 0;
+      for (const [faction, list] of Object.entries(all)) {
+        total += list.length;
+        const data = await loadBundledFaction(faction).catch(() => null);
+        if (!data) continue;
+        for (const o of list) {
+          const r = checkOverride(data, o);
+          if (r.status !== 'same') rows.push({ faction, o, status: r.status, current: r.current, pick: true });
+        }
+      }
+      setOvRows(rows);
+      setOvMsg(`${total} overrides stored; ${total - rows.length} agree with the bundled data, ${rows.length} do not.`);
+    } catch (e) { setOvMsg(String(e)); }
+    finally { setOvBusy(false); }
+  }
+  async function removeOverrides() {
+    if (!ovRows) return;
+    const drop = new Set(ovRows.filter(r => r.pick).map(r => ovKey(r.faction, r.o)));
+    if (!drop.size) return;
+    setOvBusy(true);
+    try {
+      // Re-read right before writing, so an override added while this list was open is not lost.
+      const cfg = await api.adminGetSettings();
+      const all = (cfg.settings.data_overrides ?? {}) as Record<string, DataOverride[]>;
+      const next: Record<string, DataOverride[]> = {};
+      for (const [faction, list] of Object.entries(all)) {
+        const keep = list.filter(o => !drop.has(ovKey(faction, o)));
+        if (keep.length) next[faction] = keep;
+      }
+      await api.adminSetSetting('data_overrides', next);
+      refreshDataOverrides();
+      setOvMsg(`Removed ${drop.size}. Players pick it up on their next page load.`);
+      setOvRows(null);
+    } catch (e) { setOvMsg(String(e)); }
+    finally { setOvBusy(false); }
+  }
+
   /**
    * Load one faction's datasheet ability texts into the translation editor. Keyed by the English
    * text itself (see abilityKey), so the same sentence shared by many units is one row to translate.
@@ -1423,6 +1477,31 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
 
             {tab === 'factions' && (
             <div>
+              <div className="border border-zinc-800 p-2 mb-4">
+                <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">Data overrides</div>
+                <p className="text-zinc-600 text-[10px] font-mono mb-2">Corrections applied on top of the bundled data. One that no longer matches the data hides the unit update (a Biovore updated to 41 kept showing 110). This lists only the ones that disagree.</p>
+                <button onClick={checkOverrides} disabled={ovBusy} className={toolbarBtn}>{ovBusy ? '...' : 'Check overrides'}</button>
+                {ovMsg && <span className="ml-3 text-[10px] font-mono text-zinc-400">{ovMsg}</span>}
+                {ovRows && ovRows.length > 0 && (
+                  <div className="mt-2">
+                    <div className="max-h-72 overflow-y-auto border border-zinc-800">
+                      {ovRows.map((r, i) => (
+                        <label key={i} className="flex items-start gap-2 px-2 py-1 border-b border-zinc-900 text-[11px] font-mono text-zinc-300">
+                          <input type="checkbox" className="mt-0.5" checked={r.pick} onChange={e => setOvRows(prev => prev!.map((x, j) => j === i ? { ...x, pick: e.target.checked } : x))} />
+                          <span>
+                            <span className="text-zinc-500">{r.faction}</span> · {r.o.unit} · {r.o.target}.{r.o.field}<br />
+                            {r.status === 'gone'
+                              ? <span className="text-red-400">the target no longer exists</span>
+                              : <>override <span className="text-amber-400">{r.o.value}</span> hides the data value <span className="text-green-400">{r.current}</span></>}
+                            <span className="text-zinc-600"> ({r.o.by ?? '?'}, {String(r.o.at ?? '').slice(0, 10)})</span>
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                    <button onClick={removeOverrides} disabled={ovBusy} className={`${toolbarBtn} mt-2`}>Remove the ticked overrides</button>
+                  </div>
+                )}
+              </div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.factionSectionTitle}</div>
               <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.factionAvailHint}</p>
               <div className="grid gap-x-4 gap-y-1" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}>

@@ -321,6 +321,20 @@ export function applyArmoryRenames<T extends { armory?: { itemName: string }[] }
   return changed ? next : army;
 }
 
+/**
+ * Units the author MOVED to another slot, faction → unit → { from, to }.
+ *
+ * A saved entry stores the slot it was added under, and every slot count (the AOP, the panel, the
+ * validator) reads that stored slot, not the datasheet's. When a codex moves a unit the catalogue
+ * lists it under the new slot at once, but a list saved before keeps counting it under the old one,
+ * so the same unit sat in two different slots depending on when you added it. Tyranids 1.09
+ * (October 2026) moved the Trygon from Fast Attack to Heavy Support. Only an entry still sitting
+ * in `from` is moved, so a unit an archetype put somewhere else on purpose is left alone.
+ */
+export const MOVED_UNITS: Record<string, Record<string, { from: string; to: string }>> = {
+  'Tyranids': { 'Trygon': { from: 'Fast Attack', to: 'Heavy Support' } },
+};
+
 /** The current name for a unit, for armies saved before a rename. */
 export function currentUnitName(faction: string, unitName: string): string {
   const t = RENAMED_UNITS[faction]?.[unitName];
@@ -340,11 +354,18 @@ export function removedUnitNote(faction: string, unitName: string): string | nul
  * its `variant_link`. Without it the rename still happens and only the upgrade is skipped, so a
  * caller that has no data loaded is not blocked — but the store does pass it.
  */
-export function applyUnitRenames<T extends { unitName: string; optionQty?: Record<number, Record<string, number>> }>(
+export function applyUnitRenames<T extends { unitName: string; slot?: string; optionQty?: Record<number, Record<string, number>> }>(
   faction: string,
   army: T[],
   units?: Record<string, { option_groups: { variant_link?: string | null }[] }>,
 ): T[] {
+  const moves = MOVED_UNITS[faction];
+  if (moves && army.some(e => moves[e.unitName]?.from === e.slot)) {
+    army = army.map(e => {
+      const m = moves[e.unitName];
+      return m && e.slot === m.from ? { ...e, slot: m.to } : e;
+    });
+  }
   const table = RENAMED_UNITS[faction];
   if (!table) return army;
   let changed = false;

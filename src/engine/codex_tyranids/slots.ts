@@ -48,7 +48,7 @@ export const TYRANID_SLOTS: TyranidSlotEntry[] = [
   { name: "Von Ryan's Leaper Brood", slot: 'Elites' },
   { name: 'Zoanthrope Brood', slot: 'Elites' },
 
-  // --- Fast Attack (9) ---
+  // --- Fast Attack (8) ---
   { name: 'Gargoyle Brood', slot: 'Fast Attack' },
   { name: 'Mawloc', slot: 'Fast Attack' },
   { name: 'Mucolid Spore Cluster', slot: 'Fast Attack' },
@@ -57,13 +57,14 @@ export const TYRANID_SLOTS: TyranidSlotEntry[] = [
   { name: 'Pyrovore Brood', slot: 'Fast Attack' },
   { name: 'Ravener Brood', slot: 'Fast Attack' },
   { name: 'Spore Mine Cluster', slot: 'Fast Attack' },
-  { name: 'Trygon', slot: 'Fast Attack' },
 
-  // --- Heavy Support (5) ---
+  // --- Heavy Support (6) ---
   { name: 'Biovore Brood', slot: 'Heavy Support' },
   { name: 'Carnifex Brood', slot: 'Heavy Support' },
   { name: 'Exocrine', slot: 'Heavy Support' },
   { name: 'Norn', slot: 'Heavy Support' },
+  // Tyranids 1.09 moved the Trygon here from Fast Attack (saved lists follow: MOVED_UNITS in unitRenames.ts).
+  { name: 'Trygon', slot: 'Heavy Support' },
   { name: 'Tyrannofex', slot: 'Heavy Support' },
 
   // --- Dedicated Transport (1) ---

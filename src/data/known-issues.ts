@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-admin-overrides-hide-unit-update-01",
+    status: "investigating",
+    title: "A unit updated from the sheet still shows its old cost (Biovore 110 instead of 41)",
+    description: "FOUND 2026-10-07 (Unwise: 'the files were successfully updated, the app still shows 110'). Corrections an admin applied by hand (a point cost, a stat, a weapon line, an upgrade cost) are stored in the database apart from the data files and applied on top of them for every player. Each is the sheet's value on the day it was applied, so once the sheet moves and the unit update rewrites the file, the old override still wins: Biovore Brood Biovore 110 (override of 21 September) over the file's 41, Zoanthrope Neurothrope 120 over 71, Rogal Dorn and Atalan Jackals still carrying the removed ability Barrage over Blast(6), the Macrocarid Lascannon AT(3) over AT(2). 27 of 139 stored overrides no longer agree with the data (14 differ, 13 point at a unit, weapon or option that is gone). The Source check tab that managed them was retired on 2026-10-04, which left no screen to see or remove them. The admin panel's Factions tab now has Check overrides, which lists exactly those and removes the ticked ones. STILL TO DO by an admin: run it and remove the stale ones. Some are deliberate corrections of the sheet (Rigzar's Land Raider Prometheus 395 against the sheet's 378): read the list before ticking.",
+  },
+  {
     id: "ki-cryptek-specialisation-weapons-vanish-01",
     status: "fixed",
     title: "Cryptek shows no weapon (GH#204, Abyssal lance)",

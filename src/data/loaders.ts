@@ -363,6 +363,13 @@ function getDataOverrides(): Promise<DataOverrides> {
   return overridesPromise;
 }
 
+/** A faction exactly as bundled, WITHOUT the admin corrections: what the admin check compares them against. */
+export async function loadBundledFaction(key: string): Promise<FactionData> {
+  const data = await loadFaction(key);
+  aliasRenamedUnits(data, key);   // an override addressed to an old unit name still reaches the renamed unit
+  return data;
+}
+
 /** Drop the cached corrections so the next faction load re-reads them (used after an admin saves). */
 export function refreshDataOverrides(): void { overridesPromise = null; }
 
