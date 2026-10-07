@@ -141,7 +141,7 @@
             }
         },
         {
-            "header": "One Daemon prince per army  can be upgraded to an Ascended Daemon prince for +90 points.",
+            "header": "One Daemon prince per army  can be upgraded to an Ascended Daemon prince for +109 points.",
             "constraint": {
                 "type": "unique_upgrade"
             },

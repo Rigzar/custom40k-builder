@@ -420,6 +420,18 @@ function aliasRenamedUnits(data: FactionData, factionKey: string): void {
   }
 }
 
+/**
+ * The unit update sets `is_monster` with a case-sensitive test for "Monstrous Creature", so a sheet that writes
+ * "Monstrous creature" (the Daemon Prince) came out with is_monster false and lost every Monstrous Creature rule
+ * (greater Mark bonus, psyker, armory pricing). Derive it here, case-insensitively, so the sheet's spelling
+ * cannot matter. Only ever turns it on: a unit the file already flags keeps its flag.
+ */
+function normaliseMonsterFlag(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    if (!unit.is_monster && /monstrous\s+creature/i.test(unit.unit_type ?? '')) unit.is_monster = true;
+  }
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -428,6 +440,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
    'tyranids', 'horus_heresy', 'legio_titanicus'].map(k => [k, async () => {
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
+     normaliseMonsterFlag(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'escalation'].includes(k));
      return data;
