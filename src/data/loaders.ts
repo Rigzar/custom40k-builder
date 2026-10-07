@@ -428,7 +428,8 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
    'tyranids', 'horus_heresy', 'legio_titanicus'].map(k => [k, async () => {
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
-     applyDataOverrides(data, (await getDataOverrides())[k]);
+     // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
+     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'escalation'].includes(k));
      return data;
    }])
 );
