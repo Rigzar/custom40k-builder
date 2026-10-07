@@ -14,7 +14,7 @@ import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { markAccess } from '../lib/markAccess';
-import { hasAllMarksVariant } from '../engine/slotOverrides';
+import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS } from '../engine/codex_imperial_guard/special-abilities';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -2295,7 +2295,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               });
               return mentioned.length === 0 || mentioned.some(name => (item.modelSizes?.[name] ?? 0) > 0);
             };
-            const filteredAbilities = u.abilities.filter(ab => {
+            const ascendedAll = hasAllMarksVariant(item, u);
+            const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
               if (/^\d+$/.test(ab.trim())) return false;
               const ci = ab.indexOf(':');
               const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();

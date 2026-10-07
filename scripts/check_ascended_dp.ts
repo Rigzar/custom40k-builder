@@ -1,0 +1,33 @@
+/** Ascended Daemon Prince: all Marks included, no Mark/psyker charge, keyword line swap. Fails if the rule is removed. */
+const mem: Record<string, string> = {};
+(globalThis as any).localStorage = { getItem: (k: string) => mem[k] ?? null, setItem: (k: string, v: string) => { mem[k] = v; }, removeItem: (k: string) => { delete mem[k]; } };
+import { FACTION_LOADERS } from '../src/data/loaders';
+import { useArmyStore } from '../src/store/army';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, factionForEntry } from '../src/engine/points';
+import { ascendedKeywordLine } from '../src/engine/slotOverrides';
+import { validateArmy } from '../src/engine/validators';
+type Any = any;
+let bad = 0; const eq = (l: string, a: unknown, b: unknown) => { if (a !== b) { bad++; console.log('FAIL', l, a, '!=', b); } else console.log('ok  ', l); };
+(async () => {
+  eq('keyword line', ascendedKeywordLine('Deep strike, Daemon, Daemonic instability, Terrifying(-1)'), 'Deep strike, Greater Daemon, Terrifying(-2), Fearless');
+  eq('other line untouched', ascendedKeywordLine('Psyker: The model can cast 1 power'), 'Psyker: The model can cast 1 power');
+  const cd: Any = await (FACTION_LOADERS as Any).chaos_daemons();
+  const S = () => useArmyStore.getState();
+  const u = cd.units['Daemon prince'];
+  const gi = (re: RegExp) => u.option_groups.findIndex((g: Any) => re.test(g.header));
+  const pts = () => { const st = S(), e = st.army[0]; return computeUnitPoints(e, resolveUnit(e, st.data!)!, effectiveArchetypeFor(e, st), factionForEntry(e, st.data!), st.pointLimit); };
+  S().clearArmy(); S().setData(cd); S().setEngagement('pitched'); S().setPointLimit(2500);
+  S().addUnit(u.name, 'Heavy Support'); const id = S().army[0].id;
+  S().setOptionQty(id, gi(/Ascended/), '__inline', 1);
+  eq('Ascended', pts(), 293);
+  S().updateUnit(id, { mark: 'Nurgle' }); eq('Ascended + Nurgle', pts(), 293);
+  S().setOptionQty(id, gi(/psyker/), '__inline', 1); eq('Ascended + psyker', pts(), 293);
+  S().addUnit(u.name, 'Heavy Support'); const id2 = S().army[1].id;
+  S().updateUnit(id2, { mark: 'Slaanesh' as Any });
+  S().setHqMark('Khorne' as Any);
+  const markErrs = () => validateArmy(S() as Any, S().data!, S().alliedData).filter((i: Any) => i.type === 'error' && /mark/i.test(i.text));
+  eq('Slaanesh next to Ascended is allowed', markErrs().length, 0);
+  S().setOptionQty(id, gi(/Ascended/), '__inline', 0);
+  eq('Slaanesh next to a Khorne army is an error without Ascended', markErrs().length > 0, true);
+  if (bad) process.exit(1);
+})();

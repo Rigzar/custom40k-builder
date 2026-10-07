@@ -41,6 +41,21 @@ export function hasAllMarksVariant(item: RosterEntry, unit: Unit | undefined): b
   return gi >= 0 && (item.optionQty?.[gi]?.['__inline'] ?? 0) > 0;
 }
 
+/**
+ * The Ascended Daemon Prince's own rule: "replaces the Daemon ability with Greater Daemon, loses Daemonic
+ * instability, gains Fearless and Terrifying(-2)". The datasheet's keyword line is static, so apply that
+ * sentence to it when the upgrade is bought; every other line is returned untouched.
+ */
+export function ascendedKeywordLine(line: string): string {
+  const parts = line.split(',').map(s => s.trim());
+  if (!parts.some(p => /^daemon$/i.test(p)) || !parts.some(p => /^daemonic instability$/i.test(p))) return line;
+  const out = parts
+    .filter(p => !/^daemonic instability$/i.test(p))
+    .map(p => (/^daemon$/i.test(p) ? 'Greater Daemon' : /^terrifying\(-1\)$/i.test(p) ? 'Terrifying(-2)' : p));
+  if (!out.some(p => /^fearless$/i.test(p))) out.push('Fearless');
+  return out.join(', ');
+}
+
 /** True when this entry's active variant upgrade makes it an HQ selection (it is then no Advisor). */
 export function variantIsHq(item: RosterEntry, unit: Unit | undefined, baseSlot: string): boolean {
   if (!unit) return false;
