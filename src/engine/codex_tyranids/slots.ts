@@ -57,13 +57,13 @@ export const TYRANID_SLOTS: TyranidSlotEntry[] = [
   { name: 'Pyrovore Brood', slot: 'Fast Attack' },
   { name: 'Ravener Brood', slot: 'Fast Attack' },
   { name: 'Spore Mine Cluster', slot: 'Fast Attack' },
-  { name: 'Trygon', slot: 'Fast Attack' },
 
   // --- Heavy Support (5) ---
   { name: 'Biovore Brood', slot: 'Heavy Support' },
   { name: 'Carnifex Brood', slot: 'Heavy Support' },
   { name: 'Exocrine', slot: 'Heavy Support' },
   { name: 'Norn', slot: 'Heavy Support' },
+  { name: 'Trygon', slot: 'Fast Attack' },
   { name: 'Tyrannofex', slot: 'Heavy Support' },
 
   // --- Dedicated Transport (1) ---
