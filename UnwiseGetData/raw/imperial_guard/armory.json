@@ -64,7 +64,7 @@
         "x2",
         -3,
         2,
-        "Armorbane, AT(1), Slow(-2), Unwieldy. Only for Preacher.",
+        "Armorbane(3), AT(1), Slow(-2), Unwieldy. Only for Preacher.",
         "-",
         8
     ],
@@ -237,11 +237,11 @@
     [
         "Melta bomb",
         "3\"",
-        "Granate",
+        "Grenade 1",
         8,
         -5,
         2,
-        "Armorbane, AT(3)",
+        "Armorbane(3), AT(3)",
         5,
         5
     ],
@@ -456,7 +456,7 @@
     [
         "Mechanical steed",
         "The model gains +6\" Movement, +1 Strength +1 Toughness, +1 Wound, +1 Attack and the type \"Bike\". For infantry only.        ",
-        "-",
+        9,
         20
     ],
     [

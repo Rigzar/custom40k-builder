@@ -164,7 +164,7 @@
         "Effect:",
         "The unit gains the \"Fearless\" and \"Objective secured!\" abilities.",
         "Effect:",
-        "All attacks against the target gain the \"Decimate\" and \"Armorbane\" abilities.",
+        "All attacks against the target gain the \"Decimate\" and \"Armorbane(3)\" abilities.",
         "Effect:",
         "The target suffers one automatic hit with S: 10 AP: -2 D: 1; AT(3), Blast(6), Seeking, Suppression(3)."
     ],
@@ -293,7 +293,7 @@
         "Effect:",
         "Every enemy model within range must make two dangerous terrain tests.",
         "Effect:",
-        "All attacks of the target gain \"Decimate\" and (cumulative) \"Lance(1)\".",
+        "All attacks of the target gain \"Decimate\" and (cumulative) \"Armorbane(1)\".",
         "Effect:",
         "If the target unit consists of creatures, it suffers 1D6 automatic wounds with S: 10 DS: -3 D: 1; Seeking. Vehicles suffer 1D3 penetrating hits; AT(2), Seeking."
     ],

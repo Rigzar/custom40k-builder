@@ -50,7 +50,7 @@
             "s": "8",
             "ap": "-4",
             "d": "2",
-            "abilities": "AT(2), Lance(+1)"
+            "abilities": "AT(2), Armorbane(1)"
         },
         {
             "name": "Dark lance",
@@ -59,7 +59,7 @@
             "s": "8",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(3), Lance(+2)"
+            "abilities": "AT(3), Armorbane(2)"
         },
         {
             "name": "Shredder",

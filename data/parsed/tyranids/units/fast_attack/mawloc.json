@@ -17,7 +17,7 @@
             "name": "Mawloc",
             "min": 1,
             "max": 2,
-            "points": 139
+            "points": 144
         }
     ],
     "variant_models": [],
@@ -128,7 +128,8 @@
     ],
     "abilities": [
         "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
-        "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
+        "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules.",
+        "Subterranean Predator: The model does not scatter when being deployed within 6\" of a unit with at least one Battleshock token and can make a regular \"Charge\" against such targets afterwards."
     ],
     "unit_type": "Monstrous Creature ",
     "keywords": [
@@ -146,6 +147,6 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 1,
-    "min_cost": 139,
+    "min_cost": 144,
     "is_monster": true
 }

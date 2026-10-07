@@ -17,22 +17,49 @@
             "name": "Biovore",
             "min": 1,
             "max": 3,
-            "points": 110
+            "points": 41
         }
     ],
     "variant_models": [],
-    "min_cost": 110,
+    "min_cost": 41,
     "default_size": 1,
-    "equipped_with": "Every model is equipped with: Spore Mine launcher.",
+    "equipped_with": "Every model is equipped with: -.",
     "weapons": [
         {
-            "name": "Spore Mine launcher",
+            "name": "Aerial spore mine",
             "range": "48\"",
-            "type": "Heavy 2",
-            "s": "6",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Anti-Air, AT(1), Blast(2), Indirect"
+        },
+        {
+            "name": "Bio acid spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armorbane(2), AT(2), Indirect"
+        },
+        {
+            "name": "Chitin spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(6), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Toxin spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Anti-Air, Blast(4), Indirect, Suppression(3)"
+            "abilities": "Blast(4), Indirect, Poison(2+)"
         }
     ],
     "abilities": [

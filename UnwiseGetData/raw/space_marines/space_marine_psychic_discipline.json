@@ -486,7 +486,7 @@
         "Effect:",
         "The target unit gains +6\" Movement, +1 Initiative and the \"Anti-Grav\" ability.",
         "Effect:",
-        "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; AT(2), Lance(1), Seeking. Vehicles are hit twice.",
+        "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; Armorbane(1), AT(2), Seeking. Vehicles are hit twice.",
         "Effect:",
         "The target unit gains a 5+ ward save."
     ],
@@ -680,7 +680,7 @@
         "Effect:",
         "The target gains +1 Ballistic Skill or +1 Weapon Skill.",
         "Effect:",
-        "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; AT(2), Lance(1), Seeking. Vehicles are hit twice.",
+        "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; Armorbane(1), AT(2), Seeking. Vehicles are hit twice.",
         "Effect:",
         "The target suffers 5 glancing hits."
     ],

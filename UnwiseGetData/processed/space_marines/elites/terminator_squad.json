@@ -77,7 +77,7 @@
             "s": "x2",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(3), Slow(-3), Armorbane"
+            "abilities": "AT(3), Slow(-3), Armorbane(3)"
         },
         {
             "name": "Heavy flamer",

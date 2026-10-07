@@ -30,7 +30,7 @@
         184
     ],
     [
-        "A Harpy is equipped with: Spore Mine cysts; Twin stranglethorn cannon."
+        "A Harpy is equipped with: Twin stranglethorn cannon."
     ],
     [
         "WEAPON",
@@ -40,6 +40,33 @@
         "AP",
         "D",
         "ABILITIES"
+    ],
+    [
+        "Aerial spore mine cysts",
+        "6\"",
+        "Heavy 1",
+        7,
+        -2,
+        2,
+        "Anti-Air, AT(1), Blast(2), Bomb, Indirect"
+    ],
+    [
+        "Bio acid spore mine cysts",
+        "6\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Armorbane(2), AT(2), Bomb, Indirect"
+    ],
+    [
+        "Chitin spore mine cysts",
+        "6\"",
+        "Heavy 1",
+        4,
+        -1,
+        1,
+        "Blast(6), Bomb, Indirect, Suppression(3)"
     ],
     [
         "Spore Mine cysts",
@@ -60,13 +87,13 @@
         "Blast(4)"
     ],
     [
-        "Twin stranglethorn cannon",
-        "36\"",
-        "Assault 2",
-        7,
-        0,
+        "Toxin spore mine cysts",
+        "6\"",
+        "Heavy 1",
+        5,
+        -2,
         1,
-        "AT(1), Blast(6), Suppression(3)"
+        "Blast(4), Indirect, Bomb, Poison(2+)"
     ],
     [
         "Twin heavy venom cannon",
@@ -78,7 +105,35 @@
         "AT(2), Blast(4)"
     ],
     [
+        "Twin stranglethorn cannon",
+        "36\"",
+        "Assault 2",
+        7,
+        0,
+        1,
+        "AT(1), Blast(6), Suppression(3)"
+    ],
+    [
         "OPTIONS"
+    ],
+    [
+        "\u2022 Must pick one weapon from this list:"
+    ],
+    [
+        "- Aerial spore mine cysts",
+        "+12 points"
+    ],
+    [
+        "- Toxin spore mine cysts",
+        "+13 points"
+    ],
+    [
+        "- Chitin spore mine cysts",
+        "+13 points"
+    ],
+    [
+        "- Bio acid spore mine cysts",
+        "+16 points"
     ],
     [
         "\u2022 May replace its Twin stranglethorn cannon:"

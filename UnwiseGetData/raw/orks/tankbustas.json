@@ -81,7 +81,7 @@
         10,
         -3,
         3,
-        "Ammo(1), AT(3), Armorbane, Slow(-3), Unwieldy"
+        "Ammo(1), AT(3), Armorbane(3), Slow(-3), Unwieldy"
     ],
     [
         "Smasha hamma",
@@ -99,7 +99,7 @@
         5,
         -2,
         1,
-        "Armorbane"
+        "Armorbane(3)"
     ],
     [
         "OPTIONS"

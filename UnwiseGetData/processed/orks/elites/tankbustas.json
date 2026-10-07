@@ -69,7 +69,7 @@
             "s": "10",
             "ap": "-3",
             "d": "3",
-            "abilities": "Ammo(1), AT(3), Armorbane, Slow(-3), Unwieldy"
+            "abilities": "Ammo(1), AT(3), Armorbane(3), Slow(-3), Unwieldy"
         },
         {
             "name": "Smasha hamma",
@@ -87,7 +87,7 @@
             "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armorbane"
+            "abilities": "Armorbane(3)"
         }
     ],
     "abilities": [
