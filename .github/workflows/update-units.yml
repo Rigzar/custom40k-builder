@@ -49,6 +49,10 @@ jobs:
       # data/parsed/<faction>/units/<slot>. Git does not store empty folders, so a slot a faction has
       # no units in (Custodes' fortifications) exists on Unwise's PC but not in a fresh checkout, and
       # the run died with FileNotFoundError (first run, 2026-10-03). Recreate them here.
+      # raw/<faction> too: since the script deletes raw/ and processed/ at the end of every run
+      # (clean_up.py, 2026-10-07) nothing is committed under raw/ any more, so a fresh checkout has no
+      # such folder and the very first write died: FileNotFoundError 'raw/adeptus_custodes/index.json'
+      # (three failed runs that afternoon).
       - name: Create the empty slot folders the script expects
         working-directory: UnwiseGetData
         run: |
@@ -59,6 +63,7 @@ jobs:
               if not line.strip():
                   continue
               f = line.split(",")[0].lower().replace(" ", "_").replace("'", "").replace("\u00b4", "")
+              Path(f"raw/{f}").mkdir(parents=True, exist_ok=True)
               for c in cats:
                   Path(f"processed/{f}/{c}").mkdir(parents=True, exist_ok=True)
                   Path(f"../data/parsed/{f}/units/{c}").mkdir(parents=True, exist_ok=True)

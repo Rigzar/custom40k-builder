@@ -41,6 +41,40 @@ export function overrideKey(o: Pick<DataOverride, 'unit' | 'kind' | 'target' | '
   return `${o.unit}|${o.kind}|${o.target}|${o.field}`;
 }
 
+/** Ability lists differ by ORDER between the sheet and an old override without meaning anything. */
+const norm = (field: string, v: unknown): string => {
+  const t = String(v ?? '').replace(/\s+/g, ' ').trim();
+  return field === 'abilities' ? t.split(',').map(x => x.trim().toLowerCase()).filter(Boolean).sort().join(',') : t;
+};
+
+/**
+ * What an override is up against NOW: the value the bundled data holds for its target.
+ * `gone` = the target no longer exists (a renamed or removed model/weapon/option); `differs` = it
+ * exists and holds something else. An override that no longer agrees with the data is almost always
+ * stale: it recorded the sheet's value on the day it was applied, and the sheet (and so the file the
+ * unit update writes) has moved on since, so it now HIDES the update. Found 2026-10-07 when a
+ * Biovore updated to 41 points kept showing 110 (an override from 21 September).
+ */
+export function checkOverride(data: FactionData, o: DataOverride): { status: 'same' | 'differs' | 'gone'; current: string } {
+  const unit = (data.units as Record<string, Unit>)?.[o.unit];
+  if (!unit) return { status: 'gone', current: '' };
+  let found = true;
+  let current: unknown;
+  if (o.kind === 'option') {
+    const cs = (unit.option_groups ?? []).flatMap(g => g.choices ?? []).filter(c => c.name === o.target);
+    found = cs.length === 1; current = cs[0]?.points;
+  } else if (o.kind === 'weapon') {
+    const w = (unit.weapons ?? []).find((x: Weapon) => x.name === o.target);
+    found = !!w; current = (w as unknown as Record<string, string> | undefined)?.[o.field];
+  } else {
+    const m = [...(unit.models ?? []), ...(unit.variant_models ?? [])].find((x: Model) => x.name === o.target);
+    found = !!m; current = o.kind === 'points' ? m?.points : (m?.stats as Record<string, string> | undefined)?.[o.field];
+  }
+  if (!found) return { status: 'gone', current: '' };
+  const cur = String(current ?? '');
+  return { status: norm(o.field, cur) === norm(o.field, o.value) ? 'same' : 'differs', current: cur };
+}
+
 /**
  * Apply a faction's overrides in place. Returns how many actually matched something — callers can
  * log it; a count lower than the list length just means some overrides are stale.
