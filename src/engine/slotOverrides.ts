@@ -29,6 +29,18 @@ const HQ_VARIANTS: { from: string; variant: string }[] = [
   { from: 'Elites', variant: 'Chief Apothecary' },
 ];
 
+/**
+ * True when the entry has bought the Ascended Daemon Prince upgrade: the datasheet says the model "has all
+ * Marks of Chaos (already included in the profile)". Choosing a Mark on top charged it a second time and
+ * stacked the Mark's bonuses on a profile that already has them, and the "if no Mark of Khorne is taken"
+ * psyker upgrade cannot apply to a model that has Khorne.
+ */
+export function hasAllMarksVariant(item: RosterEntry, unit: Unit | undefined): boolean {
+  if (!unit) return false;
+  const gi = unit.option_groups.findIndex(g => g.variant_link === 'Ascended Daemon Prince');
+  return gi >= 0 && (item.optionQty?.[gi]?.['__inline'] ?? 0) > 0;
+}
+
 /** True when this entry's active variant upgrade makes it an HQ selection (it is then no Advisor). */
 export function variantIsHq(item: RosterEntry, unit: Unit | undefined, baseSlot: string): boolean {
   if (!unit) return false;

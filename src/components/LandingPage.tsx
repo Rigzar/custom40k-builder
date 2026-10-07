@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182p_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182q_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -81,6 +81,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Leader gear (GH#207, GH#208)", "A Lieutenant's Plate armor or a Gang Champion's Swordsman honours changes only that model on the printed card and the battle view, as on the unit card."],
         ["Light mode", "Gitfinda and the landing page's orange labels are readable in light mode."],
         ["Gitfinda filters", "The board can now be filtered by points (min and max), as well as by army, battle type and event."],
+        ["Ascended Daemon Prince", "No Mark to pick or pay for (it has all of them) and no +5 psyker upgrade; it is a psyker through Tzeentch."],
         ["Daemon Prince and other Monstrous Creatures", "They get their Monstrous Creature rules back (Mark bonuses, armory prices); the Ascended upgrade reads +109."],
         ["Biovore at 110 points", "Old hand-made corrections no longer hide the values the sheet and the unit update give: the Biovore costs 41 again."],
         ["Tau Tactical Philosophies (GH#209)", "It shows its price (+50 in a 2500-point game) and any HQ can buy it."],
@@ -117,6 +118,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Anführer-Ausrüstung (GH#207, GH#208)", "Plate armor eines Leutnants oder Swordsman honours eines Gang Champions ändert auf gedruckter Karte und Kampfansicht nur dieses Modell, wie auf der Einheitenkarte."],
         ["Heller Modus", "Gitfinda und die orangen Beschriftungen der Startseite sind im hellen Modus lesbar."],
         ["Gitfinda-Filter", "Die Tafel lässt sich jetzt auch nach Punkten (Minimum und Maximum) filtern, zusätzlich zu Armee, Schlachtart und Event."],
+        ["Aufgestiegener Daemon Prince", "Kein Mal zu wählen oder zu zahlen (er hat alle) und kein Psioniker-Upgrade für +5; er ist über Tzeentch Psioniker."],
         ["Daemon Prince und andere Monstrous Creatures", "Sie haben ihre Monstrous-Creature-Regeln wieder (Mal-Boni, Armory-Preise); das Ascended-Upgrade zeigt +109."],
         ["Biovore mit 110 Punkten", "Alte Handkorrekturen verdecken nicht mehr die Werte aus Blatt und Einheiten-Update: Der Biovore kostet wieder 41."],
         ["Tau Tactical Philosophies (GH#209)", "Es zeigt seinen Preis (+50 bei 2500 Punkten), und jedes HQ kann es kaufen."],
@@ -153,6 +155,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Equipo del líder (GH#207, GH#208)", "La Plate armor de un Lieutenant o los Swordsman honours de un Gang Champion cambian solo a ese modelo en la ficha impresa y la vista de batalla, como en la ficha de unidad."],
         ["Modo claro", "Gitfinda y las etiquetas naranjas de la portada se leen en modo claro."],
         ["Filtros de Gitfinda", "El tablón se puede filtrar ahora también por puntos (mínimo y máximo), además de por ejército, tipo de batalla y evento."],
+        ["Príncipe Demonio Ascendido", "Sin Marca que elegir ni pagar (las tiene todas) ni mejora de psíquico de +5; es psíquico por Tzeentch."],
         ["Daemon Prince y otras criaturas monstruosas", "Recuperan sus reglas de criatura monstruosa (bonos de Marca, precios de armería); la mejora a Ascendido dice +109."],
         ["Biovore a 110 puntos", "Las correcciones manuales antiguas ya no tapan los valores de la hoja y la actualización de unidades: el Biovore vuelve a costar 41."],
         ["Tactical Philosophies de T'au (GH#209)", "Muestra su precio (+50 en una partida de 2500 puntos) y cualquier HQ puede comprarla."],
@@ -189,6 +192,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Снаряжение лидера (GH#207, GH#208)", "Plate armor лейтенанта или Swordsman honours Gang Champion меняют только эту модель в печатной карточке и боевом виде, как в карточке юнита."],
         ["Светлая тема", "Gitfinda и оранжевые подписи на главной странице читаются в светлой теме."],
         ["Фильтры Gitfinda", "Доску теперь можно фильтровать и по очкам (минимум и максимум), помимо армии, типа битвы и события."],
+        ["Вознесённый Демон-принц", "Метку не нужно выбирать и оплачивать (у него есть все) и нет улучшения до псайкера за +5; он псайкер через Тзинч."],
         ["Daemon Prince и другие монстры", "Они снова получают правила монстра (бонусы Меток, цены арсенала); улучшение до Ascended показывает +109."],
         ["Биовор за 110 очков", "Старые ручные поправки больше не скрывают значения листа и обновления юнитов: Биовор снова стоит 41."],
         ["Tactical Philosophies тау (GH#209)", "Показывает цену (+50 в игре на 2500 очков), и любой HQ может её купить."],
@@ -225,6 +229,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["リーダーの装備（GH#207、GH#208）", "ルテナントのプレートアーマーやギャング・チャンピオンのソードマンズ・オナーは、ユニットカードと同じく、印刷カードとバトルビューでもそのモデルだけを変えます。"],
         ["ライトモード", "Gitfindaとトップページのオレンジ色の表示がライトモードでも読めます。"],
         ["Gitfindaの絞り込み", "掲示板を、軍、戦闘タイプ、イベントに加えて、ポイント（最小・最大）でも絞り込めるようになりました。"],
+        ["昇華したデーモンプリンス", "印は選択も支払いも不要（全て持っています）で、+5のサイカー強化もありません。ティーンチによりサイカーです。"],
         ["デーモンプリンスなどのモンストラス・クリーチャー", "モンストラス・クリーチャーの特性（印のボーナス、アーモリー価格）が戻りました。昇華の強化は+109です。"],
         ["110ポイントのバイオボア", "古い手動修正がシートとユニット更新の値を隠さなくなりました：バイオボアは再び41ポイントです。"],
         ["タウのTactical Philosophies（GH#209）", "価格が表示され（2500ポイントの試合で+50）、どのHQでも購入できます。"],

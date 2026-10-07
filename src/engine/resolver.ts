@@ -5,7 +5,7 @@ import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchety
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade } from './deploymentUpgrades';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
-import { variantIsHq } from './slotOverrides';
+import { variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
 import type { ChosenWeaponEffect } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
@@ -831,12 +831,13 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const variantActive = !!activeVariant;
 
   // Mark resolution
-  const effectiveMark = (unit.locked_mark ?? (rule?.forcedMark as Mark | null) ?? item.mark) as Mark | null;
+  const allMarks = hasAllMarksVariant(item, unit);
+  const effectiveMark = (unit.locked_mark ?? (rule?.forcedMark as Mark | null) ?? (allMarks ? null : item.mark)) as Mark | null;
   const markIsForced = !unit.locked_mark && !!rule?.forcedMark;
   const markIsLocked = !!unit.locked_mark;
   const statModMark = unit.locked_mark
     ? null
-    : (item.mark ?? (markIsForced ? ((rule!.forcedMark as Mark) ?? null) : null)) as Mark | null;
+    : ((allMarks ? null : item.mark) ?? (markIsForced ? ((rule!.forcedMark as Mark) ?? null) : null)) as Mark | null;
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!rule?.grantsMarkPurchase;
   // The four god marks count as a veteran ability. Mark of Chaos Undivided does NOT (rule omits the clause).
   // Locked-mark units (e.g. Plague Marines) use veteran_max:1 in their data instead.
@@ -903,11 +904,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const psykerGroupIdx = unit.option_groups.findIndex(
     g => /psyker/i.test(g.header) && g.inline_pts != null,
   );
-  const isOptionalPsyker = !unit.is_psyker && psykerGroupIdx >= 0 &&
+  const isOptionalPsyker = !unit.is_psyker && !allMarks && psykerGroupIdx >= 0 &&
     (item.optionQty?.[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.
-  const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && statModMark === 'Tzeentch';
+  const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks);
   const effectivePsyker = unit.is_psyker || isTzeentchPsyker || isOptionalPsyker;
 
   // Weapons & loadout (unmodified — faction resolvers apply overrides)

@@ -2,6 +2,7 @@ import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 import { getArchetypeRule } from './archetypes';
+import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 
 /**
@@ -266,7 +267,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     // keyword/abilities for free. Without this, forced-mark armies silently undercharge
     // every unit that didn't get an explicit per-unit mark selection.
     const rule = getArchetypeRule(archetype);
-    const effMark = unit.locked_mark ?? (rule?.forcedMark as string | null) ?? item.mark ?? null;
+    const effMark = unit.locked_mark ?? (rule?.forcedMark as string | null) ?? (hasAllMarksVariant(item, unit) ? null : item.mark) ?? null;
     if (effMark) {
       const mg = unit.option_groups.find(isMarkGroup);
       if (mg) {
@@ -288,10 +289,12 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     }
   }
 
+  const allMarksVariant = hasAllMarksVariant(item, unit);
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g || isMarkGroup(g)) continue;
     if (g.variant_link) continue;
+    if (allMarksVariant && /psyker/i.test(g.header)) continue;
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline') {
         // Per-model inline upgrades ("…for +X points per model") scale with unit size; flat

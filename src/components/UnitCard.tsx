@@ -14,6 +14,7 @@ import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { markAccess } from '../lib/markAccess';
+import { hasAllMarksVariant } from '../engine/slotOverrides';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS } from '../engine/codex_imperial_guard/special-abilities';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -1162,7 +1163,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           )}
 
           {/* Mark selection — units with a mark group, OR any HQ in a chaos faction */}
-          {markPick.show && (
+          {markPick.show && !hasAllMarksVariant(item, u) && (
             <div>
               {/* Black Crusade Champion toggle — only shown for non-locked HQs when BC is active */}
               {traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && (
