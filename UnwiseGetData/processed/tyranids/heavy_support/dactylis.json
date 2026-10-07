@@ -17,11 +17,11 @@
             "name": "Dactylis",
             "min": 1,
             "max": 2,
-            "points": 109
+            "points": 113
         }
     ],
     "variant_models": [],
-    "min_cost": 109,
+    "min_cost": 113,
     "default_size": 1,
     "equipped_with": "Every model is equipped with: Grasping Claws.",
     "weapons": [
