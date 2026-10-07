@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182m_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182n_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -81,6 +81,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Leader gear (GH#207, GH#208)", "A Lieutenant's Plate armor or a Gang Champion's Swordsman honours changes only that model on the printed card and the battle view, as on the unit card."],
         ["Light mode", "Gitfinda and the landing page's orange labels are readable in light mode."],
         ["Gitfinda filters", "The board can now be filtered by points (min and max), as well as by army, battle type and event."],
+        ["Tau Tactical Philosophies (GH#209)", "It shows its price (+50 in a 2500-point game) and any HQ can buy it."],
+        ["Master of the Forge / Chief Apothecary (GH#210)", "Both now fill an HQ slot and count as an HQ selection."],
+        ["Ascended Daemon Prince", "Its Armory has an All Marks tab with the four Mark armories, as it has all Marks."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -112,6 +115,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Anführer-Ausrüstung (GH#207, GH#208)", "Plate armor eines Leutnants oder Swordsman honours eines Gang Champions ändert auf gedruckter Karte und Kampfansicht nur dieses Modell, wie auf der Einheitenkarte."],
         ["Heller Modus", "Gitfinda und die orangen Beschriftungen der Startseite sind im hellen Modus lesbar."],
         ["Gitfinda-Filter", "Die Tafel lässt sich jetzt auch nach Punkten (Minimum und Maximum) filtern, zusätzlich zu Armee, Schlachtart und Event."],
+        ["Tau Tactical Philosophies (GH#209)", "Es zeigt seinen Preis (+50 bei 2500 Punkten), und jedes HQ kann es kaufen."],
+        ["Master of the Forge / Chief Apothecary (GH#210)", "Beide belegen jetzt einen HQ-Slot und zählen als HQ-Auswahl."],
+        ["Aufgestiegener Dämonenprinz", "Seine Armory hat einen Reiter Alle Male mit den vier Mal-Rüstkammern, da er alle Male hat."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -143,6 +149,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Equipo del líder (GH#207, GH#208)", "La Plate armor de un Lieutenant o los Swordsman honours de un Gang Champion cambian solo a ese modelo en la ficha impresa y la vista de batalla, como en la ficha de unidad."],
         ["Modo claro", "Gitfinda y las etiquetas naranjas de la portada se leen en modo claro."],
         ["Filtros de Gitfinda", "El tablón se puede filtrar ahora también por puntos (mínimo y máximo), además de por ejército, tipo de batalla y evento."],
+        ["Tactical Philosophies de T'au (GH#209)", "Muestra su precio (+50 en una partida de 2500 puntos) y cualquier HQ puede comprarla."],
+        ["Master of the Forge / Chief Apothecary (GH#210)", "Ambos ocupan ahora un slot de HQ y cuentan como selección de HQ."],
+        ["Príncipe Demonio Ascendido", "Su armería tiene una pestaña Todas las marcas con las cuatro armerías de Marca, ya que tiene todas las Marcas."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -174,6 +183,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Снаряжение лидера (GH#207, GH#208)", "Plate armor лейтенанта или Swordsman honours Gang Champion меняют только эту модель в печатной карточке и боевом виде, как в карточке юнита."],
         ["Светлая тема", "Gitfinda и оранжевые подписи на главной странице читаются в светлой теме."],
         ["Фильтры Gitfinda", "Доску теперь можно фильтровать и по очкам (минимум и максимум), помимо армии, типа битвы и события."],
+        ["Tactical Philosophies тау (GH#209)", "Показывает цену (+50 в игре на 2500 очков), и любой HQ может её купить."],
+        ["Master of the Forge / Chief Apothecary (GH#210)", "Оба теперь занимают слот HQ и считаются выбором HQ."],
+        ["Вознесённый Демон-принц", "В его арсенале есть вкладка «Все Метки» с четырьмя арсеналами Меток, так как у него есть все Метки."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -205,6 +217,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["リーダーの装備（GH#207、GH#208）", "ルテナントのプレートアーマーやギャング・チャンピオンのソードマンズ・オナーは、ユニットカードと同じく、印刷カードとバトルビューでもそのモデルだけを変えます。"],
         ["ライトモード", "Gitfindaとトップページのオレンジ色の表示がライトモードでも読めます。"],
         ["Gitfindaの絞り込み", "掲示板を、軍、戦闘タイプ、イベントに加えて、ポイント（最小・最大）でも絞り込めるようになりました。"],
+        ["タウのTactical Philosophies（GH#209）", "価格が表示され（2500ポイントの試合で+50）、どのHQでも購入できます。"],
+        ["Master of the Forge／チーフ・アポセカリー（GH#210）", "どちらもHQスロットを使い、HQ選択として数えられます。"],
+        ["昇華したデーモンプリンス", "全ての印を持つため、アーモリーに4つの印のアーモリーを含む「全ての印」タブがあります。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

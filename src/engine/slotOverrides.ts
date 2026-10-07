@@ -14,6 +14,31 @@ const SLOT_OPT_INS: { from: string; to: string; test: RegExp }[] = [
   { from: 'Fast Attack', to: 'Troops', test: /may be selected as Troops/i },
 ];
 
+/**
+ * A variant upgrade the datasheet says makes the unit an HQ selection, keyed by the slot it leaves.
+ *
+ *   Ascended Daemon Prince (Chaos Daemons) -- "The unit uses a HQ slot instead of Heavy Support".
+ *   Chief Apothecary / Master of the Forge (Space Marines) -- "he counts as a HQ selection and fills up
+ *   a slot". Both read the Elites slot and the free Advisor exemption until 2026-10-07, so the
+ *   Techmarine upgraded to Master of the Forge neither filled an HQ slot nor counted as one (GH#210);
+ *   the Chief Apothecary had the identical fault and nobody had reported it yet.
+ */
+const HQ_VARIANTS: { from: string; variant: string }[] = [
+  { from: 'Heavy Support', variant: 'Ascended Daemon Prince' },
+  { from: 'Elites', variant: 'Master of the Forge' },
+  { from: 'Elites', variant: 'Chief Apothecary' },
+];
+
+/** True when this entry's active variant upgrade makes it an HQ selection (it is then no Advisor). */
+export function variantIsHq(item: RosterEntry, unit: Unit | undefined, baseSlot: string): boolean {
+  if (!unit) return false;
+  return HQ_VARIANTS.some(r => {
+    if (r.from !== baseSlot) return false;
+    const gi = unit.option_groups.findIndex(g => g.variant_link === r.variant);
+    return gi >= 0 && (item.optionQty?.[gi]?.['__inline'] ?? 0) > 0;
+  });
+}
+
 /** True when this entry has opted into a different slot (used to exclude it from AOP minimums). */
 export function hasSlotOptIn(item: RosterEntry, unit: Unit | undefined, baseSlot: string): boolean {
   if (!unit) return false;
@@ -28,7 +53,7 @@ export function hasSlotOptIn(item: RosterEntry, unit: Unit | undefined, baseSlot
  * Apply dynamic slot overrides based on active variant upgrades or slot opt-ins.
  *
  * Currently handles:
- *   Ascended Daemon Prince — Heavy Support → HQ when the variant upgrade is active.
+ *   Ascended Daemon Prince, Master of the Forge, Chief Apothecary — to HQ when the variant upgrade is active.
  *   Canoptek Scarabs       — Fast Attack → Troops when the "may be selected as Troops" box is ticked.
  *
  * @param item  The roster entry (carries optionQty state).
@@ -43,15 +68,8 @@ export function applyVariantSlotOverride(
 ): string {
   if (!unit) return baseSlot;
 
-  if (baseSlot === 'Heavy Support') {
-    const ascIdx = unit.option_groups.findIndex(
-      g => g.variant_link === 'Ascended Daemon Prince',
-    );
-    if (ascIdx >= 0 && (item.optionQty?.[ascIdx]?.['__inline'] ?? 0) > 0) {
-      return 'HQ';
-    }
-    return baseSlot;
-  }
+  if (variantIsHq(item, unit, baseSlot)) return 'HQ';
+  if (baseSlot === 'Heavy Support') return baseSlot;
 
   for (const rule of SLOT_OPT_INS) {
     if (rule.from !== baseSlot) continue;

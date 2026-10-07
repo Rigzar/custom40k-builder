@@ -5,6 +5,7 @@ import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchety
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade } from './deploymentUpgrades';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
+import { variantIsHq } from './slotOverrides';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
 import type { ChosenWeaponEffect } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
@@ -819,8 +820,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
   // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
   const ctanYngirActive = !!item.ctanYngirUpgrade && effectiveArchetype === 'Yngir' && /^C'tan Shard/.test(unit.name);
+  const printedSlot = getEffectiveSlot(item.unitName, item.slot, rule);
   const effectiveSlot = ctanYngirActive ? 'HQ'
-    : applyPlatoonSlotOverride(item, state.army, getEffectiveSlot(item.unitName, item.slot, rule));
+    : variantIsHq(item, unit, printedSlot) ? 'HQ'
+    : applyPlatoonSlotOverride(item, state.army, printedSlot);
 
   // Variant model
   const activeVariant = getActiveVariant(item, unit);

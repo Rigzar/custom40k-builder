@@ -343,6 +343,8 @@ export interface MarkGateCtx {
   markless?: boolean;
   /** The model's effective Chaos Mark (locked / archetype-forced / chosen). */
   effectiveMark?: string | null;
+  /** The model counts as having EVERY Mark (a Black Crusade champion, an Ascended Daemon Prince). */
+  allMarks?: boolean;
 }
 
 /** True when the item requires a Chaos Mark the model doesn't carry (so it cannot be bought). */
@@ -350,5 +352,6 @@ export function isItemMarkBlocked(arm: ArmoryItem, ctx: MarkGateCtx): boolean {
   if (ctx.markless) return false;
   const req = itemRequiredMark(arm.name);
   if (!req) return false;
+  if (ctx.allMarks) return false;
   return req !== (ctx.effectiveMark ?? null);
 }
