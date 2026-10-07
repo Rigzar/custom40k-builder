@@ -93,7 +93,6 @@
             "constraint": {
                 "type": "every"
             },
-            
             "choices": [
                 {
                     "name": "Spasmic Launcher",
@@ -165,7 +164,7 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
-        }, 
+        },
         {
             "header": "May select one Special Biomorph",
             "constraint": {
