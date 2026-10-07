@@ -76,13 +76,13 @@
         "Anti-Grav, Power through Pain, Squadron",
         "Soul harvest: After each activation in which the Cronos eliminates an enemy model, a friendly Dark Eldar unit within 18\" gains a Power Through Pain token."
     ],
-    "unit_type": "Monstrous creature",
+    "unit_type": "Monstrous Creature",
     "keywords": [
         "Coven"
     ],
     "is_vehicle": false,
     "is_character": false,
-    "is_monster": false,
+    "is_monster": true,
     "is_psyker": false,
     "has_armory_access": false,
     "champion_has_armory": false,

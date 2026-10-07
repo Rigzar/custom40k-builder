@@ -66,7 +66,7 @@ export type TranslationKey =
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
   | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
-  | 'navDiscord' | 'navDiscordJoin' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
+  | 'navDiscord' | 'navDiscordJoin' | 'navRulesPdf' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
@@ -124,7 +124,7 @@ export type TranslationKey =
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
   | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel'
-  | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'noItemsInSection' | 'noActiveLegacy'
+  | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
   | 'loadingPrefix' | 'chooseDifferentFaction' | 'archetypeArmoryIntroPart1' | 'slotsUsedLabel'
@@ -775,6 +775,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscord: 'Discord',
 
     navDiscordJoin: 'Join the Discord',
+    navRulesPdf: 'Core Rules as PDF (work in progress, by Scoots)',
     navCampaignAlphaAdmin: 'Campaign — Alpha (Admin)',
     navCampaignComingSoon: 'Campaign — Coming Soon (Alpha)',
     howToActivate: 'How to activate',
@@ -990,6 +991,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     termArmourNotice: 'Terminator armour — showing only Terminator-compatible items (ᵀ).',
     weaponsLabel: 'Weapons',
     bcChampionBanner: '⚜ Black Crusade Champion — access to all four mark armories',
+    ascendedAllMarksBanner: '⚜ Ascended Daemon Prince — has all Marks, access to all four mark armories',
     noItemsInSection: 'No items in this section',
     noActiveLegacy: 'No active Legacy. Select a Legacy in army configuration.',
     mixedWarbandTitle: 'Mixed Warband — Choose Legacy Armory',
@@ -1889,6 +1891,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscord: 'Discord',
 
     navDiscordJoin: 'Discord beitreten',
+    navRulesPdf: 'Grundregeln als PDF (in Arbeit, von Scoots)',
     navCampaignAlphaAdmin: 'Feldzug — Alpha (Admin)',
     navCampaignComingSoon: 'Feldzug — Demnächst (Alpha)',
     howToActivate: 'Aktivierung',
@@ -2104,6 +2107,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     termArmourNotice: 'Terminator-Rüstung — zeigt nur Terminator-kompatible Gegenstände (ᵀ).',
     weaponsLabel: 'Waffen',
     bcChampionBanner: '⚜ Schwarzer-Kreuzzug-Champion — Zugriff auf alle vier Mal-Rüstkammern',
+    ascendedAllMarksBanner: '⚜ Aufgestiegener Dämonenprinz — hat alle Male, Zugriff auf alle vier Mal-Rüstkammern',
     noItemsInSection: 'Keine Gegenstände in diesem Abschnitt',
     noActiveLegacy: 'Kein aktives Vermächtnis. Wähle ein Vermächtnis in der Armeekonfiguration.',
     mixedWarbandTitle: 'Gemischte Kriegsbande — Vermächtnis-Rüstkammer wählen',
@@ -3001,6 +3005,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscord: 'Discord',
 
     navDiscordJoin: 'Unirse al Discord',
+    navRulesPdf: 'Reglas básicas en PDF (en desarrollo, por Scoots)',
     navCampaignAlphaAdmin: 'Campaña — Alpha (Admin)',
     navCampaignComingSoon: 'Campaña — Próximamente (Alpha)',
     howToActivate: 'Cómo activarlo',
@@ -3216,6 +3221,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     termArmourNotice: 'Armadura Terminator — mostrando solo objetos compatibles con Terminator (ᵀ).',
     weaponsLabel: 'Armas',
     bcChampionBanner: '⚜ Campeón de Cruzada Negra — acceso a las cuatro armerías de marca',
+    ascendedAllMarksBanner: '⚜ Príncipe Demonio Ascendido — tiene todas las marcas, acceso a las cuatro armerías de marca',
     noItemsInSection: 'No hay objetos en esta sección',
     noActiveLegacy: 'Sin Legado activo. Selecciona un Legado en la configuración del ejército.',
     mixedWarbandTitle: 'Banda Mixta — Elegir Armería de Legado',

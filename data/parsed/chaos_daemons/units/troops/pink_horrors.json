@@ -122,7 +122,7 @@
     ],
     "abilities": [
         "Deepstrike, Daemon, Daemonic instability, Mark of Tzeentch, Terrifying(-1)",
-        "Split: After each activation in which the unit lost at least one Pink Horror or Blue Horror, roll a die for each lost model. On a 4+, a killed Pink Horror is replaced by 2 Blue Horrors. A killed Blue Horror is replaced by a Brimstone Horror."
+        "Split: After each activation in which the unit lost at least one Pink Horror or Blue Horror, roll a die for each lost model. On a 4+, a killed Pink Horror is replaced by 2 Blue Horrors. Likewise, a killed Blue Horror is replaced by a Brimstone Horror."
     ],
     "unit_type": "Infantry",
     "keywords": [],

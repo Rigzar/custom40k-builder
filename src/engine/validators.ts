@@ -9,7 +9,7 @@ import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCa
 import {
   getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
-import { applyVariantSlotOverride, hasSlotOptIn } from './slotOverrides';
+import { applyVariantSlotOverride, hasSlotOptIn, variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { removedUnitNote } from './unitRenames';
 import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
@@ -152,8 +152,12 @@ export function advisorExemptIds(
       const n = army.filter(j => {
         const jIsAllied = !!(j.factionSource && j.factionSource === alliedFaction);
         if (jIsAllied !== isAllied) return false;
-        if (getEffectiveSlotFor(j, rule) !== 'HQ') return false;
         const u = resolveUnit(j, data);
+        const printed = getEffectiveSlotFor(j, rule);
+        // A Master of the Forge / Chief Apothecary is an HQ selection (it fills an HQ slot), so it
+        // counts here like any other HQ and no longer counts as an Advisor.
+        if (variantIsHq(j, u ?? undefined, printed)) return true;
+        if (printed !== 'HQ') return false;
         return !u?.advisor; // advisors don't count as HQ selections for their own ratio cap
       }).length;
       hqCountCache.set(isAllied, n);
@@ -165,6 +169,7 @@ export function advisorExemptIds(
   for (const i of army) {
     const u = resolveUnit(i, data);
     if (!u?.advisor) continue;
+    if (variantIsHq(i, u, getEffectiveSlotFor(i, rule))) continue;   // an HQ now, so no free Advisor slot
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
     const key = `${isAllied}:${i.unitName}`;
     const n = seen.get(key) ?? 0;
@@ -3163,7 +3168,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // legitimately grants its own units a Mark of Chaos with no Animosity restriction at all (it's
   // purely a cost/ability mechanic for IG, never gated by the rivalry table). Guard on the table
   // actually existing before running this PRIMARY-scoped pass, restricted to primary-scope units.
-  if (!rule?.noAnimosity && !blackCrusadeActive && Object.keys(data.animosity).length > 0) {
+  // An Ascended Daemon Prince "always counts as the HQ unit with the highest points value" for Animosity and has
+  // every Mark, so the army's Mark restricts nothing while one is in the list.
+  const ascendedInArmy = state.army.some(i => !i.factionSource && hasAllMarksVariant(i, resolveUnit(i, data)));
+  if (!rule?.noAnimosity && !blackCrusadeActive && !ascendedInArmy && Object.keys(data.animosity).length > 0) {
     const allowed = allowedMarksFor(state.hqMark, data);
     for (const item of state.army) {
       if (item.factionSource) continue;

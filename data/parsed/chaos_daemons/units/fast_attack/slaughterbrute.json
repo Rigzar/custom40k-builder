@@ -48,11 +48,11 @@
         "Bound Beast: For every HQ unit with a Mark of Khorne, you may select one Slaughterbrute without using up a Fast Attack slot.",
         "Eager for carnage: The model automatically advances 6\" with an \"Advance\" command."
     ],
-    "unit_type": "Monstrous creature",
+    "unit_type": "Monstrous Creature",
     "keywords": [],
     "is_vehicle": false,
     "is_character": false,
-    "is_monster": false,
+    "is_monster": true,
     "is_psyker": false,
     "has_armory_access": false,
     "champion_has_armory": false,

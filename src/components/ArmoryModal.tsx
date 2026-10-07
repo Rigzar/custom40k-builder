@@ -8,7 +8,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
-import { getActiveVariant } from '../engine/points';
+import { getActiveVariant, gameSizePrice } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
@@ -177,7 +177,7 @@ const MARK_BADGE: Record<string, string> = {
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const t = useT();
-  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army, pointLimit } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -443,6 +443,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
   const rule = getArchetypeRule(archetype);
+  // An Ascended Daemon Prince "has all Marks of Chaos" (datasheet), so it reaches all four Mark
+  // armouries and every item that wants a particular Mark, exactly like a Black Crusade champion.
+  // It had none of that: with no Mark chosen there was no Mark tab at all (reported by Rigzar).
+  const ascendedDaemonPrince = unit.option_groups.some((g, gi) =>
+    g.variant_link === 'Ascended Daemon Prince'
+    && !!(army.find(e => e.id === item.id) ?? item).optionQty?.[gi]?.['__inline']);
   const effectiveMark = unit.locked_mark ?? ((isTrueAllyUnit ? getArchetypeRule(alliedArchetype)?.forcedMark : rule?.forcedMark) ?? null) ?? item.mark;
   // "Has access to gear from the Armory like a Character model" (Sororitas Canoness in Paragon
   // Warsuit, Dogmata on Throne of Condemnation): grants Character-tier armory pricing/items
@@ -483,6 +489,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // no one could pick (GH#71). The app can't know the enhanced weapon's cost, so it adds 0 and
     // the item's own description states the real cost; the row shows "Special" rather than "+0".
     if (isWeaponCostSpecial(arm.desc)) return 0;
+    // Tau "Tactical philosophies" is priced by GAME SIZE ("10p per 500p game size"), a sentence the
+    // sheet parser had nowhere to put, so both columns are null. The points engine already charges
+    // it (gameSizePrice), but this picker saw no price and greyed it out: no HQ could take it
+    // (GH#209). Same function, so the row, the total and the engine cannot disagree.
+    const bySize = gameSizePrice(arm.name, pointLimit);
+    if (bySize !== null) return bySize;
     const cp = parsePrice(arm.p_char);
     const up = parsePrice(arm.p_unit);
     // Tyranid Advanced Biomorphs: the sheet's two price columns are "Basic Bioform" (p_unit) vs
@@ -534,10 +546,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   /** True when the item requires a mark the unit doesn't have. markless (HH supplement) carries no
    *  marks — a trailing ᵀ is Terminator-compat, never Tzeentch (ki-hh-tcollision-01). */
   function isMarkBlocked(arm: ArmoryItem): boolean {
-    return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark });
+    return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark, allMarks: ascendedDaemonPrince });
   }
 
   // Faction capability flags — use activeData (allied faction's armory for allied units)
+  const BC_MARKS = ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'] as const;
   const hasMark = Object.keys(markArmories).length > 0;
   const hasLegionData = Object.keys(activeData.armory_legions).length > 0;
   // Label for the legacy/legion/clan tab — use the first armory_legions key as the name
@@ -552,7 +565,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function getDaemonWeaponPool(): ArmoryItem[] {
     const sources = [
       ...ownArmoryGenerals,
-      ...(effectiveMark && markArmories[effectiveMark] ? [markArmories[effectiveMark]] : []),
+      ...(ascendedDaemonPrince
+        ? BC_MARKS.flatMap(m => (markArmories[m] ? [markArmories[m]] : []))
+        : effectiveMark && markArmories[effectiveMark] ? [markArmories[effectiveMark]] : []),
     ];
     const pool = sources.flatMap(src => src.daemon_weapons as ArmoryItem[]);
     return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(pool))))
@@ -769,8 +784,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const unitLegacyLock = liveItem.legacyArmoryLock ?? null;
 
   // Black Crusade champion: has all 4 marks → show all 4 mark armories
-  const isBlackCrusadeChampion = !!(liveItem.blackCrusadeHQ);
-  const BC_MARKS = ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'] as const;
+  const isBlackCrusadeChampion = !!(liveItem.blackCrusadeHQ) || ascendedDaemonPrince;
 
   function getArmory() {
     if (tab === 'mark') {
@@ -1215,7 +1229,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             /* BC champion — show all 4 mark armories */
             <div className="space-y-2">
               <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400 uppercase tracking-wide">
-                {t('bcChampionBanner')}
+                {ascendedDaemonPrince ? t('ascendedAllMarksBanner') : t('bcChampionBanner')}
               </div>
               {BC_MARKS.map(markName => {
                 const markArm = markArmories[markName];

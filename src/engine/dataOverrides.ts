@@ -79,7 +79,22 @@ export function checkOverride(data: FactionData, o: DataOverride): { status: 'sa
  * Apply a faction's overrides in place. Returns how many actually matched something — callers can
  * log it; a count lower than the list length just means some overrides are stale.
  */
-export function applyDataOverrides(data: FactionData, overrides: DataOverride[] | undefined): number {
+/**
+ * What the unit-update script writes from the sheets: a model's points and stats, and a weapon's
+ * profile. Upgrade costs (`option`) are NOT in that list: the script leaves the options section to
+ * hand editing, so an option override can still be the only thing carrying a correction.
+ */
+const SHEET_OWNED_KINDS = new Set(['points', 'stat', 'weapon']);
+
+/**
+ * `sheetOwned` is true for a faction whose unit files the update script regenerates from the sheets
+ * (the 19 in factions.csv; not the Horus Heresy, Legio Titanicus or Escalation supplements). For
+ * those, an override of a sheet-owned kind can only repeat what the file says or contradict it, and
+ * a contradiction is a correction made against an OLDER sheet: it hid the update. Biovore: the file
+ * said 41 after the update and an override from 21 September kept every player at 110, and the same
+ * list held 26 more that disagreed with the data. The file, which IS the sheet, now wins.
+ */
+export function applyDataOverrides(data: FactionData, overrides: DataOverride[] | undefined, sheetOwned = false): number {
   if (!overrides?.length) return 0;
   const units = data.units as Record<string, Unit>;
   let applied = 0;
@@ -87,6 +102,7 @@ export function applyDataOverrides(data: FactionData, overrides: DataOverride[] 
   for (const o of overrides) {
     const unit = units?.[o.unit];
     if (!unit) continue;
+    if (sheetOwned && SHEET_OWNED_KINDS.has(o.kind)) continue;
 
     if (o.kind === 'option') {
       // An upgrade's cost. Only ever applied when exactly ONE choice in the whole unit carries

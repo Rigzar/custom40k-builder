@@ -141,7 +141,7 @@
             }
         },
         {
-            "header": "One Daemon prince per army  can be upgraded to an Ascended Daemon prince for +90 points.",
+            "header": "One Daemon prince per army  can be upgraded to an Ascended Daemon prince for +109 points.",
             "constraint": {
                 "type": "unique_upgrade"
             },
@@ -156,11 +156,11 @@
         "Ascended Daemon prince: The unit uses a HQ slot instead of Heavy Support and always counts as the HQ unit with the highest points value in regards to the \"Animosity of the Gods\" rule. In addition, the model has all Marks of Chaos (already included in the profile), replaces the \"Daemon\" ability with \"Greater Daemon\", loses \"Daemonic instability\", gains \"Fearless\" and \"Terrifying(-2)\".",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
     ],
-    "unit_type": "Monstrous creature",
+    "unit_type": "Monstrous Creature",
     "keywords": [],
     "is_vehicle": false,
     "is_character": false,
-    "is_monster": false,
+    "is_monster": true,
     "is_psyker": false,
     "has_armory_access": true,
     "armory_gear_only": true,
