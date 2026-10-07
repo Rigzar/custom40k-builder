@@ -168,13 +168,13 @@
         "Anti-Grav, Power through Pain, Squadron",
         "Talos ichor injector: For each successful hit roll with this weapon, the target must pass a Toughness test. If the test fails, the model suffers a Mortal Wound."
     ],
-    "unit_type": "Monstrous creature",
+    "unit_type": "Monstrous Creature",
     "keywords": [
         "Coven"
     ],
     "is_vehicle": false,
     "is_character": false,
-    "is_monster": false,
+    "is_monster": true,
     "is_psyker": false,
     "has_armory_access": false,
     "champion_has_armory": false,

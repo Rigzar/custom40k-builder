@@ -50,11 +50,11 @@
         "Master of Magic: A Lord of Change can never peril. Additionally, he uses 3 dice and discards the lowest while manifesting and denying psychic powers.",
         "Psyker: The model can cast 3 powers and deny 3 powers per battle round. It knows Smite and all powers from all general disciplines and the discipline of Change."
     ],
-    "unit_type": "Monstrous creature, Jump pack infantry",
+    "unit_type": "Monstrous Creature, Jump pack infantry",
     "keywords": [],
     "is_vehicle": false,
     "is_character": false,
-    "is_monster": false,
+    "is_monster": true,
     "is_psyker": true,
     "has_armory_access": true,
     "armory_gear_only": true,
