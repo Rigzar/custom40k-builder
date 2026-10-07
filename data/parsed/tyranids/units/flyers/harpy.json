@@ -123,19 +123,19 @@
             "choices": [
                 {
                     "name": "Aerial spore mine",
-                    "points": 37
+                    "points": 12
                 },
                 {
                     "name": "Toxin spore mine",
-                    "points": 38
+                    "points": 13
                 },
                 {
                     "name": "Chitin spore mine",
-                    "points": 38
+                    "points": 13
                 },
                 {
                     "name": "Bio acid spore mine",
-                    "points": 41
+                    "points": 16
                 }
             ],
             "inline_pts": null,
