@@ -62,6 +62,33 @@
     ],
     "option_groups": [
         {
+            "header": "Must pick one weapon from this list:",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Aerial spore mine",
+                    "points": 37
+                },
+                {
+                    "name": "Toxin spore mine",
+                    "points": 38
+                },
+                {
+                    "name": "Chitin spore mine",
+                    "points": 38
+                },
+                {
+                    "name": "Bio acid spore mine",
+                    "points": 41
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }, 
+        {
             "header": "May select one Special Biomorph",
             "constraint": {
                 "type": "one"

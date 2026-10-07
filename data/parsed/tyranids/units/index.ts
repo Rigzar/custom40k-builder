@@ -41,12 +41,12 @@ import fast_attack_pyrovore_brood from './fast_attack/pyrovore_brood.json';
 import fast_attack_ravener_alpha from './fast_attack/ravener_alpha.json';
 import fast_attack_ravener_brood from './fast_attack/ravener_brood.json';
 import fast_attack_spore_mine_cluster from './fast_attack/spore_mine_cluster.json';
-import fast_attack_trygon from './fast_attack/trygon.json';
 import heavy_support_biovore_brood from './heavy_support/biovore_brood.json';
 import heavy_support_carnifex_brood from './heavy_support/carnifex_brood.json';
 import heavy_support_dactylis from './heavy_support/dactylis.json';
 import heavy_support_exocrine from './heavy_support/exocrine.json';
 import heavy_support_norn from './heavy_support/norn.json';
+import heavy_support_trygon from './heavy_support/trygon.json';
 import heavy_support_tyrannofex from './heavy_support/tyrannofex.json';
 import dedicated_transport_tyrannocyte from './dedicated_transport/tyrannocyte.json';
 import fortifications_sporocyst from './fortifications/sporocyst.json';
@@ -93,8 +93,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Pyrovore Brood",
     "Ravener Alpha",
     "Ravener Brood",
-    "Spore Mine Cluster",
-    "Trygon"
+    "Spore Mine Cluster"
   ],
   "Heavy Support": [
     "Biovore Brood",
@@ -102,6 +101,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Dactylis",
     "Exocrine",
     "Norn",
+    "Trygon",
     "Tyrannofex"
   ],
   "Dedicated Transport": [
@@ -149,12 +149,12 @@ export const units: Record<string, Unit> = {
   "Ravener Alpha": fast_attack_ravener_alpha as Unit,
   "Ravener Brood": fast_attack_ravener_brood as Unit,
   "Spore Mine Cluster": fast_attack_spore_mine_cluster as Unit,
-  "Trygon": fast_attack_trygon as Unit,
   "Biovore Brood": heavy_support_biovore_brood as Unit,
   "Carnifex Brood": heavy_support_carnifex_brood as Unit,
   "Dactylis": heavy_support_dactylis as Unit,
   "Exocrine": heavy_support_exocrine as Unit,
   "Norn": heavy_support_norn as Unit,
+  "Trygon": heavy_support_trygon as Unit,
   "Tyrannofex": heavy_support_tyrannofex as Unit,
   "Tyrannocyte": dedicated_transport_tyrannocyte as Unit,
   "Sporocyst": fortifications_sporocyst as Unit,

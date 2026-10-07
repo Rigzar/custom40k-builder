@@ -60,7 +60,35 @@
             "abilities": "Blast(4), Indirect, Poison(2+)"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+        "header": "Must pick one weapon from this list:",
+        "constraint": {
+                "type": "every"
+            },
+        "choices": [
+            {
+                "name": "Aerial spore mine",
+                "points": 7
+            },
+            {
+                "name": "Toxin spore mine",
+                "points": 8
+            },
+            {
+                "name": "Chitin spore mine",
+                "points": 8
+            },
+            {
+                "name": "Bio acid spore mine",
+                "points": 9
+            }
+        ],
+        "inline_pts": null,
+        "variant_link": null,
+        "is_unique_per_army": false
+        }
+    ],
     "abilities": [
         "Deep Strike, Infiltrator, Mindless, Move Through Cover",
         "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the chosen profile, if an enemy model comes within 3\" distance. Resolve one explosion per model in the unit.",
