@@ -27,7 +27,7 @@
     "weapons": [],
     "abilities": [
         "Command squad",
-        "Infused Madness: At the start of any activation, roll 1D6 for each model in the unit that the Plasmacyte has joined. On each 1 or 2, the unit suffers one Mortal Wound. Models killed by this ability are removed from play and Reanimation Protocols cannot be used. All surviving models gain the special rules \"Decimate\", \"Lance(1)\" and \"Quick(1)\" for melee attacks until the start of their next activation. A Plasmacyte receives the same movement and deployment rules as the unit it joins. Can only affect <Necron> units. Each Plasmacyte may use this ability once per game.",
+        "Infused Madness: At the start of any activation, roll 1D6 for each model in the unit that the Plasmacyte has joined. On each 1 or 2, the unit suffers one Mortal Wound. Models killed by this ability are removed from play and Reanimation Protocols cannot be used. All surviving models gain the special rules \"Decimate\", \"Armorbane(1)\" and \"Quick(1)\" for melee attacks until the start of their next activation. A Plasmacyte receives the same movement and deployment rules as the unit it joins. Can only affect <Necron> units. Each Plasmacyte may use this ability once per game.",
         "Servant: The unit cannot contest or hold mission objectives."
     ],
     "unit_type": "Infantry",

@@ -60,7 +60,7 @@
             "s": "8",
             "ap": "-4",
             "d": "2",
-            "abilities": "AT(2), Lance(+1)"
+            "abilities": "AT(2), Armorbane(1)"
         },
         {
             "name": "Heat lance",
@@ -69,7 +69,7 @@
             "s": "6",
             "ap": "-5",
             "d": "2",
-            "abilities": "Lance(+2), Melta"
+            "abilities": "Armorbane(2), Melta"
         },
         {
             "name": "Splinter pistol",

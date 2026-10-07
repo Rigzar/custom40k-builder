@@ -67,7 +67,7 @@
         "Snagged: Vehicles and Monstrous creatures hit by the Stikka kannon can't move more than 6\" away from the Hunta Rig until it is activated again.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
         "Transport: This model has a transport capacity of 10 infantry models.",
-        "Wildork: The model receives the <Wildork> keyword and a 6+ ward saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+        "Wildork: The model receives the <Wildork> keyword and a 6+ ward saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Armorbane(1)\" ability.",
         "Wurrtower: To fire this weapon, the model must pass a psychic test (Cast value: 6, Complexity: Basic). If it suffers a \"Perils of the Warp\" attack, the two closest units within 24\" each receive a hit."
     ],
     "unit_type": "Vehicle",

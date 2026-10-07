@@ -17,7 +17,7 @@
         "Adv. Bioform"
     ],
     [
-        "Headlong charge",
+        "Headlong Charge",
         "-",
         "Melee",
         10,
@@ -124,9 +124,9 @@
     ],
     [
         "Extremely Volatile",
-        "The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7.",
-        0,
-        0
+        "The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7 and AP -1.",
+        5,
+        5
     ],
     [
         "Implant Attack",
@@ -197,7 +197,7 @@
     ],
     [
         "Endless",
-        "If the unit is below half its starting strength or is destroyed, it can be removed from the field once per game at the end of the battle round and automatically reappears as a reserve at full starting strength in the next battle round. Additionally, you get one \"Spawning pool\" token for every started three units with the \"Endless\" ability. You may set them up after all Infiltrators have been placed during the Deployment phase. They have to be placed at least 12\" away from the enemy deployment zone and at least 6\" away from any mission objective. Units with the \"Endless\" ability may enter the game through these tokens when arriving from reserve and be given any kind of order. If an enemy unit is within 3\" of a \"Spawning pool\" token during the Reinforcement phase, the marker is removed for the rest of the game.",
+        "If the unit is below half its starting strength or is destroyed, it can be removed from the field once per game at the end of the battle round and automatically reappears as a reserve at full starting strength in the next battle round. Additionally, after setting up all units, you get one \"Spawning pool\" token for every three units with the \"Endless\" ability. You may set them up after all Infiltrators have been placed during the Deployment phase. They have to be placed at least 12\" away from the enemy deployment zone and at least 6\" away from any mission objective. Units with the \"Endless\" ability may enter the game through these tokens when arriving from reserve and be given any kind of order. If an enemy unit is within 3\" of a \"Spawning pool\" token during the Reinforcement phase, the marker is removed for the rest of the game.",
         "See datasheet"
     ],
     [

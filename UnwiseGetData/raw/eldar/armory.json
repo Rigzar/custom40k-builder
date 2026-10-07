@@ -97,7 +97,7 @@
         8,
         -5,
         2,
-        "Armorbane, AT(2)",
+        "Armorbane(3), AT(2)",
         "-",
         43
     ],
@@ -130,7 +130,7 @@
         8,
         -5,
         3,
-        "Armorbane, AT(4)",
+        "Armorbane(3), AT(4)",
         "-",
         66
     ],
@@ -368,7 +368,7 @@
         "U",
         -3,
         1,
-        "Armorbane, AT(2), Force weapon, Poison(2+)"
+        "Armorbane(3), AT(2), Force weapon, Poison(2+)"
     ],
     [
         "- Shooting",
@@ -377,7 +377,7 @@
         "U",
         -3,
         1,
-        "Armorbane, AT(2), Force weapon, Poison(2+)"
+        "Armorbane(3), AT(2), Force weapon, Poison(2+)"
     ],
     [
         "Star lance",

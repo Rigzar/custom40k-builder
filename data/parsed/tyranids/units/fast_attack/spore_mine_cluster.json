@@ -17,26 +17,53 @@
             "name": "Spore Mine",
             "min": 1,
             "max": 9,
-            "points": 7
+            "points": 1
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every model is equipped with: Spore mine explosion.",
+    "equipped_with": "Every model is equipped with: -.",
     "weapons": [
         {
-            "name": "Spore mine explosion",
-            "range": "-",
-            "type": "-",
-            "s": "6",
+            "name": "Aerial spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Anti-Air, AT(1), Blast(2), Indirect"
+        },
+        {
+            "name": "Bio acid spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armorbane(2), AT(2), Indirect"
+        },
+        {
+            "name": "Chitin spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(6), Indirect, Suppression(3)"
+        },
+        {
+            "name": "Toxin spore mine",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Suppression(3)"
+            "abilities": "Blast(4), Indirect, Poison(2+)"
         }
     ],
     "option_groups": [],
     "abilities": [
         "Deep Strike, Infiltrator, Mindless, Move Through Cover",
-        "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the \"Spore mine explosion\" profile, if an enemy model comes within 3\" distance. Resolve one explosion per model in the unit.",
+        "Living ammunition: The unit immediately explodes like a vehicle with a 6\" radius and with the chosen profile, if an enemy model comes within 3\" distance. Resolve one explosion per model in the unit.",
         "Drifting Death: Instead of receiving orders as normal, Spore Mines drift aimlessly. During each Rally phase, roll 1D6 and a scatter die for every Spore Mine unit on the battlefield. The unit moves a number of inches equal to the D6 result in the direction indicated by the scatter die. If a Hit symbol is rolled, the controlling player chooses the direction instead."
     ],
     "unit_type": "Infantry",
@@ -55,6 +82,6 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 1,
-    "min_cost": 7,
+    "min_cost": 1,
     "is_monster": false
 }

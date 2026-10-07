@@ -75,7 +75,7 @@
         6,
         -2,
         1,
-        "Armorbane",
+        "Armorbane(3)",
         5,
         5
     ],
@@ -187,7 +187,7 @@
         "x2",
         -4,
         3,
-        "AT(3),Slow(-3), Armorbane.",
+        "AT(3),Slow(-3), Armorbane(3).",
         26,
         33
     ],
@@ -255,7 +255,7 @@
         "x2",
         -4,
         3,
-        "AT(3),Slow(-3), Armorbane, Extra Attack(2), Unwieldy.",
+        "AT(3),Slow(-3), Armorbane(3), Extra Attack(2), Unwieldy.",
         36,
         46
     ],
@@ -602,7 +602,7 @@
     ],
     [
         "Wildork\u1d39",
-        "The model receives the <Wildork> keyword and a 6+ ward saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+        "The model receives the <Wildork> keyword and a 6+ ward saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Armorbane(1)\" ability.",
         "-",
         10
     ],

@@ -85,7 +85,7 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.02' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.01' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.02' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.08' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.09' },
     ],
   },
 ];

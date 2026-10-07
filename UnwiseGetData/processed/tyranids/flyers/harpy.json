@@ -23,8 +23,35 @@
     "variant_models": [],
     "min_cost": 184,
     "default_size": 1,
-    "equipped_with": "A Harpy is equipped with: Spore Mine cysts; Twin stranglethorn cannon.",
+    "equipped_with": "A Harpy is equipped with: Twin stranglethorn cannon.",
     "weapons": [
+        {
+            "name": "Aerial spore mine cysts",
+            "range": "6\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Anti-Air, AT(1), Blast(2), Bomb, Indirect"
+        },
+        {
+            "name": "Bio acid spore mine cysts",
+            "range": "6\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armorbane(2), AT(2), Bomb, Indirect"
+        },
+        {
+            "name": "Chitin spore mine cysts",
+            "range": "6\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(6), Bomb, Indirect, Suppression(3)"
+        },
         {
             "name": "Spore Mine cysts",
             "range": "6\"",
@@ -44,13 +71,13 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Twin stranglethorn cannon",
-            "range": "36\"",
-            "type": "Assault 2",
-            "s": "7",
-            "ap": "0",
+            "name": "Toxin spore mine cysts",
+            "range": "6\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
             "d": "1",
-            "abilities": "AT(1), Blast(6), Suppression(3)"
+            "abilities": "Blast(4), Indirect, Bomb, Poison(2+)"
         },
         {
             "name": "Twin heavy venom cannon",
@@ -60,6 +87,15 @@
             "ap": "-3",
             "d": "2",
             "abilities": "AT(2), Blast(4)"
+        },
+        {
+            "name": "Twin stranglethorn cannon",
+            "range": "36\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "0",
+            "d": "1",
+            "abilities": "AT(1), Blast(6), Suppression(3)"
         }
     ],
     "abilities": [

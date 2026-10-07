@@ -1,5 +1,5 @@
 {
-    "name": "Mawloc",
+    "name": "Trygon",
     "models": [
         {
             "stats": {
@@ -14,17 +14,26 @@
                 "LD": "7",
                 "SV": "3+"
             },
-            "name": "Mawloc",
+            "name": "Trygon",
             "min": 1,
             "max": 2,
-            "points": 144
+            "points": 174
         }
     ],
     "variant_models": [],
-    "min_cost": 144,
+    "min_cost": 174,
     "default_size": 1,
-    "equipped_with": "Every model is equipped with: Monstrous scything talons.",
+    "equipped_with": "Every model is equipped with: Bio-electric pulse; 2 Monstrous scything talons.",
     "weapons": [
+        {
+            "name": "Bio-electric pulse",
+            "range": "12\"",
+            "type": "Assault 6",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Deflagrate(5+)"
+        },
         {
             "name": "Monstrous scything talons",
             "range": "-",
@@ -55,8 +64,8 @@
     ],
     "abilities": [
         "Deep Strike, Instinctive Behaviour, Move Through Cover, Parry, Squadron",
-        "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules.",
-        "Subterranean Predator: The model does not scatter when being deployed within 6\" of a unit with at least one Battleshock token and can make a regular \"Charge\" against such targets afterwards."
+        "Subterranean Assault: If this model starts the game in Reserve, you may pair it with one Troops unit that is also in Reserve. Both units arrive from Reserve using a single roll. Set up the Trygon first, following the rules for the chosen deployment method, then set up the paired Troops unit wholly within 3\" of the Trygon.",
+        "Trygon Prime: The model gains the \"Fearless\" and \"Synapse\" abilities. Additionally, its Bio-electric pulse weapon gains the \"Assault 12\" type."
     ],
     "unit_type": "Monstrous Creature ",
     "is_monster": true,

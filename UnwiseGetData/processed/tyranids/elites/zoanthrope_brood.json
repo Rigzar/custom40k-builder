@@ -16,8 +16,8 @@
             },
             "name": "Zoanthrope",
             "min": 1,
-            "max": 6,
-            "points": 92
+            "max": 9,
+            "points": 46
         }
     ],
     "variant_models": [
@@ -37,30 +37,21 @@
             "name": "Neurothrope",
             "min": 0,
             "max": 1,
-            "points": 124
+            "points": 71
         }
     ],
-    "min_cost": 92,
+    "min_cost": 46,
     "default_size": 1,
     "equipped_with": "Every model is equipped with: Warp lightning.",
     "weapons": [
         {
-            "name": "Warp lightning - Dispersed",
+            "name": "Warp lightning",
             "range": "24\"",
             "type": "Assault 1",
-            "s": "5",
+            "s": "7",
             "ap": "-3",
             "d": "1",
-            "abilities": "Blast(4), Seeking"
-        },
-        {
-            "name": "Warp lightning - Focused",
-            "range": "18\"",
-            "type": "Assault 1",
-            "s": "10",
-            "ap": "-4",
-            "d": "3",
-            "abilities": "AT(3), Seeking"
+            "abilities": "AT(1), Seeking"
         }
     ],
     "abilities": [

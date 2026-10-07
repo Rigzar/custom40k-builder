@@ -51,7 +51,7 @@
             "s": "8",
             "ap": "-4",
             "d": "2",
-            "abilities": "AT(2), Lance(+1)"
+            "abilities": "AT(2), Armorbane(1)"
         },
         {
             "name": "Dark lance",
@@ -60,7 +60,7 @@
             "s": "8",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(3), Lance(+2)"
+            "abilities": "AT(3), Armorbane(2)"
         },
         {
             "name": "Haywire blaster",
@@ -78,7 +78,7 @@
             "s": "6",
             "ap": "-5",
             "d": "1",
-            "abilities": "Lance(+2), Melta"
+            "abilities": "Armorbane(2), Melta"
         },
         {
             "name": "Plasma grenades",

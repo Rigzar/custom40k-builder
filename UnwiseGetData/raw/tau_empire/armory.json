@@ -31,7 +31,7 @@
         8,
         -5,
         2,
-        "AT(3), Armorbane, Extra Attack(1), Unwieldy",
+        "AT(3), Armorbane(3), Extra Attack(1), Unwieldy",
         13,
         19
     ],
@@ -88,7 +88,7 @@
         8,
         -5,
         2,
-        "AT(3), Armorbane. Kroot only.",
+        "AT(3), Armorbane(3). Kroot only.",
         5,
         5
     ],

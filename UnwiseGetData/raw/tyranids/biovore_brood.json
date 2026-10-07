@@ -27,10 +27,10 @@
         2,
         6,
         "3+",
-        110
+        41
     ],
     [
-        "Every model is equipped with: Spore Mine launcher."
+        "Every model is equipped with: -."
     ],
     [
         "WEAPON",
@@ -42,16 +42,62 @@
         "ABILITIES"
     ],
     [
-        "Spore Mine launcher",
+        "Aerial spore mine",
         "48\"",
-        "Heavy 2",
-        6,
+        "Heavy 1",
+        7,
+        -2,
+        2,
+        "Anti-Air, AT(1), Blast(2), Indirect"
+    ],
+    [
+        "Bio acid spore mine",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Armorbane(2), AT(2), Indirect"
+    ],
+    [
+        "Chitin spore mine",
+        "48\"",
+        "Heavy 1",
+        4,
+        -1,
+        1,
+        "Blast(6), Indirect, Suppression(3)"
+    ],
+    [
+        "Toxin spore mine",
+        "48\"",
+        "Heavy 1",
+        5,
         -2,
         1,
-        "Anti-Air, Blast(4), Indirect, Suppression(3)"
+        "Blast(4), Indirect, Poison(2+)"
     ],
     [
         "OPTIONS"
+    ],
+    [
+        "\u2022 Must pick one weapon from this list:"
+    ],
+    [
+        "- Aerial spore mine",
+        "+37 points"
+    ],
+    [
+        "- Toxin spore mine",
+        "+38 points"
+    ],
+    [
+        "- Chitin spore mine",
+        "+38 points"
+    ],
+    [
+        "- Bio acid spore mine",
+        "+41 points"
     ],
     [
         "\u2022 May select one Special Biomorph:"

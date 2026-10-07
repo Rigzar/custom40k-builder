@@ -15,7 +15,7 @@
         "POINTS"
     ],
     [
-        "1-6",
+        "1-9",
         "Zoanthrope",
         "6\"",
         "3+",
@@ -27,7 +27,7 @@
         2,
         10,
         "5+",
-        92
+        46
     ],
     [
         "*",
@@ -42,7 +42,7 @@
         2,
         10,
         "5+",
-        124
+        71
     ],
     [
         "Every model is equipped with: Warp lightning."
@@ -57,34 +57,19 @@
         "ABILITIES"
     ],
     [
-        "Warp lightning *"
-    ],
-    [
-        "- Dispersed",
+        "Warp lightning",
         "24\"",
         "Assault 1",
-        5,
+        7,
         -3,
         1,
-        "Blast(4), Seeking"
-    ],
-    [
-        "- Focused",
-        "18\"",
-        "Assault 1",
-        10,
-        -4,
-        3,
-        "AT(3), Seeking"
-    ],
-    [
-        "* Choose one of the following profiles"
+        "AT(1), Seeking"
     ],
     [
         "OPTIONS"
     ],
     [
-        "\u2022 One model may be upgraded to a Neurothrope for +32 points."
+        "\u2022 For every three models, one Zoanthrope may be upgraded to a Neurothrope for +25 points."
     ],
     [
         "\u2022 May select one Special Biomorph:"

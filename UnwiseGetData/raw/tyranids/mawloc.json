@@ -27,7 +27,7 @@
         4,
         7,
         "3+",
-        139
+        144
     ],
     [
         "Every model is equipped with: Monstrous scything talons."
@@ -112,6 +112,9 @@
     ],
     [
         "Burrow: Instead of activating normally, the unit may use a \"Charge\" order to be immediately removed from the battlefield into reserves and be deployed via Deep Strike rules."
+    ],
+    [
+        "Subterranean Predator: The model does not scatter when being deployed within 6\" of a unit with at least one Battleshock token and can make a regular \"Charge\" against such targets afterwards."
     ],
     [
         "UNIT TYPE"
