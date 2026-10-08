@@ -1,6 +1,27 @@
 import proccess_unit_data as pud
 import json
 
+# Takes a weapon column from the raw sheet and formats it into the app's weapon data format. Returns a dictionary with the weapon data.
+def process_weapon(weapon_data):
+    APP_FORMAT = "name", "range","type", "s", "ap", "d", "abilities"
+    prices = weapon_data[len(APP_FORMAT):]
+    
+    p_unit, p_char = None, None
+    match len(prices):
+        case 0:
+            print(f"Error: Weapon {weapon_data[0]} has no price data.")
+            exit()
+        case 1:
+            p_char = int(prices[0])
+        case 2:
+            p_unit, p_char = int(prices[0]), int(prices[1])
+        case _:
+            print(f"Error: Weapon {weapon_data} has too many price data.")
+            exit()
+    
+    weapon_data = [str(x) for x in weapon_data]
+    return dict(zip(APP_FORMAT, weapon_data)).update({"p_unit": p_unit, "p_char": p_char})
+
 # Proccess and update the armory data from /raw/{faction} into the /data/parsed/{faction} folder 
 def main():
     FACTIONS = []
@@ -20,12 +41,9 @@ def main():
             if armory_data[0] != "ARMORY":
                 print(f"Armory data is not in the expected format. Stopping the program.")
                 exit()
-            armory_data = armory_data[1:]
+            # skip the "ARMORY" and "unless stated otherwise" lines
+            armory_data = armory_data[2:]
             
-            # Check the second element of the armory_data to see if it matches the expected format
-            if "Unless stated otherwise" not in armory_data[0]:
-                print(f"\"Unless stated otherwise\" missing. Stopping the program.")
-                exit()
                              
 
 if __name__ == "__main__":
