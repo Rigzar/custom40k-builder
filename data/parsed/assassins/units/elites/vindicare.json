@@ -17,7 +17,7 @@
             "name": "Vindicare",
             "min": 1,
             "max": 1,
-            "points": 189
+            "points": 190
         }
     ],
     "variant_models": [],
@@ -73,5 +73,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 189
+    "min_cost": 190
 }

@@ -198,9 +198,9 @@
         }
     ],
     "abilities": [
-        "Battle Focus, Infiltrator, <Aspect>",
+        "Battle Focus, Deep Strike, Infiltrator, <Aspect>",
         "Aspect armor: The model gains a 5+ ward save.",
-        "Spring the Trap: The unit gains the \"Deep Strike\" ability and does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
+        "Spring the Trap: The unit does not scatter when being set up via Deep Strike.",
         "Mandiblaster: During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1."
     ],
     "unit_type": "Infantry",
