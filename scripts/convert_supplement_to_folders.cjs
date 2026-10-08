@@ -18,7 +18,7 @@ if (!name) { console.error('usage: node scripts/convert_supplement_to_folders.cj
 
 const src = path.join('data', 'parsed', '_supplements', `${name}.json`);
 const data = JSON.parse(fs.readFileSync(src, 'utf8').replace(/^﻿/, ''));
-const root = path.join('data', 'parsed', name);
+const root = path.join('data', 'parsed', process.argv[3] || name);
 
 const SLOT_DIR = {
   'HQ': 'hq', 'Troops': 'troops', 'Elites': 'elites', 'Fast Attack': 'fast_attack',
