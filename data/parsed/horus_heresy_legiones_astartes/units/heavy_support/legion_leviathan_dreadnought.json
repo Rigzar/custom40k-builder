@@ -51,6 +51,15 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
+            "name": "Hunter-killer missile",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2)"
+        },
+        {
             "name": "Leviathan siege claws",
             "range": "-",
             "type": "Melee",
