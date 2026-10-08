@@ -17,7 +17,7 @@
             "name": "Tomb Stalker",
             "min": 1,
             "max": 2,
-            "points": 180
+            "points": 156
         }
     ],
     "variant_models": [],
@@ -39,7 +39,7 @@
             "s": "U",
             "ap": "-2",
             "d": "2",
-            "abilities": "-"
+            "abilities": "Extra Attacks(2)"
         }
     ],
     "option_groups": [
@@ -60,8 +60,9 @@
         }
     ],
     "abilities": [
-        "Acute Senses, Deep Strike, Move Through Cover, Regeneration(1), Squadron",
-        "Dark prison: The model can dispel 1 psychic power per battle round."
+        "Acute Senses, Deep Strike, Move Through Cover, Squadron",
+        "Dark prison: The model can dispel 1 psychic power per battle round.",
+        "Phase tunneling: The model does not scatter when being set up via Deep Strike."
     ],
     "unit_type": "Monstrous Creature",
     "keywords": [
@@ -80,5 +81,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 180
+    "min_cost": 156
 }
