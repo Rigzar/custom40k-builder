@@ -21,7 +21,7 @@ let bad = 0; const eq = (l: string, a: unknown, b: unknown) => { if (a !== b) { 
   S().setOptionQty(id, gi(/Ascended/), '__inline', 1);
   eq('Ascended', pts(), 293);
   S().updateUnit(id, { mark: 'Nurgle' }); eq('Ascended + Nurgle', pts(), 293);
-  S().setOptionQty(id, gi(/psyker/), '__inline', 1); eq('Ascended + psyker', pts(), 293);
+  S().setOptionQty(id, gi(/psyker/), '__inline', 1); eq('Ascended + psyker upgrade', pts(), 298);
   S().addUnit(u.name, 'Heavy Support'); const id2 = S().army[1].id;
   S().updateUnit(id2, { mark: 'Slaanesh' as Any });
   S().setHqMark('Khorne' as Any);

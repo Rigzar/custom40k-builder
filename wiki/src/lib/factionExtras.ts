@@ -271,7 +271,7 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     return assemble(d(g), d(arch), d(leg), d(discs));
   },
   horus_heresy: async () => {
-    const mod = await import('../vendor/data/parsed/horus_heresy/supplement.json');
+    const mod = await import('../vendor/data/parsed/horus_heresy_legiones_astartes/supplement.json');
     const data = ((mod as unknown as { default: unknown }).default ?? mod) as Record<string, unknown>;
     const armoryFaction: Record<string, Armory> = {};
     if (data.armory_legions && typeof data.armory_legions === 'object') {
@@ -291,7 +291,7 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     );
   },
   legio_titanicus: async () => {
-    const mod = await import('../vendor/data/parsed/legio_titanicus/supplement.json');
+    const mod = await import('../vendor/data/parsed/horus_heresy_forces_of_the_machine_god/supplement.json');
     const data = ((mod as unknown as { default: unknown }).default ?? mod) as Record<string, unknown>;
     const armoryFaction: Record<string, Armory> = {};
     if (data.armory_legions && typeof data.armory_legions === 'object') {

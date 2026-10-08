@@ -4,6 +4,7 @@ import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
+import { hasAllMarksVariant } from '../engine/slotOverrides';
 import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
@@ -132,6 +133,8 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     if (isCultOnlyDisc(name)) return canTakeCultPowers;  // Cult Powers need the item or the flag
     if (cultPowersOnly) return false;                    // datasheet cult psykers see ONLY those
     if (isMarkOnlyDisc(name)) {
+      // An Ascended Daemon Prince has every Mark, so it reaches every god's discipline.
+      if (hasAllMarksVariant(item, unit)) return true;
       if (!effectiveMark || effectiveMark === 'Undivided') return false;
       const lc = name.toLowerCase();
       return MARK_NAMES.some(m => lc.includes(m) && effectiveMark.toLowerCase() === m);

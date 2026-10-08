@@ -66,7 +66,7 @@
             "s": "8",
             "ap": "-5",
             "d": "2",
-            "abilities": "Armorbane, AT(3)"
+            "abilities": "Armorbane(3), AT(3)"
         },
         {
             "name": "Multilaser",
@@ -102,7 +102,7 @@
             "s": "6",
             "ap": "-4",
             "d": "1",
-            "abilities": "AT(1), Beam, Blind, Lance(2), Overheating"
+            "abilities": "Armorbane(2), AT(1), Beam, Blind, Overheating"
         },
         {
             "name": "Rad cleanser",

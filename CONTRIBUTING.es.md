@@ -764,7 +764,7 @@ Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un a
 
 ### Estructura de datos (carpetas por facción)
 
-Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción. Dentro: `units/` (ver estructura arriba), `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (solo CSM/CD). Los dos suplementos de Horus Heresy (`horus_heresy/`, `legio_titanicus/`) tienen el mismo formato que una facción (más `supplement.json` para la armería y lo que no es una unidad) y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
+Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción. Dentro: `units/` (ver estructura arriba), `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (solo CSM/CD). Los dos suplementos de Horus Heresy (`horus_heresy_legiones_astartes/`, `horus_heresy_forces_of_the_machine_god/`) tienen el mismo formato que una facción (más `supplement.json` para la armería y lo que no es una unidad) y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
 
 El loader que ensambla cada `FactionData` es **`src/data/loaders.ts`** — importa los archivos individuales con rutas estáticas (requerido por Vite) y los fusiona. El engine recibe exactamente el mismo objeto que antes; solo cambió la organización de archivos.
 

@@ -775,7 +775,7 @@ Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, ein
 
 ### Datenstruktur (fraktionseigene Ordner)
 
-Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. Inhalt: `units/` (Struktur siehe oben), `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (nur CSM/CD). Die zwei Horus-Heresy-Supplemente (`horus_heresy/`, `legio_titanicus/`) haben dasselbe Layout wie eine Fraktion (plus `supplement.json` für Armory und alles, was keine Einheit ist), Parser-Audit-Dateien in `_scratch/` (werden nie von der App geladen).
+Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. Inhalt: `units/` (Struktur siehe oben), `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (nur CSM/CD). Die zwei Horus-Heresy-Supplemente (`horus_heresy_legiones_astartes/`, `horus_heresy_forces_of_the_machine_god/`) haben dasselbe Layout wie eine Fraktion (plus `supplement.json` für Armory und alles, was keine Einheit ist), Parser-Audit-Dateien in `_scratch/` (werden nie von der App geladen).
 
 Der Loader, der jede `FactionData` zusammensetzt, ist **`src/data/loaders.ts`** -- er importiert die Einzeldateien mit statischen Pfaden (von Vite gefordert) und fuegt sie zusammen. Das Engine erhalt dasselbe Objekt wie vorher; nur die Dateiorganisation hat sich geandert.
 

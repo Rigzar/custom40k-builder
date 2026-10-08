@@ -161,6 +161,20 @@ export function battleWeapons(rp: BattleProfileInput): BattleWeaponGroup[] {
 }
 
 /**
+ * An attendant of a lone character: the Company Hero's Animal Companion, the Engineseer's Servitors, an
+ * Iron-master's E-COGs, a Grimnyr's CORVs. The datasheet gives the Armory to the character ("The Company
+ * Hero has access to weapons and gear from the Armory"), so Plate armor or Swordsman honours change the
+ * character's row alone, never the animal's (GH#219: the companion read WS 2+ / SV 4+ as well).
+ * Shape: a character whose first model is fixed at 1 and every other model is optional (min 0).
+ */
+export function isAttendantModel(u: Unit, m: Model): boolean {
+  const ms = u.models;
+  if (!u.is_character || ms.length < 2 || !(ms[0].min === 1 && ms[0].max === 1)) return false;
+  if (!ms.slice(1).every(x => x.min === 0)) return false;
+  return m !== ms[0];
+}
+
+/**
  * Does THIS model row take the Armory's stat changes (a save, WS, T...)? When Armory access belongs
  * to one model -- a squad's built-in Leader/Champion, or a promoted variant -- the purchase changes
  * that model alone: a Platoon Lieutenant in Plate armor is 4+ while his Guardsmen stay 5+; a Gang
@@ -171,6 +185,7 @@ export function battleWeapons(rp: BattleProfileInput): BattleWeaponGroup[] {
  * Unit-wide Armory access (`has_armory_access`) still changes every row.
  */
 export function equipTargetsModel(u: Unit, m: Model, variant?: Model | null): boolean {
+  if (isAttendantModel(u, m)) return false;
   if (u.has_armory_access) return true;
   const gatedByVariant = u.option_groups.some(g =>
     g.variant_link && (/armory/i.test(g.header) || u.champion_has_armory));

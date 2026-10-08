@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182u_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182x_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -82,6 +82,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Light mode", "Gitfinda and the landing page's orange labels are readable in light mode."],
         ["Gitfinda filters", "The board can now be filtered by points (min and max), as well as by army, battle type and event."],
         ["Horus Heresy Legiones Astartes","Re-audited against the live sheet: Armorbane(3) on five weapons, Nemesis-Bolter Sniper, stray Augury scanner removed."],
+        ["Company Hero Animal Companion (GH#219)", "Armory stat changes land on the Hero alone, not its Animal Companion (also Servitors, E-COGs, CORVs)."],
+        ["Horus Heresy supplements 1.2", "Cataphractii Thunder hammer (+15), Saturnine Plasma blaster removed, Lascannon AT(3), Thallax Armorbane."],
+        ["Ascended Daemon Prince psyker", "Psyker through Tzeentch (2 powers per turn with the +5 upgrade), Warded, and the disciplines of the four gods."],
         ["Brimstone Horror profile", "Models the sheet lists at 0 show as a greyed reference row (Blue and Pink Horrors)."],
         ["Core Rules PDF", "The work-in-progress PDF by Scoots is linked from the start screen and the wiki Core Rules page."],
         ["Ascended Daemon Prince, rest of its rule", "Greater Daemon, Fearless and Terrifying(-2) on its ability line, and no Animosity error from the army Mark."],
@@ -123,6 +126,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Heller Modus", "Gitfinda und die orangen Beschriftungen der Startseite sind im hellen Modus lesbar."],
         ["Gitfinda-Filter", "Die Tafel lässt sich jetzt auch nach Punkten (Minimum und Maximum) filtern, zusätzlich zu Armee, Schlachtart und Event."],
         ["Horus Heresy Legiones Astartes","Gegen das aktuelle Blatt neu geprüft: Armorbane(3) bei fünf Waffen, Sniper beim Nemesis-Bolter, überzähliger Augury scanner entfernt."],
+        ["Animal Companion des Company Hero (GH#219)", "Armory-Werte gelten nur für den Hero, nicht für seinen Animal Companion (auch Servitors, E-COGs, CORVs)."],
+        ["Horus-Heresy-Supplemente 1.2", "Cataphractii Thunder hammer (+15), Saturnine Plasma blaster entfernt, Lascannon AT(3), Thallax Armorbane."],
+        ["Psioniker des Aufgestiegenen Daemon Prince", "Psioniker durch Tzeentch (2 Kräfte pro Zug mit dem +5-Upgrade), Warded und die Disziplinen der vier Götter."],
         ["Profil des Brimstone Horror", "Modelle, die das Blatt mit 0 führt, erscheinen als ausgegraute Referenzzeile (Blue und Pink Horrors)."],
         ["Grundregeln-PDF", "Das PDF von Scoots (in Arbeit) ist vom Startbildschirm und der Grundregeln-Seite des Wikis verlinkt."],
         ["Aufgestiegener Daemon Prince, Rest der Regel", "Greater Daemon, Fearless und Terrifying(-2) in der Fähigkeitenzeile, kein Animosity-Fehler durch das Mal der Armee."],
@@ -164,6 +170,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Modo claro", "Gitfinda y las etiquetas naranjas de la portada se leen en modo claro."],
         ["Filtros de Gitfinda", "El tablón se puede filtrar ahora también por puntos (mínimo y máximo), además de por ejército, tipo de batalla y evento."],
         ["Horus Heresy Legiones Astartes","Revisado de nuevo con la hoja actual: Armorbane(3) en cinco armas, Sniper en el Nemesis-Bolter, Augury scanner sobrante retirado."],
+        ["Animal Companion del Company Hero (GH#219)", "Los cambios de la armería afectan solo al Hero, no a su Animal Companion (también Servitors, E-COG, CORV)."],
+        ["Suplementos de Horus Heresy 1.2", "Thunder hammer del Cataphractii (+15), Plasma blaster del Saturnine retirado, Lascannon AT(3), Armorbane del Thallax."],
+        ["Psíquico del Príncipe Demonio Ascendido", "Psíquico por Tzeentch (2 poderes por turno con la mejora de +5), Warded y las disciplinas de los cuatro dioses."],
         ["Perfil del Brimstone Horror", "Los modelos que la hoja lista con 0 salen como fila de referencia en gris (Blue y Pink Horrors)."],
         ["PDF de las reglas básicas", "El PDF de Scoots (en desarrollo) está enlazado desde la pantalla de inicio y la página de Core Rules del wiki."],
         ["Príncipe Demonio Ascendido, resto de su regla", "Greater Daemon, Fearless y Terrifying(-2) en su línea de habilidades, y sin error de Animosity por la Marca del ejército."],
@@ -205,6 +214,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Светлая тема", "Gitfinda и оранжевые подписи на главной странице читаются в светлой теме."],
         ["Фильтры Gitfinda", "Доску теперь можно фильтровать и по очкам (минимум и максимум), помимо армии, типа битвы и события."],
         ["Horus Heresy Legiones Astartes","Перепроверено по актуальному листу: Armorbane(3) у пяти видов оружия, Sniper у Nemesis-Bolter, лишний Augury scanner убран."],
+        ["Animal Companion у Company Hero (GH#219)", "Изменения из арсенала действуют только на Hero, а не на его Animal Companion (также Servitor, E-COG, CORV)."],
+        ["Дополнения Horus Heresy 1.2", "Thunder hammer у Cataphractii (+15), Plasma blaster у Saturnine убран, Lascannon AT(3), Armorbane у Thallax."],
+        ["Псайкер Вознесённого Демон-принца", "Псайкер через Тзинч (2 силы за ход с улучшением +5), Warded и дисциплины четырёх богов."],
         ["Профиль Brimstone Horror", "Модели, которые лист указывает с 0, показаны серой справочной строкой (Blue и Pink Horrors)."],
         ["PDF основных правил", "PDF от Scoots (в разработке) доступен по ссылке на стартовом экране и на странице Core Rules в вики."],
         ["Вознесённый Демон-принц, остальная часть правила", "Greater Daemon, Fearless и Terrifying(-2) в строке способностей и без ошибки Animosity из-за Метки армии."],
@@ -246,6 +258,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["ライトモード", "Gitfindaとトップページのオレンジ色の表示がライトモードでも読めます。"],
         ["Gitfindaの絞り込み", "掲示板を、軍、戦闘タイプ、イベントに加えて、ポイント（最小・最大）でも絞り込めるようになりました。"],
         ["ホルス・ヘレシー レギオネス・アスタルテス","最新のシートで再監査：5つの武器にArmorbane(3)、ネメシス・ボルターにSniper、余分なオーギュリー・スキャナーを削除。"],
+        ["カンパニー・ヒーローのアニマル・コンパニオン（GH#219）", "アーモリーの変更はヒーローのみに適用され、アニマル・コンパニオンには及びません（サーヴィター、E-COG、CORVも同様）。"],
+        ["ホルス・ヘレシー補足1.2", "カタフラクティのサンダーハンマー（+15）、サトゥルナインのプラズマブラスター削除、ラスキャノンAT(3)、サラックスのArmorbane。"],
+        ["昇華したデーモンプリンスのサイカー", "ティーンチによるサイカー（+5強化で1ターン2つの力）、Warded、4柱の神の系統。"],
         ["ブリムストーン・ホラーのプロフィール", "シートが0とする模型は灰色の参考行で表示されます（ブルー／ピンク・ホラー）。"],
         ["コアルールPDF", "ScootsのPDF（作成中）へ、スタート画面とWikiのCore Rulesページからリンクしています。"],
         ["昇華したデーモンプリンス、ルールの残り", "能力欄にGreater Daemon、Fearless、Terrifying(-2)が入り、軍の印によるAnimosityエラーも出ません。"],

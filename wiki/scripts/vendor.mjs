@@ -47,8 +47,8 @@ const copies = [
   ['src/utils/jaProse.ts', 'src/utils/jaProse.ts'],
   ['src/utils/unitTypeLabel.ts', 'src/utils/unitTypeLabel.ts'],
   ...FACTIONS.map(f => [`data/parsed/${f}`, `data/parsed/${f}`]),
-  ['data/parsed/horus_heresy', 'data/parsed/horus_heresy'],
-  ['data/parsed/legio_titanicus', 'data/parsed/legio_titanicus'],
+  ['data/parsed/horus_heresy_legiones_astartes', 'data/parsed/horus_heresy_legiones_astartes'],
+  ['data/parsed/horus_heresy_forces_of_the_machine_god', 'data/parsed/horus_heresy_forces_of_the_machine_god'],
 ];
 
 for (const [from, to] of copies) {

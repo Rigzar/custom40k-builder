@@ -52,11 +52,11 @@ const LOADERS: Record<string, () => Promise<FactionUnits>> = {
   leagues_of_votann: () => import('../vendor/data/parsed/leagues_of_votann/units/index'),
   tyranids: () => import('../vendor/data/parsed/tyranids/units/index'),
   horus_heresy: async () => {
-    const data = await import('../vendor/data/parsed/horus_heresy/units/index');
+    const data = await import('../vendor/data/parsed/horus_heresy_legiones_astartes/units/index');
     return { units: data.units as Record<string, Unit>, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
   },
   legio_titanicus: async () => {
-    const data = await import('../vendor/data/parsed/legio_titanicus/units/index');
+    const data = await import('../vendor/data/parsed/horus_heresy_forces_of_the_machine_god/units/index');
     return { units: data.units as Record<string, Unit>, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
   },
   escalation: loadEscalation,

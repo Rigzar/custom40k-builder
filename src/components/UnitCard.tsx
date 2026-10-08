@@ -15,6 +15,7 @@ import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
+import { isAttendantModel } from '../lib/battleProfile';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS } from '../engine/codex_imperial_guard/special-abilities';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -862,7 +863,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   // The model row actually entitled to the Armory's stat-mod effects (see
                   // equipModsScopedToChampion above) — every row when access is unit-wide,
                   // otherwise only the promoted variant / built-in champion row.
-                  const isEquipTarget = !equipModsScopedToChampion || isVar || m === builtInChampion;
+                  const isEquipTarget = !isAttendantModel(u, m) && (!equipModsScopedToChampion || isVar || m === builtInChampion);
                   // Row count: variant-split count (modelCounts) takes priority, then per-group
                   // size for multi-model units (Traitor Guard's Guardsman/Ogryn), then the plain
                   // squad-size stepper for a single-model-row unit (e.g. Chaos Space Marines).
