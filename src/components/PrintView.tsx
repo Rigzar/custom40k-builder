@@ -678,6 +678,13 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                 </div>
               );
             })}
+            {/* A model the sheet lists at 0 (a Blue Horror's Brimstone Horror): reference only. */}
+            {(rp.referenceModels ?? []).map(m => (
+              <div key={'ref-' + m.name} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap', opacity: 0.6 }}>
+                <StatRow keys={statKeys} stats={m.stats as Record<string, string>} mods={[]} showLabels={false}
+                  modelLabel={`${nm(m.name)} (${tFn(lang, 'referenceModelTag')})`} color={color} />
+              </div>
+            ))}
             {attachedDrones.map(({ drone, count }) => (
               <StatRow key={drone.name} keys={STAT_KEYS_INF} stats={drone.stats as Record<string, string>} mods={[]}
                 showLabels={false} modelLabel={`${count}× ${nm(drone.name)}`} color={color} />
@@ -1011,6 +1018,12 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
               </tr>
             );
           })}
+          {(rp.referenceModels ?? []).map(m => (
+            <tr key={'ref-' + m.name} style={{ opacity: 0.6 }}>
+              <td style={{ ...simpleTd, textAlign: 'left' }}>{nm(m.name)} ({tFn(lang, 'referenceModelTag')})</td>
+              {statKeys.map(k => <td key={k} style={simpleTd}>{(m.stats as Record<string, string>)[k] ?? '-'}</td>)}
+            </tr>
+          ))}
         </tbody>
       </table>
 
