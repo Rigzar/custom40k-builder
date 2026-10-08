@@ -907,7 +907,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const psykerGroupIdx = unit.option_groups.findIndex(
     g => /psyker/i.test(g.header) && g.inline_pts != null,
   );
-  const isOptionalPsyker = !unit.is_psyker && !allMarks && psykerGroupIdx >= 0 &&
+  const isOptionalPsyker = !unit.is_psyker && psykerGroupIdx >= 0 &&
     (item.optionQty?.[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.

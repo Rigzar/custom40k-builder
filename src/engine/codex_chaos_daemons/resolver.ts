@@ -1,6 +1,7 @@
 import type { FactionResolverFn } from '../resolver';
 import { findArmoryItem } from '../resolver';
 import { effectiveArchetypeFor, resolveUnit } from '../points';
+import { hasAllMarksVariant } from '../slotOverrides';
 
 export const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
@@ -95,6 +96,18 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
         }
         break;
     }
+  }
+
+  // ── Ascended Daemon Prince: all Marks ─────────────────────────────────────────
+  // Its profile already carries the Marks' stats, but the Mark of Tzeentch's own rules still apply:
+  // "The model gains the Warded ability. A character model or Monstrous Creature becomes a psyker and
+  // knows 1 power from any discipline. If the model is already a psyker, instead it can manifest and
+  // deny an additional power per turn." (Reported 2026-10-08: it was psyker 1 or none, never 2.)
+  if (hasAllMarksVariant(item, unit)) {
+    if (!unit.abilities.some(a => a.toLowerCase().includes('warded'))) injectedAbilities.push('Warded');
+    injectedAbilities.push(base.isOptionalPsyker
+      ? 'Mark of Tzeentch: +1 power to manifest and deny per turn (psyker 2)'
+      : 'Mark of Tzeentch: Becomes a Psyker — knows 1 power from any discipline');
   }
 
   // ── Archetype effect notes ────────────────────────────────────────────────────

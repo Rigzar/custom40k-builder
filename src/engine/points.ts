@@ -289,12 +289,10 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     }
   }
 
-  const allMarksVariant = hasAllMarksVariant(item, unit);
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g || isMarkGroup(g)) continue;
     if (g.variant_link) continue;
-    if (allMarksVariant && /psyker/i.test(g.header)) continue;
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline') {
         // Per-model inline upgrades ("…for +X points per model") scale with unit size; flat
