@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v182s_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v182t_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -81,6 +81,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Leader gear (GH#207, GH#208)", "A Lieutenant's Plate armor or a Gang Champion's Swordsman honours changes only that model on the printed card and the battle view, as on the unit card."],
         ["Light mode", "Gitfinda and the landing page's orange labels are readable in light mode."],
         ["Gitfinda filters", "The board can now be filtered by points (min and max), as well as by army, battle type and event."],
+        ["Horus Heresy Legiones Astartes","Re-audited against the live sheet: Armorbane(3) on five weapons, Nemesis-Bolter Sniper, stray Augury scanner removed."],
         ["Core Rules PDF", "The work-in-progress PDF by Scoots is linked from the start screen and the wiki Core Rules page."],
         ["Ascended Daemon Prince, rest of its rule", "Greater Daemon, Fearless and Terrifying(-2) on its ability line, and no Animosity error from the army Mark."],
         ["Ascended Daemon Prince", "No Mark to pick or pay for (it has all of them) and no +5 psyker upgrade; it is a psyker through Tzeentch."],
@@ -120,6 +121,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Anführer-Ausrüstung (GH#207, GH#208)", "Plate armor eines Leutnants oder Swordsman honours eines Gang Champions ändert auf gedruckter Karte und Kampfansicht nur dieses Modell, wie auf der Einheitenkarte."],
         ["Heller Modus", "Gitfinda und die orangen Beschriftungen der Startseite sind im hellen Modus lesbar."],
         ["Gitfinda-Filter", "Die Tafel lässt sich jetzt auch nach Punkten (Minimum und Maximum) filtern, zusätzlich zu Armee, Schlachtart und Event."],
+        ["Horus Heresy Legiones Astartes","Gegen das aktuelle Blatt neu geprüft: Armorbane(3) bei fünf Waffen, Sniper beim Nemesis-Bolter, überzähliger Augury scanner entfernt."],
         ["Grundregeln-PDF", "Das PDF von Scoots (in Arbeit) ist vom Startbildschirm und der Grundregeln-Seite des Wikis verlinkt."],
         ["Aufgestiegener Daemon Prince, Rest der Regel", "Greater Daemon, Fearless und Terrifying(-2) in der Fähigkeitenzeile, kein Animosity-Fehler durch das Mal der Armee."],
         ["Aufgestiegener Daemon Prince", "Kein Mal zu wählen oder zu zahlen (er hat alle) und kein Psioniker-Upgrade für +5; er ist über Tzeentch Psioniker."],
@@ -159,6 +161,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Equipo del líder (GH#207, GH#208)", "La Plate armor de un Lieutenant o los Swordsman honours de un Gang Champion cambian solo a ese modelo en la ficha impresa y la vista de batalla, como en la ficha de unidad."],
         ["Modo claro", "Gitfinda y las etiquetas naranjas de la portada se leen en modo claro."],
         ["Filtros de Gitfinda", "El tablón se puede filtrar ahora también por puntos (mínimo y máximo), además de por ejército, tipo de batalla y evento."],
+        ["Horus Heresy Legiones Astartes","Revisado de nuevo con la hoja actual: Armorbane(3) en cinco armas, Sniper en el Nemesis-Bolter, Augury scanner sobrante retirado."],
         ["PDF de las reglas básicas", "El PDF de Scoots (en desarrollo) está enlazado desde la pantalla de inicio y la página de Core Rules del wiki."],
         ["Príncipe Demonio Ascendido, resto de su regla", "Greater Daemon, Fearless y Terrifying(-2) en su línea de habilidades, y sin error de Animosity por la Marca del ejército."],
         ["Príncipe Demonio Ascendido", "Sin Marca que elegir ni pagar (las tiene todas) ni mejora de psíquico de +5; es psíquico por Tzeentch."],
@@ -198,6 +201,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Снаряжение лидера (GH#207, GH#208)", "Plate armor лейтенанта или Swordsman honours Gang Champion меняют только эту модель в печатной карточке и боевом виде, как в карточке юнита."],
         ["Светлая тема", "Gitfinda и оранжевые подписи на главной странице читаются в светлой теме."],
         ["Фильтры Gitfinda", "Доску теперь можно фильтровать и по очкам (минимум и максимум), помимо армии, типа битвы и события."],
+        ["Horus Heresy Legiones Astartes","Перепроверено по актуальному листу: Armorbane(3) у пяти видов оружия, Sniper у Nemesis-Bolter, лишний Augury scanner убран."],
         ["PDF основных правил", "PDF от Scoots (в разработке) доступен по ссылке на стартовом экране и на странице Core Rules в вики."],
         ["Вознесённый Демон-принц, остальная часть правила", "Greater Daemon, Fearless и Terrifying(-2) в строке способностей и без ошибки Animosity из-за Метки армии."],
         ["Вознесённый Демон-принц", "Метку не нужно выбирать и оплачивать (у него есть все) и нет улучшения до псайкера за +5; он псайкер через Тзинч."],
@@ -237,6 +241,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["リーダーの装備（GH#207、GH#208）", "ルテナントのプレートアーマーやギャング・チャンピオンのソードマンズ・オナーは、ユニットカードと同じく、印刷カードとバトルビューでもそのモデルだけを変えます。"],
         ["ライトモード", "Gitfindaとトップページのオレンジ色の表示がライトモードでも読めます。"],
         ["Gitfindaの絞り込み", "掲示板を、軍、戦闘タイプ、イベントに加えて、ポイント（最小・最大）でも絞り込めるようになりました。"],
+        ["ホルス・ヘレシー レギオネス・アスタルテス","最新のシートで再監査：5つの武器にArmorbane(3)、ネメシス・ボルターにSniper、余分なオーギュリー・スキャナーを削除。"],
         ["コアルールPDF", "ScootsのPDF（作成中）へ、スタート画面とWikiのCore Rulesページからリンクしています。"],
         ["昇華したデーモンプリンス、ルールの残り", "能力欄にGreater Daemon、Fearless、Terrifying(-2)が入り、軍の印によるAnimosityエラーも出ません。"],
         ["昇華したデーモンプリンス", "印は選択も支払いも不要（全て持っています）で、+5のサイカー強化もありません。ティーンチによりサイカーです。"],

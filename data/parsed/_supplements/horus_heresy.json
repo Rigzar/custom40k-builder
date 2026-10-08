@@ -132,7 +132,7 @@
           "s": "10",
           "ap": "-5",
           "d": "3",
-          "abilities": "Armorbane, AT(2), Slow(-3)"
+          "abilities": "Armorbane(3), AT(2), Slow(-3)"
         },
         {
           "name": "Lascutter - Ranged",
@@ -141,7 +141,7 @@
           "s": "10",
           "ap": "-5",
           "d": "3",
-          "abilities": "Armorbane, AT(2)"
+          "abilities": "Armorbane(3), AT(2)"
         },
         {
           "name": "Melta",
@@ -1155,7 +1155,7 @@
           "s": "x2",
           "ap": "-4",
           "d": "3",
-          "abilities": "Armorbane, AT(2), Slow(-3)"
+          "abilities": "Armorbane(3), AT(2), Slow(-3)"
         },
         {
           "name": "Combi-bolter",
@@ -2065,7 +2065,7 @@
           "s": "8",
           "ap": "-5",
           "d": "3",
-          "abilities": "Armorbane, AT(3), Extra Attack(1), Limit(1)"
+          "abilities": "Armorbane(3), AT(3), Extra Attack(1), Limit(1)"
         }
       ],
       "option_groups": [
@@ -2430,7 +2430,7 @@
           "s": "8",
           "ap": "-5",
           "d": "2",
-          "abilities": "Armorbane, AT(2)"
+          "abilities": "Armorbane(3), AT(2)"
         },
         {
           "name": "Grav-flux bombard",
@@ -3059,7 +3059,7 @@
         "s": "5",
         "ap": "-2",
         "d": "2",
-        "abilities": "Armor piercing(5+), Precision(5+), Suppression(6)",
+        "abilities": "Armor piercing(5+), Precision(5+), Sniper, Suppression(6)",
         "p_unit": null,
         "p_char": 13
       },
@@ -3077,13 +3077,6 @@
       }
     ],
     "equipment": [
-      {
-        "name": "Augury scanner",
-        "term_compat": false,
-        "desc": "Enemy units may not be set up as Infiltrators within 18\" of this model, even if they are not visible.",
-        "p_unit": 5,
-        "p_char": null
-      },
       {
         "name": "Breacher shield",
         "term_compat": true,
