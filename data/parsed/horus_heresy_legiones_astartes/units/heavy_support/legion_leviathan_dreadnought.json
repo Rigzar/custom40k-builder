@@ -2,10 +2,6 @@
     "name": "Legion Leviathan Dreadnought",
     "models": [
         {
-            "name": "Leviathan Dreadnought",
-            "points": 208,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -17,7 +13,11 @@
                 "I": "4",
                 "A": "3",
                 "HP": "3"
-            }
+            },
+            "name": "Leviathan Dreadnought",
+            "min": 1,
+            "max": 1,
+            "points": 208
         }
     ],
     "variant_models": [],
@@ -51,16 +51,7 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
-            "name": "Hunter-killer missile",
-            "range": "120\"",
-            "type": "Heavy 1",
-            "s": "8",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "Ammo(1), AT(2)"
-        },
-        {
-            "name": "Leviathan siege claws with in-built Melta",
+            "name": "Leviathan siege claws",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -69,7 +60,7 @@
             "abilities": "AT(2)"
         },
         {
-            "name": "Leviathan siege drill with in-built Melta",
+            "name": "Leviathan siege drill",
             "range": "-",
             "type": "Melee",
             "s": "x2",

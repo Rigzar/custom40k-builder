@@ -2,10 +2,6 @@
     "name": "Legion Sky-hunter Squadron",
     "models": [
         {
-            "name": "Legion Sky-hunter",
-            "points": 81,
-            "min": 2,
-            "max": 8,
             "stats": {
                 "M": "12\"",
                 "WS": "3+",
@@ -17,13 +13,13 @@
                 "A": "2",
                 "LD": "7",
                 "SV": "3+"
-            }
+            },
+            "name": "Legion Sky-hunter",
+            "min": 2,
+            "max": 8,
+            "points": 81
         },
         {
-            "name": "Legion Sky-hunter Sergeant",
-            "points": 91,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "12\"",
                 "WS": "3+",
@@ -35,7 +31,11 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "3+"
-            }
+            },
+            "name": "Legion Sky-hunter Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 91
         }
     ],
     "variant_models": [],
@@ -239,7 +239,9 @@
             "is_unique_per_army": false
         }
     ],
-    "abilities": [],
+    "abilities": [
+        "-"
+    ],
     "unit_type": "Jet Bike",
     "keywords": [],
     "is_vehicle": false,

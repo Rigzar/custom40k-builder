@@ -35,7 +35,7 @@
             "s": "2",
             "ap": "-2",
             "d": "1",
-            "abilities": "Auto Hit, Sunder(1), Poison(2+), Rad"
+            "abilities": "Auto Hit, Poison(2+), Rad, Sunder(1)"
         }
     ],
     "option_groups": [
@@ -98,10 +98,6 @@
     "name": "Macrocarid Explorator",
     "models": [
         {
-            "name": "Macrocarid Explorator",
-            "points": 281,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "12\"",
                 "WS": "-",
@@ -113,7 +109,11 @@
                 "I": "3",
                 "A": "1",
                 "HP": "4"
-            }
+            },
+            "name": "Macrocarid Explorator",
+            "min": 1,
+            "max": 1,
+            "points": 281
         }
     ],
     "equipped_with": "A Macrocarid Explorator is equipped with: Mauler bolt cannon.",

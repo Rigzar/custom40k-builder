@@ -2,7 +2,7 @@
     "variant_models": [],
     "weapons": [
         {
-            "name": "Galvanic caster",
+            "name": "Galvanic Caster",
             "range": "24\"",
             "type": "Assault 1",
             "s": "3",
@@ -61,10 +61,6 @@
     "name": "Secutarii Peltasts",
     "models": [
         {
-            "name": "Peltast",
-            "points": 16,
-            "min": 4,
-            "max": 19,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -76,13 +72,13 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "4+"
-            }
+            },
+            "name": "Peltast",
+            "min": 4,
+            "max": 19,
+            "points": 16
         },
         {
-            "name": "Peltast Alpha",
-            "points": 21,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -94,7 +90,11 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "4+"
-            }
+            },
+            "name": "Peltast Alpha",
+            "min": 1,
+            "max": 1,
+            "points": 21
         }
     ],
     "equipped_with": "Every model is equipped with: Galvanic caster.",

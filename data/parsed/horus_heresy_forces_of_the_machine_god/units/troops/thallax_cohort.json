@@ -2,10 +2,6 @@
     "name": "Thallax Cohort",
     "models": [
         {
-            "name": "Thallax",
-            "points": 61,
-            "min": 3,
-            "max": 9,
             "stats": {
                 "M": "12\"",
                 "WS": "4+",
@@ -17,7 +13,11 @@
                 "A": "3",
                 "LD": "7",
                 "SV": "4+"
-            }
+            },
+            "name": "Thallax",
+            "min": 3,
+            "max": 9,
+            "points": 61
         }
     ],
     "variant_models": [],
@@ -62,7 +62,7 @@
         {
             "name": "Melta bomb",
             "range": "3\"",
-            "type": "Grenade 1",
+            "type": "Grenade",
             "s": "8",
             "ap": "-5",
             "d": "2",
@@ -209,7 +209,6 @@
     "abilities": [
         "Acute Senses, Canticles of the Omnissiah, Massive(1), Unyielding",
         "Djinn Sight: Ranged weapons of this unit ignore the -1 penalty to ranged hit rolls against models in cover.",
-        "Upgrades:",
         "Destructor: The model gains the \"Tank hunter\" ability.",
         "Empyrite: Enemy ranged attacks against this model reduce their AP value by 1.",
         "Icarian: When resolving a Stand & Shoot Order, the model gains the \"Anti-Air\" ability for all ranged attacks.",
@@ -227,7 +226,7 @@
     "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
-    "unit_type": "Jump Pack Infantry",
+    "unit_type": "Jump pack infantry ",
     "slot": "Troops",
     "default_size": 3,
     "min_cost": 183

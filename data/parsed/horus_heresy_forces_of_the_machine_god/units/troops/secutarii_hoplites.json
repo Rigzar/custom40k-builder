@@ -70,10 +70,6 @@
     "name": "Secutarii Hoplites",
     "models": [
         {
-            "name": "Hoplite",
-            "points": 20,
-            "min": 4,
-            "max": 19,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -85,13 +81,13 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "4+"
-            }
+            },
+            "name": "Hoplite",
+            "min": 4,
+            "max": 19,
+            "points": 20
         },
         {
-            "name": "Hoplite Alpha",
-            "points": 25,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -103,7 +99,11 @@
                 "A": "1",
                 "LD": "7",
                 "SV": "4+"
-            }
+            },
+            "name": "Hoplite Alpha",
+            "min": 1,
+            "max": 1,
+            "points": 25
         }
     ],
     "equipped_with": "Every model is equipped with: Arc lance; Mag-inverter shield.",

@@ -53,10 +53,6 @@
     "name": "Triaros Armored Conveyor",
     "models": [
         {
-            "name": "Triaros",
-            "points": 330,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "12\"",
                 "WS": "-",
@@ -68,7 +64,11 @@
                 "I": "3",
                 "A": "1",
                 "HP": "4"
-            }
+            },
+            "name": "Triaros",
+            "min": 1,
+            "max": 1,
+            "points": 330
         }
     ],
     "equipped_with": "A Triaros is equipped with: Twin mauler bolt cannon; 2 Volkite calivers.",
