@@ -105,15 +105,6 @@
             "abilities": "Combi"
         },
         {
-            "name": "Combi-plasma - Standard",
-            "range": "24\"",
-            "type": "Rapid Fire 1",
-            "s": "7",
-            "ap": "-3",
-            "d": "1",
-            "abilities": "AT(1), Combi"
-        },
-        {
             "name": "Combi-plasma - Overcharged",
             "range": "24\"",
             "type": "Rapid Fire 1",
@@ -121,6 +112,15 @@
             "ap": "-4",
             "d": "2",
             "abilities": "AT(2), Combi, Overheating"
+        },
+        {
+            "name": "Combi-plasma - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Combi"
         },
         {
             "name": "Heavy flamer",
@@ -150,15 +150,6 @@
             "abilities": "Extra Attack(2), Shred, Unwieldy"
         },
         {
-            "name": "Plasma blaster - Standard",
-            "range": "18\"",
-            "type": "Assault 2",
-            "s": "7",
-            "ap": "-3",
-            "d": "1",
-            "abilities": "AT(1)"
-        },
-        {
             "name": "Plasma blaster - Overcharged",
             "range": "18\"",
             "type": "Assault 2",
@@ -168,13 +159,13 @@
             "abilities": "AT(2), Overheating"
         },
         {
-            "name": "Power axe",
-            "range": "-",
-            "type": "Melee",
-            "s": "+2",
-            "ap": "-2",
+            "name": "Plasma blaster - Standard",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
             "d": "1",
-            "abilities": "-"
+            "abilities": "AT(1)"
         },
         {
             "name": "Power fist",
@@ -202,6 +193,15 @@
             "ap": "-2",
             "d": "1",
             "abilities": "AT(1)"
+        },
+        {
+            "name": "Thunder hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Slow(-3)"
         },
         {
             "name": "Volkite charger",
@@ -302,8 +302,8 @@
             ],
             "choices": [
                 {
-                    "name": "Power axe",
-                    "points": 0
+                    "name": "Thunder hammer",
+                    "points": 15
                 },
                 {
                     "name": "Lightning claw",
