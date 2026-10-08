@@ -92,6 +92,30 @@
       ]
     },
     {
+      "name": "Pheromone Trail",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid per model. A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+      "p_unit": null,
+      "p_char": 10,
+      "effect": {
+        "grants_abilities": [
+          "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet."
+        ]
+      }
+    },
+    {
+      "name": "Synaptic Disruption Organ",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid per model. Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+      "p_unit": null,
+      "p_char": 15,
+      "effect": {
+        "grants_abilities": [
+          "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering."
+        ]
+      }
+    },
+    {
       "name": "Pathogenesis",
       "term_compat": false,
       "desc": "Basic Biomorph. Point costs are paid per unit. The unit adds +3\" to all of its ranged weapons.",
@@ -134,9 +158,9 @@
     {
       "name": "Extremely Volatile",
       "term_compat": false,
-      "desc": "Advanced Biomorph. Point costs are paid per model. The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7.",
-      "p_unit": 0,
-      "p_char": 0,
+      "desc": "Advanced Biomorph. Point costs are paid per model. The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7 and AP -1.",
+      "p_unit": 5,
+      "p_char": 5,
       "effect": {
         "grants_abilities": [
           "Extremely Volatile: The unit explodes like a vehicle upon losing their last Wound. Advanced Bioforms resolve the explosion at Strength 7."
