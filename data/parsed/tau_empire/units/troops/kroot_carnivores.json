@@ -42,7 +42,7 @@
     "equipped_with": "Carnivores and Long-quills are equipped with: Kroot rifle.",
     "weapons": [
         {
-            "name": "Kroot carbine- Melee",
+            "name": "Kroot carbine - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -51,7 +51,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot carbine- Ranged",
+            "name": "Kroot carbine - Ranged",
             "range": "18\"",
             "type": "Rapid Fire 2",
             "s": "4",
