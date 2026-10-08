@@ -44,7 +44,7 @@ await db.exec(`
 await gitfindaSchema(sql);
 await gitfindaSchema(sql);   // idempotent, like ensureSchema
 const [A, B, C, D] = [1, 2, 3, 4];
-const g = gitfinda(sql, { notify: async () => {} });
+const g = gitfinda(sql, { notify: async () => {}, sweepEveryMs: 0 });
 // Posts and matches count from different numbers, so using one where the other belongs shows up.
 await db.exec("SELECT setval('gitfinda_matches_id_seq', 500); SELECT setval('gitfinda_messages_id_seq', 9000)");
 
@@ -238,6 +238,7 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   const removed = [];
   let serial = 100;
   const gd = gitfinda(sql, {
+    sweepEveryMs: 0,
     notify: async () => String(++serial),
     remove: async id => { removed.push(id); return true; },
   });
@@ -253,18 +254,32 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   const pe = (await gd.create(E, post({ slots: [slot(42)] }))).id;
   await db.exec('UPDATE gitfinda_slots SET starts_at = now() - interval \'5 hours\', ends_at = now() - interval \'2 hours\' WHERE post_id = ' + pe);
   ok((await midOf(pe)) !== null, 'an over game still has its id until somebody opens the board');
-  await gd.list(D, {});
-  ok(removed.includes('103') && (await midOf(pe)) === null, 'opening the board sweeps the announcement of a game that is over');
+  await gd.unread(D);
+  ok(removed.includes('103') && (await midOf(pe)) === null, 'the unread poll the app runs every 30 s sweeps the announcement of a game that is over');
   const po = (await gd.create(E, post({ slots: [slot(43)] }))).id;
   const before = removed.length;
   await gd.list(D, {});
   ok(removed.length === before && (await midOf(po)) !== null, 'an open game keeps its announcement');
-  const flaky = gitfinda(sql, { notify: async () => '900', remove: async () => { throw new Error('Discord is down'); } });
+  const flaky = gitfinda(sql, { sweepEveryMs: 0, notify: async () => '900', remove: async () => { throw new Error('Discord is down'); } });
   const pf = (await flaky.create(E, post({ slots: [slot(44)] }))).id;
   await flaky.cancel(E, { id: pf });
   ok((await midOf(pf)) === '900', 'when Discord cannot delete, the id is kept for the next sweep');
   await gd.list(D, {});
   ok(removed.includes('900') && (await midOf(pf)) === null, 'and the next sweep retries it');
+  // the sweep is throttled per server instance, and posting / My posts also run it
+  const pe2 = (await gd.create(E, post({ slots: [slot(45)] }))).id;
+  await db.exec('UPDATE gitfinda_slots SET starts_at = now() - interval \'5 hours\', ends_at = now() - interval \'2 hours\' WHERE post_id = ' + pe2);
+  await gd.myPosts(E);
+  ok((await midOf(pe2)) === null, 'opening My posts sweeps too');
+  const slow = gitfinda(sql, { sweepEveryMs: 3600000, notify: async () => '901', remove: async id => { removed.push(id); return true; } });
+  const pe3 = (await slow.create(E, post({ slots: [slot(46)] }))).id;
+  await db.exec('UPDATE gitfinda_slots SET starts_at = now() - interval \'5 hours\', ends_at = now() - interval \'2 hours\' WHERE post_id = ' + pe3);
+  await slow.unread(D);   // the first call after a long-ago sweep runs it; the second within the hour must not
+  const afterFirst = removed.length;
+  const pe4 = (await slow.create(E, post({ slots: [slot(47)] }))).id;
+  await db.exec('UPDATE gitfinda_slots SET starts_at = now() - interval \'5 hours\', ends_at = now() - interval \'2 hours\' WHERE post_id = ' + pe4);
+  await slow.unread(D);
+  ok(removed.length === afterFirst && (await midOf(pe4)) !== null, 'a second sweep inside the interval does nothing');
   // the remover itself
   let call;
   const fakeDel = async (u, o) => { call = { u, method: o.method }; return { ok: false, status: 404 }; };

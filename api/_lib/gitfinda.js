@@ -237,7 +237,10 @@ export function discordRemover(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetch
   };
 }
 
-export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover() } = {}) {
+// Shared by every request on this server instance, so the sweep below runs at most once per interval however many people poll.
+let lastSweepAt = 0;
+
+export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover(), sweepEveryMs = 30000 } = {}) {
   /** Takes a game's announcement out of Discord and forgets its id. Best effort: a failure keeps the id for the next sweep. */
   async function dropAnnouncement(postId) {
     try {
@@ -249,10 +252,13 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
 
   /**
    * Removes the announcements of games that are no longer open: cancelled, matched or with every time slot in the
-   * past. There is no cron on this plan (all 12 functions are taken), so whoever opens the board does the
-   * cleaning, a few at a time.
+   * past. There is no cron on this plan (all 12 functions are taken), so whoever is using Gitfinda does the
+   * cleaning, a few at a time: opening the board, posting, opening My posts, and the unread-count poll the app
+   * runs every 30 seconds while Gitfinda is open. At most once per `sweepEveryMs` per server instance.
    */
   async function sweep() {
+    if (sweepEveryMs && Date.now() - lastSweepAt < sweepEveryMs) return;
+    lastSweepAt = Date.now();
     try {
       const r = await sql`
         SELECT p.id FROM gitfinda_posts p
@@ -327,6 +333,7 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
   }
 
   async function myPosts(userId) {
+    await sweep();
     const r = await sql`
       SELECT p.id, p.army, p.engagement, p.points, p.timezone, p.event_id, p.created_at, p.status AS stored_status,
         u.username,
@@ -346,6 +353,7 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
 
   async function create(userId, body) {
     const v = validatePost(body);
+    await sweep();
     const open = await sql`
       SELECT COUNT(*)::int AS n FROM gitfinda_posts p
       WHERE p.user_id = ${userId} AND p.status = 'active'
@@ -536,6 +544,7 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
 
   /** Total unread messages across every match — the badge on the Gitfinda button. */
   async function unread(userId) {
+    await sweep();
     const r = await sql`
       SELECT COUNT(*)::int AS n
       FROM gitfinda_messages g
