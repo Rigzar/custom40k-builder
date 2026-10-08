@@ -264,8 +264,14 @@
             },
             "choices": [
                 {
-                    "name": "Dreadnought claw and Storm bolter",
-                    "points": 27
+                    "name": "Dreadnought claw with Storm bolter",
+                    "points": 27,
+                    "effect": {
+                        "grants_weapons": [
+                            "Dreadnought close combat weapon",
+                            "Storm bolter"
+                        ]
+                    }
                 },
                 {
                     "name": "Assault cannon",
