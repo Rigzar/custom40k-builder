@@ -96,6 +96,7 @@ export function selectedAbilities(u: Unit, item: RosterEntry, rp: BattleProfileI
 
   const base = (u.abilities ?? []).filter(ab => {
     if (/^\d+$/.test(ab.trim())) return false;           // a stray number in the sheet's cell
+    if (ab.trim() === '-') return false;                  // the sheet's "no abilities" dash, which the unit update copies as an entry
     const label = abilityKey(ab);
     if (unselectedOptionalWeapons.has(label)) return false;
     if (allChoiceAbilityTexts.has(ab.toLowerCase()) && !selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;

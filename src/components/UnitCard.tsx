@@ -2309,7 +2309,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             };
             const ascendedAll = hasAllMarksVariant(item, u);
             const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
-              if (/^\d+$/.test(ab.trim())) return false;
+              if (/^\d+$/.test(ab.trim()) || ab.trim() === '-') return false;
               const ci = ab.indexOf(':');
               const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
               if (_unselectedOptionalWeapons.has(label)) return false;

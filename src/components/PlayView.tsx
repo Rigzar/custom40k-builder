@@ -180,6 +180,13 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
                       })}
                     </tr>
                   ))}
+                  {/* A model the sheet lists at 0 (a Blue Horror's Brimstone Horror): reference only. */}
+                  {(rp.referenceModels ?? []).map((m: any) => (
+                    <tr key={'ref-' + m.name} className="border-t border-zinc-800/70 text-zinc-500 italic">
+                      <td className="py-0.5 pr-1">{nm(m.name)} <span className="not-italic text-[9px] uppercase tracking-wide text-zinc-600">({t('referenceModelTag')})</span></td>
+                      {statKeys.map(k => <td key={k} className="text-right px-1 tabular-nums">{m.stats?.[k] ?? '-'}</td>)}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
