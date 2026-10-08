@@ -265,6 +265,12 @@ export interface ArchetypeRule {
    */
   troopsCountExclude?: string[];
   /**
+   * "Only <keyword> units count towards mandatory unit minimums in the army's AOP" (T'au Kroot Hunting Pack:
+   * "Only Kroot units count towards mandatory unit minimums"). Units without the keyword may still be
+   * taken, but they do not satisfy a slot's AOP minimum. Maximums are untouched.
+   */
+  minimumsOnlyKeyword?: string;
+  /**
    * Requires at least 1 `escortUnit` selection in the army for every `troopsUnit` selection
    * counted as Troops (via `troopsRemap`) — e.g. AdMech Servitor Maniple's "For each Servitor
    * unit taken as Troops, the army must also take a Tech-priest" (ods-verbatim). The Tech-priest's

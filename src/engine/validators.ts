@@ -222,6 +222,8 @@ function getSlotUsage(
     // "may be selected as Troops ... Can't be a mandatory unit selection") fills the slot but
     // cannot satisfy the AOP minimum -- so the minimum check asks for the count without them.
     if (excludeSlotOptIns && hasSlotOptIn(i, u ?? undefined, printedSlot)) return false;
+    // "Only Kroot units count towards mandatory unit minimums" (Kroot Hunting Pack): this call is the minimum check.
+    if (excludeSlotOptIns && rule?.minimumsOnlyKeyword && !(u && unitMatchesKeyword(u, rule.minimumsOnlyKeyword))) return false;
     const baseSlot = applyVariantSlotOverride(i, u ?? undefined, printedSlot);
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;
@@ -2175,8 +2177,13 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Purifier/Paladin Squads are no longer limited to 1 per army). Use the item's OWN detachment
     // archetype so an ally's rule doesn't leak onto the primary and vice versa.
     if (getArchetypeRule(effectiveArchetypeFor(item, state))?.liftsUniqueLimit?.includes(item.unitName)) continue;
+    // A group that is ONE UPGRADE with nothing to pick ("One Kroot Master Shaper per army may be upgraded
+    // to a Shaman", "One Mek Boss per army may be equipped with a Shokk attack gun") caps the PURCHASE, not
+    // the unit: any number of Master Shapers is fine, only one of them takes the upgrade. It used to make the
+    // whole unit unique, so a Kroot army could not field two Master Shapers (reported by Dennis_W).
     const isUniqueUnit = u.option_groups.some(
-      g => g.is_unique_per_army && !g.variant_link && g.constraint.type === 'unique_upgrade',
+      g => g.is_unique_per_army && !g.variant_link && g.constraint.type === 'unique_upgrade'
+        && !(g.inline_pts != null && g.choices.length === 0),
     );
     if (isUniqueUnit) {
       uniqueUnitCounts[item.unitName] = (uniqueUnitCounts[item.unitName] ?? 0) + 1;
@@ -2188,6 +2195,27 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         type: 'error',
         text: `${name}: only 1 allowed per army (have ${count}).`,
       });
+    }
+  }
+
+  // The purchase-capped upgrades named above: only one unit in the army may have bought each.
+  const uniqueInlineCounts: Record<string, number> = {};
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    u.option_groups.forEach((g, gi) => {
+      if (!g.is_unique_per_army || g.variant_link || g.constraint.type !== 'unique_upgrade') return;
+      if (!(g.inline_pts != null && g.choices.length === 0)) return;
+      if (item.optionQty?.[gi]?.['__inline']) {
+        const key = `${item.unitName}::${g.header}`;
+        uniqueInlineCounts[key] = (uniqueInlineCounts[key] ?? 0) + 1;
+      }
+    });
+  }
+  for (const [key, count] of Object.entries(uniqueInlineCounts)) {
+    if (count > 1) {
+      const [unitName, header] = key.split('::');
+      items.push({ type: 'error', text: `${unitName}: only 1 may take this upgrade per army (have ${count}): ${header}` });
     }
   }
 

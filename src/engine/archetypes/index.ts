@@ -521,9 +521,13 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Kroot Hunting Pack': { ...BASE,
-    troopsRemap: ['Kroot Carnivores', 'Kroot Farstalkers', 'Kroot Hounds', 'Kroot Trackers',
-                  'Kroot Vultures', 'Krootox Riders', 'Krootox Rampagers'],
+    // Only Kroot Carnivores are Troops (the other Kroot keep their own slots; confirmed by the author's
+    // team 2026-10-08). The sheet's "only Kroot units count towards the 25% Troops limitation" is what
+    // troopsCount 'remap' (an inclusion list) expresses. This list used to hold all seven Kroot units, which
+    // moved every Kroot Elite, Fast Attack and Heavy Support into Troops (Troops 10/6 on the list below).
+    troopsRemap: ['Kroot Carnivores'],
     troopsCount: 'remap',
+    minimumsOnlyKeyword: 'Kroot',
     notes: [
       'Kroot Farstalkers gain the "Objective secured!" ability.',
       'One Kroot Master Shaper may be upgraded to a Shaman for +10 pts (Psyker, 1 cast/1 deny, knows 2 powers from Biomancy or Divination).',
