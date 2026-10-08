@@ -62,14 +62,13 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "New in this version", rows: [
         ["Horus Heresy supplements", "Legiones Astartes and Forces of the Machine God (20 units) use the same update as the codices now, so their stats, points, weapons and abilities follow the author's sheets. Both are on their 1.2 sheets."],
         ["What updates itself", "About 40% of the game data by volume today (units, now including the two supplements). The Armory (about 18%) is the next big step."],
-        ["Gitfinda on Discord", "When someone posts a game, a short message can go to the community's Discord with the army, points and the times in each reader's own time zone. It stays off until the channel is connected. The link opens that very game (the login comes first only if you need it)."],
+        ["Gitfinda on Discord", "When someone posts a game, a short message can go to the community's Discord with the army, points and the times in each reader's own time zone. It stays off until the channel is connected. The link opens that very game (the login comes first only if you need it). Its message is deleted when the game is cancelled, matched or over."],
         ["Reference models", "Models a sheet lists at 0, like the Brimstone Horror on Blue and Pink Horrors, show greyed on the army builder, the printed card, the simple printout and the battle view."],
       ] },
       { label: "Also fixed", rows: [
         ["Ascended Daemon Prince", "No Mark to pay for (it has all of them), psyker through Tzeentch (2 powers per turn with the +5 upgrade), Warded, Greater Daemon, Fearless, Terrifying(-2), the four gods' disciplines, HQ slot."],
         ["Monstrous Creatures", "Daemon Prince, Bloodthirster, Lord of Change and others get their Monstrous Creature rules back (Mark bonuses, armory prices)."],
         ["Company Hero (GH#219)", "Armory stat changes land on the Hero alone, not its Animal Companion (also Servitors, E-COGs, CORVs)."],
-        ["Core Rules PDF", "Scoots' work-in-progress PDF is linked from the start screen and the wiki's Core Rules page."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -82,14 +81,13 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Neu in dieser Version", rows: [
         ["Horus-Heresy-Supplemente", "Legiones Astartes und Forces of the Machine God (20 Einheiten) nutzen jetzt dasselbe Update wie die Codizes; Werte, Punkte, Waffen und Fähigkeiten folgen den Blättern des Autors. Beide stehen auf ihren 1.2-Blättern."],
         ["Was sich selbst aktualisiert", "Heute etwa 40 % der Spieldaten nach Volumen (Einheiten, jetzt mit den beiden Supplementen). Die Armory (etwa 18 %) ist der nächste große Schritt."],
-        ["Gitfinda auf Discord", "Stellt jemand ein Spiel ein, kann eine kurze Nachricht im Discord der Community erscheinen, mit Armee, Punkten und den Zeiten in der Zeitzone des Lesers. Bleibt aus, bis der Kanal verbunden ist. Der Link öffnet genau dieses Spiel (der Login kommt nur, wenn nötig, zuerst)."],
+        ["Gitfinda auf Discord", "Stellt jemand ein Spiel ein, kann eine kurze Nachricht im Discord der Community erscheinen, mit Armee, Punkten und den Zeiten in der Zeitzone des Lesers. Bleibt aus, bis der Kanal verbunden ist. Der Link öffnet genau dieses Spiel (der Login kommt nur, wenn nötig, zuerst). Die Nachricht wird gelöscht, sobald das Spiel abgesagt, vergeben oder vorbei ist."],
         ["Referenzmodelle", "Modelle, die ein Blatt mit 0 führt, etwa der Brimstone Horror bei Blue und Pink Horrors, erscheinen ausgegraut im Armeebauer, auf der gedruckten Karte, im einfachen Ausdruck und in der Kampfansicht."],
       ] },
       { label: "Außerdem behoben", rows: [
         ["Aufgestiegener Daemon Prince", "Kein Mal zu bezahlen (er hat alle), Psioniker durch Tzeentch (2 Kräfte pro Zug mit dem +5-Upgrade), Warded, Greater Daemon, Fearless, Terrifying(-2), die Disziplinen der vier Götter, HQ-Slot."],
         ["Monstrous Creatures", "Daemon Prince, Bloodthirster, Lord of Change und andere haben ihre Monstrous-Creature-Regeln wieder (Mal-Boni, Armory-Preise)."],
         ["Company Hero (GH#219)", "Armory-Werte gelten nur für den Hero, nicht für seinen Animal Companion (auch Servitors, E-COGs, CORVs)."],
-        ["Grundregel-PDF", "Das PDF von Scoots (in Arbeit) ist vom Startbildschirm und von der Grundregeln-Seite des Wikis verlinkt."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -102,14 +100,13 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Novedades de esta versión", rows: [
         ["Suplementos de Horus Heresy", "Legiones Astartes y Forces of the Machine God (20 unidades) usan ya la misma actualización que los códices, así que sus estadísticas, puntos, armas y habilidades siguen las hojas del autor. Ambos están en sus hojas 1.2."],
         ["Lo que se actualiza solo", "Hoy un 40% de los datos del juego por volumen (unidades, ahora con los dos suplementos). La Armory (un 18%) es el siguiente gran paso."],
-        ["Gitfinda en Discord", "Cuando alguien publica una partida, puede salir un mensaje corto en el Discord de la comunidad con el ejército, los puntos y las horas en la zona horaria de cada lector. Sigue apagado hasta que se conecte el canal. El enlace abre esa misma partida (el inicio de sesión sale antes solo si hace falta)."],
+        ["Gitfinda en Discord", "Cuando alguien publica una partida, puede salir un mensaje corto en el Discord de la comunidad con el ejército, los puntos y las horas en la zona horaria de cada lector. Sigue apagado hasta que se conecte el canal. El enlace abre esa misma partida (el inicio de sesión sale antes solo si hace falta). Su mensaje se borra cuando la partida se cancela, se empareja o termina."],
         ["Modelos de referencia", "Los modelos que una hoja lista con 0, como el Brimstone Horror en Blue y Pink Horrors, salen en gris en el constructor, la ficha impresa, la impresión simple y la vista de batalla."],
       ] },
       { label: "También arreglado", rows: [
         ["Príncipe Demonio Ascendido", "Sin Marca que pagar (las tiene todas), psíquico por Tzeentch (2 poderes por turno con la mejora de +5), Warded, Greater Daemon, Fearless, Terrifying(-2), las disciplinas de los cuatro dioses, slot de HQ."],
         ["Criaturas Monstruosas", "El Daemon Prince, el Bloodthirster, el Lord of Change y otros recuperan sus reglas de Criatura Monstruosa (bonos de Marca, precios de armería)."],
         ["Company Hero (GH#219)", "Los cambios de la armería afectan solo al Hero, no a su Animal Companion (también Servitors, E-COG, CORV)."],
-        ["PDF de las reglas básicas", "El PDF de Scoots (en desarrollo) está enlazado desde la pantalla de inicio y la página de Core Rules del wiki."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -122,14 +119,13 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Новое в этой версии", rows: [
         ["Дополнения Horus Heresy", "Legiones Astartes и Forces of the Machine God (20 юнитов) используют то же обновление, что и кодексы: характеристики, очки, оружие и способности следуют листам автора. Оба на листах 1.2."],
         ["Что обновляется само", "Сегодня около 40% игровых данных по объёму (юниты, теперь с двумя дополнениями). Следующий большой шаг — Арсенал (около 18%)."],
-        ["Gitfinda в Discord", "Когда кто-то публикует игру, в Discord сообщества может прийти короткое сообщение с армией, очками и временем в часовом поясе читателя. Выключено, пока канал не подключён. Ссылка открывает именно эту игру (вход показывается первым, только если он нужен)."],
+        ["Gitfinda в Discord", "Когда кто-то публикует игру, в Discord сообщества может прийти короткое сообщение с армией, очками и временем в часовом поясе читателя. Выключено, пока канал не подключён. Ссылка открывает именно эту игру (вход показывается первым, только если он нужен). Сообщение удаляется, когда игра отменена, подобрана или прошла."],
         ["Справочные модели", "Модели, которые лист указывает с 0, например Brimstone Horror у Blue и Pink Horrors, показаны серым в конструкторе, на печатной карточке, простой распечатке и в боевом виде."],
       ] },
       { label: "Также исправлено", rows: [
         ["Вознесённый Демон-принц", "Метку не нужно оплачивать (у него есть все), псайкер через Тзинч (2 силы за ход с улучшением +5), Warded, Greater Daemon, Fearless, Terrifying(-2), дисциплины четырёх богов, слот HQ."],
         ["Monstrous Creatures", "Daemon Prince, Bloodthirster, Lord of Change и другие снова получают правила монстра (бонусы Меток, цены арсенала)."],
         ["Company Hero (GH#219)", "Изменения из арсенала действуют только на Hero, а не на его Animal Companion (также Servitor, E-COG, CORV)."],
-        ["PDF основных правил", "PDF от Scoots (в разработке) доступен по ссылке на стартовом экране и на странице Core Rules в вики."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -142,14 +138,13 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "このバージョンの新機能", rows: [
         ["ホルス・ヘレシー補足", "レギオネス・アスタルテスとフォーシズ・オブ・ザ・マシンゴッド（20ユニット）がコーデックスと同じ更新を使い、能力値、ポイント、武器、能力が作者のシートに従います。どちらも1.2のシートです。"],
         ["自動更新されるもの", "現在、データ容量の約40%（ユニット、2つの補足を含む）。次の大きな一歩はアーモリー（約18%）です。"],
-        ["GitfindaのDiscord通知", "誰かが募集を投稿すると、軍、ポイント、読む人のタイムゾーンでの時間を含む短いメッセージをコミュニティのDiscordに送れます。チャンネルを接続するまではオフです。 リンクはその募集を直接開きます（ログインが必要な場合のみ先にログイン画面が出ます）。"],
+        ["GitfindaのDiscord通知", "誰かが募集を投稿すると、軍、ポイント、読む人のタイムゾーンでの時間を含む短いメッセージをコミュニティのDiscordに送れます。チャンネルを接続するまではオフです。 リンクはその募集を直接開きます（ログインが必要な場合のみ先にログイン画面が出ます）。 募集が取り消し・成立・期限切れになるとメッセージは削除されます。"],
         ["参考モデル", "ブルー／ピンク・ホラーのブリムストーン・ホラーなど、シートが0とするモデルが、軍編成、印刷カード、簡易印刷、バトルビューに灰色で表示されます。"],
       ] },
       { label: "その他の修正", rows: [
         ["昇華したデーモンプリンス", "印の代金は不要（全て持つ）、ティーンチによるサイカー（+5強化で1ターン2つの力）、Warded、Greater Daemon、Fearless、Terrifying(-2)、4柱の神の系統、HQスロット。"],
         ["モンストラス・クリーチャー", "デーモンプリンス、ブラッドサースター、ロード・オブ・チェンジなどがモンストラス・クリーチャーのルール（印のボーナス、アーモリー価格）を取り戻しました。"],
         ["カンパニー・ヒーロー（GH#219）", "アーモリーの変更はヒーローのみに適用され、アニマル・コンパニオンには及びません（サーヴィター、E-COG、CORVも同様）。"],
-        ["コアルールPDF", "ScootsのPDF（作成中）へ、スタート画面とWikiのCore Rulesページからリンクしています。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
@@ -658,16 +653,6 @@ export function LandingPage({
           >
             <DiscordIcon className="w-4 h-4" />
             {t('navDiscordJoin')}
-          </a>
-
-          {/* Scoots' work-in-progress PDF of the Core Rules (shared on Discord 2026-10-07). */}
-          <a
-            href="https://drive.google.com/file/d/13rH4JzKDq3O4id3lCkfd8ixtXU0eza91/view?usp=drive_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 block text-center text-[11px] text-zinc-500 hover:text-zinc-300 underline underline-offset-4 transition-colors"
-          >
-            {t('navRulesPdf')} →
           </a>
 
         </div>
