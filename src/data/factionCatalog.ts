@@ -54,8 +54,8 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/chaos.svg',
     pillFg: '#cc8888', pillFgLight: '#8a3236', dividerColor: '#3a1a1a',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.05' },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.01' },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.6' },
+      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.2' },
     ],
   },
   {
@@ -63,13 +63,13 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/imperium.svg',
     pillFg: '#c8b56a', pillFgLight: '#6b5a17', dividerColor: '#3a3520',
     factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.05' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.05' },
+      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.6' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.6' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'complete', version: '1.01' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'complete', version: '1.02' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.01' },
-      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.01' },
-      { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.01' },
+      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.2' },
+      { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.2' },
     ],
   },
   {
