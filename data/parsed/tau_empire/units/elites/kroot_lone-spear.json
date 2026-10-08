@@ -33,7 +33,7 @@
             "abilities": "Extra Attack(1)"
         },
         {
-            "name": "Kroot javelins- Blast",
+            "name": "Kroot javelins - Blast",
             "range": "18\"",
             "type": "Assault 1",
             "s": "8",
@@ -42,7 +42,7 @@
             "abilities": "AT(2), Blast(4)"
         },
         {
-            "name": "Kroot javelins- Charge",
+            "name": "Kroot javelins - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+2",
@@ -51,7 +51,7 @@
             "abilities": "AT(1), Charge, Quick(+1)"
         },
         {
-            "name": "Kroot javelins- Melee",
+            "name": "Kroot javelins - Melee",
             "range": "-",
             "type": "Melee",
             "s": "+1",
