@@ -18,9 +18,7 @@
             "min": 9,
             "max": 27,
             "points": 21
-        }
-    ],
-    "variant_models": [
+        },
         {
             "stats": {
                 "M": "6\"",
@@ -36,10 +34,11 @@
             },
             "name": "Brimstone Horror",
             "min": 0,
-            "max": 1,
+            "max": 0,
             "points": 0
         }
     ],
+    "variant_models": [],
     "equipped_with": "Every model is equipped with: Coruscating flames.",
     "weapons": [
         {
