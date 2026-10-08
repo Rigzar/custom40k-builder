@@ -64,6 +64,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: "OPEN 2026-10-02. The app and the wiki gained Russian and Japanese next to English, German and Spanish. The interface labels, banner, Field Manual, supplement cards, changelog chrome, messages window and the glossary descriptions were translated by Claude from the English text and have not been reviewed by a native reader, so wording will be off in places (rules terms such as Troops, Leadership, Battleshock or Charge are deliberately kept in English to match the datasheets). Still English in every language: the Inquisitor admin panel and the Known Issues entries (the datasheet ability texts, the wiki's Core Rules and Missions pages and the latest four changelog entries are translated). Corrections: send them on Discord or edit them in the admin translation editor (src/i18n/ru.json and ja.json hold the defaults).",
   },
   {
+    id: "ki-hh-legiones-sheet-questions-01",
+    status: "known",
+    title: "Horus Heresy Legiones Astartes sheet: items that do not match",
+    description: "OPEN 2026-10-07. Re-audit of the supplement after the live sheet changed (Armorbane became Armorbane(3) on five weapons; applied). Things the sheet itself leaves unclear, for the author: (1) Legion Terminator Cataphractii Squad lists a Thunder hammer weapon profile but no option offers it, while its option list offers a Power axe at +0 that has no profile on the sheet (we use the Armory Power axe profile). Should the swap be a Thunder hammer? (2) Saturnine Terminator Squad lists a Plasma blaster profile that no option or loadout uses. (3) Legion Leviathan Dreadnought's option reads 'Quad Maschinenkanone' while the weapon is 'Quad autocannon' (we show Quad autocannon). (4) Leviathan siege claws / siege drill 'with in-built Melta' show one Melta profile even when both are taken. Also fixed in the same pass: Nemesis-Bolter lacked Sniper, and a stray Augury scanner that is not on the Armory sheet was removed.",
+  },
+  {
     id: "ki-oct-sheets-questions-for-author-01",
     status: "fixed",
     title: "Questions on the October sheets (all armies)",

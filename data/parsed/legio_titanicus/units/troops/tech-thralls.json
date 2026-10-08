@@ -1,0 +1,94 @@
+{
+    "variant_models": [],
+    "weapons": [
+        {
+            "name": "Chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las-lock",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Mitra-lock",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1), Suppression(2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All tech-thralls may swap their Chainswords and Las-locks",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Mitra-lock",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Chainsword",
+                "Las-lock"
+            ]
+        }
+    ],
+    "abilities": [
+        "Mindless, Monotask, Unyielding"
+    ],
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "name": "Tech-thralls",
+    "models": [
+        {
+            "name": "Tech-thrall",
+            "points": 9,
+            "min": 10,
+            "max": 30,
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "5+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            }
+        }
+    ],
+    "equipped_with": "Each Tech-thrall is equipped with: Bionics; Chainsword; Las-lock.",
+    "unit_type": "Infantry",
+    "slot": "Troops",
+    "default_size": 10,
+    "min_cost": 90
+}

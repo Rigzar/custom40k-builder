@@ -11,7 +11,7 @@
  *   archetypes.json      { archetypes, legacies, traits }
  *   animosity.json       { animosity, allied }  — only CSM/CD (marks animosity table)
  *
- * Supplements: data/parsed/_supplements/<name>.json
+ * Supplements: data/parsed/<name>/ (same folder layout as a faction, plus supplement.json for the non-unit parts)
  *
  * The assembled object mirrors the FactionData shape the engine expects unchanged.
  *
@@ -336,11 +336,23 @@ async function loadFaction(key: string): Promise<FactionData> {
       return asm(u, g, arch, noRules, {}, legions, { disciplines: discs });
     }
 
-    case 'horus_heresy':
-      return import('../../data/parsed/_supplements/horus_heresy.json').then(m => d(m as Mod));
+    // The two Horus Heresy supplements use the same folder layout as every faction (units/<slot>/<unit>.json
+    // plus units/index.ts), so the unit update can rewrite them; what is not a unit is in supplement.json.
+    case 'horus_heresy': {
+      const [u, rest] = await Promise.all([
+        import('../../data/parsed/horus_heresy/units/index'),
+        import('../../data/parsed/horus_heresy/supplement.json'),
+      ]);
+      return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
+    }
 
-    case 'legio_titanicus':
-      return import('../../data/parsed/_supplements/legio_titanicus.json').then(m => d(m as Mod));
+    case 'legio_titanicus': {
+      const [u, rest] = await Promise.all([
+        import('../../data/parsed/legio_titanicus/units/index'),
+        import('../../data/parsed/legio_titanicus/supplement.json'),
+      ]);
+      return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
+    }
 
     default:
       throw new Error('Unknown faction: ' + key);

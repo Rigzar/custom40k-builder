@@ -1,0 +1,259 @@
+{
+    "name": "Legion Sky-hunter Squadron",
+    "models": [
+        {
+            "name": "Legion Sky-hunter",
+            "points": 81,
+            "min": 2,
+            "max": 8,
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            }
+        },
+        {
+            "name": "Legion Sky-hunter Sergeant",
+            "points": 91,
+            "min": 1,
+            "max": 1,
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            }
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Astartes chainsword; Bolt pistol; Legion Scimitar Jetbike; Frag grenades; Heavy bolter; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "T",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Hand flamer",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Plasma cannon - Overcharged",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Volkite culverin",
+            "range": "48\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        },
+        {
+            "name": "Volkite serpenta",
+            "range": "10\"",
+            "type": "Pistol 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "per_model": true,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Space Marines"
+            }
+        },
+        {
+            "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 3
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 3
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 3
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 7
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Chaos Space Marines"
+            }
+        },
+        {
+            "header": "Every model may swap their Heavy bolter with",
+            "constraint": {
+                "type": "every"
+            },
+            "replaces": [
+                "Heavy bolter"
+            ],
+            "choices": [
+                {
+                    "name": "Volkite culverin",
+                    "points": 16
+                },
+                {
+                    "name": "Multi-melta",
+                    "points": 19
+                },
+                {
+                    "name": "Plasma cannon",
+                    "points": 80
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Every model may swap their Bolt pistol with",
+            "constraint": {
+                "type": "every"
+            },
+            "replaces": [
+                "Bolt pistol"
+            ],
+            "choices": [
+                {
+                    "name": "Hand flamer",
+                    "points": 2
+                },
+                {
+                    "name": "Volkite serpenta",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [],
+    "unit_type": "Jet Bike",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 3,
+    "min_cost": 253
+}

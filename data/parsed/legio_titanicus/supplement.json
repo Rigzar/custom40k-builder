@@ -1,0 +1,85 @@
+{
+  "armory_general": {
+    "name": "Armory",
+    "weapons": [
+      {
+        "name": "Arc lance",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 7,
+        "p_char": 8,
+        "profiles": [
+          {
+            "name": "Shock",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Haywire"
+          },
+          {
+            "name": "Thrust",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Haywire"
+          }
+        ]
+      },
+      {
+        "name": "Frag grenade",
+        "term_compat": false,
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "4",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Blast(4)",
+        "p_unit": 1,
+        "p_char": 1
+      },
+      {
+        "name": "Rad grenade",
+        "term_compat": false,
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "4",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Rad",
+        "p_unit": 1,
+        "p_char": 1
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Mag-inverter shield",
+        "term_compat": false,
+        "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
+        "p_unit": 2,
+        "p_char": 6
+      }
+    ],
+    "daemon_weapons": []
+  },
+  "armory_marks": {},
+  "armory_legions": {},
+  "archetypes": [],
+  "legacies": [],
+  "traits": [],
+  "animosity": {},
+  "disciplines": {},
+  "pacts": [],
+  "prayers": [],
+  "daemonkin": {},
+  "allied": {},
+  "inherits_parent_armory": true
+}

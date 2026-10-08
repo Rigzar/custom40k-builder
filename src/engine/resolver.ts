@@ -64,6 +64,9 @@ export interface ResolvedProfile {
   variant: Model | null;
   variantActive: boolean;
   modelsToShow: Model[];
+  /** Models the datasheet lists at 0 (max 0): not part of the squad, shown as a reference row only
+   * (the Brimstone Horror a Blue Horror splits into). */
+  referenceModels: Model[];
   /** Per-entry count to show as an "Nx" prefix alongside the model name; null = no prefix
    * (single/fixed model). Set when a promotion (e.g. Traitor Sergeant) splits the base
    * model's count from the promoted variant — parallel array to modelsToShow. */
@@ -1677,6 +1680,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
     variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
+    referenceModels: unit.models.filter(m => m.max === 0),
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
     effectiveHasVetAbilities,

@@ -1,0 +1,234 @@
+{
+    "name": "Thallax Cohort",
+    "models": [
+        {
+            "name": "Thallax",
+            "points": 61,
+            "min": 3,
+            "max": 9,
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "3",
+                "I": "2",
+                "A": "3",
+                "LD": "7",
+                "SV": "4+"
+            }
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Bionics; Lightning gun; Frag grenades.",
+    "weapons": [
+        {
+            "name": "Chain bayonet",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Lightning gun - Arc",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Lightning gun - Strike",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Armor piercing(5+), Shred"
+        },
+        {
+            "name": "Melta bomb",
+            "range": "3\"",
+            "type": "Grenade 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane, AT(3)"
+        },
+        {
+            "name": "Multilaser",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Phased plasma-fusil",
+            "range": "24\"",
+            "type": "Assault 3",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Photon thruster",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(1), Beam, Blind, Lance(2), Overheating"
+        },
+        {
+            "name": "Rad cleanser",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+), Rad, Sunder(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "For every 3 models, one Thallax may swap their Lightning gun",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 3,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Multilaser",
+                    "points": 3
+                },
+                {
+                    "name": "Rad cleanser",
+                    "points": 8
+                },
+                {
+                    "name": "Photon thruster",
+                    "points": 14
+                },
+                {
+                    "name": "Phased plasma-fusil",
+                    "points": 17
+                },
+                {
+                    "name": "Multi-melta",
+                    "points": 25
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Lightning gun"
+            ]
+        },
+        {
+            "header": "Any model armed with a Lightning gun may be equipped with one of the following",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Chain bayonet",
+                    "points": 4
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "All Thallax models in the unit may be equipped with Melta bombs for +5 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "per_model": true,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "The entire squad may receive one of the following upgrades per model",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Icarian",
+                    "points": 2
+                },
+                {
+                    "name": "Ferrox",
+                    "points": 3
+                },
+                {
+                    "name": "Destructor",
+                    "points": 3
+                },
+                {
+                    "name": "Empyrite",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Acute Senses, Canticles of the Omnissiah, Massive(1), Unyielding",
+        "Djinn Sight: Ranged weapons of this unit ignore the -1 penalty to ranged hit rolls against models in cover.",
+        "Upgrades:",
+        "Destructor: The model gains the \"Tank hunter\" ability.",
+        "Empyrite: Enemy ranged attacks against this model reduce their AP value by 1.",
+        "Icarian: When resolving a Stand & Shoot Order, the model gains the \"Anti-Air\" ability for all ranged attacks.",
+        "Ferrox: The model gains the \"Furious charge\" ability."
+    ],
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "unit_type": "Jump Pack Infantry",
+    "slot": "Troops",
+    "default_size": 3,
+    "min_cost": 183
+}

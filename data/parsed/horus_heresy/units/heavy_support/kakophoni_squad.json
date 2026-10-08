@@ -1,0 +1,136 @@
+{
+    "name": "Kakophoni Squad",
+    "models": [
+        {
+            "name": "Chora",
+            "points": 59,
+            "min": 4,
+            "max": 4,
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            }
+        },
+        {
+            "name": "Orchestrator",
+            "points": 69,
+            "min": 1,
+            "max": 1,
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            }
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Bolt pistol; Cacophony; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Cacophony",
+            "range": "36\"",
+            "type": "Assault 3",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Deflagrate(5+), Sunder(2), Suppression(3)"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "per_model": true,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Space Marines"
+            }
+        },
+        {
+            "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Slaanesh",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Chaos Space Marines"
+            }
+        }
+    ],
+    "abilities": [],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 5,
+    "min_cost": 305
+}

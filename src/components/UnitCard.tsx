@@ -194,7 +194,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const {
     pts, effectiveSlot,
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
-    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
+    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx, referenceModels,
     effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
     injectedAbilities, hiddenUpgradeAbilityLabels, injectedRuleNotes, equipMods, traitEquipMods,
@@ -924,6 +924,17 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     </tr>
                   );
                 })}
+                {/* Models the datasheet lists at 0 (a Blue Horror's Brimstone Horror): not in the squad and
+                    not priced, shown so the player has the profile at hand (Dominic/Unwise, 2026-10-08). */}
+                {referenceModels.map(m => (
+                  <tr key={'ref-' + m.name} className="border-b border-zinc-700/40 text-zinc-500 italic">
+                    <td className="py-2 px-2 whitespace-nowrap text-xs">{nm(m.name)} <span className="not-italic text-[10px] uppercase tracking-wide text-zinc-600">({t('referenceModelTag')})</span></td>
+                    {statKeys.map(k => (
+                      <td key={k} className="text-center py-2 px-2 font-mono text-xs">{k === 'InvSv' ? '-' : ((m.stats as Record<string, string>)[k] ?? '-')}</td>
+                    ))}
+                    <td className="text-right py-2 pr-2 text-xs">-</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             </div>
