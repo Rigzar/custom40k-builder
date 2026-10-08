@@ -1,0 +1,103 @@
+{
+    "name": "Kharybdis Assault Claw",
+    "models": [
+        {
+            "name": "Kharybdis Assault Claw",
+            "points": 351,
+            "min": 1,
+            "max": 1,
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            }
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Kharybdis Assault Claw is equipped with: 5 Kharybdis storm launchers; Melta-ram.",
+    "weapons": [
+        {
+            "name": "Kharybdis storm launchers",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Melta-ram",
+            "range": "-",
+            "type": "Melee",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(3), Extra Attack(1), Limit(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "If the model is part of a Chaos Space Marine army, it may receive a Mark of Chaos",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 10
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 10
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 10
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Chaos Space Marines"
+            }
+        }
+    ],
+    "abilities": [
+        "Anti-Grav, Deep Strike",
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
+        "Drop Pod Assault: Kharybdis Assault Claws always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!",
+        "Melta-ram: Attacks with the Melta-ram hit automatically.",
+        "Transport: This model has a transport capacity of 20 infantry models or 2 Dreadnoughts."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 351
+}

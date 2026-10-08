@@ -1,0 +1,79 @@
+{
+    "variant_models": [],
+    "weapons": [
+        {
+            "name": "Twin mauler bolt cannon",
+            "range": "24\"",
+            "type": "Rapid Fire 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Volkite caliver",
+            "range": "30\"",
+            "type": "Heavy 3",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul Burn(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May take up to two Hunter-killer missiles from the Armory",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Flare Shield: Ranged attacks against the front armor of this vehicle have -1 Strength.",
+        "Galvanic Traction Drive: This vehicle may re-roll dangerous terrain tests and ignores difficult terrain.",
+        "Shock Ram: This model's Tank Shocks gain the \"Haywire\" ability. Its Strength is considered to be 10.",
+        "Transport: This model has a transport capacity of 20 infantry models."
+    ],
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "name": "Triaros Armored Conveyor",
+    "models": [
+        {
+            "name": "Triaros",
+            "points": 330,
+            "min": 1,
+            "max": 1,
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "3",
+                "A": "1",
+                "HP": "4"
+            }
+        }
+    ],
+    "equipped_with": "A Triaros is equipped with: Twin mauler bolt cannon; 2 Volkite calivers.",
+    "unit_type": "Vehicle",
+    "slot": "Dedicated Transport",
+    "default_size": 1,
+    "min_cost": 330
+}

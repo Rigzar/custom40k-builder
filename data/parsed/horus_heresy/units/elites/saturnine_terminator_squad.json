@@ -1,0 +1,215 @@
+{
+    "name": "Saturnine Terminator Squad",
+    "models": [
+        {
+            "name": "Saturnine Terminator",
+            "points": 146,
+            "min": 2,
+            "max": 5,
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            }
+        },
+        {
+            "name": "Saturnine Terminator Sergeant",
+            "points": 151,
+            "min": 1,
+            "max": 1,
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "6",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            }
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Power fist; Twin heavy disintegrator.",
+    "weapons": [
+        {
+            "name": "Particle shredder",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma bombard - Standard",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Plasma bombard - Overcharged",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(1), Blast(4), Overheating"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Twin heavy disintegrator",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +2 points.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [],
+            "inline_pts": 2,
+            "per_model": true,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Space Marines"
+            }
+        },
+        {
+            "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 4
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 4
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 4
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "available_if": {
+                "type": "instanceOf",
+                "scope": "force",
+                "keyword": "Chaos Space Marines"
+            }
+        },
+        {
+            "header": "Every model may swap their Power fist with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Twin heavy disintegrator",
+                    "points": 18
+                },
+                {
+                    "name": "Plasma bombard",
+                    "points": 47
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Power fist"
+            ]
+        },
+        {
+            "header": "Every model may swap their Twin heavy disintegrator with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Plasma bombard",
+                    "points": 29
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin heavy disintegrator"
+            ]
+        },
+        {
+            "header": "Every model with a Power fist may get",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Particle shredder",
+                    "points": 19
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Deep strike, Massive(2), Unyielding",
+        "Saturnine Terminator armor: The model gains a 4+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 3,
+    "min_cost": 297
+}

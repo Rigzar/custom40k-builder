@@ -1,0 +1,162 @@
+{
+  "armory_general": {
+    "name": "Armory",
+    "weapons": [
+      {
+        "name": "Archaeotech pistol",
+        "term_compat": false,
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "6",
+        "ap": "-2",
+        "d": "2",
+        "abilities": "Armor piercing(3+), Master-crafted",
+        "p_unit": 7,
+        "p_char": 8
+      },
+      {
+        "name": "Desintegrator pistol",
+        "term_compat": false,
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "5",
+        "ap": "-4",
+        "d": "3",
+        "abilities": "Overheating",
+        "p_unit": 13,
+        "p_char": 16
+      },
+      {
+        "name": "Heavy bolter",
+        "term_compat": false,
+        "range": "36\"",
+        "type": "Rapid Fire 2",
+        "s": "5",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "p_unit": null,
+        "p_char": null
+      },
+      {
+        "name": "Nemesis-Bolter",
+        "term_compat": false,
+        "range": "48\"",
+        "type": "Heavy 1",
+        "s": "5",
+        "ap": "-2",
+        "d": "2",
+        "abilities": "Armor piercing(5+), Precision(5+), Sniper, Suppression(6)",
+        "p_unit": null,
+        "p_char": 13
+      },
+      {
+        "name": "Volkite pistol",
+        "term_compat": false,
+        "range": "12\"",
+        "type": "Pistol 2",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Deadly(5+)",
+        "p_unit": 5,
+        "p_char": 6
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Breacher shield",
+        "term_compat": true,
+        "desc": "The model gains the \"Deflect\", \"Parry\" and \"Unyielding\" abilities. All melee weapons carried by the model gain the \"Unwieldy\" ability. Additionally, the model always benefits from the \"Hold Your Ground\" effect.",
+        "p_unit": 4,
+        "p_char": 8
+      },
+      {
+        "name": "Cataphractii armor",
+        "armourKeyword": "Cataphractii",
+        "term_compat": false,
+        "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+        "p_unit": 44,
+        "p_char": 61
+      },
+      {
+        "name": "Saturnine armor",
+        "armourKeyword": "Saturnine",
+        "term_compat": false,
+        "desc": "The model gains +2 Toughness, +1 Wound, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(2)\" and \"Unyielding\". Only for infantry.",
+        "p_unit": 77,
+        "p_char": 96
+      },
+      {
+        "name": "Crusade weapon",
+        "term_compat": true,
+        "desc": "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Armor piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Grenade harness",
+        "term_compat": true,
+        "desc": "The model may always throw a Grenade in addition to its ranged weapons, or throw two Grenades instead of one.",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Legion Scimitar Jetbike (Heavy bolter)",
+        "term_compat": false,
+        "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, a Heavy bolter and the \"Jet Bike\" type. Only for infantry.",
+        "p_unit": 55,
+        "p_char": 60,
+        "effect": {
+          "grants_weapons": [
+            "Heavy bolter"
+          ]
+        }
+      },
+      {
+        "name": "Legion vexilla",
+        "term_compat": false,
+        "desc": "The unit gains +1 to their combat resolution in melee.",
+        "p_unit": 5,
+        "p_char": null
+      },
+      {
+        "name": "Nuncio-vox",
+        "term_compat": false,
+        "desc": "If a friendly unit arrives on the table via Deep strike, reduce the amount of dice rolled for scatter by 1 (to a minimum of 1D6). The model carrying the Nuncio-vox must have a line of sight to the friendly unit that arrives to use the effect.",
+        "p_unit": 5,
+        "p_char": null
+      }
+    ],
+    "daemon_weapons": []
+  },
+  "armory_marks": {},
+  "armory_legions": {},
+  "archetypes": [],
+  "legacies": [],
+  "traits": [],
+  "animosity": {},
+  "disciplines": {},
+  "pacts": [],
+  "prayers": [],
+  "daemonkin": {
+    "Khorne": {
+      "description": "",
+      "items": []
+    },
+    "Slaanesh": {
+      "description": "",
+      "items": []
+    },
+    "Tzeentch": {
+      "description": "",
+      "items": []
+    },
+    "Nurgle": {
+      "description": "",
+      "items": []
+    }
+  },
+  "allied": {},
+  "inherits_parent_armory": true
+}

@@ -39,8 +39,11 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'The Horus Heresy units and armory are injected into your roster automatically.',
     ],
     load: async () => {
-      const m = (await import('../../data/parsed/_supplements/horus_heresy.json')) as { default: any };
-      const j = m.default;
+      const [u, m] = await Promise.all([
+        import('../../data/parsed/horus_heresy/units/index'),
+        import('../../data/parsed/horus_heresy/supplement.json'),
+      ]);
+      const j = { ...(m as { default: any }).default, units: u.units, slot_to_units: u.slot_to_units };
       return {
         units: j.units,
         slots: j.slot_to_units,
@@ -64,8 +67,11 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'The supplement\'s units and armory are injected into your roster automatically.',
     ],
     load: async () => {
-      const m = (await import('../../data/parsed/_supplements/legio_titanicus.json')) as { default: any };
-      const j = m.default;
+      const [u, m] = await Promise.all([
+        import('../../data/parsed/legio_titanicus/units/index'),
+        import('../../data/parsed/legio_titanicus/supplement.json'),
+      ]);
+      const j = { ...(m as { default: any }).default, units: u.units, slot_to_units: u.slot_to_units };
       return {
         units: j.units,
         slots: j.slot_to_units,

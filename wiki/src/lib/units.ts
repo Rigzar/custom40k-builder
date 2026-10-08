@@ -52,14 +52,12 @@ const LOADERS: Record<string, () => Promise<FactionUnits>> = {
   leagues_of_votann: () => import('../vendor/data/parsed/leagues_of_votann/units/index'),
   tyranids: () => import('../vendor/data/parsed/tyranids/units/index'),
   horus_heresy: async () => {
-    const mod = await import('../vendor/data/parsed/_supplements/horus_heresy.json');
-    const data = (mod.default ?? mod) as unknown as { units: Record<string, Unit>; slot_to_units: Record<string, string[]> };
-    return { units: data.units, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
+    const data = await import('../vendor/data/parsed/horus_heresy/units/index');
+    return { units: data.units as Record<string, Unit>, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
   },
   legio_titanicus: async () => {
-    const mod = await import('../vendor/data/parsed/_supplements/legio_titanicus.json');
-    const data = (mod.default ?? mod) as unknown as { units: Record<string, Unit>; slot_to_units: Record<string, string[]> };
-    return { units: data.units, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
+    const data = await import('../vendor/data/parsed/legio_titanicus/units/index');
+    return { units: data.units as Record<string, Unit>, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
   },
   escalation: loadEscalation,
 };

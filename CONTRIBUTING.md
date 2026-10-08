@@ -814,7 +814,7 @@ data/parsed/
   space_marines/         (same structure, no marks/animosity.json)
   chaos_daemons/
   ...
-  _supplements/          Supplement JSON files (e.g. horus_heresy.json)
+  horus_heresy/, legio_titanicus/   The two Horus Heresy supplements: same layout as a faction (units/<slot>/<unit>.json + units/index.ts), plus supplement.json for the armory and other non-unit parts
   _scratch/              Parser-audit files (*_html_*.json) — never loaded by the app
 ```
 
