@@ -2,28 +2,24 @@
     "name": "Palatine Blade Squad",
     "models": [
         {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "2+"
+            },
             "name": "Palatine Warrior",
-            "points": 45,
             "min": 4,
             "max": 9,
-            "stats": {
-                "M": "6\"",
-                "WS": "2+",
-                "BS": "2+",
-                "S": "4",
-                "T": "4",
-                "W": "2",
-                "I": "4",
-                "A": "2",
-                "LD": "8",
-                "SV": "2+"
-            }
+            "points": 45
         },
         {
-            "name": "Palatine Prefector",
-            "points": 45,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "2+",
@@ -35,7 +31,11 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "2+"
-            }
+            },
+            "name": "Palatine Prefector",
+            "min": 1,
+            "max": 1,
+            "points": 45
         }
     ],
     "variant_models": [],

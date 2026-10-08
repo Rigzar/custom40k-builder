@@ -2,10 +2,6 @@
     "name": "Legion Tactical Squad",
     "models": [
         {
-            "name": "Legionary",
-            "points": 39,
-            "min": 4,
-            "max": 19,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -17,13 +13,13 @@
                 "A": "2",
                 "LD": "7",
                 "SV": "3+"
-            }
+            },
+            "name": "Legionary",
+            "min": 4,
+            "max": 19,
+            "points": 39
         },
         {
-            "name": "Legion Sergeant",
-            "points": 49,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -35,7 +31,11 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "3+"
-            }
+            },
+            "name": "Legion Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 49
         }
     ],
     "variant_models": [],
@@ -186,7 +186,7 @@
         }
     ],
     "abilities": [
-        "Heart of the Legion: The unit gains a 5+ ward save while within 6\" of a mission objective.",
+        "Heart of the Legion: The unit gains a 5+ ward saving throw while within 6\" of a mission objective.",
         "Wrath of the Legion: All weapons in the unit have the \"Deflagrate(5+)\" ability."
     ],
     "unit_type": "Infantry",

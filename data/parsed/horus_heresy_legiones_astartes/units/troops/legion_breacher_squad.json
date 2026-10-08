@@ -2,10 +2,6 @@
     "name": "Legion Breacher Squad",
     "models": [
         {
-            "name": "Legionary",
-            "points": 40,
-            "min": 4,
-            "max": 19,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -17,13 +13,13 @@
                 "A": "2",
                 "LD": "7",
                 "SV": "3+"
-            }
+            },
+            "name": "Legionary",
+            "min": 4,
+            "max": 19,
+            "points": 40
         },
         {
-            "name": "Legion Sergeant",
-            "points": 50,
-            "min": 1,
-            "max": 1,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -35,7 +31,11 @@
                 "A": "2",
                 "LD": "8",
                 "SV": "3+"
-            }
+            },
+            "name": "Legion Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 50
         }
     ],
     "variant_models": [],

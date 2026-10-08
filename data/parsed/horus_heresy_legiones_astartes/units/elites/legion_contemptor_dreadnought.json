@@ -2,10 +2,6 @@
     "name": "Legion Contemptor Dreadnought",
     "models": [
         {
-            "name": "Contemptor Dreadnought",
-            "points": 192,
-            "min": 1,
-            "max": 2,
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
@@ -17,7 +13,11 @@
                 "I": "4",
                 "A": "3",
                 "HP": "3"
-            }
+            },
+            "name": "Contemptor Dreadnought",
+            "min": 1,
+            "max": 2,
+            "points": 192
         }
     ],
     "variant_models": [],
@@ -78,7 +78,7 @@
             "abilities": "AT(1), Anti-air"
         },
         {
-            "name": "Dreadnought claw",
+            "name": "Dreadnought close combat weapon",
             "range": "-",
             "type": "Melee",
             "s": "x2",

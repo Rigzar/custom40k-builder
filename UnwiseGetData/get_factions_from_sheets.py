@@ -16,6 +16,7 @@ NAMES_TOO_LONG_FOR_GOOGLE_SHEET = {
     "venerable_contemptor_dreadnough" : "venerable_contemptor_dreadnought",
     "dogmata_on_throne_of_condemnati" : "dogmata_on_throne_of_condemnation",
     "barracuda_air_superiority_fight" : "barracuda_air_superiority_fighter",
+    "legion_terminator_cataphractii_" : "legion_terminator_cataphractii_squad",
     }
 
 SKIPPED_SHEETS = ["Henchman Warband"]

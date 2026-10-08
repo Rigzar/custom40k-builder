@@ -68,10 +68,6 @@
     "name": "Tech-thralls",
     "models": [
         {
-            "name": "Tech-thrall",
-            "points": 9,
-            "min": 10,
-            "max": 30,
             "stats": {
                 "M": "6\"",
                 "WS": "5+",
@@ -83,7 +79,11 @@
                 "A": "1",
                 "LD": "6",
                 "SV": "5+"
-            }
+            },
+            "name": "Tech-thrall",
+            "min": 10,
+            "max": 30,
+            "points": 9
         }
     ],
     "equipped_with": "Each Tech-thrall is equipped with: Bionics; Chainsword; Las-lock.",
