@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Trackers are equipped with: Knarloc talons; Kroot rifle.",
+    "equipped_with": "Every model is equipped with: Knarloc talons; Kroot rifle.",
     "weapons": [
         {
             "name": "Knarloc talons",
@@ -33,7 +33,7 @@
             "abilities": "Extra Attack(1), Limit(1)"
         },
         {
-            "name": "Kroot carbine- Melee",
+            "name": "Kroot carbine - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -42,7 +42,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot carbine- Ranged",
+            "name": "Kroot carbine - Ranged",
             "range": "18\"",
             "type": "Rapid Fire 2",
             "s": "4",

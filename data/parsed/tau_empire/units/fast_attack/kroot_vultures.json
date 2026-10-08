@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Vultures are equipped with: Kroot knife; Kroot rifle.",
+    "equipped_with": "Every model is equipped with: Kroot knife; Kroot rifle.",
     "weapons": [
         {
             "name": "Accelerator Bow - Fused arrow",
@@ -96,7 +96,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot scattergun- Melee",
+            "name": "Kroot scattergun - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -105,7 +105,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot scattergun- Ranged",
+            "name": "Kroot scattergun - Ranged",
             "range": "12\"",
             "type": "Assault 1",
             "s": "4",

@@ -61,7 +61,7 @@
             "abilities": "Armor piercing(5+), Deadly(5+)"
         },
         {
-            "name": "Kroot carbine- Melee",
+            "name": "Kroot carbine - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -70,7 +70,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot carbine- Ranged",
+            "name": "Kroot carbine - Ranged",
             "range": "18\"",
             "type": "Rapid Fire 2",
             "s": "4",
@@ -106,7 +106,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot scattergun- Melee",
+            "name": "Kroot scattergun - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -115,7 +115,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot scattergun- Ranged",
+            "name": "Kroot scattergun - Ranged",
             "range": "12\"",
             "type": "Assault 1",
             "s": "4",

@@ -132,7 +132,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot scattergun- Melee",
+            "name": "Kroot scattergun - Melee",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -141,7 +141,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kroot scattergun- Ranged",
+            "name": "Kroot scattergun - Ranged",
             "range": "12\"",
             "type": "Assault 1",
             "s": "4",
