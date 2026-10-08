@@ -8,7 +8,7 @@
  * derived Expired/Matched, no double match, privacy of chats, the unread counts, limits.
  */
 import { PGlite } from '@electric-sql/pglite';
-import { gitfinda, gitfindaSchema, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
+import { gitfinda, gitfindaSchema, discordNotifier, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
 import fs from 'node:fs';
 
 const db = new PGlite();
@@ -44,7 +44,7 @@ await db.exec(`
 await gitfindaSchema(sql);
 await gitfindaSchema(sql);   // idempotent, like ensureSchema
 const [A, B, C, D] = [1, 2, 3, 4];
-const g = gitfinda(sql);
+const g = gitfinda(sql, { notify: async () => {} });
 // Posts and matches count from different numbers, so using one where the other belongs shows up.
 await db.exec("SELECT setval('gitfinda_matches_id_seq', 500); SELECT setval('gitfinda_messages_id_seq', 9000)");
 
@@ -207,6 +207,30 @@ ok((await db.query('SELECT COUNT(*)::int AS n FROM gitfinda_messages WHERE match
 ok((await g.list(D, {})).posts.some(p => p.id === pU), 'the post stays open');
 const mU2 = (await g.match(C, { id: pU })).matchId;
 ok(mU2 > 0, 'the same player can match it again after withdrawing');
+
+// ── Discord announcement ──
+{
+  const sent = [];
+  const gn = gitfinda(sql, { notify: async p => { sent.push(p); } });
+  const idN = (await gn.create(B, post({ points: 1750, slots: [slot(30)] }))).id;
+  ok(idN > 0 && sent.length === 1 && sent[0].points === 1750 && sent[0].army === 'orks' && sent[0].slots.length === 1 && typeof sent[0].username === 'string',
+    'creating a post hands one announcement to the notifier', JSON.stringify(sent));
+  const gb = gitfinda(sql, { notify: async () => { throw new Error('Discord is down'); } });
+  const idB = (await gb.create(B, post({ slots: [slot(31)] }))).id;
+  ok(idB > 0, 'a failing notifier never stops a post from being created');
+  const none = await discordNotifier(undefined)({ username: 'x', army: 'orks', engagement: 'pitched', points: 1, slots: [slot(1)] });
+  ok(none === false, 'without a webhook URL nothing is sent');
+  const bad = await discordNotifier('https://evil.example/api/webhooks/1/abc', async () => { throw new Error('must not be called'); })({ username: 'x', army: 'orks', engagement: 'pitched', points: 1, slots: [slot(1)] });
+  ok(bad === false, 'a URL that is not a Discord webhook is ignored');
+  let captured;
+  const fake = async (u, o) => { captured = { u, body: JSON.parse(o.body) }; return { ok: true }; };
+  const sentOk = await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', fake)({ username: '@everyone **Bob**', army: 'space_marines', engagement: 'epic', points: 3000, eventName: 'Autumn Cup', slots: [slot(5), slot(29)] });
+  ok(sentOk === true && captured.u.endsWith('/abc-DEF_1'), 'a real webhook gets one POST');
+  ok(captured.body.allowed_mentions.parse.length === 0, 'the message can never ping anyone (allowed_mentions.parse is empty)');
+  const desc = captured.body.embeds[0].description;
+  ok(!desc.includes('@everyone') && !desc.includes('**Bob**') && desc.includes('space marines') && desc.includes('Autumn Cup') && (desc.match(/<t:\d+:f>/g) ?? []).length === 2,
+    'player text is stripped of mentions and markdown; the times are Discord timestamps', desc);
+}
 
 // ── cascade ──
 await db.exec(`DELETE FROM users WHERE id = ${A}`);

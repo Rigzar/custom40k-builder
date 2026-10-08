@@ -180,7 +180,43 @@ function shapePost(r, extra = {}) {
   };
 }
 
-export function gitfinda(sql) {
+// ── Discord announcement (Unwise's idea, 2026-10-05) ──────────────────────────────────────────
+// When a post is created, a short message goes to a Discord channel through a WEBHOOK, so people
+// find out a game was posted without opening the app. A webhook needs no bot and no library: one
+// POST of JSON. It is optional and best effort: with GITFINDA_DISCORD_WEBHOOK unset nothing happens,
+// and a Discord outage, a slow answer or a bad URL never stops a post from being created.
+const WEBHOOK = /^https:\/\/(discord|discordapp)\.com\/api\/webhooks\/\d+\/[\w-]+$/;
+const NOTIFY_TIMEOUT_MS = 2500;
+const APP_URL = 'https://custom40k-builder.vercel.app';
+
+/** Markdown and mention characters out of a name that came from a player. */
+const plain = s => String(s ?? '').replace(/[`*_~|>@#\[\]()]/g, '').slice(0, 40);
+
+export function discordNotifier(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetchFn = globalThis.fetch) {
+  if (!url || !WEBHOOK.test(url) || typeof fetchFn !== 'function') return async () => false;
+  return async post => {
+    const unix = iso => Math.floor(new Date(iso).getTime() / 1000);
+    const slots = post.slots.slice(0, 5).map(s => `<t:${unix(s.start)}:f> – <t:${unix(s.end)}:t>`).join('\n');
+    const body = {
+      allowed_mentions: { parse: [] },
+      embeds: [{
+        title: 'New game posted on Gitfinda',
+        url: APP_URL,
+        description: `**${plain(post.username)}** is looking for a game of **${post.army.replace(/_/g, ' ')}**`
+          + ` — ${post.engagement}, ${post.points} points${post.eventName ? `, for **${plain(post.eventName)}**` : ''}.\n\n${slots}`,
+        footer: { text: 'Times are shown in your own time zone. Open the app, Gitfinda tab, to match it.' },
+      }],
+    };
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), NOTIFY_TIMEOUT_MS);
+    try {
+      const r = await fetchFn(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: ctl.signal });
+      return r.ok;
+    } finally { clearTimeout(timer); }
+  };
+}
+
+export function gitfinda(sql, { notify = discordNotifier() } = {}) {
   /** Events a post can be attached to: public ones that have not ended. */
   async function events() {
     const r = await sql`
@@ -281,6 +317,13 @@ export function gitfinda(sql) {
     for (const s of v.slots) {
       await sql`INSERT INTO gitfinda_slots (post_id, starts_at, ends_at) VALUES (${id}, ${s.start}, ${s.end})`;
     }
+    // Best effort, after the post exists: whatever Discord does, the player's post is already saved.
+    try {
+      const who = await sql`SELECT username FROM users WHERE id = ${userId}`;
+      const ev = v.eventId !== null ? await sql`SELECT name FROM events WHERE id = ${v.eventId}` : { rows: [] };
+      await notify({ username: who.rows[0]?.username, army: v.army, engagement: v.engagement, points: v.points,
+        slots: v.slots, eventName: ev.rows[0]?.name ?? null });
+    } catch { /* ignored on purpose */ }
     return { ok: true, id };
   }
 
