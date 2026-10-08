@@ -66,7 +66,7 @@ export type TranslationKey =
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
   | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
-  | 'navDiscord' | 'navDiscordJoin' | 'navRulesPdf' | 'referenceModelTag' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
+  | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
@@ -775,8 +775,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscord: 'Discord',
 
     navDiscordJoin: 'Join the Discord',
-    navRulesPdf: 'Core Rules as PDF (work in progress, by Scoots)',
     referenceModelTag: 'reference',
+    gfFocusGone: 'That game is no longer open (it was matched, cancelled or has passed). Here are the open ones.',
     navCampaignAlphaAdmin: 'Campaign — Alpha (Admin)',
     navCampaignComingSoon: 'Campaign — Coming Soon (Alpha)',
     howToActivate: 'How to activate',
@@ -1892,8 +1892,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscord: 'Discord',
 
     navDiscordJoin: 'Discord beitreten',
-    navRulesPdf: 'Grundregeln als PDF (in Arbeit, von Scoots)',
     referenceModelTag: 'Referenz',
+    gfFocusGone: 'Dieses Spiel ist nicht mehr offen (vergeben, abgesagt oder vorbei). Hier die offenen.',
     navCampaignAlphaAdmin: 'Feldzug — Alpha (Admin)',
     navCampaignComingSoon: 'Feldzug — Demnächst (Alpha)',
     howToActivate: 'Aktivierung',
@@ -3007,8 +3007,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscord: 'Discord',
 
     navDiscordJoin: 'Unirse al Discord',
-    navRulesPdf: 'Reglas básicas en PDF (en desarrollo, por Scoots)',
     referenceModelTag: 'referencia',
+    gfFocusGone: 'Esa partida ya no está abierta (se emparejó, se canceló o ya pasó). Aquí están las abiertas.',
     navCampaignAlphaAdmin: 'Campaña — Alpha (Admin)',
     navCampaignComingSoon: 'Campaña — Próximamente (Alpha)',
     howToActivate: 'Cómo activarlo',

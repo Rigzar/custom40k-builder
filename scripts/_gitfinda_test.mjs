@@ -8,7 +8,7 @@
  * derived Expired/Matched, no double match, privacy of chats, the unread counts, limits.
  */
 import { PGlite } from '@electric-sql/pglite';
-import { gitfinda, gitfindaSchema, discordNotifier, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
+import { gitfinda, gitfindaSchema, discordNotifier, discordRemover, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
 import fs from 'node:fs';
 
 const db = new PGlite();
@@ -219,17 +219,59 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   const idB = (await gb.create(B, post({ slots: [slot(31)] }))).id;
   ok(idB > 0, 'a failing notifier never stops a post from being created');
   const none = await discordNotifier(undefined)({ username: 'x', army: 'orks', engagement: 'pitched', points: 1, slots: [slot(1)] });
-  ok(none === false, 'without a webhook URL nothing is sent');
+  ok(none === null, 'without a webhook URL nothing is sent');
   const bad = await discordNotifier('https://evil.example/api/webhooks/1/abc', async () => { throw new Error('must not be called'); })({ username: 'x', army: 'orks', engagement: 'pitched', points: 1, slots: [slot(1)] });
-  ok(bad === false, 'a URL that is not a Discord webhook is ignored');
+  ok(bad === null, 'a URL that is not a Discord webhook is ignored');
   let captured;
-  const fake = async (u, o) => { captured = { u, body: JSON.parse(o.body) }; return { ok: true }; };
-  const sentOk = await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', fake)({ username: '@everyone **Bob**', army: 'space_marines', engagement: 'epic', points: 3000, eventName: 'Autumn Cup', slots: [slot(5), slot(29)] });
-  ok(sentOk === true && captured.u.endsWith('/abc-DEF_1'), 'a real webhook gets one POST');
+  const fake = async (u, o) => { captured = { u, body: JSON.parse(o.body) }; return { ok: true, json: async () => ({ id: '555' }) }; };
+  const sentOk = await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', fake)({ id: 42, username: '@everyone **Bob**', army: 'space_marines', engagement: 'epic', points: 3000, eventName: 'Autumn Cup', slots: [slot(5), slot(29)] });
+  ok(sentOk === '555' && captured.u.endsWith('/abc-DEF_1?wait=true'), 'a real webhook gets one POST and its message id comes back', captured.u);
   ok(captured.body.allowed_mentions.parse.length === 0, 'the message can never ping anyone (allowed_mentions.parse is empty)');
+  ok(captured.body.embeds[0].url.endsWith('/?gitfinda=42'), 'the link opens the app on that very game', captured.body.embeds[0].url);
   const desc = captured.body.embeds[0].description;
   ok(!desc.includes('@everyone') && !desc.includes('**Bob**') && desc.includes('space marines') && desc.includes('Autumn Cup') && (desc.match(/<t:\d+:f>/g) ?? []).length === 2,
     'player text is stripped of mentions and markdown; the times are Discord timestamps', desc);
+}
+
+// ── Discord announcements are deleted when the game stops being open ──
+{
+  const removed = [];
+  let serial = 100;
+  const gd = gitfinda(sql, {
+    notify: async () => String(++serial),
+    remove: async id => { removed.push(id); return true; },
+  });
+  const E = (await db.query("INSERT INTO users (username) VALUES ('erin') RETURNING id")).rows[0].id;   // a fresh player: B is at the 5-post cap by now
+  const midOf = async id => (await db.query('SELECT discord_message_id AS m FROM gitfinda_posts WHERE id = ' + id)).rows[0].m;
+  const pc = (await gd.create(E, post({ slots: [slot(40)] }))).id;
+  ok((await midOf(pc)) !== null, 'the message id is stored with the game');
+  await gd.cancel(E, { id: pc });
+  ok(removed.includes('101') && (await midOf(pc)) === null, 'cancelling a game deletes its announcement');
+  const pm = (await gd.create(E, post({ slots: [slot(41)] }))).id;
+  await gd.match(C, { id: pm });
+  ok(removed.includes('102') && (await midOf(pm)) === null, 'a match deletes the announcement');
+  const pe = (await gd.create(E, post({ slots: [slot(42)] }))).id;
+  await db.exec('UPDATE gitfinda_slots SET starts_at = now() - interval \'5 hours\', ends_at = now() - interval \'2 hours\' WHERE post_id = ' + pe);
+  ok((await midOf(pe)) !== null, 'an over game still has its id until somebody opens the board');
+  await gd.list(D, {});
+  ok(removed.includes('103') && (await midOf(pe)) === null, 'opening the board sweeps the announcement of a game that is over');
+  const po = (await gd.create(E, post({ slots: [slot(43)] }))).id;
+  const before = removed.length;
+  await gd.list(D, {});
+  ok(removed.length === before && (await midOf(po)) !== null, 'an open game keeps its announcement');
+  const flaky = gitfinda(sql, { notify: async () => '900', remove: async () => { throw new Error('Discord is down'); } });
+  const pf = (await flaky.create(E, post({ slots: [slot(44)] }))).id;
+  await flaky.cancel(E, { id: pf });
+  ok((await midOf(pf)) === '900', 'when Discord cannot delete, the id is kept for the next sweep');
+  await gd.list(D, {});
+  ok(removed.includes('900') && (await midOf(pf)) === null, 'and the next sweep retries it');
+  // the remover itself
+  let call;
+  const fakeDel = async (u, o) => { call = { u, method: o.method }; return { ok: false, status: 404 }; };
+  const rm = discordRemover('https://discord.com/api/webhooks/123/abc-DEF_1', fakeDel);
+  ok((await rm('777')) === true && call.method === 'DELETE' && call.u.endsWith('/abc-DEF_1/messages/777'), 'the remover sends a DELETE for that message; a 404 counts as gone', JSON.stringify(call));
+  ok((await rm('../../x')) === false, 'a message id that is not digits never reaches the URL');
+  ok((await discordRemover(undefined)('777')) === false, 'without a webhook URL nothing is deleted');
 }
 
 // ── cascade ──

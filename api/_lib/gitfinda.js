@@ -70,6 +70,8 @@ export async function gitfindaSchema(sql) {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
+  // The id of this game's announcement in Discord, kept so the message can be deleted when the game stops being open.
+  await sql`ALTER TABLE gitfinda_posts ADD COLUMN IF NOT EXISTS discord_message_id TEXT`;
   await sql`CREATE INDEX IF NOT EXISTS gitfinda_posts_user_idx ON gitfinda_posts(user_id)`;
   await sql`CREATE INDEX IF NOT EXISTS gitfinda_posts_status_idx ON gitfinda_posts(status, created_at DESC)`;
   await sql`
@@ -185,6 +187,8 @@ function shapePost(r, extra = {}) {
 // find out a game was posted without opening the app. A webhook needs no bot and no library: one
 // POST of JSON. It is optional and best effort: with GITFINDA_DISCORD_WEBHOOK unset nothing happens,
 // and a Discord outage, a slow answer or a bad URL never stops a post from being created.
+// The message is asked back (?wait=true) so its id can be stored; the same webhook may delete it again
+// (discordRemover), which is how a game that is cancelled, matched or over leaves the channel.
 const WEBHOOK = /^https:\/\/(discord|discordapp)\.com\/api\/webhooks\/\d+\/[\w-]+$/;
 const NOTIFY_TIMEOUT_MS = 2500;
 const APP_URL = 'https://custom40k-builder.vercel.app';
@@ -193,7 +197,7 @@ const APP_URL = 'https://custom40k-builder.vercel.app';
 const plain = s => String(s ?? '').replace(/[`*_~|>@#\[\]()]/g, '').slice(0, 40);
 
 export function discordNotifier(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetchFn = globalThis.fetch) {
-  if (!url || !WEBHOOK.test(url) || typeof fetchFn !== 'function') return async () => false;
+  if (!url || !WEBHOOK.test(url) || typeof fetchFn !== 'function') return async () => null;
   return async post => {
     const unix = iso => Math.floor(new Date(iso).getTime() / 1000);
     const slots = post.slots.slice(0, 5).map(s => `<t:${unix(s.start)}:f> – <t:${unix(s.end)}:t>`).join('\n');
@@ -201,7 +205,8 @@ export function discordNotifier(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetc
       allowed_mentions: { parse: [] },
       embeds: [{
         title: 'New game posted on Gitfinda',
-        url: APP_URL,
+        // Opens the app on this very game (App.tsx reads ?gitfinda=<id>); the login is asked for only if needed.
+        url: post.id ? `${APP_URL}/?gitfinda=${post.id}` : APP_URL,
         description: `**${plain(post.username)}** is looking for a game of **${post.army.replace(/_/g, ' ')}**`
           + ` — ${post.engagement}, ${post.points} points${post.eventName ? `, for **${plain(post.eventName)}**` : ''}.\n\n${slots}`,
         footer: { text: 'Times are shown in your own time zone. Open the app, Gitfinda tab, to match it.' },
@@ -210,13 +215,56 @@ export function discordNotifier(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetc
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), NOTIFY_TIMEOUT_MS);
     try {
-      const r = await fetchFn(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: ctl.signal });
-      return r.ok;
+      const r = await fetchFn(url + '?wait=true', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: ctl.signal });
+      if (!r.ok) return null;
+      const id = (await r.json())?.id;
+      return typeof id === 'string' && /^\d+$/.test(id) ? id : null;
     } finally { clearTimeout(timer); }
   };
 }
 
-export function gitfinda(sql, { notify = discordNotifier() } = {}) {
+/** Deletes one of this webhook's own messages. True when it is gone (a 404 means it already was). */
+export function discordRemover(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetchFn = globalThis.fetch) {
+  if (!url || !WEBHOOK.test(url) || typeof fetchFn !== 'function') return async () => false;
+  return async messageId => {
+    if (!/^\d+$/.test(String(messageId ?? ''))) return false;   // an id is digits; nothing else may reach the URL
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), NOTIFY_TIMEOUT_MS);
+    try {
+      const r = await fetchFn(`${url}/messages/${messageId}`, { method: 'DELETE', signal: ctl.signal });
+      return r.ok || r.status === 404;
+    } finally { clearTimeout(timer); }
+  };
+}
+
+export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover() } = {}) {
+  /** Takes a game's announcement out of Discord and forgets its id. Best effort: a failure keeps the id for the next sweep. */
+  async function dropAnnouncement(postId) {
+    try {
+      const r = await sql`SELECT discord_message_id AS mid FROM gitfinda_posts WHERE id = ${postId}`;
+      const mid = r.rows[0]?.mid;
+      if (mid && await remove(mid)) await sql`UPDATE gitfinda_posts SET discord_message_id = NULL WHERE id = ${postId}`;
+    } catch { /* ignored on purpose */ }
+  }
+
+  /**
+   * Removes the announcements of games that are no longer open: cancelled, matched or with every time slot in the
+   * past. There is no cron on this plan (all 12 functions are taken), so whoever opens the board does the
+   * cleaning, a few at a time.
+   */
+  async function sweep() {
+    try {
+      const r = await sql`
+        SELECT p.id FROM gitfinda_posts p
+        WHERE p.discord_message_id IS NOT NULL AND (
+          p.status <> 'active'
+          OR NOT EXISTS (SELECT 1 FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now())
+          OR EXISTS (SELECT 1 FROM gitfinda_matches m WHERE m.post_id = p.id))
+        LIMIT 5`;
+      for (const row of r.rows) await dropAnnouncement(row.id);
+    } catch { /* ignored on purpose */ }
+  }
+
   /** Events a post can be attached to: public ones that have not ended. */
   async function events() {
     const r = await sql`
@@ -227,6 +275,7 @@ export function gitfinda(sql, { notify = discordNotifier() } = {}) {
   }
 
   async function list(userId, q) {
+    await sweep();
     const army = ARMIES.includes(q.army) ? q.army : null;
     const engagement = ENGAGEMENTS.includes(q.engagement) ? q.engagement : null;
     const eventId = q.eventId != null && q.eventId !== '' && Number.isInteger(Number(q.eventId)) ? Number(q.eventId) : null;
@@ -321,8 +370,9 @@ export function gitfinda(sql, { notify = discordNotifier() } = {}) {
     try {
       const who = await sql`SELECT username FROM users WHERE id = ${userId}`;
       const ev = v.eventId !== null ? await sql`SELECT name FROM events WHERE id = ${v.eventId}` : { rows: [] };
-      await notify({ username: who.rows[0]?.username, army: v.army, engagement: v.engagement, points: v.points,
+      const mid = await notify({ id, username: who.rows[0]?.username, army: v.army, engagement: v.engagement, points: v.points,
         slots: v.slots, eventName: ev.rows[0]?.name ?? null });
+      if (typeof mid === 'string' && mid) await sql`UPDATE gitfinda_posts SET discord_message_id = ${mid} WHERE id = ${id}`;
     } catch { /* ignored on purpose */ }
     return { ok: true, id };
   }
@@ -335,6 +385,7 @@ export function gitfinda(sql, { notify = discordNotifier() } = {}) {
       WHERE id = ${id} AND user_id = ${userId} AND status = 'active'
       RETURNING id`;
     if (!r.rows[0]) throw new Refusal('Unknown post.', 404, 'gfErrNoPost');
+    await dropAnnouncement(id);
     return { ok: true };
   }
 
@@ -364,6 +415,7 @@ export function gitfinda(sql, { notify = discordNotifier() } = {}) {
       ON CONFLICT (post_id, matcher_user_id) DO NOTHING
       RETURNING id`;
     if (!ins.rows[0]) throw new Refusal('You already matched this post.', 409, 'gfErrAlreadyMatched');
+    await dropAnnouncement(id);   // taken: it leaves the channel (a withdrawn match does not bring it back)
     return { ok: true, matchId: ins.rows[0].id };
   }
 

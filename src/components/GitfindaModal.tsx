@@ -65,7 +65,7 @@ function ArmyBadge({ army, size = 'w-9 h-9' }: { army: string; size?: string }) 
   );
 }
 
-interface Props { onClose: () => void; username: string }
+interface Props { onClose: () => void; username: string; /** A game a Discord announcement linked to: shown highlighted. */ focusPostId?: number }
 
 /** The latest value, readable from a hook that must not restart when it changes. */
 function useLatest<T>(value: T) {
@@ -74,7 +74,7 @@ function useLatest<T>(value: T) {
   return ref;
 }
 
-export function GitfindaModal({ onClose, username }: Props) {
+export function GitfindaModal({ onClose, username, focusPostId }: Props) {
   const t = useT();
   const language = useLanguage(s => s.language);
   const locale = LOCALE[language] ?? 'en-GB';
@@ -151,7 +151,7 @@ export function GitfindaModal({ onClose, username }: Props) {
         <button onClick={onClose} aria-label={t('close')} className="gf-sticky sticky right-0 shrink-0 px-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none">×</button>
       </div>
       <div className="p-3 sm:p-4">
-        {tab === 'browse' && <BrowseTab stickyTop={barH} t={t} locale={locale} onMatched={id => { setOpenMatch(id); setTab('matches'); refreshUnread(); }} goCreate={() => setTab('create')} goPosts={() => setTab('posts')} goMatches={() => setTab('matches')} />}
+        {tab === 'browse' && <BrowseTab focusId={focusPostId} stickyTop={barH} t={t} locale={locale} onMatched={id => { setOpenMatch(id); setTab('matches'); refreshUnread(); }} goCreate={() => setTab('create')} goPosts={() => setTab('posts')} goMatches={() => setTab('matches')} />}
         {tab === 'create' && <CreateTab t={t} locale={locale} onDone={() => setTab('posts')} />}
         {tab === 'posts' && <PostsTab t={t} locale={locale} goMatches={() => setTab('matches')} goCreate={() => setTab('create')} />}
         {tab === 'matches' && <MatchesTab t={t} locale={locale} username={username} initialId={openMatch} onRead={refreshUnread} goBrowse={() => setTab('browse')} />}
@@ -223,11 +223,11 @@ function zoneNote(t: TFn, zone: string): string {
   return tpl(t(zone === myZone() ? 'gfSlotsYourZone' : 'gfSlotsInZone'), { zone });
 }
 
-function PostCard({ t, locale, post, zone, action }: { t: TFn; locale: string; post: GitfindaPost; zone: string; action?: React.ReactNode }) {
+function PostCard({ t, locale, post, zone, action, highlight }: { t: TFn; locale: string; post: GitfindaPost; zone: string; action?: React.ReactNode; highlight?: boolean }) {
   const a = ago(post.createdAt);
   const agoKey = a.unit === 'm' ? 'gfAgoM' : a.unit === 'h' ? 'gfAgoH' : 'gfAgoD';
   return (
-    <div className={`${cardBox} p-3`}>
+    <div id={`gf-post-${post.id}`} className={`${cardBox} p-3 ${highlight ? 'ring-2 ring-orange-400' : ''}`}>
       <div className="flex items-start gap-3">
         <ArmyBadge army={post.army} />
         <div className="flex-1 min-w-0">
@@ -255,8 +255,8 @@ function PostCard({ t, locale, post, zone, action }: { t: TFn; locale: string; p
 
 // ── Browse ──────────────────────────────────────────────────────────────────────────────────────
 
-function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyTop }: {
-  stickyTop: number;
+function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyTop, focusId }: {
+  stickyTop: number; focusId?: number;
   t: TFn; locale: string; onMatched: (matchId: number) => void; goCreate: () => void; goPosts: () => void; goMatches: () => void;
 }) {
   const [posts, setPosts] = useState<GitfindaPost[] | null>(null);
@@ -277,6 +277,11 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyT
   const tr = useLatest(t);
 
   useEffect(() => { api.gitfindaEvents().then(r => setEvents(r.events)).catch(() => {}); }, []);
+  // A link from a Discord announcement: bring that game into view once the list has loaded.
+  const focusFound = focusId !== undefined && !!posts?.some(p => p.id === focusId);
+  useEffect(() => {
+    if (focusFound) document.getElementById(`gf-post-${focusId}`)?.scrollIntoView({ block: 'center' });
+  }, [focusFound, focusId]);
   useEffect(() => {
     // Typing in the search box should not fire a request per key.
     const id = setTimeout(() => {
@@ -340,12 +345,15 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyT
       </div>
       {err && <div className="text-red-400 text-[12px] border border-red-900/60 bg-red-950/30 px-2 py-1">{err}</div>}
       {posts === null && <div className="text-orange-200/60 text-[12px]">{t('gfLoading')}</div>}
+      {focusId !== undefined && posts !== null && !focusFound && !err && (
+        <div className="text-orange-200/80 text-[12px] border border-orange-900/60 bg-orange-950/20 px-2 py-1">{t('gfFocusGone')}</div>
+      )}
       {posts && posts.length === 0 && !err && (
         <div className="text-orange-200/60 text-[13px] text-center py-8">{q || army || engagement || eventId || minPoints !== '' || maxPoints !== '' ? t('gfNoPostsFiltered') : t('gfNoPosts')}</div>
       )}
       <div className="space-y-2">
         {posts?.map(p => (
-          <PostCard key={p.id} t={t} locale={locale} post={p} zone={shownZone}
+          <PostCard key={p.id} t={t} locale={locale} post={p} zone={shownZone} highlight={p.id === focusId}
             action={p.mine
               ? <button className={btnGhost} onClick={goPosts}>{t('gfYourPost')}</button>
               : p.matchedByMe

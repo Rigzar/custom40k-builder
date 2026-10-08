@@ -444,6 +444,27 @@ function normaliseMonsterFlag(data: FactionData): void {
   }
 }
 
+/**
+ * The unit update reads a multi-profile weapon from a header row ending in " *" followed by "- Mode" rows, and
+ * writes the profiles as "Name - Mode". A header typed without the space ("Kroot carbine*") comes out as
+ * "Kroot carbine- Melee": it no longer matches the option that names the weapon, so every Kroot unit showed both
+ * carbine profiles and both scattergun profiles all the time (Tau 1.3, reported by Dennis_W). The sheets are
+ * the author's to fix, but a player should not see a broken unit meanwhile: where several weapons share the
+ * prefix before a "- ", write it the way the rest of the data does.
+ */
+function normaliseProfileNames(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    const ws = unit.weapons ?? [];
+    const prefixOf = (n: string) => n.match(/^(.*\S)- (\S.*)$/);
+    const counts = new Map<string, number>();
+    for (const w of ws) { const m = prefixOf(w.name); if (m && !w.name.includes(' - ')) counts.set(m[1], (counts.get(m[1]) ?? 0) + 1); }
+    for (const w of ws) {
+      const m = prefixOf(w.name);
+      if (m && !w.name.includes(' - ') && (counts.get(m[1]) ?? 0) >= 2) w.name = `${m[1]} - ${m[2]}`;
+    }
+  }
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -453,6 +474,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
+     normaliseProfileNames(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'escalation'].includes(k));
      return data;
