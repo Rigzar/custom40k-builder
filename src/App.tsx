@@ -191,7 +191,7 @@ export default function App() {
   // Set when opened via the Account tab's "My Campaigns" quick-open, so CampaignModal expands
   // straight to that campaign instead of the plain index.
   const [campaignInitialOpenId, setCampaignInitialOpenId] = useState<number | undefined>(undefined);
-  const { username, loggedIn, isAdmin, isInterrogator, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
+  const { username, loggedIn, loading: authLoading, isAdmin, isInterrogator, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
   const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
@@ -230,6 +230,24 @@ export default function App() {
       .catch(() => setShareLinkError('This share link is invalid or has been revoked.'));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // A link from a Discord announcement of a Gitfinda game: /?gitfinda=<post id> opens Gitfinda on that
+  // game. Nothing is loaded up front: the Gitfinda and login screens are lazy chunks and open only when
+  // needed. Signed in, it goes straight to the game; signed out, the login opens first and the game
+  // follows as soon as the player is in. The param is stripped once read.
+  const [gitfindaFocus, setGitfindaFocus] = useState<number | null>(null);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('gitfinda');
+    if (raw === null) return;
+    params.delete('gitfinda');
+    window.history.replaceState(null, '', window.location.pathname + (params.toString() ? `?${params}` : '') + window.location.hash);
+    const id = Number(raw);
+    if (Number.isInteger(id) && id > 0) setGitfindaFocus(id);
+  }, []);
+  useEffect(() => {
+    if (gitfindaFocus === null || authLoading) return;
+    if (loggedIn) setShowGitfinda(true); else setShowAuth(true);
+  }, [gitfindaFocus, authLoading, loggedIn]);
   // Tracks which save (cloud roster id, or local save id) the "Save" button currently updates
   // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
   // a fresh entry instead of silently overwriting whatever was last bound.
@@ -1182,7 +1200,8 @@ export default function App() {
           />
         )}
         {showGitfinda && username && (
-          <GitfindaModal username={username} onClose={() => setShowGitfinda(false)} />
+          <GitfindaModal username={username} focusPostId={gitfindaFocus ?? undefined}
+            onClose={() => { setShowGitfinda(false); setGitfindaFocus(null); }} />
         )}
       </Suspense>
 

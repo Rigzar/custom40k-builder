@@ -26,6 +26,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.83',
+    date: '2026-10-08',
+    title: "The Horus Heresy supplements update themselves, and Gitfinda can announce games on Discord",
+    changes: [
+      "GENERAL — THE TWO HORUS HERESY SUPPLEMENTS JOIN THE AUTOMATIC UPDATE. Legiones Astartes and Forces of the Machine God (20 units) now live in the same folder layout as the codices, named after their sheets (horus_heresy_legiones_astartes, horus_heresy_forces_of_the_machine_god), so the unit update rewrites their models, stats, points, weapons and abilities like any other faction. The first run was merged on 2026-10-08 and both supplements are on their 1.2 sheets. The share of the game data that refreshes itself barely moves, about 40% by volume (the supplements are small; the 45% quoted in 1.82 was counted another way): the next big step is the Armory, about 18% of the data.",
+      "GENERAL — GITFINDA CAN ANNOUNCE NEW GAMES ON DISCORD. When a game is posted, a short message can go to a Discord channel through a webhook: who posted, the army, the type of battle, the points and the time slots as Discord timestamps, each shown in the reader's own time zone. It never pings anyone, a Discord outage never stops a post from being saved, and it stays off until a webhook is connected on the server. The message links straight to that game: signed in you land on it, signed out the login opens first and then the game.",
+      "GENERAL — EVERYTHING FIXED SINCE THE 1.82 CUT stays listed under 1.82: the Ascended Daemon Prince, the Monstrous Creature rules, the Company Hero's Animal Companion (GH#219), reference models for the Brimstone Horror, the Horus Heresy 1.2 corrections, the Core Rules PDF link.",
+    ],
+  },
+  {
     version: '1.82',
     date: '2026-10-03',
     title: "Unit updates on a button, and 45% of the game data refreshes itself",

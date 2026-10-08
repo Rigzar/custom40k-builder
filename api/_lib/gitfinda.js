@@ -201,7 +201,8 @@ export function discordNotifier(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetc
       allowed_mentions: { parse: [] },
       embeds: [{
         title: 'New game posted on Gitfinda',
-        url: APP_URL,
+        // Opens the app on this very game (App.tsx reads ?gitfinda=<id>); the login is asked for only if needed.
+        url: post.id ? `${APP_URL}/?gitfinda=${post.id}` : APP_URL,
         description: `**${plain(post.username)}** is looking for a game of **${post.army.replace(/_/g, ' ')}**`
           + ` — ${post.engagement}, ${post.points} points${post.eventName ? `, for **${plain(post.eventName)}**` : ''}.\n\n${slots}`,
         footer: { text: 'Times are shown in your own time zone. Open the app, Gitfinda tab, to match it.' },
@@ -321,7 +322,7 @@ export function gitfinda(sql, { notify = discordNotifier() } = {}) {
     try {
       const who = await sql`SELECT username FROM users WHERE id = ${userId}`;
       const ev = v.eventId !== null ? await sql`SELECT name FROM events WHERE id = ${v.eventId}` : { rows: [] };
-      await notify({ username: who.rows[0]?.username, army: v.army, engagement: v.engagement, points: v.points,
+      await notify({ id, username: who.rows[0]?.username, army: v.army, engagement: v.engagement, points: v.points,
         slots: v.slots, eventName: ev.rows[0]?.name ?? null });
     } catch { /* ignored on purpose */ }
     return { ok: true, id };

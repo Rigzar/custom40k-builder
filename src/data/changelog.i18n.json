@@ -1,4 +1,34 @@
 {
+ "1.83": {
+  "title": {
+   "de": "Die Horus-Heresy-Supplemente aktualisieren sich selbst, und Gitfinda kann Spiele auf Discord ankündigen",
+   "es": "Los suplementos de Horus Heresy se actualizan solos, y Gitfinda puede anunciar partidas en Discord",
+   "ru": "Дополнения Horus Heresy обновляются сами, а Gitfinda может объявлять игры в Discord",
+   "ja": "ホルス・ヘレシー補足が自動更新に、GitfindaがDiscordに対戦募集を通知可能に"
+  },
+  "changes": {
+   "de": [
+    "GENERAL — DIE ZWEI HORUS-HERESY-SUPPLEMENTE SIND JETZT IM AUTOMATISCHEN UPDATE. Legiones Astartes und Forces of the Machine God (20 Einheiten) liegen im selben Ordnerformat wie die Codizes, benannt nach ihren Blättern (horus_heresy_legiones_astartes, horus_heresy_forces_of_the_machine_god); das Einheiten-Update schreibt ihre Modelle, Werte, Punkte, Waffen und Fähigkeiten wie bei jeder anderen Fraktion neu. Der erste Lauf wurde am 08.10.2026 gemergt, beide Supplemente stehen auf ihren 1.2-Blättern. Der selbst aktualisierte Anteil der Spieldaten ändert sich kaum, etwa 40 % nach Volumen (die Supplemente sind klein; die 45 % aus 1.82 waren anders gezählt): Der nächste große Schritt ist die Armory, etwa 18 % der Daten.",
+    "GENERAL — GITFINDA KANN NEUE SPIELE AUF DISCORD ANKÜNDIGEN. Wird ein Spiel eingestellt, kann per Webhook eine kurze Nachricht in einen Discord-Kanal gehen: wer es eingestellt hat, die Armee, die Schlachtart, die Punkte und die Zeitfenster als Discord-Zeitstempel, jeweils in der Zeitzone des Lesers. Es pingt nie jemanden, ein Discord-Ausfall verhindert nie das Speichern eines Beitrags, und es bleibt aus, bis auf dem Server ein Webhook verbunden ist. Die Nachricht verlinkt direkt auf dieses Spiel: Wer eingeloggt ist, landet darauf, sonst öffnet sich zuerst der Login und danach das Spiel.",
+    "GENERAL — ALLES, WAS SEIT DEM 1.82-SCHNITT KORRIGIERT WURDE, bleibt unter 1.82 aufgelistet: der Aufgestiegene Daemon Prince, die Monstrous-Creature-Regeln, der Animal Companion des Company Hero (GH#219), Referenzmodelle für den Brimstone Horror, die Horus-Heresy-1.2-Korrekturen, der Link zur Grundregel-PDF."
+   ],
+   "es": [
+    "GENERAL — LOS DOS SUPLEMENTOS DE HORUS HERESY ENTRAN EN LA ACTUALIZACIÓN AUTOMÁTICA. Legiones Astartes y Forces of the Machine God (20 unidades) tienen ya el mismo formato de carpetas que los códices, con el nombre de sus hojas (horus_heresy_legiones_astartes, horus_heresy_forces_of_the_machine_god), así que la actualización de unidades reescribe sus modelos, estadísticas, puntos, armas y habilidades como en cualquier otra facción. La primera ejecución se fusionó el 08/10/2026 y ambos suplementos están en sus hojas 1.2. La parte de los datos que se refresca sola apenas cambia, un 40% por volumen (los suplementos son pequeños; el 45% de 1.82 se contó de otra manera): el siguiente gran paso es la Armory, un 18% de los datos.",
+    "GENERAL — GITFINDA PUEDE ANUNCIAR PARTIDAS NUEVAS EN DISCORD. Cuando se publica una partida, un mensaje corto puede ir a un canal de Discord mediante un webhook: quién la publica, el ejército, el tipo de batalla, los puntos y las franjas horarias como marcas de tiempo de Discord, cada una en la zona horaria del lector. Nunca avisa a nadie, una caída de Discord nunca impide guardar la publicación, y sigue apagado hasta que se conecte un webhook en el servidor. El mensaje enlaza directamente a esa partida: con la sesión iniciada llegas a ella; si no, se abre primero el inicio de sesión y luego la partida.",
+    "GENERAL — TODO LO ARREGLADO DESDE EL CORTE DE 1.82 sigue listado bajo 1.82: el Príncipe Demonio Ascendido, las reglas de Criatura Monstruosa, el Animal Companion del Company Hero (GH#219), los modelos de referencia del Brimstone Horror, las correcciones 1.2 de Horus Heresy, el enlace al PDF de las reglas básicas."
+   ],
+   "ru": [
+    "GENERAL — ДВА ДОПОЛНЕНИЯ HORUS HERESY ВХОДЯТ В АВТОМАТИЧЕСКОЕ ОБНОВЛЕНИЕ. Legiones Astartes и Forces of the Machine God (20 юнитов) теперь в том же формате папок, что и кодексы, с названиями по листам (horus_heresy_legiones_astartes, horus_heresy_forces_of_the_machine_god), поэтому обновление юнитов переписывает их модели, характеристики, очки, оружие и способности, как у любой другой фракции. Первый запуск слит 08.10.2026, оба дополнения на листах 1.2. Доля данных, обновляющихся сами, почти не меняется, около 40% по объёму (дополнения небольшие; 45% из 1.82 считались иначе): следующий большой шаг — Арсенал, около 18% данных.",
+    "GENERAL — GITFINDA МОЖЕТ ОБЪЯВЛЯТЬ НОВЫЕ ИГРЫ В DISCORD. Когда игра публикуется, короткое сообщение может уйти в канал Discord через вебхук: кто опубликовал, армия, тип битвы, очки и временные окна в виде меток времени Discord, каждая в часовом поясе читателя. Он никого не пингует, сбой Discord никогда не мешает сохранить публикацию, и он выключен, пока на сервере не подключён вебхук. Сообщение ведёт прямо на эту игру: если вы вошли, попадаете на неё, иначе сначала открывается вход, а затем игра.",
+    "GENERAL — ВСЁ, ЧТО ИСПРАВЛЕНО С МОМЕНТА СРЕЗА 1.82, остаётся в списке 1.82: Вознесённый Демон-принц, правила Monstrous Creature, Animal Companion у Company Hero (GH#219), справочные модели для Brimstone Horror, исправления Horus Heresy 1.2, ссылка на PDF основных правил."
+   ],
+   "ja": [
+    "全般 — ホルス・ヘレシー補足2種が自動更新に加わりました。レギオネス・アスタルテスとフォーシズ・オブ・ザ・マシンゴッド（20ユニット）は、シート名に合わせた同じフォルダ構成（horus_heresy_legiones_astartes、horus_heresy_forces_of_the_machine_god）になり、ユニット更新が他の勢力と同様にモデル、能力値、ポイント、武器、能力を書き換えます。最初の実行は2026-10-08にマージされ、両方とも1.2のシートです。自動更新されるデータの割合はほとんど変わらず、容量で約40%です（補足は小さく、1.82の45%は数え方が違いました）。次の大きな一歩はアーモリー（データの約18%）です。",
+    "全般 — GitfindaがDiscordに新しい対戦募集を通知できます。募集が投稿されると、ウェブフックでDiscordチャンネルに短いメッセージを送れます：投稿者、軍、戦闘の種類、ポイント、時間枠（Discordのタイムスタンプで、読む人のタイムゾーンで表示）。誰にもメンションせず、Discordの障害で投稿が保存されなくなることはなく、サーバーにウェブフックを接続するまでオフのままです。メッセージはその募集に直接リンクします：ログイン済みならそのまま開き、未ログインならまずログイン画面が開き、その後に募集が表示されます。",
+    "全般 — 1.82の区切り以降に修正したものは1.82の下に載せたままです：昇華したデーモンプリンス、モンストラス・クリーチャーのルール、カンパニー・ヒーローのアニマル・コンパニオン（GH#219）、ブリムストーン・ホラーの参考モデル、ホルス・ヘレシー1.2の修正、コアルールPDFへのリンク。"
+   ]
+  }
+ },
  "1.82": {
   "title": {
    "de": "Einheiten-Update auf Knopfdruck, und 45 % der Spieldaten aktualisieren sich selbst",

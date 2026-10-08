@@ -224,9 +224,10 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   ok(bad === false, 'a URL that is not a Discord webhook is ignored');
   let captured;
   const fake = async (u, o) => { captured = { u, body: JSON.parse(o.body) }; return { ok: true }; };
-  const sentOk = await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', fake)({ username: '@everyone **Bob**', army: 'space_marines', engagement: 'epic', points: 3000, eventName: 'Autumn Cup', slots: [slot(5), slot(29)] });
+  const sentOk = await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', fake)({ id: 42, username: '@everyone **Bob**', army: 'space_marines', engagement: 'epic', points: 3000, eventName: 'Autumn Cup', slots: [slot(5), slot(29)] });
   ok(sentOk === true && captured.u.endsWith('/abc-DEF_1'), 'a real webhook gets one POST');
   ok(captured.body.allowed_mentions.parse.length === 0, 'the message can never ping anyone (allowed_mentions.parse is empty)');
+  ok(captured.body.embeds[0].url.endsWith('/?gitfinda=42'), 'the link opens the app on that very game', captured.body.embeds[0].url);
   const desc = captured.body.embeds[0].description;
   ok(!desc.includes('@everyone') && !desc.includes('**Bob**') && desc.includes('space marines') && desc.includes('Autumn Cup') && (desc.match(/<t:\d+:f>/g) ?? []).length === 2,
     'player text is stripped of mentions and markdown; the times are Discord timestamps', desc);
