@@ -40,8 +40,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
     ],
     load: async () => {
       const [u, m] = await Promise.all([
-        import('../../data/parsed/horus_heresy/units/index'),
-        import('../../data/parsed/horus_heresy/supplement.json'),
+        import('../../data/parsed/horus_heresy_legiones_astartes/units/index'),
+        import('../../data/parsed/horus_heresy_legiones_astartes/supplement.json'),
       ]);
       const j = { ...(m as { default: any }).default, units: u.units, slot_to_units: u.slot_to_units };
       return {
@@ -68,8 +68,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
     ],
     load: async () => {
       const [u, m] = await Promise.all([
-        import('../../data/parsed/legio_titanicus/units/index'),
-        import('../../data/parsed/legio_titanicus/supplement.json'),
+        import('../../data/parsed/horus_heresy_forces_of_the_machine_god/units/index'),
+        import('../../data/parsed/horus_heresy_forces_of_the_machine_god/supplement.json'),
       ]);
       const j = { ...(m as { default: any }).default, units: u.units, slot_to_units: u.slot_to_units };
       return {

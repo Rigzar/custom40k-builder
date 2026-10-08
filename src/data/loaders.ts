@@ -340,16 +340,16 @@ async function loadFaction(key: string): Promise<FactionData> {
     // plus units/index.ts), so the unit update can rewrite them; what is not a unit is in supplement.json.
     case 'horus_heresy': {
       const [u, rest] = await Promise.all([
-        import('../../data/parsed/horus_heresy/units/index'),
-        import('../../data/parsed/horus_heresy/supplement.json'),
+        import('../../data/parsed/horus_heresy_legiones_astartes/units/index'),
+        import('../../data/parsed/horus_heresy_legiones_astartes/supplement.json'),
       ]);
       return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
     }
 
     case 'legio_titanicus': {
       const [u, rest] = await Promise.all([
-        import('../../data/parsed/legio_titanicus/units/index'),
-        import('../../data/parsed/legio_titanicus/supplement.json'),
+        import('../../data/parsed/horus_heresy_forces_of_the_machine_god/units/index'),
+        import('../../data/parsed/horus_heresy_forces_of_the_machine_god/supplement.json'),
       ]);
       return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
     }
