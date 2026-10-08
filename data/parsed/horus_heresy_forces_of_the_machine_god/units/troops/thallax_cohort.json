@@ -226,7 +226,7 @@
     "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
-    "unit_type": "Jump pack infantry ",
+    "unit_type": "Jump Pack Infantry",
     "slot": "Troops",
     "default_size": 3,
     "min_cost": 183
