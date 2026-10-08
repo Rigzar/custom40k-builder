@@ -49,12 +49,12 @@ export const TYRANID_UNIT_TYPES: TyranidUnitTypeEntry[] = [
   { name: 'Pyrovore Brood', unit_type: 'Monstrous Infantry' },
   { name: 'Ravener Brood', unit_type: 'Bike' },
   { name: 'Spore Mine Cluster', unit_type: 'Infantry' },
-  { name: 'Trygon', unit_type: 'Monstrous Creature' },
   // Heavy Support
   { name: 'Biovore Brood', unit_type: 'Monstrous Infantry' },
   { name: 'Carnifex Brood', unit_type: 'Monstrous Creature' },
   { name: 'Exocrine', unit_type: 'Monstrous Creature' },
   { name: 'Norn', unit_type: 'Monstrous Creature' },
+  { name: 'Trygon', unit_type: 'Monstrous Creature' },
   { name: 'Tyrannofex', unit_type: 'Monstrous Creature' },
   // Dedicated Transport
   { name: 'Tyrannocyte', unit_type: 'Monstrous Creature' },
