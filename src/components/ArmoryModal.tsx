@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
@@ -175,6 +175,17 @@ const MARK_BADGE: Record<string, string> = {
   Nurgle:   'bg-green-900/60 text-green-300 border-green-700',
 };
 
+/**
+ * How many copies of an item the unit holds and how many it may hold, looked up by a selection id. Read by the
+ * rows in the weapon table and in the card lists so both draw the same [-] n/cap [+] control: a squad where
+ * every model has Armory access may buy one copy per model (GH#231: the Nobz player could not tell that a
+ * ticked box could be clicked again).
+ */
+const ArmoryCountsContext = createContext<{
+  countOf: (selId: string) => number;
+  capOf: (arm: ArmoryItem, selId: string) => number;
+} | null>(null);
+
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const t = useT();
   const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army, pointLimit } = useArmyStore();
@@ -273,13 +284,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // job can be taken one additional time" — raises the per-vehicle cap on the 16 named Kustom Job
   // items by +1. Uses the allied trait pool when this item belongs to an allied Orks detachment.
   const effectiveTraitPool = (isTrueAllyUnit && alliedData) ? alliedTraitPool : traitPool;
-  function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
-    if (isMultipleAllowed(arm.desc)) return false;
-    const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
+  /** How many copies of this item the unit may hold (Infinity when the item says it can be taken multiple times). */
+  function copyCap(arm: ArmoryItem, _sec: Section): number {
+    if (isMultipleAllowed(arm.desc)) return Infinity;
     // Biomorphs are bought once for the WHOLE unit no matter its size or squadron count (the
     // codex's own "Point costs are paid per unit/model" is about price, never quantity) — never
     // scale the cap by item.size the way an ordinary has_armory_access squad's gear would.
-    if (isBiomorph(arm.desc)) return owned >= 1;
+    if (isBiomorph(arm.desc)) return 1;
     const accessorCount = (isVehicle || unit.has_armory_access) ? item.size : 1;
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
@@ -291,6 +302,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       : isPerWeaponPurchase(arm.desc)
         ? accessorCount * Math.max(1, availableWeapons.length)
         : accessorCount * multiplesPerModel(arm.desc);
+    return cap;
+  }
+  function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
+    const cap = copyCap(arm, sec);
+    if (cap === Infinity) return false;
+    const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
     return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
@@ -1079,7 +1096,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ? [...vehicleEquipBase, ...foreignVehicleEquip.filter(a => !vehicleEquipBase.some(v => v.name === a.name))]
     : vehicleEquipBase;
 
+  const countsCtx = {
+    countOf: (selId: string) => {
+      const sel = currentArmory.find(a => a.id === selId);
+      return sel ? currentArmory.filter(a => a.itemName === sel.itemName && a.section === sel.section).length : 0;
+    },
+    capOf: (arm: ArmoryItem, selId: string) => {
+      const sel = currentArmory.find(a => a.id === selId);
+      return sel ? copyCap(arm, sel.section as Section) : 1;
+    },
+  };
+
   return (
+    <ArmoryCountsContext.Provider value={countsCtx}>
     <div
       className="fixed inset-0 bg-black/80 flex items-start justify-center z-50 p-6 overflow-y-auto"
       onClick={e => e.target === e.currentTarget && onClose()}
@@ -1650,6 +1679,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         </div>
       </div>
     </div>
+    </ArmoryCountsContext.Provider>
   );
 }
 
@@ -2225,6 +2255,21 @@ function DaemonWeaponPicker({
 
 // ── Item rows ────────────────────────────────────────────────────────────────
 
+/** [-] n/cap [+]: the one control for an item that may be held more than once. */
+function CopyStepper({ count, cap, canAdd, onAdd, onRemove, addLabel, removeLabel }: {
+  count: number; cap: number; canAdd: boolean; onAdd: () => void; onRemove: () => void; addLabel: string; removeLabel: string;
+}) {
+  return (
+    <div className="inline-flex items-center border border-zinc-600 bg-zinc-900 shrink-0">
+      <button type="button" onClick={e => { e.stopPropagation(); onRemove(); }} title={removeLabel} aria-label={removeLabel}
+        className="w-6 h-6 text-sm leading-none text-zinc-300 hover:bg-red-900/60 hover:text-red-200">−</button>
+      <span className="min-w-[2.6rem] text-center text-[11px] font-mono text-amber-300 select-none">{count}/{Number.isFinite(cap) ? cap : '∞'}</span>
+      <button type="button" onClick={e => { e.stopPropagation(); if (canAdd) onAdd(); }} disabled={!canAdd} title={addLabel} aria-label={addLabel}
+        className="w-6 h-6 text-sm leading-none text-emerald-300 hover:bg-emerald-900/60 disabled:opacity-30 disabled:cursor-not-allowed">+</button>
+    </div>
+  );
+}
+
 function ArmoryItemRow({
   arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
   selectedArmoryId, onRemove,
@@ -2245,6 +2290,9 @@ function ArmoryItemRow({
   markless?: boolean;
 }) {
   const t = useT();
+  const counts = useContext(ArmoryCountsContext);
+  const copyCount = selectedArmoryId && counts ? counts.countOf(selectedArmoryId) : 1;
+  const copyCapacity = selectedArmoryId && counts ? counts.capOf(arm, selectedArmoryId) : 1;
   const requiredMark = markless ? null : itemRequiredMark(arm.name);
   const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
   const markBadgeClass = requiredMark ? (MARK_BADGE[requiredMark] ?? 'bg-zinc-800 text-zinc-300 border-zinc-600') : '';
@@ -2294,22 +2342,15 @@ function ArmoryItemRow({
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
           <span className="font-bold text-sm whitespace-nowrap text-zinc-500">{displayPrice}</span>
-          <button
-            onClick={() => onRemove(selectedArmoryId)}
-            className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
-          >
-            {t('removeUnit')}
-          </button>
-          {/* A multi-model squad where every model has its own Armory access (e.g. Orks Nobz,
-              GitHub #3) may take more than one copy of the same item — `disabled` already
-              reflects whether the per-model cap (item.size) has been reached, so once an item
-              is selected this still offers another pick until that cap is hit. */}
-          {!disabled && (
+          {copyCapacity > 1 ? (
+            <CopyStepper count={copyCount} cap={copyCapacity} canAdd={!disabled} onAdd={onAdd}
+              onRemove={() => onRemove(selectedArmoryId)} addLabel={t('addAnotherButton')} removeLabel={t('armRemoveOne')} />
+          ) : (
             <button
-              onClick={onAdd}
-              className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-emerald-900/40 border-emerald-700 text-emerald-300 hover:bg-emerald-800/60"
+              onClick={() => onRemove(selectedArmoryId)}
+              className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
             >
-              {t('addAnotherButton')}
+              {t('removeUnit')}
             </button>
           )}
         </div>
@@ -2423,6 +2464,7 @@ function ArmoryWeaponTable({
   markless?: boolean;
 }) {
   const t = useT();
+  const counts = useContext(ArmoryCountsContext);
   return (
     <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
       {/* NOT table-fixed — same reasoning as the datasheet's own weapon-swap table: forcing the
@@ -2464,33 +2506,22 @@ function ArmoryWeaponTable({
                     many are owned; the "−" beside it gives one back. The old control toggled, so
                     the click meant to buy a second Big choppa returned the first (GH#170/#171). */}
                 <td className="py-1.5 pl-2">
-                  <div className="flex items-center gap-1">
+                  {owned && counts && counts.capOf(arm, selId!) > 1 ? (
+                    <CopyStepper count={count} cap={counts.capOf(arm, selId!)} canAdd={!blocked}
+                      onAdd={() => onAdd(arm)} onRemove={() => onRemove(selId!)}
+                      addLabel={t('addAnotherButton')} removeLabel={t('armRemoveOne')} />
+                  ) : (
                     <div
-                      // At the per-model cap (a Captain has ONE Plasma pistol slot) the click gives the
-                      // copy back, as the old checkbox did; below the cap it buys another (GH#170/171).
+                      // One copy at most: the click buys it, and gives it back once it is held.
                       onClick={() => { if (owned && blocked) onRemove(selId!); else if (!disabled) onAdd(arm); }}
-                      title={count > 0 ? (blocked ? `${count} — clic para quitar` : `${count} — clic para añadir otra`) : undefined}
+                      title={owned ? t('armRemoveOne') : undefined}
                       className={`w-4 h-4 border flex items-center justify-center transition-colors
                         ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
                         ${disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
                     >
-                      {owned && (
-                        <span className="text-[8px] text-white leading-none">
-                          {count > 1 ? count : '✓'}
-                        </span>
-                      )}
+                      {owned && <span className="text-[8px] text-white leading-none">✓</span>}
                     </div>
-                    {owned && (
-                      <button
-                        type="button"
-                        onClick={() => onRemove(selId!)}
-                        title={t('armRemoveOne')}
-                        className="w-3 h-4 leading-none text-[11px] text-zinc-500 hover:text-red-400"
-                      >
-                        −
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </td>
                 <td className="py-1.5 pr-2 font-medium text-zinc-100">{nm(displayName)}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
