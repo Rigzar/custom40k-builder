@@ -8,7 +8,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
-import { getActiveVariant, gameSizePrice } from '../engine/points';
+import { getActiveVariant, gameSizePrice, liveArmoryPoints } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
@@ -184,6 +184,8 @@ const MARK_BADGE: Record<string, string> = {
 const ArmoryCountsContext = createContext<{
   countOf: (selId: string) => number;
   capOf: (arm: ArmoryItem, selId: string) => number;
+  /** Why this item cannot be added to the weapon table right now, in words (null when it can). */
+  reasonOf: (arm: ArmoryItem) => string | null;
 } | null>(null);
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
@@ -441,6 +443,24 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       if (getItemPts(arm) === null) return true;
     }
     return false;
+  }
+  /**
+   * WHY an item cannot be added, in words. Mirrors isAddBlocked in the same order, so a greyed-out row says what to
+   * change instead of just fading (Rigzar, 2026-10-09: the select/deselect system had to be clearer).
+   */
+  function blockReason(arm: ArmoryItem, sec: Section): string | null {
+    if (oncePerModelBlocked(arm, sec)) return t('armReasonCap').replace('{n}', String(copyCap(arm, sec)));
+    if (uniqueArmyBlocked(arm, sec)) return t('armReasonUnique');
+    if (kustomJobSlotFull(arm)) return t('armReasonKustom');
+    if (unwieldyModelBlocked(arm, sec)) return t('armReasonUnwieldy');
+    if (sec === 'equipment' && armorConflict(arm)) return t('armReasonArmour');
+    if (sec === 'equipment' && daemonGatewayConflict(arm)) return t('armReasonDaemon');
+    if (isItemRequirementsBlocked(arm, _effectiveKws)) return t('armReasonNeeds');
+    if (!arm.category) {
+      if (isMarkBlocked(arm)) return t('armReasonMark');
+      if (getItemPts(arm) === null) return t('armReasonNoPrice');
+    }
+    return null;
   }
   function getSelId(itemName: string, sec: Section): string | undefined {
     return currentArmory.find(a => a.itemName === itemName && a.section === sec)?.id;
@@ -1105,7 +1125,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       const sel = currentArmory.find(a => a.id === selId);
       return sel ? copyCap(arm, sel.section as Section) : 1;
     },
+    reasonOf: (arm: ArmoryItem) => (isAddBlocked(arm, 'weapons') ? blockReason(arm, 'weapons') : null),
   };
+
+  // "You carry": every bought item once, with its copies, its price and a way to take it off, at the top of the
+  // modal, so removing something never means finding it again in a long table.
+  const carried: { key: string; name: string; ids: string[]; pts: number }[] = [];
+  for (const a of currentArmory) {
+    const key = `${a.section}::${a.itemName}`;
+    let g = carried.find(c => c.key === key);
+    if (!g) { g = { key, name: a.itemName, ids: [], pts: 0 }; carried.push(g); }
+    g.ids.push(a.id);
+    g.pts += liveArmoryPoints(a, army.find(e => e.id === item.id) ?? item, unit, pointLimit);
+  }
+  const carriedTotal = carried.reduce((n, c) => n + c.pts, 0);
 
   return (
     <ArmoryCountsContext.Provider value={countsCtx}>
@@ -1126,6 +1159,30 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
+
+        {carried.length > 0 && (
+          <div className="px-3 py-2 bg-zinc-900 border-b border-zinc-700 flex flex-wrap items-center gap-1.5">
+            <span className="text-[10px] uppercase tracking-widest text-amber-600 mr-1">{t('armCarryTitle')}</span>
+            {carried.map(c => (
+              <span key={c.key} className="inline-flex items-center gap-1 border border-zinc-600 bg-zinc-800 pl-2 text-[11px] text-zinc-200">
+                {nm(stripMarkGlyph(c.name))}{c.ids.length > 1 ? ` ×${c.ids.length}` : ''}
+                <span className="text-amber-500">{c.pts >= 0 ? '+' : ''}{c.pts}</span>
+                <button type="button" onClick={() => removeItem(c.ids[c.ids.length - 1])} title={t('armRemoveOne')} aria-label={t('armRemoveOne')}
+                  className="w-5 h-5 text-zinc-400 hover:bg-red-900/60 hover:text-red-200">✕</button>
+              </span>
+            ))}
+            <span className="ml-auto flex items-center gap-2">
+              {armoryVetMax !== null && (
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${veteranSlotsFull ? 'bg-red-900/40 border-red-700 text-red-400' : 'bg-amber-900/30 border-amber-700 text-amber-400'}`}>
+                  {t('veteranAbilities')} {veteranItemsUsed}/{armoryVetMax}
+                </span>
+              )}
+              <span className="text-[11px] font-bold text-amber-400">{carriedTotal >= 0 ? '+' : ''}{carriedTotal} pts</span>
+              <button type="button" onClick={() => carried.forEach(c => c.ids.forEach(removeItem))}
+                className="text-[10px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/40 border-red-800 text-red-300 hover:bg-red-800/60">{t('armClearAll')}</button>
+            </span>
+          </div>
+        )}
 
         {/* Armory tabs — hidden when opened via a category button (veteran/vehicle) */}
         {!filterCategory && <div className="flex border-b border-zinc-700">
@@ -1309,6 +1366,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             key={i} arm={arm} isChar={isChar}
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
+                            reason={isAddBlocked(arm, effectiveSection) ? blockReason(arm, effectiveSection) : null}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
                             ptsOverride={getItemPts(arm)}
                             onRemove={removeItem}
@@ -1412,6 +1470,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             key={i} arm={arm} isChar={isChar} markless={legMarkless(legName)}
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
+                            reason={isAddBlocked(arm, effectiveSection) ? blockReason(arm, effectiveSection) : null}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
                             ptsOverride={getItemPts(arm)}
                             onRemove={removeItem}
@@ -1662,6 +1721,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     key={i} arm={arm} isChar={isChar} markless={isMarklessFaction}
                     justAdded={lastAdded === arm.name}
                     disabled={isAddBlocked(arm, effectiveSection)}
+                            reason={isAddBlocked(arm, effectiveSection) ? blockReason(arm, effectiveSection) : null}
                     selectedArmoryId={getSelId(arm.name, effectiveSection)}
                     ptsOverride={getItemPts(arm)}
                     onRemove={removeItem}
@@ -1958,6 +2018,7 @@ function EquipmentGroups({
                 <ArmoryItemRow
                   key={i} arm={arm} isChar={isChar} markless={markless}
                   disabled={(armoryVetMax !== null && (veteranSlotsFull || isSelected) && !inProfile) || inProfile}
+                  reason={armoryVetMax !== null && veteranSlotsFull && !isSelected && !inProfile ? t('armReasonVet') : null}
                   justAdded={lastAdded === arm.name}
                   priceLabel={vetPriceLabel(arm)}
                   inProfile={inProfile}
@@ -2273,7 +2334,7 @@ function CopyStepper({ count, cap, canAdd, onAdd, onRemove, addLabel, removeLabe
 function ArmoryItemRow({
   arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
   selectedArmoryId, onRemove,
-  ptsOverride, markless = false,
+  ptsOverride, markless = false, reason,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
@@ -2288,6 +2349,8 @@ function ArmoryItemRow({
   ptsOverride?: number | null;
   /** True for Horus Heresy supplement items: a trailing ᵀ is Terminator-compat, not Mark of Tzeentch. */
   markless?: boolean;
+  /** Why the row is greyed out, in words. */
+  reason?: string | null;
 }) {
   const t = useT();
   const counts = useContext(ArmoryCountsContext);
@@ -2395,6 +2458,9 @@ function ArmoryItemRow({
           )}
         </div>
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(arm.desc)}</div>}
+        {reason && (disabled || priceIsNull) && !inProfile && (
+          <div className="text-[11px] text-amber-500 mt-0.5">⛔ {reason}</div>
+        )}
         <ArmoryWeaponStats arm={arm} />
       </div>
       <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : priceIsNull ? 'text-zinc-500' : 'text-amber-500'}`}>
@@ -2500,7 +2566,7 @@ function ArmoryWeaponTable({
               <tr
                 key={i}
                 title={localiseAbility(arm.desc)}
-                className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-40' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
+                className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-60' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
               >
                 {/* A COUNTER, not a checkbox. Clicking the box buys another copy and shows how
                     many are owned; the "−" beside it gives one back. The old control toggled, so
@@ -2523,7 +2589,12 @@ function ArmoryWeaponTable({
                     </div>
                   )}
                 </td>
-                <td className="py-1.5 pr-2 font-medium text-zinc-100">{nm(displayName)}</td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">
+                  {nm(displayName)}
+                  {disabled && !owned && counts?.reasonOf(arm) && (
+                    <div className="text-[10px] font-normal text-amber-500">⛔ {counts.reasonOf(arm)}</div>
+                  )}
+                </td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
                 <td className="py-1.5 px-1 text-zinc-300">{rl(profile.type ?? '-')}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>
