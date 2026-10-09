@@ -58,7 +58,7 @@
             "points": 13
         }
     ],
-    "equipped_with": "Every Traitor Guardsman is equipped with: Lasgun, Frag grenades. Every Chaos Ogryn is equipped with: Power maul",
+    "equipped_with": "Every Traitor Guardsman is equipped with: Lasgun, Frag grenades. Every Chaos Ogryn is equipped with: Power maul.",
     "weapons": [
         {
             "name": "Chainsword",
@@ -131,6 +131,15 @@
             "ap": "-4",
             "d": "2",
             "abilities": "AT(2), Overheat"
+        },
+        {
+            "name": "Power maul",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         }
     ],
     "option_groups": [

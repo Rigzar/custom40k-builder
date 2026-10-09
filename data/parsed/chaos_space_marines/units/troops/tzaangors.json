@@ -61,7 +61,7 @@
     "equipped_with": "Each model is equipped with: Chainsword, Machine pistol",
     "weapons": [
         {
-            "name": "Autopistol",
+            "name": "Machine pistol",
             "range": "12\"",
             "type": "Pistol 1",
             "s": "3",

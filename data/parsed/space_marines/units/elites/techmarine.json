@@ -40,7 +40,7 @@
             "points": 155
         }
     ],
-    "equipped_with": "A Techmarine is equipped with: Grav pistol; Omnissiah-Power axe; Forge bolter; Servo arm; Frag grenades; Krak grenades.",
+    "equipped_with": "A Techmarine is equipped with: Grav pistol; Omnissiah Power axe; Forge bolter; Servo arm; Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Forge bolter",
@@ -79,7 +79,7 @@
             "abilities": "-"
         },
         {
-            "name": "Omnissiah power axe",
+            "name": "Omnissiah Power axe",
             "range": "-",
             "type": "Melee",
             "s": "+2",
