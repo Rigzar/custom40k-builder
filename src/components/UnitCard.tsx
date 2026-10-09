@@ -11,7 +11,7 @@ import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave'
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
-import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
+import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
@@ -143,26 +143,6 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
     if (found) return found;
   }
   return undefined;
-}
-
-/** Resolve an option choice's display name to one or more weapon profiles from the unit's
- * weapons[] — handles exact matches, multi-profile weapons ("Plasma gun" → "Plasma gun -
- * Standard"/"- Overcharged"), and compound choices ("X and Y" / "X & Y"). `compound` is true
- * when the choice resolves to several DIFFERENT weapons (each row gets its own Pts), as
- * opposed to several fire-mode profiles of the same weapon (Pts shown once, rowSpan'd). */
-function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons: Weapon[]; compound: boolean } {
-  const exact = weapons.find(w => w.name === choiceName);
-  if (exact) return { weapons: [exact], compound: false };
-  const multiProfile = weapons.filter(w => w.name.startsWith(`${choiceName} - `));
-  if (multiProfile.length > 0) return { weapons: multiProfile, compound: false };
-  const parts = choiceName.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-  if (parts.length > 1) {
-    const resolved = parts.map(p => resolveChoiceWeapons(weapons, p));
-    if (resolved.every(r => r.weapons.length > 0)) {
-      return { weapons: resolved.flatMap(r => r.weapons), compound: true };
-    }
-  }
-  return { weapons: [], compound: false };
 }
 
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
