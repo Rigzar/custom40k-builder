@@ -58,7 +58,7 @@ const norm = (field: string, v: unknown): string => {
 export function checkOverride(data: FactionData, o: DataOverride): { status: 'same' | 'differs' | 'gone'; current: string } {
   const unit = (data.units as Record<string, Unit>)?.[o.unit];
   if (!unit) return { status: 'gone', current: '' };
-  let found = true;
+  let found: boolean;
   let current: unknown;
   if (o.kind === 'option') {
     const cs = (unit.option_groups ?? []).flatMap(g => g.choices ?? []).filter(c => c.name === o.target);
