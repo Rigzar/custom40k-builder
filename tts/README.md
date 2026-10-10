@@ -32,6 +32,10 @@ changes; the mod refuses a payload it does not understand rather than rendering 
 Buttons: **LOAD ARMY** (spawn), **RULES → NOTEBOOK** (rules tabs only), **CLEAR ARMY** (removes
 only the cards this loader spawned — they carry a `c40k_spawn` tag).
 
+## Ward saves in the payload
+
+Each unit has a `wardSave` field (`"5+"`, or `null` when it has none) and so does every entry of `models[]` (`null` for attendants such as drones). It is derived with `src/lib/wardSave.ts`, the same code the unit card and Print View use: datasheet abilities (Daemon 5+, Greater Daemon 4+, an explicit "X+ ward save"), Armory equipment, option choices, traits and a Mark's Warded. The field is additive, so `schema` was not bumped; a mod that ignores it keeps working.
+
 ## Publishing to the Steam Workshop
 
 Build a table with the loader object on it, then Games → Save & Load → Upload to Workshop. The Lua

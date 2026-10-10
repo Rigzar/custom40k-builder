@@ -703,13 +703,18 @@ export function parseInvSaveFromAbilities(abilities: string[]): number | null {
       }
     }
     // Named ability patterns (canonical from core rules):
-    // "Daemon" ability → 5+ inv
-    if (/^Daemon\b/i.test(ab.trim())) {
-      if (best === null || 5 < best) best = 5;
-    }
-    // "Greater Daemon" → 4+
-    if (/^Greater Daemon\b/i.test(ab.trim())) {
-      if (best === null || 4 < best) best = 4;
+    // "Daemon" ability → 5+ inv. The sheets write keyword abilities as ONE comma-separated line
+    // ("Deepstrike, Daemon, Daemonic instability, ..."), so a line without a colon is read item by
+    // item: matching only the start of the line gave the Bloodletters no ward save at all.
+    const items = ab.includes(':') ? [ab] : ab.split(/\s*,\s*/);
+    for (const it of items) {
+      if (/^Daemon\b/i.test(it.trim())) {
+        if (best === null || 5 < best) best = 5;
+      }
+      // "Greater Daemon" → 4+
+      if (/^Greater Daemon\b/i.test(it.trim())) {
+        if (best === null || 4 < best) best = 4;
+      }
     }
     // "Berserk(X+)" → X+
     const berserk = ab.match(/\bBerserk\((\d)\+\)/i);

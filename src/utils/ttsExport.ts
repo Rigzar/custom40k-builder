@@ -5,6 +5,8 @@ import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile, findArmoryItem, type WeaponGroup, type ResolvedProfile } from '../engine/resolver';
 import { applyEquipDeltas, applyStatMods } from './statMods';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
+import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
+import { isAttendantModel } from '../lib/battleProfile';
 
 /**
  * Export the army as a SELF-CONTAINED, fully resolved document for Tabletop Simulator.
@@ -44,6 +46,9 @@ export interface TtsModel {
   /** Column order for `stats`. Lua's JSON.decode returns an unordered table, so the mod cannot
       recover M/WS/BS/S/T/... from the object itself — it has to be told. */
   statKeys: string[];
+  /** The model's Ward Save as printed, "5+", or null when it has none. Same value as the unit's, except for
+      attendants (drones...), which are not covered by the unit's own ward. */
+  wardSave: string | null;
 }
 export interface TtsUnit {
   id: string; unitName: string; displayName: string; slot: string; size: number; points: number;
@@ -53,6 +58,9 @@ export interface TtsUnit {
   /** False when the loadouts could not be split without guessing (see `loadoutNotes`). */
   loadoutsExact: boolean;
   loadoutNotes: string[];
+  /** The unit's best Ward Save as printed, "5+", or null: datasheet, Armory equipment, option choices, traits
+      and a Mark's Warded all counted, the very derivation the unit card and Print View use. */
+  wardSave: string | null;
   equippedWith: string;
   weapons: TtsWeapon[];
   abilities: string[];
@@ -230,13 +238,21 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     const traitsOf = new Map<Weapon, Map<string, string[]>>();
     for (const g of rp.weaponGroups) for (const w of g.weapons) { traitsOf.set(w, g.traitMap ?? rp.weaponTraitMap); weaponId(w, g.traitMap ?? rp.weaponTraitMap); }
 
+    // The ward save, derived exactly like the unit card and Print View do (src/lib/wardSave.ts).
+    const wardValue = wardSave({
+      abilities: ownWardAbilities(unit, item), equipInvSave: rp.equipMods.invulnSave,
+      optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities,
+      markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, unit.abilities),
+    });
+    const ward = wardValue !== null ? `${wardValue}+` : null;
+
     // Final printed stats: base model -> equipment mods -> option/trait stat mods, the same order
     // the live card and the printed sheet apply them in.
     const rows = rp.modelsToShow.map(m => {
       let stats: Record<string, string> = { ...(m.stats as unknown as Record<string, string>) };
       stats = applyEquipDeltas(stats, rp.equipMods, unit.is_vehicle);
       stats = applyStatMods(stats, [...rp.optionStatMods, ...rp.traitStatMods]);
-      return { name: m.name, stats, statKeys: Object.keys(stats) };
+      return { name: m.name, stats, statKeys: Object.keys(stats), wardSave: isAttendantModel(unit, m) ? null : ward };
     });
     const rowCounts = modelCountsOf(rp, item);
     const notes: string[] = [];
@@ -326,6 +342,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       models,
       loadoutsExact,
       loadoutNotes: notes,
+      wardSave: ward,
       equippedWith: rp.equippedWith ?? '',
       weapons,
       abilities,
