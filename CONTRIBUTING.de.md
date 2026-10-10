@@ -1,6 +1,6 @@
 # Beitragen zum Custom 40k Builder
 
-**Andere Sprachen:** [English](CONTRIBUTING.md) · [Español](CONTRIBUTING.es.md)
+**Andere Sprachen:** [English](CONTRIBUTING.md) · [Español](CONTRIBUTING.es.md) · [Русский](CONTRIBUTING.ru.md) · [日本語](CONTRIBUTING.ja.md)
 
 Danke, dass du den Builder verbesserst. Diese Anleitung erklärt alles, was du brauchst – egal ob du Datenfehler korrigierst, Übersetzungen verbesserst, Artwork einreichst, Bugs meldest oder neuen Code schreibst.
 
@@ -861,7 +861,7 @@ Manche Regeln lassen sich nicht allein über den Beschreibungstext ausdrücken �
   - **Typ und Fähigkeit sind nicht dasselbe.** `"Jump Pack Infantry"` ist ein Einheiten-TYP (gibt Deep Strike); `"Jump pack"` ist eine FÄHIGKEIT (nicht). Modelliere, was das Datenblatt wörtlich sagt.
 - **`OptionGroup.per_model`** — auf `true` setzen bei einer Inline-Option ODER einer normalen `choices[]`-Gruppe, deren Datenblatt "for +X points **per model**" sagt (oder "...receive one of the following upgrades **per model**"). Die Punkte-Engine berechnet dann `inline_pts × Einheitengröße` (inline) bzw. `choice.points × qty × Einheitengröße` (choices) statt einmalig für die ganze Einheit. Flache Einmal-Inline-Optionen (einen Sergeant befördern) und "every model may swap X"-Gruppen (deren `qty` schon der gewählten Anzahl entspricht) lassen es ungesetzt.
 - **`equipMods.ts`** — parst `+Stat`, Rettungswürfe und Fähigkeiten in Anführungszeichen aus dem `desc` eines Armory-Gegenstands. Es überspringt zitierte Einheitentyp-Wörter (die das Typsystem behandelt) und dedupliziert gewährte Fähigkeiten gegen die Basis-Fähigkeiten der Einheit.
-- **Skirmish-Ausrüstungs-Caps** liegen in `validators.ts` (im `eng.statCaps`-Block). Sie setzen die Beschränkungen des Missions-Supplements durch: kein Erlangen eines 2+ Rüstungswurfs, 4+ oder besseren Rettungswurfs, T8+, einer Schaden-3-Waffe oder mehr als eines Unique-Armory-Gegenstands — alles fundiert in `Codex/missions_text.txt` und `core_rules_text.txt`. Neue Caps hier hinzufügen, nicht in der UI.
+- **Skirmish-Ausrüstungs-Caps** liegen in `validators.ts` (im `eng.statCaps`-Block). Sie setzen die Beschränkungen des Missions-Supplements durch: kein Erlangen eines 2+ Rüstungswurfs, 4+ oder besseren Rettungswurfs, T8+, einer Schaden-3-Waffe oder mehr als eines Unique-Armory-Gegenstands — alles fundiert in den Dokumenten Missions und Core Rules (`Codex/*.docx`). Neue Caps hier hinzufügen, nicht in der UI.
 
 > **Kodierung (Mojibake):** Beim manuellen Bearbeiten von JSON oder TS die Dateien UTF-8 halten. Verstümmelte Sequenzen wie `â€"` (sollte `—` sein) schleichen sich beim Kopieren ein; `scripts/_scan_mojibake.cjs` erkennt sie. Nicht aus Rich-Text-Editoren einfügen.
 
