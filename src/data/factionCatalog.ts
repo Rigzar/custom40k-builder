@@ -81,7 +81,7 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.2' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.4' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.3' },
-      { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.2' },
+      { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.3' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.3' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.2' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.3' },
