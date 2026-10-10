@@ -418,7 +418,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const markMods  = markStatMods(statModMark, u);
   const symbolUrl = getCardSymbol(data.faction, archetype, legacy, legacy2);
   const modelsToShow = rp.modelsToShow;
-  const modelCounts  = rp.modelCounts;
+  // counts now come from rp.modelRowCounts
 
   const armEquip:  { name: string; desc: string }[] = [];
 
@@ -668,9 +668,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
-                    modelLabel={modelsToShow.length > 1
-                      ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${nm(m.name)}` : nm(m.name))
-                      : undefined}
+                    modelLabel={`${rp.modelRowCounts[mi]}× ${nm(m.name)}`}
                     color={color} />
                   {mi === 0 && effectiveInvSv !== null && (
                     <FancyShield value={effectiveInvSv} color={color} />
@@ -889,8 +887,6 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
-  const modelCounts  = rp.modelCounts;
-
   // Armory-bought weapons are already folded into rp.weaponGroups by resolver.ts's
   // pushGrantedWeapon — do not re-derive them here too (GH#19 duplicate-weapons bug).
   function mergeTraits(w: Weapon, traitMap: Map<string, string[]> = weaponTraitMap): Weapon {
@@ -1012,7 +1008,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
             return (
               <tr key={mi}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>
-                  {modelCounts[mi] != null ? `${modelCounts[mi]}× ${nm(m.name)}` : nm(m.name)}
+                  {`${rp.modelRowCounts[mi]}× ${nm(m.name)}`}
                 </td>
                 {statKeys.map(k => <td key={k} style={simpleTd}>{modStats[k] ?? '-'}</td>)}
               </tr>

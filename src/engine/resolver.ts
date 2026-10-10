@@ -71,6 +71,10 @@ export interface ResolvedProfile {
    * (single/fixed model). Set when a promotion (e.g. Traitor Sergeant) splits the base
    * model's count from the promoted variant — parallel array to modelsToShow. */
   modelCounts: (number | null)[];
+  /** Always-present count for EVERY entry of modelsToShow (never null, a lone Overlord is 1) — what
+   * the "Nx" prefix of the profile tables shows. `modelCounts` stays as it was because the
+   * weapon-group arithmetic reads null there as "not split off". */
+  modelRowCounts: number[];
   squadLeaderIdx: number;
 
   // Psyker
@@ -1679,7 +1683,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   return {
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
-    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
+    variant, variantActive, modelsToShow, modelCounts, modelRowCounts: [], squadLeaderIdx,
     referenceModels: unit.models.filter(m => m.max === 0),
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
@@ -1861,7 +1865,12 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       gWeapons.forEach(w => used.add(w.name));
       const modelCountOf = (i: number) => {
         const mm = profile.modelsToShow[i];
-        return profile.modelCounts[i] ?? (item.modelSizes?.[mm.name] ?? (mm.min > 0 ? mm.min : mm.max));
+        // A squad with ONE sizeable model row is sized by `item.size`, not `modelSizes` (the stepper
+        // writes `size`): without this the Lootas' "Every Loota" clause stayed at the minimum of 5
+        // however many Lootas were taken, until a Spanna happened to fill `modelCounts`.
+        const sized = unit.models.filter(x => x.max !== 0);
+        const soleRow = sized.length === 1 && sized[0].max > sized[0].min;
+        return profile.modelCounts[i] ?? (item.modelSizes?.[mm.name] ?? (soleRow && mm.min > 0 ? Math.max(mm.min, item.size) : (mm.min > 0 ? mm.min : mm.max)));
       };
       // Matched case-insensitively: the author's own sheets write "Every Sniper drone is equipped
       // with:" beside a model row named "Sniper Drone", and likewise for the Tech-Priest and the
@@ -3088,8 +3097,59 @@ export function resolveUnitProfile(
   // doc) so they never interfere with matching choice names against original weapon names.
   if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);
   profile.weaponGroups = computeWeaponGroups(unit, item, profile);
+  profile.modelRowCounts = computeModelRowCounts(unit, item, profile);
+  fillMissingWeaponCounts(unit, item, profile.weaponGroups);
   profile.attachedDrones = computeAttachedDrones(unit, item, data);
   return profile;
+}
+
+/**
+ * How many of each shown model the squad holds. Rigzar, 2026-10-10: "10 Space Marines + 1 Sergeant" showed
+ * only the total, a lone Overlord showed no count at all, and 3 Spannas read just "Spanna". Every row
+ * now carries its number, even when it is 1.
+ */
+function computeModelRowCounts(unit: Unit, item: RosterEntry, profile: ResolvedProfile): number[] {
+  const rows = profile.modelsToShow;
+  const sized = unit.models.filter(x => x.max !== 0);
+  const active = profile.variantActive ? getActiveVariant(item, unit) : null;
+  // A row that is neither split off, promoted nor written into modelSizes: fixed models keep their size,
+  // the squad's own row takes whatever the fixed ones leave of the squad total.
+  const fixedTotal = rows.reduce((sum, m, i) => {
+    const isVar = !!active && m === profile.variant;
+    return sum + (!isVar && profile.modelCounts[i] == null && item.modelSizes?.[m.name] == null && m.min === m.max && m.min > 0 ? m.min : 0);
+  }, 0);
+  let mainUsed = false;
+  return rows.map((m, i) => {
+    const split = profile.modelCounts[i];
+    if (split != null) return split;
+    if (active && m === profile.variant) return active.count;
+    const own = item.modelSizes?.[m.name];
+    if (own != null) return own;
+    if (sized.length === 1) return Math.max(item.size, m.min, 1);
+    if (m.min === m.max) return Math.max(m.min, 1);
+    if (!mainUsed) { mainUsed = true; return Math.max(item.size - fixedTotal, m.min, 1); }
+    return Math.max(m.min, 1);
+  });
+}
+
+/**
+ * A weapon row never reads uncounted: when the group has no "Nx" of its own (a lone Overlord, a Rhino, a
+ * squad with one loadout clause) the number is the models carrying it times the copies each one starts with.
+ */
+function fillMissingWeaponCounts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): void {
+  for (const g of groups) {
+    const models = g.count ?? Math.max(1, item.size ?? 1);
+    if (g.count == null) g.count = models;
+    for (const w of g.weapons) {
+      if (g.countOverrides?.has(w.name)) continue;
+      const copies = g.count === models && unit.equipped_with
+        ? weaponCopiesPerModel(unit.equipped_with, w.name.split(' - ')[0]) : 1;
+      if (copies > 1) {
+        if (!g.countOverrides) g.countOverrides = new Map();
+        g.countOverrides.set(w.name, models * copies);
+      }
+    }
+  }
 }
 
 /** See ResolvedProfile.attachedDrones doc comment. */

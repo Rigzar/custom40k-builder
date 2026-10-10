@@ -175,7 +175,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const {
     pts, effectiveSlot,
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
-    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx, referenceModels,
+    variant, variantActive, modelsToShow, squadLeaderIdx, referenceModels,
     effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
     injectedAbilities, hiddenUpgradeAbilityLabels, injectedRuleNotes, equipMods, traitEquipMods,
@@ -848,8 +848,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   // size for multi-model units (Traitor Guard's Guardsman/Ogryn), then the plain
                   // squad-size stepper for a single-model-row unit (e.g. Chaos Space Marines).
                   // Single fixed-size characters (m.max === 1) stay uncounted — "1x" adds no value.
-                  const rowCount = modelCounts[i] ?? item.modelSizes?.[m.name] ??
-                    (modelsToShow.length === 1 && m.max > 1 ? item.size : null);
+                  // Always counted, even a lone character ("1x Overlord"): Rigzar, 2026-10-10.
+                  const rowCount = rp.modelRowCounts[i];
                   return (
                     <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/40' : ''} ${isVar ? 'text-amber-300' : 'text-zinc-100'}`}>
                       <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{rowCount != null ? `${rowCount}x ` : ''}{nm(m.name)}{isVar ? ' ★' : ''}</td>
@@ -1045,11 +1045,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               {variantActive && (
                 <div className="text-[11px] text-amber-600/90">
                   {modelsToShow.map((m, i) => {
-                    if (modelCounts[i] != null) return `${modelCounts[i]}x ${nm(m.name)}`;
-                    if (m === variant) return `1x ${nm(m.name)}`;
-                    if (item.modelSizes?.[m.name]) return `${item.modelSizes[m.name]}x ${nm(m.name)}`;
-                    return null;
-                  }).filter(Boolean).join(' + ')}
+                    return `${rp.modelRowCounts[i]}x ${nm(m.name)}`;
+                  }).join(' + ')}
                 </div>
               )}
             </div>
@@ -1373,7 +1370,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   {variantModel && (
                     <div className="px-2 pb-2 space-y-2">
                       <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
-                      {(u.champion_has_armory || u.has_armory_access || /armory/i.test(g.header)) && (
+                      {/* A unit with unit-wide Armory access (Necron Lord, Lootas) already has the global button; repeating it here behind the promotion read as if the Overlord title unlocked the Armory. */}
+                      {(u.champion_has_armory || /armory/i.test(g.header)) && (
                         <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
                           <span>{t('theWord')} {nm(variantModel.name)} {t('armoryAccessSuffix')}</span>
                           {active ? (
