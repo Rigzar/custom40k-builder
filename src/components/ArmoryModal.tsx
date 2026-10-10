@@ -455,7 +455,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (unwieldyModelBlocked(arm, sec)) return t('armReasonUnwieldy');
     if (sec === 'equipment' && armorConflict(arm)) return t('armReasonArmour');
     if (sec === 'equipment' && daemonGatewayConflict(arm)) return t('armReasonDaemon');
-    if (isItemRequirementsBlocked(arm, _effectiveKws)) return t('armReasonNeeds');
+    if (isItemRequirementsBlocked(arm, _effectiveKws)) {
+      // Name who CAN buy it ("Only for Mek") instead of the generic "does not meet its requirements".
+      const lacks = !!arm.requires_keywords?.length && !arm.requires_keywords.some(k => _effectiveKws.includes(k.toLowerCase()));
+      const who = (lacks ? arm.requires_keywords! : []).map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
+      return who.length ? t('armReasonOnly').replace('{kw}', who.join(' / ')) : t('armReasonNeeds');
+    }
     if (!arm.category) {
       if (isMarkBlocked(arm)) return t('armReasonMark');
       if (getItemPts(arm) === null) return t('armReasonNoPrice');

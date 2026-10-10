@@ -207,6 +207,7 @@
  "armReasonArmour": "購入済みの装甲と競合します",
  "armReasonDaemon": "選択済みのデーモン武器と競合します",
  "armReasonNeeds": "このユニットは条件を満たしていません",
+ "armReasonOnly": "{kw}専用",
  "armReasonMark": "別のカオスの印が必要です",
  "armReasonNoPrice": "このユニットは購入できません",
  "armReasonVet": "ベテラン能力の枠が埋まっています",

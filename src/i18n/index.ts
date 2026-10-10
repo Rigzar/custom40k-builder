@@ -66,7 +66,7 @@ export type TranslationKey =
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
   | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
-  | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
+  | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonOnly' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
@@ -784,6 +784,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     armReasonArmour: 'Conflicts with the armour already bought',
     armReasonDaemon: 'Conflicts with the Daemon weapon already chosen',
     armReasonNeeds: 'This unit does not meet its requirements',
+    armReasonOnly: 'Only for {kw}',
     armReasonMark: 'Needs a different Mark of Chaos',
     armReasonNoPrice: 'Cannot be bought by this unit',
     armReasonVet: 'Veteran ability slots are full',
@@ -1913,6 +1914,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     armReasonArmour: 'Kollidiert mit der bereits gekauften Rüstung',
     armReasonDaemon: 'Kollidiert mit der schon gewählten Dämonenwaffe',
     armReasonNeeds: 'Diese Einheit erfüllt die Voraussetzungen nicht',
+    armReasonOnly: 'Nur für {kw}',
     armReasonMark: 'Braucht ein anderes Mal des Chaos',
     armReasonNoPrice: 'Diese Einheit kann es nicht kaufen',
     armReasonVet: 'Die Veteranenplätze sind voll',
@@ -3040,6 +3042,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     armReasonArmour: 'Choca con la armadura ya comprada',
     armReasonDaemon: 'Choca con el arma de Daemon ya elegida',
     armReasonNeeds: 'Esta unidad no cumple sus requisitos',
+    armReasonOnly: 'Solo para {kw}',
     armReasonMark: 'Necesita otra Marca del Caos',
     armReasonNoPrice: 'Esta unidad no puede comprarlo',
     armReasonVet: 'Los huecos de habilidades de veterano están llenos',

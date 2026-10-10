@@ -203,6 +203,10 @@
                 {
                     "name": "Twin lascannon",
                     "points": 122
+                },
+                {
+                    "name": "Twin blastmaster",
+                    "points": 30
                 }
             ],
             "inline_pts": null,

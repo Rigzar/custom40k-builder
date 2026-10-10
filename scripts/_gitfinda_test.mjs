@@ -8,7 +8,7 @@
  * derived Expired/Matched, no double match, privacy of chats, the unread counts, limits.
  */
 import { PGlite } from '@electric-sql/pglite';
-import { gitfinda, gitfindaSchema, discordNotifier, discordRemover, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
+import { gitfinda, gitfindaSchema, discordNotifier, discordRemover, dropUserAnnouncements, ARMIES, LIMITS, Refusal } from '../api/_lib/gitfinda.js';
 import fs from 'node:fs';
 
 const db = new PGlite();
@@ -287,6 +287,19 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   ok((await rm('777')) === true && call.method === 'DELETE' && call.u.endsWith('/abc-DEF_1/messages/777'), 'the remover sends a DELETE for that message; a 404 counts as gone', JSON.stringify(call));
   ok((await rm('../../x')) === false, 'a message id that is not digits never reaches the URL');
   ok((await discordRemover(undefined)('777')) === false, 'without a webhook URL nothing is deleted');
+}
+
+// ── an account deleted by an admin takes its announcements out of Discord first ──
+{
+  const gone = [];
+  const E = (await db.query("INSERT INTO users (username) VALUES ('frank') RETURNING id")).rows[0].id;
+  const gx = gitfinda(sql, { sweepEveryMs: 0, notify: async () => '555', remove: async id => { gone.push(id); return true; } });
+  const px = (await gx.create(E, post({ slots: [slot(52)] }))).id;
+  await dropUserAnnouncements(sql, E, async id => { gone.push(id); return true; });
+  ok(gone.includes('555'), 'dropUserAnnouncements removes the Discord messages of the account', JSON.stringify(gone));
+  await dropUserAnnouncements({ }, E, async () => { throw new Error('boom'); });
+  ok(true, 'a failing lookup or remover never blocks the deletion');
+  void px;
 }
 
 // ── cascade ──

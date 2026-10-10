@@ -1,6 +1,7 @@
 import { sql, ensureSchema } from '../_lib/db.js';
 import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode,
          isValidUsername } from '../_lib/auth.js';
+import { dropUserAnnouncements } from '../_lib/gitfinda.js';
 
 async function requireAdmin(req, res) {
   const userId = getSessionUserId(req);
@@ -226,6 +227,7 @@ async function delUser(req, res) {
   if (Number(userId) === adminId) return res.status(400).json({ error: 'Cannot delete own account here' });
   try {
     const tgt = await sql`SELECT username FROM users WHERE id=${userId}`;
+    await dropUserAnnouncements(sql, userId);
     await sql`DELETE FROM users WHERE id = ${userId}`;
     await logAction(adminId, 'delete_user', userId, tgt.rows[0]?.username, null);
     res.status(200).json({ ok: true });
