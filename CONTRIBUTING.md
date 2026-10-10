@@ -27,6 +27,8 @@ npm install
 npm run build   # must pass with zero errors
 ```
 
+> **`scripts/` is git-ignored** — it holds the maintainer's dev tools. A small set is tracked on purpose (`git add -f scripts/<name>`): the guards (`check_*.ts` / `.cjs`), the sheet tools (`fetch_codex.cjs`, `unit_sync.cjs`, `check_unit_update.cjs`, `sync_codex_versions.cjs`, `convert_*.cjs`) and a few tests (`_gitfinda_test.mjs`, `_gitfinda_time_test.ts`, `_headers_test.ts`, `_ja_names_test.ts`, `_tts_*.ts`). Other scripts named in this guide are maintainer-local: ask in an issue if you need one. Run TypeScript scripts with `npx tsx scripts/<name>.ts`.
+
 > **Do not run `npm run dev`** while making changes — use `npm run build` to verify correctness. Preview the app by opening `dist/index.html` after building, or open the live app at https://custom40k-builder.vercel.app.
 
 ---
@@ -57,15 +59,19 @@ data/parsed/<faction>/
     hq/  elites/  ...      <- one folder per slot
     index.ts           <- the ONLY .ts: imports every .json, exports faction, slot_to_units, units
   unit-notes.md       <- (some factions) the old header comments, which JSON cannot hold
-    index.ts          ← assembles the faction's slot_to_units + units map
   armory/
-    general.json      ← general armory (all models)
-    mark_khorne.json  ← mark-specific armory (Chaos factions)
-    legion_*.json     ← chapter / legacy armory (one per legacy)
-  archetypes.json     ← archetypes, legacies, traits
-  animosity.json      ← marks animosity/allied matrix (only factions with marks: CSM, CD)
-  psychic/            ← disciplines, prayers, daemonkin
+    general.json      <- general armory (all models)
+    mark_khorne.json  <- mark-specific armory (Chaos factions)
+    legion_*.json     <- chapter / legacy armory (one per legacy)
+  archetypes.json     <- archetypes, legacies, traits
+  animosity.json      <- marks animosity/allied matrix (only factions with marks: CSM, CD)
+  psychic/            <- disciplines, prayers, daemonkin
 ```
+
+The two Horus Heresy supplements follow the same layout in `data/parsed/horus_heresy_legiones_astartes/` and
+`data/parsed/horus_heresy_forces_of_the_machine_god/` (plus a `supplement.json` for the Armory and the
+non-unit parts). **The app's faction keys do not always equal the folder names** (`horus_heresy`,
+`legio_titanicus`): `src/data/loaders.ts` is the one place that maps them.
 
 > **Every faction uses the same layout: pure JSON.** Each unit is a `.json` file with no `import` and no `export`,
 > and the folder has exactly ONE `.ts`, `units/index.ts`, which imports them all. The reason is tooling: the
@@ -78,6 +84,29 @@ data/parsed/<faction>/
 > are not literal JSON). Do not run the converter or the update scripts on your own data without asking.
 >
 > `node scripts/unit_sync.cjs "Codex/<faction>.ods" <faction>` compares a refreshed sheet with the unit files and prints every difference in points, stats and weapons (`--write` applies them, `--equipped` also rewrites the "equipped with" sentence when every item in it is a known weapon). It never touches option groups or ability texts: those need a human to wire them.
+
+### Who owns which field — and what to do when the sheet is wrong
+
+Unit files are **not all hand-written**. The author's Google Sheets are the source of truth for the
+facts on a datasheet, and `UnwiseGetData/update_units.py` (see *Unit auto-update* at the end) rewrites
+them. The split:
+
+| Written by the sheet update (do **not** edit by hand) | Written by people (edit freely) |
+|---|---|
+| `name`, `models` (stats, points, min/max), `variant_models`, `min_cost`, `default_size`, `equipped_with`, `weapons`, `abilities`, `unit_type`, `is_monster`, `keywords` | `option_groups`, the flags `has_armory_access` / `champion_has_armory` / `is_character` / `is_psyker` / `advisor`, `armory/`, `archetypes.json`, `psychic/`, engine rules |
+
+**If a sheet-owned value is wrong, the SHEET is wrong: tell the author, do not patch the JSON.** A
+hand edit is overwritten by the next unit update, and a workaround in the engine hides a mistake the
+author would fix in one cell. Say exactly which tab and row (*"Tau Hammerhead: the Railgun header has
+no `*`"*), and send it in the issue or on Discord. Examples of what to report: a weapon header without
+its `*` (the modes do not link), a name spelled two ways on one tab (`Servoarm` / `Servo arm`), a swap
+option naming a weapon the unit's WEAPON table does not define, a table cell holding text that belongs
+in another column. The **data guards** (`check_*.ts`) are for *our* code and *our* fields; do not teach
+one to accept a sheet slip.
+
+Admin "data overrides" (Inquisitor panel) of kind points, stat or weapon are ignored for the 19 factions the
+script writes (`applyDataOverrides(data, list, sheetOwned)`): the sheet wins there. They still apply to the
+Horus Heresy supplements, Legio Titanicus and Escalation.
 
 ### Adding a NEW unit
 
@@ -127,6 +156,10 @@ comparison before merging — that tool prints one line per field that disagrees
 
 ### Fields to check per unit
 
+Fields from the sheet-owned column above are shown here so you know what to look for when you review a
+sheet; report differences, do not edit them. `option_groups`, the flags, `armory/` and `archetypes.json`
+are yours to fix.
+
 | Field | What to check |
 |---|---|
 | `models[].points` | Points cost per model |
@@ -156,6 +189,13 @@ comparison before merging — that tool prints one line per field that disagrees
 | `mark` | Mark of Chaos selection |
 | `veteran` | Veteran ability slot |
 | `unique_upgrade` | Unit-level unique restriction |
+
+Two flags on the group itself, not constraint types: `per_model: true` (the cost scales with the squad) and
+`independent_choices: true` (every choice has its own cap instead of sharing one pool — the Tyranid
+biomorph lists, where the old shared `max: 16` was the NUMBER OF OPTIONS, not a rule).
+`variant_link` ties a group to a promotion in `variant_models` (Spanna, Overlord, Veteran Sergeant);
+`applies_to_model` scopes a swap to one model row. **New choices go on the END of a list**: a saved army
+stores the choice INDEX, so reordering silently moves people's selections.
 
 ### Adding a weapon, an armoury item, an archetype, a trait or a legacy
 
@@ -231,27 +271,26 @@ The `armory_key` field in each `archetypes.json` legacy entry **must match** the
 > - **Wiki:** `wiki/src/lib/i18n-builtin.ts` (UI + home page) per language; `npm run build` in `wiki/` builds every language into one `dist/` (English at the root, the others under `/de`, `/es`, `/ru`, `/ja`). The long Core Rules and Missions pages are translated block by block from the built English HTML (`wiki/scripts/extract-page-strings.mjs` → `wiki/src/data/page-strings/`, translations in `wiki/src/data/page-translations/<lang>.json`); after editing those English pages, re-run the extractor and add the new strings. Datasheet ability texts live in `src/data/abilityTexts.<lang>.json` (keyed by `abilityKey`), and the latest changelog entries in `src/data/changelog.i18n.json`.
 > - The Inquisitor admin panel stays English; its translation editor covers all four non-English languages.
 
-The app supports three languages: **English (EN)**, **German (DE)**, and **Spanish (ES)**. There are two separate places where translatable text lives — read both sections before starting.
+The app supports five languages: **English (EN)**, **German (DE)**, **Spanish (ES)**, **Russian (RU)** and **Japanese (JA)**. EN, DE and ES live inside `src/i18n/index.ts`; RU and JA live in `src/i18n/ru.json` and `ja.json` (see the note above). There are several separate places where translatable text lives — read the sections below before starting.
 
 ### 1. UI strings — `src/i18n/index.ts`
 
-All interface labels, button text, and section headings live here. Each entry is an object with `en`, `de`, and `es` keys:
+All interface labels, button text, and section headings live here. In `index.ts` the table is one object per language (`en`, `de`, `es`), each with the same keys:
 
 ```ts
-appTitle: {
-  en: 'Custom 40k Army Builder',
-  de: 'Custom 40k Armeeliste',
-  es: 'Creador de Ejércitos Custom 40k',
-},
+// en: { ... appTitle: 'Custom 40k Army Builder', ... }
+// de: { ... appTitle: 'Custom 40k Armeeliste', ... }
+// es: { ... appTitle: 'Creador de Ejércitos Custom 40k', ... }
 ```
+RU and JA are flat JSON files with the same key names. A key missing from a language falls back to English; a **new key must be added to the `TranslationKey` union in `index.ts` and to all five tables**.
 
 **How to find untranslated UI strings:**
-Search the file for entries where the `de` or `es` value is identical to the `en` value — those are machine-translated or missing. Native-speaker corrections are always welcome.
+Search the file (and `ru.json` / `ja.json`) for entries where the value is identical to the English one — those are machine-translated or missing. Native-speaker corrections are always welcome.
 
 **Adding or fixing a UI translation:**
 1. Open `src/i18n/index.ts`.
 2. Find the string (search for the English text).
-3. Edit the `de` or `es` value.
+3. Edit the `de` / `es` value (or the line in `ru.json` / `ja.json`).
 4. Run `npm run build` — the file is TypeScript, so a typo will cause a build error.
 5. Open a Pull Request. You do not need to fix every string — partial improvements are welcome.
 
@@ -300,7 +339,7 @@ The `useT()` hook in the UI resolves `I18nString` to the active language automat
 3. Run `npm run build` — TypeScript will flag any remaining plain-string usages of that field so you don't miss any.
 4. If you only have an English translation for now, you can use the same text for all three as a placeholder: `{ en: '...', de: '...', es: '...' }` — a native speaker can improve the DE/ES later.
 
-**Changelog and Known Issues** (`src/data/changelog.ts`, `src/data/known-issues.ts`) already use `I18nString` — entries have `en`, `de`, and `es` keys. If you add a changelog entry, fill in all three.
+**Changelog and Known Issues** (`src/data/changelog.ts`, `src/data/known-issues.ts`) already use `I18nString`. The changelog is written in English in `changelog.ts`; the German, Spanish, Russian and Japanese versions of the newest entries live in `src/data/changelog.i18n.json`, keyed by version, and **each language array must have exactly as many bullets as the English entry or the translation is silently ignored** (`scripts/_changelog_align_test.ts` checks it). Add the English bullet and the four translations in the same change. The landing-page announcement (`ANNOUNCEMENT_TEXT` in `LandingPage.tsx`) has a block per language too: add the same row in all five.
 
 ### Translation PRs
 
@@ -364,8 +403,15 @@ src/components/ UI — edit here for visual changes
 src/store/      Zustand state — army list CRUD and selections
 src/types/      TypeScript types — Unit, Weapon, RosterEntry, etc.
 src/data/       Static data — changelog, faction metadata
-src/i18n/       Translation strings (EN / DE / ES)
-src/utils/      Shared helpers with no state of their own — stat maths, psychic-power lookup, exports
+src/i18n/       Translation strings (EN / DE / ES in index.ts, RU / JA in ru.json / ja.json)
+src/utils/      Shared helpers with no state of their own — stat maths, weapon names, psychic-power lookup, exports
+src/lib/        Client helpers: API calls, Gitfinda time zones, head-to-head, mark maths
+api/            Vercel serverless functions (12-function cap) and api/_lib/ shared code
+data/parsed/    The faction data (JSON) — see "Data corrections"
+wiki/           The wiki (Astro, five languages) — built separately with `npm run build` inside wiki/
+UnwiseGetData/  The author's collaborator's sheet-update script (Python) — see "Unit auto-update"
+scripts/        Dev tools and guards (git-ignored; a core set is tracked)
+.github/        CI, CodeQL and the unit-update workflow (update-units.yml)
 tts/            Tabletop Simulator mod (Lua) + its headless test
 ```
 
@@ -397,12 +443,15 @@ screen a player can reach must have a visible way out that does not destroy thei
 | File | Responsibility |
 |---|---|
 | `points.ts` | Points calculation — base cost + options + traits + armory |
-| `resolver.ts` | Unit profile resolution — applies marks, variants, archetypes, dispatches to `FACTION_RESOLVERS` |
+| `resolver.ts` | Unit profile resolution — applies marks, variants, archetypes, dispatches to `FACTION_RESOLVERS`; builds the weapon groups (`computeWeaponGroups`) and the counts (`modelRowCounts`, `fillMissingWeaponCounts`) |
 | `validators.ts` | Army validation — slot limits, archetype constraints, engagement limits |
 | `archetypes/base.ts` | `ArchetypeRule` shape (every flag an archetype can set) + the `BASE` default — shared by every faction |
 | `archetypes/index.ts` | `ARCHETYPE_RULES` — every archetype for every faction, keyed by name |
 | `legacies.ts` | `getLegacyStructuredNotes(faction, name)` / `getLegacyExtraPower(faction, name)` — cross-faction dispatcher that reads each faction's `codex_<faction>/legacies.ts` |
 | `codex_<faction>/` | Per-faction engine module (one per faction) — every engine file for that faction lives here: `legacies.ts`, `traits.ts`, `resolver.ts`, `validator.ts`, `archetypes/{index.ts,rules.ts}` (when the faction needs them), plus `special-abilities.ts` (the faction's rules verbatim, read by `scripts/audit_faction_rule_coverage.cjs`) and a `digest.md` audit reference |
+| `dataOverrides.ts` | Admin corrections applied on load; ignored for sheet-owned factions (the sheet wins) |
+| `slotOverrides.ts` | Slot / variant rules that depend on the roster entry (`hasAllMarksVariant`, `ascendedKeywordLine`, …) |
+| `transportGate.ts`, `deploymentUpgrades.ts`, `traitEffects.ts`, `engagements.ts`, `sourceCompare.ts` | Transport eligibility; Webway strike / Lightning strike / Tellyporta pricing; trait effects; Skirmish / Pitched / Epic limits; comparing a unit against its source |
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
 | `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`), Terminator-armour compatibility (`modelRestrictsToTermSubset`), Gravis compatibility (`modelRestrictsToGravisSubset`), and the Inquisition Ordo/Legacy unlock helpers (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark/Ordo gating is derived. **Glyph convention:** `ᵀ` = Terminator-compatible (NOT Mark of Tzeentch); the glyph marks are `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) only — Tzeentch is section-based (`armory_marks.Tzeentch`) and `ᶻ` is reserved if a glyph is ever needed. **When work touches the Tzeentch-vs-Terminator distinction, ask the maintainer — do not assume.** |
 
@@ -423,6 +472,55 @@ printed as separate rows, and only one of them got the right quantity. Always us
 **These are for WEAPON names only.** Stripping a trailing `(...)` is safe there — no weapon in the
 game ends in brackets without it being a mode — but it is *not* safe on option-choice names, where
 Orks have a choice ending `(counts as two arm weapons)`.
+
+**Matching a swap choice to its weapon row** (`weaponKey`, `resolveChoiceWeapons` in the same file): option
+choices are written by people and weapon rows by the sheet, so `Big Zzappa` / `Big zzappa` or `Two Grot bomms` /
+`Grot bomm` must still meet. The helper tries the exact name, then `"X - "` multi-profile rows, then a loose key
+(capitals, a leading count and a plural `s` ignored), then compound names (`A & B`). Use it anywhere a
+choice name is looked up in `weapons[]`; never compare the two strings yourself.
+`scripts/check_choice_weapons_match.ts` pins it.
+
+### Counts on every row (`src/engine/resolver.ts`)
+
+Every model row and every weapon row shows its count, **even when it is 1** (`1x Overlord`, `9x Marine +
+1x Sergeant`, `3x Spanna`). Two fields carry them:
+
+- `modelRowCounts[i]` — always a number, parallel to `modelsToShow`. **This is what the card, the Print View
+  (both layouts) and the Battle View print.** A promoted model gets its own count (`variantCount`); a squad
+  with one sizeable model row is sized by `item.size`; otherwise the squad's own row takes what the fixed
+  models leave.
+- `weaponGroups[].count` and `countOverrides` — the weapon "Nx" prefix. `fillMissingWeaponCounts` fills any
+  group without a count with the models carrying it (times the copies `equipped_with` gives each).
+
+`modelCounts` (nullable) still exists and **means something else**: "this row was split off by a
+promotion". The weapon arithmetic reads null there as "not split", so do not print it.
+A squad with a single sizeable model row (Lootas, Burna Boyz, Dire Avengers…) must count its weapons from
+`item.size`, not the model minimum — the Lootas read `5x Deffgun` at 15 models until this was fixed.
+
+```
+npx tsx scripts/check_row_counts.ts        # model rows and weapon groups never uncounted
+npx tsx scripts/check_sole_row_counts.ts   # the Lootas case, with and without Spannas
+```
+
+**Before changing shared arithmetic, snapshot it.** `scripts/_snap_profiles.ts` prints every unit's weapon
+groups with each option taken alone; `SNAPMAX=1` does the same at the maximum squad size. Diff the output
+before and after. Spot-checking the reported unit hides regressions in the other forty.
+
+### The Armory modal (`src/components/ArmoryModal.tsx`)
+
+- **Counts, not ticks.** An item that can be bought several times is a `[-] n/max [+]` stepper
+  (`CopyStepper`); the single cap is `copyCap`, shared through `ArmoryCountsContext`. A strip at the top, "What
+  you carry", lists every purchase with a ✕, the running total, the veteran slots `n/max` and "Remove all".
+- **A greyed row says why** (`blockReason`: cap reached, unique per army, Kustom job slot taken, armour
+  conflict, "Only for Mek", no price, veteran slots full). Add the reason next to the rule that blocks the
+  row, with a key in all five languages.
+- **Vehicles and units are separated by `category`** (`vehicle`, `veteran`, none). A non-character vehicle only
+  sees vehicle equipment (and Ork Kustom jobs); do not widen that without checking the sheet.
+- **A promotion block does not repeat the Armory button** when the unit already has unit-wide access
+  (`has_armory_access`): the Necron Lord read as if the Overlord title unlocked it. The block only appears for
+  champion-only access.
+- **Weapon profiles with no price** in an Armory WEAPON table are weapons that vehicle upgrades or daemon
+  weapons grant; they show greyed as "no price". That is the sheet's layout, not a bug to patch.
 
 ### Renamed and removed datasheets (`src/engine/unitRenames.ts`)
 
@@ -736,6 +834,23 @@ Its first run caught four bugs before the file ever reached the game, the worst 
 `ipairs` stops at the first `nil` hole in a table literal — which silently deleted every prayer's
 range/target/duration line, re-breaking exactly what v1.70 had just fixed. See `tts/README.md`.
 
+### Guards — which one to run
+
+| After touching… | Run |
+|---|---|
+| model / weapon counts, `computeWeaponGroups`, squad sizing | `check_row_counts.ts`, `check_sole_row_counts.ts` |
+| a choice name or `replaces` | `check_choice_weapons_match.ts`, `check_weapon_swaps.ts`* |
+| Armory access, attendants, champion armory | `check_attendants_skip_armory.ts`, `check_equip_scoped_to_champion.ts` |
+| the Ascended Daemon Prince / all-marks variants | `check_ascended_dp.ts` |
+| admin overrides vs sheet-owned data | `check_overrides_do_not_hide_sheet.ts` |
+| slots, second AOP, variant HQ | `check_second_aop_needs_full_first.ts`, `check_unit_slot_moves.ts`, `check_variant_hq_slot.ts` |
+| a unit update from the sheets | `check_unit_update.cjs` |
+| Gitfinda | `_gitfinda_test.mjs`, `_gitfinda_time_test.ts` |
+| katakana names, option headings, changelog translations | `_ja_names_test.ts`, `_headers_test.ts`, `_changelog_align_test.ts` |
+| the TTS export | `_tts_sweep.ts`, `_tts_one.ts`, `tts/test/run.cjs` |
+
+\* the guards in the sections above that are not in this table are maintainer-local; the rule they pin is described there.
+
 ### Names in katakana (`src/utils/localName.ts`, `src/data/names.ja.json`)
 
 A Japanese player asked for names in katakana. **The data is never translated**: unit, weapon and option names are the keys the engine matches on, so changing them would silently break rules and saved lists. A name is turned into katakana only at the moment it is **drawn**, and only when the language is Japanese: `nm(w.name)` for names, `rl(w.type)` / `rl(w.abilities)` for weapon types and abilities, `eqText(equipped_with)` for the loadout line.
@@ -768,11 +883,13 @@ Things that are easy to get wrong:
 - **Never put `t` or an inline callback in a hook's dependencies.** `useT()` returns a new function on every render; doing it restarted the effects forever (an endless request loop and a chat that emptied itself). The component keeps the latest values in refs (`useLatest`).
 - **The browser's army list is a copy of the server's** (`GITFINDA_ARMIES` / `ARMIES`); the test fails if they drift.
 
+**Discord announcements.** When someone posts a game, `discordNotifier` can post a short message to the community's Discord through a webhook (`GITFINDA_DISCORD_WEBHOOK` in Vercel; **unset = off**, and the URL is a secret: never paste it in an issue or chat). The message id is stored in `gitfinda_posts.discord_message_id`; `discordRemover` deletes the webhook's own message when the game is cancelled, matched or expired (a 404 counts as gone). There is no cron slot left, so a **sweep** deletes finished games' messages a few at a time whenever somebody uses the board (at most once per 30 s per server instance), and `dropUserAnnouncements` runs before an admin deletes an account (the posts cascade, and the ids would be lost). The link in the message is `/?gitfinda=<id>`: `App.tsx` opens that very game after login.
+
 Tests — run both after touching any of it:
 
 ```
 npm i --no-save @electric-sql/pglite      # once; a dev-only Postgres that runs in memory
-node scripts/_gitfinda_test.mjs           # every rule, against real SQL
+node scripts/_gitfinda_test.mjs           # every rule, against real SQL (118 checks, including the Discord notifier, remover, sweep and account deletion)
 npx tsx scripts/_gitfinda_time_test.ts    # the time zone maths, including the daylight-saving edges
 ```
 
@@ -799,7 +916,7 @@ Faction data lives in `data/parsed/<faction>/` — one folder per faction, not a
 ```
 data/parsed/
   chaos_space_marines/
-    units.json           { faction, slot_to_units, units }
+    units/<slot>/<unit>.json   one pure JSON per unit + units/index.ts (the only .ts)
     armory/
       general.json       Armory (general — all models access)
       mark_khorne.json   Mark-specific armory (Chaos factions only)
@@ -810,12 +927,11 @@ data/parsed/
       pacts.json         In-game mechanics (e.g. Blood Tithe, Daemonkin table)
       daemonkin.json     Daemonkin summoning table
     archetypes.json      { archetypes[], legacies[], traits[] }
-    animosity.json       { animosity, allied }   ← only CSM/CD (marks animosity table)
+    animosity.json       { animosity, allied }   <- only CSM/CD (marks animosity table)
+    unit-notes.md        the header comments the old .ts files carried
   space_marines/         (same structure, no marks/animosity.json)
-  chaos_daemons/
-  ...
-  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/   The two Horus Heresy supplements: same layout as a faction (units/<slot>/<unit>.json + units/index.ts), plus supplement.json for the armory and other non-unit parts
-  _scratch/              Parser-audit files (*_html_*.json) — never loaded by the app
+  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/   the two supplements (units/ + supplement.json)
+  ...                    21 folders in all
 ```
 
 The loader that assembles each faction's `FactionData` is **`src/data/loaders.ts`** — it imports the individual files with static string literals (required by Vite) and merges them. The engine receives exactly the same `FactionData` shape as before; only the file layout changed.
@@ -826,7 +942,7 @@ The loader that assembles each faction's `FactionData` is **`src/data/loaders.ts
 3. Add a `case '<faction>'` in `src/data/loaders.ts` that loads the files and calls `asm(...)`.
 4. Add the key to `FACTION_LOADERS` at the bottom of `loaders.ts`.
 5. Register the faction in `src/data/factionCatalog.ts` (the `CATEGORIES` list that feeds the card grid, the admin availability toggles and the codex-version badges) and add its abbreviation / category to `src/components/FactionSymbol.tsx`.
-6. Add engine rules if needed: `src/engine/factions/<faction>/` (resolver, archetypes, traits, validators).
+6. Add engine rules if needed: `src/engine/codex_<faction>/` (resolver, archetypes, traits, legacies, validator). Also add the faction to `src/data/alliedMatrix.ts` and, for the sheet update, to `UnwiseGetData/factions.csv`.
 
 ### Where to start / how to help
 
@@ -871,7 +987,7 @@ These two files serve different purposes and must not be confused:
 
 | File | What goes here |
 |---|---|
-| `src/data/changelog.ts` | Version history — one entry per release with EN/DE/ES change descriptions |
+| `src/data/changelog.ts` | Version history — one entry per release, English in `changelog.ts`, the other four languages in `changelog.i18n.json` |
 | `src/data/known-issues.ts` | Bug and limitation tracking — status can be `known`, `investigating`, `fixed`, `by_design`, or `planned` |
 
 **Before v0.47** both lived in `changelog.ts`. They are now separate. If you fix a known bug:
@@ -879,6 +995,18 @@ These two files serve different purposes and must not be confused:
 2. Add a line to the current version entry in `src/data/changelog.ts` describing the fix.
 
 Do **not** edit `changelog.ts` to update issue statuses — it no longer contains `KNOWN_ISSUES`.
+
+House rules the maintainer follows, so a PR does not trip over them:
+
+- **A new version is cut only when the maintainer says so**; `CHANGELOG[0].version` is the version number.
+  Extra fixes go into the current entry (at most two entries per day, grouped by topic).
+- **The landing-page announcement shows only the current version's own fixes**, one clause per row, in all five
+  languages. Bumping `ANNOUNCEMENT_KEY` re-shows it to everybody who dismissed it, so a styling change does not
+  bump it.
+- **Changelog entries older than 30 days are pruned** now and then (git keeps the history); fixed Known Issues
+  of that age are hidden.
+- **Changelog text is always English first**; anything a player will forward (a question for the author) is
+  written in plain English.
 
 ### TypeScript conventions
 
@@ -1017,7 +1145,7 @@ Escalation / Lords of War supplement).
 
 ### Translations
 
-If you add a UI string, add entries for all three languages (EN / DE / ES) in `src/i18n/index.ts`. Machine translation is acceptable for ES and DE; native speaker review is welcome.
+If you add a UI string, add it for all five languages: EN / DE / ES in `src/i18n/index.ts` (plus the key in the `TranslationKey` union) and RU / JA in `src/i18n/ru.json` and `ja.json`. Never draw a raw English engine value in a component (`{x.name}`, a slot, a unit type, a validator message): use `nm()`, `slotLabel`, `unitTypeLabel`, `T()` and the helpers listed under *Names in katakana*. Machine translation is acceptable; native speaker review is welcome.
 
 > **German translations:** use official Games Workshop German terminology, not literal translations. Slot names follow GW convention: `Standard` (Troops), `Elite` (Elites), `Sturm` (Fast Attack), `Unterstützung` (Heavy Support). Stat abbreviations: `Reichw.` (Range), `DS` (AP), `SW` (Damage). Armory is `Rüstkammer`, not `Waffenkammer`.
 
@@ -1029,7 +1157,10 @@ Before opening a PR, confirm:
 
 - [ ] `npm run build` passes with zero TypeScript errors
 - [ ] The change is scoped to one thing (one unit, one bug, one feature)
-- [ ] New UI strings have translations in all three languages
+- [ ] New UI strings have translations in all five languages (EN / DE / ES / RU / JA)
+- [ ] You did not hand-edit a sheet-owned unit field (see *Who owns which field*); a sheet mistake is reported to the author instead
+- [ ] If you touched the resolver, points or a data shape, you ran the guard for it (see the table in *Guards*) and, for shared arithmetic, diffed `_snap_profiles.ts` before/after
+- [ ] A new script you want kept is added with `git add -f` (the folder is git-ignored); `git status` is checked before committing, never `git stash`
 - [ ] If a known issue is fixed, the `status` in `src/data/known-issues.ts` is updated to `'fixed'`
 - [ ] The PR description explains what changed and why (a link to the relevant issue is enough)
 
@@ -1049,3 +1180,7 @@ By contributing, you agree that your contributions will be licensed under the sa
 - **Server setup (one-off):** the Vercel project needs `GITHUB_DISPATCH_TOKEN` (fine-grained token for this repository with *Actions: read and write*); the repository needs *Settings → Actions → General → Allow GitHub Actions to create and approve pull requests*.
 - **Run it locally:** `cd UnwiseGetData && python update_units.py` (Python 3.12+; `pip install openpyxl pandas requests simplejson`), then `node scripts/check_unit_update.cjs`.
 - A file in `data/parsed/.../units/` must be named after its unit (`foetid_virion.json`), or the script cannot find it.
+- It covers the 19 codices **and** the two Horus Heresy supplements (their folders; the app keys stay `horus_heresy` / `legio_titanicus`). Each sheet needs a line in `UnwiseGetData/factions.csv`, and a tab name over 31 characters has to be in the script's too-long-names list.
+- **The pull request's checks sit at "action required"** because the bot opened it: a maintainer approves the run (or changes *Settings → Actions → General → Fork pull request workflows*), then merges. The PR body lists, unit by unit, what changed.
+- **A unit update that makes a card worse is a sheet question** (a table the script splits into one ability per cell, a weapon header without `*`, a swap option whose weapon has no row). Report it to the author with the tab and the row; do not hand-edit the unit file, the next update undoes it. The Orks' ability tables are the worked example: they now arrive as one ability with the rows on separate lines, and ability text keeps its line breaks on the card and in the Print View.
+- `node scripts/fetch_codex.cjs --apply <faction>` overwrites our local `Codex/*.ods` copy and marks that faction un-audited; do not run it just to look.
