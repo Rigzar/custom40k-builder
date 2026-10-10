@@ -2031,7 +2031,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                     paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55`,
                   }}>
                     {desc
-                      ? <><span style={{ fontWeight: 700 }}>{name}:</span>{' '}<span style={{ color: '#555' }}>{desc}</span></>
+                      ? <><span style={{ fontWeight: 700 }}>{name}:</span>{' '}<span style={{ color: '#555', whiteSpace: 'pre-line' }}>{desc}</span></>
                       : <span style={{ fontWeight: 700 }}>{name}</span>
                     }
                   </div>

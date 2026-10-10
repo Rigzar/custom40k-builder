@@ -555,6 +555,10 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Supporting Fire',
     description: 'If a friendly unit within 6" is the target of a charge and is using Defensive Fire, this unit may also be activated in the same way using an unused order token. That token is consumed.',
   },
+  'ramshackle': {
+    name: 'Ramshackle',
+    description: 'Units with this rule roll on the Ramshackle table when they lose their last Hull Point. Vehicles with a transport capacity roll on the Ramshackle table for transports. If the vehicle has been immobilized, the controlling player can roll with any order on the Ramshackle table in the next activation and apply the result. Ramshackle (D6): 1-3 Kaboom! The vehicle explodes with a radius of 6\". 4-6 Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled. If the scatter die is a hit symbol, the controlling player can decide the direction. Ramshackle Transports (D6): 1-2 Kaboom! (as above). 3-4 Kareen! (as above). 5-6 Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as wreckage.',
+  },
   'dakka dakka dakka': {
     name: 'Dakka Dakka Dakka',
     description: 'The unit reduces its total penalty to hit rolls in ranged combat by -1 (minimum 0). Blast(x) weapons do not benefit from this rule.',

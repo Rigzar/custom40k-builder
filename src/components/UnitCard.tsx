@@ -2326,7 +2326,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                         <div className="text-[11px] text-zinc-200 font-medium">{nm(part.displayName)}</div>
                         {part.description && (
-                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                         )}
                         {/* The orders an Imperial Guard officer can issue. They lived only on the Print View, so
                             nothing in the builder told a Guard player what an "order" is; grouped the way the
@@ -2381,7 +2381,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('mark')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
@@ -2394,7 +2394,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('ruleBadge')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
@@ -2407,7 +2407,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-cyan-900/50 text-cyan-400 border border-cyan-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('optionBadge')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
@@ -2421,7 +2421,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-violet-900/50 text-violet-400 border border-violet-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('equipBadge')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
