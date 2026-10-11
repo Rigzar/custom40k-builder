@@ -445,27 +445,39 @@ local function parseEffect(text)
     if s:find('melee') then return 'melee' elseif s:find('ranged') then return 'ranged' end
     return 'all'
   end
-  for subject, name in text:gmatch('([%a%s%-]-weapons?)%s+gains?%s+the%s+"([^"]+)"') do
-    addAbil(kindOf(subject), name); mods.text[#mods.text + 1] = name .. ' on ' .. kindOf(subject) .. ' weapons'
+  -- one sentence at a time, with plain finds and short patterns: Tabletop Simulator's Lua raises
+  -- "pattern too complex" on lazy matches over long text
+  local sentences, pos = {}, 1
+  while pos <= #text do
+    local dot = string.find(text, '.', pos, true)
+    if not dot then sentences[#sentences + 1] = string.sub(text, pos); break end
+    sentences[#sentences + 1] = string.sub(text, pos, dot)
+    pos = dot + 1
   end
-  for name in text:gmatch('[Gg]ains? the "([^"]+)" ability') do
-    if not lower:find('weapons gain') then
-      if name:lower() == 'warded' then mods.warded = mods.warded + 1; mods.text[#mods.text + 1] = 'Warded'
-      end
+  for _, sentence in ipairs(sentences) do
+    local low = string.lower(sentence)
+    local granted = sentence:match('gains?%s+the%s+"([^"]+)"')
+    local isWeapon = low:find('weapon', 1, true) ~= nil
+    if granted and isWeapon then
+      local k = kindOf(low)
+      addAbil(k, granted); mods.text[#mods.text + 1] = granted .. ' on ' .. k .. ' weapons'
+    elseif granted and string.lower(granted) == 'warded' then
+      mods.warded = mods.warded + 1; mods.text[#mods.text + 1] = 'Warded'
     end
-  end
-  for subject, n in text:gmatch('([%a%s%-]-weapons?)%s+gains?%s+additional%s+%-(%d+)%s*AP') do
-    n = tonumber(n)
-    local k = kindOf(subject)
-    if k ~= 'ranged' then mods.apMelee = mods.apMelee + n end
-    if k ~= 'melee' then mods.apRanged = mods.apRanged + n end
-    mods.text[#mods.text + 1] = '-' .. n .. ' AP on ' .. k .. ' weapons'
+    local n = low:match('gains?%s+additional%s+%-(%d+)%s*ap')
+    if n and isWeapon then
+      n = tonumber(n)
+      local k = kindOf(low)
+      if k ~= 'ranged' then mods.apMelee = mods.apMelee + n end
+      if k ~= 'melee' then mods.apRanged = mods.apRanged + n end
+      mods.text[#mods.text + 1] = '-' .. n .. ' AP on ' .. k .. ' weapons'
+    end
   end
   for n in lower:gmatch('%+(%d) to hit') do mods.hit = mods.hit + tonumber(n); mods.text[#mods.text + 1] = '+' .. n .. ' to hit' end
   for n in lower:gmatch('%-(%d) to hit') do mods.hit = mods.hit - tonumber(n); mods.text[#mods.text + 1] = '-' .. n .. ' to hit' end
   for n in lower:gmatch('%+(%d) to wound') do mods.wound = mods.wound + tonumber(n); mods.text[#mods.text + 1] = '+' .. n .. ' to wound' end
   for n in lower:gmatch('%-(%d) to wound') do mods.wound = mods.wound - tonumber(n); mods.text[#mods.text + 1] = '-' .. n .. ' to wound' end
-  for n in lower:gmatch('%+(%d)%s+to%s+[%a%s]-saving throws?') do mods.save = mods.save + tonumber(n); mods.text[#mods.text + 1] = '+' .. n .. ' to saves' end
+  for n in lower:gmatch('%+(%d)%s+to%s+saving throws?') do mods.save = mods.save + tonumber(n); mods.text[#mods.text + 1] = '+' .. n .. ' to saves' end
   local w = lower:match('(%d)%+%s+ward save')
   if w then mods.ward = tonumber(w); mods.text[#mods.text + 1] = w .. '+ ward' end
   local tk = lower:match('gains? (%d+) battleshock token') or (lower:find('gains? a battleshock token') and '1') or (lower:find('gains? one battleshock token') and '1')
@@ -1464,7 +1476,16 @@ end
 
 local function wrapText(text, width)
   local out = {}
-  for line in (tostring(text or '') .. '\n'):gmatch('(.-)\n') do
+  -- split with plain finds: Tabletop Simulator's Lua raises "pattern too complex" on a lazy (.-) over a long text
+  local src, pos = tostring(text or ''), 1
+  local lines = {}
+  while true do
+    local nl = string.find(src, '\n', pos, true)
+    if not nl then lines[#lines + 1] = string.sub(src, pos); break end
+    lines[#lines + 1] = string.sub(src, pos, nl - 1)
+    pos = nl + 1
+  end
+  for _, line in ipairs(lines) do
     if #line <= width then out[#out + 1] = line
     else
       local cur = ''

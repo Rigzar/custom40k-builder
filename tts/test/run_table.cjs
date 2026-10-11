@@ -98,3 +98,13 @@ if (Array.isArray(fails) ? fails.length : Object.keys(fails).length) {
   process.exit(1);
 }
 console.log(`PASS - ${passes} checks`);
+
+// Tabletop Simulator's Lua (MoonSharp) raises "pattern too complex" on lazy matches over long text, which fengari accepts.
+// A lazy quantifier is only safe over a short, bounded string, so any new one has to be a deliberate decision.
+const src = fs.readFileSync(path.join(__dirname, '..', 'Custom40kTable.lua'), 'utf8');
+const lazy = src.split('\n').map((l, i) => [i + 1, l]).filter(([, l]) => /\.-\)|\]-|%s\*\.-/.test(l) && !/^\s*--/.test(l));
+const allowed = lazy.filter(([, l]) => /\^\(\.-\)/.test(l)); // anchored, on a short ability name
+if (lazy.length !== allowed.length) {
+  console.error('FAIL: lazy pattern over possibly long text:'); for (const [n, l] of lazy) if (!allowed.some(([m]) => m === n)) console.error(`  line ${n}: ${l.trim()}`);
+  process.exit(1);
+}
