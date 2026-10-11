@@ -789,6 +789,7 @@ Hälften, die zusammen geändert werden müssen:
 |---|---|
 | `src/utils/ttsExport.ts` | Baut die Nutzlast und lädt sie herunter (der **TTS**-Knopf in der Druckansicht) |
 | `tts/Custom40k.lua` | Das Mod: liest diese Nutzlast und erzeugt die Karten |
+| `tts/Custom40kTable.lua` | Das All-in-one-Tischmod (Global-Skript): Miniaturen-Zuordnung, Regeln, Schlachtverfolgung, Angriffsrechner, Kräfte, Missionen. Liest dieselbe Nutzlast samt `rules`, `game`, `joinedTo` und `grantsToUnit` |
 
 **Das Mod trägt bewusst keinen Codex.** Die App löst die Armee vorher auf — mit demselben
 `resolveUnitProfile`, das Einheitenkarte und Druckansicht verwenden — exportiert werden also
@@ -807,6 +808,7 @@ also läuft das Skript in der Lua-VM `fengari` mit gestubbten TTS-Globals und ei
 ```
 npx jiti tts/test/makeExport.ts "Codex/<eine gespeicherte Armee>.json" army.json
 node tts/test/run.cjs army.json          # --dump zeigt die gerenderten Karten
+node tts/test/run_table.cjs army.json    # das All-in-one-Global-Skript: klickt jeden Tab, prüft XML und Rechnung
 ```
 
 Der erste Lauf fand vier Fehler, bevor die Datei je im Spiel war — der schlimmste: Luas `ipairs`

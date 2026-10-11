@@ -700,6 +700,7 @@ npx tsx scripts/check_unit_types.ts
 |---|---|
 | `src/utils/ttsExport.ts` | ペイロードを作ってダウンロードする（印刷ビューの**TTS**ボタン） |
 | `tts/Custom40k.lua` | mod：そのペイロードを読んでカードを生成する |
+| `tts/Custom40kTable.lua` | オールインワンのテーブルmod（Globalスクリプト）：ミニチュア紐付け、ルール、バトル進行、攻撃計算、サイキックパワー、ミッション。同じペイロードと `rules`、`game`、`joinedTo`、`grantsToUnit` フィールドを読みます |
 
 **modは意図的にコーデックスを持ちません。** アプリが先に軍勢を解決します — ユニットカードと印刷ビューが使うのと同じ `resolveUnitProfile` で — なので、出荷されるのは最終的な能力値、最終的な武器プロフィール、実際のルールテキストです。
 LuaがCustom40kのルールを知る必要は決してなく、コーデックスの更新でWorkshopのアイテムを再アップロードする必要もありません。そのままにしてください：Luaにルールのロジックを足したくなったら、直すべきはエクスポート側です。
@@ -713,6 +714,7 @@ LuaがCustom40kのルールを知る必要は決してなく、コーデック�
 ```
 npx jiti tts/test/makeExport.ts "Codex/<保存した軍勢>.json" army.json
 node tts/test/run.cjs army.json          # --dump を付けると描画されたカードを読めます
+node tts/test/run_table.cjs army.json    # オールインワンのGlobalスクリプト：全タブをクリックし、XMLと計算を検証します
 ```
 
 最初の実行で、ファイルがゲームに届く前に4つのバグが見つかりました。最悪だったのは、Luaの `ipairs` がテーブルリテラルの最初の `nil` の穴で止まることで — これが各祈りの射程／ターゲット／持続の行を黙って消し、v1.70が直したばかりのものをちょうど再び壊しました。`tts/README.md` を参照してください。

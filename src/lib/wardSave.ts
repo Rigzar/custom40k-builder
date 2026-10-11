@@ -43,6 +43,17 @@ export interface WardSources {
    * modifier, so it lands AFTER the best flat source -- see `applyMarkWarded`.
    */
   markWarded?: number;
+  /**
+   * Abilities an Armory item grants (`equipMods.grantedAbilities`). Only "Warded" matters here, and like the Mark's it
+   * is a MODIFIER, not a value: Red Corsairs' Armor of Badab ("The model and its attached unit gain the 'Warded'
+   * ability") gave its wearer nothing on the card, the print or the TTS export.
+   */
+  equipAbilities?: string[] | null;
+}
+
+/** How many times the items bought gave the model "Warded". */
+function equipWardedCount(a: string[] | null | undefined): number {
+  return (a ?? []).filter(x => /(^|[^A-Za-z])Warded\b/i.test(x)).length;
 }
 
 /** 0 or 1: the Mark of Tzeentch's "Warded", unless the datasheet already carries its own. */
@@ -119,7 +130,7 @@ export function wardSave(src: WardSources): number | null {
     fromNamedAbilities(src.optionAbilities),
     fromTraitAbilities(src.traitAbilities),
   ].filter((v): v is number => v !== null);
-  return applyMarkWarded(candidates.length ? Math.min(...candidates) : null, src.markWarded);
+  return applyMarkWarded(candidates.length ? Math.min(...candidates) : null, (src.markWarded ?? 0) + equipWardedCount(src.equipAbilities));
 }
 
 /**
@@ -140,7 +151,7 @@ export function wardSources(src: WardSources): {
   const option = parseInvSaveFromAbilities(src.optionAbilities ?? []);
   const trait = fromTraitAbilities(src.traitAbilities);
   const present = [datasheet, equipment, option, trait].filter((v): v is number => v !== null);
-  return { value: applyMarkWarded(present.length ? Math.min(...present) : null, src.markWarded), datasheet, equipment, option, trait };
+  return { value: applyMarkWarded(present.length ? Math.min(...present) : null, (src.markWarded ?? 0) + equipWardedCount(src.equipAbilities)), datasheet, equipment, option, trait };
 }
 
 /**

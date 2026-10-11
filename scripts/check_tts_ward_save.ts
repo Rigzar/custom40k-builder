@@ -46,6 +46,11 @@ type Any = any;
     const lt = await one('chaos_space_marines', 'Chaos Lieutenant', ['Terminator armor']);
     ok(lt.wardSave === '5+', `a Chaos Lieutenant in Terminator armor gets "5+" from the Armory (got ${JSON.stringify(lt.wardSave)})`);
   } catch (e) { bad++; console.log('FAIL', (e as Error).message); }
+  // an Armory item that GRANTS the "Warded" ability (Red Corsairs' Armor of Badab) improves the wearer's save by one
+  try {
+    const lt = await one('chaos_space_marines', 'Chaos Lieutenant', ['Terminator armor', 'Armor of Badab']);
+    ok(lt.wardSave === '4+', `Terminator armor 5+ with Armor of Badab's "Warded" is "4+" (got ${JSON.stringify(lt.wardSave)})`);
+  } catch (e) { bad++; console.log('FAIL', (e as Error).message); }
   console.log(bad ? `${bad} FAILED` : 'ok');
   process.exit(bad ? 1 : 0);
 })();

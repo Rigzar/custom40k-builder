@@ -7,6 +7,8 @@ import { applyEquipDeltas, applyStatMods } from './statMods';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { isAttendantModel } from '../lib/battleProfile';
+import { lookupRule, getRuleLanguage } from '../data/coreRules';
+import { TTS_GAME } from '../data/ttsGame';
 
 /**
  * Export the army as a SELF-CONTAINED, fully resolved document for Tabletop Simulator.
@@ -58,6 +60,13 @@ export interface TtsUnit {
   /** False when the loadouts could not be split without guessing (see `loadoutNotes`). */
   loadoutsExact: boolean;
   loadoutNotes: string[];
+  /** Names of every rule this unit uses (its abilities, its weapons' abilities); the texts are in the export's
+      top-level `rules`, so the table can show "all the rules of this unit" without carrying a codex. */
+  ruleNames: string[];
+  /** Id of the unit this character is attached to (the builder's "joined to"), or null. */
+  joinedTo: string | null;
+  /** What this unit's wargear hands to the unit it is attached to ("The model and its attached unit gain ..."). */
+  grantsToUnit: { source: string; text: string }[];
   /** The unit's best Ward Save as printed, "5+", or null: datasheet, Armory equipment, option choices, traits
       and a Mark's Warded all counted, the very derivation the unit card and Print View use. */
   wardSave: string | null;
@@ -75,6 +84,12 @@ export interface TtsExport {
     archetype: string; legacy: string; legacy2: string; traits: string[];
   };
   units: TtsUnit[];
+  /** Language the rule texts are written in (the app's current one). */
+  language: string;
+  /** Rule name -> text, for every ability and weapon ability any unit in the list uses. */
+  rules: Record<string, string>;
+  /** Turn structure, orders, Battleshock, reinforcement and mission scoring: see src/data/ttsGame.ts. */
+  game: typeof TTS_GAME;
   /** Units that could not be exported, and why. Empty when everything made it. */
   warnings: string[];
   /** Whole-faction reference, so the table can show rules for things not currently taken. */
@@ -191,6 +206,35 @@ function modelCountsOf(rp: ResolvedProfile, item: RosterEntry): number[] {
   return raw;
 }
 
+/**
+ * Every rule a unit uses, by name, with its text added to `rules`. An ability line is either "Name: text" (the
+ * datasheet carries the text) or a comma-separated list of keywords ("Deepstrike, Daemon, Blast(4)") whose texts
+ * live in the rules glossary. Weapon abilities ("AT(2), Anti-air") are looked up the same way. A keyword the
+ * glossary does not know stays in the list with no text, which the table shows as "no rule text".
+ */
+function collectRules(abilities: string[], weapons: TtsWeapon[], rules: Record<string, string>): string[] {
+  const names: string[] = [];
+  const add = (name: string) => { if (name && !names.includes(name)) names.push(name); };
+  const keyword = (token: string) => {
+    const t = token.trim();
+    if (!t || t === '-') return;
+    const r = lookupRule(t);
+    if (r) { if (!(r.displayName in rules)) rules[r.displayName] = r.description; add(r.displayName); } else add(t);
+  };
+  for (const line of abilities) {
+    const a = String(line ?? '');
+    const colon = a.indexOf(':');
+    if (colon > 0 && colon < 60) {
+      const name = a.slice(0, colon).trim();
+      const text = a.slice(colon + 1).trim();
+      if (name && text) { if (!(name in rules)) rules[name] = text; add(name); continue; }
+    }
+    for (const token of a.split(/\s*,\s*/)) keyword(token);
+  }
+  for (const w of weapons) for (const token of String(w.abilities ?? '').split(/\s*,\s*/)) keyword(token);
+  return names;
+}
+
 export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
   // Includes the Core Rules general disciplines: a psyker's picked power can come from there
   // (Smite most of all), and without them the lookup falls through to a bare name on the card.
@@ -203,6 +247,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
   ] as unknown[]).filter((p): p is Power[] => Array.isArray(p));
   const units: TtsUnit[] = [];
   const warnings: string[] = [];
+  const rules: Record<string, string> = {};
   let total = 0;
 
   for (const item of state.army) {
@@ -241,7 +286,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     // The ward save, derived exactly like the unit card and Print View do (src/lib/wardSave.ts).
     const wardValue = wardSave({
       abilities: ownWardAbilities(unit, item), equipInvSave: rp.equipMods.invulnSave,
-      optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities,
+      optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities, equipAbilities: rp.equipMods.grantedAbilities,
       markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, unit.abilities),
     });
     const ward = wardValue !== null ? `${wardValue}+` : null;
@@ -327,6 +372,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     ].filter((v, i, a) => v && a.indexOf(v) === i);
 
     const unitTypes = [unit.unit_type, ...rp.optionAddedUnitTypes].filter(Boolean).join(', ');
+    const ruleNames = collectRules(abilities, weapons, rules);
 
     units.push({
       id: item.id,
@@ -342,6 +388,12 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       models,
       loadoutsExact,
       loadoutNotes: notes,
+      ruleNames,
+      joinedTo: item.joinedToUnit ?? null,
+      grantsToUnit: (item.armory ?? []).flatMap(a => {
+        const desc = findArmoryItem(data, a)?.desc ?? '';
+        return /(attached unit|its unit|the unit it (?:has )?joined|its attached)/i.test(desc) ? [{ source: a.itemName, text: desc }] : [];
+      }),
       wardSave: ward,
       equippedWith: rp.equippedWith ?? '',
       weapons,
@@ -373,6 +425,9 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       traits: state.traitPool ?? [],
     },
     units,
+    language: getRuleLanguage(),
+    rules,
+    game: TTS_GAME,
     warnings,
     reference: {
       prayers: data.prayers ?? [],

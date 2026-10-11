@@ -884,6 +884,7 @@ let RULE_LANG = 'en';
 let RULE_OVERRIDES: Partial<Record<string, Record<string, string>>> = {};
 /** Set by i18n whenever the reader's language changes. */
 export function setRuleLanguage(language: string) { RULE_LANG = language; }
+export function getRuleLanguage(): string { return RULE_LANG; }
 /** Set by i18n when the admin-edited translations arrive from the DB. */
 export function setRuleOverrides(o: Partial<Record<string, Record<string, string>>> | null | undefined) {
   RULE_OVERRIDES = o ?? {};

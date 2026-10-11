@@ -776,6 +776,7 @@ hay que cambiar juntas:
 |---|---|
 | `src/utils/ttsExport.ts` | Construye el payload y lo descarga (el botón **TTS** de la vista de impresión) |
 | `tts/Custom40k.lua` | El mod: lee ese payload y crea las cartas |
+| `tts/Custom40kTable.lua` | El mod todo en uno (script Global): enlazador de miniaturas, reglas, seguimiento de batalla, calculadora de ataque, poderes, misiones. Lee el mismo payload más sus campos `rules`, `game`, `joinedTo` y `grantsToUnit` |
 
 **El mod no lleva codex, a propósito.** La app resuelve el ejército antes — con el mismo
 `resolveUnitProfile` que usan la ficha de unidad y la vista de impresión — así que lo que se
@@ -795,6 +796,7 @@ exportación real:
 ```
 npx jiti tts/test/makeExport.ts "Codex/<un ejército guardado>.json" army.json
 node tts/test/run.cjs army.json          # agregá --dump para leer las cartas renderizadas
+node tts/test/run_table.cjs army.json    # el script Global todo en uno: pulsa cada pestaña y comprueba el XML y las cuentas
 ```
 
 Su primera ejecución encontró cuatro bugs antes de que el archivo llegara al juego; el peor: en Lua

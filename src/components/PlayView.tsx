@@ -96,7 +96,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   // came here with nothing. 163 of 666 datasheets state one.
   const ward = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: rp.equipMods?.invulnSave,
-    optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities,
+    optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities, equipAbilities: rp.equipMods?.grantedAbilities,
     markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, u.abilities),
   });
   // At the table the number you roll against is the FINAL one, so this runs the whole chain the

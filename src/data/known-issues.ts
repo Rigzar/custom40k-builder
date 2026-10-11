@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tts-table-mod-untested-in-game-01",
+    status: "known",
+    title: "The Custom40k Table mod for Tabletop Simulator has not run on a real table yet",
+    description: "ADDED 2026-10-11. tts/Custom40kTable.lua (binder, rules, battle tracker, attack calculator, powers, missions) is tested headlessly against real exports: every tab's XML is checked, the hit / wound / save / armour-penetration maths is compared with the Core Rules by hand, and a save / load round trip is run. It has not been opened inside Tabletop Simulator itself, so a UI attribute or the range rings' coordinates may need a small adjustment on the first real table. Report anything odd with a screenshot. The attack calculator models the common weapon abilities; any other is listed in the result as 'not modelled, apply by hand'.",
+  },
+  {
     id: "ki-admin-overrides-hide-unit-update-01",
     status: "fixed",
     title: "A unit updated from the sheet still shows its old cost (Biovore 110 instead of 41)",

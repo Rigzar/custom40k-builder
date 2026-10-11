@@ -408,6 +408,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // affected. Same derivation as the unit card now.
   const effectiveInvSv = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave, optionAbilities, traitAbilities,
+    equipAbilities: equipMods.grantedAbilities,
     markWarded: markWardedCount(statModMark, rp.blackCrusadeChampion, u.abilities),
   });
   const color = getThemeColor(data.faction, effectiveMark);

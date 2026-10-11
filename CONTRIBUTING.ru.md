@@ -805,6 +805,7 @@ npx tsx scripts/check_unit_types.ts
 |---|---|
 | `src/utils/ttsExport.ts` | Строит данные и скачивает их (кнопка **TTS** в версии для печати) |
 | `tts/Custom40k.lua` | Мод: читает эти данные и создаёт карточки |
+| `tts/Custom40kTable.lua` | Универсальный мод стола (Global-скрипт): привязка миниатюр, правила, трекер боя, калькулятор атаки, силы, миссии. Читает те же данные плюс поля `rules`, `game`, `joinedTo` и `grantsToUnit` |
 
 **Мод намеренно не содержит кодекса.** Приложение сначала разрешает армию — через ту же
 `resolveUnitProfile`, что использует карточка юнита и версия для печати — так что отправляются
@@ -822,6 +823,7 @@ npx tsx scripts/check_unit_types.ts
 ```
 npx jiti tts/test/makeExport.ts "Codex/<сохранённая армия>.json" army.json
 node tts/test/run.cjs army.json          # добавьте --dump, чтобы прочитать отрисованные карточки
+node tts/test/run_table.cjs army.json    # универсальный Global-скрипт: нажимает каждую вкладку, проверяет XML и расчёты
 ```
 
 Первый запуск поймал четыре бага до того, как файл попал в игру; хуже всего было то, что `ipairs` в Lua

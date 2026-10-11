@@ -210,7 +210,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // card with no ward save on it (163 datasheets across all 18 factions).
   const ward = wardSources({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave,
-    optionAbilities, traitAbilities,
+    optionAbilities, traitAbilities, equipAbilities: equipMods.grantedAbilities,
     markWarded: markWardedCount(statModMark, blackCrusadeChampion, u.abilities),
   });
   const effectiveInvSv = ward.value;

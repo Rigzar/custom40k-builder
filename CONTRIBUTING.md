@@ -810,6 +810,7 @@ changed together:
 |---|---|
 | `src/utils/ttsExport.ts` | Builds the payload and downloads it (the **TTS** button in Print View) |
 | `tts/Custom40k.lua` | The mod: reads that payload and spawns the cards |
+| `tts/Custom40kTable.lua` | The all-in-one table mod (Global script): binder, rules, battle tracker, attack calculator, powers, missions. Reads the same payload plus its `rules`, `game`, `joinedTo` and `grantsToUnit` fields |
 
 **The mod carries no codex, on purpose.** The app resolves the army first — through the same
 `resolveUnitProfile` the unit card and Print View use — so what ships is final stats, final weapon
@@ -828,6 +829,7 @@ runs under the `fengari` Lua VM with TTS's globals stubbed, fed a real export:
 ```
 npx jiti tts/test/makeExport.ts "Codex/<a saved army>.json" army.json
 node tts/test/run.cjs army.json          # add --dump to read the rendered cards
+node tts/test/run_table.cjs army.json    # the all-in-one Global script: clicks every tab, checks the XML and the maths
 ```
 
 Its first run caught four bugs before the file ever reached the game, the worst being that Lua's
