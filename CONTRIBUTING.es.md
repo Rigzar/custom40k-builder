@@ -778,6 +778,7 @@ hay que cambiar juntas:
 | `tts/Custom40k.lua` | El mod: lee ese payload y crea las cartas |
 | `tts/Custom40kTable.lua` | El mod todo en uno (script Global): enlazador de miniaturas, reglas, seguimiento de batalla, calculadora de ataque, poderes, misiones. Lee el mismo payload más sus campos `rules`, `game`, `joinedTo` y `grantsToUnit` |
 | `tts/build_tokens.cjs`, `public/tts/tokens/` | Dibuja las imágenes de los tokens de orden y de Battleshock que el mod de mesa coloca junto a las unidades (`npm i --no-save sharp`, luego `node tts/build_tokens.cjs`). Los nombres de archivo son el contrato con `TOKEN_FILES` en `Custom40kTable.lua`; la mesa los carga desde el sitio desplegado |
+| `tts/Custom40kInstaller.lua`, `tts/build_installer.cjs`, `public/tts/Custom40kTable.lua` | Un objeto que instala / actualiza el mod en cualquier mesa descargando la copia pública del script. Tras cambiar `Custom40kTable.lua` ejecuta `node tts/build_installer.cjs` (actualiza la copia pública y el objeto guardado) y haz push; `node tts/test/run_installer.cjs` falla mientras la copia esté desactualizada |
 
 **El mod no lleva codex, a propósito.** La app resuelve el ejército antes — con el mismo
 `resolveUnitProfile` que usan la ficha de unidad y la vista de impresión — así que lo que se

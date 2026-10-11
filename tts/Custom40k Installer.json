@@ -1,0 +1,65 @@
+{
+  "SaveName": "Custom40k Installer",
+  "Date": "10/11/2026, 1:41:07 PM",
+  "VersionNumber": "v14.2.2",
+  "GameMode": "Custom40k",
+  "GameType": "Game",
+  "GameComplexity": "Medium Complexity",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "c40kin",
+      "Name": "Custom_Token",
+      "Transform": {
+        "posX": 0,
+        "posY": 1.2,
+        "posZ": 0,
+        "rotX": 0,
+        "rotY": 180,
+        "rotZ": 0,
+        "scaleX": 3,
+        "scaleY": 1,
+        "scaleZ": 3
+      },
+      "Nickname": "Custom40k Installer",
+      "Description": "Press the button to install or update the Custom40k Table mod on this table. Your table is not replaced.",
+      "GMNotes": "",
+      "ColorDiffuse": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+      },
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "CustomImage": {
+        "ImageURL": "https://custom40k-builder.vercel.app/custom40k-logo.png",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1,
+        "WidthScale": 0,
+        "CustomToken": {
+          "Thickness": 0.2,
+          "MergeDistancePixels": 15,
+          "StandUp": false,
+          "Stackable": false
+        }
+      },
+      "LuaScript": "--[[\n  Custom40k Installer  -  object script\n  ------------------------------------------------------------------------------------------------\n  Drop this object on ANY table (yours stays exactly as it is) and press its button: it downloads the latest\n  Custom40k Table script and installs it as the table's Global script. Press it again whenever you want to update.\n\n  Why an object: the window and the rules live in the Global script (only that script can draw a screen UI), and a\n  Workshop table replaces the whole table when loaded. This object carries nothing but the installer, so loading\n  it never touches your table.\n\n  It will not overwrite a Global script that is not ours: a table with its own Global script keeps it, and the\n  object says so (paste the mod by hand and merge, or ask for help).\n--]]\n\nlocal URL    = 'https://custom40k-builder.vercel.app/tts/Custom40kTable.lua'\nlocal MARKER = 'C40K-TABLE-MOD'\n\nlocal function tell(msg, color) broadcastToAll('[Custom40k] ' .. msg, color or { 1, 0.85, 0.6 }) end\n\nfunction onLoad()\n  self.clearButtons()\n  self.createButton({\n    label = 'INSTALL / UPDATE\\nCUSTOM40K', click_function = 'installMod', function_owner = self,\n    position = { 0, 0.3, 0 }, rotation = { 0, 0, 0 }, width = 2400, height = 900, font_size = 220,\n    color = { 0.2, 0.15, 0.05 }, font_color = { 1, 0.85, 0.4 },\n    tooltip = 'Downloads the latest Custom40k Table script and installs it as this table\\'s Global script',\n  })\nend\n\nlocal function currentGlobal()\n  local ok, src = pcall(function() return Global.getLuaScript() end)\n  return ok and (src or '') or ''\nend\n\n--- A Global script with no code in it (TTS writes a default comment into a new table) is safe to replace.\n--- Plain finds only: a lazy pattern over a long script raises \"pattern too complex\" in Tabletop Simulator's Lua.\nlocal function isBlankScript(src)\n  return #src < 800 and not src:find('function', 1, true) and not src:find('end', 1, true)\nend\n\nfunction installMod(_, playerColor)\n  local before = currentGlobal()\n  local ours = before:find(MARKER, 1, true) ~= nil\n  if not ours and not isBlankScript(before) then\n    tell('This table already has its own Global script, so nothing was changed. Open Modding > Scripting > Global and add the Custom40k script to it by hand, or remove that script first.', { 1, 0.45, 0.45 })\n    return\n  end\n  tell('Downloading the Custom40k Table script...')\n  WebRequest.get(URL, function(req)\n    if req.is_error or req.response_code ~= 200 then\n      tell('Could not download the script (' .. tostring(req.error or req.response_code) .. '). Check your connection and try again.', { 1, 0.45, 0.45 })\n      return\n    end\n    local src = req.text or ''\n    if not src:find(MARKER, 1, true) then\n      tell('The downloaded file is not the Custom40k Table script. Nothing was changed.', { 1, 0.45, 0.45 })\n      return\n    end\n    local ok, err = pcall(function() Global.setLuaScript(src) end)\n    if not ok then\n      tell('This version of Tabletop Simulator would not let the object set the Global script (' .. tostring(err) .. '). Paste it by hand: Modding > Scripting > Global.', { 1, 0.45, 0.45 })\n      return\n    end\n    tell(ours and 'Updated. Reloading the table script...' or 'Installed. Starting it...')\n    Wait.time(function()\n      local running = false\n      pcall(function() running = Global.getTable('C40K') ~= nil end)\n      if running then\n        tell('Done: press the C40K button (top right).', { 0.5, 1, 0.5 })\n      else\n        tell('Installed. If the C40K button does not appear, open Modding > Scripting > Global and press Save & Play (or save and reload the table).', { 1, 0.85, 0.4 })\n      end\n    end, 3)\n  end)\nend\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

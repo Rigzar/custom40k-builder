@@ -812,6 +812,7 @@ changed together:
 | `tts/Custom40k.lua` | The mod: reads that payload and spawns the cards |
 | `tts/Custom40kTable.lua` | The all-in-one table mod (Global script): binder, rules, battle tracker, attack calculator, powers, missions. Reads the same payload plus its `rules`, `game`, `joinedTo` and `grantsToUnit` fields |
 | `tts/build_tokens.cjs`, `public/tts/tokens/` | Draws the order and Battleshock token images the table mod spawns beside units (`npm i --no-save sharp`, then `node tts/build_tokens.cjs`). The file names are the contract with `TOKEN_FILES` in `Custom40kTable.lua`; the table loads them from the deployed site |
+| `tts/Custom40kInstaller.lua`, `tts/build_installer.cjs`, `public/tts/Custom40kTable.lua` | An object that installs / updates the table mod on any table by downloading the public copy of the script. After changing `Custom40kTable.lua` run `node tts/build_installer.cjs` (refreshes the public copy and the saved object) and push; `node tts/test/run_installer.cjs` fails while the copy is stale |
 
 **The mod carries no codex, on purpose.** The app resolves the army first — through the same
 `resolveUnitProfile` the unit card and Print View use — so what ships is final stats, final weapon

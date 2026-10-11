@@ -702,6 +702,7 @@ npx tsx scripts/check_unit_types.ts
 | `tts/Custom40k.lua` | mod：そのペイロードを読んでカードを生成する |
 | `tts/Custom40kTable.lua` | オールインワンのテーブルmod（Globalスクリプト）：ミニチュア紐付け、ルール、バトル進行、攻撃計算、サイキックパワー、ミッション。同じペイロードと `rules`、`game`、`joinedTo`、`grantsToUnit` フィールドを読みます |
 | `tts/build_tokens.cjs`、`public/tts/tokens/` | テーブルmodがユニットの横に置くオーダーとバトルショックのトークン画像を描画します（`npm i --no-save sharp` のあと `node tts/build_tokens.cjs`）。ファイル名は `Custom40kTable.lua` の `TOKEN_FILES` との取り決めで、テーブルは公開サイトから読み込みます |
+| `tts/Custom40kInstaller.lua`、`tts/build_installer.cjs`、`public/tts/Custom40kTable.lua` | スクリプトの公開コピーをダウンロードして、どのテーブルにもテーブルmodをインストール／更新するオブジェクト。`Custom40kTable.lua` を変更したら `node tts/build_installer.cjs`（公開コピーと保存オブジェクトを更新）を実行してpushします。コピーが古い間は `node tts/test/run_installer.cjs` が失敗します |
 
 **modは意図的にコーデックスを持ちません。** アプリが先に軍勢を解決します — ユニットカードと印刷ビューが使うのと同じ `resolveUnitProfile` で — なので、出荷されるのは最終的な能力値、最終的な武器プロフィール、実際のルールテキストです。
 LuaがCustom40kのルールを知る必要は決してなく、コーデックスの更新でWorkshopのアイテムを再アップロードする必要もありません。そのままにしてください：Luaにルールのロジックを足したくなったら、直すべきはエクスポート側です。

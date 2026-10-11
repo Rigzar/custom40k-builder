@@ -807,6 +807,7 @@ npx tsx scripts/check_unit_types.ts
 | `tts/Custom40k.lua` | Мод: читает эти данные и создаёт карточки |
 | `tts/Custom40kTable.lua` | Универсальный мод стола (Global-скрипт): привязка миниатюр, правила, трекер боя, калькулятор атаки, силы, миссии. Читает те же данные плюс поля `rules`, `game`, `joinedTo` и `grantsToUnit` |
 | `tts/build_tokens.cjs`, `public/tts/tokens/` | Рисует изображения жетонов приказов и Battleshock, которые мод стола кладёт рядом с отрядами (`npm i --no-save sharp`, затем `node tts/build_tokens.cjs`). Имена файлов — контракт с `TOKEN_FILES` в `Custom40kTable.lua`; стол загружает их с опубликованного сайта |
+| `tts/Custom40kInstaller.lua`, `tts/build_installer.cjs`, `public/tts/Custom40kTable.lua` | Объект, который устанавливает / обновляет мод стола на любом столе, скачивая публичную копию скрипта. После изменения `Custom40kTable.lua` запустите `node tts/build_installer.cjs` (обновляет публичную копию и сохранённый объект) и сделайте push; `node tts/test/run_installer.cjs` падает, пока копия устарела |
 
 **Мод намеренно не содержит кодекса.** Приложение сначала разрешает армию — через ту же
 `resolveUnitProfile`, что использует карточка юнита и версия для печати — так что отправляются

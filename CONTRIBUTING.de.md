@@ -791,6 +791,7 @@ Hälften, die zusammen geändert werden müssen:
 | `tts/Custom40k.lua` | Das Mod: liest diese Nutzlast und erzeugt die Karten |
 | `tts/Custom40kTable.lua` | Das All-in-one-Tischmod (Global-Skript): Miniaturen-Zuordnung, Regeln, Schlachtverfolgung, Angriffsrechner, Kräfte, Missionen. Liest dieselbe Nutzlast samt `rules`, `game`, `joinedTo` und `grantsToUnit` |
 | `tts/build_tokens.cjs`, `public/tts/tokens/` | Zeichnet die Bilder der Befehls- und Battleshock-Marker, die das Tischmod neben Einheiten legt (`npm i --no-save sharp`, dann `node tts/build_tokens.cjs`). Die Dateinamen sind der Vertrag mit `TOKEN_FILES` in `Custom40kTable.lua`; der Tisch lädt sie von der veröffentlichten Seite |
+| `tts/Custom40kInstaller.lua`, `tts/build_installer.cjs`, `public/tts/Custom40kTable.lua` | Ein Objekt, das das Tischmod auf jedem Tisch installiert / aktualisiert, indem es die öffentliche Kopie des Skripts herunterlädt. Nach einer Änderung an `Custom40kTable.lua` `node tts/build_installer.cjs` ausführen (aktualisiert die öffentliche Kopie und das gespeicherte Objekt) und pushen; `node tts/test/run_installer.cjs` schlägt fehl, solange die Kopie veraltet ist |
 
 **Das Mod trägt bewusst keinen Codex.** Die App löst die Armee vorher auf — mit demselben
 `resolveUnitProfile`, das Einheitenkarte und Druckansicht verwenden — exportiert werden also

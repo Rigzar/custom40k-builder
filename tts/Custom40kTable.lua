@@ -1,3 +1,4 @@
+-- C40K-TABLE-MOD (Custom40k Table, Global script). The installer object looks for this marker.
 --[[
   Custom40k Table  —  Tabletop Simulator companion (Global script)
   ------------------------------------------------------------------------------------------------

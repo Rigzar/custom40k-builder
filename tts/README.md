@@ -69,6 +69,8 @@ export, clicking the same element ids TTS would, and checks every XML string it 
 inside a real Tabletop Simulator yet: the XML attribute names and the vector-line coordinates follow the TTS docs but
 the first table test may need small adjustments.
 
+**Installer object (any table, nothing replaced).** Loading a Workshop table replaces your whole table, so the mod also ships as a single object, `tts/Custom40k Installer.json` (a saved object; `node tts/build_installer.cjs --install` copies it into `Saved Objects`). Spawn it on any table and press its button: it downloads `https://custom40k-builder.vercel.app/tts/Custom40kTable.lua` and installs it as the table's Global script. Press it again to update, so a new version never needs a new Workshop upload: change `Custom40kTable.lua`, run `node tts/build_installer.cjs` (refreshes `public/tts/Custom40kTable.lua`), push. It refuses to overwrite a Global script that is not ours. `node tts/test/run_installer.cjs` tests it and fails when the public copy is stale. Not verified inside a real Tabletop Simulator yet: if `Global.setLuaScript` does not start the script by itself the object says to press Save & Play in the Global editor.
+
 **Ready-made table.** `node tts/build_save.cjs` writes `tts/Custom40k Table.json`, a Tabletop Simulator save with the Global
 script already embedded and the two army notebook tabs created (with instructions inside). `--install` also copies it into
 `Documents/My Games/Tabletop Simulator/Saves`; then load it from Games > Save & Load, or upload it to the Workshop from
