@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tyranids-sporocyst-spore-mine-profile-01",
+    status: "known",
+    title: "Tyranid Sporocyst: its Spore Mine model and its \"Spore Mine launcher\" explosion profile are not shown",
+    description: "REPORTED 2026-10-11 on Discord (samurai.a.cat: \"where are the Spore Mine profiles?\"). The Spore Mine Cluster (Fast Attack) and the Biovore Brood DO have them, but only once you pick one of the four mines under \"Must pick one weapon\" (Aerial, Toxin, Chitin, Bio acid): the weapon table stays empty until then, by design of the sheet. The Sporocyst is different. Its sheet lists a created \"Spore Mine\" model (a row marked * with no points) and its Living ammunition says the mine explodes \"with the 'Spore Mine launcher' profile\", but the sheet has no weapon row with that name (only Barbed strangler, Deathspitter and Venom cannon), and the update script does not import the * model row, so neither appears in the builder. Both live in sheet-owned fields (models and weapons), so this goes to the sheet authors instead of being patched here: the Spore Mine launcher profile is missing from the Sporocyst sheet (Dominic), and whether the * model rows should be imported is for Unwise's script.",
+  },
+  {
     id: "ki-tts-table-mod-untested-in-game-01",
     status: "known",
     title: "The Custom40k Table mod for Tabletop Simulator has not run on a real table yet",
