@@ -62,4 +62,18 @@ if (process.argv.includes('--install')) {
   const dest = path.join(dir, 'Custom40k Table.json');
   fs.copyFileSync(out, dest);
   console.log('installed to ' + dest);
+  // The Save & Load list is read from SaveFileInfos.json, not from the folder, so the save has to be registered there
+  // too. Tabletop Simulator rewrites that index while it runs: close the game first, or run this again if it vanishes.
+  const index = path.join(dir, 'SaveFileInfos.json');
+  if (fs.existsSync(index)) {
+    const list = JSON.parse(fs.readFileSync(index, 'utf8'));
+    const sample = list[0] && list[0].Directory;
+    const prefix = sample ? sample.slice(0, sample.lastIndexOf('\\') + 1) : dir + path.sep;
+    const entry = { Directory: prefix + 'Custom40k Table.json', Name: 'Custom40k Table', UpdateTime: Math.floor(Date.now() / 1000) };
+    const at = list.findIndex(x => /Custom40k Table\.json$/.test(x.Directory));
+    if (at >= 0) list[at] = entry; else list.push(entry);
+    fs.copyFileSync(index, index.replace('.json', '.backup-custom40k.json'));
+    fs.writeFileSync(index, JSON.stringify(list, null, 2));
+    console.log('registered in SaveFileInfos.json');
+  }
 }
