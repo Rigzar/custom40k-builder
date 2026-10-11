@@ -289,6 +289,16 @@ for _ = 1, 5 do click('phase__1') end
 check(not tokenImages():find('escape.png'), 'a new round clears the order tokens')
 click('ordset__5'); click('cleartokens'); check(COUNT_TOKENS() == before, 'Remove all tokens clears them')
 click('pick__' .. squad); check(tokObjs[1]._highlighted, 'picking a unit highlights its miniatures on the table')
+-- size and orientation
+local sized = TOKENS()[1]
+click('ordset__3')
+local t1; for _, t in ipairs(TOKENS()) do t1 = t end
+check(t1 and t1._scale and math.abs(t1._scale * 1.26 - 1.26) < 0.5, 'tokens are scaled to the 32 mm size')
+check(t1 and t1._rot and t1._rot[2] == 180, 'a token beside a unit on the near half is turned toward that player (yaw 180)')
+for _, o in ipairs(tokObjs) do o._pos.z = 12 end
+click('ordset__4')
+local t2; for _, t in ipairs(TOKENS()) do t2 = t end
+check(t2 and t2._rot and t2._rot[2] == 0, 'a token beside a unit on the far half faces the player sitting there (yaw 0)')
 xmlOk('battle with tokens')
 local failsT = {}
 for _, m in ipairs(MESSAGES) do if m:find('failed:') or m:find('UI error') or m:find('Internal error') then failsT[#failsT + 1] = m end end

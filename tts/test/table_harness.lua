@@ -44,7 +44,8 @@ function NOTEBOOK_FILL(title, body) for _, t in ipairs(tabs) do if t.title == ti
 local baseSpawn = spawnObject
 function spawnObject(p)
   local o = baseSpawn(p)
-  o._type = p.type; o._pos = p.position or o._pos; o._highlighted = false
+  o._type = p.type; o._pos = p.position or o._pos; o._highlighted = false; o._rot = p.rotation; o._scale = 1
+  o.setScale = function(v) o._scale = v[1] end
   o.setCustomObject = function(c) o._image = c.image end
   o.highlightOn = function() o._highlighted = true end
   return o

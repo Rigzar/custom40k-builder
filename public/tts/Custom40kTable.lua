@@ -998,7 +998,11 @@ local TOKEN_BASE = 'https://custom40k-builder.vercel.app/tts/tokens/'
 local TOKEN_TAG  = 'c40k_token'
 local TOKEN_FILES = { ['Advance'] = 'advance.png', ['Charge'] = 'charge.png', ['Escape'] = 'escape.png', ['Fight'] = 'fight.png',
   ['Move & Shoot'] = 'move-shoot.png', ['Stand & Shoot'] = 'stand-shoot.png', hidden = 'hidden.png', pinned = 'pinned.png', fleeing = 'fleeing.png' }
-local TOKEN_SIZE, TOKEN_GAP = 1.5, 0.9
+-- A 32 mm base is about 1.26 inches. TOKEN_DIAMETER is in table units (1 unit = 1 inch); the real size is measured from the
+-- spawned object and corrected, so it does not depend on what size a Custom_Token happens to have at scale 1.
+local TOKEN_DIAMETER, TOKEN_GAP = 1.26, 0.5
+local TOKEN_SIZE = TOKEN_DIAMETER
+local TOKEN_NORTH_YAW, TOKEN_SOUTH_YAW = 0, 180
 
 --- The table-space box the bound miniatures of a unit occupy, or nil when none of them is on the table.
 local function unitFootprint(side, i)
@@ -1048,9 +1052,25 @@ local function placeToken(side, i, slot, key, label)
   local x = (slot == 'order') and (f.maxX + TOKEN_GAP + TOKEN_SIZE / 2) or (f.minX - TOKEN_GAP - TOKEN_SIZE / 2)
   local z = (f.minZ + f.maxZ) / 2
   local pos = { x = x, y = f.minY + 0.4, z = z }
-  local obj = spawnObject({ type = 'Custom_Token', position = pos, rotation = { 0, 180, 0 }, scale = { TOKEN_SIZE, 1, TOKEN_SIZE }, snap_to_grid = false })
+  -- readable from the owner's edge of the table: a unit on the far (positive z) half belongs to the player sitting there,
+  -- so its tokens face them; the near half faces the other way. Flip TOKEN_NORTH_YAW / TOKEN_SOUTH_YAW to reverse.
+  local yaw = (z > 0) and TOKEN_NORTH_YAW or TOKEN_SOUTH_YAW
+  local obj = spawnObject({ type = 'Custom_Token', position = pos, rotation = { 0, yaw, 0 }, scale = { 1, 1, 1 }, snap_to_grid = false })
   if not obj then return end
   pcall(function() obj.setCustomObject({ image = TOKEN_BASE .. file, thickness = 0.1, merge_distance = 5, stackable = false }) end)
+  -- size it to a 32 mm base: measure the object a couple of frames later and scale it to the wanted diameter
+  local function fitSize()
+    local ok = pcall(function()
+      local width = obj.getBounds().size.x
+      local sc = obj.getScale().x
+      if width and width > 0 and sc and sc > 0 then
+        local k = TOKEN_DIAMETER / (width / sc)
+        obj.setScale({ k, 1, k })
+      end
+    end)
+    return ok
+  end
+  if Wait and Wait.frames then Wait.frames(fitSize, 3) else fitSize() end
   pcall(function() obj.setName(label or key) end)
   pcall(function() obj.addTag(TOKEN_TAG) end)
   st.tokenGuids = st.tokenGuids or {}
