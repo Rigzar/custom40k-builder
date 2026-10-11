@@ -323,6 +323,13 @@ export function isUnwieldyItem(desc: string | undefined): boolean {
  *     this check — the gate that makes ArmoryModal show a target-weapon picker at all — never
  *     recognized the wording as needing one in the first place.
  */
+/** Which weapons a weapon-target item may be pointed at: "One ranged weapon of the model gains +1 Strength"
+ *  (Maelstrom Weapon) only ranged, "One melee weapon..." (Reaver Weapon) only melee, anything else any. */
+export function weaponTargetKind(desc: string | undefined): 'melee' | 'ranged' | 'any' {
+  const m = (desc ?? '').match(/(?:one|a|an) (melee|ranged) weapon of the model/i);
+  return m ? (m[1].toLowerCase() as 'melee' | 'ranged') : 'any';
+}
+
 export function requiresWeaponTarget(desc: string | undefined): boolean {
   return /\b(?:one|a|an) (?:melee |ranged )?weapon of the model (?:gains|increases its)|on one of its weapons|purchased for each weapon/i.test(desc ?? '');
 }

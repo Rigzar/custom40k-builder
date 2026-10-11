@@ -373,6 +373,35 @@ export function loadoutClauseFor(modelName: string, loose = false): RegExp {
 }
 
 /**
+ * The weapons the model that is BUYING from the Armory actually carries -- what a weapon-target item ("One ranged
+ * weapon of the model gains +1 Strength", Reaver Weapon, Master-crafted weapon, the relics, daemon weapons) may be
+ * pointed at. The picker used to list every weapon on the datasheet, so a Champion who only carries a Bolter and a
+ * Chainsword was offered the squad's Flamer, Heavy bolter and Plasma gun (Discord, 2026-10-11).
+ *   - unit-wide access: what the unit carries after its options (`weaponsToShow`);
+ *   - champion-only access: that model's own loadout clause (its name, else the promoted model's, else the shared
+ *     "Every model is equipped with:") plus the weapons it bought from the Armory.
+ */
+export function armoryWeaponTargets(unit: Unit, item: RosterEntry, profile: ResolvedProfile): Weapon[] {
+  const base = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim().toLowerCase();
+  const championOnly = !unit.has_armory_access &&
+    (!!unit.champion_has_armory || unit.option_groups.some(g => g.variant_link && /armory/i.test(g.header)));
+  if (!championOnly) return profile.weaponsToShow;
+  const active = getActiveVariant(item, unit);
+  const model = profile.variantActive && profile.variant ? profile.variant : getBuiltInChampion(unit);
+  if (!model) return profile.weaponsToShow;
+  const names = [model.name, ...(active ? [getPromotedModel(unit, active).name] : [])];
+  const eq = unit.equipped_with ?? '';
+  let clause: string | undefined;
+  for (const n of names) { clause = eq.match(loadoutClauseFor(n))?.[1]; if (clause) break; }
+  if (!clause) clause = eq.match(/equipped with:\s*([^.]+)\./i)?.[1];
+  if (!clause) return profile.weaponsToShow;
+  const carried = new Set(resolveClauseItems(clause, unit.weapons).map(base));
+  const bought = new Set((item.armory ?? []).filter(a => a.section === 'weapons').map(a => base(a.itemName)));
+  const out = profile.weaponsToShow.filter(w => carried.has(base(w.name)) || bought.has(base(w.name)));
+  return out.length ? out : profile.weaponsToShow;
+}
+
+/**
  * Filter a weapon list down to what should be displayed: drop optional/choice
  * weapons that were not selected. A weapon counts as optional when it also appears
  * as a choice in some option group; built-in gear (not in any group) is always shown.

@@ -6,8 +6,8 @@ import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
-import { findArmoryItem } from '../engine/resolver';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
+import { findArmoryItem, resolveUnitProfile, armoryWeaponTargets } from '../engine/resolver';
 import { getActiveVariant, gameSizePrice, liveArmoryPoints } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
 import {
@@ -862,10 +862,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // they were two guns; picking one applied the enhancement to that profile alone and the
   // other stayed unchanged, which read as the item doing nothing (GH#115). The resolver now
   // matches by base name, so storing the base name here is what the engine expects.
+  // The weapons the model that is buying carries (a Champion's own loadout, not the whole squad's kit), so
+  // "One ranged weapon of the model gains +1 Strength" cannot be pointed at a Flamer the Champion never holds.
+  const carriedTargets = armoryWeaponTargets(unit, item, resolveUnitProfile(item, unit, useArmyStore.getState() as never, data));
+  const isMeleeTarget = (w: { name: string; type?: string; range?: string }) => /melee/i.test(w.type ?? '') || !w.range || w.range === '-';
   const availableWeapons: string[] = [...new Set([
-    ...unit.weapons.map(w => weaponBaseName(w.name)),
+    ...carriedTargets.map(w => weaponBaseName(w.name)),
     ...item.armory.filter(a => a.section === 'weapons').map(a => weaponBaseName(a.itemName)),
   ])];
+  const meleeWeapons: string[] = [...new Set(carriedTargets.filter(isMeleeTarget).map(w => weaponBaseName(w.name)))];
 
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;
@@ -1349,6 +1354,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           add(arm, `${markName} Armoury`, effectiveSection, tw, cp);
                         }}
                         availableWeapons={availableWeapons}
+                        meleeWeapons={meleeWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1452,6 +1458,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           add(arm, legName, effectiveSection, tw, cp);
                         }}
                         availableWeapons={availableWeapons}
+                        meleeWeapons={meleeWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1549,6 +1556,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           add(arm, AUTHORITY_SOURCE, 'equipment', tw, cp);
                         }}
                         availableWeapons={availableWeapons}
+                        meleeWeapons={meleeWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1629,6 +1637,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         add(arm, foreignSrcLabel, 'equipment', tw, cp);
                       }}
                       availableWeapons={availableWeapons}
+                      meleeWeapons={meleeWeapons}
                       eqTargetWeapon={eqTargetWeapon}
                       onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       eqExarchPower={eqExarchPower}
@@ -1691,6 +1700,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 add(arm, src, effectiveSection, tw, cp);
               }}
               availableWeapons={availableWeapons}
+              meleeWeapons={meleeWeapons}
               eqTargetWeapon={eqTargetWeapon}
               onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
               eqExarchPower={eqExarchPower}
@@ -1780,6 +1790,8 @@ interface EquipGroupsProps {
   onAdd: (arm: ArmoryItem) => void;
   /** Weapons available on this unit — used for the weapon-target picker */
   availableWeapons?: string[];
+  /** The melee ones among `availableWeapons`, so a "melee weapon" item is only offered those. */
+  meleeWeapons?: string[];
   /** Current weapon target selections for equipment that requires a target */
   eqTargetWeapon?: Record<string, string>;
   onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
@@ -1825,6 +1837,7 @@ function EquipmentGroups({
   daemonWeapon,
   reaverLord,
   availableWeapons = [],
+  meleeWeapons = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
   eqExarchPower = {},
@@ -1919,7 +1932,7 @@ function EquipmentGroups({
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
                       <option value="">{t('selectWeaponOption')}</option>
-                      {availableWeapons.map(wn => (
+                      {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
                         <option key={wn} value={wn}>{wn}</option>
                       ))}
                     </select>
@@ -2073,7 +2086,7 @@ function EquipmentGroups({
                         className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                       >
                         <option value="">{t('selectWeaponOption')}</option>
-                        {availableWeapons.map(wn => (
+                        {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
                           <option key={wn} value={wn}>{wn}</option>
                         ))}
                       </select>
@@ -2217,6 +2230,14 @@ function ReaverLordPicker({
       </div>
     </div>
   );
+}
+
+/** The weapons a weapon-target item may be pointed at: "One melee weapon..." only the melee ones, "One ranged weapon..." only the others. */
+function targetsFor(arm: ArmoryItem, all: string[], melee: string[]): string[] {
+  const kind = weaponTargetKind(arm.desc);
+  if (kind === 'any') return all;
+  const m = new Set(melee);
+  return all.filter(w => (kind === 'melee') === m.has(w));
 }
 
 function DaemonWeaponPicker({
