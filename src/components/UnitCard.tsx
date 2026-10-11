@@ -178,7 +178,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
     variant, variantActive, modelsToShow, squadLeaderIdx, referenceModels,
     effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
-    injectedAbilities, hiddenUpgradeAbilityLabels, injectedRuleNotes, equipMods, traitEquipMods,
+    injectedAbilities, hiddenUpgradeAbilityLabels, hiddenUpgradeAbilityLines, injectedRuleNotes, equipMods, traitEquipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
@@ -2294,6 +2294,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               // An upgrade's own rules text, printed under the upgrade's name, when that upgrade
               // has not been bought (GH#149).
               if (hiddenUpgradeAbilityLabels.some(h => h.toLowerCase() === label)) return false;
+              if (hiddenUpgradeAbilityLines.includes(ab)) return false;
               if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
               if (_hasPsykerOption && label === 'psyker') return false;
               if (!_henchmanAbilityKeep(ab)) return false;

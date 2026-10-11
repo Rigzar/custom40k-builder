@@ -18,6 +18,7 @@ import { cdResolve } from './codex_chaos_daemons/resolver';
 import { smResolve } from './codex_space_marines/resolver';
 import { admechResolve } from './codex_adeptus_mechanicus/resolver';
 import { markStatMods } from '../lib/markMods';
+import { hiddenUpgradeLines } from '../lib/upgradeGroups';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -128,6 +129,8 @@ export interface ResolvedProfile {
    * showed an armour save it never paid for (GH#149). 134 lines in the game are written this way.
    */
   hiddenUpgradeAbilityLabels: string[];
+  /** Exact ability lines to hide: a bare-name upgrade header and, when it is not bought, the lines under it. */
+  hiddenUpgradeAbilityLines: string[];
   /** Archetype / variant rule notes (e.g. Ascended DP, Goretide) — shown with "Rule" badge. */
   injectedRuleNotes: string[];
   equipMods: EquipMods;
@@ -1720,6 +1723,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], attachedDrones: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap,
     injectedAbilities: choiceAbilities,
     hiddenUpgradeAbilityLabels,
+    hiddenUpgradeAbilityLines: hiddenUpgradeLines(unit, item),
     injectedRuleNotes: ruleNotes,
     equipMods,
     traitEquipMods,

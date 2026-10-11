@@ -365,7 +365,8 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     const loadoutsExact = notes.length === 0;
 
     const abilities = [
-      ...(unit.abilities ?? []),
+      // an upgrade's rules are not part of the unit until it is bought (same lines the unit card hides)
+      ...(unit.abilities ?? []).filter(ab => !rp.hiddenUpgradeAbilityLines.includes(ab)),
       ...rp.injectedAbilities,
       ...rp.equipMods.grantedAbilities,
       ...rp.traitAbilities.map(t => (t.desc ? `${t.name}: ${t.desc}` : t.name)),

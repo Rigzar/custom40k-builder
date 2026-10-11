@@ -1,4 +1,5 @@
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
+import { hiddenUpgradeLines } from './upgradeGroups';
 
 /**
  * A unit's effective Ward Save, from every source that grants one unconditionally.
@@ -180,8 +181,11 @@ export function ownWardAbilities(
       if (!(item.optionQty?.[gi]?.[ci] ?? 0)) unbought.add(c.name.trim().toLowerCase());
     });
   });
-  if (unbought.size === 0) return u.abilities ?? [];
-  return (u.abilities ?? []).filter(ab => {
+  // a bare-name upgrade header and, unbought, the lines under it (Tyranid Norn, GH#235)
+  const hiddenLines = new Set(hiddenUpgradeLines(u, item));
+  const abilities = (u.abilities ?? []).filter(ab => !hiddenLines.has(ab));
+  if (unbought.size === 0) return abilities;
+  return abilities.filter(ab => {
     const colon = ab.indexOf(':');
     if (colon < 1) return true;
     const label = ab.slice(0, colon).trim();

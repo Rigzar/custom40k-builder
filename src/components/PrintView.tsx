@@ -884,7 +884,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
 
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, variant, weaponTraitMap, injectedAbilities, hiddenUpgradeAbilityLabels, optionAbilities, equipMods, traitEquipMods,
+  const { pts, variant, weaponTraitMap, injectedAbilities, hiddenUpgradeAbilityLabels, hiddenUpgradeAbilityLines, optionAbilities, equipMods, traitEquipMods,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
@@ -967,6 +967,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
       // An upgrade's own rules text, printed under the upgrade's name, when that upgrade has not
       // been bought — the battle-ready sheet showed Tomb Blades' armour upgrade unbought (GH#149).
       if (hiddenUpgradeAbilityLabels.some((h: string) => h.toLowerCase() === label)) return false;
+      if (hiddenUpgradeAbilityLines.includes(ab)) return false;
       if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
       if (_hasPsykerOption && label === 'psyker') return false;
       return true;
