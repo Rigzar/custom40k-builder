@@ -131,7 +131,7 @@ end
 
 -- UI path for the same thing
 click('tab__attack')
-click('aorder')
+click('aord__3'); click('cov__1'); click('wpick__1'); click('atpick__2'); click('atside__2')
 click('expect'); xmlOk('attack expected'); check(C40K.getUI().atk.lastResult:find('To hit'), 'EXPECTED fills the result')
 click('rollit'); xmlOk('attack roll'); check(C40K.getUI().atk.lastResult:find('To hit') or C40K.getUI().atk.lastResult:find('Auto Hit'), 'ROLL IT fills the result')
 click('applycas'); xmlOk('apply casualties')
@@ -169,7 +169,7 @@ click('init'); check(C40K.getState().initiative ~= 0 or lastMessages(1):find('ti
 click('tok__1'); check(C40K.getState().bs[1][squad].tokens == 1, 'a Battleshock token is added')
 click('tok__1'); click('tok__1'); check(C40K.getState().bs[1][squad].tokens == 2, 'never more than two Battleshock tokens')
 click('rally__1'); xmlOk('after rally')
-click('order'); check(C40K.getState().bs[1][squad].order ~= '', 'an order is assigned')
+click('ordset__3'); check(C40K.getState().bs[1][squad].order ~= '', 'an order is assigned')
 click('reserve'); click('reinf__1'); xmlOk('after reinforcement')
 click('done'); check(C40K.getState().bs[1][squad].done, 'a unit is marked as activated')
 click('alive__1__-1'); xmlOk('after casualty')
@@ -206,7 +206,7 @@ check(C40K.effectiveWard(1, squad) == want, 'a joined leader gives Warded: the u
 local cw = C40K.buildAttack(2, 1, 1, 1, squad, 1, { cover = 0 })
 check(cw == nil or cw.ward == want, 'the attack calculator uses the improved ward against that unit')
 click('tab__battle'); C40K.getUI().side = 1; C40K.getUI().unit = squad; xmlOk('battle with attached leader')
-check(LAST_XML:find('Ward now: ' .. want), 'the Battle View shows the ward save as ' .. want .. '+')
+check(LAST_XML:find('Ward save now: ' .. want), 'the Battle View shows the ward save as ' .. want .. '+')
 
 -- ── missions ──
 click('tab__mission'); xmlOk('mission')
@@ -235,3 +235,21 @@ xmlOk('after load')
 local bad = {}
 for _, m in ipairs(MESSAGES) do if m:find('failed:') or m:find('UI error') or m:find('Internal error') then bad[#bad + 1] = m end end
 check(#bad == 0, 'no action reported an error: ' .. table.concat(bad, ' || '))
+
+-- ── picking from lists instead of stepping with arrows ──
+click('tab__attack')
+click('sidepick__2'); check(C40K.getUI().side == 2 and C40K.getUI().unit == 1, 'pressing a side button switches the side')
+click('pick__2'); check(C40K.getUI().unit == 2, 'pressing a unit button selects that unit')
+check(LAST_XML:find('2%. ') ~= nil, 'the unit list shows numbered unit buttons')
+click('sidepick__1'); click('pick__' .. squad)
+click('atside__2'); click('atpick__' .. (rhino or 1)); check(C40K.getUI().atk.defSide == 2 and C40K.getUI().atk.defUnit == (rhino or 1), 'pressing a target unit selects it as the target')
+click('wpick__2'); check(C40K.getUI().atk.weapon == 2, 'pressing a weapon selects it')
+click('cov__2'); check(C40K.getUI().atk.cover == 2, 'pressing a cover button sets it')
+click('aord__2'); check(C40K.getUI().atk.order == 'Stand & Shoot', 'pressing an order button sets it')
+xmlOk('attack with pickers')
+click('tab__powers'); click('pwpick__1'); click('ptside__1'); click('ptpick__2'); xmlOk('powers with pickers')
+click('tab__mission'); click('mpick__2'); check(C40K.getState().mission == 2, 'pressing a mission selects it'); xmlOk('mission pick')
+click('tab__army'); check(not LAST_XML:find('Spawn cards'), 'there is no Spawn cards button any more'); xmlOk('army tab')
+local fails2 = {}
+for _, m in ipairs(MESSAGES) do if m:find('failed:') or m:find('UI error') or m:find('Internal error') then fails2[#fails2 + 1] = m end end
+check(#fails2 == 0, 'pickers raised no errors: ' .. table.concat(fails2, ' || '))

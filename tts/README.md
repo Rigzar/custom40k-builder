@@ -40,13 +40,15 @@ per side (`Custom40k` and `Custom40k 2` notebook tabs), and adds a **C40K** butt
 
 | Tab | What it does |
 |---|---|
-| ARMY | Load a side, spawn the datasheet cards, copy datasheets + rules to the notebook |
+| ARMY | Load a side from its notebook tab |
 | RULES | The datasheet, **every rule the unit uses with its text** (abilities and weapon abilities), active statuses, and the game's own rules: phases, orders, reactions, Battleshock, weapon types, scoring |
 | BINDER | Select miniatures on the table, **BIND** them to a unit: they take its name, colour and datasheet (model group by model group). Removing a bound miniature takes a casualty off the unit. Movement / advance / charge / weapon-range **rings** around every bound miniature |
 | BATTLE | Round and phase tracker with the rules of the current phase, initiative roll (with the tie rule), Rally and Reinforcement rolls, Skip tokens, an order, Battleshock tokens, activation, reserve and models left per unit |
 | ATTACK | Pick a weapon and a target: the rolls needed to hit / wound / save (cover, Take Cover, half range, vehicle facing, order legality, weapon abilities, ward), the **expected** result, or **ROLL IT** and apply the casualties |
 | POWERS | Psychic powers (psychic test with Perils), prayers and pacts: pick a target, cast. Automatic hits are rolled, Battleshock tokens added, and lasting effects become **statuses** on the target (and on the unit the caster leads) that the attack calculator then uses |
 | MISSION | The engagement's missions, a victory-point pad, secondary objectives, attrition from the models you removed, and the winner (100 VP lead) |
+
+**Picking.** Every choice is a button you press: a column of units on the left (side buttons, then one button per unit), weapons, targets, orders, cover, powers and missions are all lists of buttons, and the selected one is highlighted. There are no spawned datasheet cards: the binder puts the datasheet on each miniature's description and the RULES tab shows it.
 
 **Leaders and attached units.** The export carries `joinedTo` (the unit a character is attached to) and `grantsToUnit`
 (wargear text that says "the model and its attached unit gain ..."). The Battle View and the calculator add those to the

@@ -7,7 +7,7 @@
   this script only displays and tracks it. See src/utils/ttsExport.ts and src/data/ttsGame.ts.
 
   WHAT IT DOES
-    ARMY      load one army per side from a notebook tab, spawn datasheet cards, copy rules to the notebook
+    ARMY      load one army per side from a notebook tab
     RULES     every rule of a unit (abilities, weapon abilities) with its text, one page at a time
     BINDER    select miniatures on the table and bind them to a unit / model group: they get its name and
               datasheet, and the binding is remembered (it is what range rings and the wound counter use)
@@ -40,8 +40,6 @@ local SIDE_RGB      = { { 0.88, 0.63, 0.19 }, { 0.25, 0.63, 0.88 } }
 local UNIT_PER_INCH     = 1.0
 local BASE_RADIUS_INCH  = 0.63
 
-local GRID_COLS, GRID_DX, GRID_DZ = 6, 2.6, 3.6
-local GRID_ORIGIN = { x = -6.5, y = 1.2, z = 3.0 }
 
 local TEXT_CHARS_PER_LINE = 70     -- how many characters fit a line of the reading pane (estimate)
 local TEXT_LINES_PER_PAGE = 17
@@ -1513,7 +1511,7 @@ end
 
 -- ── XML building blocks ─────────────────────────────────────────────────────────────────────────
 
-local COL = { bg = '#12161CF2', panel = '#1C222B', text = '#E8E2D2', dim = '#9AA3AE', accent = '#E0A030', good = '#6CCB7A', bad = '#E26A5C', btn = '#2B3441', btnOn = '#7A5A1C' }
+local COL = { bg = '#12161CF2', panel = '#1C222B', text = '#E8E2D2', dim = '#9AA3AE', accent = '#E0A030', good = '#6CCB7A', bad = '#E26A5C', btn = '#2B3441', btnOn = '#8A6420' }
 
 local function sepId(...)
   local parts = {}
@@ -1521,30 +1519,40 @@ local function sepId(...)
   return table.concat(parts, '__')
 end
 
---- A button. `act` is the action name followed by its arguments (sepId'd into the element id).
-local function btn(label, w, color, ...)
-  return string.format('<Button id="%s" onClick="uiClick" preferredWidth="%d" preferredHeight="30" fontSize="13" colors="%s|%s|%s|%s" textColor="%s">%s</Button>',
-    sepId(...), w or 90, color or COL.btn, COL.accent, COL.accent, COL.btn, COL.text, xmlEscape(label))
+--- A button. `on` highlights it (selected / switched on). The rest is the action name followed by its arguments.
+local function btn(label, w, on, ...)
+  local color = on and COL.btnOn or COL.btn
+  return string.format('<Button id="%s" onClick="uiClick" preferredWidth="%d" preferredHeight="28" fontSize="12" colors="%s|%s|%s|%s" textColor="%s">%s</Button>',
+    sepId(...), w or 90, color, COL.accent, COL.accent, color, COL.text, xmlEscape(label))
 end
 
 local function txt(text, size, color, height, align)
   return string.format('<Text fontSize="%d" color="%s" alignment="%s" preferredHeight="%d" horizontalOverflow="Wrap" verticalOverflow="Overflow">%s</Text>',
-    size or 14, color or COL.text, align or 'UpperLeft', height or 22, xmlEscape(text))
+    size or 13, color or COL.text, align or 'UpperLeft', height or 20, xmlEscape(text))
 end
 
 local function row(inner, height)
-  return string.format('<HorizontalLayout spacing="6" childForceExpandWidth="false" preferredHeight="%d" childAlignment="MiddleLeft">%s</HorizontalLayout>', height or 32, inner)
+  return string.format('<HorizontalLayout spacing="5" childForceExpandWidth="false" preferredHeight="%d" childAlignment="MiddleLeft">%s</HorizontalLayout>', height or 30, inner)
 end
 
+local function heading(text) return txt(text, 14, COL.accent, 22) end
 local function gap(h) return string.format('<Panel preferredHeight="%d" color="#00000000"></Panel>', h or 6) end
+
+--- Buttons laid out in rows of `cols`.
+local function grid(cells, cols)
+  local out = {}
+  for k = 1, #cells, cols do out[#out + 1] = row(table.concat(cells, '', k, math.min(#cells, k + cols - 1)), 30) end
+  return table.concat(out)
+end
 
 local function pager(pages)
   if pages <= 1 then return '' end
-  return row(btn('<  page', 90, nil, 'pg', -1) .. btn('page  >', 90, nil, 'pg', 1) .. txt('page ' .. UI_STATE.page .. '/' .. pages, 13, COL.dim, 28), 32)
+  return row(btn('Previous page', 110, false, 'pg', -1) .. btn('Next page', 110, false, 'pg', 1) .. txt('page ' .. UI_STATE.page .. ' of ' .. pages, 12, COL.dim, 28), 30)
 end
 
 local TABS = { { 'army', 'ARMY' }, { 'rules', 'RULES' }, { 'binder', 'BINDER' }, { 'battle', 'BATTLE' },
                { 'attack', 'ATTACK' }, { 'powers', 'POWERS' }, { 'mission', 'MISSION' } }
+local NEEDS_UNIT = { rules = true, binder = true, battle = true, attack = true, powers = true }
 
 local function curSelection()
   local side = UI_STATE.side
@@ -1554,30 +1562,77 @@ local function curSelection()
   return side, UI_STATE.unit, a.units[UI_STATE.unit]
 end
 
-local function unitSelector(prefix)
-  local side, i, u = curSelection()
-  local label = u and ((u.displayName or u.unitName) .. '  (' .. u.slot .. ', ' .. num(u.points) .. ' pts)') or '(no army loaded)'
-  return row(
-    btn(sideName(side), 80, side == 1 and '#6B4B14' or '#164C6B', prefix .. 'side') ..
-    btn('<', 36, nil, prefix .. 'unit', -1) ..
-    btn('>', 36, nil, prefix .. 'unit', 1) ..
-    txt(label, 15, SIDE_COLOR[side], 28), 34)
+local function unitName(u) return u.displayName or u.unitName or '?' end
+
+--- Short state tag for a unit in a list: models left, shock, activation.
+local function stateTag(side, i)
+  local st = stateOf(side, i)
+  if not st then return '' end
+  local left = aliveTotal(side, i)
+  if left == 0 then return ' (dead)' end
+  local bits = {}
+  if left < st.start then bits[#bits + 1] = left .. '/' .. st.start end
+  if st.tokens >= 2 then bits[#bits + 1] = 'FLEEING' elseif st.tokens == 1 then bits[#bits + 1] = 'pinned' end
+  if st.done then bits[#bits + 1] = 'done' end
+  if st.reserve then bits[#bits + 1] = 'reserve' end
+  return #bits > 0 and (' (' .. table.concat(bits, ', ') .. ')') or ''
+end
+
+local UNITS_PER_PAGE = 12
+
+--- Side buttons + one button per unit of that side, paged. `actPick` / `actSide` / `actPage` are the action names;
+--- `side`, `selected`, `pageKey` say what is highlighted and where the page number lives.
+local function unitPicker(side, selectedSide, selected, actSide, actPick, actPage, pageKey, w, cols)
+  local out = {}
+  local sideBtns = {}
+  for s = 1, 2 do
+    local a = S.armies[s]
+    sideBtns[#sideBtns + 1] = btn(sideName(s) .. (a and (': ' .. tostring(a.army.name or ''):sub(1, 14)) or ' (empty)'), 168, side == s, actSide, s)
+  end
+  out[#out + 1] = row(table.concat(sideBtns), 30)
+  local a = S.armies[side]
+  if not a or #a.units == 0 then return table.concat(out) .. txt('No army loaded on this side. Use the ARMY tab.', 12, COL.dim, 24) end
+  local pages = math.max(1, math.ceil(#a.units / UNITS_PER_PAGE))
+  local page = clamp(UI_STATE[pageKey] or 1, 1, pages)
+  UI_STATE[pageKey] = page
+  local cells = {}
+  for i = (page - 1) * UNITS_PER_PAGE + 1, math.min(#a.units, page * UNITS_PER_PAGE) do
+    local u = a.units[i]
+    cells[#cells + 1] = btn(i .. '. ' .. unitName(u) .. stateTag(side, i), w, selectedSide == side and selected == i, actPick, i)
+  end
+  out[#out + 1] = grid(cells, cols)
+  if pages > 1 then
+    out[#out + 1] = row(btn('Previous units', 110, false, actPage, -1) .. btn('Next units', 110, false, actPage, 1) .. txt('units ' .. page .. ' of ' .. pages, 12, COL.dim, 28), 30)
+  end
+  return table.concat(out)
+end
+
+--- The always-visible column on the left: pick the unit every tab works on.
+local function leftColumn()
+  local side, i = curSelection()
+  return unitPicker(side, side, i, 'sidepick', 'pick', 'upage', 'upage', 236, 1)
 end
 
 
 -- ── tab contents ────────────────────────────────────────────────────────────────────────────────
 
+local function selectedHeader()
+  local side, _, u = curSelection()
+  if not u then return txt('Pick a unit in the list on the left.', 13, COL.dim, 22) end
+  return row(txt(sideName(side) .. '  >  ' .. unitName(u) .. '   (' .. u.slot .. ', ' .. num(u.points) .. ' pts)', 15, SIDE_COLOR[side], 24), 28)
+end
+
 local function tabArmy()
-  local out = { txt('Load one army per side from a notebook tab (Notes -> add a tab named "Custom40k" / "Custom40k 2" and paste the JSON exported by the builder: Print View -> TTS).', 13, COL.dim, 40) }
+  local out = { txt('Load one army per side. In the builder: Print View > TTS downloads a .json. Paste its whole text into the notebook tab "Custom40k" (side 1) or "Custom40k 2" (side 2), then press LOAD.', 12, COL.dim, 36) }
   for side = 1, 2 do
     local a = S.armies[side]
     local head = a and (tostring(a.army.name) .. ' - ' .. tostring(a.army.faction) .. ' - ' .. #a.units .. ' units - ' .. num(a.army.totalPoints) .. '/' .. num(a.army.pointLimit) .. ' pts') or '(empty)'
-    out[#out + 1] = row(txt(sideName(side), 16, SIDE_COLOR[side], 28) .. btn('LOAD', 90, nil, 'load', side) .. btn('Spawn cards', 110, nil, 'cards', side) .. btn('To notebook', 110, nil, 'notebook', side), 34)
-    out[#out + 1] = txt(head, 14, COL.text, 26)
+    out[#out + 1] = row(txt(sideName(side), 15, SIDE_COLOR[side], 28) .. btn('LOAD from notebook', 150, false, 'load', side), 32)
+    out[#out + 1] = txt(head, 13, COL.text, 22)
     if a then
       local lines = {}
-      for i, u in ipairs(a.units) do lines[#lines + 1] = string.format('%d. %s (%s) %s pts%s', i, u.displayName or u.unitName, u.slot, num(u.points), u.joinedTo and ' [attached]' or '') end
-      out[#out + 1] = txt(table.concat(lines, '\n', 1, math.min(#lines, 9)) .. (#lines > 9 and ('\n... +' .. (#lines - 9) .. ' more') or ''), 12, COL.dim, math.min(#lines, 10) * 17 + 6)
+      for i, u in ipairs(a.units) do lines[#lines + 1] = string.format('%d. %s (%s) %s pts%s', i, unitName(u), u.slot, num(u.points), u.joinedTo and ' [attached]' or '') end
+      out[#out + 1] = txt(table.concat(lines, '\n', 1, math.min(#lines, 9)) .. (#lines > 9 and ('\n... +' .. (#lines - 9) .. ' more') or ''), 12, COL.dim, math.min(#lines, 10) * 16 + 6)
     end
     out[#out + 1] = gap(4)
   end
@@ -1629,15 +1684,14 @@ end
 local function tabRules()
   local side, i, u = curSelection()
   local mode = UI_STATE.rulesMode or 'unit'
-  local out = {}
-  local modes = row(btn('Datasheet', 90, mode == 'unit' and COL.btnOn or nil, 'rmode', 'unit') .. btn('Unit rules', 90, mode == 'rules' and COL.btnOn or nil, 'rmode', 'rules')
-    .. btn('Statuses', 80, mode == 'status' and COL.btnOn or nil, 'rmode', 'status'), 34)
-  local topics = {}
-  for _, t in ipairs(GAME_TOPICS) do topics[#topics + 1] = btn(t[2], 92, mode == ('game:' .. t[1]) and COL.btnOn or nil, 'rmode', 'game:' .. t[1]) end
-  local body
+  local modes = row(txt('Show:', 12, COL.dim, 28) .. btn('Datasheet', 90, mode == 'unit', 'rmode', 'unit') .. btn('Unit rules', 90, mode == 'rules', 'rmode', 'rules')
+    .. btn('Statuses', 80, mode == 'status', 'rmode', 'status'), 30)
+  local topics = { txt('Game rules:', 12, COL.dim, 28) }
+  for _, t in ipairs(GAME_TOPICS) do topics[#topics + 1] = btn(t[2], 92, mode == ('game:' .. t[1]), 'rmode', 'game:' .. t[1]) end
+  local body, head = nil, ''
   if mode:sub(1, 5) == 'game:' then body = gameText(mode:sub(6))
   else
-    out[#out + 1] = unitSelector('r')
+    head = selectedHeader()
     if not u then body = 'No army loaded.'
     elseif mode == 'rules' then
       local rl = ruleLines(side, u)
@@ -1650,54 +1704,39 @@ local function tabRules()
       body = (#lines == 0 and 'No active statuses on this unit.' or table.concat(lines, '\n\n')) .. (#m.text > 0 and ('\n\nAutomated: ' .. table.concat(m.text, ', ')) or '')
     else body = unitCardText(u) end
   end
-  local shown, page, pages = pageOf(body, UI_STATE.page)
+  local shown, page, pages = pageOf(body, UI_STATE.page, TEXT_LINES_PER_PAGE, 92)
   UI_STATE.page = page
-  return modes .. row(table.concat(topics), 34) .. table.concat(out) .. txt(shown, 12, COL.text, TEXT_LINES_PER_PAGE * 16 + 8) .. pager(pages)
+  return modes .. row(table.concat(topics), 30) .. head .. txt(shown, 12, COL.text, TEXT_LINES_PER_PAGE * 16 + 8) .. pager(pages)
 end
 
 local function tabBinder()
   local side, i, u = curSelection()
-  local out = { unitSelector('b') }
-  if not u then return out[1] .. txt('Load an army first.', 14, COL.dim, 24) end
+  if not u then return txt('Pick a unit in the list on the left.', 13, COL.dim, 24) end
+  local out = { selectedHeader() }
   local st = stateOf(side, i)
-  local slots = slotsOf(u)
   local lines = {}
   for j, m in ipairs(u.models) do
     local bound = 0
     for _, g in ipairs(st.guids) do local b = S.bindings[g]; if b and b.model == j then bound = bound + 1 end end
-    lines[#lines + 1] = string.format('%dx %s   bound %d/%d   alive %d', m.count, m.name .. ((m.loadoutName and m.loadoutName ~= m.name) and (' (' .. m.loadoutName .. ')') or ''), bound, math.floor(m.count), st.alive[j] or 0)
+    lines[#lines + 1] = string.format('%dx %s   bound %d of %d   alive %d', m.count, m.name .. ((m.loadoutName and m.loadoutName ~= m.name) and (' (' .. m.loadoutName .. ')') or ''), bound, math.floor(m.count), st.alive[j] or 0)
   end
-  out[#out + 1] = txt('1. Select this unit\'s miniatures on the table (drag a box).   2. BIND.\nThey take the unit\'s name, datasheet and colour; removing one counts as a casualty.', 13, COL.dim, 38)
-  out[#out + 1] = txt(table.concat(lines, '\n'), 13, COL.text, #lines * 18 + 6)
-  out[#out + 1] = row(btn('BIND selection', 130, COL.btnOn, 'bind') .. btn('Unbind selection', 130, nil, 'unbind') ..
-    btn('Bind + next unit', 140, nil, 'bindnext'), 36)
-  local specs = {}
-  out[#out + 1] = txt('Range rings (measured from the base edge, in inches):', 14, COL.accent, 24)
+  out[#out + 1] = txt('1. Drag a box around this unit\'s miniatures on the table.  2. Press BIND.\nThey get the unit\'s name, colour and datasheet. Removing one from the table counts as a casualty.', 12, COL.dim, 36)
+  out[#out + 1] = txt(table.concat(lines, '\n'), 12, COL.text, #lines * 16 + 6)
+  out[#out + 1] = row(btn('BIND selected miniatures', 190, true, 'bind') .. btn('Unbind selected', 130, false, 'unbind') ..
+    btn('Bind, then next unit', 150, false, 'bindnext'), 32)
+  out[#out + 1] = gap(4)
+  out[#out + 1] = heading('Range rings around this unit (from the base edge, in inches)')
   local r = st.rings or {}
-  out[#out + 1] = row(btn('Move', 80, r.move and COL.btnOn or nil, 'ring', 'move') .. btn('Advance', 80, r.advance and COL.btnOn or nil, 'ring', 'advance') ..
-    btn('Charge', 80, r.charge and COL.btnOn or nil, 'ring', 'charge') .. btn('Clear all', 90, nil, 'ringclear'), 34)
+  out[#out + 1] = row(btn('Move', 90, r.move, 'ring', 'move') .. btn('Advance', 90, r.advance, 'ring', 'advance') ..
+    btn('Charge', 90, r.charge, 'ring', 'charge') .. btn('Remove all rings', 140, false, 'ringclear'), 32)
   local wb = {}
   for idx, w in ipairs(u.weapons or {}) do
-    if statNum(w.range) and statNum(w.range) > 0 and #wb < 10 then
-      wb[#wb + 1] = btn(w.name .. ' ' .. w.range, 150, r['w' .. idx] and COL.btnOn or nil, 'ring', 'w' .. idx)
+    if statNum(w.range) and statNum(w.range) > 0 and #wb < 12 then
+      wb[#wb + 1] = btn(w.name .. '  ' .. w.range, 200, r['w' .. idx], 'ring', 'w' .. idx)
     end
   end
-  for k = 1, #wb, 4 do out[#out + 1] = row(table.concat(wb, '', k, math.min(#wb, k + 3)), 34) end
-  local _ = specs
+  out[#out + 1] = grid(wb, 3)
   return table.concat(out)
-end
-
-local function unitLine(side, i, u)
-  local st = stateOf(side, i)
-  local bits = { string.format('%d/%d', aliveTotal(side, i), st.start) }
-  if st.tokens > 0 then bits[#bits + 1] = (st.tokens >= 2 and 'FLEEING' or 'PINNED') end
-  if st.order ~= '' then bits[#bits + 1] = st.order end
-  if st.done then bits[#bits + 1] = 'done' end
-  if st.reserve then bits[#bits + 1] = 'reserve' end
-  local ef = effectsOf(side, i)
-  if #ef > 0 then local n = {}; for _, e in ipairs(ef) do n[#n + 1] = e.name end; bits[#bits + 1] = '{' .. table.concat(n, ', ') .. '}' end
-  if u.joinedTo then bits[#bits + 1] = '(attached)' end
-  return string.format('%s%d. %s  %s', (i == UI_STATE.unit and side == UI_STATE.side) and '> ' or '  ', i, u.displayName or u.unitName, table.concat(bits, ' | '))
 end
 
 local function tabBattle()
@@ -1705,48 +1744,45 @@ local function tabBattle()
   local g = gameOf()
   local out = {}
   local total = g and g.rounds or 5
-  out[#out + 1] = row(txt('Round ' .. S.round .. '/' .. total, 18, COL.accent, 30) .. btn('< phase', 80, nil, 'phase', -1) .. btn('phase >', 80, COL.btnOn, 'phase', 1) ..
-    btn('Roll initiative', 120, nil, 'init') .. txt(S.initiative ~= 0 and ('Initiative: ' .. sideName(S.initiative)) or 'Initiative: not rolled', 14, S.initiative ~= 0 and SIDE_COLOR[S.initiative] or COL.dim, 28), 34)
+  out[#out + 1] = row(txt('Round ' .. S.round .. ' of ' .. total, 17, COL.accent, 30) .. btn('Previous phase', 110, false, 'phase', -1) .. btn('Next phase', 110, true, 'phase', 1) ..
+    btn('Roll initiative', 120, false, 'init') .. txt(S.initiative ~= 0 and ('Initiative: ' .. sideName(S.initiative)) or 'Initiative: not rolled', 13, S.initiative ~= 0 and SIDE_COLOR[S.initiative] or COL.dim, 28), 32)
   if ph then
-    out[#out + 1] = txt(string.upper(ph.name) .. ' PHASE  -  ' .. (ph.summary or ''), 14, COL.accent, 24)
-    local key = ph.key
+    out[#out + 1] = txt(string.upper(ph.name) .. ' PHASE  -  ' .. (ph.summary or ''), 13, COL.accent, 22)
     local steps = {}
     for _, s2 in ipairs(ph.steps or {}) do steps[#steps + 1] = '- ' .. s2 end
-    local stepText = table.concat(steps, '\n')
-    local shown, page, pages = pageOf(stepText, UI_STATE.page, 5, 130)
+    local shown, page, pages = pageOf(table.concat(steps, '\n'), UI_STATE.page, 5, 105)
     UI_STATE.page = page
     out[#out + 1] = txt(shown, 12, COL.text, 5 * 16 + 6) .. pager(pages)
-    if key == 'rally' then out[#out + 1] = row(btn('Rally Side 1', 110, nil, 'rally', 1) .. btn('Rally Side 2', 110, nil, 'rally', 2), 34)
-    elseif key == 'reinforcement' then out[#out + 1] = row(btn('Reinforce Side 1', 130, nil, 'reinf', 1) .. btn('Reinforce Side 2', 130, nil, 'reinf', 2), 34)
+    local key = ph.key
+    if key == 'rally' then out[#out + 1] = row(btn('Roll Rally for Side 1', 160, false, 'rally', 1) .. btn('Roll Rally for Side 2', 160, false, 'rally', 2), 30)
+    elseif key == 'reinforcement' then out[#out + 1] = row(btn('Roll reinforcements, Side 1', 190, false, 'reinf', 1) .. btn('Roll reinforcements, Side 2', 190, false, 'reinf', 2), 30)
     elseif key == 'command' then
       local c1, c2, who, skips = skipTokens()
-      out[#out + 1] = txt(string.format('Orders placed: Side 1 = %d, Side 2 = %d.  %s', c1, c2, who ~= 0 and (sideName(who) .. ' receives ' .. skips .. ' Skip token(s).') or 'No Skip tokens.'), 13, COL.good, 22)
+      out[#out + 1] = txt(string.format('Orders placed: Side 1 = %d, Side 2 = %d.  %s', c1, c2, who ~= 0 and (sideName(who) .. ' receives ' .. skips .. ' Skip token(s).') or 'No Skip tokens.'), 12, COL.good, 22)
     end
   else
-    out[#out + 1] = txt('Load an army to get the phases of the round.', 14, COL.dim, 24)
+    out[#out + 1] = txt('Load an army to get the phases of the round.', 13, COL.dim, 24)
   end
   local side, i, u = curSelection()
-  out[#out + 1] = unitSelector('t')
+  out[#out + 1] = gap(4)
+  out[#out + 1] = selectedHeader()
   if u then
     local st = stateOf(side, i)
-    out[#out + 1] = row(btn('Order: ' .. (st.order == '' and 'none' or st.order), 190, nil, 'order') ..
-      btn('Done', 60, st.done and COL.btnOn or nil, 'done') .. btn('Reserve', 76, st.reserve and COL.btnOn or nil, 'reserve') ..
-      btn('Token +', 74, nil, 'tok', 1) .. btn('Token -', 74, nil, 'tok', -1) .. btn('Clear fx', 76, nil, 'fxclear'), 34)
+    local ob = { txt('Order:', 12, COL.dim, 28) }
+    for k, name in ipairs(ordersList()) do ob[#ob + 1] = btn(name == '' and 'None' or name, 100, st.order == name, 'ordset', k) end
+    out[#out + 1] = row(table.concat(ob), 30)
+    out[#out + 1] = row(btn('Mark as activated', 140, st.done, 'done') .. btn('In reserve', 100, st.reserve, 'reserve') ..
+      btn('Add Battleshock token', 160, false, 'tok', 1) .. btn('Remove token', 110, false, 'tok', -1) .. btn('Clear statuses', 120, false, 'fxclear') ..
+      txt('Tokens: ' .. st.tokens .. ' of 2', 12, st.tokens > 0 and COL.bad or COL.dim, 28), 30)
     local mb = {}
     for j, m in ipairs(u.models) do
-      mb[#mb + 1] = btn(string.format('%s -1 (%d)', m.name:sub(1, 16), st.alive[j] or 0), 150, nil, 'alive', j, -1) .. btn('+', 30, nil, 'alive', j, 1)
+      mb[#mb + 1] = row(txt(string.format('%s: %d of %d', m.name:sub(1, 26), st.alive[j] or 0, math.floor(m.count)), 12, COL.text, 28) ..
+        btn('Remove one', 90, false, 'alive', j, -1) .. btn('Add one', 80, false, 'alive', j, 1), 30)
     end
-    for k = 1, math.min(#mb, 6), 2 do out[#out + 1] = row(table.concat(mb, '', k, math.min(#mb, k + 1)), 34) end
+    out[#out + 1] = table.concat(mb, '', 1, math.min(#mb, 5))
     local w = effectiveWard(side, i)
     local m = modsFor(side, i)
-    out[#out + 1] = txt('Ward now: ' .. (w and (w .. '+') or 'none') .. (#m.text > 0 and ('    Automated: ' .. table.concat(m.text, ', ')) or ''), 12, COL.dim, 20)
-  end
-  local a = S.armies[UI_STATE.side]
-  if a then
-    local lines = {}
-    local first = math.max(1, UI_STATE.unit - 3)
-    for k = first, math.min(#a.units, first + 7) do lines[#lines + 1] = unitLine(UI_STATE.side, k, a.units[k]) end
-    out[#out + 1] = txt(table.concat(lines, '\n'), 12, COL.text, #lines * 16 + 6)
+    out[#out + 1] = txt('Ward save now: ' .. (w and (w .. '+') or 'none') .. (#m.text > 0 and ('      Automated effects: ' .. table.concat(m.text, ', ')) or ''), 12, COL.dim, 20)
   end
   local lastLog = {}
   for k = math.max(1, #S.log - 2), #S.log do lastLog[#lastLog + 1] = S.log[k] end
@@ -1754,8 +1790,8 @@ local function tabBattle()
   return table.concat(out)
 end
 
-local COVER_LABEL = { [0] = 'no cover', [1] = 'light cover', [2] = 'heavy cover' }
-local ORDER_CYCLE = { '', 'Stand & Shoot', 'Move & Shoot', 'Advance', 'Charge', 'Fight' }
+local COVER_NAMES = { [0] = 'No cover', [1] = 'Light cover (+1)', [2] = 'Heavy cover (+2)' }
+local ORDER_CHOICES = { '', 'Stand & Shoot', 'Move & Shoot', 'Advance', 'Charge', 'Fight' }
 
 local function atkOpts()
   local A = UI_STATE.atk
@@ -1763,96 +1799,134 @@ local function atkOpts()
            manualHit = A.mHit or 0, manualWound = A.mWound or 0, manualAp = A.mAp or 0, order = (A.order ~= '' and A.order or nil) }
 end
 
+--- The target chooser shared by ATTACK and POWERS: side buttons, then one button per unit.
+local function targetPicker(side, unit, actSide, actPick, actPage, pageKey)
+  return unitPicker(side, side, unit, actSide, actPick, actPage, pageKey, 190, 4)
+end
+
 local function tabAttack()
   local A = UI_STATE.atk
-  local sa, ia = UI_STATE.side, UI_STATE.unit
-  local ua = unitOf(sa, ia)
-  local out = { unitSelector('a') }
-  if not ua then return out[1] .. txt('Load an army first.', 14, COL.dim, 24) end
-  A.weapon = clamp(A.weapon, 1, math.max(1, #(ua.weapons or {})))
-  local w = ua.weapons and ua.weapons[A.weapon]
-  out[#out + 1] = row(btn('<', 36, nil, 'awp', -1) .. btn('>', 36, nil, 'awp', 1) ..
-    txt(w and (w.name .. '   ' .. joinParts(' ', w.range, w.type, 'S' .. tostring(w.s), 'AP' .. tostring(w.ap), 'D' .. tostring(w.d), isBlank(w.abilities) and '' or ('(' .. w.abilities .. ')'))) or 'This unit has no weapons.', 13, COL.text, 28), 34)
+  local sa, ia, ua = curSelection()
+  if not ua then return txt('Pick the attacking unit in the list on the left.', 13, COL.dim, 24) end
+  local out = { heading('1. Attacker:  ' .. sideName(sa) .. '  >  ' .. unitName(ua) .. '  (change it in the list on the left)') }
+  local wcount = #(ua.weapons or {})
+  A.weapon = clamp(A.weapon, 1, math.max(1, wcount))
+  if wcount == 0 then out[#out + 1] = txt('This unit has no weapons.', 12, COL.dim, 22)
+  else
+    out[#out + 1] = txt('Weapon (press one):', 12, COL.dim, 20)
+    local wpages = math.max(1, math.ceil(wcount / 8))
+    A.wpage = clamp(A.wpage or 1, 1, wpages)
+    local cells = {}
+    for k = (A.wpage - 1) * 8 + 1, math.min(wcount, A.wpage * 8) do
+      local w = ua.weapons[k]
+      cells[#cells + 1] = btn(w.name .. '   ' .. joinParts(' ', w.range, w.type, 'S' .. tostring(w.s), 'AP' .. tostring(w.ap), 'D' .. tostring(w.d)), 296, A.weapon == k, 'wpick', k)
+    end
+    out[#out + 1] = grid(cells, 3)
+    if wpages > 1 then out[#out + 1] = row(btn('Previous weapons', 130, false, 'wpage', -1) .. btn('Next weapons', 120, false, 'wpage', 1), 28) end
+    local w = ua.weapons[A.weapon]
+    if w and not isBlank(w.abilities) then out[#out + 1] = txt('Abilities: ' .. w.abilities, 11, COL.dim, 18) end
+  end
+  out[#out + 1] = heading('2. Target:')
+  out[#out + 1] = targetPicker(A.defSide, A.defUnit, 'atside', 'atpick', 'atpage', 'atpageN')
   local da = S.armies[A.defSide]
   A.defUnit = da and clamp(A.defUnit, 1, math.max(1, #da.units)) or 1
   local ud = unitOf(A.defSide, A.defUnit)
-  A.defModel = ud and clamp(A.defModel, 1, math.max(1, #ud.models)) or 1
-  out[#out + 1] = row(txt('Target:', 13, COL.dim, 28) .. btn(sideName(A.defSide), 72, nil, 'dside') .. btn('<', 32, nil, 'dunit', -1) .. btn('>', 32, nil, 'dunit', 1) ..
-    txt(ud and ((ud.displayName or ud.unitName) .. '  [' .. (ud.models[A.defModel] and ud.models[A.defModel].name or '') .. ']') or '(no target army)', 13, SIDE_COLOR[A.defSide], 28) ..
-    btn('model', 60, nil, 'dmodel'), 34)
-  out[#out + 1] = row(btn(COVER_LABEL[A.cover], 100, nil, 'cover') .. btn('Take Cover', 90, A.takeCover and COL.btnOn or nil, 'takecover') ..
-    btn('Half range', 90, A.halfRange and COL.btnOn or nil, 'half') .. btn('Facing: ' .. A.facing, 110, nil, 'facing') ..
-    btn('Order: ' .. (A.order == '' and 'any' or A.order), 150, nil, 'aorder') .. btn('Copies ' .. (A.copies == 0 and 'auto' or A.copies), 100, nil, 'copies'), 34)
-  out[#out + 1] = row(btn('hit -', 50, nil, 'man', 'mHit', -1) .. btn('hit +', 50, nil, 'man', 'mHit', 1) .. btn('wound -', 58, nil, 'man', 'mWound', -1) .. btn('wound +', 58, nil, 'man', 'mWound', 1) ..
-    btn('AP -', 46, nil, 'man', 'mAp', -1) .. btn('AP +', 46, nil, 'man', 'mAp', 1) ..
-    txt('manual: hit ' .. signed(A.mHit or 0) .. '  wound ' .. signed(A.mWound or 0) .. '  AP ' .. signed(A.mAp or 0), 12, COL.dim, 28), 34)
-  out[#out + 1] = row(btn('EXPECTED', 110, COL.btnOn, 'expect') .. btn('ROLL IT', 100, COL.btnOn, 'rollit') .. btn('Apply casualties', 130, nil, 'applycas'), 36)
-  local res = A.lastResult or ''
-  out[#out + 1] = txt(res, 12, COL.text, 190)
+  if ud and #ud.models > 1 then
+    A.defModel = clamp(A.defModel, 1, #ud.models)
+    local mb = { txt('Aim at:', 12, COL.dim, 28) }
+    for j, m in ipairs(ud.models) do mb[#mb + 1] = btn(m.name:sub(1, 22), 150, A.defModel == j, 'dm', j) end
+    out[#out + 1] = row(table.concat(mb), 28)
+  end
+  out[#out + 1] = heading('3. Conditions:')
+  local cv = { txt('Cover:', 12, COL.dim, 28) }
+  for n = 0, 2 do cv[#cv + 1] = btn(COVER_NAMES[n], 130, A.cover == n, 'cov', n) end
+  cv[#cv + 1] = btn('Take Cover order', 130, A.takeCover, 'takecover')
+  cv[#cv + 1] = btn('Within half range', 130, A.halfRange, 'half')
+  out[#out + 1] = row(table.concat(cv), 28)
+  local ob = { txt('Order:', 12, COL.dim, 28) }
+  for k, name in ipairs(ORDER_CHOICES) do ob[#ob + 1] = btn(name == '' and 'Any' or name, 104, A.order == name, 'aord', k) end
+  out[#out + 1] = row(table.concat(ob), 28)
+  local extra = {}
+  if ud and isVehicleUnit(ud) then
+    extra[#extra + 1] = txt('Hit the vehicle in its:', 12, COL.dim, 28)
+    for _, f in ipairs({ 'front', 'side', 'rear' }) do extra[#extra + 1] = btn(f, 70, A.facing == f, 'face', f) end
+  end
+  extra[#extra + 1] = txt('Models firing:', 12, COL.dim, 28) .. btn('-', 30, false, 'cop', -1) .. txt(A.copies == 0 and 'all' or tostring(A.copies), 12, COL.text, 28) .. btn('+', 30, false, 'cop', 1)
+  out[#out + 1] = row(table.concat(extra), 28)
+  out[#out + 1] = row(txt('Manual:', 12, COL.dim, 28) .. btn('hit -', 46, false, 'man', 'mHit', -1) .. btn('hit +', 46, false, 'man', 'mHit', 1) .. btn('wound -', 56, false, 'man', 'mWound', -1) .. btn('wound +', 56, false, 'man', 'mWound', 1) ..
+    btn('AP -', 44, false, 'man', 'mAp', -1) .. btn('AP +', 44, false, 'man', 'mAp', 1) ..
+    txt('hit ' .. signed(A.mHit or 0) .. '  wound ' .. signed(A.mWound or 0) .. '  AP ' .. signed(A.mAp or 0), 12, COL.dim, 28), 28)
+  out[#out + 1] = row(btn('EXPECTED RESULT', 150, true, 'expect') .. btn('ROLL THE DICE', 140, true, 'rollit') .. btn('Remove the casualties', 170, false, 'applycas'), 32)
+  out[#out + 1] = txt(A.lastResult or '', 12, COL.text, 150)
   return table.concat(out)
 end
 
 local function tabPowers()
   local side, i, u = curSelection()
   local P = UI_STATE.pw
-  local out = { unitSelector('q') }
-  if not u then return out[1] .. txt('Load an army first.', 14, COL.dim, 24) end
-  local kinds = { { 'powers', 'Psychic' }, { 'prayers', 'Prayers' }, { 'pacts', 'Pacts' } }
-  local kb = {}
-  for _, k in ipairs(kinds) do kb[#kb + 1] = btn(k[2] .. ' (' .. #listFor(u, k[1]) .. ')', 110, P.kind == k[1] and COL.btnOn or nil, 'pkind', k[1]) end
-  out[#out + 1] = row(table.concat(kb), 34)
+  if not u then return txt('Pick the casting unit in the list on the left.', 13, COL.dim, 24) end
+  local out = { heading('1. Caster:  ' .. sideName(side) .. '  >  ' .. unitName(u) .. '  (change it in the list on the left)') }
+  local kinds = { { 'powers', 'Psychic powers' }, { 'prayers', 'Prayers' }, { 'pacts', 'Pacts' } }
+  local kb = { txt('Type:', 12, COL.dim, 28) }
+  for _, k in ipairs(kinds) do kb[#kb + 1] = btn(k[2] .. ' (' .. #listFor(u, k[1]) .. ')', 140, P.kind == k[1], 'pkind', k[1]) end
+  out[#out + 1] = row(table.concat(kb), 28)
   local list = listFor(u, P.kind)
   P.idx = clamp(P.idx, 1, math.max(1, #list))
-  local p = list[P.idx]
-  if p then
-    out[#out + 1] = row(btn('<', 36, nil, 'pidx', -1) .. btn('>', 36, nil, 'pidx', 1) .. txt(p.name .. '  ' .. P.idx .. '/' .. #list, 15, COL.accent, 28), 34)
-    out[#out + 1] = txt(powerText(p), 12, COL.text, 112)
+  if #list == 0 then out[#out + 1] = txt('This unit has none of those.', 12, COL.dim, 22)
   else
-    out[#out + 1] = txt('This unit has none of those.', 14, COL.dim, 24)
+    local cells = {}
+    for k, p in ipairs(list) do if k <= 12 then cells[#cells + 1] = btn(p.name, 190, P.idx == k, 'pwpick', k) end end
+    out[#out + 1] = grid(cells, 4)
+    local p = list[P.idx]
+    if p then out[#out + 1] = txt(powerText(p), 12, COL.text, 100) end
   end
+  out[#out + 1] = heading('2. Target:')
+  out[#out + 1] = targetPicker(P.tSide, P.tUnit, 'ptside', 'ptpick', 'ptpage', 'ptpageN')
   local tg = S.armies[P.tSide]
   P.tUnit = tg and clamp(P.tUnit, 1, math.max(1, #tg.units)) or 1
   local tu = unitOf(P.tSide, P.tUnit)
-  out[#out + 1] = row(txt('Target:', 13, COL.dim, 28) .. btn(sideName(P.tSide), 72, nil, 'pside') .. btn('<', 32, nil, 'ptu', -1) .. btn('>', 32, nil, 'ptu', 1) ..
-    txt(tu and (tu.displayName or tu.unitName) or '(none)', 14, SIDE_COLOR[P.tSide], 28) .. btn('CAST / USE', 120, COL.btnOn, 'cast'), 36)
+  out[#out + 1] = row(btn('CAST / USE THE POWER', 190, true, 'cast') ..
+    txt(tu and ('Target: ' .. unitName(tu)) or 'Target: none', 13, SIDE_COLOR[P.tSide], 28), 32)
   if tu then
     local lines = {}
-    for k, e in ipairs(effectsOf(P.tSide, P.tUnit)) do lines[#lines + 1] = e.name .. ' (' .. (e.duration or '') .. ')' end
-    out[#out + 1] = row(txt('On target: ' .. (#lines == 0 and 'no statuses' or table.concat(lines, ', ')), 12, COL.dim, 28) .. btn('Clear target fx', 120, nil, 'tfxclear'), 32)
+    for _, e in ipairs(effectsOf(P.tSide, P.tUnit)) do lines[#lines + 1] = e.name .. ' (' .. (e.duration or '') .. ')' end
+    out[#out + 1] = row(txt('Statuses on the target: ' .. (#lines == 0 and 'none' or table.concat(lines, ', ')), 12, COL.dim, 28) .. btn('Clear them', 100, false, 'tfxclear'), 28)
   end
-  out[#out + 1] = txt(P.last or '', 12, COL.text, 120)
+  out[#out + 1] = txt(P.last or '', 12, COL.text, 110)
   return table.concat(out)
 end
 
 local function tabMission()
   local g = gameOf()
   local out = {}
-  if not g then return txt('Load an army to get the missions.', 14, COL.dim, 24) end
+  if not g then return txt('Load an army to get the missions.', 13, COL.dim, 24) end
   local list = missionsFor(nil)
   S.mission = clamp(S.mission, 1, math.max(1, #list))
   local m = list[S.mission]
-  out[#out + 1] = row(btn('<', 36, nil, 'mis', -1) .. btn('>', 36, nil, 'mis', 1) .. txt((m.engagement or '') .. ' - ' .. m.name, 16, COL.accent, 28), 34)
+  local cells = {}
+  for k, mm in ipairs(list) do cells[#cells + 1] = btn((mm.engagement or ''):gsub(' Battle', '') .. ': ' .. mm.name, 200, S.mission == k, 'mpick', k) end
+  out[#out + 1] = txt('Mission (press one):', 12, COL.dim, 20)
+  out[#out + 1] = grid(cells, 4)
   local body = 'SET UP\n- ' .. table.concat(m.setup or {}, '\n- ') .. '\n\nVICTORY\n' .. (m.victory or '')
-  local shown, page, pages = pageOf(body, UI_STATE.page, 8, 140)
+  local shown, page, pages = pageOf(body, UI_STATE.page, 8, 130)
   UI_STATE.page = page
   out[#out + 1] = txt(shown, 12, COL.text, 8 * 16 + 6) .. pager(pages)
   for side = 1, 2 do
     local bs = {}
-    for k, sc in ipairs(m.scoring or {}) do bs[#bs + 1] = btn('+' .. sc.vp .. ' ' .. sc.label, 190, nil, 'vp', side, k) end
-    bs[#bs + 1] = btn('+50', 50, nil, 'vpm', side, 50) .. btn('-50', 50, nil, 'vpm', side, -50)
-    out[#out + 1] = row(txt(sideName(side) .. ': ' .. S.vp[side], 14, SIDE_COLOR[side], 28) .. table.concat(bs, '', 1, math.min(#bs, 3)), 34)
+    for k, sc in ipairs(m.scoring or {}) do bs[#bs + 1] = btn('+' .. sc.vp .. '  ' .. sc.label, 190, false, 'vp', side, k) end
+    bs[#bs + 1] = btn('+50', 50, false, 'vpm', side, 50) .. btn('-50', 50, false, 'vpm', side, -50)
+    out[#out + 1] = row(txt(sideName(side) .. ': ' .. S.vp[side] .. ' VP', 14, SIDE_COLOR[side], 28) .. table.concat(bs, '', 1, math.min(#bs, 3)), 30)
   end
   for side = 1, 2 do
     local bs = {}
     for k, s2 in ipairs(g.scoring.secondary or {}) do
-      local on = secondaryOf(side)[s2.name]
-      bs[#bs + 1] = btn(s2.name, 120, on and COL.btnOn or nil, 'sec', side, k)
+      bs[#bs + 1] = btn(s2.name, 128, secondaryOf(side)[s2.name], 'sec', side, k)
     end
-    out[#out + 1] = row(txt(sideName(side) .. ' secondary:', 12, COL.dim, 28) .. table.concat(bs), 34)
+    out[#out + 1] = row(txt(sideName(side) .. ' secondary:', 12, COL.dim, 28) .. table.concat(bs), 30)
   end
   local t = totals()
-  out[#out + 1] = txt(string.format('Totals (VP pad + attrition + secondary): Side 1 = %d  |  Side 2 = %d      Attrition: Side 1 earns %d, Side 2 earns %d', t[1], t[2], attritionFor(2), attritionFor(1)), 13, COL.good, 24)
-  out[#out + 1] = row(txt(verdict(), 15, COL.accent, 28) .. btn('Reset game', 100, COL.bad, 'reset'), 34)
+  out[#out + 1] = txt(string.format('Totals (pad + attrition + secondary): Side 1 = %d   Side 2 = %d      Attrition: Side 1 earns %d, Side 2 earns %d', t[1], t[2], attritionFor(2), attritionFor(1)), 12, COL.good, 22)
+  out[#out + 1] = row(txt(verdict(), 14, COL.accent, 28) .. btn('Reset game', 100, false, 'reset'), 30)
   return table.concat(out)
 end
 
@@ -1863,15 +1937,26 @@ local function buildXml()
     sepId('toggle'), COL.btnOn, COL.accent, COL.accent, COL.btnOn, COL.text)
   if not UI_STATE.open then return '<Defaults></Defaults>' .. toggle end
   local tabs = {}
-  for _, t in ipairs(TABS) do tabs[#tabs + 1] = btn(t[2], 98, UI_STATE.tab == t[1] and COL.btnOn or nil, 'tab', t[1]) end
+  for _, t in ipairs(TABS) do tabs[#tabs + 1] = btn(t[2], 100, UI_STATE.tab == t[1], 'tab', t[1]) end
   local okc, content = pcall(TAB_BUILDERS[UI_STATE.tab] or tabArmy)
   if not okc then content = txt('Internal error: ' .. tostring(content), 12, COL.bad, 60) end
+  local body
+  if NEEDS_UNIT[UI_STATE.tab] then
+    local okl, left = pcall(leftColumn)
+    if not okl then left = txt('Internal error: ' .. tostring(left), 12, COL.bad, 60) end
+    body = '<HorizontalLayout spacing="8" childForceExpandWidth="false" childForceExpandHeight="true" preferredHeight="800">' ..
+      '<VerticalLayout spacing="3" childForceExpandHeight="false" preferredWidth="250" padding="4 4 4 4" color="' .. COL.panel .. '">' ..
+        txt('UNITS: press one', 12, COL.accent, 20) .. left .. '</VerticalLayout>' ..
+      '<VerticalLayout spacing="4" childForceExpandHeight="false" preferredWidth="880">' .. content .. '</VerticalLayout></HorizontalLayout>'
+  else
+    body = content
+  end
   return '<Defaults></Defaults>' .. toggle ..
-    string.format('<Panel id="c40k" rectAlignment="MiddleRight" offsetXY="-12 -20" width="900" height="720" color="%s" allowDragging="true" returnToOriginalPositionWhenReleased="false" padding="10 10 10 10">', COL.bg) ..
+    string.format('<Panel id="c40k" rectAlignment="MiddleRight" offsetXY="-12 -20" width="1170" height="900" color="%s" allowDragging="true" returnToOriginalPositionWhenReleased="false" padding="10 10 10 10">', COL.bg) ..
     '<VerticalLayout spacing="4" childForceExpandHeight="false" padding="8 8 8 8">' ..
-    row(txt('Custom40k Table', 20, COL.accent, 34), 38) ..
-    row(table.concat(tabs), 36) ..
-    content ..
+    row(txt('Custom40k Table', 19, COL.accent, 32) .. txt('drag this bar to move the window; C40K (top right) hides it', 11, COL.dim, 32), 34) ..
+    row(table.concat(tabs), 32) ..
+    body ..
     '</VerticalLayout></Panel>'
 end
 
@@ -1880,30 +1965,6 @@ function uiRefresh()
   local ok, xml = pcall(buildXml)
   if not ok then warn('UI error: ' .. tostring(xml)); return end
   UI.setXml(xml)
-end
-
-local function lastLines(tbl) return table.concat(tbl, '\n') end
-
-local function spawnCards(side)
-  local a = S.armies[side]
-  if not a then warn('Load an army first.'); return end
-  for k, u in ipairs(a.units) do
-    local col, rowN = (k - 1) % GRID_COLS, math.floor((k - 1) / GRID_COLS)
-    local o = spawnObject({ type = 'Notecard', position = { x = GRID_ORIGIN.x + col * GRID_DX, y = GRID_ORIGIN.y, z = GRID_ORIGIN.z - rowN * GRID_DZ + (side == 2 and 12 or 0) }, rotation = { 0, 180, 0 } })
-    o.setName(u.displayName or u.unitName)
-    o.setDescription(unitCardText(u))
-    o.addTag(SPAWN_TAG)
-  end
-  say('Spawned ' .. #a.units .. ' card(s) for ' .. sideName(side) .. '.')
-end
-
-local function toNotebook(side)
-  local a = S.armies[side]
-  if not a then warn('Load an army first.'); return end
-  local parts = {}
-  for _, u in ipairs(a.units) do parts[#parts + 1] = unitCardText(u) .. '\n\nRULES\n' .. table.concat(ruleLines(side, u), '\n') end
-  Notes.addNotebookTab({ title = 'C40K ' .. (a.army.name or 'army') .. ' (' .. side .. ')', body = table.concat(parts, '\n\n==========\n\n'), color = 'Grey' })
-  say('Datasheets and rules written to the notebook.')
 end
 
 
@@ -1929,25 +1990,17 @@ local function resetGame()
   say('Game reset: round 1, victory points 0. Bindings are kept.')
 end
 
-local function stepSel(delta)
-  local a = S.armies[UI_STATE.side]
-  local n = a and #a.units or 0
-  if n == 0 then return end
-  UI_STATE.unit = ((UI_STATE.unit - 1 + delta) % n) + 1
-  UI_STATE.page = 1
-end
-
 local ACTION = {}
 ACTION.toggle = function() UI_STATE.open = not UI_STATE.open end
 ACTION.tab = function(_, t) UI_STATE.tab = t; UI_STATE.page = 1 end
 ACTION.pg = function(_, d) UI_STATE.page = math.max(1, UI_STATE.page + tonumber(d)) end
 ACTION.load = function(_, side) loadFromTab(tonumber(side)) end
-ACTION.cards = function(_, side) spawnCards(tonumber(side)) end
-ACTION.notebook = function(_, side) toNotebook(tonumber(side)) end
-for _, p in ipairs({ 'r', 'b', 't', 'a', 'q' }) do
-  ACTION[p .. 'side'] = function() UI_STATE.side = (UI_STATE.side == 1) and 2 or 1; UI_STATE.unit = 1; UI_STATE.page = 1 end
-  ACTION[p .. 'unit'] = function(_, d) stepSel(tonumber(d)) end
-end
+
+-- picking units from the lists
+ACTION.sidepick = function(_, s) UI_STATE.side = tonumber(s); UI_STATE.unit = 1; UI_STATE.upage = 1; UI_STATE.page = 1 end
+ACTION.pick = function(_, i) UI_STATE.unit = tonumber(i); UI_STATE.page = 1 end
+ACTION.upage = function(_, d) UI_STATE.upage = math.max(1, (UI_STATE.upage or 1) + tonumber(d)) end
+
 ACTION.rmode = function(_, m) UI_STATE.rulesMode = m; UI_STATE.page = 1 end
 ACTION.bind = function(pl)
   local side, i = curSelection()
@@ -1956,43 +2009,40 @@ end
 ACTION.bindnext = function(pl)
   local side, i = curSelection()
   bindSelected(pl, side, i)
-  stepSel(1)
+  local a = S.armies[side]
+  if a and i < #a.units then UI_STATE.unit = i + 1 end
 end
 ACTION.unbind = function(pl) unbindSelected(pl) end
 ACTION.ring = function(_, key) local side, i = curSelection(); if i > 0 then toggleRing(side, i, key) end end
 ACTION.ringclear = function() clearAllRings() end
+
 ACTION.phase = function(_, d) if tonumber(d) > 0 then nextPhase() else prevPhase() end; UI_STATE.page = 1 end
 ACTION.init = function() rollInitiative() end
 ACTION.rally = function(_, side) rallyAll(tonumber(side)) end
 ACTION.reinf = function(_, side) reinforce(tonumber(side)) end
-ACTION.order = function() local side, i = curSelection(); if i > 0 then cycleOrder(side, i) end end
+ACTION.ordset = function(_, k)
+  local side, i = curSelection()
+  if i > 0 then S.bs[side][i].order = ordersList()[tonumber(k)] or '' end
+end
 ACTION.done = function() local side, i = curSelection(); if i > 0 then toggleDone(side, i) end end
 ACTION.reserve = function() local side, i = curSelection(); if i > 0 then local st = stateOf(side, i); st.reserve = not st.reserve end end
 ACTION.tok = function(_, d) local side, i = curSelection(); if i > 0 then addTokens(side, i, tonumber(d)) end end
 ACTION.fxclear = function() local side, i = curSelection(); if i > 0 then S.bs[side][i].effects = {} end end
 ACTION.alive = function(_, j, d) local side, i = curSelection(); if i > 0 then setAlive(side, i, tonumber(j), tonumber(d)) end end
 
-ACTION.awp = function(_, d) UI_STATE.atk.weapon = UI_STATE.atk.weapon + tonumber(d) end
-ACTION.dside = function() UI_STATE.atk.defSide = (UI_STATE.atk.defSide == 1) and 2 or 1; UI_STATE.atk.defUnit = 1; UI_STATE.atk.defModel = 1 end
-ACTION.dunit = function(_, d)
-  local da = S.armies[UI_STATE.atk.defSide]
-  if da then UI_STATE.atk.defUnit = ((UI_STATE.atk.defUnit - 1 + tonumber(d)) % #da.units) + 1; UI_STATE.atk.defModel = 1 end
-end
-ACTION.dmodel = function()
-  local ud = unitOf(UI_STATE.atk.defSide, UI_STATE.atk.defUnit)
-  if ud then UI_STATE.atk.defModel = (UI_STATE.atk.defModel % #ud.models) + 1 end
-end
-ACTION.cover = function() UI_STATE.atk.cover = (UI_STATE.atk.cover + 1) % 3 end
+-- attack
+ACTION.wpick = function(_, k) UI_STATE.atk.weapon = tonumber(k) end
+ACTION.wpage = function(_, d) UI_STATE.atk.wpage = (UI_STATE.atk.wpage or 1) + tonumber(d) end
+ACTION.atside = function(_, s) UI_STATE.atk.defSide = tonumber(s); UI_STATE.atk.defUnit = 1; UI_STATE.atk.defModel = 1; UI_STATE.atpageN = 1 end
+ACTION.atpick = function(_, i) UI_STATE.atk.defUnit = tonumber(i); UI_STATE.atk.defModel = 1 end
+ACTION.atpage = function(_, d) UI_STATE.atpageN = math.max(1, (UI_STATE.atpageN or 1) + tonumber(d)) end
+ACTION.dm = function(_, j) UI_STATE.atk.defModel = tonumber(j) end
+ACTION.cov = function(_, n) UI_STATE.atk.cover = tonumber(n) end
 ACTION.takecover = function() UI_STATE.atk.takeCover = not UI_STATE.atk.takeCover end
 ACTION.half = function() UI_STATE.atk.halfRange = not UI_STATE.atk.halfRange end
-ACTION.facing = function() local A = UI_STATE.atk; A.facing = (A.facing == 'front') and 'side' or (A.facing == 'side') and 'rear' or 'front' end
-ACTION.aorder = function()
-  local A = UI_STATE.atk
-  local at = 1
-  for k, o in ipairs(ORDER_CYCLE) do if o == A.order then at = k end end
-  A.order = ORDER_CYCLE[(at % #ORDER_CYCLE) + 1]
-end
-ACTION.copies = function() local A = UI_STATE.atk; A.copies = (A.copies + 1) % 11 end
+ACTION.face = function(_, f) UI_STATE.atk.facing = f end
+ACTION.aord = function(_, k) UI_STATE.atk.order = ORDER_CHOICES[tonumber(k)] or '' end
+ACTION.cop = function(_, d) UI_STATE.atk.copies = clamp((UI_STATE.atk.copies or 0) + tonumber(d), 0, 40) end
 ACTION.man = function(_, key, d) local A = UI_STATE.atk; A[key] = clamp((A[key] or 0) + tonumber(d), -4, 4) end
 
 local function currentAttack()
@@ -2016,9 +2066,9 @@ ACTION.rollit = function()
   if not c then A.lastResult = err; A.pending = nil; return end
   local lines, removed, lost = rollAttack(c)
   for _, n in ipairs(c.notes) do lines[#lines + 1] = '  ! ' .. n end
-  A.lastResult = table.concat(lines, '\n') .. '\n(press "Apply casualties" to remove ' .. removed .. ' model(s)' .. (lost > 0 and (' / ' .. lost .. ' Hull Point(s)') or '') .. ')'
+  A.lastResult = table.concat(lines, '\n') .. '\n(press "Remove the casualties" to take ' .. removed .. ' model(s) off the unit' .. (lost > 0 and (' / ' .. lost .. ' Hull Point(s)') or '') .. ')'
   A.pending = { removed = removed, lost = lost, side = A.defSide, unit = A.defUnit, model = A.defModel }
-  logLine((unitOf(UI_STATE.side, UI_STATE.unit).displayName or '') .. ' fires ' .. c.w.name .. ' at ' .. (c.unitD.displayName or c.unitD.unitName) .. ': ' .. removed .. ' casualty(ies).')
+  logLine(unitName(unitOf(UI_STATE.side, UI_STATE.unit)) .. ' fires ' .. c.w.name .. ' at ' .. unitName(c.unitD) .. ': ' .. removed .. ' casualty(ies).')
 end
 ACTION.applycas = function()
   local A = UI_STATE.atk
@@ -2028,7 +2078,7 @@ ACTION.applycas = function()
   local u = unitOf(p.side, p.unit)
   local st = stateOf(p.side, p.unit)
   if u and st then
-    -- the targeted model group first, then the rest (the owner picks casualties, cheapest groups last)
+    -- the targeted model group first, then the rest
     local order = { p.model }
     for j = 1, #u.models do if j ~= p.model then order[#order + 1] = j end end
     for _, j in ipairs(order) do
@@ -2040,13 +2090,12 @@ ACTION.applycas = function()
   A.lastResult = A.lastResult .. '\nApplied.'
 end
 
+-- powers
 ACTION.pkind = function(_, k) UI_STATE.pw.kind = k; UI_STATE.pw.idx = 1 end
-ACTION.pidx = function(_, d) UI_STATE.pw.idx = UI_STATE.pw.idx + tonumber(d) end
-ACTION.pside = function() UI_STATE.pw.tSide = (UI_STATE.pw.tSide == 1) and 2 or 1; UI_STATE.pw.tUnit = 1 end
-ACTION.ptu = function(_, d)
-  local a = S.armies[UI_STATE.pw.tSide]
-  if a then UI_STATE.pw.tUnit = ((UI_STATE.pw.tUnit - 1 + tonumber(d)) % #a.units) + 1 end
-end
+ACTION.pwpick = function(_, k) UI_STATE.pw.idx = tonumber(k) end
+ACTION.ptside = function(_, s) UI_STATE.pw.tSide = tonumber(s); UI_STATE.pw.tUnit = 1; UI_STATE.ptpageN = 1 end
+ACTION.ptpick = function(_, i) UI_STATE.pw.tUnit = tonumber(i) end
+ACTION.ptpage = function(_, d) UI_STATE.ptpageN = math.max(1, (UI_STATE.ptpageN or 1) + tonumber(d)) end
 ACTION.cast = function()
   local P = UI_STATE.pw
   local side, i = curSelection()
@@ -2056,7 +2105,8 @@ ACTION.cast = function()
 end
 ACTION.tfxclear = function() local P = UI_STATE.pw; if unitOf(P.tSide, P.tUnit) then S.bs[P.tSide][P.tUnit].effects = {} end end
 
-ACTION.mis = function(_, d) local n = #missionsFor(nil); S.mission = ((S.mission - 1 + tonumber(d)) % math.max(1, n)) + 1; UI_STATE.page = 1 end
+-- missions
+ACTION.mpick = function(_, k) S.mission = tonumber(k); UI_STATE.page = 1 end
 ACTION.vp = function(_, side, k)
   local m = currentMission()
   local sc = m and m.scoring and m.scoring[tonumber(k)]
