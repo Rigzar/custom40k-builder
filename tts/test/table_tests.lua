@@ -263,20 +263,29 @@ local tokObjs = MAKE_OBJECTS(5)
 SELECT(tokObjs); click('tab__binder'); click('bind')
 local function tokenImages() local o = {} for _, t in ipairs(TOKENS()) do o[#o + 1] = t._image:match('[^/]+$') end table.sort(o) return table.concat(o, ',') end
 local before = COUNT_TOKENS()
--- command phase: the order goes down face down
-local phases = C40K.getState().phase
-while C40K.getState().phase ~= 3 do click('phase__1') end
+-- an order is ALWAYS put down face down, whatever the phase: its face is the order, its back the blank ORDER ? token
 click('tab__battle'); click('ordset__3')
-check(COUNT_TOKENS() == before + 1 and tokenImages():find('hidden.png'), 'in the Command Phase the order token goes down face down, got ' .. tokenImages())
-local tk = TOKENS()[1]
+local orderTok
+for _, t in ipairs(TOKENS()) do if t._type == 'Custom_Tile' then orderTok = t end end
+check(COUNT_TOKENS() == before + 1 and orderTok ~= nil, 'choosing an order puts one two-sided tile on the table')
+check(orderTok and orderTok._image:find('charge.png') and orderTok._bottom and orderTok._bottom:find('hidden.png'), 'the tile shows the order on its face and the blank token on its back')
+check(orderTok and orderTok._rot[3] == 180, 'it is put down face down (turned over)')
+local tk = orderTok
 local maxX = -1e9; for _, o in ipairs(tokObjs) do maxX = math.max(maxX, o.getPosition().x) end
 check(tk._pos.x > maxX, 'the order token sits to the right of the unit')
 click('ordset__4')
 check(COUNT_TOKENS() == before + 1, 'choosing another order replaces the token instead of adding one')
--- initiative then action phase: orders are turned over
-click('phase__1'); click('phase__1')
-check(C40K.getState().phase == 5, 'now in the Action Phase')
-check(tokenImages():find('hidden.png') == nil and tokenImages():find('escape.png') ~= nil, 'entering the Action Phase reveals the order: ' .. tokenImages())
+-- changing phase does not turn it; marking the unit as activated does
+for _ = 1, 4 do click('phase__1') end
+local cur; for _, t in ipairs(TOKENS()) do if t._type == 'Custom_Tile' then cur = t end end
+check(cur and cur._rot[3] == 180, 'the order stays face down while the phases go by')
+click('done')
+cur = nil; for _, t in ipairs(TOKENS()) do if t._type == 'Custom_Tile' then cur = t end end
+check(cur and cur._rot[3] == 0, 'marking the unit as activated turns its order face up')
+click('done')
+click('ordset__4'); click('reveal')
+cur = nil; for _, t in ipairs(TOKENS()) do if t._type == 'Custom_Tile' then cur = t end end
+check(cur and cur._rot[3] == 0 and cur._image:find('escape.png'), 'Reveal all orders turns the tokens face up')
 -- Battleshock
 click('tok__1'); check(tokenImages():find('pinned.png'), 'one Battleshock token puts a Pinned token on the table')
 local pin; for _, t in ipairs(TOKENS()) do if t._image:find('pinned') then pin = t end end

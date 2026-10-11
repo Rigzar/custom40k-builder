@@ -1035,6 +1035,8 @@ local function removeToken(st, slot)
 end
 
 --- Put a token beside the unit: orders on its right, Battleshock on its left. Replaces what was there.
+--- An ORDER is a two-sided tile: the order on its face and the blank "ORDER ?" on its back. It is put down FACE DOWN
+--- (turned over on its z axis, the way Tabletop Simulator turns a card) and is turned face up when the order is revealed.
 local function placeToken(side, i, slot, key, label)
   local st = stateOf(side, i)
   if not st then return end
@@ -1049,18 +1051,25 @@ local function placeToken(side, i, slot, key, label)
     end
     return
   end
-  local x = (slot == 'order') and (f.maxX + TOKEN_GAP + TOKEN_SIZE / 2) or (f.minX - TOKEN_GAP - TOKEN_SIZE / 2)
+  local isOrder = (slot == 'order')
+  local x = isOrder and (f.maxX + TOKEN_GAP + TOKEN_SIZE / 2) or (f.minX - TOKEN_GAP - TOKEN_SIZE / 2)
   local z = (f.minZ + f.maxZ) / 2
   local pos = { x = x, y = f.minY + 0.4, z = z }
   -- readable from the owner's edge of the table: a unit on the far (positive z) half belongs to the player sitting there,
   -- so its tokens face them; the near half faces the other way. Flip TOKEN_NORTH_YAW / TOKEN_SOUTH_YAW to reverse.
   local yaw = (z > 0) and TOKEN_NORTH_YAW or TOKEN_SOUTH_YAW
-  local obj = spawnObject({ type = 'Custom_Token', position = pos, rotation = { 0, yaw, 0 }, scale = { 1, 1, 1 }, snap_to_grid = false })
+  local obj = spawnObject({ type = isOrder and 'Custom_Tile' or 'Custom_Token', position = pos,
+    rotation = { 0, yaw, isOrder and 180 or 0 }, scale = { 1, 1, 1 }, snap_to_grid = false })
   if not obj then return end
-  pcall(function() obj.setCustomObject({ image = TOKEN_BASE .. file, thickness = 0.1, merge_distance = 5, stackable = false }) end)
+  if isOrder then
+    pcall(function() obj.setCustomObject({ image = TOKEN_BASE .. file, image_bottom = TOKEN_BASE .. TOKEN_FILES.hidden,
+      type = 2, thickness = 0.12, stackable = false }) end)
+  else
+    pcall(function() obj.setCustomObject({ image = TOKEN_BASE .. file, thickness = 0.1, merge_distance = 5, stackable = false }) end)
+  end
   -- size it to a 32 mm base: measure the object a couple of frames later and scale it to the wanted diameter
   local function fitSize()
-    local ok = pcall(function()
+    pcall(function()
       local width = obj.getBounds().size.x
       local sc = obj.getScale().x
       if width and width > 0 and sc and sc > 0 then
@@ -1068,7 +1077,6 @@ local function placeToken(side, i, slot, key, label)
         obj.setScale({ k, 1, k })
       end
     end)
-    return ok
   end
   if Wait and Wait.frames then Wait.frames(fitSize, 3) else fitSize() end
   pcall(function() obj.setName(label or key) end)
@@ -1077,12 +1085,7 @@ local function placeToken(side, i, slot, key, label)
   st.tokenKey = st.tokenKey or {}
   st.tokenGuids[slot] = obj.getGUID()
   st.tokenKey[slot] = key
-end
-
---- Orders are placed face down in the Command Phase and turned over when the Action Phase starts.
-local function ordersHidden()
-  local ph = phasesOf()[S.phase]
-  return ph ~= nil and ph.key == 'command'
+  if isOrder then st.orderFaceUp = false end
 end
 
 local function syncOrderToken(side, i)
@@ -1090,22 +1093,31 @@ local function syncOrderToken(side, i)
   if not st then return end
   if st.order == '' then removeToken(st, 'order'); return end
   local u = unitOf(side, i)
-  if ordersHidden() then placeToken(side, i, 'order', 'hidden', (u.displayName or u.unitName) .. ': order (face down)')
-  else placeToken(side, i, 'order', st.order, (u.displayName or u.unitName) .. ': ' .. st.order) end
+  placeToken(side, i, 'order', st.order, (u.displayName or u.unitName) .. ': order')
+end
+
+--- Turn a unit's order token face up (or back down). Returns true when there was a token to turn.
+local function flipOrder(side, i, faceUp)
+  local st = stateOf(side, i)
+  local guid = st and st.tokenGuids and st.tokenGuids.order
+  local obj = guid and getObjectFromGUID(guid)
+  if not obj then return false end
+  pcall(function()
+    local r = obj.getRotation()
+    obj.setRotation({ r.x, r.y, faceUp and 0 or 180 })
+  end)
+  st.orderFaceUp = faceUp and true or false
+  return true
 end
 
 local function revealOrders()
   local n = 0
   for side = 1, 2 do
     for i, st in ipairs(S.bs[side] or {}) do
-      if st.order ~= '' and st.tokenKey and st.tokenKey.order == 'hidden' then
-        local u = unitOf(side, i)
-        placeToken(side, i, 'order', st.order, (u.displayName or u.unitName) .. ': ' .. st.order)
-        n = n + 1
-      end
+      if st.order ~= '' and not st.orderFaceUp and flipOrder(side, i, true) then n = n + 1 end
     end
   end
-  if n > 0 then say('Orders revealed: ' .. n .. ' token(s) turned over.') end
+  if n > 0 then say('Orders revealed: ' .. n .. ' token(s) turned face up.') end
 end
 
 local function syncShockToken(side, i)
@@ -1172,7 +1184,6 @@ local function nextPhase()
   if #ph == 0 then warn('Load an army first: the turn structure comes with it.'); return end
   if S.phase >= #ph then newRound() else
     S.phase = S.phase + 1; logLine('Phase: ' .. ph[S.phase].name)
-    if ph[S.phase].key == 'action' then revealOrders() end
   end
 end
 
@@ -1293,7 +1304,10 @@ end
 local function toggleDone(side, i)
   local st = stateOf(side, i)
   st.done = not st.done
-  if st.done then expireEffects('activation', side, i) end
+  if st.done then
+    expireEffects('activation', side, i)
+    flipOrder(side, i, true)
+  end
 end
 
 local function setAlive(side, i, j, delta)
@@ -1919,7 +1933,7 @@ local function tabBattle()
     for k, name in ipairs(ordersList()) do ob[#ob + 1] = btn(name == '' and 'None' or name, 100, st.order == name, 'ordset', k) end
     out[#out + 1] = row(table.concat(ob), 30)
     out[#out + 1] = row(btn('Reveal all orders', 140, false, 'reveal') .. btn('Remove all tokens', 140, false, 'cleartokens') ..
-      txt('Orders go beside the unit on the table, face down in the Command Phase.', 11, COL.dim, 28), 28)
+      txt('Orders are put down face down beside the unit; marking it as activated or Reveal all turns them over (or flip them by hand).', 11, COL.dim, 28), 28)
     out[#out + 1] = row(btn('Mark as activated', 140, st.done, 'done') .. btn('In reserve', 100, st.reserve, 'reserve') ..
       btn('Add Battleshock token', 160, false, 'tok', 1) .. btn('Remove token', 110, false, 'tok', -1) .. btn('Clear statuses', 120, false, 'fxclear') ..
       txt('Tokens: ' .. st.tokens .. ' of 2', 12, st.tokens > 0 and COL.bad or COL.dim, 28), 30)

@@ -46,11 +46,13 @@ function spawnObject(p)
   local o = baseSpawn(p)
   o._type = p.type; o._pos = p.position or o._pos; o._highlighted = false; o._rot = p.rotation; o._scale = 1
   o.setScale = function(v) o._scale = v[1] end
-  o.setCustomObject = function(c) o._image = c.image end
+  o.setCustomObject = function(c) o._image = c.image; o._bottom = c.image_bottom end
+  o.getRotation = function() return { x = o._rot[1], y = o._rot[2], z = o._rot[3] } end
+  o.setRotation = function(r) o._rot = { r[1] or r.x, r[2] or r.y, r[3] or r.z } end
   o.highlightOn = function() o._highlighted = true end
   return o
 end
 function destroyObject(o) o._destroyed = true; objects[o._guid] = nil; if onObjectDestroy then onObjectDestroy(o) end end
-function COUNT_TOKENS() local n = 0 for _, o in pairs(objects) do if o._type == 'Custom_Token' then n = n + 1 end end return n end
-function TOKENS() local out = {} for _, o in pairs(objects) do if o._type == 'Custom_Token' then out[#out + 1] = o end end return out end
-function CLEAR_TOKENS() for g, o in pairs(objects) do if o._type == 'Custom_Token' then objects[g] = nil end end end
+function COUNT_TOKENS() local n = 0 for _, o in pairs(objects) do if o._type == 'Custom_Token' or o._type == 'Custom_Tile' then n = n + 1 end end return n end
+function TOKENS() local out = {} for _, o in pairs(objects) do if o._type == 'Custom_Token' or o._type == 'Custom_Tile' then out[#out + 1] = o end end return out end
+function CLEAR_TOKENS() for g, o in pairs(objects) do if o._type == 'Custom_Token' or o._type == 'Custom_Tile' then objects[g] = nil end end end
