@@ -183,11 +183,29 @@ local function readTab(title)
   return nil
 end
 
+local PLACEHOLDER = '[PASTE YOUR ARMY JSON HERE'
+
+--- The two army tabs exist from the first load, with the instructions in them, so nobody has to know the names.
+local function ensureTabs()
+  local have = {}
+  for _, tab in ipairs(Notes.getNotebookTabs()) do have[tab.title] = true end
+  for side, title in ipairs(SIDE_TABS) do
+    if not have[title] then
+      Notes.addNotebookTab({ title = title, color = 'Grey',
+        body = PLACEHOLDER .. ' - replace this whole text]' .. string.char(10, 10) .. 'In the Custom40k builder open your army, go to Print View and press TTS: a .json file downloads. '
+          .. 'Open it, copy everything and paste it here (Ctrl+V), replacing this text. Then press C40K (top right) > ARMY > LOAD for ' .. sideName(side) .. '.' })
+    end
+  end
+end
+
 local function loadFromTab(side)
   local title = SIDE_TABS[side]
   local src = readTab(title)
   if not src or src == '' then
     warn('No notebook tab called "' .. title .. '". Create it and paste the exported JSON in.'); return
+  end
+  if src:sub(1, #PLACEHOLDER) == PLACEHOLDER then
+    warn('The "' .. title .. '" notebook tab still holds the instructions. Paste your exported army JSON over them first (builder: Print View > TTS).'); return
   end
   if src:sub(1, 4) == 'http' then
     say('Fetching ' .. src .. ' ...')
@@ -2072,6 +2090,7 @@ function onLoad(saved)
     end
   end
   S.armies = S.armies or {}
+  ensureTabs()
   -- the UI layer is not always ready on the very first frame of a load
   if Wait and Wait.frames then Wait.frames(function() uiRefresh() end, 10) else uiRefresh() end
   say('Custom40k Table ready. Open the menu with the C40K button (top right).')

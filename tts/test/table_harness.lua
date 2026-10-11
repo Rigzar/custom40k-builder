@@ -36,3 +36,5 @@ PLAYER = { _sel = {}, getSelectedObjects = function() return PLAYER._sel end }
 function SELECT(list) PLAYER._sel = list end
 WebRequest = { get = function() end }
 Wait = { frames = function(f) f() end }
+
+function NOTEBOOK_FILL(title, body) for _, t in ipairs(tabs) do if t.title == title then t.body = body return end end tabs[#tabs + 1] = { title = title, body = body } end

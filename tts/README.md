@@ -65,6 +65,12 @@ export, clicking the same element ids TTS would, and checks every XML string it 
 inside a real Tabletop Simulator yet: the XML attribute names and the vector-line coordinates follow the TTS docs but
 the first table test may need small adjustments.
 
+**Ready-made table.** `node tts/build_save.cjs` writes `tts/Custom40k Table.json`, a Tabletop Simulator save with the Global
+script already embedded and the two army notebook tabs created (with instructions inside). `--install` also copies it into
+`Documents/My Games/Tabletop Simulator/Saves`; then load it from Games > Save & Load, or upload it to the Workshop from
+Modding > Workshop. Re-run it whenever `Custom40kTable.lua` changes. The mod also creates the two tabs itself on load, so
+pasting the script into any table's Global script works too.
+
 ## Ward saves in the payload
 
 Each unit has a `wardSave` field (`"5+"`, or `null` when it has none) and so does every entry of `models[]` (`null` for attendants such as drones). It is derived with `src/lib/wardSave.ts`, the same code the unit card and Print View use: datasheet abilities (Daemon 5+, Greater Daemon 4+, an explicit "X+ ward save"), Armory equipment, option choices, traits and a Mark's Warded. The field is additive, so `schema` was not bumped; a mod that ignores it keeps working.

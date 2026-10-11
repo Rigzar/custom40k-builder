@@ -9,9 +9,14 @@ end
 local function lastMessages(n) local o = {} for i = math.max(1, #MESSAGES - n + 1), #MESSAGES do o[#o + 1] = MESSAGES[i] end return table.concat(o, ' || ') end
 
 local raw = READ_EXPORT()
-NOTEBOOK_SET('Custom40k', raw)
-NOTEBOOK_SET('Custom40k 2', raw)
 onLoad('')
+check(NOTEBOOK_COUNT() == 2, 'the two army tabs are created on the first load, got ' .. NOTEBOOK_COUNT())
+click('load__1')
+check(lastMessages(1):find('still holds the instructions'), 'loading before pasting says what to do: ' .. lastMessages(1))
+NOTEBOOK_FILL('Custom40k', raw)
+NOTEBOOK_FILL('Custom40k 2', raw)
+onLoad('')
+check(NOTEBOOK_COUNT() == 2, 'a second load does not duplicate the tabs')
 local st = C40K.getState()
 check(st ~= nil, 'state exists after onLoad')
 xmlOk('start screen')
