@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v183_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v183b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,6 +60,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "New in this version", rows: [
+        ["Tabletop Simulator table","New all-in-one mod for Tabletop Simulator: bind your miniatures to their units, range rings, every unit rule, round and phase tracker, attack calculator, powers with their effects, missions and victory points. It lives in the repo (tts/Custom40kTable.lua) and has not met a real table yet, so tell us what looks odd."],
         ["Horus Heresy supplements", "Legiones Astartes and Forces of the Machine God (20 units) use the same update as the codices now, so their stats, points, weapons and abilities follow the author's sheets. Both are on their 1.2 sheets."],
         ["What updates itself", "About 40% of the game data by volume today (units, now including the two supplements). The Armory (about 18%) is the next big step."],
         ["Gitfinda on Discord", "When someone posts a game, a short message can go to the community's Discord with the army, points and the times in each reader's own time zone. It stays off until the channel is connected. The link opens that very game (the login comes first only if you need it). Its message is deleted when the game is cancelled, matched or over."],
@@ -88,6 +89,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Neu in dieser Version", rows: [
+        ["Tabletop-Simulator-Tisch","Neues All-in-one-Mod für den Tabletop Simulator: Miniaturen ihren Einheiten zuordnen, Reichweitenringe, jede Einheitenregel, Runden- und Phasenverfolgung, Angriffsrechner, Kräfte mit ihren Wirkungen, Missionen und Siegpunkte. Es liegt im Repo (tts/Custom40kTable.lua) und lief noch an keinem echten Tisch, meldet also Auffälliges."],
         ["Horus-Heresy-Supplemente", "Legiones Astartes und Forces of the Machine God (20 Einheiten) nutzen jetzt dasselbe Update wie die Codizes; Werte, Punkte, Waffen und Fähigkeiten folgen den Blättern des Autors. Beide stehen auf ihren 1.2-Blättern."],
         ["Was sich selbst aktualisiert", "Heute etwa 40 % der Spieldaten nach Volumen (Einheiten, jetzt mit den beiden Supplementen). Die Armory (etwa 18 %) ist der nächste große Schritt."],
         ["Gitfinda auf Discord", "Stellt jemand ein Spiel ein, kann eine kurze Nachricht im Discord der Community erscheinen, mit Armee, Punkten und den Zeiten in der Zeitzone des Lesers. Bleibt aus, bis der Kanal verbunden ist. Der Link öffnet genau dieses Spiel (der Login kommt nur, wenn nötig, zuerst). Die Nachricht wird gelöscht, sobald das Spiel abgesagt, vergeben oder vorbei ist."],
@@ -116,6 +118,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Novedades de esta versión", rows: [
+        ["Mesa de Tabletop Simulator","Nuevo mod todo en uno para Tabletop Simulator: enlaza tus miniaturas con sus unidades, anillos de alcance, todas las reglas de cada unidad, seguimiento de ronda y fase, calculadora de ataque, poderes con sus efectos, misiones y puntos de victoria. Está en el repo (tts/Custom40kTable.lua) y aún no ha pasado por una mesa real, así que avisad de lo raro."],
         ["Suplementos de Horus Heresy", "Legiones Astartes y Forces of the Machine God (20 unidades) usan ya la misma actualización que los códices, así que sus estadísticas, puntos, armas y habilidades siguen las hojas del autor. Ambos están en sus hojas 1.2."],
         ["Lo que se actualiza solo", "Hoy un 40% de los datos del juego por volumen (unidades, ahora con los dos suplementos). La Armory (un 18%) es el siguiente gran paso."],
         ["Gitfinda en Discord", "Cuando alguien publica una partida, puede salir un mensaje corto en el Discord de la comunidad con el ejército, los puntos y las horas en la zona horaria de cada lector. Sigue apagado hasta que se conecte el canal. El enlace abre esa misma partida (el inicio de sesión sale antes solo si hace falta). Su mensaje se borra cuando la partida se cancela, se empareja o termina."],
@@ -144,6 +147,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Новое в этой версии", rows: [
+        ["Стол Tabletop Simulator","Новый мод «всё в одном» для Tabletop Simulator: привязка миниатюр к отрядам, кольца дальности, все правила отрядов, трекер раундов и фаз, калькулятор атаки, силы с их эффектами, миссии и очки победы. Он лежит в репозитории (tts/Custom40kTable.lua) и ещё не проверялся на реальном столе, так что сообщайте о странностях."],
         ["Дополнения Horus Heresy", "Legiones Astartes и Forces of the Machine God (20 юнитов) используют то же обновление, что и кодексы: характеристики, очки, оружие и способности следуют листам автора. Оба на листах 1.2."],
         ["Что обновляется само", "Сегодня около 40% игровых данных по объёму (юниты, теперь с двумя дополнениями). Следующий большой шаг — Арсенал (около 18%)."],
         ["Gitfinda в Discord", "Когда кто-то публикует игру, в Discord сообщества может прийти короткое сообщение с армией, очками и временем в часовом поясе читателя. Выключено, пока канал не подключён. Ссылка открывает именно эту игру (вход показывается первым, только если он нужен). Сообщение удаляется, когда игра отменена, подобрана или прошла."],
@@ -172,6 +176,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "このバージョンの新機能", rows: [
+        ["Tabletop Simulatorテーブル","Tabletop Simulator向けの新しいオールインワンmod：ミニチュアをユニットに紐付け、射程リング、全ユニットルール、ラウンド／フェイズ進行、攻撃計算機、効果付きパワー、ミッションと勝利点。リポジトリ（tts/Custom40kTable.lua）にあり、実機のテーブルではまだ試していないので、おかしな点は教えてください。"],
         ["ホルス・ヘレシー補足", "レギオネス・アスタルテスとフォーシズ・オブ・ザ・マシンゴッド（20ユニット）がコーデックスと同じ更新を使い、能力値、ポイント、武器、能力が作者のシートに従います。どちらも1.2のシートです。"],
         ["自動更新されるもの", "現在、データ容量の約40%（ユニット、2つの補足を含む）。次の大きな一歩はアーモリー（約18%）です。"],
         ["GitfindaのDiscord通知", "誰かが募集を投稿すると、軍、ポイント、読む人のタイムゾーンでの時間を含む短いメッセージをコミュニティのDiscordに送れます。チャンネルを接続するまではオフです。 リンクはその募集を直接開きます（ログインが必要な場合のみ先にログイン画面が出ます）。 募集が取り消し・成立・期限切れになるとメッセージは削除されます。"],
