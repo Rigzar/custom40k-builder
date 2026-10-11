@@ -990,6 +990,127 @@ local function logLine(msg)
   say(msg)
 end
 
+-- ── order and Battleshock tokens on the table ───────────────────────────────────────────────────
+
+-- Our own token artwork (public/tts/tokens, drawn by tts/build_tokens.cjs). The file names are the contract.
+local TOKEN_BASE = 'https://custom40k-builder.vercel.app/tts/tokens/'
+local TOKEN_TAG  = 'c40k_token'
+local TOKEN_FILES = { ['Advance'] = 'advance.png', ['Charge'] = 'charge.png', ['Escape'] = 'escape.png', ['Fight'] = 'fight.png',
+  ['Move & Shoot'] = 'move-shoot.png', ['Stand & Shoot'] = 'stand-shoot.png', hidden = 'hidden.png', pinned = 'pinned.png', fleeing = 'fleeing.png' }
+local TOKEN_SIZE, TOKEN_GAP = 1.5, 0.9
+
+--- The table-space box the bound miniatures of a unit occupy, or nil when none of them is on the table.
+local function unitFootprint(side, i)
+  local st = stateOf(side, i)
+  if not st then return nil end
+  local f
+  for _, guid in ipairs(st.guids or {}) do
+    local obj = getObjectFromGUID(guid)
+    if obj then
+      local pos = obj.getPosition()
+      if not f then f = { minX = pos.x, maxX = pos.x, minZ = pos.z, maxZ = pos.z, minY = pos.y, n = 0 } end
+      f.minX = math.min(f.minX, pos.x); f.maxX = math.max(f.maxX, pos.x)
+      f.minZ = math.min(f.minZ, pos.z); f.maxZ = math.max(f.maxZ, pos.z)
+      f.minY = math.min(f.minY, pos.y); f.n = f.n + 1
+    end
+  end
+  return f
+end
+
+local function removeToken(st, slot)
+  st.tokenGuids = st.tokenGuids or {}
+  local guid = st.tokenGuids[slot]
+  if guid then
+    local obj = getObjectFromGUID(guid)
+    if obj then pcall(function() destroyObject(obj) end) end
+  end
+  st.tokenGuids[slot] = nil
+  st.tokenKey = st.tokenKey or {}
+  st.tokenKey[slot] = nil
+end
+
+--- Put a token beside the unit: orders on its right, Battleshock on its left. Replaces what was there.
+local function placeToken(side, i, slot, key, label)
+  local st = stateOf(side, i)
+  if not st then return end
+  removeToken(st, slot)
+  local file = TOKEN_FILES[key]
+  if not file then return end
+  local f = unitFootprint(side, i)
+  if not f then
+    if not S.warnedUnbound then
+      S.warnedUnbound = true
+      say('Tokens go beside the unit on the table: bind its miniatures first (BINDER tab).')
+    end
+    return
+  end
+  local x = (slot == 'order') and (f.maxX + TOKEN_GAP + TOKEN_SIZE / 2) or (f.minX - TOKEN_GAP - TOKEN_SIZE / 2)
+  local z = (f.minZ + f.maxZ) / 2
+  local pos = { x = x, y = f.minY + 0.4, z = z }
+  local obj = spawnObject({ type = 'Custom_Token', position = pos, rotation = { 0, 180, 0 }, scale = { TOKEN_SIZE, 1, TOKEN_SIZE }, snap_to_grid = false })
+  if not obj then return end
+  pcall(function() obj.setCustomObject({ image = TOKEN_BASE .. file, thickness = 0.1, merge_distance = 5, stackable = false }) end)
+  pcall(function() obj.setName(label or key) end)
+  pcall(function() obj.addTag(TOKEN_TAG) end)
+  st.tokenGuids = st.tokenGuids or {}
+  st.tokenKey = st.tokenKey or {}
+  st.tokenGuids[slot] = obj.getGUID()
+  st.tokenKey[slot] = key
+end
+
+--- Orders are placed face down in the Command Phase and turned over when the Action Phase starts.
+local function ordersHidden()
+  local ph = phasesOf()[S.phase]
+  return ph ~= nil and ph.key == 'command'
+end
+
+local function syncOrderToken(side, i)
+  local st = stateOf(side, i)
+  if not st then return end
+  if st.order == '' then removeToken(st, 'order'); return end
+  local u = unitOf(side, i)
+  if ordersHidden() then placeToken(side, i, 'order', 'hidden', (u.displayName or u.unitName) .. ': order (face down)')
+  else placeToken(side, i, 'order', st.order, (u.displayName or u.unitName) .. ': ' .. st.order) end
+end
+
+local function revealOrders()
+  local n = 0
+  for side = 1, 2 do
+    for i, st in ipairs(S.bs[side] or {}) do
+      if st.order ~= '' and st.tokenKey and st.tokenKey.order == 'hidden' then
+        local u = unitOf(side, i)
+        placeToken(side, i, 'order', st.order, (u.displayName or u.unitName) .. ': ' .. st.order)
+        n = n + 1
+      end
+    end
+  end
+  if n > 0 then say('Orders revealed: ' .. n .. ' token(s) turned over.') end
+end
+
+local function syncShockToken(side, i)
+  local st = stateOf(side, i)
+  if not st then return end
+  if st.tokens <= 0 then removeToken(st, 'shock'); return end
+  local u = unitOf(side, i)
+  placeToken(side, i, 'shock', st.tokens >= 2 and 'fleeing' or 'pinned', (u.displayName or u.unitName) .. (st.tokens >= 2 and ': fleeing' or ': pinned'))
+end
+
+local function clearAllTokens()
+  for side = 1, 2 do
+    for _, st in ipairs(S.bs[side] or {}) do removeToken(st, 'order'); removeToken(st, 'shock') end
+  end
+end
+
+--- Light up a unit's miniatures on the table so the player sees which unit they picked.
+local function highlightUnit(side, i)
+  local st = stateOf(side, i)
+  if not st then return end
+  for _, guid in ipairs(st.guids or {}) do
+    local obj = getObjectFromGUID(guid)
+    if obj then pcall(function() obj.highlightOn({ 1, 0.85, 0.2 }, 4) end) end
+  end
+end
+
 local function expireEffects(kind, casterSide, casterUnit)
   for side = 1, 2 do
     local a = S.armies[side]
@@ -1012,7 +1133,7 @@ local function newRound()
   S.round = S.round + 1
   S.phase = 1
   for side = 1, 2 do
-    for _, st in ipairs(S.bs[side] or {}) do st.done = false; st.order = '' end
+    for _, st in ipairs(S.bs[side] or {}) do st.done = false; st.order = ''; removeToken(st, 'order') end
   end
   expireEffects('round')
   local g = gameOf()
@@ -1028,7 +1149,10 @@ end
 local function nextPhase()
   local ph = phasesOf()
   if #ph == 0 then warn('Load an army first: the turn structure comes with it.'); return end
-  if S.phase >= #ph then newRound() else S.phase = S.phase + 1; logLine('Phase: ' .. ph[S.phase].name) end
+  if S.phase >= #ph then newRound() else
+    S.phase = S.phase + 1; logLine('Phase: ' .. ph[S.phase].name)
+    if ph[S.phase].key == 'action' then revealOrders() end
+  end
 end
 
 local function prevPhase()
@@ -1077,6 +1201,7 @@ local function rallyAll(side)
       local r = twoD6()
       if r <= ld then
         st.tokens = 0
+        syncShockToken(side, i)
         out[#out + 1] = (u.displayName or u.unitName) .. ' ' .. r .. ' vs Ld ' .. ld .. ': rallies (tokens removed)'
       else
         out[#out + 1] = (u.displayName or u.unitName) .. ' ' .. r .. ' vs Ld ' .. ld .. ': keeps ' .. st.tokens .. ' token(s)' .. (st.tokens >= 2 and ' and flees' or '')
@@ -1121,6 +1246,7 @@ local function addTokens(side, i, n)
   local st = stateOf(side, i)
   if not st then return end
   st.tokens = clamp(st.tokens + n, 0, 2)
+  syncShockToken(side, i)
   if st.tokens >= 2 and n > 0 then
     local u = unitOf(side, i)
     logLine((u.displayName or u.unitName) .. ' has 2 Battleshock tokens: Fleeing (D6+6" to the nearest friendly edge).')
@@ -1771,6 +1897,8 @@ local function tabBattle()
     local ob = { txt('Order:', 12, COL.dim, 28) }
     for k, name in ipairs(ordersList()) do ob[#ob + 1] = btn(name == '' and 'None' or name, 100, st.order == name, 'ordset', k) end
     out[#out + 1] = row(table.concat(ob), 30)
+    out[#out + 1] = row(btn('Reveal all orders', 140, false, 'reveal') .. btn('Remove all tokens', 140, false, 'cleartokens') ..
+      txt('Orders go beside the unit on the table, face down in the Command Phase.', 11, COL.dim, 28), 28)
     out[#out + 1] = row(btn('Mark as activated', 140, st.done, 'done') .. btn('In reserve', 100, st.reserve, 'reserve') ..
       btn('Add Battleshock token', 160, false, 'tok', 1) .. btn('Remove token', 110, false, 'tok', -1) .. btn('Clear statuses', 120, false, 'fxclear') ..
       txt('Tokens: ' .. st.tokens .. ' of 2', 12, st.tokens > 0 and COL.bad or COL.dim, 28), 30)
@@ -1985,6 +2113,7 @@ local function resetGame()
     end
   end
   fresh.bindings = S.bindings
+  clearAllTokens()
   S = fresh
   clearAllRings()
   say('Game reset: round 1, victory points 0. Bindings are kept.')
@@ -1998,7 +2127,7 @@ ACTION.load = function(_, side) loadFromTab(tonumber(side)) end
 
 -- picking units from the lists
 ACTION.sidepick = function(_, s) UI_STATE.side = tonumber(s); UI_STATE.unit = 1; UI_STATE.upage = 1; UI_STATE.page = 1 end
-ACTION.pick = function(_, i) UI_STATE.unit = tonumber(i); UI_STATE.page = 1 end
+ACTION.pick = function(_, i) UI_STATE.unit = tonumber(i); UI_STATE.page = 1; highlightUnit(UI_STATE.side, UI_STATE.unit) end
 ACTION.upage = function(_, d) UI_STATE.upage = math.max(1, (UI_STATE.upage or 1) + tonumber(d)) end
 
 ACTION.rmode = function(_, m) UI_STATE.rulesMode = m; UI_STATE.page = 1 end
@@ -2022,8 +2151,13 @@ ACTION.rally = function(_, side) rallyAll(tonumber(side)) end
 ACTION.reinf = function(_, side) reinforce(tonumber(side)) end
 ACTION.ordset = function(_, k)
   local side, i = curSelection()
-  if i > 0 then S.bs[side][i].order = ordersList()[tonumber(k)] or '' end
+  if i > 0 then
+    S.bs[side][i].order = ordersList()[tonumber(k)] or ''
+    syncOrderToken(side, i)
+  end
 end
+ACTION.reveal = function() revealOrders() end
+ACTION.cleartokens = function() clearAllTokens() end
 ACTION.done = function() local side, i = curSelection(); if i > 0 then toggleDone(side, i) end end
 ACTION.reserve = function() local side, i = curSelection(); if i > 0 then local st = stateOf(side, i); st.reserve = not st.reserve end end
 ACTION.tok = function(_, d) local side, i = curSelection(); if i > 0 then addTokens(side, i, tonumber(d)) end end

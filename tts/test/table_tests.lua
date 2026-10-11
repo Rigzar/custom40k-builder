@@ -253,3 +253,43 @@ click('tab__army'); check(not LAST_XML:find('Spawn cards'), 'there is no Spawn c
 local fails2 = {}
 for _, m in ipairs(MESSAGES) do if m:find('failed:') or m:find('UI error') or m:find('Internal error') then fails2[#fails2 + 1] = m end end
 check(#fails2 == 0, 'pickers raised no errors: ' .. table.concat(fails2, ' || '))
+
+-- ── order and Battleshock tokens beside the unit, highlight on pick ──
+CLEAR_TOKENS()
+onLoad('')
+click('load__1'); click('load__2')
+C40K.getUI().side = 1; C40K.getUI().unit = squad
+local tokObjs = MAKE_OBJECTS(5)
+SELECT(tokObjs); click('tab__binder'); click('bind')
+local function tokenImages() local o = {} for _, t in ipairs(TOKENS()) do o[#o + 1] = t._image:match('[^/]+$') end table.sort(o) return table.concat(o, ',') end
+local before = COUNT_TOKENS()
+-- command phase: the order goes down face down
+local phases = C40K.getState().phase
+while C40K.getState().phase ~= 3 do click('phase__1') end
+click('tab__battle'); click('ordset__3')
+check(COUNT_TOKENS() == before + 1 and tokenImages():find('hidden.png'), 'in the Command Phase the order token goes down face down, got ' .. tokenImages())
+local tk = TOKENS()[1]
+local maxX = -1e9; for _, o in ipairs(tokObjs) do maxX = math.max(maxX, o.getPosition().x) end
+check(tk._pos.x > maxX, 'the order token sits to the right of the unit')
+click('ordset__4')
+check(COUNT_TOKENS() == before + 1, 'choosing another order replaces the token instead of adding one')
+-- initiative then action phase: orders are turned over
+click('phase__1'); click('phase__1')
+check(C40K.getState().phase == 5, 'now in the Action Phase')
+check(tokenImages():find('hidden.png') == nil and tokenImages():find('escape.png') ~= nil, 'entering the Action Phase reveals the order: ' .. tokenImages())
+-- Battleshock
+click('tok__1'); check(tokenImages():find('pinned.png'), 'one Battleshock token puts a Pinned token on the table')
+local pin; for _, t in ipairs(TOKENS()) do if t._image:find('pinned') then pin = t end end
+local minX = 1e9; for _, o in ipairs(tokObjs) do minX = math.min(minX, o.getPosition().x) end
+check(pin and pin._pos.x < minX, 'the Battleshock token sits to the left of the unit')
+click('tok__1'); check(tokenImages():find('fleeing.png') and not tokenImages():find('pinned.png'), 'a second token turns it into a Fleeing token')
+click('tok__-1'); click('tok__-1'); check(not tokenImages():find('fleeing') and not tokenImages():find('pinned'), 'removing the Battleshock tokens removes the marker')
+-- the next round clears the orders
+for _ = 1, 5 do click('phase__1') end
+check(not tokenImages():find('escape.png'), 'a new round clears the order tokens')
+click('ordset__5'); click('cleartokens'); check(COUNT_TOKENS() == before, 'Remove all tokens clears them')
+click('pick__' .. squad); check(tokObjs[1]._highlighted, 'picking a unit highlights its miniatures on the table')
+xmlOk('battle with tokens')
+local failsT = {}
+for _, m in ipairs(MESSAGES) do if m:find('failed:') or m:find('UI error') or m:find('Internal error') then failsT[#failsT + 1] = m end end
+check(#failsT == 0, 'token actions raised no errors: ' .. table.concat(failsT, ' || '))

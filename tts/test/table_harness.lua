@@ -23,6 +23,7 @@ local function newObject(x, z)
   o.setDescription = function(d) o._desc = d end
   o.addTag = function(t) o._tags[#o._tags + 1] = t end
   o.setColorTint = function() end
+  o.highlightOn = function() o._highlighted = true end
   o.setVectorLines = function(l) o._lines = l; VECTOR_CALLS = VECTOR_CALLS + 1 end
   objects[o._guid] = o
   return o
@@ -38,3 +39,17 @@ WebRequest = { get = function() end }
 Wait = { frames = function(f) f() end }
 
 function NOTEBOOK_FILL(title, body) for _, t in ipairs(tabs) do if t.title == title then t.body = body return end end tabs[#tabs + 1] = { title = title, body = body } end
+
+-- tokens and highlighting
+local baseSpawn = spawnObject
+function spawnObject(p)
+  local o = baseSpawn(p)
+  o._type = p.type; o._pos = p.position or o._pos; o._highlighted = false
+  o.setCustomObject = function(c) o._image = c.image end
+  o.highlightOn = function() o._highlighted = true end
+  return o
+end
+function destroyObject(o) o._destroyed = true; objects[o._guid] = nil; if onObjectDestroy then onObjectDestroy(o) end end
+function COUNT_TOKENS() local n = 0 for _, o in pairs(objects) do if o._type == 'Custom_Token' then n = n + 1 end end return n end
+function TOKENS() local out = {} for _, o in pairs(objects) do if o._type == 'Custom_Token' then out[#out + 1] = o end end return out end
+function CLEAR_TOKENS() for g, o in pairs(objects) do if o._type == 'Custom_Token' then objects[g] = nil end end end

@@ -50,6 +50,8 @@ per side (`Custom40k` and `Custom40k 2` notebook tabs), and adds a **C40K** butt
 
 **Picking.** Every choice is a button you press: a column of units on the left (side buttons, then one button per unit), weapons, targets, orders, cover, powers and missions are all lists of buttons, and the selected one is highlighted. There are no spawned datasheet cards: the binder puts the datasheet on each miniature's description and the RULES tab shows it.
 
+**Tokens on the table.** Choosing an order in BATTLE puts its token beside the unit (to its right; Battleshock tokens go to its left): face down ("ORDER") in the Command Phase, turned over when the Action Phase starts, cleared when a new round begins. Pressing a unit in the list lights up its miniatures. The artwork is ours (`public/tts/tokens/*.png`, drawn by `tts/build_tokens.cjs`) and is loaded from `https://custom40k-builder.vercel.app/tts/tokens/`, so the tokens appear once that folder is deployed. A unit needs its miniatures bound first.
+
 **Leaders and attached units.** The export carries `joinedTo` (the unit a character is attached to) and `grantsToUnit`
 (wargear text that says "the model and its attached unit gain ..."). The Battle View and the calculator add those to the
 unit: Armor of Badab's Warded improves the unit's ward save by one, to a maximum of 4+.
