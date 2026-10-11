@@ -1966,7 +1966,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // Legacy mark restriction: Alpha Legion, Iron Warriors, Night Lords can only take Undivided or no-mark units.
-  const MARK_RESTRICTED_LEGACIES = new Set(['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter']);
+  const MARK_RESTRICTED_LEGACIES = new Set(['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter', 'Legacy of the Tyrant']);
   const activeMarkRestrictedLegacy = [state.legacy, state.legacy2].find(l => l && MARK_RESTRICTED_LEGACIES.has(l));
   if (activeMarkRestrictedLegacy) {
     const FORBIDDEN_MARKS = new Set(['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']);
@@ -3289,7 +3289,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // Legacy mark restriction (Hydra, Iron Lord, Night Haunter = Undivided only)
-  const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter'];
+  const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter', 'Legacy of the Tyrant'];
   const legacies = [state.legacy, state.legacy2].filter(Boolean);
   const hasUndividedLegacy = legacies.some(l => undividedLegacies.includes(l));
   if (hasUndividedLegacy) {
