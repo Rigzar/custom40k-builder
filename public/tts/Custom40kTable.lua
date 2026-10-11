@@ -212,7 +212,7 @@ local function loadFromTab(side)
       if req.is_error or req.response_code ~= 200 then
         warn('Fetch failed: ' .. tostring(req.error or req.response_code)); return
       end
-      if loadSide(side, req.text) then _G.uiRefresh() end
+      if loadSide(side, req.text) then _G.c40k_refresh() end
     end)
   else
     loadSide(side, src)
@@ -1593,7 +1593,7 @@ function onObjectDestroy(obj)
   local st = stateOf(b.side, b.unit)
   if st then for k = #st.guids, 1, -1 do if st.guids[k] == guid then table.remove(st.guids, k) end end end
   setAlive(b.side, b.unit, b.model, -1)
-  if _G.uiRefresh then _G.uiRefresh() end
+  if _G.c40k_refresh then _G.c40k_refresh() end
 end
 
 
@@ -1649,7 +1649,7 @@ end
 --- A button. `on` highlights it (selected / switched on). The rest is the action name followed by its arguments.
 local function btn(label, w, on, ...)
   local color = on and COL.btnOn or COL.btn
-  return string.format('<Button id="%s" onClick="uiClick" preferredWidth="%d" preferredHeight="28" fontSize="12" colors="%s|%s|%s|%s" textColor="%s">%s</Button>',
+  return string.format('<Button id="%s" onClick="c40k_click" preferredWidth="%d" preferredHeight="28" fontSize="12" colors="%s|%s|%s|%s" textColor="%s">%s</Button>',
     sepId(...), w or 90, color, COL.accent, COL.accent, color, COL.text, xmlEscape(label))
 end
 
@@ -2062,7 +2062,7 @@ end
 local TAB_BUILDERS = { army = tabArmy, rules = tabRules, binder = tabBinder, battle = tabBattle, attack = tabAttack, powers = tabPowers, mission = tabMission }
 
 local function buildXml()
-  local toggle = string.format('<Button id="%s" onClick="uiClick" rectAlignment="UpperRight" offsetXY="-12 -12" width="86" height="34" fontSize="14" colors="%s|%s|%s|%s" textColor="%s">C40K</Button>',
+  local toggle = string.format('<Button id="%s" onClick="c40k_click" rectAlignment="UpperRight" offsetXY="-12 -12" width="86" height="34" fontSize="14" colors="%s|%s|%s|%s" textColor="%s">C40K</Button>',
     sepId('toggle'), COL.btnOn, COL.accent, COL.accent, COL.btnOn, COL.text)
   if not UI_STATE.open then return '<Defaults></Defaults>' .. toggle end
   local tabs = {}
@@ -2089,7 +2089,7 @@ local function buildXml()
     '</VerticalLayout></Panel>'
 end
 
-function uiRefresh()
+function c40k_refresh()
   if not S then return end
   local ok, xml = pcall(buildXml)
   if not ok then warn('UI error: ' .. tostring(xml)); return end
@@ -2255,7 +2255,7 @@ ACTION.sec = function(_, side, k)
 end
 ACTION.reset = function() resetGame() end
 
-function uiClick(player, _, id)
+function c40k_click(player, _, id)
   if not S then return end
   local parts = {}
   for p in tostring(id):gmatch('[^_]+') do parts[#parts + 1] = p end
@@ -2266,7 +2266,7 @@ function uiClick(player, _, id)
     local ok, e = pcall(fn, player, unpack(parts, 2))
     if not ok then warn('Action ' .. tostring(name) .. ' failed: ' .. tostring(e)) end
   end
-  uiRefresh()
+  c40k_refresh()
 end
 
 
@@ -2298,7 +2298,7 @@ function onLoad(saved)
   S.armies = S.armies or {}
   ensureTabs()
   -- the UI layer is not always ready on the very first frame of a load
-  if Wait and Wait.frames then Wait.frames(function() uiRefresh() end, 10) else uiRefresh() end
+  if Wait and Wait.frames then Wait.frames(function() c40k_refresh() end, 10) else c40k_refresh() end
   say('Custom40k Table ready. Open the menu with the C40K button (top right).')
 end
 

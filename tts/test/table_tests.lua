@@ -1,7 +1,7 @@
 -- Scenario driver for Custom40kTable.lua, run by run_table.cjs inside fengari.
 FAILS, PASSES = {}, 0
 local function check(cond, msg) if cond then PASSES = PASSES + 1 else FAILS[#FAILS + 1] = msg end end
-local function click(id) uiClick(PLAYER, nil, id) end
+local function click(id) c40k_click(PLAYER, nil, id) end
 local function xmlOk(label)
   local err = XML_CHECK(LAST_XML)
   check(err == nil, label .. ': XML is not well formed (' .. tostring(err) .. ')')
