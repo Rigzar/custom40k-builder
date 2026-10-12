@@ -18,6 +18,7 @@ import troops_tech_thralls from './troops/tech-thralls.json';
 import dedicated_transport_macrocarid_explorator from './dedicated_transport/macrocarid_explorator.json';
 import dedicated_transport_triaros_armored_conveyor from './dedicated_transport/triaros_armored_conveyor.json';
 import troops_thallax_cohort from './troops/thallax_cohort.json';
+import heavy_support_thanatar_siege_automata from './heavy_support/thanatar_siege-automata.json';
 
 export const faction = "Horus Heresy Forces of the Machine God";
 
@@ -33,7 +34,9 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Elites": [],
   "Fast Attack": [],
-  "Heavy Support": [],
+  "Heavy Support": [
+    "Thanatar Siege-Automata"
+  ],
   "Dedicated Transport": [
     "Macrocarid Explorator",
     "Triaros Armored Conveyor"
@@ -51,4 +54,5 @@ export const units: Record<string, Unit> = {
   "Macrocarid Explorator": dedicated_transport_macrocarid_explorator as Unit,
   "Triaros Armored Conveyor": dedicated_transport_triaros_armored_conveyor as Unit,
   "Thallax Cohort": troops_thallax_cohort as Unit,
+  "Thanatar Siege-Automata": heavy_support_thanatar_siege_automata as Unit,
 };
