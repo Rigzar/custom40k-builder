@@ -4,24 +4,24 @@
         {
             "stats": {
                 "M": "12\"",
-                "WS": "6+",
+                "WS": "-",
                 "BS": "3+",
                 "S": "5",
                 "FRONT": "11",
                 "SIDE": "11",
                 "REAR": "10",
                 "I": "4",
-                "A": "2",
+                "A": "1",
                 "HP": "2"
             },
             "name": "Land Speeder",
             "min": 1,
             "max": 2,
-            "points": 115
+            "points": 118
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Land Speeder is a single model and is equipped with: Heavy flamer.",
+    "equipped_with": "Each model is equipped with: Heavy Bolter.",
     "weapons": [
         {
             "name": "Assault cannon",
@@ -31,24 +31,6 @@
             "ap": "-2",
             "d": "1",
             "abilities": "Armor piercing(5+)"
-        },
-        {
-            "name": "Typhoon missile launcher - Frag missile",
-            "range": "48\"",
-            "type": "Heavy 2",
-            "s": "4",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Blast(4)"
-        },
-        {
-            "name": "Typhoon missile launcher - Krak missile",
-            "range": "48\"",
-            "type": "Heavy 2",
-            "s": "8",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "AT(2), Anti-air"
         },
         {
             "name": "Heavy bolter",
@@ -76,6 +58,33 @@
             "ap": "-5",
             "d": "2",
             "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Pyrecannon",
+            "range": "15\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Typhoon missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Typhoon missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
         }
     ],
     "option_groups": [
@@ -122,7 +131,8 @@
         }
     ],
     "abilities": [
-        "Anti-Grav, Deep Strike, Squadron"
+        "Anti-Grav, Deep Strike, Squadron",
+        "Tempest: The model gains +1 AV on its Front."
     ],
     "unit_type": "Vehicle",
     "keywords": [],
@@ -139,5 +149,5 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 1,
-    "min_cost": 115
+    "min_cost": 118
 }

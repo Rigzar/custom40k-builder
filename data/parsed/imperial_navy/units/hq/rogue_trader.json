@@ -1,99 +1,99 @@
 {
-  "name": "Rogue Trader",
-  "models": [
-    {
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "3",
-        "T": "3",
-        "W": "3",
-        "I": "4",
-        "A": "2",
-        "LD": "8",
-        "SV": "4+"
-      },
-      "name": "Rogue Trader",
-      "min": 1,
-      "max": 1,
-      "points": 36
-    }
-  ],
-  "variant_models": [
-    {
-      "stats": {
-        "M": "6\"",
-        "WS": "3+",
-        "BS": "3+",
-        "S": "3",
-        "T": "3",
-        "W": "3",
-        "I": "4",
-        "A": "3",
-        "LD": "9",
-        "SV": "4+"
-      },
-      "name": "Rogue Trader Majoris",
-      "min": 0,
-      "max": 1,
-      "points": 51
-    }
-  ],
-  "equipped_with": "A Rogue Trader is equipped with: Frag grenades; Krak grenades.",
-  "weapons": [
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Explosive"
-    },
-    {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "One Rogue Trader per army can be upgraded to a Rogue Trader Majoris for +15 points.",
-      "constraint": {
-        "type": "unique_upgrade"
-      },
-      "choices": [],
-      "inline_pts": 15,
-      "variant_link": "Rogue Trader Majoris",
-      "is_unique_per_army": true
-    }
-  ],
-  "abilities": [
-    "Command squad",
-    "Exotic Collection: At the start of each activation, the Rogue Trader may choose an enhancement for themselves and an attached unit:\n1. Archaeotech Weapons: Ranged weapons gain +1 Strength.\n2. Personal Shield Generators: Models gain the \"Warded\" ability.\n3. Forbidden Stimulants: Models gain +1 Initiative.\nThe effect lasts until the Rogue Trader's next activation.",
-    "Rogue Trader Majoris: You may choose a second upgrade from the Exotic Collection each round."
-  ],
-  "unit_type": "Character, Infantry",
-  "keywords": [
-    "Crew"
-  ],
-  "is_vehicle": false,
-  "is_character": true,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": true,
-  "veteran_required": false,
-  "veteran_max": 1,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "HQ",
-  "default_size": 1,
-  "min_cost": 36
+    "name": "Rogue Trader",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Rogue Trader",
+            "min": 1,
+            "max": 1,
+            "points": 36
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "4+"
+            },
+            "name": "Rogue Trader Majoris",
+            "min": 0,
+            "max": 1,
+            "points": 51
+        }
+    ],
+    "equipped_with": "A Rogue Trader is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Explosive"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One Rogue Trader per army can be upgraded to a Rogue Trader Majoris for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Rogue Trader Majoris",
+            "is_unique_per_army": true
+        }
+    ],
+    "abilities": [
+        "Command squad",
+        "Exotic Collection: At the start of each activation, the Rogue Trader may choose an enhancement for themselves and an attached unit:\n1. Archaeotech Weapons: Ranged weapons gain +1 Strength.\n2. Personal Shield Generators: Models gain the \"Warded\" ability.\n3. Forbidden Stimulants: Models gain +1 Initiative.\nThe effect lasts until the Rogue Trader's next activation.",
+        "Rogue Trader Majoris: You may choose a second upgrade from the Exotic Collection each round."
+    ],
+    "unit_type": "Character, Infantry",
+    "keywords": [
+        "Crew"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 36
 }

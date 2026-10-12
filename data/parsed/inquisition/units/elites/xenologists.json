@@ -39,7 +39,9 @@
         "Know Your Enemy: While a Xenologist is alive, the unit gains the \"Favoured enemy\" ability against all Xeno factions."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

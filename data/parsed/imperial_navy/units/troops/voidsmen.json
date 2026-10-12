@@ -1,271 +1,271 @@
 {
-  "name": "Voidsmen",
-  "models": [
-    {
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "3",
-        "T": "3",
-        "W": "1",
-        "I": "3",
-        "A": "1",
-        "LD": "6",
-        "SV": "5+"
-      },
-      "name": "Voidsman",
-      "min": 9,
-      "max": 19,
-      "points": 8
-    },
-    {
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "3",
-        "T": "3",
-        "W": "1",
-        "I": "3",
-        "A": "1",
-        "LD": "6",
-        "SV": "5+"
-      },
-      "name": "Sergeant-at-arms",
-      "min": 1,
-      "max": 1,
-      "points": 8
-    }
-  ],
-  "variant_models": [
-    {
-      "stats": {
-        "M": "6\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "3",
-        "T": "3",
-        "W": "1",
-        "I": "3",
-        "A": "1",
-        "LD": "7",
-        "SV": "5+"
-      },
-      "name": "Veteran Sergeant-at-arms",
-      "min": 0,
-      "max": 1,
-      "points": 13
-    }
-  ],
-  "equipped_with": "Every model is equipped with: Lasgun; Frag grenade; Krak grenade.",
-  "weapons": [
-    {
-      "name": "Chainsword",
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Laspistol",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Frag grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Explosive"
-    },
-    {
-      "name": "Krak grenade",
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Lasgun",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Las-volley",
-      "range": "18\"",
-      "type": "Assault 3",
-      "s": "6",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Suppression"
-    },
-    {
-      "name": "Meltagun",
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-5",
-      "d": "1",
-      "abilities": "AT(1), Melta"
-    },
-    {
-      "name": "Navis heavy shotgun",
-      "range": "12\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Navis shotgun",
-      "range": "12\"",
-      "type": "Assault 2",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
-      "name": "Plasma gun - Standard",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)"
-    },
-    {
-      "name": "Plasma gun - Overheating",
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheating"
-    },
-    {
-      "name": "Rotor cannon",
-      "range": "30\"",
-      "type": "Assault 4",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Suppression"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "Any model may swap their lasguns",
-      "constraint": {
-        "type": "every"
-      },
-      "choices": [
+    "name": "Voidsmen",
+    "models": [
         {
-          "name": "Navis shotgun",
-          "points": 4
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Voidsman",
+            "min": 9,
+            "max": 19,
+            "points": 8
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Sergeant-at-arms",
+            "min": 1,
+            "max": 1,
+            "points": 8
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Lasgun"
-      ]
-    },
-    {
-      "header": "For every 5 models, one Voidsman may swap its lasgun",
-      "constraint": {
-        "type": "per_n",
-        "per_n": 5,
-        "count_per_n": 1
-      },
-      "choices": [
+    ],
+    "variant_models": [
         {
-          "name": "Las-volley",
-          "points": 7
-        },
-        {
-          "name": "Rotor cannon",
-          "points": 8
-        },
-        {
-          "name": "Meltagun",
-          "points": 11
-        },
-        {
-          "name": "Navis heavy shotgun & Boarding shield",
-          "points": 15
-        },
-        {
-          "name": "Plasma gun",
-          "points": 15
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Veteran Sergeant-at-arms",
+            "min": 0,
+            "max": 1,
+            "points": 13
         }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "replaces": [
-        "Lasgun"
-      ]
-    },
-    {
-      "header": "The whole unit may take Carapace Armor: +3 points per model",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 3,
-      "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
-    },
-    {
-      "header": "The Sergeant-at-arms may be upgraded to a Veteran Sergeant-at-arms for +5 points and gains access to weapons and gear from the Armory.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": 5,
-      "variant_link": "Veteran Sergeant-at-arms",
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [
-    "Boarding shield: The model gains the \"Deflect\" and \"Parry\" abilities. A unit with this model always benefits from the \"Hold Your Ground\" effect.",
-    "Carapace Armor: This model has a 4+ save."
-  ],
-  "unit_type": "Infantry",
-  "keywords": [
-    "Crew"
-  ],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": false,
-  "has_armory_access": false,
-  "champion_has_armory": true,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Troops",
-  "default_size": 10,
-  "min_cost": 80
+    ],
+    "equipped_with": "Every model is equipped with: Lasgun; Frag grenade; Krak grenade.",
+    "weapons": [
+        {
+            "name": "Chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Laspistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Explosive"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lasgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las-volley",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "6",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Navis heavy shotgun",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Navis shotgun",
+            "range": "12\"",
+            "type": "Assault 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Rotor cannon",
+            "range": "30\"",
+            "type": "Assault 4",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Any model may swap their lasguns",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Navis shotgun",
+                    "points": 4
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Lasgun"
+            ]
+        },
+        {
+            "header": "For every 5 models, one Voidsman may swap its lasgun",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Las-volley",
+                    "points": 7
+                },
+                {
+                    "name": "Rotor cannon",
+                    "points": 8
+                },
+                {
+                    "name": "Meltagun",
+                    "points": 11
+                },
+                {
+                    "name": "Navis heavy shotgun & Boarding shield",
+                    "points": 15
+                },
+                {
+                    "name": "Plasma gun",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Lasgun"
+            ]
+        },
+        {
+            "header": "The whole unit may take Carapace Armor: +3 points per model",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 3,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "The Sergeant-at-arms may be upgraded to a Veteran Sergeant-at-arms for +5 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": "Veteran Sergeant-at-arms",
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Boarding shield: The model gains the \"Deflect\" and \"Parry\" abilities. A unit with this model always benefits from the \"Hold Your Ground\" effect.",
+        "Carapace Armor: This model has a 4+ save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Crew"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 10,
+    "min_cost": 80
 }
