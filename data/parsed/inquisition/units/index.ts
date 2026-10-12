@@ -17,6 +17,7 @@ import troops_stormtroopers from './troops/stormtroopers.json';
 import elites_deathcult_assassins from './elites/deathcult_assassins.json';
 import elites_acolytes from './elites/acolytes.json';
 import elites_alien_world_scouts from './elites/alien_world_scouts.json';
+import elites_arch_militant from './elites/arch-militant.json';
 import elites_archaeotech_researchers from './elites/archaeotech_researchers.json';
 import elites_arco_flagellants from './elites/arco-flagellants.json';
 import elites_chirurgeons from './elites/chirurgeons.json';
@@ -57,6 +58,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Deathcult Assassins",
     "Acolytes",
     "Alien World Scouts",
+    "Arch-Militant",
     "Archaeotech Researchers",
     "Arco-flagellants",
     "Chirurgeons",
@@ -100,6 +102,7 @@ export const units: Record<string, Unit> = {
   "Deathcult Assassins": elites_deathcult_assassins as Unit,
   "Acolytes": elites_acolytes as Unit,
   "Alien World Scouts": elites_alien_world_scouts as Unit,
+  "Arch-Militant": elites_arch_militant as Unit,
   "Archaeotech Researchers": elites_archaeotech_researchers as Unit,
   "Arco-flagellants": elites_arco_flagellants as Unit,
   "Chirurgeons": elites_chirurgeons as Unit,

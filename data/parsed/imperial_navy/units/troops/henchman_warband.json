@@ -306,10 +306,136 @@
         "LD": "8",
         "SV": "5+"
       }
+    },
+    {
+      "name": "Arch-Militant",
+      "points": 16,
+      "min": 0,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "2",
+        "I": "3",
+        "A": "1",
+        "LD": "7",
+        "SV": "5+"
+      }
+    },
+    {
+      "name": "Deathcult Assassin",
+      "points": 23,
+      "min": 0,
+      "max": 6,
+      "stats": {
+        "M": "6\"",
+        "WS": "2+",
+        "BS": "2+",
+        "S": "3",
+        "T": "3",
+        "W": "2",
+        "I": "5",
+        "A": "3",
+        "LD": "7",
+        "SV": "6+"
+      }
+    },
+    {
+      "name": "Breachers",
+      "points": 12,
+      "min": 0,
+      "max": 9,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "3",
+        "A": "1",
+        "LD": "7",
+        "SV": "4+"
+      }
+    },
+    {
+      "name": "Breacher Sergeant-at-arms",
+      "points": 17,
+      "min": 0,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "3",
+        "T": "3",
+        "W": "1",
+        "I": "3",
+        "A": "1",
+        "LD": "7",
+        "SV": "4+"
+      }
+    },
+    {
+      "name": "Explorator",
+      "points": 23,
+      "min": 0,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "3",
+        "A": "2",
+        "LD": "7",
+        "SV": "4+"
+      }
+    },
+    {
+      "name": "Ogryn",
+      "points": 33,
+      "min": 0,
+      "max": 9,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "4+",
+        "S": "5",
+        "T": "5",
+        "W": "3",
+        "I": "3",
+        "A": "4",
+        "LD": "6",
+        "SV": "5+"
+      }
+    },
+    {
+      "name": "Ogryn Bone'ead",
+      "points": 33,
+      "min": 0,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "4+",
+        "S": "5",
+        "T": "5",
+        "W": "3",
+        "I": "3",
+        "A": "4",
+        "LD": "7",
+        "SV": "5+"
+      }
     }
   ],
   "variant_models": [],
-  "equipped_with": "Acolyte/Penitent/Sage/Psyker/Alien World Scout/Archaeotech Researcher/Xenologist/Chirurgeon: Las pistol. Missionary/Mystic/Exorcist: Chainsword, Las pistol. Servitor: Paired shock chargers. Arco-flagellant: Arco flail. Daemonhost: Runic chains. Jokaero Weaponsmith: Jokaero digital weapons. Crusader: Power sword, Storm shield. Ranger: Ranger long rifle, Shuriken pistol.",
+  "equipped_with": "Acolyte/Penitent/Sage/Psyker/Alien World Scout/Archaeotech Researcher/Xenologist/Chirurgeon: Las pistol. Missionary/Mystic/Exorcist: Chainsword, Las pistol. Servitor: Paired shock chargers. Arco-flagellant: Arco flail. Daemonhost: Runic chains. Jokaero Weaponsmith: Jokaero digital weapons. Crusader: Power sword, Storm shield. Ranger: Ranger long rifle, Shuriken pistol. Deathcult Assassin: Power sword. Breachers/Breacher Sergeant-at-arms: Lasgun, Frag grenade, Krak grenade. Ogryn/Ogryn Bone'ead: Club.",
   "weapons": [
     {
       "name": "Arco flail",
@@ -472,6 +598,42 @@
       "ap": "-1",
       "d": "1",
       "abilities": "Shuriken"
+    },
+    {
+      "name": "Lasgun",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Frag grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Krak grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Club",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
     }
   ],
   "option_groups": [
@@ -543,7 +705,8 @@
     "Bionics: While a Servitor is in the unit, it gains a 6+ ward save.",
     "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls.",
     "Berserk(5+), Blind rage: Every Arco-flagellant has these special abilities.",
-    "Command Squad, Squadron: granted by Penitent/Sage/Exorcist/Mystic/Alien World Scout/Archaeotech Researcher/Crusader.",
+    "Command Squad, Squadron: granted by Penitent/Sage/Exorcist/Mystic/Alien World Scout/Archaeotech Researcher/Arch-Militant/Explorator/Crusader.",
+    "Steady Superiority: While an Arch-Militant is alive, the unit and its attached unit may shoot “Rapid fire” weapons at full range with a \"Move & Shoot\" order and ignores the to hit penalty for \"Advance\" orders with \"Assault\" weapons.",
     "Pariah: While a Penitent is alive, the unit gains the \"Aegis(5+)\" special ability. If two Penitents are alive, they gain \"Aegis(4+)\" instead.",
     "Devout: A Missionary can recite 1 hymn per turn. A hymn is successfully recited on a roll of 3+. A Missionary knows a prayer from the Hymns of Battle.",
     "Wise Guidance: While a Sage is alive, all weapons in the unit gain Deflagrate(6+). If two Sages are alive, they gain Deflagrate(5+) instead.",
@@ -561,7 +724,10 @@
     "Crusade: The Crusader and its attached unit gain the \"Frenzy(1)\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order.",
     "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
     "Battle Focus (see Codex Eldar), Infiltrator, Move through cover, Use cover: granted by the Ranger (Eldar Outcast).",
-    "Unmatched reconnaissance: While an Eldar Outcast (Ranger) is alive, the unit gains the \"Infiltrator\" ability."
+    "Unmatched reconnaissance: While an Eldar Outcast (Ranger) is alive, the unit gains the \"Infiltrator\" ability.",
+    "Infiltrator, Lightning reflexes: Every Deathcult Assassin has the \"Infiltrator\" special ability and a 5+ ward save.",
+    "Furious Charge, Massive(1): Every Ogryn has these special abilities.",
+    "Bionics: The Explorator has a 6+ invulnerability save."
   ],
   "unit_type": "Infantry",
   "keywords": [],
