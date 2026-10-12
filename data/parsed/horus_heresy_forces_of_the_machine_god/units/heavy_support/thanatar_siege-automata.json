@@ -1,0 +1,140 @@
+{
+  "name": "Thanatar Siege-Automata",
+  "models": [
+    {
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "3+",
+        "S": "6",
+        "FRONT": "13",
+        "SIDE": "13",
+        "REAR": "10",
+        "I": "3",
+        "A": "3",
+        "HP": "3"
+      },
+      "name": "Siege-Automata",
+      "min": 1,
+      "max": 1,
+      "points": 379
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Siege-Automata is equipped with: Plasma mortar; 2 Shock charger.",
+  "weapons": [
+    {
+      "name": "Graviton ram - Melee",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
+      "name": "Graviton ram - Ranged",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Auto Hit, Grav, Haywire"
+    },
+    {
+      "name": "Plasma mortar",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Blast(6), Indirect, Overheating, Sunder(2)"
+    },
+    {
+      "name": "Shock charger",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(1)"
+    },
+    {
+      "name": "Sollex heavy-las",
+      "range": "48\"",
+      "type": "Heavy 3",
+      "s": "10",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3)"
+    },
+    {
+      "name": "Twin mauler bolt cannon",
+      "range": "24\"",
+      "type": "Rapid Fire 4",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May swap one Shock charger",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Graviton ram",
+          "points": 30
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Shock charger"
+      ]
+    },
+    {
+      "header": "May swap the Plasma mortar",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Sollex heavy-las",
+          "points": 76
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Plasma mortar"
+      ]
+    }
+  ],
+  "abilities": [
+    "Atomantic deflector: The model gains a 5+ ward save.",
+    "Cybernetica Cortex: If this model is not within 12\" of a Tech-Priest, Magos or Archmagos with the Datasmith upgrade, it can only be assigned \"Fight\" or \"Stand & Shoot\" Orders, and must fire all its ranged weapons at the nearest enemy unit.",
+    "Grav Wave: If a model with a Graviton Ram is the target of a \"Charge\" Order, it always benefits from the \"Hold Your Ground\" effect, regardless of its activation status."
+  ],
+  "unit_type": "Vehicle, Walker",
+  "keywords": [],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": true,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Heavy Support",
+  "default_size": 1,
+  "min_cost": 379
+}
