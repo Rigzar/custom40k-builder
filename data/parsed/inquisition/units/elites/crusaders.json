@@ -39,7 +39,9 @@
         "Crusade: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

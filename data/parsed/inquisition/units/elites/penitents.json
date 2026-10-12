@@ -39,7 +39,9 @@
         "Pariah: While a Penitent is alive, the unit gains the Aegis(5+) special ability. If two Penitents are alive, they gain Aegis(4+) instead."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

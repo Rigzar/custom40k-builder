@@ -48,7 +48,9 @@
         "Psionic Flare: While a Mystic is alive, a friendly unit arriving via deep strike does not scatter when set up within 3\" of the unit. If two are alive, this range is increased to 6\"."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

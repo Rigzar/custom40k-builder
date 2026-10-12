@@ -66,7 +66,9 @@
         "Defence orb: The model gains a 5+ ward save."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

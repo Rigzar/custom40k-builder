@@ -39,7 +39,9 @@
         "Archaeotech Enhancement: While an Archaeotech Reseacher is alive, the unit gains the \"Armor piercing(6+)\" ability for all weapons. If two are alive, they gain \"Armor piercing(5+)\" instead."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

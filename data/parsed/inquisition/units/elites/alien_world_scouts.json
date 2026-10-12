@@ -39,7 +39,9 @@
         "Leadership: While an Alien World Scout is alive, the unit gains the \"Move through Cover\" ability. If two are alive, they additionally gain \"Use Cover\"."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

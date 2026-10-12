@@ -48,7 +48,9 @@
         "Aura of Faith: While an Exorcist is alive, the unit gains a 6+ ward save against melee weapons. If two are alive, they gain a 5+ ward save instead."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,
