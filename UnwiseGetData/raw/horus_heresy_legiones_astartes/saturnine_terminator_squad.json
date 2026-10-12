@@ -1,0 +1,181 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-5",
+        "Saturnine Terminator",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        6,
+        3,
+        4,
+        3,
+        8,
+        "2+",
+        146
+    ],
+    [
+        1,
+        "Saturnine Terminator Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        6,
+        3,
+        4,
+        3,
+        8,
+        "2+",
+        151
+    ],
+    [
+        "Every model is equipped with: Power fist; Twin heavy disintegrator."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Particle shredder",
+        "9\"",
+        "Assault 4",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Plasma bombard *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Heavy 1",
+        6,
+        -3,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Overcharged",
+        "24\"",
+        "Heavy 1",
+        7,
+        -4,
+        2,
+        "AT(1), Blast(4), Overheating"
+    ],
+    [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "Twin heavy disintegrator",
+        "24\"",
+        "Heavy 2",
+        7,
+        -2,
+        2,
+        "AT(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +2 points."
+    ],
+    [
+        "\u2022 If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+4 points"
+    ],
+    [
+        "- Slaanesh",
+        "+4 points"
+    ],
+    [
+        "- Nurgle",
+        "+4 points"
+    ],
+    [
+        "- Tzeentch",
+        "+0 points"
+    ],
+    [
+        "\u2022 Every model may swap their Power fist with:"
+    ],
+    [
+        "- Twin heavy disintegrator",
+        "+18 points"
+    ],
+    [
+        "- Plasma bombard",
+        "+47 points"
+    ],
+    [
+        "\u2022 Every model may swap their Twin heavy disintegrator with:"
+    ],
+    [
+        "- Plasma bombard",
+        "+29 points"
+    ],
+    [
+        "\u2022 Every model with a Power fist may get:"
+    ],
+    [
+        "- Particle shredder",
+        "+19 points"
+    ],
+    [
+        "\u2022 The Saturnine Terminator Sergeant has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Massive(2), Unyielding"
+    ],
+    [
+        "Saturnine Terminator armor: The model gains a 4+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

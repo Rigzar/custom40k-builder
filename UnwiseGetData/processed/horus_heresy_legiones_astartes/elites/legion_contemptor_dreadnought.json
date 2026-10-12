@@ -1,0 +1,235 @@
+{
+    "name": "Legion Contemptor Dreadnought",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "4",
+                "A": "3",
+                "HP": "3"
+            },
+            "name": "Contemptor Dreadnought",
+            "min": 1,
+            "max": 2,
+            "points": 192
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 192,
+    "default_size": 1,
+    "equipped_with": "A Contemptor Dreadnought is equipped with: -.",
+    "weapons": [
+        {
+            "name": "Assault cannon",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Conversion beamer - Short range",
+            "range": "0\" - 24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Conversion beamer - Mid range",
+            "range": "24\" - 48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Conversion beamer - Long range",
+            "range": "48\" - 72\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Blast(6)"
+        },
+        {
+            "name": "Cyclone missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Cyclone missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Anti-air"
+        },
+        {
+            "name": "Dreadnought close combat weapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Graviton blaster",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Grav"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Kheres-pattern assault cannon",
+            "range": "24\"",
+            "type": "Heavy 5",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Anti-air"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma blaster - Standard",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma blaster - Overcharged",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Plasma cannon - Overcharged",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin autocannon",
+            "range": "48\"",
+            "type": "Heavy 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Twin volkite culverin",
+            "range": "48\"",
+            "type": "Heavy 6",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        }
+    ],
+    "abilities": [
+        "Squadron",
+        "Atomantic Shielding: The model has a 5+ ward save.",
+        "Furioso: If the model has two melee weapons, it gains +2 attacks."
+    ],
+    "unit_type": "Vehicle, Walker",
+    "is_monster": false,
+    "keywords": []
+}

@@ -1,0 +1,86 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Acolyte Iconward",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        3,
+        4,
+        3,
+        8,
+        "5+",
+        64
+    ],
+    [
+        "An Acolyte Iconward is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Acolyte Iconward per army."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Command Squad, Infiltrator, Use cover"
+    ],
+    [
+        "Nexus of Devotion: During each Reinforcement phase, 1D3 slain models return to the attached unit."
+    ],
+    [
+        "Ringleader: You may select up to two units with this ability for a single HQ slot. Each unit may only be taken once."
+    ],
+    [
+        "Sacred Cult Banner: The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit can not be contested by enemy units. Additionally, all models in the unot gain +1 Attack."
+    ],
+    [
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

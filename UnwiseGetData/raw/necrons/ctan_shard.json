@@ -1,0 +1,77 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "C'tan Shard",
+        "6\"",
+        "2+",
+        "3+",
+        6,
+        7,
+        6,
+        4,
+        4,
+        10,
+        "3+",
+        257
+    ],
+    [
+        "A C'tan Shard is equipped with: C'tan close combat weapon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "C'tan close combat weapon",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        2,
+        "AT(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 An army can contain only one C'tan Shard."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Fearless, Regeneration(1), Terrifying(-1)"
+    ],
+    [
+        "Necrodermis: The model has a 4+ ward save. If it loses its last wound, it explodes like a vehicle."
+    ],
+    [
+        "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature"
+    ]
+]

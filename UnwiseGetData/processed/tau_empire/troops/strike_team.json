@@ -1,0 +1,108 @@
+{
+    "name": "Strike Team",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Fire Warrior",
+            "min": 4,
+            "max": 9,
+            "points": 13
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Fire Warrior Shas'la",
+            "min": 1,
+            "max": 1,
+            "points": 13
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "2",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Fire Warrior Shas'ui",
+            "min": 0,
+            "max": 1,
+            "points": 18
+        }
+    ],
+    "min_cost": 65,
+    "default_size": 5,
+    "equipped_with": "All Fire Warriors and the Fire Warrior Shas'la are equipped with: Photon grenades; Pulse rifle; Pulse pistol.",
+    "weapons": [
+        {
+            "name": "Photon grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blind, Suppression(6)"
+        },
+        {
+            "name": "Pulse carbine",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Pulse pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Pulse rifle",
+            "range": "30\"",
+            "type": "Rapid Fire 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Supporting Fire"
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

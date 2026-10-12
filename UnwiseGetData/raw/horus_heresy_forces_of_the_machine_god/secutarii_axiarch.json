@@ -1,0 +1,74 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Secutarii Axiarch",
+        "6\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        8,
+        "4+",
+        35
+    ],
+    [
+        "A Secutarii Axiarch is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah, Command squad"
+    ],
+    [
+        "Advisor: For every HQ selection, one Secutarii Axiarch may be selected without taking up an HQ slot."
+    ],
+    [
+        "Legio Armsmen: One of your units automatically succeeds to rally during each Rally phase. Additionally, while a friendly vehicle is alive on the field, this model gains +1 Leadership."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

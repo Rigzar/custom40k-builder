@@ -1,0 +1,110 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Warp Spider",
+        "12\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        5,
+        2,
+        8,
+        "3+",
+        32
+    ],
+    [
+        "*",
+        "Warp Spider Exarch",
+        "12\"",
+        "2+",
+        "2+",
+        3,
+        3,
+        2,
+        5,
+        3,
+        8,
+        "3+",
+        61
+    ],
+    [
+        "Every model is equipped with: Death spinner."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Death spinner",
+        "12\"",
+        "Assault 2",
+        6,
+        0,
+        1,
+        "Armor piercing(5+), Monofilament, Suppression(2)"
+    ],
+    [
+        "Powerblades",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Extra Attack(2), Shred, Unwieldy"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Exarch for +29 points."
+    ],
+    [
+        "\u2022 The Exarch can be equipped with a second Death spinner for +8 points."
+    ],
+    [
+        "\u2022 The Exarch can additionally be equipped with Powerblades for +10 points. "
+    ],
+    [
+        "\u2022 The Exarch can gain one Exarch Power."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Battle Focus, <Aspect>"
+    ],
+    [
+        "Aspect armor: The model gains a 5+ ward save."
+    ],
+    [
+        "Shunting: The unit rolls and moves an additional 1D6 when using the Advance order. If a double 1 is rolled, the unit suffers one Mortal Wound."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump pack infantry"
+    ]
+]

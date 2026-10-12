@@ -1,0 +1,225 @@
+{
+    "name": "Legion Terminator Cataphractii Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Legion Cataphractii",
+            "min": 4,
+            "max": 9,
+            "points": 85
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Legion Cataphractii Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 85
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 425,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Combi-Bolter; Power sword.",
+    "weapons": [
+        {
+            "name": "Chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(2), Slow(-3)"
+        },
+        {
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Combi-flamer - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-flamer - Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Combi, Sunder(1)"
+        },
+        {
+            "name": "Combi-melta - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-melta - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Combi-plasma - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-plasma - Plasma (Standard)",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Combi"
+        },
+        {
+            "name": "Combi-plasma - Plasma (Overcharged)",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Combi, Overheating"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Lightning claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Pair of lightning claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        },
+        {
+            "name": "Plasma blaster - Standard",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma blaster - Overcharged",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Slow(-2)"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Reaper autocannon",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Thunder hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(2), Slow(-3)"
+        },
+        {
+            "name": "Volkite charger",
+            "range": "15\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        }
+    ],
+    "abilities": [
+        "Deep strike, Massive(1), Unyielding",
+        "Cataphractii Terminator armor: The model gains a 4+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": []
+}

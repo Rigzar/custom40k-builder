@@ -1,0 +1,77 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Ambassador",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        2,
+        3,
+        2,
+        7,
+        "6+",
+        17
+    ],
+    [
+        "An Ambassador is equipped with: Las pistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 For each HQ selection, one Ambassador may be selected that does not occupy an Elite slot."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command squad"
+    ],
+    [
+        "Diplomatic Ruse: After all units have been placed in the Deployment phase, the you may remove and redeploy one of your units."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

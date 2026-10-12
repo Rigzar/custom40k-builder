@@ -1,0 +1,124 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Ironkin Steeljack",
+        "6\"",
+        "3+",
+        "4+",
+        5,
+        5,
+        2,
+        3,
+        2,
+        7,
+        "3+",
+        46
+    ],
+    [
+        "*",
+        "Theyn",
+        "6\"",
+        "3+",
+        "4+",
+        5,
+        5,
+        2,
+        3,
+        2,
+        8,
+        "3+",
+        56
+    ],
+    [
+        "Every model is equipped with: Autoch-pattern bolt pistol; Plasma sword."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autoch-pattern bolt pistol",
+        "12\"",
+        "Pistol 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Concussion gauntlet",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2), Unwieldy"
+    ],
+    [
+        "Heavy volkanite desintegrator",
+        "18\"",
+        "Rapid Fire 2",
+        6,
+        -1,
+        1,
+        "Deadly(5+)"
+    ],
+    [
+        "Plasma sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Each model may swap their Plasma sword:"
+    ],
+    [
+        "- Heavy volkanite desintegrator",
+        "+0 points/model"
+    ],
+    [
+        "- Concussion gauntlet",
+        "+11 points/model"
+    ],
+    [
+        "\u2022 One model may be upgraded to a Theyn for +10pts and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Eye of the Ancestors, Steady Advance, Unyielding, Void armor"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]
