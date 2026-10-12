@@ -1,0 +1,112 @@
+{
+    "name": "Librarian",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Librarian",
+            "min": 1,
+            "max": 1,
+            "points": 159
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "4",
+                "I": "5",
+                "A": "4",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Chief Librarian",
+            "min": 0,
+            "max": 1,
+            "points": 174
+        }
+    ],
+    "min_cost": 159,
+    "default_size": 1,
+    "equipped_with": "A Librarian is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Nemesis daemon hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+            "name": "Nemesis force weapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+            "name": "Nemesis warding stave",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
+        "Chief Librarian: The model can manifest and deny 1 additional power per turn.",
+        "Psychic hood: The models gains a +1 bonus to deny psychic powers.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": []
+}

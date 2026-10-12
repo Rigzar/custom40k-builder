@@ -1,0 +1,150 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Great Knarloc",
+        "12\"",
+        "3+",
+        "4+",
+        6,
+        5,
+        6,
+        3,
+        4,
+        7,
+        "5+",
+        92
+    ],
+    [
+        "A Great Knarloc is equipped with: Knarloc beak; Knarloc claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Knarloc beak",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Knarloc claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(2)"
+    ],
+    [
+        "Kroot bolt thrower *"
+    ],
+    [
+        "- Iron bolts",
+        "36\"",
+        "Heavy 3",
+        4,
+        -1,
+        2,
+        "Poison(3+)"
+    ],
+    [
+        "- Explosive bolts",
+        "36\"",
+        "Heavy 1",
+        8,
+        -2,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "Kroot long gun",
+        "36\"",
+        "Heavy 1",
+        6,
+        -3,
+        2,
+        "Armor piercing(5+), Suppression(6)"
+    ],
+    [
+        "Repeater cannon",
+        "36\"",
+        "Rapid Fire 2",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any Great Knarloc may be equipped with:"
+    ],
+    [
+        "- Knarloc armor",
+        "+27 points"
+    ],
+    [
+        "\u2022 Any Great Knarloc may be equipped with one howdah:"
+    ],
+    [
+        "- Repeater cannon",
+        "+15 points"
+    ],
+    [
+        "- Kroot long gun",
+        "+22 points"
+    ],
+    [
+        "- Kroot bolt thrower",
+        "+66 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infiltrator, Squadron, Supporting Fire, Use Cover"
+    ],
+    [
+        "Knarloc armor: The model gains a 4+ armor save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Kroot"
+    ]
+]

@@ -1,0 +1,56 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Just Blade\u1d31",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        2,
+        "Shield breaker(-2). Unique. Kronus Hegemony only.",
+        13
+    ],
+    [
+        "Models in Exo-armor can only receive equipment marked with \u1d31."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Abiding Mantle",
+        "This model and any E-COGs or CORVs accompanying it gain the \"Stealth\" ability. Unique. Urani-Surtr Regulates only.",
+        15
+    ],
+    [
+        "CORV Duas\u1d31",
+        "As long as this model is accompanied by at least one CORV, it gets a +1 to deny psychic powers and can deny 1 additional psychic power per battle round. Unique. Psyker only. Trans-Hyperian Alliance only.",
+        10
+    ],
+    [
+        "Korvyk's Cuirass",
+        "This model gains a 4+ ward save. Enemy attacks reduce their AT and AP value by an additional -1, to a minimum of 0 each. Greater Thurian League only.",
+        38
+    ],
+    [
+        "Last Crest of Jaluk\u1d31",
+        "Roll a die the first time the model is eliminated. Unique. Ymyr Conglomerate only.\n\u2022 1,2 - Remove the model.\n\u2022 3,4 - Set it back up with 1 wound.\n\u2022 5,6 - Set it up again with 2 wounds. ",
+        "-",
+        15
+    ],
+    [
+        "Models in Exo-armor can only receive equipment marked with \u1d31."
+    ]
+]

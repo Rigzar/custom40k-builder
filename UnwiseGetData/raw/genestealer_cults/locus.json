@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Locus",
+        "6\"",
+        "2+",
+        "3+",
+        3,
+        3,
+        2,
+        5,
+        2,
+        7,
+        "5+",
+        28
+    ],
+    [
+        "A Locus is equipped with: Hypermorph tail; Locus blades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Hypermorph tail",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "Locus blades",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Extra Attack(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 500 points of game size, one Locus may be included in the army that does not take up an Elite slot."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Bodyguard, Command Squad, Infiltrator, Use cover"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

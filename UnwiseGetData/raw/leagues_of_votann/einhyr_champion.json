@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Einhyr Champion",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        5,
+        2,
+        4,
+        3,
+        8,
+        "2+",
+        70
+    ],
+    [
+        "An Einhyr Champion is equipped with: Exo-armor; Gravitic concussion grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Gravitic concussion grenades",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every unit of Einhyr Hearthguard taken in an Elite slot, a single Einhyr Champion may be included in the army that does not take up an Elite slot."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command Squad, Eye of the Ancestors, Massive(1), Steady Advance, Unyielding, Void armor"
+    ],
+    [
+        "Exemplar of the Einhyr: This model and its attached unit gain Frenzy(2)."
+    ],
+    [
+        "Exo-armor: This model gains a 5+ ward save."
+    ],
+    [
+        "Honor or Death: At the start of this model's activation, if an enemy HQ or Character is within 10\", its placed Order is converted to Charge. The Einhyr Champion and its attached unit must use the Order to engage in close combat with the enemy HQ or character model."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

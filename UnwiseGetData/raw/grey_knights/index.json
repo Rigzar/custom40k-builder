@@ -1,0 +1,58 @@
+[
+    [
+        "Grey Knights"
+    ],
+    [
+        "HQ",
+        "Brotherhood Champion",
+        "Captain",
+        "Captain in Nemesis Armor",
+        "Chaplain",
+        "Librarian",
+        "Special rules",
+        "Nemesis warding stave: If one model of the unit is equipped with this weapon, all models of the unit gain \"Parry\".",
+        "Psykers and Force weapons: If the entire unit can cast a psychic power, a specific model in the squad must be chosen for each attempt. Only that model can activate their Force weapon and suffer \"Perils of the Warp\" attacks.",
+        "Shrouding: The model gains \"Deflect\" against all attacks that are more than 12\" away.",
+        "They Shall Know No Fear: A pinned or fleeing unit automatically regroups at the start of the turn or when it reaches the edge of the board. It can never use the \"Take cover\" Defensive reaction.",
+        "Teleport strike: For every full 2500 points of game size, the army gains 3 teleportation tokens. For each token a Grey Knights creature unit (including attached character models) or Dreadnought that is not currently in melee may be removed from the table at the start of its activation and immediately deployed according to the rules for Deep Strike.  The unit's command is changed to \"Move & Shoot\" and it counts as having moved at maximum range.",
+        "True Grit: The model may treat all of its ranged weapons during its Activation as \"Assault\" weapons (f.e. Rapid Fire 2 becomes Assault 2) and gains +1 attack for any combination of a ranged weapon with a melee weapon, not just for Pistols."
+    ],
+    [
+        "Troops",
+        "Strike Squad",
+        "Terminator Squad"
+    ],
+    [
+        "Elite",
+        "Ancient",
+        "Apothecary",
+        "Dreadnought",
+        "Ghost Terminator Squad",
+        "Paladin Squad",
+        "Purifier Squad"
+    ],
+    [
+        "Fast Attack",
+        "Interceptor Squad"
+    ],
+    [
+        "Heavy Support",
+        "Land Raider",
+        "Land Raider Crusader",
+        "Land Raider Redeemer",
+        "Nemesis Dreadknight",
+        "Purgator Squad"
+    ],
+    [
+        "Transports",
+        "Razorback",
+        "Rhino"
+    ],
+    [
+        "Fortifications"
+    ],
+    [
+        "Flyers",
+        "Stormraven Gunship"
+    ]
+]

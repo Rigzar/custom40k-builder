@@ -1,0 +1,86 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-5",
+        "Fiend",
+        "14\"",
+        "3+",
+        "4+",
+        5,
+        4,
+        3,
+        5,
+        5,
+        6,
+        "6+",
+        42
+    ],
+    [
+        1,
+        "Blissbringer",
+        "14\"",
+        "3+",
+        "4+",
+        5,
+        4,
+        3,
+        5,
+        5,
+        6,
+        "6+",
+        42
+    ],
+    [
+        "Every model is equipped with: Dissecting claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Dissecting claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deepstrike, Deflect, Daemon, Daemonic instability, Mark of Slaanesh, Terrifying(-1)"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike"
+    ]
+]

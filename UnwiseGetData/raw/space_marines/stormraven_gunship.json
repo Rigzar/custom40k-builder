@@ -1,0 +1,192 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Stormraven Gunship",
+        "12\"",
+        "-",
+        "3+",
+        6,
+        12,
+        12,
+        10,
+        4,
+        1,
+        3,
+        442
+    ],
+    [
+        "A Stormraven Gunship is a single model and is equipped with: 2 Stormstrike missile launchers; Twin heavy bolters; Twin assault cannon."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Hurricane Bolter",
+        "24\"",
+        "Rapid Fire 6",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Stormstrike missile launcher",
+        "72\"",
+        "Heavy 1",
+        8,
+        -3,
+        3,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "Twin assault cannon",
+        "24\"",
+        "Heavy 8",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Twin heavy bolter",
+        "36\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin lascannon",
+        "48\"",
+        "Heavy 2",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Twin multi-melta",
+        "24\"",
+        "Assault 2",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Twin plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 2",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overcharged",
+        "36\"",
+        "Heavy 2",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "Typhoon missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 2",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 2",
+        8,
+        -3,
+        2,
+        "Anti-Air, AT(2)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May replace the Twin assault cannon:"
+    ],
+    [
+        "- Twin lascannon",
+        "+74 points"
+    ],
+    [
+        "- Twin plasma cannon",
+        "+132 points"
+    ],
+    [
+        "\u2022 May replace the Twin heavy bolter:"
+    ],
+    [
+        "- Twin multi-melta",
+        "+37 points"
+    ],
+    [
+        "- Typhoon missile launcher",
+        "+45 points"
+    ],
+    [
+        "\u2022 May be equipped with 2 Hurricane bolters for +64 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Hover Mode"
+    ],
+    [
+        "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit."
+    ],
+    [
+        "Transport: This model has a transport capacity of 10 infantry models and 1 Dreadnought."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Flyer"
+    ]
+]

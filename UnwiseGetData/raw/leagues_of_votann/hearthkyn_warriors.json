@@ -1,0 +1,238 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-20",
+        "Hearthkyn Warriors",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        1,
+        3,
+        1,
+        7,
+        "3+",
+        23
+    ],
+    [
+        "*",
+        "Theyn",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        1,
+        3,
+        1,
+        8,
+        "3+",
+        28
+    ],
+    [
+        "Every model is equipped with: Autoch-pattern bolter; Autoch-pattern bolt pistol; Gravitic concussion grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autoch-pattern bolt pistol",
+        "12\"",
+        "Pistol 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Autoch-pattern bolter",
+        "24\"",
+        "Rapid Fire 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Concussion weapon",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "EtaCarn plasma beamer",
+        "18\"",
+        "Assault 1",
+        8,
+        -4,
+        2,
+        "Beam"
+    ],
+    [
+        "Gravitic concussion grenades",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "Blast(4), Graviton"
+    ],
+    [
+        "HYLas auto rifle",
+        "24\"",
+        "Assault 3",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Ion blaster",
+        "18\"",
+        "Assault 1",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Magna-rail rifle",
+        "24\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3), Beam, Decimate, Tank hunter"
+    ],
+    [
+        "MPL7 missile launcher",
+        "30\"",
+        "Assault 7",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Plasma axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Plasma sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 10 models, two Hearthkyn Warriors may swap their Autoch-pattern bolter:"
+    ],
+    [
+        "- Plasma axe",
+        "+0 points/model"
+    ],
+    [
+        "- Plasma sword",
+        "+0 points/model"
+    ],
+    [
+        "- Concussion weapon",
+        "+10 points/model"
+    ],
+    [
+        "- HYLas auto rifle",
+        "+19 points/model"
+    ],
+    [
+        "- EtaCarn plasma beamer",
+        "+27 points/model"
+    ],
+    [
+        "- L7 missile launcher",
+        "+37 points/model"
+    ],
+    [
+        "- Magna-rail rifle",
+        "+50 points/model"
+    ],
+    [
+        "\u2022 Up to 3 different Hearthkyn Warriors may take one of the following:"
+    ],
+    [
+        "- Medipack",
+        "+5 points/model"
+    ],
+    [
+        "- Multiwave comms array",
+        "+5 points/model"
+    ],
+    [
+        "- Pan spectral scanner",
+        "+5 points/model"
+    ],
+    [
+        "\u2022 All remaining models in the unit may have their Autoch-pattern bolter swapped:"
+    ],
+    [
+        "- Ion blaster",
+        "+1 point/model"
+    ],
+    [
+        "\u2022 One model may be upgraded to a Theyn for +5pts and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Eye of the Ancestors, Steady Advance, Void armor"
+    ],
+    [
+        "Medipack: The model gains the \"Narthecium\" ability."
+    ],
+    [
+        "Multiwave comms array: The unit may use the Ld value of a friendly K\u00e2hl, if any is present and alive in the army."
+    ],
+    [
+        "Pan spectral scanner: All weapons of the unit gain +1 AP when shooting at targets that benefit from cover."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

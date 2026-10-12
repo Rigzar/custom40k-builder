@@ -1,0 +1,78 @@
+[
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "12\"",
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Effect:",
+        "Creatures suffer 1D6 automatic wounds with S: 10 AP: -2 D: 1; Seeking. \nVehicles suffer 1D3 glancing hits with AT(1); Seeking.",
+        "Effect:",
+        "Roll 1D6 for each model in the target unit. For every 3+ it suffers an automatic wound with S: 5 AP: 0 D: 1; Sunder(2). Can't cause more than 10 wounds in a single activation.",
+        "Effect:",
+        "The target suffers one automatic hit with S: D AP: -4 D: 3; AT(4), Seeking."
+    ],
+    [
+        "Duration:",
+        "Immediately",
+        "Duration:",
+        "Immediately",
+        "Duration:",
+        "Immediately"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Form Matter",
+        "Name:",
+        "Transdimensional Manipulation"
+    ],
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "12\""
+    ],
+    [
+        "Target:",
+        "Piece of terrain",
+        "Target:",
+        "Friendly unit"
+    ],
+    [
+        "Effect:",
+        "Change the terrain feature type to any combination:\n- Normal terrain / Difficult terrain / Dangerous terrain\n- No Cover / Light cover / Heavy cover",
+        "Effect:",
+        "The caster may heal a friendly <Canoptek> or <Necron> unit for 1D3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first."
+    ],
+    [
+        "Duration:",
+        "Until the end of the game",
+        "Duration:",
+        "Immediately"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ]
+]

@@ -1,0 +1,105 @@
+[
+    [
+        "Chaos Space Marines"
+    ],
+    [
+        "HQ",
+        "Adept of Possession",
+        "Chaos Lieutenant",
+        "Chaos Sorcerer",
+        "Dark Apostle",
+        "Daemon Prince",
+        "Infernal Acolyte",
+        "Lord Discordant",
+        "Warpsmith",
+        "Special rules",
+        "Animosity of the Gods: See separate sheet.",
+        "Favored Units: If a unit has a Mark of Chaos and starts the game with a number of models equal to the deity's sacred number (or a multiple thereof), it counts as favored. Squad leaders receive +1 attack and a personal icon. Squad leaders are single models within a unit that have sole access to the armory. The sacred numbers are as follow: 9 for Tzeentch, 8 for Khorne, 7 for Nurgle and 6 for Slaanesh.",
+        "Mark of Chaos Undivided*: The first time this model kills an enemy unit, it receives the benefits of one Mark of Chaos like a non-character model. If it kills a second unit, it gains the additional benefit like a character model would. After the third kill it receives one Daemon weapon ability from the chosen god. After the fourth kill the models base stats are replaced by those of a Daemon Prince of the chosen god. If the model loses its last Wound before getting at least one Mark of Chaos benefit, it is replaced with a Chaos Spawn under the control of the opposing player.",
+        "Mark of Khorne*: The model gains +1 Attack. A character model or Monstrous Creature gains additionally +1 Strength. Vehicles cause double hits when performing a Tank Shock. Counts as a veteran ability.",
+        "Mark of Nurgle*: The model gains +1 Toughness. A character model or Monstrous Creature gains additionally +1 Wound. Vehicles may roll 2D6 during each Reinforcement phase. On a roll of 7+ they may either remove a \"Crew Shaken\" result, or one \"Engine Damage\" or one \"Weapon Damage\" or restore one lost HP. Counts as a veteran ability.",
+        "Mark of Slaanesh*: The model gains +1 Initiative. A character model or Monstrous Creature additionally gains additionally +2\" Movement. Vehicles lower the Ld or close combat result of hostile models by -1 within a 18\" range and by -2 within 9\". Counts as a veteran ability.",
+        "Mark of Tzeentch*: The model gains the \"Warded\" ability. A character model or Monstrous Creature becomes a psyker and knows 1 power from any discipline. If the model is already a psyker, instead it can manifest and deny an additional power per battle round. Vehicles get a Warpflamer weapon (Range: 9\", Type: Assault 4, S: 4, AP: -1, Dmg: 1, Auto Hit, Sunder(1)). Counts as a veteran ability.",
+        "* If a unit already is equipped with a mark, its benefits are included in the units profile.",
+        "Summoning: If the army contains any units from the \"Chaos Daemons\" codex, these units must start the game as reserve, with the exception of Nurglings who can be deployed regularely. Character models are not allowed to join a unit from the Chaos Daemons codex. Chaos Daemons can not be used to fulfill mandatory AOP selections.\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    ],
+    [
+        "Troops",
+        "Accursed Cultists",
+        "Chaos Space Marines",
+        "Cultists",
+        "Jakhals",
+        "Mutants",
+        "Poxwalkers",
+        "Traitor Guard",
+        "Tzaangors"
+    ],
+    [
+        "Elite",
+        "Big Mutants",
+        "Blightlord Terminators",
+        "Chaos Terminators",
+        "Chosen",
+        "Cultist Firebrand",
+        "Dark Commune",
+        "Deathshroud Terminators",
+        "Eightbound",
+        "Flawless Blades",
+        "Foetid Virion",
+        "Helbrute",
+        "Khorne Berzerkers",
+        "Legionnaires",
+        "Master of Execution",
+        "Mutilator",
+        "Noise Marines",
+        "Plague Marines",
+        "Possessed",
+        "Red Butcher Terminators",
+        "Rubric Marines",
+        "Scarab Occult Terminators",
+        "Sekhetar Robots",
+        "Slaughterbound",
+        "Tzaangor Shaman"
+    ],
+    [
+        "Fast Attack",
+        "Chaos Bikers",
+        "Chaos Spawn",
+        "Foetid Bloat-Drone",
+        "Greater Blight Drone",
+        "Juggernaut Hellriders",
+        "Myphitic Blight-Hauler",
+        "Raptors",
+        "Tzaangor Enlightened",
+        "Venomcrawler",
+        "Warptalons"
+    ],
+    [
+        "Heavy Support",
+        "Blood Slaughterer",
+        "Chaos Land Raider",
+        "Chaos Predator",
+        "Chaos Vindicator",
+        "Chaos Decimator",
+        "Defiler",
+        "Forgefiend",
+        "Havocs",
+        "Maulerfiend",
+        "Obliterator",
+        "Plagueburst Crawler"
+    ],
+    [
+        "Transports",
+        "Chaos Rhino",
+        "Dreadclaw Drop Pod"
+    ],
+    [
+        "Fortifications",
+        "Miasmic Malignifier",
+        "Noctilith Crown"
+    ],
+    [
+        "Flyers",
+        "Heldrake"
+    ]
+]

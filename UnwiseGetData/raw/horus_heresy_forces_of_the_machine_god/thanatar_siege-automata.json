@@ -1,0 +1,139 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1",
+        "Siege-Automata",
+        "6\"",
+        "4+",
+        "3+",
+        6,
+        13,
+        13,
+        10,
+        3,
+        3,
+        3,
+        379
+    ],
+    [
+        "A Siege-Automata is equipped with: Plasma mortar; 2 Shock charger."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Graviton ram"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "- Ranged",
+        "9\"",
+        "Assault 4",
+        5,
+        -3,
+        1,
+        "Auto Hit, Grav, Haywire"
+    ],
+    [
+        "Plasma mortar",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(6), Indirect, Overheating, Sunder(2)"
+    ],
+    [
+        "Shock charger",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "Sollex heavy-las",
+        "48\"",
+        "Heavy 3",
+        10,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Twin mauler bolt cannon",
+        "24\"",
+        "Rapid Fire 4",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap one Shock charger:"
+    ],
+    [
+        "- Graviton ram",
+        "+30 points"
+    ],
+    [
+        "\u2022 May swap the Plasma mortar:"
+    ],
+    [
+        "- Sollex heavy-las",
+        "+76 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Atomantic deflector: The model gains a 5+ ward save."
+    ],
+    [
+        "Cybernetica Cortex: If this model is not within 12\" of a Tech-Priest, Magos or Archmagos with the Datasmith upgrade, it can only be assigned \"Fight\" or \"Stand & Shoot\" Orders, and must fire all its ranged weapons at the nearest enemy unit."
+    ],
+    [
+        "Grav Wave: If a model with a Graviton Ram is the target of a \"Charge\" Order, it always benefits from the \"Hold Your Ground\" effect, regardless of its activation status."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle, Walker"
+    ]
+]
