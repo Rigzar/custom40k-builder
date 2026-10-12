@@ -859,45 +859,47 @@ import Layout from '../../components/Layout.astro';
       <p class="section-note">Row = primary faction · Column = ally. The matrix is symmetric. <span class="dot dot-g"></span> Battle Brothers · <span class="dot dot-y"></span> Allies of Convenience · <span class="dot dot-r"></span> Desperate Allies</p>
       <div class="matrix-scroll">
         <table class="ally-matrix">
-          <thead>
-            <tr>
-              <th></th>
-              <th title="Adeptus Sororitas">AdS</th>
-              <th title="Space Marines">SM</th>
-              <th title="Adeptus Custodes">AdC</th>
-              <th title="Adeptus Mechanicus">AdM</th>
-              <th title="Chaos Daemons">CD</th>
-              <th title="Chaos Space Marines">CSM</th>
-              <th title="Dark Eldar">DaE</th>
-              <th title="Imperial Guard">IG</th>
-              <th title="Inquisition">Inq</th>
-              <th title="Leagues of Votann">LoV</th>
-              <th title="Necrons">Nec</th>
-              <th title="Orks">Ork</th>
-              <th title="Genestealer Cults">GSC</th>
-              <th title="Tau Empire">Tau</th>
-              <th title="Tyranids">Tyr</th>
-              <th title="Eldar">Eld</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th title="Adeptus Sororitas">AdS</th><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Space Marines">SM</th><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Adeptus Custodes">AdC</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Adeptus Mechanicus">AdM</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Chaos Daemons">CD</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
-            <tr><th title="Chaos Space Marines">CSM</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
-            <tr><th title="Dark Eldar">DaE</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y mx-d">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Imperial Guard">IG</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Inquisition">Inq</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g">G</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Leagues of Votann">LoV</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Necrons">Nec</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g mx-d">G</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
-            <tr><th title="Orks">Ork</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Genestealer Cults">GSC</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-r">R</td></tr>
-            <tr><th title="Tau Empire">Tau</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
-            <tr><th title="Tyranids">Tyr</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td></tr>
-            <tr><th title="Eldar">Eld</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td></tr>
-          </tbody>
+            <thead>
+              <tr>
+                <th></th>
+                <th title="Adeptus Sororitas">AdS</th>
+                <th title="Space Marines">SM</th>
+                <th title="Adeptus Custodes">AdC</th>
+                <th title="Adeptus Mechanicus">AdM</th>
+                <th title="Chaos Daemons">CD</th>
+                <th title="Chaos Space Marines">CSM</th>
+                <th title="Dark Eldar">DaE</th>
+                <th title="Imperial Guard">IG</th>
+                <th title="Imperial Navy">IN</th>
+                <th title="Inquisition">Inq</th>
+                <th title="Leagues of Votann">LoV</th>
+                <th title="Necrons">Nec</th>
+                <th title="Orks">Ork</th>
+                <th title="Genestealer Cults">GSC</th>
+                <th title="Tau Empire">Tau</th>
+                <th title="Tyranids">Tyr</th>
+                <th title="Eldar">Eld</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th title="Adeptus Sororitas">AdS</th><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Space Marines">SM</th><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Adeptus Custodes">AdC</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Adeptus Mechanicus">AdM</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Chaos Daemons">CD</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
+              <tr><th title="Chaos Space Marines">CSM</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
+              <tr><th title="Dark Eldar">DaE</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y mx-d">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Imperial Guard">IG</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Imperial Navy">IN</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g">G</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Inquisition">Inq</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Leagues of Votann">LoV</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Necrons">Nec</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g mx-d">G</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
+              <tr><th title="Orks">Ork</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Genestealer Cults">GSC</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td></tr>
+              <tr><th title="Tau Empire">Tau</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+              <tr><th title="Tyranids">Tyr</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td></tr>
+              <tr><th title="Eldar">Eld</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td></tr>
+            </tbody>
         </table>
       </div>
     </div>

@@ -214,6 +214,19 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
     },
   ],
 
+  imperial_navy: [
+    {
+      name: 'Skyhammer Doctrine',
+      description: 'The army doubles its available AOP slots for Flyers. Additionally, Flyers arrive on turn 1 already.',
+      tag: 'signature',
+    },
+    {
+      name: 'Warrant of Trade',
+      description: 'As long as the main army has a higher total points value than the allied contingent, allied Troop units from "Allies of Convenience" retain their "Objective Secured!" ability. Additionally, every model in the army with access to the Armory may select a single item from any Imperial faction.',
+      tag: 'signature',
+    },
+  ],
+
   assassins: [
     {
       name: 'Execution Force',

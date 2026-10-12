@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v184_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v184b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "New in this version", rows: [
         ["Points left","The header reads \"2435 (65)  ▬▬  / 2500\": your total and, in brackets, the points still free. Red with a minus when you are over the limit, green at exactly 0."],
+        ["New faction","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta and four flyers, with its own Armory. Skyhammer Doctrine doubles the Flyer slots; Warrant of Trade lets every model take one item from any Imperial faction."],
+        ["Skirmish allies","Allies and archetypes now work in Skirmish: one Troops plus at most one Elite, Fast Attack or Heavy Support, sharing the main AOP. Only archetypes marked for Skirmish in their codex are offered."],
+        ["Rules 1.279","Armorbane(x) replaces the fixed +3 and Lance is gone (32 armory items and powers updated); Disorderly Charge is in the Field Manual and the glossary was re-read against the new text."],
+        ["Tyranids","Zoanthropes: one Neurothrope per three models for +25. Fixed the Synaptic Disruption Organ lines split in Russian, and the Megafauna archetype."],
+        ["Table mod","The Tabletop Simulator mod (Workshop) has orders face-down at 32 mm, tokens beside units and a Terms page."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -72,6 +77,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Neu in dieser Version", rows: [
         ["Verbleibende Punkte","Die Kopfzeile zeigt „2435 (65)  ▬▬  / 2500“: deine Summe und in Klammern die noch freien Punkte. Rot mit Minus über dem Limit, grün bei genau 0."],
+        ["Neue Fraktion","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta und vier Flieger, mit eigener Armory. Skyhammer Doctrine verdoppelt die Flyer-Plätze; Warrant of Trade erlaubt jedem Modell einen Gegenstand aus einer beliebigen imperialen Fraktion."],
+        ["Skirmish-Verbündete","Verbündete und Archetypen funktionieren jetzt im Skirmish: ein Troops plus höchstens ein Elite, Fast Attack oder Heavy Support, im AOP der Hauptarmee. Angeboten werden nur Archetypen, die im Codex für Skirmish freigegeben sind."],
+        ["Regeln 1.279","Armorbane(x) ersetzt das feste +3, Lance entfällt (32 Armory-Gegenstände und Kräfte angepasst); Disorderly Charge steht im Feldhandbuch, das Glossar wurde gegen den neuen Text geprüft."],
+        ["Tyraniden","Zoanthropen: ein Neurothrope je drei Modelle für +25. Die in Russisch zerhackten Zeilen des Synaptic Disruption Organ und der Megafauna-Archetyp sind korrigiert."],
+        ["Tischmod","Der Tabletop-Simulator-Mod (Workshop) hat verdeckte Befehle in 32 mm, Marker neben den Einheiten und eine Seite „Terms“."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -83,6 +93,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Novedades de esta versión", rows: [
         ["Puntos restantes","La cabecera dice «2435 (65)  ▬▬  / 2500»: tu total y, entre paréntesis, los puntos libres. Rojo con menos si te pasas del límite, verde justo en 0."],
+        ["Facción nueva","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta y cuatro voladores, con su propia Armería. Skyhammer Doctrine duplica los huecos de Flyers; Warrant of Trade deja a cada modelo tomar un objeto de cualquier facción Imperial."],
+        ["Aliados en Skirmish","Los aliados y los arquetipos ya funcionan en Skirmish: un Troops más como máximo un Elite, Fast Attack o Heavy Support, dentro del AOP del ejército principal. Solo se ofrecen los arquetipos marcados para Skirmish en su códice."],
+        ["Reglas 1.279","Armorbane(x) sustituye al +3 fijo y Lance desaparece (32 objetos de armería y poderes actualizados); la Disorderly Charge está en el Manual de Campo y el glosario se releyó contra el texto nuevo."],
+        ["Tiránidos","Zoantropos: un Neurothrope por cada tres modelos por +25. Arregladas las líneas partidas del Synaptic Disruption Organ en ruso y el arquetipo Megafauna."],
+        ["Mod de mesa","El mod de Tabletop Simulator (Workshop) trae órdenes boca abajo a 32 mm, fichas junto a las unidades y una página «Terms»."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -94,6 +109,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Новое в этой версии", rows: [
         ["Оставшиеся очки","Шапка показывает «2435 (65)  ▬▬  / 2500»: вашу сумму и в скобках свободные очки. Красным со знаком минус при превышении лимита, зелёным при ровно 0."],
+        ["Новая фракция","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta и четыре летательных аппарата, со своим арсеналом. Skyhammer Doctrine удваивает слоты Flyers; Warrant of Trade позволяет каждой модели взять один предмет из любой имперской фракции."],
+        ["Союзники в Skirmish","Союзники и архетипы теперь работают в Skirmish: один Troops и не более одного Elite, Fast Attack или Heavy Support, в AOP основной армии. Предлагаются только архетипы, отмеченные для Skirmish в кодексе."],
+        ["Правила 1.279","Armorbane(x) заменяет фиксированный +3, Lance убран (обновлено 32 предмета арсенала и сил); Disorderly Charge есть в Полевом руководстве, глоссарий сверен с новым текстом."],
+        ["Тираниды","Zoanthrope: один Neurothrope на каждые три модели за +25. Исправлены разбитые на строки тексты Synaptic Disruption Organ на русском и архетип Megafauna."],
+        ["Мод для стола","В моде Tabletop Simulator (Workshop) приказы лежат рубашкой вверх, жетоны 32 мм рядом с отрядами и есть страница «Terms»."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -105,6 +125,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "このバージョンの新機能", rows: [
         ["残りポイント","ヘッダーに「2435 (65)  ▬▬  / 2500」と表示されます：合計と、括弧内に残りポイント。上限を超えるとマイナス付きの赤、ちょうど0で緑です。"],
+        ["新勢力","Imperial Navy：Rogue Trader、Voidmaster、Ratings、Voidsmen、Breachers、Explorator、Impressed Ogryns、Valkyrie、Vendetta、飛行ユニット4種と独自の武器庫。Skyhammer DoctrineでFlyer枠が2倍に、Warrant of Tradeで各モデルが任意の帝国勢力からアイテム1つを選べます。"],
+        ["Skirmishの同盟軍","Skirmishで同盟軍とアーキタイプが使えるようになりました：Troops 1つとElite・Fast Attack・Heavy Supportのいずれか最大1つで、主軍のAOPを共有します。コーデックスでSkirmish可とされたアーキタイプのみ選べます。"],
+        ["ルール1.279","Armorbane(x)が固定の+3に代わり、Lanceは廃止（武器庫アイテムとパワー32件を更新）。Disorderly Chargeはフィールドマニュアルに載り、用語集も新しい文面に合わせて見直しました。"],
+        ["ティラニッド","ゾアンスロープ：3モデルごとにニューロスロープ1体を+25で。ロシア語で分割されていたSynaptic Disruption Organの文と、Megafaunaアーキタイプを修正しました。"],
+        ["テーブルmod","Tabletop Simulatorのmod（Workshop）：オーダーは32mmの裏向き、トークンはユニットの横、新しい「Terms」ページがあります。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

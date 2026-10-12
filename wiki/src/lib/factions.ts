@@ -14,6 +14,7 @@ export const ALL_FACTIONS: FactionConfig[] = [
   { key: 'adeptus_sororitas', label: 'Adeptus Sororitas', symbol: 'adeptus-sororitas.svg' },
   { key: 'grey_knights', label: 'Grey Knights', symbol: 'grey-knights.svg' },
   { key: 'inquisition', label: 'Inquisition', symbol: 'inquisition.svg' },
+  { key: 'imperial_navy', label: 'Imperial Navy', symbol: 'imperial-navy.svg' },
   { key: 'assassins', label: 'Assassins', symbol: 'assassins.svg' },
   { key: 'tau_empire', label: 'Tau Empire', symbol: 'tau-empire.svg' },
   { key: 'necrons', label: 'Necrons', symbol: 'necrons.svg' },

@@ -152,6 +152,15 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     ]);
     return assemble(d(g), d(arch), {}, d(discs), d(prayers));
   },
+  imperial_navy: async () => {
+    const [g, arch, discs, prayers] = await Promise.all([
+      import('../vendor/data/parsed/imperial_navy/armory/general.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/imperial_navy/archetypes.json') as unknown as Promise<Mod<ArchData>>,
+      import('../vendor/data/parsed/imperial_navy/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
+      import('../vendor/data/parsed/imperial_navy/psychic/prayers.json') as unknown as Promise<Mod<Power[]>>,
+    ]);
+    return assemble(d(g), d(arch), {}, d(discs), d(prayers));
+  },
   inquisition: async () => {
     const [g, arch, discs, prayers] = await Promise.all([
       import('../vendor/data/parsed/inquisition/armory/general.json') as unknown as Promise<Mod<Armory>>,

@@ -41,6 +41,7 @@ const LOADERS: Record<string, () => Promise<FactionUnits>> = {
   adeptus_sororitas: () => import('../vendor/data/parsed/adeptus_sororitas/units/index'),
   grey_knights: () => import('../vendor/data/parsed/grey_knights/units/index'),
   inquisition: () => import('../vendor/data/parsed/inquisition/units/index'),
+  imperial_navy: () => import('../vendor/data/parsed/imperial_navy/units/index'),
   assassins: () => import('../vendor/data/parsed/assassins/units/index'),
   tau_empire: () => import('../vendor/data/parsed/tau_empire/units/index'),
   necrons: () => import('../vendor/data/parsed/necrons/units/index'),
