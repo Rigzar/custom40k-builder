@@ -26,6 +26,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.84',
+    date: '2026-10-12',
+    title: "The army points left, shown next to your total",
+    changes: [
+      "GENERAL — POINTS LEFT IN THE HEADER (Discord suggestion). The bar at the top right now reads \"2435 (65)  ▬▬  / 2500\": your total, and in brackets how many points are still free. It turns red with a minus sign when you are over the limit and green at exactly 0, and hovering it says \"65 left\" or \"12 over the limit\" in your language.",
+    ],
+  },
+  {
     version: '1.83',
     date: '2026-10-08',
     title: "The Horus Heresy supplements update themselves, and Gitfinda can announce games on Discord",

@@ -1,4 +1,26 @@
 {
+ "1.84": {
+  "title": {
+   "de": "Die verbleibenden Armeepunkte, neben deiner Summe",
+   "es": "Los puntos que te quedan, junto a tu total",
+   "ru": "Оставшиеся очки армии рядом с общей суммой",
+   "ja": "残りの軍ポイントを合計の横に表示"
+  },
+  "changes": {
+   "de": [
+    "ALLGEMEIN — VERBLEIBENDE PUNKTE IN DER KOPFZEILE (Discord-Vorschlag). Die Leiste oben rechts zeigt jetzt „2435 (65)  ▬▬  / 2500“: deine Summe und in Klammern, wie viele Punkte noch frei sind. Über dem Limit wird sie rot mit Minuszeichen, bei genau 0 grün, und beim Darüberfahren steht „65 übrig“ oder „12 über dem Limit“ in deiner Sprache."
+   ],
+   "es": [
+    "GENERAL — PUNTOS RESTANTES EN LA CABECERA (sugerencia de Discord). La barra de arriba a la derecha ahora dice «2435 (65)  ▬▬  / 2500»: tu total y, entre paréntesis, cuántos puntos te quedan libres. Se pone roja con signo menos si te pasas del límite y verde justo en 0, y al pasar el ratón dice «65 restantes» o «12 sobre el límite» en tu idioma."
+   ],
+   "ru": [
+    "ОБЩЕЕ — ОСТАВШИЕСЯ ОЧКИ В ШАПКЕ (предложение из Discord). Полоса справа вверху теперь показывает «2435 (65)  ▬▬  / 2500»: вашу сумму и в скобках, сколько очков ещё свободно. При превышении лимита она краснеет со знаком минус, при ровно 0 становится зелёной, а при наведении подсказка на вашем языке говорит «осталось 65» или «12 сверх лимита»."
+   ],
+   "ja": [
+    "全般 — ヘッダーに残りポイントを表示（Discordの提案）。右上のバーが「2435 (65)  ▬▬  / 2500」と表示されるようになりました：合計と、括弧内に残っているポイントです。上限を超えるとマイナス付きで赤、ちょうど0で緑になり、マウスを重ねると「残り 65」または「12 超過」とお使いの言語で表示されます。"
+   ]
+  }
+ },
  "1.83": {
   "title": {
    "de": "Die Horus-Heresy-Supplemente aktualisieren sich selbst, und Gitfinda kann Spiele auf Discord ankündigen",
