@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
+import { slotCapFactor } from '../engine/navyRules';
 import { getActiveVariant, getPromotedModel } from '../engine/points';
 import { useLanguage, t as tFn } from '../i18n';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
@@ -48,6 +49,7 @@ const FACTION_SYMBOL: Record<string, string> = {
   'Imperial Guard':             '/faction-symbols/imperial-guard.svg',
   'Grey Knights':               '/faction-symbols/grey-knights.svg',
   'Inquisition':                '/faction-symbols/inquisition.svg',
+  'Imperial Navy':              '/faction-symbols/imperial-navy.svg',
   'Assassins':                  '/faction-symbols/assassins.svg',
   'Horus Heresy Legiones Astartes': '/faction-symbols/horus-heresy.svg',
   'Horus Heresy Forces of the Machine God': '/faction-symbols/horus-heresy.svg',
@@ -87,6 +89,7 @@ const FACTION_COLOR: Record<string, string> = {
   'Imperial Guard':              '#4a5c2e',
   'Grey Knights':                '#5c6b73',
   'Inquisition':                 '#5c1f1f',
+  'Imperial Navy':               '#1f3a5c',
   'Assassins':                   '#2e2e33',
   'Horus Heresy Legiones Astartes':  '#73631f',
   'Horus Heresy Forces of the Machine God':  '#73631f',
@@ -1267,7 +1270,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   const compMax = COMP_SLOTS.map(slot => {
     if (slot === 'Transport') return Math.max(infantryCount, 1);
     const cap = engagement.aop[(slot === 'Fast Attack' ? 'Fast Attack' : slot) as keyof typeof engagement.aop]?.[1] ?? 0;
-    return Math.max(cap, 1);
+    return Math.max(cap * slotCapFactor(data.faction, slot), 1);
   });
   const compValues = compCountsForRadar.map((count, i) => Math.min((count / compMax[i]) * 10, 10));
   const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${compMax[i]}`);

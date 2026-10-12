@@ -318,7 +318,7 @@ export function isItemGravisCompat(item: ArmoryItem): boolean {
 const CHAOS_ARMY_FACTIONS = ['Chaos Space Marines', 'Chaos Daemons'];
 const IMPERIAL_ARMY_FACTIONS = [
   'Space Marines', 'Imperial Guard', 'Adeptus Mechanicus', 'Adeptus Custodes',
-  'Adeptus Sororitas', 'Grey Knights', 'Inquisition',
+  'Adeptus Sororitas', 'Grey Knights', 'Inquisition', 'Imperial Navy',
 ];
 
 /** Does this faction count as a "Chaos army" / "Imperial army" for the Assassins' own

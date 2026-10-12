@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
 import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
+import { slotCapFactor } from '../engine/navyRules';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
@@ -399,7 +400,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           ? countInfantrySelections(store, primaryData, false)
           : (slot === 'HQ' && rule?.hqOverride)
             ? rawMax
-            : eng.multiAop ? rawMax * aopMult : rawMax;
+            : (eng.multiAop ? rawMax * aopMult : rawMax) * slotCapFactor(primaryData.faction, slot);
         const max = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawScaledMax, rule.slotCapOverride.max) : rawScaledMax;
 
         const units = effectiveSlotUnits[slot] ?? [];

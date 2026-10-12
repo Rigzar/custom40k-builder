@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-imperial-navy-sheet-questions-for-author-01",
+    status: "known",
+    title: "Imperial Navy: questions for the sheet author (Daemonhosts tab, Voidsmen weapons, Armory marks)",
+    description: "ADDED 2026-10-12 with the new faction (Imperial Navy 1.0.ods). (1) The Index lists Daemonhosts under Elite but the file has no Daemonhosts tab; the unit is a copy of the Inquisition's and unchecked. (2) Voidsmen: the weapon table has Chainsword and Laspistol but no model, option or 'equipped with' line gives them to anyone (the Sergeant-at-arms?), so every Voidsman shows them as a default weapon. (3) The Armory note says 'Acolyte Specialists can only receive weapons marked with ˢ' but no weapon row carries the glyph; the flags of the Inquisition's armory were reused for same-named weapons, the thirteen new ones (Autogun, Autopistol, Las-volley, Navis shotguns, Sling gun...) are open to Acolytes. (4) Weapon headers without a trailing * (Explorator 'Eradication pistol', Impressed Ogryns 'Ripper gun') and 'Plasma pistol*' without a space, which the unit-update script cannot read: the files were written with the mode rows joined to their header, and the next unit update will undo that until the sheet gets the * (see ki-weapon-header-without-star-orphan-modes-01). (5) The sheet still writes Explosive, Barrage and Extra attack, ability names Core Rules 1.279 retired (the Frag grenade 'Explosive' is kept as written).",
+  },
+  {
+    id: "ki-imperial-navy-warrant-objective-secured-01",
+    status: "known",
+    title: "Imperial Navy: 'Warrant of Trade' keeps Objective Secured! for allied Troops, but only the Armory half is in the app",
+    description: "ADDED 2026-10-12. The rule has two halves: every model with Armory access may take a single item from any Imperial faction (built: the Warrant of Trade tab of the Armory, the same picker the Inquisition's Authority uses) and, while the main army has more points than the allied contingent, allied Troops from Allies of Convenience keep Objective Secured! (a table rule; the app does not apply it). Skyhammer Doctrine's second half, Flyers arriving on turn 1, is a table rule as well.",
+  },
+  {
     id: "ki-tyranids-sporocyst-spore-mine-profile-01",
     status: "known",
     title: "Tyranid Sporocyst: its Spore Mine model and its \"Spore Mine launcher\" explosion profile are not shown",

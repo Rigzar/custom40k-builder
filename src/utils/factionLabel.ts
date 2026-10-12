@@ -21,6 +21,7 @@ export const FACTION_NAMES: Record<string, string> = {
   adeptus_sororitas:    'Adeptus Sororitas',
   grey_knights:         'Grey Knights',
   inquisition:          'Inquisition',
+  imperial_navy:        'Imperial Navy',
   assassins:            'Assassins',
   tau_empire:           'Tau Empire',
   necrons:              'Necrons',

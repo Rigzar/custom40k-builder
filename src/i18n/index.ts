@@ -123,7 +123,7 @@ export type TranslationKey =
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
-  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel'
+  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'warrantTabLabel'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
@@ -192,7 +192,7 @@ export type TranslationKey =
   | 'valMixedWarbandMultiLegacy'
   | 'valChamberMilitantNoLegacy'
   | 'valOrdoMinorisExcess'
-  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord' | 'valSectorProtectorWarbandMin'
+  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord' | 'valNavyWarbandPerTrader' | 'valSectorProtectorWarbandMin'
   | 'valCsmLegacyKhorne' | 'valCsmLegacyUnitRestrict'
   | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
   | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian'
@@ -1004,6 +1004,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ All Marks',
     armourySuffix: 'Armoury',
     authorityTabLabel: 'Authority of the Inquisition',
+    warrantTabLabel: 'Warrant of Trade',
     termArmourNotice: 'Terminator armour — showing only Terminator-compatible items (ᵀ).',
     weaponsLabel: 'Weapons',
     bcChampionBanner: '⚜ Black Crusade Champion — access to all four mark armories',
@@ -1291,7 +1292,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Not in this codex any more',
     unitNotInCodexBody: 'This datasheet was removed or renamed in a codex update. It contributes 0 points and has no profile, but it is still holding its slot.',
     removeFromList: 'Remove from list',
-    valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord) (have {count}).',
+    valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord / Rogue Trader Majoris) (have {count}).',
+    valNavyWarbandPerTrader: 'Henchman Warband: each Rogue Trader may select a single Warband ({warbands} Warbands, {traders} Rogue Traders).',
     valCsmLegacyKhorne: '{armory} armory — "{item}": only for models with the Mark of Khorne ({unit} has Mark of {mark}).',
     valCsmLegacyUnitRestrict: '{armory} armory — "{item}": {restriction} (cannot be equipped on {unit}).',
     valSm1stCompanyForbidden: '1st Company: "{unit}" is not allowed in this archetype.',
@@ -2139,6 +2141,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Alle Male',
     armourySuffix: 'Rüstkammer',
     authorityTabLabel: 'Autorität der Inquisition',
+    warrantTabLabel: 'Handelsbefugnis (Warrant of Trade)',
     termArmourNotice: 'Terminator-Rüstung — zeigt nur Terminator-kompatible Gegenstände (ᵀ).',
     weaponsLabel: 'Waffen',
     bcChampionBanner: '⚜ Schwarzer-Kreuzzug-Champion — Zugriff auf alle vier Mal-Rüstkammern',
@@ -2424,7 +2427,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Nicht mehr in diesem Codex',
     unitNotInCodexBody: 'Dieses Datenblatt wurde in einem Codex-Update entfernt oder umbenannt. Es kostet 0 Punkte und hat kein Profil, belegt aber weiterhin seinen Slot.',
     removeFromList: 'Aus der Liste entfernen',
-    valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord) (hat {count}).',
+    valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord / Rogue Trader Majoris) (hat {count}).',
+    valNavyWarbandPerTrader: 'Gefolgsleute-Warband: Jeder Rogue Trader darf nur eine Warband wählen ({warbands} Warbands, {traders} Rogue Trader).',
     valCsmLegacyKhorne: '{armory}-Rüstkammer — „{item}": nur für Modelle mit der Mark des Khorne ({unit} hat Mark des {mark}).',
     valCsmLegacyUnitRestrict: '{armory}-Rüstkammer — „{item}": {restriction} (nicht ausrüstbar für {unit}).',
     valSm1stCompanyForbidden: '1. Kompanie: „{unit}" ist in diesem Archetyp nicht erlaubt.',
@@ -3272,6 +3276,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Todas las marcas',
     armourySuffix: 'Armería',
     authorityTabLabel: 'Autoridad de la Inquisición',
+    warrantTabLabel: 'Patente de Comercio (Warrant of Trade)',
     termArmourNotice: 'Armadura Terminator — mostrando solo objetos compatibles con Terminator (ᵀ).',
     weaponsLabel: 'Armas',
     bcChampionBanner: '⚜ Campeón de Cruzada Negra — acceso a las cuatro armerías de marca',
@@ -3557,7 +3562,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Ya no está en este códex',
     unitNotInCodexBody: 'Esta hoja se eliminó o se renombró en una actualización del códex. Cuesta 0 puntos y no tiene perfil, pero sigue ocupando su hueco.',
     removeFromList: 'Quitar de la lista',
-    valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord) (tiene {count}).',
+    valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord / Rogue Trader Majoris) (tiene {count}).',
+    valNavyWarbandPerTrader: 'Séquito: cada Rogue Trader puede elegir una sola banda ({warbands} bandas, {traders} Rogue Traders).',
     valCsmLegacyKhorne: 'Armería {armory} — "{item}": solo para modelos con la Marca de Khorne ({unit} tiene Marca de {mark}).',
     valCsmLegacyUnitRestrict: 'Armería {armory} — "{item}": {restriction} (no se puede equipar en {unit}).',
     valSm1stCompanyForbidden: '1.ª Compañía: "{unit}" no está permitida en este arquetipo.',

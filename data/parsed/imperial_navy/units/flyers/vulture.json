@@ -1,0 +1,228 @@
+{
+  "name": "Vulture",
+  "models": [
+    {
+      "stats": {
+        "M": "12\"",
+        "WS": "-",
+        "BS": "4+",
+        "S": "6",
+        "FRONT": "12",
+        "SIDE": "12",
+        "REAR": "10",
+        "I": "3",
+        "A": "1",
+        "HP": "3"
+      },
+      "name": "Vulture",
+      "min": 1,
+      "max": 1,
+      "points": 228
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "A Vulture is equipped with: Heavy bolter; Twin multilaser; Six hunter-killer missiles.",
+  "weapons": [
+    {
+      "name": "Heavy bolter",
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Hellfury missile",
+      "range": "72\"",
+      "type": "Heavy 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Blast(6), Sunder(2)"
+    },
+    {
+      "name": "Hellstrike missiles",
+      "range": "72\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Anti-Air, AT(2)"
+    },
+    {
+      "name": "Hunter-killer missile",
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), AT(1)"
+    },
+    {
+      "name": "Multiple rocket pod",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Anti-Air, Blast(4)"
+    },
+    {
+      "name": "Skystrike missile",
+      "range": "60\"",
+      "type": "Heavy 1",
+      "s": "7",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Anti-Air, AT(1)"
+    },
+    {
+      "name": "Tactical bombs",
+      "range": "12\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Blast(6), Bomb"
+    },
+    {
+      "name": "Twin autocannon",
+      "range": "48\"",
+      "type": "Heavy 4",
+      "s": "7",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Twin lascannon",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(2)"
+    },
+    {
+      "name": "Twin multilaser",
+      "range": "36\"",
+      "type": "Heavy 6",
+      "s": "6",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Suppression(3)"
+    },
+    {
+      "name": "Twin punisher gatling cannon",
+      "range": "24\"",
+      "type": "Heavy 20",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May swap the Twin multilaser",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "two Multiple rocket pods",
+          "points": 9
+        },
+        {
+          "name": "Twin autocannon",
+          "points": 12
+        },
+        {
+          "name": "Twin lascannon",
+          "points": 75
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Twin multilaser"
+      ]
+    },
+    {
+      "header": "May swap the six hunter-killer missiles",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "two Multiple rocket pods",
+          "points": 7
+        },
+        {
+          "name": "two Skystrike missiles",
+          "points": 22
+        },
+        {
+          "name": "three Tactical bombs",
+          "points": 28
+        },
+        {
+          "name": "two Hellstrike missiles",
+          "points": 48
+        },
+        {
+          "name": "two Hellfury missiles",
+          "points": 68
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Hunter-killer missile"
+      ]
+    },
+    {
+      "header": "May swap both the Twin multilaser and six hunter-killer missiles",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Twin punisher gatling cannon",
+          "points": 62
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": [
+        "Twin multilaser",
+        "Hunter-killer missile"
+      ]
+    }
+  ],
+  "abilities": [
+    "Hover Mode"
+  ],
+  "unit_type": "Flyer, Vehicle",
+  "keywords": [
+    "Crew"
+  ],
+  "is_vehicle": true,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": true,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Flyers",
+  "default_size": 1,
+  "min_cost": 228
+}

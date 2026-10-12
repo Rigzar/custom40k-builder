@@ -70,6 +70,7 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.2' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.2' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.2' },
+      { key: 'imperial_navy',      name: 'Imperial Navy',      available: true, status: 'complete', version: '1.0' },
     ],
   },
   {

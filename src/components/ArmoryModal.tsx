@@ -270,6 +270,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // `activeData` is the data this item's armoury comes from, which is what the sibling gate
   // `isInquisitionAcolytes` below already uses.
   const isInquisition = activeData.faction === 'Inquisition';
+  // Imperial Navy's "Warrant of Trade" grants the same single pick from any Imperial faction.
+  const hasAuthorityTab = isInquisition || activeData.faction === 'Imperial Navy';
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
   const authorityFactions = archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
@@ -725,7 +727,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // specialist sheets and Acolytes is the ONLY one of them that grants Armory access at all
   // ("All models got access to weapons and gear from the Armory"), so no other specialist has
   // anything to restrict. Equipment is untouched — the rule names weapons.
-  const isInquisitionAcolytes = activeData.faction === 'Inquisition' && unit.name === 'Acolytes';
+  const isInquisitionAcolytes = (activeData.faction === 'Inquisition' || activeData.faction === 'Imperial Navy') && unit.name === 'Acolytes';
 
   // Horus Heresy Palatine Blade Squad ("Armory" sheet): "Every model got access to melee weapons
   // from the Armory. May not select weapons with the 'Slow' or 'Unwieldy' rule." Scoped to the
@@ -1264,7 +1266,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             </button>
           )}
           {/* Authority of the Inquisition tab — Inquisition only */}
-          {isInquisition && (
+          {hasAuthorityTab && (
             <button
               onClick={() => setTab('authority')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
@@ -1273,7 +1275,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {t('authorityTabLabel')}
+              {t(isInquisition ? 'authorityTabLabel' : 'warrantTabLabel')}
             </button>
           )}
           {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines.

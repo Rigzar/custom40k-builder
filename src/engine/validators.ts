@@ -1,5 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
+import { slotCapFactor } from './navyRules';
 import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
@@ -1137,6 +1138,28 @@ export interface FreeSlotAdjustments {
  * Restrictions) says "All units occupy an Army Organisation slot, even if their rules state
  * otherwise", so both callers zero the whole adjustment in Skirmish — see their `slotAdj`.
  */
+/**
+ * Imperial Navy (Imperial Navy 1.0.ods): Voidmaster - "For each Rogue Trader in the army, one
+ * Voidmaster may be selected that does not occupy an HQ slot." Explorator - "For each Rogue Trader,
+ * one Explorator may be selected that does not occupy an Elite slot." Same ratio-against-a-sibling
+ * shape as the Einhyr Champion.
+ */
+export function computeNavyFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; elites: number; notes: string[] } {
+  if (data.faction !== 'Imperial Navy') return { hq: 0, elites: 0, notes: [] };
+  const traders = army.filter(i => i.unitName === 'Rogue Trader').length;
+  const notes: string[] = [];
+  const credit = (unit: string, slot: string) => {
+    const count = army.filter(i => i.unitName === unit).length;
+    const credited = Math.min(count, traders);
+    if (count > 0) notes.push(`${unit}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the ${slot} slot (1 per Rogue Trader, have ${traders}).`);
+    return credited;
+  };
+  return { hq: credit('Voidmaster', 'HQ'), elites: credit('Explorator', 'Elite'), notes };
+}
+
 export function computeFreeSlotAdjustments(
   army: RosterEntry[],
   data: FactionData,
@@ -1166,13 +1189,14 @@ export function computeFreeSlotAdjustments(
   const spiritseer      = computeSpiritseerFreeSlots(army, data);
   const royalCourt      = computeRoyalCourtFreeSlots(army, data);
   const hqShared        = computeArchetypeHqSharedSlots(army, rule);
+  const navy            = computeNavyFreeSlots(army, data);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
-      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites,
+      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
     fa: cd.fa + krootEscort.fa,
     hs: krootEscort.hs,
     notes: [
@@ -1181,7 +1205,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes,
     ],
   };
 }
@@ -2100,7 +2124,19 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Inquisitor at all, so neither the 6 nor the Lord's 12 apply. The 5+ ACOLYTES clause is new in
     // 1.01: the old wording asked only for 5 specialists of any kind.
     const sectorLord = state.archetype === 'Sector Lord';
-    const cap = sectorLord ? 10 : (hasInquisitorLord ? 12 : 6);
+    // Imperial Navy: "A Rogue Trader may select up to 6 specialist models for their Warband. A Rogue
+    // Trader Majoris may select up to 12." and "Every Rogue Trader may select a single Henchman Warband".
+    const hasMajoris = state.army.some(item => {
+      if (item.unitName !== 'Rogue Trader') return false;
+      const u = resolveUnit(item, data);
+      return !!u && u.option_groups.some((g, gi) => g.variant_link === 'Rogue Trader Majoris' && !!(item.optionQty?.[gi]?.['__inline']));
+    });
+    const cap = sectorLord ? 10 : (hasInquisitorLord || hasMajoris ? 12 : 6);
+    if (data.faction === 'Imperial Navy') {
+      const warbands = state.army.filter(i => i.unitName === 'Henchman Warband').length;
+      const traders = state.army.filter(i => i.unitName === 'Rogue Trader').length;
+      if (warbands > traders) items.push({ type: 'error', text: T('valNavyWarbandPerTrader', { warbands, traders }) });
+    }
     for (const item of state.army) {
       if (item.unitName !== 'Henchman Warband') continue;
       if (sectorLord && item.size < 5) {
@@ -2115,7 +2151,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (item.size > cap) {
         items.push({
           type: 'error',
-          text: T(hasInquisitorLord ? 'valHenchmanWarbandCapLord' : 'valHenchmanWarbandCap', { cap, count: item.size }),
+          text: T(hasInquisitorLord || hasMajoris ? 'valHenchmanWarbandCapLord' : 'valHenchmanWarbandCap', { cap, count: item.size }),
         });
       }
     }
@@ -3134,7 +3170,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       ? countInfantrySelections(state, data, false)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
-        : (eng.multiAop ? engMax * aopState.unlocked : engMax);
+        : (eng.multiAop ? engMax * aopState.unlocked : engMax) * slotCapFactor(data.faction, slot);
     const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });

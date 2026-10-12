@@ -19,7 +19,7 @@ import { allZones, myZone, offsetLabel, zonedToUtc, formatSlot, ago } from '../l
 /** Same list as ARMIES in api/_lib/gitfinda.js (scripts/_gitfinda_test.mjs checks they agree). */
 const GITFINDA_ARMIES = [
   'chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
-  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'tau_empire', 'necrons',
+  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'tau_empire', 'necrons',
   'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann', 'tyranids',
 ];
 const ENGAGEMENTS: GitfindaEngagement[] = ['skirmish', 'pitched', 'epic'];
