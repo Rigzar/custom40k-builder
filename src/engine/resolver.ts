@@ -254,6 +254,10 @@ const ARMORY_ITEM_RENAMES: Record<string, string> = {
   // Relictors relic, misspelled here since the armoury was first imported; the sheet reads
   // "Grimoire Pandaemonica".
   'Grimoire Pandaeomonica': 'Grimoire Pandaemonica',
+  // Armory Rows the October 2026 sheets made plural (Arc grenades, Frag grenades, Haywire grenades, Plasma grenades, Shadow bombs, Abyss grenades).
+  'Arc grenade': 'Arc grenades', 'Frag grenade': 'Frag grenades', 'Haywire grenade': 'Haywire grenades',
+  'Plasma grenade': 'Plasma grenades', 'Shadow bomb': 'Shadow bombs', 'Abyss grenade': 'Abyss grenades',
+  'Headlong charge': 'Headlong Charge',
 };
 
 /**

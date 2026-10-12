@@ -4,7 +4,7 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
@@ -1291,7 +1291,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
 
             if (g.variant_link) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
-              const promotionMax = g.constraint?.type === 'fixed_max' ? (g.constraint.max ?? 1) : 1;
+              const promotionMax = variantPromotionCap(g, item.size);
               const promotionQty = Math.min(Number(item.optionQty?.[realGi]?.['__inline'] ?? 0) || 0, promotionMax);
               const variantModel = u.variant_models.find(vm => vm.name === g.variant_link);
               // "Unique per army" variant promotions (datasheet-verbatim, e.g. Master of Sorcery):
@@ -1338,7 +1338,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     <input
                       type="checkbox"
                       checked={active}
-                      disabled={uniqueTakenElsewhere}
+                      disabled={uniqueTakenElsewhere || promotionMax < 1}
                       onClick={e => e.stopPropagation()}
                       onChange={() => {
                         if (uniqueTakenElsewhere) return;

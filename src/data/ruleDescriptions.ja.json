@@ -2,7 +2,7 @@
  "ammo": "この特殊ルールを持つ装備は、1ゲームにつき {X} 回しか使用できない",
  "anti-air": "Anti-Grav、Jet Bike、Jump Pack の特殊ルール、または Flyer の部隊タイプを持つモデルに対するこの武器の攻撃は、命中ロール +1 とストレングス +1 を得る。",
  "jump pack": "モデルは地形と垂直移動のコストを無視し、特殊ルール「Deep Strike」を得る（部隊タイプ「Jump Pack Infantry」が付与するパッケージ）。",
- "armorbane": "この武器は装甲貫通ロールに +3 のボーナスを得る。",
+ "armorbane": "この武器は装甲貫通ロールに +{X} のボーナスを得る。",
  "armor piercing": "{X} のウーンドロールは常に成功し、さらに AP −2 を得る。{X} の装甲貫通ロールは AT +1 と装甲貫通ロール +2 のボーナスを得る。",
  "at": "Penetrating Hit を与えられる。Penetrating Hit では、車両ダメージ表（Vehicle Damage Chart）で {X} 個のダイスを振り、すべての結果を適用する。",
  "auto hit": "この武器は自動的に命中する。",

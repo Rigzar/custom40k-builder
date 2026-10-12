@@ -717,7 +717,9 @@ local function buildAttack(sa, ia, wIdx, sd, id, jd, opts)
     c.avKey = key
     if not c.av then return nil, 'The target vehicle has no ' .. key .. ' armour value.' end
     c.penBonus = 0
-    if ab['armorbane'] then c.penBonus = c.penBonus + 3 end
+    -- Core Rules 1.279: Armorbane(x) is +x to armor penetration rolls (a bare Armorbane on a not-yet-updated datasheet is the old +3). Lance(+x) is gone from
+    -- the rules and its data is being converted, but is still honoured until it is.
+    if ab['armorbane'] then c.penBonus = c.penBonus + (argNum(ab['armorbane']) or 3) end
     if ab['lance'] then c.penBonus = c.penBonus + (argNum(ab['lance']) or 0) end
     if melta then c.penBonus = c.penBonus + 3 end
     if c.penBonus ~= 0 then why[#why + 1] = 'Armor penetration bonus +' .. c.penBonus end

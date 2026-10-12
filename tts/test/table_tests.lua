@@ -82,6 +82,12 @@ if rhino then
   near(pickLine(lines, ', ([%d%.]+) glancing'), hits * glance / 6, 'glancing hits from 1d6+S vs armour value')
 end
 
+if rhino then
+  local function pen(abil) return C40K.buildAttack(1, squad, 0, 2, rhino, 1, { weapon = { id = 't', name = 't', range = '12"', type = 'Heavy 1', s = '8', ap = '-3', d = '2', abilities = abil }, fixedAttacks = 1 }).penBonus end
+  check(pen('AT(2), Armorbane(2)') == 2, 'Armorbane(2) adds +2 to armor penetration')
+  check(pen('AT(2), Armorbane(3)') == 3, 'Armorbane(3) adds +3')
+  check(pen('AT(2), Armorbane') == 3, 'a bare Armorbane still reads as the old +3')
+end
 local c2 = C40K.buildAttack(1, squad, chain, 2, squad, 1, { cover = 0 })
 -- melee attacks = A x the models that carry the weapon
 local carriedA, wid = 0, ex.units[squad].weapons[chain].id

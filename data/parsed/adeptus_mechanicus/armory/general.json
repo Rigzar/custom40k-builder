@@ -2,7 +2,7 @@
   "name": "Armory",
   "weapons": [
     {
-      "name": "Arc grenade",
+      "name": "Arc grenades",
       "term_compat": false,
       "range": "6\"",
       "type": "Grenade 1",
@@ -197,7 +197,7 @@
       "s": "5",
       "ap": "-4",
       "d": "1",
-      "abilities": "AT(1), Beam, Blind, Lance(2), Overheating",
+      "abilities": "AT(1), Beam, Blind, Armorbane(2), Overheating",
       "p_unit": null,
       "p_char": 22
     },

@@ -117,7 +117,7 @@
       "s": "6",
       "ap": "-5",
       "d": "2",
-      "abilities": "Ammo(1), Armorbane, Beam",
+      "abilities": "Ammo(1), Armorbane(3), Beam",
       "p_unit": null,
       "p_char": null
     },
@@ -229,7 +229,7 @@
     {
       "name": "Canoptek Cloak",
       "term_compat": false,
-      "desc": "The model gains the \"Jump pack\" ability. At the end of its activation, it can heal a friendly Canoptek unit within 6\" for 1 Wound or 1 vehicle damage result. Unique.",
+      "desc": "The model gains +6\" Movement and the \"Jump pack\" ability. At the end of its activation, it can heal a friendly Canoptek unit within 6\" for 1 Wound or 1 vehicle damage result. Unique.",
       "p_unit": 12,
       "p_char": 24
     },

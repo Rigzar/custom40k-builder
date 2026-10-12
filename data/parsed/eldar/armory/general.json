@@ -101,7 +101,7 @@
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "Armorbane, AT(2)",
+      "abilities": "Armorbane(3), AT(2)",
       "p_unit": null,
       "p_char": 43
     },
@@ -137,7 +137,7 @@
       "s": "8",
       "ap": "-5",
       "d": "3",
-      "abilities": "Armorbane, AT(4)",
+      "abilities": "Armorbane(3), AT(4)",
       "p_unit": null,
       "p_char": 66
     },
@@ -166,7 +166,7 @@
       "p_char": 23
     },
     {
-      "name": "Haywire grenade",
+      "name": "Haywire grenades",
       "term_compat": false,
       "range": "6\"",
       "type": "Grenade 1",
@@ -429,7 +429,7 @@
           "s": "U",
           "ap": "-3",
           "d": "1",
-          "abilities": "Armorbane, AT(2), Force weapon, Poison(2+)"
+          "abilities": "Armorbane(3), AT(2), Force weapon, Poison(2+)"
         },
         {
           "name": "Shooting",
@@ -438,7 +438,7 @@
           "s": "U",
           "ap": "-3",
           "d": "1",
-          "abilities": "Armorbane, AT(2), Force weapon, Poison(2+)"
+          "abilities": "Armorbane(3), AT(2), Force weapon, Poison(2+)"
         }
       ]
     },

@@ -37,9 +37,12 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Jump Pack',
     description: 'The model ignores terrain and vertical movement costs, and gains the "Deep Strike" special rule (the package granted by the "Jump Pack Infantry" unit type).',
   },
+  // Core Rules 1.279: "Armorbane(x) - The weapon gains a +x bonus for armor penetration rolls." It used to be a fixed +3, and Lance(+x)
+  // was folded into it (Lance(2) is now Armorbane(2)). A bare "Armorbane" still on a datasheet that has not been updated yet reads as the
+  // old +3, see lookupRule.
   'armorbane': {
-    name: 'Armorbane',
-    description: 'The weapon gains a +3 bonus for armor penetration rolls.',
+    name: 'Armorbane({X})',
+    description: 'The weapon gains a +{X} bonus for armor penetration rolls.',
   },
   'armor piercing': {
     name: 'Armor Piercing({X})',
@@ -979,7 +982,9 @@ export function lookupRule(token: string): { displayName: string; description: s
   const entry = RULES[key];
   if (!entry) return null;
 
-  const sub = (s: string) => param ? s.replace(/\{X\}/g, param) : s;
+  // A bare "Armorbane" is the pre-1.279 fixed +3; datasheets are moved to Armorbane(3) by the unit update.
+  const effective = param || (key === 'armorbane' ? '3' : '');
+  const sub = (s: string) => effective ? s.replace(/\{X\}/g, effective) : s;
   return {
     displayName: sub(localised(key, 'name', entry.name)),
     description: sub(localised(key, 'desc', entry.description)),
