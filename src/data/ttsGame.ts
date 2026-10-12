@@ -119,6 +119,12 @@ export const TTS_GAME = {
     { name: 'Hold Your Ground', prerequisite: 'The unit is declared as a charge target (after all targets are declared).', effects: ["It negates the attacker's Charge bonus. If several units are charged, at least 50% of them must use it."] },
     { name: 'Take Cover', prerequisite: 'The unit is selected as a target for a ranged attack or psychic power (after all ranged targets are declared).', effects: ['+1 to Saving throws against ranged attacks until the enemy activation ends.', 'Ranged attacks against it reduce their AT by 1 (minimum 0).'] },
   ] as TtsOrder[],
+  /** Terms the orders refer to (Core Rules 1.279, "Orders"). */
+  terms: [
+    { name: 'Disorderly Charge', text: 'Some rules refer to a unit only being able to perform a "Disorderly Charge" (Pinned units, a target of the Blind ability, a unit arriving by Deep Strike). The unit may only select a single target for its Charge order and does not gain any Charge bonus or other benefit for charging.' },
+    { name: 'Doing Nothing', text: 'A unit does not need to perform every aspect of an order. For example, a unit with Move & Shoot may skip either moving or shooting.' },
+    { name: 'Skip Marker', text: 'If one player has more Orders than the other, the player with fewer Orders receives Skip tokens: one for every two Orders of difference, rounded up (a difference of 1, 3, 5... gives 1, 2, 3... tokens).' },
+  ],
   metaNote: 'Defensive Reactions need an order-less unit that has not been activated this round, can never be used while engaged in melee, and remove the unit\'s order afterwards.',
   /** Which weapon type may be used with which order (Core Rules, "Weapon types"). */
   weaponOrders: {
@@ -152,7 +158,7 @@ export const TTS_GAME = {
       'Divide the board into four quarters and place an objective marker in the middle of each.',
       "Both players roll a die; the highest picks a quarter, the other player's zone is the opposite quarter. Deploy alternately, one unit at a time, winner first.",
       'No unit can be deployed within 9" of the centre of the table.',
-    ], victory: 'Control table quarters: a unit must control the mission objectives inside a quarter. At the end of each battle round a player gets 200 VP for each quarter he controls.',
+    ], victory: 'Control table quarters: a unit must control the mission objectives inside a quarter. At the end of each battle round a player gets 200 VP for each quarter he controls. VP are also awarded for destroyed enemy units (Attrition).',
       scoring: [{ label: 'Table quarter held', vp: 200, per: 'each' }] },
     { engagement: 'Skirmish', name: 'Salvage', setup: [
       'Place 9 mission objectives (wreckage) evenly distributed on the field.',
@@ -164,13 +170,13 @@ export const TTS_GAME = {
       'Place three mission objectives in one line between both deployment zones.',
       'No model may be deployed within 18" of the enemy command post by any means; enemy units that scatter into the zone from Deep Strike are sent back to reserves.',
       'Both players roll a die; the winner chooses a zone. Deploy alternately, winner first.',
-    ], victory: 'Control objectives / sabotage the command post: one objective controlled at the end of a battle round scores 200 VP. A player who occupies the enemy command post wins automatically; if both lose their command posts in the same round the player with most VP wins.',
+    ], victory: 'Control objectives / sabotage the command post: one objective controlled at the end of a battle round scores 200 VP. A player who occupies the enemy command post wins automatically; if both lose their command posts in the same round the player with most VP wins. VP are also awarded for destroyed enemy units (Attrition).',
       scoring: [{ label: 'Objective held', vp: 200, per: 'each' }] },
     { engagement: 'Pitched Battle', name: 'Take & Hold', setup: [
       'Place one objective in the middle of the table and two in diagonally opposing quarters (12" in, 12" up).',
       'The remaining objectives go in the two empty quarters (24" in, 12" up).',
       'Both players roll a die; the highest chooses a zone. Deploy alternately, winner first. No unit within 9" of the centre at the start.',
-    ], victory: 'Control objectives: each objective controlled at the end of a battle round scores 200 VP (up to 600 per round).',
+    ], victory: 'Control objectives: each objective controlled at the end of a battle round scores 200 VP (up to 600 per round). VP are also awarded for destroyed enemy units (Attrition).',
       scoring: [{ label: 'Objective held', vp: 200, per: 'each' }] },
     { engagement: 'Pitched Battle', name: 'Tug of War', setup: [
       'Place one objective (the relic) in the middle of the table.',
@@ -180,12 +186,12 @@ export const TTS_GAME = {
     { engagement: 'Epic Battle', name: 'King of the Hill', setup: [
       'Place one objective in the middle of the table and two on opposing ends at the same height, 6" from the board edge.',
       'Both players roll a die; the highest chooses a zone. Deploy alternately, winner first.',
-    ], victory: 'Control objectives: a side objective controlled at the end of a battle round scores 200 VP, the middle objective 400 VP.',
+    ], victory: 'Control objectives: a side objective controlled at the end of a battle round scores 200 VP, the middle objective 400 VP. VP are also awarded for destroyed enemy units (Attrition).',
       scoring: [{ label: 'Side objective held', vp: 200, per: 'each' }, { label: 'Middle objective held', vp: 400, per: 'round' }] },
     { engagement: 'Epic Battle', name: 'Z', setup: [
       'Divide the board into zones as shown in the picture and place a mission objective in the middle of each.',
       'Both players roll a die; the highest chooses a zone. Deploy alternately, winner first.',
-    ], victory: 'Control zones: a unit must control the objective inside a zone and can only occupy one zone (roll randomly if spread over several). At the end of each battle round a player gets 200 VP for each zone he controls.',
+    ], victory: 'Control zones: a unit must control the objective inside a zone and can only occupy one zone (roll randomly if spread over several). At the end of each battle round a player gets 200 VP for each zone he controls. VP are also awarded for destroyed enemy units (Attrition).',
       scoring: [{ label: 'Zone held', vp: 200, per: 'each' }] },
   ] as TtsMission[],
 };

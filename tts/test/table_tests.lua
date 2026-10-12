@@ -35,7 +35,7 @@ for _, tab in ipairs({ 'army', 'rules', 'binder', 'battle', 'attack', 'powers', 
   check(not LAST_XML:find('Internal error'), 'tab ' .. tab .. ' hit an internal error: ' .. (LAST_XML:match('Internal error[^<]*') or ''))
 end
 click('tab__rules')
-for _, m in ipairs({ 'unit', 'rules', 'status', 'game:phases', 'game:orders', 'game:meta', 'game:shock', 'game:weapons', 'game:score' }) do
+for _, m in ipairs({ 'unit', 'rules', 'status', 'game:phases', 'game:orders', 'game:terms', 'game:meta', 'game:shock', 'game:weapons', 'game:score' }) do
   click('rmode__' .. m); xmlOk('rules mode ' .. m)
   check(not LAST_XML:find('Internal error'), 'rules mode ' .. m .. ' failed')
 end

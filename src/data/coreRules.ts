@@ -65,11 +65,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'blind': {
     name: 'Blind',
-    description: 'If a weapon with this rule scores at least one hit, the target unit does not gain a Charge bonus for executing a Charge order.',
+    description: 'If a weapon with this rule scores at least one hit, the target unit may only perform a Disorderly Charge.',
   },
   'blood drinker': {
     name: 'Blood Drinker',
-    description: 'When the model causes a Wound loss, it regains 1 Wound, up to the starting value in its profile.',
+    description: 'For each Wound loss the model causes, it regains 1 Wound, up to the starting value in its profile. Example: A weapon with Damage 2 killing a unit with 1 Wound would restore 1 Wound.',
   },
   'bomb': {
     name: 'Bomb',
@@ -77,7 +77,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'charge': {
     name: 'Charge',
-    description: 'A weapon profile with this ability can only be used if the model is using a Charge command.',
+    description: 'A weapon profile with this ability can only be used if the model is using a Charge command (even if making a Disorderly Charge).',
   },
   'combi': {
     name: 'Combi',
@@ -103,7 +103,7 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Extra Attack({X})',
     // 1.262 split this in two: the cap moved out into Limit(x), so a weapon that had the old
     // capped Extra Attack now carries BOTH, and everything that said Flurry now says this.
-    description: '{X} attacks with this weapon profile can be made during each activation in addition to any attacks the unit can normally make.',
+    description: 'This weapon makes {X} attacks with its profile during each activation, in addition to the model\'s normal Attacks (A).',
   },
   'force weapon': {
     name: 'Force Weapon',
@@ -139,7 +139,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'master-crafted': {
     name: 'Master-crafted',
-    description: "A single hit roll can be re-rolled. If the weapon has the \"Blast(x)\" or \"Auto Hit\" ability, a single wound or armor penetration roll can be re-rolled instead. If multiple models in a unit have this weapon, one hit roll per model may be re-rolled. Can't be used on \"Grenade\" type weapons with weapons that have the \"Ammo(x)\" ability.",
+    description: 'A single hit roll can be re-rolled. If the weapon has the "Blast(x)" or "Auto Hit" ability, a single wound or armor penetration roll can be re-rolled instead. If multiple models in a unit have the same weapon with this rule, the corresponding hit rolls can be made together. In this case, one hit roll per model may be re-rolled. Can\'t be used on "Grenade" type weapons or weapons with the "Ammo(x)" ability.',
   },
   'melta': {
     name: 'Melta',
@@ -155,7 +155,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'poison': {
     name: 'Poison({X})',
-    description: 'Wound rolls of {X} against creatures always succeed.',
+    description: 'Wound rolls of {X} against creatures always succeed. Can be affected by effects that give bonuses or penalties to wound rolls.',
   },
   'precision': {
     name: 'Precision({X})',
@@ -187,7 +187,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'shred': {
     name: 'Shred',
-    description: 'The model may re-roll any wound rolls made with this weapon.',
+    description: 'The model may re-roll any wound rolls made with this weapon. Does not work against Vehicles.',
   },
   'slow': {
     name: 'Slow({X})',
@@ -211,7 +211,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'unwieldy': {
     name: 'Unwieldy',
-    description: 'The model does not gain an additional attack for having a pistol in close combat. Each model may carry only one Unwieldy item.',
+    description: 'The model does not gain an additional attack for having a pistol in close combat.',
   },
 
   // ── Codex weapon abilities ────────────────────────────────────────────────
@@ -407,7 +407,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'daemonic instability': {
     name: 'Daemonic Instability',
-    description: 'The unit ignores the effects of a single Battleshock token. Upon gaining a second Battleshock token, the unit: Suffers 1D3 Mortal Wounds. Discards all Battleshock tokens. Does not flee. Close Combat Instead of fleeing, the unit suffers 1D3+1 Mortal Wounds and remains in place. Limitations Cannot use the Escape command. Cannot use the Take Cover defensive reaction.',
+    description: 'The unit ignores the effects of a single Battleshock token. Upon gaining a second Battleshock token, the unit: Suffers 1D3+1 Mortal Wounds. Does not flee and can act normally. Close Combat Instead of fleeing after a lost combat, the unit suffers 1D3+2 Mortal Wounds and remains in place. Limitations The Mortal Wounds can\'t be triggered more than once per Battle round for each unit. Cannot use the Escape command. Cannot use the Take Cover defensive reaction. Rally phase The unit automatically rallys during each Rally phase.',
   },
   'fast': {
     name: 'Fast',
@@ -653,7 +653,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'hover mode': {
     name: 'Hover Mode',
-    description: 'Flyers with the Hover Mode feature can behave like standard models when in this mode: Setup: A flyer may start in hover mode during deployment before the first battle round. Entering Hover Mode: A flyer enters hover mode by not repositioning during the reserve phase. Exiting Hover Mode: The flyer is removed from the battlefield during the reserve phase and treated as a regular flyer in the following reserve phase. Hover Mode Benefits Flyers in hover mode can capture, hold, or contest objectives. Flyers can only be healed or repaired by models (e.g., Blessing of the Omnissiah) while in hover mode.',
+    description: 'The model is eligible to use the "Stand & Shoot" order to land.',
   },
   // ── Escalation supplement (Gargantuan Creatures & Super-heavy Vehicles) ──────
   'strength d': {
@@ -672,7 +672,7 @@ export const RULES: Record<string, RuleEntry> = {
   // completely optional"; this is the LAST entry in the canonical Core Rules text) ───────────
   'sniper': {
     name: 'Sniper',
-    description: 'The model gains +1 Ballistic Skill when using a weapon with this ability. The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it.',
+    description: 'The model gains +1 Ballistic Skill when using a weapon with this ability. The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it. Models with the Bodyguard ability must be targeted first, before a character model may be selected.',
   },
 };
 

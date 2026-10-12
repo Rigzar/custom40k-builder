@@ -1802,7 +1802,7 @@ local function tabArmy()
   return table.concat(out)
 end
 
-local GAME_TOPICS = { { 'phases', 'Phases' }, { 'orders', 'Orders' }, { 'meta', 'Reactions' }, { 'shock', 'Battleshock' }, { 'weapons', 'Weapon types' }, { 'score', 'Scoring' } }
+local GAME_TOPICS = { { 'phases', 'Phases' }, { 'orders', 'Orders' }, { 'terms', 'Terms' }, { 'meta', 'Reactions' }, { 'shock', 'Battleshock' }, { 'weapons', 'Weapon types' }, { 'score', 'Scoring' } }
 
 local function gameText(topic)
   local g = gameOf()
@@ -1820,6 +1820,9 @@ local function gameText(topic)
       for _, e in ipairs(o.effects or {}) do out[#out + 1] = '- ' .. e end
     end
     if topic == 'meta' and g.metaNote then out[#out + 1] = '\n' .. g.metaNote end
+  elseif topic == 'terms' then
+    local nl = string.char(10)
+    for _, term in ipairs(g.terms or {}) do out[#out + 1] = nl .. '== ' .. string.upper(term.name) .. ' ==' .. nl .. (term.text or '') end
   elseif topic == 'shock' then
     local b = g.battleshock or {}
     for _, lv in ipairs(b.levels or {}) do
