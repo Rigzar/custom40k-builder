@@ -355,6 +355,11 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // +85 points" (ods-verbatim, Necrons Army Customisation). Flat surcharge, not per-model —
   // C'tan Shards are always a single model (default_size 1).
   if (item.ctanYngirUpgrade) total += 85;
+  // The promoted model's flat surcharge (Megafauna: "The model costs +36 points"), only on the entry that claimed the promotion.
+  if (item.archetypeHqUpgrade) {
+    const promo = getArchetypeRule(archetype)?.hqPromotion;
+    if (promo?.extraPoints && item.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase())) total += promo.extraPoints;
+  }
   // Deployment rule bought on this entry (Webway strike / Webway raid / Lightning strike /
   // Tellyporta): rate x Wounds-or-Hull-Points x models, exactly as the Index tab prices it.
   if (item.deploymentUpgrade) {

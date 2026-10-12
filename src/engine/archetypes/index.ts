@@ -571,10 +571,15 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // selection." The biomorph is bought from the shared Armory, not from the datasheet's own
     // option groups, so the promotion is not gated on a choice name here — the note carries the
     // requirement and the validator would need the Armory selection to check it.
-    hqPromotion: { unitNameContains: 'Carnifex', requiresChoice: 'Regeneration', abilityUpgrade: { from: 'Regeneration(1)', to: 'Regeneration(2)' } },
+    // Tyranids 1.10 added: "The model gains the 'Fearless' and 'Synapse' abilities" and "The model costs +36 points".
+    // "The model gains access to the Hive Fleet Armory" is NOT wired: which fleet's armory (or all five) is an open
+    // question for the author, so it is not guessed here.
+    hqPromotion: { unitNameContains: 'Carnifex', requiresChoice: 'Regeneration', abilityUpgrade: { from: 'Regeneration(1)', to: 'Regeneration(2)' },
+      extraPoints: 36, grantsAbilities: ['Fearless', 'Synapse'] },
     notes: [
       'One Carnifex with the Regeneration(1) Special Biomorph becomes an HQ selection.',
       'Regeneration(1) becomes Regeneration(2) for that model, and does not block a second Special Biomorph.',
+      'The model gains Fearless and Synapse, and costs +36 points.',
       'Carnifex Broods count as Troops.',
       'Only Carnifex Broods count towards the 25% Troops requirement.',
     ],

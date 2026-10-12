@@ -1684,6 +1684,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ruleNotes.push(rule.grantsAbility.ability);
   }
   // The promoted model improves an ability value (Megafauna: Regeneration(1) -> Regeneration(2)).
+  if (item.archetypeHqUpgrade && rule?.hqPromotion?.grantsAbilities
+    && item.unitName.toLowerCase().includes(rule.hqPromotion.unitNameContains.toLowerCase())) {
+    for (const a of rule.hqPromotion.grantsAbilities) if (!ruleNotes.includes(a)) ruleNotes.push(a);
+  }
   const abilityUp = item.archetypeHqUpgrade ? rule?.hqPromotion?.abilityUpgrade : undefined;
   if (abilityUp) {
     const up = (t: string) => t.split(abilityUp.from).join(abilityUp.to);

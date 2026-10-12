@@ -31,6 +31,8 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: "The army points left, shown next to your total",
     changes: [
       "GENERAL — POINTS LEFT IN THE HEADER (Discord suggestion). The bar at the top right now reads \"2435 (65)  ▬▬  / 2500\": your total, and in brackets how many points are still free. It turns red with a minus sign when you are over the limit and green at exactly 0, and hovering it says \"65 left\" or \"12 over the limit\" in your language.",
+      "TYRANIDS — SYNAPTIC DISRUPTION ORGAN NO LONGER BREAKS INTO LINES (reported in the Russian localization). The biomorph grants one long sentence with no name of its own, and a line without a name is read as a comma list of rules, so the card showed it as several \"option\" rows (three in English, six in Russian, where the translation has more commas). It now carries its own name and shows as one ability with its description in every language. It was the only line of its kind in the whole game.",
+      "TYRANIDS — MEGAFAUNA FOLLOWS THE 1.10 SHEET. The Carnifex it promotes to HQ now gains the Fearless and Synapse abilities and costs +36 points, and the archetype text lists the new line that it (and Subterranean Assault's Trygon) gain access to the Hive Fleet Armory. That armory access is written on the card but not wired yet: the sheet does not say which fleet's armory, so the question went to the author.",
     ],
   },
   {
