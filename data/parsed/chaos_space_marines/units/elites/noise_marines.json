@@ -69,6 +69,15 @@
             "abilities": "Blast(4), Sunder(2), Suppression(3)"
         },
         {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Bolter",
             "range": "24\"",
             "type": "Rapid Fire 1",

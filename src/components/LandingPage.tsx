@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v183_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v184b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -55,101 +55,81 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.83: the Horus Heresy supplements update themselves, and Gitfinda can announce games on Discord",
-    intro: "Both Horus Heresy supplements now refresh from the author's sheets like the other factions, and a game posted on Gitfinda can be announced in the community's Discord.",
+    title: "v1.84: the army points left, next to your total",
+    intro: "The bar at the top right now shows how many points you still have free.",
     install: "",
     sections: [
       { label: "New in this version", rows: [
-        ["Horus Heresy supplements", "Legiones Astartes and Forces of the Machine God (20 units) use the same update as the codices now, so their stats, points, weapons and abilities follow the author's sheets. Both are on their 1.2 sheets."],
-        ["What updates itself", "About 40% of the game data by volume today (units, now including the two supplements). The Armory (about 18%) is the next big step."],
-        ["Gitfinda on Discord", "When someone posts a game, a short message can go to the community's Discord with the army, points and the times in each reader's own time zone. It stays off until the channel is connected. The link opens that very game (the login comes first only if you need it). Its message is deleted when the game is cancelled, matched or over."],
-        ["Reference models", "Models a sheet lists at 0, like the Brimstone Horror on Blue and Pink Horrors, show greyed on the army builder, the printed card, the simple printout and the battle view."],
-      ] },
-      { label: "Also fixed", rows: [
-        ["Ascended Daemon Prince", "No Mark to pay for (it has all of them), psyker through Tzeentch (2 powers per turn with the +5 upgrade), Warded, Greater Daemon, Fearless, Terrifying(-2), the four gods' disciplines, HQ slot."],
-        ["Monstrous Creatures", "Daemon Prince, Bloodthirster, Lord of Change and others get their Monstrous Creature rules back (Mark bonuses, armory prices)."],
-        ["Company Hero (GH#219)", "Armory stat changes land on the Hero alone, not its Animal Companion (also Servitors, E-COGs, CORVs)."],
-        ["Kroot Hunting Pack", "Only Kroot Carnivores are Troops now (the other Kroot keep their own slots), you can field several Kroot Master Shapers (only one becomes a Shaman), and the Kroot weapon profiles show correctly again."],
+        ["Points left","The header reads \"2435 (65)  ▬▬  / 2500\": your total and, in brackets, the points still free. Red with a minus when you are over the limit, green at exactly 0."],
+        ["New faction","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta and four flyers, with its own Armory. Skyhammer Doctrine doubles the Flyer slots; Warrant of Trade lets every model take one item from any Imperial faction."],
+        ["Skirmish allies","Allies and archetypes now work in Skirmish: one Troops plus at most one Elite, Fast Attack or Heavy Support, sharing the main AOP. Only archetypes marked for Skirmish in their codex are offered."],
+        ["Rules 1.279","Armorbane(x) replaces the fixed +3 and Lance is gone (32 armory items and powers updated); Disorderly Charge is in the Field Manual and the glossary was re-read against the new text."],
+        ["Tyranids","Zoanthropes: one Neurothrope per three models for +25. Fixed the Synaptic Disruption Organ lines split in Russian, and the Megafauna archetype."],
+        ["Table mod","The Tabletop Simulator mod (Workshop) has orders face-down at 32 mm, tokens beside units and a Terms page."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.83: Die Horus-Heresy-Supplemente aktualisieren sich selbst, und Gitfinda kann Spiele auf Discord ankündigen",
-    intro: "Beide Horus-Heresy-Supplemente werden jetzt wie die anderen Fraktionen aus den Blättern des Autors aktualisiert, und ein Spiel auf Gitfinda kann im Discord der Community angekündigt werden.",
+    title: "v1.84: die verbleibenden Armeepunkte, neben deiner Summe",
+    intro: "Die Leiste oben rechts zeigt jetzt, wie viele Punkte noch frei sind.",
     install: "",
     sections: [
       { label: "Neu in dieser Version", rows: [
-        ["Horus-Heresy-Supplemente", "Legiones Astartes und Forces of the Machine God (20 Einheiten) nutzen jetzt dasselbe Update wie die Codizes; Werte, Punkte, Waffen und Fähigkeiten folgen den Blättern des Autors. Beide stehen auf ihren 1.2-Blättern."],
-        ["Was sich selbst aktualisiert", "Heute etwa 40 % der Spieldaten nach Volumen (Einheiten, jetzt mit den beiden Supplementen). Die Armory (etwa 18 %) ist der nächste große Schritt."],
-        ["Gitfinda auf Discord", "Stellt jemand ein Spiel ein, kann eine kurze Nachricht im Discord der Community erscheinen, mit Armee, Punkten und den Zeiten in der Zeitzone des Lesers. Bleibt aus, bis der Kanal verbunden ist. Der Link öffnet genau dieses Spiel (der Login kommt nur, wenn nötig, zuerst). Die Nachricht wird gelöscht, sobald das Spiel abgesagt, vergeben oder vorbei ist."],
-        ["Referenzmodelle", "Modelle, die ein Blatt mit 0 führt, etwa der Brimstone Horror bei Blue und Pink Horrors, erscheinen ausgegraut im Armeebauer, auf der gedruckten Karte, im einfachen Ausdruck und in der Kampfansicht."],
-      ] },
-      { label: "Außerdem behoben", rows: [
-        ["Aufgestiegener Daemon Prince", "Kein Mal zu bezahlen (er hat alle), Psioniker durch Tzeentch (2 Kräfte pro Zug mit dem +5-Upgrade), Warded, Greater Daemon, Fearless, Terrifying(-2), die Disziplinen der vier Götter, HQ-Slot."],
-        ["Monstrous Creatures", "Daemon Prince, Bloodthirster, Lord of Change und andere haben ihre Monstrous-Creature-Regeln wieder (Mal-Boni, Armory-Preise)."],
-        ["Company Hero (GH#219)", "Armory-Werte gelten nur für den Hero, nicht für seinen Animal Companion (auch Servitors, E-COGs, CORVs)."],
-        ["Kroot Hunting Pack", "Nur die Kroot Carnivores sind jetzt Troops (die anderen Kroot behalten ihre Slots), mehrere Kroot Master Shapers sind möglich (nur einer wird Shaman), und die Kroot-Waffenprofile werden wieder richtig angezeigt."],
+        ["Verbleibende Punkte","Die Kopfzeile zeigt „2435 (65)  ▬▬  / 2500“: deine Summe und in Klammern die noch freien Punkte. Rot mit Minus über dem Limit, grün bei genau 0."],
+        ["Neue Fraktion","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta und vier Flieger, mit eigener Armory. Skyhammer Doctrine verdoppelt die Flyer-Plätze; Warrant of Trade erlaubt jedem Modell einen Gegenstand aus einer beliebigen imperialen Fraktion."],
+        ["Skirmish-Verbündete","Verbündete und Archetypen funktionieren jetzt im Skirmish: ein Troops plus höchstens ein Elite, Fast Attack oder Heavy Support, im AOP der Hauptarmee. Angeboten werden nur Archetypen, die im Codex für Skirmish freigegeben sind."],
+        ["Regeln 1.279","Armorbane(x) ersetzt das feste +3, Lance entfällt (32 Armory-Gegenstände und Kräfte angepasst); Disorderly Charge steht im Feldhandbuch, das Glossar wurde gegen den neuen Text geprüft."],
+        ["Tyraniden","Zoanthropen: ein Neurothrope je drei Modelle für +25. Die in Russisch zerhackten Zeilen des Synaptic Disruption Organ und der Megafauna-Archetyp sind korrigiert."],
+        ["Tischmod","Der Tabletop-Simulator-Mod (Workshop) hat verdeckte Befehle in 32 mm, Marker neben den Einheiten und eine Seite „Terms“."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.83: los suplementos de Horus Heresy se actualizan solos, y Gitfinda puede anunciar partidas en Discord",
-    intro: "Los dos suplementos de Horus Heresy se refrescan ya desde las hojas del autor como las demás facciones, y una partida publicada en Gitfinda puede anunciarse en el Discord de la comunidad.",
+    title: "v1.84: los puntos que te quedan, junto a tu total",
+    intro: "La barra de arriba a la derecha ahora muestra cuántos puntos te quedan libres.",
     install: "",
     sections: [
       { label: "Novedades de esta versión", rows: [
-        ["Suplementos de Horus Heresy", "Legiones Astartes y Forces of the Machine God (20 unidades) usan ya la misma actualización que los códices, así que sus estadísticas, puntos, armas y habilidades siguen las hojas del autor. Ambos están en sus hojas 1.2."],
-        ["Lo que se actualiza solo", "Hoy un 40% de los datos del juego por volumen (unidades, ahora con los dos suplementos). La Armory (un 18%) es el siguiente gran paso."],
-        ["Gitfinda en Discord", "Cuando alguien publica una partida, puede salir un mensaje corto en el Discord de la comunidad con el ejército, los puntos y las horas en la zona horaria de cada lector. Sigue apagado hasta que se conecte el canal. El enlace abre esa misma partida (el inicio de sesión sale antes solo si hace falta). Su mensaje se borra cuando la partida se cancela, se empareja o termina."],
-        ["Modelos de referencia", "Los modelos que una hoja lista con 0, como el Brimstone Horror en Blue y Pink Horrors, salen en gris en el constructor, la ficha impresa, la impresión simple y la vista de batalla."],
-      ] },
-      { label: "También arreglado", rows: [
-        ["Príncipe Demonio Ascendido", "Sin Marca que pagar (las tiene todas), psíquico por Tzeentch (2 poderes por turno con la mejora de +5), Warded, Greater Daemon, Fearless, Terrifying(-2), las disciplinas de los cuatro dioses, slot de HQ."],
-        ["Criaturas Monstruosas", "El Daemon Prince, el Bloodthirster, el Lord of Change y otros recuperan sus reglas de Criatura Monstruosa (bonos de Marca, precios de armería)."],
-        ["Company Hero (GH#219)", "Los cambios de la armería afectan solo al Hero, no a su Animal Companion (también Servitors, E-COG, CORV)."],
-        ["Kroot Hunting Pack", "Solo los Kroot Carnivores son Troops ahora (los demás Kroot conservan su slot), puedes llevar varios Kroot Master Shapers (solo uno pasa a Shaman) y los perfiles de armas Kroot se ven bien otra vez."],
+        ["Puntos restantes","La cabecera dice «2435 (65)  ▬▬  / 2500»: tu total y, entre paréntesis, los puntos libres. Rojo con menos si te pasas del límite, verde justo en 0."],
+        ["Facción nueva","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta y cuatro voladores, con su propia Armería. Skyhammer Doctrine duplica los huecos de Flyers; Warrant of Trade deja a cada modelo tomar un objeto de cualquier facción Imperial."],
+        ["Aliados en Skirmish","Los aliados y los arquetipos ya funcionan en Skirmish: un Troops más como máximo un Elite, Fast Attack o Heavy Support, dentro del AOP del ejército principal. Solo se ofrecen los arquetipos marcados para Skirmish en su códice."],
+        ["Reglas 1.279","Armorbane(x) sustituye al +3 fijo y Lance desaparece (32 objetos de armería y poderes actualizados); la Disorderly Charge está en el Manual de Campo y el glosario se releyó contra el texto nuevo."],
+        ["Tiránidos","Zoantropos: un Neurothrope por cada tres modelos por +25. Arregladas las líneas partidas del Synaptic Disruption Organ en ruso y el arquetipo Megafauna."],
+        ["Mod de mesa","El mod de Tabletop Simulator (Workshop) trae órdenes boca abajo a 32 mm, fichas junto a las unidades y una página «Terms»."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "v1.83: дополнения Horus Heresy обновляются сами, а Gitfinda может объявлять игры в Discord",
-    intro: "Оба дополнения Horus Heresy теперь обновляются из листов автора, как остальные фракции, а игра, опубликованная в Gitfinda, может быть объявлена в Discord сообщества.",
+    title: "v1.84: оставшиеся очки армии рядом с общей суммой",
+    intro: "Полоса справа вверху теперь показывает, сколько очков ещё свободно.",
     install: "",
     sections: [
       { label: "Новое в этой версии", rows: [
-        ["Дополнения Horus Heresy", "Legiones Astartes и Forces of the Machine God (20 юнитов) используют то же обновление, что и кодексы: характеристики, очки, оружие и способности следуют листам автора. Оба на листах 1.2."],
-        ["Что обновляется само", "Сегодня около 40% игровых данных по объёму (юниты, теперь с двумя дополнениями). Следующий большой шаг — Арсенал (около 18%)."],
-        ["Gitfinda в Discord", "Когда кто-то публикует игру, в Discord сообщества может прийти короткое сообщение с армией, очками и временем в часовом поясе читателя. Выключено, пока канал не подключён. Ссылка открывает именно эту игру (вход показывается первым, только если он нужен). Сообщение удаляется, когда игра отменена, подобрана или прошла."],
-        ["Справочные модели", "Модели, которые лист указывает с 0, например Brimstone Horror у Blue и Pink Horrors, показаны серым в конструкторе, на печатной карточке, простой распечатке и в боевом виде."],
-      ] },
-      { label: "Также исправлено", rows: [
-        ["Вознесённый Демон-принц", "Метку не нужно оплачивать (у него есть все), псайкер через Тзинч (2 силы за ход с улучшением +5), Warded, Greater Daemon, Fearless, Terrifying(-2), дисциплины четырёх богов, слот HQ."],
-        ["Monstrous Creatures", "Daemon Prince, Bloodthirster, Lord of Change и другие снова получают правила монстра (бонусы Меток, цены арсенала)."],
-        ["Company Hero (GH#219)", "Изменения из арсенала действуют только на Hero, а не на его Animal Companion (также Servitor, E-COG, CORV)."],
-        ["Kroot Hunting Pack", "Теперь Troops только Kroot Carnivores (остальные Kroot остаются в своих слотах), можно брать несколько Kroot Master Shaper (только один становится Shaman), а профили оружия Kroot снова показываются правильно."],
+        ["Оставшиеся очки","Шапка показывает «2435 (65)  ▬▬  / 2500»: вашу сумму и в скобках свободные очки. Красным со знаком минус при превышении лимита, зелёным при ровно 0."],
+        ["Новая фракция","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta и четыре летательных аппарата, со своим арсеналом. Skyhammer Doctrine удваивает слоты Flyers; Warrant of Trade позволяет каждой модели взять один предмет из любой имперской фракции."],
+        ["Союзники в Skirmish","Союзники и архетипы теперь работают в Skirmish: один Troops и не более одного Elite, Fast Attack или Heavy Support, в AOP основной армии. Предлагаются только архетипы, отмеченные для Skirmish в кодексе."],
+        ["Правила 1.279","Armorbane(x) заменяет фиксированный +3, Lance убран (обновлено 32 предмета арсенала и сил); Disorderly Charge есть в Полевом руководстве, глоссарий сверен с новым текстом."],
+        ["Тираниды","Zoanthrope: один Neurothrope на каждые три модели за +25. Исправлены разбитые на строки тексты Synaptic Disruption Organ на русском и архетип Megafauna."],
+        ["Мод для стола","В моде Tabletop Simulator (Workshop) приказы лежат рубашкой вверх, жетоны 32 мм рядом с отрядами и есть страница «Terms»."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "v1.83：ホルス・ヘレシー補足が自動更新に、GitfindaがDiscordに対戦募集を通知可能に",
-    intro: "ホルス・ヘレシー補足2種が他の勢力と同じく作者のシートから更新されるようになり、Gitfindaに投稿された対戦募集をコミュニティのDiscordに通知できます。",
+    title: "v1.84：残りの軍ポイントを合計の横に表示",
+    intro: "右上のバーに、まだ使えるポイントが表示されるようになりました。",
     install: "",
     sections: [
       { label: "このバージョンの新機能", rows: [
-        ["ホルス・ヘレシー補足", "レギオネス・アスタルテスとフォーシズ・オブ・ザ・マシンゴッド（20ユニット）がコーデックスと同じ更新を使い、能力値、ポイント、武器、能力が作者のシートに従います。どちらも1.2のシートです。"],
-        ["自動更新されるもの", "現在、データ容量の約40%（ユニット、2つの補足を含む）。次の大きな一歩はアーモリー（約18%）です。"],
-        ["GitfindaのDiscord通知", "誰かが募集を投稿すると、軍、ポイント、読む人のタイムゾーンでの時間を含む短いメッセージをコミュニティのDiscordに送れます。チャンネルを接続するまではオフです。 リンクはその募集を直接開きます（ログインが必要な場合のみ先にログイン画面が出ます）。 募集が取り消し・成立・期限切れになるとメッセージは削除されます。"],
-        ["参考モデル", "ブルー／ピンク・ホラーのブリムストーン・ホラーなど、シートが0とするモデルが、軍編成、印刷カード、簡易印刷、バトルビューに灰色で表示されます。"],
-      ] },
-      { label: "その他の修正", rows: [
-        ["昇華したデーモンプリンス", "印の代金は不要（全て持つ）、ティーンチによるサイカー（+5強化で1ターン2つの力）、Warded、Greater Daemon、Fearless、Terrifying(-2)、4柱の神の系統、HQスロット。"],
-        ["モンストラス・クリーチャー", "デーモンプリンス、ブラッドサースター、ロード・オブ・チェンジなどがモンストラス・クリーチャーのルール（印のボーナス、アーモリー価格）を取り戻しました。"],
-        ["カンパニー・ヒーロー（GH#219）", "アーモリーの変更はヒーローのみに適用され、アニマル・コンパニオンには及びません（サーヴィター、E-COG、CORVも同様）。"],
-        ["クルート・ハンティング・パック", "トゥループスになるのはクルート・カーニボアのみ（他のクルートは自分のスロット）、クルート・マスター・シェイパーは複数編成可（シャーマンになれるのは1体）、クルートの武器プロフィールも正しく表示されます。"],
+        ["残りポイント","ヘッダーに「2435 (65)  ▬▬  / 2500」と表示されます：合計と、括弧内に残りポイント。上限を超えるとマイナス付きの赤、ちょうど0で緑です。"],
+        ["新勢力","Imperial Navy：Rogue Trader、Voidmaster、Ratings、Voidsmen、Breachers、Explorator、Impressed Ogryns、Valkyrie、Vendetta、飛行ユニット4種と独自の武器庫。Skyhammer DoctrineでFlyer枠が2倍に、Warrant of Tradeで各モデルが任意の帝国勢力からアイテム1つを選べます。"],
+        ["Skirmishの同盟軍","Skirmishで同盟軍とアーキタイプが使えるようになりました：Troops 1つとElite・Fast Attack・Heavy Supportのいずれか最大1つで、主軍のAOPを共有します。コーデックスでSkirmish可とされたアーキタイプのみ選べます。"],
+        ["ルール1.279","Armorbane(x)が固定の+3に代わり、Lanceは廃止（武器庫アイテムとパワー32件を更新）。Disorderly Chargeはフィールドマニュアルに載り、用語集も新しい文面に合わせて見直しました。"],
+        ["ティラニッド","ゾアンスロープ：3モデルごとにニューロスロープ1体を+25で。ロシア語で分割されていたSynaptic Disruption Organの文と、Megafaunaアーキタイプを修正しました。"],
+        ["テーブルmod","Tabletop Simulatorのmod（Workshop）：オーダーは32mmの裏向き、トークンはユニットの横、新しい「Terms」ページがあります。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

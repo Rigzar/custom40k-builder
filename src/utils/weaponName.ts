@@ -47,3 +47,43 @@ export function isModeRow(weapons: { name: string }[], i: number): boolean {
   return (i > 0 && weaponBaseName(weapons[i - 1].name) === base)
     || (i < weapons.length - 1 && weaponBaseName(weapons[i + 1].name) === base);
 }
+
+/**
+ * The name of a weapon with everything that varies between a datasheet's WEAPON row and the option choice that
+ * names it taken out: the firing-mode suffix ("- Standard" / "(Standard)"), capitals, a leading count ("Two
+ * Grot bomms") and a plural s. The resolver (computeWeaponsToShow) has always compared names this way; the
+ * option tables on the unit card compared them exactly, so a swap list showed "Big Zzappa" and "Two Grot bomms"
+ * with no profile on the Mekboy Junka while the weapon appeared normally once bought (the row is "Big zzappa" /
+ * "Grot bomm" on the sheet).
+ */
+export function weaponKey(name: string): string {
+  return weaponBaseName(name)
+    .toLowerCase()
+    .replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/, '')
+    .replace(/s$/, '');
+}
+
+/**
+ * Resolve an option choice's display name to one or more weapon profiles from the unit's weapons[]: exact matches,
+ * multi-profile weapons ("Plasma gun" -> "Plasma gun - Standard" / "- Overcharged"), the same weapon spelled with
+ * other capitals, a count or a plural ("Two Grot bomms" -> "Grot bomm"), and compound choices ("X and Y" / "X & Y").
+ * `compound` is true when the choice resolves to several DIFFERENT weapons (each row gets its own Pts), as opposed
+ * to several fire-mode profiles of the same weapon.
+ */
+export function resolveChoiceWeapons<W extends { name: string }>(weapons: W[], choiceName: string): { weapons: W[]; compound: boolean } {
+  const exact = weapons.find(w => w.name === choiceName);
+  if (exact) return { weapons: [exact], compound: false };
+  const multiProfile = weapons.filter(w => w.name.startsWith(`${choiceName} - `));
+  if (multiProfile.length > 0) return { weapons: multiProfile, compound: false };
+  const key = weaponKey(choiceName);
+  const loose = weapons.filter(w => weaponKey(w.name) === key);
+  if (loose.length > 0) return { weapons: loose, compound: false };
+  const parts = choiceName.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+  if (parts.length > 1) {
+    const resolved = parts.map(p => resolveChoiceWeapons(weapons, p));
+    if (resolved.every(r => r.weapons.length > 0)) {
+      return { weapons: resolved.flatMap(r => r.weapons), compound: true };
+    }
+  }
+  return { weapons: [], compound: false };
+}

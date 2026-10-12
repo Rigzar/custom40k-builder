@@ -2,14 +2,14 @@
   "name": "Armory",
   "weapons": [
     {
-      "name": "Abyss grenade",
+      "name": "Abyss grenades",
       "term_compat": false,
       "range": "3\"",
       "type": "Grenade 1",
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(3), Armorbane",
+      "abilities": "AT(3), Armorbane(3)",
       "p_unit": 5,
       "p_char": 5
     },

@@ -78,7 +78,7 @@
       "range": "24\"",
       "target": "Enemy unit",
       "cast_value": "7",
-      "effect": "All attacks against the target gain the \"Decimate\" and \"Armorbane\" abilities.",
+      "effect": "All attacks against the target gain the \"Decimate\" and \"Armorbane(3)\" abilities.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -140,7 +140,7 @@
       "range": "18\"",
       "target": "Friendly unit",
       "cast_value": "7",
-      "effect": "All attacks of the target gain \"Decimate\" and (cumulative) \"Lance(1)\".",
+      "effect": "All attacks of the target gain \"Decimate\" and (cumulative) \"Armorbane(1)\".",
       "duration": "Instant",
       "complexity": "Normal"
     },

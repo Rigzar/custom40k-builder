@@ -164,13 +164,26 @@ export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Uni
   return base;
 }
 
+/**
+ * How many models a variant promotion may promote. Almost always one; "Up to three ... may be upgraded to Spannas" is a fixed_max;
+ * and Tyranids 1.10's Zoanthropes read "For every three models, one Zoanthrope may be upgraded to a Neurothrope" -- per_n, which
+ * scales with the squad: 3-5 models allow one, 6-8 two, 9 three.
+ */
+export function variantPromotionCap(group: OptionGroup, size: number): number {
+  const c = group.constraint;
+  if (c?.type === 'fixed_max') return c.max ?? 1;
+  if (c?.type === 'per_n' && c.per_n) return Math.floor(size / c.per_n) * (c.count_per_n ?? 1);
+  return 1;
+}
+
 function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
   for (const [gi, g] of unit.option_groups.entries()) {
     const qty = item.optionQty?.[gi];
     if (g.variant_link && qty?.['__inline']) {
       const variant = unit.variant_models.find(v => v.name === g.variant_link) ?? null;
       if (!variant) return null;
-      const cap = g.constraint?.type === 'fixed_max' ? (g.constraint.max ?? 1) : 1;
+      const cap = variantPromotionCap(g, item.size);
+      if (cap < 1) return null;
       return { variant, group: g, count: Math.max(1, Math.min(Number(qty['__inline']) || 1, cap)) };
     }
     // Per-choice variant_link: a multi-choice group (e.g. Necrons Cryptek's 5-way "one of the
@@ -355,6 +368,11 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // +85 points" (ods-verbatim, Necrons Army Customisation). Flat surcharge, not per-model —
   // C'tan Shards are always a single model (default_size 1).
   if (item.ctanYngirUpgrade) total += 85;
+  // The promoted model's flat surcharge (Megafauna: "The model costs +36 points"), only on the entry that claimed the promotion.
+  if (item.archetypeHqUpgrade) {
+    const promo = getArchetypeRule(archetype)?.hqPromotion;
+    if (promo?.extraPoints && item.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase())) total += promo.extraPoints;
+  }
   // Deployment rule bought on this entry (Webway strike / Webway raid / Lightning strike /
   // Tellyporta): rate x Wounds-or-Hull-Points x models, exactly as the Index tab prices it.
   if (item.deploymentUpgrade) {

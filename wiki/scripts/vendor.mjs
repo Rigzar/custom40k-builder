@@ -25,7 +25,7 @@ rmSync(vendorRoot, { recursive: true, force: true });
 
 const FACTIONS = [
   'chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
-  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'assassins', 'tau_empire',
+  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'assassins', 'tau_empire',
   'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
   'tyranids',
 ];

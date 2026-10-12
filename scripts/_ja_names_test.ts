@@ -42,7 +42,7 @@ const glued = 'Every Dark Executioner is equipped with: Executioners blade, Frag
 eq(localEquipped(glued, 'ja'), glued, 'glued sentences are left exactly as written');
 eq(localEquipped('A Foetid Virion is equipped with: Blight grenades. A Biologus Putrifier is additionally equipped with: Injector pistol A Foul Blightspawn is additionally equipped with: Plague sprayer.', 'ja').includes('equipped with'), true, 'a sentence that swallowed the next one is not translated');
 eq(localEquipped('Every model is equipped with: Bolter.', 'en'), 'Every model is equipped with: Bolter.', 'English is untouched');
-let framed = 0, total = 0, changed = 0;
+let total = 0, changed = 0;
 const eqSeen = new Set<string>();
 (function walk(d: string) {
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {

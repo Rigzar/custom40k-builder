@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
@@ -6,9 +6,9 @@ import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
-import { findArmoryItem } from '../engine/resolver';
-import { getActiveVariant, gameSizePrice } from '../engine/points';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
+import { findArmoryItem, resolveUnitProfile, armoryWeaponTargets } from '../engine/resolver';
+import { getActiveVariant, gameSizePrice, liveArmoryPoints } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
@@ -175,6 +175,19 @@ const MARK_BADGE: Record<string, string> = {
   Nurgle:   'bg-green-900/60 text-green-300 border-green-700',
 };
 
+/**
+ * How many copies of an item the unit holds and how many it may hold, looked up by a selection id. Read by the
+ * rows in the weapon table and in the card lists so both draw the same [-] n/cap [+] control: a squad where
+ * every model has Armory access may buy one copy per model (GH#231: the Nobz player could not tell that a
+ * ticked box could be clicked again).
+ */
+const ArmoryCountsContext = createContext<{
+  countOf: (selId: string) => number;
+  capOf: (arm: ArmoryItem, selId: string) => number;
+  /** Why this item cannot be added to the weapon table right now, in words (null when it can). */
+  reasonOf: (arm: ArmoryItem) => string | null;
+} | null>(null);
+
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const t = useT();
   const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army, pointLimit } = useArmyStore();
@@ -257,6 +270,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // `activeData` is the data this item's armoury comes from, which is what the sibling gate
   // `isInquisitionAcolytes` below already uses.
   const isInquisition = activeData.faction === 'Inquisition';
+  // Imperial Navy's "Warrant of Trade" grants the same single pick from any Imperial faction.
+  const hasAuthorityTab = isInquisition || activeData.faction === 'Imperial Navy';
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
   const authorityFactions = archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
@@ -273,13 +288,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // job can be taken one additional time" — raises the per-vehicle cap on the 16 named Kustom Job
   // items by +1. Uses the allied trait pool when this item belongs to an allied Orks detachment.
   const effectiveTraitPool = (isTrueAllyUnit && alliedData) ? alliedTraitPool : traitPool;
-  function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
-    if (isMultipleAllowed(arm.desc)) return false;
-    const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
+  /** How many copies of this item the unit may hold (Infinity when the item says it can be taken multiple times). */
+  function copyCap(arm: ArmoryItem, _sec: Section): number {
+    if (isMultipleAllowed(arm.desc)) return Infinity;
     // Biomorphs are bought once for the WHOLE unit no matter its size or squadron count (the
     // codex's own "Point costs are paid per unit/model" is about price, never quantity) — never
     // scale the cap by item.size the way an ordinary has_armory_access squad's gear would.
-    if (isBiomorph(arm.desc)) return owned >= 1;
+    if (isBiomorph(arm.desc)) return 1;
     const accessorCount = (isVehicle || unit.has_armory_access) ? item.size : 1;
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
@@ -291,6 +306,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       : isPerWeaponPurchase(arm.desc)
         ? accessorCount * Math.max(1, availableWeapons.length)
         : accessorCount * multiplesPerModel(arm.desc);
+    return cap;
+  }
+  function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
+    const cap = copyCap(arm, sec);
+    if (cap === Infinity) return false;
+    const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
     return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
@@ -424,6 +445,29 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       if (getItemPts(arm) === null) return true;
     }
     return false;
+  }
+  /**
+   * WHY an item cannot be added, in words. Mirrors isAddBlocked in the same order, so a greyed-out row says what to
+   * change instead of just fading (Rigzar, 2026-10-09: the select/deselect system had to be clearer).
+   */
+  function blockReason(arm: ArmoryItem, sec: Section): string | null {
+    if (oncePerModelBlocked(arm, sec)) return t('armReasonCap').replace('{n}', String(copyCap(arm, sec)));
+    if (uniqueArmyBlocked(arm, sec)) return t('armReasonUnique');
+    if (kustomJobSlotFull(arm)) return t('armReasonKustom');
+    if (unwieldyModelBlocked(arm, sec)) return t('armReasonUnwieldy');
+    if (sec === 'equipment' && armorConflict(arm)) return t('armReasonArmour');
+    if (sec === 'equipment' && daemonGatewayConflict(arm)) return t('armReasonDaemon');
+    if (isItemRequirementsBlocked(arm, _effectiveKws)) {
+      // Name who CAN buy it ("Only for Mek") instead of the generic "does not meet its requirements".
+      const lacks = !!arm.requires_keywords?.length && !arm.requires_keywords.some(k => _effectiveKws.includes(k.toLowerCase()));
+      const who = (lacks ? arm.requires_keywords! : []).map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
+      return who.length ? t('armReasonOnly').replace('{kw}', who.join(' / ')) : t('armReasonNeeds');
+    }
+    if (!arm.category) {
+      if (isMarkBlocked(arm)) return t('armReasonMark');
+      if (getItemPts(arm) === null) return t('armReasonNoPrice');
+    }
+    return null;
   }
   function getSelId(itemName: string, sec: Section): string | undefined {
     return currentArmory.find(a => a.itemName === itemName && a.section === sec)?.id;
@@ -683,7 +727,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // specialist sheets and Acolytes is the ONLY one of them that grants Armory access at all
   // ("All models got access to weapons and gear from the Armory"), so no other specialist has
   // anything to restrict. Equipment is untouched — the rule names weapons.
-  const isInquisitionAcolytes = activeData.faction === 'Inquisition' && unit.name === 'Acolytes';
+  const isInquisitionAcolytes = (activeData.faction === 'Inquisition' || activeData.faction === 'Imperial Navy') && unit.name === 'Acolytes';
 
   // Horus Heresy Palatine Blade Squad ("Armory" sheet): "Every model got access to melee weapons
   // from the Armory. May not select weapons with the 'Slow' or 'Unwieldy' rule." Scoped to the
@@ -820,10 +864,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // they were two guns; picking one applied the enhancement to that profile alone and the
   // other stayed unchanged, which read as the item doing nothing (GH#115). The resolver now
   // matches by base name, so storing the base name here is what the engine expects.
+  // The weapons the model that is buying carries (a Champion's own loadout, not the whole squad's kit), so
+  // "One ranged weapon of the model gains +1 Strength" cannot be pointed at a Flamer the Champion never holds.
+  const carriedTargets = armoryWeaponTargets(unit, item, resolveUnitProfile(item, unit, useArmyStore.getState() as never, data));
+  const isMeleeTarget = (w: { name: string; type?: string; range?: string }) => /melee/i.test(w.type ?? '') || !w.range || w.range === '-';
   const availableWeapons: string[] = [...new Set([
-    ...unit.weapons.map(w => weaponBaseName(w.name)),
+    ...carriedTargets.map(w => weaponBaseName(w.name)),
     ...item.armory.filter(a => a.section === 'weapons').map(a => weaponBaseName(a.itemName)),
   ])];
+  const meleeWeapons: string[] = [...new Set(carriedTargets.filter(isMeleeTarget).map(w => weaponBaseName(w.name)))];
 
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;
@@ -1079,7 +1128,32 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ? [...vehicleEquipBase, ...foreignVehicleEquip.filter(a => !vehicleEquipBase.some(v => v.name === a.name))]
     : vehicleEquipBase;
 
+  const countsCtx = {
+    countOf: (selId: string) => {
+      const sel = currentArmory.find(a => a.id === selId);
+      return sel ? currentArmory.filter(a => a.itemName === sel.itemName && a.section === sel.section).length : 0;
+    },
+    capOf: (arm: ArmoryItem, selId: string) => {
+      const sel = currentArmory.find(a => a.id === selId);
+      return sel ? copyCap(arm, sel.section as Section) : 1;
+    },
+    reasonOf: (arm: ArmoryItem) => (isAddBlocked(arm, 'weapons') ? blockReason(arm, 'weapons') : null),
+  };
+
+  // "You carry": every bought item once, with its copies, its price and a way to take it off, at the top of the
+  // modal, so removing something never means finding it again in a long table.
+  const carried: { key: string; name: string; ids: string[]; pts: number }[] = [];
+  for (const a of currentArmory) {
+    const key = `${a.section}::${a.itemName}`;
+    let g = carried.find(c => c.key === key);
+    if (!g) { g = { key, name: a.itemName, ids: [], pts: 0 }; carried.push(g); }
+    g.ids.push(a.id);
+    g.pts += liveArmoryPoints(a, army.find(e => e.id === item.id) ?? item, unit, pointLimit);
+  }
+  const carriedTotal = carried.reduce((n, c) => n + c.pts, 0);
+
   return (
+    <ArmoryCountsContext.Provider value={countsCtx}>
     <div
       className="fixed inset-0 bg-black/80 flex items-start justify-center z-50 p-6 overflow-y-auto"
       onClick={e => e.target === e.currentTarget && onClose()}
@@ -1097,6 +1171,30 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
+
+        {carried.length > 0 && (
+          <div className="px-3 py-2 bg-zinc-900 border-b border-zinc-700 flex flex-wrap items-center gap-1.5">
+            <span className="text-[10px] uppercase tracking-widest text-amber-600 mr-1">{t('armCarryTitle')}</span>
+            {carried.map(c => (
+              <span key={c.key} className="inline-flex items-center gap-1 border border-zinc-600 bg-zinc-800 pl-2 text-[11px] text-zinc-200">
+                {nm(stripMarkGlyph(c.name))}{c.ids.length > 1 ? ` ×${c.ids.length}` : ''}
+                <span className="text-amber-500">{c.pts >= 0 ? '+' : ''}{c.pts}</span>
+                <button type="button" onClick={() => removeItem(c.ids[c.ids.length - 1])} title={t('armRemoveOne')} aria-label={t('armRemoveOne')}
+                  className="w-5 h-5 text-zinc-400 hover:bg-red-900/60 hover:text-red-200">✕</button>
+              </span>
+            ))}
+            <span className="ml-auto flex items-center gap-2">
+              {armoryVetMax !== null && (
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${veteranSlotsFull ? 'bg-red-900/40 border-red-700 text-red-400' : 'bg-amber-900/30 border-amber-700 text-amber-400'}`}>
+                  {t('veteranAbilities')} {veteranItemsUsed}/{armoryVetMax}
+                </span>
+              )}
+              <span className="text-[11px] font-bold text-amber-400">{carriedTotal >= 0 ? '+' : ''}{carriedTotal} pts</span>
+              <button type="button" onClick={() => carried.forEach(c => c.ids.forEach(removeItem))}
+                className="text-[10px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/40 border-red-800 text-red-300 hover:bg-red-800/60">{t('armClearAll')}</button>
+            </span>
+          </div>
+        )}
 
         {/* Armory tabs — hidden when opened via a category button (veteran/vehicle) */}
         {!filterCategory && <div className="flex border-b border-zinc-700">
@@ -1168,7 +1266,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             </button>
           )}
           {/* Authority of the Inquisition tab — Inquisition only */}
-          {isInquisition && (
+          {hasAuthorityTab && (
             <button
               onClick={() => setTab('authority')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
@@ -1177,7 +1275,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {t('authorityTabLabel')}
+              {t(isInquisition ? 'authorityTabLabel' : 'warrantTabLabel')}
             </button>
           )}
           {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines.
@@ -1258,6 +1356,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           add(arm, `${markName} Armoury`, effectiveSection, tw, cp);
                         }}
                         availableWeapons={availableWeapons}
+                        meleeWeapons={meleeWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1280,6 +1379,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             key={i} arm={arm} isChar={isChar}
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
+                            reason={isAddBlocked(arm, effectiveSection) ? blockReason(arm, effectiveSection) : null}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
                             ptsOverride={getItemPts(arm)}
                             onRemove={removeItem}
@@ -1360,6 +1460,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           add(arm, legName, effectiveSection, tw, cp);
                         }}
                         availableWeapons={availableWeapons}
+                        meleeWeapons={meleeWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1383,6 +1484,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             key={i} arm={arm} isChar={isChar} markless={legMarkless(legName)}
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
+                            reason={isAddBlocked(arm, effectiveSection) ? blockReason(arm, effectiveSection) : null}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
                             ptsOverride={getItemPts(arm)}
                             onRemove={removeItem}
@@ -1456,6 +1558,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                           add(arm, AUTHORITY_SOURCE, 'equipment', tw, cp);
                         }}
                         availableWeapons={availableWeapons}
+                        meleeWeapons={meleeWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1536,6 +1639,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         add(arm, foreignSrcLabel, 'equipment', tw, cp);
                       }}
                       availableWeapons={availableWeapons}
+                      meleeWeapons={meleeWeapons}
                       eqTargetWeapon={eqTargetWeapon}
                       onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       eqExarchPower={eqExarchPower}
@@ -1598,6 +1702,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 add(arm, src, effectiveSection, tw, cp);
               }}
               availableWeapons={availableWeapons}
+              meleeWeapons={meleeWeapons}
               eqTargetWeapon={eqTargetWeapon}
               onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
               eqExarchPower={eqExarchPower}
@@ -1633,6 +1738,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     key={i} arm={arm} isChar={isChar} markless={isMarklessFaction}
                     justAdded={lastAdded === arm.name}
                     disabled={isAddBlocked(arm, effectiveSection)}
+                            reason={isAddBlocked(arm, effectiveSection) ? blockReason(arm, effectiveSection) : null}
                     selectedArmoryId={getSelId(arm.name, effectiveSection)}
                     ptsOverride={getItemPts(arm)}
                     onRemove={removeItem}
@@ -1650,6 +1756,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         </div>
       </div>
     </div>
+    </ArmoryCountsContext.Provider>
   );
 }
 
@@ -1685,6 +1792,8 @@ interface EquipGroupsProps {
   onAdd: (arm: ArmoryItem) => void;
   /** Weapons available on this unit — used for the weapon-target picker */
   availableWeapons?: string[];
+  /** The melee ones among `availableWeapons`, so a "melee weapon" item is only offered those. */
+  meleeWeapons?: string[];
   /** Current weapon target selections for equipment that requires a target */
   eqTargetWeapon?: Record<string, string>;
   onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
@@ -1730,6 +1839,7 @@ function EquipmentGroups({
   daemonWeapon,
   reaverLord,
   availableWeapons = [],
+  meleeWeapons = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
   eqExarchPower = {},
@@ -1824,7 +1934,7 @@ function EquipmentGroups({
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
                       <option value="">{t('selectWeaponOption')}</option>
-                      {availableWeapons.map(wn => (
+                      {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
                         <option key={wn} value={wn}>{wn}</option>
                       ))}
                     </select>
@@ -1928,6 +2038,7 @@ function EquipmentGroups({
                 <ArmoryItemRow
                   key={i} arm={arm} isChar={isChar} markless={markless}
                   disabled={(armoryVetMax !== null && (veteranSlotsFull || isSelected) && !inProfile) || inProfile}
+                  reason={armoryVetMax !== null && veteranSlotsFull && !isSelected && !inProfile ? t('armReasonVet') : null}
                   justAdded={lastAdded === arm.name}
                   priceLabel={vetPriceLabel(arm)}
                   inProfile={inProfile}
@@ -1977,7 +2088,7 @@ function EquipmentGroups({
                         className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                       >
                         <option value="">{t('selectWeaponOption')}</option>
-                        {availableWeapons.map(wn => (
+                        {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
                           <option key={wn} value={wn}>{wn}</option>
                         ))}
                       </select>
@@ -2123,6 +2234,14 @@ function ReaverLordPicker({
   );
 }
 
+/** The weapons a weapon-target item may be pointed at: "One melee weapon..." only the melee ones, "One ranged weapon..." only the others. */
+function targetsFor(arm: ArmoryItem, all: string[], melee: string[]): string[] {
+  const kind = weaponTargetKind(arm.desc);
+  if (kind === 'any') return all;
+  const m = new Set(melee);
+  return all.filter(w => (kind === 'melee') === m.has(w));
+}
+
 function DaemonWeaponPicker({
   pool, cap, selections, lastAdded, availableWeapons,
   dwTargetWeapon, onSetTargetWeapon, isTakenElsewhere, onAdd, onRemove,
@@ -2225,10 +2344,25 @@ function DaemonWeaponPicker({
 
 // ── Item rows ────────────────────────────────────────────────────────────────
 
+/** [-] n/cap [+]: the one control for an item that may be held more than once. */
+function CopyStepper({ count, cap, canAdd, onAdd, onRemove, addLabel, removeLabel }: {
+  count: number; cap: number; canAdd: boolean; onAdd: () => void; onRemove: () => void; addLabel: string; removeLabel: string;
+}) {
+  return (
+    <div className="inline-flex items-center border border-zinc-600 bg-zinc-900 shrink-0">
+      <button type="button" onClick={e => { e.stopPropagation(); onRemove(); }} title={removeLabel} aria-label={removeLabel}
+        className="w-6 h-6 text-sm leading-none text-zinc-300 hover:bg-red-900/60 hover:text-red-200">−</button>
+      <span className="min-w-[2.6rem] text-center text-[11px] font-mono text-amber-300 select-none">{count}/{Number.isFinite(cap) ? cap : '∞'}</span>
+      <button type="button" onClick={e => { e.stopPropagation(); if (canAdd) onAdd(); }} disabled={!canAdd} title={addLabel} aria-label={addLabel}
+        className="w-6 h-6 text-sm leading-none text-emerald-300 hover:bg-emerald-900/60 disabled:opacity-30 disabled:cursor-not-allowed">+</button>
+    </div>
+  );
+}
+
 function ArmoryItemRow({
   arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
   selectedArmoryId, onRemove,
-  ptsOverride, markless = false,
+  ptsOverride, markless = false, reason,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
@@ -2243,8 +2377,13 @@ function ArmoryItemRow({
   ptsOverride?: number | null;
   /** True for Horus Heresy supplement items: a trailing ᵀ is Terminator-compat, not Mark of Tzeentch. */
   markless?: boolean;
+  /** Why the row is greyed out, in words. */
+  reason?: string | null;
 }) {
   const t = useT();
+  const counts = useContext(ArmoryCountsContext);
+  const copyCount = selectedArmoryId && counts ? counts.countOf(selectedArmoryId) : 1;
+  const copyCapacity = selectedArmoryId && counts ? counts.capOf(arm, selectedArmoryId) : 1;
   const requiredMark = markless ? null : itemRequiredMark(arm.name);
   const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
   const markBadgeClass = requiredMark ? (MARK_BADGE[requiredMark] ?? 'bg-zinc-800 text-zinc-300 border-zinc-600') : '';
@@ -2294,22 +2433,15 @@ function ArmoryItemRow({
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
           <span className="font-bold text-sm whitespace-nowrap text-zinc-500">{displayPrice}</span>
-          <button
-            onClick={() => onRemove(selectedArmoryId)}
-            className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
-          >
-            {t('removeUnit')}
-          </button>
-          {/* A multi-model squad where every model has its own Armory access (e.g. Orks Nobz,
-              GitHub #3) may take more than one copy of the same item — `disabled` already
-              reflects whether the per-model cap (item.size) has been reached, so once an item
-              is selected this still offers another pick until that cap is hit. */}
-          {!disabled && (
+          {copyCapacity > 1 ? (
+            <CopyStepper count={copyCount} cap={copyCapacity} canAdd={!disabled} onAdd={onAdd}
+              onRemove={() => onRemove(selectedArmoryId)} addLabel={t('addAnotherButton')} removeLabel={t('armRemoveOne')} />
+          ) : (
             <button
-              onClick={onAdd}
-              className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-emerald-900/40 border-emerald-700 text-emerald-300 hover:bg-emerald-800/60"
+              onClick={() => onRemove(selectedArmoryId)}
+              className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
             >
-              {t('addAnotherButton')}
+              {t('removeUnit')}
             </button>
           )}
         </div>
@@ -2354,6 +2486,9 @@ function ArmoryItemRow({
           )}
         </div>
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(arm.desc)}</div>}
+        {reason && (disabled || priceIsNull) && !inProfile && (
+          <div className="text-[11px] text-amber-500 mt-0.5">⛔ {reason}</div>
+        )}
         <ArmoryWeaponStats arm={arm} />
       </div>
       <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : priceIsNull ? 'text-zinc-500' : 'text-amber-500'}`}>
@@ -2423,6 +2558,7 @@ function ArmoryWeaponTable({
   markless?: boolean;
 }) {
   const t = useT();
+  const counts = useContext(ArmoryCountsContext);
   return (
     <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
       {/* NOT table-fixed — same reasoning as the datasheet's own weapon-swap table: forcing the
@@ -2458,41 +2594,35 @@ function ArmoryWeaponTable({
               <tr
                 key={i}
                 title={localiseAbility(arm.desc)}
-                className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-40' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
+                className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-60' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
               >
                 {/* A COUNTER, not a checkbox. Clicking the box buys another copy and shows how
                     many are owned; the "−" beside it gives one back. The old control toggled, so
                     the click meant to buy a second Big choppa returned the first (GH#170/#171). */}
                 <td className="py-1.5 pl-2">
-                  <div className="flex items-center gap-1">
+                  {owned && counts && counts.capOf(arm, selId!) > 1 ? (
+                    <CopyStepper count={count} cap={counts.capOf(arm, selId!)} canAdd={!blocked}
+                      onAdd={() => onAdd(arm)} onRemove={() => onRemove(selId!)}
+                      addLabel={t('addAnotherButton')} removeLabel={t('armRemoveOne')} />
+                  ) : (
                     <div
-                      // At the per-model cap (a Captain has ONE Plasma pistol slot) the click gives the
-                      // copy back, as the old checkbox did; below the cap it buys another (GH#170/171).
+                      // One copy at most: the click buys it, and gives it back once it is held.
                       onClick={() => { if (owned && blocked) onRemove(selId!); else if (!disabled) onAdd(arm); }}
-                      title={count > 0 ? (blocked ? `${count} — clic para quitar` : `${count} — clic para añadir otra`) : undefined}
+                      title={owned ? t('armRemoveOne') : undefined}
                       className={`w-4 h-4 border flex items-center justify-center transition-colors
                         ${owned ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
                         ${disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'}`}
                     >
-                      {owned && (
-                        <span className="text-[8px] text-white leading-none">
-                          {count > 1 ? count : '✓'}
-                        </span>
-                      )}
+                      {owned && <span className="text-[8px] text-white leading-none">✓</span>}
                     </div>
-                    {owned && (
-                      <button
-                        type="button"
-                        onClick={() => onRemove(selId!)}
-                        title={t('armRemoveOne')}
-                        className="w-3 h-4 leading-none text-[11px] text-zinc-500 hover:text-red-400"
-                      >
-                        −
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </td>
-                <td className="py-1.5 pr-2 font-medium text-zinc-100">{nm(displayName)}</td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">
+                  {nm(displayName)}
+                  {disabled && !owned && counts?.reasonOf(arm) && (
+                    <div className="text-[10px] font-normal text-amber-500">⛔ {counts.reasonOf(arm)}</div>
+                  )}
+                </td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
                 <td className="py-1.5 px-1 text-zinc-300">{rl(profile.type ?? '-')}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>

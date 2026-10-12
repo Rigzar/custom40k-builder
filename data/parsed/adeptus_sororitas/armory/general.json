@@ -226,7 +226,7 @@
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Slow(-2), Armorbane",
+      "abilities": "AT(2), Slow(-2), Armorbane(3)",
       "p_unit": null,
       "p_char": 13
     },
@@ -243,7 +243,7 @@
       "p_char": 3
     },
     {
-      "name": "Frag grenade",
+      "name": "Frag grenades",
       "term_compat": false,
       "range": "6\"",
       "type": "Grenade 1",
@@ -323,7 +323,7 @@
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(3), Armorbane",
+      "abilities": "AT(3), Armorbane(3)",
       "p_unit": 5,
       "p_char": 5
     },

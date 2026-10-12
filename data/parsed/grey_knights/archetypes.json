@@ -10,7 +10,8 @@
     },
     {
       "name": "Chamber Militant",
-      "desc": "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Malleus\" was selected as Legacy."
+      "desc": "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Malleus\" was selected as Legacy.",
+      "skirmish": true
     }
   ],
   "legacies": [

@@ -114,6 +114,7 @@ function ArmyNameEditor() {
 // "✗ 2" is one click from being told what the two problems are. It used to be dead text, and the
 // only copy of the validation list was a collapsible in the builder's left sidebar.
 function HeaderStatus({ onOpenReview }: { onOpenReview: () => void }) {
+  const t = useT();
   const { data, ...state } = useArmyStore();
   if (!data || state.army.length === 0) return null;
 
@@ -124,6 +125,9 @@ function HeaderStatus({ onOpenReview }: { onOpenReview: () => void }) {
 
   const pct  = Math.min(100, (total / state.pointLimit) * 100);
   const over = total > state.pointLimit;
+  // Points still free, shown beside the total like "2435 (65)": negative and red when over the limit (Discord request).
+  const remaining = state.pointLimit - total;
+  const remainingTitle = tpl(over ? t('pointsOver') : t('pointsLeft'), { n: Math.abs(remaining) });
 
   const validation = validateArmy(state, data, state.alliedData);
   const errors = validation.filter(v => v.type === 'error').length;
@@ -134,6 +138,9 @@ function HeaderStatus({ onOpenReview }: { onOpenReview: () => void }) {
       <div className="flex items-center gap-2">
         <span className={`text-sm font-bold tabular-nums ${over ? 'text-red-400 pts-over-glow' : 'text-amber-400'}`}>
           {total}
+        </span>
+        <span title={remainingTitle} className={`text-xs font-semibold tabular-nums ${over ? 'text-red-400' : remaining === 0 ? 'text-green-500' : 'text-amber-400/70'}`}>
+          ({remaining})
         </span>
         <div className="hidden sm:block w-20 h-1.5 bg-zinc-700 rounded overflow-hidden">
           <div

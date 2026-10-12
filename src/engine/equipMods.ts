@@ -323,6 +323,13 @@ export function isUnwieldyItem(desc: string | undefined): boolean {
  *     this check — the gate that makes ArmoryModal show a target-weapon picker at all — never
  *     recognized the wording as needing one in the first place.
  */
+/** Which weapons a weapon-target item may be pointed at: "One ranged weapon of the model gains +1 Strength"
+ *  (Maelstrom Weapon) only ranged, "One melee weapon..." (Reaver Weapon) only melee, anything else any. */
+export function weaponTargetKind(desc: string | undefined): 'melee' | 'ranged' | 'any' {
+  const m = (desc ?? '').match(/(?:one|a|an) (melee|ranged) weapon of the model/i);
+  return m ? (m[1].toLowerCase() as 'melee' | 'ranged') : 'any';
+}
+
 export function requiresWeaponTarget(desc: string | undefined): boolean {
   return /\b(?:one|a|an) (?:melee |ranged )?weapon of the model (?:gains|increases its)|on one of its weapons|purchased for each weapon/i.test(desc ?? '');
 }
@@ -703,13 +710,18 @@ export function parseInvSaveFromAbilities(abilities: string[]): number | null {
       }
     }
     // Named ability patterns (canonical from core rules):
-    // "Daemon" ability → 5+ inv
-    if (/^Daemon\b/i.test(ab.trim())) {
-      if (best === null || 5 < best) best = 5;
-    }
-    // "Greater Daemon" → 4+
-    if (/^Greater Daemon\b/i.test(ab.trim())) {
-      if (best === null || 4 < best) best = 4;
+    // "Daemon" ability → 5+ inv. The sheets write keyword abilities as ONE comma-separated line
+    // ("Deepstrike, Daemon, Daemonic instability, ..."), so a line without a colon is read item by
+    // item: matching only the start of the line gave the Bloodletters no ward save at all.
+    const items = ab.includes(':') ? [ab] : ab.split(/\s*,\s*/);
+    for (const it of items) {
+      if (/^Daemon\b/i.test(it.trim())) {
+        if (best === null || 5 < best) best = 5;
+      }
+      // "Greater Daemon" → 4+
+      if (/^Greater Daemon\b/i.test(it.trim())) {
+        if (best === null || 4 < best) best = 4;
+      }
     }
     // "Berserk(X+)" → X+
     const berserk = ab.match(/\bBerserk\((\d)\+\)/i);

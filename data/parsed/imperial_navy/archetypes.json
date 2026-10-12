@@ -1,0 +1,16 @@
+{
+  "archetypes": [
+    {
+      "name": "Heretic",
+      "desc": "- Every model in the army with access to the Armory may select a single item from any Chaos faction.",
+      "skirmish": true
+    },
+    {
+      "name": "Iconoclast",
+      "desc": "- Every model in the army with access to the Armory may select a single item from any Xenos faction.",
+      "skirmish": true
+    }
+  ],
+  "legacies": [],
+  "traits": []
+}

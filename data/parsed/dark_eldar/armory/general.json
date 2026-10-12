@@ -33,7 +33,7 @@
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Lance(+1)",
+      "abilities": "AT(2), Armorbane(1)",
       "p_unit": 33,
       "p_char": 41
     },
@@ -45,7 +45,7 @@
       "s": "8",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Lance(+1)",
+      "abilities": "AT(2), Armorbane(1)",
       "p_unit": 16,
       "p_char": 20
     },
@@ -110,7 +110,7 @@
       "p_char": 10
     },
     {
-      "name": "Haywire grenade",
+      "name": "Haywire grenades",
       "term_compat": false,
       "range": "6\"",
       "type": "Grenade 1",
@@ -218,7 +218,7 @@
       "p_char": 5
     },
     {
-      "name": "Plasma grenade",
+      "name": "Plasma grenades",
       "term_compat": false,
       "range": "-",
       "type": "Melee",
@@ -278,14 +278,14 @@
       "p_char": 5
     },
     {
-      "name": "Shadow bomb",
+      "name": "Shadow bombs",
       "term_compat": false,
       "range": "3\"",
       "type": "Grenade",
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "Armorbane, AT(3)",
+      "abilities": "Armorbane(3), AT(3)",
       "p_unit": 5,
       "p_char": 5
     },

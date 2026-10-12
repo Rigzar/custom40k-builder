@@ -96,7 +96,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   // came here with nothing. 163 of 666 datasheets state one.
   const ward = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: rp.equipMods?.invulnSave,
-    optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities,
+    optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities, equipAbilities: rp.equipMods?.grantedAbilities,
     markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, u.abilities),
   });
   // At the table the number you roll against is the FINAL one, so this runs the whole chain the
@@ -164,7 +164,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
                   {models.map((m: any, i: number) => (
                     <tr key={`${m.name}-${i}`} className="border-t border-zinc-800/70">
                       <td className="text-zinc-200 py-0.5 pr-1">
-                        {counts[i] != null ? `${counts[i]}x ` : ''}{nm(m.name)}
+                        {`${rp.modelRowCounts?.[i] ?? 1}x `}{nm(m.name)}
                       </td>
                       {statKeys.map(k => {
                         const { display, source } = statOf(m, i, k);

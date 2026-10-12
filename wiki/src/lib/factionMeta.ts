@@ -24,7 +24,7 @@ export const CATEGORIES: FactionCategory[] = [
     dividerColor: '#3a3520',
     factionKeys: [
       'space_marines', 'imperial_guard', 'adeptus_mechanicus', 'adeptus_custodes',
-      'adeptus_sororitas', 'grey_knights', 'inquisition',
+      'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy',
     ],
   },
   {
@@ -72,6 +72,8 @@ export const FACTION_DESCRIPTIONS: Record<string, string> = {
     'A secret Chapter known only to the highest levels of the Inquisition, the Grey Knights are humanity\'s last bulwark against daemonic incursion. Every Battle-Brother is a formidable psyker, and their very names are wards against possession. Their blades are forged with daemon-banishing rituals older than the Imperium itself.',
   inquisition:
     'The Inquisition is the secret police of the Imperium — autonomous agents empowered to root out heresy, xenos corruption, and daemonic influence by any means necessary. An Inquisitor operates above the law, commanding acolyte warbands, mercenaries, and specialist troops as they pursue their purges without oversight.',
+  imperial_navy:
+    'The Imperial Navy is the Imperium\'s fleet service: rogue traders and void-masters, crews of ratings and voidsmen, boarding parties, and the Valkyries, Vendettas and fighters of the Aeronautica. It fields few units of its own and is best taken with an allied detachment; a retinue of henchmen travels with every Rogue Trader.',
   tau_empire:
     'A young and rapidly expanding interstellar civilisation, the Tau Empire is united under the doctrine of the Greater Good. Where other races make war through brute force, the Tau combine coordinated firepower, aerial supremacy, and sophisticated battlesuits into a military that punches far above its apparent weight.',
   necrons:

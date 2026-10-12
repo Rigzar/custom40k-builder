@@ -1,0 +1,339 @@
+{
+  "name": "Explorator",
+  "models": [
+    {
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "4",
+        "T": "4",
+        "W": "2",
+        "I": "3",
+        "A": "2",
+        "LD": "7",
+        "SV": "4+"
+      },
+      "name": "Explorator",
+      "min": 1,
+      "max": 1,
+      "points": 23
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "An Explorator is equipped with: -",
+  "weapons": [
+    {
+      "name": "Arc maul",
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Haywire"
+    },
+    {
+      "name": "Arc pistol",
+      "range": "6\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Haywire"
+    },
+    {
+      "name": "Archeo-revolver",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "-"
+    },
+    {
+      "name": "Bolt pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Eradication pistol - Focused",
+      "range": "6\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Eradication pistol - Dissipated",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Flechette blaster",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive, Shred"
+    },
+    {
+      "name": "Macrostubber",
+      "range": "12\"",
+      "type": "Pistol 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Mechanicus pistol",
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Omnissian axe",
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "-"
+    },
+    {
+      "name": "Omnissian staff",
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "2",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Phosphor blast pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Explosive, Luminagen"
+    },
+    {
+      "name": "Plasma pistol - Standard",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Plasma pistol - Overcharged",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheating"
+    },
+    {
+      "name": "Radium pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Rad"
+    },
+    {
+      "name": "Servo arm",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Extra attack"
+    },
+    {
+      "name": "Taser goad",
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Tesla"
+    },
+    {
+      "name": "Volkite serpenta",
+      "range": "9\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "-1",
+      "abilities": "Soul burn(6+)"
+    },
+    {
+      "name": "Voltaic blaster",
+      "range": "9\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(5+), Shred, Tesla"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May be equipped with up to two different weapons",
+      "constraint": {
+        "type": "fixed_max",
+        "max": 2,
+        "max_per_choice": 1
+      },
+      "choices": [
+        {
+          "name": "Radium pistol",
+          "points": 1
+        },
+        {
+          "name": "Bolt pistol",
+          "points": 3
+        },
+        {
+          "name": "Volkite serpenta",
+          "points": 3
+        },
+        {
+          "name": "Taser goad",
+          "points": 4
+        },
+        {
+          "name": "Arc pistol",
+          "points": 5
+        },
+        {
+          "name": "Flechette blaster",
+          "points": 5
+        },
+        {
+          "name": "Voltaic blaster",
+          "points": 5
+        },
+        {
+          "name": "Arc maul",
+          "points": 6
+        },
+        {
+          "name": "Mechanicus pistol",
+          "points": 7
+        },
+        {
+          "name": "Phosphor blast pistol",
+          "points": 7
+        },
+        {
+          "name": "Archeo-revolver",
+          "points": 8
+        },
+        {
+          "name": "Macrostubber",
+          "points": 8
+        },
+        {
+          "name": "Omnissian axe",
+          "points": 9
+        },
+        {
+          "name": "Omnissian staff",
+          "points": 9
+        },
+        {
+          "name": "Plasma pistol",
+          "points": 13
+        },
+        {
+          "name": "Eradication pistol",
+          "points": 18
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May take a Servo arm: +13 points",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 13,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "Must be upgraded to one of the following",
+      "constraint": {
+        "type": "one",
+        "required": true
+      },
+      "choices": [
+        {
+          "name": "Enginseer",
+          "points": 5
+        },
+        {
+          "name": "Lectro-Maester",
+          "points": 5
+        },
+        {
+          "name": "Technoarchaeologist",
+          "points": 5
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Command Squad",
+    "Bionics: This model receives a 6+ invulnerability save.",
+    "Luminagen: A unit that suffers one or more unsaved Wounds, glancing or penetrating hits caused by a weapon with this special rule counts its cover saves as being 1 point worse than normal until the end of the battle round. Furthermore, they suffer an additional -1 to hit penalty for Defensive fire.",
+    "Tesla: To hit rolls of 5+ are always successful and the target suffers 2 additional automatic hits.",
+    "Enginseer: Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
+    "Lectro-Maester: The Motive Force: This model and its attached unit gain the \"Deflect\" ability.",
+    "Technoarchaeologist: Seekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\"."
+  ],
+  "unit_type": "Character, Infantry",
+  "keywords": [
+    "Crew"
+  ],
+  "is_vehicle": false,
+  "is_character": true,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": true,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 1,
+  "min_cost": 23,
+  "armory_gear_only": true
+}

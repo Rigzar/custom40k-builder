@@ -22,7 +22,8 @@
     },
     {
       "name": "Ynnari",
-      "desc": "- Ynnari become \"Battle Brothers\" for Dark Eldar.\n- The army got access to the Ynnari Armory and the Revenant discipline.\n- May not select any Legacy."
+      "desc": "- Ynnari become \"Battle Brothers\" for Dark Eldar.\n- The army got access to the Ynnari Armory and the Revenant discipline.\n- May not select any Legacy.",
+      "skirmish": true
     }
   ],
   "legacies": [

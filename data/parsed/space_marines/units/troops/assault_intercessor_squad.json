@@ -99,10 +99,11 @@
     ],
     "option_groups": [
         {
-            "header": "Two Intercessor Marines may swap their Astartes chainsword",
+            "header": "For every five models, two Intercessor Marines may swap their Astartes chainsword",
             "constraint": {
-                "type": "fixed_max",
-                "max": 2
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 2
             },
             "choices": [
                 {

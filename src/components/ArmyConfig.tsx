@@ -6,6 +6,7 @@ import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
+import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
 import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
 
@@ -64,7 +65,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                 {(Object.keys(ENGAGEMENTS) as EngagementType[]).map(e => (
                   <button
                     key={e}
-                    onClick={() => { if (allowEngagementChange(e, store.alliedFaction, t('skirmishDropsAllyConfirm'))) setEngagement(e); }}
+                    onClick={() => { if (allowEngagementChange(e, t('skirmishDropsArchetypeConfirm'))) setEngagement(e); }}
                     className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
                       ${engagement === e
                         ? 'bg-amber-900/50 border-amber-600 text-amber-300'
@@ -171,7 +172,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
               {engKeys.map(e => (
                 <button
                   key={e}
-                  onClick={() => { if (allowEngagementChange(e, store.alliedFaction, t('skirmishDropsAllyConfirm'))) setEngagement(e); }}
+                  onClick={() => { if (allowEngagementChange(e, t('skirmishDropsArchetypeConfirm'))) setEngagement(e); }}
                   className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
                     ${engagement === e
                       ? 'bg-amber-900/50 border-amber-600 text-amber-300'
@@ -232,14 +233,15 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     <select
                       value={archetype}
                       onChange={e => handleSetArchetype(e.target.value)}
-                      disabled={engagement === 'skirmish'}
-                      className={`${selectClass} ${engagement === 'skirmish' ? 'opacity-40 cursor-not-allowed' : ''}`}
+                      className={selectClass}
                     >
                       <option value="">{t('noArchetype')}</option>
-                      {data.archetypes.map(a => <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>)}
+                      {data.archetypes
+                        .filter(a => engagement !== 'skirmish' || archetypeAllowedInSkirmish(data, a.name))
+                        .map(a => <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>)}
                     </select>
                     {engagement === 'skirmish' && (
-                      <div className="text-[10px] text-red-500/80 mt-1 pl-1">{t('notAvailableInSkirmish')}</div>
+                      <div className="text-[10px] text-zinc-500 mt-1 pl-1">{t('skirmishArchetypesOnly')}</div>
                     )}
                     {archetype && (
                       <div className={`mt-2 border-l-2 ${accentBorder} pl-3 space-y-0.5`}>

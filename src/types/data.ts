@@ -534,7 +534,11 @@ export interface Armory {
   daemon_weapons: ArmoryItem[];
 }
 
-export interface Archetype { name: string; desc: string; }
+export interface Archetype {
+  name: string; desc: string;
+  /** The codex's "AVAILABLE IN SKIRMISH?" column says YES. Missing means not available (see engine/skirmishRules.ts). */
+  skirmish?: boolean;
+}
 export interface Legacy {
   name: string;
   desc: string;

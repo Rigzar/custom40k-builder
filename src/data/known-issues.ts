@@ -2,6 +2,30 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-imperial-navy-sheet-questions-for-author-01",
+    status: "known",
+    title: "Imperial Navy: questions for the sheet author (Daemonhosts tab, Voidsmen weapons, Armory marks)",
+    description: "ADDED 2026-10-12 with the new faction (Imperial Navy 1.0.ods). (1) The Index lists Daemonhosts under Elite but the file has no Daemonhosts tab; the unit is a copy of the Inquisition's and unchecked. (2) Voidsmen: the weapon table has Chainsword and Laspistol but no model, option or 'equipped with' line gives them to anyone (the Sergeant-at-arms?), so every Voidsman shows them as a default weapon. (3) The Armory note says 'Acolyte Specialists can only receive weapons marked with ˢ' but no weapon row carries the glyph; the flags of the Inquisition's armory were reused for same-named weapons, the thirteen new ones (Autogun, Autopistol, Las-volley, Navis shotguns, Sling gun...) are open to Acolytes. (4) Weapon headers without a trailing * (Explorator 'Eradication pistol', Impressed Ogryns 'Ripper gun') and 'Plasma pistol*' without a space, which the unit-update script cannot read: the files were written with the mode rows joined to their header, and the next unit update will undo that until the sheet gets the * (see ki-weapon-header-without-star-orphan-modes-01). (5) The sheet still writes Explosive, Barrage and Extra attack, ability names Core Rules 1.279 retired (the Frag grenade 'Explosive' is kept as written).",
+  },
+  {
+    id: "ki-imperial-navy-warrant-objective-secured-01",
+    status: "known",
+    title: "Imperial Navy: 'Warrant of Trade' keeps Objective Secured! for allied Troops, but only the Armory half is in the app",
+    description: "ADDED 2026-10-12. The rule has two halves: every model with Armory access may take a single item from any Imperial faction (built: the Warrant of Trade tab of the Armory, the same picker the Inquisition's Authority uses) and, while the main army has more points than the allied contingent, allied Troops from Allies of Convenience keep Objective Secured! (a table rule; the app does not apply it). Skyhammer Doctrine's second half, Flyers arriving on turn 1, is a table rule as well.",
+  },
+  {
+    id: "ki-tyranids-sporocyst-spore-mine-profile-01",
+    status: "known",
+    title: "Tyranid Sporocyst: its Spore Mine model and its \"Spore Mine launcher\" explosion profile are not shown",
+    description: "REPORTED 2026-10-11 on Discord (samurai.a.cat: \"where are the Spore Mine profiles?\"). The Spore Mine Cluster (Fast Attack) and the Biovore Brood DO have them, but only once you pick one of the four mines under \"Must pick one weapon\" (Aerial, Toxin, Chitin, Bio acid): the weapon table stays empty until then, by design of the sheet. The Sporocyst is different. Its sheet lists a created \"Spore Mine\" model (a row marked * with no points) and its Living ammunition says the mine explodes \"with the 'Spore Mine launcher' profile\", but the sheet has no weapon row with that name (only Barbed strangler, Deathspitter and Venom cannon), and the update script does not import the * model row, so neither appears in the builder. Both live in sheet-owned fields (models and weapons), so this goes to the sheet authors instead of being patched here: the Spore Mine launcher profile is missing from the Sporocyst sheet (Dominic), and whether the * model rows should be imported is for Unwise's script.",
+  },
+  {
+    id: "ki-tts-table-mod-untested-in-game-01",
+    status: "known",
+    title: "The Custom40k Table mod for Tabletop Simulator has not run on a real table yet",
+    description: "ADDED 2026-10-11. tts/Custom40kTable.lua (binder, rules, battle tracker, attack calculator, powers, missions) is tested headlessly against real exports: every tab's XML is checked, the hit / wound / save / armour-penetration maths is compared with the Core Rules by hand, and a save / load round trip is run. It has not been opened inside Tabletop Simulator itself, so a UI attribute or the range rings' coordinates may need a small adjustment on the first real table. Report anything odd with a screenshot. The attack calculator models the common weapon abilities; any other is listed in the result as 'not modelled, apply by hand'.",
+  },
+  {
     id: "ki-admin-overrides-hide-unit-update-01",
     status: "fixed",
     title: "A unit updated from the sheet still shows its old cost (Biovore 110 instead of 41)",

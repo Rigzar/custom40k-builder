@@ -66,13 +66,13 @@ export type TranslationKey =
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
   | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
-  | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
+  | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonOnly' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
   | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
-  | 'skirmishDropsAllyConfirm'
+  | 'skirmishDropsAllyConfirm' | 'skirmishDropsArchetypeConfirm' | 'skirmishArchetypesOnly'
   | 'armoryLostOnDowngradeConfirm'
   | 'transportCapacityLabel'
   | 'reaverLordPickLabel' | 'reaverLordChosenLabel' | 'reaverLordSearch'
@@ -123,7 +123,7 @@ export type TranslationKey =
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
-  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel'
+  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'warrantTabLabel'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
@@ -186,13 +186,13 @@ export type TranslationKey =
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
   | 'valLockedMarkIncompatibleAllyHq' | 'valOnlyTwoTraits' | 'valSectorLordAcolytes' | 'valScarabsAsTroopsCap' | 'valUnitNotInCodex' | 'valUnitRemovedFromCodex' | 'valMinistorumThirdTraitPerUnit'
   | 'unitNotInCodexTitle' | 'unitNotInCodexBody' | 'removeFromList' | 'valVeteranRequired' | 'valUndividedLegacyRestriction'
-  | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valArmyValid'
+  | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valSkirmishArchetypeNotAllowed' | 'valSkirmishAllyTroops' | 'valSkirmishAllyExtras' | 'valArmyValid'
   | 'valIronWithin'
   | 'valBlackCrusadeNoChampion' | 'valBlackCrusadeTooMany' | 'valBlackCrusadeLockedMark' | 'valBlackCrusadeChampionOk'
   | 'valMixedWarbandMultiLegacy'
   | 'valChamberMilitantNoLegacy'
   | 'valOrdoMinorisExcess'
-  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord' | 'valSectorProtectorWarbandMin'
+  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord' | 'valNavyWarbandPerTrader' | 'valSectorProtectorWarbandMin'
   | 'valCsmLegacyKhorne' | 'valCsmLegacyUnitRestrict'
   | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
   | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian'
@@ -777,6 +777,19 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscordJoin: 'Join the Discord',
     referenceModelTag: 'reference',
     gfFocusGone: 'That game is no longer open (it was matched, cancelled or has passed). Here are the open ones.',
+    armReasonCap: 'Limit reached ({n})',
+    armReasonUnique: 'Unique: another unit in the army already has it',
+    armReasonKustom: 'This unit already has its Kustom job',
+    armReasonUnwieldy: 'The model already carries an Unwieldy item',
+    armReasonArmour: 'Conflicts with the armour already bought',
+    armReasonDaemon: 'Conflicts with the Daemon weapon already chosen',
+    armReasonNeeds: 'This unit does not meet its requirements',
+    armReasonOnly: 'Only for {kw}',
+    armReasonMark: 'Needs a different Mark of Chaos',
+    armReasonNoPrice: 'Cannot be bought by this unit',
+    armReasonVet: 'Veteran ability slots are full',
+    armCarryTitle: 'You carry',
+    armClearAll: 'Remove all',
     navCampaignAlphaAdmin: 'Campaign — Alpha (Admin)',
     navCampaignComingSoon: 'Campaign — Coming Soon (Alpha)',
     howToActivate: 'How to activate',
@@ -819,6 +832,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     battleSetup: 'Battle Setup',
     armyDoctrine: 'Army Doctrine',
     notAvailableInSkirmish: 'Not available in Skirmish.',
+    skirmishDropsArchetypeConfirm: 'This army has an archetype that is not available in Skirmish, so switching to Skirmish REMOVES it. Going back to another battle type will not bring it back. Continue?',
+    skirmishArchetypesOnly: 'Skirmish: only the archetypes this codex marks as available in Skirmish are listed.',
     onlyForArmiesWithMarkOf: 'Only for armies with Mark of',
     alliedNoObjectiveSecured: "Not in an allied detachment: allied units can never use “Objective secured!” (Core Rules, Allies).",
     deploymentUpgradeLabel: 'Set up with {ability} ({rule}) — +{pts} pts',
@@ -989,6 +1004,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ All Marks',
     armourySuffix: 'Armoury',
     authorityTabLabel: 'Authority of the Inquisition',
+    warrantTabLabel: 'Warrant of Trade',
     termArmourNotice: 'Terminator armour — showing only Terminator-compatible items (ᵀ).',
     weaponsLabel: 'Weapons',
     bcChampionBanner: '⚜ Black Crusade Champion — access to all four mark armories',
@@ -1254,6 +1270,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valUndividedLegacyRestriction: '{legacy}: {unit} must be Undivided (current: {mark}).',
     valSkirmishNoArchetypes: 'Skirmish: Archetypes are not allowed.',
     valSkirmishNoAllies: 'Skirmish: Allied detachments are not allowed.',
+    valSkirmishArchetypeNotAllowed: 'Skirmish: the archetype "{name}" is not available in Skirmish.',
+    valSkirmishAllyTroops: 'Skirmish allies must include exactly {need} Troops unit (have {have}).',
+    valSkirmishAllyExtras: 'Skirmish allies may include at most {max} Elite, Fast Attack or Heavy Support unit in total (have {have}).',
     valArmyValid: 'Army is valid.',
     valIronWithin: 'Iron Within, Iron Without: {unit} already has a ward save and cannot benefit from this trait.',
     valBlackCrusadeNoChampion: 'Black Crusade: designate one HQ as the champion — open its unit card and toggle "Black Crusade Champion" to grant it all four Chaos god marks.',
@@ -1273,7 +1292,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Not in this codex any more',
     unitNotInCodexBody: 'This datasheet was removed or renamed in a codex update. It contributes 0 points and has no profile, but it is still holding its slot.',
     removeFromList: 'Remove from list',
-    valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord) (have {count}).',
+    valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord / Rogue Trader Majoris) (have {count}).',
+    valNavyWarbandPerTrader: 'Henchman Warband: each Rogue Trader may select a single Warband ({warbands} Warbands, {traders} Rogue Traders).',
     valCsmLegacyKhorne: '{armory} armory — "{item}": only for models with the Mark of Khorne ({unit} has Mark of {mark}).',
     valCsmLegacyUnitRestrict: '{armory} armory — "{item}": {restriction} (cannot be equipped on {unit}).',
     valSm1stCompanyForbidden: '1st Company: "{unit}" is not allowed in this archetype.',
@@ -1894,6 +1914,19 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscordJoin: 'Discord beitreten',
     referenceModelTag: 'Referenz',
     gfFocusGone: 'Dieses Spiel ist nicht mehr offen (vergeben, abgesagt oder vorbei). Hier die offenen.',
+    armReasonCap: 'Limit erreicht ({n})',
+    armReasonUnique: 'Einzigartig: eine andere Einheit der Armee hat es schon',
+    armReasonKustom: 'Diese Einheit hat ihren Kustom job schon',
+    armReasonUnwieldy: 'Das Modell trägt schon einen Unwieldy-Gegenstand',
+    armReasonArmour: 'Kollidiert mit der bereits gekauften Rüstung',
+    armReasonDaemon: 'Kollidiert mit der schon gewählten Dämonenwaffe',
+    armReasonNeeds: 'Diese Einheit erfüllt die Voraussetzungen nicht',
+    armReasonOnly: 'Nur für {kw}',
+    armReasonMark: 'Braucht ein anderes Mal des Chaos',
+    armReasonNoPrice: 'Diese Einheit kann es nicht kaufen',
+    armReasonVet: 'Die Veteranenplätze sind voll',
+    armCarryTitle: 'Du trägst',
+    armClearAll: 'Alle entfernen',
     navCampaignAlphaAdmin: 'Feldzug — Alpha (Admin)',
     navCampaignComingSoon: 'Feldzug — Demnächst (Alpha)',
     howToActivate: 'Aktivierung',
@@ -1936,6 +1969,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     battleSetup: 'Schlachtvorbereitung',
     armyDoctrine: 'Armee-Doktrin',
     notAvailableInSkirmish: 'Im Scharmützel nicht verfügbar.',
+    skirmishDropsArchetypeConfirm: 'Diese Armee hat einen Archetyp, der in Skirmish nicht verfügbar ist, daher ENTFERNT der Wechsel zu Skirmish ihn. Ein Wechsel zurück bringt ihn nicht wieder. Fortfahren?',
+    skirmishArchetypesOnly: 'Skirmish: Es werden nur die Archetypen angezeigt, die dieser Codex für Skirmish freigibt.',
     onlyForArmiesWithMarkOf: 'Nur für Armeen mit Mal von',
     alliedNoObjectiveSecured: "Nicht in einer verbündeten Abordnung: verbündete Einheiten können „Objective secured!“ nie nutzen (Core Rules, Allies).",
     deploymentUpgradeLabel: 'Aufstellen mit {ability} ({rule}) — +{pts} Pkt.',
@@ -2106,6 +2141,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Alle Male',
     armourySuffix: 'Rüstkammer',
     authorityTabLabel: 'Autorität der Inquisition',
+    warrantTabLabel: 'Handelsbefugnis (Warrant of Trade)',
     termArmourNotice: 'Terminator-Rüstung — zeigt nur Terminator-kompatible Gegenstände (ᵀ).',
     weaponsLabel: 'Waffen',
     bcChampionBanner: '⚜ Schwarzer-Kreuzzug-Champion — Zugriff auf alle vier Mal-Rüstkammern',
@@ -2369,6 +2405,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valUndividedLegacyRestriction: '{legacy}: {unit} muss Ungeteilt sein (aktuell: {mark}).',
     valSkirmishNoArchetypes: 'Skirmish: Archetypen sind nicht erlaubt.',
     valSkirmishNoAllies: 'Skirmish: Verbündete Abteilungen sind nicht erlaubt.',
+    valSkirmishArchetypeNotAllowed: 'Skirmish: Der Archetyp „{name}“ ist in Skirmish nicht verfügbar.',
+    valSkirmishAllyTroops: 'Skirmish-Verbündete müssen genau {need} Troops-Einheit enthalten (vorhanden: {have}).',
+    valSkirmishAllyExtras: 'Skirmish-Verbündete dürfen insgesamt höchstens {max} Elite-, Fast-Attack- oder Heavy-Support-Einheit enthalten (vorhanden: {have}).',
     valArmyValid: 'Armee ist gültig.',
     valIronWithin: 'Iron Within, Iron Without: {unit} hat bereits einen Unverwundbarkeits-Rettungswurf und kann nicht von diesem Trait profitieren.',
     valBlackCrusadeNoChampion: 'Schwarzer Kreuzzug: einen HQ als Champion bestimmen — Einheitenkarte öffnen und „Schwarzer-Kreuzzug-Champion" aktivieren, um ihm alle vier Chaos-Gottemarks zu verleihen.',
@@ -2388,7 +2427,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Nicht mehr in diesem Codex',
     unitNotInCodexBody: 'Dieses Datenblatt wurde in einem Codex-Update entfernt oder umbenannt. Es kostet 0 Punkte und hat kein Profil, belegt aber weiterhin seinen Slot.',
     removeFromList: 'Aus der Liste entfernen',
-    valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord) (hat {count}).',
+    valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord / Rogue Trader Majoris) (hat {count}).',
+    valNavyWarbandPerTrader: 'Gefolgsleute-Warband: Jeder Rogue Trader darf nur eine Warband wählen ({warbands} Warbands, {traders} Rogue Trader).',
     valCsmLegacyKhorne: '{armory}-Rüstkammer — „{item}": nur für Modelle mit der Mark des Khorne ({unit} hat Mark des {mark}).',
     valCsmLegacyUnitRestrict: '{armory}-Rüstkammer — „{item}": {restriction} (nicht ausrüstbar für {unit}).',
     valSm1stCompanyForbidden: '1. Kompanie: „{unit}" ist in diesem Archetyp nicht erlaubt.',
@@ -3009,6 +3049,19 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     navDiscordJoin: 'Unirse al Discord',
     referenceModelTag: 'referencia',
     gfFocusGone: 'Esa partida ya no está abierta (se emparejó, se canceló o ya pasó). Aquí están las abiertas.',
+    armReasonCap: 'Límite alcanzado ({n})',
+    armReasonUnique: 'Único: otra unidad del ejército ya lo tiene',
+    armReasonKustom: 'Esta unidad ya tiene su Kustom job',
+    armReasonUnwieldy: 'El modelo ya lleva un objeto Unwieldy',
+    armReasonArmour: 'Choca con la armadura ya comprada',
+    armReasonDaemon: 'Choca con el arma de Daemon ya elegida',
+    armReasonNeeds: 'Esta unidad no cumple sus requisitos',
+    armReasonOnly: 'Solo para {kw}',
+    armReasonMark: 'Necesita otra Marca del Caos',
+    armReasonNoPrice: 'Esta unidad no puede comprarlo',
+    armReasonVet: 'Los huecos de habilidades de veterano están llenos',
+    armCarryTitle: 'Llevas',
+    armClearAll: 'Quitar todo',
     navCampaignAlphaAdmin: 'Campaña — Alpha (Admin)',
     navCampaignComingSoon: 'Campaña — Próximamente (Alpha)',
     howToActivate: 'Cómo activarlo',
@@ -3051,6 +3104,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     battleSetup: 'Configuración de batalla',
     armyDoctrine: 'Doctrina del ejército',
     notAvailableInSkirmish: 'No disponible en Skirmish.',
+    skirmishDropsArchetypeConfirm: 'Este ejército tiene un arquetipo que no está disponible en Skirmish, así que cambiar a Skirmish lo QUITA. Volver a otro tipo de batalla no lo recuperará. ¿Continuar?',
+    skirmishArchetypesOnly: 'Skirmish: solo se muestran los arquetipos que este códice marca como disponibles en Skirmish.',
     onlyForArmiesWithMarkOf: 'Solo para ejércitos con Marca de',
     alliedNoObjectiveSecured: "No en un destacamento aliado: las unidades aliadas nunca pueden usar «Objective secured!» (Core Rules, Allies).",
     deploymentUpgradeLabel: 'Desplegar con {ability} ({rule}) — +{pts} ptos',
@@ -3221,6 +3276,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Todas las marcas',
     armourySuffix: 'Armería',
     authorityTabLabel: 'Autoridad de la Inquisición',
+    warrantTabLabel: 'Patente de Comercio (Warrant of Trade)',
     termArmourNotice: 'Armadura Terminator — mostrando solo objetos compatibles con Terminator (ᵀ).',
     weaponsLabel: 'Armas',
     bcChampionBanner: '⚜ Campeón de Cruzada Negra — acceso a las cuatro armerías de marca',
@@ -3484,6 +3540,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valUndividedLegacyRestriction: '{legacy}: {unit} debe ser Indiviso (actual: {mark}).',
     valSkirmishNoArchetypes: 'Skirmish: los Arquetipos no están permitidos.',
     valSkirmishNoAllies: 'Skirmish: los destacamentos aliados no están permitidos.',
+    valSkirmishArchetypeNotAllowed: 'Skirmish: el arquetipo «{name}» no está disponible en Skirmish.',
+    valSkirmishAllyTroops: 'Los aliados en Skirmish deben incluir exactamente {need} unidad de Troops (hay {have}).',
+    valSkirmishAllyExtras: 'Los aliados en Skirmish pueden incluir como máximo {max} unidad de Elite, Fast Attack o Heavy Support en total (hay {have}).',
     valArmyValid: 'El ejército es válido.',
     valIronWithin: 'Iron Within, Iron Without: {unit} ya tiene un ward save y no puede beneficiarse de este trait.',
     valBlackCrusadeNoChampion: 'Cruzada Negra: designa un HQ como campeón — abre su ficha y activa "Campeón de la Cruzada Negra" para concederle las cuatro marcas de los dioses del Caos.',
@@ -3503,7 +3562,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Ya no está en este códex',
     unitNotInCodexBody: 'Esta hoja se eliminó o se renombró en una actualización del códex. Cuesta 0 puntos y no tiene perfil, pero sigue ocupando su hueco.',
     removeFromList: 'Quitar de la lista',
-    valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord) (tiene {count}).',
+    valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord / Rogue Trader Majoris) (tiene {count}).',
+    valNavyWarbandPerTrader: 'Séquito: cada Rogue Trader puede elegir una sola banda ({warbands} bandas, {traders} Rogue Traders).',
     valCsmLegacyKhorne: 'Armería {armory} — "{item}": solo para modelos con la Marca de Khorne ({unit} tiene Marca de {mark}).',
     valCsmLegacyUnitRestrict: 'Armería {armory} — "{item}": {restriction} (no se puede equipar en {unit}).',
     valSm1stCompanyForbidden: '1.ª Compañía: "{unit}" no está permitida en este arquetipo.',

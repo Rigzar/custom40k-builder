@@ -38,6 +38,7 @@ const SHEETS = {
   horus_heresy:       ['1vRRoUGkH3HhzZYQk6_3Hp0pSlWGWb9BKaz3VrYfYmFU', 'Horus Heresy Legiones Astartes Supplement 1.0.ods'],
   imperial_guard:     ['1nii7VyPLnNHlRlpJTxsh79P7qo1WT3D-yJM0g88CbZM', 'Imperial Guard 1.05.ods'],
   inquisition:        ['1krDncaF0CSf6bDIeA-j20dAo3tqkphkeDd2weq56MN4', 'Inquisition 1.01.ods'],
+  imperial_navy:      ['1KhzXT4BjwqlpsMr8p90q4VJomAt71NDu2W689R2j14E', 'Imperial Navy 1.0.ods'],
   leagues_of_votann:  ['1lZ6MxdCM710N-d4ba9RUSdhmeN8iJjzM5hlpVf73iPY', 'Leagues of Votann 1.02.ods'],
   necrons:            ['1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA', 'Necrons 1.11.ods'],
   orks:               ['1gt2q98cnPczVyaujVWX56r2F_GJXBFp8IW9VpAWZ6qI', 'Orks 1.03.ods'],

@@ -218,6 +218,19 @@ async function loadFaction(key: string): Promise<FactionData> {
         { disciplines: discs, prayers });
     }
 
+    case 'imperial_navy': {
+      // Warrant of Trade (armory pick from any Imperial faction) rides on the same
+      // "Authority" picker as the Inquisition; Skyhammer Doctrine lives in engine/navyRules.ts.
+      const [u, g, arch, discs, prayers] = await Promise.all([
+        import('../../data/parsed/imperial_navy/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
+        import('../../data/parsed/imperial_navy/armory/general.json'),
+        import('../../data/parsed/imperial_navy/archetypes.json'),
+        import('../../data/parsed/imperial_navy/psychic/disciplines.json'),
+        import('../../data/parsed/imperial_navy/psychic/prayers.json'),
+      ]);
+      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs, prayers });
+    }
+
     case 'assassins': {
       const [u, g] = await Promise.all([
         import('../../data/parsed/assassins/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
@@ -447,7 +460,7 @@ function normaliseMonsterFlag(data: FactionData): void {
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
-   'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'assassins', 'tau_empire',
+   'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'assassins', 'tau_empire',
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
    'tyranids', 'horus_heresy', 'legio_titanicus'].map(k => [k, async () => {
      const data = await loadFaction(k);

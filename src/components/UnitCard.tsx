@@ -4,14 +4,14 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
-import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
+import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
@@ -145,26 +145,6 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
   return undefined;
 }
 
-/** Resolve an option choice's display name to one or more weapon profiles from the unit's
- * weapons[] — handles exact matches, multi-profile weapons ("Plasma gun" → "Plasma gun -
- * Standard"/"- Overcharged"), and compound choices ("X and Y" / "X & Y"). `compound` is true
- * when the choice resolves to several DIFFERENT weapons (each row gets its own Pts), as
- * opposed to several fire-mode profiles of the same weapon (Pts shown once, rowSpan'd). */
-function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons: Weapon[]; compound: boolean } {
-  const exact = weapons.find(w => w.name === choiceName);
-  if (exact) return { weapons: [exact], compound: false };
-  const multiProfile = weapons.filter(w => w.name.startsWith(`${choiceName} - `));
-  if (multiProfile.length > 0) return { weapons: multiProfile, compound: false };
-  const parts = choiceName.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-  if (parts.length > 1) {
-    const resolved = parts.map(p => resolveChoiceWeapons(weapons, p));
-    if (resolved.every(r => r.weapons.length > 0)) {
-      return { weapons: resolved.flatMap(r => r.weapons), compound: true };
-    }
-  }
-  return { weapons: [], compound: false };
-}
-
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
   const { language: uiLang } = useLanguage();
@@ -195,10 +175,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const {
     pts, effectiveSlot,
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
-    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx, referenceModels,
+    variant, variantActive, modelsToShow, squadLeaderIdx, referenceModels,
     effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
-    injectedAbilities, hiddenUpgradeAbilityLabels, injectedRuleNotes, equipMods, traitEquipMods,
+    injectedAbilities, hiddenUpgradeAbilityLabels, hiddenUpgradeAbilityLines, injectedRuleNotes, equipMods, traitEquipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
@@ -230,7 +210,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // card with no ward save on it (163 datasheets across all 18 factions).
   const ward = wardSources({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave,
-    optionAbilities, traitAbilities,
+    optionAbilities, traitAbilities, equipAbilities: equipMods.grantedAbilities,
     markWarded: markWardedCount(statModMark, blackCrusadeChampion, u.abilities),
   });
   const effectiveInvSv = ward.value;
@@ -868,8 +848,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   // size for multi-model units (Traitor Guard's Guardsman/Ogryn), then the plain
                   // squad-size stepper for a single-model-row unit (e.g. Chaos Space Marines).
                   // Single fixed-size characters (m.max === 1) stay uncounted — "1x" adds no value.
-                  const rowCount = modelCounts[i] ?? item.modelSizes?.[m.name] ??
-                    (modelsToShow.length === 1 && m.max > 1 ? item.size : null);
+                  // Always counted, even a lone character ("1x Overlord"): Rigzar, 2026-10-10.
+                  const rowCount = rp.modelRowCounts[i];
                   return (
                     <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/40' : ''} ${isVar ? 'text-amber-300' : 'text-zinc-100'}`}>
                       <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{rowCount != null ? `${rowCount}x ` : ''}{nm(m.name)}{isVar ? ' ★' : ''}</td>
@@ -1065,11 +1045,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               {variantActive && (
                 <div className="text-[11px] text-amber-600/90">
                   {modelsToShow.map((m, i) => {
-                    if (modelCounts[i] != null) return `${modelCounts[i]}x ${nm(m.name)}`;
-                    if (m === variant) return `1x ${nm(m.name)}`;
-                    if (item.modelSizes?.[m.name]) return `${item.modelSizes[m.name]}x ${nm(m.name)}`;
-                    return null;
-                  }).filter(Boolean).join(' + ')}
+                    return `${rp.modelRowCounts[i]}x ${nm(m.name)}`;
+                  }).join(' + ')}
                 </div>
               )}
             </div>
@@ -1314,7 +1291,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
 
             if (g.variant_link) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
-              const promotionMax = g.constraint?.type === 'fixed_max' ? (g.constraint.max ?? 1) : 1;
+              const promotionMax = variantPromotionCap(g, item.size);
               const promotionQty = Math.min(Number(item.optionQty?.[realGi]?.['__inline'] ?? 0) || 0, promotionMax);
               const variantModel = u.variant_models.find(vm => vm.name === g.variant_link);
               // "Unique per army" variant promotions (datasheet-verbatim, e.g. Master of Sorcery):
@@ -1361,7 +1338,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     <input
                       type="checkbox"
                       checked={active}
-                      disabled={uniqueTakenElsewhere}
+                      disabled={uniqueTakenElsewhere || promotionMax < 1}
                       onClick={e => e.stopPropagation()}
                       onChange={() => {
                         if (uniqueTakenElsewhere) return;
@@ -1393,7 +1370,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   {variantModel && (
                     <div className="px-2 pb-2 space-y-2">
                       <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
-                      {(u.champion_has_armory || u.has_armory_access || /armory/i.test(g.header)) && (
+                      {/* A unit with unit-wide Armory access (Necron Lord, Lootas) already has the global button; repeating it here behind the promotion read as if the Overlord title unlocked the Armory. */}
+                      {(u.champion_has_armory || /armory/i.test(g.header)) && (
                         <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
                           <span>{t('theWord')} {nm(variantModel.name)} {t('armoryAccessSuffix')}</span>
                           {active ? (
@@ -2316,6 +2294,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               // An upgrade's own rules text, printed under the upgrade's name, when that upgrade
               // has not been bought (GH#149).
               if (hiddenUpgradeAbilityLabels.some(h => h.toLowerCase() === label)) return false;
+              if (hiddenUpgradeAbilityLines.includes(ab)) return false;
               if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
               if (_hasPsykerOption && label === 'psyker') return false;
               if (!_henchmanAbilityKeep(ab)) return false;
@@ -2348,7 +2327,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                         <div className="text-[11px] text-zinc-200 font-medium">{nm(part.displayName)}</div>
                         {part.description && (
-                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                         )}
                         {/* The orders an Imperial Guard officer can issue. They lived only on the Print View, so
                             nothing in the builder told a Guard player what an "order" is; grouped the way the
@@ -2403,7 +2382,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('mark')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
@@ -2416,7 +2395,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('ruleBadge')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
@@ -2429,7 +2408,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-cyan-900/50 text-cyan-400 border border-cyan-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('optionBadge')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))
@@ -2443,7 +2422,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         <span className="text-[9px] bg-violet-900/50 text-violet-400 border border-violet-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('equipBadge')}</span>
                       </div>
                       {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
                       )}
                     </div>
                   ))

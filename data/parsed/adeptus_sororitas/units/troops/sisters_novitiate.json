@@ -113,6 +113,15 @@
             "ap": "0",
             "d": "1",
             "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
         }
     ],
     "option_groups": [

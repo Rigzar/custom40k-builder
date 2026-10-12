@@ -1,5 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
+import { slotCapFactor } from './navyRules';
 import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
@@ -18,6 +19,7 @@ import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
+import { archetypeAllowedInSkirmish, SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from './skirmishRules';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP } from './codex_space_marines/legacies';
 import {
@@ -1136,6 +1138,28 @@ export interface FreeSlotAdjustments {
  * Restrictions) says "All units occupy an Army Organisation slot, even if their rules state
  * otherwise", so both callers zero the whole adjustment in Skirmish — see their `slotAdj`.
  */
+/**
+ * Imperial Navy (Imperial Navy 1.0.ods): Voidmaster - "For each Rogue Trader in the army, one
+ * Voidmaster may be selected that does not occupy an HQ slot." Explorator - "For each Rogue Trader,
+ * one Explorator may be selected that does not occupy an Elite slot." Same ratio-against-a-sibling
+ * shape as the Einhyr Champion.
+ */
+export function computeNavyFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; elites: number; notes: string[] } {
+  if (data.faction !== 'Imperial Navy') return { hq: 0, elites: 0, notes: [] };
+  const traders = army.filter(i => i.unitName === 'Rogue Trader').length;
+  const notes: string[] = [];
+  const credit = (unit: string, slot: string) => {
+    const count = army.filter(i => i.unitName === unit).length;
+    const credited = Math.min(count, traders);
+    if (count > 0) notes.push(`${unit}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the ${slot} slot (1 per Rogue Trader, have ${traders}).`);
+    return credited;
+  };
+  return { hq: credit('Voidmaster', 'HQ'), elites: credit('Explorator', 'Elite'), notes };
+}
+
 export function computeFreeSlotAdjustments(
   army: RosterEntry[],
   data: FactionData,
@@ -1165,13 +1189,14 @@ export function computeFreeSlotAdjustments(
   const spiritseer      = computeSpiritseerFreeSlots(army, data);
   const royalCourt      = computeRoyalCourtFreeSlots(army, data);
   const hqShared        = computeArchetypeHqSharedSlots(army, rule);
+  const navy            = computeNavyFreeSlots(army, data);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
-      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites,
+      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
     fa: cd.fa + krootEscort.fa,
     hs: krootEscort.hs,
     notes: [
@@ -1180,7 +1205,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes,
     ],
   };
 }
@@ -1194,6 +1219,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // whose units should be treated as part of the primary army — no Allied-Detachment separation.
   // Legion (CSM) and Legion (SM) both set rule.alliedFaction = 'horus_heresy'.
   const isIntegratedSuppl = !!(rule?.alliedFaction && state.alliedFaction && rule.alliedFaction === state.alliedFaction);
+  // Missions (Skirmish): "Allies do not use their own Army Organisation Plan. Instead, all selections are part of the army's regular AOP."
+  // So the AOP counts below take the allied units in with the main ones, like an integrated supplement does.
+  const alliesShareAop = isIntegratedSuppl || (state.engagement === 'skirmish' && !!state.alliedFaction);
   // Helper: is this item an integrated supplement unit?
   const isSupplItem = (item: { factionSource?: string | null }) =>
     isIntegratedSuppl && item.factionSource === state.alliedFaction;
@@ -1966,7 +1994,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // Legacy mark restriction: Alpha Legion, Iron Warriors, Night Lords can only take Undivided or no-mark units.
-  const MARK_RESTRICTED_LEGACIES = new Set(['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter']);
+  const MARK_RESTRICTED_LEGACIES = new Set(['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter', 'Legacy of the Tyrant']);
   const activeMarkRestrictedLegacy = [state.legacy, state.legacy2].find(l => l && MARK_RESTRICTED_LEGACIES.has(l));
   if (activeMarkRestrictedLegacy) {
     const FORBIDDEN_MARKS = new Set(['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']);
@@ -2096,7 +2124,19 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Inquisitor at all, so neither the 6 nor the Lord's 12 apply. The 5+ ACOLYTES clause is new in
     // 1.01: the old wording asked only for 5 specialists of any kind.
     const sectorLord = state.archetype === 'Sector Lord';
-    const cap = sectorLord ? 10 : (hasInquisitorLord ? 12 : 6);
+    // Imperial Navy: "A Rogue Trader may select up to 6 specialist models for their Warband. A Rogue
+    // Trader Majoris may select up to 12." and "Every Rogue Trader may select a single Henchman Warband".
+    const hasMajoris = state.army.some(item => {
+      if (item.unitName !== 'Rogue Trader') return false;
+      const u = resolveUnit(item, data);
+      return !!u && u.option_groups.some((g, gi) => g.variant_link === 'Rogue Trader Majoris' && !!(item.optionQty?.[gi]?.['__inline']));
+    });
+    const cap = sectorLord ? 10 : (hasInquisitorLord || hasMajoris ? 12 : 6);
+    if (data.faction === 'Imperial Navy') {
+      const warbands = state.army.filter(i => i.unitName === 'Henchman Warband').length;
+      const traders = state.army.filter(i => i.unitName === 'Rogue Trader').length;
+      if (warbands > traders) items.push({ type: 'error', text: T('valNavyWarbandPerTrader', { warbands, traders }) });
+    }
     for (const item of state.army) {
       if (item.unitName !== 'Henchman Warband') continue;
       if (sectorLord && item.size < 5) {
@@ -2111,7 +2151,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (item.size > cap) {
         items.push({
           type: 'error',
-          text: T(hasInquisitorLord ? 'valHenchmanWarbandCapLord' : 'valHenchmanWarbandCap', { cap, count: item.size }),
+          text: T(hasInquisitorLord || hasMajoris ? 'valHenchmanWarbandCapLord' : 'valHenchmanWarbandCap', { cap, count: item.size }),
         });
       }
     }
@@ -2434,7 +2474,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     // For integrated supplements (HH Legion), count both primary and supplement units toward the primary AOP.
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl, true);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, alliesShareAop ? undefined : false, state.engagement, summoningExcl, true);
     // Skirmish (Missions, Unit Restrictions): "All units occupy an Army Organisation slot, even if
     // their rules state otherwise." That is every free-slot mechanism in the game, not only the
     // Advisor one getSlotUsage already switches off — Royal Court, the Daemon heralds, Geminae
@@ -3110,7 +3150,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (slot === 'Lords of War') continue; // Escalation: handled by the dedicated block above
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, alliesShareAop ? undefined : false, state.engagement, summoningExcl);
     // Skirmish (Missions, Unit Restrictions): "All units occupy an Army Organisation slot, even if
     // their rules state otherwise." That is every free-slot mechanism in the game, not only the
     // Advisor one getSlotUsage already switches off — Royal Court, the Daemon heralds, Geminae
@@ -3130,7 +3170,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       ? countInfantrySelections(state, data, false)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
-        : (eng.multiAop ? engMax * aopState.unlocked : engMax);
+        : (eng.multiAop ? engMax * aopState.unlocked : engMax) * slotCapFactor(data.faction, slot);
     const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
@@ -3146,7 +3186,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
   // are already counted in the primary AOP block above.
-  if (state.alliedFaction && !isIntegratedSuppl) {
+  if (state.alliedFaction && !isIntegratedSuppl && state.engagement !== 'skirmish') {
     const alliedUnits = state.army.filter(e => e.factionSource === state.alliedFaction);
     if (alliedUnits.length > 0) {
       // The ALLY's own archetype rule (e.g. a troopsRemap-style slot effect) governs how its OWN
@@ -3289,7 +3329,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // Legacy mark restriction (Hydra, Iron Lord, Night Haunter = Undivided only)
-  const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter'];
+  const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter', 'Legacy of the Tyrant'];
   const legacies = [state.legacy, state.legacy2].filter(Boolean);
   const hasUndividedLegacy = legacies.some(l => undividedLegacies.includes(l));
   if (hasUndividedLegacy) {
@@ -3323,12 +3363,32 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Skirmish: no archetypes, no allied detachment
-  if (state.engagement === 'skirmish' && state.archetype) {
-    items.push({ type: 'error', text: T('valSkirmishNoArchetypes') });
+  // Skirmish (Missions, Army Building Basics): "Only Archetypes that are available in Skirmish may be selected" (the codex's
+  // AVAILABLE IN SKIRMISH? column), and (Allies) "Allies do not use their own AOP ... Must include 1 Troops unit. May include
+  // up to one of the following: 1 Elite unit. 1 Fast Attack unit. 1 Heavy Support unit."
+  if (state.engagement === 'skirmish' && state.archetype && !archetypeAllowedInSkirmish(data, state.archetype)) {
+    items.push({ type: 'error', text: T('valSkirmishArchetypeNotAllowed', { name: state.archetype }) });
   }
   if (state.engagement === 'skirmish' && state.alliedFaction) {
-    items.push({ type: 'error', text: T('valSkirmishNoAllies') });
+    if (state.alliedArchetype && !archetypeAllowedInSkirmish(alliedData, state.alliedArchetype)) {
+      items.push({ type: 'error', text: T('valSkirmishArchetypeNotAllowed', { name: state.alliedArchetype }) });
+    }
+    const allyRule = getArchetypeRule(state.alliedArchetype);
+    const alliedIn = (slot: string) => getSlotUsage(state.army, data, slot, allyRule, state.alliedFaction, true, state.engagement);
+    const alliedAny = state.army.some(i => i.factionSource === state.alliedFaction);
+    const troops = alliedIn('Troops');
+    if (alliedAny && troops !== SKIRMISH_ALLY_TROOPS) {
+      items.push({ type: 'error', text: T('valSkirmishAllyTroops', { need: SKIRMISH_ALLY_TROOPS, have: troops }) });
+    }
+    const extras = SKIRMISH_ALLY_EXTRA_SLOTS.reduce((n, slot) => n + alliedIn(slot), 0);
+    if (extras > SKIRMISH_ALLY_EXTRA_MAX) {
+      items.push({ type: 'error', text: T('valSkirmishAllyExtras', { max: SKIRMISH_ALLY_EXTRA_MAX, have: extras }) });
+    }
+    for (const slot of SLOT_ORDER) {
+      if (slot === 'Troops' || SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) || slot === 'Lords of War') continue;
+      const used = alliedIn(slot);
+      if (used > 0) items.push({ type: 'error', text: T('valAlliedSlotNotAllowed', { slot, used }) });
+    }
   }
 
   // ── F1: Psychic discipline-scope validation ───────────────────────────────

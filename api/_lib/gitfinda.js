@@ -26,7 +26,7 @@ export const ENGAGEMENTS = ['skirmish', 'pitched', 'epic'];
 /** Same keys as FACTION_LOADERS (src/data/loaders.ts). tests/gitfinda_test.mjs checks they agree. */
 export const ARMIES = [
   'chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
-  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'tau_empire', 'necrons',
+  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'tau_empire', 'necrons',
   'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann', 'tyranids',
 ];
 
@@ -235,6 +235,18 @@ export function discordRemover(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetch
       return r.ok || r.status === 404;
     } finally { clearTimeout(timer); }
   };
+}
+
+/**
+ * Takes every Discord announcement a user still has out of the channel. Their posts disappear with the account
+ * (ON DELETE CASCADE), and with them the message ids, so this has to run BEFORE the user row is deleted.
+ * Best effort: the account is deleted whether or not Discord answers.
+ */
+export async function dropUserAnnouncements(sql, userId, remove = discordRemover()) {
+  try {
+    const r = await sql`SELECT discord_message_id AS mid FROM gitfinda_posts WHERE user_id = ${userId} AND discord_message_id IS NOT NULL`;
+    for (const row of r.rows) await remove(row.mid);
+  } catch { /* the table may not exist yet, or Discord may be down: neither blocks a deletion */ }
 }
 
 // Shared by every request on this server instance, so the sweep below runs at most once per interval however many people poll.

@@ -84,6 +84,15 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
     { category: 'restriction', text: 'Only units with no Mark or the Mark of Chaos Undivided may be selected.' },
   ],
 
+  // SOURCE — Legacy of the Tyrant (Red Corsairs Armory, codex 1.03):
+  // "The army has access to the Red Corsairs Armory.
+  //  Can only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.
+  //  Can select any Chaos Daemons units."
+  'Legacy of the Tyrant': [
+    { category: 'mechanic',    text: 'Army gains access to the Red Corsairs Armory.' },
+    { category: 'restriction', text: 'Only units with no Mark or the Mark of Chaos Undivided may be selected.' },
+  ],
+
   // SOURCE — Legacy of the Warmaster (Black Legion Armory):
   // "The army has access to the Black Legion Armory."
   //

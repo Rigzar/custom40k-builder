@@ -12,7 +12,7 @@
                 "I": "3",
                 "A": "2",
                 "LD": "6",
-                "SV": "4"
+                "SV": "4+"
             },
             "name": "Weirdboy",
             "min": 1,
@@ -40,7 +40,7 @@
             "points": 73
         }
     ],
-    "equipped_with": "A Weirdboy is equipped with: Stikkbombz.",
+    "equipped_with": "Every model is equipped with: Stikkbombz.",
     "weapons": [
         {
             "name": "Stikkbombz",

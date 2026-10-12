@@ -21,7 +21,7 @@
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(3), Armorbane, Extra Attack(1), Unwieldy",
+      "abilities": "AT(3), Armorbane(3), Extra Attack(1), Unwieldy",
       "p_unit": 13,
       "p_char": 19
     },
@@ -65,7 +65,7 @@
       "s": "8",
       "ap": "-5",
       "d": "2",
-      "abilities": "AT(3), Armorbane. Kroot only.",
+      "abilities": "AT(3), Armorbane(3). Kroot only.",
       "p_unit": 5,
       "p_char": 5
     },

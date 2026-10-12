@@ -229,15 +229,8 @@
     "abilities": [
         "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!",
         "Cybork Body: Each model has a 5+ ward save.",
-        "Dok's Speriments: After deployment and before the start of the first battle round, roll on the table below for each Cybork Slasha unit in the army:",
-        "D6",
-        "Result",
-        "1-2",
-        "Turbo Killas: The unit gains the Haste (1\") and Frenzy (1\") abilities. Whenever the unit activates with an Advance or Charge order, roll a D6 for each model in the unit. For each dice result of 1, the unit suffers a single wound; saves may be taken as normal and any unsaved wounds do not count towards Combat Results and cannot trigger a Leadership test if they cause the unit to drop below half strength.     ",
-        "3-4",
-        "Tinboy Brutes: All models in the unit gain +1 Toughness and the Unyielding ability.   ",
-        "5-6",
-        "Short Circuit: The Ork player may choose either Turbo Killas or Tinboy Brutes and apply it to the unit. Whenever the unit activates, roll a D6. On a result of 2-6, the unit activates normally. On a result of 1, the unit's order is immediately changed to \"Fight\", even if it is not in combat.   ",
+        "Dok's Speriments: After deployment and before the start of the first battle round, roll 1d6 on the table below for each Cybork Slasha unit in the army:",
+        "1-2 Turbo Killas: The unit gains the Haste (1\") and Frenzy (1\") abilities. Whenever the unit activates with an Advance or Charge order, roll a D6 for each model in the unit. For each dice result of 1, the unit suffers a single wound; saves may be taken as normal and any unsaved wounds do not count towards Combat Results and cannot trigger a Leadership test if they cause the unit to drop below half strength.\n3-4 Tinboy Brutes: All models in the unit gain +1 Toughness and the Unyielding ability.\n5-6 Short Circuit: The Ork player may choose either Turbo Killas or Tinboy Brutes and apply it to the unit. Whenever the unit activates, roll a D6. On a result of 2-6, the unit activates normally. On a result of 1, the unit's order is immediately changed to \"Fight\", even if it is not in combat.   ",
         "Narthecium: Once per battle round, the damage of a wound against the unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
     ],
     "unit_type": "Infantry",

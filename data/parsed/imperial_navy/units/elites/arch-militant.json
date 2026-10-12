@@ -1,0 +1,49 @@
+{
+  "name": "Arch-Militant",
+  "models": [
+    {
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "2",
+        "I": "3",
+        "A": "1",
+        "LD": "7",
+        "SV": "5+"
+      },
+      "name": "Arch-Militant",
+      "min": 1,
+      "max": 1,
+      "points": 16
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "An Arch-Militant is equipped with: -.",
+  "weapons": [],
+  "option_groups": [],
+  "abilities": [
+    "Command Squad",
+    "Steady Superiority: While an Arch-Militant is alive, the unit and its attached unit may shoot “Rapid fire” weapons at full range with a \"Move & Shoot\" order and ignores the to hit penalty for \"Advance\" orders with \"Assault\" weapons."
+  ],
+  "unit_type": "Infantry",
+  "keywords": [
+    "Specialist"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_monster": false,
+  "is_psyker": false,
+  "has_armory_access": true,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 1,
+  "min_cost": 16
+}

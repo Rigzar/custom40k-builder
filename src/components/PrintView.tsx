@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
+import { slotCapFactor } from '../engine/navyRules';
 import { getActiveVariant, getPromotedModel } from '../engine/points';
 import { useLanguage, t as tFn } from '../i18n';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
@@ -48,6 +49,7 @@ const FACTION_SYMBOL: Record<string, string> = {
   'Imperial Guard':             '/faction-symbols/imperial-guard.svg',
   'Grey Knights':               '/faction-symbols/grey-knights.svg',
   'Inquisition':                '/faction-symbols/inquisition.svg',
+  'Imperial Navy':              '/faction-symbols/imperial-navy.svg',
   'Assassins':                  '/faction-symbols/assassins.svg',
   'Horus Heresy Legiones Astartes': '/faction-symbols/horus-heresy.svg',
   'Horus Heresy Forces of the Machine God': '/faction-symbols/horus-heresy.svg',
@@ -87,6 +89,7 @@ const FACTION_COLOR: Record<string, string> = {
   'Imperial Guard':              '#4a5c2e',
   'Grey Knights':                '#5c6b73',
   'Inquisition':                 '#5c1f1f',
+  'Imperial Navy':               '#1f3a5c',
   'Assassins':                   '#2e2e33',
   'Horus Heresy Legiones Astartes':  '#73631f',
   'Horus Heresy Forces of the Machine God':  '#73631f',
@@ -408,6 +411,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // affected. Same derivation as the unit card now.
   const effectiveInvSv = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave, optionAbilities, traitAbilities,
+    equipAbilities: equipMods.grantedAbilities,
     markWarded: markWardedCount(statModMark, rp.blackCrusadeChampion, u.abilities),
   });
   const color = getThemeColor(data.faction, effectiveMark);
@@ -418,7 +422,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const markMods  = markStatMods(statModMark, u);
   const symbolUrl = getCardSymbol(data.faction, archetype, legacy, legacy2);
   const modelsToShow = rp.modelsToShow;
-  const modelCounts  = rp.modelCounts;
+  // counts now come from rp.modelRowCounts
 
   const armEquip:  { name: string; desc: string }[] = [];
 
@@ -668,9 +672,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
-                    modelLabel={modelsToShow.length > 1
-                      ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${nm(m.name)}` : nm(m.name))
-                      : undefined}
+                    modelLabel={`${rp.modelRowCounts[mi]}× ${nm(m.name)}`}
                     color={color} />
                   {mi === 0 && effectiveInvSv !== null && (
                     <FancyShield value={effectiveInvSv} color={color} />
@@ -885,12 +887,10 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
 
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, variant, weaponTraitMap, injectedAbilities, hiddenUpgradeAbilityLabels, optionAbilities, equipMods, traitEquipMods,
+  const { pts, variant, weaponTraitMap, injectedAbilities, hiddenUpgradeAbilityLabels, hiddenUpgradeAbilityLines, optionAbilities, equipMods, traitEquipMods,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
-  const modelCounts  = rp.modelCounts;
-
   // Armory-bought weapons are already folded into rp.weaponGroups by resolver.ts's
   // pushGrantedWeapon — do not re-derive them here too (GH#19 duplicate-weapons bug).
   function mergeTraits(w: Weapon, traitMap: Map<string, string[]> = weaponTraitMap): Weapon {
@@ -970,6 +970,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
       // An upgrade's own rules text, printed under the upgrade's name, when that upgrade has not
       // been bought — the battle-ready sheet showed Tomb Blades' armour upgrade unbought (GH#149).
       if (hiddenUpgradeAbilityLabels.some((h: string) => h.toLowerCase() === label)) return false;
+      if (hiddenUpgradeAbilityLines.includes(ab)) return false;
       if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
       if (_hasPsykerOption && label === 'psyker') return false;
       return true;
@@ -1012,7 +1013,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
             return (
               <tr key={mi}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>
-                  {modelCounts[mi] != null ? `${modelCounts[mi]}× ${nm(m.name)}` : nm(m.name)}
+                  {`${rp.modelRowCounts[mi]}× ${nm(m.name)}`}
                 </td>
                 {statKeys.map(k => <td key={k} style={simpleTd}>{modStats[k] ?? '-'}</td>)}
               </tr>
@@ -1269,7 +1270,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   const compMax = COMP_SLOTS.map(slot => {
     if (slot === 'Transport') return Math.max(infantryCount, 1);
     const cap = engagement.aop[(slot === 'Fast Attack' ? 'Fast Attack' : slot) as keyof typeof engagement.aop]?.[1] ?? 0;
-    return Math.max(cap, 1);
+    return Math.max(cap * slotCapFactor(data.faction, slot), 1);
   });
   const compValues = compCountsForRadar.map((count, i) => Math.min((count / compMax[i]) * 10, 10));
   const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${compMax[i]}`);
@@ -2035,7 +2036,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                     paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55`,
                   }}>
                     {desc
-                      ? <><span style={{ fontWeight: 700 }}>{name}:</span>{' '}<span style={{ color: '#555' }}>{desc}</span></>
+                      ? <><span style={{ fontWeight: 700 }}>{name}:</span>{' '}<span style={{ color: '#555', whiteSpace: 'pre-line' }}>{desc}</span></>
                       : <span style={{ fontWeight: 700 }}>{name}</span>
                     }
                   </div>

@@ -107,7 +107,7 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   primaryFaction: string | null;
 }) {
   const t = useT();
-  const { alliedFaction, setAlliedFaction, engagement, archetype } = useArmyStore();
+  const { alliedFaction, setAlliedFaction, archetype } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
   // MUST stay up here with the other hooks. This used to sit ~40 lines further down, BELOW three
   // early returns -- so the component called two hooks while no ally was chosen and three once one
@@ -117,15 +117,6 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   const alliedArchetype = useArmyStore(s => s.alliedArchetype);
 
   if (!primaryFaction) return null;
-
-  // Missions.txt (Skirmish): "No allies may be included. No Archetypes may be selected."
-  if (engagement === 'skirmish') {
-    return (
-      <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50 text-center">
-        {t('alliedNotInSkirmish')}
-      </div>
-    );
-  }
 
   // ── No allied faction selected ───────────────────────────────────────────
   if (!alliedFaction) {

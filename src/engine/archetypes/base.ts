@@ -203,6 +203,10 @@ export interface ArchetypeRule {
      * claimed the promotion (`archetypeHqUpgrade`), and only to it.
      */
     abilityUpgrade?: { from: string; to: string };
+    /** A flat surcharge for the promoted model (Megafauna: "The model costs +36 points"). Charged by `computeUnitPoints`. */
+    extraPoints?: number;
+    /** Abilities the promoted model gains (Megafauna: "The model gains the 'Fearless' and 'Synapse' abilities"). */
+    grantsAbilities?: string[];
   } | null;
   /**
    * An ability every listed unit gains while this archetype is active, shown on the profile like

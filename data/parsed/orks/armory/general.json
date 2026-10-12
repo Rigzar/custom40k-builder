@@ -69,7 +69,7 @@
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Armorbane",
+      "abilities": "Armorbane(3)",
       "p_unit": 5,
       "p_char": 5
     },
@@ -149,7 +149,7 @@
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Slow(-3), Armorbane.",
+      "abilities": "AT(3), Slow(-3), Armorbane(3).",
       "p_unit": 26,
       "p_char": 33
     },
@@ -237,7 +237,7 @@
       "s": "x2",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3), Slow(-3), Armorbane, Extra Attack(2), Unwieldy.",
+      "abilities": "AT(3), Slow(-3), Armorbane(3), Extra Attack(2), Unwieldy.",
       "p_unit": 36,
       "p_char": 46
     },
@@ -637,7 +637,7 @@
     {
       "name": "Wildorkᴹ",
       "term_compat": false,
-      "desc": "The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+      "desc": "The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Armorbane(1)\" ability.",
       "p_unit": null,
       "p_char": 10
     },

@@ -26,7 +26,7 @@
       "p_char": null
     },
     {
-      "name": "Headlong charge",
+      "name": "Headlong Charge",
       "term_compat": false,
       "armour_compat": [],
       "range": "-",
@@ -111,7 +111,7 @@
       "p_char": 15,
       "effect": {
         "grants_abilities": [
-          "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering."
+          "Synaptic Disruption Organ: Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering."
         ]
       }
     },

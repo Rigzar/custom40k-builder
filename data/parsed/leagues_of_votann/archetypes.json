@@ -2,7 +2,8 @@
   "archetypes": [
     {
       "name": "Demiurg",
-      "desc": "- This army and the Tau consider each other Battle Brothers (Green allies).\n- This army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army."
+      "desc": "- This army and the Tau consider each other Battle Brothers (Green allies).\n- This army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army.",
+      "skirmish": true
     },
     {
       "name": "Einhyr Guard",
