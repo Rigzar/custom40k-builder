@@ -306,6 +306,24 @@
         "LD": "8",
         "SV": "5+"
       }
+    },
+    {
+      "name": "Arch-Militant",
+      "points": 16,
+      "min": 0,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "4+",
+        "BS": "4+",
+        "S": "3",
+        "T": "3",
+        "W": "2",
+        "I": "3",
+        "A": "1",
+        "LD": "7",
+        "SV": "5+"
+      }
     }
   ],
   "variant_models": [],
@@ -543,7 +561,8 @@
     "Bionics: While a Servitor is in the unit, it gains a 6+ ward save.",
     "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls.",
     "Berserk(5+), Blind rage: Every Arco-flagellant has these special abilities.",
-    "Command Squad, Squadron: granted by Penitent/Sage/Exorcist/Mystic/Alien World Scout/Archaeotech Researcher/Crusader.",
+    "Command Squad, Squadron: granted by Penitent/Sage/Exorcist/Mystic/Alien World Scout/Archaeotech Researcher/Arch-Militant/Crusader.",
+    "Steady Superiority: While an Arch-Militant is alive, the unit and its attached unit may shoot “Rapid fire” weapons at full range with a \"Move & Shoot\" order and ignores the to hit penalty for \"Advance\" orders with \"Assault\" weapons.",
     "Pariah: While a Penitent is alive, the unit gains the \"Aegis(5+)\" special ability. If two Penitents are alive, they gain \"Aegis(4+)\" instead.",
     "Devout: A Missionary can recite 1 hymn per turn. A hymn is successfully recited on a roll of 3+. A Missionary knows a prayer from the Hymns of Battle.",
     "Wise Guidance: While a Sage is alive, all weapons in the unit gain Deflagrate(6+). If two Sages are alive, they gain Deflagrate(5+) instead.",
