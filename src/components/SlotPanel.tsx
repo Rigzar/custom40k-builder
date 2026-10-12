@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
+import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
@@ -159,7 +160,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     return (
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
-          const [min, max] = slot === 'HQ'
+          const skirmishAlly = engagement === 'skirmish';
+          const [min, max] = skirmishAlly
+            ? (slot === 'Troops' ? [SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_TROOPS] as [number, number] : [0, SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) ? SKIRMISH_ALLY_EXTRA_MAX : 0] as [number, number])
+            : slot === 'HQ'
             ? getEffectiveHqLimits(rule, ALLIED_AOP['HQ'] as [number, number])
             : ALLIED_AOP[slot];
           const units = effectiveSlotUnits[slot] ?? [];
@@ -168,7 +172,12 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           const used = usedAllied(slot);
           // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic.
           // Elites/FA/HS scale with Troop count: max = allyTroopCount (1 Troop → 1 each, 2 Troops → 2 each).
-          const effectiveMax = slot === 'Dedicated Transport'
+          // Skirmish: one extra unit in total across Elites / Fast Attack / Heavy Support, so once one of them is taken the
+          // other two show as full.
+          const skirmishExtrasUsed = SKIRMISH_ALLY_EXTRA_SLOTS.reduce((n, sl) => n + usedAllied(sl), 0);
+          const effectiveMax = skirmishAlly
+            ? (SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) ? used + Math.max(0, SKIRMISH_ALLY_EXTRA_MAX - skirmishExtrasUsed) : max)
+            : slot === 'Dedicated Transport'
             ? countInfantrySelections(store, store.data as FactionData, true)
             : (slot === 'Elites' || slot === 'Fast Attack' || slot === 'Heavy Support')
             ? allyTroopCount
@@ -406,7 +415,8 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           : slot === 'Heavy Support' ? freeSlots.hs
           : slot === 'Elites' ? freeSlots.elites
           : 0;
-        const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction ?? undefined, false, engagement) - slotAdj);
+        // Missions (Skirmish): the allies' selections are part of the army's regular AOP, so they are counted here.
+        const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction ?? undefined, (engagement === 'skirmish' && alliedFaction) ? undefined : false, engagement) - slotAdj);
         const isFull = used >= max && max > 0;
         const isUnder = used < min;
         const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';

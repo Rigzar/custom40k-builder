@@ -430,16 +430,7 @@ export const useArmyStore = create<ArmyStore>()(
           ? applyArmyTraits(army, clipped, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : army;
 
-        // Missions.txt (Skirmish): "No allies may be included." Switching into Skirmish with an
-        // allied detachment already present drops it (and its units), same as setAlliedFaction(null).
-        if (e === 'skirmish' && s.alliedFaction) {
-          const army = retrait(s.army.filter(entry => entry.factionSource !== s.alliedFaction));
-          return {
-            engagement: e, pointLimit: ENGAGEMENTS[e].default, army, traitPool: clipped,
-            alliedFaction: undefined, alliedData: null,
-            alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [], alliedHqMark: 'Undivided' as Mark,
-          };
-        }
+        // Skirmish allows allies now (Missions, Allies), so the allied detachment stays; the validator checks its shape.
         return { engagement: e, pointLimit: ENGAGEMENTS[e].default, traitPool: clipped, army: retrait(s.army) };
       }),
       setPointLimit: (n: number) => set({ pointLimit: n }),

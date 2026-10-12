@@ -1184,5 +1184,10 @@
  "gfButton": "GITFINDA — НАЙТИ ИГРУ",
  "gfButtonSignIn": "GITFINDA — ВОЙДИТЕ",
  "gfButtonTitle": "Найдите, с кем сыграть в Custom40k",
- "gfYourPost": "Ваше объявление"
+ "gfYourPost": "Ваше объявление",
+ "valSkirmishArchetypeNotAllowed": "Skirmish: архетип «{name}» недоступен в Skirmish.",
+ "valSkirmishAllyTroops": "Союзники в Skirmish должны включать ровно {need} отряд Troops (сейчас {have}).",
+ "valSkirmishAllyExtras": "Союзники в Skirmish могут включать не более {max} отряда Elite, Fast Attack или Heavy Support в сумме (сейчас {have}).",
+ "skirmishDropsArchetypeConfirm": "У этой армии есть архетип, недоступный в Skirmish, поэтому переход на Skirmish УДАЛИТ его. Возврат к другому типу боя его не вернёт. Продолжить?",
+ "skirmishArchetypesOnly": "Skirmish: показаны только архетипы, которые этот кодекс отмечает как доступные в Skirmish."
 }

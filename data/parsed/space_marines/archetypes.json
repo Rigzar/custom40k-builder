@@ -6,7 +6,8 @@
     },
     {
       "name": "Chamber Militant",
-      "desc": "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Xenos\" was selected as Legacy.\n- Must select \"Legacy of the Alien Hunters\"."
+      "desc": "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Xenos\" was selected as Legacy.\n- Must select \"Legacy of the Alien Hunters\".",
+      "skirmish": true
     },
     {
       "name": "Death from Above",
@@ -22,7 +23,8 @@
     },
     {
       "name": "Legion SM",
-      "desc": "- The army has access to everything from the Horus Heresy Space Marines supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation."
+      "desc": "- The army has access to everything from the Horus Heresy Space Marines supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation.",
+      "skirmish": true
     },
     {
       "name": "Librarian Conclave",
@@ -30,7 +32,8 @@
     },
     {
       "name": "Renegades",
-      "desc": "- Renegades are treated like \"Chaos Space Marines\" in the Ally matrix.\n- May select one Trait from the \"Chaos Space Marines\" list instead of the normal selection.\n- All units from the codex \"Space Marines\" count as having the keyword \"Chaos Space Marine\"."
+      "desc": "- Renegades are treated like \"Chaos Space Marines\" in the Ally matrix.\n- May select one Trait from the \"Chaos Space Marines\" list instead of the normal selection.\n- All units from the codex \"Space Marines\" count as having the keyword \"Chaos Space Marine\".",
+      "skirmish": true
     },
     {
       "name": "Swift as the Wind",

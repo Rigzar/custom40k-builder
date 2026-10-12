@@ -72,7 +72,7 @@ export type TranslationKey =
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
   | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
-  | 'skirmishDropsAllyConfirm'
+  | 'skirmishDropsAllyConfirm' | 'skirmishDropsArchetypeConfirm' | 'skirmishArchetypesOnly'
   | 'armoryLostOnDowngradeConfirm'
   | 'transportCapacityLabel'
   | 'reaverLordPickLabel' | 'reaverLordChosenLabel' | 'reaverLordSearch'
@@ -186,7 +186,7 @@ export type TranslationKey =
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
   | 'valLockedMarkIncompatibleAllyHq' | 'valOnlyTwoTraits' | 'valSectorLordAcolytes' | 'valScarabsAsTroopsCap' | 'valUnitNotInCodex' | 'valUnitRemovedFromCodex' | 'valMinistorumThirdTraitPerUnit'
   | 'unitNotInCodexTitle' | 'unitNotInCodexBody' | 'removeFromList' | 'valVeteranRequired' | 'valUndividedLegacyRestriction'
-  | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valArmyValid'
+  | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valSkirmishArchetypeNotAllowed' | 'valSkirmishAllyTroops' | 'valSkirmishAllyExtras' | 'valArmyValid'
   | 'valIronWithin'
   | 'valBlackCrusadeNoChampion' | 'valBlackCrusadeTooMany' | 'valBlackCrusadeLockedMark' | 'valBlackCrusadeChampionOk'
   | 'valMixedWarbandMultiLegacy'
@@ -832,6 +832,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     battleSetup: 'Battle Setup',
     armyDoctrine: 'Army Doctrine',
     notAvailableInSkirmish: 'Not available in Skirmish.',
+    skirmishDropsArchetypeConfirm: 'This army has an archetype that is not available in Skirmish, so switching to Skirmish REMOVES it. Going back to another battle type will not bring it back. Continue?',
+    skirmishArchetypesOnly: 'Skirmish: only the archetypes this codex marks as available in Skirmish are listed.',
     onlyForArmiesWithMarkOf: 'Only for armies with Mark of',
     alliedNoObjectiveSecured: "Not in an allied detachment: allied units can never use “Objective secured!” (Core Rules, Allies).",
     deploymentUpgradeLabel: 'Set up with {ability} ({rule}) — +{pts} pts',
@@ -1267,6 +1269,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valUndividedLegacyRestriction: '{legacy}: {unit} must be Undivided (current: {mark}).',
     valSkirmishNoArchetypes: 'Skirmish: Archetypes are not allowed.',
     valSkirmishNoAllies: 'Skirmish: Allied detachments are not allowed.',
+    valSkirmishArchetypeNotAllowed: 'Skirmish: the archetype "{name}" is not available in Skirmish.',
+    valSkirmishAllyTroops: 'Skirmish allies must include exactly {need} Troops unit (have {have}).',
+    valSkirmishAllyExtras: 'Skirmish allies may include at most {max} Elite, Fast Attack or Heavy Support unit in total (have {have}).',
     valArmyValid: 'Army is valid.',
     valIronWithin: 'Iron Within, Iron Without: {unit} already has a ward save and cannot benefit from this trait.',
     valBlackCrusadeNoChampion: 'Black Crusade: designate one HQ as the champion — open its unit card and toggle "Black Crusade Champion" to grant it all four Chaos god marks.',
@@ -1962,6 +1967,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     battleSetup: 'Schlachtvorbereitung',
     armyDoctrine: 'Armee-Doktrin',
     notAvailableInSkirmish: 'Im Scharmützel nicht verfügbar.',
+    skirmishDropsArchetypeConfirm: 'Diese Armee hat einen Archetyp, der in Skirmish nicht verfügbar ist, daher ENTFERNT der Wechsel zu Skirmish ihn. Ein Wechsel zurück bringt ihn nicht wieder. Fortfahren?',
+    skirmishArchetypesOnly: 'Skirmish: Es werden nur die Archetypen angezeigt, die dieser Codex für Skirmish freigibt.',
     onlyForArmiesWithMarkOf: 'Nur für Armeen mit Mal von',
     alliedNoObjectiveSecured: "Nicht in einer verbündeten Abordnung: verbündete Einheiten können „Objective secured!“ nie nutzen (Core Rules, Allies).",
     deploymentUpgradeLabel: 'Aufstellen mit {ability} ({rule}) — +{pts} Pkt.',
@@ -2395,6 +2402,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valUndividedLegacyRestriction: '{legacy}: {unit} muss Ungeteilt sein (aktuell: {mark}).',
     valSkirmishNoArchetypes: 'Skirmish: Archetypen sind nicht erlaubt.',
     valSkirmishNoAllies: 'Skirmish: Verbündete Abteilungen sind nicht erlaubt.',
+    valSkirmishArchetypeNotAllowed: 'Skirmish: Der Archetyp „{name}“ ist in Skirmish nicht verfügbar.',
+    valSkirmishAllyTroops: 'Skirmish-Verbündete müssen genau {need} Troops-Einheit enthalten (vorhanden: {have}).',
+    valSkirmishAllyExtras: 'Skirmish-Verbündete dürfen insgesamt höchstens {max} Elite-, Fast-Attack- oder Heavy-Support-Einheit enthalten (vorhanden: {have}).',
     valArmyValid: 'Armee ist gültig.',
     valIronWithin: 'Iron Within, Iron Without: {unit} hat bereits einen Unverwundbarkeits-Rettungswurf und kann nicht von diesem Trait profitieren.',
     valBlackCrusadeNoChampion: 'Schwarzer Kreuzzug: einen HQ als Champion bestimmen — Einheitenkarte öffnen und „Schwarzer-Kreuzzug-Champion" aktivieren, um ihm alle vier Chaos-Gottemarks zu verleihen.',
@@ -3090,6 +3100,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     battleSetup: 'Configuración de batalla',
     armyDoctrine: 'Doctrina del ejército',
     notAvailableInSkirmish: 'No disponible en Skirmish.',
+    skirmishDropsArchetypeConfirm: 'Este ejército tiene un arquetipo que no está disponible en Skirmish, así que cambiar a Skirmish lo QUITA. Volver a otro tipo de batalla no lo recuperará. ¿Continuar?',
+    skirmishArchetypesOnly: 'Skirmish: solo se muestran los arquetipos que este códice marca como disponibles en Skirmish.',
     onlyForArmiesWithMarkOf: 'Solo para ejércitos con Marca de',
     alliedNoObjectiveSecured: "No en un destacamento aliado: las unidades aliadas nunca pueden usar «Objective secured!» (Core Rules, Allies).",
     deploymentUpgradeLabel: 'Desplegar con {ability} ({rule}) — +{pts} ptos',
@@ -3523,6 +3535,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valUndividedLegacyRestriction: '{legacy}: {unit} debe ser Indiviso (actual: {mark}).',
     valSkirmishNoArchetypes: 'Skirmish: los Arquetipos no están permitidos.',
     valSkirmishNoAllies: 'Skirmish: los destacamentos aliados no están permitidos.',
+    valSkirmishArchetypeNotAllowed: 'Skirmish: el arquetipo «{name}» no está disponible en Skirmish.',
+    valSkirmishAllyTroops: 'Los aliados en Skirmish deben incluir exactamente {need} unidad de Troops (hay {have}).',
+    valSkirmishAllyExtras: 'Los aliados en Skirmish pueden incluir como máximo {max} unidad de Elite, Fast Attack o Heavy Support en total (hay {have}).',
     valArmyValid: 'El ejército es válido.',
     valIronWithin: 'Iron Within, Iron Without: {unit} ya tiene un ward save y no puede beneficiarse de este trait.',
     valBlackCrusadeNoChampion: 'Cruzada Negra: designa un HQ como campeón — abre su ficha y activa "Campeón de la Cruzada Negra" para concederle las cuatro marcas de los dioses del Caos.',

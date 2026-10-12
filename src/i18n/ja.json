@@ -1184,5 +1184,10 @@
  "gfButton": "GITFINDA — 対戦相手を探す",
  "gfButtonSignIn": "GITFINDA — サインイン",
  "gfButtonTitle": "Custom40kの対戦相手を見つける",
- "gfYourPost": "あなたの投稿"
+ "gfYourPost": "あなたの投稿",
+ "valSkirmishArchetypeNotAllowed": "Skirmish：アーキタイプ「{name}」はSkirmishでは使用できません。",
+ "valSkirmishAllyTroops": "Skirmishの同盟軍には、Troopsユニットがちょうど{need}つ必要です（現在{have}つ）。",
+ "valSkirmishAllyExtras": "Skirmishの同盟軍には、Elite・Fast Attack・Heavy Supportのユニットを合計で最大{max}つまで含められます（現在{have}つ）。",
+ "skirmishDropsArchetypeConfirm": "この軍にはSkirmishで使えないアーキタイプがあるため、Skirmishに切り替えるとそれが削除されます。別の戦闘タイプに戻しても元に戻りません。続けますか？",
+ "skirmishArchetypesOnly": "Skirmish：このコーデックスがSkirmishで使用可能としているアーキタイプのみ表示されます。"
 }

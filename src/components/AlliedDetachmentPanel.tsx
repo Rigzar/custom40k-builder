@@ -118,15 +118,6 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
 
   if (!primaryFaction) return null;
 
-  // Missions.txt (Skirmish): "No allies may be included. No Archetypes may be selected."
-  if (engagement === 'skirmish') {
-    return (
-      <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50 text-center">
-        {t('alliedNotInSkirmish')}
-      </div>
-    );
-  }
-
   // ── No allied faction selected ───────────────────────────────────────────
   if (!alliedFaction) {
     if (showPicker) {

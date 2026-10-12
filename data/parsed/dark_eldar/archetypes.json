@@ -18,7 +18,8 @@
     },
     {
       "name": "Ynnari",
-      "desc": "- Ynnari become \"Battle Brothers\" for Eldar.\n- The army got access to the Ynnari Armory and the Revenant discipline (see Eldar). \n- May not select any Legacy."
+      "desc": "- Ynnari become \"Battle Brothers\" for Eldar.\n- The army got access to the Ynnari Armory and the Revenant discipline (see Eldar). \n- May not select any Legacy.",
+      "skirmish": true
     }
   ],
   "legacies": [

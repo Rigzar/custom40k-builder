@@ -54,7 +54,7 @@ export function FactionStep({
 
   function handleSetEngagement(e: EngagementType) {
     const eng = ENGAGEMENTS[e];
-    if (!allowEngagementChange(e, alliedFaction, t('skirmishDropsAllyConfirm'))) return;
+    if (!allowEngagementChange(e, t('skirmishDropsArchetypeConfirm'))) return;
     setEngagement(e);
     if (pointLimit < eng.min) setPointLimit(eng.min);
     else if (pointLimit > eng.max) setPointLimit(eng.max);
