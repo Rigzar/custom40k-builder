@@ -39,7 +39,9 @@
         "Psyker: This model can cast 1 psychic power and dispel 1 psychic power per round. It knows Smite, as well as one psychic power from the Malefic discipline."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

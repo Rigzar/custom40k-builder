@@ -39,7 +39,9 @@
         "Psyker: A Psyker can cast 1 psychic power and dispel 1 psychic power per round. A Psyker knows Smite, as well as one psychic power from a chosen psychic discipline."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Specialist"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,
