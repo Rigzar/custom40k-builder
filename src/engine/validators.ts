@@ -3334,7 +3334,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'error', text: T('valSkirmishArchetypeNotAllowed', { name: state.archetype }) });
   }
   if (state.engagement === 'skirmish' && state.alliedFaction) {
-    if (state.alliedArchetype && !archetypeAllowedInSkirmish(state.alliedData, state.alliedArchetype)) {
+    if (state.alliedArchetype && !archetypeAllowedInSkirmish(alliedData, state.alliedArchetype)) {
       items.push({ type: 'error', text: T('valSkirmishArchetypeNotAllowed', { name: state.alliedArchetype }) });
     }
     const allyRule = getArchetypeRule(state.alliedArchetype);

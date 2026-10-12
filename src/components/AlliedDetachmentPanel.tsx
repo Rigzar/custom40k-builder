@@ -107,7 +107,7 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   primaryFaction: string | null;
 }) {
   const t = useT();
-  const { alliedFaction, setAlliedFaction, engagement, archetype } = useArmyStore();
+  const { alliedFaction, setAlliedFaction, archetype } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
   // MUST stay up here with the other hooks. This used to sit ~40 lines further down, BELOW three
   // early returns -- so the component called two hooks while no ally was chosen and three once one

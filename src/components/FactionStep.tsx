@@ -45,7 +45,7 @@ export function FactionStep({
   const hasUnreviewedFaction = CATEGORIES.some(c => c.factions.some(f =>
     (factionFlags?.[f.key] ?? f.available) && (codexVersions?.[f.key]?.status ?? f.status) !== 'complete'));
   const t = useT();
-  const { engagement, pointLimit, setEngagement, setPointLimit, alliedFaction } = useArmyStore();
+  const { engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
   // Raw text of the points-limit box while it is being edited (null = show the store value).
   const [pointDraft, setPointDraft] = useState<string | null>(null);
 
