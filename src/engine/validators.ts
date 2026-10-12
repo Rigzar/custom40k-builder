@@ -354,8 +354,10 @@ export function getAopState(
   for (const slot of SLOT_ORDER) {
     if (slot === 'Dedicated Transport') continue;   // dynamic cap ("1 per Infantry selection"), not a flat one
     if (slot === 'HQ' && hqOwn) continue;
-    const [, max] = eng.aop[slot];
-    if (max <= 0) continue;
+    const [, baseMax] = eng.aop[slot];
+    if (baseMax <= 0) continue;
+    // Imperial Navy's Skyhammer Doctrine doubles the Flyer slots, so a second AOP is only needed past that.
+    const max = baseMax * slotCapFactor(data.faction, slot);
     const used = usedOf(slot);
     if (used > max) taken = Math.max(taken, Math.ceil(used / max));
   }

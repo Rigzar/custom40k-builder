@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "HORUS HERESY — FORCES OF THE MACHINE GOD: the Thanatar Siege-Automata (Heavy Support, 379 points) was in the sheet but never in the app. It is now there with its Shock charger / Graviton ram and Plasma mortar / Sollex heavy-las swaps.",
       "INQUISITION — NEW UNIT: THE ARCH-MILITANT (Elite, 16 points). It was on the sheet but not in the app. It can also join a Henchman Warband (Inquisition and Imperial Navy), with its Steady Superiority ability.",
       "IMPERIAL NAVY — THE HENCHMAN WARBAND TAKES EVERY ELITE OF THE CODEX (Unwise: 'all elites in the navy codex'). Deathcult Assassins, Breachers (with their Sergeant-at-arms), the Explorator and Impressed Ogryns (with the Bone'ead) can now be Warband specialists, next to the henchmen it already had. Their own upgrades are not in the Warband yet.",
+      "IMPERIAL NAVY — MORE THAN TWO FLYERS NO LONGER OPENS A SECOND AOP (Unwise). Skyhammer Doctrine doubled the Flyer slots, but the count of AOPs the list needs still used the old limit of 2, so a third Flyer asked for a second AOP. It now asks for one only past four.",
     ],
   },
   {

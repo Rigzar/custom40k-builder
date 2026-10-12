@@ -41,8 +41,10 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
   S().clearArmy();
   for (let i = 0; i < 4; i++) add('Lightning');
   check(!errs().some(t => /Flyers over maximum/.test(t)), 'four Flyers are legal for the Navy (Skyhammer Doctrine)');
+  check(!validateArmy(S() as Any, S().data!, null).some(v => /second AOP/.test(v.text)), 'four Flyers do not open a second AOP');
   add('Lightning');
   check(errs().some(t => /Flyers over maximum/.test(t)), 'a fifth Flyer is over the doubled cap');
+  check(validateArmy(S() as Any, S().data!, null).some(v => /second AOP/.test(v.text)), 'a fifth Flyer needs a second AOP');
 
   // Voidmaster / Explorator are free per Rogue Trader, not beyond
   S().clearArmy();
