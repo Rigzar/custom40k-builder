@@ -71,6 +71,11 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
   check(rel('imperial_navy', 'orks') === 'Y', 'Navy–Orks is yellow');
   check(rel('imperial_guard', 'imperial_navy') === 'G', 'chart is symmetric for Navy–Guard');
 
+  // upgrade ability lines hide until bought (Flak Armor, Carapace Armor, Boarding shield bundled in a choice)
+  const { resolveUnitProfile } = await import('../src/engine/resolver');
+  const hidden = (unit: string, optionQty: Any): string[] => { const u = navy.units[unit]; const item: Any = { id: 'x', unitName: unit, slot: u.slot, size: 10, optionQty, armory: [], traits: [], powers: [], prayers: [], pacts: [] }; const st: Any = { army: [item], traits: {}, traitPool: [], archetype: null, legacy: null, legacy2: null, hqMark: null, engagement: 'pitched', pointLimit: 2500, alliedFaction: null, alliedArchetype: null }; return (resolveUnitProfile(item, u, st, navy) as Any).hiddenUpgradeAbilityLabels; };
+  check(hidden('Ratings', {}).includes('Flak Armor') && !hidden('Ratings', { 1: { 0: 1 } }).includes('Flak Armor'), 'Flak Armor line hides until bought');
+  check(hidden('Voidsmen', {}).includes('Boarding shield') && !hidden('Voidsmen', { 1: { 3: 1 } }).includes('Boarding shield'), 'Boarding shield line hides until the bundle is bought');
   console.log(bad ? `${bad} failure(s)` : 'ok: Imperial Navy guard passed');
   process.exit(bad ? 1 : 0);
 })();

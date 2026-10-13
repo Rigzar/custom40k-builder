@@ -236,8 +236,13 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 5,
+            "choices": [
+                {
+                    "name": "CAT Unit",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
         },
@@ -246,8 +251,13 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 23,
+            "choices": [
+                {
+                    "name": "Demolition charge & Gheistskull",
+                    "points": 23
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
         }

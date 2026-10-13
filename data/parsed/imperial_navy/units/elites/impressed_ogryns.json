@@ -152,8 +152,13 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 11,
+            "choices": [
+                {
+                    "name": "Carapace Armor",
+                    "points": 11
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true

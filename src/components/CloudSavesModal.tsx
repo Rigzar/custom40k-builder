@@ -1076,6 +1076,7 @@ const AVATAR_GROUPS: { label: string; items: { key: string; label: string }[] }[
   { label: 'Grey Knights',      items: [{ key: 'faction-symbols/grey-knights',      label: 'Grey Knights' }] },
   { label: 'Adeptus Custodes',  items: [{ key: 'faction-symbols/adeptus-custodes',  label: 'Custodes' }] },
   { label: 'Inquisition',       items: [{ key: 'faction-symbols/inquisition',       label: 'Inquisition' }] },
+  { label: 'Imperial Navy',     items: [{ key: 'faction-symbols/imperial-navy',     label: 'Imperial Navy' }] },
   { label: 'Assassins',         items: [{ key: 'faction-symbols/assassins',         label: 'Assassins' }] },
   { label: 'Leagues of Votann', items: [{ key: 'faction-symbols/leagues-of-votann', label: 'Votann' }] },
   { label: 'Supplements', items: [

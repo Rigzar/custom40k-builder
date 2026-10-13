@@ -88,8 +88,13 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 2,
+            "choices": [
+                {
+                    "name": "Flak Armor",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true

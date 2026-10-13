@@ -93,7 +93,7 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'one of each for a single Elite slot." Whichever combination is taken — one Assassin of ' +
       'any type, or one of each of the four — occupies a SINGLE Elite slot, not one each.',
     activation: [
-      'Pick any Chaos army (Chaos Space Marines, Chaos Daemons) or any Imperial army (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — the Assassins\' own datasheet grants native access (no [Allied] badge, no separate selection step).',
+      'Pick any Chaos army (Chaos Space Marines, Chaos Daemons) or any Imperial army (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition, Imperial Navy) — the Assassins\' own datasheet grants native access (no [Allied] badge, no separate selection step).',
       'The 4 Assassin units appear directly in your Elites roster, grouped under a "Cults Abominatioe" (Chaos) or "Execution Force" (Imperial) header.',
       'Take either a single Assassin (any one of the four types) or one of each — the engine enforces this and counts the whole selection as one Elite slot.',
     ],
@@ -337,7 +337,7 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'one of each for a single Elite slot." Whichever combination is taken — one Assassin of ' +
         'any type, or one of each of the four — occupies a SINGLE Elite slot, not one each.',
       activation: [
-        'Pick any Chaos army (Chaos Space Marines, Chaos Daemons) or any Imperial army (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — the Assassins\' own datasheet grants native access (no [Allied] badge, no separate selection step).',
+        'Pick any Chaos army (Chaos Space Marines, Chaos Daemons) or any Imperial army (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition, Imperial Navy) — the Assassins\' own datasheet grants native access (no [Allied] badge, no separate selection step).',
         'The 4 Assassin units appear directly in your Elites roster, grouped under a "Cults Abominatioe" (Chaos) or "Execution Force" (Imperial) header.',
         'Take either a single Assassin (any one of the four types) or one of each — the engine enforces this and counts the whole selection as one Elite slot.',
       ],
@@ -354,7 +354,7 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'Egal welche Kombination gewählt wird — ein Assassine eines beliebigen Typs, oder je einer ' +
         'aller vier — sie belegt EINEN einzigen Elite-Slot, nicht je einen.',
       activation: [
-        'Wähle eine beliebige Chaos-Armee (Chaos Space Marines, Chaos Daemons) oder eine beliebige Imperiale Armee (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — das eigene Datenblatt der Assassinen gewährt nativen Zugriff (kein [Allied]-Abzeichen, kein separater Auswahlschritt).',
+        'Wähle eine beliebige Chaos-Armee (Chaos Space Marines, Chaos Daemons) oder eine beliebige Imperiale Armee (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition, Imperial Navy) — das eigene Datenblatt der Assassinen gewährt nativen Zugriff (kein [Allied]-Abzeichen, kein separater Auswahlschritt).',
         'Die 4 Assassinen-Einheiten erscheinen direkt in deinem Elite-Roster, gruppiert unter einer „Cults Abominatioe"- (Chaos) oder „Execution Force"- (Imperial) Überschrift.',
         'Nimm entweder einen einzelnen Assassinen (einen beliebigen der vier Typen) oder je einen — die Engine erzwingt dies und zählt die gesamte Auswahl als einen Elite-Slot.',
       ],
@@ -371,7 +371,7 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'combinación elegida — un Assassin de cualquier tipo, o uno de cada uno de los cuatro — ' +
         'ocupa UN SOLO slot de Elite, no uno cada uno.',
       activation: [
-        'Elige cualquier ejército Chaos (Chaos Space Marines, Chaos Daemons) o cualquier ejército Imperial (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — la propia ficha de los Assassins concede acceso nativo (sin distintivo [Allied], sin paso de selección aparte).',
+        'Elige cualquier ejército Chaos (Chaos Space Marines, Chaos Daemons) o cualquier ejército Imperial (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition, Imperial Navy) — la propia ficha de los Assassins concede acceso nativo (sin distintivo [Allied], sin paso de selección aparte).',
         'Las 4 unidades Assassin aparecen directamente en tu plantel de Elites, agrupadas bajo un encabezado "Cults Abominatioe" (Chaos) o "Execution Force" (Imperial).',
         'Elige un único Assassin (cualquiera de los cuatro tipos) o uno de cada uno — el motor lo obliga y cuenta toda la selección como un solo slot de Elite.',
       ],
@@ -388,7 +388,7 @@ const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> =
         'было взято — один Убийца любого типа или по одному из всех четырёх — оно занимает ОДИН ' +
         'слот Элиты, а не по одному на каждого.',
       activation: [
-        'Выберите любую армию Хаоса (Chaos Space Marines, Chaos Daemons) или любую имперскую армию (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — собственный датащит Убийц даёт прямой доступ (без значка [Allied], без отдельного шага выбора).',
+        'Выберите любую армию Хаоса (Chaos Space Marines, Chaos Daemons) или любую имперскую армию (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition, Imperial Navy) — собственный датащит Убийц даёт прямой доступ (без значка [Allied], без отдельного шага выбора).',
         'Все 4 отряда Убийц появляются прямо в вашем списке Элиты, сгруппированные под заголовком «Cults Abominatioe» (Хаос) или «Execution Force» (Империум).',
         'Возьмите либо одного Убийцу (любого из четырёх типов), либо по одному из каждого — движок это обеспечивает и считает весь выбор как один слот Элиты.',
       ],

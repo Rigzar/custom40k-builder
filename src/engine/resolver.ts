@@ -1469,8 +1469,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   for (const [gi, g] of unit.option_groups.entries()) {
     const ch: Record<string, number> = (item.optionQty?.[gi] ?? {}) as Record<string, number>;
     (g.choices ?? []).forEach((c, ci) => {
-      _allChoiceNorm.add(_choiceNorm(c.name));
-      if (Number(ch[String(ci)] ?? 0) > 0) _selChoiceNorm.add(_choiceNorm(c.name));
+      // A bundle choice ("Navis heavy shotgun & Boarding shield") also stands for each thing it names,
+      // so the ability line of the bundled item (Boarding shield: ...) is hidden until the bundle is bought.
+      const names = [c.name, ...c.name.split(/\s+&\s+/)];
+      const bought = Number(ch[String(ci)] ?? 0) > 0;
+      for (const n of names) { _allChoiceNorm.add(_choiceNorm(n)); if (bought) _selChoiceNorm.add(_choiceNorm(n)); }
     });
   }
   const hiddenUpgradeAbilityLabels = (unit.abilities ?? [])

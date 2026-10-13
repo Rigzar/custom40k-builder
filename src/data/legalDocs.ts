@@ -18,7 +18,7 @@ const CONTACT_EMAIL = 'wh40builder@gmail.com';
 export const GW_DISCLAIMER =
   'Warhammer 40,000, Space Marines, Chaos Space Marines, Tyranids, Necrons, Orks, Eldar, ' +
   'Dark Eldar, Tau Empire, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, ' +
-  'Adeptus Sororitas, Grey Knights, Inquisition, Assassins, Genestealer Cults, Harlequins, ' +
+  'Adeptus Sororitas, Grey Knights, Inquisition, Imperial Navy, Assassins, Genestealer Cults, Harlequins, ' +
   'Leagues of Votann, Chaos Daemons, and all related names, characters, factions, artwork ' +
   'and lore are trademarks and/or copyrights of Games Workshop Group PLC, registered ' +
   'worldwide. This application is an unofficial, non-commercial fan project made by fans ' +
