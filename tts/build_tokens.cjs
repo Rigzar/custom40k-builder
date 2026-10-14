@@ -41,11 +41,14 @@ function glyph(kind, color) {
   }
 }
 
+/** Every &, < and > of the label, not just the first &. */
+function escapeXml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
 function svg(t) {
   const text = t.lines.map((l, i) => {
     const size = l.length > 7 ? 54 : 64;
     const y = (t.lines.length === 1 ? 342 : 320) + i * 62;
-    return `<text x="256" y="${y}" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="${size}" text-anchor="middle" fill="#F5F0E1">${l.replace('&', '&amp;')}</text>`;
+    return `<text x="256" y="${y}" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="${size}" text-anchor="middle" fill="#F5F0E1">${escapeXml(l)}</text>`;
   }).join('');
   const subY = t.lines.length === 1 ? 392 : 432;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">

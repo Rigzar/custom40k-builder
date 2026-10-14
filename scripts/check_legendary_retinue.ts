@@ -39,7 +39,7 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
 
     // 4 models, one per codex: legal, share ONE HQ slot, price and resolve like any unit
     S().clearArmy();
-    const members = retinueFactionKeys(home, null).map(k => addMember(k));
+    for (const k of retinueFactionKeys(home, null)) addMember(k);
     check(!errs().some(t => /Retinue/.test(t)), 'one model from each of the four codices is a legal Retinue');
     const st: Any = S();
     const free = computeFreeSlotAdjustments(st.army, st.data, null as Any, st);
