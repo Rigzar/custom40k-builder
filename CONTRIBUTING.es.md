@@ -1041,7 +1041,7 @@ Un tablón donde los jugadores publican «quiero una partida» (ejército, Skirm
 | `api/gitfinda/[action].js` | Una ruta fina: identifica al usuario, elige la acción, convierte un `Refusal` en JSON. Es la **función 12 y última** que permite el plan Hobby de Vercel — fusiona una ruta en otra antes de añadir más |
 | `src/components/GitfindaModal.tsx` | Explorar, Crear, Mis anuncios, Mis matches + chat |
 | `src/lib/gitfindaTime.ts` | Zonas horarias: una franja se escribe como hora de reloj en la zona de quien publica, se guarda como instante y se muestra convertida |
-| `public/gitfinda/*.png` | Los 9 iconos limpios del paquete de maquetas. Los emblemas de facción del paquete NO se usaron (su README avisa de que pueden parecerse a iconografía existente) — los ejércitos usan `public/faction-symbols/` |
+| `public/gitfinda/*.png` | Los 9 iconos limpios del paquete de maquetas. Los emblemas de facción del paquete NO se usaron (su README avisa de que pueden parecerse a iconografía existente) — los ejércitos usan `public/faction-symbols/` `logo.webp` / `logo-small.webp` es el logo del goblin sobre un cohete que mandó Dominic (fondo negro, por eso se dibuja con `mix-blend-screen`). |
 
 Cosas fáciles de hacer mal:
 

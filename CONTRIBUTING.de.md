@@ -1053,7 +1053,7 @@ Eine Tafel, auf der Spieler „ich suche ein Spiel“ veröffentlichen (Armee, S
 | `api/gitfinda/[action].js` | Eine dünne Route: meldet den Aufrufer an, wählt die Aktion, macht aus einem `Refusal` JSON. Sie ist die **12. und letzte** Vercel-Funktion, die der Hobby-Plan erlaubt — leg eine Route in eine andere, bevor du weitere hinzufügst |
 | `src/components/GitfindaModal.tsx` | Durchsuchen, Erstellen, Meine Beiträge, Meine Matches + Chat |
 | `src/lib/gitfindaTime.ts` | Zeitzonen: Eine Zeit wird als Uhrzeit in der Zone des Posters eingegeben, als Zeitpunkt gespeichert und umgerechnet angezeigt |
-| `public/gitfinda/*.png` | Die 9 sauberen Symbole aus dem Mockup-Paket. Die Fraktionsembleme des Pakets wurden NICHT verwendet (die README warnt vor Ähnlichkeit mit bestehender Ikonografie) — Armeen nutzen `public/faction-symbols/` |
+| `public/gitfinda/*.png` | Die 9 sauberen Symbole aus dem Mockup-Paket. Die Fraktionsembleme des Pakets wurden NICHT verwendet (die README warnt vor Ähnlichkeit mit bestehender Ikonografie) — Armeen nutzen `public/faction-symbols/` `logo.webp` / `logo-small.webp` ist das Goblin-auf-der-Rakete-Logo von Dominic (schwarzer Hintergrund, daher mit `mix-blend-screen` gezeichnet). |
 
 Leicht falsch zu machen:
 

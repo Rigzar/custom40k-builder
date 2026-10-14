@@ -483,6 +483,7 @@ export type TranslationKey =
   | 'gfTagline'
   | 'gfIntroTitle'
   | 'gfIntroBody'
+  | 'gfFindPlayers' | 'gfFindPlayersSignIn' | 'gfIntroBack' | 'gfAllZones' | 'gfMoreFilters'
   | 'gfIntroTag'
   | 'gfIntroContinue'
   | 'gfIntroHide'
@@ -1615,10 +1616,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfSubMatches: 'My matches',
     gfTagline: 'Play, engage, community for the Emperor and beyond',
     gfIntroTitle: 'What is Gitfinda?',
-    gfIntroBody: 'Gitfinda helps you find someone to play Custom40k with. Create a post with your army, engagement type, points limit, time zone and the time slots when you are free. Other players browse the active posts and match with you if they want to play. Once you are matched you can chat to agree the game. There are no email notifications yet, so check Gitfinda regularly to see whether another player has responded.',
+    gfIntroBody: 'Gitfinda helps you find someone to play Custom40k with.\nCreate a Gitfinda post to let other players know that you\'re looking for a game.\n\nSimply enter a few details, such as your **army, engagement type, points limit, time zone,** and the **time slots when you\'re available.**\n\nOther players can browse active Gitfinda posts and **match with you** if they\'re interested in playing. Once you are matched you can chat to agree the game.\nThere are no email notifications yet, so check Gitfinda regularly to see whether another player has responded.\n\nOnce you\'ve found your opponent, you\'re ready to get the game going!',
     gfIntroTag: 'Post. Match. Fight.',
     gfIntroContinue: 'Continue',
     gfIntroHide: 'Don\'t show again next time',
+    gfFindPlayers: 'Find players',
+    gfFindPlayersSignIn: 'Sign in to find players with Gitfinda',
+    gfIntroBack: 'Back',
+    gfAllZones: 'Any time zone',
+    gfMoreFilters: 'More filters',
     gfSearchPh: 'Search posts…',
     gfAllArmies: 'All armies',
     gfAllTypes: 'All types',
@@ -2758,10 +2764,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfSubMatches: 'Meine Matches',
     gfTagline: 'Spielen, kämpfen, Gemeinschaft für den Imperator und darüber hinaus',
     gfIntroTitle: 'Was ist Gitfinda?',
-    gfIntroBody: 'Gitfinda hilft dir, jemanden für Custom40k zu finden. Erstelle einen Beitrag mit deiner Armee, Spielart, Punktegrenze, Zeitzone und den Zeiten, zu denen du Zeit hast. Andere Spieler durchsuchen die aktiven Beiträge und matchen mit dir, wenn sie spielen möchten. Nach dem Match könnt ihr im Chat das Spiel absprechen. E-Mail-Benachrichtigungen gibt es noch nicht, schau also regelmäßig in Gitfinda nach, ob jemand geantwortet hat.',
+    gfIntroBody: 'Gitfinda hilft dir, jemanden für Custom40k zu finden.\nErstelle einen Gitfinda-Beitrag, damit andere Spieler wissen, dass du ein Spiel suchst.\n\nGib einfach ein paar Angaben ein, etwa **Armee, Spielart, Punktegrenze, Zeitzone** und die **Zeiten, zu denen du Zeit hast.**\n\nAndere Spieler durchsuchen die aktiven Gitfinda-Beiträge und können mit dir **matchen**, wenn sie spielen möchten. Nach dem Match könnt ihr im Chat das Spiel absprechen.\nE-Mail-Benachrichtigungen gibt es noch nicht, schau also regelmäßig in Gitfinda nach, ob jemand geantwortet hat.\n\nHast du deinen Gegner gefunden, kann das Spiel losgehen!',
     gfIntroTag: 'Posten. Matchen. Kämpfen.',
     gfIntroContinue: 'Weiter',
     gfIntroHide: 'Beim nächsten Mal nicht mehr zeigen',
+    gfFindPlayers: 'Spieler finden',
+    gfFindPlayersSignIn: 'Melde dich an, um mit Gitfinda Spieler zu finden',
+    gfIntroBack: 'Zurück',
+    gfAllZones: 'Jede Zeitzone',
+    gfMoreFilters: 'Mehr Filter',
     gfSearchPh: 'Beiträge suchen…',
     gfAllArmies: 'Alle Armeen',
     gfAllTypes: 'Alle Arten',
@@ -3901,10 +3912,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfSubMatches: 'Mis matches',
     gfTagline: 'Juega, combate, comunidad por el Emperador y más allá',
     gfIntroTitle: '¿Qué es Gitfinda?',
-    gfIntroBody: 'Gitfinda te ayuda a encontrar con quién jugar a Custom40k. Crea un anuncio con tu ejército, tipo de partida, límite de puntos, zona horaria y las franjas en las que estás libre. Otros jugadores miran los anuncios activos y hacen match contigo si quieren jugar. Una vez emparejados podéis chatear para acordar la partida. Aún no hay avisos por email, así que mira Gitfinda de vez en cuando por si alguien ha respondido.',
+    gfIntroBody: 'Gitfinda te ayuda a encontrar con quién jugar a Custom40k.\nCrea una publicación en Gitfinda para que otros jugadores sepan que buscas partida.\n\nSolo tienes que indicar unos datos, como tu **ejército, tipo de partida, límite de puntos, zona horaria** y las **franjas en las que estás disponible.**\n\nOtros jugadores pueden ver las publicaciones activas de Gitfinda y hacer **match contigo** si quieren jugar. Una vez hecho el match podéis chatear para acordar la partida.\nTodavía no hay avisos por correo, así que mira Gitfinda de vez en cuando por si otro jugador ha respondido.\n\n¡Cuando hayas encontrado a tu oponente, ya puedes empezar la partida!',
     gfIntroTag: 'Publica. Haz match. Lucha.',
     gfIntroContinue: 'Continuar',
     gfIntroHide: 'No volver a mostrar',
+    gfFindPlayers: 'Buscar jugadores',
+    gfFindPlayersSignIn: 'Inicia sesión para buscar jugadores con Gitfinda',
+    gfIntroBack: 'Atrás',
+    gfAllZones: 'Cualquier zona horaria',
+    gfMoreFilters: 'Más filtros',
     gfSearchPh: 'Buscar anuncios…',
     gfAllArmies: 'Todos los ejércitos',
     gfAllTypes: 'Todos los tipos',

@@ -879,7 +879,7 @@ A board where players post "I want a game" (army, Skirmish / Pitched / Epic, poi
 | `api/gitfinda/[action].js` | A thin route: logs the caller in, picks the action, turns a `Refusal` into JSON. It is the **12th and last** Vercel function the Hobby plan allows — fold a route into another before adding any more |
 | `src/components/GitfindaModal.tsx` | Browse, Create, My posts, My matches + chat |
 | `src/lib/gitfindaTime.ts` | Time zones: a slot is typed as wall-clock time in the poster's zone, stored as an instant, shown converted |
-| `public/gitfinda/*.png` | The 9 clean icons from the mockup pack. The pack's faction emblems were NOT used (its README warns they may resemble existing iconography) — armies use `public/faction-symbols/` |
+| `public/gitfinda/*.png` | The 9 clean icons from the mockup pack. The pack's faction emblems were NOT used (its README warns they may resemble existing iconography) — armies use `public/faction-symbols/` `logo.webp` / `logo-small.webp` is the goblin-on-a-rocket logo Dominic sent (black background, so it is drawn with `mix-blend-screen`). |
 
 Things that are easy to get wrong:
 

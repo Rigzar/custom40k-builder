@@ -762,7 +762,7 @@ node tts/test/run_table.cjs army.json    # オールインワンのGlobalスク�
 | `api/gitfinda/[action].js` | 薄いルート：呼び出し元をログインさせ、アクションを選び、`Refusal` をJSONに変える。Hobbyプランが許す**12番目で最後の**Vercel関数 — これ以上増やす前に、ほかのルートに統合すること |
 | `src/components/GitfindaModal.tsx` | 閲覧、作成、自分の投稿、自分のマッチ＋チャット |
 | `src/lib/gitfindaTime.ts` | タイムゾーン：枠は投稿者のゾーンの壁時計の時刻として入力され、時点として保存され、変換して表示される |
-| `public/gitfinda/*.png` | モックアップパックの9つのクリーンなアイコン。パックの勢力エンブレムは使っていません（READMEが既存の図像に似る可能性を警告している）— 軍勢には `public/faction-symbols/` を使います |
+| `public/gitfinda/*.png` | モックアップパックの9つのクリーンなアイコン。パックの勢力エンブレムは使っていません（READMEが既存の図像に似る可能性を警告している）— 軍勢には `public/faction-symbols/` を使います `logo.webp` / `logo-small.webp` は Dominic が送ってくれたロケットに乗るゴブリンのロゴ（背景が黒いので `mix-blend-screen` で描画）。 |
 
 間違えやすいこと：
 
