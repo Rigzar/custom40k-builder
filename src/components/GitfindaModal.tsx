@@ -135,7 +135,7 @@ export function GitfindaModal({ onClose, username, focusPostId }: Props) {
   return (
     <Shell onClose={onClose} closeInBar>
       <div className="px-4 py-2 text-center border-b border-orange-800/40">
-        <div className="text-2xl font-black text-orange-400 tracking-wide leading-none">Gitfinda <span className="align-middle border border-orange-500/70 text-orange-300 text-[10px] font-bold tracking-widest px-1.5 py-0.5 rounded-sm">BETA</span></div>
+        <div className="text-2xl font-black text-orange-400 tracking-wide leading-none">Gitfinda</div>
         <div className="sr-only">{t(subtitle[tab])}</div>
       </div>
       {/* The tab bar stays at the top while the list scrolls (it scrolled away once posts piled up), and

@@ -616,7 +616,6 @@ export function LandingPage({
               >
                 <img src="/gitfinda/matched_gits_users.png" alt="" aria-hidden className="w-4 h-4 object-contain" />
                 {t('gfButton')}
-                <span className="border border-orange-500/70 text-orange-300 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
                 {gfUnread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
               </button>
             ) : (
@@ -626,7 +625,6 @@ export function LandingPage({
                 className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
               >
                 {t('gfButtonSignIn')}
-                <span className="border border-zinc-700 text-zinc-500 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
               </button>
             )}
           </div>
