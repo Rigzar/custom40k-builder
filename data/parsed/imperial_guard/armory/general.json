@@ -377,6 +377,18 @@
           "abilities": "Unwieldy"
         }
       ]
+    },
+    {
+      "name": "Close combat weapon",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 1
     }
   ],
   "equipment": [

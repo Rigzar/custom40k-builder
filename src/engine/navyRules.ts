@@ -1,13 +1,14 @@
 /**
- * Imperial Navy (Imperial Navy 1.0.ods) army rules that touch the Army Organisation Plan.
+ * Imperial Navy (Imperial Navy 1.1) army rules that touch the Army Organisation Plan.
  *
- * Skyhammer Doctrine: "The army doubles its available AOP slots for Flyers. Additionally, Flyers
- * arrive on turn 1 already." The second sentence is a table rule; the first is a cap, applied here
- * so the validator, the slot picker and the printed radar all read the same number.
+ * Warrant of Trade: "Allied Troop units from 'Allies of Convenience' retain their 'Objective Secured!'
+ * ability. Additionally, the army doubles its available slots for allied detachments." The first
+ * sentence is a table rule; the second is a cap, applied here so the validator, the slot picker and
+ * the Skirmish ally limits all read the same number.
  */
-export const SKYHAMMER_FLYER_FACTOR = 2;
+export const WARRANT_ALLY_SLOT_FACTOR = 2;
 
-/** Multiplier on a slot's AOP cap for this faction (1 for every slot the faction does not change). */
-export function slotCapFactor(faction: string | undefined | null, slot: string): number {
-  return faction === 'Imperial Navy' && slot === 'Flyers' ? SKYHAMMER_FLYER_FACTOR : 1;
+/** Multiplier on every slot an ALLIED detachment may fill, for the army that is the primary one. */
+export function alliedSlotFactor(primaryFaction: string | undefined | null): number {
+  return primaryFaction === 'Imperial Navy' ? WARRANT_ALLY_SLOT_FACTOR : 1;
 }

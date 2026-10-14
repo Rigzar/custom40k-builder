@@ -101,8 +101,9 @@
         {
             "header": "Any model can be equipped with up to three of the following",
             "constraint": {
-                "type": "fixed_max",
-                "max": 3
+                "type": "per_n",
+                "per_n": 1,
+                "count_per_n": 3
             },
             "choices": [
                 {
@@ -132,8 +133,7 @@
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
+            "is_unique_per_army": false
         },
         {
             "header": "Any model may pick up to two SUPPORT SYSTEMS from the armory.",

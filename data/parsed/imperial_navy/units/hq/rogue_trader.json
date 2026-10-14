@@ -49,7 +49,7 @@
             "s": "4",
             "ap": "0",
             "d": "1",
-            "abilities": "Explosive"
+            "abilities": "Blast(4)"
         },
         {
             "name": "Krak grenade",
@@ -63,6 +63,16 @@
     ],
     "option_groups": [
         {
+            "header": "Only one Rogue Trader per army.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": true
+        },
+        {
             "header": "One Rogue Trader per army can be upgraded to a Rogue Trader Majoris for +15 points.",
             "constraint": {
                 "type": "unique_upgrade"
@@ -75,7 +85,7 @@
     ],
     "abilities": [
         "Command squad",
-        "Exotic Collection: At the start of each activation, the Rogue Trader may choose an enhancement for themselves and an attached unit:\n1. Archaeotech Weapons: Ranged weapons gain +1 Strength.\n2. Personal Shield Generators: Models gain the \"Warded\" ability.\n3. Forbidden Stimulants: Models gain +1 Initiative.\nThe effect lasts until the Rogue Trader's next activation.",
+        "Exotic Collection: At the start of each activation, the Rogue Trader may choose an enhancement for themselves and an attached unit:1. Archaeotech Weapons: Ranged weapons gain +1 Strength.2. Personal Shield Generators: Models gain the \"Warded\" ability.3. Forbidden Stimulants: Models gain +1 Initiative.The effect lasts until the Rogue Trader's next activation.",
         "Rogue Trader Majoris: You may choose a second upgrade from the Exotic Collection each round."
     ],
     "unit_type": "Character, Infantry",

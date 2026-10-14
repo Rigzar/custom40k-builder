@@ -208,6 +208,11 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
 
   inquisition: [
     {
+      name: 'Legendary Retinue',
+      description: "You may select up to 4 models chosen from the HQ section of the following armies: Adeptus Mechanicus, Adeptus Sororitas, Imperial Guard, Space Marines. You can't select more than one unit from each faction and none of the models may be unique per army. The model must start out with the \"Infantry\" type, though it may change its type from purchased equipment. The chosen units may only purchase equipment from their own respective armories and may not select any unique equipment. The Retinue is one HQ choice.",
+      tag: 'signature',
+    },
+    {
       name: 'Authority of the Inquisition',
       description: 'Every model in the army with access to the Armory may select a single item from any Imperial faction.',
       tag: 'signature',
@@ -216,13 +221,13 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
 
   imperial_navy: [
     {
-      name: 'Skyhammer Doctrine',
-      description: 'The army doubles its available AOP slots for Flyers. Additionally, Flyers arrive on turn 1 already.',
+      name: 'Legendary Retinue',
+      description: "You may select up to 4 models chosen from the HQ section of the following armies: Adeptus Mechanicus, Adeptus Sororitas, Imperial Guard, Space Marines. You can't select more than one unit from each faction and none of the models may be unique per army. The model must start out with the \"Infantry\" type, though it may change its type from purchased equipment. The chosen units may only purchase equipment from their own respective armories and may not select any unique equipment. The Retinue is one HQ choice.",
       tag: 'signature',
     },
     {
       name: 'Warrant of Trade',
-      description: 'As long as the main army has a higher total points value than the allied contingent, allied Troop units from "Allies of Convenience" retain their "Objective Secured!" ability. Additionally, every model in the army with access to the Armory may select a single item from any Imperial faction.',
+      description: 'Allied Troop units from "Allies of Convenience" retain their "Objective Secured!" ability. Additionally, the army doubles its available slots for allied detachments.',
       tag: 'signature',
     },
   ],
@@ -304,7 +309,7 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
   tau_empire: [
     {
       name: 'Markerlight',
-      description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit. Friendly units in range and line of sight of the target may assign their tokens as well. Tokens can be spent for effects: 1 token — auto-hit a Seeker missile, or reduce enemy Ld by 1; 2 tokens — Sunder(1), reduce Defensive Fire penalty by 1, or re-roll ranged to hit rolls of 1; 3 tokens — target must pass Ld or gain Battleshock, or is hit by a Seeker missile from outside the battlefield. Each token can only be used for a single effect; all unused tokens are discarded at end of the battle round. An enemy unit may not have more than 4 tokens at once.',
+      description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit. Friendly units in range and line of sight of the target may assign their tokens as well. Tokens can be spent for effects: 1 token — auto-hit a Seeker missile, or reduce enemy Ld by 1; 2 tokens — Sunder(1), reduce Defensive Fire penalty by 1, or re-roll ranged to hit rolls of 1; 3 tokens — target must pass Ld or gain Battleshock, or is hit by a Seeker missile from outside the battlefield. A unit that wants to use token effects has to declare it before rolling to hit. Each token can only be used for a single effect; all unused tokens are discarded at end of the battle round.',
       tag: 'signature',
     },
     {

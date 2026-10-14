@@ -90,6 +90,7 @@ import lords_of_war_spartan from './lords_of_war/spartan.json';
 import lords_of_war_knight_castellan from './lords_of_war/knight_castellan.json';
 import lords_of_war_knight_paladin from './lords_of_war/knight_paladin.json';
 import lords_of_war_warhound from './lords_of_war/warhound.json';
+import elites_legion_of_the_damned from './elites/legion_of_the_damned.json';
 
 export const faction = "Space Marines";
 
@@ -132,7 +133,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Reiver Marines",
     "Techmarine",
     "Terminator Squad",
-    "Wolf Scout Squad"
+    "Wolf Scout Squad",
+    "Legion of the Damned"
   ],
   "Fast Attack": [
     "Assault Squad",
@@ -276,4 +278,5 @@ export const units: Record<string, Unit> = {
   "Knight Castellan": lords_of_war_knight_castellan as Unit,
   "Knight Paladin": lords_of_war_knight_paladin as Unit,
   "Warhound": lords_of_war_warhound as Unit,
+  "Legion of the Damned": elites_legion_of_the_damned as Unit,
 };

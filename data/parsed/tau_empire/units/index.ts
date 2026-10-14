@@ -27,7 +27,7 @@ import elites_kroot_lone_spear from './elites/kroot_lone-spear.json';
 import elites_kroot_shaper from './elites/kroot_shaper.json';
 import elites_stealth_battlesuits from './elites/stealth_battlesuits.json';
 import fast_attack_firesight_marksman from './fast_attack/firesight_marksman.json';
-import fast_attack_great_knarloc from './fast_attack/kroot_great_knarloc.json';
+import heavy_support_great_knarloc from './heavy_support/kroot_great_knarloc.json';
 import fast_attack_hazard_battlesuits from './fast_attack/hazard_battlesuits.json';
 import fast_attack_kroot_hounds from './fast_attack/kroot_hounds.json';
 import fast_attack_kroot_trackers from './fast_attack/kroot_trackers.json';
@@ -81,7 +81,6 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fast Attack": [
     "Firesight Marksman",
-    "Kroot Great Knarloc",
     "Hazard Battlesuits",
     "Kroot Hounds",
     "Kroot Trackers",
@@ -100,7 +99,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Hammerhead Gunship",
     "Krootox Riders",
     "Riptide Battlesuit",
-    "Sky Ray Gunship"
+    "Sky Ray Gunship",
+    "Kroot Great Knarloc"
   ],
   "Dedicated Transport": [
     "Devilfish"
@@ -139,7 +139,7 @@ export const units: Record<string, Unit> = {
   "Kroot Shaper": elites_kroot_shaper as Unit,
   "Stealth Battlesuits": elites_stealth_battlesuits as Unit,
   "Firesight Marksman": fast_attack_firesight_marksman as Unit,
-  "Kroot Great Knarloc": fast_attack_great_knarloc as Unit,
+  "Kroot Great Knarloc": heavy_support_great_knarloc as Unit,
   "Hazard Battlesuits": fast_attack_hazard_battlesuits as Unit,
   "Kroot Hounds": fast_attack_kroot_hounds as Unit,
   "Kroot Trackers": fast_attack_kroot_trackers as Unit,

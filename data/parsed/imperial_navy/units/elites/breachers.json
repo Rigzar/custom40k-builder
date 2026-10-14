@@ -57,7 +57,7 @@
             "s": "x2",
             "ap": "-4",
             "d": "3",
-            "abilities": "Armorbane, AT(2), Slow(-3)"
+            "abilities": "Armorbane(3), AT(2), Slow(-3)"
         },
         {
             "name": "Demolition charge",
@@ -66,7 +66,7 @@
             "s": "8",
             "ap": "-2",
             "d": "2",
-            "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+            "abilities": "Ammo(1), AT(2), Blast(2), Sunder(2)"
         },
         {
             "name": "Frag grenade",
@@ -75,7 +75,7 @@
             "s": "4",
             "ap": "0",
             "d": "1",
-            "abilities": "Explosive"
+            "abilities": "Blast(4)"
         },
         {
             "name": "Krak grenade",
@@ -99,10 +99,10 @@
             "name": "Las-volley",
             "range": "18\"",
             "type": "Assault 3",
-            "s": "6",
+            "s": "3",
             "ap": "0",
             "d": "1",
-            "abilities": "Suppression"
+            "abilities": "Suppression(3)"
         },
         {
             "name": "Meltagun",
@@ -165,7 +165,7 @@
             "s": "3",
             "ap": "0",
             "d": "1",
-            "abilities": "Suppression"
+            "abilities": "Suppression(3)"
         }
     ],
     "option_groups": [
