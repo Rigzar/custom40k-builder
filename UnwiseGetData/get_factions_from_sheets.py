@@ -19,7 +19,7 @@ NAMES_TOO_LONG_FOR_GOOGLE_SHEET = {
     "legion_terminator_cataphractii_" : "legion_terminator_cataphractii_squad",
     }
 
-SKIPPED_SHEETS = ["Henchman Warband"]
+SKIPPED_SHEETS = ["Henchman Warband", "Legendary Retinue"]
 SKIPPED_SHEETS_LOWERCASE = [s.lower().replace(" ", "_") for s in SKIPPED_SHEETS]
 
 def download_sheet(faction, sheet_id):
