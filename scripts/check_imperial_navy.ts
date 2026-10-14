@@ -41,6 +41,19 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
   S().clearArmy(); add('Rogue Trader'); add('Rogue Trader');
   check(errs().some(t => /Rogue Trader: only 1 allowed per army/.test(t)), 'a second Rogue Trader is refused');
 
+  // Over the Elite cap: the second-AOP warning lists only what this army can field, and the minimums stay those of AOP 1
+  S().clearArmy(); add('Rogue Trader'); for (const n of ['Acolytes', 'Crusaders', 'Mystics', 'Exorcists']) add(n);
+  {
+    const v = validateArmy(S() as Any, S().data!, null).map(x => x.text);
+    check(v.some(t => /Elites over maximum/.test(t)), 'four Elites are over the cap of 3');
+    check(!v.some(t => /Need at least 2 HQ/.test(t)), 'overflowing into an unearned second AOP does not demand 2 HQ');
+    check(v.some(t => /second AOP only opens once.*2 HQ, 6 Troops, 3 Elites \(/.test(t)) && !v.some(t => /Fast Attack|Heavy Support/.test(t)), 'the warning lists HQ, Troops and Elites only (the Navy has no Fast Attack or Heavy Support)');
+  }
+
+  // Seven Elites would be a THIRD AOP: still no 3 HQ / 6 Troops demanded (the first AOP's cap is 2 HQ)
+  S().clearArmy(); add('Rogue Trader'); for (const n of ['Acolytes', 'Crusaders', 'Mystics', 'Exorcists', 'Sages', 'Penitents', 'Servitors']) add(n);
+  check(!validateArmy(S() as Any, S().data!, null).some(x => /Need at least 3 HQ|Need at least 6 Troops/.test(x.text)), 'a list over three Elite caps is not asked for 3 HQ and 6 Troops');
+
   // Voidmaster is free per Rogue Trader, not beyond (the Explorator left the codex in 1.1)
   S().clearArmy();
   add('Rogue Trader'); add('Voidmaster'); add('Voidmaster');

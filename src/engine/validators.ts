@@ -2521,7 +2521,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       : slot === 'Elites' ? freeSlots.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
-    const scaledMin = eng.multiAop ? min * aopMult : min;
+    // The minimums grow with the AOPs the list has EARNED, never with the ones it merely overflows into: a list that is
+    // over its Elite cap uses a second AOP it has not earned, and asking it for 2 HQ and 4 Troops (a third AOP: 3 HQ
+    // and 6 Troops, more HQ than the first AOP's cap even lets it take) only buried the real error under unreachable ones.
+    const scaledMin = eng.multiAop ? min * Math.min(aopMult, aopState.unlocked) : min;
     if (scaledMin > 0 && used < scaledMin) {
       items.push({ type: 'error', text: T('valNeedAtLeastSlot', { min: scaledMin, slot, used }) });
       // "Need at least 1 HQ (have 0)" while a Great Unclean One sits in the HQ slot reads like a
@@ -3214,7 +3217,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
   if (eng.multiAop && aopState.taken > aopState.unlocked) {
     // The slot is over the first AOP, and the second one only opens once the whole first is filled.
-    items.push({ type: 'warn', text: T('valSecondAopNeedsFull') });
+    // What the first AOP must hold before another opens: the slots THIS army has units for, at the earned AOP's caps.
+    const fillList = AOP_FILL_SLOTS.filter(sl => (data.slot_to_units?.[sl] ?? []).length > 0).map(sl => {
+      const cap = sl === 'HQ' && rule?.hqOverride ? getEffectiveHqLimits(rule, eng.aop.HQ)[1] : eng.aop[sl][1] * aopState.unlocked;
+      return `${cap} ${slotLabel(language, sl)}`;
+    }).join(', ');
+    items.push({ type: 'warn', text: T('valSecondAopNeedsFull', { list: fillList }) });
   }
 
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
