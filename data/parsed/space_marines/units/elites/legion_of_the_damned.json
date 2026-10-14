@@ -17,7 +17,7 @@
             "name": "Legionnaire",
             "min": 4,
             "max": 9,
-            "points": 50
+            "points": 48
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legionnaire Sergeant",
             "min": 1,
             "max": 1,
-            "points": 55
+            "points": 58
         },
         {
             "stats": {
@@ -53,7 +53,7 @@
             "name": "Legionnaire Ancient",
             "min": 0,
             "max": 1,
-            "points": 55
+            "points": 53
         }
     ],
     "variant_models": [],
@@ -302,7 +302,8 @@
     ],
     "abilities": [
         "Combat squads, Daemon, Daemonic Instability, Deep Strike, Terrifying(-1), Unyielding",
-        "Aid unlooked for: The unit cannot be joined by Characters. They always start the game in reserves and must be deployed via Deep Strike. When they arrive by Deep Strike, the unit does not scatter.",
+        "Aid unlooked for: The unit cannot be joined by Characters. They always start the game in reserves. The unit does not scatter when being set up via Deep Strike.",
+        "Animus Malorum: Once per battle round, the Legionnaire Sergeant may select an enemy unit within 12\" and roll 2D6. If the result is higher than the target's Leadership value, it suffers 1 Mortal Wound and the Legion of the Damned unit heals 1 Wound. This can be used to revive a fallen Legionnaire.",
         "Flaming Vengeance: All melee and ranged attacks made by the unit gain cumulative -1 AP and +1 AT.",
         "Unyielding Spectres: The model gains a 5+ ward save."
     ],
@@ -321,5 +322,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 255
+    "min_cost": 250
 }

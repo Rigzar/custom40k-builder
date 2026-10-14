@@ -272,7 +272,8 @@
         "Evolutionary Adaptation: A Master Shaper may assign a free Signature Evolutionary Adaptation trait to itself and one other friendly Kroot unit at the start of deployment. It may not assign a Signature Evolutionary Adaptation the army has already chosen.",
         "Shaper Chief: A Shaper Chief may assign its Evolutionary Adaptation to an additional friendly Kroot unit.",
         "Upgrades",
-        "Flesh Shaper: The model and its attached unit gain \"Deflagrate(6+)\" for all melee attacks.",
+        "Flesh Shaper: The model and its attached unit gain \"Deflagrate(5+)\" for all melee attacks.",
+        "Shaman: This model can cast 1 psychic power and dispel 1 psychic power per round. It knows Smite, as well as one psychic power from a chosen psychic discipline.",
         "Trail Shaper: After all units have been placed in the Deployment phase, you may remove and redeploy this model and its attached unit.",
         "War Shaper: The model and its attached unit automatically remove all Battleshock tokens during each Reinforcement phase."
     ],
