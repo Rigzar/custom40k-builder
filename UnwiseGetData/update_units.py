@@ -5,6 +5,7 @@ import clean_up
 
 # Centralised script to run all the steps in order.       
 if __name__ == "__main__":
+    clean_up.main()
     get_factions_from_sheets.main()
     process_unit_data.main()
     replace_app_units_with_processed_units.main()
