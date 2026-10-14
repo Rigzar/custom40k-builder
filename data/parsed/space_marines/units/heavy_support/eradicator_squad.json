@@ -71,6 +71,15 @@
             "abilities": "-"
         },
         {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
             "name": "Heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 2",
@@ -87,6 +96,15 @@
             "ap": "-5",
             "d": "2",
             "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
         },
         {
             "name": "Melta rifle",

@@ -18,7 +18,7 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
 
   // every slot_to_units entry resolves, and every unit prices and has a slot
   const names = Object.values(navy.slot_to_units).flat() as string[];
-  check(names.length === 34, `expected 34 units, got ${names.length}`);
+  check(names.length === 33, `expected 33 units, got ${names.length}`);
   for (const n of names) check(!!navy.units[n], `slot_to_units names ${n} but units{} has none`);
   check(navy.archetypes.map((a: Any) => a.name).join() === 'Heretic,Iconoclast' && navy.archetypes.every((a: Any) => a.skirmish === true), 'Heretic/Iconoclast must both be skirmish-legal');
 
@@ -32,32 +32,44 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
 
   // sheet prices
   const rt = add('Rogue Trader'); check(price(rt) === 36, 'Rogue Trader 36');
-  S().setOptionQty(rt.id, 0, '__inline', 1); check(price(rt) === 51, 'Rogue Trader Majoris 51');
+  S().setOptionQty(rt.id, 1, '__inline', 1); check(price(rt) === 51, 'Rogue Trader Majoris 51');
   check(price(add('Vendetta')) === 471, 'Vendetta 471');
   check(price(add('Valkyrie')) === 175, 'Valkyrie 175');
-  check(price(add('Ratings', 10)) === 60, 'Ratings x10 = 60');
+  check(price(add('Ratings')) === 80, 'Ratings: 20 models at 4 points = 80');
 
-  // Skyhammer Doctrine: Pitched allows 2 Flyers, doubled to 4
-  S().clearArmy();
-  for (let i = 0; i < 4; i++) add('Lightning');
-  check(!errs().some(t => /Flyers over maximum/.test(t)), 'four Flyers are legal for the Navy (Skyhammer Doctrine)');
-  check(!validateArmy(S() as Any, S().data!, null).some(v => /second AOP/.test(v.text)), 'four Flyers do not open a second AOP');
-  add('Lightning');
-  check(errs().some(t => /Flyers over maximum/.test(t)), 'a fifth Flyer is over the doubled cap');
-  check(validateArmy(S() as Any, S().data!, null).some(v => /second AOP/.test(v.text)), 'a fifth Flyer needs a second AOP');
+  // Rogue Trader: "Only one Rogue Trader per army."
+  S().clearArmy(); add('Rogue Trader'); add('Rogue Trader');
+  check(errs().some(t => /Rogue Trader: only 1 allowed per army/.test(t)), 'a second Rogue Trader is refused');
 
-  // Voidmaster / Explorator are free per Rogue Trader, not beyond
+  // Over the Elite cap: the second-AOP warning lists only what this army can field, and the minimums stay those of AOP 1
+  S().clearArmy(); add('Rogue Trader'); for (const n of ['Acolytes', 'Crusaders', 'Mystics', 'Exorcists']) add(n);
+  {
+    const v = validateArmy(S() as Any, S().data!, null).map(x => x.text);
+    check(v.some(t => /Elites over maximum/.test(t)), 'four Elites are over the cap of 3');
+    check(!v.some(t => /Need at least 2 HQ/.test(t)), 'overflowing into an unearned second AOP does not demand 2 HQ');
+    check(v.some(t => /second AOP only opens once.*2 HQ, 6 Troops, 3 Elites \(/.test(t)) && !v.some(t => /Fast Attack|Heavy Support/.test(t)), 'the warning lists HQ, Troops and Elites only (the Navy has no Fast Attack or Heavy Support)');
+  }
+
+  // Seven Elites would be a THIRD AOP: still no 3 HQ / 6 Troops demanded (the first AOP's cap is 2 HQ)
+  S().clearArmy(); add('Rogue Trader'); for (const n of ['Acolytes', 'Crusaders', 'Mystics', 'Exorcists', 'Sages', 'Penitents', 'Servitors']) add(n);
+  check(!validateArmy(S() as Any, S().data!, null).some(x => /Need at least 3 HQ|Need at least 6 Troops/.test(x.text)), 'a list over three Elite caps is not asked for 3 HQ and 6 Troops');
+
+  // Voidmaster is free per Rogue Trader, not beyond (the Explorator left the codex in 1.1)
   S().clearArmy();
-  add('Rogue Trader'); add('Voidmaster'); add('Voidmaster'); add('Explorator'); add('Explorator');
-  const notes = validateArmy(S() as Any, S().data!, null).map(v => v.text).join('\n');
+  add('Rogue Trader'); add('Voidmaster'); add('Voidmaster');
+  const notes = validateArmy(S() as Any, S().data!, null).map(v => v.text).join(' | ');
   check(/Voidmaster: 1 of 2 units exempted/.test(notes), 'one Voidmaster per Rogue Trader exempt');
-  check(/Explorator: 1 of 2 units exempted/.test(notes), 'one Explorator per Rogue Trader exempt');
+  check(!navy.units['Explorator'] && !(navy.units['Henchman Warband'].models as Any[]).some(m => m.name === 'Explorator'), 'Explorator is gone from the codex and the Warband');
+
+  // 1.1 slots: Valkyrie rides in Transports, Vendetta flies; no Fast Attack / Heavy Support at all
+  check(navy.slot_to_units['Dedicated Transport'].includes('Valkyrie') && navy.slot_to_units['Flyers'].includes('Vendetta'), 'Valkyrie is a Transport and Vendetta a Flyer');
+  check(navy.slot_to_units['Fast Attack'].length === 0 && navy.slot_to_units['Heavy Support'].length === 0, 'no Fast Attack or Heavy Support units');
 
   // Henchman Warband: one per Rogue Trader, 6 models (12 with a Majoris)
   S().clearArmy();
   const t1 = add('Rogue Trader'); const w1 = add('Henchman Warband', 7);
   check(errs().some(t => /up to 6 specialist/.test(t)), 'Warband of 7 over the Rogue Trader cap of 6');
-  S().setOptionQty(t1.id, 0, '__inline', 1);
+  S().setOptionQty(t1.id, 1, '__inline', 1);
   check(!errs().some(t => /specialist models/.test(t)), 'Warband of 7 fine with a Majoris');
   S().updateUnit(w1.id, { size: 13 });
   check(errs().some(t => /up to 12 specialist/.test(t)), 'Warband of 13 over the Majoris cap of 12');
@@ -70,6 +82,16 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
   check(rel('imperial_navy', 'tyranids') === 'R', 'Navy–Tyranids is red');
   check(rel('imperial_navy', 'orks') === 'Y', 'Navy–Orks is yellow');
   check(rel('imperial_guard', 'imperial_navy') === 'G', 'chart is symmetric for Navy–Guard');
+
+  // Warrant of Trade: the army doubles its available slots for allied detachments (Troops 1-2 -> 1-4)
+  for (const [main, ally, expectOver] of [['imperial_navy', 'imperial_guard', false], ['space_marines', 'imperial_guard', true]] as const) {
+    const md: Any = await (FACTION_LOADERS as Any)[main](), ad: Any = await (FACTION_LOADERS as Any)[ally]();
+    md.allied = { ...(md.allied ?? {}), [ally]: ad };
+    S().clearArmy(); S().setData(md); S().setEngagement('pitched'); S().setPointLimit(3000); S().setAlliedFaction(ally); S().setAlliedData(ad);
+    for (let i = 0; i < 3; i++) S().addUnit('Infantry Squad', 'Troops', ally);
+    const over = validateArmy(S() as Any, md, ad).some(v => /Allied detachment: Troops over maximum/.test(v.text));
+    check(over === expectOver, main + ' + ' + ally + ': three allied Troops are ' + (expectOver ? 'over the allied cap of 2' : 'inside the Warrant-of-Trade cap of 4'));
+  }
 
   // upgrade ability lines hide until bought (Flak Armor, Carapace Armor, Boarding shield bundled in a choice)
   const { resolveUnitProfile } = await import('../src/engine/resolver');

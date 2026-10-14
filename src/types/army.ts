@@ -61,6 +61,11 @@ export interface RosterEntry {
   /** Allied faction slug (e.g. 'chaos_daemons'). Undefined = primary faction. */
   factionSource?: string;
   /**
+   * Member of the army's Legendary Retinue (Imperial Navy / Inquisition HQ): a model of another codex that
+   * shares the Retinue's single HQ slot. See engine/legendaryRetinue.ts.
+   */
+  retinue?: boolean;
+  /**
    * Second-level nested ally, e.g. when factionSource = 'chaos_space_marines' (the player's
    * Allied Detachment) and that detachment's OWN archetype (e.g. Plaguehost) intrinsically
    * grants it Chaos Daemons units — nestedFaction = 'chaos_daemons'. factionSource still names

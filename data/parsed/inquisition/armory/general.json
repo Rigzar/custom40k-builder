@@ -11,8 +11,7 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 2,
-      "p_char": 2,
-      "specialist_compat": true
+      "p_char": 2
     },
     {
       "name": "Boltgun",
@@ -36,8 +35,7 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 2,
-      "p_char": 2,
-      "specialist_compat": true
+      "p_char": 2
     },
     {
       "name": "Combi-flamer",
@@ -255,8 +253,7 @@
       "d": "1",
       "abilities": "Blast(4)",
       "p_unit": 1,
-      "p_char": 1,
-      "specialist_compat": true
+      "p_char": 1
     },
     {
       "name": "Hand flamer",
@@ -304,8 +301,7 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 2,
-      "p_char": 3,
-      "specialist_compat": true
+      "p_char": 3
     },
     {
       "name": "Hunter-killer missile",
@@ -341,8 +337,7 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 1,
-      "p_char": 1,
-      "specialist_compat": true
+      "p_char": 1
     },
     {
       "name": "Lasgun",
@@ -366,8 +361,7 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 1,
-      "p_char": 1,
-      "specialist_compat": true
+      "p_char": 1
     },
     {
       "name": "Melta",
@@ -403,8 +397,7 @@
       "d": "1",
       "abilities": "Poison(2+)",
       "p_unit": 5,
-      "p_char": 7,
-      "specialist_compat": true
+      "p_char": 7
     },
     {
       "name": "Null rod",
@@ -528,8 +521,7 @@
       "d": "1",
       "abilities": "Always wounds psykers on 2+.",
       "p_unit": 3,
-      "p_char": 4,
-      "specialist_compat": true
+      "p_char": 4
     },
     {
       "name": "Power sword",
@@ -625,8 +617,7 @@
       "d": "2",
       "abilities": "AT(2), Slow(-2), Armorbane(3)",
       "p_unit": null,
-      "p_char": 11,
-      "specialist_compat": true
+      "p_char": 11
     },
     {
       "name": "Grenade launcher",
@@ -1070,13 +1061,6 @@
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
       "p_char": null
-    },
-    {
-      "name": "Archpriest",
-      "term_compat": true,
-      "desc": "This model knows all available hymns and may recite one additional hymn per turn. Priest only.",
-      "p_unit": null,
-      "p_char": 25
     },
     {
       "name": "Carapace armour",

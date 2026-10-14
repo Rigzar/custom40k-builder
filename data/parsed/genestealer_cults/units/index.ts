@@ -30,6 +30,8 @@ import fast_attack_achilles_ridgerunners from './fast_attack/achilles_ridgerunne
 import fast_attack_atalan_jackals from './fast_attack/atalan_jackals.json';
 import heavy_support_goliath_rockgrinder from './heavy_support/goliath_rockgrinder.json';
 import dedicated_transport_goliath_truck from './dedicated_transport/goliath_truck.json';
+import elites_benefictus from './elites/benefictus.json';
+import elites_hybrid_metamorphs from './elites/hybrid_metamorphs.json';
 
 export const faction = "Genestealer Cults";
 
@@ -54,7 +56,9 @@ export const slot_to_units: Record<string, string[]> = {
     "Reductus Saboteur",
     "Sanctus",
     "Kelermorph",
-    "Locus"
+    "Locus",
+    "Benefictus",
+    "Hybrid Metamorphs"
   ],
   "Fast Attack": [
     "Achilles Ridgerunners",
@@ -92,4 +96,6 @@ export const units: Record<string, Unit> = {
   "Atalan Jackals": fast_attack_atalan_jackals as Unit,
   "Goliath Rockgrinder": heavy_support_goliath_rockgrinder as Unit,
   "Goliath Truck": dedicated_transport_goliath_truck as Unit,
+  "Benefictus": elites_benefictus as Unit,
+  "Hybrid Metamorphs": elites_hybrid_metamorphs as Unit,
 };

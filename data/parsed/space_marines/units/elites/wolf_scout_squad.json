@@ -78,6 +78,15 @@
             "abilities": "-"
         },
         {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
             "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
@@ -105,6 +114,15 @@
             "abilities": "-"
         },
         {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
             "name": "Missile launcher - Frag missile",
             "range": "48\"",
             "type": "Heavy 1",
@@ -130,6 +148,33 @@
             "ap": "-2",
             "d": "2",
             "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overcharged",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
         }
     ],
     "option_groups": [

@@ -2,12 +2,12 @@
   "archetypes": [
     {
       "name": "Heretic",
-      "desc": "- Every model in the army with access to the Armory may select a single item from any Chaos faction.",
+      "desc": "- A Legendary Retinue may additionally include models from the following armies: Chaos Daemons, Chaos Space Marines, Genestealer Cults.",
       "skirmish": true
     },
     {
       "name": "Iconoclast",
-      "desc": "- Every model in the army with access to the Armory may select a single item from any Xenos faction.",
+      "desc": "- A Legendary Retinue may additionally include models from the following armies: Dark Eldar, Eldar, Leagues of Votann, Orks, T'au Empire.",
       "skirmish": true
     }
   ],

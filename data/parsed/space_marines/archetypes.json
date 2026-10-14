@@ -155,7 +155,7 @@
     },
     {
       "name": "Cursed Founding",
-      "desc": "Select one improvement that must be applied to any creature unit:\n- Apparitions: The unit gains the \"Deep Strike\" ability and must use it during the DEPLOYMENT PHASE instead of being set up as normal. It can deep strike anywhere that isn't the enemy's deployment zone, but can scatter into it. Additionally, the unit gains the \"Warded\" ability.\n- Aura of Doom: The unit gains the \"Terrifying(-2)\" ability.\n- Berserkers: The unit gains the \"Blind Rage\" ability.\n- Immolation: The model gains the \"Retribution(1)\" ability.\n- Ossific Blades: The model gains the \"Ossific Blades\" weapon. (See Armory).",
+      "desc": "Select one improvement that must be applied to any creature unit:\n- Apparitions: The unit gains the \"Deep Strike\" ability and must use it during the DEPLOYMENT PHASE instead of being set up as normal. It can deep strike anywhere that isn't the enemy's deployment zone, but can scatter into it. Additionally, the unit gains the \"Warded\" ability.\n- Aura of Doom: The unit gains the \"Terrifying(-2)\" ability.\n- Berserkers: The unit gains the \"Blind Rage\" ability.\n- Immolation: The model gains the \"Retribution(2)\" ability.\n- Ossific Blades: The model gains the \"Ossific Blades\" weapon. (See Armory).",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
