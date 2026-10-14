@@ -24,10 +24,7 @@
     "equipped_with": "A Siege-Automata is equipped with: Plasma mortar; 2 Shock charger.",
     "weapons": [
         {
-            "name": "Graviton ram"
-        },
-        {
-            "name": "- Melee",
+            "name": "Graviton ram - Melee",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -36,7 +33,7 @@
             "abilities": "AT(2)"
         },
         {
-            "name": "- Ranged",
+            "name": "Graviton ram - Ranged",
             "range": "9\"",
             "type": "Assault 4",
             "s": "5",
