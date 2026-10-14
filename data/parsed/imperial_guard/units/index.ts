@@ -80,6 +80,10 @@ import flyers_vendetta from './flyers/vendetta.json';
 import lords_of_war_baneblade from './lords_of_war/baneblade.json';
 import lords_of_war_gorgon_heavy_transport from './lords_of_war/gorgon_heavy_transport.json';
 import lords_of_war_stormlord from './lords_of_war/stormlord.json';
+import flyers_avenger from './flyers/avenger.json';
+import flyers_lightning from './flyers/lightning.json';
+import flyers_thunderbolt from './flyers/thunderbolt.json';
+import flyers_vulture from './flyers/vulture.json';
 
 export const faction = "Imperial Guard";
 
@@ -164,7 +168,11 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fortifications": [],
   "Flyers": [
-    "Vendetta"
+    "Vendetta",
+    "Avenger",
+    "Lightning",
+    "Thunderbolt",
+    "Vulture"
   ],
   "Lords of War": [
     "Baneblade",
@@ -245,4 +253,8 @@ export const units: Record<string, Unit> = {
   "Baneblade": lords_of_war_baneblade as Unit,
   "Gorgon Heavy Transport": lords_of_war_gorgon_heavy_transport as Unit,
   "Stormlord": lords_of_war_stormlord as Unit,
+  "Avenger": flyers_avenger as Unit,
+  "Lightning": flyers_lightning as Unit,
+  "Thunderbolt": flyers_thunderbolt as Unit,
+  "Vulture": flyers_vulture as Unit,
 };

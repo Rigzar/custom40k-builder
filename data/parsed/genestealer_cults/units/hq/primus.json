@@ -17,12 +17,22 @@
             "name": "Primus",
             "min": 1,
             "max": 1,
-            "points": 38
+            "points": 40
         }
     ],
     "variant_models": [],
     "equipped_with": "A Primus is equipped with: -.",
-    "weapons": [],
+    "weapons": [
+        {
+            "name": "Rending claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Rending(5+)"
+        }
+    ],
     "option_groups": [
         {
             "header": "Only one Primus per army.",
@@ -56,5 +66,5 @@
     "advisor": false,
     "slot": "HQ",
     "default_size": 1,
-    "min_cost": 38
+    "min_cost": 40
 }

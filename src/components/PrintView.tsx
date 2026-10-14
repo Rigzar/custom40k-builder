@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
-import { slotCapFactor } from '../engine/navyRules';
 import { getActiveVariant, getPromotedModel } from '../engine/points';
 import { useLanguage, t as tFn } from '../i18n';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
@@ -1270,7 +1269,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   const compMax = COMP_SLOTS.map(slot => {
     if (slot === 'Transport') return Math.max(infantryCount, 1);
     const cap = engagement.aop[(slot === 'Fast Attack' ? 'Fast Attack' : slot) as keyof typeof engagement.aop]?.[1] ?? 0;
-    return Math.max(cap * slotCapFactor(data.faction, slot), 1);
+    return Math.max(cap, 1);
   });
   const compValues = compCountsForRadar.map((count, i) => Math.min((count / compMax[i]) * 10, 10));
   const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${compMax[i]}`);

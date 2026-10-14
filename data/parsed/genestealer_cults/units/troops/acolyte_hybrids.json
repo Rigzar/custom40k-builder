@@ -40,7 +40,7 @@
             "points": 16
         }
     ],
-    "equipped_with": "Every model is equipped with: Autopistol; Blasting charges; Claws and knives.",
+    "equipped_with": "Every model is equipped with: Autopistol; Blasting charges; Rending claws.",
     "weapons": [
         {
             "name": "Autopistol",
@@ -59,15 +59,6 @@
             "ap": "-1",
             "d": "1",
             "abilities": "-"
-        },
-        {
-            "name": "Claws and knives",
-            "range": "-",
-            "type": "Melee",
-            "s": "U",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Extra Attack(2)"
         },
         {
             "name": "Demolition charge",
@@ -122,6 +113,15 @@
             "ap": "-3",
             "d": "2",
             "abilities": "AT(2), Decimate, Slow(-2), Unwieldy"
+        },
+        {
+            "name": "Rending claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Rending(5+)"
         }
     ],
     "option_groups": [
@@ -183,7 +183,7 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Autopistol",
-                "Claws and knives"
+                "Rending claws"
             ]
         },
         {

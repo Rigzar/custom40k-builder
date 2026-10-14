@@ -1,34 +1,33 @@
 # Imperial Navy — digest de reglas + modelo de keywords
 
-Fuente: `Codex/Imperial Navy 1.0.ods` (Core Rules 1.279). Facción añadida 2026-10-12.
+Fuente: `Codex/Imperial Navy 1.0.ods` (contenido de la versión 1.1; Core Rules 1.279). Facción añadida
+2026-10-12, reescrita a 1.1 el 2026-10-14.
 
-## Estructura
-- 38 hojas. Índice: HQ (Rogue Trader, Voidmaster) · Troops (Ratings, Voidsmen, Henchman Warband) ·
-  Elite (22: 18 henchmen compartidos con la Inquisición + Arch-Militant, Breachers, Explorator,
-  Impressed Ogryns) · Fast Attack (Valkyrie) · Heavy Support (Vendetta) · Transports (Arvus) ·
-  Flyers (Avenger, Lightning, Thunderbolt, Vulture).
-- Los henchmen (Acolytes ... Xenologists) son los de `data/parsed/inquisition/units/elites/`, con la
-  sola diferencia de las `keywords` (Specialist) y el Ranger long rifle (+Sniper) del Eldar Outcast.
-- **Daemonhosts** figura en el índice pero la hoja no existe: la unidad es copia de la Inquisición
-  (sin verificar). Preguntar al autor.
+## Estructura (Index 1.1)
+- HQ: Legendary Retinue (virtual, ver abajo), Rogue Trader (solo uno por ejército), Voidmaster.
+- Troops: Henchman Warband, Ratings (20 modelos fijos a 4 pts), Voidsmen.
+- Elite (21): los henchmen de la Inquisición + Arch-Militant, Breachers, Impressed Ogryns. **Sin Explorator.**
+- Transports: Arvus, Valkyrie. Flyers: Avenger, Lightning, Thunderbolt, Vendetta, Vulture.
+  No hay Fast Attack ni Heavy Support.
+- Los henchmen son los de `data/parsed/inquisition/units/elites/`; la Warband acepta TODAS las Elites del
+  códice (Unwise: "all elites in the navy codex"). Las mejoras propias de Breachers/Ogryns/Deathcult no
+  están dentro de la Warband.
 
-## Reglas especiales (hoja Index)
-- **Skyhammer Doctrine** — el ejército dobla sus huecos de AOP para Flyers; los Flyers llegan ya en
-  el turno 1. Implementado: `engine/navyRules.ts` (`slotCapFactor`) en validador, SlotPanel y radar
-  de la impresión. El turno 1 es regla de mesa.
-- **Warrant of Trade** — mientras el ejército principal tenga más puntos que el aliado, las Troops
-  aliadas de "Allies of Convenience" conservan Objective Secured!; además cada modelo con acceso a la
-  Armería puede elegir UN objeto de cualquier facción Imperial. Implementado: pestaña "Warrant of
-  Trade" en `ArmoryModal` (misma maquinaria que "Authority of the Inquisition"). Lo de Objective
-  Secured NO está implementado (regla de mesa).
+## Reglas especiales
+- **Warrant of Trade** — las Troops aliadas de "Allies of Convenience" conservan Objective Secured!
+  (regla de mesa, no implementada) y el ejército dobla sus huecos para destacamentos aliados
+  (`engine/navyRules.ts`: `alliedSlotFactor`, usado en validators, SlotPanel y límites de aliados en Skirmish).
+- Skyhammer Doctrine y la elección de un objeto de cualquier facción Imperial **desaparecieron en 1.1**.
+- **Legendary Retinue** (también en la Inquisición, ver `engine/legendaryRetinue.ts`): hasta 4 modelos de
+  HQ Infantry de AdM/AdS/IG/SM (+Heretic: CD/CSM/GSC; +Iconoclast: DaE/Eld/LoV/Orks/Tau), uno por códice,
+  ninguno único por ejército, solo su propia armería y nada único. Ocupan UN hueco de HQ en total.
 
 ## Customisation
-- Archetypes: Heretic / Iconoclast (ambos YES en Skirmish): un objeto de cualquier facción Chaos /
-  Xenos en vez de Imperial. Legacies: ninguna. Traits: ninguno.
+- Archetypes Heretic / Iconoclast (ambos YES en Skirmish): solo amplían la Retinue. Legacies: ninguna.
 
-## Reglas de selección propias de la hoja
+## Selección propia de la hoja
 - Rogue Trader → Majoris (+15, uno por ejército); un Henchman Warband por Rogue Trader (6 modelos,
-  12 con Majoris) — `validators.ts` (cap) + `valNavyWarbandPerTrader`.
-- Voidmaster fuera de HQ y Explorator fuera de Elite, uno por Rogue Trader — `computeNavyFreeSlots`.
-- Armería: hoja propia (`armory/general.json`, 49 armas, 39 objetos de equipo/veterano/vehículo).
+  12 con Majoris) — `validators.ts` + `valNavyWarbandPerTrader`.
+- Voidmaster fuera de HQ, uno por Rogue Trader — `computeNavyFreeSlots`.
+- Armería: la de la Inquisición (con marcas ᵀ), `armory/general.json` (43 armas, 41 objetos).
 - Matriz de aliados: fila/columna IN en `data/alliedMatrix.ts` (Core Rules 1.279).

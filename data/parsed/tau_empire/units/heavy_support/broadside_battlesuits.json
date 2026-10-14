@@ -61,6 +61,15 @@
             "abilities": "AT(1), Anti-Air"
         },
         {
+            "name": "Seeker missile",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), Anti-Air, AT(2)"
+        },
+        {
             "name": "Twin plasma rifle",
             "range": "24\"",
             "type": "Assault 4",
@@ -111,6 +120,10 @@
                 {
                     "name": "Twin plasma rifle",
                     "points": 28
+                },
+                {
+                    "name": "Seeker missile",
+                    "points": 5
                 }
             ],
             "inline_pts": null,

@@ -123,7 +123,7 @@ export type TranslationKey =
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
-  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'warrantTabLabel'
+  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
@@ -1004,7 +1004,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ All Marks',
     armourySuffix: 'Armoury',
     authorityTabLabel: 'Authority of the Inquisition',
-    warrantTabLabel: 'Warrant of Trade',
+    retinueFactionTaken: 'One model per codex: the Retinue already has one from this codex.',
+    retinueFull: 'The Legendary Retinue is full (up to 4 models).',
+    retinueSameAsAlly: 'This codex is your allied detachment; pick another one for the Retinue.',
+    valRetinueMax: 'Legendary Retinue: up to {max} models (have {count}).',
+    valRetinueFactionTwice: 'Legendary Retinue: only one model per codex ({faction} has {count}).',
+    valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} comes from {faction}, which this army cannot take Retinue models from.',
+    valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} cannot be a Retinue model (it must be an HQ Infantry model that is not unique per army).',
+    valRetinueUnique: 'Legendary Retinue: {unit} carries unique equipment ({items}), which a Retinue model may not take.',
+    valRetinueSameAsAlly: 'Legendary Retinue: {faction} is also the allied detachment.',
     termArmourNotice: 'Terminator armour — showing only Terminator-compatible items (ᵀ).',
     weaponsLabel: 'Weapons',
     bcChampionBanner: '⚜ Black Crusade Champion — access to all four mark armories',
@@ -2141,7 +2149,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Alle Male',
     armourySuffix: 'Rüstkammer',
     authorityTabLabel: 'Autorität der Inquisition',
-    warrantTabLabel: 'Handelsbefugnis (Warrant of Trade)',
+    retinueFactionTaken: 'Ein Modell pro Codex: Die Gefolgschaft hat schon eines aus diesem Codex.',
+    retinueFull: 'Die Legendary Retinue ist voll (bis zu 4 Modelle).',
+    retinueSameAsAlly: 'Dieser Codex ist dein Verbündeter; wähle für die Retinue einen anderen.',
+    valRetinueMax: 'Legendary Retinue: bis zu {max} Modelle (hat {count}).',
+    valRetinueFactionTwice: 'Legendary Retinue: nur ein Modell pro Codex ({faction} hat {count}).',
+    valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} stammt aus {faction}, woher diese Armee keine Retinue-Modelle nehmen darf.',
+    valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} kann kein Retinue-Modell sein (es muss ein HQ-Infanteriemodell sein, das nicht einmalig pro Armee ist).',
+    valRetinueUnique: 'Legendary Retinue: {unit} trägt einmalige Ausrüstung ({items}), die ein Retinue-Modell nicht wählen darf.',
+    valRetinueSameAsAlly: 'Legendary Retinue: {faction} ist auch das verbündete Kontingent.',
     termArmourNotice: 'Terminator-Rüstung — zeigt nur Terminator-kompatible Gegenstände (ᵀ).',
     weaponsLabel: 'Waffen',
     bcChampionBanner: '⚜ Schwarzer-Kreuzzug-Champion — Zugriff auf alle vier Mal-Rüstkammern',
@@ -3276,7 +3292,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Todas las marcas',
     armourySuffix: 'Armería',
     authorityTabLabel: 'Autoridad de la Inquisición',
-    warrantTabLabel: 'Patente de Comercio (Warrant of Trade)',
+    retinueFactionTaken: 'Un modelo por códice: la Retinue ya tiene uno de este códice.',
+    retinueFull: 'La Legendary Retinue está completa (hasta 4 modelos).',
+    retinueSameAsAlly: 'Este códice es tu destacamento aliado; elige otro para la Retinue.',
+    valRetinueMax: 'Legendary Retinue: hasta {max} modelos (tiene {count}).',
+    valRetinueFactionTwice: 'Legendary Retinue: solo un modelo por códice ({faction} tiene {count}).',
+    valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} viene de {faction}, de la que este ejército no puede tomar modelos para la Retinue.',
+    valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} no puede ser un modelo de la Retinue (debe ser un modelo de Infantería de HQ que no sea único por ejército).',
+    valRetinueUnique: 'Legendary Retinue: {unit} lleva equipo único ({items}), que un modelo de la Retinue no puede tomar.',
+    valRetinueSameAsAlly: 'Legendary Retinue: {faction} es también el destacamento aliado.',
     termArmourNotice: 'Armadura Terminator — mostrando solo objetos compatibles con Terminator (ᵀ).',
     weaponsLabel: 'Armas',
     bcChampionBanner: '⚜ Campeón de Cruzada Negra — acceso a las cuatro armerías de marca',

@@ -15,9 +15,9 @@
                 "SV": "6+"
             },
             "name": "Rating",
-            "min": 10,
-            "max": 40,
-            "points": 6
+            "min": 20,
+            "max": 20,
+            "points": 4
         }
     ],
     "variant_models": [],
@@ -101,8 +101,7 @@
         }
     ],
     "abilities": [
-        "Flak Armor: This model has a 5+ save.",
-        "Send the next wave!: Once per game at the end of a battle round, if this unit is below half its starting strength or if it has been destroyed, it may be removed from the battlefield and placed into Reserves at full strength."
+        "Flak Armor: This model has a 5+ save."
     ],
     "unit_type": "Infantry",
     "keywords": [
@@ -120,6 +119,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Troops",
-    "default_size": 10,
-    "min_cost": 60
+    "default_size": 20,
+    "min_cost": 80
 }

@@ -57,7 +57,7 @@
             "s": "x2",
             "ap": "-4",
             "d": "3",
-            "abilities": "Armorbane, AT(2), Flurry(1), Slow(-3), Unwieldy"
+            "abilities": "Armorbane(3), AT(2), Extra Attack(1), Slow(-3), Unwieldy"
         },
         {
             "name": "Club",
@@ -75,7 +75,7 @@
             "s": "5",
             "ap": "-1",
             "d": "1",
-            "abilities": "Explosive"
+            "abilities": "Blast(4)"
         },
         {
             "name": "Grenadier gauntlet",
@@ -84,7 +84,7 @@
             "s": "5",
             "ap": "-1",
             "d": "1",
-            "abilities": "Explosive, Suppression"
+            "abilities": "Blast(4), Suppression(3)"
         },
         {
             "name": "Ripper gun - Melee",

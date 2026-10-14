@@ -17,12 +17,22 @@
             "name": "Acolyte Iconward",
             "min": 1,
             "max": 1,
-            "points": 64
+            "points": 67
         }
     ],
     "variant_models": [],
-    "equipped_with": "An Acolyte Iconward is equipped with: -.",
-    "weapons": [],
+    "equipped_with": "An Acolyte Iconward is equipped with: Rending claws.",
+    "weapons": [
+        {
+            "name": "Rending claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Rending(5+)"
+        }
+    ],
     "option_groups": [
         {
             "header": "Only one Acolyte Iconward per army.",
@@ -57,5 +67,5 @@
     "advisor": false,
     "slot": "HQ",
     "default_size": 1,
-    "min_cost": 64
+    "min_cost": 67
 }

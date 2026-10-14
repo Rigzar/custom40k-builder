@@ -39,7 +39,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every Terminator is equipped with: Power fist; Storm bolter.\nThe Terminator Sergeant is equipped with: Power sword; Storm bolter.",
+    "equipped_with": "Every Terminator is equipped with: Power fist; Storm bolter.The Terminator Sergeant is equipped with: Power sword; Storm bolter.",
     "weapons": [
         {
             "name": "Assault cannon",
