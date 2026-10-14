@@ -1,6 +1,8 @@
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
-import { slotCapFactor } from './navyRules';
+import { alliedSlotFactor } from './navyRules';
+import { retinueFactionKeys, retinueEligible, isUniqueEquipment, computeRetinueFreeSlots, RETINUE_MAX_MODELS } from './legendaryRetinue';
+import { factionLabel } from '../utils/factionLabel';
 import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
@@ -356,8 +358,7 @@ export function getAopState(
     if (slot === 'HQ' && hqOwn) continue;
     const [, baseMax] = eng.aop[slot];
     if (baseMax <= 0) continue;
-    // Imperial Navy's Skyhammer Doctrine doubles the Flyer slots, so a second AOP is only needed past that.
-    const max = baseMax * slotCapFactor(data.faction, slot);
+    const max = baseMax;
     const used = usedOf(slot);
     if (used > max) taken = Math.max(taken, Math.ceil(used / max));
   }
@@ -631,7 +632,7 @@ export function computeServitorFreeSlots(
 }
 
 /**
- * Genestealer Cults: 8 named Elites characters (Abominant, Biophagus, Clamavus, Kelermorph,
+ * Genestealer Cults: 9 named Elites characters (Abominant, Benefictus, Biophagus, Clamavus, Kelermorph,
  * Locus, Nexos, Sanctus, Reductus Saboteur) each independently say "For every 500 points of game
  * size, one <name> may be included in the army that does not take up an Elite slot" — found as
  * an inert empty-choices option_group on every one of them (no per-unit inline flag like Eldar
@@ -639,7 +640,7 @@ export function computeServitorFreeSlots(
  * just points-capped instead of unit-ratio-capped). Each unit's cap is computed independently
  * (not pooled), per its own ods-verbatim wording.
  */
-const GSC_POINTS_FREE_ELITES = ['Abominant', 'Biophagus', 'Clamavus', 'Kelermorph', 'Locus', 'Nexos', 'Sanctus', 'Reductus Saboteur'];
+const GSC_POINTS_FREE_ELITES = ['Abominant', 'Benefictus', 'Biophagus', 'Clamavus', 'Kelermorph', 'Locus', 'Nexos', 'Sanctus', 'Reductus Saboteur'];
 export function computeGscEliteFreeSlots(
   army: RosterEntry[],
   data: FactionData,
@@ -1141,10 +1142,9 @@ export interface FreeSlotAdjustments {
  * otherwise", so both callers zero the whole adjustment in Skirmish — see their `slotAdj`.
  */
 /**
- * Imperial Navy (Imperial Navy 1.0.ods): Voidmaster - "For each Rogue Trader in the army, one
- * Voidmaster may be selected that does not occupy an HQ slot." Explorator - "For each Rogue Trader,
- * one Explorator may be selected that does not occupy an Elite slot." Same ratio-against-a-sibling
- * shape as the Einhyr Champion.
+ * Imperial Navy (Imperial Navy 1.1): Voidmaster - "For each Rogue Trader in the army, one Voidmaster
+ * may be selected that does not occupy an HQ slot." Same ratio-against-a-sibling shape as the Einhyr
+ * Champion. (The Explorator left the codex in 1.1.)
  */
 export function computeNavyFreeSlots(
   army: RosterEntry[],
@@ -1159,7 +1159,7 @@ export function computeNavyFreeSlots(
     if (count > 0) notes.push(`${unit}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the ${slot} slot (1 per Rogue Trader, have ${traders}).`);
     return credited;
   };
-  return { hq: credit('Voidmaster', 'HQ'), elites: credit('Explorator', 'Elite'), notes };
+  return { hq: credit('Voidmaster', 'HQ'), elites: 0, notes };
 }
 
 export function computeFreeSlotAdjustments(
@@ -1192,10 +1192,11 @@ export function computeFreeSlotAdjustments(
   const royalCourt      = computeRoyalCourtFreeSlots(army, data);
   const hqShared        = computeArchetypeHqSharedSlots(army, rule);
   const navy            = computeNavyFreeSlots(army, data);
+  const retinue         = computeRetinueFreeSlots(army, data);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
       + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
@@ -1207,7 +1208,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes, ...navy.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes,
     ],
   };
 }
@@ -2159,6 +2160,36 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // Legendary Retinue (Imperial Navy 1.1 / Inquisition 1.3, HQ): up to 4 Infantry HQ models of other codices, at
+  // most one per codex, none unique per army, shopping only in their own armouries and never for unique equipment.
+  {
+    const members = state.army.filter(e => e.retinue);
+    if (members.length > 0) {
+      const allowed = retinueFactionKeys(data.faction, state.archetype);
+      if (members.length > RETINUE_MAX_MODELS) items.push({ type: 'error', text: T('valRetinueMax', { max: RETINUE_MAX_MODELS, count: members.length }) });
+      const perFaction = new Map<string, number>();
+      for (const m of members) perFaction.set(m.factionSource ?? '', (perFaction.get(m.factionSource ?? '') ?? 0) + 1);
+      for (const [key, n] of perFaction) if (n > 1) items.push({ type: 'error', text: T('valRetinueFactionTwice', { faction: factionLabel(key), count: n }) });
+      for (const m of members) {
+        const key = m.factionSource ?? '';
+        const name = m.customName || m.unitName;
+        if (!allowed.includes(key)) { items.push({ type: 'error', text: T('valRetinueFactionNotAllowed', { unit: name, faction: factionLabel(key) }) }); continue; }
+        if (key === state.alliedFaction) items.push({ type: 'error', text: T('valRetinueSameAsAlly', { faction: factionLabel(key) }) });
+        const fd = data.allied?.[key];
+        const u = fd?.units[m.unitName];
+        if (fd && u && (!(fd.slot_to_units['HQ'] ?? []).includes(m.unitName) || !retinueEligible(u))) {
+          items.push({ type: 'error', text: T('valRetinueUnitNotAllowed', { unit: name }) });
+        }
+        const armoury = [...(fd?.armory_general?.weapons ?? []), ...(fd?.armory_general?.equipment ?? [])];
+        const unique = m.armory.filter(a => {
+          const it = armoury.find(x => x.name === a.itemName);
+          return !!it && (isUniqueEquipment(it.desc) || isUniqueEquipment(it.abilities));
+        }).map(a => a.itemName);
+        if (unique.length > 0) items.push({ type: 'error', text: T('valRetinueUnique', { unit: name, items: unique.join(', ') }) });
+      }
+    }
+  }
+
   // Legacy armory item restrictions — "Only for X" text in armory items (grounded in each armory HTML).
   // e.g. Iron Warriors: "Only for Warpsmiths"; Word Bearers: "Only for Dark Apostles";
   //      Black Legion: "Only for models with the Mark of Khorne".
@@ -2490,7 +2521,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       : slot === 'Elites' ? freeSlots.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
-    const scaledMin = eng.multiAop ? min * aopMult : min;
+    // The minimums grow with the AOPs the list has EARNED, never with the ones it merely overflows into: a list that is
+    // over its Elite cap uses a second AOP it has not earned, and asking it for 2 HQ and 4 Troops (a third AOP: 3 HQ
+    // and 6 Troops, more HQ than the first AOP's cap even lets it take) only buried the real error under unreachable ones.
+    const scaledMin = eng.multiAop ? min * Math.min(aopMult, aopState.unlocked) : min;
     if (scaledMin > 0 && used < scaledMin) {
       items.push({ type: 'error', text: T('valNeedAtLeastSlot', { min: scaledMin, slot, used }) });
       // "Need at least 1 HQ (have 0)" while a Great Unclean One sits in the HQ slot reads like a
@@ -3172,7 +3206,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       ? countInfantrySelections(state, data, false)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
-        : (eng.multiAop ? engMax * aopState.unlocked : engMax) * slotCapFactor(data.faction, slot);
+        : (eng.multiAop ? engMax * aopState.unlocked : engMax);
     const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
@@ -3183,7 +3217,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
   if (eng.multiAop && aopState.taken > aopState.unlocked) {
     // The slot is over the first AOP, and the second one only opens once the whole first is filled.
-    items.push({ type: 'warn', text: T('valSecondAopNeedsFull') });
+    // What the first AOP must hold before another opens: the slots THIS army has units for, at the earned AOP's caps.
+    const fillList = AOP_FILL_SLOTS.filter(sl => (data.slot_to_units?.[sl] ?? []).length > 0).map(sl => {
+      const cap = sl === 'HQ' && rule?.hqOverride ? getEffectiveHqLimits(rule, eng.aop.HQ)[1] : eng.aop[sl][1] * aopState.unlocked;
+      return `${cap} ${slotLabel(language, sl)}`;
+    }).join(', ');
+    items.push({ type: 'warn', text: T('valSecondAopNeedsFull', { list: fillList }) });
   }
 
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
@@ -3207,7 +3246,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const [min, baseMax] = slot === 'HQ'
           ? getEffectiveHqLimits(allyRuleForAop, ALLIED_AOP['HQ'] as [number, number])
           : ALLIED_AOP[slot];
-        const max = troopScaledSlots.includes(slot) ? alliedTroops : baseMax;
+        // Imperial Navy, Warrant of Trade: the army doubles its available slots for allied detachments.
+        const max = (troopScaledSlots.includes(slot) ? alliedTroops : baseMax) * alliedSlotFactor(data.faction);
         const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: T('valAlliedNeedAtLeast', { min, slot, used }) });
@@ -3379,12 +3419,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const alliedIn = (slot: string) => getSlotUsage(state.army, data, slot, allyRule, state.alliedFaction, true, state.engagement);
     const alliedAny = state.army.some(i => i.factionSource === state.alliedFaction);
     const troops = alliedIn('Troops');
-    if (alliedAny && troops !== SKIRMISH_ALLY_TROOPS) {
-      items.push({ type: 'error', text: T('valSkirmishAllyTroops', { need: SKIRMISH_ALLY_TROOPS, have: troops }) });
+    const allyFactor = alliedSlotFactor(data.faction);
+    const troopsCap = SKIRMISH_ALLY_TROOPS * allyFactor, extrasCap = SKIRMISH_ALLY_EXTRA_MAX * allyFactor;
+    if (alliedAny && (troops < SKIRMISH_ALLY_TROOPS || troops > troopsCap)) {
+      items.push({ type: 'error', text: T('valSkirmishAllyTroops', { need: troopsCap === SKIRMISH_ALLY_TROOPS ? SKIRMISH_ALLY_TROOPS : `${SKIRMISH_ALLY_TROOPS}-${troopsCap}`, have: troops }) });
     }
     const extras = SKIRMISH_ALLY_EXTRA_SLOTS.reduce((n, slot) => n + alliedIn(slot), 0);
-    if (extras > SKIRMISH_ALLY_EXTRA_MAX) {
-      items.push({ type: 'error', text: T('valSkirmishAllyExtras', { max: SKIRMISH_ALLY_EXTRA_MAX, have: extras }) });
+    if (extras > extrasCap) {
+      items.push({ type: 'error', text: T('valSkirmishAllyExtras', { max: extrasCap, have: extras }) });
     }
     for (const slot of SLOT_ORDER) {
       if (slot === 'Troops' || SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) || slot === 'Lords of War') continue;

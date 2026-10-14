@@ -26,7 +26,6 @@ import elites_crusaders from './elites/crusaders.json';
 import elites_deathcult_assassins from './elites/deathcult_assassins.json';
 import elites_eldar_outcast from './elites/eldar_outcast.json';
 import elites_exorcists from './elites/exorcists.json';
-import elites_explorator from './elites/explorator.json';
 import elites_impressed_ogryns from './elites/impressed_ogryns.json';
 import elites_jokaero_weaponsmiths from './elites/jokaero_weaponsmiths.json';
 import elites_missionaries from './elites/missionaries.json';
@@ -37,8 +36,8 @@ import elites_sages from './elites/sages.json';
 import elites_servitors from './elites/servitors.json';
 import elites_xenologists from './elites/xenologists.json';
 import elites_daemonhosts from './elites/daemonhosts.json';
-import fast_attack_valkyrie from './fast_attack/valkyrie.json';
-import heavy_support_vendetta from './heavy_support/vendetta.json';
+import dedicated_transport_valkyrie from './dedicated_transport/valkyrie.json';
+import flyers_vendetta from './flyers/vendetta.json';
 import dedicated_transport_arvus from './dedicated_transport/arvus.json';
 import flyers_avenger from './flyers/avenger.json';
 import flyers_lightning from './flyers/lightning.json';
@@ -69,7 +68,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Deathcult Assassins",
     "Eldar Outcast",
     "Exorcists",
-    "Explorator",
     "Impressed Ogryns",
     "Jokaero Weaponsmiths",
     "Missionaries",
@@ -81,21 +79,19 @@ export const slot_to_units: Record<string, string[]> = {
     "Xenologists",
     "Daemonhosts"
   ],
-  "Fast Attack": [
-    "Valkyrie"
-  ],
-  "Heavy Support": [
-    "Vendetta"
-  ],
+  "Fast Attack": [],
+  "Heavy Support": [],
   "Dedicated Transport": [
-    "Arvus"
+    "Arvus",
+    "Valkyrie"
   ],
   "Fortifications": [],
   "Flyers": [
     "Avenger",
     "Lightning",
     "Thunderbolt",
-    "Vulture"
+    "Vulture",
+    "Vendetta"
   ]
 };
 
@@ -117,7 +113,6 @@ export const units: Record<string, Unit> = {
   "Deathcult Assassins": elites_deathcult_assassins as Unit,
   "Eldar Outcast": elites_eldar_outcast as Unit,
   "Exorcists": elites_exorcists as Unit,
-  "Explorator": elites_explorator as Unit,
   "Impressed Ogryns": elites_impressed_ogryns as Unit,
   "Jokaero Weaponsmiths": elites_jokaero_weaponsmiths as Unit,
   "Missionaries": elites_missionaries as Unit,
@@ -128,8 +123,8 @@ export const units: Record<string, Unit> = {
   "Servitors": elites_servitors as Unit,
   "Xenologists": elites_xenologists as Unit,
   "Daemonhosts": elites_daemonhosts as Unit,
-  "Valkyrie": fast_attack_valkyrie as Unit,
-  "Vendetta": heavy_support_vendetta as Unit,
+  "Valkyrie": dedicated_transport_valkyrie as Unit,
+  "Vendetta": flyers_vendetta as Unit,
   "Arvus": dedicated_transport_arvus as Unit,
   "Avenger": flyers_avenger as Unit,
   "Lightning": flyers_lightning as Unit,

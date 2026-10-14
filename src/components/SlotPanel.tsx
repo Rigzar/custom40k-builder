@@ -2,7 +2,8 @@ import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
 import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
-import { slotCapFactor } from '../engine/navyRules';
+import { alliedSlotFactor } from '../engine/navyRules';
+import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engine/legendaryRetinue';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
@@ -21,6 +22,8 @@ const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
 interface SlotEntry {
   name: string;
   factionSource?: string;
+  /** A Legendary Retinue model (Imperial Navy / Inquisition HQ): added flagged so the validator shares one HQ slot among them. */
+  retinue?: boolean;
   /**
    * True when the unit is injected by the active archetype (e.g. Horus Heresy via Legion,
    * daemons via Daemonkin/Plaguehost/cult archetypes). These are OWN units of the army, not
@@ -162,11 +165,14 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
           const skirmishAlly = engagement === 'skirmish';
-          const [min, max] = skirmishAlly
+          // Imperial Navy, Warrant of Trade: the army doubles its available slots for allied detachments.
+          const aFactor = alliedSlotFactor(store.data?.faction);
+          const [min, max0] = skirmishAlly
             ? (slot === 'Troops' ? [SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_TROOPS] as [number, number] : [0, SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) ? SKIRMISH_ALLY_EXTRA_MAX : 0] as [number, number])
             : slot === 'HQ'
             ? getEffectiveHqLimits(rule, ALLIED_AOP['HQ'] as [number, number])
             : ALLIED_AOP[slot];
+          const max = max0 * aFactor;
           const units = effectiveSlotUnits[slot] ?? [];
           if (max === 0 && units.length === 0) return null;
 
@@ -177,11 +183,11 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           // other two show as full.
           const skirmishExtrasUsed = SKIRMISH_ALLY_EXTRA_SLOTS.reduce((n, sl) => n + usedAllied(sl), 0);
           const effectiveMax = skirmishAlly
-            ? (SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) ? used + Math.max(0, SKIRMISH_ALLY_EXTRA_MAX - skirmishExtrasUsed) : max)
+            ? (SKIRMISH_ALLY_EXTRA_SLOTS.includes(slot) ? used + Math.max(0, SKIRMISH_ALLY_EXTRA_MAX * aFactor - skirmishExtrasUsed) : max)
             : slot === 'Dedicated Transport'
             ? countInfantrySelections(store, store.data as FactionData, true)
             : (slot === 'Elites' || slot === 'Fast Attack' || slot === 'Heavy Support')
-            ? allyTroopCount
+            ? allyTroopCount * aFactor
             : max;
           const isFull = effectiveMax > 0 && used >= effectiveMax;
           const isUnder = min > 0 && used < min;
@@ -374,6 +380,26 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   }
 
 
+  // Legendary Retinue (Imperial Navy / Inquisition HQ): up to 4 Infantry HQ models of other codices, one per
+  // codex, none unique per army. They are listed under their own header in the HQ slot and added flagged, so
+  // the validator can make them share one HQ slot (engine/legendaryRetinue.ts).
+  {
+    const retinueKeys = retinueFactionKeys(primaryData.faction, archetype);
+    const members = army.filter(e => e.retinue);
+    for (const key of retinueKeys) {
+      const fd = primaryData.allied?.[key];
+      if (!fd) continue;
+      const sameAsAlly = key === alliedFaction;
+      const factionTaken = members.some(e => e.factionSource === key);
+      for (const name of fd.slot_to_units['HQ'] ?? []) {
+        const u = fd.units[name];
+        if (!u || !retinueEligible(u)) continue;
+        const disabledReason = sameAsAlly ? t('retinueSameAsAlly') : factionTaken ? t('retinueFactionTaken') : members.length >= RETINUE_MAX_MODELS ? t('retinueFull') : undefined;
+        effectiveSlotUnits['HQ'].push({ name, factionSource: key, injected: true, retinue: true, groupLabel: 'Legendary Retinue', minCost: u.min_cost, disabledReason });
+      }
+    }
+  }
+
   // One shared computation with validators.ts, so the catalogue can never grey out a "+" for a
   // unit the validator would accept. The two used to keep separate hand-written lists and this
   // one had fallen three mechanics behind (Necron Royal Court, Cryptothralls, Hexmark Destroyer).
@@ -400,7 +426,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           ? countInfantrySelections(store, primaryData, false)
           : (slot === 'HQ' && rule?.hqOverride)
             ? rawMax
-            : (eng.multiAop ? rawMax * aopMult : rawMax) * slotCapFactor(primaryData.faction, slot);
+            : eng.multiAop ? rawMax * aopMult : rawMax;
         const max = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawScaledMax, rule.slotCapOverride.max) : rawScaledMax;
 
         const units = effectiveSlotUnits[slot] ?? [];
@@ -461,7 +487,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           </div>
                         )}
                         <button
-                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource); } }}
+                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource, undefined, entry.retinue); } }}
                           disabled={!!entry.disabledReason}
                           title={entry.disabledReason}
                           className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${

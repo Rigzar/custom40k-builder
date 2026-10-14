@@ -60,6 +60,15 @@
             "abilities": "Armor piercing(5+), Suppression(6)"
         },
         {
+            "name": "Kroot knife",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Kroot pistol",
             "range": "12\"",
             "type": "Pistol 1",
