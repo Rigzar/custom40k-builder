@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v184f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v184g_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -64,7 +64,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["New faction","Imperial Navy 1.1: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Impressed Ogryns, Valkyrie, Vendetta and four flyers, with the Inquisition's Armory. Warrant of Trade doubles the slots of the allied detachment. The Legendary Retinue (Navy and Inquisition) takes up to 4 Infantry HQ models of other armies in one HQ slot."],
         ["October sheets","New datasheets: Benefictus and Hybrid Metamorphs (Genestealer Cults), Avenger, Lightning, Thunderbolt and Vulture (Imperial Guard), Legion of the Damned (Space Marines), Thanatar Siege-Automata (Horus Heresy) and Arch-Militant (Inquisition). T'au: Great Knarloc in Heavy Support, new Markerlight and Rip'yka text."],
         ["Army organisation","A list over a slot cap no longer asks for 3 HQ and 6 Troops: the minimums follow the AOPs you have earned, and the second-AOP note lists only the slots your army can fill."],
-        ["Gitfinda","No longer a beta, with its own logo and look: a \"Find players\" button under the logo, an intro screen, filters in plain sight and a column layout for every post."],
+        ["Gitfinda","No longer a beta, with its own logo and look: an intro screen, filters in plain sight and a column layout for every post."],
         ["Skirmish allies","Allies and archetypes now work in Skirmish: one Troops plus at most one Elite, Fast Attack or Heavy Support, sharing the main AOP. Only archetypes marked for Skirmish in their codex are offered."],
         ["Rules 1.279","Armorbane(x) replaces the fixed +3 and Lance is gone (32 armory items and powers updated); Disorderly Charge is in the Field Manual and the glossary was re-read against the new text."],
         ["Tyranids","Zoanthropes: one Neurothrope per three models for +25. Fixed the Synaptic Disruption Organ lines split in Russian, and the Megafauna archetype."],
@@ -82,7 +82,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Neue Fraktion","Imperial Navy 1.1: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Impressed Ogryns, Valkyrie, Vendetta und vier Flieger, mit der Armory der Inquisition. Warrant of Trade verdoppelt die Plätze des verbündeten Kontingents. Die Legendary Retinue (Navy und Inquisition) nimmt bis zu 4 Infanterie-HQ-Modelle anderer Armeen in einem HQ-Platz auf."],
         ["Oktober-Blätter","Neue Datenblätter: Benefictus und Hybrid Metamorphs (Genestealer Cults), Avenger, Lightning, Thunderbolt und Vulture (Imperial Guard), Legion of the Damned (Space Marines), Thanatar Siege-Automata (Horus Heresy) und Arch-Militant (Inquisition). T'au: Great Knarloc in Heavy Support, neuer Text für Markerlight und Rip'yka."],
         ["Armeeorganisation","Eine Liste über dem Platzlimit verlangt keine 3 HQ und 6 Standard mehr: die Minima folgen den verdienten AOPs, und der Hinweis zum zweiten AOP nennt nur die Plätze, die deine Armee füllen kann."],
-        ["Gitfinda","Keine Beta mehr, mit eigenem Logo und Look: ein Knopf „Spieler finden“ unter dem Logo, eine Einführung, offene Filter und Spalten für jeden Beitrag."],
+        ["Gitfinda","Keine Beta mehr, mit eigenem Logo und Look: eine Einführung, offene Filter und Spalten für jeden Beitrag."],
         ["Skirmish-Verbündete","Verbündete und Archetypen funktionieren jetzt im Skirmish: ein Troops plus höchstens ein Elite, Fast Attack oder Heavy Support, im AOP der Hauptarmee. Angeboten werden nur Archetypen, die im Codex für Skirmish freigegeben sind."],
         ["Regeln 1.279","Armorbane(x) ersetzt das feste +3, Lance entfällt (32 Armory-Gegenstände und Kräfte angepasst); Disorderly Charge steht im Feldhandbuch, das Glossar wurde gegen den neuen Text geprüft."],
         ["Tyraniden","Zoanthropen: ein Neurothrope je drei Modelle für +25. Die in Russisch zerhackten Zeilen des Synaptic Disruption Organ und der Megafauna-Archetyp sind korrigiert."],
@@ -100,7 +100,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Facción nueva","Imperial Navy 1.1: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Impressed Ogryns, Valkyrie, Vendetta y cuatro voladores, con la Armería de la Inquisición. Warrant of Trade duplica los huecos del destacamento aliado. La Legendary Retinue (Navy e Inquisición) admite hasta 4 modelos de Infantería de HQ de otros ejércitos en un hueco de HQ."],
         ["Hojas de octubre","Fichas nuevas: Benefictus y Hybrid Metamorphs (Genestealer Cults), Avenger, Lightning, Thunderbolt y Vulture (Imperial Guard), Legion of the Damned (Space Marines), Thanatar Siege-Automata (Horus Heresy) y Arch-Militant (Inquisición). T'au: Great Knarloc en Heavy Support, texto nuevo de Markerlight y Rip'yka."],
         ["Organización del ejército","Una lista por encima del límite de un hueco ya no pide 3 HQ y 6 Tropas: los mínimos siguen los AOP ganados y la nota del segundo AOP lista solo los huecos que tu ejército puede llenar."],
-        ["Gitfinda","Ya no es beta, con logo y aspecto propios: un botón «Buscar jugadores» bajo el logo, una introducción, filtros a la vista y columnas para cada publicación."],
+        ["Gitfinda","Ya no es beta, con logo y aspecto propios: una introducción, filtros a la vista y columnas para cada publicación."],
         ["Aliados en Skirmish","Los aliados y los arquetipos ya funcionan en Skirmish: un Troops más como máximo un Elite, Fast Attack o Heavy Support, dentro del AOP del ejército principal. Solo se ofrecen los arquetipos marcados para Skirmish en su códice."],
         ["Reglas 1.279","Armorbane(x) sustituye al +3 fijo y Lance desaparece (32 objetos de armería y poderes actualizados); la Disorderly Charge está en el Manual de Campo y el glosario se releyó contra el texto nuevo."],
         ["Tiránidos","Zoantropos: un Neurothrope por cada tres modelos por +25. Arregladas las líneas partidas del Synaptic Disruption Organ en ruso y el arquetipo Megafauna."],
@@ -118,7 +118,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Новая фракция","Imperial Navy 1.1: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Impressed Ogryns, Valkyrie, Vendetta и четыре летательных аппарата, с арсеналом Инквизиции. Warrant of Trade удваивает слоты союзного отряда. Legendary Retinue (Navy и Инквизиция) принимает до 4 пехотных моделей HQ других армий в одном слоте HQ."],
         ["Октябрьские листы","Новые листы отрядов: Benefictus и Hybrid Metamorphs (Genestealer Cults), Avenger, Lightning, Thunderbolt и Vulture (Imperial Guard), Legion of the Damned (Space Marines), Thanatar Siege-Automata (Horus Heresy) и Arch-Militant (Инквизиция). T'au: Great Knarloc в Heavy Support, новый текст Markerlight и Rip'yka."],
         ["Организация армии","Список сверх лимита слота больше не требует 3 HQ и 6 Troops: минимумы следуют заработанным AOP, а примечание о втором AOP перечисляет только слоты, которые ваша армия может заполнить."],
-        ["Gitfinda","Больше не бета, со своим логотипом и видом: кнопка «Найти игроков» под логотипом, введение, фильтры на виду и столбцы для каждой записи."],
+        ["Gitfinda","Больше не бета, со своим логотипом и видом: введение, фильтры на виду и столбцы для каждой записи."],
         ["Союзники в Skirmish","Союзники и архетипы теперь работают в Skirmish: один Troops и не более одного Elite, Fast Attack или Heavy Support, в AOP основной армии. Предлагаются только архетипы, отмеченные для Skirmish в кодексе."],
         ["Правила 1.279","Armorbane(x) заменяет фиксированный +3, Lance убран (обновлено 32 предмета арсенала и сил); Disorderly Charge есть в Полевом руководстве, глоссарий сверен с новым текстом."],
         ["Тираниды","Zoanthrope: один Neurothrope на каждые три модели за +25. Исправлены разбитые на строки тексты Synaptic Disruption Organ на русском и архетип Megafauna."],
@@ -136,7 +136,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["新勢力","Imperial Navy 1.1：Rogue Trader、Voidmaster、Ratings、Voidsmen、Breachers、Impressed Ogryns、Valkyrie、Vendetta、飛行ユニット4種、異端審問の武器庫を使用。Warrant of Tradeで同盟軍の枠が2倍に。Legendary Retinue（NavyとInquisition）は他軍のHQ歩兵モデルを最大4体、HQ枠1つで連れられます。"],
         ["10月のシート","新しいデータシート：BenefictusとHybrid Metamorphs（Genestealer Cults）、Avenger・Lightning・Thunderbolt・Vulture（Imperial Guard）、Legion of the Damned（Space Marines）、Thanatar Siege-Automata（Horus Heresy）、Arch-Militant（Inquisition）。T'au：Great KnarlocはHeavy Support、MarkerlightとRip'ykaの文面を更新。"],
         ["軍編成","枠の上限を超えたリストが、HQ3とTroops6を求めなくなりました。最低数は獲得済みのAOPに従い、2つ目のAOPの注記には軍が埋められる枠だけが載ります。"],
-        ["Gitfinda","ベータを卒業し、専用のロゴと見た目に：ロゴ下の「プレイヤーを探す」ボタン、イントロ画面、見えるフィルター、投稿ごとの列レイアウト。"],
+        ["Gitfinda","ベータを卒業し、専用のロゴと見た目に：イントロ画面、見えるフィルター、投稿ごとの列レイアウト。"],
         ["Skirmishの同盟軍","Skirmishで同盟軍とアーキタイプが使えるようになりました：Troops 1つとElite・Fast Attack・Heavy Supportのいずれか最大1つで、主軍のAOPを共有します。コーデックスでSkirmish可とされたアーキタイプのみ選べます。"],
         ["ルール1.279","Armorbane(x)が固定の+3に代わり、Lanceは廃止（武器庫アイテムとパワー32件を更新）。Disorderly Chargeはフィールドマニュアルに載り、用語集も新しい文面に合わせて見直しました。"],
         ["ティラニッド","ゾアンスロープ：3モデルごとにニューロスロープ1体を+25で。ロシア語で分割されていたSynaptic Disruption Organの文と、Megafaunaアーキタイプを修正しました。"],
@@ -450,25 +450,7 @@ export function LandingPage({
           {/* Ornamental divider */}
           <div className="flex items-center gap-3 w-full max-w-xs mb-8 anim-divider anim-delay-1">
             <div className="flex-1 h-px bg-amber-900/50" />
-            {loggedIn ? (
-              <button
-                onClick={onShowGitfinda}
-                title={t('gfButtonTitle')}
-                className="shrink-0 flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white text-[12px] font-semibold tracking-wide px-3 py-1 border border-orange-300/60 shadow-[0_0_12px_rgba(249,115,22,0.35)] transition-colors"
-              >
-                <img src="/gitfinda/matched_gits_users.png" alt="" aria-hidden className="w-3.5 h-3.5 object-contain brightness-0 invert" />
-                {t('gfFindPlayers')}
-                {gfUnread > 0 && <span className="bg-black text-orange-300 rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
-              </button>
-            ) : (
-              <button
-                disabled
-                title={t('gfFindPlayersSignIn')}
-                className="shrink-0 flex items-center gap-1.5 bg-zinc-800 text-zinc-500 text-[12px] font-semibold tracking-wide px-3 py-1 border border-zinc-700 cursor-not-allowed"
-              >
-                {t('gfFindPlayers')}
-              </button>
-            )}
+            <div className="w-1.5 h-1.5 bg-amber-800 rotate-45 shrink-0" />
             <div className="flex-1 h-px bg-amber-900/50" />
           </div>
 
@@ -627,6 +609,27 @@ export function LandingPage({
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
                 {t('navEventsSignIn')}
+              </button>
+            )}
+
+            {/* Gitfinda — looking for a game. Open to every signed-in player. */}
+            {loggedIn ? (
+              <button
+                onClick={onShowGitfinda}
+                title={t('gfButtonTitle')}
+                className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-orange-800/70 hover:border-orange-500 text-orange-400/90 hover:text-orange-300 text-[12px] uppercase tracking-wider transition-colors"
+              >
+                <img src="/gitfinda/matched_gits_users.png" alt="" aria-hidden className="w-4 h-4 object-contain" />
+                {t('gfButton')}
+                {gfUnread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
+              </button>
+            ) : (
+              <button
+                disabled
+                title={t('gfButtonTitle')}
+                className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
+              >
+                {t('gfButtonSignIn')}
               </button>
             )}
           </div>
