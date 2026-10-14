@@ -142,7 +142,10 @@ export function GitfindaModal({ onClose, username, focusPostId }: Props) {
             <div className="text-orange-300 font-bold uppercase tracking-[0.3em] text-sm mt-1">{t('gfIntroTag')}</div>
           </div>
           <div className="flex justify-center gap-3 mb-4">
-            <button className={btnOrange} onClick={onClose}>{icon('back_chevron')} {t('gfIntroBack')}</button>
+            <button className={btnOrange} onClick={() => {
+              if (introHide) { try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* private window: it just shows again */ } }
+              onClose();
+            }}>{icon('back_chevron')} {t('gfIntroBack')}</button>
             <button className={btnOrange} onClick={() => {
               if (introHide) { try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* private window: it just shows again */ } }
               setIntro(false);
