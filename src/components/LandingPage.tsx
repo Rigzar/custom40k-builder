@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v184j_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v184k_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -68,6 +68,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Armory","A character's attendants (a Grimnyr's CORVs, the Iron-master's E-COGs, the Engineseer's Servitors, the Company Hero's Animal Companion) no longer count as Armory buyers: the \"once per model\" cap counts the character alone."],
         ["Necrons","The C'tan Shard follows the new sheet: one generic Shard with up to three upgrades (the three named Shards are gone). Yngir makes every Shard an HQ for +30 points with up to five upgrades; new Cosmic Insanity power."],
         ["Leagues of Votann","\"All remaining models may swap\" (Hernkyn Yaegirs, Hearthkyn Warriors) now covers every remaining model, in price and in the weapon rows."],
+        ["Space Marines","The Legion of the Damned Ancient can now use the Armory like the Sergeant (each item twice with an Ancient in the squad)."],
         ["Skirmish allies","Allies and archetypes now work in Skirmish: one Troops plus at most one Elite, Fast Attack or Heavy Support, sharing the main AOP. Only archetypes marked for Skirmish in their codex are offered."],
         ["Rules 1.279","Armorbane(x) replaces the fixed +3 and Lance is gone (32 armory items and powers updated); Disorderly Charge is in the Field Manual and the glossary was re-read against the new text."],
         ["Tyranids","Zoanthropes: one Neurothrope per three models for +25. Fixed the Synaptic Disruption Organ lines split in Russian, and the Megafauna archetype."],
@@ -89,6 +90,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Armory","Die Begleiter eines Charakters (CORVs des Grimnyr, E-COGs des Iron-master, Servitoren des Engineseer, Tierbegleiter des Company Hero) zählen nicht mehr als Armory-Käufer: das „einmal pro Modell“-Limit zählt den Charakter allein."],
         ["Necrons","Der C'tan Shard folgt dem neuen Datenblatt: ein allgemeiner Shard mit bis zu drei Upgrades (die drei benannten Shards entfallen). Yngir macht jeden Shard für +30 Punkte zum HQ mit bis zu fünf Upgrades; neue Psikraft Cosmic Insanity."],
         ["Leagues of Votann","„Alle übrigen Modelle können tauschen“ (Hernkyn Yaegirs, Hearthkyn Warriors) gilt jetzt für jedes übrige Modell, in Preis und Waffenzeilen."],
+        ["Space Marines","Der Legionnaire Ancient der Legion of the Damned kann die Armory jetzt wie der Sergeant nutzen (jeder Gegenstand zweimal, wenn ein Ancient in der Einheit ist)."],
         ["Skirmish-Verbündete","Verbündete und Archetypen funktionieren jetzt im Skirmish: ein Troops plus höchstens ein Elite, Fast Attack oder Heavy Support, im AOP der Hauptarmee. Angeboten werden nur Archetypen, die im Codex für Skirmish freigegeben sind."],
         ["Regeln 1.279","Armorbane(x) ersetzt das feste +3, Lance entfällt (32 Armory-Gegenstände und Kräfte angepasst); Disorderly Charge steht im Feldhandbuch, das Glossar wurde gegen den neuen Text geprüft."],
         ["Tyraniden","Zoanthropen: ein Neurothrope je drei Modelle für +25. Die in Russisch zerhackten Zeilen des Synaptic Disruption Organ und der Megafauna-Archetyp sind korrigiert."],
@@ -110,6 +112,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Armería","Los acompañantes de un personaje (los CORV del Grimnyr, los E-COG del Iron-master, los Servitors del Engineseer, el Animal Companion del Company Hero) ya no cuentan como compradores de armería: el tope de «una vez por modelo» cuenta solo al personaje."],
         ["Necrones","El C'tan Shard sigue la hoja nueva: un Shard genérico con hasta tres mejoras (los tres Shards con nombre desaparecen). Yngir convierte cada Shard en HQ por +30 puntos con hasta cinco mejoras; nuevo poder Cosmic Insanity."],
         ["Leagues of Votann","«Todos los modelos restantes pueden cambiar» (Hernkyn Yaegirs, Hearthkyn Warriors) ahora cubre a todos los restantes, en precio y en filas de armas."],
+        ["Space Marines","El Legionnaire Ancient de la Legion of the Damned ya puede usar la Armería como el Sergeant (cada objeto dos veces con un Ancient en la escuadra)."],
         ["Aliados en Skirmish","Los aliados y los arquetipos ya funcionan en Skirmish: un Troops más como máximo un Elite, Fast Attack o Heavy Support, dentro del AOP del ejército principal. Solo se ofrecen los arquetipos marcados para Skirmish en su códice."],
         ["Reglas 1.279","Armorbane(x) sustituye al +3 fijo y Lance desaparece (32 objetos de armería y poderes actualizados); la Disorderly Charge está en el Manual de Campo y el glosario se releyó contra el texto nuevo."],
         ["Tiránidos","Zoantropos: un Neurothrope por cada tres modelos por +25. Arregladas las líneas partidas del Synaptic Disruption Organ en ruso y el arquetipo Megafauna."],
@@ -131,6 +134,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Арсенал","Спутники персонажа (CORV у Grimnyr, E-COG у Iron-master, Servitors у Engineseer, Animal Companion у Company Hero) больше не считаются покупателями арсенала: лимит «один раз на модель» считает только персонажа."],
         ["Некроны","C'tan Shard по новому листу: один общий Shard с тремя улучшениями (три именных Shard убраны). Yngir делает каждый Shard HQ за +30 очков с пятью улучшениями; новая сила Cosmic Insanity."],
         ["Leagues of Votann","«Все оставшиеся модели могут заменить» (Hernkyn Yaegirs, Hearthkyn Warriors) теперь охватывает всех оставшихся, в цене и в строках оружия."],
+        ["Space Marines","Legionnaire Ancient из Legion of the Damned теперь может пользоваться арсеналом, как Sergeant (каждый предмет дважды, если в отряде есть Ancient)."],
         ["Союзники в Skirmish","Союзники и архетипы теперь работают в Skirmish: один Troops и не более одного Elite, Fast Attack или Heavy Support, в AOP основной армии. Предлагаются только архетипы, отмеченные для Skirmish в кодексе."],
         ["Правила 1.279","Armorbane(x) заменяет фиксированный +3, Lance убран (обновлено 32 предмета арсенала и сил); Disorderly Charge есть в Полевом руководстве, глоссарий сверен с новым текстом."],
         ["Тираниды","Zoanthrope: один Neurothrope на каждые три модели за +25. Исправлены разбитые на строки тексты Synaptic Disruption Organ на русском и архетип Megafauna."],
@@ -152,6 +156,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["武器庫","キャラクターの付き添い（GrimnyrのCORV、Iron-masterのE-COG、EngineseerのServitor、Company HeroのAnimal Companion）は武器庫の購入者として数えられなくなり、「1モデルにつき1つ」の上限はキャラクターだけを数えます。"],
         ["ネクロン","C'tan Shardは新しいシートに対応：最大3つのアップグレードを持つ汎用Shard1種（名前付き3種は廃止）。Yngirでは全Shardが+30ポイントでHQになり、最大5つまで。新しい能力Cosmic Insanity。"],
         ["Leagues of Votann","「残りの全モデルが交換できる」（Hernkyn Yaegirs、Hearthkyn Warriors）が残り全モデルに適用され、価格と武器行に反映されます。"],
+        ["Space Marines","Legion of the DamnedのLegionnaire AncientもSergeantと同じく武器庫を使えます（Ancientがいる部隊では各アイテムを2つまで）。"],
         ["Skirmishの同盟軍","Skirmishで同盟軍とアーキタイプが使えるようになりました：Troops 1つとElite・Fast Attack・Heavy Supportのいずれか最大1つで、主軍のAOPを共有します。コーデックスでSkirmish可とされたアーキタイプのみ選べます。"],
         ["ルール1.279","Armorbane(x)が固定の+3に代わり、Lanceは廃止（武器庫アイテムとパワー32件を更新）。Disorderly Chargeはフィールドマニュアルに載り、用語集も新しい文面に合わせて見直しました。"],
         ["ティラニッド","ゾアンスロープ：3モデルごとにニューロスロープ1体を+25で。ロシア語で分割されていたSynaptic Disruption Organの文と、Megafaunaアーキタイプを修正しました。"],
