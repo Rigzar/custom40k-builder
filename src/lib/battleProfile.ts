@@ -186,6 +186,25 @@ export function armoryAccessorCount(u: Unit, size: number): number {
 }
 
 /**
+ * Extra single models that hold Armory access next to the built-in champion. The Legion of the Damned sheet reads
+ * "The Legionnaire Sergeant has access to weapons and gear from the Armory" AND the same for the Legionnaire Ancient,
+ * and the engine only ever knew models[1]. A model past the champion that is a lone model (max 1) shares the
+ * champion's access when the unit is champion-armory only.
+ */
+export function extraArmoryHolders(u: Unit): Model[] {
+  if (u.has_armory_access || !u.champion_has_armory || u.models.length < 3) return [];
+  const champ = u.models[1];
+  if (!(champ.min === 1 && champ.max === 1)) return [];
+  return u.models.slice(2).filter(m => m.max === 1);
+}
+
+/** How many models of this roster entry hold Armory access under champion-only access: the champion plus any extra holder fielded. */
+export function championArmoryBuyers(u: Unit, modelSizes?: Record<string, number>): number {
+  const present = extraArmoryHolders(u).filter(m => (modelSizes?.[m.name] ?? m.min) > 0).length;
+  return 1 + present;
+}
+
+/**
  * Does THIS model row take the Armory's stat changes (a save, WS, T...)? When Armory access belongs
  * to one model -- a squad's built-in Leader/Champion, or a promoted variant -- the purchase changes
  * that model alone: a Platoon Lieutenant in Plate armor is 4+ while his Guardsmen stay 5+; a Gang
@@ -203,7 +222,7 @@ export function equipTargetsModel(u: Unit, m: Model, variant?: Model | null): bo
   const champion = u.models.length > 1 && u.models[1].min === 1 && u.models[1].max === 1 ? u.models[1] : null;
   const scoped = (!!champion && u.champion_has_armory && !gatedByVariant) || gatedByVariant;
   if (!scoped) return true;
-  return (!!variant && m === variant) || m === champion;
+  return (!!variant && m === variant) || m === champion || extraArmoryHolders(u).includes(m);
 }
 
 /** Traits, psychic powers and prayers the player chose — named, ready to print in a list. */

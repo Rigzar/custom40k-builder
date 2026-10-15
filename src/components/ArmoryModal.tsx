@@ -20,7 +20,7 @@ import {
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 import { nm, rl } from '../utils/localName';
-import { armoryAccessorCount } from '../lib/battleProfile';
+import { armoryAccessorCount, championArmoryBuyers } from '../lib/battleProfile';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
 // unenforced-01): every model with Armory access may select a single item from any Imperial
@@ -295,7 +295,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // codex's own "Point costs are paid per unit/model" is about price, never quantity) — never
     // scale the cap by item.size the way an ordinary has_armory_access squad's gear would.
     if (isBiomorph(arm.desc)) return 1;
-    const accessorCount = isVehicle ? item.size : unit.has_armory_access ? armoryAccessorCount(unit, item.size) : 1;
+    const accessorCount = isVehicle ? item.size : unit.has_armory_access ? armoryAccessorCount(unit, item.size) : championArmoryBuyers(unit, item.modelSizes);
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
       // "Must be purchased separately for each weapon" (Master-crafted weapon, Forgewrought
