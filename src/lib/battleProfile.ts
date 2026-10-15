@@ -176,6 +176,16 @@ export function isAttendantModel(u: Unit, m: Model): boolean {
 }
 
 /**
+ * How many models of this entry hold Armory access, for the "once per model" copy cap. A lone character's
+ * attendants (CORVs, E-COGs, Servitors, an Animal Companion) hold none, so a Grimnyr with two CORVs is ONE
+ * buyer, not three (Unwise: "the Grimnyr's CORVs should not have access to the armory"): it could buy the
+ * same item three times. Every other unit keeps the squad size.
+ */
+export function armoryAccessorCount(u: Unit, size: number): number {
+  return u.models.length > 1 && isAttendantModel(u, u.models[1]) ? 1 : size;
+}
+
+/**
  * Does THIS model row take the Armory's stat changes (a save, WS, T...)? When Armory access belongs
  * to one model -- a squad's built-in Leader/Champion, or a promoted variant -- the purchase changes
  * that model alone: a Platoon Lieutenant in Plate armor is 4+ while his Guardsmen stay 5+; a Gang
