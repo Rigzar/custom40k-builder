@@ -233,6 +233,10 @@
                     ]
                 },
                 {
+                    "name": "Sentient Necrodermis",
+                    "points": 35
+                },
+                {
                     "name": "Voltaic Storm",
                     "points": 45,
                     "effect": {

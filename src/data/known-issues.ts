@@ -10,8 +10,8 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: "ki-necron-ctan-sheet-questions-01",
     status: "known",
-    title: "Necrons C'tan Shard 1.5: Sentient Necrodermis has no text, Grand/Great Illusion spelled two ways",
-    description: "UPDATED 2026-10-15. Unwise fixed the sheet the same evening: Grand Illusion now matches its text. But the fix renamed Sentient Necrodermis (+35) to a SECOND Hardened Necrodermis, so the upgrade list now has Hardened Necrodermis twice (+35 and +56) and only one text ( 3+ armor save). The app keeps the +56 Hardened one and drops the +35 entry until the author says which price is right or what the other upgrade should be.",
+    title: "Necrons C'tan Shard 1.5: Sentient Necrodermis (+35) has no text and nobody knows what it does",
+    description: "UPDATED 2026-10-15. Grand/Great Illusion fixed by the author. Sentient Necrodermis (+35) is still on the sheet with NO text under Upgrades; the author (Unwise) does not know what it should do (he briefly renamed it to a second Hardened Necrodermis, then reverted). The app lists it with no effect and no description until Dominic says what it does.",
   },
   {
     id: "ki-imperial-navy-warrant-objective-secured-01",
