@@ -76,7 +76,7 @@ Budget: **0-1 Archetype, 0-1 Legacy, 0-2 Traits**. Production cross-check CLEAN:
 **4 Archetypes**: Canoptek Court (only Crypteks as HQ, 2 per slot; <Canoptek> units gain Objective
 Secured!), Destroyer Cult (roster restricted to Destroyer/Skorpekh/Canoptek/C'tan units; Skorpekh
 Destroyers→Troops), Obeisance Phalanx (Lord/Overlord HQ; Lychguard/Triarch Praetorians→Troops, no
-other Troops), Yngir (a C'tan Shard counts as HQ, +stats +85 pts + Time's Arrow; Pariahs→Troops).
+other Troops), Yngir (every C'tan Shard counts as HQ, up to five upgrades instead of three, +30 pts, +6" power range + Time's Arrow; Pariahs→Troops; Necrons 1.5 — one generic Shard, the three named ones are gone).
 
 **6 Legacies** — each = one Dynasty, granting that Dynasty's Armory (loaded as the 'Dynasty'
 legacy): Channeling Solar Energies→Nephrekh / Extermination of all Life→Szarekhan / Industrial
