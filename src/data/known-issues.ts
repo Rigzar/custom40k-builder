@@ -11,7 +11,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: "ki-necron-ctan-sheet-questions-01",
     status: "known",
     title: "Necrons C'tan Shard 1.5: Sentient Necrodermis has no text, Grand/Great Illusion spelled two ways",
-    description: "ADDED 2026-10-15 with the Necrons 1.5 C'tan Shard. Two sheet items for the author, not patched in the app: (1) the upgrade list offers 'Sentient Necrodermis' (+35) but the Upgrades text below it has no entry for it, so the app shows the choice without a description. (2) The choice is spelled 'Grand Illusion' and its text 'Great Illusion'; the app labels the text 'Grand Illusion' so it hides until bought. Also asked: 'Immune to Natural Law' and 'Mindless' are new on the Shard, and the Yngir note still says the shard 'knows Time's Arrow' while the power list marks it Yngir-only: both are applied as written.",
+    description: "UPDATED 2026-10-15. Unwise fixed the sheet the same evening: Grand Illusion now matches its text. But the fix renamed Sentient Necrodermis (+35) to a SECOND Hardened Necrodermis, so the upgrade list now has Hardened Necrodermis twice (+35 and +56) and only one text ( 3+ armor save). The app keeps the +56 Hardened one and drops the +35 entry until the author says which price is right or what the other upgrade should be.",
   },
   {
     id: "ki-imperial-navy-warrant-objective-secured-01",
