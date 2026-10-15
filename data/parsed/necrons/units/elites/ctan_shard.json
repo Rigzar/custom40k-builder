@@ -234,7 +234,15 @@
                 },
                 {
                     "name": "Sentient Necrodermis",
-                    "points": 35
+                    "points": 35,
+                    "effect": {
+                        "grants_abilities": [
+                            "Regeneration(2)"
+                        ]
+                    },
+                    "abilities": [
+                        "Sentient Necrodermis: The model gains the \"Regeneration(2)\" ability."
+                    ]
                 },
                 {
                     "name": "Voltaic Storm",
@@ -289,7 +297,8 @@
         "Seismic Assault: The model gains the \"Seismic Assault\" weapon.",
         "Scythe of the Nightbringer: The model gains the \"Scythe of the Nightbringer\" weapon.",
         "Voltaic Storm: The model gains the \"Voltaic Storm\" weapon.",
-        "Hardened Necrodermis: The model gains a 3+ armor save."
+        "Hardened Necrodermis: The model gains a 3+ armor save.",
+        "Sentient Necrodermis: The model gains the \"Regeneration(2)\" ability."
     ],
     "unit_type": "Monstrous Creature",
     "keywords": [],

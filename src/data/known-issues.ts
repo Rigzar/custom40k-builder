@@ -9,9 +9,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: "ki-necron-ctan-sheet-questions-01",
-    status: "known",
+    status: "fixed",
     title: "Necrons C'tan Shard 1.5: Sentient Necrodermis (+35) has no text and nobody knows what it does",
-    description: "UPDATED 2026-10-15. Grand/Great Illusion fixed by the author. Sentient Necrodermis (+35) is still on the sheet with NO text under Upgrades; the author (Unwise) does not know what it should do (he briefly renamed it to a second Hardened Necrodermis, then reverted). The app lists it with no effect and no description until Dominic says what it does.",
+    description: "FIXED 2026-10-15. Grand/Great Illusion was fixed by the author in the sheet. Sentient Necrodermis (+35) had no text; atypicalhero (sheet author) answered: \"The model gains the Regeneration(2) ability.\" Added to the C'tan Shard as that ability line, shown once bought.",
   },
   {
     id: "ki-imperial-navy-warrant-objective-secured-01",
