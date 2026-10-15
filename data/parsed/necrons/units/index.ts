@@ -19,9 +19,6 @@ import troops_flayed_ones from './troops/flayed_ones.json';
 import troops_immortals from './troops/immortals.json';
 import troops_warriors from './troops/warriors.json';
 import elites_ctan_shard from './elites/ctan_shard.json';
-import elites_ctan_shard_of_the_deceiver from './elites/ctan_shard_of_the_deceiver.json';
-import elites_ctan_shard_of_the_dragon from './elites/ctan_shard_of_the_dragon.json';
-import elites_ctan_shard_of_the_nightbringer from './elites/ctan_shard_of_the_nightbringer.json';
 import elites_canoptek_reanimator from './elites/canoptek_reanimator.json';
 import elites_canoptek_spyders from './elites/canoptek_spyders.json';
 import elites_cryptothralls from './elites/cryptothralls.json';
@@ -68,9 +65,6 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Elites": [
     "C'tan Shard",
-    "C'tan Shard of the Deceiver",
-    "C'tan Shard of the Dragon",
-    "C'tan Shard of the Nightbringer",
     "Canoptek Reanimator",
     "Canoptek Spyders",
     "Cryptothralls",
@@ -125,9 +119,6 @@ export const units: Record<string, Unit> = {
   "Immortals": troops_immortals as Unit,
   "Warriors": troops_warriors as Unit,
   "C'tan Shard": elites_ctan_shard as Unit,
-  "C'tan Shard of the Deceiver": elites_ctan_shard_of_the_deceiver as Unit,
-  "C'tan Shard of the Dragon": elites_ctan_shard_of_the_dragon as Unit,
-  "C'tan Shard of the Nightbringer": elites_ctan_shard_of_the_nightbringer as Unit,
   "Canoptek Reanimator": elites_canoptek_reanimator as Unit,
   "Canoptek Spyders": elites_canoptek_spyders as Unit,
   "Cryptothralls": elites_cryptothralls as Unit,

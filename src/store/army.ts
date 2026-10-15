@@ -464,7 +464,8 @@ export const useArmyStore = create<ArmyStore>()(
         const cleared = army.map((e: RosterEntry) =>
           e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
         return { archetype: a, army: clearYngir ? cleared.map((e: RosterEntry) =>
-          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : cleared };
+          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
+          : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),
 
       setLegacy: (l: string) => set((s: S) => {
@@ -643,6 +644,8 @@ export const useArmyStore = create<ArmyStore>()(
           prayers: [],
           pacts: [],
           ...(modelSizes ? { modelSizes } : {}),
+          // Yngir: every C'tan Shard is the HQ one (Necrons 1.5), so the flag is set for them, not picked.
+          ...(s.archetype === 'Yngir' && !factionSource && /^C'tan Shard/.test(unitName) ? { ctanYngirUpgrade: true } : {}),
         };
         // Special Operations: auto-select Infiltrator for Cultists
         if (s.archetype === 'Special Operations' && unitName === 'Cultists') {

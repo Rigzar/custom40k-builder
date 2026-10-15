@@ -605,30 +605,6 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
         );
       })()}
 
-      {/* ── Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) ──
-           Only ONE entry in the whole army may take this — hard-enforced by disabling the
-           toggle (not just a warning note) once another C'tan Shard entry already has it. */}
-      {data?.faction === 'Necrons' && archetype === 'Yngir' && !item.factionSource && /^C'tan Shard/.test(u.name) && (() => {
-        const otherActive = army.some(e => e.id !== item.id && e.ctanYngirUpgrade && /^C'tan Shard/.test(e.unitName));
-        const checked = !!item.ctanYngirUpgrade;
-        return (
-          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-            <label
-              onClick={() => { if (!otherActive || checked) updateUnit(item.id, { ctanYngirUpgrade: !checked }); }}
-              className={`flex items-center gap-2 text-[11px] ${otherActive && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
-            >
-              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
-                {checked && <span className="text-[8px] text-white leading-none">✓</span>}
-              </div>
-              <span className="text-zinc-300">{t('yngirToggleLabel')}</span>
-            </label>
-            {otherActive && !checked && (
-              <span className="text-[10px] text-red-400/80">{t('ctanShardTakenLabel')}</span>
-            )}
-          </div>
-        );
-      })()}
-
       {/* ── The archetype's own HQ promotion: "One X ... becomes a HQ selection" (GH#168) ──
            One entry in the army claims it, so the toggle disables once another already has it,
            the same hard enforcement the Yngir C'tan uses. Shown only on the unit the active

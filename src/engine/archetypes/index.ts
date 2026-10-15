@@ -464,8 +464,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Destroyer Cult': { ...BASE,
     troopsRemap: ['Skorpekh Destroyers'],
     allowedUnitsOnly: [
-      'Ancient Destructor Lord', "C'tan Shard", "C'tan Shard of the Deceiver",
-      "C'tan Shard of the Dragon", "C'tan Shard of the Nightbringer",
+      'Ancient Destructor Lord', "C'tan Shard",
       'Canoptek Doomstalker', 'Canoptek Reanimator', 'Canoptek Scarabs',
       'Canoptek Spyders', 'Canoptek Wraiths', 'Cryptek', 'Flayed Ones',
       'Lokhust Destroyers', 'Lord', 'Ophydian Destroyers', 'Plasmacyte',
@@ -491,7 +490,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Yngir': { ...BASE,
     troopsRemap: ['Pariahs'],
     notes: [
-      'One C\'tan Shard counts as an HQ selection. It gains +1 Str, +1 T, +1 I, +1 A, 2+ save, +6" range on powers, and knows "Time\'s Arrow". Costs +85 pts.',
+      "C'tan Shards count as an HQ selection. A shard may select up to five upgrades (three otherwise), its powers gain +6\" range, and it knows \"Time's Arrow\". Costs +30 pts.",
       'Pariahs count as Troops.',
     ],
   },

@@ -1089,9 +1089,6 @@ export function computeArchetypeHqSharedSlots(
  * non-functional placeholder (empty choices, no inline_pts) so this is enforced here instead. */
 export const CTAN_SHARD_NAMES = [
   "C'tan Shard",
-  "C'tan Shard of the Dragon",
-  "C'tan Shard of the Deceiver",
-  "C'tan Shard of the Nightbringer",
 ];
 
 /** Returns a disabled-tooltip reason when adding `unitName` would put a 2nd C'tan Shard (any of
@@ -2419,18 +2416,6 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Yngir: "One C'tan shard (any kind)" — defense in depth alongside the UI toggle's
-  // disable-the-other-instances guard (ods-verbatim, only 1 per army regardless of how many
-  // C'tan Shards are fielded).
-  if (state.archetype === 'Yngir') {
-    const ctanYngirCount = state.army.filter(i => i.ctanYngirUpgrade && /^C'tan Shard/.test(i.unitName)).length;
-    if (ctanYngirCount > 1) {
-      items.push({
-        type: 'error',
-        text: `Yngir: only 1 C'tan Shard may take the HQ upgrade per army (have ${ctanYngirCount}).`,
-      });
-    }
-  }
 
   // "An army can contain only one C'tan Shard" (any kind, ods-verbatim on all 4 datasheets) —
   // defense in depth alongside the catalogue's ctanShardCapBlockReason disable.

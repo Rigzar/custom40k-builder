@@ -1450,14 +1450,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const optionAddedUnitTypes: string[] = [];
   let optionSetUnitType: string | null = null;
   const optionAbilities: string[] = [];
-  // Yngir's C'tan Shard upgrade (ods-verbatim): HQ slot is applied via effectiveSlot above; the
-  // 2+ armor save floor in UnitCard.tsx (same "best of" pattern as equipMods.armorSave); the +6"
-  // power range in PsychicModal.tsx's bumpRange; "knows Time's Arrow" needs no extra wiring —
-  // every C'tan Shard already has it in the shared psychic/disciplines.json "Powers" list. Only
-  // the +1 S/T/I/A stat mod is wired here, alongside the rest of the option-effect pipeline.
-  if (ctanYngirActive) {
-    optionStatMods.push({ stat: 'S', delta: 1 }, { stat: 'T', delta: 1 }, { stat: 'I', delta: 1 }, { stat: 'A', delta: 1 });
-  }
+  // Yngir's C'tan Shard (Necrons 1.5): HQ slot via effectiveSlot above, +30 points in points.ts, the +6" power range in
+  // PsychicModal.tsx's bumpRange, five upgrades instead of three via the group's promoted_constraint. "Knows Time's Arrow" needs no
+  // wiring: it is in the shared C'tan powers list.
   // De-dup helpers: an effect only grants what the model doesn't already have (a type/ability
   // already in its base profile is not re-added). Normalize so "Deepstrike" matches "Deep strike".
   // Ability lines that only apply once an upgrade is BOUGHT — matched by NAME against this
