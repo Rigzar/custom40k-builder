@@ -19,6 +19,7 @@ import { smResolve } from './codex_space_marines/resolver';
 import { admechResolve } from './codex_adeptus_mechanicus/resolver';
 import { markStatMods } from '../lib/markMods';
 import { hiddenUpgradeLines } from '../lib/upgradeGroups';
+import { expandAllRemaining } from './allRemaining';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -3125,6 +3126,7 @@ export function resolveUnitProfile(
     }
     item = { ...item, optionQty: kept };
   }
+  item = expandAllRemaining(item, unit);   // "All remaining models may swap ..." covers every remaining model
   const base = resolveBase(item, unit, state, data);
   // A second-level nested ally (factionSource = the Allied Detachment's own faction, nestedFaction
   // = a faction IT intrinsically grants, e.g. CSM Plaguehost → Chaos Daemons Plaguebearers) must

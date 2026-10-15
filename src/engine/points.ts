@@ -4,6 +4,7 @@ import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-over
 import { getArchetypeRule } from './archetypes';
 import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
+import { expandAllRemaining } from './allRemaining';
 
 /**
  * Live-recompute an armory selection's cost from the unit's CURRENT size/wounds, instead of
@@ -221,6 +222,7 @@ function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
  * required means the compiler names every one of the ten places that sum unit points.
  */
 export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string, pointLimit: number): number {
+  item = expandAllRemaining(item, unit);   // "All remaining models may swap ..." covers every remaining model
   let total = 0;
   const active = getActiveVariant(item, unit);
 
