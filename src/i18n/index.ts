@@ -70,7 +70,7 @@ export type TranslationKey =
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
-  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
+  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'startNewArmy' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
   | 'skirmishDropsAllyConfirm' | 'skirmishDropsArchetypeConfirm' | 'skirmishArchetypesOnly'
   | 'armoryLostOnDowngradeConfirm'
@@ -812,6 +812,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueLabel: 'Continue',
     continueArmy: 'Continue this army',
     discardArmyConfirm: 'Start a new army? The list you have open will be discarded (saved copies are not touched).',
+    startNewArmy: 'Start a new army',
     reviewList: 'Review list',
     detachmentPrimary: 'Primary',
     changeLabel: 'Change',
@@ -1962,6 +1963,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueLabel: 'Weiter',
     continueArmy: 'Diese Armee fortsetzen',
     discardArmyConfirm: 'Neue Armee beginnen? Die geöffnete Liste wird verworfen (gespeicherte Kopien bleiben unverändert).',
+    startNewArmy: 'Neue Armee beginnen',
     reviewList: 'Liste prüfen',
     detachmentPrimary: 'Primär',
     changeLabel: 'Ändern',
@@ -3110,6 +3112,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueLabel: 'Continuar',
     continueArmy: 'Continuar este ejército',
     discardArmyConfirm: '¿Empezar un ejército nuevo? Se descartará la lista abierta (las copias guardadas no se tocan).',
+    startNewArmy: 'Empezar un ejército nuevo',
     reviewList: 'Revisar lista',
     detachmentPrimary: 'Principal',
     changeLabel: 'Cambiar',

@@ -1,4 +1,30 @@
 {
+ "1.85": {
+  "title": {
+   "de": "Armee bauen fragt, ob die offene Liste fortgesetzt wird",
+   "es": "Construir ejército pregunta si continuar la lista abierta",
+   "ru": "Кнопка «Построить армию» спрашивает, продолжить ли открытый список",
+   "ja": "軍を作るで、開いているリストを続けるか確認"
+  },
+  "changes": {
+   "de": [
+    "ALLGEMEIN — ARMEE BAUEN BIETET DIE OFFENE LISTE WIEDER AN (GH#242). Bei einer ungespeicherten offenen Liste bot Armee bauen nur Verwerfen oder Abbrechen. Jetzt gibt es drei Möglichkeiten: die offene Armee fortsetzen, eine neue beginnen oder abbrechen.",
+    "NECRONS — ZWEI TRIARCH STALKER KÖNNEN BEIDE DIE GLEICHEN UPGRADES NEHMEN (Plasma Snake, Discord). Der Waffentausch und die Reinforced forelimbs waren auf ein Modell begrenzt; jeder Stalker kann jetzt seine eigenen nehmen, ein Paar kann also zwei Twin heavy gauss cannons und zwei Sätze Forelimbs tragen."
+   ],
+   "es": [
+    "GENERAL — CONSTRUIR EJÉRCITO VUELVE A OFRECER LA LISTA ABIERTA (GH#242). Con una lista abierta sin guardar, Construir ejército solo ofrecía descartar o cancelar. Ahora ofrece tres opciones: continuar el ejército abierto, empezar uno nuevo o cancelar.",
+    "NECRONES — DOS TRIARCH STALKER PUEDEN TOMAR LAS MISMAS MEJORAS (Plasma Snake, Discord). El cambio de arma y los Reinforced forelimbs estaban limitados a un modelo; cada Stalker puede tomar los suyos, así que una pareja puede llevar dos Twin heavy gauss cannon y dos juegos de forelimbs."
+   ],
+   "ru": [
+    "ОБЩЕЕ — «ПОСТРОИТЬ АРМИЮ» СНОВА ПРЕДЛАГАЕТ ОТКРЫТЫЙ СПИСОК (GH#242). При несохранённом открытом списке кнопка предлагала только сбросить или отменить. Теперь три варианта: продолжить открытую армию, начать новую или отменить.",
+    "НЕКРОНЫ — ДВА TRIARCH STALKER МОГУТ ВЗЯТЬ ОДНИ И ТЕ ЖЕ УЛУЧШЕНИЯ (Plasma Snake, Discord). Замена оружия и Reinforced forelimbs были ограничены одной моделью; теперь каждый Stalker берёт своё, так что пара может нести две Twin heavy gauss cannon и два комплекта forelimbs."
+   ],
+   "ja": [
+    "全般 — 「軍を作る」で開いているリストに戻れるようになりました（GH#242）。未保存のリストが開いている場合、破棄かキャンセルしか選べませんでした。今は、開いている軍を続ける、新しく始める、キャンセルの3つから選べます。",
+    "ネクロン — 2体のTriarch Stalkerが同じアップグレードを取れるようになりました（Plasma Snake、Discord）。武器交換とReinforced forelimbsが1体に限定されていましたが、各Stalkerが自分の分を取れるため、Twin heavy gauss cannon 2門とforelimbs 2組を持てます。"
+   ]
+  }
+ },
  "1.84": {
   "title": {
    "de": "Die verbleibenden Armeepunkte, neben deiner Summe",

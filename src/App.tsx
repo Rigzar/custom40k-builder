@@ -797,6 +797,7 @@ export default function App() {
 
   /** Steps ②-④ need a faction whose catalogue has finished loading. */
   const flowUnlocked = !!selectedFaction && !!data;
+  const [startChoiceOpen, setStartChoiceOpen] = useState(false);
   const showAlly = !!alliedFaction && detachment === 'allied';
   const accentBorder = showAlly ? 'border-emerald-900/60' : 'border-amber-900/60';
 
@@ -910,6 +911,38 @@ export default function App() {
         </div>
       )}
 
+      {/* GH#242: a list is open and unsaved -- Build army offers a way back into it, not just discard or cancel. */}
+      {screen === 'home' && startChoiceOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" onClick={() => setStartChoiceOpen(false)}>
+          <div className="w-full max-w-sm border border-zinc-600 bg-zinc-900 p-4 space-y-3" onClick={e => e.stopPropagation()}>
+            <p className="text-[13px] text-zinc-200">{t('discardArmyConfirm')}</p>
+            <div className="flex flex-col gap-2">
+              {flowUnlocked && (
+                <button
+                  onClick={() => { setStartChoiceOpen(false); setScreen('flow'); setStep('units'); }}
+                  className="py-2 px-3 border border-emerald-700 text-emerald-400 hover:text-emerald-300 hover:border-emerald-500 text-[12px] uppercase tracking-wider"
+                >↩ {t('continueArmy')}</button>
+              )}
+              <button
+                onClick={() => {
+                  setStartChoiceOpen(false);
+                  store.clearArmy();
+                  setActiveCloudRosterId(null);
+                  setViewingCopyOf(null);
+                  setActiveLocalSaveId(null);
+                  setScreen('flow'); setStep('faction');
+                }}
+                className="py-2 px-3 bg-amber-800 border border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold"
+              >{t('startNewArmy')}</button>
+              <button
+                onClick={() => setStartChoiceOpen(false)}
+                className="py-2 px-3 border border-zinc-700 text-zinc-400 hover:text-zinc-200 text-[12px] uppercase tracking-wider"
+              >{t('cancel')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Front door ── */}
       {screen === 'home' && (
         <LandingPage
@@ -920,13 +953,7 @@ export default function App() {
             // "Build army" used to drop straight back into the open list, and the next save
             // overwrote it (Discord). A non-empty list now asks first, and a fresh start forgets
             // which save it was linked to so it can never write over that one.
-            if (army.length > 0) {
-              if (!confirm(t('discardArmyConfirm'))) return;
-              store.clearArmy();
-              setActiveCloudRosterId(null);
-              setViewingCopyOf(null);
-              setActiveLocalSaveId(null);
-            }
+            if (army.length > 0) { setStartChoiceOpen(true); return; }
             setScreen('flow'); setStep('faction');
           }}
           onResume={() => { setScreen('flow'); setStep('units'); }}

@@ -234,6 +234,7 @@
  "continueLabel": "続ける",
  "continueArmy": "この軍を続ける",
  "discardArmyConfirm": "新しい軍を始めますか？ 開いているリストは破棄されます（保存済みのコピーには影響しません）。",
+ "startNewArmy": "新しい軍を始める",
  "reviewList": "リストを確認",
  "detachmentPrimary": "主軍",
  "changeLabel": "変更",
