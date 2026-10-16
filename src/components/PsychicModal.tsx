@@ -268,10 +268,19 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // picks land in the right pool without a second mechanism.
   const interdimensionalCount = item.armory.filter(a => a.itemName === 'Interdimensional Knowledge').length;
   const bonusPowerSlots = psychicTrainingCount + balefulTomeCount + interdimensionalCount * 2;
-  // The extra picks of Psychic training / Baleful tome / Interdimensional Knowledge are their own wording, so the
-  // one-discipline rule covers the datasheet's own picks only.
-  const sameDiscOnly = psykerMode === 'n_from_any' && !!oneDiscipline && bonusPowerSlots === 0;
-  const lockedDisc = sameDiscOnly ? (item.powers.find(p => p.powerName !== '__discipline__')?.disciplineName ?? null) : null;
+  // One discipline at a time. "from a chosen discipline" is ONE discipline (the sheet author and Dominic, Discord 2026-10-16), and
+  // Psychic training adds picks under the same rule: "you have to learn a discipline completely first before dabbling into a
+  // different one, so you can't just cherry pick from the whole list". So the picks fill the discipline they started, and only
+  // once every power of it is known may a new discipline be opened. Baleful tome and Interdimensional Knowledge are worded
+  // differently ("from the general / any general discipline") and keep their own free picks.
+  const sameDiscRule = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
+    && (!!oneDiscipline || psychicTrainingCount > 0) && balefulTomeCount === 0 && interdimensionalCount === 0;
+  const knownInDisc = (disc: string) => item.powers.filter(p => p.powerName !== '__discipline__' && p.disciplineName === disc).length;
+  const discSize = (disc: string) => ((allowedDiscs.find(([d]) => d === disc)?.[1] ?? []) as Power[]).filter(pw => !(knowsSmite && pw.name === 'Smite')).length;
+  const startedDiscs = [...new Set(item.powers.filter(p => p.powerName !== '__discipline__').map(p => p.disciplineName))];
+  const lockedDisc = sameDiscRule
+    ? ([...startedDiscs].reverse().find(d => knownInDisc(d) < discSize(d)) ?? null)
+    : null;
   const effectivePowerLimit = psykerMode === 'all_from_one'
     ? powerLimit  // all_from_one unlocks the whole discipline, training/tome add extra picks
     : powerLimit + bonusPowerSlots;
