@@ -209,7 +209,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     .find(a => /^psyker:/i.test(a))?.toLowerCase() ?? '';
 
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
-  function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean } {
+  function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean; oneDiscipline?: boolean } {
     const knowsSmite = psykerAbilityText.includes('smite');
     // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X"
     // (CD god-specific) OR "all powers from the X discipline" (unit-specific, e.g. Wraithseer)
@@ -230,14 +230,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       const words: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
       if (w) {
         const n = words[w[1]] ?? parseInt(w[1], 10);
-        return n === 1 ? { mode: 'one_from_one', limit: 1, knowsSmite } : { mode: 'n_from_any', limit: n, knowsSmite };
+        // "two powers from A chosen discipline" is one discipline (Homicidal Walrus on Discord, reading the Warlocks sheet).
+        return n === 1 ? { mode: 'one_from_one', limit: 1, knowsSmite } : { mode: 'n_from_any', limit: n, knowsSmite, oneDiscipline: /from a chosen (psychic )?discipline/.test(psykerAbilityText) };
       }
     }
     const nMatch = psykerAbilityText.match(/(\d+)\s+powers?\s+from/);
     if (nMatch) return { mode: 'n_from_any', limit: parseInt(nMatch[1]), knowsSmite };
     return { mode: 'unlimited', limit: 999, knowsSmite };
   }
-  const { mode: psykerMode, limit: powerLimit, knowsSmite } = parsePsykerMode();
+  const { mode: psykerMode, limit: powerLimit, knowsSmite, oneDiscipline } = parsePsykerMode();
 
   // Datasheet-embedded fixed power (e.g. Grey Knights Dreadnought/Land Raider/Razorback/Rhino/
   // Stormraven's "It knows Smite and Fortitude", Eldar Spiritseer's "It knows Smite and
@@ -267,6 +268,10 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // picks land in the right pool without a second mechanism.
   const interdimensionalCount = item.armory.filter(a => a.itemName === 'Interdimensional Knowledge').length;
   const bonusPowerSlots = psychicTrainingCount + balefulTomeCount + interdimensionalCount * 2;
+  // The extra picks of Psychic training / Baleful tome / Interdimensional Knowledge are their own wording, so the
+  // one-discipline rule covers the datasheet's own picks only.
+  const sameDiscOnly = psykerMode === 'n_from_any' && !!oneDiscipline && bonusPowerSlots === 0;
+  const lockedDisc = sameDiscOnly ? (item.powers.find(p => p.powerName !== '__discipline__')?.disciplineName ?? null) : null;
   const effectivePowerLimit = psykerMode === 'all_from_one'
     ? powerLimit  // all_from_one unlocks the whole discipline, training/tome add extra picks
     : powerLimit + bonusPowerSlots;
@@ -305,6 +310,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       // Enforce per-selection limit for 'one_from_one' and 'n_from_any'
       const selectedCount = item.powers.filter(p => p.powerName !== '__discipline__').length;
       if (psykerMode !== 'unlimited' && selectedCount >= effectivePowerLimit) return; // already at limit
+      if (lockedDisc && lockedDisc !== disc) return; // all picks come from the one chosen discipline
       addPower(item.id, disc, power);
     }
   }
@@ -473,7 +479,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               {allowedDiscs.map(([discName, powers]) => {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
                 const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
-                  && selectedPowersCount >= effectivePowerLimit;
+                  && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
                 const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite'));
                 const selectedInDisc = psykerMode === 'all_from_one'
                   ? (isChosen ? powersArr.length : 0)
