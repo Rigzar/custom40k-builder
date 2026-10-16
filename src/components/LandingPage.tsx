@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,6 +60,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "New in this version", rows: [
+        ["Lists","Importing a list no longer overwrites a saved one (it asks first and Save makes a new list). Build army can also save the open army first."],
         ["Build army","With an open list you can continue it, start a new one or cancel, instead of only discard or cancel."],
         ["Necrons","Two Triarch Stalkers can each take their own weapon swap and Reinforced forelimbs."],
       ] },
@@ -72,6 +73,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Neu in dieser Version", rows: [
+        ["Listen","Ein Import überschreibt keine gespeicherte Liste mehr (er fragt vorher, Speichern legt eine neue an). Armee bauen kann die offene Armee auch zuerst speichern."],
         ["Armee bauen","Mit offener Liste kannst du sie fortsetzen, eine neue beginnen oder abbrechen, statt nur verwerfen oder abbrechen."],
         ["Necrons","Zwei Triarch Stalker können je ihren eigenen Waffentausch und Reinforced forelimbs nehmen."],
       ] },
@@ -84,6 +86,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Novedades de esta versión", rows: [
+        ["Listas","Importar una lista ya no sobreescribe una guardada (pregunta antes y Guardar crea una nueva). Construir ejército también puede guardar antes el ejército abierto."],
         ["Construir ejército","Con una lista abierta puedes continuarla, empezar una nueva o cancelar, en vez de solo descartar o cancelar."],
         ["Necrones","Dos Triarch Stalker pueden tomar cada uno su cambio de arma y sus Reinforced forelimbs."],
       ] },
@@ -96,6 +99,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Новое в этой версии", rows: [
+        ["Списки","Импорт списка больше не перезаписывает сохранённый (сначала спрашивает, «Сохранить» создаёт новый). «Построить армию» также может сначала сохранить открытую армию."],
         ["Построить армию","При открытом списке можно продолжить его, начать новый или отменить, а не только сбросить или отменить."],
         ["Некроны","Два Triarch Stalker могут взять каждый свою замену оружия и Reinforced forelimbs."],
       ] },
@@ -108,6 +112,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "このバージョンの新機能", rows: [
+        ["リスト","リストのインポートで保存済みのリストが上書きされなくなりました（先に確認し、保存すると新規作成）。「軍を作る」で開いている軍を先に保存することもできます。"],
         ["軍を作る","開いているリストがある場合、破棄かキャンセルだけでなく、続ける・新しく始める・キャンセルから選べます。"],
         ["ネクロン","2体のTriarch Stalkerがそれぞれ自分の武器交換とReinforced forelimbsを取れます。"],
       ] },

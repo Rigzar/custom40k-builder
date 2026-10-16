@@ -13,11 +13,13 @@ import { useT, useLanguage } from '../i18n';
  * an illegal list could be printed without ever seeing why. It is a step of its own now, and the
  * header chip jumps here.
  */
-export function ReviewStep({ onPlay, onPrint, onSave, savedMsg, onBack }: {
+export function ReviewStep({ onPlay, onPrint, onSave, onImported, savedMsg, onBack }: {
   /** Opens the table-side view — the army without the building controls. */
   onPlay: () => void;
   onPrint: () => void;
   onSave: () => void;
+  /** An import replaced the open list: detach it from the save it was opened from. */
+  onImported?: () => void;
   savedMsg: string;
   onBack: () => void;
 }) {
@@ -160,7 +162,7 @@ export function ReviewStep({ onPlay, onPrint, onSave, savedMsg, onBack }: {
               {t('print')}
             </button>
           </div>
-          <ExportImport />
+          <ExportImport onImported={onImported} />
         </div>
       </section>
 

@@ -12,7 +12,7 @@ function fromCode(code: string): unknown {
   return JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
 }
 
-export function ExportImport({ onPrint }: { onPrint?: () => void }) {
+export function ExportImport({ onPrint, onImported }: { onPrint?: () => void; onImported?: () => void }) {
   const t = useT();
   const {
     army, engagement, hqMark, archetype, legacy, legacy2,
@@ -25,6 +25,15 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
   const [copied, setCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // An import replaces the open list and used to stay LINKED to the save that list was opened from, so the next
+  // Save wrote the imported army over the original one. Ask first, and detach the import so Save makes a new list.
+  function importGuarded(raw: string) {
+    if (army.length > 0 && !confirm(t('importReplacesConfirm'))) return false;
+    importRoster(raw);
+    onImported?.();
+    return true;
+  }
+
   function handleFilePicked(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = '';
@@ -32,7 +41,7 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
     const reader = new FileReader();
     reader.onload = () => {
       try {
-        importRoster(reader.result as string);
+        importGuarded(reader.result as string);
       } catch {
         alert(t('invalidJsonFileAlert'));
       }
@@ -76,7 +85,7 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
   function doImport() {
     try {
       const raw = mode === 'importCode' ? JSON.stringify(fromCode(text)) : text;
-      importRoster(raw);
+      if (!importGuarded(raw)) return;
       setMode(null);
       setText('');
     } catch {

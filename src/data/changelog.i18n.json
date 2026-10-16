@@ -9,19 +9,23 @@
   "changes": {
    "de": [
     "ALLGEMEIN — ARMEE BAUEN BIETET DIE OFFENE LISTE WIEDER AN (GH#242). Bei einer ungespeicherten offenen Liste bot Armee bauen nur Verwerfen oder Abbrechen. Jetzt gibt es drei Möglichkeiten: die offene Armee fortsetzen, eine neue beginnen oder abbrechen.",
-    "NECRONS — ZWEI TRIARCH STALKER KÖNNEN BEIDE DIE GLEICHEN UPGRADES NEHMEN (Plasma Snake, Discord). Der Waffentausch und die Reinforced forelimbs waren auf ein Modell begrenzt; jeder Stalker kann jetzt seine eigenen nehmen, ein Paar kann also zwei Twin heavy gauss cannons und zwei Sätze Forelimbs tragen."
+    "NECRONS — ZWEI TRIARCH STALKER KÖNNEN BEIDE DIE GLEICHEN UPGRADES NEHMEN (Plasma Snake, Discord). Der Waffentausch und die Reinforced forelimbs waren auf ein Modell begrenzt; jeder Stalker kann jetzt seine eigenen nehmen, ein Paar kann also zwei Twin heavy gauss cannons und zwei Sätze Forelimbs tragen.",
+    "ALLGEMEIN — EIN IMPORT ÜBERSCHREIBT DEINE GESPEICHERTE LISTE NICHT MEHR, UND ARMEE BAUEN KANN ZUERST SPEICHERN (Rigzar). Beim Import einer .json oder eines Codes wurde die offene Liste ersetzt, blieb aber mit dem Speicherstand verknüpft, aus dem sie geöffnet wurde, sodass das nächste Speichern die importierte Armee über das Original schrieb. Jetzt fragt der Import vor dem Ersetzen einer offenen Liste und ist von jedem Speicherstand gelöst: Speichern legt eine neue Liste an und nichts bereits Gespeichertes wird berührt. Der Dialog von Armee bauen bekommt außerdem „Diese Armee speichern und eine neue beginnen“."
    ],
    "es": [
     "GENERAL — CONSTRUIR EJÉRCITO VUELVE A OFRECER LA LISTA ABIERTA (GH#242). Con una lista abierta sin guardar, Construir ejército solo ofrecía descartar o cancelar. Ahora ofrece tres opciones: continuar el ejército abierto, empezar uno nuevo o cancelar.",
-    "NECRONES — DOS TRIARCH STALKER PUEDEN TOMAR LAS MISMAS MEJORAS (Plasma Snake, Discord). El cambio de arma y los Reinforced forelimbs estaban limitados a un modelo; cada Stalker puede tomar los suyos, así que una pareja puede llevar dos Twin heavy gauss cannon y dos juegos de forelimbs."
+    "NECRONES — DOS TRIARCH STALKER PUEDEN TOMAR LAS MISMAS MEJORAS (Plasma Snake, Discord). El cambio de arma y los Reinforced forelimbs estaban limitados a un modelo; cada Stalker puede tomar los suyos, así que una pareja puede llevar dos Twin heavy gauss cannon y dos juegos de forelimbs.",
+    "GENERAL — IMPORTAR UNA LISTA YA NO SOBREESCRIBE LA GUARDADA, Y CONSTRUIR EJÉRCITO PUEDE GUARDAR ANTES (Rigzar). Al importar un .json o un código se reemplazaba la lista abierta pero seguía enlazada a la copia guardada de la que se abrió, así que el siguiente Guardar escribía el ejército importado sobre el original. Ahora la importación pregunta antes de reemplazar una lista abierta y queda desligada de cualquier guardado: Guardar crea una lista nueva y no se toca nada de lo ya guardado. El diálogo de Construir ejército añade también «Guardar este ejército y empezar uno nuevo»."
    ],
    "ru": [
     "ОБЩЕЕ — «ПОСТРОИТЬ АРМИЮ» СНОВА ПРЕДЛАГАЕТ ОТКРЫТЫЙ СПИСОК (GH#242). При несохранённом открытом списке кнопка предлагала только сбросить или отменить. Теперь три варианта: продолжить открытую армию, начать новую или отменить.",
-    "НЕКРОНЫ — ДВА TRIARCH STALKER МОГУТ ВЗЯТЬ ОДНИ И ТЕ ЖЕ УЛУЧШЕНИЯ (Plasma Snake, Discord). Замена оружия и Reinforced forelimbs были ограничены одной моделью; теперь каждый Stalker берёт своё, так что пара может нести две Twin heavy gauss cannon и два комплекта forelimbs."
+    "НЕКРОНЫ — ДВА TRIARCH STALKER МОГУТ ВЗЯТЬ ОДНИ И ТЕ ЖЕ УЛУЧШЕНИЯ (Plasma Snake, Discord). Замена оружия и Reinforced forelimbs были ограничены одной моделью; теперь каждый Stalker берёт своё, так что пара может нести две Twin heavy gauss cannon и два комплекта forelimbs.",
+    "ОБЩЕЕ — ИМПОРТ СПИСКА БОЛЬШЕ НЕ ПЕРЕЗАПИСЫВАЕТ СОХРАНЁННЫЙ, А «ПОСТРОИТЬ АРМИЮ» МОЖЕТ СНАЧАЛА СОХРАНИТЬ (Rigzar). Импорт .json или кода заменял открытый список, но оставался связан с сохранением, из которого он был открыт, поэтому следующее «Сохранить» записывало импортированную армию поверх оригинала. Теперь импорт спрашивает перед заменой открытого списка и отвязан от любого сохранения: «Сохранить» создаёт новый список, а уже сохранённое не затрагивается. В диалоге «Построить армию» также появилось «Сохранить эту армию и начать новую»."
    ],
    "ja": [
     "全般 — 「軍を作る」で開いているリストに戻れるようになりました（GH#242）。未保存のリストが開いている場合、破棄かキャンセルしか選べませんでした。今は、開いている軍を続ける、新しく始める、キャンセルの3つから選べます。",
-    "ネクロン — 2体のTriarch Stalkerが同じアップグレードを取れるようになりました（Plasma Snake、Discord）。武器交換とReinforced forelimbsが1体に限定されていましたが、各Stalkerが自分の分を取れるため、Twin heavy gauss cannon 2門とforelimbs 2組を持てます。"
+    "ネクロン — 2体のTriarch Stalkerが同じアップグレードを取れるようになりました（Plasma Snake、Discord）。武器交換とReinforced forelimbsが1体に限定されていましたが、各Stalkerが自分の分を取れるため、Twin heavy gauss cannon 2門とforelimbs 2組を持てます。",
+    "全般 — リストのインポートで保存済みのリストが上書きされなくなり、「軍を作る」で先に保存できます（Rigzar）。.jsonやコードをインポートすると開いているリストは置き換わりましたが、元の保存データとの紐付けが残っていたため、次の保存でインポートした軍が元のリストを上書きしていました。今は開いているリストを置き換える前に確認し、どの保存データとも切り離されます：保存すると新しいリストが作られ、保存済みのものには触れません。「軍を作る」のダイアログにも「この軍を保存して新しく始める」が加わりました。"
    ]
   }
  },

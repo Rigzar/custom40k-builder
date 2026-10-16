@@ -626,8 +626,8 @@ export default function App() {
     return `${base} (${n})`;
   }
 
-  async function handleSaveArmy() {
-    if (!data || !selectedFaction) return;
+  async function handleSaveArmy(): Promise<boolean> {
+    if (!data || !selectedFaction) return false;
 
     const total = army.reduce((s, i) => {
       const u = resolveUnit(i, data);
@@ -657,6 +657,7 @@ export default function App() {
         }
         setSavedMsg('Saved to cloud!');
         setTimeout(() => setSavedMsg(''), 2000);
+        return true;
       } catch (e) {
         // SAY WHY. A bare "Save failed" is the worst possible answer to the one refusal a player
         // can actually hit and act on: a list entered in a league whose registration has closed is
@@ -666,8 +667,8 @@ export default function App() {
         const msg = e instanceof Error && e.message ? e.message : 'Save failed';
         setSavedMsg(msg);
         setTimeout(() => setSavedMsg(''), msg.length > 40 ? 9000 : 2000);
+        return false;
       }
-      return;
     }
 
     // Not logged in: fall back to the local, per-browser "My Armies" list.
@@ -695,6 +696,7 @@ export default function App() {
     saveArmy(entry);
     setSavedMsg('Saved!');
     setTimeout(() => setSavedMsg(''), 2000);
+    return true;
   }
 
   /** The faction-loader effect only fires when `selectedFaction` CHANGES — loading a save of the
@@ -923,6 +925,18 @@ export default function App() {
                   className="py-2 px-3 border border-emerald-700 text-emerald-400 hover:text-emerald-300 hover:border-emerald-500 text-[12px] uppercase tracking-wider"
                 >↩ {t('continueArmy')}</button>
               )}
+              <button
+                onClick={async () => {
+                  if (!(await handleSaveArmy())) return;
+                  setStartChoiceOpen(false);
+                  store.clearArmy();
+                  setActiveCloudRosterId(null);
+                  setViewingCopyOf(null);
+                  setActiveLocalSaveId(null);
+                  setScreen('flow'); setStep('faction');
+                }}
+                className="py-2 px-3 border border-amber-700 text-amber-400 hover:text-amber-300 hover:border-amber-500 text-[12px] uppercase tracking-wider"
+              >{t('saveAndStartNew')}</button>
               <button
                 onClick={() => {
                   setStartChoiceOpen(false);
@@ -1158,6 +1172,7 @@ export default function App() {
           onPlay={() => setShowPlay(true)}
           onPrint={() => setShowPrint(true)}
           onSave={handleSaveArmy}
+          onImported={() => { setActiveLocalSaveId(null); setActiveCloudRosterId(null); setViewingCopyOf(null); }}
           savedMsg={savedMsg}
           onBack={() => setStep('units')}
         />
