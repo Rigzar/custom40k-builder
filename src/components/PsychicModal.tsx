@@ -220,6 +220,19 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     // "one power of a chosen discipline" (CSM/generic) OR "one power from the discipline of X" (CD)
     if (psykerAbilityText.match(/one (psychic )?power (of a chosen|from the) discipline/))
       return { mode: 'one_from_one', limit: 1, knowsSmite };
+    // The same limits written the way the 1.x sheets write them: "one power from a chosen discipline" (Benefictus,
+    // Neurothrope, Norn...), "one psychic power from a chosen psychic discipline" (Inquisitor, Psykers), "one psychic power
+    // from the Malefic discipline" (Daemonhost) and "two powers from a chosen discipline" (Warlocks, Broodlord). None matched
+    // above, so every one of those psykers fell through to 'unlimited' and could browse and pick any number of powers.
+    // "...per Sanctioned Psyker model" scales with the unit and stays unlimited here.
+    if (!/per [a-z ]*model/.test(psykerAbilityText)) {
+      const w = psykerAbilityText.match(/(?:knows|has|^psyker:[^.]*\.\s*it)\s+(?:smite[^.]*?(?:and|as well as)\s+)?(one|two|three|four|five|six|\d+)\s+(?:psychic\s+)?powers?\s+(?:from|of)\s+(?:a|the)\b/);
+      const words: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
+      if (w) {
+        const n = words[w[1]] ?? parseInt(w[1], 10);
+        return n === 1 ? { mode: 'one_from_one', limit: 1, knowsSmite } : { mode: 'n_from_any', limit: n, knowsSmite };
+      }
+    }
     const nMatch = psykerAbilityText.match(/(\d+)\s+powers?\s+from/);
     if (nMatch) return { mode: 'n_from_any', limit: parseInt(nMatch[1]), knowsSmite };
     return { mode: 'unlimited', limit: 999, knowsSmite };
