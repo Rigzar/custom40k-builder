@@ -145,6 +145,15 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
   return undefined;
 }
 
+const CAP_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+/** "up to three" is the sheet's number; when a promotion (Yngir) raises the cap the header states the cap in force. */
+function headerForPromotedCap(header: string, g: { constraint: { max?: number }; promoted_constraint?: unknown }, gc: { max?: number }): string {
+  if (!g.promoted_constraint || gc !== g.promoted_constraint) return header;
+  const from = g.constraint.max, to = gc.max;
+  if (from == null || to == null || from === to || !CAP_WORDS[from]) return header;
+  return header.replace(new RegExp('\\b' + CAP_WORDS[from] + '\\b', 'i'), CAP_WORDS[to] ?? String(to));
+}
+
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
   const { language: uiLang } = useLanguage();
@@ -1651,7 +1660,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             return (
               <details key={realGi} open className="border border-zinc-800 bg-zinc-900/30 text-[12px]">
                 <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
-                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{localiseAbility(g.header)}</span>
+                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{headerForPromotedCap(localiseAbility(g.header), g, gc)}</span>
                   {headerQty?.control}
                   {(isPerN || isFixedMax) && groupMax !== null && !g.independent_choices && (
                     <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>
