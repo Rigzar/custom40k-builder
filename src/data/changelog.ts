@@ -33,6 +33,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "GENERAL — BUILD ARMY NOW OFFERS THE OPEN LIST BACK (GH#242). With an unsaved list open, Build army only offered discard or cancel. It now offers three choices: continue the open army, start a new one, or cancel.",
       "NECRONS — TWO TRIARCH STALKERS CAN BOTH TAKE THE SAME UPGRADES (Plasma Snake, Discord). The weapon swap and Reinforced forelimbs were limited to one model; each Stalker can now take its own, so a pair can carry two Twin heavy gauss cannons and two sets of forelimbs.",
       "GENERAL — IMPORTING A LIST NO LONGER OVERWRITES YOUR SAVED ONE, AND BUILD ARMY CAN SAVE FIRST (Rigzar). Importing a .json or a code replaced the open list but kept it linked to the save it was opened from, so the next Save wrote the imported army over the original. Now an import asks before replacing an open list and is detached from any save: Save creates a new list and nothing already saved is touched. The Build army dialog also gets \"Save this army, then start a new one\".",
+      "TRANSLATIONS — 76 NEW DATASHEET TEXTS IN GERMAN, SPANISH, RUSSIAN AND JAPANESE. The abilities, upgrades and army rules added or reworded over the last weeks (Imperial Navy, Legendary Retinue, C'tan Shard upgrades, Tau drones and philosophies, Tyranid Megafauna, Legion of the Damned and others) were still shown in English. The 304 remaining untranslated lines are plain keyword lists, whose rule names stay in English on purpose. Not reviewed by native speakers.",
     ],
   },
   {
