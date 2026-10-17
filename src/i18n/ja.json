@@ -236,6 +236,7 @@
  "discardArmyConfirm": "新しい軍を始めますか？ 開いているリストは破棄されます（保存済みのコピーには影響しません）。",
  "startNewArmy": "新しい軍を始める",
  "saveAndStartNew": "この軍を保存して新しく始める",
+ "armReasonSupport": "サポートシステムは{n}つまで",
  "importReplacesConfirm": "インポートすると開いているリストが置き換わります。インポートは保存済みのリストとは別扱いで、保存すると新しいリストが作られます（保存済みのものには触れません）。続けますか？",
  "reviewList": "リストを確認",
  "detachmentPrimary": "主軍",

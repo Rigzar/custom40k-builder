@@ -13,6 +13,7 @@ import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
+import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
 import { isAttendantModel } from '../lib/battleProfile';
@@ -1498,7 +1499,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   return owned;
                 }))
               : null;
-            const groupMax = perNRaw !== null
+            // "May pick up to two SUPPORT SYSTEMS from the armory" has no choices of its own: the cap comes from the line and
+            // the count from what the Armory holds (GH#243).
+            const supportCap = isSupportSystemGroup(g) && data ? supportSystemCap(u, item, data, traitPool) : null;
+            const groupMax = supportCap !== null ? supportCap : perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
                 ? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies
@@ -1516,7 +1520,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // `independent_choices` groups do NOT share one pool — each choice is capped on its
             // own, so a full set of one biomorph cannot lock out every other one. Their per-choice
             // remaining is computed inside qtyControl instead (see there).
-            const groupUsed = (isPerN || isEvery || isFixedMax) && !g.independent_choices
+            const groupUsed = supportCap !== null && data ? supportSystemsOwned(u, item, data)
+              : (isPerN || isEvery || isFixedMax) && !g.independent_choices
               ? Object.entries(item.optionQty?.[realGi] ?? {}).reduce(
                   (s, [k, v]) => k === '__inline' ? s : s + (v ?? 0), 0
                 )

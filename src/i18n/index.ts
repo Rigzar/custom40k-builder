@@ -70,7 +70,7 @@ export type TranslationKey =
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
-  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'startNewArmy' | 'saveAndStartNew' | 'importReplacesConfirm' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
+  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'startNewArmy' | 'saveAndStartNew' | 'importReplacesConfirm' | 'armReasonSupport' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
   | 'skirmishDropsAllyConfirm' | 'skirmishDropsArchetypeConfirm' | 'skirmishArchetypesOnly'
   | 'armoryLostOnDowngradeConfirm'
@@ -814,6 +814,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     discardArmyConfirm: 'Start a new army? The list you have open will be discarded (saved copies are not touched).',
     startNewArmy: 'Start a new army',
     saveAndStartNew: 'Save this army, then start a new one',
+    armReasonSupport: 'Only {n} support systems allowed',
     importReplacesConfirm: 'Importing replaces the list you have open. The import is kept apart from your saved lists and Save will create a NEW list (nothing already saved is touched). Continue?',
     reviewList: 'Review list',
     detachmentPrimary: 'Primary',
@@ -1967,6 +1968,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     discardArmyConfirm: 'Neue Armee beginnen? Die geöffnete Liste wird verworfen (gespeicherte Kopien bleiben unverändert).',
     startNewArmy: 'Neue Armee beginnen',
     saveAndStartNew: 'Diese Armee speichern und eine neue beginnen',
+    armReasonSupport: 'Nur {n} Support Systems erlaubt',
     importReplacesConfirm: 'Der Import ersetzt die geöffnete Liste. Der Import bleibt von deinen gespeicherten Listen getrennt, und Speichern legt eine NEUE Liste an (nichts bereits Gespeichertes wird berührt). Fortfahren?',
     reviewList: 'Liste prüfen',
     detachmentPrimary: 'Primär',
@@ -3118,6 +3120,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     discardArmyConfirm: '¿Empezar un ejército nuevo? Se descartará la lista abierta (las copias guardadas no se tocan).',
     startNewArmy: 'Empezar un ejército nuevo',
     saveAndStartNew: 'Guardar este ejército y empezar uno nuevo',
+    armReasonSupport: 'Solo se permiten {n} sistemas de apoyo',
     importReplacesConfirm: 'Importar reemplaza la lista que tienes abierta. La importación queda separada de tus listas guardadas y Guardar creará una lista NUEVA (no se toca nada de lo ya guardado). ¿Continuar?',
     reviewList: 'Revisar lista',
     detachmentPrimary: 'Principal',

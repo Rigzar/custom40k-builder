@@ -21,6 +21,7 @@ import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 import { nm, rl } from '../utils/localName';
 import { armoryAccessorCount, championArmoryBuyers } from '../lib/battleProfile';
+import { supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
 // unenforced-01): every model with Armory access may select a single item from any Imperial
@@ -429,9 +430,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Combines unit.keywords + unit_type tokens + selected mark + bought armour keywords.
   const _effectiveKws = effectiveKeywords(unit, item.mark, getBoughtArmourKws());
 
+  // T'au support systems stop at the datasheet's cap ("up to two SUPPORT SYSTEMS from the armory", GH#243).
+  function supportCapBlocked(arm: ArmoryItem, sec: Section): boolean {
+    if (sec !== 'equipment' || !arm.support_system || !activeData) return false;
+    const cap = supportSystemCap(unit, item, activeData, traitPool);
+    return cap !== null && supportSystemsOwned(unit, item, activeData) >= cap;
+  }
+
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (oncePerModelBlocked(arm, sec)) return true;
+    if (supportCapBlocked(arm, sec)) return true;
     if (uniqueArmyBlocked(arm, sec)) return true;
     if (kustomJobSlotFull(arm)) return true;
     if (unwieldyModelBlocked(arm, sec)) return true;
@@ -452,6 +461,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
    */
   function blockReason(arm: ArmoryItem, sec: Section): string | null {
     if (oncePerModelBlocked(arm, sec)) return t('armReasonCap').replace('{n}', String(copyCap(arm, sec)));
+    if (supportCapBlocked(arm, sec)) return t('armReasonSupport').replace('{n}', String(supportSystemCap(unit, item, activeData!, traitPool) ?? 0));
     if (uniqueArmyBlocked(arm, sec)) return t('armReasonUnique');
     if (kustomJobSlotFull(arm)) return t('armReasonKustom');
     if (unwieldyModelBlocked(arm, sec)) return t('armReasonUnwieldy');

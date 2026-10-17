@@ -462,6 +462,8 @@ export interface ArmoryItem {
   p_char?: number | null;
   /** veteran = counts toward veteran_max slot; vehicle = only for vehicle units; null = regular */
   category?: 'veteran' | 'vehicle' | null;
+  /** T'au SUPPORT SYSTEMS section of the Armory: counted against the datasheet's "up to two SUPPORT SYSTEMS" (GH#243). */
+  support_system?: boolean;
   /** Per-wound/HP cost for veteran abilities taken by vehicles or monsters (null = not available to them). */
   p_veh?: number | null;
   /** Single-profile weapons populate these directly. */

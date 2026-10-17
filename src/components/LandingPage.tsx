@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,6 +60,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "New in this version", rows: [
+        ["T'au Empire","Support systems are counted and capped: the Commander shows n/2 and the Armory stops at the limit."],
         ["Psychic powers","A psyker that \"knows Smite and two powers\" now stops at two (Warlocks, Broodlords); \"one power\" psykers stop at one."],
         ["Lists","Importing a list no longer overwrites a saved one (it asks first and Save makes a new list). Build army can also save the open army first."],
         ["Build army","With an open list you can continue it, start a new one or cancel, instead of only discard or cancel."],
@@ -74,6 +75,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Neu in dieser Version", rows: [
+        ["T'au Empire","Support Systems werden gezählt und begrenzt: Der Commander zeigt n/2 und die Armory hält am Limit an."],
         ["Psionische Kräfte","Ein Psioniker, der „Smite und zwei Kräfte“ kennt, hört jetzt bei zwei auf (Warlocks, Broodlords); bei „einer Kraft“ bei einer."],
         ["Listen","Ein Import überschreibt keine gespeicherte Liste mehr (er fragt vorher, Speichern legt eine neue an). Armee bauen kann die offene Armee auch zuerst speichern."],
         ["Armee bauen","Mit offener Liste kannst du sie fortsetzen, eine neue beginnen oder abbrechen, statt nur verwerfen oder abbrechen."],
@@ -88,6 +90,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Novedades de esta versión", rows: [
+        ["T'au Empire","Los sistemas de apoyo se cuentan y tienen tope: el Commander muestra n/2 y la Armería se detiene en el límite."],
         ["Poderes psíquicos","Un psíquico que «conoce Smite y dos poderes» ahora se detiene en dos (Warlocks, Broodlords); con «un poder», en uno."],
         ["Listas","Importar una lista ya no sobreescribe una guardada (pregunta antes y Guardar crea una nueva). Construir ejército también puede guardar antes el ejército abierto."],
         ["Construir ejército","Con una lista abierta puedes continuarla, empezar una nueva o cancelar, en vez de solo descartar o cancelar."],
@@ -102,6 +105,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Новое в этой версии", rows: [
+        ["T'au Empire","Системы поддержки считаются и ограничены: Commander показывает n/2, а Armory останавливается на пределе."],
         ["Психические силы","Псайкер, который «знает Smite и две силы», теперь останавливается на двух (Warlocks, Broodlords); с «одной силой» — на одной."],
         ["Списки","Импорт списка больше не перезаписывает сохранённый (сначала спрашивает, «Сохранить» создаёт новый). «Построить армию» также может сначала сохранить открытую армию."],
         ["Построить армию","При открытом списке можно продолжить его, начать новый или отменить, а не только сбросить или отменить."],
@@ -116,6 +120,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "このバージョンの新機能", rows: [
+        ["T'au Empire","サポートシステムが数えられ上限が付きました：Commanderはn/2を表示し、Armoryは上限で止まります。"],
         ["サイキックパワー","「Smiteと2つのパワーを知っている」サイキッカーは2つで止まります（Warlocks、Broodlord）。「1つ」のサイキッカーは1つで止まります。"],
         ["リスト","リストのインポートで保存済みのリストが上書きされなくなりました（先に確認し、保存すると新規作成）。「軍を作る」で開いている軍を先に保存することもできます。"],
         ["軍を作る","開いているリストがある場合、破棄かキャンセルだけでなく、続ける・新しく始める・キャンセルから選べます。"],
