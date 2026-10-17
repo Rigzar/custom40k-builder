@@ -145,6 +145,12 @@ export interface OptionEffect {
    * extractGrantedWeaponName text-pattern extraction.
    */
   grants_weapons?: string[];
+  /**
+   * Datasheet weapons this option takes AWAY while it is selected -- the sheet's "Replaces \"Fists of a Star God\"" on the
+   * C'tan Shard's Spear of the Dragon and Scythe of the Nightbringer. A group-level `replaces` covers a whole group of
+   * choices, and here only two of seventeen replace anything.
+   */
+  removes_weapons?: string[];
 }
 
 export type ConstraintType =

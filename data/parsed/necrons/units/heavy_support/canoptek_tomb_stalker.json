@@ -61,7 +61,7 @@
     ],
     "abilities": [
         "Acute Senses, Deep Strike, Move Through Cover, Squadron",
-        "Dark prison: The model can dispel 1 psychic power per battle round.",
+        "Dark prison: The model can try to dispel 1 psychic power per battle round.",
         "Phase tunneling: The model does not scatter when being set up via Deep Strike."
     ],
     "unit_type": "Monstrous Creature",

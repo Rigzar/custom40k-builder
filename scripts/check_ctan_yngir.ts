@@ -28,6 +28,12 @@ let bad = 0; const eq = (l: string, a: unknown, b: unknown) => { if (JSON.string
   const r: Any = resolveUnitProfile(it, u, { ...state, army: [it] }, nec);
   const names = r.weaponGroups.flatMap((g: Any) => g.weapons.map((w: Any) => w.name));
   eq('weapons: Fists + Gaze of Death only', names.sort(), ['Fists of a Star God', 'Gaze of Death']);
+  // Necrons 1.7: the Spear and the Scythe REPLACE the Fists of a Star God.
+  const namesOf = (picks: string[]) => { const it2 = mk(false, picks); return resolveUnitProfile(it2, u, { ...state, army: [it2] }, nec).weaponsToShow.map((w: Any) => w.name).sort(); };
+  eq('Spear of the Dragon replaces the Fists', namesOf(['Spear of the Dragon']), ['Spear of the Dragon']);
+  eq('Scythe + Gaze of Death: no Fists', namesOf(['Scythe of the Nightbringer', 'Gaze of Death']), ['Gaze of Death', 'Scythe of the Nightbringer']);
+  eq('Spear costs 12', price(mk(false, ['Spear of the Dragon']), null), 254 + 12);
+  eq('Scythe costs 20', price(mk(false, ['Scythe of the Nightbringer']), null), 254 + 20);
   const m = r.models?.[0]?.stats ?? r.stats;
   console.log('stats', JSON.stringify(m));
   process.exit(bad ? 1 : 0);

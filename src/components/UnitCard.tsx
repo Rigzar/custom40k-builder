@@ -200,7 +200,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const factionCat = getFactionCat(data.faction);
 
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
-  const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
+  // A vehicle whose printed WS is "-" gets one from an option (Triarch Stalker's Reinforced forelimbs: "gains WS 3+"), and
+  // the column has to exist for it to show.
+  const vehicleHasWS = u.is_vehicle && (!!optionStatSets?.WS || modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-'));
   // "Transport: This model has a transport capacity of 10 infantry models, excluding …" — the
   // number is what a player checks while building, so it is surfaced on the profile header. The
   // sentence itself stays in Abilities, since it carries the exclusions.

@@ -3137,6 +3137,17 @@ export function resolveUnitProfile(
   // Cosmetic archetype renames/ability-injections apply AFTER gating (see weaponDisplayOverride
   // doc) so they never interfere with matching choice names against original weapon names.
   if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);
+  // A selected choice that REPLACES a weapon (C'tan Spear / Scythe replace the Fists) removes that row.
+  const removedByChoice = new Set<string>();
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      for (const n of g.choices[parseInt(ci)]?.effect?.removes_weapons ?? []) removedByChoice.add(n.toLowerCase());
+    }
+  }
+  if (removedByChoice.size) profile.weaponsToShow = profile.weaponsToShow.filter(w => !removedByChoice.has(w.name.toLowerCase()));
   profile.weaponGroups = computeWeaponGroups(unit, item, profile);
   profile.modelRowCounts = computeModelRowCounts(unit, item, profile);
   fillMissingWeaponCounts(unit, item, profile.weaponGroups);

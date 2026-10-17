@@ -415,7 +415,10 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   });
   const color = getThemeColor(data.faction, effectiveMark);
 
-  const statKeys  = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
+  // Same rule as the unit card: an option that gives a vehicle a WS ("Reinforced forelimbs") adds the column.
+  const statKeys: readonly string[] = u.is_vehicle
+    ? (optionStatSets?.WS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)
+    : STAT_KEYS_INF;
   // One list, not a choice between two: the codex says a character or Monstrous Creature gains
   // its bonus ADDITIONALLY, so both apply (GH#128).
   const markMods  = markStatMods(statModMark, u);

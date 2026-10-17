@@ -5,19 +5,19 @@
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
-                "BS": "2+",
-                "S": "4",
+                "BS": "3+",
+                "S": "5",
                 "T": "5",
                 "W": "2",
                 "I": "2",
-                "A": "1",
+                "A": "2",
                 "LD": "10",
                 "SV": "3+"
             },
             "name": "Deathmark",
             "min": 5,
             "max": 10,
-            "points": 63
+            "points": 65
         }
     ],
     "variant_models": [],
@@ -36,7 +36,7 @@
     "option_groups": [],
     "abilities": [
         "Deep Strike, Reanimation Protocols",
-        "Aetheric Interception: Deathmarks roll two dice less for scatter when deep striking. Additionally, once an enemy unit emerges from reserve, a Deathmark unit that has not yet used its order this round of combat may perform an intercept. The Deathmark unit is removed from the field or from reserves and immediately deployed within 18\" of the enemy reserve unit. The Deathmarks can then fire at that unit as if it had been given the \"Move & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action."
+        "Aetheric Interception: Once an enemy unit emerges from reserve, a Deathmarks unit in reserve may perform an intercept. The unit is immediately deployed within 18\" but at least 9\" of the enemy reserve unit. The Deathmarks can then fire at that unit as if they had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action."
     ],
     "unit_type": "Infantry",
     "keywords": [
@@ -55,5 +55,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 315
+    "min_cost": 325
 }

@@ -45,7 +45,8 @@
     "option_groups": [],
     "abilities": [
         "Favoured enemy(everything), Furious Charge, Move through cover, Regeneration(1)",
-        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0).",
+        "Flesh-eater Court: The Skorpekh Lord may join a unit of Skorpekh Destroyers."
     ],
     "unit_type": "Character model, Monstrous Creature",
     "keywords": [
