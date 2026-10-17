@@ -1850,7 +1850,7 @@ function EquipmentGroups({
     if (isVehicle || isMonster) {
       const vp = parsePrice(arm.p_veh);
       if (vp == null) return '—';
-      const total = vp * unitWounds * unitSize;
+      const total = vp * unitWounds * (isVehicle ? 1 : unitSize);
       return `+${total} pts (${vp}${t('perWoundSuffix')})`;
     }
     if (isChar) {
@@ -1863,7 +1863,7 @@ function EquipmentGroups({
 
   function vehPriceLabel(arm: ArmoryItem): string {
     const p = parsePrice(arm.p_unit);
-    return p != null ? `+${p * unitSize} pts` : '—';
+    return p != null ? `+${p * (isVehicle ? 1 : unitSize)} pts` : '—';
   }
   // Regular equipment only in full armory; veteran/vehicle only via their dedicated buttons
   const showRegular = !filterCategory && regular.length > 0;

@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185h_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -66,6 +66,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Lists","Importing a list no longer overwrites a saved one (it asks first and Save makes a new list). Build army can also save the open army first."],
         ["Build army","With an open list you can continue it, start a new one or cancel, instead of only discard or cancel."],
         ["Necrons","Two Triarch Stalkers can each take their own weapon swap and Reinforced forelimbs."],
+        ["Necrons","Eternal Conquerors is only paid by <Necron> units; a vehicle squadron no longer pays an item twice (per vehicle and again per copy)."],
         ["Orks","Sheet 1.5: Head Honcho, Banna Wava, Grot Mega Tank and Grot Cutta, Lugga / Big Lugga, Grot Mega armor and the Gretchin Revolutionary Committee (no Runtherds, no Cowardly)."],
         ["T'au Empire","Kroot Shaman is a +5 upgrade that makes the model a psyker; Core Rules 1.30 adds the Hunter rule."],
       ] },
@@ -84,6 +85,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Listen","Ein Import überschreibt keine gespeicherte Liste mehr (er fragt vorher, Speichern legt eine neue an). Armee bauen kann die offene Armee auch zuerst speichern."],
         ["Armee bauen","Mit offener Liste kannst du sie fortsetzen, eine neue beginnen oder abbrechen, statt nur verwerfen oder abbrechen."],
         ["Necrons","Zwei Triarch Stalker können je ihren eigenen Waffentausch und Reinforced forelimbs nehmen."],
+        ["Necrons","Eternal Conquerors zahlen nur <Necron>-Einheiten; eine Fahrzeug-Squadron zahlt einen Gegenstand nicht mehr doppelt (pro Fahrzeug und pro Kopie)."],
         ["Orks","Blatt 1.5: Head Honcho, Banna Wava, Grot Mega Tank und Grot Cutta, Lugga / Big Lugga, Grot Mega armor und das Gretchin Revolutionary Committee."],
         ["T'au Empire","Kroot Shaman ist ein +5-Upgrade, das das Modell zum Psyker macht; Kernregeln 1.30 bringen die Regel Hunter."],
       ] },
@@ -102,6 +104,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Listas","Importar una lista ya no sobreescribe una guardada (pregunta antes y Guardar crea una nueva). Construir ejército también puede guardar antes el ejército abierto."],
         ["Construir ejército","Con una lista abierta puedes continuarla, empezar una nueva o cancelar, en vez de solo descartar o cancelar."],
         ["Necrones","Dos Triarch Stalker pueden tomar cada uno su cambio de arma y sus Reinforced forelimbs."],
+        ["Necrones","Eternal Conquerors solo lo pagan las unidades <Necron>; un escuadrón de vehículos ya no paga un objeto dos veces (por vehículo y por copia)."],
         ["Orks","Hoja 1.5: Head Honcho, Banna Wava, Grot Mega Tank y Grot Cutta, Lugga / Big Lugga, Grot Mega armor y el Gretchin Revolutionary Committee."],
         ["T'au Empire","El Kroot Shaman es una mejora de +5 que hace psíquico al modelo; Core Rules 1.30 añade la regla Hunter."],
       ] },
@@ -120,6 +123,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Списки","Импорт списка больше не перезаписывает сохранённый (сначала спрашивает, «Сохранить» создаёт новый). «Построить армию» также может сначала сохранить открытую армию."],
         ["Построить армию","При открытом списке можно продолжить его, начать новый или отменить, а не только сбросить или отменить."],
         ["Некроны","Два Triarch Stalker могут взять каждый свою замену оружия и Reinforced forelimbs."],
+        ["Некроны","Eternal Conquerors оплачивают только отряды <Necron>; эскадрон техники больше не платит за предмет дважды (за машину и за копию)."],
         ["Орки","Таблица 1.5: Head Honcho, Banna Wava, Grot Mega Tank и Grot Cutta, Lugga / Big Lugga, Grot Mega armor и Gretchin Revolutionary Committee."],
         ["Т'ау","Kroot Shaman — улучшение +5, делающее модель псайкером; Core Rules 1.30 добавляют правило Hunter."],
       ] },
@@ -138,6 +142,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["リスト","リストのインポートで保存済みのリストが上書きされなくなりました（先に確認し、保存すると新規作成）。「軍を作る」で開いている軍を先に保存することもできます。"],
         ["軍を作る","開いているリストがある場合、破棄かキャンセルだけでなく、続ける・新しく始める・キャンセルから選べます。"],
         ["ネクロン","2体のTriarch Stalkerがそれぞれ自分の武器交換とReinforced forelimbsを取れます。"],
+        ["ネクロン","Eternal Conquerorsは<Necron>ユニットのみ支払い。車両Squadronはアイテムを二重に課金されなくなりました（車両ごと＋コピーごと）。"],
         ["オーク","シート1.5：Head Honcho、Banna Wava、Grot Mega Tank、Grot Cutta、Lugga / Big Lugga、Grot Mega armor、Gretchin Revolutionary Committee。"],
         ["タウ","Kroot Shamanはモデルをpsykerにする+5アップグレードに。Core Rules 1.30でHunterルールを追加。"],
       ] },

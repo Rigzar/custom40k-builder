@@ -8,7 +8,7 @@ import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
 import { dataForArchetype } from '../engine/archetypes/dataPatch';
 import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
-import { isPsykerOnlyTrait } from '../engine/traitEffects';
+import { isPsykerOnlyTrait, traitExcludesUnit } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
 import { armoryItemsLostByDeselecting, repairOrphanedArmory } from '../utils/armoryGuard';
@@ -102,6 +102,8 @@ function computeTraitSelections(
       // answer has to be no. Dropped HERE, which every read passes through: a saved list, a shared
       // link and an imported code all heal themselves when the app updates, with no migration.
       if (isPsykerOnlyTrait(name) && !unit.is_psyker) return null;
+      // "Only for <Necron> units." (Eternal Conquerors): C'tan, Pariahs, Canoptek and the like do not pay.
+      if (traitExcludesUnit(name, unit)) return null;
 
       let raw: string | null | undefined;
       if (unit.is_vehicle) {

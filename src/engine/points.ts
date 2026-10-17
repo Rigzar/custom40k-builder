@@ -38,12 +38,16 @@ export function gameSizePrice(itemName: string, pointLimit: number): number | nu
 export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Unit, pointLimit = 0): number {
   const byGameSize = gameSizePrice(a.itemName, pointLimit);
   if (byGameSize !== null) return byGameSize;
-  if (a.scaling === 'perModel') return a.points * item.size;
+  // A vehicle squadron buys each copy for ONE vehicle (the Armory lets it hold as many copies as it has
+  // vehicles), so the price of a copy never scales with the squadron size: scaling it as well charged a
+  // 2-vehicle squadron 4x for an item on both (Sophtym).
+  const copies = unit.is_vehicle ? 1 : item.size;
+  if (a.scaling === 'perModel') return a.points * copies;
   if (a.scaling === 'perWound') {
     const wStatKey = unit.is_vehicle ? 'HP' : 'W';
     const baseModel = unit.models.find(m => m.max > 0) ?? unit.models[0];
     const woundsPerModel = parseInt(String(baseModel?.stats?.[wStatKey] ?? '1'), 10) || 1;
-    return a.points * woundsPerModel * item.size;
+    return a.points * woundsPerModel * copies;
   }
   return a.points;
 }

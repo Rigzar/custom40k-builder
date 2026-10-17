@@ -57,10 +57,18 @@ function effectApplies(effect: TraitEffect, unit: Unit): boolean {
   }
 }
 
+/** Traits whose text limits them to a keyword ("Only for <Necron> units."). A unit without it neither gets the effect nor pays for the trait. */
+const KEYWORD_ONLY_TRAITS: Record<string, string> = { 'Eternal Conquerors': 'Necron' };
+
+export function traitExcludesUnit(traitName: string, unit: Unit): boolean {
+  const kw = KEYWORD_ONLY_TRAITS[traitName];
+  return !!kw && !(unit.keywords ?? []).some(k => k.toLowerCase() === kw.toLowerCase());
+}
+
 /** Returns all TraitEffect entries for the given trait that apply to the given unit. */
 export function getTraitEffects(traitName: string, unit: Unit): TraitEffect[] {
   const effects = TRAIT_EFFECTS[traitName];
-  if (!effects) return [];
+  if (!effects || traitExcludesUnit(traitName, unit)) return [];
   return effects.filter(e => effectApplies(e, unit));
 }
 

@@ -82,5 +82,18 @@ const eq = (l: string, a: unknown, b: unknown) => {
   eq('Kroot Shaman: psyker only when chosen, +5 points',
     [resolveUnitProfile(k0, ms, stT(k0), tau).effectivePsyker, resolveUnitProfile(k1, ms, stT(k1), tau).effectivePsyker,
       computeUnitPoints(k1, ms, '', 'Tau Empire', 4000) - computeUnitPoints(k0, ms, '', 'Tau Empire', 4000)], [false, true, 5]);
+  // Necrons: Eternal Conquerors is "Only for <Necron> units"; a squadron prices each copy for ONE vehicle
+  const nec: Any = await (FACTION_LOADERS as Any).necrons();
+  const { useArmyStore } = await import('../src/store/army');
+  const S = () => useArmyStore.getState();
+  S().clearArmy(); S().setData(nec); S().setEngagement('epic'); S().setPointLimit(4000);
+  S().addUnit('Warriors', 'Troops'); S().addUnit('Pariahs', 'Elites'); S().addUnit('Canoptek Scarabs', 'Fast Attack');
+  S().setTraitPool(['Eternal Conquerors']);
+  eq('Eternal Conquerors: Necron Warriors pay, Pariahs and Canoptek Scarabs do not', S().army.map((e: Any) => (e.traits ?? []).length), [1, 0, 0]);
+  S().clearArmy(); S().addUnit('Canoptek Doomstalker', 'Heavy Support');
+  const dsId = S().army[0].id;
+  const dsPts = (size: number, copies: number) => { S().updateUnit(dsId, { size, armory: Array.from({ length: copies }, (_, i) => ({ id: 'a' + i, itemName: 'X', source: 'General', section: 'equipment', points: 3, scaling: 'perWound' })) } as Any); const it = S().army[0]; return computeUnitPoints(it, nec.units['Canoptek Doomstalker'], '', 'Necrons', 4000); };
+  eq('Doomstalker squadron: one item per vehicle costs the same per copy at size 1 and 2', [dsPts(1, 1) - dsPts(1, 0), dsPts(2, 2) - dsPts(2, 0)], [6, 12]);
+
   process.exit(bad ? 1 : 0);
 })();
