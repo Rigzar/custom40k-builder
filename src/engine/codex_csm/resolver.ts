@@ -18,7 +18,7 @@ function applyArchetypeWeaponDisplay(weapons: import('../../types/data').Weapon[
   return ws;
 }
 
-export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
+export const csmResolve: FactionResolverFn = (base, item, unit, state, data) => {
   // An Allied Detachment whose own faction is CSM uses ITS OWN archetype, not the primary army's
   // — same scope rule as resolveBase's effectiveMark/effectiveSlot.
   const effectiveArchetype = effectiveArchetypeFor(item, state);
@@ -46,6 +46,13 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
     (unit.has_armory_access || unit.champion_has_armory);
 
   const injectedAbilities = [...base.injectedAbilities];
+  // Favored Units: "Squad leaders receive +1 attack and a personal icon" (Chaos Space Marines sheet, Index). The +1 Attack is
+  // applied on the leader's row; the icon was never shown for CSM, while Chaos Daemons already print it. Uses the Armory's own
+  // "Personal icon" wording.
+  if (isFavored) {
+    const icon = (data.armory_general?.equipment ?? []).find(e => e.name === 'Personal icon');
+    if (icon?.desc) injectedAbilities.push('Personal icon (Favored): ' + icon.desc);
+  }
 
   // ── Mark ability injections for non-locked, player-selected marks ────────────
   // statModMark is set only for user-selected marks (locked-mark units already have
