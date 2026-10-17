@@ -1,0 +1,96 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Claws of the Black Hunt\u1d40",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Armor piercing(5+), Extra Attack(2), Shred, Unwieldy",
+        "-",
+        10
+    ],
+    [
+        "Talons of the Night Terror\u1d40",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(4), Shred, Unwieldy",
+        "-",
+        10
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Curze\u2019s Orb\u1d40",
+        "The army may re-roll any one die per activation. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Scourging Chains\u1d40",
+        "The model gains the \"Shred\" ability with all melee attacks.",
+        "-",
+        10
+    ],
+    [
+        "Stormbolt Plate\u1d40",
+        "The model and its attached unit gain the \"Use cover\" ability.",
+        "-",
+        5
+    ],
+    [
+        "Vox Daemonicus\u1d40",
+        "Enemy units within 6\" suffer a -1 penalty to their Leadership, to rolls to manifest psychic powers, invocations, prayers and similar abilities.",
+        5,
+        5
+    ],
+    [
+        "Warp-fuelled thrusters",
+        "Once per game at the end of this model's activation, if it is not engaged in Melee Combat, you can put it and any attached Jump Pack Infantry unit in reserves. Only for Jump Pack Infantry. ",
+        "-",
+        5
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Anguish engines",
+        "Units within 12\" have -2 to their Leadership. Only for Flyers.",
+        10
+    ],
+    [
+        "Flayed trophies",
+        "Whenever the model successfully performs a Charge order, the charged units must immediately resolve a Leadership Test with a -1 penalty. If fail, they gain 1 Battleshock token.",
+        5
+    ]
+]

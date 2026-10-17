@@ -1,0 +1,60 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Blazing Ire",
+        "The model gains +1 Attack. Unique. Order of the Bloody Rose only.",
+        5
+    ],
+    [
+        "Impervious to Pain",
+        "Everytime the model uses an Act of Faith, it regains 1 Wound (to the maximum of its starting value). Unique. Order of the Valorous Heart only.",
+        5
+    ],
+    [
+        "Light of the Divine",
+        "Everytime the model uses an Act of Faith, it gains the \"Soul burn(5+)\" ability for all melee attacks. Unique. Order of the Sacred Rose only.",
+        5
+    ],
+    [
+        "Quicksilver Veil",
+        "The model gains the \"Deflect\" and \"Parry\" abilities. Unique. Order of the Argent Shroud only.",
+        6
+    ],
+    [
+        "Shield Bearer",
+        "Once per game, the model may gain a 3+ ward save until the start of its next activation. Unique. Order of Our Martyred Lady only.",
+        15
+    ],
+    [
+        "Terrible Knowledge",
+        "The model may re-roll any one die per activation. Unique. Order of the Ebon Chalice only.",
+        5
+    ]
+]

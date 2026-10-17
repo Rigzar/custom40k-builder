@@ -1,0 +1,117 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Patriarch",
+        "6\"",
+        "2+",
+        "2+",
+        6,
+        5,
+        4,
+        7,
+        5,
+        10,
+        "4+",
+        128
+    ],
+    [
+        "A Patriach is equipped with: Patriarch Claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Patriarch claws",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        2,
+        "Armor piercing(5+), Deadly(5+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Patriarch per army."
+    ],
+    [
+        "\u2022 May receive one of the following upgrades:"
+    ],
+    [
+        "- Miasmic strain",
+        "+1 points"
+    ],
+    [
+        "- Reaperfex strain",
+        "+2 point"
+    ],
+    [
+        "- Psi strain",
+        "+5 points"
+    ],
+    [
+        "- Bulwark strain",
+        "+29 point"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Deflect, Infiltrator, Massive(1), Parry, Terrifying(-1), Use cover"
+    ],
+    [
+        "Living Idol: Friendly units within 12\" range may use the Patriarch's Leadership value."
+    ],
+    [
+        "Preternatural senses: The model gains a 5+ ward save."
+    ],
+    [
+        "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."
+    ],
+    [
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+    ],
+    [
+        "Upgrades:"
+    ],
+    [
+        "Bulwark strain: The models gains a 3+ armor save."
+    ],
+    [
+        "Miasmic strain: The model gains the \"Retribution(1)\" ability."
+    ],
+    [
+        "Psi strain: The models gains +1 to all tests for manifesting a psychic power."
+    ],
+    [
+        "Reaperfex strain: The model gains the \"Frenzy(2\")\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

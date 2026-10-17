@@ -1,0 +1,103 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-19",
+        "Peltast",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "4+",
+        16
+    ],
+    [
+        1,
+        "Peltast Alpha",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "4+",
+        21
+    ],
+    [
+        "Every model is equipped with: Galvanic caster."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Galvanic Caster",
+        "24\"",
+        "Assault 1",
+        3,
+        -1,
+        1,
+        "Haywire"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Peltast may be equipped with:"
+    ],
+    [
+        "- Enhanced data-tether",
+        "+10 points"
+    ],
+    [
+        "- Omnispex",
+        "+10 points"
+    ],
+    [
+        "\u2022 The Peltast Alpha has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah"
+    ],
+    [
+        "Kyropatris Field Generator: This model receives a 5+ ward save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

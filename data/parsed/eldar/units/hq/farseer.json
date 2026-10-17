@@ -85,7 +85,9 @@
         "Exalted Farseer: The model can cast and deny 1 additional power per battle round."
     ],
     "unit_type": "Character model, Infantry",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": true,
     "is_monster": false,

@@ -162,7 +162,9 @@
         "Crewed platform: If the last Guardian Defender is removed, all remaining Heavy weapon platforms are destroyed. They are ignored for all kinds of unit strength and moral purposes."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

@@ -1,0 +1,56 @@
+[
+    [
+        "Leagues of Votann"
+    ],
+    [
+        "HQ",
+        "Br\u00f4khyr Iron-master",
+        "Grimnyr",
+        "K\u00e2hl",
+        "Special rules",
+        "Eye of the Ancestors: Everytime a friendly unit is removed from the game, place a Judgement token next to the enemy unit that caused the last wound. An enemy unit can't have more than 2 Judgement tokens at the same time. All friendly units attacking a target with at least 1 Judgement token gain the following, cumulative benefits:",
+        "Judgment tokens | Effect",
+        "1 | Re-roll 1 hit roll per activation",
+        "2 | Re-roll 1 wound roll per activation",
+        "Character models that join a unit pool their Judgement tokens together. Once they leave the unit, these tokens have to be split up evenly.",
+        "Steady Advance: The unit can never receive an \"Advance\" order and gains the \"Move through cover\" ability.",
+        "Void armor: Enemy attacks reduce their AT and AP value by -1, to a minimum of 0 each."
+    ],
+    [
+        "Troops",
+        "Hearthkyn Warriors",
+        "Ironkin Steeljacks"
+    ],
+    [
+        "Elite",
+        "Arkanyst Evaluator",
+        "Cthonian Beserks",
+        "Einhyr Champion",
+        "Einhyr Hearthguard",
+        "Hernkyn Yaegirs",
+        "Memnyr Strategist"
+    ],
+    [
+        "Fast Attack",
+        "Hearthkyn Skyriggers",
+        "Hernkyn Pioneers",
+        "Kapricus Defender"
+    ],
+    [
+        "Heavy Support",
+        "Br\u00f4khyr Thunderkyn",
+        "Cthonian Earthshakers",
+        "Hekaton Land Fortress"
+    ],
+    [
+        "Transports",
+        "Kapricus Carrier",
+        "Sagitaur"
+    ],
+    [
+        "Fortifications"
+    ],
+    [
+        "Flyers"
+    ]
+]

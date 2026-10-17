@@ -1,0 +1,50 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Armor of Misery",
+        "The model gains a 2+ armor save and the \"Parry\" ability. Unique.",
+        26
+    ],
+    [
+        "Famed Savagery",
+        "The model gains +1 Attack. Unique.",
+        5
+    ],
+    [
+        "Labyrinthine Cunning",
+        "You gain an additional 0,25 Victory Points (VP) from secondary objectives. Unique.",
+        15
+    ],
+    [
+        "Soul-Seeker",
+        "One weapon of the model gains the \"Soul burn(5+)\" ability. Unique.",
+        10
+    ]
+]

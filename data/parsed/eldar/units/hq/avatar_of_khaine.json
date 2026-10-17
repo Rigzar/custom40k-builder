@@ -69,7 +69,9 @@
         "Molten body: Enemy attacks reduce their AP value by -2 (to a minimum of 0). If the model loses its last Wound, it explodes like a vehicle."
     ],
     "unit_type": "Monstrous Creature",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": true,

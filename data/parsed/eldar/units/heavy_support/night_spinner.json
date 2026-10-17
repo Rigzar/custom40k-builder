@@ -75,7 +75,9 @@
         "Anti-Grav, Battle Focus"
     ],
     "unit_type": "Vehicle",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": true,
     "is_character": false,
     "is_monster": false,

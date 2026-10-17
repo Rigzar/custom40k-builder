@@ -49,7 +49,9 @@
         "Vector Dancer: The model gains a 5+ ward save."
     ],
     "unit_type": "Flyer",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": true,
     "is_character": false,
     "is_monster": false,

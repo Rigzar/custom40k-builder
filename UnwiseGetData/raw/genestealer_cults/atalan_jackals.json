@@ -1,0 +1,214 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-8",
+        "Atalan Jackal",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        2,
+        3,
+        1,
+        6,
+        "4+",
+        27
+    ],
+    [
+        "*",
+        "Atalan Leader",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        2,
+        3,
+        1,
+        7,
+        "4+",
+        37
+    ],
+    [
+        "0-2",
+        "Atalan Wolfquad",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        2,
+        3,
+        1,
+        6,
+        "4+",
+        38
+    ],
+    [
+        "Every model is equipped with: Atalan small arms; Blasting charges."
+    ],
+    [
+        "Every Atalan Wolfquad is additionally equipped with: Heavy stubber."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Atalan incinerator",
+        "12\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Atalan power weapon",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Atalan small arms",
+        "12\"",
+        "Pistol 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Blasting charges",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Demolition charge",
+        "6\"",
+        "Assault 1",
+        8,
+        -2,
+        2,
+        "Ammo(1), AT(2), Blast(6), Seeking"
+    ],
+    [
+        "Grenade launcher *"
+    ],
+    [
+        "- Frag",
+        "24\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak",
+        "24\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Heavy stubber",
+        "36\"",
+        "Heavy 3",
+        4,
+        0,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "Mining laser",
+        "24\"",
+        "Heavy 1",
+        9,
+        -3,
+        3,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model may be equipped with:"
+    ],
+    [
+        "- Atalan power weapon",
+        "+3 points"
+    ],
+    [
+        "\u2022 Any Atalan Jackal may be equipped with:"
+    ],
+    [
+        "- Demolition charge",
+        "+15 points"
+    ],
+    [
+        "\u2022 One Atalan Jackal may swap their Atalan small arms:"
+    ],
+    [
+        "- Grenade launcher",
+        "+4 points"
+    ],
+    [
+        "\u2022 Any Atalan Wolfquad may swap their Heavy stubber with:"
+    ],
+    [
+        "- Atalan incinerator",
+        "+20 points"
+    ],
+    [
+        "- Mining laser",
+        "+27 points"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Atalan Leader for +10 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Infiltrator, Outflank, Use cover, Vanguard"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike"
+    ]
+]

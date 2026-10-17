@@ -1,0 +1,227 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Repulsor",
+        "12\"",
+        "6+",
+        "3+",
+        7,
+        14,
+        14,
+        14,
+        4,
+        1,
+        4,
+        394
+    ],
+    [
+        "A Repulsor is a single model and is equipped with: Ironhail heavy stubber; 3 Fragstorm grenade launcher; Heavy onslaught gatling cannon; 2 Krakstorm grenade launcher; Twin heavy bolter."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Fragstorm grenade launcher",
+        "18\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy onslaught gatling cannon",
+        "30\"",
+        "Heavy 6",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Icarus Ironhail heavy stubber",
+        "36\"",
+        "Heavy 2",
+        5,
+        -1,
+        1,
+        "Anti-air"
+    ],
+    [
+        "Icarus rocket pod",
+        "24\"",
+        "Heavy 2",
+        7,
+        -2,
+        2,
+        "AT(1), Anti-air"
+    ],
+    [
+        "Ironhail heavy stubber",
+        "36\"",
+        "Heavy 2",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Krakstorm grenade launcher",
+        "18\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Las-talon",
+        "24\"",
+        "Heavy 2",
+        9,
+        -4,
+        2,
+        "AT(3)"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Onslaught gatling cannon",
+        "24\"",
+        "Heavy 5",
+        5,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin heavy bolter",
+        "36\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin lascannon",
+        "48\"",
+        "Heavy 2",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap their Heavy onslaught gatling cannon:"
+    ],
+    [
+        "- Las-talon",
+        "+21 points"
+    ],
+    [
+        "\u2022 May swap their Twin Heavy bolter:"
+    ],
+    [
+        "- Twin lascannon",
+        "+102 points"
+    ],
+    [
+        "\u2022 May swap one Ironhail heavy stubber:"
+    ],
+    [
+        "- Onslaught gatling cannon",
+        "+37 points"
+    ],
+    [
+        "\u2022 May swap 2 Fragstorm grenade launcher:"
+    ],
+    [
+        "- 2 Storm bolters",
+        "+7 points"
+    ],
+    [
+        "\u2022 May swap one Fragstorm grenade launcher:"
+    ],
+    [
+        "- Storm bolter",
+        "+3 points"
+    ],
+    [
+        "- Icarus Ironhail heavy stubber",
+        "+8 points"
+    ],
+    [
+        "- Icarus rocket pod",
+        "+27 points"
+    ],
+    [
+        "\u2022 May be equipped with one of the following:"
+    ],
+    [
+        "- Ironhail heavy stubber",
+        "+15 points"
+    ],
+    [
+        "- Multi-melta",
+        "+37 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-grav"
+    ],
+    [
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

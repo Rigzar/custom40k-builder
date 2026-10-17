@@ -1,0 +1,80 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Painboy",
+        "6\"",
+        "3+",
+        "5+",
+        4,
+        4,
+        2,
+        3,
+        2,
+        6,
+        "4+",
+        31
+    ],
+    [
+        "Every model is equipped with: Stikkbombz."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Stikkbombz",
+        "6\"",
+        "Grenade 1",
+        3,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Command squad, Mob, Furious charge, Squadron, Waaagh!"
+    ],
+    [
+        "Advisor: For every HQ selection, one Mekboy may be selected without taking up an Elite slot."
+    ],
+    [
+        "Narthecium: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

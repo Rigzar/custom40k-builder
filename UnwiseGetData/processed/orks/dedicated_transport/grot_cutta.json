@@ -1,0 +1,64 @@
+{
+    "name": "Grot Cutta",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "4",
+                "FRONT": "9",
+                "SIDE": "9",
+                "REAR": "9",
+                "I": "3",
+                "A": "2",
+                "HP": "1"
+            },
+            "name": "Grot Cutta",
+            "min": 1,
+            "max": 1,
+            "points": 49
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 49,
+    "default_size": 1,
+    "equipped_with": "Grot Cuttas are equipped with: -",
+    "weapons": [
+        {
+            "name": "Big shoota",
+            "range": "36\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Grotzooka",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(2)"
+        },
+        {
+            "name": "Rokkit launcha",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-Air"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Open",
+        "Transport: This model has a transport capacity of 10 models. It may only transport Grots.",
+        "Wind Powered: The model can be moved an additional D6\" each time it is activated."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": []
+}
