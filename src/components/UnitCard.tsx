@@ -192,7 +192,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
-    optionStatMods, optionStatSets, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     attachedDrones,
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
@@ -207,7 +207,12 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // number is what a player checks while building, so it is surfaced on the profile header. The
   // sentence itself stays in Abilities, since it carries the exclusions.
   const transportAbility = (u.abilities ?? []).find(a => /transport capacity of\s*\d+/i.test(a)) ?? null;
-  const transportCapacity = transportAbility
+  // A bought upgrade can change it ("Lugga: ... its transport capacity to 20 infantry models"). A line that makes the
+  // number depend on the weapon ("When equipped with a Kannon ... 10") is left to the text.
+  const upgradedCapacity = (injectedAbilities ?? []).map(l => /when equipped/i.test(l) ? null : l.match(/transport capacity to\s*(\d+)/i)).find(Boolean);
+  const transportCapacity = upgradedCapacity
+    ? Number(upgradedCapacity[1]) || null
+    : transportAbility
     ? Number(transportAbility.match(/transport capacity of\s*(\d+)/i)?.[1]) || null
     : null;
   // InvSv stat: best of base-ability + equipment + ACTIVE TRAITS inv saves.
@@ -862,7 +867,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                             ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
                             : statModMark ? [statModMark] : [],
                           favouredLeader: isFavored && i === squadLeaderIdx,
-                          traitStatMods, optionStatMods, optionStatSets,
+                          traitStatMods, optionStatMods, optionStatSets, optionStatExact,
                           equipMods, traitEquipMods,
                           isEquipTarget,
                           ctanYngirActive,
@@ -1952,7 +1957,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const realPowers = item.powers.filter(p => p.powerName !== '__discipline__').length;
               const hasChosenDisc = item.powers.some(p => p.powerName === '__discipline__');
               const chosenDiscName = item.powers.find(p => p.powerName === '__discipline__')?.disciplineName;
-              const knowsSmiteUnit = u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite'));
+              const knowsSmiteUnit = u.is_psyker && (u.abilities ?? []).some(a => /(psyker|shaman):/i.test(a) && a.toLowerCase().includes('smite'));
               const totalCount = realPowers + item.prayers.length + pactCount;
               const hasAny = totalCount > 0;
               const label = hasPacts && !hasPowers && !hasPrayers
@@ -2114,7 +2119,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('psychicPowers')}</div>
               {/* Smite — always known, shown as fixed (not removable) */}
-              {u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite')) && (
+              {u.is_psyker && (u.abilities ?? []).some(a => /(psyker|shaman):/i.test(a) && a.toLowerCase().includes('smite')) && (
                 <div className="flex justify-between items-center bg-amber-900/20 border border-amber-800/40 px-2 py-1 text-[11px]">
                   <span className="text-amber-400">{nm('Smite')} <span className="text-amber-700">{t('smiteAlwaysKnownSuffix')}</span></span>
                 </div>

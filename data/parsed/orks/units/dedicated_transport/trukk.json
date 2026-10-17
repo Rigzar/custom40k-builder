@@ -120,10 +120,34 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "May be upgraded to a Lugga for +15 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Lugga",
+                    "points": 15,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "BS",
+                                "value": "4+"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
         "Dakka Dakka Dakka, Open, Ramshackle, Waaagh!",
+        "Lugga: This model increases its BS to 4+ and its transport capacity to 20 infantry models. It may only transport Grots.",
         "Transport: This model has a transport capacity of 12 infantry models."
     ],
     "unit_type": "Vehicle",

@@ -188,10 +188,11 @@
             "is_unique_per_army": false
         },
         {
-            "header": "Up to 3 different Hearthkyn Warriors may take one of the following",
+            "header": "Up to 3 different Hearthkyn Warriors may each select one option from the following list. Each option can only be selected once",
             "constraint": {
                 "type": "fixed_max",
-                "max": 3
+                "max": 3,
+                "max_per_choice": 1
             },
             "choices": [
                 {
@@ -243,7 +244,7 @@
     "abilities": [
         "Eye of the Ancestors, Steady Advance, Void armor",
         "Medipack: The model gains the \"Narthecium\" ability.",
-        "Multiwave comms array: The unit may use the Ld value of a friendly K\u00e2hl, if any is present and alive in the army.",
+        "Multiwave comms array: The unit may use the Ld value of a friendly Kâhl, if any is present and alive in the army.",
         "Pan spectral scanner: All weapons of the unit gain +1 AP when shooting at targets that benefit from cover."
     ],
     "unit_type": "Infantry",

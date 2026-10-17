@@ -1,0 +1,89 @@
+{
+    "name": "Head Honcho",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Head Honcho",
+            "min": 1,
+            "max": 1,
+            "points": 35
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "4",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Red Gobbo",
+            "min": 0,
+            "max": 1,
+            "points": 50
+        }
+    ],
+    "min_cost": 35,
+    "default_size": 1,
+    "equipped_with": "A Head Honcho is equipped with: Stikkbombz.",
+    "weapons": [
+        {
+            "name": "Stikkbombz",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Da Big Boss!: All Grot infantry in an army with a Head Honcho or Red Gobbo may re-roll failed Leadership checks.",
+        "What a Grot!: All Grot infantry in an army with a Red Gobbo gain the \"Waaagh!\" ability."
+    ],
+    "unit_type": "Character model, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Grot"
+    ],
+    "slot": "HQ",
+    "is_vehicle": false,
+    "is_character": true,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "option_groups": [
+        {
+            "header": "One Head Honcho per army can be upgraded to a Red Gobbo for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Red Gobbo",
+            "is_unique_per_army": false
+        }
+    ]
+}

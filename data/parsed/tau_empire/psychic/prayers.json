@@ -19,7 +19,7 @@
     "name": "Sense of Stone",
     "range": "18\"",
     "target": "Friendly unit (Infantry)",
-    "effect": "The target receives a 5+ ward save.",
+    "effect": "The target receives a 4+ ward save.",
     "duration": "Until the Ethereal's next activation.",
     "complexity": "Normal"
   },

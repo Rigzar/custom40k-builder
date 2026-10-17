@@ -206,7 +206,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   //   "N powers from chosen disciplines"     → mode:'n_from_any', limit N (pick N from any)
   //   "knows Smite" always means Smite is a fixed known power, not selected by the player.
   const psykerAbilityText = (unit.abilities ?? [])
-    .find(a => /^psyker:/i.test(a))?.toLowerCase() ?? '';
+    .find(a => /^(psyker|shaman):/i.test(a))?.toLowerCase() ?? '';
 
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
   function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean; oneDiscipline?: boolean } {

@@ -159,6 +159,8 @@ export interface ResolvedProfile {
   optionStatMods: Array<{ stat: string; delta: number }>;
   /** Absolute stat values an option sets ("gains WS 3+"), keyed by stat. */
   optionStatSets: Record<string, string>;
+  /** Stats an option sets to an exact value, better or worse (`OptionEffect.stat_exact`). */
+  optionStatExact: Record<string, string>;
   /** Unit types ADDED by selected options (additive), e.g. "Jump pack infantry". */
   optionAddedUnitTypes: string[];
   /** Unit-type line REPLACED by a selected option (datasheet "change type to X"); null if none. */
@@ -951,11 +953,15 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   })();
 
   // Psyker flags
-  const psykerGroupIdx = unit.option_groups.findIndex(
+  const psykerInlineIdx = unit.option_groups.findIndex(
     g => /psyker/i.test(g.header) && g.inline_pts != null,
   );
-  const isOptionalPsyker = !unit.is_psyker && psykerGroupIdx >= 0 &&
-    (item.optionQty?.[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
+  const psykerChoiceIdx = unit.option_groups.findIndex(g => g.choices.some(c => c.effect?.makes_psyker));
+  const psykerGroupIdx = psykerInlineIdx >= 0 ? psykerInlineIdx : psykerChoiceIdx;
+  const choiceMakesPsyker = psykerChoiceIdx >= 0 && unit.option_groups[psykerChoiceIdx].choices.some((c, ci) =>
+    !!c.effect?.makes_psyker && Number(item.optionQty?.[psykerChoiceIdx]?.[ci] ?? 0) > 0);
+  const isOptionalPsyker = !unit.is_psyker && (choiceMakesPsyker || (psykerInlineIdx >= 0 &&
+    (item.optionQty?.[psykerInlineIdx]?.['__inline'] ?? 0) > 0));
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.
   const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks);
@@ -1453,6 +1459,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Option effects (ki-parser-02): stat/type/ability changes from selected wargear options.
   const optionStatMods: Array<{ stat: string; delta: number }> = [];
   const optionStatSets: Record<string, string> = {};
+  const optionStatExact: Record<string, string> = {};
   const optionAddedUnitTypes: string[] = [];
   let optionSetUnitType: string | null = null;
   const optionAbilities: string[] = [];
@@ -1494,6 +1501,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (!eff) return;
     for (const sm of eff.stat_mod ?? []) optionStatMods.push({ stat: sm.stat, delta: sm.delta });
     for (const ss of eff.stat_set ?? []) optionStatSets[ss.stat] = ss.value;
+    for (const se of eff.stat_exact ?? []) optionStatExact[se.stat] = se.value;
     for (const t of eff.adds_unit_types ?? [])
       if (!optionAddedUnitTypes.includes(t) && !_baseTypeNorm.includes(_norm(t))) optionAddedUnitTypes.push(t);
     if (eff.set_unit_type) optionSetUnitType = eff.set_unit_type;
@@ -1743,7 +1751,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
-    optionStatMods, optionStatSets, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     familyBoostKeys,
   };
 }

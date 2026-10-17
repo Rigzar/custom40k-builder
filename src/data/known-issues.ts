@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-oct17-sheets-not-enforced-01",
+    status: "known",
+    title: "Oct 17 sheets: rules the builder shows but does not enforce (Committee Runtherd ban and Cowardly, Grot Mega Tank squads, Hunting Blinds, Skorpekh Lord join, relic note)",
+    description: "Orks 1.5 / T'au 1.4 / Necrons 1.7. NOT ENFORCED: the Gretchin Revolutionary Committee still lets Gretchin units take Runtherds and keeps their Cowardly ability (the army-level parts — Grot and Vehicle units only, 15% Troops, Mob — are enforced). A squad of 2-3 Grot Mega Tanks is only approximately handled (the turret groups scale per tank; the validator need is weak). Kroot Hunting Blinds are not modelled. The Skorpekh Lord joining Skorpekh Destroyers is text only. The Missions relic note is not implemented. Also: the Kroot Master Shaper lost its old +10 Shaman option group, so option groups after it shifted by one and saved Master Shapers may need their upgrades re-picked.",
+  },
+  {
     id: "ki-imperial-navy-sheet-questions-for-author-01",
     status: "known",
     title: "Sheet questions for the authors (October 2026 sheets: Thanatar, Genestealer Cults, Rough Riders, retired ability names)",

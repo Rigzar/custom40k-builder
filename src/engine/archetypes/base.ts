@@ -95,6 +95,10 @@ export interface ArchetypeRule {
   allowedUnitsOnly: string[];
   /** Units with none of these keywords are blocked (empty = no filter). "-" keyword (Swords for hire) bypasses check. */
   allowedKeywords: string[];
+  /** Units allowed BY NAME in addition to the keyword matches (Orks' Gretchin Revolutionary Committee: Gretchins and Snotlings are Grot units but carry no Grot keyword). */
+  allowedKeywordUnits?: string[];
+  /** Share of the game size that must be spent on qualifying Troops, replacing the engagement's 25% (the Committee: 15%). */
+  troopsMinRatio?: number;
   notes: string[];
   /** Structured notes for rich UI display. When present, rendered instead of plain notes[]. */
   structuredNotes?: StructuredNote[];

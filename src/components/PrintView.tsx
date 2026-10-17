@@ -404,7 +404,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, optionStatSets, attachedDrones, optionAbilities, traitAbilities } = rp;
+          optionStatMods, optionStatSets, optionStatExact, attachedDrones, optionAbilities, traitAbilities } = rp;
   // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
   // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
   // affected. Same derivation as the unit card now.
@@ -660,6 +660,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                 const set = v.match(/^(\d+)\+/)?.[1];
                 if (!cur || modStats[k] === '-' || (set && parseInt(set, 10) < parseInt(cur, 10))) modStats[k] = v;
               }
+              for (const [k, v] of Object.entries(optionStatExact ?? {})) if (modStats[k] !== undefined && v) modStats[k] = v;
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}

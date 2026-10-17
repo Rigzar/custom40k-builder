@@ -1,0 +1,292 @@
+{
+    "name": "Grot Mega Tank",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "3",
+                "A": "2",
+                "HP": "3"
+            },
+            "name": "Grot Tank",
+            "min": 1,
+            "max": 3,
+            "points": 187
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 187,
+    "default_size": 1,
+    "equipped_with": "Every model is equipped with: -",
+    "weapons": [
+        {
+            "name": "Big shoota",
+            "range": "36\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Boom canister",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Ammo(1), Blast(6), Suppression(6)"
+        },
+        {
+            "name": "Grotzooka",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Kustom mega-blasta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4), Overheating"
+        },
+        {
+            "name": "Rokkit launcha",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Anti-Air"
+        },
+        {
+            "name": "Skorcha",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit"
+        },
+        {
+            "name": "Twin-linked big shoota",
+            "range": "36\"",
+            "type": "Assault 6",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin-linked grotzooka",
+            "range": "18\"",
+            "type": "Assault 4",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Twin-linked kustom mega-blasta",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Twin-linked rokkit launcha",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Twin-linked skorcha",
+            "range": "9\"",
+            "type": "Assault 8",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka",
+        "Full speed ahead!: The model can be moved an additional D6\" each time it is activated. If the result is a 1, it suffers a permanent engine damage.",
+        "Rolling Scrap Pile: This model has a 5+ ward save."
+    ],
+    "unit_type": "Vehicle",
+    "is_monster": false,
+    "keywords": [],
+    "slot": "Heavy Support",
+    "is_vehicle": true,
+    "is_character": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "option_groups": [
+        {
+            "header": "Must take three big turrets",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 1,
+                "count_per_n": 3,
+                "required": true
+            },
+            "choices": [
+                {
+                    "name": "Twin-linked big shoota",
+                    "points": 34
+                },
+                {
+                    "name": "Twin-linked skorcha",
+                    "points": 34
+                },
+                {
+                    "name": "Twin-linked kustom mega-blasta",
+                    "points": 42
+                },
+                {
+                    "name": "Twin-linked rokkit launcha",
+                    "points": 46
+                },
+                {
+                    "name": "Twin-linked grotzooka",
+                    "points": 48
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Must take four small turrets",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 1,
+                "count_per_n": 4,
+                "required": true
+            },
+            "choices": [
+                {
+                    "name": "Big shoota",
+                    "points": 17
+                },
+                {
+                    "name": "Skorcha",
+                    "points": 17
+                },
+                {
+                    "name": "Kustom mega-blasta",
+                    "points": 21
+                },
+                {
+                    "name": "Rokkit launcha",
+                    "points": 23
+                },
+                {
+                    "name": "Grotzooka",
+                    "points": 24
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May take two Boom canisters for +5 points.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Boom canister",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Can get one Kustom job.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Da Booma",
+                    "points": 25
+                },
+                {
+                    "name": "More Dakka",
+                    "points": 15,
+                    "effect": {
+                        "grants_abilities": [
+                            "More Dakka: Roll 1D6 when the unit is activated. On a 4+, the unit may fire an additional shot with a single weapon. Vehicle only."
+                        ]
+                    }
+                },
+                {
+                    "name": "Press the Button",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Press the Button: Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Armor piercing(5+)\" for all weapons until the end of the battle round."
+                        ]
+                    }
+                },
+                {
+                    "name": "Shokka Hull",
+                    "points": 5,
+                    "effect": {
+                        "grants_abilities": [
+                            "Shokka Hull: Attackers receive an automatic hit with S:4 AP:0 D:1 for each hit in the melee. Vehicle only."
+                        ]
+                    }
+                },
+                {
+                    "name": "Eavy armour cabin",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Eavy armour cabin: Passengers receive the benefit of light cover. Transport vehicle only."
+                        ]
+                    }
+                },
+                {
+                    "name": "Squig-hide Tyres",
+                    "points": 5,
+                    "effect": {
+                        "grants_abilities": [
+                            "Squig-hide Tyres: The model ignores temporary engine damage. Non-walker or aircraft vehicle only."
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ]
+}

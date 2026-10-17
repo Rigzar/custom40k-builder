@@ -391,7 +391,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deep strike': {
     name: 'Deep Strike',
-    description: 'Models arriving from reserve via Deep Strike can be placed anywhere on the battlefield. They are only allowed to receive the "Charge" or "Move & Shoot" order. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, on impassable terrain or an enemy unit, the unit goes back into reserve and must take a dangerous terrain test. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. The unit counts as having moved 6" and can\'t move any further with its regular Movement profile. The unit may still make its "Charge move". The unit may only perform a "Disorderly Charge".',
+    description: 'Models arriving from reserve via Deep Strike can be placed anywhere on the battlefield. They are only allowed to receive the "Charge" or "Move & Shoot" order. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, on impassable terrain or another unit, the unit goes back into reserve and must take a dangerous terrain test. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. The unit counts as having moved 6" and can\'t move any further with its regular Movement profile. The unit may still make its "Charge move". The unit may only perform a "Disorderly Charge".',
   },
   'deepstrike': {
     name: 'Deep Strike',
@@ -448,6 +448,10 @@ export const RULES: Record<string, RuleEntry> = {
   'hit & run': {
     name: 'Hit & Run',
     description: 'After all models in a melee combat have been activated (but before the Combat Result is determined), the unit may move 3D6" away from the enemy in a straight line. The unit may not get into engagement range with another enemy unit with this move. The unit cannot consolidate after making this move. Enemy units cannot pursue and must make a 3" consolidation move if able.',
+  },
+  'hunter': {
+    name: 'Hunter',
+    description: "The unit does not scatter when being set up via Deep Strike. Additionally, it gains Charge benefits normally and doesn't have to make a Disorderly Charge.",
   },
   'infiltrate': {
     name: 'Infiltrate',

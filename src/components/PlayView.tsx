@@ -112,6 +112,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
     traitStatMods: rp.traitStatMods ?? [],
     optionStatMods: rp.optionStatMods ?? [],
     optionStatSets: rp.optionStatSets ?? {},
+    optionStatExact: rp.optionStatExact ?? {},
     equipMods: rp.equipMods,
     traitEquipMods: rp.traitEquipMods,
     // Only the row the Armory purchase belongs to: a Lieutenant's Plate armor is not the Guardsmen's

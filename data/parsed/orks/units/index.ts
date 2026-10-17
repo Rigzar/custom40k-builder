@@ -13,6 +13,7 @@ import type { Unit } from '../../../../src/types/data';
 import hq_big_mek from './hq/big_mek.json';
 import hq_boss from './hq/boss.json';
 import hq_dok from './hq/dok.json';
+import hq_head_honcho from './hq/head_honcho.json';
 import hq_weirdboy from './hq/weirdboy.json';
 import troops_beast_snagga_boyz from './troops/beast_snagga_boyz.json';
 import troops_boyz from './troops/boyz.json';
@@ -24,6 +25,7 @@ import elites_cybork_slashaz from './elites/cybork_slashas.json';
 import elites_kommandos from './elites/kommandos.json';
 import elites_mekboy from './elites/mekboyz.json';
 import elites_mekboy_junka from './elites/mekboy_junka.json';
+import elites_banna_wava from './elites/banna_wava.json';
 import elites_nobz from './elites/nobz.json';
 import elites_painboy from './elites/painboyz.json';
 import elites_tankbustas from './elites/tankbustas.json';
@@ -45,7 +47,9 @@ import heavy_support_killa_kans from './heavy_support/killa_kans.json';
 import heavy_support_killa_rig from './heavy_support/kill_rig.json';
 import heavy_support_lootas from './heavy_support/lootas.json';
 import heavy_support_mek_gunz from './heavy_support/mek_gunz.json';
+import heavy_support_grot_mega_tank from './heavy_support/grot_mega_tank.json';
 import heavy_support_wagon from './heavy_support/wagon.json';
+import dedicated_transport_grot_cutta from './dedicated_transport/grot_cutta.json';
 import dedicated_transport_kan from './dedicated_transport/kan.json';
 import dedicated_transport_looted_valkyrie from './dedicated_transport/looted_valkyrie.json';
 import dedicated_transport_squiggoth from './dedicated_transport/squiggoth.json';
@@ -61,6 +65,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Big Mek",
     "Boss",
     "Dok",
+    "Head Honcho",
     "Weirdboy"
   ],
   "Troops": [
@@ -71,6 +76,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Snotlings"
   ],
   "Elites": [
+    "Banna Wava",
     "Burna Boyz",
     "Cybork Slashas",
     "Kommandos",
@@ -93,6 +99,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Battlewagon",
     "Deff Dreads",
     "Flash Gitz",
+    "Grot Mega Tank",
     "Hunta Rig",
     "Killa Kans",
     "Kill Rig",
@@ -101,6 +108,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Wagon"
   ],
   "Dedicated Transport": [
+    "Grot Cutta",
     "Kan",
     "Looted Valkyrie",
     "Squiggoth",
@@ -125,6 +133,7 @@ export const units: Record<string, Unit> = {
   "Big Mek": hq_big_mek as Unit,
   "Boss": hq_boss as Unit,
   "Dok": hq_dok as Unit,
+  "Head Honcho": hq_head_honcho as Unit,
   "Weirdboy": hq_weirdboy as Unit,
   "Beast Snagga Boyz": troops_beast_snagga_boyz as Unit,
   "Boyz": troops_boyz as Unit,
@@ -136,6 +145,7 @@ export const units: Record<string, Unit> = {
   "Kommandos": elites_kommandos as Unit,
   "Mekboyz": elites_mekboy as Unit,
   "Mekboy Junka": elites_mekboy_junka as Unit,
+  "Banna Wava": elites_banna_wava as Unit,
   "Nobz": elites_nobz as Unit,
   "Painboyz": elites_painboy as Unit,
   "Tankbustas": elites_tankbustas as Unit,
@@ -157,7 +167,9 @@ export const units: Record<string, Unit> = {
   "Kill Rig": heavy_support_killa_rig as Unit,
   "Lootas": heavy_support_lootas as Unit,
   "Mek Gunz": heavy_support_mek_gunz as Unit,
+  "Grot Mega Tank": heavy_support_grot_mega_tank as Unit,
   "Wagon": heavy_support_wagon as Unit,
+  "Grot Cutta": dedicated_transport_grot_cutta as Unit,
   "Kan": dedicated_transport_kan as Unit,
   "Looted Valkyrie": dedicated_transport_looted_valkyrie as Unit,
   "Squiggoth": dedicated_transport_squiggoth as Unit,

@@ -508,6 +508,21 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Speedfreaks': fastArchetype(['Stormboyz', 'Warbikers']),
 
+  // Orks 1.5. Gretchins and Snotlings are Grot units without a Grot keyword, hence the by-name list. Not modelled: the
+  // Runtherd ban and the loss of "Cowardly" (both are unit-model rules; see known-issues).
+  'Gretchin Revolutionary Committee': { ...BASE,
+    allowedKeywords: ['Grot', 'Vehicle'],
+    allowedKeywordUnits: ['Gretchins', 'Snotlings'],
+    troopsMinRatio: 0.15,
+    grantsAbility: { ability: 'Mob', units: ['Gretchins', 'Snotlings'] },
+    notes: [
+      'Only Grot and Vehicle units may be taken.',
+      'The army only needs to spend 15% of its points on Troops.',
+      'All Grot units gain the "Mob" ability.',
+      'Gretchin and Snotlings lose the "Cowardly" ability, and their units may not take Runtherds (not enforced by the builder).',
+    ],
+  },
+
   // ── Tau Empire ────────────────────────────────────────────────────────────
   'Farsight Enclave': { ...BASE,
     troopsRemap: ['Crisis Battlesuits'], demoteOtherTroops: true,
@@ -526,10 +541,11 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // moved every Kroot Elite, Fast Attack and Heavy Support into Troops (Troops 10/6 on the list below).
     troopsRemap: ['Kroot Carnivores'],
     troopsCount: 'remap',
-    minimumsOnlyKeyword: 'Kroot',
+    // Tau 1.4 dropped "Only Kroot units count towards mandatory unit minimums in the AOP" (and moved the Shaman to the
+    // Master Shaper's own list), so `minimumsOnlyKeyword` is gone: every unit counts towards the minimums again.
     notes: [
+      'For every 1,000 points of game size, or part thereof, you gain one Kroot Hunting Blind (3" x 3" abstract terrain, Light Cover, deployed as Infiltrators; not modelled in the builder).',
       'Kroot Farstalkers gain the "Objective secured!" ability.',
-      'One Kroot Master Shaper may be upgraded to a Shaman for +10 pts (Psyker, 1 cast/1 deny, knows 2 powers from Biomancy or Divination).',
       'Only Kroot units count towards the 25% Troops requirement.',
     ],
   },
@@ -698,7 +714,7 @@ export function getEffectiveSlot(
 
 export function isUnitAllowed(
   unitName: string,
-  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[] },
+  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[]; is_vehicle?: boolean },
   rule: ArchetypeRule | null,
   originalSlot?: string,
 ): boolean {
@@ -715,9 +731,10 @@ export function isUnitAllowed(
   if (rule.requireVetAbilities && !rule.grantVetAbilitiesToAll && !unit.has_veteran_abilities) return false;
   if (rule.allowedUnitsOnly.length > 0 && !rule.allowedUnitsOnly.includes(unitName)) return false;
   if (rule.allowedKeywords.length > 0) {
-    const kws = unit.keywords ?? [];
+    // A Vehicle carries no keyword of its own: the type counts ("Only Grot and Vehicle units may be taken").
+    const kws = [...(unit.keywords ?? []), ...(unit.is_vehicle ? ['Vehicle'] : [])];
     // "-" = Swords for hire: unit gains the army keyword automatically
-    if (!kws.includes('-') && !kws.some(k => rule.allowedKeywords.includes(k))) return false;
+    if (!kws.includes('-') && !kws.some(k => rule.allowedKeywords.includes(k)) && !(rule.allowedKeywordUnits ?? []).includes(unitName)) return false;
   }
   return true;
 }

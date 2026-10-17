@@ -7,6 +7,10 @@
     {
       "name": "Speedfreaks",
       "desc": "- Stormboyz and Warbikers can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    },
+    {
+      "name": "Gretchin Revolutionary Committee",
+      "desc": "- Units of Gretchin and Snotlings may not take Runtherds.\n- All Grot units gain the \"Mob\" ability.\n- Gretchin and Snotlings lose the \"Cowardly\" ability.\n- The army only needs to spend 15% of its points on Troops.\n- Only Grot and Vehicle units may be taken."
     }
   ],
   "legacies": [

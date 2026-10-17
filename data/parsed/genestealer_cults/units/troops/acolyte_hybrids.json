@@ -154,7 +154,7 @@
             "is_unique_per_army": false
         },
         {
-            "header": "For each 5 models, two Acolytes may swap their Autopistol and Claws and knives",
+            "header": "For each 5 models, two Acolytes may swap their Autopistol and Rending claws",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,

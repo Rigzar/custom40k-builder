@@ -648,7 +648,7 @@
  "valSummoningNoMandatoryAop": "Призыв: отряды Chaos Daemons не могут заполнять обязательные выборы AOP, поэтому ваш Демон {slot} не засчитывается в минимум. Архетип Daemonkin игнорирует это правило.",
  "valSkirmishNoFreeSlots": "Стычка: каждый отряд занимает слот организации армии, даже если его правила говорят иное — способности «не занимает слот» из этого списка здесь не действуют.",
  "valSkirmishHqOncePerArmy": "Стычка: {unit} — Штаб и не может брать улучшение «раз за армию» — {upgrade}.",
- "valTroopsRatioFail": "{label}: {havePts} из требуемых {needPts} очк. (25% от лимита {limit} очк.).",
+ "valTroopsRatioFail": "{label}: {havePts} из требуемых {needPts} очк. ({pct}% от лимита {limit} очк.).",
  "valTroopsRatioOk": "{label}: {havePts} очк. (требуется ≥{needPts}).",
  "valAllyArchetypeUnitNotAllowed": "Союзный архетип «{archetype}»: {unit} не допускается.",
  "valAllyArchetypeNotInAllowedList": "Союзный архетип «{archetype}»: {unit} нет в списке разрешённых отрядов.",

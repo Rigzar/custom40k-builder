@@ -104,6 +104,8 @@ export function getUnitTypes(unit: Unit): string[] {
  * Mirrors BSData's explicit categoryLinks for units that pre-date the keyword model.
  */
 const ROLE_KW_FROM_NAME: Array<[RegExp, string]> = [
+  // Orks' Grot Mega armor is "Nobz only": the unit's own name is the gate (Nobz carry no keywords).
+  [/^nobz$/i,         'Nobz'],
   [/librarian/i,      'Psyker'],
   [/sorcerer/i,       'Psyker'],
   // Distinct from the 'Psyker' line above — some Armory items (CSM "Familiar": "Only for

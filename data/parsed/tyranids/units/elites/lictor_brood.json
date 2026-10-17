@@ -123,9 +123,8 @@
         }
     ],
     "abilities": [
-        "Deep Strike, Hit & Run, Infiltrate, Move Through Cover, Stealth, Squadron, Terrifying(-1), Use Cover",
+        "Deep Strike, Hit & Run, Hunter, Infiltrate, Move Through Cover, Stealth, Squadron, Terrifying(-1), Use Cover",
         "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls.",
-        "Chameleonic Skin: The unit does not scatter when being set up via Deep Strike. Additionally, it gains Charge benefits normally and doesn't have to make a Disorderly Charge. ",
         "Neurolictor: Select one enemy unit within 12\" during your activation. The target must pass a Leadership test or gain one Battleshock token."
     ],
     "unit_type": "Monstrous Infantry",

@@ -648,7 +648,7 @@
  "valSummoningNoMandatoryAop": "召喚：Chaos Daemons の部隊は必須の AOP 選択を満たせないため、デーモンの {slot} は最低数にカウントされません。デーモンキン・アーキタイプはこのルールを無視します。",
  "valSkirmishNoFreeSlots": "スカーミッシュ：ルールに別段の記載があっても、すべての部隊が軍編成枠を消費します — このリストにある「枠を消費しない」能力はここでは適用されません。",
  "valSkirmishHqOncePerArmy": "スカーミッシュ：{unit} は司令部であり、「軍につき1回」のアップグレードは取得できません — {upgrade}。",
- "valTroopsRatioFail": "{label}：必要な {needPts} pts（{limit} pts 上限の25%）のうち {havePts} pts。",
+ "valTroopsRatioFail": "{label}：必要な {needPts} pts（{limit} pts 上限の{pct}%）のうち {havePts} pts。",
  "valTroopsRatioOk": "{label}：{havePts} pts（{needPts} 以上が必要）。",
  "valAllyArchetypeUnitNotAllowed": "同盟アーキタイプ「{archetype}」：{unit} は使用できません。",
  "valAllyArchetypeNotInAllowedList": "同盟アーキタイプ「{archetype}」：{unit} は許可された部隊リストにありません。",

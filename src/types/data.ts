@@ -151,6 +151,17 @@ export interface OptionEffect {
    * choices, and here only two of seventeen replace anything.
    */
   removes_weapons?: string[];
+  /**
+   * The option makes the model a psyker while it is selected. Tau 1.4 moved the Kroot Master Shaper's Shaman from an
+   * archetype upgrade (a group with `inline_pts` and "Psyker" in its header) into the Shaper's own "one of the following"
+   * list, where it is a CHOICE next to Flesh Shaper, Trail Shaper and War Shaper.
+   */
+  makes_psyker?: boolean;
+  /**
+   * An option that CHANGES a stat to a fixed value even when that is worse: Orks' Grot Mega armor "changes its BS and WS
+   * to 4+" (a Nob is WS 3+, BS 5+). `stat_set` only ever improves, so it cannot express this.
+   */
+  stat_exact?: { stat: keyof StatBlock; value: string }[];
 }
 
 export type ConstraintType =
