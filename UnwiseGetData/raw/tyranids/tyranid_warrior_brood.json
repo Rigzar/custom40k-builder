@@ -1,0 +1,212 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Tyranid Warrior",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        2,
+        4,
+        2,
+        10,
+        "4+",
+        36
+    ],
+    [
+        "Every model is equipped with: 2 Scything talons."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Barbed strangler",
+        "36\"",
+        "Assault 1",
+        5,
+        0,
+        1,
+        "Blast(6), Suppression(3)"
+    ],
+    [
+        "Boneswords",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Deadly(5+), Extra Attack(1)"
+    ],
+    [
+        "Deathspitter",
+        "24\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Devourer",
+        "18\"",
+        "Rapid Fire 2",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Lash whip and Bonesword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Deadly(5+), Quick(+1)"
+    ],
+    [
+        "Rending claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Rending(5+)"
+    ],
+    [
+        "Scything talons",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "Spinefists",
+        "12\"",
+        "Pistol 2",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Venom cannon",
+        "36\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every three models, one Tyranid Warrior may swap their Spinefists:"
+    ],
+    [
+        "- Barbed strangler",
+        "+19 points"
+    ],
+    [
+        "- Venom cannon",
+        "+19 points"
+    ],
+    [
+        "\u2022 Each model may swap one of their Scything talons:"
+    ],
+    [
+        "- Rending claws",
+        "+3 points"
+    ],
+    [
+        "- Boneswords",
+        "+6 points"
+    ],
+    [
+        "- Lash whip and Bonesword",
+        "+6 points"
+    ],
+    [
+        "\u2022 Each model may swap one of their Scything talons:"
+    ],
+    [
+        "- Spinefists",
+        "+2 points"
+    ],
+    [
+        "- Devourer",
+        "+2 points"
+    ],
+    [
+        "- Deathspitter",
+        "+2 points"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Resonator",
+        "+4 points"
+    ],
+    [
+        "- Leaping",
+        "+6 points"
+    ],
+    [
+        "- Winged",
+        "+7 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+9 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Fearless, Massive(1), Move Through Cover, Synapse"
+    ],
+    [
+        "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

@@ -1,0 +1,163 @@
+[
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Effect:",
+        "The target gains the \"Deflagrate(5+)\" ability for all melee OR ranged weapons.",
+        "Effect:",
+        "The target gains a 5+ ward save.",
+        "Effect:",
+        "The target gains the \"Aegis(4+)\" ability."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Litany of Hate",
+        "Name:",
+        "Mantra of Strength"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self"
+    ],
+    [
+        "Effect:",
+        "The target gains +1 to hit rolls in ranged OR melee combat.",
+        "Effect:",
+        "The target gains +1 Strength and -1 AP for melee attacks."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Prayers of the Faithful (Legacy)",
+        "Name:",
+        "Fire of Devotion",
+        "Name:",
+        "Litany of Divine Protection",
+        "Name:",
+        "Oath of Glory"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self"
+    ],
+    [
+        "Effect:",
+        "The target gains +1 to hit rolls in ranged AND melee combat.",
+        "Effect:",
+        "The target gains a 4+ ward save.",
+        "Effect:",
+        "The target gains +1 Strength, +1 Attack and -1 AP for melee attacks."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Plea of Deliverance",
+        "Name:",
+        "Psalm of Remorseless Persecution"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Self + attached unit"
+    ],
+    [
+        "Effect:",
+        "The target is immune against Maledictions and Witchfires.",
+        "Effect:",
+        "The target gains the \"Deflagrate(5+)\" ability for all melee AND ranged weapons."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ]
+]

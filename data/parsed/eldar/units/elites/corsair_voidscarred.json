@@ -366,7 +366,6 @@
         }
     ],
     "abilities": [
-        "<Corsairs>",
         "Channeler stones: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
         "Faolch\u00fa: All weapons of the unit gain Sunder(1)                                                                                  ",
         "Ghosthelm: The Way Seeker ignores the first Perils of the warp attack each round.",
@@ -376,7 +375,9 @@
         "Shade Runner Assault: After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Corsairs"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

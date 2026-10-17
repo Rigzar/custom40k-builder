@@ -1,0 +1,103 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Malanthrope",
+        "6\"",
+        "4+",
+        "4+",
+        5,
+        5,
+        5,
+        4,
+        3,
+        10,
+        "5+",
+        99
+    ],
+    [
+        "A Malanthrope is equipped with: Grasping tail."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Grasping tail",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Regeneration",
+        "+15 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+31 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "\u2022 May additionally select items from the Hive Fleet Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Fearless, Synapse"
+    ],
+    [
+        "Enhanced Sporecloud: Friendly models within 9\" benefit from Obscuring cover."
+    ],
+    [
+        "Prey Adaption: The first time an enemy model is killed within 3\" of the model, all units of your army gain the \"Favoured Enemy\" ability against all enemy units."
+    ],
+    [
+        "Psychic Barrier: The model gains a 5+ ward save."
+    ],
+    [
+        "Toxic Miasma: During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\"."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

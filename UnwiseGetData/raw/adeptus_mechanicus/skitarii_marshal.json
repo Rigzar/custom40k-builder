@@ -1,0 +1,74 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Skitarii Marshal",
+        "6\"",
+        "3+",
+        "2+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        8,
+        "4+",
+        35
+    ],
+    [
+        "A Skitarii Marshal is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah, Command squad"
+    ],
+    [
+        "Advisor: For every HQ selection, one Skitarii Marshal may be selected without taking up an HQ slot."
+    ],
+    [
+        "Servo-skull Uplink: The model and its attached unit may re-roll one to hit and one to wound roll each battle round."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

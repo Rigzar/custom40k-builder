@@ -180,11 +180,13 @@
         }
     ],
     "abilities": [
-        "Battle Focus, <Aspect>",
+        "Battle Focus",
         "Aspect armor: The model gains a 5+ ward save."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Aspect"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

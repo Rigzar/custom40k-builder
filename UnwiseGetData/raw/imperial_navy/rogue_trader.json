@@ -1,0 +1,116 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Rogue Trader",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        2,
+        8,
+        "4+",
+        36
+    ],
+    [
+        "*",
+        "Rogue Trader Majoris",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        9,
+        "4+",
+        51
+    ],
+    [
+        "A Rogue Trader is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Rogue Trader per army."
+    ],
+    [
+        "\u2022 One Rogue Trader per army can be upgraded to a Rogue Trader Majoris for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The model may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command squad"
+    ],
+    [
+        "Exotic Collection: At the start of each activation, the Rogue Trader may choose an enhancement for themselves and an attached unit:\n1. Archaeotech Weapons: Ranged weapons gain +1 Strength.\n2. Personal Shield Generators: Models gain the \"Warded\" ability.\n3. Forbidden Stimulants: Models gain +1 Initiative.\nThe effect lasts until the Rogue Trader's next activation."
+    ],
+    [
+        "Rogue Trader Majoris: You may choose a second upgrade from the Exotic Collection each round."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Crew"
+    ]
+]

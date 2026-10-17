@@ -1,0 +1,91 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Cursed Crozius\u1d40",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        2,
+        "Gruesome. Only for Dark Apostles",
+        "-",
+        5
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Amulet of Spawndom\u1d40",
+        "If the model destroys an enemy character model, you can immediately place a friendly Chaos Spawn within 3\" of this model. If not, you can set up a Chaos Spawn following the rules for Deep Strike in any subsequent Reinforcement Phase. When set up, the closest enemy unit within 12\" immediately gains one Battleshock token. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Baleful icon\u1d40",
+        "Any unit selecting this model or its attached unit as a charge target must resolve a test for dangerous terrain.",
+        5,
+        5
+    ],
+    [
+        "Crown of the Blasphemer\u1d40",
+        "If the model attempts to use a prayer, the roll is automatically successful.",
+        "-",
+        5
+    ],
+    [
+        "Malefic tome\u1d40",
+        "If the model attempts to use an infernal pact, the roll is automatically successful.",
+        "-",
+        5
+    ],
+    [
+        "The Scripts of Erebus\u1d40",
+        "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item. ",
+        "-",
+        10
+    ],
+    [
+        "The Skull of Monarchia\u1d40",
+        "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Fell-blessed machine",
+        "The vehicle may pray once per battle round. A prayer is successful at a roll of 3+. The vehicle knows all prayers from the Exalted Prayers discipline.",
+        20
+    ],
+    [
+        "Mhara Gal",
+        "The model gains a 5+ ward save. Only for Walkers.",
+        45
+    ]
+]

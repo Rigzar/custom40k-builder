@@ -1,0 +1,61 @@
+[
+    [
+        "Adeptus Mechanicus"
+    ],
+    [
+        "HQ",
+        "Magos",
+        "Skitarii Marshal",
+        "Special rules",
+        "Canticles of the Omnissiah: At the start of the Command phase, choose a single Canticle of the Omnissiah. All units with this rule that are partially within 9\" of a model with \"Choir Master\" roll a D6; on a 4+, they gain the benefits of the chosen Canticle until the end of the Battle Round.",
+        "Choir Master: Units containing this model automatically pass their Canticle of the Omnissiah roll.",
+        "Cognis: The weapon reduces its total penalty to hit rolls in ranged combat by -1, down to a minimum of 0.",
+        "Luminagen: A unit that suffers one or more unsaved Wounds, glancing or penetrating hits caused by a weapon with this special rule counts its cover saves as being 1 point worse than normal until the end of the battle round. Furthermore, they suffer an additional -1 to hit penalty for Defensive fire.",
+        "Monotask: This unit does not benefit from Canticles of the Omnissiah unless it is accompanied by a character with \"Choir Master\".",
+        "Tesla: To hit rolls of 5+ are always successful and the target suffers 2 additional automatic hits."
+    ],
+    [
+        "Troops",
+        "Skitarii Rangers",
+        "Skitarii Vanguard"
+    ],
+    [
+        "Elite",
+        "Corpuscarii Electro-Priests",
+        "Fulgurite Electro-Priests",
+        "Kataphron Breachers",
+        "Kataphron Destroyers",
+        "Servitors",
+        "Sicaran Infiltrators",
+        "Sicaran Ruststalkers",
+        "Sydonian Skatros",
+        "Tech-Priest"
+    ],
+    [
+        "Fast Attack",
+        "Pteraxii Skystalkers",
+        "Pteraxii Sterylizors",
+        "Serberys Raiders",
+        "Serberys Sulphurhounds",
+        "Sydonian Dragoons"
+    ],
+    [
+        "Heavy Support",
+        "Ironstrider Ballistarii",
+        "Kastelan Robots",
+        "Onager Dunecrawler",
+        "Skorpius Disintegrator"
+    ],
+    [
+        "Transports",
+        "Skorpius Dunerider",
+        "Termite"
+    ],
+    [
+        "Fortifications"
+    ],
+    [
+        "Flyers",
+        "Archaeopter"
+    ]
+]
