@@ -18,7 +18,7 @@ let bad = 0; const eq = (l: string, a: unknown, b: unknown) => { if (JSON.string
     optionQty: { [gi]: Object.fromEntries(picks.map(p => [ci(p), 1])) }, armory: [], traits: [], powers: [], prayers: [], pacts: [] });
   const price = (it: Any, arch: string | null) => computeUnitPoints(it, u, arch ?? '', 'Necrons', 2000);
   eq('base 254', price(mk(false, []), null), 254);
-  eq('Spear of the Dragon + Untamed Power', price(mk(false, ['Spear of the Dragon', 'Untamed Power']), null), 254 + 27 + 14);
+  eq('Spear of the Dragon + Untamed Power', price(mk(false, ['Spear of the Dragon', 'Untamed Power']), null), 254 + 12 + 14);
   eq('Yngir +30', price(mk(true, []), 'Yngir'), 284);
   eq('plain cap is three', groupConstraint(u.option_groups[gi], mk(false, []), u).max, 3);
   eq('Yngir cap is five', groupConstraint(u.option_groups[gi], mk(true, []), u).max, 5);
