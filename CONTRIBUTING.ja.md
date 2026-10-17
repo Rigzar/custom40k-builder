@@ -427,7 +427,7 @@ tts/            Tabletop Simulatorのmod（Lua）とそのヘッドレステス�
 | `codex_<faction>/` | 勢力ごとのエンジンモジュール（勢力に1つ） — その勢力のエンジンのファイルはすべてここにあります：`legacies.ts`、`traits.ts`、`resolver.ts`、`validator.ts`、`archetypes/{index.ts,rules.ts}`（勢力が必要とする場合）、さらに `special-abilities.ts`（勢力のルールを一字一句そのまま保持し、`scripts/audit_faction_rule_coverage.cjs` が読む）と監査用の参照 `digest.md` |
 | `dataOverrides.ts` | 読み込み時に適用される管理者の修正；シートが書く勢力では無視される（シートが優先） |
 | `slotOverrides.ts` | ロスターのエントリに依存するスロット／バリアントのルール（`hasAllMarksVariant`、`ascendedKeywordLine`、…） |
-| `skirmishRules.ts`, `navyRules.ts` | Skirmish の同盟軍編成（Troops 1 + Elite / Fast Attack / Heavy Support のいずれか最大 1、`skirmish: true` のアーキタイプ）、Imperial Navy の「Skyhammer Doctrine」（Flyers の AOP 上限 ×2） |
+| `skirmishRules.ts`, `navyRules.ts`, `legendaryRetinue.ts` | Skirmish の同盟軍編成（Troops 1 + Elite / Fast Attack / Heavy Support のいずれか最大 1、`skirmish: true` のアーキタイプ）、Imperial Navy の「Warrant of Trade」（同盟軍の枠 ×2）、Legendary Retinue（Navy / Inquisition の HQ：他コーデックスの HQ 歩兵モデルを最大 4 体、HQ 枠 1 つで）|
 | `transportGate.ts`、`deploymentUpgrades.ts`、`traitEffects.ts`、`engagements.ts`、`sourceCompare.ts` | 輸送の可否；Webway strike / Lightning strike / Tellyportaの価格；特性の効果；Skirmish / Pitched / Epicの上限；ユニットを出典と比較 |
 | `equipMods.ts` | 装備の能力値修正（例：「+1 S」）を解析する |
 | `keywords.ts` | 装備の使用可否のためのキーワード導出の継ぎ目 — ケイオスのマーク要件（`itemRequiredMark`）、ターミネーター装甲との互換性（`modelRestrictsToTermSubset`）、Gravisとの互換性（`modelRestrictsToGravisSubset`）、InquisitionのOrdo/レガシー解放ヘルパー（`inquisitionLegacyOrdoUnlocks`、`chamberMilitantOrdo`）を一か所で導出します。装甲／マーク／Ordoの制限の導出方法を変えるときは、`ArmoryModal` ではなくここを編集してください。**グリフの規約：** `ᵀ` = ターミネーター互換（Tzeentchのマークでは「ない」）；マークのグリフは `ᴷ`/`ᴺ`/`ˢ`（Khorne/Nurgle/Slaanesh）だけ — Tzeentchはセクションで判定し（`armory_marks.Tzeentch`）、`ᶻ` はグリフが必要になったときのために予約されています。**TzeentchとTerminatorの区別に関わる作業では、メンテナーに確認してください — 推測しないこと。** |
@@ -762,7 +762,7 @@ node tts/test/run_table.cjs army.json    # オールインワンのGlobalスク�
 | `api/gitfinda/[action].js` | 薄いルート：呼び出し元をログインさせ、アクションを選び、`Refusal` をJSONに変える。Hobbyプランが許す**12番目で最後の**Vercel関数 — これ以上増やす前に、ほかのルートに統合すること |
 | `src/components/GitfindaModal.tsx` | 閲覧、作成、自分の投稿、自分のマッチ＋チャット |
 | `src/lib/gitfindaTime.ts` | タイムゾーン：枠は投稿者のゾーンの壁時計の時刻として入力され、時点として保存され、変換して表示される |
-| `public/gitfinda/*.png` | モックアップパックの9つのクリーンなアイコン。パックの勢力エンブレムは使っていません（READMEが既存の図像に似る可能性を警告している）— 軍勢には `public/faction-symbols/` を使います |
+| `public/gitfinda/*.png` | モックアップパックの9つのクリーンなアイコン。パックの勢力エンブレムは使っていません（READMEが既存の図像に似る可能性を警告している）— 軍勢には `public/faction-symbols/` を使います `logo.webp` / `logo-small.webp` は Dominic が送ってくれたロケットに乗るゴブリンのロゴ（背景が黒いので `mix-blend-screen` で描画）。 |
 
 間違えやすいこと：
 

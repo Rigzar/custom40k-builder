@@ -58,6 +58,24 @@ const icon = (name: string, cls = 'w-4 h-4') => GLYPH[name]
   ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={`${cls} inline-block shrink-0`}><path d={GLYPH[name]} /></svg>
   : <img src={`/gitfinda/${name}.png`} alt="" aria-hidden className={`${cls} object-contain inline-block`} draggable={false} />;
 
+/** The intro text: paragraphs on a blank line, a line break on a newline, **bold** inline. */
+function Rich({ text }: { text: string }) {
+  return (
+    <>
+      {text.split('\n\n').map((para, i) => (
+        <p key={i} className="mb-3">
+          {para.split('\n').map((line, j) => (
+            <span key={j}>
+              {j > 0 && <br />}
+              {line.split(/\*\*(.+?)\*\*/g).map((part, k) => k % 2 === 1 ? <strong key={k} className="text-orange-300">{part}</strong> : part)}
+            </span>
+          ))}
+        </p>
+      ))}
+    </>
+  );
+}
+
 function ArmyBadge({ army, size = 'w-9 h-9' }: { army: string; size?: string }) {
   return (
     <img src={`/faction-symbols/${army.replace(/_/g, '-')}.svg`} alt="" aria-hidden
@@ -117,16 +135,25 @@ export function GitfindaModal({ onClose, username, focusPostId }: Props) {
     return (
       <Shell onClose={onClose}>
         <div className="p-6 max-w-lg mx-auto text-center">
-          <div className="text-2xl font-extrabold text-orange-400 tracking-wide mb-1">{t('gfIntroTitle')}</div>
-          <p className="text-[13px] text-orange-100/80 leading-relaxed text-left my-4">{t('gfIntroBody')}</p>
-          <div className="text-orange-300 font-bold uppercase tracking-[0.3em] text-sm mb-5">{t('gfIntroTag')}</div>
-          <label className="flex items-center justify-center gap-2 text-[12px] text-orange-200/70 mb-4 cursor-pointer">
+          <img src="/gitfinda/logo.webp" alt="Gitfinda" className="mx-auto w-52 h-52 object-contain mix-blend-screen select-none" draggable={false} />
+          <div className="text-left mt-2 mb-4 text-[13px] text-orange-100/85 leading-relaxed">
+            <div className="font-bold text-orange-300 mb-2">{t('gfIntroTitle')}</div>
+            <Rich text={t('gfIntroBody')} />
+            <div className="text-orange-300 font-bold uppercase tracking-[0.3em] text-sm mt-1">{t('gfIntroTag')}</div>
+          </div>
+          <div className="flex justify-center gap-3 mb-4">
+            <button className={btnOrange} onClick={() => {
+              if (introHide) { try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* private window: it just shows again */ } }
+              onClose();
+            }}>{icon('back_chevron')} {t('gfIntroBack')}</button>
+            <button className={btnOrange} onClick={() => {
+              if (introHide) { try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* private window: it just shows again */ } }
+              setIntro(false);
+            }}>{t('gfIntroContinue')} {icon('button_chevron_right')}</button>
+          </div>
+          <label className="flex items-center justify-center gap-2 text-[12px] text-orange-200/70 cursor-pointer">
             <input type="checkbox" checked={introHide} onChange={e => setIntroHide(e.target.checked)} /> {t('gfIntroHide')}
           </label>
-          <button className={btnOrange} onClick={() => {
-            if (introHide) { try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* private window: it just shows again */ } }
-            setIntro(false);
-          }}>{t('gfIntroContinue')} {icon('button_chevron_right')}</button>
         </div>
       </Shell>
     );
@@ -134,9 +161,10 @@ export function GitfindaModal({ onClose, username, focusPostId }: Props) {
 
   return (
     <Shell onClose={onClose} closeInBar>
-      <div className="px-4 py-2 text-center border-b border-orange-800/40">
-        <div className="text-2xl font-black text-orange-400 tracking-wide leading-none">Gitfinda <span className="align-middle border border-orange-500/70 text-orange-300 text-[10px] font-bold tracking-widest px-1.5 py-0.5 rounded-sm">BETA</span></div>
-        <div className="sr-only">{t(subtitle[tab])}</div>
+      <div className="px-4 pt-3 pb-2 text-center border-b border-orange-800/40">
+        <img src="/gitfinda/logo-small.webp" alt="Gitfinda" className="mx-auto w-24 h-24 object-contain mix-blend-screen select-none" draggable={false} />
+        <div className="text-orange-300 font-bold uppercase tracking-[0.35em] text-[11px] -mt-1">{t(subtitle[tab])}</div>
+        <img src="/gitfinda/small_skull_divider.png" alt="" aria-hidden className="mx-auto mt-1.5 h-3 object-contain opacity-80" draggable={false} />
       </div>
       {/* The tab bar stays at the top while the list scrolls (it scrolled away once posts piled up), and
           carries the close button for the same reason. */}
@@ -179,6 +207,9 @@ function Shell({ onClose, children, closeInBar }: { onClose: () => void; childre
     <div className="gf-dialog fixed inset-0 z-50 overflow-y-auto bg-[#0b0806]">
       <div role="dialog" aria-modal="true" aria-label="Gitfinda"
         className="relative w-full max-w-3xl mx-auto min-h-full border-x-2 border-orange-600/60 shadow-[0_0_40px_rgba(249,115,22,0.18)]">
+        {['top-0 left-0 border-t-2 border-l-2', 'top-0 right-0 border-t-2 border-r-2', 'bottom-0 left-0 border-b-2 border-l-2', 'bottom-0 right-0 border-b-2 border-r-2'].map(c => (
+          <span key={c} aria-hidden className={`pointer-events-none absolute w-6 h-6 border-orange-400/80 z-10 ${c}`} />
+        ))}
         {!closeInBar && <button onClick={onClose} aria-label={t('close')} className="absolute top-2 right-3 text-orange-300/70 hover:text-orange-200 text-xl leading-none z-10">×</button>}
         {children}
       </div>
@@ -228,27 +259,25 @@ function PostCard({ t, locale, post, zone, action, highlight }: { t: TFn; locale
   const agoKey = a.unit === 'm' ? 'gfAgoM' : a.unit === 'h' ? 'gfAgoH' : 'gfAgoD';
   return (
     <div id={`gf-post-${post.id}`} className={`${cardBox} p-3 ${highlight ? 'ring-2 ring-orange-400' : ''}`}>
-      <div className="flex items-start gap-3">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] sm:grid-cols-[auto_minmax(0,1.25fr)_minmax(0,0.9fr)_minmax(0,0.6fr)_minmax(0,0.7fr)_minmax(0,1.6fr)_auto] gap-x-3 gap-y-2 items-center">
         <ArmyBadge army={post.army} />
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="text-orange-300 font-bold text-[14px]">{post.username}</span>
-            <span className="text-orange-100/90 text-[13px]">{factionLabel(post.army)}</span>
-            <span className="text-[10px] text-orange-200/40 ml-auto">{tpl(t(agoKey), { n: a.n })}</span>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
-            <Meta label={t('gfFEngagement')}>{t(ENGAGEMENT_KEY[post.engagement])}</Meta>
-            <Meta label={t('gfFPoints')}>{post.points}</Meta>
-            <Meta label={t('gfFZone')}>{offsetLabel(post.timezone)}</Meta>
-          </div>
-          <div className="mt-2 text-[12px]">
-            <div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfFSlots')} <span className="normal-case tracking-normal text-orange-300/60">· {zoneNote(t, zone)}</span></div>
-            <Slots post={post} zone={zone} locale={locale} />
-          </div>
-          {post.eventName && <div className="mt-1 text-[11px] text-orange-300/80">{icon('engagement_crossed_swords', 'w-3.5 h-3.5')} {post.eventName}</div>}
+        <div className="min-w-0">
+          <div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfFArmy')}</div>
+          <div className="text-orange-100 font-bold text-[13px] leading-tight">{factionLabel(post.army)}</div>
+          <div className="text-[11px] text-orange-300/80 truncate">{post.username} <span className="text-orange-200/40">· {tpl(t(agoKey), { n: a.n })}</span></div>
         </div>
-        {action && <div className="shrink-0 self-center">{action}</div>}
+        <div className="col-span-2 sm:contents grid grid-cols-3 gap-2">
+          <Meta label={t('gfFEngagement')}>{t(ENGAGEMENT_KEY[post.engagement])}</Meta>
+          <Meta label={t('gfFPoints')}>{post.points}</Meta>
+          <Meta label={t('gfFZone')}>{offsetLabel(post.timezone)}</Meta>
+        </div>
+        <div className="col-span-2 sm:col-span-1 text-[12px] min-w-0">
+          <div className="text-[9px] uppercase tracking-[0.2em] text-orange-400/60">{t('gfFSlots')} <span className="normal-case tracking-normal text-orange-300/60">· {zoneNote(t, zone)}</span></div>
+          <Slots post={post} zone={zone} locale={locale} />
+        </div>
+        {action && <div className="col-span-2 sm:col-span-1 sm:justify-self-end">{action}</div>}
       </div>
+      {post.eventName && <div className="mt-2 text-[11px] text-orange-300/80">{icon('engagement_crossed_swords', 'w-3.5 h-3.5')} {post.eventName}</div>}
     </div>
   );
 }
@@ -270,8 +299,9 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyT
   const [minPoints, setMinPoints] = useState<number | ''>('');
   const [maxPoints, setMaxPoints] = useState<number | ''>('');
   const [zone, setZone] = useState('my');
+  const [tzFilter, setTzFilter] = useState('');
   const [open, setOpen] = useState(false);
-  const activeFilters = [army, engagement, eventId, minPoints, maxPoints].filter(v => v !== '').length + (sort !== 'newest' ? 1 : 0);
+  const activeFilters = [minPoints, maxPoints].filter(v => v !== '').length + (sort !== 'newest' ? 1 : 0);
   const [busy, setBusy] = useState<number | null>(null);
   const shownZone = zone === 'my' ? myZone() : zone;
   const tr = useLatest(t);
@@ -311,34 +341,40 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyT
             <input className={`${field} pl-8`} placeholder={t('gfSearchPh')} value={q} onChange={e => setQ(e.target.value)} maxLength={60} />
           </label>
           <button className={`${btnGhost} shrink-0`} onClick={() => setOpen(o => !o)} aria-expanded={open}>
-            {t('gfFilters')}{activeFilters > 0 ? ` (${activeFilters})` : ''} {open ? '▴' : '▾'}
+            {t('gfMoreFilters')}{activeFilters > 0 ? ` (${activeFilters})` : ''} {open ? '▴' : '▾'}
           </button>
         </div>
-        {open && (
-          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-[55vh] overflow-y-auto">
-          <select className={field} value={army} onChange={e => setArmy(e.target.value)}>
+        <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <select className={field} value={army} onChange={e => setArmy(e.target.value)} aria-label={t('gfAllArmies')}>
             <option value="">{t('gfAllArmies')}</option>
             {GITFINDA_ARMIES.map(a => <option key={a} value={a}>{factionLabel(a)}</option>)}
           </select>
-          <select className={field} value={engagement} onChange={e => setEngagement(e.target.value)}>
+          <select className={field} value={engagement} onChange={e => setEngagement(e.target.value)} aria-label={t('gfAllTypes')}>
             <option value="">{t('gfAllTypes')}</option>
             {ENGAGEMENTS.map(e => <option key={e} value={e}>{t(ENGAGEMENT_KEY[e])}</option>)}
           </select>
-          <select className={field} value={eventId} onChange={e => setEventId(e.target.value ? Number(e.target.value) : '')}>
+          <select className={field} value={eventId} onChange={e => setEventId(e.target.value ? Number(e.target.value) : '')} aria-label={t('gfAllEvents')}>
             <option value="">{t('gfAllEvents')}</option>
             {events.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
           </select>
-          <select className={field} value={sort} onChange={e => setSort(e.target.value)}>
-            <option value="newest">{t('gfSortNewest')}</option>
-            <option value="oldest">{t('gfSortOldest')}</option>
-            <option value="soonest">{t('gfSortSoonest')}</option>
-            <option value="points">{t('gfSortPoints')}</option>
+          <select className={field} value={tzFilter} onChange={e => setTzFilter(e.target.value)} aria-label={t('gfAllZones')}>
+            <option value="">{t('gfAllZones')}</option>
+            {[...new Set((posts ?? []).map(p => p.timezone))].sort().map(z => <option key={z} value={z}>{offsetLabel(z)} · {z}</option>)}
           </select>
-          {/* Points range: the board could be filtered by army, type and event, but not by size. */}
-          <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMinPoints')} aria-label={t('gfMinPoints')}
-            value={minPoints} onChange={e => setMinPoints(e.target.value === '' ? '' : Number(e.target.value))} />
-          <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMaxPoints')} aria-label={t('gfMaxPoints')}
-            value={maxPoints} onChange={e => setMaxPoints(e.target.value === '' ? '' : Number(e.target.value))} />
+        </div>
+        {open && (
+          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-[55vh] overflow-y-auto">
+            <select className={field} value={sort} onChange={e => setSort(e.target.value)}>
+              <option value="newest">{t('gfSortNewest')}</option>
+              <option value="oldest">{t('gfSortOldest')}</option>
+              <option value="soonest">{t('gfSortSoonest')}</option>
+              <option value="points">{t('gfSortPoints')}</option>
+            </select>
+            {/* Points range: the board could be filtered by army, type and event, but not by size. */}
+            <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMinPoints')} aria-label={t('gfMinPoints')}
+              value={minPoints} onChange={e => setMinPoints(e.target.value === '' ? '' : Number(e.target.value))} />
+            <input type="number" inputMode="numeric" min={0} step={100} className={field} placeholder={t('gfMaxPoints')} aria-label={t('gfMaxPoints')}
+              value={maxPoints} onChange={e => setMaxPoints(e.target.value === '' ? '' : Number(e.target.value))} />
             <div className="col-span-2 sm:col-span-4"><ZonePicker t={t} value={zone} onChange={setZone} /></div>
           </div>
         )}
@@ -348,11 +384,12 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyT
       {focusId !== undefined && posts !== null && !focusFound && !err && (
         <div className="text-orange-200/80 text-[12px] border border-orange-900/60 bg-orange-950/20 px-2 py-1">{t('gfFocusGone')}</div>
       )}
+      {posts && posts.length > 0 && tzFilter && !posts.some(p => p.timezone === tzFilter) && <div className="text-orange-200/60 text-[13px] text-center py-8">{t('gfNoPostsFiltered')}</div>}
       {posts && posts.length === 0 && !err && (
         <div className="text-orange-200/60 text-[13px] text-center py-8">{q || army || engagement || eventId || minPoints !== '' || maxPoints !== '' ? t('gfNoPostsFiltered') : t('gfNoPosts')}</div>
       )}
       <div className="space-y-2">
-        {posts?.map(p => (
+        {posts?.filter(p => !tzFilter || p.timezone === tzFilter).map(p => (
           <PostCard key={p.id} t={t} locale={locale} post={p} zone={shownZone} highlight={p.id === focusId}
             action={p.mine
               ? <button className={btnGhost} onClick={goPosts}>{t('gfYourPost')}</button>
@@ -364,9 +401,10 @@ function BrowseTab({ t, locale, onMatched, goCreate, goPosts, goMatches, stickyT
                   : <button className={btnOrange} disabled={busy === p.id} onClick={() => doMatch(p)}>{t('gfMatch')} {icon('button_chevron_right', 'w-3 h-3')}</button>} />
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-2 pt-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
         <button className={btnOrange} onClick={goCreate}>{icon('create_post')} {t('gfNavCreate')}</button>
         <button className={btnOrange} onClick={goPosts}>{icon('show_my_posts_user')} {t('gfShowMyPosts')}</button>
+        <button className={btnOrange} onClick={goMatches}>{icon('matched_gits_users')} {t('gfNavMatches')}</button>
       </div>
     </div>
   );

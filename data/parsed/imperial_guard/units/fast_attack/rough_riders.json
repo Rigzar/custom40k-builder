@@ -142,10 +142,7 @@
             "abilities": "Unwieldy"
         },
         {
-            "name": "Krak lance"
-        },
-        {
-            "name": "- Charge",
+            "name": "Krak lance - Charge",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -154,7 +151,7 @@
             "abilities": "Charge, Quick(+1)"
         },
         {
-            "name": "- Normal",
+            "name": "Krak lance - Normal",
             "range": "-",
             "type": "Melee",
             "s": "+1",

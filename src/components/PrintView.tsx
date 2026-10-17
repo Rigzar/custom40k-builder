@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
-import { slotCapFactor } from '../engine/navyRules';
 import { getActiveVariant, getPromotedModel } from '../engine/points';
 import { useLanguage, t as tFn } from '../i18n';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
@@ -405,7 +404,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, optionStatSets, ctanYngirActive, attachedDrones, optionAbilities, traitAbilities } = rp;
+          optionStatMods, optionStatSets, attachedDrones, optionAbilities, traitAbilities } = rp;
   // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
   // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
   // affected. Same derivation as the unit card now.
@@ -649,17 +648,6 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               const modStats = applyEquipDeltas(equipTargetsModel(u, m, variant) ? applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle) : { ...(m.stats as Record<string, string>) }, traitEquipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
-              }
-              // Yngir: "One C'tan shard ... improves its armor save to 2+". The floor lives in
-              // `statPipeline`, which the unit card and the battle view both run and THIS VIEW DOES
-              // NOT — it builds its stats by hand. So the printed sheet was the one place the
-              // improvement never happened: "The Yngir C'Tan's armour save displays as 3+ when
-              // printed. Other Yngir improvements display correctly." (GH#160). Same shape as the
-              // ward save and the psychic details before it: one view knowing something the others
-              // do not. Applied as a FLOOR, so a shard that already prints better keeps it.
-              if (ctanYngirActive) {
-                const cur = String(modStats.SV ?? '').match(/^(\d+)\+/)?.[1];
-                if (!cur || parseInt(cur, 10) > 2) modStats.SV = '2+';
               }
               // Absolute values an option sets ("Reinforced forelimbs: the model gains WS 3+"),
               // which no delta can express on a profile that prints "-" (GH#151).
@@ -1270,7 +1258,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   const compMax = COMP_SLOTS.map(slot => {
     if (slot === 'Transport') return Math.max(infantryCount, 1);
     const cap = engagement.aop[(slot === 'Fast Attack' ? 'Fast Attack' : slot) as keyof typeof engagement.aop]?.[1] ?? 0;
-    return Math.max(cap * slotCapFactor(data.faction, slot), 1);
+    return Math.max(cap, 1);
   });
   const compValues = compCountsForRadar.map((count, i) => Math.min((count / compMax[i]) * 10, 10));
   const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${compMax[i]}`);

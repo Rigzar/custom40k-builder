@@ -20,6 +20,8 @@ import {
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 import { nm, rl } from '../utils/localName';
+import { armoryAccessorCount, championArmoryBuyers } from '../lib/battleProfile';
+import { supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
 // unenforced-01): every model with Armory access may select a single item from any Imperial
@@ -267,11 +269,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // The UNIT's own faction, not the primary army's. Keying off `data` meant that when
   // Inquisition was the ALLIED detachment `data.faction` read the primary faction and the
   // Authority tab never appeared for the Inquisition units entitled to it (GH#124).
-  // `activeData` is the data this item's armoury comes from, which is what the sibling gate
-  // `isInquisitionAcolytes` below already uses.
+  // `activeData` is the data this item's armoury comes from (the sibling gates below use it too).
   const isInquisition = activeData.faction === 'Inquisition';
-  // Imperial Navy's "Warrant of Trade" grants the same single pick from any Imperial faction.
-  const hasAuthorityTab = isInquisition || activeData.faction === 'Imperial Navy';
+  // (Imperial Navy 1.1 dropped the single-item pick from the Warrant of Trade: only the Inquisition keeps this tab.)
+  const hasAuthorityTab = isInquisition;
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
   const authorityFactions = archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
@@ -295,7 +296,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // codex's own "Point costs are paid per unit/model" is about price, never quantity) — never
     // scale the cap by item.size the way an ordinary has_armory_access squad's gear would.
     if (isBiomorph(arm.desc)) return 1;
-    const accessorCount = (isVehicle || unit.has_armory_access) ? item.size : 1;
+    const accessorCount = isVehicle ? item.size : unit.has_armory_access ? armoryAccessorCount(unit, item.size) : championArmoryBuyers(unit, item.modelSizes);
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
       // "Must be purchased separately for each weapon" (Master-crafted weapon, Forgewrought
@@ -429,9 +430,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Combines unit.keywords + unit_type tokens + selected mark + bought armour keywords.
   const _effectiveKws = effectiveKeywords(unit, item.mark, getBoughtArmourKws());
 
+  // T'au support systems stop at the datasheet's cap ("up to two SUPPORT SYSTEMS from the armory", GH#243).
+  function supportCapBlocked(arm: ArmoryItem, sec: Section): boolean {
+    if (sec !== 'equipment' || !arm.support_system || !activeData) return false;
+    const cap = supportSystemCap(unit, item, activeData, traitPool);
+    return cap !== null && supportSystemsOwned(unit, item, activeData) >= cap;
+  }
+
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (oncePerModelBlocked(arm, sec)) return true;
+    if (supportCapBlocked(arm, sec)) return true;
     if (uniqueArmyBlocked(arm, sec)) return true;
     if (kustomJobSlotFull(arm)) return true;
     if (unwieldyModelBlocked(arm, sec)) return true;
@@ -452,6 +461,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
    */
   function blockReason(arm: ArmoryItem, sec: Section): string | null {
     if (oncePerModelBlocked(arm, sec)) return t('armReasonCap').replace('{n}', String(copyCap(arm, sec)));
+    if (supportCapBlocked(arm, sec)) return t('armReasonSupport').replace('{n}', String(supportSystemCap(unit, item, activeData!, traitPool) ?? 0));
     if (uniqueArmyBlocked(arm, sec)) return t('armReasonUnique');
     if (kustomJobSlotFull(arm)) return t('armReasonKustom');
     if (unwieldyModelBlocked(arm, sec)) return t('armReasonUnwieldy');
@@ -721,13 +731,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isTauPlainInfantry = activeData.faction === 'Tau Empire' &&
     unit.unit_type.split(',').map(s => s.trim()).includes('Infantry');
 
-  // Inquisition ("Armory" sheet, under the WEAPON table): "Acolyte Specialists can only receive
-  // weapons marked with ˢ." Nine weapons carry the glyph and are flagged `specialist_compat`.
-  // It bites on the Acolytes datasheet alone: a Henchman Warband is built from the 18 Elite
-  // specialist sheets and Acolytes is the ONLY one of them that grants Armory access at all
-  // ("All models got access to weapons and gear from the Armory"), so no other specialist has
-  // anything to restrict. Equipment is untouched — the rule names weapons.
-  const isInquisitionAcolytes = (activeData.faction === 'Inquisition' || activeData.faction === 'Imperial Navy') && unit.name === 'Acolytes';
+  // (Inquisition 1.3 / Imperial Navy 1.1 dropped "Acolyte Specialists can only receive weapons marked with ˢ": no weapon is marked any more, so Acolytes take the whole Armory.)
 
   // Horus Heresy Palatine Blade Squad ("Armory" sheet): "Every model got access to melee weapons
   // from the Armory. May not select weapons with the 'Slow' or 'Unwieldy' rule." Scoped to the
@@ -1035,11 +1039,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (sec === 'equipment' && activeData.faction === 'Eldar' && isChar) {
       list = list.filter(a => !ELDAR_EXARCH_POWERS.includes(a.name));
     }
-    // Acolytes may only take the ˢ weapons (see isInquisitionAcolytes). An item already bought
-    // stays listed, as with every other gate here, so a saved list never loses gear silently.
-    if (sec === 'weapons' && isInquisitionAcolytes) {
-      list = list.filter(a => a.specialist_compat || boughtItemNames.has(a.name));
-    }
     if (sec === 'weapons') list = filterMeleeOnlyNoSlowUnwieldy(list);
     return list;
   }
@@ -1275,7 +1274,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {t(isInquisition ? 'authorityTabLabel' : 'warrantTabLabel')}
+              {t('authorityTabLabel')}
             </button>
           )}
           {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines.

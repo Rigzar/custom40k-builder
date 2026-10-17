@@ -4,6 +4,7 @@ import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-over
 import { getArchetypeRule } from './archetypes';
 import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
+import { expandAllRemaining } from './allRemaining';
 
 /**
  * Live-recompute an armory selection's cost from the unit's CURRENT size/wounds, instead of
@@ -155,7 +156,7 @@ export function unitMatchesKeyword(
 }
 
 export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
-  if (group.promoted_constraint && item.archetypeHqUpgrade) return group.promoted_constraint;
+  if (group.promoted_constraint && (item.archetypeHqUpgrade || item.ctanYngirUpgrade)) return group.promoted_constraint;
   const vc = group.variant_constraint;
   const base = !vc ? group.constraint
     : getActiveVariant(item, unit)?.variant.name === vc.variant ? vc.constraint : group.constraint;
@@ -221,6 +222,7 @@ function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
  * required means the compiler names every one of the ten places that sum unit points.
  */
 export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string, pointLimit: number): number {
+  item = expandAllRemaining(item, unit);   // "All remaining models may swap ..." covers every remaining model
   let total = 0;
   const active = getActiveVariant(item, unit);
 
@@ -364,10 +366,10 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // "+3 points"/"+2 points" — per model swapping, not a flat unit-wide cost).
   total += (item.gueVesaLasgunSwaps ?? 0) * 3 + (item.gueVesaHotshotSwaps ?? 0) * 2;
 
-  // Yngir: "One C'tan shard (any kind) counts as an HQ selection... It costs an additional
-  // +85 points" (ods-verbatim, Necrons Army Customisation). Flat surcharge, not per-model —
+  // Yngir: "C'tan Shards count as an HQ selection... It costs an additional +30 points"
+  // (ods-verbatim, Necrons 1.5 Army Customisation). Flat surcharge, not per-model —
   // C'tan Shards are always a single model (default_size 1).
-  if (item.ctanYngirUpgrade) total += 85;
+  if (item.ctanYngirUpgrade) total += 30;
   // The promoted model's flat surcharge (Megafauna: "The model costs +36 points"), only on the entry that claimed the promotion.
   if (item.archetypeHqUpgrade) {
     const promo = getArchetypeRule(archetype)?.hqPromotion;

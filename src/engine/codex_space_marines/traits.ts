@@ -84,7 +84,7 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   //    can scatter into it). Additionally the unit gains 'Warded'.
   //  - Aura of Doom: The unit gains 'Terrifying(-2)'.
   //  - Berserkers: The unit gains 'Blind Rage'.
-  //  - Immolation: The model gains 'Retribution(1)'.
+  //  - Immolation: The model gains 'Retribution(2)'.
   //  - Ossific Blades: The model gains the 'Ossific Blades' weapon (see Armory)."
   // COST: 5 | 0 | 5
   // NOTE: the five sub-options are a player choice — builder shows them as description only;
@@ -93,7 +93,7 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     {
       type: 'unit_ability',
       name: 'Cursed Founding',
-      desc: 'Select one improvement: Apparitions (Deep Strike + Warded), Aura of Doom (Terrifying(-2)), Berserkers (Blind Rage), Immolation (Retribution(1)), or Ossific Blades weapon.',
+      desc: 'Select one improvement: Apparitions (Deep Strike + Warded), Aura of Doom (Terrifying(-2)), Berserkers (Blind Rage), Immolation (Retribution(2)), or Ossific Blades weapon.',
       applies_to: 'all',
     },
   ],

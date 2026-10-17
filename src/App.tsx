@@ -19,6 +19,7 @@ import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/
 import { getArchetypeRule } from './engine/archetypes';
 import { getArmySymbolPair } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
+import { retinueFactionKeys } from './engine/legendaryRetinue';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
 import { useSavedArmies, type SavedArmy, AUTOSAVE_ID, AUTOSAVE_DISMISSED_KEY } from './hooks/useSavedArmies';
@@ -365,7 +366,7 @@ export default function App() {
     const assassinKey = getAssassinAccessAlignment(data.faction) ? 'assassins' : null;
     const chamberMilitantKey = chamberMilitantOrdo(data.faction, archetype) ? 'inquisition' : null;
     const keys = [...new Set(
-      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey, chamberMilitantKey]
+      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey, chamberMilitantKey, ...retinueFactionKeys(data.faction, archetype)]
         .filter((k): k is string => !!k)
     )];
     for (const key of keys) {
@@ -625,8 +626,8 @@ export default function App() {
     return `${base} (${n})`;
   }
 
-  async function handleSaveArmy() {
-    if (!data || !selectedFaction) return;
+  async function handleSaveArmy(): Promise<boolean> {
+    if (!data || !selectedFaction) return false;
 
     const total = army.reduce((s, i) => {
       const u = resolveUnit(i, data);
@@ -656,6 +657,7 @@ export default function App() {
         }
         setSavedMsg('Saved to cloud!');
         setTimeout(() => setSavedMsg(''), 2000);
+        return true;
       } catch (e) {
         // SAY WHY. A bare "Save failed" is the worst possible answer to the one refusal a player
         // can actually hit and act on: a list entered in a league whose registration has closed is
@@ -665,8 +667,8 @@ export default function App() {
         const msg = e instanceof Error && e.message ? e.message : 'Save failed';
         setSavedMsg(msg);
         setTimeout(() => setSavedMsg(''), msg.length > 40 ? 9000 : 2000);
+        return false;
       }
-      return;
     }
 
     // Not logged in: fall back to the local, per-browser "My Armies" list.
@@ -694,6 +696,7 @@ export default function App() {
     saveArmy(entry);
     setSavedMsg('Saved!');
     setTimeout(() => setSavedMsg(''), 2000);
+    return true;
   }
 
   /** The faction-loader effect only fires when `selectedFaction` CHANGES — loading a save of the
@@ -796,6 +799,7 @@ export default function App() {
 
   /** Steps ②-④ need a faction whose catalogue has finished loading. */
   const flowUnlocked = !!selectedFaction && !!data;
+  const [startChoiceOpen, setStartChoiceOpen] = useState(false);
   const showAlly = !!alliedFaction && detachment === 'allied';
   const accentBorder = showAlly ? 'border-emerald-900/60' : 'border-amber-900/60';
 
@@ -909,6 +913,50 @@ export default function App() {
         </div>
       )}
 
+      {/* GH#242: a list is open and unsaved -- Build army offers a way back into it, not just discard or cancel. */}
+      {screen === 'home' && startChoiceOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" onClick={() => setStartChoiceOpen(false)}>
+          <div className="w-full max-w-sm border border-zinc-600 bg-zinc-900 p-4 space-y-3" onClick={e => e.stopPropagation()}>
+            <p className="text-[13px] text-zinc-200">{t('discardArmyConfirm')}</p>
+            <div className="flex flex-col gap-2">
+              {flowUnlocked && (
+                <button
+                  onClick={() => { setStartChoiceOpen(false); setScreen('flow'); setStep('units'); }}
+                  className="py-2 px-3 border border-emerald-700 text-emerald-400 hover:text-emerald-300 hover:border-emerald-500 text-[12px] uppercase tracking-wider"
+                >↩ {t('continueArmy')}</button>
+              )}
+              <button
+                onClick={async () => {
+                  if (!(await handleSaveArmy())) return;
+                  setStartChoiceOpen(false);
+                  store.clearArmy();
+                  setActiveCloudRosterId(null);
+                  setViewingCopyOf(null);
+                  setActiveLocalSaveId(null);
+                  setScreen('flow'); setStep('faction');
+                }}
+                className="py-2 px-3 border border-amber-700 text-amber-400 hover:text-amber-300 hover:border-amber-500 text-[12px] uppercase tracking-wider"
+              >{t('saveAndStartNew')}</button>
+              <button
+                onClick={() => {
+                  setStartChoiceOpen(false);
+                  store.clearArmy();
+                  setActiveCloudRosterId(null);
+                  setViewingCopyOf(null);
+                  setActiveLocalSaveId(null);
+                  setScreen('flow'); setStep('faction');
+                }}
+                className="py-2 px-3 bg-amber-800 border border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold"
+              >{t('startNewArmy')}</button>
+              <button
+                onClick={() => setStartChoiceOpen(false)}
+                className="py-2 px-3 border border-zinc-700 text-zinc-400 hover:text-zinc-200 text-[12px] uppercase tracking-wider"
+              >{t('cancel')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Front door ── */}
       {screen === 'home' && (
         <LandingPage
@@ -919,13 +967,7 @@ export default function App() {
             // "Build army" used to drop straight back into the open list, and the next save
             // overwrote it (Discord). A non-empty list now asks first, and a fresh start forgets
             // which save it was linked to so it can never write over that one.
-            if (army.length > 0) {
-              if (!confirm(t('discardArmyConfirm'))) return;
-              store.clearArmy();
-              setActiveCloudRosterId(null);
-              setViewingCopyOf(null);
-              setActiveLocalSaveId(null);
-            }
+            if (army.length > 0) { setStartChoiceOpen(true); return; }
             setScreen('flow'); setStep('faction');
           }}
           onResume={() => { setScreen('flow'); setStep('units'); }}
@@ -1130,6 +1172,7 @@ export default function App() {
           onPlay={() => setShowPlay(true)}
           onPrint={() => setShowPrint(true)}
           onSave={handleSaveArmy}
+          onImported={() => { setActiveLocalSaveId(null); setActiveCloudRosterId(null); setViewingCopyOf(null); }}
           savedMsg={savedMsg}
           onBack={() => setStep('units')}
         />

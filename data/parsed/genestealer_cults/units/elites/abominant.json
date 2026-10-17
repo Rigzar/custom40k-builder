@@ -36,7 +36,7 @@
         }
     ],
     "abilities": [
-        "Ambush, Berserk, Infiltrator, Massive(1), Regeneration(1), Use cover",
+        "Ambush, Berserk(5+), Infiltrator, Massive(1), Regeneration(1), Use cover",
         "Mindwyrm familiar: The model can re-roll 1 to hit and 1 to wound roll.",
         "The Chosen One: All melee weapons of the Abominant and its attached unit gain the \"Deflagrate(5+)\" ability.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."

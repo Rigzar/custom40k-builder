@@ -58,15 +58,16 @@ console.log('wrote ' + out + ' (' + Math.round(fs.statSync(out).size / 1024) + '
 
 if (process.argv.includes('--install')) {
   const dir = path.join(os.homedir(), 'Documents', 'My Games', 'Tabletop Simulator', 'Saves');
-  if (!fs.existsSync(dir)) { console.error('TTS Saves folder not found: ' + dir); process.exit(1); }
   const dest = path.join(dir, 'Custom40k Table.json');
-  fs.copyFileSync(out, dest);
+  try { fs.copyFileSync(out, dest); } catch (e) { console.error('TTS Saves folder not usable: ' + dir + ' (' + e.code + ')'); process.exit(1); }
   console.log('installed to ' + dest);
   // The Save & Load list is read from SaveFileInfos.json, not from the folder, so the save has to be registered there
   // too. Tabletop Simulator rewrites that index while it runs: close the game first, or run this again if it vanishes.
   const index = path.join(dir, 'SaveFileInfos.json');
-  if (fs.existsSync(index)) {
-    const list = JSON.parse(fs.readFileSync(index, 'utf8'));
+  let indexText = null;
+  try { indexText = fs.readFileSync(index, 'utf8'); } catch (e) { if (e.code !== 'ENOENT') throw e; }
+  if (indexText !== null) {
+    const list = JSON.parse(indexText);
     const sample = list[0] && list[0].Directory;
     const prefix = sample ? sample.slice(0, sample.lastIndexOf('\\') + 1) : dir + path.sep;
     const entry = { Directory: prefix + 'Custom40k Table.json', Name: 'Custom40k Table', UpdateTime: Math.floor(Date.now() / 1000) };

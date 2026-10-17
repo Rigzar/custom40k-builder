@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v184c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -55,76 +55,76 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.84: the army points left, next to your total",
-    intro: "The bar at the top right now shows how many points you still have free.",
+    title: "v1.85: Build army asks whether to continue the open list",
+    intro: "Build army can now take you back to the open list.",
     install: "",
     sections: [
       { label: "New in this version", rows: [
-        ["Points left","The header reads \"2435 (65)  ▬▬  / 2500\": your total and, in brackets, the points still free. Red with a minus when you are over the limit, green at exactly 0."],
-        ["New faction","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta and four flyers, with its own Armory. Skyhammer Doctrine doubles the Flyer slots; Warrant of Trade lets every model take one item from any Imperial faction."],
-        ["Skirmish allies","Allies and archetypes now work in Skirmish: one Troops plus at most one Elite, Fast Attack or Heavy Support, sharing the main AOP. Only archetypes marked for Skirmish in their codex are offered."],
-        ["Rules 1.279","Armorbane(x) replaces the fixed +3 and Lance is gone (32 armory items and powers updated); Disorderly Charge is in the Field Manual and the glossary was re-read against the new text."],
-        ["Tyranids","Zoanthropes: one Neurothrope per three models for +25. Fixed the Synaptic Disruption Organ lines split in Russian, and the Megafauna archetype."],
+        ["T'au Empire","Support systems are counted and capped: the Commander shows n/2 and the Armory stops at the limit."],
+        ["Psychic powers","A psyker that \"knows Smite and two powers\" now stops at two (Warlocks, Broodlords); \"one power\" psykers stop at one."],
+        ["Lists","Importing a list no longer overwrites a saved one (it asks first and Save makes a new list). Build army can also save the open army first."],
+        ["Build army","With an open list you can continue it, start a new one or cancel, instead of only discard or cancel."],
+        ["Necrons","Two Triarch Stalkers can each take their own weapon swap and Reinforced forelimbs."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.84: die verbleibenden Armeepunkte, neben deiner Summe",
-    intro: "Die Leiste oben rechts zeigt jetzt, wie viele Punkte noch frei sind.",
+    title: "v1.85: Armee bauen fragt, ob die offene Liste fortgesetzt wird",
+    intro: "Armee bauen führt jetzt auch zurück zur offenen Liste.",
     install: "",
     sections: [
       { label: "Neu in dieser Version", rows: [
-        ["Verbleibende Punkte","Die Kopfzeile zeigt „2435 (65)  ▬▬  / 2500“: deine Summe und in Klammern die noch freien Punkte. Rot mit Minus über dem Limit, grün bei genau 0."],
-        ["Neue Fraktion","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta und vier Flieger, mit eigener Armory. Skyhammer Doctrine verdoppelt die Flyer-Plätze; Warrant of Trade erlaubt jedem Modell einen Gegenstand aus einer beliebigen imperialen Fraktion."],
-        ["Skirmish-Verbündete","Verbündete und Archetypen funktionieren jetzt im Skirmish: ein Troops plus höchstens ein Elite, Fast Attack oder Heavy Support, im AOP der Hauptarmee. Angeboten werden nur Archetypen, die im Codex für Skirmish freigegeben sind."],
-        ["Regeln 1.279","Armorbane(x) ersetzt das feste +3, Lance entfällt (32 Armory-Gegenstände und Kräfte angepasst); Disorderly Charge steht im Feldhandbuch, das Glossar wurde gegen den neuen Text geprüft."],
-        ["Tyraniden","Zoanthropen: ein Neurothrope je drei Modelle für +25. Die in Russisch zerhackten Zeilen des Synaptic Disruption Organ und der Megafauna-Archetyp sind korrigiert."],
+        ["T'au Empire","Support Systems werden gezählt und begrenzt: Der Commander zeigt n/2 und die Armory hält am Limit an."],
+        ["Psionische Kräfte","Ein Psioniker, der „Smite und zwei Kräfte“ kennt, hört jetzt bei zwei auf (Warlocks, Broodlords); bei „einer Kraft“ bei einer."],
+        ["Listen","Ein Import überschreibt keine gespeicherte Liste mehr (er fragt vorher, Speichern legt eine neue an). Armee bauen kann die offene Armee auch zuerst speichern."],
+        ["Armee bauen","Mit offener Liste kannst du sie fortsetzen, eine neue beginnen oder abbrechen, statt nur verwerfen oder abbrechen."],
+        ["Necrons","Zwei Triarch Stalker können je ihren eigenen Waffentausch und Reinforced forelimbs nehmen."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.84: los puntos que te quedan, junto a tu total",
-    intro: "La barra de arriba a la derecha ahora muestra cuántos puntos te quedan libres.",
+    title: "v1.85: Construir ejército pregunta si continuar la lista abierta",
+    intro: "Construir ejército ahora puede devolverte a la lista abierta.",
     install: "",
     sections: [
       { label: "Novedades de esta versión", rows: [
-        ["Puntos restantes","La cabecera dice «2435 (65)  ▬▬  / 2500»: tu total y, entre paréntesis, los puntos libres. Rojo con menos si te pasas del límite, verde justo en 0."],
-        ["Facción nueva","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta y cuatro voladores, con su propia Armería. Skyhammer Doctrine duplica los huecos de Flyers; Warrant of Trade deja a cada modelo tomar un objeto de cualquier facción Imperial."],
-        ["Aliados en Skirmish","Los aliados y los arquetipos ya funcionan en Skirmish: un Troops más como máximo un Elite, Fast Attack o Heavy Support, dentro del AOP del ejército principal. Solo se ofrecen los arquetipos marcados para Skirmish en su códice."],
-        ["Reglas 1.279","Armorbane(x) sustituye al +3 fijo y Lance desaparece (32 objetos de armería y poderes actualizados); la Disorderly Charge está en el Manual de Campo y el glosario se releyó contra el texto nuevo."],
-        ["Tiránidos","Zoantropos: un Neurothrope por cada tres modelos por +25. Arregladas las líneas partidas del Synaptic Disruption Organ en ruso y el arquetipo Megafauna."],
+        ["T'au Empire","Los sistemas de apoyo se cuentan y tienen tope: el Commander muestra n/2 y la Armería se detiene en el límite."],
+        ["Poderes psíquicos","Un psíquico que «conoce Smite y dos poderes» ahora se detiene en dos (Warlocks, Broodlords); con «un poder», en uno."],
+        ["Listas","Importar una lista ya no sobreescribe una guardada (pregunta antes y Guardar crea una nueva). Construir ejército también puede guardar antes el ejército abierto."],
+        ["Construir ejército","Con una lista abierta puedes continuarla, empezar una nueva o cancelar, en vez de solo descartar o cancelar."],
+        ["Necrones","Dos Triarch Stalker pueden tomar cada uno su cambio de arma y sus Reinforced forelimbs."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "v1.84: оставшиеся очки армии рядом с общей суммой",
-    intro: "Полоса справа вверху теперь показывает, сколько очков ещё свободно.",
+    title: "v1.85: «Построить армию» спрашивает, продолжить ли открытый список",
+    intro: "Кнопка «Построить армию» теперь может вернуть к открытому списку.",
     install: "",
     sections: [
       { label: "Новое в этой версии", rows: [
-        ["Оставшиеся очки","Шапка показывает «2435 (65)  ▬▬  / 2500»: вашу сумму и в скобках свободные очки. Красным со знаком минус при превышении лимита, зелёным при ровно 0."],
-        ["Новая фракция","Imperial Navy: Rogue Trader, Voidmaster, Ratings, Voidsmen, Breachers, Explorator, Impressed Ogryns, Valkyrie, Vendetta и четыре летательных аппарата, со своим арсеналом. Skyhammer Doctrine удваивает слоты Flyers; Warrant of Trade позволяет каждой модели взять один предмет из любой имперской фракции."],
-        ["Союзники в Skirmish","Союзники и архетипы теперь работают в Skirmish: один Troops и не более одного Elite, Fast Attack или Heavy Support, в AOP основной армии. Предлагаются только архетипы, отмеченные для Skirmish в кодексе."],
-        ["Правила 1.279","Armorbane(x) заменяет фиксированный +3, Lance убран (обновлено 32 предмета арсенала и сил); Disorderly Charge есть в Полевом руководстве, глоссарий сверен с новым текстом."],
-        ["Тираниды","Zoanthrope: один Neurothrope на каждые три модели за +25. Исправлены разбитые на строки тексты Synaptic Disruption Organ на русском и архетип Megafauna."],
+        ["T'au Empire","Системы поддержки считаются и ограничены: Commander показывает n/2, а Armory останавливается на пределе."],
+        ["Психические силы","Псайкер, который «знает Smite и две силы», теперь останавливается на двух (Warlocks, Broodlords); с «одной силой» — на одной."],
+        ["Списки","Импорт списка больше не перезаписывает сохранённый (сначала спрашивает, «Сохранить» создаёт новый). «Построить армию» также может сначала сохранить открытую армию."],
+        ["Построить армию","При открытом списке можно продолжить его, начать новый или отменить, а не только сбросить или отменить."],
+        ["Некроны","Два Triarch Stalker могут взять каждый свою замену оружия и Reinforced forelimbs."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "v1.84：残りの軍ポイントを合計の横に表示",
-    intro: "右上のバーに、まだ使えるポイントが表示されるようになりました。",
+    title: "v1.85: 「軍を作る」で開いているリストを続けるか確認",
+    intro: "「軍を作る」から開いているリストに戻れるようになりました。",
     install: "",
     sections: [
       { label: "このバージョンの新機能", rows: [
-        ["残りポイント","ヘッダーに「2435 (65)  ▬▬  / 2500」と表示されます：合計と、括弧内に残りポイント。上限を超えるとマイナス付きの赤、ちょうど0で緑です。"],
-        ["新勢力","Imperial Navy：Rogue Trader、Voidmaster、Ratings、Voidsmen、Breachers、Explorator、Impressed Ogryns、Valkyrie、Vendetta、飛行ユニット4種と独自の武器庫。Skyhammer DoctrineでFlyer枠が2倍に、Warrant of Tradeで各モデルが任意の帝国勢力からアイテム1つを選べます。"],
-        ["Skirmishの同盟軍","Skirmishで同盟軍とアーキタイプが使えるようになりました：Troops 1つとElite・Fast Attack・Heavy Supportのいずれか最大1つで、主軍のAOPを共有します。コーデックスでSkirmish可とされたアーキタイプのみ選べます。"],
-        ["ルール1.279","Armorbane(x)が固定の+3に代わり、Lanceは廃止（武器庫アイテムとパワー32件を更新）。Disorderly Chargeはフィールドマニュアルに載り、用語集も新しい文面に合わせて見直しました。"],
-        ["ティラニッド","ゾアンスロープ：3モデルごとにニューロスロープ1体を+25で。ロシア語で分割されていたSynaptic Disruption Organの文と、Megafaunaアーキタイプを修正しました。"],
+        ["T'au Empire","サポートシステムが数えられ上限が付きました：Commanderはn/2を表示し、Armoryは上限で止まります。"],
+        ["サイキックパワー","「Smiteと2つのパワーを知っている」サイキッカーは2つで止まります（Warlocks、Broodlord）。「1つ」のサイキッカーは1つで止まります。"],
+        ["リスト","リストのインポートで保存済みのリストが上書きされなくなりました（先に確認し、保存すると新規作成）。「軍を作る」で開いている軍を先に保存することもできます。"],
+        ["軍を作る","開いているリストがある場合、破棄かキャンセルだけでなく、続ける・新しく始める・キャンセルから選べます。"],
+        ["ネクロン","2体のTriarch Stalkerがそれぞれ自分の武器交換とReinforced forelimbsを取れます。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
@@ -606,7 +606,6 @@ export function LandingPage({
               >
                 <img src="/gitfinda/matched_gits_users.png" alt="" aria-hidden className="w-4 h-4 object-contain" />
                 {t('gfButton')}
-                <span className="border border-orange-500/70 text-orange-300 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
                 {gfUnread > 0 && <span className="bg-orange-500 text-black rounded-full px-1.5 text-[10px] font-bold">{gfUnread}</span>}
               </button>
             ) : (
@@ -616,7 +615,6 @@ export function LandingPage({
                 className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
               >
                 {t('gfButtonSignIn')}
-                <span className="border border-zinc-700 text-zinc-500 text-[9px] font-bold tracking-widest px-1 py-px rounded-sm leading-none">BETA</span>
               </button>
             )}
           </div>

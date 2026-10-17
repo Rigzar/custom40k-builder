@@ -219,8 +219,8 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'imperial_navy': {
-      // Warrant of Trade (armory pick from any Imperial faction) rides on the same
-      // "Authority" picker as the Inquisition; Skyhammer Doctrine lives in engine/navyRules.ts.
+      // (Imperial Navy 1.1:)
+      // the Warrant of Trade slot rule lives in engine/navyRules.ts.
       const [u, g, arch, discs, prayers] = await Promise.all([
         import('../../data/parsed/imperial_navy/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/imperial_navy/armory/general.json'),

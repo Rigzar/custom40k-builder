@@ -263,7 +263,7 @@ export interface ArmyStore extends ArmyState {
    */
   setLegacyArmoryLock: (id: string, key: string | null) => void;
 
-  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string) => void;
+  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean) => void;
   removeUnit: (id: string) => void;
   duplicateUnit: (id: string) => void;
   updateUnit: (id: string, patch: Partial<RosterEntry>) => void;
@@ -464,7 +464,8 @@ export const useArmyStore = create<ArmyStore>()(
         const cleared = army.map((e: RosterEntry) =>
           e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
         return { archetype: a, army: clearYngir ? cleared.map((e: RosterEntry) =>
-          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e) : cleared };
+          e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
+          : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),
 
       setLegacy: (l: string) => set((s: S) => {
@@ -603,7 +604,7 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
-      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string) => {
+      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean) => {
         const s = get();
         if (!s.data) return;
         const u = nestedFaction
@@ -633,6 +634,7 @@ export const useArmyStore = create<ArmyStore>()(
           slot,
           factionSource,
           ...(nestedFaction ? { nestedFaction } : {}),
+          ...(retinue ? { retinue: true } : {}),
           size: computedSize,
           mark: autoMark,
           optionQty: {},
@@ -642,6 +644,8 @@ export const useArmyStore = create<ArmyStore>()(
           prayers: [],
           pacts: [],
           ...(modelSizes ? { modelSizes } : {}),
+          // Yngir: every C'tan Shard is the HQ one (Necrons 1.5), so the flag is set for them, not picked.
+          ...(s.archetype === 'Yngir' && !factionSource && /^C'tan Shard/.test(unitName) ? { ctanYngirUpgrade: true } : {}),
         };
         // Special Operations: auto-select Infiltrator for Cultists
         if (s.archetype === 'Special Operations' && unitName === 'Cultists') {

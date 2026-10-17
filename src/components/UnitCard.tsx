@@ -13,6 +13,7 @@ import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
+import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
 import { isAttendantModel } from '../lib/battleProfile';
@@ -143,6 +144,15 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
     if (found) return found;
   }
   return undefined;
+}
+
+const CAP_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+/** "up to three" is the sheet's number; when a promotion (Yngir) raises the cap the header states the cap in force. */
+function headerForPromotedCap(header: string, g: { constraint: { max?: number }; promoted_constraint?: unknown }, gc: { max?: number }): string {
+  if (!g.promoted_constraint || gc !== g.promoted_constraint) return header;
+  const from = g.constraint.max, to = gc.max;
+  if (from == null || to == null || from === to || !CAP_WORDS[from]) return header;
+  return header.replace(new RegExp('\\b' + CAP_WORDS[from] + '\\b', 'i'), CAP_WORDS[to] ?? String(to));
 }
 
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
@@ -601,30 +611,6 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               </span>
             </label>
             {atCap && <span className="text-[10px] text-red-400/80">{t('deploymentUpgradeFull')}</span>}
-          </div>
-        );
-      })()}
-
-      {/* ── Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) ──
-           Only ONE entry in the whole army may take this — hard-enforced by disabling the
-           toggle (not just a warning note) once another C'tan Shard entry already has it. */}
-      {data?.faction === 'Necrons' && archetype === 'Yngir' && !item.factionSource && /^C'tan Shard/.test(u.name) && (() => {
-        const otherActive = army.some(e => e.id !== item.id && e.ctanYngirUpgrade && /^C'tan Shard/.test(e.unitName));
-        const checked = !!item.ctanYngirUpgrade;
-        return (
-          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-            <label
-              onClick={() => { if (!otherActive || checked) updateUnit(item.id, { ctanYngirUpgrade: !checked }); }}
-              className={`flex items-center gap-2 text-[11px] ${otherActive && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
-            >
-              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
-                {checked && <span className="text-[8px] text-white leading-none">✓</span>}
-              </div>
-              <span className="text-zinc-300">{t('yngirToggleLabel')}</span>
-            </label>
-            {otherActive && !checked && (
-              <span className="text-[10px] text-red-400/80">{t('ctanShardTakenLabel')}</span>
-            )}
           </div>
         );
       })()}
@@ -1513,7 +1499,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   return owned;
                 }))
               : null;
-            const groupMax = perNRaw !== null
+            // "May pick up to two SUPPORT SYSTEMS from the armory" has no choices of its own: the cap comes from the line and
+            // the count from what the Armory holds (GH#243).
+            const supportCap = isSupportSystemGroup(g) && data ? supportSystemCap(u, item, data, traitPool) : null;
+            const groupMax = supportCap !== null ? supportCap : perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
                 ? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies
@@ -1531,7 +1520,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // `independent_choices` groups do NOT share one pool — each choice is capped on its
             // own, so a full set of one biomorph cannot lock out every other one. Their per-choice
             // remaining is computed inside qtyControl instead (see there).
-            const groupUsed = (isPerN || isEvery || isFixedMax) && !g.independent_choices
+            const groupUsed = supportCap !== null && data ? supportSystemsOwned(u, item, data)
+              : (isPerN || isEvery || isFixedMax) && !g.independent_choices
               ? Object.entries(item.optionQty?.[realGi] ?? {}).reduce(
                   (s, [k, v]) => k === '__inline' ? s : s + (v ?? 0), 0
                 )
@@ -1675,7 +1665,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             return (
               <details key={realGi} open className="border border-zinc-800 bg-zinc-900/30 text-[12px]">
                 <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
-                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{localiseAbility(g.header)}</span>
+                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{headerForPromotedCap(localiseAbility(g.header), g, gc)}</span>
                   {headerQty?.control}
                   {(isPerN || isFixedMax) && groupMax !== null && !g.independent_choices && (
                     <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>

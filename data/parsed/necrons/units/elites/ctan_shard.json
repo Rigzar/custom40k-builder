@@ -5,37 +5,82 @@
             "stats": {
                 "M": "6\"",
                 "WS": "2+",
-                "BS": "3+",
-                "S": "6",
-                "T": "7",
-                "W": "6",
+                "BS": "2+",
+                "S": "7",
+                "T": "8",
+                "W": "7",
                 "I": "4",
                 "A": "4",
                 "LD": "10",
-                "SV": "3+"
+                "SV": "4+"
             },
             "name": "C'tan Shard",
             "min": 1,
             "max": 1,
-            "points": 257
+            "points": 254
         }
     ],
     "variant_models": [],
-    "equipped_with": "A C'tan Shard is equipped with: C'tan close combat weapon.",
+    "equipped_with": "A C'tan Shard is equipped with: Fists of a Star God.",
     "weapons": [
         {
-            "name": "C'tan close combat weapon",
+            "name": "Fists of a Star God",
             "range": "-",
             "type": "Melee",
-            "s": "+1",
+            "s": "U",
             "ap": "-3",
             "d": "2",
             "abilities": "AT(1)"
+        },
+        {
+            "name": "Gaze of Death",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "1",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "Auto Hit, Blood Drinker, Poison(2+), Suppression(6)"
+        },
+        {
+            "name": "Scythe of the Nightbringer",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Seismic Assault",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(6), Monofilament, Sunder(2)"
+        },
+        {
+            "name": "Spear of the Dragon",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(4), Quick(+1)"
+        },
+        {
+            "name": "Voltaic Storm",
+            "range": "18\"",
+            "type": "Assault 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Haywire"
         }
     ],
     "option_groups": [
         {
-            "header": "An army can contain only one C'tan Shard.",
+            "header": "Only one C'tan Shard per army.",
             "constraint": {
                 "type": "one"
             },
@@ -43,12 +88,217 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "May select up to three of the following upgrades:",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 3,
+                "max_per_choice": 1
+            },
+            "promoted_constraint": {
+                "type": "fixed_max",
+                "max": 5,
+                "max_per_choice": 1
+            },
+            "choices": [
+                {
+                    "name": "Infinite Recursion",
+                    "points": 10,
+                    "abilities": [
+                        "Infinite Recursion: The model may manifest a power it already used this turn a second time."
+                    ]
+                },
+                {
+                    "name": "Writhing Worldscape",
+                    "points": 10,
+                    "abilities": [
+                        "Writhing Worldscape: All terrain within 6\" of the model is treated as difficult and dangerous terrain for enemy units."
+                    ]
+                },
+                {
+                    "name": "Untamed Power",
+                    "points": 14,
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    },
+                    "abilities": [
+                        "Untamed Power: The model gains +1 Strength and +1 Attack."
+                    ]
+                },
+                {
+                    "name": "Cosmic Tyrant",
+                    "points": 15,
+                    "abilities": [
+                        "Cosmic Tyrant: The model may manifest another power per turn."
+                    ]
+                },
+                {
+                    "name": "Dread",
+                    "points": 15,
+                    "abilities": [
+                        "Dread: Enemy units within 12\" suffer -2 to their Leadership."
+                    ]
+                },
+                {
+                    "name": "Entropic Touch",
+                    "points": 15,
+                    "abilities": [
+                        "Entropic Touch: The model gains the \"Shred\" ability for all melee attacks."
+                    ]
+                },
+                {
+                    "name": "Grand Illusion",
+                    "points": 15,
+                    "abilities": [
+                        "Grand Illusion: At the beginning of the first battle round, you can remove up to three of your units from the field and redeploy them. Alternatively, each unit can also be placed in reserve."
+                    ]
+                },
+                {
+                    "name": "Transdimensional Displacement",
+                    "points": 15,
+                    "abilities": [
+                        "Transdimensional Displacement: The model automatically advances 6\" instead of rolling for it"
+                    ]
+                },
+                {
+                    "name": "Gaze of Death",
+                    "points": 16,
+                    "effect": {
+                        "grants_weapons": [
+                            "Gaze of Death"
+                        ]
+                    },
+                    "abilities": [
+                        "Gaze of Death: The model gains the \"Gaze of Death\" weapon."
+                    ]
+                },
+                {
+                    "name": "Matter Absorption",
+                    "points": 20,
+                    "abilities": [
+                        "Matter Absorption: The model restores all lost Wounds if it kills a vehicle."
+                    ]
+                },
+                {
+                    "name": "Misdirect",
+                    "points": 21,
+                    "abilities": [
+                        "Misdirect: The model gains the \"Deflect\", \"Hit & Run\" and \"Parry\" abilities."
+                    ]
+                },
+                {
+                    "name": "Spear of the Dragon",
+                    "points": 27,
+                    "effect": {
+                        "grants_weapons": [
+                            "Spear of the Dragon"
+                        ]
+                    },
+                    "abilities": [
+                        "Spear of the Dragon: The model gains the \"Spear of the Dragon\" weapon."
+                    ]
+                },
+                {
+                    "name": "Seismic Assault",
+                    "points": 34,
+                    "effect": {
+                        "grants_weapons": [
+                            "Seismic Assault"
+                        ]
+                    },
+                    "abilities": [
+                        "Seismic Assault: The model gains the \"Seismic Assault\" weapon."
+                    ]
+                },
+                {
+                    "name": "Scythe of the Nightbringer",
+                    "points": 35,
+                    "effect": {
+                        "grants_weapons": [
+                            "Scythe of the Nightbringer"
+                        ]
+                    },
+                    "abilities": [
+                        "Scythe of the Nightbringer: The model gains the \"Scythe of the Nightbringer\" weapon."
+                    ]
+                },
+                {
+                    "name": "Sentient Necrodermis",
+                    "points": 35,
+                    "effect": {
+                        "grants_abilities": [
+                            "Regeneration(2)"
+                        ]
+                    },
+                    "abilities": [
+                        "Sentient Necrodermis: The model gains the \"Regeneration(2)\" ability."
+                    ]
+                },
+                {
+                    "name": "Voltaic Storm",
+                    "points": 45,
+                    "effect": {
+                        "grants_weapons": [
+                            "Voltaic Storm"
+                        ]
+                    },
+                    "abilities": [
+                        "Voltaic Storm: The model gains the \"Voltaic Storm\" weapon."
+                    ]
+                },
+                {
+                    "name": "Hardened Necrodermis",
+                    "points": 56,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "SV",
+                                "value": "3+"
+                            }
+                        ]
+                    },
+                    "abilities": [
+                        "Hardened Necrodermis: The model gains a 3+ armor save."
+                    ]
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "Anti-Grav, Fearless, Regeneration(1), Terrifying(-1)",
-        "Necrodermis: The model has a 4+ ward save. If it loses its last wound, it explodes like a vehicle.",
-        "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
+        "Anti-Grav, Fearless, Mindless, Regeneration(1), Terrifying(-1)",
+        "Immune to Natural Law: When moving, this model treats all other models and terrain as open ground, allowing it to move freely over them. It automatically passes all dangerous terrain tests. However, it cannot end its move on top of another model and may only end its move on impassable terrain if the model can physically be placed there.",
+        "Necrodermis: The model gains a 4+ ward save. If it loses its last wound, it explodes like a vehicle with Strength 7 and AP -1.",
+        "Powers of the C'tan: The model can manifest 1 power per turn automatically. It knows all the powers from the list of C'tan powers. A C'tan can only use each power once per battle round.",
+        "Infinite Recursion: The model may manifest a power it already used this turn a second time.",
+        "Writhing Worldscape: All terrain within 6\" of the model is treated as difficult and dangerous terrain for enemy units.",
+        "Untamed Power: The model gains +1 Strength and +1 Attack.",
+        "Cosmic Tyrant: The model may manifest another power per turn.",
+        "Dread: Enemy units within 12\" suffer -2 to their Leadership.",
+        "Entropic Touch: The model gains the \"Shred\" ability for all melee attacks.",
+        "Grand Illusion: At the beginning of the first battle round, you can remove up to three of your units from the field and redeploy them. Alternatively, each unit can also be placed in reserve.",
+        "Transdimensional Displacement: The model automatically advances 6\" instead of rolling for it",
+        "Gaze of Death: The model gains the \"Gaze of Death\" weapon.",
+        "Matter Absorption: The model restores all lost Wounds if it kills a vehicle.",
+        "Misdirect: The model gains the \"Deflect\", \"Hit & Run\" and \"Parry\" abilities.",
+        "Spear of the Dragon: The model gains the \"Spear of the Dragon\" weapon.",
+        "Seismic Assault: The model gains the \"Seismic Assault\" weapon.",
+        "Scythe of the Nightbringer: The model gains the \"Scythe of the Nightbringer\" weapon.",
+        "Voltaic Storm: The model gains the \"Voltaic Storm\" weapon.",
+        "Hardened Necrodermis: The model gains a 3+ armor save.",
+        "Sentient Necrodermis: The model gains the \"Regeneration(2)\" ability."
     ],
     "unit_type": "Monstrous Creature",
     "keywords": [],
@@ -65,5 +315,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 257
+    "min_cost": 254
 }

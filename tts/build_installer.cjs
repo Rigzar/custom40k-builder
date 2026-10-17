@@ -69,7 +69,7 @@ console.log('wrote ' + out);
 
 if (process.argv.includes('--install')) {
   const dir = path.join(os.homedir(), 'Documents', 'My Games', 'Tabletop Simulator', 'Saves', 'Saved Objects');
-  if (!fs.existsSync(dir)) { console.error('Saved Objects folder not found: ' + dir); process.exit(1); }
+  try { fs.accessSync(dir, fs.constants.W_OK); } catch (e) { console.error('Saved Objects folder not usable: ' + dir + ' (' + e.code + ')'); process.exit(1); }
   fs.copyFileSync(out, path.join(dir, 'Custom40k Installer.json'));
   console.log('installed to ' + dir);
 }

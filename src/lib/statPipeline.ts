@@ -153,7 +153,6 @@ export function resolveStatValue(
     if (cur && set && parseInt(set, 10) < parseInt(cur, 10)) { display = optSet; src.option = true; }
     else if (!cur || display === '-') { display = optSet; src.option = true; }
   }
-  if (input.ctanYngirActive) floorSave(2, 'option');
 
   return { display: capStat(k, display), source: src };
 }

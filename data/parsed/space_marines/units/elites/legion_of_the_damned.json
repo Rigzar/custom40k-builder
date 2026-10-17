@@ -1,0 +1,326 @@
+{
+    "name": "Legion of the Damned",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Legionnaire",
+            "min": 4,
+            "max": 9,
+            "points": 48
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Legionnaire Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 58
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Legionnaire Ancient",
+            "min": 0,
+            "max": 1,
+            "points": 53
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Boltgun; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grav cannon",
+            "range": "30\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Grav"
+        },
+        {
+            "name": "Grav gun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Grav"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lascannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-air"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Plasma cannon - Overheating",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "For every 5 models, one Legionnaire may swap their Boltgun",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 0
+                },
+                {
+                    "name": "Grav gun",
+                    "points": 3
+                },
+                {
+                    "name": "Melta",
+                    "points": 12
+                },
+                {
+                    "name": "Plasma gun",
+                    "points": 17
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Boltgun"
+            ]
+        },
+        {
+            "header": "For every 5 models, one Legionnaire may swap their Boltgun",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Heavy flamer",
+                    "points": 8
+                },
+                {
+                    "name": "Heavy bolter",
+                    "points": 13
+                },
+                {
+                    "name": "Grav cannon",
+                    "points": 20
+                },
+                {
+                    "name": "Multi-melta",
+                    "points": 31
+                },
+                {
+                    "name": "Missile launcher",
+                    "points": 35
+                },
+                {
+                    "name": "Lascannon",
+                    "points": 64
+                },
+                {
+                    "name": "Plasma cannon",
+                    "points": 93
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Boltgun"
+            ]
+        }
+    ],
+    "abilities": [
+        "Combat squads, Daemon, Daemonic Instability, Deep Strike, Terrifying(-1), Unyielding",
+        "Aid unlooked for: The unit cannot be joined by Characters. They always start the game in reserves. The unit does not scatter when being set up via Deep Strike.",
+        "Animus Malorum: Once per battle round, the Legionnaire Sergeant may select an enemy unit within 12\" and roll 2D6. If the result is higher than the target's Leadership value, it suffers 1 Mortal Wound and the Legion of the Damned unit heals 1 Wound. This can be used to revive a fallen Legionnaire.",
+        "Flaming Vengeance: All melee and ranged attacks made by the unit gain cumulative -1 AP and +1 AT.",
+        "Unyielding Spectres: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 250
+}

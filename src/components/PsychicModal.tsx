@@ -209,7 +209,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     .find(a => /^psyker:/i.test(a))?.toLowerCase() ?? '';
 
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
-  function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean } {
+  function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean; oneDiscipline?: boolean } {
     const knowsSmite = psykerAbilityText.includes('smite');
     // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X"
     // (CD god-specific) OR "all powers from the X discipline" (unit-specific, e.g. Wraithseer)
@@ -220,11 +220,25 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     // "one power of a chosen discipline" (CSM/generic) OR "one power from the discipline of X" (CD)
     if (psykerAbilityText.match(/one (psychic )?power (of a chosen|from the) discipline/))
       return { mode: 'one_from_one', limit: 1, knowsSmite };
+    // The same limits written the way the 1.x sheets write them: "one power from a chosen discipline" (Benefictus,
+    // Neurothrope, Norn...), "one psychic power from a chosen psychic discipline" (Inquisitor, Psykers), "one psychic power
+    // from the Malefic discipline" (Daemonhost) and "two powers from a chosen discipline" (Warlocks, Broodlord). None matched
+    // above, so every one of those psykers fell through to 'unlimited' and could browse and pick any number of powers.
+    // "...per Sanctioned Psyker model" scales with the unit and stays unlimited here.
+    if (!/per [a-z ]*model/.test(psykerAbilityText)) {
+      const w = psykerAbilityText.match(/(?:knows|has|^psyker:[^.]*\.\s*it)\s+(?:smite[^.]*?(?:and|as well as)\s+)?(one|two|three|four|five|six|\d+)\s+(?:psychic\s+)?powers?\s+(?:from|of)\s+(?:a|the)\b/);
+      const words: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
+      if (w) {
+        const n = words[w[1]] ?? parseInt(w[1], 10);
+        // "two powers from A chosen discipline" is one discipline (Homicidal Walrus on Discord, reading the Warlocks sheet).
+        return n === 1 ? { mode: 'one_from_one', limit: 1, knowsSmite } : { mode: 'n_from_any', limit: n, knowsSmite, oneDiscipline: /from a chosen (psychic )?discipline/.test(psykerAbilityText) };
+      }
+    }
     const nMatch = psykerAbilityText.match(/(\d+)\s+powers?\s+from/);
     if (nMatch) return { mode: 'n_from_any', limit: parseInt(nMatch[1]), knowsSmite };
     return { mode: 'unlimited', limit: 999, knowsSmite };
   }
-  const { mode: psykerMode, limit: powerLimit, knowsSmite } = parsePsykerMode();
+  const { mode: psykerMode, limit: powerLimit, knowsSmite, oneDiscipline } = parsePsykerMode();
 
   // Datasheet-embedded fixed power (e.g. Grey Knights Dreadnought/Land Raider/Razorback/Rhino/
   // Stormraven's "It knows Smite and Fortitude", Eldar Spiritseer's "It knows Smite and
@@ -254,6 +268,19 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // picks land in the right pool without a second mechanism.
   const interdimensionalCount = item.armory.filter(a => a.itemName === 'Interdimensional Knowledge').length;
   const bonusPowerSlots = psychicTrainingCount + balefulTomeCount + interdimensionalCount * 2;
+  // One discipline at a time. "from a chosen discipline" is ONE discipline (the sheet author and Dominic, Discord 2026-10-16), and
+  // Psychic training adds picks under the same rule: "you have to learn a discipline completely first before dabbling into a
+  // different one, so you can't just cherry pick from the whole list". So the picks fill the discipline they started, and only
+  // once every power of it is known may a new discipline be opened. Baleful tome and Interdimensional Knowledge are worded
+  // differently ("from the general / any general discipline") and keep their own free picks.
+  const sameDiscRule = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
+    && (!!oneDiscipline || psychicTrainingCount > 0) && balefulTomeCount === 0 && interdimensionalCount === 0;
+  const knownInDisc = (disc: string) => item.powers.filter(p => p.powerName !== '__discipline__' && p.disciplineName === disc).length;
+  const discSize = (disc: string) => ((allowedDiscs.find(([d]) => d === disc)?.[1] ?? []) as Power[]).filter(pw => !(knowsSmite && pw.name === 'Smite')).length;
+  const startedDiscs = [...new Set(item.powers.filter(p => p.powerName !== '__discipline__').map(p => p.disciplineName))];
+  const lockedDisc = sameDiscRule
+    ? ([...startedDiscs].reverse().find(d => knownInDisc(d) < discSize(d)) ?? null)
+    : null;
   const effectivePowerLimit = psykerMode === 'all_from_one'
     ? powerLimit  // all_from_one unlocks the whole discipline, training/tome add extra picks
     : powerLimit + bonusPowerSlots;
@@ -292,6 +319,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       // Enforce per-selection limit for 'one_from_one' and 'n_from_any'
       const selectedCount = item.powers.filter(p => p.powerName !== '__discipline__').length;
       if (psykerMode !== 'unlimited' && selectedCount >= effectivePowerLimit) return; // already at limit
+      if (lockedDisc && lockedDisc !== disc) return; // all picks come from the one chosen discipline
       addPower(item.id, disc, power);
     }
   }
@@ -460,7 +488,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               {allowedDiscs.map(([discName, powers]) => {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
                 const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
-                  && selectedPowersCount >= effectivePowerLimit;
+                  && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
                 const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite'));
                 const selectedInDisc = psykerMode === 'all_from_one'
                   ? (isChosen ? powersArr.length : 0)

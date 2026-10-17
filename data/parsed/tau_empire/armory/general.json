@@ -343,7 +343,7 @@
     {
       "name": "Tactical philosophiesᴵ",
       "term_compat": false,
-      "desc": "Select and announce which one of the philosophies you use at the beginning of the deployment. Unique.\n\n1. Kauyon\n- Select up to one mission objective or friendly unit as \"bait\" in any combination for every started 1500 points of game size and announce them to all other players after you decided who places the first unit in the deployment phase.\n- All friendly units (except the bait itself) gain +1 Strength for ranged attacks against enemy units that are within 6\" range of any bait.\n\n2. Mont'ka\n- All units may be set up using the rules for \"Deep strike\".\n- If a unit already got this ability, it reduces the scatter distance by 1D6 for itself.\n- In addition to the regular reserve rolls, one unit automatically arrives from reserves each round.\n\n3. Rinyon\n- All units get the \"Outflank\" ability.\n- All units automatically advance 6\" instead of rolling for it.\n\n4. Rip'yka\n- Each time after a unit from this codex shoots at an enemy unit, the enemy unit receives two Markerlight tokens afterwards.",
+      "desc": "Select and announce which one of the philosophies you use at the beginning of the deployment. Unique.\n\n1. Kauyon\n- Select up to one mission objective or friendly unit as \"bait\" in any combination for every started 1500 points of game size and announce them to all other players after you decided who places the first unit in the deployment phase.\n- All friendly units (except the bait itself) gain +1 Strength for ranged attacks against enemy units that are within 6\" range of any bait.\n\n2. Mont'ka\n- All units may be set up using the rules for \"Deep strike\".\n- If a unit already got this ability, it reduces the scatter distance by 1D6 for itself.\n- In addition to the regular reserve rolls, one unit automatically arrives from reserves each round.\n\n3. Rinyon\n- All units get the \"Outflank\" ability.\n- All units automatically advance 6\" instead of rolling for it.\n\n4. Rip'yka\n- If all models of a unit target the same enemy with their ranged attacks, the enemy unit receives two Markerlight tokens afterwards.",
       "p_unit": null,
       "p_char": null
     },
@@ -440,98 +440,112 @@
       "term_compat": false,
       "desc": "The model ignores the -1 to hit modifier for cover.",
       "p_unit": 5,
-      "p_char": 10
+      "p_char": 10,
+      "support_system": true
     },
     {
       "name": "Command and control nodeᴵ",
       "term_compat": false,
       "desc": "The army adds +1 to rolls during the Initative and Rally phase.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Counterfire defence system",
       "term_compat": false,
       "desc": "Instead of using its own weapons, the model may count as being in cover until its next activation.",
       "p_unit": 0,
-      "p_char": 0
+      "p_char": 0,
+      "support_system": true
     },
     {
       "name": "Early warning override",
       "term_compat": false,
       "desc": "The model ignores the -1 to hit modifier for Defensive fire.",
       "p_unit": 5,
-      "p_char": 10
+      "p_char": 10,
+      "support_system": true
     },
     {
       "name": "Earth caste pilot array",
       "term_compat": false,
       "desc": "The model gains a 4+ save against losing a wound from Overheating.",
       "p_unit": 5,
-      "p_char": 10
+      "p_char": 10,
+      "support_system": true
     },
     {
       "name": "Multi-trackerᴵ",
       "term_compat": false,
       "desc": "The model gains a +1 to hit modifier, if it is shooting at a target consisting of 6 or more models.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Neuroweb system jammer",
       "term_compat": false,
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Photon casterᴵ",
       "term_compat": false,
       "desc": "Reduce enemy Charge movements that target the model or its attached unit by 2\".",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Positional relayᴵ",
       "term_compat": false,
       "desc": "The army adds +1 to rolls during the Reinforcement phase. Not cumulative with itself.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "support_system": true
     },
     {
       "name": "Repulsor impact fieldᴵ",
       "term_compat": false,
       "desc": "After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every model that made it into base contact with this model.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Shield generatorᴵ",
       "term_compat": false,
       "desc": "The model gains a 4+ ward save.",
       "p_unit": 19,
-      "p_char": 39
+      "p_char": 39,
+      "support_system": true
     },
     {
       "name": "Target lock",
       "term_compat": false,
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Vectored retro-thrusters",
       "term_compat": false,
       "desc": "The model gains the \"Hit & Run\" ability.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Velocity tracker",
       "term_compat": false,
       "desc": "All weapons of the model gain the \"Anti-Air\" ability.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "support_system": true
     },
     {
       "name": "Blacksun filter",

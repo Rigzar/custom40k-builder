@@ -73,7 +73,7 @@
         {
             "header": "Can replace the Particle shredder",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -95,7 +95,7 @@
         {
             "header": "Can be equipped with",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

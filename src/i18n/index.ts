@@ -70,7 +70,7 @@ export type TranslationKey =
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
-  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
+  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'startNewArmy' | 'saveAndStartNew' | 'importReplacesConfirm' | 'armReasonSupport' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
   | 'skirmishDropsAllyConfirm' | 'skirmishDropsArchetypeConfirm' | 'skirmishArchetypesOnly'
   | 'armoryLostOnDowngradeConfirm'
@@ -123,7 +123,7 @@ export type TranslationKey =
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
-  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'warrantTabLabel'
+  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
@@ -483,6 +483,7 @@ export type TranslationKey =
   | 'gfTagline'
   | 'gfIntroTitle'
   | 'gfIntroBody'
+  | 'gfFindPlayers' | 'gfFindPlayersSignIn' | 'gfIntroBack' | 'gfAllZones' | 'gfMoreFilters'
   | 'gfIntroTag'
   | 'gfIntroContinue'
   | 'gfIntroHide'
@@ -811,6 +812,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueLabel: 'Continue',
     continueArmy: 'Continue this army',
     discardArmyConfirm: 'Start a new army? The list you have open will be discarded (saved copies are not touched).',
+    startNewArmy: 'Start a new army',
+    saveAndStartNew: 'Save this army, then start a new one',
+    armReasonSupport: 'Only {n} support systems allowed',
+    importReplacesConfirm: 'Importing replaces the list you have open. The import is kept apart from your saved lists and Save will create a NEW list (nothing already saved is touched). Continue?',
     reviewList: 'Review list',
     detachmentPrimary: 'Primary',
     changeLabel: 'Change',
@@ -1004,7 +1009,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ All Marks',
     armourySuffix: 'Armoury',
     authorityTabLabel: 'Authority of the Inquisition',
-    warrantTabLabel: 'Warrant of Trade',
+    retinueFactionTaken: 'One model per codex: the Retinue already has one from this codex.',
+    retinueFull: 'The Legendary Retinue is full (up to 4 models).',
+    retinueSameAsAlly: 'This codex is your allied detachment; pick another one for the Retinue.',
+    valRetinueMax: 'Legendary Retinue: up to {max} models (have {count}).',
+    valRetinueFactionTwice: 'Legendary Retinue: only one model per codex ({faction} has {count}).',
+    valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} comes from {faction}, which this army cannot take Retinue models from.',
+    valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} cannot be a Retinue model (it must be an HQ Infantry model that is not unique per army).',
+    valRetinueUnique: 'Legendary Retinue: {unit} carries unique equipment ({items}), which a Retinue model may not take.',
+    valRetinueSameAsAlly: 'Legendary Retinue: {faction} is also the allied detachment.',
     termArmourNotice: 'Terminator armour — showing only Terminator-compatible items (ᵀ).',
     weaponsLabel: 'Weapons',
     bcChampionBanner: '⚜ Black Crusade Champion — access to all four mark armories',
@@ -1255,7 +1268,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valPlatoonUnlinkedInfantry: '{count} Infantry Squad(s) are not linked to a Platoon Command Squad — every Infantry Squad must belong to a platoon (2-5 per Platoon Command Squad). Add a Platoon Command Squad, then pick it in the "↳ Platoon" dropdown on each squad.',
     valSlotOverMax: '{slot} over maximum ({used}/{max}).',
     valUsingAops: 'Using {n} AOPs.',
-    valSecondAopNeedsFull: 'A second AOP only opens once the whole first one is filled: 2 HQ, 6 Troops, 3 Elites, 3 Fast Attack and 3 Heavy Support (Transports, Fortifications and Flyers do not have to be).',
+    valSecondAopNeedsFull: 'A second AOP only opens once the whole first one is filled: {list} (slots this army has no unit for count as filled; Transports, Fortifications and Flyers do not have to be).',
     valAlliedNeedAtLeast: 'Allied detachment: need at least {min} {slot} (have {used}).',
     valAlliedTransportOverMax: 'Allied detachment: Dedicated Transport over maximum ({used}/{max}).',
     valAlliedSlotNotAllowed: 'Allied detachment: {slot} not allowed (have {used}).',
@@ -1607,10 +1620,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfSubMatches: 'My matches',
     gfTagline: 'Play, engage, community for the Emperor and beyond',
     gfIntroTitle: 'What is Gitfinda?',
-    gfIntroBody: 'Gitfinda helps you find someone to play Custom40k with. Create a post with your army, engagement type, points limit, time zone and the time slots when you are free. Other players browse the active posts and match with you if they want to play. Once you are matched you can chat to agree the game. There are no email notifications yet, so check Gitfinda regularly to see whether another player has responded.',
+    gfIntroBody: 'Gitfinda helps you find someone to play Custom40k with.\nCreate a Gitfinda post to let other players know that you\'re looking for a game.\n\nSimply enter a few details, such as your **army, engagement type, points limit, time zone,** and the **time slots when you\'re available.**\n\nOther players can browse active Gitfinda posts and **match with you** if they\'re interested in playing. Once you are matched you can chat to agree the game.\nThere are no email notifications yet, so check Gitfinda regularly to see whether another player has responded.\n\nOnce you\'ve found your opponent, you\'re ready to get the game going!',
     gfIntroTag: 'Post. Match. Fight.',
     gfIntroContinue: 'Continue',
     gfIntroHide: 'Don\'t show again next time',
+    gfFindPlayers: 'Find players',
+    gfFindPlayersSignIn: 'Sign in to find players with Gitfinda',
+    gfIntroBack: 'Back',
+    gfAllZones: 'Any time zone',
+    gfMoreFilters: 'More filters',
     gfSearchPh: 'Search posts…',
     gfAllArmies: 'All armies',
     gfAllTypes: 'All types',
@@ -1948,6 +1966,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueLabel: 'Weiter',
     continueArmy: 'Diese Armee fortsetzen',
     discardArmyConfirm: 'Neue Armee beginnen? Die geöffnete Liste wird verworfen (gespeicherte Kopien bleiben unverändert).',
+    startNewArmy: 'Neue Armee beginnen',
+    saveAndStartNew: 'Diese Armee speichern und eine neue beginnen',
+    armReasonSupport: 'Nur {n} Support Systems erlaubt',
+    importReplacesConfirm: 'Der Import ersetzt die geöffnete Liste. Der Import bleibt von deinen gespeicherten Listen getrennt, und Speichern legt eine NEUE Liste an (nichts bereits Gespeichertes wird berührt). Fortfahren?',
     reviewList: 'Liste prüfen',
     detachmentPrimary: 'Primär',
     changeLabel: 'Ändern',
@@ -2141,7 +2163,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Alle Male',
     armourySuffix: 'Rüstkammer',
     authorityTabLabel: 'Autorität der Inquisition',
-    warrantTabLabel: 'Handelsbefugnis (Warrant of Trade)',
+    retinueFactionTaken: 'Ein Modell pro Codex: Die Gefolgschaft hat schon eines aus diesem Codex.',
+    retinueFull: 'Die Legendary Retinue ist voll (bis zu 4 Modelle).',
+    retinueSameAsAlly: 'Dieser Codex ist dein Verbündeter; wähle für die Retinue einen anderen.',
+    valRetinueMax: 'Legendary Retinue: bis zu {max} Modelle (hat {count}).',
+    valRetinueFactionTwice: 'Legendary Retinue: nur ein Modell pro Codex ({faction} hat {count}).',
+    valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} stammt aus {faction}, woher diese Armee keine Retinue-Modelle nehmen darf.',
+    valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} kann kein Retinue-Modell sein (es muss ein HQ-Infanteriemodell sein, das nicht einmalig pro Armee ist).',
+    valRetinueUnique: 'Legendary Retinue: {unit} trägt einmalige Ausrüstung ({items}), die ein Retinue-Modell nicht wählen darf.',
+    valRetinueSameAsAlly: 'Legendary Retinue: {faction} ist auch das verbündete Kontingent.',
     termArmourNotice: 'Terminator-Rüstung — zeigt nur Terminator-kompatible Gegenstände (ᵀ).',
     weaponsLabel: 'Waffen',
     bcChampionBanner: '⚜ Schwarzer-Kreuzzug-Champion — Zugriff auf alle vier Mal-Rüstkammern',
@@ -2390,7 +2420,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valPlatoonUnlinkedInfantry: '{count} Infanterietrupp(s) sind mit keinem Zugkommandotrupp verknüpft — jeder Infanterietrupp muss zu einem Zug gehören (2-5 pro Zugkommandotrupp). Stelle einen Zugkommandotrupp auf und wähle ihn dann im Feld „↳ Zug" jedes Trupps aus.',
     valSlotOverMax: '{slot} über Maximum ({used}/{max}).',
     valUsingAops: 'Verwendet {n} AOPs.',
-    valSecondAopNeedsFull: 'Ein zweiter AOP öffnet sich erst, wenn der gesamte erste gefüllt ist: 2 HQ, 6 Standard, 3 Elite, 3 Sturm und 3 Schwere Unterstützung (Transporter, Festungen und Flieger müssen nicht gefüllt sein).',
+    valSecondAopNeedsFull: 'Ein zweiter AOP öffnet sich erst, wenn der gesamte erste gefüllt ist: {list} (Plätze, für die diese Armee keine Einheit hat, gelten als gefüllt; Transporter, Festungen und Flieger müssen nicht gefüllt sein).',
     valAlliedNeedAtLeast: 'Verbündete Abteilung: mindestens {min} {slot} benötigt (haben {used}).',
     valAlliedTransportOverMax: 'Verbündete Abteilung: Transportfahrzeug über Maximum ({used}/{max}).',
     valAlliedSlotNotAllowed: 'Verbündete Abteilung: {slot} nicht erlaubt (haben {used}).',
@@ -2742,10 +2772,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfSubMatches: 'Meine Matches',
     gfTagline: 'Spielen, kämpfen, Gemeinschaft für den Imperator und darüber hinaus',
     gfIntroTitle: 'Was ist Gitfinda?',
-    gfIntroBody: 'Gitfinda hilft dir, jemanden für Custom40k zu finden. Erstelle einen Beitrag mit deiner Armee, Spielart, Punktegrenze, Zeitzone und den Zeiten, zu denen du Zeit hast. Andere Spieler durchsuchen die aktiven Beiträge und matchen mit dir, wenn sie spielen möchten. Nach dem Match könnt ihr im Chat das Spiel absprechen. E-Mail-Benachrichtigungen gibt es noch nicht, schau also regelmäßig in Gitfinda nach, ob jemand geantwortet hat.',
+    gfIntroBody: 'Gitfinda hilft dir, jemanden für Custom40k zu finden.\nErstelle einen Gitfinda-Beitrag, damit andere Spieler wissen, dass du ein Spiel suchst.\n\nGib einfach ein paar Angaben ein, etwa **Armee, Spielart, Punktegrenze, Zeitzone** und die **Zeiten, zu denen du Zeit hast.**\n\nAndere Spieler durchsuchen die aktiven Gitfinda-Beiträge und können mit dir **matchen**, wenn sie spielen möchten. Nach dem Match könnt ihr im Chat das Spiel absprechen.\nE-Mail-Benachrichtigungen gibt es noch nicht, schau also regelmäßig in Gitfinda nach, ob jemand geantwortet hat.\n\nHast du deinen Gegner gefunden, kann das Spiel losgehen!',
     gfIntroTag: 'Posten. Matchen. Kämpfen.',
     gfIntroContinue: 'Weiter',
     gfIntroHide: 'Beim nächsten Mal nicht mehr zeigen',
+    gfFindPlayers: 'Spieler finden',
+    gfFindPlayersSignIn: 'Melde dich an, um mit Gitfinda Spieler zu finden',
+    gfIntroBack: 'Zurück',
+    gfAllZones: 'Jede Zeitzone',
+    gfMoreFilters: 'Mehr Filter',
     gfSearchPh: 'Beiträge suchen…',
     gfAllArmies: 'Alle Armeen',
     gfAllTypes: 'Alle Arten',
@@ -3083,6 +3118,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueLabel: 'Continuar',
     continueArmy: 'Continuar este ejército',
     discardArmyConfirm: '¿Empezar un ejército nuevo? Se descartará la lista abierta (las copias guardadas no se tocan).',
+    startNewArmy: 'Empezar un ejército nuevo',
+    saveAndStartNew: 'Guardar este ejército y empezar uno nuevo',
+    armReasonSupport: 'Solo se permiten {n} sistemas de apoyo',
+    importReplacesConfirm: 'Importar reemplaza la lista que tienes abierta. La importación queda separada de tus listas guardadas y Guardar creará una lista NUEVA (no se toca nada de lo ya guardado). ¿Continuar?',
     reviewList: 'Revisar lista',
     detachmentPrimary: 'Principal',
     changeLabel: 'Cambiar',
@@ -3276,7 +3315,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Todas las marcas',
     armourySuffix: 'Armería',
     authorityTabLabel: 'Autoridad de la Inquisición',
-    warrantTabLabel: 'Patente de Comercio (Warrant of Trade)',
+    retinueFactionTaken: 'Un modelo por códice: la Retinue ya tiene uno de este códice.',
+    retinueFull: 'La Legendary Retinue está completa (hasta 4 modelos).',
+    retinueSameAsAlly: 'Este códice es tu destacamento aliado; elige otro para la Retinue.',
+    valRetinueMax: 'Legendary Retinue: hasta {max} modelos (tiene {count}).',
+    valRetinueFactionTwice: 'Legendary Retinue: solo un modelo por códice ({faction} tiene {count}).',
+    valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} viene de {faction}, de la que este ejército no puede tomar modelos para la Retinue.',
+    valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} no puede ser un modelo de la Retinue (debe ser un modelo de Infantería de HQ que no sea único por ejército).',
+    valRetinueUnique: 'Legendary Retinue: {unit} lleva equipo único ({items}), que un modelo de la Retinue no puede tomar.',
+    valRetinueSameAsAlly: 'Legendary Retinue: {faction} es también el destacamento aliado.',
     termArmourNotice: 'Armadura Terminator — mostrando solo objetos compatibles con Terminator (ᵀ).',
     weaponsLabel: 'Armas',
     bcChampionBanner: '⚜ Campeón de Cruzada Negra — acceso a las cuatro armerías de marca',
@@ -3525,7 +3572,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valPlatoonUnlinkedInfantry: '{count} Escuadra(s) de Infantería sin vincular a un Escuadrón de Mando de Pelotón — toda Escuadra de Infantería debe pertenecer a un pelotón (2-5 por Escuadrón de Mando). Añade un Escuadrón de Mando de Pelotón y elígelo en el desplegable "↳ Pelotón" de cada escuadra.',
     valSlotOverMax: '{slot} por encima del máximo ({used}/{max}).',
     valUsingAops: 'Usando {n} AOPs.',
-    valSecondAopNeedsFull: 'Un segundo AOP solo se abre cuando el primero está completo: 2 HQ, 6 Tropas, 3 Élites, 3 Ataque Rápido y 3 Apoyo Pesado (Transportes, Fortificaciones y Voladores no hace falta llenarlos).',
+    valSecondAopNeedsFull: 'Un segundo AOP solo se abre cuando el primero está completo: {list} (los huecos para los que este ejército no tiene unidad cuentan como llenos; Transportes, Fortificaciones y Voladores no hace falta llenarlos).',
     valAlliedNeedAtLeast: 'Destacamento aliado: se necesitan al menos {min} {slot} (tienes {used}).',
     valAlliedTransportOverMax: 'Destacamento aliado: Transporte Dedicado por encima del máximo ({used}/{max}).',
     valAlliedSlotNotAllowed: 'Destacamento aliado: {slot} no permitido (tienes {used}).',
@@ -3877,10 +3924,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfSubMatches: 'Mis matches',
     gfTagline: 'Juega, combate, comunidad por el Emperador y más allá',
     gfIntroTitle: '¿Qué es Gitfinda?',
-    gfIntroBody: 'Gitfinda te ayuda a encontrar con quién jugar a Custom40k. Crea un anuncio con tu ejército, tipo de partida, límite de puntos, zona horaria y las franjas en las que estás libre. Otros jugadores miran los anuncios activos y hacen match contigo si quieren jugar. Una vez emparejados podéis chatear para acordar la partida. Aún no hay avisos por email, así que mira Gitfinda de vez en cuando por si alguien ha respondido.',
+    gfIntroBody: 'Gitfinda te ayuda a encontrar con quién jugar a Custom40k.\nCrea una publicación en Gitfinda para que otros jugadores sepan que buscas partida.\n\nSolo tienes que indicar unos datos, como tu **ejército, tipo de partida, límite de puntos, zona horaria** y las **franjas en las que estás disponible.**\n\nOtros jugadores pueden ver las publicaciones activas de Gitfinda y hacer **match contigo** si quieren jugar. Una vez hecho el match podéis chatear para acordar la partida.\nTodavía no hay avisos por correo, así que mira Gitfinda de vez en cuando por si otro jugador ha respondido.\n\n¡Cuando hayas encontrado a tu oponente, ya puedes empezar la partida!',
     gfIntroTag: 'Publica. Haz match. Lucha.',
     gfIntroContinue: 'Continuar',
     gfIntroHide: 'No volver a mostrar',
+    gfFindPlayers: 'Buscar jugadores',
+    gfFindPlayersSignIn: 'Inicia sesión para buscar jugadores con Gitfinda',
+    gfIntroBack: 'Atrás',
+    gfAllZones: 'Cualquier zona horaria',
+    gfMoreFilters: 'Más filtros',
     gfSearchPh: 'Buscar anuncios…',
     gfAllArmies: 'Todos los ejércitos',
     gfAllTypes: 'Todos los tipos',
