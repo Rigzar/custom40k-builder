@@ -27,7 +27,7 @@ function perModelCap(g: Group): number {
 
 /** The cap for this roster entry, or null when its datasheet has no such line. */
 export function supportSystemCap(
-  unit: Unit, item: RosterEntry, data: FactionData, traitPool: string[],
+  unit: Unit, item: RosterEntry, _data: FactionData, traitPool: string[],
 ): number | null {
   const g = unit.option_groups.find(isSupportSystemGroup);
   if (!g) return null;
