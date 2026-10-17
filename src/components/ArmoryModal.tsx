@@ -188,6 +188,8 @@ const ArmoryCountsContext = createContext<{
   capOf: (arm: ArmoryItem, selId: string) => number;
   /** Why this item cannot be added to the weapon table right now, in words (null when it can). */
   reasonOf: (arm: ArmoryItem) => string | null;
+  /** The weapons this item has already been bought for (a per-weapon purchase may not be repeated on the same gun). */
+  targetsTakenOf: (armName: string) => string[];
 } | null>(null);
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
@@ -1137,6 +1139,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       return sel ? copyCap(arm, sel.section as Section) : 1;
     },
     reasonOf: (arm: ArmoryItem) => (isAddBlocked(arm, 'weapons') ? blockReason(arm, 'weapons') : null),
+    targetsTakenOf: (armName: string) => currentArmory.filter(a => a.itemName === armName && a.targetWeapon).map(a => a.targetWeapon as string),
   };
 
   // "You carry": every bought item once, with its copies, its price and a way to take it off, at the top of the
@@ -1845,6 +1848,7 @@ function EquipmentGroups({
   onSetEqExarchPower,
 }: EquipGroupsProps) {
   const t = useT();
+  const countsCtx = useContext(ArmoryCountsContext);
   // Build a per-model/per-wound price label for veteran abilities
   function vetPriceLabel(arm: ArmoryItem): string {
     if (isVehicle || isMonster) {
@@ -1911,7 +1915,11 @@ function EquipmentGroups({
             const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
             const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0;
             const chosenPower = eqExarchPower[arm.name] ?? '';
-            const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
+            // "Must be purchased for each weapon separately": the picker stays open after the first purchase so the
+            // next weapon can be chosen, and a weapon that already has it cannot be picked again.
+            const perWeapon = isPerWeaponPurchase(arm.desc);
+            const takenTargets = perWeapon ? (countsCtx?.targetsTakenOf(arm.name) ?? []) : [];
+            const canAdd = !uniqueSel && (!needsTarget || (chosenTarget !== '' && !takenTargets.includes(chosenTarget))) && (!needsPower || chosenPower !== '');
             return (
               <div key={i}>
                 <ArmoryItemRow
@@ -1924,7 +1932,7 @@ function EquipmentGroups({
                   onAdd={() => canAdd && onAdd(arm)}
                 />
                 {/* Weapon target picker — shown when item needs to target a specific weapon */}
-                {needsTarget && !uniqueSel && (!getSelId?.(arm.name) || allowsMultipleCopies(arm.desc)) && (
+                {needsTarget && !uniqueSel && (!getSelId?.(arm.name) || allowsMultipleCopies(arm.desc) || perWeapon) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
                     <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('applyToLabel')}</span>
                     <select
@@ -1934,7 +1942,7 @@ function EquipmentGroups({
                     >
                       <option value="">{t('selectWeaponOption')}</option>
                       {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
-                        <option key={wn} value={wn}>{wn}</option>
+                        <option key={wn} value={wn} disabled={takenTargets.includes(wn)}>{wn}{takenTargets.includes(wn) ? ' — ' + t('takenLabel') : ''}</option>
                       ))}
                     </select>
                   </div>

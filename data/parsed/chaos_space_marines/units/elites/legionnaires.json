@@ -272,7 +272,7 @@
             ]
         },
         {
-            "header": "For each 5 models, two other Legionnaires may swap their Astartes Chainsword, Bolter and Bolt pistol",
+            "header": "For each 5 models, two other Legionnaires may swap their Astartes Chainsword and Bolter",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -292,8 +292,7 @@
             "variant_link": null,
             "replaces": [
                 "Astartes Chainsword",
-                "Bolter",
-                "Bolt pistol"
+                "Bolter"
             ],
             "is_unique_per_army": false
         }

@@ -227,7 +227,7 @@
             ]
         },
         {
-            "header": "For every 5 models, two Terminators may swap their Combi-flamers (points per model)",
+            "header": "For every 5 models, two Terminators may swap their Combi-bolters (points per model)",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -251,11 +251,11 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Combi-flamer"
+                "Combi-bolter"
             ]
         },
         {
-            "header": "For every 5 models, two Terminators may swap their Combi-flamers and Baleswords (points per model)",
+            "header": "For every 5 models, two Terminators may swap their Combi-bolters and Baleswords (points per model)",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -271,7 +271,7 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Combi-flamer",
+                "Combi-bolter",
                 "Balesword"
             ]
         }

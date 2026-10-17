@@ -291,7 +291,7 @@
             ]
         },
         {
-            "header": "For each 5 models, one other Chaos Space Marine may swap their Astartes Chainsword, Bolter and Bolt pistol",
+            "header": "For each 5 models, one other Chaos Space Marine may swap their Astartes Chainsword and Bolter",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -312,8 +312,7 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Astartes Chainsword",
-                "Bolter",
-                "Bolt pistol"
+                "Bolter"
             ]
         },
         {

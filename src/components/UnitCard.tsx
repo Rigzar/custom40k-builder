@@ -720,7 +720,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       {hasCombatDrugs(u.abilities) && (() => {
         const selected = item.combatDrugs ?? [];
         const stim = item.armory.filter(a => a.itemName === 'Stimulant supply').length;
-        const cap = 1 + stim;
+        // Master Succubus: "The model may select a second Combat drug." (GH#246) - read off the upgrade's own text.
+        const second = optionAbilities.some(ab => /second combat drug/i.test(ab)) ? 1 : 0;
+        const cap = 1 + stim + second;
         const toggle = (name: string) => {
           const has = selected.includes(name);
           if (has) updateUnit(item.id, { combatDrugs: selected.filter(d => d !== name) });

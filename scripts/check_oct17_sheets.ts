@@ -95,5 +95,10 @@ const eq = (l: string, a: unknown, b: unknown) => {
   const dsPts = (size: number, copies: number) => { S().updateUnit(dsId, { size, armory: Array.from({ length: copies }, (_, i) => ({ id: 'a' + i, itemName: 'X', source: 'General', section: 'equipment', points: 3, scaling: 'perWound' })) } as Any); const it = S().army[0]; return computeUnitPoints(it, nec.units['Canoptek Doomstalker'], '', 'Necrons', 4000); };
   eq('Doomstalker squadron: one item per vehicle costs the same per copy at size 1 and 2', [dsPts(1, 1) - dsPts(1, 0), dsPts(2, 2) - dsPts(2, 0)], [6, 12]);
 
+  // GH#247: the melee swaps replace Chainsword and Bolter only (the Bolt pistol stays); Blightlord swaps name the weapon they carry
+  const csm: Any = await (FACTION_LOADERS as Any).chaos_space_marines();
+  const swapOf = (u: string, h: RegExp) => csm.units[u].option_groups.find((g: Any) => h.test(g.header)).replaces;
+  eq('Legionnaires / Chaos Space Marines melee swap: Chainsword and Bolter only', [swapOf('Legionnaires', /other Legionnaires/), swapOf('Chaos Space Marines', /other Chaos Space Marine/)], [['Astartes Chainsword', 'Bolter'], ['Astartes Chainsword', 'Bolter']]);
+  eq('Blightlord Terminators: the 5-model swaps replace the Combi-bolter they carry', [swapOf('Blightlord Terminators', /Combi-bolters \(/), swapOf('Blightlord Terminators', /Combi-bolters and Baleswords/)], [['Combi-bolter'], ['Combi-bolter', 'Balesword']]);
   process.exit(bad ? 1 : 0);
 })();
