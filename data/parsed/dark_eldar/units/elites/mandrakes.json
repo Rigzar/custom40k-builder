@@ -62,10 +62,9 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Infilltrator, Move through cover, Power through Pain",
-        "Hunter: The unit rerolls hit and wound rolls against HQ and character models.",
+        "Deflect, Hunter, Infilltrator, Move through cover, Parry, Power through Pain",
         "Fade away: During each Reinforcement phase, the unit may be set up again following the rules for Infiltrator.",
-        "Shadow Creature: The unit has a 5+ ward saving throw. Hit rolls against the unit suffer a \u20131 penalty.",
+        "Shadow Creature: The model gains a 5+ ward save.",
         "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
     ],
     "unit_type": "Infantry",

@@ -191,7 +191,7 @@
     "abilities": [
         "Acts of Faith, Shield of Faith",
         "Emperor's Grace: Select two units during your Reinforcement phase with the Shield of Faith ability. The units gain the \"Warded\" ability until the end of the current battle round.",
-        "Paragon bodyguard: The Canoness may join a unit of Paragon Warsuits.",
+        "Paragon Bodyguard: The Canoness may join a unit of Paragon Warsuits.",
         "Pious: A Canoness increases the Faith Points by +2."
     ],
     "unit_type": "Monstrous infantry",

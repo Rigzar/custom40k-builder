@@ -61,7 +61,9 @@
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."
     ],
     "unit_type": "Monstrous Creature",
-    "keywords": [],
+    "keywords": [
+        "Ynnari"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": true,

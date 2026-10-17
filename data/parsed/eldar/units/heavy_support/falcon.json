@@ -152,7 +152,9 @@
         "Transport: This model has a transport capacity of 6 Infantry models or 3 Monstrous Infantry models."
     ],
     "unit_type": "Vehicle",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": true,
     "is_character": false,
     "is_monster": false,

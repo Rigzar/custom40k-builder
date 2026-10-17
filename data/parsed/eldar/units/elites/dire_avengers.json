@@ -218,12 +218,14 @@
         }
     ],
     "abilities": [
-        "Battle Focus, <Aspect>",
+        "Battle Focus",
         "Aspect armor: The model gains a 5+ ward save.",
         "Shimmershield: The model and its attached unit gain a 4+ ward save in melee."
     ],
     "unit_type": "Infantry",
-    "keywords": [],
+    "keywords": [
+        "Aspect"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,
