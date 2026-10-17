@@ -1,0 +1,92 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Voidmaster",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        2,
+        3,
+        1,
+        7,
+        "5+",
+        18
+    ],
+    [
+        "A Voidmaster is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Bodyguard, Command Squad"
+    ],
+    [
+        "Logistics Coordination: Add +1/-1 to rolls during the Initiative and Reinfocement phase as long as there is at least one Voidmaster on the field."
+    ],
+    [
+        "Seneschal: For each Rogue Trader in the army, one Voidmaster may be selected that does not occupy an HQ slot."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Crew"
+    ]
+]

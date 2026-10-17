@@ -1,0 +1,75 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS"
+    ],
+    [
+        "Admonimortis\u1d40",
+        "-",
+        "Melee",
+        "x2",
+        "-4",
+        3,
+        "AT(3), Slow(-1). Unique. Dread Host only.",
+        21
+    ],
+    [
+        "Magnificent Gleam\u1d40",
+        "-",
+        "Melee",
+        "D",
+        -5,
+        1,
+        "AT(4), Charge, Extra Attack(1), Limit(1).",
+        "-"
+    ],
+    [
+        "Paragon Spear",
+        "-",
+        "Melee",
+        "+2",
+        -5,
+        2,
+        "AT(1), Quick(+1). Unique. Emperor's Chosen only.",
+        7
+    ],
+    [
+        "Models wearing Terminator armor can only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS"
+    ],
+    [
+        "Halo of the Torchbearer\u1d40",
+        "This model gains the \"Magnificent Gleam\" weapon. It and its attached unit gains the \"Move Through Cover\" ability. Unique. Emissaries Imperatus only.",
+        15
+    ],
+    [
+        "Praesidius\u1d40",
+        "The model gains the \"Stealth\" ability. Unique. Aquilan Shield only.",
+        15
+    ],
+    [
+        "Stasis Oubliette\u1d40",
+        "Enemy units engaged with this model get -3 Initiative. Unique. Shadowkeepers only.",
+        10
+    ],
+    [
+        "Swiftsilver Talon",
+        "This model and its attached unit gains the \"Hit and Run\" ability. Unique. Solar Watch only.",
+        5
+    ],
+    [
+        "Models wearing Terminator armor can only receive equipment with \u1d40."
+    ]
+]

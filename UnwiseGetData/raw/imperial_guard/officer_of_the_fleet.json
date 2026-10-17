@@ -1,0 +1,77 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Officer of the Fleet",
+        "6\"",
+        "4+",
+        "3+",
+        3,
+        3,
+        2,
+        3,
+        1,
+        7,
+        "5+",
+        18
+    ],
+    [
+        "An Officer of the Fleet is equipped with: Las pistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command Squad"
+    ],
+    [
+        "Advisor: For each HQ selection, one Officier of the Fleet may be selected that does not occupy an Elite slot."
+    ],
+    [
+        "Logistics Coordination: Add +1 to rolls during the Initiative phase as long as there is at least one Officer of the Fleet on the field."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

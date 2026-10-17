@@ -1,0 +1,198 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-3",
+        "Obliterator",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        3,
+        4,
+        3,
+        8,
+        "2+",
+        141
+    ],
+    [
+        "An Obliterator is equipped with: An array of Fleshmetal guns; Power fist."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Assault cannon",
+        "24\"",
+        "Heavy 4",
+        6,
+        -2,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 4",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Lascannon",
+        "48\"",
+        "Heavy 1",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overcharged",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
+        "Twin flamer",
+        "9\"",
+        "Assault 8",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Twin melta",
+        "12\"",
+        "Assault 2",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Twin plasma gun *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 2",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "24\"",
+        "Rapid Fire 2",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All models may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+4 points"
+    ],
+    [
+        "- Slaanesh",
+        "+4 points"
+    ],
+    [
+        "- Nurgle",
+        "+4 points"
+    ],
+    [
+        "- Tzeentch",
+        "+10 points"
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deepstrike, Daemon, Unyielding"
+    ],
+    [
+        "Fleshmetal guns: The model is equipped with all ranged weapons listed above, but may not use the same ranged weapon in two consecutive battle rounds."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

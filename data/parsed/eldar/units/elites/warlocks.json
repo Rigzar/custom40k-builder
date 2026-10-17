@@ -51,7 +51,9 @@
         "Seer council: A Farseer gets a cumulative +1 bonus to casting and denying psychic powers for each Warlock in their unit. Accompanying Warlocks receive the same bonus for each Warlock after the first."
     ],
     "unit_type": "Character model, Infantry",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": true,
     "is_monster": false,

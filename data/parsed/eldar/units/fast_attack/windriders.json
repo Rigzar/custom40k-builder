@@ -79,7 +79,9 @@
         "Battle Focus"
     ],
     "unit_type": "Jetbike",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

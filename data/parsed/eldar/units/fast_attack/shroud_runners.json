@@ -5,7 +5,7 @@
             "stats": {
                 "M": "12\"",
                 "WS": "3+",
-                "BS": "2+",
+                "BS": "3+",
                 "S": "3",
                 "T": "4",
                 "W": "3",
@@ -17,7 +17,7 @@
             "name": "Shroud Runner",
             "min": 3,
             "max": 6,
-            "points": 75
+            "points": 72
         }
     ],
     "variant_models": [],
@@ -56,7 +56,9 @@
         "Battle Focus, Use cover"
     ],
     "unit_type": "Jetbike",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,
@@ -70,5 +72,5 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 3,
-    "min_cost": 225
+    "min_cost": 216
 }

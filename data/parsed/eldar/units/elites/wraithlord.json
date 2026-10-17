@@ -177,11 +177,13 @@
         }
     ],
     "abilities": [
-        "Squadron, <Wraith>",
+        "Squadron",
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Monstrous Creature",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": true,

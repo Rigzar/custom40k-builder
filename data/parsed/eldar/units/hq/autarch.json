@@ -85,7 +85,9 @@
         "Exalted Autarch: The Autarch may use Perfected warfare twice per game."
     ],
     "unit_type": "Character model, Infantry",
-    "keywords": [],
+    "keywords": [
+        "Craftworld"
+    ],
     "is_vehicle": false,
     "is_character": true,
     "is_monster": false,

@@ -1,0 +1,111 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Purestrain Genestealer",
+        "6\"",
+        "2+",
+        "6+",
+        4,
+        4,
+        1,
+        5,
+        4,
+        10,
+        "5+",
+        18
+    ],
+    [
+        "Every model is equipped with: Piercing claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Piercing claws",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Armor piercing(5+)"
+    ],
+    [
+        "Scything talons",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The entire squad may receive one of the following upgrades per model:"
+    ],
+    [
+        "- Miasmic strain",
+        "+1 point"
+    ],
+    [
+        "- Reaperfex strain",
+        "+2 points"
+    ],
+    [
+        "- Bulwark strain",
+        "+5 points"
+    ],
+    [
+        "\u2022 All models may be equipped with:"
+    ],
+    [
+        "- Scything talons",
+        "+1 point"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Deflect, Infiltrator, Move through cover, Parry, Use cover"
+    ],
+    [
+        "Upgrades:"
+    ],
+    [
+        "Bulwark strain: The models gains a 4+ armor save."
+    ],
+    [
+        "Miasmic strain: The model gains the \"Retribution(1)\" ability."
+    ],
+    [
+        "Reaperfex strain: The model gains the \"Frenzy(2\")\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

@@ -1,0 +1,102 @@
+[
+    [
+        "At the start of the battle round, you must pledge a number to Slaanesh, declaring how many enemy units you intend to destroy this round. At the end of the battle round, if the number of enemy units destroyed is equal to or greater than your pledge, you gain Pact points equal to the pledged number. If not, you lose 1D3 Pact points. Multiple Pact points can be spend at the same time and powers can be used multiple times per battle round. Remaining Pact points are carried over each battle round."
+    ],
+    [
+        "Pacts",
+        "Name:",
+        "Beautiful Death",
+        "Name:",
+        "Dance Macabre",
+        "Name:",
+        "Diabolic Majesty"
+    ],
+    [
+        "Range:",
+        "Anywhere",
+        "Range:",
+        "Anywhere",
+        "Range:",
+        "Anywhere"
+    ],
+    [
+        "Target:",
+        "A friendly model that has just lost its last Wound",
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Effect:",
+        "The target may fight (again) in melee before being removed.",
+        "Effect:",
+        "Place a unit of 6 Daemonettes within 6\" of a friendly unit with the Mark of Slaanesh as if they arrived via Deep strike. The unit counts as activated, but can still fight in melee on this turn. ",
+        "Effect:",
+        "The target must pass a Leadership test with a -2 penalty."
+    ],
+    [
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Cost",
+        "1 Pact point",
+        "Cost",
+        "1 Pact point",
+        "Cost",
+        "1 Pact point"
+    ],
+    [
+        "Name:",
+        "Protection of the Dark Prince",
+        "Name:",
+        "Violent Crescendo",
+        "Name:",
+        "Siren's Call"
+    ],
+    [
+        "Range:",
+        "Anywhere",
+        "Range:",
+        "Anywhere",
+        "Range:",
+        "Anywhere"
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Friendly unit"
+    ],
+    [
+        "Effect:",
+        "The target gains \"Aegis(4+)\", \"Warded\" and can never be wounded on a roll of 1 or 2.",
+        "Effect:",
+        "The target gains \"Frenzy(2\")\".",
+        "Effect:",
+        "Place a unit of 1 Keeper of Secrets within 6\" of a friendly unit with the Mark of Slaanesh as if it arrived via Deep strike. The unit counts as activated, but can still fight in melee on this turn."
+    ],
+    [
+        "Duration:",
+        "Until the end of the current battle round",
+        "Duration:",
+        "Until the end of the current battle round",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Cost",
+        "1 Pact point",
+        "Cost",
+        "1 Pact point",
+        "Cost",
+        "3 Pact point"
+    ]
+]
