@@ -5,6 +5,7 @@ import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
+import { dataForArchetype } from '../engine/archetypes/dataPatch';
 import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
 import { isPsykerOnlyTrait } from '../engine/traitEffects';
@@ -380,7 +381,7 @@ export const useArmyStore = create<ArmyStore>()(
             supplementData: {},
           };
         }
-        return { data: mergeAlliedIntoData(d, s.alliedFaction, s.alliedData), faction: d.faction };
+        return { data: dataForArchetype(mergeAlliedIntoData(d, s.alliedFaction, s.alliedData), s.archetype), faction: d.faction };
       }),
 
       setAlliedData: (d) => set((s) => {
@@ -463,7 +464,7 @@ export const useArmyStore = create<ArmyStore>()(
          */
         const cleared = army.map((e: RosterEntry) =>
           e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
-        return { archetype: a, army: clearYngir ? cleared.map((e: RosterEntry) =>
+        return { archetype: a, data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
           : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),

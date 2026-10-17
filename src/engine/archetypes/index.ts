@@ -515,11 +515,12 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     allowedKeywordUnits: ['Gretchins', 'Snotlings'],
     troopsMinRatio: 0.15,
     grantsAbility: { ability: 'Mob', units: ['Gretchins', 'Snotlings'] },
+    unitPatch: { units: ['Gretchins', 'Snotlings'], dropModels: ['Runtherd'], dropAbilityPrefixes: ['Cowardly:', 'Squig hound:'] },
     notes: [
       'Only Grot and Vehicle units may be taken.',
       'The army only needs to spend 15% of its points on Troops.',
       'All Grot units gain the "Mob" ability.',
-      'Gretchin and Snotlings lose the "Cowardly" ability, and their units may not take Runtherds (not enforced by the builder).',
+      'Gretchin and Snotlings lose the "Cowardly" ability, and their units may not take Runtherds (removed from the units while this archetype is active).',
     ],
   },
 

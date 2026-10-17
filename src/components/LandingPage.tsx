@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185g_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -66,7 +66,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Lists","Importing a list no longer overwrites a saved one (it asks first and Save makes a new list). Build army can also save the open army first."],
         ["Build army","With an open list you can continue it, start a new one or cancel, instead of only discard or cancel."],
         ["Necrons","Two Triarch Stalkers can each take their own weapon swap and Reinforced forelimbs."],
-        ["Orks","Sheet 1.5: Head Honcho, Banna Wava, Grot Mega Tank and Grot Cutta, Lugga / Big Lugga, Grot Mega armor and the Gretchin Revolutionary Committee."],
+        ["Orks","Sheet 1.5: Head Honcho, Banna Wava, Grot Mega Tank and Grot Cutta, Lugga / Big Lugga, Grot Mega armor and the Gretchin Revolutionary Committee (no Runtherds, no Cowardly)."],
         ["T'au Empire","Kroot Shaman is a +5 upgrade that makes the model a psyker; Core Rules 1.30 adds the Hunter rule."],
       ] },
     ],

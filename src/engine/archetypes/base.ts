@@ -219,6 +219,8 @@ export interface ArchetypeRule {
    * dataHealth, like every other list in this file.
    */
   grantsAbility?: { ability: string; units: string[] } | null;
+  /** Removes models and abilities from named units while the archetype is active (see dataPatch.ts). Gretchin Revolutionary Committee: no Runtherds, no Cowardly. */
+  unitPatch?: { units: string[]; dropModels?: string[]; dropAbilityPrefixes?: string[] } | null;
   /**
    * Caps how many Troops selections OTHER than `anchorUnit` are allowed, scaled by how many
    * copies of `anchorUnit` are in the army — e.g. IG Whiteshields' "You are only allowed one

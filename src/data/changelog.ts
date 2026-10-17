@@ -42,6 +42,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "ORKS — SHEET 1.5. Four new units: Head Honcho (HQ, with the Red Gobbo upgrade), Banna Wava (Elites, advisor), Grot Mega Tank (Heavy Support, three big and four small turrets) and Grot Cutta (Dedicated Transport). The Trukk can take a Lugga (+15) and the Wagon a Big Lugga (+40), both setting BS to 4+. Grot Mega armor (Nobz only, +27) gives +1 T, a 2+ save and sets WS and BS to exactly 4+. Da Jump no longer changes the command. New archetype: Gretchin Revolutionary Committee (only Grot and Vehicle units, Troops need only 15% of the game).",
       "T'AU EMPIRE — SHEET 1.4. The Kroot Master Shaper's Shaman is now a +5 upgrade that makes the model a psyker (the old +10 group is gone, so saved Master Shapers may need their upgrades re-picked). Kroot Hunting Pack text updated; the Ethereal prayer gets the 4+ ward.",
       "CORE RULES 1.30 — NEW RULE \"HUNTER\" (no scatter on Deep Strike, normal charge benefits, no Disorderly Charge) in the glossary; Deep Strike now says \"another unit\". Space Marines Eliminators are BS 3+, the Stormraven's weapon is the Twin heavy psycannon, and the Votann powers, Hearthkyn Warriors and Acolyte Hybrids headers follow the new sheets.",
+      "ORKS — GRETCHIN REVOLUTIONARY COMMITTEE NOW REMOVES RUNTHERDS AND COWARDLY (atypicalhero). Gretchin and Snotling units lose their Runtherd (and its Squig hound) and the Cowardly ability while the archetype is active, and a squad costs 30 / 18 points at its minimum; picking another archetype brings them back.",
     ],
   },
   {

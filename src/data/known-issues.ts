@@ -3,9 +3,9 @@ import type { KnownIssue } from './changelog';
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: "ki-oct17-sheets-not-enforced-01",
-    status: "known",
-    title: "Oct 17 sheets: rules the builder shows but does not enforce (Committee Runtherd ban and Cowardly, Grot Mega Tank squads, Hunting Blinds, Skorpekh Lord join, relic note)",
-    description: "UPDATED 2026-10-17 after atypicalhero answered. STILL NOT ENFORCED: the Gretchin Revolutionary Committee still lets Gretchin and Snotling units take Runtherds and keeps their Cowardly ability (both exist on the sheets, so under the Committee they should go; the builder reads unit data without the archetype, so this needs a unit-level override). The army-level parts (Grot and Vehicle units only, 15% Troops, Mob) are enforced. ANSWERED, nothing to do: Grot Mega Tank squads are 1-3 tanks and every tank takes its own 3 big + 4 small turrets (checked: 1, 2 and 3 tanks price and validate correctly). Kroot Hunting Blinds are 3in x 3in abstract terrain pieces giving Light Cover (a table rule, not modelled). The Skorpekh Lord joining Skorpekh Destroyers is a table exception, not needed in list building. The Missions relic note is only a reminder. Also: the Kroot Master Shaper lost its old +10 Shaman option group, so option groups after it shifted by one and saved Master Shapers may need their upgrades re-picked.",
+    status: "fixed",
+    title: "Oct 17 sheets: Committee Runtherd ban and Cowardly (fixed); table-only rules (Hunting Blinds, Skorpekh Lord join, relic note)",
+    description: "FIXED 2026-10-17 after atypicalhero answered. The Gretchin Revolutionary Committee now removes the Runtherd (and its Squig hound) and the Cowardly ability from Gretchins and Snotlings: the archetype patches copies of those units (engine/archetypes/dataPatch.ts) and switching archetype restores them. Existing Gretchin squads keep their size. ANSWERED, nothing to do: Grot Mega Tank squads are 1-3 tanks and every tank takes its own 3 big + 4 small turrets (checked: 1, 2 and 3 tanks price and validate correctly). Kroot Hunting Blinds are 3in x 3in abstract terrain pieces giving Light Cover (a table rule, not modelled). The Skorpekh Lord joining Skorpekh Destroyers is a table exception, not needed in list building. The Missions relic note is only a reminder. Also: the Kroot Master Shaper lost its old +10 Shaman option group, so option groups after it shifted by one and saved Master Shapers may need their upgrades re-picked.",
   },
   {
     id: "ki-imperial-navy-sheet-questions-for-author-01",

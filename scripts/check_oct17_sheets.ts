@@ -10,6 +10,7 @@ import { resolveUnitProfile } from '../src/engine/resolver';
 import { computeUnitPoints } from '../src/engine/points';
 import { effectiveKeywords } from '../src/engine/keywords';
 import { isUnitAllowed, getArchetypeRule } from '../src/engine/archetypes';
+import { dataForArchetype } from '../src/engine/archetypes/dataPatch';
 type Any = any;
 let bad = 0;
 const eq = (l: string, a: unknown, b: unknown) => {
@@ -65,6 +66,10 @@ const eq = (l: string, a: unknown, b: unknown) => {
   eq('Committee allows Gretchins, Snotlings, Head Honcho, Banna Wava, vehicles', ['Gretchins', 'Snotlings', 'Head Honcho', 'Banna Wava', 'Trukk', 'Grot Mega Tank'].map(ok), [true, true, true, true, true, true]);
   eq('Committee refuses Boyz, Nobz and Weirdboy', ['Boyz', 'Nobz', 'Weirdboy'].map(ok), [false, false, false]);
   eq('Committee asks 15% of the game for Troops', rule.troopsMinRatio, 0.15);
+  const cd: Any = dataForArchetype(orks, 'Gretchin Revolutionary Committee');
+  const gcu = cd.units['Gretchins'];
+  eq('Committee: no Runtherd, no Cowardly, 30 pts for 10 Gretchins', [gcu.models.find((m: Any) => m.name === 'Runtherd').max, gcu.abilities.some((a: string) => /^Cowardly/.test(a)), gcu.min_cost], [0, false, 30]);
+  eq('leaving the Committee restores both', dataForArchetype(cd, '').units['Gretchins'].models.find((m: Any) => m.name === 'Runtherd').max, 3);
 
   // Kroot Shaman: a CHOICE that makes the model a psyker
   const tau: Any = await (FACTION_LOADERS as Any).tau_empire();
