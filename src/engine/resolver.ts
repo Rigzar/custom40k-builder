@@ -940,6 +940,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     modelCounts = visibleModels.map(() => null);
   }
   const squadLeaderIdx = modelsToShow.length <= 1 ? 0 : (() => {
+    // The leader is ONE model: the promoted champion row (min 0, max 1), else the last lone model. Taking the first optional
+    // row (min 0) alone picked a Jakhals' DISHONORED (0-4 models) over the Pack Leader, so the Favored +1 Attack landed on
+    // them as soon as any were added.
+    const promoted = modelsToShow.findIndex(m => m.min === 0 && m.max === 1);
+    if (promoted >= 0) return promoted;
+    for (let i = modelsToShow.length - 1; i >= 0; i--) if (modelsToShow[i].min === 1 && modelsToShow[i].max === 1) return i;
     const idx = modelsToShow.findIndex(m => m.min === 0);
     return idx >= 0 ? idx : modelsToShow.length - 1;
   })();
