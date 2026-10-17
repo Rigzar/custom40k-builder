@@ -202,7 +202,7 @@ def main():
                 # Save the processed unit data to its respective path.
                 processed_unit_path = f"processed/{faction_path}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
                 with open(processed_unit_path, "w") as f:
-                    json.dump(app_unit_json, f, indent=4)
+                    json.dump(app_unit_json, f, indent=4, default=str)
                     
 if __name__ == "__main__":
     main()
