@@ -438,7 +438,7 @@
  "valRetinueUnitNotAllowed": "Legendary Retinue：{unit} はレティニューのモデルになれません（軍に1つだけのモデルではない、HQの歩兵モデルである必要があります）。",
  "valRetinueUnique": "Legendary Retinue：{unit} はユニーク装備（{items}）を持っていますが、レティニューのモデルは選べません。",
  "valRetinueSameAsAlly": "Legendary Retinue：{faction} は同盟軍でもあります。",
- "termArmourNotice": "ターミネイター・アーマー — ターミネイター対応のアイテム（ᵀ）のみ表示しています。",
+ "termArmourNotice": "ターミネイター・アーマー — ターミネイター対応のアイテム（ᵀ）のみ購入できます。それ以外は理由付きでグレー表示されます。",
  "weaponsLabel": "武器",
  "ascendedAllMarksBanner": "⚜ 昇華したデーモンプリンス — 全ての印を持ち、4つの印のアーモリーすべてを利用可能",
  "bcChampionBanner": "⚜ ブラック・クルセイド・チャンピオン — 四つの印の武器庫すべてを利用可能",
@@ -1208,5 +1208,18 @@
  "valSkirmishAllyTroops": "Skirmishの同盟軍には、Troopsユニットがちょうど{need}つ必要です（現在{have}つ）。",
  "valSkirmishAllyExtras": "Skirmishの同盟軍には、Elite・Fast Attack・Heavy Supportのユニットを合計で最大{max}つまで含められます（現在{have}つ）。",
  "skirmishDropsArchetypeConfirm": "この軍にはSkirmishで使えないアーキタイプがあるため、Skirmishに切り替えるとそれが削除されます。別の戦闘タイプに戻しても元に戻りません。続けますか？",
- "skirmishArchetypesOnly": "Skirmish：このコーデックスがSkirmishで使用可能としているアーキタイプのみ表示されます。"
+ "skirmishArchetypesOnly": "Skirmish：このコーデックスがSkirmishで使用可能としているアーキタイプのみ表示されます。",
+ "armReasonTerm": "ターミネーター・アーマー：ᵀ付きのアイテムのみ",
+ "armReasonGravis": "グラヴィス・アーマー：ᴳ付きのアイテムのみ",
+ "armReasonGlyph": "このアーマーは{g}付きのアイテムのみ使用可",
+ "armReasonTau": "タウ歩兵はᴵ付きのアイテムのみ使用可",
+ "armReasonVehicleShop": "車両はArmoryから車両アップグレードのみ選択可",
+ "armReasonMeleeOnly": "SlowやUnwieldyのない近接武器のみ",
+ "armReasonOrdo": "{x}が軍で解放されるまで使用不可",
+ "armReasonExarch": "エグザークの能力はエグザーク用。キャラクターはParagon of warを使用",
+ "armReasonAuthority": "異端審問の権威：1モデルにつき1つ、取得済み",
+ "armReasonPickWeapon": "下で適用する武器を選んでください",
+ "armReasonPickEnh": "下で強化を選んでください",
+ "armReasonCharOnly": "キャラクターモデル専用",
+ "armReasonNotChar": "キャラクターモデルには不可"
 }

@@ -438,7 +438,7 @@
  "valRetinueUnitNotAllowed": "Legendary Retinue: {unit} не может быть моделью Retinue (это должна быть пехотная модель HQ, не уникальная для армии).",
  "valRetinueUnique": "Legendary Retinue: {unit} несёт уникальное снаряжение ({items}), которое модель Retinue брать не может.",
  "valRetinueSameAsAlly": "Legendary Retinue: {faction} также является союзным отрядом.",
- "termArmourNotice": "Терминаторская броня — показаны только предметы, совместимые с Терминаторами (ᵀ).",
+ "termArmourNotice": "Терминаторская броня — можно купить только предметы, совместимые с Терминаторами (ᵀ); остальные затемнены с указанием причины.",
  "weaponsLabel": "Оружие",
  "ascendedAllMarksBanner": "⚜ Вознесённый Демон-принц — имеет все Метки, доступ ко всем четырём арсеналам Меток",
  "bcChampionBanner": "⚜ Чемпион Чёрного крестового похода — доступ ко всем четырём арсеналам меток",
@@ -1208,5 +1208,18 @@
  "valSkirmishAllyTroops": "Союзники в Skirmish должны включать ровно {need} отряд Troops (сейчас {have}).",
  "valSkirmishAllyExtras": "Союзники в Skirmish могут включать не более {max} отряда Elite, Fast Attack или Heavy Support в сумме (сейчас {have}).",
  "skirmishDropsArchetypeConfirm": "У этой армии есть архетип, недоступный в Skirmish, поэтому переход на Skirmish УДАЛИТ его. Возврат к другому типу боя его не вернёт. Продолжить?",
- "skirmishArchetypesOnly": "Skirmish: показаны только архетипы, которые этот кодекс отмечает как доступные в Skirmish."
+ "skirmishArchetypesOnly": "Skirmish: показаны только архетипы, которые этот кодекс отмечает как доступные в Skirmish.",
+ "armReasonTerm": "Броня терминатора: только предметы с меткой ᵀ",
+ "armReasonGravis": "Броня Gravis: только предметы с меткой ᴳ",
+ "armReasonGlyph": "Эта броня допускает только предметы с меткой {g}",
+ "armReasonTau": "Пехота Т'ау использует только предметы с меткой ᴵ",
+ "armReasonVehicleShop": "Техника берёт из Armory только улучшения техники",
+ "armReasonMeleeOnly": "Только оружие ближнего боя, без Slow и Unwieldy",
+ "armReasonOrdo": "Заблокировано, пока для армии не открыт {x}",
+ "armReasonExarch": "Силы экзарха — для экзархов; персонажи используют Paragon of war",
+ "armReasonAuthority": "Власть Инквизиции: один предмет на модель, уже взят",
+ "armReasonPickWeapon": "Выберите ниже оружие, к которому оно относится",
+ "armReasonPickEnh": "Выберите ниже улучшение",
+ "armReasonCharOnly": "Только для моделей-персонажей",
+ "armReasonNotChar": "Не для моделей-персонажей"
 }
