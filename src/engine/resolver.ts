@@ -596,6 +596,30 @@ const optionalWeapons = new Map<string, Set<string>>();
     }
   }
 
+  // A specialisation's own loadout clause. The Necron Cryptek's equipped_with reads "A Chronomancer is
+  // equipped with: Aeonstave. A Psychomancer is equipped with: Abyssal lance. ..." — one clause per choice,
+  // and the choice's effect.grants_weapons names the same weapon. The "default part of equipped_with" rule
+  // in the filter below saw all seven staves and lances in that sentence and showed every one of them, so a
+  // Cryptek who had taken the Chronomancer upgrade was offered all seven when pointing Master-crafted weapon
+  // at "its" weapon (Sophtym, 2026-10-19). A clause that belongs to a choice which itself grants the weapon is
+  // that choice's weapon, not the base loadout.
+  if (unit.equipped_with) {
+    for (const g of unit.option_groups) {
+      for (const c of g.choices) {
+        const granted = c.effect?.grants_weapons ?? [];
+        if (granted.length === 0) continue;
+        const esc = String(c.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const clause = unit.equipped_with.match(new RegExp(`\\bAn?\\s+${esc}\\s+is equipped with:\\s*([^.]+)\\.`, 'i'))?.[1];
+        if (!clause) continue;
+        for (const gw of granted) {
+          if (!unit.weapons.some(w => baseName(w.name) === baseName(gw))) continue;
+          if (!loadoutNames(clause, baseName(gw))) continue;
+          conditionalGrantWeapons.add(baseName(gw));
+        }
+      }
+    }
+  }
+
   // Weapons exclusive to a secondary model that hasn't been bought yet (e.g. Chaos
   // Ogryn's Power maul before any Ogryn is added) aren't part of the starting loadout.
   // Walks models[0] too: on four datasheets the OPTIONAL model is the first one (Indomitus
