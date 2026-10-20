@@ -4,7 +4,7 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
@@ -1461,9 +1461,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const modelGroupCap = sumModelGroups(applyModelNames);
             // Drone controller groups (their choices are all named Tau Drones, see
             // computeAttachedDrones) get +1 to their fixed_max when "Swarm Controllers" is active.
-            const isDroneGroup = isFixedMax && !!effectiveArmData.drones?.length &&
-              g.choices.every(c => effectiveArmData.drones!.some(d => d.name === c.name));
-            const swarmControllersBonus = (isDroneGroup && effectiveTraitPool.includes('Swarm Controllers')) ? 1 : 0;
+            const swarmControllersBonus = isFixedMax ? swarmControllersBonusFor(g, effectiveArmData.drones, effectiveTraitPool) : 0;
             // A swap group can be PER COPY, and the header is what says so: "may swap EACH Scatter
             // laser" is one swap per copy carried, while "may swap BOTH Storm bolters" / "their two
             // Power fists" is a single selection covering all of them. Only the first multiplies

@@ -5,7 +5,7 @@ import { retinueFactionKeys, retinueEligible, isUniqueEquipment, computeRetinueF
 import { factionLabel } from '../utils/factionLabel';
 import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, swarmControllersBonus, unitMatchesKeyword, factionForEntry } from './points';
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
@@ -2939,7 +2939,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // An `independent_choices` group caps EVERY choice at 1, `per_model` included: that flag
         // scales the price by headcount, it does not let a second copy be bought.
         const perChoiceCap = (_ci?: string) => 1;
-        const max = gc.max ?? (g.independent_choices ? 1 : 0);
+        const max = (gc.max ?? (g.independent_choices ? 1 : 0)) + swarmControllersBonus(g, data.drones, state.traitPool);
         const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
         if (g.independent_choices) {
           const over = qtys.find(([k, v]) => (v ?? 0) > perChoiceCap(k));

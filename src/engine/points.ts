@@ -159,6 +159,18 @@ export function unitMatchesKeyword(
   return String(unit.unit_type ?? '').split(',').map(t => t.trim()).includes(keyword);
 }
 
+/**
+ * Tau "Swarm Controllers": "Models with access to drones may buy up to three drones in any combination
+ * instead of two." Raises the fixed_max of a group whose choices are all Tau Drones by one. Shared by the
+ * unit card (the stepper's cap) and the validator, which used to keep the printed 2 and flag the third drone.
+ */
+export function swarmControllersBonus(
+  group: OptionGroup, drones: ReadonlyArray<{ name: string }> | undefined, traitPool: readonly string[],
+): number {
+  if (group.constraint?.type !== 'fixed_max' || !drones?.length || !traitPool.includes('Swarm Controllers')) return 0;
+  return group.choices.length > 0 && group.choices.every(c => drones.some(d => d.name === c.name)) ? 1 : 0;
+}
+
 export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
   if (group.promoted_constraint && (item.archetypeHqUpgrade || item.ctanYngirUpgrade)) return group.promoted_constraint;
   const vc = group.variant_constraint;
