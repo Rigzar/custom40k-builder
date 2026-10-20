@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185l_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185m_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "New in this version", rows: [
         ["Necrons","Sheet 1.7: the C'tan Spear and Scythe replace the Fists, the Canoptek Cloak shows +6\" and the Stalker's forelimbs show WS 3+."],
+        ["Armory","Items from a granted armory (the Chaos armories of a Traitor Guard list) show their description and profile again on the card and printout."],
         ["Orks","Wazbom Blastajet and Fighta-Bommer squadrons pay their weapon swaps per vehicle."],
         ["Eldar","The Dire Avenger Exarch's weapon swap works and no longer leaves the squad with one catapult."],
         ["Imperial Guard","Vehicle upgrades Storm bolter and Heavy stubber now add the weapon."],
@@ -88,6 +89,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Neu in dieser Version", rows: [
         ["Necrons","Datenblatt 1.7: Spear und Scythe des C'tan ersetzen die Fists, der Canoptek Cloak zeigt +6\" und die Forelimbs des Stalkers zeigen WS 3+."],
+        ["Rüstkammer","Gegenstände aus einer gewährten Rüstkammer (die Chaos-Rüstkammern einer Traitor-Guard-Liste) zeigen Beschreibung und Profil wieder auf Karte und Ausdruck."],
         ["Orks","Staffeln von Wazbom Blastajet und Fighta-Bommer zahlen ihren Waffentausch pro Fahrzeug."],
         ["Eldar","Der Waffentausch des Dire-Avenger-Exarchen funktioniert und lässt der Gruppe nicht mehr nur einen Catapult."],
         ["Imperial Guard","Die Fahrzeug-Upgrades Storm bolter und Heavy stubber fügen die Waffe hinzu."],
@@ -115,6 +117,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Novedades de esta versión", rows: [
         ["Necrones","Hoja 1.7: la Spear y la Scythe del C'tan reemplazan a los Fists, el Canoptek Cloak muestra +6\" y los forelimbs del Stalker muestran WS 3+."],
+        ["Armería","Los objetos de una armería concedida (las armerías de Chaos de una lista de Traitor Guard) vuelven a mostrar descripción y perfil en la ficha y en la impresión."],
         ["Orkos","Los escuadrones de Wazbom Blastajet y Fighta-Bommer pagan sus cambios de arma por vehículo."],
         ["Eldar","El cambio de arma del Exarca de los Dire Avengers funciona y ya no deja a la escuadra con un solo catapult."],
         ["Guardia Imperial","Las mejoras de vehículo Storm bolter y Heavy stubber ahora añaden el arma."],
@@ -142,6 +145,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Новое в этой версии", rows: [
         ["Некроны","Лист 1.7: Spear и Scythe у C'tan заменяют Fists, Canoptek Cloak показывает +6\", а forelimbs у Stalker показывают WS 3+."],
+        ["Арсенал","Предметы из предоставленного арсенала (арсеналы Хаоса в списке Traitor Guard) снова показывают описание и профиль в карточке и на печати."],
         ["Орки","Эскадрильи Wazbom Blastajet и Fighta-Bommer платят за замену оружия за каждую машину."],
         ["Эльдар","Замена оружия Экзарха Dire Avengers работает и больше не оставляет отряду одну катапульту."],
         ["Имперская Гвардия","Улучшения машин Storm bolter и Heavy stubber теперь добавляют оружие."],
@@ -169,6 +173,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "このバージョンの新機能", rows: [
         ["ネクロン","シート1.7：C'tanのSpearとScytheがFistsを置き換え、Canoptek Cloakは+6\"を表示し、StalkerのforelimbsはWS 3+を表示します。"],
+        ["Armory","付与されたArmoryのアイテム（Traitor GuardリストのChaosのArmory）が、カードと印刷で説明とプロファイルを再び表示します。"],
         ["オーク","Wazbom BlastajetとFighta-Bommerの部隊は武器交換を機体ごとに支払います。"],
         ["エルダー","Dire Avenger Exarchの武器交換が機能し、部隊のcatapultが1丁になることはなくなりました。"],
         ["帝国防衛軍","車両アップグレードのStorm bolterとHeavy stubberが武器を追加します。"],

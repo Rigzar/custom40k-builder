@@ -166,6 +166,10 @@ function findArmoryItem(
     data.armory_general,
     ...Object.values(data.armory_marks ?? {}),
     ...Object.values(data.armory_legions ?? {}),
+    // The foreign armory an archetype grants (Traitor Guard -> the Chaos Space Marines Armory and its Mark armories) and the
+    // ones an army may borrow from: searched last, like the resolver does, so a same-named item in the army's own codex wins.
+    ...(data.archetype_armory ? [data.archetype_armory.general, ...Object.values(data.archetype_armory.marks ?? {})] : []),
+    ...Object.values(data.borrowable_armories ?? {}),
   ].filter((a): a is NonNullable<typeof a> => !!a);
   for (const arm of sources)
     for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {

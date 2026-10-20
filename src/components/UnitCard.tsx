@@ -8,7 +8,7 @@ import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, 
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
-import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
+import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
@@ -131,19 +131,13 @@ function unitMaxSize(u: Unit) {
   return u.models.reduce((s, m) => s + m.max, 0) || 1;
 }
 
-/** Look up an armory item's full data (range, type, stats) across all armory sources. */
+/** Look up an armory item's full data (range, type, stats) across all armory sources — the same ones the resolver
+ *  searches, including the foreign armory an archetype grants (Traitor Guard: the Chaos Space Marines Armory and the
+ *  Mark armories), supplements, allies and borrowed armories. The card had its own shorter list, so an item that only
+ *  exists in a foreign armory (Juggernaut of Khorne, Daemonic armor...) was found for nothing: no description under it,
+ *  no veteran/vehicle category (Discord, 2026-10-20). */
 function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem | undefined {
-  const section = sel.section as 'weapons' | 'equipment' | 'daemon_weapons';
-  const sources: { name: string; weapons: ArmoryItem[]; equipment: ArmoryItem[]; daemon_weapons: ArmoryItem[] }[] = [
-    data.armory_general,
-    ...Object.values(data.armory_marks),
-    ...Object.values(data.armory_legions),
-  ];
-  for (const armory of sources) {
-    const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);
-    if (found) return found;
-  }
-  return undefined;
+  return findArmoryItem(data, sel);
 }
 
 const CAP_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
