@@ -47,7 +47,7 @@
         {
             "name": "Fusion pistol",
             "range": "6\"",
-            "type": "Assault 1",
+            "type": "Pistol 1",
             "s": "8",
             "ap": "-5",
             "d": "1",
@@ -83,7 +83,7 @@
         {
             "name": "Shuriken pistol",
             "range": "12\"",
-            "type": "Assault 1",
+            "type": "Pistol 1",
             "s": "4",
             "ap": "-1",
             "d": "1",

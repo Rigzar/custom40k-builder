@@ -20,17 +20,17 @@
         "6\"",
         "3+",
         "3+",
-        5,
-        5,
+        6,
+        6,
         3,
         4,
-        3,
+        4,
         8,
         "2+",
         115
     ],
     [
-        "A Mutilator is equipped with: An array of Fleshmetal weapons"
+        "A Mutilator is equipped with: An array of Fleshmetal weapons."
     ],
     [
         "WEAPON",
@@ -51,13 +51,13 @@
         "Armorbane(3), AT(3), Slow(-3)"
     ],
     [
-        "Lightning claw",
+        "Pair of lightning claws",
         "-",
         "Melee",
         "U",
         -2,
         1,
-        "Shred"
+        "Extra Attack(2), Shred, Unwieldy"
     ],
     [
         "Power axe",
@@ -69,13 +69,22 @@
         "-"
     ],
     [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2), Slow(-2)"
+    ],
+    [
         "Power maul",
         "-",
         "Melee",
         "+3",
         -1,
         1,
-        "Deadly(6+), Slow(-1)"
+        "-"
     ],
     [
         "Power sword",
@@ -121,7 +130,7 @@
         "Deepstrike, Daemon, Unyielding"
     ],
     [
-        "Fleshmetal weapons: The model is equipped with all melee weapons listed above, but may not use the same melee weapon in two consecutive battle rounds."
+        "Fleshmetal weapons: The model is equipped with all melee weapons listed above, but may only use one per activation and can't use the same melee weapon in two consecutive battle rounds."
     ],
     [
         "UNIT TYPE"
