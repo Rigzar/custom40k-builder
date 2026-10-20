@@ -1,7 +1,7 @@
 import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types/data';
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
-import { getArchetypeRule } from './archetypes';
+import { getArchetypeRule, promotionFragment } from './archetypes';
 import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 import { expandAllRemaining } from './allRemaining';
@@ -377,7 +377,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // The promoted model's flat surcharge (Megafauna: "The model costs +36 points"), only on the entry that claimed the promotion.
   if (item.archetypeHqUpgrade) {
     const promo = getArchetypeRule(archetype)?.hqPromotion;
-    if (promo?.extraPoints && item.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase())) total += promo.extraPoints;
+    if (promo?.extraPoints && promotionFragment(promo, item.unitName)) total += promo.extraPoints;
   }
   // Deployment rule bought on this entry (Webway strike / Webway raid / Lightning strike /
   // Tellyporta): rate x Wounds-or-Hull-Points x models, exactly as the Index tab prices it.

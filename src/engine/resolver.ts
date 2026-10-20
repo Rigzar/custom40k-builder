@@ -3,7 +3,7 @@ import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/arm
 import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor, factionForEntry } from './points';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade } from './deploymentUpgrades';
-import { getArchetypeRule, getEffectiveSlot } from './archetypes';
+import { getArchetypeRule, getEffectiveSlot, promotionFragment } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
@@ -1740,7 +1740,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   // The promoted model improves an ability value (Megafauna: Regeneration(1) -> Regeneration(2)).
   if (item.archetypeHqUpgrade && rule?.hqPromotion?.grantsAbilities
-    && item.unitName.toLowerCase().includes(rule.hqPromotion.unitNameContains.toLowerCase())) {
+    && promotionFragment(rule.hqPromotion, item.unitName)) {
     for (const a of rule.hqPromotion.grantsAbilities) if (!ruleNotes.includes(a)) ruleNotes.push(a);
   }
   const abilityUp = item.archetypeHqUpgrade ? rule?.hqPromotion?.abilityUpgrade : undefined;

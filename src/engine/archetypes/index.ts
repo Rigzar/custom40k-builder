@@ -531,6 +531,8 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Farsight Enclave': { ...BASE,
     troopsRemap: ['Crisis Battlesuits'], demoteOtherTroops: true,
     bannedUnits: ['Ethereal', 'Ethereal Guard'],
+    // "One unit each of Broadside Battlesuits and Riptide Battlesuits can be taken with an HQ slot if they consist of a single model."
+    hqPromotion: { unitNameContains: 'Broadside', unitNameAlso: ['Riptide'], singleModel: true },
     notes: [
       'Crisis Battlesuits count as Troops. All other Troops become Elites.',
       'Ethereals may not be selected.',
@@ -691,15 +693,22 @@ export function cleanArchetypeName(name: string): string {
  * Keyed on the flag alone, exactly as `points.ts` charges the +85, and the flag is cleared when the
  * army leaves the Yngir archetype (`setArchetype`).
  */
+/** The part of `hqPromotion` (main name or one of `unitNameAlso`) that matches this unit, lower-cased, or null. Each fragment is claimed by one entry. */
+export function promotionFragment(promo: { unitNameContains: string; unitNameAlso?: string[] }, unitName: string): string | null {
+  const n = unitName.toLowerCase();
+  return [promo.unitNameContains, ...(promo.unitNameAlso ?? [])].map(f => f.toLowerCase()).find(f => n.includes(f)) ?? null;
+}
+
 export function getEffectiveSlotFor(
-  item: { unitName: string; slot: string; ctanYngirUpgrade?: boolean; archetypeHqUpgrade?: boolean },
+  item: { unitName: string; slot: string; size?: number; ctanYngirUpgrade?: boolean; archetypeHqUpgrade?: boolean },
   rule: ArchetypeRule | null,
 ): string {
   if (item.ctanYngirUpgrade && /^C'tan Shard/.test(item.unitName)) return 'HQ';
   // The archetype's own HQ promotion, claimed by one entry (GH#168). Keyed on the flag alone,
   // exactly like the Yngir C'tan above; the flag is cleared when the archetype changes.
   if (item.archetypeHqUpgrade && rule?.hqPromotion
-    && item.unitName.toLowerCase().includes(rule.hqPromotion.unitNameContains.toLowerCase())) return 'HQ';
+    && promotionFragment(rule.hqPromotion, item.unitName)
+    && !(rule.hqPromotion.singleModel && (item.size ?? 1) !== 1)) return 'HQ';
   return getEffectiveSlot(item.unitName, item.slot, rule);
 }
 

@@ -12,7 +12,7 @@ import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseI
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
-import { getArchetypeRule } from '../engine/archetypes';
+import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
 import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
@@ -623,9 +623,11 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       {(() => {
         const promo = getArchetypeRule(itemArchetype)?.hqPromotion;
         if (item.factionSource || !promo) return null;
-        if (!u.name.toLowerCase().includes(promo.unitNameContains.toLowerCase())) return null;
+        const frag = promotionFragment(promo, u.name);
+        if (!frag) return null;
         const otherActive = army.some(e => e.id !== item.id && e.archetypeHqUpgrade
-          && e.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase()));
+          && e.unitName.toLowerCase().includes(frag));
+        const tooBig = !!promo.singleModel && (item.size ?? 1) !== 1;
         const checked = !!item.archetypeHqUpgrade;
         const needed = promo.requiresChoice;
         // The upgrade the sheet ties the promotion to, if any — REPORTED rather than enforced by
@@ -635,8 +637,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
             <label
-              onClick={() => { if (!otherActive || checked) updateUnit(item.id, { archetypeHqUpgrade: !checked }); }}
-              className={`flex items-center gap-2 text-[11px] ${otherActive && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+              onClick={() => { if ((!otherActive && !tooBig) || checked) updateUnit(item.id, { archetypeHqUpgrade: !checked }); }}
+              className={`flex items-center gap-2 text-[11px] ${(otherActive || tooBig) && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
             >
               <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
                 {checked && <span className="text-[8px] text-white leading-none">✓</span>}
@@ -644,7 +646,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               <span className="text-zinc-300">↳ {itemArchetype}: HQ selection</span>
             </label>
             {otherActive && !checked && (
-              <span className="text-[10px] text-red-400/80">Another {promo.unitNameContains} already has it</span>
+              <span className="text-[10px] text-red-400/80">Another {frag} already has it</span>
+            )}
+            {tooBig && !checked && (
+              <span className="text-[10px] text-red-400/80">Single model only</span>
             )}
             {checked && missingChoice && (
               <span className="text-[10px] text-amber-400/80">Needs “{needed}”</span>

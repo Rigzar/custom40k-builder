@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185m_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185n_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -78,6 +78,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Necrons","Eternal Conquerors is only paid by <Necron> units; a vehicle squadron no longer pays an item twice (per vehicle and again per copy)."],
         ["Orks","Sheet 1.5: Head Honcho, Banna Wava, Grot Mega Tank and Grot Cutta, Lugga / Big Lugga, Grot Mega armor and the Gretchin Revolutionary Committee (no Runtherds, no Cowardly)."],
         ["T'au Empire","Kroot Shaman is a +5 upgrade that makes the model a psyker; Core Rules 1.30 adds the Hunter rule."],
+        ["T'au Empire","Farsight Enclave can take one Broadside and one Riptide (single model) as HQ: toggle on their card."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -106,6 +107,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Necrons","Eternal Conquerors zahlen nur <Necron>-Einheiten; eine Fahrzeug-Squadron zahlt einen Gegenstand nicht mehr doppelt (pro Fahrzeug und pro Kopie)."],
         ["Orks","Blatt 1.5: Head Honcho, Banna Wava, Grot Mega Tank und Grot Cutta, Lugga / Big Lugga, Grot Mega armor und das Gretchin Revolutionary Committee."],
         ["T'au Empire","Kroot Shaman ist ein +5-Upgrade, das das Modell zum Psyker macht; Kernregeln 1.30 bringen die Regel Hunter."],
+        ["T'au Empire","Farsight Enclave kann einen Broadside und einen Riptide (Einzelmodell) als HQ nehmen: Schalter auf der Karte."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -134,6 +136,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Necrones","Eternal Conquerors solo lo pagan las unidades <Necron>; un escuadrón de vehículos ya no paga un objeto dos veces (por vehículo y por copia)."],
         ["Orks","Hoja 1.5: Head Honcho, Banna Wava, Grot Mega Tank y Grot Cutta, Lugga / Big Lugga, Grot Mega armor y el Gretchin Revolutionary Committee."],
         ["T'au Empire","El Kroot Shaman es una mejora de +5 que hace psíquico al modelo; Core Rules 1.30 añade la regla Hunter."],
+        ["T'au Empire","Farsight Enclave puede tomar un Broadside y un Riptide (un solo modelo) como HQ: interruptor en la ficha."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -162,6 +165,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Некроны","Eternal Conquerors оплачивают только отряды <Necron>; эскадрон техники больше не платит за предмет дважды (за машину и за копию)."],
         ["Орки","Таблица 1.5: Head Honcho, Banna Wava, Grot Mega Tank и Grot Cutta, Lugga / Big Lugga, Grot Mega armor и Gretchin Revolutionary Committee."],
         ["Т'ау","Kroot Shaman — улучшение +5, делающее модель псайкером; Core Rules 1.30 добавляют правило Hunter."],
+        ["Т'ау","Farsight Enclave может взять одного Broadside и одного Riptide (одна модель) как HQ: переключатель на карточке."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -190,6 +194,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["ネクロン","Eternal Conquerorsは<Necron>ユニットのみ支払い。車両Squadronはアイテムを二重に課金されなくなりました（車両ごと＋コピーごと）。"],
         ["オーク","シート1.5：Head Honcho、Banna Wava、Grot Mega Tank、Grot Cutta、Lugga / Big Lugga、Grot Mega armor、Gretchin Revolutionary Committee。"],
         ["タウ","Kroot Shamanはモデルをpsykerにする+5アップグレードに。Core Rules 1.30でHunterルールを追加。"],
+        ["タウ","Farsight EnclaveでBroadsideとRiptide(1体)を1つずつHQにできます。カードの切り替えで選べます。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

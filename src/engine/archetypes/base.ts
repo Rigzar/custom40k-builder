@@ -202,6 +202,14 @@ export interface ArchetypeRule {
   hqPromotion?: {
     unitNameContains: string; requiresChoice?: string;
     /**
+     * Further unit names the sheet promotes under the same rule, each claimed by ITS OWN entry
+     * (Tau Farsight Enclave: "One unit each of Broadside Battlesuits and Riptide Battlesuits can
+     * be taken with an HQ slot if they consist of a single model").
+     */
+    unitNameAlso?: string[];
+    /** The promoted entry must be a single model (Farsight Enclave); a larger squad does not qualify. */
+    singleModel?: boolean;
+    /**
      * An ability value the promoted model improves: Megafauna's "The Regeneration(1) ability becomes
      * Regeneration(2) for that model". Applied to the granted-ability texts of the entry that
      * claimed the promotion (`archetypeHqUpgrade`), and only to it.
