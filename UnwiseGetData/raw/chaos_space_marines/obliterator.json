@@ -20,14 +20,14 @@
         "6\"",
         "3+",
         "3+",
-        5,
-        5,
+        6,
+        6,
         3,
         4,
         3,
         8,
         "2+",
-        141
+        174
     ],
     [
         "An Obliterator is equipped with: An array of Fleshmetal guns; Power fist."
@@ -181,7 +181,7 @@
         "Deepstrike, Daemon, Unyielding"
     ],
     [
-        "Fleshmetal guns: The model is equipped with all ranged weapons listed above, but may not use the same ranged weapon in two consecutive battle rounds."
+        "Fleshmetal guns: The model is equipped with all ranged weapons listed above, but may only use one per activation and can't use the same ranged weapon in two consecutive battle rounds."
     ],
     [
         "UNIT TYPE"

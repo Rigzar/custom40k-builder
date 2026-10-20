@@ -54,7 +54,7 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/chaos.svg',
     pillFg: '#cc8888', pillFgLight: '#8a3236', dividerColor: '#3a1a1a',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.6' },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.7' },
       { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.2' },
     ],
   },
@@ -79,12 +79,12 @@ export const CATEGORIES: FactionCategory[] = [
     pillFg: '#6ab88a', pillFgLight: '#1d6944', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'complete', version: '1.4' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.7' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.9' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.5' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.4' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.4' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.4' },
-      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.2' },
+      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.3' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.5' },
       { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.11' },
     ],

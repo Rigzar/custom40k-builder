@@ -643,7 +643,7 @@
     ],
     [
         "Daemonic possession",
-        "- The model gains the \"Daemon\" ability (Note: a 5+ ward save).\n- The model reduces its BS and WS values by -1.\n- The model ignores \"Crew Shaken\" vehicle damage.\n- If the model is transporting a unit, during each activation of the unit roll 1D6 per model. On a roll of 1 and 2 the unit suffers one Mortal Wound.",
+        "- The model gains the \"Daemon\" ability (Note: a 5+ ward save).\n- The model reduces its BS and WS values by 1.\n- The model ignores \"Crew Shaken\" vehicle damage.\n- If the model is transporting a unit, during each activation of the unit roll 1D6 per model. On a roll of 1 and 2 the unit suffers one Mortal Wound.",
         0
     ],
     [

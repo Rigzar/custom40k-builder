@@ -47,6 +47,17 @@
         4
     ],
     [
+        "Eldritch lance",
+        "18\"",
+        "Assault 1",
+        10,
+        -4,
+        3,
+        "AT(3)",
+        57,
+        71
+    ],
+    [
         "Entropic staff",
         "12\"",
         "Assault 2",
@@ -218,7 +229,7 @@
     ],
     [
         "Atomic Energy Manipulator",
-        "Once per game, the model can boost a friendly infantry unit within 3\" range. Roll 1D3: \n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Unique.",
+        "Once per game, the model can boost a friendly <Canoptek> or <Necron> creature unit within 3\" range. Roll 1D3: \n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Unique.",
         10,
         10
     ],
@@ -230,7 +241,7 @@
     ],
     [
         "Canoptek Control Node",
-        "At the start of the activation, pick a single friendly <Canoptek> unit within 12\". It gets +1 to hit rolls until the end of its activation. Unique.",
+        "During the model's activation, pick one friendly <Canoptek> unit or a unit with attached <Canoptek> models in it within 12\". The <Canoptek> unit or models gain +1 to hit rolls until the end of their activation. Unique.",
         10,
         10
     ],
@@ -284,7 +295,7 @@
     ],
     [
         "Illuminor",
-        "Target a friendly <Necron> unit within 12\". The target immediately succeeds at 1 Reanimation Protocol roll. Unique.",
+        "Select a friendly <Necron> unit within 12\" during your activation. The target immediately succeeds at 1 Reanimation Protocol roll. Unique.",
         10,
         10
     ],
@@ -362,7 +373,7 @@
     ],
     [
         "Seismic crucible",
-        "Reduce enemy Charge movements that target the model or its attached unit by 2\". Unique.",
+        "Reduce enemy Charge movements that target the model by 2\". Unique.",
         5,
         5
     ],
@@ -428,7 +439,7 @@
     ],
     [
         "Translocation node",
-        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet. Can't be used by a model that was deployed via Veil of Darkness in the same round.",
         10,
         10
     ],

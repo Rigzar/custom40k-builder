@@ -31,18 +31,18 @@
     ],
     [
         "*",
-        "Dynasty Scion",
+        "Arcanomancer",
         "6\"",
         "3+",
         "3+",
-        5,
-        5,
-        3,
+        4,
+        4,
+        2,
         3,
         2,
         10,
         "4+",
-        44
+        107
     ],
     [
         "*",
@@ -76,6 +76,21 @@
     ],
     [
         "*",
+        "Dynasty Scion",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        3,
+        3,
+        2,
+        10,
+        "4+",
+        44
+    ],
+    [
+        "*",
         "Ethermancer",
         "6\"",
         "3+",
@@ -88,21 +103,6 @@
         10,
         "4+",
         60
-    ],
-    [
-        "*",
-        "Technomancer",
-        "6\"",
-        "3+",
-        "3+",
-        4,
-        4,
-        2,
-        3,
-        2,
-        10,
-        "4+",
-        65
     ],
     [
         "*",
@@ -150,31 +150,49 @@
         86
     ],
     [
-        "A Cryptek is equipped with: -."
+        "*",
+        "Technomancer",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        3,
+        2,
+        10,
+        "4+",
+        65
     ],
     [
         "A Chronomancer is equipped with: Aeonstave."
     ],
     [
+        "A Cryptek is equipped with: -."
+    ],
+    [
         "A Dynasty Scion is equipped with: -."
-    ],
-    [
-        "A Psychomancer is equipped with: Abyssal lance."
-    ],
-    [
-        "A Plasmancer is equipped with: Plasmic lance."
-    ],
-    [
-        "An Ethermancer is equipped with: Voltaic staff."
     ],
     [
         "A Geomancer is equipped with: Tremorstave."
     ],
     [
-        "An Astromancer is equipped with: Staff of Time."
+        "A Plasmancer is equipped with: Plasmic lance."
+    ],
+    [
+        "A Psychomancer is equipped with: Abyssal lance."
     ],
     [
         "A Technomancer is equipped with: Staff of Light."
+    ],
+    [
+        "An Arcanomancer is equipped with: Eldritch lance."
+    ],
+    [
+        "An Astromancer is equipped with: Staff of Time."
+    ],
+    [
+        "An Ethermancer is equipped with: Voltaic staff."
     ],
     [
         "WEAPON",
@@ -202,6 +220,15 @@
         -2,
         1,
         "Shield breaker(-3)"
+    ],
+    [
+        "Eldritch lance",
+        "18\"",
+        "Assault 1",
+        10,
+        -4,
+        3,
+        "AT(3)"
     ],
     [
         "Plasmic lance",
@@ -256,35 +283,39 @@
     ],
     [
         "- Dynasty Scion",
-        "+14pts "
+        "+14 points "
     ],
     [
         "- Astromancer",
-        "+17pts "
+        "+17 points "
     ],
     [
         "- Chronomancer",
-        "+27pts "
+        "+27 points "
     ],
     [
         "- Ethermancer",
-        "+30pts "
+        "+30 points "
     ],
     [
         "- Technomancer",
-        "+35pts "
+        "+35 points "
     ],
     [
         "- Geomancer",
-        "+40pts "
+        "+40 points "
     ],
     [
         "- Plasmancer",
-        "+45pts "
+        "+45 points "
     ],
     [
         "- Psychomancer",
-        "+56pts "
+        "+56 points "
+    ],
+    [
+        "- Arcanomancer",
+        "+77 points "
     ],
     [
         "\u2022 Has access to weapons and gear from the Armory."
@@ -300,6 +331,9 @@
     ],
     [
         "Upgrades:"
+    ],
+    [
+        "Arcanomancer: Empyric Overcharger and Illuminor double their range when used by this model."
     ],
     [
         "Astromancer: Prescient strike grants this model 2 re-rolls each. Additionally, this model's rolls for \"The Stars Are Right\" are always reduced by 1 (to a minimum of 0)."

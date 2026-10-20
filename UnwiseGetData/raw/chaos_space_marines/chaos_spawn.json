@@ -15,7 +15,7 @@
         "POINTS"
     ],
     [
-        "1-4",
+        "1-6",
         "Chaos Spawn",
         "12\"",
         "4+",
@@ -77,21 +77,21 @@
     ],
     [
         "- Grasping Pseudopods",
-        "+5pts "
+        "+5 points"
     ],
     [
         "- Toxic Haemorrhage",
-        "+5pts "
+        "+5 points"
     ],
     [
         "- Subcutaneous Armor",
-        "+16pts "
+        "+16 points"
     ],
     [
         "ABILITIES"
     ],
     [
-        "Move through cover, Terrifying(-1)"
+        "Mindless, Move through cover, Terrifying(-1)"
     ],
     [
         "Grasping Pseudopods: The model gains +2 Attacks."

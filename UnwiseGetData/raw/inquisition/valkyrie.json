@@ -15,11 +15,11 @@
         "POINTS"
     ],
     [
-        1,
+        "1",
         "Valkyrie",
         "12\"",
         "-",
-        "3+",
+        "4+",
         6,
         12,
         12,
@@ -30,7 +30,7 @@
         175
     ],
     [
-        "A Valkyrie is equipped with: Multi-laser."
+        "A Valkyrie is equipped with: Multilaser."
     ],
     [
         "WEAPON",
@@ -57,7 +57,7 @@
         8,
         -2,
         2,
-        "Anti-Air, AT(2)"
+        "Anti-air, AT(2)"
     ],
     [
         "Lascannon",
@@ -69,7 +69,7 @@
         "AT(3)"
     ],
     [
-        "Multi-laser",
+        "Multilaser",
         "36\"",
         "Heavy 3",
         6,
@@ -82,33 +82,37 @@
         "36\"",
         "Heavy 1",
         5,
-        -1,
+        -2,
         1,
-        "Anti-Air, Blast(4)"
+        "Anti-air, Blast(4)"
     ],
     [
         "OPTIONS"
     ],
     [
-        "\u2022 Can replace the Multi-laser:"
+        "\u2022 May swap the Multilaser:"
     ],
     [
         "- Lascannon",
-        "+50 points"
+        "+38 points"
     ],
     [
-        "\u2022 Can be equipped with one of the following:"
+        "\u2022 May be equipped with:"
     ],
     [
-        "- Multiple rocket pod",
-        "+21 points"
+        "- two Multiple rocket pods",
+        "+37 points"
     ],
     [
-        "- 2 Hellstrike missiles",
-        "+108 points"
+        "- two Hellstrike missiles",
+        "+81 points"
     ],
     [
-        "\u2022 Can be equipped with two Heavy bolters for +36 points."
+        "\u2022 May be equipped with:"
+    ],
+    [
+        "- two Heavy bolters",
+        "+27 points"
     ],
     [
         "\u2022 Has access to vehicle equipment from the Armory."
