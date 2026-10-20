@@ -166,7 +166,7 @@
             "points": 86
         }
     ],
-    "equipped_with": "A Cryptek is equipped with: -. A Chronomancer is equipped with: Aeonstave. A Dynasty Scion is equipped with: -. A Psychomancer is equipped with: Abyssal lance. A Plasmancer is equipped with: Plasmic lance. An Ethermancer is equipped with: Voltaic staff. A Geomancer is equipped with: Tremorstave. An Astromancer is equipped with: Staff of Time. A Technomancer is equipped with: Staff of Light.",
+    "equipped_with": "A Cryptek is equipped with: -. A Chronomancer is equipped with: Aeonstave. A Dynasty Scion is equipped with: -. A Psychomancer is equipped with: Abyssal lance. A Plasmancer is equipped with: Plasmic lance. An Ethermancer is equipped with: Voltaic staff. A Geomancer is equipped with: Tremorstave. An Astromancer is equipped with: Staff of Time. A Technomancer is equipped with: Staff of Light. An Arcanomancer is equipped with: Eldritch lance.",
     "weapons": [
         {
             "name": "Abyssal lance",
@@ -185,6 +185,15 @@
             "ap": "-2",
             "d": "1",
             "abilities": "Shield breaker(-3)"
+        },
+        {
+            "name": "Eldritch lance",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "10",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
         },
         {
             "name": "Plasmic lance",
@@ -339,6 +348,19 @@
                     "abilities": [
                         "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness scatters 1D6 less (so normally only 1D6\") when used by this model."
                     ]
+                },
+                {
+                    "name": "Arcanomancer",
+                    "points": 77,
+                    "unique_per_army": true,
+                    "effect": {
+                        "grants_weapons": [
+                            "Eldritch lance"
+                        ]
+                    },
+                    "abilities": [
+                        "Arcanomancer: Empyric Overcharger and Illuminor double their range when used by this model."
+                    ]
                 }
             ],
             "inline_pts": null,
@@ -356,6 +378,7 @@
         "Geomancer: A Harp of Dissonance used by this model has unlimited range. Additionally, a Seismic crucible grants its effect to this model and its attached unit.",
         "Plasmancer: A Gaze of Flame's effect may be used for this model and its attached unit. Additionally, this model and its attached unit are not affected by a Solar Pulse.",
         "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness scatters 1D6 less (so normally only 1D6\") when used by this model.",
+        "Arcanomancer: Empyric Overcharger and Illuminor double their range when used by this model.",
         "Technomancer: A Canoptek Cloak used by this model may repair 2 Wounds or 2 vehicle damage results per turn. Additionally, it may use a Canoptek Control Node a second time each activation."
     ],
     "unit_type": "Character model, Infantry",

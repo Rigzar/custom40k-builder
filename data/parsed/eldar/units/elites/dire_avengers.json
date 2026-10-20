@@ -101,6 +101,7 @@
         },
         {
             "header": "The Exarch can swap their Diresword and Shuriken pistol",
+            "applies_to_model": "Dire Avenger Exarch",
             "constraint": {
                 "type": "one"
             },

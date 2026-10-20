@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-eldar-dire-avengers-shimmershield-sheet-01",
+    status: "known",
+    title: "Eldar Dire Avengers: the sheet lists Shimmershield as a unit ability, but only the Exarch can buy it (+5)",
+    description: "FOUND 2026-10-20 (Homicidal Walrus: \"Dire Avengers always have a shimmershield, even without Exarch\"). The Dire Avengers sheet prints \"Shimmershield: The model and its attached unit gain a 4+ ward save in melee.\" under ABILITIES for the whole unit, and also sells it to the Exarch as an option (\"The Exarch can be equipped with: +5 points Shimmershield\"). Both cannot be true. The app shows what the sheet says, so this is for the sheet author to fix on the SHEET: either the line leaves ABILITIES and the +5 option stays, or the option is removed. Nothing was changed in the app.",
+  },
+  {
+    id: "ki-squadron-option-groups-priced-once-01",
+    status: "known",
+    title: "Squadron vehicles: a \"may swap\" option is priced once for the whole squadron (37 units), only the Warbuggy, Wazbom Blastajet and Fighta-Bommer pay per vehicle",
+    description: "FOUND 2026-10-20 with GH#248 (two Wazbom Blastajets paid 6 points for a swap that should cost 12). A Squadron makes every model its own unit, and the datasheet options read \"May swap the smasha gun\" without saying per vehicle. The Warbuggy was already flagged per_model (GH#185); the Wazbom Blastajet and the Fighta-Bommer now are too. The same pattern exists on about 37 other multi-vehicle datasheets whose single-choice groups are priced once: Venerable Contemptor, Sydonian Skatros, Ironstrider Ballistarii, Onager Dunecrawler, Helbrute, War Dog, Talos, Cronos, Wraithlord, Griffon, Hydra, Medusa, Wyvern, Salamander Scout, Tauros, Storm Speeder, Piranha, Harpy, Hive Crone and others. QUESTION FOR THE AUTHORS (Dominic): is every vehicle of a squadron meant to pay for its own swap? If so the flag goes on each of those groups; if the squadron shares one purchase, the Wazbom and Fighta-Bommer flags come off.",
+  },
+  {
     id: "ki-oct17-sheets-not-enforced-01",
     status: "fixed",
     title: "Oct 17 sheets: Committee Runtherd ban and Cowardly (fixed); table-only rules (Hunting Blinds, Skorpekh Lord join, relic note)",

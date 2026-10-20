@@ -6,7 +6,8 @@
     },
     {
       "name": "Destroyer Cult",
-      "desc": "- The army has access to the following units only, regardless of other traits:\n- Ancient Destructor Lords, Crypteks with Skorpekh body, Lords with Destroyer bodies, Skorpekh Lords\n- Flayed Ones\n- Canoptek Reanimators, Canoptek Spyders, C'tan Shards (any), Plasmacytes, Skorpekh Destroyers\n- Canoptek Scarabs, Canoptek Wraiths, Ophydian Destroyers\n- Canoptek Doomstalkers, Lokhust Destroyers\n- Skorpekh Destroyers can be taken as Troops."
+      "desc": "- The army has access to the following units only, regardless of other traits:\n- Ancient Destructor Lords, Crypteks with Skorpekh body, Lords with Destroyer bodies, Skorpekh Lords\n- Flayed Ones\n- Canoptek Reanimators, Canoptek Spyders, C'tan Shards (any), Plasmacytes, Skorpekh Destroyers\n- Canoptek Scarabs, Canoptek Wraiths, Ophydian Destroyers\n- Canoptek Doomstalkers, Lokhust Destroyers\n- Skorpekh Destroyers can be taken as Troops.",
+      "skirmish": true
     },
     {
       "name": "Obeisance Phalanx",
@@ -14,7 +15,7 @@
     },
     {
       "name": "Yngir",
-      "desc": "- C'tan Shards count as an HQ selection.\n- The model may select up to five upgrades.\n- The range for each C'tan power is increased by 6\" and it knows the \"Time's Arrow\" power.\n- It costs an additional +30 points.\n- Pariahs can be taken as Troops."
+      "desc": "- The C'tan Shard counts as an HQ selection.\n- It may select up to five upgrades.\n- It loses the \"Mindless\" ability and gains the \"Fearless\" ability.\n- The range for each C'tan power is increased by 6\" and it knows the \"Time's Arrow\" power.\n- It costs an additional +30 points.\n- Pariahs can be taken as Troops."
     }
   ],
   "legacies": [

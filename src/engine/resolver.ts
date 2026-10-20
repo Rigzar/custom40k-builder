@@ -668,6 +668,13 @@ const optionalWeapons = new Map<string, Set<string>>();
   // swappable "default" item) but absent from the base unit's own equipped_with text — such a
   // weapon can only be the variant's own default, so only show it once that variant is active.
   const variantOnlyWeapons = new Set<string>();
+  // The BASE model's loadout: equipped_with minus the clauses written for a promoted variant model ("The Dire
+  // Avenger Exarch is equipped with: Diresword, ..."). The Eldar sheet gained that line, and a weapon named only in
+  // it looked like part of the base loadout, so the "variant-only" test below never flagged the Exarch's Diresword
+  // and Shuriken pistol: swapping them needed a quantity of five (the squad size) to count as done, i.e. the Exarch's
+  // swap changed nothing and the catapult choice looked like it deleted the squad's own catapults (Homicidal Walrus).
+  let baseEquippedWith = unit.equipped_with ?? '';
+  for (const vm of unit.variant_models ?? []) baseEquippedWith = baseEquippedWith.replace(new RegExp(loadoutClauseFor(vm.name, true).source, 'gi'), '');
   if (unit.variant_models.length > 0) {
     // Compare against equipped_with using the weapon's BARE name — strip a multi-profile suffix,
     // either " - Standard" or " (Bolt ammo)" — because equipped_with names the weapon generically
@@ -678,7 +685,7 @@ const optionalWeapons = new Map<string, Set<string>>();
     const bare = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim();
     for (const g of unit.option_groups) {
       for (const name of g.replaces ?? []) {
-        if (loadoutNames(unit.equipped_with, bare(name)) || !unit.weapons.some(w => w.name === name)) continue;
+        if (loadoutNames(baseEquippedWith, bare(name)) || !unit.weapons.some(w => w.name === name)) continue;
         /*
          * ...unless ANOTHER group sells it to the squad, in which case it is not the promoted
          * model's private weapon at all and this flag would hide it for good.
@@ -1141,9 +1148,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
     if (sel.section !== 'daemon_weapons' && sel.section !== 'equipment') continue;
     const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
-    if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
-    const grantedName = extractGrantedWeaponName(armItem.desc);
-    if (!grantedName) continue;
+    if (!armItem?.desc) continue;
     // Find the weapon profile in armory_general.weapons — plus the archetype-granted foreign
     // armory, whose grant-items name weapons that only exist over there (CSM "Kai" → Kai gun).
     const weaponPool = [
@@ -1155,6 +1160,15 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     // silently dropped grants like Votann's "Ancestor’s judgement warhead".
     const sameName = (a: string, b: string) =>
       a.toLowerCase().replace(/[’‘`´]/g, "'") === b.toLowerCase().replace(/[’‘`´]/g, "'");
+    // "The model gains a Storm bolter." / "...a Heavy stubber." name a weapon that ends in neither missile, weapon, gun
+    // nor cannon, so isGrantWeapon never recognised the sentence and the vehicle upgrade was paid for and gave nothing
+    // (Imperial Guard Storm bolter and Heavy stubber, Salamander report 2026-10-20). A sentence that is just
+    // "The model gains <X>." where X is the name of a weapon in the Armory is a grant as well.
+    const gainsName = /^The model gains an? (.+?)\.?$/i.exec(armItem.desc.trim())?.[1];
+    const grantedName = isGrantWeapon(armItem.desc)
+      ? extractGrantedWeaponName(armItem.desc)
+      : (gainsName && weaponPool.some(w => sameName(w.name, gainsName)) ? gainsName : null);
+    if (!grantedName) continue;
     const granted = weaponPool.find(w => sameName(w.name, grantedName));
     if (granted) pushGrantedWeapon(granted);
   }
@@ -2101,7 +2115,10 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (!choice) continue;
         const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim()).filter(Boolean);
         for (const part of (parts.length > 1 ? [choice.name, ...parts] : [choice.name])) {
-          const w = remaining.find(x => bareWeapon(x.name) === part.toLowerCase());
+          // "2 Avenger shuriken catapults" names the weapon behind a count word and a plural: the Dire Avenger Exarch's
+          // swap handed its row nothing for that choice, only the plain "Avenger shuriken catapult" one worked.
+          const bareChoice = part.toLowerCase().replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/, '').replace(/s$/, '');
+          const w = remaining.find(x => bareWeapon(x.name) === part.toLowerCase() || bareWeapon(x.name).replace(/s$/, '') === bareChoice);
           if (w && !target.weapons.some(x => x.name === w.name)) target.weapons.push(w);
         }
       }

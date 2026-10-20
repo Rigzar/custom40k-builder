@@ -489,8 +489,11 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Yngir': { ...BASE,
     troopsRemap: ['Pariahs'],
+    // Sheet 1.9: "It loses the "Mindless" ability and gains the "Fearless" ability."
+    unitPatch: { units: ["C'tan Shard"], dropAbilityNames: ['Mindless'] },
+    grantsAbility: { ability: 'Fearless', units: ["C'tan Shard"] },
     notes: [
-      "C'tan Shards count as an HQ selection. A shard may select up to five upgrades (three otherwise), its powers gain +6\" range, and it knows \"Time's Arrow\". Costs +30 pts.",
+      "The C'tan Shard counts as an HQ selection and may select up to five upgrades (three otherwise). It loses \"Mindless\" and gains \"Fearless\"; its powers gain +6\" range and it knows \"Time's Arrow\". Costs +30 pts.",
       'Pariahs count as Troops.',
     ],
   },

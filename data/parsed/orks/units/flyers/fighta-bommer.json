@@ -122,7 +122,8 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Twin-linked big shoota"
-            ]
+            ],
+            "per_model": true
         },
         {
             "header": "May be equipped with one payload",
@@ -157,7 +158,8 @@
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": true
         },
         {
             "header": "May be equipped with one wing armament. If the fighta-bommer doesn't have a payload, it may take up to four wing armaments",
@@ -185,7 +187,8 @@
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": true
         },
         {
             "header": "May take up to two defensive turrets",
@@ -205,7 +208,8 @@
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": true
         },
         {
             "header": "Can get one Kustom job.",

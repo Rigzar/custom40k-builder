@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185k_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185l_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "New in this version", rows: [
         ["Necrons","Sheet 1.7: the C'tan Spear and Scythe replace the Fists, the Canoptek Cloak shows +6\" and the Stalker's forelimbs show WS 3+."],
+        ["Orks","Wazbom Blastajet and Fighta-Bommer squadrons pay their weapon swaps per vehicle."],
+        ["Eldar","The Dire Avenger Exarch's weapon swap works and no longer leaves the squad with one catapult."],
+        ["Imperial Guard","Vehicle upgrades Storm bolter and Heavy stubber now add the weapon."],
+        ["Necrons","New Cryptek specialisation Arcanomancer with the Eldritch lance, and the other changes of the new sheet."],
+        ["Gitfinda","Discord announcements show Capitalised Faction and the full engagement name, and a game that never reached the channel is announced again."],
         ["Necrons","A Cryptek only offers the weapon of its specialisation when an item such as Master-crafted weapon is pointed at a weapon."],
         ["T'au Empire","Support systems are counted and capped: the Commander shows n/2 and the Armory stops at the limit."],
         ["Psychic powers","A psyker that \"knows Smite and two powers\" now stops at two (Warlocks, Broodlords); \"one power\" psykers stop at one."],
@@ -83,6 +88,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Neu in dieser Version", rows: [
         ["Necrons","Datenblatt 1.7: Spear und Scythe des C'tan ersetzen die Fists, der Canoptek Cloak zeigt +6\" und die Forelimbs des Stalkers zeigen WS 3+."],
+        ["Orks","Staffeln von Wazbom Blastajet und Fighta-Bommer zahlen ihren Waffentausch pro Fahrzeug."],
+        ["Eldar","Der Waffentausch des Dire-Avenger-Exarchen funktioniert und lässt der Gruppe nicht mehr nur einen Catapult."],
+        ["Imperial Guard","Die Fahrzeug-Upgrades Storm bolter und Heavy stubber fügen die Waffe hinzu."],
+        ["Necrons","Neue Cryptek-Spezialisierung Arcanomancer mit Eldritch lance und die übrigen Änderungen des neuen Datenblatts."],
+        ["Gitfinda","Discord-Ankündigungen zeigen Fraktion mit Großbuchstaben und die volle Spielart; ein Spiel, das nie im Kanal ankam, wird erneut angekündigt."],
         ["Necrons","Ein Cryptek bietet nur die Waffe seiner Spezialisierung an, wenn ein Gegenstand wie Meisterwerk-Waffe auf eine Waffe zeigt."],
         ["T'au Empire","Support Systems werden gezählt und begrenzt: Der Commander zeigt n/2 und die Armory hält am Limit an."],
         ["Psionische Kräfte","Ein Psioniker, der „Smite und zwei Kräfte“ kennt, hört jetzt bei zwei auf (Warlocks, Broodlords); bei „einer Kraft“ bei einer."],
@@ -105,6 +115,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Novedades de esta versión", rows: [
         ["Necrones","Hoja 1.7: la Spear y la Scythe del C'tan reemplazan a los Fists, el Canoptek Cloak muestra +6\" y los forelimbs del Stalker muestran WS 3+."],
+        ["Orkos","Los escuadrones de Wazbom Blastajet y Fighta-Bommer pagan sus cambios de arma por vehículo."],
+        ["Eldar","El cambio de arma del Exarca de los Dire Avengers funciona y ya no deja a la escuadra con un solo catapult."],
+        ["Guardia Imperial","Las mejoras de vehículo Storm bolter y Heavy stubber ahora añaden el arma."],
+        ["Necrones","Nueva especialización de Cryptek Arcanomancer con la Eldritch lance, y los demás cambios de la hoja nueva."],
+        ["Gitfinda","Los anuncios de Discord muestran la Facción con Mayúsculas y el tipo de partida completo; una partida que nunca llegó al canal se vuelve a anunciar."],
         ["Necrones","Un Cryptek solo ofrece el arma de su especialización cuando un objeto como Master-crafted weapon se asigna a un arma."],
         ["T'au Empire","Los sistemas de apoyo se cuentan y tienen tope: el Commander muestra n/2 y la Armería se detiene en el límite."],
         ["Poderes psíquicos","Un psíquico que «conoce Smite y dos poderes» ahora se detiene en dos (Warlocks, Broodlords); con «un poder», en uno."],
@@ -127,6 +142,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "Новое в этой версии", rows: [
         ["Некроны","Лист 1.7: Spear и Scythe у C'tan заменяют Fists, Canoptek Cloak показывает +6\", а forelimbs у Stalker показывают WS 3+."],
+        ["Орки","Эскадрильи Wazbom Blastajet и Fighta-Bommer платят за замену оружия за каждую машину."],
+        ["Эльдар","Замена оружия Экзарха Dire Avengers работает и больше не оставляет отряду одну катапульту."],
+        ["Имперская Гвардия","Улучшения машин Storm bolter и Heavy stubber теперь добавляют оружие."],
+        ["Некроны","Новая специализация Криптека Arcanomancer с Eldritch lance и остальные изменения нового листа."],
+        ["Gitfinda","Объявления в Discord показывают Фракцию с Заглавных Букв и полное название игры; игра, не дошедшая до канала, объявляется снова."],
         ["Некроны","Криптек предлагает только оружие своей специализации, когда предмет вроде Master-crafted weapon назначается на оружие."],
         ["T'au Empire","Системы поддержки считаются и ограничены: Commander показывает n/2, а Armory останавливается на пределе."],
         ["Психические силы","Псайкер, который «знает Smite и две силы», теперь останавливается на двух (Warlocks, Broodlords); с «одной силой» — на одной."],
@@ -149,6 +169,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     sections: [
       { label: "このバージョンの新機能", rows: [
         ["ネクロン","シート1.7：C'tanのSpearとScytheがFistsを置き換え、Canoptek Cloakは+6\"を表示し、StalkerのforelimbsはWS 3+を表示します。"],
+        ["オーク","Wazbom BlastajetとFighta-Bommerの部隊は武器交換を機体ごとに支払います。"],
+        ["エルダー","Dire Avenger Exarchの武器交換が機能し、部隊のcatapultが1丁になることはなくなりました。"],
+        ["帝国防衛軍","車両アップグレードのStorm bolterとHeavy stubberが武器を追加します。"],
+        ["ネクロン","新しいクリプテクの専門職ArcanomancerとEldritch lance、および新しいシートのその他の変更。"],
+        ["Gitfinda","Discordの告知は勢力名を大文字で、対戦形式を完全な名称で表示します。チャンネルに届かなかった対戦は再告知されます。"],
         ["ネクロン","Master-crafted weaponのようなアイテムを武器に割り当てるとき、クリプテクは専門職の武器のみを提示します。"],
         ["T'au Empire","サポートシステムが数えられ上限が付きました：Commanderはn/2を表示し、Armoryは上限で止まります。"],
         ["サイキックパワー","「Smiteと2つのパワーを知っている」サイキッカーは2つで止まります（Warlocks、Broodlord）。「1つ」のサイキッカーは1つで止まります。"],
