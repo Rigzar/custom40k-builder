@@ -5,8 +5,39 @@
  * `ensureSchema()` is idempotent (CREATE TABLE IF NOT EXISTS) and called at the top of every
  * handler that touches the DB — there is no separate migration step to remember to run.
  */
-import { sql } from '@vercel/postgres';
+import { sql as vercelSql } from '@vercel/postgres';
+import pg from 'pg';
 import { gitfindaSchema } from './gitfinda.js';
+
+/**
+ * Any Postgres, not only Neon. When APP_DATABASE_URL is set (Supabase, a second Neon account, a self-hosted
+ * one...) every query goes through node-postgres to that URL; without it the code keeps using Vercel
+ * Postgres exactly as before. This is the way out of a provider's free-tier quota: change one env var.
+ *
+ * Use the provider's POOLED / transaction-mode URL (Supabase: port 6543). Each serverless instance opens a
+ * single connection, so the pooler is what keeps the total under the provider's connection limit.
+ */
+const CUSTOM_URL = process.env.APP_DATABASE_URL;
+let pool = null;
+function getPool() {
+  if (!pool) {
+    pool = new pg.Pool({
+      connectionString: CUSTOM_URL, max: 1, idleTimeoutMillis: 10_000, connectionTimeoutMillis: 10_000,
+      ssl: /localhost|127\.0\.0\.1/.test(CUSTOM_URL) ? undefined : { rejectUnauthorized: false },
+    });
+  }
+  return pool;
+}
+/** `sql` as a tagged template -> $1, $2... text plus values, the way @vercel/postgres builds it. */
+export function toQuery(strings, values) {
+  return { text: strings.reduce((acc, str, i) => acc + (i ? '$' + i : '') + str, ''), values };
+}
+function customSql(strings, ...values) {
+  const q = toQuery(strings, values);
+  return getPool().query(q.text, q.values);
+}
+customSql.query = (text, values) => getPool().query(text, values);
+const sql = CUSTOM_URL ? customSql : vercelSql;
 
 let schemaReady = false;
 
