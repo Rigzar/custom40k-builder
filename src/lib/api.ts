@@ -65,6 +65,12 @@ export function resetPassword(
   });
 }
 
+export function changePassword(currentPassword: string, newPassword: string) {
+  return call<{ ok: true }>('/api/auth/change-password', {
+    method: 'POST', body: JSON.stringify({ currentPassword, newPassword }),
+  });
+}
+
 export type SecretQuestionInfo =
   | { hasSecretQuestion: true; question: string }
   | { hasSecretQuestion: false };

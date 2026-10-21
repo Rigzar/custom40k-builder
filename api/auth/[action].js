@@ -16,6 +16,7 @@ export default async function handler(req, res) {
     case 'me': return me(req, res);
     case 'register': return register(req, res);
     case 'reset-password': return resetPassword(req, res);
+    case 'change-password': return changePassword(req, res);
     case 'secret-question': return secretQuestion(req, res);
     case 'recovery-code':   return recoveryCode(req, res);
     case 'recovery-status': return recoveryStatus(req, res);
@@ -211,6 +212,47 @@ async function resetPassword(req, res) {
     res.status(200).json({ ok: true, recoveryCode: newRecoveryCode });
   } catch (err) {
     res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Reset failed', detail: String(err) });
+  }
+}
+
+/**
+ * POST /api/auth/change-password { currentPassword, newPassword } -> authenticated. The logged-in user changes
+ * their own password; the recovery code stays as it is. A wrong current password is refused (401) so a stolen
+ * session cannot lock the owner out.
+ */
+async function changePassword(req, res) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+  try {
+    const userId = getSessionUserId(req);
+    if (!userId) {
+      res.status(401).json({ error: 'Not logged in' });
+      return;
+    }
+    const { currentPassword, newPassword } = req.body ?? {};
+    if (typeof currentPassword !== 'string' || !currentPassword) {
+      res.status(400).json({ error: 'Your current password is required.' });
+      return;
+    }
+    if (!isValidPassword(newPassword)) {
+      res.status(400).json({ error: 'New password must be at least 8 characters.' });
+      return;
+    }
+    await ensureSchema();
+    const result = await sql`SELECT password_hash FROM users WHERE id = ${userId}`;
+    const user = result.rows[0];
+    if (!user || !(await verifyPassword(currentPassword, user.password_hash))) {
+      res.status(401).json({ error: 'Your current password is incorrect.' });
+      return;
+    }
+    const newHash = await hashPassword(newPassword);
+    await sql`UPDATE users SET password_hash = ${newHash} WHERE id = ${userId}`;
+    res.status(200).json({ ok: true });
+  } catch (err) {
+    if (isDbUnavailable(err)) { res.status(503).json({ error: 'Database temporarily unavailable.', key: 'dbUnavailable' }); return; }
+    res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Password change failed', detail: String(err) });
   }
 }
 

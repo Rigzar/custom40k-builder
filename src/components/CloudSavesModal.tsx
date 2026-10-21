@@ -1169,6 +1169,10 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const [secBusy, setSecBusy]             = useState(false);
   const [secError, setSecError]           = useState('');
   const [secMsg, setSecMsg]               = useState('');
+  const [pwOpen, setPwOpen]               = useState(false);
+  const [pwCurrent, setPwCurrent]         = useState('');
+  const [pwNew, setPwNew]                 = useState('');
+  const [pwMsg, setPwMsg]                 = useState('');
 
   function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]; if (!file) return;
@@ -1211,6 +1215,17 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
       setSecQuestion(qRes.hasSecretQuestion ? qRes.question : null);
     } catch (err) { setSecError((err as Error).message); }
     finally { setCodeLoading(false); }
+  }
+
+  async function handleChangePassword() {
+    setSecBusy(true); setSecError(''); setPwMsg('');
+    try {
+      await api.changePassword(pwCurrent, pwNew);
+      setPwCurrent(''); setPwNew(''); setPwOpen(false);
+      setPwMsg(t('passwordChangedMsg'));
+      setTimeout(() => setPwMsg(''), 3000);
+    } catch (err) { setSecError((err as Error).message); }
+    finally { setSecBusy(false); }
   }
 
   function toggleSecurity() {
@@ -1419,6 +1434,22 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
                 </div>
               ) : (
                 <p className="text-zinc-500 text-xs italic">{t('noRecoveryCode')}</p>
+              )}
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('changePasswordLabel')}</div>
+              {pwMsg && <p className="text-emerald-400 text-xs mb-1">{pwMsg}</p>}
+              {!pwOpen ? (
+                <button onClick={() => setPwOpen(true)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('changeButton')}</button>
+              ) : (
+                <div className="space-y-2">
+                  <input type="password" autoComplete="current-password" value={pwCurrent} onChange={e => setPwCurrent(e.target.value)} placeholder={t('currentPasswordPlaceholder')} className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-600 outline-none text-sm text-zinc-200 px-3 py-2" />
+                  <input type="password" autoComplete="new-password" value={pwNew} onChange={e => setPwNew(e.target.value)} placeholder={t('newPasswordPlaceholder')} className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-600 outline-none text-sm text-zinc-200 px-3 py-2" />
+                  <div className="flex gap-2">
+                    <button disabled={secBusy || !pwCurrent || pwNew.length < 8} onClick={handleChangePassword} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">{t('save')}</button>
+                    <button onClick={() => { setPwOpen(false); setPwCurrent(''); setPwNew(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide">{t('cancel')}</button>
+                  </div>
+                </div>
               )}
             </div>
             <div>

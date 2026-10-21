@@ -229,6 +229,7 @@ export type TranslationKey =
   | 'myCampaignsLabel' | 'campaignRoleGm' | 'campaignRolePlayer' | 'campaignFinishedBadge' | 'openButton'
   | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
+  | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
   | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
   | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton'
@@ -1372,6 +1373,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Save profile', savedMsg: 'Saved!',
     accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
     noRecoveryCode: 'No code on file yet — reset your password once to get one.',
+    changePasswordLabel: "Change password", currentPasswordPlaceholder: "Current password", newPasswordPlaceholder: "New password (min. 8 characters)", passwordChangedMsg: "Password changed!",
     secretQuestionSectionLabel: 'Secret question', changeButton: 'Change',
     secretQuestionOptionalHint: 'Optional — required with recovery code to reset password.',
     secretQuestionExample: "e.g. What was your first army's faction?", answerPlaceholder: 'Answer',
@@ -2538,6 +2540,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Profil speichern', savedMsg: 'Gespeichert!',
     accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
     noRecoveryCode: 'Noch kein Code vorhanden — Passwort einmal zurücksetzen um einen zu erhalten.',
+    changePasswordLabel: "Passwort ändern", currentPasswordPlaceholder: "Aktuelles Passwort", newPasswordPlaceholder: "Neues Passwort (mind. 8 Zeichen)", passwordChangedMsg: "Passwort geändert!",
     secretQuestionSectionLabel: 'Sicherheitsfrage', changeButton: 'Ändern',
     secretQuestionOptionalHint: 'Optional — zusammen mit dem Wiederherstellungscode zum Zurücksetzen des Passworts erforderlich.',
     secretQuestionExample: 'z.B. Welche Fraktion war deine erste Armee?', answerPlaceholder: 'Antwort',
@@ -3704,6 +3707,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Guardar perfil', savedMsg: '¡Guardado!',
     accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',
     noRecoveryCode: 'Aún no hay código — restablece tu contraseña una vez para obtener uno.',
+    changePasswordLabel: "Cambiar contraseña", currentPasswordPlaceholder: "Contraseña actual", newPasswordPlaceholder: "Contraseña nueva (mín. 8 caracteres)", passwordChangedMsg: "¡Contraseña cambiada!",
     secretQuestionSectionLabel: 'Pregunta secreta', changeButton: 'Cambiar',
     secretQuestionOptionalHint: 'Opcional — necesaria junto al código de recuperación para restablecer la contraseña.',
     secretQuestionExample: 'ej. ¿Cuál fue la facción de tu primer ejército?', answerPlaceholder: 'Respuesta',
