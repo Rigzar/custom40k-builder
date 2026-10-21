@@ -1,4 +1,4 @@
-import { sql, ensureSchema } from '../_lib/db.js';
+import { sql, ensureSchema, isDbUnavailable } from '../_lib/db.js';
 import {
   verifyPassword, createSessionCookie, clearSessionCookie, getSessionUserId,
   hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode, decryptRecoveryCode,
@@ -52,6 +52,7 @@ async function login(req, res) {
     res.setHeader('Set-Cookie', createSessionCookie(user.id));
     res.status(200).json({ ok: true, username });
   } catch (err) {
+    if (isDbUnavailable(err)) { res.status(503).json({ error: 'Database temporarily unavailable.', key: 'dbUnavailable' }); return; }
     res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Login failed', detail: String(err) });
   }
 }
@@ -149,6 +150,7 @@ async function register(req, res) {
     res.setHeader('Set-Cookie', createSessionCookie(userId));
     res.status(200).json({ ok: true, username, recoveryCode });
   } catch (err) {
+    if (isDbUnavailable(err)) { res.status(503).json({ error: 'Database temporarily unavailable.', key: 'dbUnavailable' }); return; }
     res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Registration failed', detail: String(err) });
   }
 }

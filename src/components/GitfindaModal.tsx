@@ -119,7 +119,7 @@ export function GitfindaModal({ onClose, username, focusPostId }: Props) {
   }, []);
   useEffect(() => {
     refreshUnread();
-    const id = setInterval(refreshUnread, 30000);
+    const id = setInterval(() => { if (!document.hidden) refreshUnread(); }, 120000);
     return () => clearInterval(id);
   }, [refreshUnread]);
 
@@ -592,7 +592,7 @@ function MatchesTab({ t, locale, username, initialId, onRead, goBrowse }: {
   }, [tr]);
   useEffect(() => {
     load();
-    const id = setInterval(load, 15000);
+    const id = setInterval(() => { if (!document.hidden) load(); }, 60000);
     return () => clearInterval(id);
   }, [load]);
 
@@ -675,7 +675,7 @@ function MatchDetail({ t, locale, username, match, zone, onBack, onRead, onGone 
     lastId.current = 0;
     void pull(true);
     // New messages arrive by asking again every few seconds; Vercel functions cannot hold a socket open.
-    const id = setInterval(() => { if (!document.hidden) void pull(false); }, 4000);
+    const id = setInterval(() => { if (!document.hidden) void pull(false); }, 10000);
     return () => clearInterval(id);
   }, [matchId, pull]);
   useEffect(() => { box.current?.scrollTo({ top: box.current.scrollHeight }); }, [msgs.length]);

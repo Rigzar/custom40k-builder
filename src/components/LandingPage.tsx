@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185p_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185q_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -80,6 +80,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","Kroot Shaman is a +5 upgrade that makes the model a psyker; Core Rules 1.30 adds the Hunter rule."],
         ["T'au Empire","Farsight Enclave can take one Broadside and one Riptide (single model) as HQ: toggle on their card."],
         ["T'au Empire","Swarm Controllers: three drones now pass the army check too."],
+        ["Accounts","When the database is down, login now says so instead of \"Login failed\"; Gitfinda and the front page ask it less often."],
         ["Chaos Space Marines","A Favored squad leader shows its personal icon, and a Favored Jakhals leader keeps its +1 Attack with a Dishonored in the unit."],
         ["Translations","76 new datasheet texts in German, Spanish, Russian and Japanese."],
       ] },
@@ -112,6 +113,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","Kroot Shaman ist ein +5-Upgrade, das das Modell zum Psyker macht; Kernregeln 1.30 bringen die Regel Hunter."],
         ["T'au Empire","Farsight Enclave kann einen Broadside und einen Riptide (Einzelmodell) als HQ nehmen: Schalter auf der Karte."],
         ["T'au Empire","Swarm Controllers: Drohnen-Limit drei gilt jetzt auch in der Armeeprüfung."],
+        ["Konten","Ist die Datenbank down, sagt die Anmeldung das jetzt statt „Login failed“; Gitfinda und die Startseite fragen sie seltener an."],
         ["Chaos Space Marines","Ein Favored-Truppführer zeigt sein persönliches Icon, und ein Favored-Jakhals-Anführer behält sein +1 auf Attacken, auch mit einem Dishonored in der Einheit."],
         ["Übersetzungen","76 neue Datenblatt-Texte auf Deutsch, Spanisch, Russisch und Japanisch."],
       ] },
@@ -144,6 +146,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","El Kroot Shaman es una mejora de +5 que hace psíquico al modelo; Core Rules 1.30 añade la regla Hunter."],
         ["T'au Empire","Farsight Enclave puede tomar un Broadside y un Riptide (un solo modelo) como HQ: interruptor en la ficha."],
         ["T'au Empire","Swarm Controllers: tres drones también pasan la validación del ejército."],
+        ["Cuentas","Si la base de datos está caída, el login lo dice en vez de «Login failed»; Gitfinda y la portada la consultan menos."],
         ["Chaos Space Marines","Un líder de escuadra Favored muestra su icono personal, y un líder Favored de Jakhals conserva su +1 Ataque aunque haya un Dishonored en la unidad."],
         ["Traducciones","76 textos de ficha nuevos en alemán, español, ruso y japonés."],
       ] },
@@ -176,6 +179,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Т'ау","Kroot Shaman — улучшение +5, делающее модель псайкером; Core Rules 1.30 добавляют правило Hunter."],
         ["Т'ау","Farsight Enclave может взять одного Broadside и одного Riptide (одна модель) как HQ: переключатель на карточке."],
         ["Т'ау","Swarm Controllers: три дрона теперь проходят и проверку армии."],
+        ["Аккаунты","Если база данных недоступна, вход теперь так и сообщает вместо «Login failed»; Gitfinda и главная обращаются к ней реже."],
         ["Хаос Космодесант","Фаворит-командир отряда показывает личный значок, а фаворит-вожак Jakhals сохраняет +1 Атаку даже при Dishonored в отряде."],
         ["Переводы","76 новых текстов карточек на немецком, испанском, русском и японском."],
       ] },
@@ -208,6 +212,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["タウ","Kroot Shamanはモデルをpsykerにする+5アップグレードに。Core Rules 1.30でHunterルールを追加。"],
         ["タウ","Farsight EnclaveでBroadsideとRiptide(1体)を1つずつHQにできます。カードの切り替えで選べます。"],
         ["タウ","Swarm Controllers: ドローン3機が軍のチェックも通ります。"],
+        ["アカウント","データベース停止時、ログインは「Login failed」ではなくその旨を表示。Gitfindaとトップページの問い合わせも減りました。"],
         ["ケイオス・スペースマリーン","Favoredの分隊長が個人アイコンを表示し、Favored Jakhalsのリーダーはユニットにdishonoredがいても+1攻撃を保ちます。"],
         ["翻訳","ドイツ語・スペイン語・ロシア語・日本語のデータシート文76件を追加。"],
       ] },
@@ -477,7 +482,7 @@ export function LandingPage({
     if (!loggedIn) return;
     const load = () => api.gitfindaUnread().then(r => setGfUnread(r.unread)).catch(() => {});
     load();
-    const id = setInterval(load, 60000);
+    const id = setInterval(() => { if (!document.hidden) load(); }, 180000);
     return () => clearInterval(id);
   }, [loggedIn]);
 

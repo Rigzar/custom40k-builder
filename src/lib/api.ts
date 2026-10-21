@@ -11,7 +11,7 @@ async function call<T>(url: string, options?: RequestInit): Promise<T> {
     ...options,
   });
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(translateError(json));
+  if (!res.ok) throw new Error(translateError(res.status === 503 && !(json as { key?: string }).key ? { ...json, key: 'dbUnavailable' } : json));
   return json as T;
 }
 

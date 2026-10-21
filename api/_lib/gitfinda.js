@@ -272,7 +272,7 @@ export async function dropUserAnnouncements(sql, userId, remove = discordRemover
 // Shared by every request on this server instance, so the sweep below runs at most once per interval however many people poll.
 let lastSweepAt = 0;
 
-export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover(), sweepEveryMs = 30000 } = {}) {
+export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover(), sweepEveryMs = 120000 } = {}) {
   /** Takes a game's announcement out of Discord and forgets its id. Best effort: a failure keeps the id for the next sweep. */
   async function dropAnnouncement(postId) {
     try {
@@ -286,7 +286,7 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
    * Removes the announcements of games that are no longer open: cancelled, matched or with every time slot in the
    * past. There is no cron on this plan (all 12 functions are taken), so whoever is using Gitfinda does the
    * cleaning, a few at a time: opening the board, posting, opening My posts, and the unread-count poll the app
-   * runs every 30 seconds while Gitfinda is open. At most once per `sweepEveryMs` per server instance.
+   * runs every two minutes while Gitfinda is open. At most once per `sweepEveryMs` per server instance.
    */
   async function sweep() {
     if (sweepEveryMs && Date.now() - lastSweepAt < sweepEveryMs) return;

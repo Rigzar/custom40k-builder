@@ -10,6 +10,12 @@ import { gitfindaSchema } from './gitfinda.js';
 
 let schemaReady = false;
 
+/** The database refused us for a reason that is not the caller's fault (Neon over quota = HTTP 402, or unreachable). */
+export function isDbUnavailable(err) {
+  const m = String(err && (err.message || err));
+  return /status 402|exceeded the quota|ECONNREFUSED|ETIMEDOUT|fetch failed/i.test(m);
+}
+
 export async function ensureSchema() {
   if (schemaReady) return;
   await sql`

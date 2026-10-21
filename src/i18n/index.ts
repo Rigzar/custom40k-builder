@@ -503,6 +503,7 @@ export type TranslationKey =
   | 'gfMatched'
   | 'gfLoading'
   | 'gfLoadFail'
+  | 'dbUnavailable'
   | 'gfAgoM'
   | 'gfAgoH'
   | 'gfAgoD'
@@ -1661,6 +1662,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfMatched: 'Matched',
     gfLoading: 'Loading…',
     gfLoadFail: 'Could not load Gitfinda.',
+    dbUnavailable: "Our database is temporarily unavailable, so logging in and cloud saves are down. Your password is fine; please try again later.",
     gfAgoM: '{n} min ago',
     gfAgoH: '{n} h ago',
     gfAgoD: '{n} d ago',
@@ -2826,6 +2828,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfMatched: 'Gematcht',
     gfLoading: 'Lädt…',
     gfLoadFail: 'Gitfinda konnte nicht geladen werden.',
+    dbUnavailable: "Unsere Datenbank ist vorübergehend nicht erreichbar, daher funktionieren Anmeldung und Cloud-Speicherung nicht. Dein Passwort ist in Ordnung; bitte versuche es später erneut.",
     gfAgoM: 'vor {n} Min.',
     gfAgoH: 'vor {n} Std.',
     gfAgoD: 'vor {n} Tg.',
@@ -3991,6 +3994,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfMatched: 'Match hecho',
     gfLoading: 'Cargando…',
     gfLoadFail: 'No se pudo cargar Gitfinda.',
+    dbUnavailable: "Nuestra base de datos no está disponible temporalmente, así que el inicio de sesión y los guardados en la nube no funcionan. Tu contraseña está bien; inténtalo más tarde.",
     gfAgoM: 'hace {n} min',
     gfAgoH: 'hace {n} h',
     gfAgoD: 'hace {n} d',

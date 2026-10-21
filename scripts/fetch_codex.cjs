@@ -43,7 +43,7 @@ const SHEETS = {
   necrons:            ['1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA', 'Necrons 1.11.ods'],
   orks:               ['1gt2q98cnPczVyaujVWX56r2F_GJXBFp8IW9VpAWZ6qI', 'Orks 1.03.ods'],
   space_marines:      ['16Ri3G9Jx1NAzguMbTKtxsL8uaOq6hik3h7NVuU85mZA', 'Space Marines 1.05.ods'],
-  tau_empire:         ['1S1Uub6VvvlBuxlqh61S5DhZYIKtdRHvkRs1CsIRgu8s', 'Tau Empire 1.02.ods'],
+  tau_empire:         ['1S1Uub6VvvlBuxlqh61S5DhZYIKtdRHvkRs1CsIRgu8s', 'Tau Empire 1.4.ods'],
   // The Core Rules doc links two Tyranid workbooks. The live one has 46 tabs and a normal Index;
   // the other has 40 and opens with "Designer's notes" — that is the author's test copy, not canon.
   tyranids:           ['1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M', 'Tyranids 1.08.ods'],

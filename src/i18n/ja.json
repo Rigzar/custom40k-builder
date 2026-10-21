@@ -1119,6 +1119,7 @@
  "gfMatched": "マッチ済み",
  "gfLoading": "読み込み中…",
  "gfLoadFail": "Gitfindaを読み込めませんでした。",
+ "dbUnavailable": "データベースが一時的に利用できないため、ログインとクラウド保存が使えません。パスワードは正しいので、後でもう一度お試しください。",
  "gfAgoM": "{n}分前",
  "gfAgoH": "{n}時間前",
  "gfAgoD": "{n}日前",
