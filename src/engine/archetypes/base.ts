@@ -209,6 +209,8 @@ export interface ArchetypeRule {
     unitNameAlso?: string[];
     /** The promoted entry must be a single model (Farsight Enclave); a larger squad does not qualify. */
     singleModel?: boolean;
+    /** The promoted model gains access to its faction's Legacy armory (Tyranids "The model gains access to the Hive Fleet Armory"). */
+    grantsArmoryAccess?: boolean;
     /**
      * An ability value the promoted model improves: Megafauna's "The Regeneration(1) ability becomes
      * Regeneration(2) for that model". Applied to the granted-ability texts of the entry that

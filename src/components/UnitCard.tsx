@@ -9,7 +9,7 @@ import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
-import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
+import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
@@ -172,8 +172,12 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   }, [collapseSignal]);
 
   if (!data) return null;
-  const u = resolveUnit(item, data);
-  if (!u) return null;
+  const uPlain = resolveUnit(item, data);
+  if (!uPlain) return null;
+  // An archetype HQ promotion that grants Armory access (Tyranids Megafauna / Subterranean Assault: "The model gains access to the
+  // Hive Fleet Armory") is priced and offered like a Character: the Hive Fleet items are Character-only (p_char), and the Carnifex already reaches the Armory through champion_has_armory.
+  const promoRule = item.archetypeHqUpgrade ? getArchetypeRule(effectiveArchetypeFor(item, store))?.hqPromotion : null;
+  const u = promoRule?.grantsArmoryAccess && promotionFragment(promoRule, uPlain.name) ? { ...uPlain, armory_as_character: true } : uPlain;
 
   const rp = resolveUnitProfile(item, u, store, data);
   const {
@@ -637,7 +641,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
             <label
-              onClick={() => { if ((!otherActive && !tooBig) || checked) updateUnit(item.id, { archetypeHqUpgrade: !checked }); }}
+              onClick={() => { if ((!otherActive && !tooBig) || checked) updateUnit(item.id, promo.grantsArmoryAccess && checked && data ? { ...dropLegacyArmory(item, data), archetypeHqUpgrade: false } : { archetypeHqUpgrade: !checked }); }}
               className={`flex items-center gap-2 text-[11px] ${(otherActive || tooBig) && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
             >
               <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>

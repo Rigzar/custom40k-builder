@@ -593,14 +593,15 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // option groups, so the promotion is not gated on a choice name here — the note carries the
     // requirement and the validator would need the Armory selection to check it.
     // Tyranids 1.10 added: "The model gains the 'Fearless' and 'Synapse' abilities" and "The model costs +36 points".
-    // "The model gains access to the Hive Fleet Armory" is NOT wired: which fleet's armory (or all five) is an open
-    // question for the author, so it is not guessed here.
+    // "The model gains access to the Hive Fleet Armory": grantsArmoryAccess. It is the same armory a Hive Tyrant
+    // reaches with "May additionally select items from the Hive Fleet Armory" -- the Legacy's, not all five (Discord, Unwise 2026-10-21).
     hqPromotion: { unitNameContains: 'Carnifex', requiresChoice: 'Regeneration', abilityUpgrade: { from: 'Regeneration(1)', to: 'Regeneration(2)' },
-      extraPoints: 36, grantsAbilities: ['Fearless', 'Synapse'] },
+      extraPoints: 36, grantsAbilities: ['Fearless', 'Synapse'], grantsArmoryAccess: true },
     notes: [
       'One Carnifex with the Regeneration(1) Special Biomorph becomes an HQ selection.',
       'Regeneration(1) becomes Regeneration(2) for that model, and does not block a second Special Biomorph.',
       'The model gains Fearless and Synapse, and costs +36 points.',
+      'The model gains access to the Hive Fleet Armory.',
       'Carnifex Broods count as Troops.',
       'Only Carnifex Broods count towards the 25% Troops requirement.',
     ],
@@ -609,11 +610,12 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Subterranean Assault': { ...BASE,
     troopsRemap: ['Ravener Brood', 'Mawloc'], troopsCount: 'remap',
     // "One Trygon must be taken with the Trygon Prime upgrade and it becomes a HQ selection."
-    hqPromotion: { unitNameContains: 'Trygon', requiresChoice: 'Trygon Prime' },
+    hqPromotion: { unitNameContains: 'Trygon', requiresChoice: 'Trygon Prime', grantsArmoryAccess: true },
     // "For every 4 Ravener models, one Mawloc can be taken as Troops." Models, not units.
     troopsModelRatioCap: { sourceUnits: ['Ravener Brood'], modelsPerUnit: 4, cappedUnit: 'Mawloc' },
     notes: [
       'One Trygon with the Trygon Prime upgrade becomes an HQ selection.',
+      'The model gains access to the Hive Fleet Armory.',
       'Ravener Broods count as Troops.',
       'For every 4 Ravener models, one Mawloc may also count as Troops.',
       'Only Ravener Broods and Mawlocs count towards the 25% Troops requirement.',

@@ -89,6 +89,15 @@ export const REMOVED_UNITS: Record<string, Record<string, string>> = {
 export const RENAMED_ARMORY_ITEMS: Record<string, Record<string, string>> = {
   'Tau Empire': {
     'Krootox steedᴵ': 'Kalamandra steedᴵ',
+    // Tau Empire 1.6: Dominic marked the Sept Armory items and the Hunting javelin with ᴵ (a model without a battlesuit may only use ᴵ items).
+    'Hunting javelin': 'Hunting javelinᴵ',
+    'Academy Luminary': 'Academy Luminaryᴵ',
+    'For the Greater Good': 'For the Greater Goodᴵ',
+    'Grav-Inhibitor Field': 'Grav-Inhibitor Fieldᴵ',
+    'Integrated Auxiliaries': 'Integrated Auxiliariesᴵ',
+    'Nomadic Hunter': 'Nomadic Hunterᴵ',
+    'Overdrive Power Systems': 'Overdrive Power Systemsᴵ',
+    "Master of the Killing Blow": 'Master of the Killing Blowᴵ',
     // October 2026 sheets: each army's Jammer / Teleport homer / Auspex got its own name.
     'Jammer': 'Countermeasure array',
   },

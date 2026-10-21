@@ -11,7 +11,7 @@ import { findArmoryItem } from '../engine/resolver';
 import { isPsykerOnlyTrait, traitExcludesUnit } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
-import { armoryItemsLostByDeselecting, repairOrphanedArmory } from '../utils/armoryGuard';
+import { armoryItemsLostByDeselecting, repairOrphanedArmory, dropLegacyArmory } from '../utils/armoryGuard';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -465,7 +465,7 @@ export const useArmyStore = create<ArmyStore>()(
          * a different unit.
          */
         const cleared = army.map((e: RosterEntry) =>
-          e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
+          e.archetypeHqUpgrade ? (getArchetypeRule(s.archetype)?.hqPromotion?.grantsArmoryAccess && s.data ? dropLegacyArmory({ ...e, archetypeHqUpgrade: false }, s.data) : { ...e, archetypeHqUpgrade: false }) : e);
         return { archetype: a, data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
           : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };

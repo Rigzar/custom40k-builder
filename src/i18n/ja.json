@@ -1213,7 +1213,7 @@
  "armReasonTerm": "ターミネーター・アーマー：ᵀ付きのアイテムのみ",
  "armReasonGravis": "グラヴィス・アーマー：ᴳ付きのアイテムのみ",
  "armReasonGlyph": "このアーマーは{g}付きのアイテムのみ使用可",
- "armReasonTau": "タウ歩兵はᴵ付きのアイテムのみ使用可",
+ "armReasonTau": "バトルスーツなしのタウのモデルはᴵ付きのアイテムのみ使用可",
  "armReasonVehicleShop": "車両はArmoryから車両アップグレードのみ選択可",
  "armReasonMeleeOnly": "SlowやUnwieldyのない近接武器のみ",
  "armReasonOrdo": "{x}が軍で解放されるまで使用不可",
