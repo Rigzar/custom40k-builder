@@ -228,9 +228,6 @@
         "OPTIONS"
     ],
     [
-        "\u2022 For each HQ selection, one Company Command Squad may be selected that does not occupy an Elite slot."
-    ],
-    [
         "\u2022 One Veteran may be equipped with: +5 points Banner."
     ],
     [
@@ -301,6 +298,9 @@
     ],
     [
         "ABILITIES"
+    ],
+    [
+        "Advisor"
     ],
     [
         "Banner: Friendly units within 12\" gain +1 Leadership."

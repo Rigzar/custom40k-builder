@@ -60,7 +60,23 @@
         "Shuriken"
     ],
     [
+        "Sun pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "OPTIONS"
+    ],
+    [
+        "\u2022 The entire squad my replace their Shuriken pistols:"
+    ],
+    [
+        "- Sun pistol",
+        "+0 points"
     ],
     [
         "\u2022 For every 5 Rangers, 1 model can be equipped with:"

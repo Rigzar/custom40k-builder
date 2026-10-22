@@ -135,6 +135,15 @@
         "AT(1)"
     ],
     [
+        "Sun rifle",
+        "18\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "* Choose one of the following profiles"
     ],
     [
@@ -142,6 +151,13 @@
     ],
     [
         "\u2022 The unit may contain 1 Heavy weapon platform for every 5 Guardian Defenders."
+    ],
+    [
+        "\u2022 The entire squad my replace their Shuriken catapults:"
+    ],
+    [
+        "- Sun rifle",
+        "+0 points"
     ],
     [
         "\u2022 Every Heavy weapon platform can swap their Scatter laser:"

@@ -63,9 +63,6 @@
         "OPTIONS"
     ],
     [
-        "\u2022 For each HQ selection, one Tech-Priest may be selected that does not occupy an Elite slot."
-    ],
-    [
         "\u2022 Must be upgraded to one of the following:"
     ],
     [
@@ -102,7 +99,7 @@
         "ABILITIES"
     ],
     [
-        "Canticles of the Omnissiah, Choir Master, Command Squad"
+        "Advisor, Canticles of the Omnissiah, Choir Master, Command Squad"
     ],
     [
         "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1."

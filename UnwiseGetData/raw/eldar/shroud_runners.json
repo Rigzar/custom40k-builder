@@ -69,10 +69,23 @@
         "Shuriken"
     ],
     [
+        "Sun pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "OPTIONS"
     ],
     [
-        "-"
+        "\u2022 All models can swap their Shuriken pistols:"
+    ],
+    [
+        "- Sun pistol",
+        "+0 points"
     ],
     [
         "ABILITIES"

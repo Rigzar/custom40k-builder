@@ -114,6 +114,15 @@
         "Piercing(5+)"
     ],
     [
+        "Sun pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "OPTIONS"
     ],
     [
@@ -135,6 +144,13 @@
     ],
     [
         "- Mirrorswords",
+        "+0 points"
+    ],
+    [
+        "\u2022 All remaining models can swap their Shuriken pistols:"
+    ],
+    [
+        "- Sun pistol",
         "+0 points"
     ],
     [

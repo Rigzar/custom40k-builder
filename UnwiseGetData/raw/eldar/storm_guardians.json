@@ -114,6 +114,15 @@
         "Shuriken"
     ],
     [
+        "Sun pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "OPTIONS"
     ],
     [
@@ -136,6 +145,13 @@
     [
         "- Power sword",
         "+2 points"
+    ],
+    [
+        "\u2022 All remaining Guardians can swap their Shuriken pistols:"
+    ],
+    [
+        "- Sun pistol",
+        "+0 points"
     ],
     [
         "ABILITIES"

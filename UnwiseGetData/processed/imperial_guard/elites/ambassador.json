@@ -36,7 +36,7 @@
         }
     ],
     "abilities": [
-        "Command squad",
+        "Advisor, Command squad",
         "Diplomatic Ruse: After all units have been placed in the Deployment phase, the you may remove and redeploy one of your units."
     ],
     "unit_type": "Character model, Infantry",

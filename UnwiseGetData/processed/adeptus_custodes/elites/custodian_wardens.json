@@ -72,7 +72,7 @@
         }
     ],
     "abilities": [
-        "Bodyguard, Massive(1), Shield Host",
+        "Advisor, Bodyguard, Massive(1), Shield Host",
         "Custodian armor: The model gains a 5+ ward save."
     ],
     "unit_type": "Infantry",

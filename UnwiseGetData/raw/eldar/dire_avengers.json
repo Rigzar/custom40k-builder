@@ -105,6 +105,15 @@
         "Shuriken"
     ],
     [
+        "Sun pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "OPTIONS"
     ],
     [
@@ -124,6 +133,13 @@
     [
         "- 2 Avenger shuriken catapults",
         "+28 points"
+    ],
+    [
+        "\u2022 The Exarch can swap their Shuriken pistol:"
+    ],
+    [
+        "- Sun pistol",
+        "+0 points"
     ],
     [
         "\u2022 The Exarch can be equipped with:"
