@@ -7,6 +7,7 @@ import { FACTION_LOADERS, loadBundledFaction, refreshDataOverrides } from '../da
 import { checkOverride, type DataOverride } from '../engine/dataOverrides';
 import { ALL_FACTIONS, DEFAULT_CODEX_VERSIONS } from '../data/factionCatalog';
 import { PointsCalculator } from './PointsCalculator';
+import { RepeatedRulesTab } from './RepeatedRulesTab';
 import { useAuth } from '../hooks/useAuth';
 
 // Languages a translator edits (English is the source, shown read-only).
@@ -80,7 +81,7 @@ const SOURCE_FACTIONS: { key: string; name: string }[] = Object.keys(FACTION_LOA
     ?? key.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' '),
 }));
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'find' | 'calc';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'find' | 'repeated' | 'calc';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es', 'ru', 'ja'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -1093,13 +1094,14 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n,     category: L.catContent },
     { id: 'health',   label: L.tabHealth,   help: L.helpTabHealth,   category: L.catDataAudit },
     { id: 'find',     label: L.tabFind,     help: L.helpTabFind,     category: L.catDataAudit },
+    { id: 'repeated', label: 'Repeated rules', help: 'Ability texts that repeat across the game, to find rules that could become one universal ability in the Core Rules.', category: L.catDataAudit },
     { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc,     category: L.catTools },
   ];
   // An Interrogator only ever sees the tabs their backend calls can actually answer: the i18n
   // editor, and 'find' (a client-side, read-only search over the same public faction data the
   // army builder itself already loads — nothing it needs is admin-gated).
   const TAB_DEFS = isTranslatorOnly
-    ? ALL_TAB_DEFS.filter(td => td.id === 'i18n' || td.id === 'find')
+    ? ALL_TAB_DEFS.filter(td => td.id === 'i18n' || td.id === 'find' || td.id === 'repeated')
     : ALL_TAB_DEFS;
   const TAB_GROUPS: { category: string; tabs: typeof TAB_DEFS }[] = [];
   for (const td of TAB_DEFS) {
@@ -1772,6 +1774,8 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
               </div>
             </div>
             )}
+
+            {tab === 'repeated' && (<RepeatedRulesTab factions={SOURCE_FACTIONS} load={key => FACTION_LOADERS[key]()} />)}
 
             {tab === 'find' && (
             <div>
