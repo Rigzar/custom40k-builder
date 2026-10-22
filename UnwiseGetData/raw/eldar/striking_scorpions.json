@@ -104,13 +104,37 @@
         "Shuriken"
     ],
     [
+        "Sun pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Precision(5+)"
+    ],
+    [
         "OPTIONS"
     ],
     [
         "\u2022 One model may be upgraded to an Exarch for +21 points."
     ],
     [
-        "\u2022 The Exarch can swap their Scorpion chainsword and Shuriken pistol: +3 points Biting blade, +12 points Scorpion claw."
+        "\u2022 The Exarch can swap their Scorpion chainsword: +3 points Biting blade, +12 points Scorpion claw."
+    ],
+    [
+        "- Biting blade",
+        "+5 points"
+    ],
+    [
+        "- Scorpion claw",
+        "+14 points"
+    ],
+    [
+        "\u2022 All remaining models can swap their Shuriken pistols:"
+    ],
+    [
+        "- Sun pistol",
+        "+0 points"
     ],
     [
         "\u2022 The Exarch can gain one Exarch Power."

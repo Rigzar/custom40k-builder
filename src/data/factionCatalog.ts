@@ -81,7 +81,7 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'complete', version: '1.6' },
       { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.9' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.6' },
-      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.6' },
+      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.7' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.4' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.4' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.3' },

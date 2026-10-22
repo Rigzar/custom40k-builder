@@ -90,9 +90,6 @@
         "OPTIONS"
     ],
     [
-        "\u2022 For every HQ selection, one unit of Custodian Wardens may be selected without taking up an Elite slot."
-    ],
-    [
         "\u2022 Every model may swap their Guardian spear:"
     ],
     [
@@ -106,7 +103,7 @@
         "ABILITIES"
     ],
     [
-        "Bodyguard, Massive(1), Shield Host"
+        "Advisor, Bodyguard, Massive(1), Shield Host"
     ],
     [
         "Custodian armor: The model gains a 5+ ward save."
