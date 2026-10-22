@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185s_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v185t_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -84,6 +84,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","Sheet 1.6: Commander, Ethereal, Sub-Commander and Kroot Master Shaper can take Armory weapons; Sept Armory items work for Kroot."],
         ["Tyranids","A promoted HQ Carnifex or Trygon (Megafauna, Subterranean Assault) can take Hive Fleet Armory items."],
         ["Accounts","You can now change your password from Account Security."],
+        ["Chaos Space Marines","An allied Chaos Space Marines force can take Marks of Chaos again."],
         ["Chaos Space Marines","A Favored squad leader shows its personal icon, and a Favored Jakhals leader keeps its +1 Attack with a Dishonored in the unit."],
         ["Translations","76 new datasheet texts in German, Spanish, Russian and Japanese."],
       ] },
@@ -120,6 +121,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","Blatt 1.6: Commander, Ethereal, Sub-Commander und Kroot Master Shaper können Waffen aus der Rüstkammer nehmen; Sept-Gegenstände gehen für Kroot."],
         ["Tyraniden","Ein zum HQ beförderter Carnifex oder Trygon (Megafauna, Subterranean Assault) kann Hive-Fleet-Gegenstände nehmen."],
         ["Konten","Du kannst dein Passwort jetzt in der Kontosicherheit ändern."],
+        ["Chaos Space Marines","Ein verbündetes Chaos-Space-Marines-Kontingent kann wieder Male des Chaos nehmen."],
         ["Chaos Space Marines","Ein Favored-Truppführer zeigt sein persönliches Icon, und ein Favored-Jakhals-Anführer behält sein +1 auf Attacken, auch mit einem Dishonored in der Einheit."],
         ["Übersetzungen","76 neue Datenblatt-Texte auf Deutsch, Spanisch, Russisch und Japanisch."],
       ] },
@@ -156,6 +158,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","Hoja 1.6: Commander, Ethereal, Sub-Commander y Kroot Master Shaper pueden tomar armas de la Armería; los objetos de Sept sirven para Kroot."],
         ["Tiránidos","Un Carnifex o Trygon promovido a HQ (Megafauna, Subterranean Assault) puede tomar objetos de la Armería de Flota Colmena."],
         ["Cuentas","Ahora puedes cambiar tu contraseña desde Seguridad de la cuenta."],
+        ["Chaos Space Marines","Una fuerza aliada de Chaos Space Marines puede tomar Marcas de Chaos otra vez."],
         ["Chaos Space Marines","Un líder de escuadra Favored muestra su icono personal, y un líder Favored de Jakhals conserva su +1 Ataque aunque haya un Dishonored en la unidad."],
         ["Traducciones","76 textos de ficha nuevos en alemán, español, ruso y japonés."],
       ] },
@@ -192,6 +195,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Т'ау","Таблица 1.6: Commander, Ethereal, Sub-Commander и Kroot Master Shaper могут брать оружие из арсенала; предметы Sept работают для Kroot."],
         ["Тираниды","Повышенный до HQ Carnifex или Trygon (Megafauna, Subterranean Assault) может брать предметы арсенала флота улья."],
         ["Аккаунты","Пароль теперь можно сменить в разделе безопасности аккаунта."],
+        ["Хаос Космодесант","Союзный отряд Chaos Space Marines снова может брать Метки Хаоса."],
         ["Хаос Космодесант","Фаворит-командир отряда показывает личный значок, а фаворит-вожак Jakhals сохраняет +1 Атаку даже при Dishonored в отряде."],
         ["Переводы","76 новых текстов карточек на немецком, испанском, русском и японском."],
       ] },
@@ -228,6 +232,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["タウ","シート1.6:Commander、Ethereal、Sub-Commander、Kroot Master Shaperがアーモリーの武器を取れます。Septアーモリーの項目もKrootで使えます。"],
         ["ティラニッド","HQに昇格したCarnifex/Trygon(Megafauna、Subterranean Assault)がハイヴフリートのアーモリーを使えます。"],
         ["アカウント","アカウントのセキュリティからパスワードを変更できます。"],
+        ["ケイオス・スペースマリーン","同盟のChaos Space Marinesが再びケイオスの印を取れます。"],
         ["ケイオス・スペースマリーン","Favoredの分隊長が個人アイコンを表示し、Favored Jakhalsのリーダーはユニットにdishonoredがいても+1攻撃を保ちます。"],
         ["翻訳","ドイツ語・スペイン語・ロシア語・日本語のデータシート文76件を追加。"],
       ] },

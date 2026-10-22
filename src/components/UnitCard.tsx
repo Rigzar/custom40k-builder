@@ -262,7 +262,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // Whether this unit may be given a Mark, and which ones. NOT `data.animosity` alone: that
   // table exists only for CSM and Chaos Daemons, so the two archetypes whose whole point is
   // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
-  const markPick = markAccess(u, data, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
+  // An ALLIED Chaos Space Marines unit asks whether ITS OWN faction fields Marks (its animosity table), not the primary's: under a
+  // Space Marines or Imperial Guard host `data.animosity` is empty, so no allied CSM unit could ever take a Mark (Stu, Discord 2026-10-22).
+  const markData = (alliedFaction && item.factionSource === alliedFaction && alliedData) ? alliedData : data;
+  const markPick = markAccess(u, markData, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
   // variant's own collapsible block, not in the global action row.
