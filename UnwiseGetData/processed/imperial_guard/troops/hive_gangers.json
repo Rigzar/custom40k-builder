@@ -185,7 +185,7 @@
             "s": "4",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+            "abilities": "Piercing(5+), Sniper, Suppression(6)"
         },
         {
             "name": "Gang stubber",
@@ -219,7 +219,7 @@
         "Hive Scum: This unit may not make use of any order.",
         "Cawdor: The model gains +1 Leadership.",
         "Delaque: The model gains \"Infiltrator\".",
-        "Escher: All weapons of the model gain \"Poison(5+)\".",
+        "Escher: All weapons of the model gain \"Poison(4+)\".",
         "Goliath: The model gains +1 Strength and +1 Toughness.",
         "Orlock: Another model may swap their Gang firearm. ",
         "Van Saar: The model gains a 5+ armour save."

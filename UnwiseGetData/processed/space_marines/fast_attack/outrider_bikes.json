@@ -132,7 +132,7 @@
             "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Twin bolt rifle - Bolt ammo",
@@ -181,7 +181,7 @@
         }
     ],
     "abilities": [
-        "They Shall Know No Fear",
+        "Combat squads, They Shall Know No Fear",
         "Devastating assault: When the unit executes a Charge order, every model receives a -1 AP bonus in close combat for the remainder of the combat round."
     ],
     "unit_type": "Bike",

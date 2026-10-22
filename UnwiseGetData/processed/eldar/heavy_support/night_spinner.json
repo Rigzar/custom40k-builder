@@ -32,7 +32,7 @@
             "s": "7",
             "ap": "0",
             "d": "2",
-            "abilities": "Armor piercing(5+), Blast(6), Indirect fire, Monofilament, Suppression(3)"
+            "abilities": "Blast(6), Indirect fire, Monofilament, Piercing(5+), Suppression(3)"
         },
         {
             "name": "Shuriken cannon",

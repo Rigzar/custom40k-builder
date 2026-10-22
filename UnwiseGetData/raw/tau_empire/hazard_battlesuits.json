@@ -75,7 +75,7 @@
         4,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "- Overcharged",
@@ -84,7 +84,7 @@
         5,
         -2,
         2,
-        "Armor piercing(5+), Overheating"
+        "Overheating, Piercing(5+)"
     ],
     [
         "Pulse submunition rifle",

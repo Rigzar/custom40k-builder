@@ -21,7 +21,7 @@
         "Effect:",
         "The unit's melee attacks gain \"Tesla\". Weapons that already have the \"Tesla\" special rule always hit on a 4+.",
         "Effect:",
-        "The unit gains \"Deflect\""
+        "The unit gains the \"Deflect\" ability."
     ],
     [
         "Canticles of Legacy",
@@ -34,11 +34,11 @@
     ],
     [
         "Effect:",
-        "The unit gains \"Furious Charge\".",
+        "The unit gains the \"Furious Charge\" ability.",
         "Effect:",
-        "The unit gains \"Warded\".",
+        "The unit gains the \"Warded\" ability.",
         "Effect:",
-        "After performing a Defensive Reaction, the unit's order is not removed. Instead, replace it with a \"Charge\" order."
+        "The unit gains the \"Counter-Attack\" ability."
     ],
     [
         "Name:",

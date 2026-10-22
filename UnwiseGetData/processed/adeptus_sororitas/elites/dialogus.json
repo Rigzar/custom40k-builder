@@ -45,8 +45,7 @@
         }
     ],
     "abilities": [
-        "Acts of Faith, Command squad, Shield of Faith",
-        "Advisor: For every HQ selection, one Hospitaller may be selected without taking up an Elite slot.",
+        "Acts of Faith, Advisor, Command squad, Shield of Faith",
         "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
         "Laud Hailer: At the start of the Rally phase, friendly units within 18\" around the model remove their Battleshock tokens."
     ],

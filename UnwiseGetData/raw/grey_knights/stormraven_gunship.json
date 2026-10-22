@@ -66,7 +66,7 @@
         6,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Twin heavy bolter",
@@ -123,7 +123,7 @@
         8,
         -3,
         2,
-        "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        "AT(2), Piercing(5+), Shield breaker(-1)"
     ],
     [
         "Typhoon missile launcher *"

@@ -48,7 +48,7 @@
         6,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Dreadnought close combat weapon",
@@ -67,6 +67,27 @@
         -1,
         1,
         "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Helfrost destructor *"
+    ],
+    [
+        "- Dispersed",
+        "24\"",
+        "Heavy 1",
+        6,
+        -3,
+        1,
+        "Blast(4), Grav"
+    ],
+    [
+        "- Focused",
+        "24\"",
+        "Heavy 1",
+        8,
+        -5,
+        3,
+        "AT(2), Grav"
     ],
     [
         "Plasma cannon *"
@@ -127,6 +148,10 @@
     [
         "- Assault cannon",
         "+40 points"
+    ],
+    [
+        "- Helfrost destructor",
+        "+69 points"
     ],
     [
         "- Plasma cannon",

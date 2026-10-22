@@ -36,7 +36,7 @@
         19
     ],
     [
-        "Hunting javelin",
+        "Hunting javelin\u1d35",
         "Only for Kroot Shapers with Krootox steed",
         "-",
         9
@@ -126,7 +126,7 @@
         "-"
     ],
     [
-        "Infantry models may only use equipment marked with \u1d35."
+        "Models without a battlesuit may only use equipment marked with \u1d35."
     ],
     [
         "EQUIPMENT",
@@ -135,7 +135,7 @@
     ],
     [
         "Blademaster\u1d35",
-        "The model may chose to either gain the \"Armor piercing(5+)\" or \"Parry\" ability during each activation. \"Parry\" is the default ability. Only for Ethereals. Unique.",
+        "The model may chose to either gain the \"Piercing(5+)\" or \"Parry\" ability during each activation. \"Parry\" is the default ability. Only for Ethereals. Unique.",
         "-",
         3
     ],
@@ -350,7 +350,7 @@
         26
     ],
     [
-        "Infantry models may only use equipment marked with \u1d35."
+        "Models without a battlesuit may only use equipment marked with \u1d35."
     ],
     [
         "SUPPORT SYSTEMS",
@@ -442,7 +442,7 @@
         5
     ],
     [
-        "Infantry models may only use equipment marked with \u1d35 and pick a single SUPPORT SYSTEM."
+        "Models without a battlesuit may only use equipment marked with \u1d35 and pick a single SUPPORT SYSTEM."
     ],
     [
         "VEHICLE EQUIPMENT",

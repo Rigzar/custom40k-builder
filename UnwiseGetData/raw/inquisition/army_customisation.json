@@ -8,12 +8,12 @@
     ],
     [
         "Heretic",
-        "- Every model in the army with access to the Armory may select a single item from any Chaos faction, instead of from Imperial factions.\n- A Legendary Retinue may additionally include models from the following armies: Chaos Daemons, Chaos Space Marines, Genestealer Cults.",
+        "- Every model in the army with access to the Armory may select a single item from any Chaos faction, instead of from Imperial factions. Does not apply to \"Legendary Retinue\".\n- A Legendary Retinue may additionally include models from the following armies: Chaos Daemons, Chaos Space Marines, Genestealer Cults.",
         "YES"
     ],
     [
         "Iconoclast",
-        "- Every model in the army with access to the Armory may select a single item from any Xenos faction, instead of from Imperial factions.\n- A Legendary Retinue may additionally include models from the following armies: Dark Eldar, Eldar, Leagues of Votann, Orks, T'au Empire.",
+        "- Every model in the army with access to the Armory may select a single item from any Xenos faction, instead of from Imperial factions. Does not apply to \"Legendary Retinue\".\n- A Legendary Retinue may additionally include models from the following armies: Dark Eldar, Eldar, Leagues of Votann, Orks, T'au Empire.",
         "YES"
     ],
     [
@@ -38,6 +38,6 @@
     ],
     [
         "Ordo Minoris",
-        "Every character model in the army may select a single item from either the Ordo Hereticus, Malleus or Xenos Armory."
+        "Every character model in the army may select a single item from either the Ordo Hereticus, Malleus or Xenos Armory. Does not apply to \"Legendary Retinue\"."
     ]
 ]

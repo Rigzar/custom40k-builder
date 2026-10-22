@@ -72,7 +72,7 @@
         "U",
         0,
         1,
-        "Armor piercing(5+), Deadly(5+)"
+        "Deadly(5+), Piercing(5+)"
     ],
     [
         "Kroot carbine *"
@@ -254,7 +254,7 @@
         "+5pts "
     ],
     [
-        "\u2022 Has access to gear from the Armory."
+        "\u2022 Has access to weapons and gear from the Armory."
     ],
     [
         "ABILITIES"

@@ -53,7 +53,7 @@
         5,
         -2,
         2,
-        "Armor piercing(5+), Precision(5+), Sniper, Suppression(6)",
+        "Piercing(5+), Precision(5+), Sniper, Suppression(6)",
         "-",
         13
     ],
@@ -93,7 +93,7 @@
     ],
     [
         "Crusade weapon\u1d40",
-        "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Armor piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".",
+        "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".",
         10,
         10
     ],

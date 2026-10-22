@@ -32,7 +32,7 @@
             "s": "+1",
             "ap": "-1",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Piercing claws",
@@ -41,7 +41,7 @@
             "s": "U",
             "ap": "-1",
             "d": "1",
-            "abilities": "Armor piercing(5+), Extra Attack(4)"
+            "abilities": "Extra Attack(4), Piercing(5+)"
         }
     ],
     "abilities": [

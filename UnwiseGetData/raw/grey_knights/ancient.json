@@ -111,7 +111,7 @@
         7,
         -2,
         2,
-        "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        "AT(1), Piercing(5+), Shield breaker(-1)"
     ],
     [
         "Storm bolter",
@@ -161,10 +161,7 @@
         "ABILITIES"
     ],
     [
-        "Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding"
-    ],
-    [
-        "Advisor: For each HQ selection, one Ancient may be selected that does not occupy an Elite slot."
+        "Advisor, Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding"
     ],
     [
         "Company standard: Friendly units within 12\" gain +1 Leadership."

@@ -32,7 +32,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Heavy bolter",
@@ -60,6 +60,15 @@
             "ap": "-5",
             "d": "2",
             "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma Storm battery",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "7",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(1)"
         },
         {
             "name": "Pyrecannon",
@@ -91,7 +100,9 @@
     ],
     "abilities": [
         "Anti-Grav, Deep Strike, Squadron",
-        "Tempest: The model gains +1 AV on its Front."
+        "Dark Shroud: Friendly units within 6\" benefit from Obscuring cover.",
+        "Tempest: The model gains +1 AV on its Front.",
+        "Vengeance: The model gains the \"Plasma Storm battery\" weapon."
     ],
     "unit_type": "Vehicle",
     "is_monster": false,

@@ -166,7 +166,7 @@
         "Effect:",
         "The target improves its Saving throw by +1.",
         "Effect:",
-        "The target suffers one automatic hit per model with S: 3 AP: 0 D: 1; Armor piercing(5+), Grav, Seeking."
+        "The target suffers one automatic hit per model with S: 3 AP: 0 D: 1; Grav, Piercing(5+), Seeking."
     ],
     [
         "Duration:",

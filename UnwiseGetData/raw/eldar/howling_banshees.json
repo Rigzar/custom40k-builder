@@ -102,7 +102,7 @@
         "+1",
         -4,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "- Shooting",
@@ -111,7 +111,7 @@
         4,
         -4,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "OPTIONS"

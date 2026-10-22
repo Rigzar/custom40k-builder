@@ -123,7 +123,7 @@
         6,
         0,
         1,
-        "Armor piercing(5+), Blast(4)"
+        "Blast(4), Piercing(5+)"
     ],
     [
         "- Solid round",
@@ -132,7 +132,7 @@
         7,
         -2,
         2,
-        "Armor piercing(5+), AT(1)"
+        "AT(1), Piercing(5+)"
     ],
     [
         "Infernus heavy bolter *"

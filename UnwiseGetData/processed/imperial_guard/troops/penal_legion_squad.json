@@ -73,9 +73,7 @@
     ],
     "abilities": [
         "Explosive Collars: Each time this unit fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        ",
-        "Last Chancers: This unit may not make use of any order.",
-        "Gunslingers: The model gains a Lasgun.",
-        "Knife Fighters: The model gains a Close combat weapon and a Las pistol."
+        "Last Chancers: This unit may not make use of any order."
     ],
     "unit_type": "Infantry",
     "is_monster": false,

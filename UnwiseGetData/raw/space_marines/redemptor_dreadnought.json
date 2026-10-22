@@ -57,7 +57,7 @@
         6,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Icarus rocket pod",
@@ -117,7 +117,7 @@
         5,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Redemptor claw",
@@ -277,9 +277,6 @@
     ],
     [
         "ABILITIES"
-    ],
-    [
-        "<Codex>"
     ],
     [
         "Furioso: If the model has two identical melee weapons, it gains +2 attacks."

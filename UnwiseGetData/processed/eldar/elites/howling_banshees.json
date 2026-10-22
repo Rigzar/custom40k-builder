@@ -87,7 +87,7 @@
             "s": "+1",
             "ap": "-4",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Triskele - Shooting",
@@ -96,7 +96,7 @@
             "s": "4",
             "ap": "-4",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         }
     ],
     "abilities": [
