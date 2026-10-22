@@ -36,8 +36,7 @@
         }
     ],
     "abilities": [
-        "Command squad, Eye of the Ancestors, Infantry, Steady Advance, Void armor",
-        "Advisor: For every HQ selection, one Memnyr Strategist may be selected without taking up an Elite slot.",
+        "Advisor, Command squad, Eye of the Ancestors, Infantry, Steady Advance, Void armor",
         "Computational Mastermind: While the model is on the battlefield, you may change a friendly unit's order to any other order when that unit gets activated once per battle round.",
         "Predictive Guidance: The model and its attached unit do not suffer the to hit penalty from Defensive Fire."
     ],

@@ -48,7 +48,7 @@
         "U",
         -1,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "OPTIONS"
@@ -60,7 +60,13 @@
         "ABILITIES"
     ],
     [
-        "They Shall Know No Fear"
+        "Bodyguard, They Shall Know No Fear"
+    ],
+    [
+        "Companion: Wolf Companioons do not prevent a character model from joining another unit. They must start the game attached to a character model."
+    ],
+    [
+        "Servant: The unit cannot contest or hold mission objectives."
     ],
     [
         "UNIT TYPE"

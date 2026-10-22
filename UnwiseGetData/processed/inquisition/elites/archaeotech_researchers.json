@@ -37,7 +37,7 @@
     ],
     "abilities": [
         "Command Squad, Squadron",
-        "Archaeotech Enhancement: While an Archaeotech Reseacher is alive, the unit gains the \"Armor piercing(6+)\" ability for all weapons. If two are alive, they gain \"Armor piercing(5+)\" instead."
+        "Archaeotech Enhancement: While an Archaeotech Reseacher is alive, the unit gains the \"Piercing(6+)\" ability for all weapons. If two are alive, it gains \"Piercing(5+)\" instead."
     ],
     "unit_type": "Infantry",
     "is_monster": false,

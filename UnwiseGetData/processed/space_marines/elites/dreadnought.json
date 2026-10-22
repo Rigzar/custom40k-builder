@@ -32,7 +32,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Dreadnought claw",
@@ -68,7 +68,7 @@
             "s": "6",
             "ap": "-1",
             "d": "1",
-            "abilities": "Armor piercing(5+), Suppression(2)"
+            "abilities": "Piercing(5+), Suppression(2)"
         },
         {
             "name": "Heavy flamer",

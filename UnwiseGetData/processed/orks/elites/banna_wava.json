@@ -36,8 +36,7 @@
         }
     ],
     "abilities": [
-        "Command Squad",
-        "Advisor: For every HQ selection, one Banna Wava may be selected without taking up an Elite slot.",
+        "Advisor, Command Squad",
         "Da Red Banna: At the beginning of the Command phase, remove one Battleshock token from a unit containing a Banna Wava and from one Grot unit within 12\"."
     ],
     "unit_type": "Character model, Infantry",

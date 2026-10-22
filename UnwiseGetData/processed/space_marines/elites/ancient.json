@@ -45,8 +45,7 @@
         }
     ],
     "abilities": [
-        "Command squad, They Shall Know No Fear",
-        "Advisor: For every HQ selection, one Ancient may be selected without taking up an Elite slot.",
+        "Advisor, Command squad, They Shall Know No Fear",
         "Company standard: Friendly units within 12\" gain +1 Leadership."
     ],
     "unit_type": "Character model, Infantry",

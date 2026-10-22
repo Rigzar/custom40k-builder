@@ -131,7 +131,7 @@
             "s": "7",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+            "abilities": "AT(1), Piercing(5+), Shield breaker(-1)"
         },
         {
             "name": "Storm bolter",

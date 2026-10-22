@@ -48,7 +48,7 @@
         "+2",
         -3,
         1,
-        "Armor piercing(5+), Shred"
+        "Piercing(5+), Shred"
     ],
     [
         "Piercing claws",
@@ -57,7 +57,7 @@
         "U",
         -1,
         1,
-        "Armor piercing(5+), Extra Attack(6)"
+        "Extra Attack(6), Piercing(5+)"
     ],
     [
         "OPTIONS"

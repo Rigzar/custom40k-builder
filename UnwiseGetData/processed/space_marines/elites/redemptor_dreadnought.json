@@ -41,7 +41,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Icarus rocket pod",
@@ -95,7 +95,7 @@
             "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Redemptor claw",
@@ -171,7 +171,6 @@
         }
     ],
     "abilities": [
-        "<Codex>",
         "Furioso: If the model has two identical melee weapons, it gains +2 attacks."
     ],
     "unit_type": "Vehicle, Walker",

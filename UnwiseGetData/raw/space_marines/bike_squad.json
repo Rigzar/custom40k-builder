@@ -78,13 +78,7 @@
         "Every Attack Bike is equipped with: Heavy bolter; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun."
     ],
     [
-        "Every Space Marine Biker is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun."
-    ],
-    [
-        "The Biker Sergeant is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun."
-    ],
-    [
-        "The Veteran Biker Sergeant is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun."
+        "Every other model is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun."
     ],
     [
         "WEAPON",
@@ -245,7 +239,7 @@
         "ABILITIES"
     ],
     [
-        "They Shall Know No Fear"
+        "Combat squads, They Shall Know No Fear"
     ],
     [
         "UNIT TYPE"

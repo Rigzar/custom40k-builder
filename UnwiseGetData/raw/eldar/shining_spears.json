@@ -171,7 +171,11 @@
         "+14 points"
     ],
     [
-        "\u2022 The Exarch can be equipped with: +10 points Shimmershield."
+        "\u2022 The Exarch can be equipped with:"
+    ],
+    [
+        "- Shimmershield",
+        "+10 points"
     ],
     [
         "\u2022 The Exarch can gain one Exarch Power."

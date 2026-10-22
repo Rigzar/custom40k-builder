@@ -75,7 +75,7 @@
         7,
         -3,
         2,
-        "AT(1), Armor piercing(5+)"
+        "AT(1), Piercing(5+)"
     ],
     [
         "Storm bolter",
@@ -93,7 +93,7 @@
         6,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Twin flamestorm cannon",
@@ -156,7 +156,7 @@
         "ABILITIES"
     ],
     [
-        "<Codex>"
+        "-"
     ],
     [
         "UNIT TYPE"

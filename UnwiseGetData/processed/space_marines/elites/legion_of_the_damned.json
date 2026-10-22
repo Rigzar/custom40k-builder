@@ -225,11 +225,10 @@
         }
     ],
     "abilities": [
-        "Combat squads, Daemon, Daemonic Instability, Deep Strike, Terrifying(-1), Unyielding",
-        "Aid unlooked for: The unit cannot be joined by Characters. They always start the game in reserves. The unit does not scatter when being set up via Deep Strike.",
+        "Combat squads, Daemon, Daemonic Instability, Deep Strike, Hunter, Terrifying(-1), Unyielding",
+        "Aid unlooked for: The unit cannot be joined by Characters. They always start the game in reserves.",
         "Animus Malorum: Once per battle round, the Legionnaire Sergeant may select an enemy unit within 12\" and roll 2D6. If the result is higher than the target's Leadership value, it suffers 1 Mortal Wound and the Legion of the Damned unit heals 1 Wound. This can be used to revive a fallen Legionnaire.",
-        "Flaming Vengeance: All melee and ranged attacks made by the unit gain cumulative -1 AP and +1 AT.",
-        "Unyielding Spectres: The model gains a 5+ ward save."
+        "Flaming Vengeance: All melee and ranged attacks made by the unit gain cumulative -1 AP and +1 AT."
     ],
     "unit_type": "Infantry",
     "is_monster": false,

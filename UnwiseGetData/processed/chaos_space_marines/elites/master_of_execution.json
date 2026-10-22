@@ -54,8 +54,7 @@
         }
     ],
     "abilities": [
-        "Command squad",
-        "Advisor: For every HQ unit, you may select one Master of Execution without using up an Elite slot.",
+        "Advisor, Command squad",
         "Trophy-taker: The model can re-roll 1 hit roll and 1 wound roll per activation."
     ],
     "unit_type": "Infantry",

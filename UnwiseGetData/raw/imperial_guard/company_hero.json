@@ -66,7 +66,7 @@
         "U",
         -1,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Frag grenades",
@@ -87,10 +87,7 @@
         "ABILITIES"
     ],
     [
-        "Command Squad"
-    ],
-    [
-        "Advisor: For each HQ selection, one Company Hero may be selected that does not occupy an Elite slot."
+        "Advisor, Command Squad"
     ],
     [
         "Companion: An Animal Companion does not prevent a Company Hero to join a unit."

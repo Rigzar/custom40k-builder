@@ -194,22 +194,22 @@
         "ABILITIES"
     ],
     [
-        "Command squad, Mark of Nurgle"
+        "Advisor, Command squad, Mark of Nurgle"
     ],
     [
-        "Advisor: For every HQ unit, you may select up to 5 Foetid Virions without using up an Elite slot. Each specialisation can only be selected once per HQ unit."
-    ],
-    [
-        "Foul Infiusion: All melee attacks of the Biologus Putrifier and his attached unit gain the \"Deadly(5+)\" ability."
-    ],
-    [
-        "Putrid Explosion: If the Biologus Putrifier is killed roll a die. On a 4+ he explodes like a vehicle with a 6\" radius."
+        "Suite: Each specialisation can only be selected once per unit."
     ],
     [
         "Biologus Putrifier:"
     ],
     [
         "Blight Racks: The Biologus Putrifier and any attached unit uses the \"Enhanced blight grenades\" profile for their Blight grenades."
+    ],
+    [
+        "Foul Infiusion: All melee attacks of the Biologus Putrifier and his attached unit gain the \"Deadly(5+)\" ability."
+    ],
+    [
+        "Putrid Explosion: If the Biologus Putrifier is killed roll a die. On a 4+ he explodes like a vehicle with a 6\" radius."
     ],
     [
         "Foul Blightspawn:"

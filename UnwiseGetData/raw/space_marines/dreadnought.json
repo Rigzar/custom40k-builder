@@ -48,7 +48,7 @@
         6,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Dreadnought claw",
@@ -84,7 +84,7 @@
         6,
         -1,
         1,
-        "Armor piercing(5+), Suppression(2)"
+        "Piercing(5+), Suppression(2)"
     ],
     [
         "Heavy flamer",

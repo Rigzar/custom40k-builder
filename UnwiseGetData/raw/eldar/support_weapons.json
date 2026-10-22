@@ -57,7 +57,7 @@
         6,
         0,
         1,
-        "Armor piercing(5+), Blast(4), Indirect fire, Monofilament, Suppression(3)"
+        "Blast(4), Indirect fire, Monofilament, Piercing(5+), Suppression(3)"
     ],
     [
         "Shuriken catapult",
@@ -95,10 +95,7 @@
         "ABILITIES"
     ],
     [
-        "Battle Focus"
-    ],
-    [
-        "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit\u2019s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
+        "Battle Focus, Swarm"
     ],
     [
         "Vibro: If more than one Vibro cannon is shooting at the same target, the weapon gets the \"Decimate\" ability."

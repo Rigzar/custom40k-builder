@@ -45,7 +45,7 @@
         }
     ],
     "abilities": [
-        "Berserker(5+), Blind rage, Furious charge"
+        "Berserk(5+), Blind rage, Furious charge"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

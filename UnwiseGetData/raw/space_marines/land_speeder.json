@@ -48,7 +48,7 @@
         6,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Heavy bolter",
@@ -76,6 +76,15 @@
         -5,
         2,
         "AT(2), Melta"
+    ],
+    [
+        "Plasma Storm battery",
+        "36\"",
+        "Rapid Fire 2",
+        7,
+        -4,
+        1,
+        "AT(1)"
     ],
     [
         "Pyrecannon",
@@ -121,6 +130,14 @@
         "+5 points"
     ],
     [
+        "- Dark Shroud",
+        "+10 points"
+    ],
+    [
+        "- Vengeance",
+        "+26 points"
+    ],
+    [
         "\u2022 Every model may swap their Heavy Bolter:"
     ],
     [
@@ -163,7 +180,16 @@
         "Anti-Grav, Deep Strike, Squadron"
     ],
     [
+        "Upgrades:"
+    ],
+    [
+        "Dark Shroud: Friendly units within 6\" benefit from Obscuring cover."
+    ],
+    [
         "Tempest: The model gains +1 AV on its Front."
+    ],
+    [
+        "Vengeance: The model gains the \"Plasma Storm battery\" weapon."
     ],
     [
         "UNIT TYPE"

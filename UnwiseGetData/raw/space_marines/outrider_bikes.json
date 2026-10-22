@@ -147,7 +147,7 @@
         5,
         -2,
         1,
-        "Armor piercing(5+)"
+        "Piercing(5+)"
     ],
     [
         "Twin bolt rifle *"
@@ -228,7 +228,7 @@
         "ABILITIES"
     ],
     [
-        "They Shall Know No Fear"
+        "Combat squads, They Shall Know No Fear"
     ],
     [
         "Devastating assault: When the unit executes a Charge order, every model receives a -1 AP bonus in close combat for the remainder of the combat round."

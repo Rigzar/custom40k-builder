@@ -99,7 +99,7 @@
         5,
         -1,
         1,
-        "Armor piercing(5+), Auto Hit, Sunder(1)"
+        "Auto Hit, Piercing(5+), Sunder(1)"
     ],
     [
         "- Nova-charge",
@@ -108,7 +108,7 @@
         6,
         -1,
         2,
-        "Armor piercing(5+), Auto Hit, Overheating, Sunder(1)"
+        "Auto Hit, Overheating, Piercing(5+) Sunder(1)"
     ],
     [
         "* Choose one of the following profiles"

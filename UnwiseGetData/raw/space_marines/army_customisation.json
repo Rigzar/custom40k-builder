@@ -32,7 +32,12 @@
         "-"
     ],
     [
-        "Legion",
+        "Legion of the Damned",
+        "- The army has only access to units from the Legion of the Damned supplement.\n- May not select any Traits.",
+        "-"
+    ],
+    [
+        "Legiones Astartes",
         "- The army has access to everything from the Horus Heresy Legiones Astartes supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation.",
         "YES"
     ],
@@ -75,10 +80,6 @@
         "The army has access to the Black Templars Armory and Prayers of the Faithful."
     ],
     [
-        "Legacy of the Damned",
-        "The army has access to the Relictors Armory."
-    ],
-    [
         "Legacy of the Drake",
         "The army has access to the Salamanders Armory."
     ],
@@ -101,6 +102,10 @@
     [
         "Legacy of the Praetorian",
         "The army has access to the Imperial Fists Armory and the Geokinesis psychic discipline."
+    ],
+    [
+        "Legacy of the Relic Hunters",
+        "The army has access to the Relictors Armory."
     ],
     [
         "Legacy of the Wolf",

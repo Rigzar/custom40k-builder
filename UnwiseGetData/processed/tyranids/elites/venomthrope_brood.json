@@ -37,7 +37,7 @@
     ],
     "abilities": [
         "Instinctive Behaviour, Move Through Cover",
-        "Sporecloud: Friendly models within 3\" benefit from Obscuring cover. The range increases by +3\" for each additional Venomthrope in the unit.",
+        "Sporecloud: Friendly units within 3\" benefit from Obscuring cover. The range increases by +3\" for each additional Venomthrope in the unit.",
         "Volatile: The unit explodes like a vehicle upon losing its last Wound."
     ],
     "unit_type": "Monstrous Infantry",
