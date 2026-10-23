@@ -56,7 +56,7 @@ export const RULES: Record<string, RuleEntry> = {
   // New in the sheets (Unwise, 2026-10): the ward save as an ability with a value, replacing the sentences "The model gains a 5+ ward save".
   'ward': {
     name: 'Ward({X})',
-    description: 'The model has a ward save of {X}. Ward saves are unaffected by AP and may be attempted if the normal save fails.',
+    description: 'The model has a {X} ward save.',
   },
   'at': {
     name: 'AT({X})',
@@ -352,6 +352,11 @@ export const RULES: Record<string, RuleEntry> = {
   'acute senses': {
     name: 'Acute Senses',
     description: 'Infiltrators always have to stay more than 18" away during deployment, even if there is no direct Line of Sight to this unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 12" that is deployed from reserves as if it had been given the "Stand & Shoot" order. The attack resolves after the enemy unit has been deployed and before it takes another action.',
+  },
+  // Core Rules 1.35: "Advisor" is now a general ability (the per-unit "For every HQ selection..." sentence was removed from the sheets).
+  'advisor': {
+    name: 'Advisor',
+    description: 'For each HQ selection, one copy of this unit may be taken without occupying an AOP slot.',
   },
   // Core Rules 1.278 (October update): the Pariahs' "Psionic Abomination" became a general ability.
   'blank': {

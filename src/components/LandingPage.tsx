@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186f_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -60,9 +60,15 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "New in this version", rows: [
-        ["Sheets","The ward save is now written Ward(4+) in the sheets, and the app reads it everywhere and keeps the best one."],
-        ["Sheets","Armor piercing(x+) is now Piercing(x+); the app knows both names."],
-        ["Necrons","The Night Scythe and Doom Scythe tesla guns no longer show AT(1): the Strength 7 rule is for melee only."],
+        ["New units","Fellgors, Chaos Land Raider Sonic, Giant Chaos Spawn and the Stormfang Gunship."],
+        ["Space Marines","New Legion of the Damned archetype with its own 7-unit supplement; Legacy of the Damned is now Legacy of the Relic Hunters."],
+        ["Space Marines","Purity above All is paid only when you tick the Apothecary option on the unit."],
+        ["Dark Eldar","Incubi Bloodstone, Murderous Assault and Onslaught, the Grotesque Aberration and the Mindphase gauntlet are in."],
+        ["Escalation","War Dogs for every Chaos army and Armigers for every Imperial army (Chaos Daemons excluded)."],
+        ["Leagues of Votann","Demiurg can only be an allied detachment for the T'au Empire."],
+        ["Necrons","The Night Scythe and Doom Scythe tesla guns no longer show AT(1)."],
+        ["Print","The Scarab explosion (and similar explosion profiles) now print."],
+        ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -73,9 +79,15 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Neu in dieser Version", rows: [
-        ["Blätter","Der Schutzwurf steht jetzt als Ward(4+) in den Blättern; die App liest ihn überall und behält den besten."],
-        ["Blätter","Armor piercing(x+) heißt jetzt Piercing(x+); die App kennt beide Namen."],
-        ["Necrons","Die Tesla-Waffen von Night Scythe und Doom Scythe zeigen kein AT(1) mehr: Die Stärke-7-Regel gilt nur im Nahkampf."],
+        ["Neue Einheiten","Fellgors, Chaos Land Raider Sonic, Giant Chaos Spawn und das Stormfang Gunship."],
+        ["Space Marines","Neuer Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten); Legacy of the Damned heißt jetzt Legacy of the Relic Hunters."],
+        ["Space Marines","Purity above All kostet nur noch, wenn du die Apothekar-Option bei der Einheit ankreuzt."],
+        ["Dark Eldar","Incubi-Bloodstone, Murderous Assault und Onslaught, die Grotesque-Aberration und der Mindphase gauntlet sind drin."],
+        ["Escalation","War Dogs für jede Chaos-Armee und Armigers für jede imperiale Armee (ohne Chaos Daemons)."],
+        ["Leagues of Votann","Demiurg kann nur ein verbündetes Kontingent für die T'au sein."],
+        ["Necrons","Die Tesla-Waffen von Night Scythe und Doom Scythe zeigen kein AT(1) mehr."],
+        ["Druck","Die Scarab explosion (und ähnliche Explosionsprofile) werden jetzt gedruckt."],
+        ["Blätter","Neue Preise, Optionen und Arsenal-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte folgen ihnen."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -86,9 +98,15 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Novedades de esta versión", rows: [
-        ["Hojas","La salvación de ward ahora se escribe Ward(4+) en las hojas, y la app la lee en todas partes y se queda con la mejor."],
-        ["Hojas","Armor piercing(x+) pasa a Piercing(x+); la app conoce los dos nombres."],
-        ["Necrones","Las armas tesla del Night Scythe y del Doom Scythe ya no muestran AT(1): la regla de Fuerza 7 es solo cuerpo a cuerpo."],
+        ["Unidades nuevas","Fellgors, Chaos Land Raider Sonic, Giant Chaos Spawn y el Stormfang Gunship."],
+        ["Space Marines","Nuevo arquetipo Legion of the Damned con su suplemento de 7 unidades; Legacy of the Damned ahora es Legacy of the Relic Hunters."],
+        ["Space Marines","Purity above All solo se paga al marcar la opción de Boticario en la unidad."],
+        ["Dark Eldar","Bloodstone de Incubi, Murderous Assault y Onslaught, la Aberration de los Grotesques y el Mindphase gauntlet ya están."],
+        ["Escalation","War Dogs para todo ejército del Caos y Armigers para todo ejército Imperial (sin Chaos Daemons)."],
+        ["Leagues of Votann","Demiurg solo puede ser un destacamento aliado de los T'au."],
+        ["Necrones","Las armas tesla del Night Scythe y del Doom Scythe ya no muestran AT(1)."],
+        ["Impresión","La Scarab explosion (y perfiles de explosión parecidos) ya se imprimen."],
+        ["Hojas","Precios, opciones y objetos de armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos las siguen."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -99,9 +117,15 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Новое в этой версии", rows: [
-        ["Таблицы","Ward-спасбросок теперь записан Ward(4+); приложение читает его везде и оставляет лучший."],
-        ["Таблицы","Armor piercing(x+) теперь Piercing(x+); приложение знает оба названия."],
-        ["Некроны","Тесла-оружие Night Scythe и Doom Scythe больше не показывает AT(1): правило Силы 7 только для ближнего боя."],
+        ["Новые отряды","Fellgors, Chaos Land Raider Sonic, Giant Chaos Spawn и Stormfang Gunship."],
+        ["Space Marines","Новый архетип Legion of the Damned с собственным дополнением из 7 отрядов; Legacy of the Damned теперь Legacy of the Relic Hunters."],
+        ["Space Marines","Purity above All оплачивается только если отметить опцию Апотекария у отряда."],
+        ["Dark Eldar","Добавлены Bloodstone у Incubi, Murderous Assault и Onslaught, Aberration у Grotesques и Mindphase gauntlet."],
+        ["Escalation","War Dog для любой армии Хаоса и Armiger для любой имперской (кроме Chaos Daemons)."],
+        ["Leagues of Votann","Demiurg может быть только союзным отрядом для T'au."],
+        ["Некроны","Тесла-оружие Night Scythe и Doom Scythe больше не показывает AT(1)."],
+        ["Печать","Scarab explosion (и похожие профили взрыва) теперь печатаются."],
+        ["Таблицы","Новые цены, опции и предметы арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста соответствуют им."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -112,9 +136,15 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "このバージョンの新機能", rows: [
-        ["シート","ウォード・セーヴはシートでWard(4+)と書かれるようになり、アプリはどこでも読み取り、最良のものを採用します。"],
-        ["シート","Armor piercing(x+)はPiercing(x+)になりました。アプリは両方の名前を認識します。"],
-        ["ネクロン","Night ScytheとDoom Scytheのテスラ武器にAT(1)が表示されなくなりました:強さ7のルールは近接のみです。"],
+        ["新ユニット","Fellgors、Chaos Land Raider Sonic、Giant Chaos Spawn、Stormfang Gunship。"],
+        ["スペースマリーン","新アーキタイプ Legion of the Damned と7ユニットの補足を追加。Legacy of the Damned は Legacy of the Relic Hunters に改名。"],
+        ["スペースマリーン","Purity above All は、ユニットで薬剤師オプションにチェックを入れたときだけ支払います。"],
+        ["ダークエルダー","インキュビのBloodstone、Murderous Assault、Onslaught、グロテスクのAberration、Mindphase gauntletを追加しました。"],
+        ["Escalation","すべてのカオス軍でWar Dog、すべてのインペリアル軍でArmigerを選べます（Chaos Daemonsを除く）。"],
+        ["Leagues of Votann","DemiurgはT'au帝国の同盟部隊としてのみ選べます。"],
+        ["ネクロン","Night ScytheとDoom Scytheのテスラ武器にAT(1)が表示されなくなりました。"],
+        ["印刷","Scarab explosion（と同様の爆発プロファイル）が印刷されるようになりました。"],
+        ["シート","10月のシートの新しい価格、オプション、アーモリーのアイテム。Perfect Timingと44件の文もそれに合わせました。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
