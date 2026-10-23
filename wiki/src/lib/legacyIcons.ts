@@ -35,6 +35,7 @@ const SM_LEGACY_SYMBOL: Record<string, string> = {
   'Legacy of the Alien Hunters': '/legion-symbols/deathwatch.svg',
   'Legacy of Aurelia':           '/legion-symbols/blood-ravens.svg',
   'Legacy of the Damned':        '/legion-symbols/skull-01.svg',
+  'Legacy of the Relic Hunters':        '/legion-symbols/skull-01.svg',
 };
 
 const CD_ARCHETYPE_SYMBOL: Record<string, string> = {

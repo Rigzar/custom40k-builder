@@ -1,5 +1,5 @@
 /**
- * Guard for the Imperial Navy faction (Imperial Navy 1.0.ods): npx tsx scripts/check_imperial_navy.ts
+ * Guard for the Imperial Navy faction (Imperial Navy 1.2.ods): npx tsx scripts/check_imperial_navy.ts
  * Builds lists through the real store and asserts the sheet's own rules reach the validator.
  */
 const mem: Record<string, string> = {};

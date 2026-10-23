@@ -42,7 +42,7 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/imperium.svg',
     pillFg: '#9a9aa8',
     dividerColor: '#28283a',
-    factionKeys: ['assassins', 'horus_heresy', 'legio_titanicus', 'escalation'],
+    factionKeys: ['assassins', 'horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation'],
   },
 ];
 
@@ -98,6 +98,8 @@ export const FACTION_DESCRIPTIONS: Record<string, string> = {
     'Ten thousand years ago the Emperor\'s most beloved son, Horus Warmaster, turned against his father and plunged the Imperium into a catastrophic civil war. The Horus Heresy supplement covers the Legiones Astartes of that age — Space Marine Legions before the Codex Astartes split them into Chapters, fielding Primarchs, massive Terminator formations, and weaponry since lost to the Long Night. These rules allow you to field armies from the Age of Darkness alongside or against contemporary forces.',
   legio_titanicus:
     'The Collegia Titanica does not march alone. Around the feet of every god-engine walk the Secutarii — hereditary retainers of the Titan Legions, sworn to the machine before they are sworn to anything else, who screen the war engines from the infantry that would otherwise swarm them. This supplement covers those household troops and their wargear, and is granted by the Adeptus Mechanicus Titan Legion archetype.',
+  legion_of_the_damned:
+    'The Legion of the Damned supplement adds a small roster of units to the Space Marines. It is granted by the Space Marines Legion of the Damned archetype: the army may only take units from the supplement and may not select Traits. Aid unlooked for - its units can only attach to and be joined by characters from the supplement. Flaming Vengeance - all attacks made by its units gain cumulative -1 AP and +1 AT.',
   escalation:
     'The Escalation supplement unlocks Lords of War — the mightiest war engines and most powerful individual combatants available to eight major factions. From the Chaos Space Marines\' towering Daemon Engines to the Necrons\' monolithic Tesseract Vaults and the Orks\' rampaging Stompas, these are the apocalyptic centrepieces reserved for Epic Battle engagements where the stakes demand nothing less than total annihilation.',
 };

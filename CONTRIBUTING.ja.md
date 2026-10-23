@@ -69,7 +69,7 @@ data/parsed/<勢力>/
 ```
 
 2つのホルス・ヘレシー補足も同じ構成です：`data/parsed/horus_heresy_legiones_astartes/` と
-`data/parsed/horus_heresy_forces_of_the_machine_god/`（アーモリーとユニット以外の部分用に `supplement.json` もあります）。
+`data/parsed/horus_heresy_forces_of_the_machine_god/`、`data/parsed/legion_of_the_damned/`（アーモリーとユニット以外の部分用に `supplement.json` もあります）。
 **アプリ内の勢力キーはフォルダ名と一致するとは限りません**（`horus_heresy`、`legio_titanicus`）：
 対応づけるのは `src/data/loaders.ts` だけです。
 
@@ -818,7 +818,7 @@ data/parsed/
     animosity.json       { animosity, allied }   <- CSM/CDのみ（マークの敵対の表）
     unit-notes.md        昔の.tsファイルが持っていたヘッダーのコメント
   space_marines/         （同じ構造、marks/animosity.jsonなし）
-  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/   2つの補足（units/＋supplement.json）
+  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/, legion_of_the_damned/   3つの補足（units/＋supplement.json）
   ...                    合計21フォルダ
 ```
 

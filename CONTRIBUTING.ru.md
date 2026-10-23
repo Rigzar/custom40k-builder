@@ -69,7 +69,7 @@ data/parsed/<фракция>/
 ```
 
 Два дополнения Horus Heresy устроены так же: `data/parsed/horus_heresy_legiones_astartes/` и
-`data/parsed/horus_heresy_forces_of_the_machine_god/` (плюс `supplement.json` для арсенала и
+`data/parsed/horus_heresy_forces_of_the_machine_god/` и `data/parsed/legion_of_the_damned/` (плюс `supplement.json` для арсенала и
 частей, не связанных с юнитами). **Ключи фракций в приложении не всегда совпадают с названиями папок**
 (`horus_heresy`, `legio_titanicus`): их сопоставляет только `src/data/loaders.ts`.
 
@@ -929,7 +929,7 @@ data/parsed/
     animosity.json       { animosity, allied }   <- только CSM/CD (таблица вражды меток)
     unit-notes.md        комментарии из шапок, которые несли старые .ts-файлы
   space_marines/         (та же структура, без marks/animosity.json)
-  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/   два дополнения (units/ + supplement.json)
+  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/, legion_of_the_damned/   три дополнения (units/ + supplement.json)
   ...                    всего 21 папка
 ```
 

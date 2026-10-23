@@ -27,6 +27,7 @@ export const ALL_FACTIONS: FactionConfig[] = [
   { key: 'tyranids', label: 'Tyranids', symbol: 'tyranids.svg' },
   { key: 'horus_heresy', label: 'Horus Heresy', symbol: 'horus-heresy.svg' },
   { key: 'legio_titanicus', label: 'Legio Titanicus', symbol: 'horus-heresy.svg' },
+  { key: 'legion_of_the_damned', label: 'Legion of the Damned', symbol: 'horus-heresy.svg' },
   { key: 'escalation', label: 'Escalation', symbol: 'escalation.svg' },
 ];
 

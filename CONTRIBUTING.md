@@ -68,8 +68,8 @@ data/parsed/<faction>/
   psychic/            <- disciplines, prayers, daemonkin
 ```
 
-The two Horus Heresy supplements follow the same layout in `data/parsed/horus_heresy_legiones_astartes/` and
-`data/parsed/horus_heresy_forces_of_the_machine_god/` (plus a `supplement.json` for the Armory and the
+The two Horus Heresy supplements and the Legion of the Damned supplement follow the same layout in `data/parsed/horus_heresy_legiones_astartes/`,
+`data/parsed/horus_heresy_forces_of_the_machine_god/` and `data/parsed/legion_of_the_damned/` (plus a `supplement.json` for the Armory and the
 non-unit parts). **The app's faction keys do not always equal the folder names** (`horus_heresy`,
 `legio_titanicus`): `src/data/loaders.ts` is the one place that maps them.
 
@@ -935,7 +935,7 @@ data/parsed/
     animosity.json       { animosity, allied }   <- only CSM/CD (marks animosity table)
     unit-notes.md        the header comments the old .ts files carried
   space_marines/         (same structure, no marks/animosity.json)
-  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/   the two supplements (units/ + supplement.json)
+  horus_heresy_legiones_astartes/, horus_heresy_forces_of_the_machine_god/, legion_of_the_damned/   the three supplements (units/ + supplement.json)
   ...                    21 folders in all
 ```
 
