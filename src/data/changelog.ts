@@ -26,6 +26,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.86',
+    date: '2026-10-23',
+    title: "The October sheet update",
+    changes: [
+      "SHEETS — WARD(X+) AND PIERCING(X+). The authors rewrote the sheets with two new spellings: the ward save is now an ability with a value (\"Ward(4+)\") instead of a sentence, and Armor piercing(x+) is now Piercing(x+). The app reads Ward(x+) wherever it appears (alone, in the comma-joined ability line or inside an ability text), keeps the best ward save, and knows Piercing(x+) in the rules glossary; the old and the new name count as the same ability when an item improves a weapon.",
+      "STRENGTH — AT(1) FROM STRENGTH 7 IS MELEE ONLY (Sophtym). The Core Rules say that with Strength 7 or higher a model's MELEE attacks gain AT(1). The app also gave it to ranged weapons, so the Necron Night Scythe and Doom Scythe showed AT(1) on their Twin tesla destructors although the sheet does not. Ranged weapons no longer gain it; melee weapons still do.",
+    ],
+  },
+  {
     version: '1.85',
     date: '2026-10-16',
     title: "Build army asks whether to continue the open list",

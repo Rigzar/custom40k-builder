@@ -1,4 +1,30 @@
 {
+  "1.86": {
+    "title": {
+      "de": "Das Oktober-Update der Datenblätter",
+      "es": "La actualización de hojas de octubre",
+      "ru": "Октябрьское обновление таблиц",
+      "ja": "10月のシート更新"
+    },
+    "changes": {
+      "de": [
+        "BLÄTTER — WARD(X+) UND PIERCING(X+). Die Autoren haben die Blätter mit zwei neuen Schreibweisen umgeschrieben: Der Schutzwurf ist jetzt eine Fähigkeit mit Wert („Ward(4+)“) statt eines Satzes, und Armor piercing(x+) heißt jetzt Piercing(x+). Die App liest Ward(x+) überall (allein, in der kommagetrennten Fähigkeitszeile oder in einem Fähigkeitstext), behält den besten Schutzwurf und kennt Piercing(x+) im Regelglossar; der alte und der neue Name zählen als dieselbe Fähigkeit, wenn ein Gegenstand eine Waffe verbessert.",
+        "STÄRKE — AT(1) AB STÄRKE 7 GILT NUR IM NAHKAMPF (Sophtym). Die Kernregeln sagen, dass NAHKAMPF-Angriffe eines Modells mit Stärke 7 oder mehr AT(1) erhalten. Die App gab es auch Fernkampfwaffen, sodass die Necron Night Scythe und Doom Scythe AT(1) auf ihren Twin tesla destructors zeigten, obwohl das Blatt es nicht tut. Fernkampfwaffen erhalten es nicht mehr; Nahkampfwaffen weiterhin."
+      ],
+      "es": [
+        "HOJAS — WARD(X+) Y PIERCING(X+). Los autores reescribieron las hojas con dos grafías nuevas: la salvación de ward ahora es una habilidad con valor («Ward(4+)») en vez de una frase, y Armor piercing(x+) pasa a llamarse Piercing(x+). La app lee Ward(x+) donde aparezca (sola, en la línea de habilidades separada por comas o dentro del texto de una habilidad), se queda con la mejor salvación de ward y conoce Piercing(x+) en el glosario de reglas; el nombre viejo y el nuevo cuentan como la misma habilidad cuando un objeto mejora un arma.",
+        "FUERZA — EL AT(1) DE FUERZA 7 ES SOLO CUERPO A CUERPO (Sophtym). Las Core Rules dicen que con Fuerza 7 o más los ataques CUERPO A CUERPO de un modelo ganan AT(1). La app también se lo daba a las armas a distancia, así que el Night Scythe y el Doom Scythe de los Necrons mostraban AT(1) en sus Twin tesla destructor aunque la hoja no lo tiene. Las armas a distancia ya no lo ganan; las de cuerpo a cuerpo sí."
+      ],
+      "ru": [
+        "ТАБЛИЦЫ — WARD(X+) И PIERCING(X+). Авторы переписали таблицы с двумя новыми написаниями: ward-спасбросок теперь способность со значением («Ward(4+)») вместо предложения, а Armor piercing(x+) теперь Piercing(x+). Приложение читает Ward(x+) везде (отдельно, в строке способностей через запятую или внутри текста способности), оставляет лучший ward-спасбросок и знает Piercing(x+) в глоссарии правил; старое и новое название считаются одной способностью, когда предмет улучшает оружие.",
+        "СИЛА — AT(1) ПРИ СИЛЕ 7 ТОЛЬКО В БЛИЖНЕМ БОЮ (Sophtym). По Core Rules при Силе 7 или выше АТАКИ В БЛИЖНЕМ БОЮ модели получают AT(1). Приложение давало это и дальнобойному оружию, поэтому Night Scythe и Doom Scythe некронов показывали AT(1) у Twin tesla destructor, хотя в таблице его нет. Дальнобойное оружие его больше не получает; ближнее по-прежнему."
+      ],
+      "ja": [
+        "シート — WARD(X+)とPIERCING(X+)。作者がシートを2つの新しい表記で書き直しました:ウォード・セーヴは文章ではなく値を持つアビリティ(「Ward(4+)」)になり、Armor piercing(x+)はPiercing(x+)になりました。アプリはWard(x+)を単独、カンマ区切りのアビリティ行、アビリティの文中のどこにあっても読み取り、最良のウォード・セーヴを採用し、ルール用語集でPiercing(x+)を認識します。アイテムが武器を強化するとき、旧名と新名は同じアビリティとして扱われます。",
+        "強さ — 強さ7でのAT(1)は近接のみ(Sophtym)。コアルールでは強さ7以上のモデルの近接攻撃がAT(1)を得ます。アプリは遠距離武器にも付けていたため、ネクロンのNight ScytheとDoom ScytheのTwin tesla destructorにシートにないAT(1)が表示されていました。遠距離武器は得なくなり、近接武器は引き続き得ます。"
+      ]
+    }
+  },
   "1.85": {
     "title": {
       "de": "Armee bauen fragt, ob die offene Liste fortgesetzt wird",

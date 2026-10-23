@@ -2777,9 +2777,10 @@ const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta?: nu
  * A weapon writes its Strength as "U" (the model's current value), "+x" (added to it), "x2"
  * (doubled) or a flat number.
  *
- * NOTE, recorded rather than hidden: the document says "melee" in both sentences and the author's
- * answer extends it to ranged weapons. Ranged weapons at Strength 7+ nearly always state an AT
- * already, which is why he called it rare.
+ * CORRECTED 2026-10-23: the 2026-09-19 reading above ("this also applies to ranged weapons") was wrong, and the author said so
+ * when a Night Scythe's Tesla destructor showed an AT(1) the sheet does not have: "it was always melee only; ranged weapons
+ * never gain automatic AT. I usually put AT on them if they have enough S, though. Some weapons don't have AT on purpose."
+ * The document says "melee" in both sentences, and now so does the code (see the type check below).
  */
 function applyStrengthSevenAT(
   unit: Unit,
