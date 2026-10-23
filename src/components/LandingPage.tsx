@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186g_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -66,6 +66,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Incubi Bloodstone, Murderous Assault and Onslaught, the Grotesque Aberration and the Mindphase gauntlet are in."],
         ["Escalation","War Dogs for every Chaos army and Armigers for every Imperial army (Chaos Daemons excluded)."],
         ["Leagues of Votann","Demiurg can only be an allied detachment for the T'au Empire."],
+        ["Eldar","Aspect Focus now makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
         ["Necrons","The Night Scythe and Doom Scythe tesla guns no longer show AT(1)."],
         ["Print","The Scarab explosion (and similar explosion profiles) now print."],
         ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them."],
@@ -85,6 +86,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Incubi-Bloodstone, Murderous Assault und Onslaught, die Grotesque-Aberration und der Mindphase gauntlet sind drin."],
         ["Escalation","War Dogs für jede Chaos-Armee und Armigers für jede imperiale Armee (ohne Chaos Daemons)."],
         ["Leagues of Votann","Demiurg kann nur ein verbündetes Kontingent für die T'au sein."],
+        ["Eldar","Aspect Focus macht die Dark Reapers jetzt zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
         ["Necrons","Die Tesla-Waffen von Night Scythe und Doom Scythe zeigen kein AT(1) mehr."],
         ["Druck","Die Scarab explosion (und ähnliche Explosionsprofile) werden jetzt gedruckt."],
         ["Blätter","Neue Preise, Optionen und Arsenal-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte folgen ihnen."],
@@ -104,6 +106,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Bloodstone de Incubi, Murderous Assault y Onslaught, la Aberration de los Grotesques y el Mindphase gauntlet ya están."],
         ["Escalation","War Dogs para todo ejército del Caos y Armigers para todo ejército Imperial (sin Chaos Daemons)."],
         ["Leagues of Votann","Demiurg solo puede ser un destacamento aliado de los T'au."],
+        ["Eldar","Aspect Focus ahora convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
         ["Necrones","Las armas tesla del Night Scythe y del Doom Scythe ya no muestran AT(1)."],
         ["Impresión","La Scarab explosion (y perfiles de explosión parecidos) ya se imprimen."],
         ["Hojas","Precios, opciones y objetos de armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos las siguen."],
@@ -123,6 +126,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Добавлены Bloodstone у Incubi, Murderous Assault и Onslaught, Aberration у Grotesques и Mindphase gauntlet."],
         ["Escalation","War Dog для любой армии Хаоса и Armiger для любой имперской (кроме Chaos Daemons)."],
         ["Leagues of Votann","Demiurg может быть только союзным отрядом для T'au."],
+        ["Eldar","Aspect Focus теперь делает Dark Reapers Элитой; воинам Аспектов можно менять на Sun pistol и Sun rifle."],
         ["Некроны","Тесла-оружие Night Scythe и Doom Scythe больше не показывает AT(1)."],
         ["Печать","Scarab explosion (и похожие профили взрыва) теперь печатаются."],
         ["Таблицы","Новые цены, опции и предметы арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста соответствуют им."],
@@ -142,6 +146,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["ダークエルダー","インキュビのBloodstone、Murderous Assault、Onslaught、グロテスクのAberration、Mindphase gauntletを追加しました。"],
         ["Escalation","すべてのカオス軍でWar Dog、すべてのインペリアル軍でArmigerを選べます（Chaos Daemonsを除く）。"],
         ["Leagues of Votann","DemiurgはT'au帝国の同盟部隊としてのみ選べます。"],
+        ["エルダー","Aspect FocusでDark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],
         ["ネクロン","Night ScytheとDoom Scytheのテスラ武器にAT(1)が表示されなくなりました。"],
         ["印刷","Scarab explosion（と同様の爆発プロファイル）が印刷されるようになりました。"],
         ["シート","10月のシートの新しい価格、オプション、アーモリーのアイテム。Perfect Timingと44件の文もそれに合わせました。"],
