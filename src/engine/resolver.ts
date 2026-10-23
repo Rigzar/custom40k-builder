@@ -2813,6 +2813,9 @@ function applyStrengthSevenAT(
     weapons: g.weapons.map(w => {
       // "unless it is already better" -- AT(1) is the weakest AT there is, so ANY stated AT wins.
       if (/\bAT\(\d+\)/i.test(String(w.abilities ?? ''))) return w;
+      // Core Rules, Strength: "If the model's (modified) Strength is 7 or higher, its MELEE attacks automatically gain AT(1)".
+      // Ranged weapons are left alone (a Tesla destructor at Strength 7 does not gain it; Night Scythe / Doom Scythe report, 2026-10-23).
+      if (!/melee/i.test(String(w.type ?? ''))) return w;
       const s = weaponStrength(w.s as string);
       if (s === null || s < 7) return w;
       const had = String(w.abilities ?? '').trim();
