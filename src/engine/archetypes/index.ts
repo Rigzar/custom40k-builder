@@ -44,6 +44,8 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Dark Mechanicum': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
+    // Escalation (Dominic, 2026-10-23): a Chaos army may take the War Dog as an Elite, an Imperial army the Armiger. This archetype makes the army Chaos.
+    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],
     armoryOnlyFaction: 'chaos_space_marines',
     // ods-verbatim: "Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines."
     // The standing AdM<->CSM cell is R, so without this the pair read Desperate Allies (reported).
@@ -171,13 +173,14 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   // ── Eldar ─────────────────────────────────────────────────────────────────
   'Aspect Focus': { ...BASE,
-    // Eldar 1.01: Dark Reapers are exempted from Aspect Focus — they stay Heavy Support and no
-    // longer count as Troops ("With the exception of Dark Reapers, <Aspect> units can be taken as
-    // Troops").
+    // Eldar 1.01: Dark Reapers are exempted from Aspect Focus and no longer count as Troops ("With the
+    // exception of Dark Reapers, <Aspect> units can be taken as Troops").
     troopsRemap: ['Dire Avengers', 'Fire Dragons', 'Howling Banshees', 'Shadow Spectres', 'Striking Scorpions', 'Shining Spears', 'Swooping Hawks', 'Warp Spiders'],
+    // Eldar 1.7 adds "Dark Reapers become Elite choices." (they used to stay Heavy Support).
+    elitesRemap: ['Dark Reapers'],
     demoteOtherTroops: true,
     notes: [
-      'All Aspect Warrior units except Dark Reapers count as Troops.',
+      'All Aspect Warrior units except Dark Reapers count as Troops; Dark Reapers become Elite choices.',
       'Non-Aspect Troops are moved to the Elites slot.',
     ],
   },
@@ -398,6 +401,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
+    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],   // Chaos army: War Dog yes, Armiger no (Escalation, Dominic 2026-10-23)
     armoryOnlyFaction: 'chaos_space_marines', grantsMarkArmory: true,
     // ods-verbatim: "Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix."
     // CSM<->CSM is G. The note below has said this since the archetype was written; it was display
@@ -421,6 +425,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // Battle Brothers (Green allies)." Without the override the matrix's standing Y (Allies of
     // Convenience) stood and the ally showed yellow (GitHub #83).
     alliedRelationshipOverrides: { tau_empire: 'G' },
+    alliedOnlyTo: 'tau_empire',   // Votann 1.5: "Can only be taken as an allied detachment for T'au Empire."
     notes: [
       'Allied to Tau Empire as Battle Brothers.',
       'The army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army.',
@@ -668,6 +673,18 @@ const RENAMED_ARCHETYPES: Record<string, string> = {
   'Trueborn': 'Trueborn Raid',             // Dark Eldar, 1.01 codex
 };
 
+/**
+ * Legacies the author has renamed (same reasoning as RENAMED_ARCHETYPES: a saved list stores the name).
+ */
+const RENAMED_LEGACIES: Record<string, string> = {
+  'Legacy of the Damned': 'Legacy of the Relic Hunters',   // Space Marines 1.11 (the name went to the Legion of the Damned supplement)
+};
+
+/** The current name for a legacy, for saved armies written before a rename. */
+export function currentLegacyName(legacy: string): string {
+  return RENAMED_LEGACIES[legacy] ?? legacy;
+}
+
 export function getArchetypeRule(archetype: string): ArchetypeRule | null {
   return ARCHETYPE_RULES[archetype] ?? ARCHETYPE_RULES[RENAMED_ARCHETYPES[archetype]] ?? null;
 }
@@ -679,6 +696,9 @@ export function currentArchetypeName(archetype: string): string {
 
 /** Strip trailing god superscripts (ˢ ᴷ ᵀ ᴺ) from archetype names for display. */
 export function cleanArchetypeName(name: string): string {
+  // The Space Marines and Chaos Space Marines sheets both call their Horus Heresy archetype "Legiones Astartes"; the app keeps
+  // two internal names (the rule table is keyed by name) and shows the sheet's.
+  if (name === 'Legion SM' || name === 'Legion CSM') return 'Legiones Astartes';
   return name.replace(/[ˢᴷᵀᴺ]+$/, '');
 }
 
@@ -729,10 +749,11 @@ export function getEffectiveSlot(
 
 export function isUnitAllowed(
   unitName: string,
-  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[]; is_vehicle?: boolean },
+  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[]; is_vehicle?: boolean; requires_archetype_unlock?: boolean },
   rule: ArchetypeRule | null,
   originalSlot?: string,
 ): boolean {
+  if (unit.requires_archetype_unlock && !(rule?.unlocksUnits ?? []).includes(unitName)) return false;
   if (!rule) return true;
   if (rule.bannedUnits.includes(unitName)) return false;
   // "No other Troop units may be selected" (Necrons Obeisance Phalanx). Checked against the

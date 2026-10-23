@@ -147,7 +147,7 @@ export const IG_INFANTRY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Take cover!',
     when: 'When the unit is selected as a target for a ranged weapon.',
-    effect: 'The unit receives a +1 bonus to its armor save. (Can be combined with actual cover)',
+    effect: 'The unit receives a cumulative +1 bonus to its armor save.',
   },
   {
     name: 'First rank, fire! Second rank, fire!',
@@ -157,7 +157,7 @@ export const IG_INFANTRY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Overcharge batteries!',
     when: 'When the unit is activated.',
-    effect: 'All laser weapons in the unit receive the "Decimate" ability.',
+    effect: 'All las weapons in the unit receive the "Decimate" ability.',
   },
   {
     name: 'Move! Move! Move!',
@@ -214,7 +214,7 @@ export const IG_LEGACY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Get around behind them!',
     when: 'When the unit is activated.',
-    effect: 'The unit can move up to 6", afterwards its order is changed to "Stand & Shoot".',
+    effect: 'The unit can move normally (up to 6"), afterwards its order is changed to "Stand & Shoot".',
     legacyGrant: 'Desert World',
   },
   {

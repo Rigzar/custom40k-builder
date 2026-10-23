@@ -57,7 +57,7 @@ export const SM_CRUSADER_PRAYERS = new Set([
  *                               Each model can receive "Special ammunition" regardless of armory access.
  * Legacy of the Angel        → Blood Angels Armory + Sanguine discipline
  * Legacy of the Crusader     → Black Templars Armory + Prayers of the Faithful
- * Legacy of the Damned       → Relictors Armory
+ * Legacy of the Relic Hunters → Relictors Armory (was "Legacy of the Damned" before Space Marines 1.11)
  * Legacy of the Khan         → White Scars Armory + Stormspeaking discipline
  * Legacy of the Lion         → Dark Angels Armory + Interromancy discipline
  * Legacy of the Praetorian   → Imperial Fists Armory + Geokinesis discipline

@@ -165,7 +165,7 @@ export type TranslationKey =
   | 'filterByEvent' | 'filterAnyEvent' | 'filterClear' | 'noEventArmies'
   | 'valPointsToGo'
   | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'prOrdersInfantry' | 'prOrdersVehicles' | 'prOrdersLegacy' | 'valSelectionIncomplete' | 'valSelectionOneListOnly' | 'valOnlyOneArmour'
-  | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
+  | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valUnitNeedsChaosArchetype' | 'valArchetypeAlliedOnly' | 'valArchetypeNotInAllowedList'
   | 'valArchetypeSlotNotAllowed' | 'valArchetypeRequiresHqUnit' | 'valArchetypeRequiresHqUpgrade'
   | 'valArchetypeTroopsRatioCap' | 'valArchetypeRequiresEscort' | 'valArchetypeTroopsModelRatioCap'
   | 'valArchetypeNoVetAbilities' | 'valArchetypeHqNotAllowed' | 'valArchetypeForcedMarkConflict'
@@ -229,7 +229,7 @@ export type TranslationKey =
   | 'myCampaignsLabel' | 'campaignRoleGm' | 'campaignRolePlayer' | 'campaignFinishedBadge' | 'openButton'
   | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
-  | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
+  | 'optInTraitLabel' | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
   | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
   | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton'
@@ -1221,6 +1221,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneArmour: '{unit}: only one armour per model ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: only one character may be attached to a unit at a time (currently joined by {count}: {names}) — additional characters need the "Command Squad" ability.',
     valArchetypeUnitNotAllowed: 'Archetype "{archetype}": {unit} is not allowed.',
+    valArchetypeAlliedOnly: 'Archetype "{archetype}" can only be taken as an allied detachment for {faction}.',
+    valUnitNeedsChaosArchetype: '{unit}: only Chaos armies may take it, and this army is not Chaos (Traitor Guard, Renegades and Dark Mechanicum make it one).',
     valArchetypeNotInAllowedList: 'Archetype "{archetype}": {unit} is not in the allowed unit list.',
     valArchetypeSlotNotAllowed: 'Archetype "{archetype}": {slot} units are not allowed ({unit}).',
     valArchetypeRequiresHqUnit: 'Archetype "{archetype}": requires at least 1 {hqUnit} as HQ.',
@@ -1373,6 +1375,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Save profile', savedMsg: 'Saved!',
     accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
     noRecoveryCode: 'No code on file yet — reset your password once to get one.',
+    optInTraitLabel: "{trait}: use it on this unit (+{pts} pts)",
     changePasswordLabel: "Change password", currentPasswordPlaceholder: "Current password", newPasswordPlaceholder: "New password (min. 8 characters)", passwordChangedMsg: "Password changed!",
     secretQuestionSectionLabel: 'Secret question', changeButton: 'Change',
     secretQuestionOptionalHint: 'Optional — required with recovery code to reset password.',
@@ -2388,6 +2391,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneArmour: '{unit}: nur eine Rüstung pro Modell ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: nur ein Charakter darf gleichzeitig einer Einheit angeschlossen sein (derzeit angeschlossen von {count}: {names}) — weitere Charaktere benötigen die Fähigkeit „Command Squad".',
     valArchetypeUnitNotAllowed: 'Archetyp „{archetype}": {unit} ist nicht erlaubt.',
+    valArchetypeAlliedOnly: 'Archetyp „{archetype}" kann nur als verbündetes Kontingent für {faction} genommen werden.',
+    valUnitNeedsChaosArchetype: '{unit}: nur Chaos-Armeen dürfen sie nehmen, und diese Armee ist nicht Chaos (Traitor Guard, Renegades und Dark Mechanicum machen sie dazu).',
     valArchetypeNotInAllowedList: 'Archetyp „{archetype}": {unit} steht nicht auf der erlaubten Einheitenliste.',
     valArchetypeSlotNotAllowed: 'Archetyp „{archetype}": {slot}-Einheiten sind nicht erlaubt ({unit}).',
     valArchetypeRequiresHqUnit: 'Archetyp „{archetype}": benötigt mindestens 1 {hqUnit} als HQ.',
@@ -2540,6 +2545,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Profil speichern', savedMsg: 'Gespeichert!',
     accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
     noRecoveryCode: 'Noch kein Code vorhanden — Passwort einmal zurücksetzen um einen zu erhalten.',
+    optInTraitLabel: "{trait}: bei dieser Einheit nutzen (+{pts} Pkt.)",
     changePasswordLabel: "Passwort ändern", currentPasswordPlaceholder: "Aktuelles Passwort", newPasswordPlaceholder: "Neues Passwort (mind. 8 Zeichen)", passwordChangedMsg: "Passwort geändert!",
     secretQuestionSectionLabel: 'Sicherheitsfrage', changeButton: 'Ändern',
     secretQuestionOptionalHint: 'Optional — zusammen mit dem Wiederherstellungscode zum Zurücksetzen des Passworts erforderlich.',
@@ -3555,6 +3561,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneArmour: '{unit}: solo una armadura por modelo ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: solo un personaje puede estar unido a una unidad a la vez (actualmente unidos {count}: {names}) — los personajes adicionales necesitan la habilidad "Command Squad".',
     valArchetypeUnitNotAllowed: 'Arquetipo "{archetype}": {unit} no está permitido.',
+    valArchetypeAlliedOnly: 'El arquetipo "{archetype}" solo puede tomarse como destacamento aliado de {faction}.',
+    valUnitNeedsChaosArchetype: '{unit}: solo los ejércitos del Caos pueden tomarla, y este ejército no lo es (Traitor Guard, Renegades y Dark Mechanicum lo convierten en uno).',
     valArchetypeNotInAllowedList: 'Arquetipo "{archetype}": {unit} no está en la lista de unidades permitidas.',
     valArchetypeSlotNotAllowed: 'Arquetipo "{archetype}": las unidades de {slot} no están permitidas ({unit}).',
     valArchetypeRequiresHqUnit: 'Arquetipo "{archetype}": requiere al menos 1 {hqUnit} como HQ.',
@@ -3707,6 +3715,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Guardar perfil', savedMsg: '¡Guardado!',
     accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',
     noRecoveryCode: 'Aún no hay código — restablece tu contraseña una vez para obtener uno.',
+    optInTraitLabel: "{trait}: usarlo en esta unidad (+{pts} pts)",
     changePasswordLabel: "Cambiar contraseña", currentPasswordPlaceholder: "Contraseña actual", newPasswordPlaceholder: "Contraseña nueva (mín. 8 caracteres)", passwordChangedMsg: "¡Contraseña cambiada!",
     secretQuestionSectionLabel: 'Pregunta secreta', changeButton: 'Cambiar',
     secretQuestionOptionalHint: 'Opcional — necesaria junto al código de recuperación para restablecer la contraseña.',

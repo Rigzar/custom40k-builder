@@ -346,6 +346,8 @@ export interface OptionGroup {
 export interface Unit {
   name: string;
   slot: string;
+  /** Hidden unless the army's archetype lists this unit in `unlocksUnits` (the Escalation War Dog in a non-Chaos codex). */
+  requires_archetype_unlock?: boolean;
   models: Model[];
   variant_models: Model[];
   equipped_with: string;

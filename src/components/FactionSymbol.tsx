@@ -23,6 +23,7 @@ const FACTION_CATEGORY: Record<string, FactionCategory> = {
   tyranids:            'xenos',
   horus_heresy:        'supp',
   legio_titanicus:     'supp',
+  legion_of_the_damned: 'supp',
 };
 
 const FACTION_SVG: Record<string, string> = {
@@ -48,6 +49,7 @@ const FACTION_SVG: Record<string, string> = {
   tyranids:            '/faction-symbols/tyranids.svg',
   horus_heresy:        '/faction-symbols/horus-heresy.svg',
   legio_titanicus:     '/faction-symbols/horus-heresy.svg',
+  legion_of_the_damned: '/legion-symbols/skull-01.svg',
 };
 
 const FACTION_ABBREV: Record<string, string> = {
@@ -73,6 +75,7 @@ const FACTION_ABBREV: Record<string, string> = {
   tyranids:            'TYR',
   horus_heresy:        'HH',
   legio_titanicus:     'LT',
+  legion_of_the_damned: 'LotD',
 };
 
 const CATEGORY_BG: Record<FactionCategory, string> = {

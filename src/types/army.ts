@@ -172,6 +172,8 @@ export interface RosterEntry {
    * sub-faction keyword the datasheet carries is eligible (permissive default).
    */
   subfaction?: string | null;
+  /** Traits that are only paid for (and only apply) on the units that use them, e.g. Space Marines' Purity above All (the Apothecary upgrade). */
+  optInTraits?: string[];
   /**
    * Dark Eldar Combat Drugs chosen for this unit (army rule, free). Only units with the
    * "Combat drugs" ability may hold any; base cap 1, +1 per "Stimulant supply" equipped.

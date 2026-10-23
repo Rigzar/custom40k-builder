@@ -4,7 +4,7 @@ import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, Tra
 import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
-import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
+import { getArchetypeRule, currentArchetypeName, currentLegacyName } from '../engine/archetypes';
 import { dataForArchetype } from '../engine/archetypes/dataPatch';
 import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
@@ -66,12 +66,17 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 }
 
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
+/** Traits that are an UPGRADE rather than a blanket bonus: "One non-character model per squad ... may be upgraded to an Apothecary"
+ *  (Space Marines, Purity above All). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
+export const OPT_IN_TRAITS = new Set(['Purity above All']);
+
 function computeTraitSelections(
   unit: Unit, item: RosterEntry, names: string[], traits: Trait[], data: FactionData,
   freeTraitName?: string | null,
 ): TraitSelection[] {
   return names
     .map(name => {
+      if (OPT_IN_TRAITS.has(name) && !(item.optInTraits ?? []).includes(name)) return null;
       if (name === 'Heavy Infantry' && alreadyHasArmorSave4Plus(unit, item, data)) return null;
       if (name === 'Bionic Improvement' && alreadyHasInvulnSave(unit, item, data)) return null;
 
@@ -710,7 +715,7 @@ export const useArmyStore = create<ArmyStore>()(
         });
         // Re-sync traits when the mark changes (mark uses a veteran slot) OR when a Dark Eldar
         // unit's sub-faction pick changes — the pick gates which traits it pays for.
-        const army = (('mark' in patch) || ('subfaction' in patch)) && s.data
+        const army = (('mark' in patch) || ('subfaction' in patch) || ('optInTraits' in patch)) && s.data
           ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : newArmy;
         // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes). Scoped: an
@@ -915,6 +920,7 @@ export const useArmyStore = create<ArmyStore>()(
           // and every `state.archetype === '...'` check in the validator would miss.
           if (newState.archetype) newState.archetype = currentArchetypeName(newState.archetype);
           if (newState.alliedArchetype) newState.alliedArchetype = currentArchetypeName(newState.alliedArchetype);
+          for (const k of ['legacy', 'legacy2', 'alliedLegacy'] as const) if (typeof newState[k] === 'string' && newState[k]) newState[k] = currentLegacyName(newState[k] as string);
           // Same for datasheets the author has renamed: a saved entry holds the unit NAME, and a
           // name that no longer resolves renders nothing and costs nothing (see unitRenames.ts).
           if (Array.isArray(newState.army)) {
@@ -993,6 +999,7 @@ export const useArmyStore = create<ArmyStore>()(
           // archetype's previous name.
           if (typeof s.archetype === 'string') s.archetype = currentArchetypeName(s.archetype);
           if (typeof s.alliedArchetype === 'string') s.alliedArchetype = currentArchetypeName(s.alliedArchetype);
+          for (const k of ['legacy', 'legacy2', 'alliedLegacy']) if (typeof s[k] === 'string' && s[k]) s[k] = currentLegacyName(s[k] as string);
           if (typeof s.faction === 'string' && Array.isArray(s.army)) {
             s.army = applyUnitRenames(s.faction, s.army as { unitName: string }[]);   // no data at rehydrate; the import path applies the upgrade
             s.army = applyArmoryRenames(s.faction, s.army as { armory?: { itemName: string }[] }[]) as typeof s.army;

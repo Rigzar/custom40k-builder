@@ -25,6 +25,17 @@ export interface ArchetypeRule {
   forcedMark: string | null;
   requireForcedMarkOnly: boolean;
   bannedUnits: string[];
+  /**
+   * Units a datasheet marks `requires_archetype_unlock` that THIS archetype makes available. The Escalation War Dog is a Chaos
+   * Elite choice: Chaos Space Marines carry it natively, and the archetypes that make another army Chaos (Traitor Guard, Renegades,
+   * Dark Mechanicum) unlock the copy in that army's own roster.
+   */
+  unlocksUnits?: string[];
+  /**
+   * The archetype can only be chosen for an ALLIED detachment of this faction (loader key). Leagues of Votann 1.5, Demiurg:
+   * "Can only be taken as an allied detachment for T'au Empire."
+   */
+  alliedOnlyTo?: string;
   bannedSlots: string[];
   hqOverride: [number, number] | null;
   hqAllowed: string[];

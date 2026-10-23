@@ -10,6 +10,7 @@ import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
 import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
+import { OPT_IN_TRAITS } from '../store/army';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
@@ -622,6 +623,20 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           </div>
         );
       })()}
+
+      {/* An opt-in trait (Purity above All) is paid for and applies only on the units that use it. */}
+      {isMainFaction && !item.factionSource && !u.is_character && !u.is_vehicle && !u.is_monster && (u.has_armory_access || u.champion_has_armory) && [...OPT_IN_TRAITS].filter(tn => traitPool.includes(tn)).map(tn => {
+        const def = data.traits.find(x => x.name === tn); const pts = parseInt(String(def?.pts_unit ?? ''), 10); const on = (item.optInTraits ?? []).includes(tn);
+        return (
+          <div key={tn} className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700">
+            <label onClick={() => updateUnit(item.id, { optInTraits: on ? (item.optInTraits ?? []).filter(x => x !== tn) : [...(item.optInTraits ?? []), tn] })} className="flex items-center gap-2 text-[11px] cursor-pointer">
+              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${on ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>{on && <span className="text-[8px] text-white leading-none">✓</span>}</div>
+              <span className="text-zinc-300">{tpl(t('optInTraitLabel'), { trait: tn, pts: isNaN(pts) ? 0 : pts })}</span>
+            </label>
+            {def?.desc && <div className="text-[10px] text-zinc-500 mt-0.5 pl-5">{def.desc}</div>}
+          </div>
+        );
+      })}
 
       {/* ── The archetype's own HQ promotion: "One X ... becomes a HQ selection" (GH#168) ──
            One entry in the army claims it, so the toggle disables once another already has it,

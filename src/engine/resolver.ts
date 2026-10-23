@@ -2589,9 +2589,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]))))))));
+    return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))))));
   }
-  return applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty))))))));
+  return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))))));
 }
 
 /**
@@ -2824,6 +2824,27 @@ function applyStrengthSevenAT(
       return { ...w, abilities };
     }),
   }));
+}
+
+/**
+ * Legion of the Damned supplement, special rule "Flaming Vengeance" (ods-verbatim): "All melee and ranged attacks
+ * made by units from this codex gain cumulative -1 AP and +1 AT." The supplement's units are the roster entries
+ * whose factionSource is the supplement; AP "-" counts as 0, and an AT(x) the weapon already has becomes AT(x+1).
+ */
+function applyFlamingVengeance(item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  if (item.factionSource !== 'legion_of_the_damned') return groups;
+  const bump = (w: Weapon): Weapon => {
+    const ap = String(w.ap ?? '').trim();
+    const apNum = ap === '-' || ap === '' ? 0 : parseInt(ap, 10);
+    const newAp = Number.isFinite(apNum) ? String(apNum - 1) : w.ap;
+    const had = String(w.abilities ?? '').trim();
+    const at = had.match(/\bAT\((\d+)\)/i);
+    const abilities = at
+      ? had.replace(/\bAT\((\d+)\)/i, `AT(${parseInt(at[1], 10) + 1})`)
+      : (!had || had === '-' ? 'AT(1)' : `AT(1), ${had}`);
+    return { ...w, ap: newAp, abilities };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(bump) }));
 }
 
 function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {

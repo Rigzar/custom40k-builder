@@ -34,6 +34,7 @@ export const FACTION_NAMES: Record<string, string> = {
   tyranids:             'Tyranids',
   horus_heresy:         'Horus Heresy Legiones Astartes',
   legio_titanicus:      'Horus Heresy Forces of the Machine God',
+  legion_of_the_damned: 'Legion of the Damned',
 };
 
 /** Loader key → display name, for the reverse lookup a save path needs. */

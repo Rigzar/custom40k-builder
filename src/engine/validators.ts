@@ -21,6 +21,7 @@ import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
+import { FACTION_NAMES } from '../utils/factionLabel';
 import { archetypeAllowedInSkirmish, SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from './skirmishRules';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP } from './codex_space_marines/legacies';
@@ -137,8 +138,8 @@ function _getAllowedDiscKeys(
  * without taking up a [slot]" (e.g. Orks Mekboyz/Painboyz, SM Techmarine, CSM Master of Execution)
  * — a 1-per-HQ ratio keyed to that specific unit NAME (or `unit.advisorRatio` copies per HQ for
  * the rare exception, e.g. CSM Foetid Virion's "up to 5 per HQ unit"). Core Rules
- * doesn't define a generic "Advisor" special rule; `advisor: true` just flags this per-unit
- * pattern, so the ratio has to be enforced here rather than read off a shared rule. Returns the
+ * 1.35 now defines "Advisor" as a general ability (one copy per HQ selection); `advisor: true` flags the
+ * unit and the ratio is enforced here. Returns the
  * RosterEntry ids exempt from slot occupancy: the first N copies of each advisor unit name in a
  * given allied/primary scope, capped at (HQ selections in that SAME scope) × ratio — extra copies
  * beyond the ratio occupy their slot like any other unit (GitHub #10: Mekboyz/Painboyz never took
@@ -1475,6 +1476,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // composition pass further below (search `allyRule`); without the `!item.factionSource` guard
   // here, the primary's archetype restrictions (banned units, forced mark, etc.) used to wrongly
   // apply to the ally's units too.
+  // An archetype limited to an allied detachment of one faction (Votann Demiurg, for the T'au Empire).
+  {
+    const onlyP = rule?.alliedOnlyTo;
+    if (onlyP) items.push({ type: 'error', text: T('valArchetypeAlliedOnly', { archetype: cleanArchetypeName(state.archetype), faction: FACTION_NAMES[onlyP] ?? onlyP }) });
+    const allyRuleO = state.alliedFaction ? getArchetypeRule(state.alliedArchetype) : null;
+    const onlyA = allyRuleO?.alliedOnlyTo;
+    if (onlyA && FACTION_NAMES[onlyA] !== data.faction) items.push({ type: 'error', text: T('valArchetypeAlliedOnly', { archetype: cleanArchetypeName(state.alliedArchetype), faction: FACTION_NAMES[onlyA] ?? onlyA }) });
+  }
+
+  // Escalation (Dominic, 2026-10-23): the War Dog is a Chaos Elite. In a codex that is not Chaos Space Marines its datasheet is
+  // marked requires_archetype_unlock and only exists under an archetype that makes the army Chaos (Traitor Guard, Renegades, Dark Mechanicum).
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u?.requires_archetype_unlock) continue;
+    const isAlly = !!item.factionSource && item.factionSource === state.alliedFaction;
+    const r = isAlly ? getArchetypeRule(state.alliedArchetype) : rule;
+    if (!(r?.unlocksUnits ?? []).includes(item.unitName)) items.push({ type: 'error', text: T('valUnitNeedsChaosArchetype', { unit: item.unitName }) });
+  }
+
   if (rule) {
     // Banned units
     for (const item of state.army) {
@@ -2092,7 +2112,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
     for (const item of state.army) {
       const u = resolveUnit(item, data);
-      if (!u?.is_character) continue;
+      if (!u?.is_character || item.retinue) continue;   // Inquisition 1.4: the Legacy "Does not apply to Legendary Retinue"
       const picked = item.armory.filter(a => ORDO_GATED_ITEMS.has(a.itemName));
       if (picked.length > 1) {
         items.push({
@@ -3190,7 +3210,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not
     // the flat eng.aop value (Skirmish's flat "0-1" is correct as-is and untouched).
     const rawEffMax = (slot === 'Dedicated Transport' && (state.engagement === 'pitched' || state.engagement === 'epic'))
-      ? countInfantrySelections(state, data, false)
+      ? countInfantrySelections(state, data, false) + (isIntegratedSuppl ? countInfantrySelections(state, data, true) : 0)   // an integrated supplement's Infantry earn transports too (Legion of the Damned Rhino)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
         : (eng.multiAop ? engMax * aopState.unlocked : engMax);

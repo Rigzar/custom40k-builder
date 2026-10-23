@@ -502,12 +502,12 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     const melee = withCounts(g.weapons
-      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee' || w.range === '-') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));   // a '-' range with no Melee type (an explosion: Scarab explosion, Spore mine) still has to print, as the battle view does
     return { label: g.label, ranged, melee };
   }).concat(attachedDrones.map(({ drone, count }) => ({
     label: `${count}x ${nm(drone.name)}`,
     ranged: drone.weapons.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '').map(w => ({ ...w, name: `${count}x ${w.name}` })),
-    melee: drone.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee').map(w => ({ ...w, name: `${count}x ${w.name}` })),
+    melee: drone.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee' || w.range === '-').map(w => ({ ...w, name: `${count}x ${w.name}` })),
   })));
 
   // Build filter sets for optional abilities
@@ -926,7 +926,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     const melee = withCounts(g.weapons
-      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee' || w.range === '-') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));   // a '-' range with no Melee type (an explosion: Scarab explosion, Spore mine) still has to print, as the battle view does
     return { ranged, melee };
   });
   const ranged = weaponGroupsPrint.flatMap(g => g.ranged).concat(
@@ -936,7 +936,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
   );
   const melee  = weaponGroupsPrint.flatMap(g => g.melee).concat(
     attachedDrones.flatMap(({ drone, count }) => drone.weapons
-      .filter(w => w.range === 'Melee' || w.type === 'Melee')
+      .filter(w => w.range === 'Melee' || w.type === 'Melee' || w.range === '-')
       .map(w => ({ ...w, name: `${count}x ${w.name}` })))
   );
 

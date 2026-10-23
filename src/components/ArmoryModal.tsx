@@ -274,9 +274,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // `activeData` is the data this item's armoury comes from (the sibling gates below use it too).
   const isInquisition = activeData.faction === 'Inquisition';
   // (Imperial Navy 1.1 dropped the single-item pick from the Warrant of Trade: only the Inquisition keeps this tab.)
+  // Inquisition 1.4: Heretic and Iconoclast "Does not apply to Legendary Retinue" - a retinue keeps the Imperial list.
   const hasAuthorityTab = isInquisition;
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
-  const authorityFactions = archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
+  const authorityFactions = item.retinue ? IMPERIAL_AUTHORITY_FACTIONS
+    : archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
   // Level 1 — once per model: blocked once the squad already holds one copy per model (item.size),
   // unless desc says "Can be taken multiple times". For a true Character (is_character:true) or any

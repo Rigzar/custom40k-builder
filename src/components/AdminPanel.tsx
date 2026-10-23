@@ -72,6 +72,7 @@ const DEFAULT_SOURCE_IDS: Record<string, string> = {
   tyranids: '1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M', // see KNOWN GAP above
   horus_heresy: '1vRRoUGkH3HhzZYQk6_3Hp0pSlWGWb9BKaz3VrYfYmFU',
   legio_titanicus: '1SrBhi_8b77QwqoI03xNDxgOwgt-ePmqRQvA5dyquYtM',
+  legion_of_the_damned: '1E9D3ZeBKmXMw5Q6t8VHC1TwnPDCuy84W19hrSTpK85Q',
 };
 
 /** Every dataset the app can load, by key and display name (the "Find text" tab and the datasheet-text picker). */
