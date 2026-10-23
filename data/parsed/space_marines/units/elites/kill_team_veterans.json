@@ -102,7 +102,7 @@
             "s": "6",
             "ap": "0",
             "d": "1",
-            "abilities": "Armor piercing(5+), Blast(4)"
+            "abilities": "Blast(4), Piercing(5+)"
         },
         {
             "name": "Frag cannon - Solid round",
@@ -111,7 +111,7 @@
             "s": "7",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), AT(1)"
+            "abilities": "AT(1), Piercing(5+)"
         },
         {
             "name": "Infernus heavy bolter - Heavy bolter",

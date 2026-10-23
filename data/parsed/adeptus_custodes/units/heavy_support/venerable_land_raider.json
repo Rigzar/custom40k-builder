@@ -83,9 +83,9 @@
         }
     ],
     "abilities": [
-        "Shield Host",
+        "Shield Host, Ward(5+)",
         "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
-        "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 0).",
+        "Custodes Atomantic Shielding: Enemy attacks receive a -1 AT penalty (to a minimum of 0).",
         "Transport: This model has a transport capacity of 10 infantry models."
     ],
     "unit_type": "Vehicle",

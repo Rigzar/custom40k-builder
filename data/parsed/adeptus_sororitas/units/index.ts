@@ -38,6 +38,7 @@ import heavy_support_retributor_squad from './heavy_support/retributor_squad.jso
 import dedicated_transport_immolator from './dedicated_transport/immolator.json';
 import dedicated_transport_rhino from './dedicated_transport/rhino.json';
 import lords_of_war_triumphant_procession from './lords_of_war/triumphant_procession.json';
+import elites_armiger from './elites/armiger.json';
 
 export const faction = "Adeptus Sororitas";
 
@@ -64,7 +65,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Imagifier",
     "Paragon Warsuits",
     "Preacher",
-    "Repentia Squad"
+    "Repentia Squad",
+    "Armiger"
   ],
   "Fast Attack": [
     "Dominion Squad",
@@ -118,4 +120,5 @@ export const units: Record<string, Unit> = {
   "Immolator": dedicated_transport_immolator as Unit,
   "Rhino": dedicated_transport_rhino as Unit,
   "Triumphant Procession": lords_of_war_triumphant_procession as Unit,
+  "Armiger": elites_armiger as Unit,
 };

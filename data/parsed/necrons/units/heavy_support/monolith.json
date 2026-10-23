@@ -53,13 +53,13 @@
     ],
     "option_groups": [
         {
-            "header": "Can replace the four Gauss flux arcs",
+            "header": "Can replace the 4 Gauss flux arcs",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
-                    "name": "four Death rays",
+                    "name": "4 Death rays",
                     "points": 148
                 }
             ],

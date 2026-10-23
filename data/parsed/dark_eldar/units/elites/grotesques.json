@@ -20,7 +20,26 @@
             "points": 36
         }
     ],
-    "variant_models": [],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "5",
+                "T": "5",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "10",
+                "SV": "6+"
+            },
+            "name": "Aberration",
+            "min": 0,
+            "max": 1,
+            "points": 46
+        }
+    ],
     "equipped_with": "Every model is equipped with: Flesh gauntlet; Monstrous cleaver.",
     "weapons": [
         {
@@ -69,6 +88,16 @@
             "replaces": [
                 "Monstrous cleaver"
             ]
+        },
+        {
+            "header": "One model may be upgraded to an Aberration for +10 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Aberration",
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -84,7 +113,7 @@
     "is_monster": false,
     "is_psyker": false,
     "has_armory_access": false,
-    "champion_has_armory": false,
+    "champion_has_armory": true,
     "has_veteran_abilities": false,
     "veteran_required": false,
     "veteran_max": null,

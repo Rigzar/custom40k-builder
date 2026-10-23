@@ -78,7 +78,7 @@
     ],
     "abilities": [
         "Plotting: Every HQ selection may \"shoot\" the selected Sanctioned Bombardement in addition to their own weapons.",
-        "(In)accuracy: Sanctioned Bombardments always hit on a roll of 5+. This roll can never be modified."
+        "(In)accuracy: Sanctioned Bombardments always hit on a roll of 5+. This roll can never be modified or influenced by any means."
     ],
     "unit_type": "Infantry",
     "keywords": [],

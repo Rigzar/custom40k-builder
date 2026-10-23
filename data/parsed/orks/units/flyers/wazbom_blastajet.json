@@ -217,7 +217,7 @@
                     "points": 10,
                     "effect": {
                         "grants_abilities": [
-                            "Press the Button: Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Armor piercing(5+)\" for all weapons until the end of the battle round."
+                            "Press the Button: Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Piercing(5+)\" for all weapons until the end of the battle round."
                         ]
                     }
                 },

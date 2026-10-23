@@ -29,6 +29,7 @@ import heavy_support_telemon_heavy_dreadnought from './heavy_support/telemon_hea
 import heavy_support_venerable_land_raider from './heavy_support/venerable_land_raider.json';
 import dedicated_transport_null_maiden_rhino from './dedicated_transport/null-maiden_rhino.json';
 import dedicated_transport_coronus_grav_carrier from './dedicated_transport/coronus_grav_carrier.json';
+import elites_armiger from './elites/armiger.json';
 
 export const faction = "Adeptus Custodes";
 
@@ -49,7 +50,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Aquilon Custodians",
     "Galatus Contemptor Dreadnought",
     "Custodian Wardens",
-    "Venerable Contemptor Dreadnought",
+    "Venerable Contemptor Dreadnought",,
+    "Armiger"
   ],
   "Fast Attack": [
     "Vertus Praetors",
@@ -89,4 +91,5 @@ export const units: Record<string, Unit> = {
   "Venerable Land Raider": heavy_support_venerable_land_raider as Unit,
   "Null-Maiden Rhino": dedicated_transport_null_maiden_rhino as Unit,
   "Coronus Grav-carrier": dedicated_transport_coronus_grav_carrier as Unit,
+  "Armiger": elites_armiger as Unit,
 };

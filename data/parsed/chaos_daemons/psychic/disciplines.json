@@ -46,7 +46,7 @@
       "range": "18\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target may re-roll 1s for its ward saves.",
+      "effect": "The target may re-roll 1s for its ward saving throws.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -140,7 +140,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "5",
-      "effect": "Roll 1D6 for each Wound left in the target unit. On a 4+ it receives an automatic wound with S: 4 DS: 0 D: 1; Seeking.",
+      "effect": "Roll 1D6 for each Wound left in the target unit. On a 4+ it receives an automatic wound with S: 4 AP: 0 D: 1; Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },

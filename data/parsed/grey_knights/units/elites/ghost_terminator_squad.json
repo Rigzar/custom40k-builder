@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+    "equipped_with": "Every model is equipped with: Terminator Armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
     "weapons": [
         {
             "name": "Frag grenade",
@@ -93,7 +93,7 @@
             "s": "7",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+            "abilities": "AT(1), Piercing(5+), Shield breaker(-1)"
         },
         {
             "name": "Storm bolter",
@@ -179,9 +179,8 @@
         }
     ],
     "abilities": [
-        "Aegis(5+), Deep Strike, Massive(1), Stealth, They Shall Know No Fear, True Grit, Unyielding",
-        "Incorporeal: The unit ignores terrain and units when moving. Additionally, the unit must land at least 6\" away from other units (friendly or enemy) when using Deep Strike and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
-        "Terminator armor: The model gains a 5+ ward save."
+        "Aegis(5+), Deep Strike, Massive(1), Stealth, They Shall Know No Fear, True Grit, Unyielding, Ward(5+)",
+        "Incorporeal: The unit ignores terrain and units when moving. Additionally, the unit must land at least 6\" away from other units (friendly or enemy) when using Deep Strike and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model."
     ],
     "unit_type": "Infantry",
     "keywords": [],

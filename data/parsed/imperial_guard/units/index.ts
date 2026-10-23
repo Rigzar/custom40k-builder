@@ -84,6 +84,8 @@ import flyers_avenger from './flyers/avenger.json';
 import flyers_lightning from './flyers/lightning.json';
 import flyers_thunderbolt from './flyers/thunderbolt.json';
 import flyers_vulture from './flyers/vulture.json';
+import elites_armiger from './elites/armiger.json';
+import elites_war_dog from './elites/war_dog.json';
 
 export const faction = "Imperial Guard";
 
@@ -127,7 +129,9 @@ export const slot_to_units: Record<string, string[]> = {
     "Special Weapon Squad",
     "Stormtrooper Command Squad",
     "Stormtroopers",
-    "Veterans"
+    "Veterans",
+    "Armiger",
+    "War Dog"
   ],
   "Fast Attack": [
     "Armoured Sentinel",
@@ -257,4 +261,6 @@ export const units: Record<string, Unit> = {
   "Lightning": flyers_lightning as Unit,
   "Thunderbolt": flyers_thunderbolt as Unit,
   "Vulture": flyers_vulture as Unit,
+  "Armiger": elites_armiger as Unit,
+  "War Dog": elites_war_dog as Unit,
 };

@@ -492,7 +492,7 @@
       "name": "Mechanical steed",
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +1 Strength +1 Toughness, +1 Wound, +1 Attack and the type \"Bike\". For infantry only.",
-      "p_unit": null,
+      "p_unit": 9,
       "p_char": 20
     },
     {

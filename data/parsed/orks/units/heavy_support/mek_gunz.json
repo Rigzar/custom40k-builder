@@ -166,9 +166,8 @@
         }
     ],
     "abilities": [
-        "Squadron",
+        "Squadron, Swarm",
         "Bubbles: When a unit shoots with this weapon, before selecting a target roll a D6. On a result of 1-2, all bubblechukkas in the unit must use the \"Weedy\" profile. On a result of 3-4, they must all use the \"Big\" profile. On a result of 5-6, they must all ust the \"'Uge\" profile.",
-        "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit\u2019s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
         "Traktor kannon: Attacks against vehicles receive an additional +1 bonus on hit rolls."
     ],
     "unit_type": "Infantry",

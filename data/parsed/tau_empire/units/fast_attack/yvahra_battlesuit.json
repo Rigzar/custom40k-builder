@@ -75,7 +75,7 @@
             "s": "5",
             "ap": "-1",
             "d": "1",
-            "abilities": "Armor piercing(5+), Auto Hit, Sunder(1)"
+            "abilities": "Auto Hit, Piercing(5+), Sunder(1)"
         },
         {
             "name": "Phased plasma flamer - Nova-charge",
@@ -84,7 +84,7 @@
             "s": "6",
             "ap": "-1",
             "d": "2",
-            "abilities": "Armor piercing(5+), Auto Hit, Overheating, Sunder(1)"
+            "abilities": "Auto Hit, Overheating, Piercing(5+) Sunder(1)"
         }
     ],
     "option_groups": [
@@ -101,10 +101,9 @@
         }
     ],
     "abilities": [
-        "Supporting Fire",
+        "Supporting Fire, Ward(5+)",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius.",
-        "Y'vahra shield generator: The model has a 5+ ward save."
+        "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius."
     ],
     "unit_type": "Jump pack, Monstrous Creature",
     "keywords": [],

@@ -103,9 +103,8 @@
         }
     ],
     "abilities": [
-        "Anti-Grav, Fearless, Massive(1), Synapse",
-        "Psyker: The Neurothrope can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
-        "Warp Barrier: The model gains a 4+ ward save."
+        "Anti-Grav, Fearless, Massive(1), Synapse, Ward(4+)",
+        "Psyker: The Neurothrope can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline."
     ],
     "unit_type": "Monstrous Infantry",
     "keywords": [

@@ -122,8 +122,7 @@
         }
     ],
     "abilities": [
-        "Unyielding",
-        "Bionics: The model gains a 6+ ward save.",
+        "Unyielding, Ward(6+)",
         "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls."
     ],
     "unit_type": "Infantry",

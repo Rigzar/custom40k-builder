@@ -44,11 +44,10 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Blank, Deep Strike, Hit & Run, Infiltrator, Move through cover",
+        "Blank, Deep Strike, Hit & Run, Infiltrator, Move through cover, Ward(4+)",
         "Animus Speculum: If a psyker is within 18\" range, the type changes to \"Assault 6\"",
         "Assassin: If all attacks are resolved against a single model, the model may re-roll all to hit rolls.",
-        "Etherium: The Culexus can never be hit on anything better but a natural roll of 6.",
-        "Lightning reflexes: The model gains a 4+ ward save."
+        "Etherium: The Culexus can never be hit on anything better but a natural roll of 6."
     ],
     "unit_type": "Infantry",
     "keywords": [],

@@ -193,8 +193,7 @@
         }
     ],
     "abilities": [
-        "Deep strike, Massive(2), Unyielding",
-        "Saturnine Terminator armor: The model gains a 4+ ward save."
+        "Deep strike, Massive(2), Unyielding, Ward(4+)"
     ],
     "unit_type": "Infantry",
     "keywords": [],

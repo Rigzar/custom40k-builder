@@ -26,18 +26,18 @@
                 "M": "6\"",
                 "WS": "3+",
                 "BS": "3+",
-                "S": "5",
-                "T": "5",
-                "W": "3",
+                "S": "4",
+                "T": "4",
+                "W": "2",
                 "I": "3",
                 "A": "2",
                 "LD": "10",
                 "SV": "4+"
             },
-            "name": "Dynasty Scion",
+            "name": "Arcanomancer",
             "min": 0,
             "max": 1,
-            "points": 44
+            "points": 107
         },
         {
             "stats": {
@@ -80,18 +80,18 @@
                 "M": "6\"",
                 "WS": "3+",
                 "BS": "3+",
-                "S": "4",
-                "T": "4",
-                "W": "2",
+                "S": "5",
+                "T": "5",
+                "W": "3",
                 "I": "3",
                 "A": "2",
                 "LD": "10",
                 "SV": "4+"
             },
-            "name": "Ethermancer",
+            "name": "Dynasty Scion",
             "min": 0,
             "max": 1,
-            "points": 60
+            "points": 44
         },
         {
             "stats": {
@@ -106,10 +106,10 @@
                 "LD": "10",
                 "SV": "4+"
             },
-            "name": "Technomancer",
+            "name": "Ethermancer",
             "min": 0,
             "max": 1,
-            "points": 65
+            "points": 60
         },
         {
             "stats": {
@@ -164,9 +164,27 @@
             "min": 0,
             "max": 1,
             "points": 86
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "10",
+                "SV": "4+"
+            },
+            "name": "Technomancer",
+            "min": 0,
+            "max": 1,
+            "points": 65
         }
     ],
-    "equipped_with": "A Cryptek is equipped with: -. A Chronomancer is equipped with: Aeonstave. A Dynasty Scion is equipped with: -. A Psychomancer is equipped with: Abyssal lance. A Plasmancer is equipped with: Plasmic lance. An Ethermancer is equipped with: Voltaic staff. A Geomancer is equipped with: Tremorstave. An Astromancer is equipped with: Staff of Time. A Technomancer is equipped with: Staff of Light. An Arcanomancer is equipped with: Eldritch lance.",
+    "equipped_with": "A Chronomancer is equipped with: Aeonstave. A Cryptek is equipped with: -. A Dynasty Scion is equipped with: -. A Geomancer is equipped with: Tremorstave. A Plasmancer is equipped with: Plasmic lance. A Psychomancer is equipped with: Abyssal lance. A Technomancer is equipped with: Staff of Light. An Arcanomancer is equipped with: Eldritch lance. An Astromancer is equipped with: Staff of Time. An Ethermancer is equipped with: Voltaic staff.",
     "weapons": [
         {
             "name": "Abyssal lance",
@@ -371,6 +389,7 @@
     "abilities": [
         "Command squad, Regeneration(1)",
         "Royal Court: If an Overlord is present, up to four Crypteks can be chosen that do not occupy an HQ slot. If a Lord is present, up to two Crypteks can be chosen that do not occupy an HQ slot.",
+        "Arcanomancer: Empyric Overcharger and Illuminor double their range when used by this model.",
         "Astromancer: Prescient strike grants this model 2 re-rolls each. Additionally, this model's rolls for \"The Stars Are Right\" are always reduced by 1 (to a minimum of 0).",
         "Chronomancer: A Chronometron's ability may be used for this model or its attached unit. Additionally, a Timesplinter mantle grants \"Deflect\" and \"Parry\" to this model and its attached unit.",
         "Dynasty Scion: The model gains an improved profile (see above) and has additionally access to Lord equipment in the Armory.",
@@ -378,7 +397,6 @@
         "Geomancer: A Harp of Dissonance used by this model has unlimited range. Additionally, a Seismic crucible grants its effect to this model and its attached unit.",
         "Plasmancer: A Gaze of Flame's effect may be used for this model and its attached unit. Additionally, this model and its attached unit are not affected by a Solar Pulse.",
         "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness scatters 1D6 less (so normally only 1D6\") when used by this model.",
-        "Arcanomancer: Empyric Overcharger and Illuminor double their range when used by this model.",
         "Technomancer: A Canoptek Cloak used by this model may repair 2 Wounds or 2 vehicle damage results per turn. Additionally, it may use a Canoptek Control Node a second time each activation."
     ],
     "unit_type": "Character model, Infantry",

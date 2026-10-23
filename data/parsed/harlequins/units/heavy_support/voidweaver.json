@@ -90,8 +90,7 @@
         }
     ],
     "abilities": [
-        "Anti-Grav, Fast, Open, Squadron, <Harlequins>",
-        "Holo-suit: The model gains a 4+ ward save.",
+        "Anti-Grav, Fast, Open, Squadron, <Harlequins>, Ward(4+)",
         "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of light cover."
     ],
     "unit_type": "Vehicle",

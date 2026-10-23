@@ -46,8 +46,8 @@
         }
     ],
     "abilities": [
-        "Command Squad",
-        "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+        "Advisor, Command Squad",
+        "Statutory Execution: Each time time a friendly Imperial Guard unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

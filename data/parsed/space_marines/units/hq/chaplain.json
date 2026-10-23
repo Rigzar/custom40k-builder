@@ -98,10 +98,9 @@
         }
     ],
     "abilities": [
-        "They Shall Know No Fear",
+        "They Shall Know No Fear, Ward(4+)",
         "Faithful: May recite 1 prayer per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
-        "Master of Sanctity: A Master of Sanctity may recite 1 additional prayer per battle round.",
-        "Rosarius: The model receives a 4+ ward save."
+        "Master of Sanctity: A Master of Sanctity may recite 1 additional prayer per battle round."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

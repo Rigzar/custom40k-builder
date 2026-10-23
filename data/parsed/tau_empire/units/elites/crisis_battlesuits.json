@@ -17,7 +17,7 @@
             "name": "Crisis Shas'ui",
             "min": 2,
             "max": 6,
-            "points": 37
+            "points": 38
         }
     ],
     "variant_models": [
@@ -37,7 +37,7 @@
             "name": "Crisis Shas'vre",
             "min": 0,
             "max": 1,
-            "points": 42
+            "points": 43
         }
     ],
     "equipped_with": "All models are equipped with: -.",
@@ -223,5 +223,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 2,
-    "min_cost": 74
+    "min_cost": 76
 }

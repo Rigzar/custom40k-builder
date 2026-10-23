@@ -35,9 +35,8 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Command squad",
-        "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
-        "Rosarius: This model has a 4+ ward save."
+        "Command squad, Ward(4+)",
+        "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

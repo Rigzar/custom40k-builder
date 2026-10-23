@@ -17,7 +17,7 @@
             "name": "Crisis Shas'ui",
             "min": 2,
             "max": 6,
-            "points": 40
+            "points": 49
         }
     ],
     "variant_models": [
@@ -37,7 +37,7 @@
             "name": "Crisis Shas'vre",
             "min": 0,
             "max": 1,
-            "points": 45
+            "points": 54
         }
     ],
     "equipped_with": "All models are equipped with: -.",
@@ -278,7 +278,7 @@
         }
     ],
     "abilities": [
-        "Bodyguard, Supporting Fire",
+        "Advisor, Bodyguard, Supporting Fire",
         "XV22-2 Stalker: The models gains the \"Infiltrator\" and \"Stealth\" ability.",
         "XV85-2 Enforcer: The model gains a 2+ armor save. Additionally, it may select one more weapon or support system.",
         "XV86-2 Coldstar: The models gains the \"Jetbike\" unit type and the \"Hit & Run\" ability.",
@@ -299,5 +299,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 2,
-    "min_cost": 80
+    "min_cost": 98
 }

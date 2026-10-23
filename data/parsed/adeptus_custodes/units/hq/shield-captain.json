@@ -147,10 +147,9 @@
         }
     ],
     "abilities": [
-        "Massive(1), Shield Host",
-        "Allarus terminator armor: The model gains +1 Toughness, +1 Attack, a 4+ ward save and the \"Deep Strike\" and \"Unyielding\" abilities.",
-        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
-        "Custodian armor: The model gains a 5+ ward save."
+        "Massive(1), Shield Host, Ward(5+)",
+        "Allarus terminator armor: The model gains +1 Toughness, +1 Attack and the \"Deep Strike\", \"Unyielding\" and \"Ward(4+)\" abilities.",
+        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

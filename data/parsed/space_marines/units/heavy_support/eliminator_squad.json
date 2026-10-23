@@ -76,7 +76,7 @@
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), Sniper, Sunder(2), Suppression(6)"
+            "abilities": "Piercing(5+), Sniper, Sunder(2), Suppression(6)"
         },
         {
             "name": "Bolt sniper rifle - Hyper frag ammo",
@@ -157,7 +157,7 @@
         }
     ],
     "abilities": [
-        "Infiltrator, Move through cover, Stealth, They Shall Know No Fear"
+        "Combat squads, Infiltrator, Move through cover, Stealth, They Shall Know No Fear"
     ],
     "unit_type": "Infantry",
     "keywords": [],

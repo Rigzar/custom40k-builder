@@ -35,8 +35,7 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>",
-        "Holo-suit: The model gains a 4+ ward save.",
+        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>, Ward(4+)",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
     ],
     "unit_type": "Character model, Infantry",

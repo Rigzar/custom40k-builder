@@ -103,7 +103,7 @@
             "s": "U",
             "ap": "-3",
             "d": "2",
-            "abilities": "Armor piercing(5+), AT(1)"
+            "abilities": "AT(1), Piercing(5+)"
         },
         {
             "name": "Prehensile pincer",
@@ -388,10 +388,9 @@
         }
     ],
     "abilities": [
-        "Fearless, Move Through Cover, Synapse",
+        "Fearless, Move Through Cover, Synapse, Ward(4+)",
         "Legendary Hive Tyrant: Must select a specialisation and may select a second one.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
-        "Warp Barrier: The model gains a 4+ ward save.",
         "Alien Cunning: You may decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players in each phase.",
         "Hive Commander: Select two units from your army. Both gain the \"Outflank\" ability.",
         "Indescribable Horror: Units taking a Leadership test caused by this model must roll an extra dice when taking the test and use the highest two results. In most circumstances, this will mean the unit rolls 3D6 and discards the lowest dice roll.",

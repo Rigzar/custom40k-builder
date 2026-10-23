@@ -85,7 +85,7 @@
             "s": "+1",
             "ap": "-4",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Triskele - Shooting",
@@ -94,7 +94,16 @@
             "s": "4",
             "ap": "-4",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
+        },
+        {
+            "name": "Sun pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Precision(5+)"
         }
     ],
     "option_groups": [
@@ -223,6 +232,24 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": true
+        },
+        {
+            "header": "All remaining models can swap their Shuriken pistols",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Sun pistol",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Shuriken pistol"
+            ]
         }
     ],
     "abilities": [

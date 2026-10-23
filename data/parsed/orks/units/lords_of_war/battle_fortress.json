@@ -48,7 +48,7 @@
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Blast(4)"
+      "abilities": "AT(3), Blast(4)"
     },
     {
       "name": "Deff kannon",
@@ -138,7 +138,7 @@
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Anti-air, AT(2)"
+      "abilities": "AT(2), Anti-air"
     },
     {
       "name": "Skorcha",
@@ -156,7 +156,7 @@
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "Blast(8), Indirect"
+      "abilities": "AT(1), Blast(8), Indirect"
     },
     {
       "name": "Supa-kannon",
@@ -192,7 +192,7 @@
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(2), Anti-air"
+      "abilities": "AT(2)"
     },
     {
       "name": "Zzap gun",

@@ -67,7 +67,7 @@
       ]
     },
     {
-      "name": "Death's head grenade",
+      "name": "Death's head grenades",
       "term_compat": false,
       "range": "6\"",
       "type": "Grenade 1",
@@ -263,8 +263,8 @@
         "Infantry"
       ],
       "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
-      "p_unit": null,
-      "p_char": 76
+      "p_unit": 46,
+      "p_char": 79
     },
     {
       "name": "Cloud of flies",

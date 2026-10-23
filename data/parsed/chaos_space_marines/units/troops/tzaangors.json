@@ -120,21 +120,21 @@
             "is_unique_per_army": false
         },
         {
-            "header": "Each model's Autopistol and Chainsword may be replaced",
+            "header": "Each model's Warp autopistol and Chainsword may be replaced",
             "constraint": {
                 "type": "every"
             },
             "choices": [
                 {
                     "name": "Eldritch shield and Tzaangor blade",
-                    "points": 2
+                    "points": 0
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Autopistol",
+                "Warp autopistol",
                 "Chainsword"
             ]
         },

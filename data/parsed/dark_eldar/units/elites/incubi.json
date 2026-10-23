@@ -43,6 +43,15 @@
     "equipped_with": "Every Incubi is equipped with: Klaive. The Klaivex is equipped with: Demiklaives.",
     "weapons": [
         {
+            "name": "Bloodstone",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(2)"
+        },
+        {
             "name": "Demiklaives - Dual blades",
             "range": "-",
             "type": "Melee",
@@ -80,11 +89,58 @@
             "inline_pts": 22,
             "variant_link": "Klaivex",
             "is_unique_per_army": false
+        },
+        {
+            "header": "The Klaivex can be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Bloodstone",
+                    "points": 19
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "applies_to_model": "Klaivex"
+        },
+        {
+            "header": "The Klaivex can be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Murderous Assault",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Murderous Assault: If all attacks are resolved against a single model, the model may re-roll all to hit rolls."
+                        ]
+                    }
+                },
+                {
+                    "name": "Onslaught",
+                    "points": 15,
+                    "effect": {
+                        "grants_abilities": [
+                            "Onslaught: All melee attacks of the model and its unit gain the \"Deflagrate(5)\" ability."
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "applies_to_model": "Klaivex"
         }
     ],
     "abilities": [
-        "Power through Pain",
-        "Aspect armor: The model gains a 5+ ward save.",
+        "Power through Pain, Ward(5+)",
+        "Murderous Assault: If all attacks are resolved against a single model, the model may re-roll all to hit rolls.",
+        "Onslaught: All melee attacks of the model and its unit gain the \"Deflagrate(5)\" ability.",
         "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
     ],
     "unit_type": "Infantry",

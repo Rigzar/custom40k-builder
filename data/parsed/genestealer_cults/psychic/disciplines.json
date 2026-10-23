@@ -68,7 +68,7 @@
       "range": "12\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target unit gains a 5+ ward save.",
+      "effect": "The target unit gains Ward(5+).",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

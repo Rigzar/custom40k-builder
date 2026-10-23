@@ -40,7 +40,7 @@
             "points": 174
         }
     ],
-    "equipped_with": "A Librarian is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+    "equipped_with": "A Librarian is equipped with: Terminator Armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
     "weapons": [
         {
             "name": "Frag grenade",
@@ -137,11 +137,10 @@
         }
     ],
     "abilities": [
-        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding, Ward(5+)",
         "Chief Librarian: The model can manifest and deny 1 additional power per turn.",
         "Psychic hood: The models gains a +1 bonus to deny psychic powers.",
-        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline.",
-        "Terminator armor: The model gains a 5+ ward save."
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

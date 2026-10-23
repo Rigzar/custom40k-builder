@@ -55,9 +55,8 @@
         }
     ],
     "abilities": [
-        "Anti-grav, Deflect, Parry, Terrifying(-1), <Harlequins>",
-        "Cegorach\u2019s Favour: The model may re-roll any one die per activation.",
-        "Holo-suit: The model gains a 4+ ward save."
+        "Anti-grav, Deflect, Parry, Terrifying(-1), <Harlequins>, Ward(4+)",
+        "Cegorach\u2019s Favour: The model may re-roll any one die per activation."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

@@ -39,7 +39,7 @@
       "s": "D",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(3), Deadly(5+), Auto Hit, Sunder(1), Graviton"
+      "abilities": "AT(3), Auto Hit, Deadly(5+), Graviton, Sunder(1)"
     },
     {
       "name": "Shuriken cannon",

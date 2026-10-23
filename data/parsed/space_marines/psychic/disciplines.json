@@ -36,7 +36,7 @@
       "range": "12\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target gains a 5+ ward save.",
+      "effect": "The target gains Ward(5+).",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -56,7 +56,7 @@
       "range": "6\" radius",
       "target": "Self",
       "cast_value": "7",
-      "effect": "All enemy units in range lose their ward save. Psychic test results from enemy units are halved.",
+      "effect": "All enemy units in range lose their ward saving throw. Psychic test results from enemy units are halved.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }
@@ -88,7 +88,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target suffers one automatic hit per model with S: 3 AP: 0 D: 1; Armor piercing(5+), Grav, Seeking.",
+      "effect": "The target suffers one automatic hit per model with S: 3 AP: 0 D: 1; Grav, Piercing(5+), Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -232,7 +232,7 @@
       "range": "18\"",
       "target": "Target point",
       "cast_value": "7",
-      "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; AT(2), Armorbane(1), Seeking. Vehicles are hit twice.",
+      "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; Armorbane(1), AT(2), Seeking. Vehicles are hit twice.",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -242,7 +242,7 @@
       "range": "12\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target unit gains a 5+ ward save.",
+      "effect": "The target unit gains Ward(5+).",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }
@@ -388,7 +388,7 @@
       "range": "18\"",
       "target": "Target point",
       "cast_value": "7",
-      "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; AT(2), Armorbane(1), Seeking. Vehicles are hit twice.",
+      "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; Armorbane(1), AT(2), Seeking. Vehicles are hit twice.",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -460,7 +460,7 @@
       "range": "-",
       "target": "Self",
       "cast_value": "5",
-      "effect": "The target gains a 4+ ward save.",
+      "effect": "The target gains Ward(4+).",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

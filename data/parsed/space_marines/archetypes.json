@@ -2,7 +2,7 @@
   "archetypes": [
     {
       "name": "1st Company",
-      "desc": "The army may only consist of the following units:\n- 1x Captain Dreadnought or 1x Lieutenant, 1x Chaplain or 1x Chaplain Dreadnought, 1x Emperor's Champion, 1x Librarian or 1x Librarian Dreadnought\n- 1x Ancient, 1x Apothecary, Deathwing Knights, Dreadnoughts (including variants), Honor Guard, 1x Judiciar, 1x Company Champion, Terminators, 1x Techmarine\n- Land Raider (including variants), Repulsor (including variants)\n- Drop Pods\n- HQ models must gain their \"once per army\" upgrade, if possible.\n- Honor Guard and Terminators can be taken as Troops.\n- Honor Guard units are not limited to 1x per HQ selection anymore.\n- All units gain the special rule \"Objective secured!\"."
+      "desc": "The army may only consist of the following units:\n- 1x Captain Dreadnought or 1x Lieutenant, 1x Chaplain or 1x Chaplain Dreadnought, 1x Emperor's Champion, 1x Librarian or 1x Librarian Dreadnought\n- 1x Ancient, 1x Apothecary, Deathwing Knights, Dreadnoughts (including variants), Honor Guard, 1x Judiciar, 1x Company Champion, Terminators, 1x Techmarine\n- Land Raider (including variants), Repulsor (including variants)\n- Drop Pods\n- HQ models must gain their \"once per army\" upgrade, if possible.\n- Deathwing Knights, Honor Guard and Terminators May be taken as Troops.\n- Honor Guard units are not limited to 1x per HQ selection anymore.\n- All units gain the special rule \"Objective secured!\"."
     },
     {
       "name": "Chamber Militant",
@@ -22,8 +22,13 @@
       "desc": "The army may only consist of the following units:\n- Creature units with the \"Black Rage\" equipment (see Blood Angels Armory).\n- Dreadnoughts, Redemptor Dreadnoughts.\n- Drop Pods, Impulsors, Razorbacks, Rhinos.\n- Death Company units May be taken as Troops and are not limited to one per army anymore."
     },
     {
+      "name": "Legion of the Damned",
+      "desc": "- The army has only access to units from the Legion of the Damned supplement.\n- May not select any Traits.",
+      "skirmish": false
+    },
+    {
       "name": "Legion SM",
-      "desc": "- The army has access to everything from the Horus Heresy Space Marines supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation.",
+      "desc": "- The army has access to everything from the Horus Heresy Legiones Astartes supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation.",
       "skirmish": true
     },
     {
@@ -67,7 +72,7 @@
       "armory_key": "Black Templars"
     },
     {
-      "name": "Legacy of the Damned",
+      "name": "Legacy of the Relic Hunters",
       "desc": "The army has access to the Relictors Armory.",
       "armory_key": "Relictors"
     },
@@ -110,7 +115,7 @@
   "traits": [
     {
       "name": "Blitz Attack",
-      "desc": "The unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+      "desc": "The unit may fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -155,7 +160,7 @@
     },
     {
       "name": "Cursed Founding",
-      "desc": "Select one improvement that must be applied to any creature unit:\n- Apparitions: The unit gains the \"Deep Strike\" ability and must use it during the DEPLOYMENT PHASE instead of being set up as normal. It can deep strike anywhere that isn't the enemy's deployment zone, but can scatter into it. Additionally, the unit gains the \"Warded\" ability.\n- Aura of Doom: The unit gains the \"Terrifying(-2)\" ability.\n- Berserkers: The unit gains the \"Blind Rage\" ability.\n- Immolation: The model gains the \"Retribution(2)\" ability.\n- Ossific Blades: The model gains the \"Ossific Blades\" weapon. (See Armory).",
+      "desc": "Select one improvement that must be applied to any creature unit:\n- Apparitions: The unit gains the \"Deep Strike\" ability and must use it during the DEPLOYMENT PHASE instead of being set up as normal. It may deep strike anywhere that isn't the enemy's deployment zone, but may scatter into it. Additionally, the unit gains the \"Warded\" ability.\n- Aura of Doom: The unit gains the \"Terrifying(-2)\" ability.\n- Berserkers: The unit gains the \"Blind Rage\" ability.\n- Immolation: The model gains the \"Retribution(2)\" ability.\n- Ossific Blades: The model gains the \"Ossific Blades\" weapon. (See Armory).",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -164,7 +169,7 @@
     },
     {
       "name": "Forged in Battle",
-      "desc": "The unit can re-roll one armor penetration or wound roll per activation.",
+      "desc": "The unit may re-roll one armor penetration or wound roll per activation.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -173,7 +178,7 @@
     },
     {
       "name": "Knowledge is Power",
-      "desc": "The model can re-roll one psychic test per activation. Only for Psykers.",
+      "desc": "The model may re-roll one psychic test per activation. Only for Psykers.",
       "pts_unit": "-",
       "pts_char": "0",
       "pts_monster": "5",
@@ -182,7 +187,7 @@
     },
     {
       "name": "Path of Damnation",
-      "desc": "One model of the army must gain the \"Demon weapon\" equipment from the \"Chaos Space Marines\" codex to enhance one of its weapons (chosen from the Space Marine codex). The Demon weapon ability can be from any Armory.",
+      "desc": "One model of the army must gain the \"Demon weapon\" equipment from the \"Chaos Space Marines\" codex to enhance one of its weapons (chosen from the Space Marine codex). The Demon weapon ability May be from any Armory.",
       "pts_unit": "-",
       "pts_char": "Special",
       "pts_monster": "-",
@@ -191,7 +196,7 @@
     },
     {
       "name": "Purity above All",
-      "desc": "One non-character model per squad with access to gear from the Armory can be upgraded to an Apothecary and gains the \"Narthecium\" ability.",
+      "desc": "One non-character model per squad with access to gear from the Armory May be upgraded to an Apothecary and gains the \"Narthecium\" ability.",
       "pts_unit": "5",
       "pts_char": "-",
       "pts_monster": "-",
@@ -209,7 +214,7 @@
     },
     {
       "name": "Red Thirst",
-      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round.",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round. Only for creature models and Walkers.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -218,7 +223,7 @@
     },
     {
       "name": "Righteous Wrath",
-      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability. Only for creature models and Walkers.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -236,7 +241,7 @@
     },
     {
       "name": "Sons of Mars",
-      "desc": "One non-character model per squad with access to gear from the Armory can be upgraded to a Techmarine and gains the \"Blessing of the Omnissiah\" ability.",
+      "desc": "One non-character model per squad with access to gear from the Armory May be upgraded to a Techmarine and gains the \"Blessing of the Omnissiah\" ability.",
       "pts_unit": "5",
       "pts_char": "-",
       "pts_monster": "-",
@@ -245,7 +250,7 @@
     },
     {
       "name": "Stalwart",
-      "desc": "The unit can reroll one armor save per battle round. Only for creature models.",
+      "desc": "The unit may reroll one armor save per battle round. Only for creature models.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -272,7 +277,7 @@
     },
     {
       "name": "The Flesh is Weak",
-      "desc": "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have a ward save from their datasheet or Armory.",
+      "desc": "Creature models gain Ward(6+). Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
       "pts_unit": "2*",
       "pts_char": "0",
       "pts_monster": "5*",
@@ -281,7 +286,7 @@
     },
     {
       "name": "Unleashed Hunters",
-      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round. Only for creature models and Walkers.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

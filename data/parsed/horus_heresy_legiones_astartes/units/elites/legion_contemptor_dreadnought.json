@@ -30,7 +30,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Conversion beamer - Short range",
@@ -111,7 +111,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Missile launcher - Frag missile",
@@ -356,8 +356,7 @@
         }
     ],
     "abilities": [
-        "Squadron",
-        "Atomantic Shielding: The model has a 5+ ward save.",
+        "Squadron, Ward(5+)",
         "Furioso: If the model has two melee weapons, it gains +2 attacks."
     ],
     "unit_type": "Vehicle, Walker",
