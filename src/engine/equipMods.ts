@@ -723,6 +723,12 @@ export function parseInvSaveFromAbilities(abilities: string[]): number | null {
         if (best === null || 4 < best) best = 4;
       }
     }
+    // "Ward(X+)": the sheets now write the ward save as an ability with a value (Unwise, 2026-10), alone or inside a
+    // comma-joined line ("Battle Focus, Fast, Ward(4+)"). The old sentence form above still works for sheets not moved yet.
+    for (const m of ab.matchAll(/\bWard\((\d)\+\)/gi)) {
+      const v = parseInt(m[1]);
+      if (!isNaN(v) && (best === null || v < best)) best = v;
+    }
     // "Berserk(X+)" → X+
     const berserk = ab.match(/\bBerserk\((\d)\+\)/i);
     if (berserk) {

@@ -48,6 +48,16 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Armor Piercing({X})',
     description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and a +2 bonus for armor penetration rolls.',
   },
+  // The authors renamed Armor piercing(x+) to Piercing(x+) in every sheet (2026-10). Both names are kept: sheets and saved data move at different times.
+  'piercing': {
+    name: 'Piercing({X})',
+    description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and a +2 bonus for armor penetration rolls.',
+  },
+  // New in the sheets (Unwise, 2026-10): the ward save as an ability with a value, replacing the sentences "The model gains a 5+ ward save".
+  'ward': {
+    name: 'Ward({X})',
+    description: 'The model has a ward save of {X}. Ward saves are unaffected by AP and may be attempted if the normal save fails.',
+  },
   'at': {
     name: 'AT({X})',
     description: 'Can cause Penetrating Hits. On a Penetrating Hit, roll {X} dice on the Vehicle Damage Chart and apply all results.',
