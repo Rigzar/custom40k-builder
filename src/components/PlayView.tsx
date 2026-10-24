@@ -31,6 +31,7 @@ import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
 import { nm, rl } from '../utils/localName';
+import { AbilityTokens } from './AbilityTokens';
 
 const STAT_INF = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV'];
 const STAT_VEH = ['M', 'WS', 'BS', 'S', 'FRONT', 'SIDE', 'REAR', 'I', 'A', 'HP'];
@@ -63,7 +64,7 @@ function WeaponTable({ rows, title }: { rows: Weapon[]; title: string }) {
                 <td className="text-zinc-300 text-right px-1 tabular-nums">{w.s}</td>
                 <td className="text-zinc-300 text-right px-1 tabular-nums">{w.ap}</td>
                 <td className="text-zinc-300 text-right px-1 tabular-nums">{w.d}</td>
-                <td className="text-zinc-500 px-1">{w.abilities && w.abilities !== '-' ? rl(w.abilities) : ''}</td>
+                <td className="text-zinc-500 px-1">{w.abilities && w.abilities !== '-' ? <AbilityTokens text={w.abilities} /> : ''}</td>
               </tr>
             ))}
           </tbody>

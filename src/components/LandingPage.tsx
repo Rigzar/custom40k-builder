@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186k_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186l_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -70,6 +70,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au Empire","Updated to the T'au 1.9 sheet: more Wounds, Strength and Toughness on the battlesuits, new points, Shield, Missile and Stealth Drones changed, Armory items repriced."],
         ["Rules","Hover an ability in a weapon table to read its rule. Monotask, Choir Master and upgrade choices now show their text."],
         ["Assassins","Callidus and Vindicare gain Hunter; the Callidus loses Polymorphine."],
+        ["Phones","Tap an ability in a weapon table to read its rule (also in the battle view). Saved lists fit a narrow screen."],
         ["Accounts","You can change your own username from Account security."],
         ["Print","Abilities a trait gives (Torturous Efficiency, Awakened by Murder...) are now explained in the printed Special Rules."],
         ["Eldar","Aspect Focus now makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
@@ -96,6 +97,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au","An die T'au-Tabelle 1.9 angepasst: mehr Wunden, Stärke und Widerstand bei den Kampfanzügen, neue Punkte, Schild-, Raketen- und Tarndrohnen geändert, Rüstkammer neu bepreist."],
         ["Regeln","Fahre in einer Waffentabelle über eine Fähigkeit, um ihre Regel zu lesen. Monotask, Choir Master und Upgrade-Optionen zeigen jetzt ihren Text."],
         ["Assassinen","Callidus und Vindicare erhalten Hunter; der Callidus verliert Polymorphine."],
+        ["Handy","Tippe in einer Waffentabelle auf eine Fähigkeit, um ihre Regel zu lesen (auch in der Kampfansicht). Gespeicherte Listen passen auf schmale Bildschirme."],
         ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
         ["Druck","Fähigkeiten, die ein Wesenszug gewährt (Torturous Efficiency, Awakened by Murder ...), werden jetzt in den gedruckten Spezialregeln erklärt."],
         ["Eldar","Aspect Focus macht die Dark Reapers jetzt zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
@@ -122,6 +124,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au","Actualizado a la hoja T'au 1.9: más Heridas, Fuerza y Resistencia en los trajes, puntos nuevos, Drones Escudo, de Misiles y Sigilo cambiados, Armería con precios nuevos."],
         ["Reglas","Pasa el ratón sobre una habilidad de una tabla de armas para leer su regla. Monotask, Choir Master y las opciones de mejora ya muestran su texto."],
         ["Asesinos","Callidus y Vindicare ganan Hunter; el Callidus pierde Polymorphine."],
+        ["Móvil","Toca una habilidad en una tabla de armas para leer su regla (también en la vista de batalla). Las listas guardadas caben en pantallas estrechas."],
         ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
         ["Impresión","Las habilidades que da un rasgo (Torturous Efficiency, Awakened by Murder...) ya se explican en las Reglas especiales impresas."],
         ["Eldar","Aspect Focus ahora convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
@@ -148,6 +151,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["T'au","Обновлено по таблице T'au 1.9: больше Ран, Силы и Стойкости у костюмов, новые очки, изменены щитовые, ракетные и stealth-дроны, новые цены в Арсенале."],
         ["Правила","Наведите курсор на способность в таблице оружия, чтобы прочитать правило. Monotask, Choir Master и варианты улучшений теперь показывают текст."],
         ["Ассасины","Callidus и Vindicare получают Hunter; Callidus теряет Polymorphine."],
+        ["Телефон","Коснитесь способности в таблице оружия, чтобы прочитать правило (и в боевом режиме). Сохранённые списки помещаются на узкий экран."],
         ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
         ["Печать","Способности, которые дают черты (Torturous Efficiency, Awakened by Murder...), теперь объясняются в печатных особых правилах."],
         ["Eldar","Aspect Focus теперь делает Dark Reapers Элитой; воинам Аспектов можно менять на Sun pistol и Sun rifle."],
@@ -174,6 +178,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["タウ","タウ1.9シートに更新：バトルスーツのWound・強さ・耐久が増加、ポイント変更、シールド／ミサイル／ステルスドローンの変更、アーモリーの価格改定。"],
         ["ルール","武器表のアビリティにカーソルを合わせるとルールを読めます。Monotask、Choir Master、アップグレードの選択肢にも説明が付きました。"],
         ["アサシン","CallidusとVindicareがHunterを得て、CallidusはPolymorphineを失います。"],
+        ["スマホ","武器表のアビリティをタップするとルールが読めます（戦闘ビューでも）。保存リストが狭い画面に収まります。"],
         ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
         ["印刷","特性が与えるアビリティ（Torturous Efficiency、Awakened by Murderなど）が印刷の特殊ルール欄で説明されます。"],
         ["エルダー","Aspect FocusでDark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],

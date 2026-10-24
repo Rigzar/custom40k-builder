@@ -20,6 +20,7 @@ import {
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 import { nm, rl } from '../utils/localName';
+import { AbilityTokens } from './AbilityTokens';
 import { armoryAccessorCount, championArmoryBuyers } from '../lib/battleProfile';
 import { supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 
@@ -2669,7 +2670,7 @@ function ArmoryWeaponTable({
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.ap ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.d ?? '-'}</td>
-                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? rl(profile.abilities) : '—'}</td>
+                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? <AbilityTokens text={profile.abilities} /> : '—'}</td>
                 <td className="py-1.5 px-2 text-right text-amber-600 whitespace-nowrap">{ptsLabel}</td>
               </tr>
             );

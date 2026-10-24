@@ -160,7 +160,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
       ) : (
         <div className="space-y-2">
           {rosters.map(r => (
-            <div key={r.id} className={`bg-zinc-800 border border-zinc-700 border-l-4 p-3 flex items-center gap-3 ${
+            <div key={r.id} className={`bg-zinc-800 border border-zinc-700 border-l-4 p-3 flex flex-col sm:flex-row sm:items-center gap-3 ${
               r.id === activeRosterId ? 'border-l-amber-500' : r.is_public ? 'border-l-emerald-600' : 'border-l-zinc-600'
             }`}>
               <div className="flex-1 min-w-0">
@@ -178,7 +178,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                 {r.faction_label && (
                   <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{factionLabel(r.faction_label)}</div>
                 )}
-                <div className="flex items-center gap-3 mt-1">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
                   <span className="text-[11px] text-zinc-500">{r.total_pts != null ? `${r.total_pts} pts · ` : ''}{formatDate(r.updated_at)}</span>
                   <button
                     onClick={() => handleTogglePublic(r.id, r.is_public ?? false)}
@@ -218,7 +218,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                     onTokenChange={token => setRosters(prev => prev.map(x => x.id === r.id ? { ...x, share_token: token } : x))} />
                 )}
               </div>
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div className="flex items-center gap-1.5 sm:shrink-0">
                 <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">{t('loadButton')}</button>
                 <button disabled={saving} onClick={() => handleOverwrite(r.id)} className="text-[11px] px-2.5 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">{t('save')}</button>
                 <button onClick={() => handleDelete(r.id)} className="text-zinc-600 hover:text-red-400 text-xl leading-none">×</button>

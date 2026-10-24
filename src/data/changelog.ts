@@ -50,6 +50,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "WEAPON ABILITIES EXPLAIN THEMSELVES, AND ADEPTUS MECHANICUS GAPS FILLED (NUKE). Hover any ability in a weapon table (Rad, AT(1), Piercing(5+), Suppression(6)...) and its rule text pops up. Monotask and Choir Master now have their rule text, and the upgrade and gear choices (Magos and Tech-Priest upgrades, Omnispex, Enhanced data-tether and every other choice that has a rule) show it under their name. The Canticles list on the card is translated, and Ward(X), Advisor, Monotask and Choir Master have Russian and Japanese texts.",
       "ADEPTUS MECHANICUS — THE ENGINSEER UPGRADE HAS ITS RULE TEXT (NUKE). The sheet now spells the Magos upgrade \"Enginseer\" like its ability, so the choice shows its rule under the name.",
       "ASSASSINS 1.3 — THE WHOLE SHEET RE-READ. Callidus and Vindicare gain Hunter, and the Callidus loses Polymorphine (no more Deep Strike without scatter). Nothing else changed: every stat, weapon, option and price of the four Assassins matches the sheet.",
+      "ABILITY TOOLTIPS WORK ON PHONES AND IN THE BATTLE VIEW, AND THE SAVED LISTS FIT A PHONE (Archon of the Obsidian Rose). Tap an ability in a weapon table to read its rule, tap again or elsewhere to close it. It also works in the battle view and in the Armory window. On a narrow screen each saved list now puts its Load, Save and delete buttons under the name instead of squeezing them off the side.",
     ],
   },
   {
