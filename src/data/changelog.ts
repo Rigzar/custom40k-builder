@@ -52,6 +52,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "ASSASSINS 1.3 — THE WHOLE SHEET RE-READ. Callidus and Vindicare gain Hunter, and the Callidus loses Polymorphine (no more Deep Strike without scatter). Nothing else changed: every stat, weapon, option and price of the four Assassins matches the sheet.",
       "ABILITY TOOLTIPS WORK ON PHONES AND IN THE BATTLE VIEW, AND THE SAVED LISTS FIT A PHONE (Archon of the Obsidian Rose). Tap an ability in a weapon table to read its rule, tap again or elsewhere to close it. It also works in the battle view and in the Armory window. On a narrow screen each saved list now puts its Load, Save and delete buttons under the name instead of squeezing them off the side.",
       "IMPERIAL GUARD — TAUROS VENATOR SWAP AND COMBAT ENGINEERS. The Tauros Venator's swap of its Twin-linked heavy stubber for a Twin multilaser or Twin lascannon now removes the stubber (the swap was looking for the old weapon name). Combat Engineers no longer show the Close Combat Specialists lasgun swap, since they carry no lasgun.",
+      "CAMPAIGN (PLANETARY ASSAULT) IS OPEN AS AN ALPHA FOR EVERYONE. Sign in and press Campaign on the front page to start or join a campaign: sector map, supply, buildings, roster, battle log and weekly events. It is an alpha: it keeps the books of the campaign more than it enforces every rule, so tell us in the bug report form what breaks or what you miss.",
     ],
   },
   {

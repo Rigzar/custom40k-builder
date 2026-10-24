@@ -1233,5 +1233,6 @@
  "armReasonPickWeapon": "下で適用する武器を選んでください",
  "armReasonPickEnh": "下で強化を選んでください",
  "armReasonCharOnly": "キャラクターモデル専用",
- "armReasonNotChar": "キャラクターモデルには不可"
+ "armReasonNotChar": "キャラクターモデルには不可",
+ "navCampaignAlphaOpen": "キャンペーン — アルファ"
 }

@@ -1233,5 +1233,6 @@
  "armReasonPickWeapon": "Выберите ниже оружие, к которому оно относится",
  "armReasonPickEnh": "Выберите ниже улучшение",
  "armReasonCharOnly": "Только для моделей-персонажей",
- "armReasonNotChar": "Не для моделей-персонажей"
+ "armReasonNotChar": "Не для моделей-персонажей",
+ "navCampaignAlphaOpen": "Кампания — Альфа"
 }
