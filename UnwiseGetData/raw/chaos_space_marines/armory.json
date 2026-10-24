@@ -47,6 +47,17 @@
         7
     ],
     [
+        "Chain fist\u1d40",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "Terminator armor only, AT(3), Piercing(5+), Slow(-3), Unwieldy",
+        20,
+        25
+    ],
+    [
         "Combi-bolter\u1d40",
         "24\"",
         "Rapid Fire 2",
@@ -373,7 +384,7 @@
     ],
     [
         "Bionics\u1d40",
-        "The model gains a 6+ ward save.",
+        "The model gains Ward(6+).",
         5,
         9
     ],
@@ -421,7 +432,7 @@
     ],
     [
         "Daemonic aura\u1d40",
-        "The model gains the \"Daemon\" ability (Note: a 5+ ward save).",
+        "The model gains the \"Daemon\" ability (Note: Ward(5+)).",
         10,
         20
     ],
@@ -535,7 +546,7 @@
     ],
     [
         "Terminator armor",
-        "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 5+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+        "The model gains +1 Toughness, +1 Attack, a 2+ armor save and the abilities \"Deep strike\", \"Massive(1)\", \"Unyielding\" and \"Ward(5+)\". Only for infantry.",
         "                                    ",
         23,
         46
@@ -643,7 +654,7 @@
     ],
     [
         "Daemonic possession",
-        "- The model gains the \"Daemon\" ability (Note: a 5+ ward save).\n- The model reduces its BS and WS values by 1 (to a maximum of 4+).\n- The model ignores \"Crew Shaken\" vehicle damage.\n- If the model is transporting a unit, during each activation of the unit roll 1D6 per model. On a roll of 1 and 2 the unit suffers one Mortal Wound.",
+        "- The model gains the \"Daemon\" ability (Note: Ward(5+)).\n- The model reduces its BS and WS values by 1 (to a maximum of 4+).\n- The model ignores \"Crew Shaken\" vehicle damage.\n- If the model is transporting a unit, during each activation of the unit roll 1D6 per model. On a roll of 1 and 2 the unit suffers one Mortal Wound.",
         0
     ],
     [

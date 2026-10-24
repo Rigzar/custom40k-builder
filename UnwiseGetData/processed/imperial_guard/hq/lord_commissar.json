@@ -38,7 +38,7 @@
     "abilities": [
         "Aura of Discipline: Friendly units in a 12\" radius use the Lord Commissar's Leadership value.              ",
         "Officer: A Lord Commissar issues 1 order.",
-        "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+        "Statutory Execution: Each time time a friendly Imperial Guard unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
     ],
     "unit_type": "Character model, Infantry",
     "is_monster": false,

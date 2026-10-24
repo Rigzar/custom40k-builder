@@ -17,11 +17,11 @@
             "name": "Leman Russ Tank Commander",
             "min": 1,
             "max": 1,
-            "points": 288
+            "points": 294
         }
     ],
     "variant_models": [],
-    "min_cost": 288,
+    "min_cost": 294,
     "default_size": 1,
     "equipped_with": "A Leman Russ Tank Commander is equipped with: Punisher gatling cannon; Heavy flamer.",
     "weapons": [
@@ -162,7 +162,6 @@
         }
     ],
     "abilities": [
-        "Move through cover",
         "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.",
         "Officer: A Leman Russ Tank Commander issues 1 order."
     ],

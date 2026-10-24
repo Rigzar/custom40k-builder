@@ -523,7 +523,7 @@
     ],
     [
         "Aspect armor",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         "-",
         12
     ],
@@ -553,7 +553,7 @@
     ],
     [
         "Forcefield",
-        "The model gains a 4+ ward save.",
+        "The model gains Ward(4+).",
         "-",
         17
     ],
@@ -619,7 +619,7 @@
     ],
     [
         "Rune armor",
-        "The model gains a 4+ ward save.",
+        "The model gains Ward(4+).",
         17,
         "-"
     ],
@@ -713,7 +713,7 @@
     ],
     [
         "Graceful avoidance",
-        "The model and its unit got a 4+ ward save against melee attacks.",
+        "The model and its unit have Ward(4+) against melee attacks.",
         5
     ],
     [

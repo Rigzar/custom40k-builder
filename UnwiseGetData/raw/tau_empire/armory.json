@@ -159,7 +159,7 @@
     ],
     [
         "Ejection system",
-        "If the model loses its last wound, replace it with a pilot. The model loses 2 Strength, 2 Toughness, got 1 Wound and a Pulse pistol.",
+        "If the model loses its last wound, replace it with a pilot. The model loses 2 Strength, 2 Toughness, got 1 Wound and a Pulse pistol. If the model was your Warlord, the pilot is now your Warlord.",
         "-",
         5
     ],
@@ -207,7 +207,7 @@
     ],
     [
         "Mark of the Favored Child\u1d35",
-        "The model gains a 4+ ward save. Unique. Kroot only.",
+        "The model gains Ward(4+). Unique. Kroot only.",
         18,
         29
     ],
@@ -221,7 +221,7 @@
         "Master-crafted suit",
         "The model gains a 2+ save. Can be combined with other battlesuits.",
         "-",
-        20
+        25
     ],
     [
         "Master-crafted weapon\u1d35",
@@ -262,14 +262,14 @@
     [
         "Puretide engram neurochip\u1d35",
         "During your activation, pick one ability: Counter-attack, Favored enemy, Furious charge or Tank hunter. The ability is active for the model and its attached unit until their next activation. Unique",
-        10,
-        15
+        15,
+        20
     ],
     [
         "Stimulant injector\u1d35",
-        "The model gains a 5+ ward save. Does not work against weapons with strength 8 and above.",
-        12,
-        22
+        "The model gains the \"Berserk(5+)\" ability.",
+        15,
+        27
     ],
     [
         "Surefoot Charm\u1d35",
@@ -292,7 +292,7 @@
     [
         "Talisman protection chip",
         "The model may attempt to deny one psychic power per battle round and receives a +1 bonus to the roll.",
-        5,
+        "-",
         5
     ],
     [
@@ -315,15 +315,15 @@
     ],
     [
         "XV22 Stalker battlesuit",
-        "The models gains the +1 Initiative, as well as the \"Infiltrator\" and \"Stealth\" ability. Can't be combined with other battlesuits.",
+        "The models gains the +1 Initiative, as well as the \"Infiltrator\" and \"Use Cover\" ability. Can't be combined with other battlesuits.",
         "-",
-        38
+        11
     ],
     [
         "XV81 Crisis battlesuit",
         "The model gains a Smart missile system. Can't be combined with other battlesuits.",
         "-",
-        14
+        26
     ],
     [
         "XV84 Crisis battlesuit",
@@ -333,21 +333,21 @@
     ],
     [
         "XV85 Enforcer battlesuit",
-        "The model gains +1 Wound and a 2+ armor save. Additionally, it may select one more weapon or support system. Can't be combined with other battlesuits.",
+        "The model gains +1 Strength, +1 Toughness and a 2+ armor save. Additionally, it may select one more weapon or support system. Can't be combined with other battlesuits.",
         "-",
-        44
+        32
     ],
     [
         "XV86 Coldstar battlesuit",
-        "The models gains +1 Wound, the \"Jetbike\" unit type and the \"Hit & Run\" ability. Can't be combined with other battlesuits.",
+        "The models gains +1 Strength, +1 Toughness, the \"Jetbike\" unit type and the \"Hit & Run\" ability. Can't be combined with other battlesuits.",
         "-",
-        25
+        11
     ],
     [
         "XV86 Supernova battlesuit",
-        "The model gains +1 Wound, +1 Attack, +1 Initiative and becomes a \"Monstrous Creature\". Can't be combined with other battlesuits.",
+        "The model gains +1 Strength, +1 Toughness, +1 Attack, +1 Initiative. Can't be combined with other battlesuits.",
         "-",
-        26
+        9
     ],
     [
         "Models without a battlesuit may only use equipment marked with \u1d35."
@@ -419,9 +419,9 @@
     ],
     [
         "Shield generator\u1d35",
-        "The model gains a 4+ ward save.",
-        19,
-        39
+        "The model gains Ward(4+).",
+        28,
+        49
     ],
     [
         "Target lock",

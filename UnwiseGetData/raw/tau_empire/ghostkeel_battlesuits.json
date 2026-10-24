@@ -20,35 +20,17 @@
         "12\"",
         "4+",
         "4+",
-        6,
-        6,
-        4,
+        7,
+        7,
+        5,
         2,
         3,
         8,
         "3+",
-        197
+        203
     ],
     [
-        2,
-        "Stealth Drone",
-        "12\"",
-        "4+",
-        "4+",
-        3,
-        3,
-        1,
-        4,
-        1,
-        6,
-        "4+",
-        0
-    ],
-    [
-        "A Ghostkeel Shas'vre is a single model and equipped with: Cyclic ion raker; Drone controller; 2 Flamers; 2 Stealth Drones."
-    ],
-    [
-        "Stealth Drones are equipped with: -."
+        "A Ghostkeel Shas'vre is equipped with: Cyclic ion raker; Drone controller; 2 Flamers; 2 Stealth Drones."
     ],
     [
         "WEAPON",
@@ -141,22 +123,13 @@
         "+19 points"
     ],
     [
-        "\u2022 Any Ghostkeel Shas'vre may pick up to two SUPPORT SYSTEMS from the armory."
-    ],
-    [
-        "\u2022 Any Ghostkeel Shas'vre has access to weapons and gear from the armory."
+        "\u2022 Has access to weapons and gear from the Armory. May pick up to two SUPPORT SYSTEMS."
     ],
     [
         "ABILITIES"
     ],
     [
-        "Infiltrator, Supporting Fire"
-    ],
-    [
-        "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties."
-    ],
-    [
-        "Shrouded: Stealth Drones confer the ability \"Stealth\" and \"Use cover\" to themselves and their attached units."
+        "Deflect, Infiltrator, Supporting Fire, Use Cover"
     ],
     [
         "UNIT TYPE"

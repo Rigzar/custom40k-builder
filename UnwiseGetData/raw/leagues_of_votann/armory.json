@@ -238,7 +238,7 @@
     ],
     [
         "Bastium void armor",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         4,
         18
     ],
@@ -250,7 +250,7 @@
     ],
     [
         "Exo-armor",
-        "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
+        "The model gains +1 Toughness, +1 Attack, 2+ armor save and the abilities \"Massive(1),\" \"Shock Troops\", \"Unyielding\" and \"Ward(5+)\". Only for infantry.",
         "-",
         39
     ],
@@ -304,7 +304,7 @@
     ],
     [
         "Rampart crest",
-        "The model and its accompanied unit gain a 5+ ward save. Limit one crest per model.",
+        "The model and its accompanied unit gain Ward(5+). Limit one crest per model.",
         "-",
         30
     ],
@@ -346,13 +346,13 @@
     ],
     [
         "Weavefield crest",
-        "The model gains a 4+ ward save. Limit one crest per model.",
+        "The model gains Ward(4+). Limit one crest per model.",
         11,
         28
     ],
     [
         "Weavefield crest (Exo)\u1d31",
-        "The model gains a 4+ ward save. Limit one crest per model. Exo-armor only.",
+        "The model gains Ward(4+). Limit one crest per model. Exo-armor only.",
         3,
         10
     ],

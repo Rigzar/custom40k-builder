@@ -117,8 +117,7 @@
         }
     ],
     "abilities": [
-        "Squadron, Terrifying(-1), <Harlequins>, <Wraith>",
-        "Holo-suit: The model gains a 4+ ward save.",
+        "Squadron, Terrifying(-1), <Harlequins>, <Wraith>, Ward(4+)",
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Monstrous Creature",

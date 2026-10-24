@@ -67,7 +67,7 @@
         "Effect:",
         "Change the terrain feature type to any combination:\n- Normal terrain / Difficult terrain / Dangerous terrain\n- No Cover / Light cover / Heavy cover",
         "Effect:",
-        "The target suffers one automatic wound with S: D AP: -4 D: 3; AT(4), Sunder(2).",
+        "The target suffers one automatic wound or armor penetration with S: D AP: -4 D: 3; AT(4), Sunder(2). Roll 1D6 to see if the armor penetration benefits from the additional Critical Damage.",
         "Effect:",
         "The caster may heal a friendly <Canoptek> or <Necron> unit for 2 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first.\nIf the target unit is completely slain but hasn't been removed from the game yet because of Reanimation Protocols, you may heal only 1 wound."
     ],

@@ -30,7 +30,7 @@
         110
     ],
     [
-        "An Apothecary is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+        "An Apothecary is equipped with: Terminator Armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
     ],
     [
         "WEAPON",
@@ -168,9 +168,6 @@
     ],
     [
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
-    ],
-    [
-        "Terminator armor: The model gains a 5+ ward save."
     ],
     [
         "UNIT TYPE"

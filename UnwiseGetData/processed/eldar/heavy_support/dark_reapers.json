@@ -100,8 +100,7 @@
         }
     ],
     "abilities": [
-        "Battle Focus, Unyielding",
-        "Aspect armor: The model gains a 5+ ward save."
+        "Battle Focus, Unyielding, , Ward(5+)"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

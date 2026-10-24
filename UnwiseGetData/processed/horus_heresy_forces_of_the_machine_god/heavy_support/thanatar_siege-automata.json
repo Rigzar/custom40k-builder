@@ -81,7 +81,7 @@
         }
     ],
     "abilities": [
-        "Atomantic deflector: The model gains a 5+ ward save.",
+        "Ward(5+)",
         "Cybernetica Cortex: If this model is not within 12\" of a Tech-Priest, Magos or Archmagos with the Datasmith upgrade, it can only be assigned \"Fight\" or \"Stand & Shoot\" Orders, and must fire all its ranged weapons at the nearest enemy unit.",
         "Grav Wave: If a model with a Graviton Ram is the target of a \"Charge\" Order, it always benefits from the \"Hold Your Ground\" effect, regardless of its activation status."
     ],

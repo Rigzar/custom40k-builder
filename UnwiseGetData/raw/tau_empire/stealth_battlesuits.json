@@ -22,12 +22,12 @@
         "4+",
         4,
         4,
-        1,
+        2,
         2,
         2,
         7,
         "3+",
-        34
+        47
     ],
     [
         "*",
@@ -37,12 +37,12 @@
         "4+",
         4,
         4,
-        1,
+        2,
         2,
         2,
         8,
         "3+",
-        44
+        57
     ],
     [
         "All models are equipped with: Burst cannon."
@@ -88,19 +88,16 @@
         "\u2022 One Stealth Shas'ui may be upgraded to a Shas'vre for +10 points."
     ],
     [
-        "\u2022 Any model may pick up to two SUPPORT SYSTEMS from the armory."
-    ],
-    [
         "\u2022 A Shas'vre may buy a Drone controller for +0 points and up to two Tau Drones in any combination."
     ],
     [
-        "\u2022 All models have access to the armory."
+        "\u2022 All models have access to weapons and gear from the Armory. Each may pick up to two SUPPORT SYSTEMS."
     ],
     [
         "ABILITIES"
     ],
     [
-        "Infiltrator, Stealth, Supporting Fire"
+        "Deflect, Infiltrator, Supporting Fire, Use Cover"
     ],
     [
         "UNIT TYPE"

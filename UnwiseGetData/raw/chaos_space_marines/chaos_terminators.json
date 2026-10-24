@@ -45,7 +45,7 @@
         73
     ],
     [
-        "Each model is equipped with: Combi-Bolter; Power sword."
+        "Each model is equipped with: Terminator Armor; Combi-Bolter; Power sword."
     ],
     [
         "WEAPON",
@@ -57,13 +57,13 @@
         "ABILITIES"
     ],
     [
-        "Chainfist",
+        "Chain fist",
         "-",
         "Melee",
         "x2",
-        -4,
+        -3,
         3,
-        "Armorbane(3), AT(3), Slow(-3)"
+        "AT(3), Piercing(5+), Slow(-3), Unwieldy"
     ],
     [
         "Lightning claw",
@@ -278,8 +278,8 @@
         "+9 points"
     ],
     [
-        "- Chainfist",
-        "+17 points"
+        "- Chain fist",
+        "+15 points"
     ],
     [
         "\u2022 Every Chaos Terminator may swap their Combi-bolter and Power sword with:"
@@ -309,10 +309,7 @@
         "ABILITIES"
     ],
     [
-        "Deep strike, Massive(1), Unyielding"
-    ],
-    [
-        "Crux Terminatus: This unit has a 5+ ward save."
+        "Deep strike, Massive(1), Unyielding, Ward(5+)"
     ],
     [
         "UNIT TYPE"

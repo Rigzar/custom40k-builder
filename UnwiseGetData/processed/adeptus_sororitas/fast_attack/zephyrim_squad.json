@@ -81,8 +81,7 @@
         }
     ],
     "abilities": [
-        "Acts of Faith, Hit & Run, Shield of Faith",
-        "Angelic Visage: The model gains a 5+ ward save.",
+        "Acts of Faith, Hit & Run, Shield of Faith, Ward(5+)",
         "Pious: A Zephyrim Superior increases the Faith Points by +1."
     ],
     "unit_type": "Infantry, Jump pack infantry",

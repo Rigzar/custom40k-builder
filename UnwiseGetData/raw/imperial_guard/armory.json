@@ -400,7 +400,7 @@
     ],
     [
         "Bionics",
-        "The model gains a 6+ ward save.",
+        "The model gains Ward(6+).",
         "-",
         5
     ],
@@ -496,7 +496,7 @@
     ],
     [
         "Refractor field",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+) ",
         4,
         6
     ],

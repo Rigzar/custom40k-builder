@@ -30,7 +30,7 @@
         115
     ],
     [
-        "An Ancient is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+        "An Ancient is equipped with: Terminator Armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
     ],
     [
         "WEAPON",
@@ -161,16 +161,13 @@
         "ABILITIES"
     ],
     [
-        "Advisor, Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding"
+        "Advisor, Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding, Ward(5+)"
     ],
     [
         "Company standard: Friendly units within 12\" gain +1 Leadership."
     ],
     [
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
-    ],
-    [
-        "Terminator armor: The model gains a 5+ ward save."
     ],
     [
         "UNIT TYPE"

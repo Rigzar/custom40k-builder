@@ -19,7 +19,7 @@
         "Effect:",
         "The target gains the \"Deflagrate(5+)\" ability for all melee OR ranged weapons.",
         "Effect:",
-        "The target gains a 5+ ward save.",
+        "The target gains Ward(5+).",
         "Effect:",
         "The target gains the \"Aegis(4+)\" ability."
     ],
@@ -104,7 +104,7 @@
         "Effect:",
         "The target gains +1 to hit rolls in ranged AND melee combat.",
         "Effect:",
-        "The target gains a 4+ ward save.",
+        "The target gains Ward(4+).",
         "Effect:",
         "The target gains +1 Strength, +1 Attack and -1 AP for melee attacks."
     ],

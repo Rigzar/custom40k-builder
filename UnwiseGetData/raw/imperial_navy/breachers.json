@@ -70,9 +70,9 @@
         "-",
         "Melee",
         "x2",
-        -4,
+        -3,
         3,
-        "Armorbane(3), AT(2), Slow(-3)"
+        "AT(3), Piercing(5+), Slow(-3), Unwieldy"
     ],
     [
         "Demolition charge",
@@ -218,16 +218,16 @@
         "+15 points"
     ],
     [
-        "- Autopistol & Chainfist",
-        "+16 points"
-    ],
-    [
         "- Navis heavy shotgun & Boarding shield",
         "+19 points"
     ],
     [
         "- Plasma gun",
         "+19 points"
+    ],
+    [
+        "- Autopistol & Chainfist",
+        "+20 points"
     ],
     [
         "\u2022 One other Breacher may be equipped with a CAT Unit for +5 points."

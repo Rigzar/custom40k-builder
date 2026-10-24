@@ -45,7 +45,7 @@
         189
     ],
     [
-        "A Chaplain is equipped with: Crozius Arcanum; Storm bolter; Frag grenade; Krak grenade."
+        "A Chaplain is equipped with: Terminator Armor; Crozius Arcanum; Storm bolter; Frag grenade; Krak grenade."
     ],
     [
         "WEAPON",
@@ -108,7 +108,7 @@
         "ABILITIES"
     ],
     [
-        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding"
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding, Ward(4+)"
     ],
     [
         "Faithful: The model can recite 1 prayer per turn. A prayer is successfully recited on a roll of 3+. If a prayer fails to be recited, it can not be attempted again by the same model in this battle round. The model knows all prayers from the Prayer list."
@@ -118,9 +118,6 @@
     ],
     [
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
-    ],
-    [
-        "Rosarius: The model gains a 4+ ward save."
     ],
     [
         "UNIT TYPE"

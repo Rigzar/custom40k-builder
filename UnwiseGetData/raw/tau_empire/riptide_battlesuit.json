@@ -22,12 +22,12 @@
         "4+",
         7,
         7,
-        5,
+        6,
         2,
-        3,
+        4,
         8,
         "2+",
-        239
+        282
     ],
     [
         "A Riptide Shas'vre is a single model and equipped with: Heavy burst cannon; Twin plasma rifle."
@@ -42,25 +42,13 @@
         "ABILITIES"
     ],
     [
-        "Heavy burst cannon *"
-    ],
-    [
-        "- Standard",
+        "Heavy burst cannon",
         "18\"",
-        "Rapid Fire 4",
+        "Rapid Fire 5",
         6,
         -2,
         1,
         "-"
-    ],
-    [
-        "- Nova-charge",
-        "18\"",
-        "Rapid Fire 6",
-        6,
-        -2,
-        1,
-        "Overheating"
     ],
     [
         "Ion accelerator *"
@@ -121,7 +109,7 @@
     ],
     [
         "- Ion accelerator",
-        "+137 points"
+        "+136 points"
     ],
     [
         "\u2022 May swap the Twin plasma rifle:"
@@ -135,25 +123,19 @@
         "+23 points"
     ],
     [
-        "\u2022 Any Riptide Shas'vre may pick up to two SUPPORT SYSTEMS from the armory, none of which may be a Shield generator."
-    ],
-    [
         "\u2022 May buy a Drone controller for +0 points and up to two Tau Drones in any combination."
     ],
     [
-        "\u2022 All models have access to the armory."
+        "\u2022 Has access to weapons and gear from the Armory. May pick up to two SUPPORT SYSTEMS."
     ],
     [
         "ABILITIES"
     ],
     [
-        "Supporting Fire, Unyielding"
+        "Supporting Fire, Unyielding, Ward(5+)"
     ],
     [
-        "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius."
-    ],
-    [
-        "Riptide shield generator: The model has a 5+ ward save."
+        "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius and Strength 7."
     ],
     [
         "UNIT TYPE"

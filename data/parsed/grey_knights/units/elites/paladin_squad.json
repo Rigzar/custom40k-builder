@@ -198,8 +198,7 @@
     ],
     "abilities": [
         "Aegis(5+), Brotherhood of Psykers, Combat squads, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding, Ward(5+)",
-        "Chapter Elite: During each Rally phase, all psychic powers of the unit can be exchanged with other psychic powers from the same discipline.",
-        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the General psychic disciplines and Grey Knight psychic discipline."
     ],
     "unit_type": "Infantry",
     "keywords": [],

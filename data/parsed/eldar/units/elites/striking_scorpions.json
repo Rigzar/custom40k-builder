@@ -224,8 +224,7 @@
         }
     ],
     "abilities": [
-        "Battle Focus, Deep Strike, Hunter, Infiltrator",
-        "Aspect armor: The model gains a 5+ ward save.",
+        "Battle Focus, Deep Strike, Hunter, Infiltrator, , Ward(5+)",
         "Mandiblaster: During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1."
     ],
     "unit_type": "Infantry",

@@ -169,6 +169,17 @@
         "-"
     ],
     [
+        "Chain fist\u1d40",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "Terminator armor only, AT(3), Piercing(5+), Slow(-3), Unwieldy",
+        20,
+        25
+    ],
+    [
         "Combat knife",
         "-",
         "Melee",
@@ -651,13 +662,13 @@
     ],
     [
         "Gravis armor",
-        "The model gains +1 Toughness, a 6+ ward save and the special rules \"Massive(1)\" and \"Unyielding\". Not combinable with other armors.",
+        "The model gains +1 Toughness and the special rules \"Massive(1)\", \"Unyielding\" and \"Ward(6+)\". Not combinable with other armors.",
         6,
         13
     ],
     [
         "Iron halo\u1d33 \u1d40",
-        "The model gains a 4+ ward save.",
+        "The model gains Ward(4+).",
         "-",
         30
     ],
@@ -723,7 +734,7 @@
     ],
     [
         "Refractor field\u1d33",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         9,
         19
     ],
@@ -777,7 +788,7 @@
     ],
     [
         "Terminator armor",
-        "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1)\", \"Deep Strike\" and \"Unyielding.\" Only for infantry. Not combinable with other armors.",
+        "The model gains +1 Toughness, +1 Attack, 2+ armor save and the abilities \"Massive(1)\", \"Deep Strike\", \"Unyielding\", \"Ward(5+)\". Only for infantry. Not combinable with other armors.",
         23,
         46
     ],
