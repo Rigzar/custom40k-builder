@@ -45,8 +45,7 @@
         }
     ],
     "abilities": [
-        "Squadron",
-        "Containment field: The model has a 5+ ward save.",
+        "Squadron, Ward(5+)",
         "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
         "Nanoscarab reanimator beam: Select a friendly <Necron> unit during the Reinforcement phase. The target gains 2 temporary RPoints and immediately succeeds at those 2 Reanimation Protocol rolls."
     ],

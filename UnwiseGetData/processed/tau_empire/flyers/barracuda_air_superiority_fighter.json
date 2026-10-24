@@ -99,8 +99,7 @@
         }
     ],
     "abilities": [
-        "-",
-        "Dispersion field: The model gains a 5+ ward save."
+        "Ward(5+)"
     ],
     "unit_type": "Flyer",
     "is_monster": false,

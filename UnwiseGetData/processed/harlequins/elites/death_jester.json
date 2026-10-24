@@ -90,9 +90,8 @@
         }
     ],
     "abilities": [
-        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>",
-        "Bio-explosion: If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking.",
-        "Holo-suit: The model gains a 4+ ward save."
+        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>, Ward(4+)",
+        "Bio-explosion: If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking."
     ],
     "unit_type": "Character model, Infantry",
     "is_monster": false,

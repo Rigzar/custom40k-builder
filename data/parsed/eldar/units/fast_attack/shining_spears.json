@@ -262,9 +262,8 @@
         }
     ],
     "abilities": [
-        "Battle Focus, Deflect",
-        "Aspect armor: The model gains a 5+ ward save.",
-        "Shimmershield: The model and its attached unit gain a 4+ ward save in melee."
+        "Battle Focus, Deflect, , Ward(5+)",
+        "Shimmershield: The model and its attached unit gain Ward(4+) in melee."
     ],
     "unit_type": "Jetbike",
     "keywords": [

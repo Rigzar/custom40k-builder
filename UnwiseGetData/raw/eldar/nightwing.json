@@ -69,13 +69,10 @@
         "ABILITIES"
     ],
     [
-        "Deflect"
+        "Deflect, Ward(5+)"
     ],
     [
         "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability."
-    ],
-    [
-        "Vector Dancer: The model gains a 5+ ward save."
     ],
     [
         "UNIT TYPE"

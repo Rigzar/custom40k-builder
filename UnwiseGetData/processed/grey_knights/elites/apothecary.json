@@ -23,7 +23,7 @@
     "variant_models": [],
     "min_cost": 110,
     "default_size": 1,
-    "equipped_with": "An Apothecary is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+    "equipped_with": "An Apothecary is equipped with: Terminator Armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
     "weapons": [
         {
             "name": "Frag grenade",
@@ -110,8 +110,7 @@
     "abilities": [
         "Advisor, Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding",
         "Narthecium: Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
-        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
-        "Terminator armor: The model gains a 5+ ward save."
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
     ],
     "unit_type": "Character model, Infantry",
     "is_monster": false,

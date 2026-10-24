@@ -45,8 +45,7 @@
         }
     ],
     "abilities": [
-        "Blind Rage, Canticles of the Omnissiah, Choir Master, Furious Charge",
-        "Voltagheist Field: The model gains a 4+ ward save."
+        "Blind Rage, Canticles of the Omnissiah, Choir Master, Furious Charge, Ward(4+)"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

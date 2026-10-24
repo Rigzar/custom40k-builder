@@ -136,7 +136,7 @@
     ],
     [
         "Bone Shard of a Grand Master\u1d40",
-        "Once per game, the model may gain a 3+ ward save until the start of its next activation. Unique.",
+        "Once per game, the model may gain Ward(3+) until the start of its next activation. Unique.",
         "-",
         15
     ],
@@ -202,7 +202,7 @@
     ],
     [
         "Iron halo\u1d40",
-        "The model gains a 4+ ward save.",
+        "The model gains Ward(4+).",
         15,
         13
     ],
@@ -274,7 +274,7 @@
     ],
     [
         "Refractor field",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         11,
         "-"
     ],

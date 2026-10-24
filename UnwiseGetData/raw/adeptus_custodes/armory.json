@@ -100,6 +100,11 @@
         2
     ],
     [
+        "Moment Shackle\u1d40",
+        "Once per battle, the model gains +2 Attacks and may reroll 1s for their ward saves until the end of the battle round. Unique.",
+        20
+    ],
+    [
         "Panoptispex\u1d40",
         "The model and its attached unit gain \"Seeking\" for all ranged weapons. Unique.",
         15
@@ -111,7 +116,7 @@
     ],
     [
         "Praetorian plate\u1d40",
-        "The model gains a 4+ ward save.",
+        "The model gains Ward(4+).",
         15
     ],
     [

@@ -79,13 +79,10 @@
         "ABILITIES"
     ],
     [
-        "Ambush, Deflect, Infiltrator, Massive(1), Parry, Terrifying(-1), Use cover"
+        "Ambush, Deflect, Infiltrator, Massive(1), Parry, Terrifying(-1), Use cover, Ward(5+)"
     ],
     [
         "Living Idol: Friendly units within 12\" range may use the Patriarch's Leadership value."
-    ],
-    [
-        "Preternatural senses: The model gains a 5+ ward save."
     ],
     [
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."

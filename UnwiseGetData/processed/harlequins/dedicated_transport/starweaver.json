@@ -36,8 +36,7 @@
         }
     ],
     "abilities": [
-        "Anti-Grav, Fast, Open, <Harlequins>",
-        "Holo-suit: The model gains a 4+ ward save.",
+        "Anti-Grav, Fast, Open, <Harlequins>, Ward(4+)",
         "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of light cover.",
         "Transport: This model has a transport capacity of 6 infantry models."
     ],

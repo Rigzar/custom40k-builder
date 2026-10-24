@@ -108,6 +108,13 @@
         "OPTIONS"
     ],
     [
+        "\u2022 One model may be equipped with:"
+    ],
+    [
+        "- Vexilia",
+        "+15 points"
+    ],
+    [
         "\u2022 Every model with a Guardian spear may swap their Bolt caster:"
     ],
     [
@@ -132,10 +139,10 @@
         "ABILITIES"
     ],
     [
-        "Massive(1), Shield Host"
+        "Massive(1), Shield Host, Ward(5+)"
     ],
     [
-        "Custodian armor: The model gains a 5+ ward save."
+        "Vexilia: The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit may not be contested by enemy units. Additionally, all models in the unit gain +1 Attack."
     ],
     [
         "UNIT TYPE"

@@ -30,6 +30,21 @@
         36
     ],
     [
+        "*",
+        "Aberration",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        3,
+        4,
+        3,
+        10,
+        "6+",
+        46
+    ],
+    [
         "Every model is equipped with: Flesh gauntlet; Monstrous cleaver."
     ],
     [
@@ -77,6 +92,9 @@
     [
         "- Liquifier gun",
         "+11 points"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Aberration for +10 points and gains access to weapons and gear from the Armory."
     ],
     [
         "ABILITIES"

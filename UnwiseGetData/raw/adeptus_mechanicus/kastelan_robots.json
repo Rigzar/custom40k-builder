@@ -98,7 +98,7 @@
         "ABILITIES"
     ],
     [
-        "Monotask, Unyielding"
+        "Monotask, Unyielding, Ward(5+)"
     ],
     [
         "Battle Protocols: Select one Battle Protocol during each activation:"
@@ -111,9 +111,6 @@
     ],
     [
         "- Protector: All models in the unit gain +1 BS."
-    ],
-    [
-        "Repulsor Grid: The model gains a 5+ ward save."
     ],
     [
         "UNIT TYPE"

@@ -182,7 +182,7 @@
         "Immune to Natural Law: When moving, this model treats all other models and terrain as open ground, allowing it to move freely over them. It automatically passes all dangerous terrain tests. However, it cannot end its move on top of another model and may only end its move on impassable terrain if the model can physically be placed there."
     ],
     [
-        "Necrodermis: The model gains a 4+ ward save. If it loses its last wound, it explodes like a vehicle with Strength 7 and AP -1."
+        "Necrodermis: The model gains Ward(4+) If it loses its last wound, it explodes like a vehicle with Strength 7 and AP -1."
     ],
     [
         "Powers of the C'tan: The model can manifest 1 power per turn automatically. It knows all powers from the list of C'tan powers. A C'tan can only use each power once per battle round."

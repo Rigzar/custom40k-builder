@@ -248,7 +248,7 @@
     ],
     [
         "The Flesh is Weak",
-        "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
+        "Creature models gain Ward(6+). Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
         "2*",
         0,
         "5*"

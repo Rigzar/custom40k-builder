@@ -45,7 +45,7 @@
         84
     ],
     [
-        "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+        "Every model is equipped with: Terminator Armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
     ],
     [
         "WEAPON",
@@ -179,13 +179,10 @@
         "ABILITIES"
     ],
     [
-        "Aegis(5+), Brotherhood of Psykers, Combat squads, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding"
+        "Aegis(5+), Brotherhood of Psykers, Combat squads, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding, Ward(5+)"
     ],
     [
         "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
-    ],
-    [
-        "Terminator armor: The model gains a 5+ ward save."
     ],
     [
         "UNIT TYPE"

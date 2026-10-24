@@ -191,7 +191,7 @@
     ],
     [
         "Amulet of the Voidwyrm",
-        "The model gains a 4+ ward save. Unique.",
+        "The model gains Ward(4+). Unique.",
         5,
         20
     ],
@@ -275,7 +275,7 @@
     ],
     [
         "Preternatural senses",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         3,
         13
     ],

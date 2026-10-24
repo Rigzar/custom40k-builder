@@ -657,7 +657,7 @@
     ],
     [
         "Bionics",
-        "The model gains a 6+ ward save.",
+        "The model gains Ward(6+).",
         1,
         5
     ],
@@ -675,7 +675,7 @@
     ],
     [
         "Conversion field\u1d40",
-        "The model gains a 4+ ward save.",
+        "The model gains Ward(4+).",
         "-",
         20
     ],
@@ -747,7 +747,7 @@
     ],
     [
         "Refractor field",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         5,
         10
     ],
@@ -800,7 +800,7 @@
     ],
     [
         "Terminator armor",
-        "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1)\", \"Deep strike\" and \"Unyielding.\" Infantry only.",
+        "The model gains +1 Toughness, +1 Attack, 2+ armor save and the abilities \"Massive(1)\", \"Deep strike\" and \"Unyielding\", \"Ward(5+)\". Infantry only.",
         "-",
         43
     ],

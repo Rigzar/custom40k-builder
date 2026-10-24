@@ -81,8 +81,8 @@
         }
     ],
     "abilities": [
-        "Shield Host",
-        "Reinforced Atomantic Shielding: The model has a 4+ ward save. Enemy attacks receive a -2 AT penalty (to a minimum of 0)."
+        "Shield Host, Ward(4+)",
+        "Reinforced Atomantic Shielding: Enemy attacks receive a -2 AT penalty (to a minimum of 0)."
     ],
     "unit_type": "Vehicle, Walker",
     "is_monster": false,

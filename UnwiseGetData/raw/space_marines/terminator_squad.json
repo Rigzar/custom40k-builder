@@ -45,7 +45,7 @@
         74
     ],
     [
-        "Every Terminator is equipped with: Power fist; Storm bolter.\nThe Terminator Sergeant is equipped with: Power sword; Storm bolter."
+        "Every Terminator is equipped with: Terminator Armor; Power fist; Storm bolter.\nThe Terminator Sergeant is equipped with: Terminator Armor; Power sword; Storm bolter."
     ],
     [
         "WEAPON",
@@ -87,13 +87,13 @@
         "AT(1), Anti-air"
     ],
     [
-        "Chainfist",
+        "Chain fist",
         "-",
         "Melee",
         "x2",
-        -4,
+        -3,
         3,
-        "AT(3), Slow(-3), Armorbane(3)"
+        "AT(3), Piercing(5+), Slow(-3), Unwieldy"
     ],
     [
         "Heavy flamer",
@@ -180,8 +180,8 @@
         "\u2022 Every Terminator may swap their Power fist:"
     ],
     [
-        "- Chainfist",
-        "+11 points"
+        "- Chain fist",
+        "+7 points"
     ],
     [
         "\u2022 Every Terminator may swap their Power fist and Storm bolter:"
@@ -223,10 +223,7 @@
         "ABILITIES"
     ],
     [
-        "Combat squads, Deep Strike, Massive(1), They Shall Know No Fear, Unyielding"
-    ],
-    [
-        "Terminator armor: The model gains a 5+ ward save."
+        "Combat squads, Deep Strike, Massive(1), They Shall Know No Fear, Unyielding, Ward(5+)"
     ],
     [
         "UNIT TYPE"

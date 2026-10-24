@@ -130,7 +130,7 @@
     ],
     [
         "Desecration",
-        "The unit gains a 5+ ward save while within 6\" of an objective. Doesn't work against weapons with strength 8 and above.",
+        "The unit gains Ward(5+) while within 6\" of an objective. Doesn't work against weapons with strength 8 and above.",
         5,
         0,
         "-"
@@ -158,7 +158,7 @@
     ],
     [
         "Iron Within, Iron Without",
-        "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
+        "Creature models gain Ward(6+). Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
         "2*",
         0,
         "5*"

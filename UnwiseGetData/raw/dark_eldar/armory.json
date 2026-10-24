@@ -201,6 +201,17 @@
         13
     ],
     [
+        "Mindphase gauntlet\u1d9c\u1d52",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        2,
+        "Extra Attack(1), Limit(1), Poison(2+). Wounded units must make a Leadership test or gain a Battleshock token. Can't cause more than one test at a time.",
+        8,
+        10
+    ],
+    [
         "Orb of despair",
         "6\"",
         "Assault 1",
@@ -414,7 +425,7 @@
     ],
     [
         "Ghostplate armor",
-        "The bearer gains a 5+ ward save.",
+        "The bearer gains Ward(5+).",
         3,
         12
     ],
@@ -450,7 +461,7 @@
     ],
     [
         "Shadow field\u1d37",
-        "The bearer got a 2+ ward save. If the saving throw fails once, the Shadow field can't be used for the rest of the game. Unique.",
+        "The bearer gets Ward(2+). If the saving throw fails once, the Shadow field can't be used for the rest of the game. Unique.",
         "-",
         40
     ],
@@ -556,7 +567,7 @@
     ],
     [
         "Flickerfield",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+).",
         "-"
     ],
     [

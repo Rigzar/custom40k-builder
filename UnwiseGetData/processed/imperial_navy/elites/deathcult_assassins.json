@@ -36,8 +36,7 @@
         }
     ],
     "abilities": [
-        "Infiltrator",
-        "Lightning reflexes: The model gains a 5+ ward save."
+        "Infiltrator, Ward(5+)"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

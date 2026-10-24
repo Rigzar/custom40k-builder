@@ -8,7 +8,7 @@
                 "BS": "4+",
                 "S": "4",
                 "T": "4",
-                "W": "1",
+                "W": "2",
                 "I": "2",
                 "A": "2",
                 "LD": "7",
@@ -17,7 +17,7 @@
             "name": "Stealth Shas'ui",
             "min": 3,
             "max": 6,
-            "points": 34
+            "points": 47
         }
     ],
     "variant_models": [
@@ -28,7 +28,7 @@
                 "BS": "4+",
                 "S": "4",
                 "T": "4",
-                "W": "1",
+                "W": "2",
                 "I": "2",
                 "A": "2",
                 "LD": "8",
@@ -37,10 +37,10 @@
             "name": "Stealth Shas'vre",
             "min": 0,
             "max": 1,
-            "points": 44
+            "points": 57
         }
     ],
-    "min_cost": 102,
+    "min_cost": 141,
     "default_size": 3,
     "equipped_with": "All models are equipped with: Burst cannon.",
     "weapons": [
@@ -64,7 +64,7 @@
         }
     ],
     "abilities": [
-        "Infiltrator, Stealth, Supporting Fire"
+        "Deflect, Infiltrator, Supporting Fire, Use Cover"
     ],
     "unit_type": "Infantry, Jump pack",
     "is_monster": false,
