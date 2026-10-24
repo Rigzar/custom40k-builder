@@ -47,13 +47,13 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // Escalation (Dominic, 2026-10-23): a Chaos army may take the War Dog as an Elite, an Imperial army the Armiger. This archetype makes the army Chaos.
     unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],
     armoryOnlyFaction: 'chaos_space_marines',
-    // ods-verbatim: "Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines."
-    // The standing AdM<->CSM cell is R, so without this the pair read Desperate Allies (reported).
-    alliedRelationshipOverrides: { chaos_space_marines: 'Y' },
+    // Creator ruling 2026-10-24 (Rigzar): "Dark Mechanicum are treated like \"Chaos Space Marines\" in the Ally matrix."
+    // The sheet still says "become Allies of Convenience for Chaos Space Marines" (one cell); the whole row is now rewritten, as for Traitor Guard.
+    alliedMatrixAs: 'chaos_space_marines',
     alliedFaction: 'chaos_space_marines', alliedMarkFilter: 'all',
     alliedUnitsOnly: ['Venomcrawler', 'Defiler', 'Forgefiend', 'Maulerfiend', 'Heldrake'],
     notes: [
-      'Allied to Chaos Space Marines as Allies of Convenience.',
+      'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
       'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',
       'A Mark of Chaos counts as the unit\'s veteran ability, same as Adeptus Mechanicus.',
       'Models with Armory access may also use the Chaos Space Marine Armory.',

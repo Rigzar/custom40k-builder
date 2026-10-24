@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186m_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186n_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -72,6 +72,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Assassins","Callidus and Vindicare gain Hunter; the Callidus loses Polymorphine."],
         ["Phones","Tap an ability in a weapon table to read its rule (also in the battle view). Saved lists fit a narrow screen."],
         ["Campaign","The Planetary Assault campaign is open as an alpha. Sign in and press Campaign on the front page."],
+        ["Adeptus Mechanicus","Dark Mechanicum are treated as Chaos Space Marines in the Ally matrix."],
         ["Accounts","You can change your own username from Account security."],
         ["Print","Abilities a trait gives (Torturous Efficiency, Awakened by Murder...) are now explained in the printed Special Rules."],
         ["Eldar","Aspect Focus now makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
@@ -100,6 +101,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Assassinen","Callidus und Vindicare erhalten Hunter; der Callidus verliert Polymorphine."],
         ["Handy","Tippe in einer Waffentabelle auf eine Fähigkeit, um ihre Regel zu lesen (auch in der Kampfansicht). Gespeicherte Listen passen auf schmale Bildschirme."],
         ["Feldzug","Die Planetary-Assault-Kampagne ist als Alpha offen. Melde dich an und drücke auf der Startseite auf Feldzug."],
+        ["Adeptus Mechanicus","Dark Mechanicum werden in der Alliiertenmatrix wie Chaos Space Marines behandelt."],
         ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
         ["Druck","Fähigkeiten, die ein Wesenszug gewährt (Torturous Efficiency, Awakened by Murder ...), werden jetzt in den gedruckten Spezialregeln erklärt."],
         ["Eldar","Aspect Focus macht die Dark Reapers jetzt zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
@@ -128,6 +130,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Asesinos","Callidus y Vindicare ganan Hunter; el Callidus pierde Polymorphine."],
         ["Móvil","Toca una habilidad en una tabla de armas para leer su regla (también en la vista de batalla). Las listas guardadas caben en pantallas estrechas."],
         ["Campaña","La campaña Planetary Assault está abierta como alpha. Inicia sesión y pulsa Campaña en la portada."],
+        ["Adeptus Mechanicus","Los Dark Mechanicum se tratan como Chaos Space Marines en la matriz de aliados."],
         ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
         ["Impresión","Las habilidades que da un rasgo (Torturous Efficiency, Awakened by Murder...) ya se explican en las Reglas especiales impresas."],
         ["Eldar","Aspect Focus ahora convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
@@ -156,6 +159,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Ассасины","Callidus и Vindicare получают Hunter; Callidus теряет Polymorphine."],
         ["Телефон","Коснитесь способности в таблице оружия, чтобы прочитать правило (и в боевом режиме). Сохранённые списки помещаются на узкий экран."],
         ["Кампания","Кампания Planetary Assault открыта как альфа. Войдите и нажмите «Кампания» на главной странице."],
+        ["Adeptus Mechanicus","Dark Mechanicum в матрице союзников считаются Chaos Space Marines."],
         ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
         ["Печать","Способности, которые дают черты (Torturous Efficiency, Awakened by Murder...), теперь объясняются в печатных особых правилах."],
         ["Eldar","Aspect Focus теперь делает Dark Reapers Элитой; воинам Аспектов можно менять на Sun pistol и Sun rifle."],
@@ -184,6 +188,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["アサシン","CallidusとVindicareがHunterを得て、CallidusはPolymorphineを失います。"],
         ["スマホ","武器表のアビリティをタップするとルールが読めます（戦闘ビューでも）。保存リストが狭い画面に収まります。"],
         ["キャンペーン","Planetary Assaultキャンペーンがアルファとして公開されました。サインインして、トップページのキャンペーンを押してください。"],
+        ["アデプトゥス・メカニカス","Dark Mechanicumは同盟マトリクスでChaos Space Marinesとして扱われます。"],
         ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
         ["印刷","特性が与えるアビリティ（Torturous Efficiency、Awakened by Murderなど）が印刷の特殊ルール欄で説明されます。"],
         ["エルダー","Aspect FocusでDark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],
