@@ -37,6 +37,7 @@ import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 import { nm, eqText, rl } from '../utils/localName';
+import { AbilityTokens } from './AbilityTokens';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -330,6 +331,25 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // Mirrors ArmoryModal.tsx's isTrueAllyUnit / resolver.ts's isAlliedDetachmentUnit.
   const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
   const effectiveArmData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
+  // The rule text of an option choice that has no weapon of its own (an upgrade like Magos "Manipulus",
+  // a piece of gear like "Omnispex"): the unit's own ability that opens with the choice's name, else
+  // the Armory item of that name. Without it the picker showed a bare name (Discord, 2026-10-24).
+  const choiceBlurb = (name: string): string | null => {
+    const key = name.trim().toLowerCase();
+    for (const ab of u.abilities) {
+      const t = ab.trimStart();
+      if (!t.toLowerCase().startsWith(key)) continue;
+      const rest = t.slice(key.length);
+      if (!/^\s*[:\n]/.test(rest)) continue;
+      const body = rest.replace(/^[\s:]+/, '').trim();
+      if (body.length > 10) return localiseAbility(body);
+    }
+    for (const section of ['equipment', 'weapons'] as const) {
+      const arm = findArmoryItemData(effectiveArmData, { itemName: name, section } as any);
+      if (arm?.desc && !arm.profiles?.length && !arm.range) return localiseAbility(arm.desc);
+    }
+    return null;
+  };
   // "Swarm Controllers" Army Trait (ki-tau-swarmcontrollers-unmodelled-01): "Models with access to
   // drones may buy up to three drones in any combination instead of two" — raises the Drone
   // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.
@@ -1740,6 +1760,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                                   {showRowControl ? (
                                     <span className="inline-flex items-center gap-1.5">{control}<span>{nm(c.name)}</span></span>
                                   ) : nm(c.name)}
+                                  {(() => { const blurb = choiceBlurb(c.name); return blurb ? <div className="text-[10px] font-normal text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{blurb}</div> : null; })()}
                                 </td>
                                 <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
                               </tr>
@@ -1779,7 +1800,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? rl(w.abilities) : '—'}</td>
+                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? <AbilityTokens text={w.abilities} /> : '—'}</td>
                               {compound ? (
                                 // The banner row above carries the one price for the whole pairing.
                                 <td className="py-1.5 px-2" />
@@ -1823,7 +1844,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                           }}
                         >
                           {control}
-                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{nm(c.name)}</span>
+                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>
+                            {nm(c.name)}
+                            {(() => { const blurb = choiceBlurb(c.name); return blurb ? <span className="block text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{blurb}</span> : null; })()}
+                          </span>
                           {/* Ork "Da Booma" ("One weapon of the vehicle gains +12\" range and
                               +1 Strength") is the one Kustom Job that names no fixed weapon of
                               its own — every other one either affects a single named weapon or
@@ -2371,7 +2395,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         {baseCanticles.length > 0 && (
                           <ul className="text-[10px] text-zinc-500 mt-1 leading-relaxed space-y-0.5 list-none">
                             {baseCanticles.map(c => (
-                              <li key={c.name}><span className="text-zinc-400">{nm(c.name)}:</span> {c.effect}</li>
+                              <li key={c.name}><span className="text-zinc-400">{nm(c.name)}:</span> {localiseAbility(c.effect)}</li>
                             ))}
                           </ul>
                         )}
@@ -2665,7 +2689,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{rl(displayAbilities)}</td>
+                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities === '—' ? '—' : <AbilityTokens text={displayAbilities} />}</td>
               </tr>
               </Fragment>
             );

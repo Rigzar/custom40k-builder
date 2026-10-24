@@ -20,7 +20,7 @@
       "abilities": [
         "Unyielding",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to and only use the attached unit's movement restriction. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\"."
+        "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\". Cumulative with itself."
       ]
     },
     {
@@ -107,7 +107,7 @@
       "abilities": [
         "Unyielding",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to and only use the attached unit's movement restriction. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Accelerator: Pulse Accelerator Drones increase the range of all pulse weapons in the unit by 6\"."
+        "Accelerator: Pulse Accelerator Drones increase the range of all pulse weapons in the unit by 6\". Cumulative with itself."
       ]
     },
     {
@@ -144,7 +144,7 @@
     },
     {
       "name": "Shield Drone",
-      "points": 20,
+      "points": 5,
       "stats": {
         "M": "*",
         "WS": "5+",
@@ -162,12 +162,12 @@
       "abilities": [
         "Unyielding",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to and only use the attached unit's movement restriction. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Shielded: Shield Drones confer a 5+ ward save against range attacks to themselves and their attached units."
+        "Shielded: Units that contain a Shield Drone gain a Ward(6+) against ranged attacks. A second Shield Drone grants Ward(5+) against ranged attacks instead."
       ]
     },
     {
       "name": "Missile Drone",
-      "points": 16,
+      "points": 21,
       "stats": {
         "M": "*",
         "WS": "5+",
@@ -232,7 +232,7 @@
     },
     {
       "name": "Stealth Drone",
-      "points": null,
+      "points": 15,
       "stats": {
         "M": "*",
         "WS": "5+",
@@ -250,7 +250,7 @@
       "abilities": [
         "Unyielding",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to and only use the attached unit's movement restriction. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Shrouded: Stealth Drones confer the ability \"Stealth\" and \"Use cover\" to themselves and their attached units."
+        "Shrouded: Units that contain a Stealth Drone can't be targeted by enemies outside of 18\" range. A second Stealth Drone reduces that range to 12\"."
       ]
     },
     {
@@ -273,7 +273,7 @@
       "abilities": [
         "Unyielding",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to and only use the attached unit's movement restriction. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their charge."
+        "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their Charge move. Cumulative with itself."
       ]
     }
   ],

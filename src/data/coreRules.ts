@@ -270,7 +270,7 @@ export const RULES: Record<string, RuleEntry> = {
   // Tau Empire ENG.ods — abridged: the full entry carries a token-cost table, kept as prose.
   'markerlight': {
     name: 'Markerlight',
-    description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit; friendly units in range and line of sight of the target may assign theirs to it during the same activation. A unit\'s own tokens must be used up first. Cannot be assigned while locked in melee combat. Tokens are spent for these benefits — 1: re-roll a single wound roll; 1: one Seeker missile equipped by the unit automatically hits the target; 1: reduce enemy Leadership by a cumulative 1 until the end of the battle round; 2: attacks gain the cumulative "Sunder(1)" ability; 2: reduce the to hit penalty for Defensive Fire by 1; 2: re-roll ranged to hit rolls of 1; 2: re-roll a single armor penetration roll; 3: the target must pass a Leadership test or gain a Battleshock token; 3: the target is hit by a Seeker missile from outside the battlefield (vehicles are hit on the side the unit would normally be able to hit). A unit that wants to use Markerlight token effects has to declare it before rolling to hit. Each token can only be used for a single effect and all unused tokens are discarded at the end of the battle round.',
+    description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit; friendly units in range and line of sight of the target may assign theirs to it during the same activation. A unit\'s own tokens must be used up first. Cannot be assigned while locked in melee combat. A maximum of 5 Markerlight tokens may be assigned per activation. Tokens are spent for these benefits — 1: re-roll a single wound roll; 1: one Seeker missile equipped by the unit automatically hits the target; 1: reduce enemy Leadership by a cumulative 1 until the end of the battle round; 2: attacks gain the cumulative "Sunder(1)" ability; 2: reduce the to hit penalty for Defensive Fire by 1; 2: re-roll ranged to hit rolls of 1; 2: re-roll a single armor penetration roll; 3: the target must pass a Leadership test or gain a Battleshock token; 3: the target is hit by a Seeker missile from outside the battlefield (vehicles are hit on the side the unit would normally be able to hit). A unit that wants to use Markerlight token effects has to declare it before rolling to hit. Each token can only be used for a single effect and all unused tokens are discarded at the end of the battle round.',
   },
   // Harlequins.ods
   'neuro disruptor': {
@@ -612,6 +612,15 @@ export const RULES: Record<string, RuleEntry> = {
   'canticles of the omnissiah': {
     name: 'Canticles of the Omnissiah',
     description: 'At the start of the Command phase, choose one Canticle. All units with this rule within 9" of a Choir Master model roll a D6 — on 4+ they gain the chosen Canticle\'s benefit until the end of the battle round.',
+  },
+  // Adeptus Mechanicus.ods, Index: Special rules
+  'choir master': {
+    name: 'Choir Master',
+    description: 'Units containing this model automatically pass their Canticle of the Omnissiah roll.',
+  },
+  'monotask': {
+    name: 'Monotask',
+    description: 'This unit does not benefit from Canticles of the Omnissiah unless it is accompanied by a character with "Choir Master".',
   },
   'instinctive behaviour': {
     name: 'Instinctive Behaviour',

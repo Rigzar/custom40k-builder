@@ -24,7 +24,7 @@ export const TAU_SPECIAL_ABILITIES: TauSpecialAbilityEntry[] = [
     text: 'Verbatim (Index): a token economy — units place Markerlight tokens on enemies; tokens are ' +
       'spent (1-3 each) for benefits: auto-hit Seeker missiles, -Ld, Sunder(1), -Defensive-Fire ' +
       'penalty, re-roll ranged 1s, force a Battleshock test, or an off-board Seeker missile hit. Max ' +
-      '4 tokens per enemy unit; unused tokens discarded at end of round. The defining Tau targeting ' +
+      '5 tokens assigned per activation; unused tokens discarded at end of round. The defining Tau targeting ' +
       'mechanic.',
   },
   {
