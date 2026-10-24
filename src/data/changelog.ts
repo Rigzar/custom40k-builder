@@ -54,6 +54,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "IMPERIAL GUARD — TAUROS VENATOR SWAP AND COMBAT ENGINEERS. The Tauros Venator's swap of its Twin-linked heavy stubber for a Twin multilaser or Twin lascannon now removes the stubber (the swap was looking for the old weapon name). Combat Engineers no longer show the Close Combat Specialists lasgun swap, since they carry no lasgun.",
       "CAMPAIGN (PLANETARY ASSAULT) IS OPEN AS AN ALPHA FOR EVERYONE. Sign in and press Campaign on the front page to start or join a campaign: sector map, supply, buildings, roster, battle log and weekly events. It is an alpha: it keeps the books of the campaign more than it enforces every rule, so tell us in the bug report form what breaks or what you miss.",
       "ADEPTUS MECHANICUS — DARK MECHANICUM ARE TREATED AS CHAOS SPACE MARINES IN THE ALLY MATRIX. The archetype now rewrites the whole ally row, like Traitor Guard: Chaos Space Marines and Chaos Daemons are Battle Brothers, and every other faction is read the way Chaos Space Marines read it. Before, only Chaos Space Marines changed, to Allies of Convenience.",
+      "CHAOS SPACE MARINES — HELBRUTE SQUADS COUNT THEIR SWAPS PER MODEL (NUKE). A squad of two Helbrutes could only swap ONE Power scourge or fist, and take ONE combi-bolter or heavy flamer, because those options were a single tick box. Each Helbrute can now swap its own weapons and take its own combi-bolter or heavy flamer, and the weapon table counts them.",
     ],
   },
   {
