@@ -189,6 +189,8 @@ export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Uni
 export function variantPromotionCap(group: OptionGroup, size: number): number {
   const c = group.constraint;
   if (c?.type === 'fixed_max') return c.max ?? 1;
+  // "Any Tauros may be upgraded to a Tauros Venator": every model of the squad may be.
+  if (c?.type === 'every') return Math.max(1, size);
   if (c?.type === 'per_n' && c.per_n) return Math.floor(size / c.per_n) * (c.count_per_n ?? 1);
   return 1;
 }

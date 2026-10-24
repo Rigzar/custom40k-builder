@@ -101,7 +101,7 @@
     {
       "header": "Any Tauros may be upgraded to a Tauros Venator for +11 points.",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [],
       "inline_pts": 11,
