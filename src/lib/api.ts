@@ -71,6 +71,12 @@ export function changePassword(currentPassword: string, newPassword: string) {
   });
 }
 
+export function changeUsername(newUsername: string, currentPassword: string) {
+  return call<{ ok: true; username: string }>('/api/auth/change-username', {
+    method: 'POST', body: JSON.stringify({ newUsername, currentPassword }),
+  });
+}
+
 export type SecretQuestionInfo =
   | { hasSecretQuestion: true; question: string }
   | { hasSecretQuestion: false };

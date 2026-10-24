@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     case 'register': return register(req, res);
     case 'reset-password': return resetPassword(req, res);
     case 'change-password': return changePassword(req, res);
+    case 'change-username': return changeUsername(req, res);
     case 'secret-question': return secretQuestion(req, res);
     case 'recovery-code':   return recoveryCode(req, res);
     case 'recovery-status': return recoveryStatus(req, res);
@@ -253,6 +254,65 @@ async function changePassword(req, res) {
   } catch (err) {
     if (isDbUnavailable(err)) { res.status(503).json({ error: 'Database temporarily unavailable.', key: 'dbUnavailable' }); return; }
     res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Password change failed', detail: String(err) });
+  }
+}
+
+/**
+ * POST /api/auth/change-username { newUsername, currentPassword } -> authenticated. The logged-in user renames their own
+ * account. The current password is required (a stolen session cannot take the name over), the new name has to pass the
+ * same rules as at registration and must not belong to anybody else, compared WITHOUT regard to case so nobody can pose
+ * as an existing player with a different capital letter. Changing only the capitalisation of your own name is allowed.
+ * Everything else points at the account by id, so friends, saves, leagues and games follow the rename; the two text
+ * copies of the name (the provenance label of copied armies and open recovery requests) are updated here.
+ */
+async function changeUsername(req, res) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+  try {
+    const userId = getSessionUserId(req);
+    if (!userId) {
+      res.status(401).json({ error: 'Not logged in' });
+      return;
+    }
+    const { newUsername, currentPassword } = req.body ?? {};
+    if (!isValidUsername(newUsername)) {
+      res.status(400).json({ error: 'Username must be 3-24 characters: letters, numbers, _ or -.', key: 'usernameInvalid' });
+      return;
+    }
+    if (typeof currentPassword !== 'string' || !currentPassword) {
+      res.status(400).json({ error: 'Your current password is required.' });
+      return;
+    }
+    await ensureSchema();
+    const me = await sql`SELECT username, password_hash FROM users WHERE id = ${userId}`;
+    const user = me.rows[0];
+    if (!user || !(await verifyPassword(currentPassword, user.password_hash))) {
+      res.status(401).json({ error: 'Your current password is incorrect.' });
+      return;
+    }
+    if (user.username === newUsername) {
+      res.status(400).json({ error: 'That is already your username.', key: 'usernameSame' });
+      return;
+    }
+    const taken = await sql`SELECT id FROM users WHERE LOWER(username) = LOWER(${newUsername}) AND id <> ${userId}`;
+    if (taken.rows.length > 0) {
+      res.status(409).json({ error: 'That username is already taken.', key: 'usernameTaken' });
+      return;
+    }
+    try {
+      await sql`UPDATE users SET username = ${newUsername} WHERE id = ${userId}`;
+    } catch (err) {
+      if (err && err.code === '23505') { res.status(409).json({ error: 'That username is already taken.', key: 'usernameTaken' }); return; }
+      throw err;
+    }
+    await sql`UPDATE rosters SET source_username = ${newUsername} WHERE source_username = ${user.username}`;
+    await sql`UPDATE recovery_requests SET username = ${newUsername} WHERE username = ${user.username}`;
+    res.status(200).json({ ok: true, username: newUsername });
+  } catch (err) {
+    if (isDbUnavailable(err)) { res.status(503).json({ error: 'Database temporarily unavailable.', key: 'dbUnavailable' }); return; }
+    res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Username change failed', detail: String(err) });
   }
 }
 

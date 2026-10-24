@@ -1173,6 +1173,10 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const [pwCurrent, setPwCurrent]         = useState('');
   const [pwNew, setPwNew]                 = useState('');
   const [pwMsg, setPwMsg]                 = useState('');
+  const [unOpen, setUnOpen]               = useState(false);
+  const [unNew, setUnNew]                 = useState('');
+  const [unPw, setUnPw]                   = useState('');
+  const [unMsg, setUnMsg]                 = useState('');
 
   function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]; if (!file) return;
@@ -1224,6 +1228,18 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
       setPwCurrent(''); setPwNew(''); setPwOpen(false);
       setPwMsg(t('passwordChangedMsg'));
       setTimeout(() => setPwMsg(''), 3000);
+    } catch (err) { setSecError((err as Error).message); }
+    finally { setSecBusy(false); }
+  }
+
+  async function handleChangeUsername() {
+    setSecBusy(true); setSecError(''); setUnMsg('');
+    try {
+      await api.changeUsername(unNew.trim(), unPw);
+      setUnPw(''); setUnNew(''); setUnOpen(false);
+      setUnMsg(t('usernameChangedMsg'));
+      // the name is shown all over the app (header, friends, leagues): reload so every place reads the new one
+      setTimeout(() => window.location.reload(), 1200);
     } catch (err) { setSecError((err as Error).message); }
     finally { setSecBusy(false); }
   }
@@ -1434,6 +1450,23 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
                 </div>
               ) : (
                 <p className="text-zinc-500 text-xs italic">{t('noRecoveryCode')}</p>
+              )}
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('changeUsernameLabel')}</div>
+              <p className="text-zinc-500 text-[11px] mb-1">{username}</p>
+              {unMsg && <p className="text-emerald-400 text-xs mb-1">{unMsg}</p>}
+              {!unOpen ? (
+                <button onClick={() => setUnOpen(true)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('changeButton')}</button>
+              ) : (
+                <div className="space-y-2">
+                  <input type="text" autoComplete="off" maxLength={24} value={unNew} onChange={e => setUnNew(e.target.value)} placeholder={t('newUsernamePlaceholder')} className="w-full bg-zinc-800 border border-zinc-600 text-zinc-100 text-xs px-2 py-1.5 outline-none focus:border-amber-600" />
+                  <input type="password" autoComplete="current-password" value={unPw} onChange={e => setUnPw(e.target.value)} placeholder={t('currentPasswordPlaceholder')} className="w-full bg-zinc-800 border border-zinc-600 text-zinc-100 text-xs px-2 py-1.5 outline-none focus:border-amber-600" />
+                  <div className="flex gap-2">
+                    <button disabled={secBusy || !unPw || !/^[a-zA-Z0-9_-]{3,24}$/.test(unNew.trim()) || unNew.trim() === username} onClick={handleChangeUsername} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50">{t('changeButton')}</button>
+                    <button onClick={() => { setUnOpen(false); setUnNew(''); setUnPw(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600">✕</button>
+                  </div>
+                </div>
               )}
             </div>
             <div>

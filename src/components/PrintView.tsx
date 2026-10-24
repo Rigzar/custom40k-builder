@@ -1741,6 +1741,12 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     for (const ab of rpForRules.injectedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
     for (const ab of rpForRules.optionAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
     for (const ab of rpForRules.equipMods.grantedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
+    // Abilities a TRAIT hands out (Dark Eldar Torturous Efficiency: Rending(5+) on every weapon; Necron Awakened by Murder: Frenzy) are on the
+    // cards but were never collected, so the Special Rules section did not explain them (Discord, 2026-10-24).
+    for (const ta of rpForRules.traitAbilities ?? []) parseGeneric(ta.desc ? `${ta.name}: ${ta.desc}` : ta.name);
+    for (const ta of rpForRules.traitWeaponAbilities ?? []) parseGeneric(ta.name);
+    for (const m of [rpForRules.weaponTraitMap, rpForRules.championWeaponTraitMap])
+      for (const list of (m ? [...m.values()] : [])) for (const ab of list) parseGeneric(ab);
     // Veteran abilities / traits are printed on the card by NAME; their rule text belongs in the
     // Special Rules section too (Discord: "descriptions of Veteran abilities do not show in Print").
     const traitSource = armoryDataFor(item.factionSource);

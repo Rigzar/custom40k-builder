@@ -229,7 +229,7 @@ export type TranslationKey =
   | 'myCampaignsLabel' | 'campaignRoleGm' | 'campaignRolePlayer' | 'campaignFinishedBadge' | 'openButton'
   | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
-  | 'optInTraitLabel' | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
+  | 'optInTraitLabel' | 'changeUsernameLabel' | 'newUsernamePlaceholder' | 'usernameChangedMsg' | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
   | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
   | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton'
@@ -1376,6 +1376,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
     noRecoveryCode: 'No code on file yet — reset your password once to get one.',
     optInTraitLabel: "{trait}: use it on this unit (+{pts} pts)",
+    changeUsernameLabel: "Username", newUsernamePlaceholder: "New username (3-24 letters, numbers, _ or -)", usernameChangedMsg: "Username changed!",
     changePasswordLabel: "Change password", currentPasswordPlaceholder: "Current password", newPasswordPlaceholder: "New password (min. 8 characters)", passwordChangedMsg: "Password changed!",
     secretQuestionSectionLabel: 'Secret question', changeButton: 'Change',
     secretQuestionOptionalHint: 'Optional — required with recovery code to reset password.',
@@ -2546,6 +2547,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
     noRecoveryCode: 'Noch kein Code vorhanden — Passwort einmal zurücksetzen um einen zu erhalten.',
     optInTraitLabel: "{trait}: bei dieser Einheit nutzen (+{pts} Pkt.)",
+    changeUsernameLabel: "Benutzername", newUsernamePlaceholder: "Neuer Benutzername (3-24 Buchstaben, Zahlen, _ oder -)", usernameChangedMsg: "Benutzername geändert!",
     changePasswordLabel: "Passwort ändern", currentPasswordPlaceholder: "Aktuelles Passwort", newPasswordPlaceholder: "Neues Passwort (mind. 8 Zeichen)", passwordChangedMsg: "Passwort geändert!",
     secretQuestionSectionLabel: 'Sicherheitsfrage', changeButton: 'Ändern',
     secretQuestionOptionalHint: 'Optional — zusammen mit dem Wiederherstellungscode zum Zurücksetzen des Passworts erforderlich.',
@@ -3716,6 +3718,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',
     noRecoveryCode: 'Aún no hay código — restablece tu contraseña una vez para obtener uno.',
     optInTraitLabel: "{trait}: usarlo en esta unidad (+{pts} pts)",
+    changeUsernameLabel: "Nombre de usuario", newUsernamePlaceholder: "Nuevo nombre (3-24 letras, números, _ o -)", usernameChangedMsg: "¡Nombre de usuario cambiado!",
     changePasswordLabel: "Cambiar contraseña", currentPasswordPlaceholder: "Contraseña actual", newPasswordPlaceholder: "Contraseña nueva (mín. 8 caracteres)", passwordChangedMsg: "¡Contraseña cambiada!",
     secretQuestionSectionLabel: 'Pregunta secreta', changeButton: 'Cambiar',
     secretQuestionOptionalHint: 'Opcional — necesaria junto al código de recuperación para restablecer la contraseña.',
