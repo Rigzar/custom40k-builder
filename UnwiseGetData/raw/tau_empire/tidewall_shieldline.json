@@ -54,16 +54,13 @@
         "ABILITIES"
     ],
     [
-        "Anti-Grav, Open"
+        "Anti-Grav, Open, Ward(4+)"
     ],
     [
         "Transport: This model has a transport capacity of 10 models."
     ],
     [
         "Mobile defenses: The model can only move if it has embarked passengers inside."
-    ],
-    [
-        "Tidewall shield generator: The model and all embarked units have a 4+ ward save."
     ],
     [
         "UNIT TYPE"

@@ -30,7 +30,7 @@
         152
     ],
     [
-        "A Captain is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
+        "A Captain is equipped with: Terminator armor; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade."
     ],
     [
         "WEAPON",
@@ -164,16 +164,13 @@
         "ABILITIES"
     ],
     [
-        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding"
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding, Ward(5+)"
     ],
     [
         "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have."
     ],
     [
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
-    ],
-    [
-        "Terminator armor: The model gains a 5+ ward save."
     ],
     [
         "UNIT TYPE"

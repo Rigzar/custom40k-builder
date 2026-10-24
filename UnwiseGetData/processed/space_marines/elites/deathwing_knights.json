@@ -41,7 +41,7 @@
     "variant_models": [],
     "min_cost": 320,
     "default_size": 5,
-    "equipped_with": "Every model is equipped with: Power sword; Storm shield.",
+    "equipped_with": "Every model is equipped with: Terminator Armor; Power sword; Storm shield.",
     "weapons": [
         {
             "name": "Flail of the Unforgiven",
@@ -81,8 +81,7 @@
         }
     ],
     "abilities": [
-        "Combat squads, Deep Strike,Massive(1), They Shall Know No Fear",
-        "Terminator armor: The model gains a 5+ ward save."
+        "Combat squads, Deep Strike,Massive(1), They Shall Know No Fear, Ward(5+)"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

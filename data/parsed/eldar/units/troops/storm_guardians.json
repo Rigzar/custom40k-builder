@@ -181,7 +181,7 @@
     "abilities": [
         "Battle Focus",
         "Crewed platform: If the last Guardian Defender is removed, all remaining Serpent scale platforms are destroyed. They are ignored for all kinds of unit strength and moral purposes.",
-        "Serpent shield: The model and its attached unit have a 5+ ward save against ranged attacks. If the unit got 2 Serpent scale platforms, the ward save is improved to 4+."
+        "Serpent shield: The model and its attached unit have Ward(5+) against ranged attacks. If the unit has 2 Serpent scale platforms, they have Ward(4+) instead."
     ],
     "unit_type": "Infantry",
     "keywords": [

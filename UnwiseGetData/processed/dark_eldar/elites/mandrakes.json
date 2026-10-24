@@ -63,9 +63,8 @@
         }
     ],
     "abilities": [
-        "Deflect, Hunter, Infilltrator, Move through cover, Parry, Power through Pain",
+        "Deflect, Hunter, Infilltrator, Move through cover, Parry, Power through Pain, Ward(5+)",
         "Fade away: During each Reinforcement phase, the unit may be set up again following the rules for Infiltrator.",
-        "Shadow Creature: The model gains a 5+ ward save.",
         "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
     ],
     "unit_type": "Infantry",

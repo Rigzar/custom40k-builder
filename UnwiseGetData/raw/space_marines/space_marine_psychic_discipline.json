@@ -97,7 +97,7 @@
     ],
     [
         "Effect:",
-        "The target gains a 5+ ward save.",
+        "The target gains Ward(5+).",
         "Effect:",
         "The target gains +2 Initiative.",
         "Effect:",
@@ -488,7 +488,7 @@
         "Effect:",
         "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; Armorbane(1), AT(2), Seeking. Vehicles are hit twice.",
         "Effect:",
-        "The target unit gains a 5+ ward save."
+        "The target unit gains Ward(5+)."
     ],
     [
         "Duration:",
@@ -940,7 +940,7 @@
         "Effect:",
         "The psyker's melee attacks gain cumulative +1 Strength and -1 AP for each point his own Leadership is higher than his target's.",
         "Effect:",
-        "The target gains a 4+ ward save."
+        "The target gains Ward(4+)."
     ],
     [
         "Duration:",

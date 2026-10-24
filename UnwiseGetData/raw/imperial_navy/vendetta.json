@@ -72,10 +72,18 @@
         "OPTIONS"
     ],
     [
-        "- May be equipped with; +78 points two Hellstrike missiles."
+        "- May be equipped with:"
     ],
     [
-        "- May be equipped with: +27 points two Heavy bolters."
+        "- two Hellstrike missiles",
+        "+78 points"
+    ],
+    [
+        "- May be equipped with:"
+    ],
+    [
+        "- two Heavy bolters",
+        "+27 points"
     ],
     [
         "- Has access to vehicle equipment from the Armory."

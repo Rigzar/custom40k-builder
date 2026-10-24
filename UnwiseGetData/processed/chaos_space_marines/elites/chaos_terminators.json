@@ -41,16 +41,16 @@
     "variant_models": [],
     "min_cost": 345,
     "default_size": 5,
-    "equipped_with": "Each model is equipped with: Combi-Bolter; Power sword.",
+    "equipped_with": "Each model is equipped with: Terminator Armor; Combi-Bolter; Power sword.",
     "weapons": [
         {
-            "name": "Chainfist",
+            "name": "Chain fist",
             "range": "-",
             "type": "Melee",
             "s": "x2",
-            "ap": "-4",
+            "ap": "-3",
             "d": "3",
-            "abilities": "Armorbane(3), AT(3), Slow(-3)"
+            "abilities": "AT(3), Piercing(5+), Slow(-3), Unwieldy"
         },
         {
             "name": "Lightning claw",
@@ -198,8 +198,7 @@
         }
     ],
     "abilities": [
-        "Deep strike, Massive(1), Unyielding",
-        "Crux Terminatus: This unit has a 5+ ward save."
+        "Deep strike, Massive(1), Unyielding, Ward(5+)"
     ],
     "unit_type": "Infantry",
     "is_monster": false,

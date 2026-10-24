@@ -102,7 +102,7 @@
         1,
         6,
         "4+",
-        20
+        5
     ],
     [
         "*",
@@ -117,7 +117,7 @@
         1,
         6,
         "4+",
-        16
+        21
     ],
     [
         "*",
@@ -147,7 +147,7 @@
         1,
         6,
         "4+",
-        "-"
+        15
     ],
     [
         "*",
@@ -246,7 +246,7 @@
         "OPTIONS"
     ],
     [
-        "\u2022 Must be bought from the armory as part of the Drone controller upgrade and can't be fielded by themselves."
+        "\u2022 Must be bought from the Armory as part of the Drone controller upgrade and can't be fielded by themselves."
     ],
     [
         "ABILITIES"
@@ -261,19 +261,19 @@
         "Drone abilities:"
     ],
     [
-        "Accelerator: Pulse Accelerator Drones increase the range of all pulse weapons in the unit by 6\"."
+        "Accelerator: Pulse Accelerator Drones increase the range of all pulse weapons in the unit by 6\". Cumulative with itself."
     ],
     [
-        "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their charge."
+        "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their Charge move. Cumulative with itself."
     ],
     [
-        "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\"."
+        "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\". Cumulative with itself."
     ],
     [
-        "Shielded: Shield Drones confer a 5+ ward save against range attacks to themselves and their attached units."
+        "Shielded: Units that contain a Shield Drone gain a Ward(6+) against ranged attacks. A second Shield Drone grants Ward(5+) against ranged attacks instead."
     ],
     [
-        "Shrouded: Stealth Drones confer the ability \"Stealth\" and \"Use cover\" to themselves and their attached units."
+        "Shrouded: Units that contain a Stealth Drone can't be targeted by enemies outside of 18\" range. A second Stealth Drone reduces that range to 12\". "
     ],
     [
         "UNIT TYPE"

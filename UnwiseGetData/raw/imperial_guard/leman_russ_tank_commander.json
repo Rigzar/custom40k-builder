@@ -27,7 +27,7 @@
         3,
         1,
         4,
-        288
+        294
     ],
     [
         "A Leman Russ Tank Commander is equipped with: Punisher gatling cannon; Heavy flamer."
@@ -189,7 +189,7 @@
         "OPTIONS"
     ],
     [
-        "\u2022 Only one Leman Russ Tank Commander per army."
+        "\u2022 Only one Leman Russ Tank Commander or Rogal Dorn Tank Comander per army."
     ],
     [
         "\u2022 May swap the Punisher gatling cannon:"
@@ -257,9 +257,6 @@
     ],
     [
         "ABILITIES"
-    ],
-    [
-        "Move through cover"
     ],
     [
         "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons."

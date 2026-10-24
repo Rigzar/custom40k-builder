@@ -63,12 +63,11 @@
         }
     ],
     "abilities": [
-        "Monotask, Unyielding",
+        "Monotask, Unyielding, Ward(5+)",
         "Battle Protocols: Select one Battle Protocol during each activation:",
         "- Aegis: All models in the unit gain +1 Toughness. This is the default selection in the first battle round until the first actual activation.",
         "- Conqueror: All models in the unit gain +1 WS.",
-        "- Protector: All models in the unit gain +1 BS.",
-        "Repulsor Grid: The model gains a 5+ ward save."
+        "- Protector: All models in the unit gain +1 BS."
     ],
     "unit_type": "Monstrous infantry",
     "is_monster": false,

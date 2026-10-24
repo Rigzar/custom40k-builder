@@ -349,13 +349,13 @@
     ],
     [
         "Phase adjuster",
-        "The model gains a 5+ ward save.",
+        "The model gains Ward(5+) ",
         8,
         20
     ],
     [
         "Phase shifter",
-        "The model gains a 4+ ward save.",
+        "The model gains a Ward(4+)",
         "-",
         35
     ],

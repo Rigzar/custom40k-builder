@@ -46,7 +46,7 @@
     ],
     [
         "Conversion field\u1d33 \u1d40",
-        "The model gains a 4+ ward save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
+        "The model gains Ward(4+). If it makes at least one successful save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
         "-",
         35
     ],

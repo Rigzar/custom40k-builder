@@ -22,12 +22,12 @@
         "4+",
         5,
         5,
-        2,
+        3,
         2,
         2,
         7,
         "3+",
-        37
+        57
     ],
     [
         "*",
@@ -37,12 +37,12 @@
         "4+",
         5,
         5,
-        2,
+        3,
         2,
         2,
         8,
         "3+",
-        42
+        67
     ],
     [
         "All models are equipped with: -."
@@ -141,16 +141,13 @@
         "+26 points"
     ],
     [
-        "\u2022 Any model may pick up to two SUPPORT SYSTEMS from the armory."
-    ],
-    [
-        "\u2022 One Crisis Shas'ui may be upgraded to a Shas'vre for +5pts."
+        "\u2022 One Crisis Shas'ui may be upgraded to a Shas'vre for +10 points."
     ],
     [
         "\u2022 A Shas'vre may buy a Drone controller for +0 points and up to two Tau Drones in any combination."
     ],
     [
-        "\u2022 All models have access to the armory."
+        "\u2022 All models have access to weapons and gear from the Armory. Each may pick up to two SUPPORT SYSTEMS."
     ],
     [
         "ABILITIES"

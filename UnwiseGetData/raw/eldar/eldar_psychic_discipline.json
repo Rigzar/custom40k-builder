@@ -228,7 +228,7 @@
         "Effect:",
         "The target suffers three automatic hits with S: 8 AP: -3 D: 2; AT(2), Seeking.",
         "Effect:",
-        "The target receives a 4+ ward save.",
+        "The target receives Ward(4+).",
         "Effect:",
         "The target receives a +1 bonus to all hit rolls."
     ],
@@ -355,7 +355,7 @@
     ],
     [
         "Effect:",
-        "The target receives a 4+ ward save.",
+        "The target receives Ward(4+).",
         "Effect:",
         "Attacks against the target gain the \"Precision(5+)\" and \"Shield breaker(-1)\" abilities.",
         "Effect:",

@@ -22,12 +22,12 @@
         "3+",
         5,
         5,
-        4,
+        5,
         3,
         2,
         8,
         "3+",
-        86
+        106
     ],
     [
         "*",
@@ -37,12 +37,12 @@
         "3+",
         5,
         5,
-        4,
+        5,
         3,
         3,
         9,
         "3+",
-        101
+        121
     ],
     [
         "A Shas'el is a single character model and equipped with: -."
@@ -201,13 +201,10 @@
         "\u2022 One Shas'el per army can be upgraded to a Shas'o for +15 points."
     ],
     [
-        "\u2022 May pick up to two SUPPORT SYSTEMS from the armory."
-    ],
-    [
         "\u2022 May buy a Drone controller for +0 points and up to two Tau Drones in any combination."
     ],
     [
-        "\u2022 Has access to weapons and gear from the Armory."
+        "\u2022 Has access to weapons and gear from the Armory. May pick up to two SUPPORT SYSTEMS."
     ],
     [
         "ABILITIES"

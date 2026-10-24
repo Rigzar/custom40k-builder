@@ -434,7 +434,7 @@
     ],
     [
         "Cybork body\u1d39",
-        "The model receives a 5+ ward save.",
+        "The model receives Ward(5+).",
         7,
         20
     ],
@@ -458,7 +458,7 @@
     ],
     [
         "Gold teeth armor",
-        "The model gains a 3+ armor save and a 5+ ward save. Unique",
+        "The model gains a 3+ armor save and Ward(5+). Unique",
         "-",
         46
     ],
