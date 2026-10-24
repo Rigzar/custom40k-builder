@@ -25,6 +25,25 @@ function perModelCap(g: Group): number {
   return WORDS[m[1].toLowerCase()] ?? (parseInt(m[1], 10) || 1);
 }
 
+/**
+ * Models in an XV85 Enforcer suit: "it may select one more weapon or support system". On the Crisis Honor Guard the Enforcer is one of
+ * the per-model upgrades (counted by how many models took it); on the Crisis Battlesuits it is an Armory item.
+ */
+export function enforcerCount(unit: Unit, item: RosterEntry): number {
+  let n = item.armory.filter(a => a.itemName === 'XV85 Enforcer battlesuit').length;
+  unit.option_groups.forEach((g, gi) => {
+    const ci = (g.choices ?? []).findIndex(c => /^XV85-2 Enforcer$/i.test(c.name));
+    if (ci >= 0) n += Number(item.optionQty?.[gi]?.[ci] ?? 0) || 0;
+  });
+  return n;
+}
+
+/** The Tau "up to three of the following" weapon group of a Crisis suit: one extra weapon per Enforcer. */
+export function enforcerWeaponBonus(unit: Unit, item: RosterEntry, g: Group): number {
+  if (g.constraint?.type !== 'per_n' || !(g.choices ?? []).some(c => /^Burst cannon$/i.test(c.name))) return 0;
+  return enforcerCount(unit, item);
+}
+
 /** The cap for this roster entry, or null when its datasheet has no such line. */
 export function supportSystemCap(
   unit: Unit, item: RosterEntry, _data: FactionData, traitPool: string[],
@@ -37,7 +56,7 @@ export function supportSystemCap(
   const advancedMiniaturization = traitPool.includes('Advanced Miniaturization') ? 1 : 0;
   // XV85 Enforcer: "it may select one more weapon or support system". Counted as one more support system, because the
   // choice between the two is not tracked.
-  const enforcers = item.armory.filter(a => a.itemName === 'XV85 Enforcer battlesuit').length;
+  const enforcers = enforcerCount(unit, item);
   return (perModelCap(g) + advancedMiniaturization) * models + enforcers;
 }
 

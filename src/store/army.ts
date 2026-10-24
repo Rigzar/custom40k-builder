@@ -12,6 +12,7 @@ import { isPsykerOnlyTrait, traitExcludesUnit } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
 import { armoryItemsLostByDeselecting, repairOrphanedArmory, dropLegacyArmory } from '../utils/armoryGuard';
+import { enforcerWeaponBonus } from '../lib/supportSystems';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -1060,7 +1061,7 @@ function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
     if (g.applies_to_model || g.independent_choices || !oq[gi]) return;
     const c = g.constraint;
     const max = c.type === 'every' ? e.size
-      : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1)
+      : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1) + enforcerWeaponBonus(unit, e, g)
       : null;
     if (max === null) return;
     const group = { ...oq[gi] };

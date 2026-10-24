@@ -14,7 +14,7 @@ import { OPT_IN_TRAITS } from '../store/army';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
-import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
+import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned, enforcerWeaponBonus } from '../lib/supportSystems';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
 import { isAttendantModel } from '../lib/battleProfile';
@@ -1478,7 +1478,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // max = min(slots×2, dishonored_count)
             const perNPoolSize = isPerN ? (sumModelGroups(g.per_n_pool ?? null) ?? item.size) : null;
             const perNRaw = isPerN
-              ? (g.constraint.count_per_n ?? 1) * Math.floor((perNPoolSize ?? 0) / (g.constraint.per_n ?? 1))
+              ? (g.constraint.count_per_n ?? 1) * Math.floor((perNPoolSize ?? 0) / (g.constraint.per_n ?? 1)) + enforcerWeaponBonus(u, item, g)
               : null;
             const modelGroupCap = sumModelGroups(applyModelNames);
             // Drone controller groups (their choices are all named Tau Drones, see

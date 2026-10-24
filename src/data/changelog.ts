@@ -45,6 +45,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "LEAGUES OF VOTANN — DEMIURG CAN ONLY BE AN ALLIED DETACHMENT FOR THE T'AU EMPIRE (Votann 1.5). The archetype is no longer offered to a Votann primary army, and a list that uses it anywhere else shows an error.",
       "ACCOUNTS — CHANGE YOUR OWN USERNAME (Famouscron88). Account tab, Account security, Username: type the new name and your current password. The name needs 3 to 24 letters, numbers, _ or -, and must not belong to anybody else (compared without regard to capital letters; changing only the capitals of your own name is fine). Friends, saved armies, leagues and games follow the account.",
       "PRINT — ABILITIES A TRAIT GRANTS NOW GET THEIR RULE TEXT IN THE SPECIAL RULES SECTION (Archon of the Obsidian Rose). Torturous Efficiency (Rending(5+) on every weapon), Awakened by Murder (Frenzy) and the 44 other traits that hand out an ability showed the ability on the cards but the printed Special Rules section never explained it. Checked on every faction: all 46 such traits now appear.",
+      "T'AU — THE XV85 ENFORCER GETS ITS EXTRA WEAPON (MightyBull). \"It may select one more weapon or support system\" only ever raised the support system limit, and only for the Enforcer taken from the Armory. A Crisis Honor Guard model with the XV85-2 Enforcer upgrade got nothing, and the weapon limit never moved. Now each Enforcer suit allows one more weapon (4 instead of 3) and one more support system, and the list reports an error if a suit takes both extras, since the rule gives ONE.",
     ],
   },
   {

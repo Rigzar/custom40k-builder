@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186h_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186i_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -66,6 +66,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Incubi Bloodstone, Murderous Assault and Onslaught, the Grotesque Aberration and the Mindphase gauntlet are in."],
         ["Escalation","War Dogs for every Chaos army and Armigers for every Imperial army (Chaos Daemons excluded)."],
         ["Leagues of Votann","Demiurg can only be an allied detachment for the T'au Empire."],
+        ["T'au Empire","The XV85 Enforcer suit gets its extra weapon (and its extra support system), for the Crisis Honor Guard and the Crisis Battlesuits."],
         ["Accounts","You can change your own username from Account security."],
         ["Print","Abilities a trait gives (Torturous Efficiency, Awakened by Murder...) are now explained in the printed Special Rules."],
         ["Eldar","Aspect Focus now makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
@@ -88,6 +89,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Incubi-Bloodstone, Murderous Assault und Onslaught, die Grotesque-Aberration und der Mindphase gauntlet sind drin."],
         ["Escalation","War Dogs für jede Chaos-Armee und Armigers für jede imperiale Armee (ohne Chaos Daemons)."],
         ["Leagues of Votann","Demiurg kann nur ein verbündetes Kontingent für die T'au sein."],
+        ["T'au","Der XV85 Enforcer bekommt seine zusätzliche Waffe (und sein zusätzliches Unterstützungssystem), bei Crisis-Ehrengarde und Crisis-Kampfanzügen."],
         ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
         ["Druck","Fähigkeiten, die ein Wesenszug gewährt (Torturous Efficiency, Awakened by Murder ...), werden jetzt in den gedruckten Spezialregeln erklärt."],
         ["Eldar","Aspect Focus macht die Dark Reapers jetzt zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
@@ -110,6 +112,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Bloodstone de Incubi, Murderous Assault y Onslaught, la Aberration de los Grotesques y el Mindphase gauntlet ya están."],
         ["Escalation","War Dogs para todo ejército del Caos y Armigers para todo ejército Imperial (sin Chaos Daemons)."],
         ["Leagues of Votann","Demiurg solo puede ser un destacamento aliado de los T'au."],
+        ["T'au","El traje XV85 Enforcer recibe su arma extra (y su sistema de apoyo extra), en la Guardia de Honor Crisis y los Trajes de Combate Crisis."],
         ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
         ["Impresión","Las habilidades que da un rasgo (Torturous Efficiency, Awakened by Murder...) ya se explican en las Reglas especiales impresas."],
         ["Eldar","Aspect Focus ahora convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
@@ -132,6 +135,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Dark Eldar","Добавлены Bloodstone у Incubi, Murderous Assault и Onslaught, Aberration у Grotesques и Mindphase gauntlet."],
         ["Escalation","War Dog для любой армии Хаоса и Armiger для любой имперской (кроме Chaos Daemons)."],
         ["Leagues of Votann","Demiurg может быть только союзным отрядом для T'au."],
+        ["T'au","Костюм XV85 Enforcer получает дополнительное оружие (и дополнительную систему поддержки) у Crisis Honor Guard и Crisis Battlesuits."],
         ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
         ["Печать","Способности, которые дают черты (Torturous Efficiency, Awakened by Murder...), теперь объясняются в печатных особых правилах."],
         ["Eldar","Aspect Focus теперь делает Dark Reapers Элитой; воинам Аспектов можно менять на Sun pistol и Sun rifle."],
@@ -154,6 +158,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["ダークエルダー","インキュビのBloodstone、Murderous Assault、Onslaught、グロテスクのAberration、Mindphase gauntletを追加しました。"],
         ["Escalation","すべてのカオス軍でWar Dog、すべてのインペリアル軍でArmigerを選べます（Chaos Daemonsを除く）。"],
         ["Leagues of Votann","DemiurgはT'au帝国の同盟部隊としてのみ選べます。"],
+        ["タウ","XV85 Enforcerスーツが追加武器（と追加サポートシステム）を使えるようになりました（Crisis Honor GuardとCrisis Battlesuits）。"],
         ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
         ["印刷","特性が与えるアビリティ（Torturous Efficiency、Awakened by Murderなど）が印刷の特殊ルール欄で説明されます。"],
         ["エルダー","Aspect FocusでDark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],

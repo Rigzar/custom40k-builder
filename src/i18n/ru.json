@@ -625,6 +625,7 @@
  "valOnlyOneCharacterAttached": "{unit}: к отряду одновременно может быть присоединён только один персонаж (сейчас присоединены {count}: {names}) — для дополнительных персонажей нужна способность «Command Squad».",
  "valArchetypeUnitNotAllowed": "Архетип «{archetype}»: {unit} не допускается.",
  "valArchetypeAlliedOnly": "Архетип «{archetype}» можно взять только как союзный отряд для {faction}.",
+ "valEnforcerOneExtra": "{unit}: костюм XV85 Enforcer может взять ОДНО дополнительное оружие или систему поддержки, а не по одному.",
  "valUnitNeedsChaosArchetype": "{unit}: её могут брать только армии Хаоса, а эта армия не Хаос (Traitor Guard, Renegades и Dark Mechanicum делают её таковой).",
  "valArchetypeNotInAllowedList": "Архетип «{archetype}»: {unit} нет в списке разрешённых отрядов.",
  "valArchetypeSlotNotAllowed": "Архетип «{archetype}»: отряды слота {slot} не допускаются ({unit}).",

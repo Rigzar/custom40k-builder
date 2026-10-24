@@ -625,6 +625,7 @@
  "valOnlyOneCharacterAttached": "{unit}：部隊に同時に合流できるキャラクターは1名のみです（現在 {count} 名が合流：{names}）— 追加のキャラクターには「Command Squad」能力が必要です。",
  "valArchetypeUnitNotAllowed": "アーキタイプ「{archetype}」：{unit} は使用できません。",
  "valArchetypeAlliedOnly": "アーキタイプ「{archetype}」は{faction}の同盟部隊としてのみ選べます。",
+ "valEnforcerOneExtra": "{unit}：XV85 Enforcerは武器またはサポートシステムを「1つ」追加で選べます（両方ではありません）。",
  "valUnitNeedsChaosArchetype": "{unit}：カオス軍のみが選べます。この軍はカオスではありません（Traitor Guard、Renegades、Dark Mechanicumでカオス軍になります）。",
  "valArchetypeNotInAllowedList": "アーキタイプ「{archetype}」：{unit} は許可された部隊リストにありません。",
  "valArchetypeSlotNotAllowed": "アーキタイプ「{archetype}」：{slot} の部隊は使用できません（{unit}）。",

@@ -17,6 +17,7 @@ import { removedUnitNote } from './unitRenames';
 import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
+import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
@@ -2921,6 +2922,23 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // XV85 Enforcer: "it may select one more weapon OR support system" -- the extra is ONE, taken as either, so weapons beyond the base three
+  // and support systems beyond the base two together may not exceed the number of Enforcer suits.
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const n = enforcerCount(u, item);
+    if (n === 0) continue;
+    const wg = u.option_groups.findIndex(g => enforcerWeaponBonus(u, item, g) > 0);
+    const cap = supportSystemCap(u, item, data, state.traitPool);
+    if (wg < 0 || cap === null) continue;
+    const g = u.option_groups[wg];
+    const baseW = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
+    const usedW = Object.entries(item.optionQty?.[wg] ?? {}).reduce((s, [k, v]) => (k === '__inline' ? s : s + (Number(v) || 0)), 0);
+    const extraS = Math.max(0, supportSystemsOwned(u, item, data) - (cap - n));
+    if (Math.max(0, usedW - baseW) + extraS > n) items.push({ type: 'error', text: T('valEnforcerOneExtra', { unit: item.customName || item.unitName }) });
+  }
+
   // Per_n and fixed_max constraint sums
   for (const item of state.army) {
     const u = resolveUnit(item, data);
@@ -2937,7 +2955,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const modelCap = (applyNames && item.modelSizes)
           ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
           : null;
-        const perNRaw = (g.constraint.count_per_n ?? 1) * Math.floor(poolSize / (g.constraint.per_n ?? 1));
+        const perNRaw = (g.constraint.count_per_n ?? 1) * Math.floor(poolSize / (g.constraint.per_n ?? 1)) + enforcerWeaponBonus(u, item, g);
         const max = modelCap !== null ? Math.min(perNRaw, modelCap) : perNRaw;
         const used = Object.entries(item.optionQty?.[gi] ?? {}).reduce((s, [k, v]) => {
           return k === '__inline' ? s : s + (v ?? 0);

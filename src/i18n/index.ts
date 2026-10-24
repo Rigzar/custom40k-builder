@@ -165,7 +165,7 @@ export type TranslationKey =
   | 'filterByEvent' | 'filterAnyEvent' | 'filterClear' | 'noEventArmies'
   | 'valPointsToGo'
   | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'prOrdersInfantry' | 'prOrdersVehicles' | 'prOrdersLegacy' | 'valSelectionIncomplete' | 'valSelectionOneListOnly' | 'valOnlyOneArmour'
-  | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valUnitNeedsChaosArchetype' | 'valArchetypeAlliedOnly' | 'valArchetypeNotInAllowedList'
+  | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valUnitNeedsChaosArchetype' | 'valEnforcerOneExtra' | 'valArchetypeAlliedOnly' | 'valArchetypeNotInAllowedList'
   | 'valArchetypeSlotNotAllowed' | 'valArchetypeRequiresHqUnit' | 'valArchetypeRequiresHqUpgrade'
   | 'valArchetypeTroopsRatioCap' | 'valArchetypeRequiresEscort' | 'valArchetypeTroopsModelRatioCap'
   | 'valArchetypeNoVetAbilities' | 'valArchetypeHqNotAllowed' | 'valArchetypeForcedMarkConflict'
@@ -1222,6 +1222,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneCharacterAttached: '{unit}: only one character may be attached to a unit at a time (currently joined by {count}: {names}) — additional characters need the "Command Squad" ability.',
     valArchetypeUnitNotAllowed: 'Archetype "{archetype}": {unit} is not allowed.',
     valArchetypeAlliedOnly: 'Archetype "{archetype}" can only be taken as an allied detachment for {faction}.',
+    valEnforcerOneExtra: '{unit}: an XV85 Enforcer suit may take ONE more weapon or support system, not one of each.',
     valUnitNeedsChaosArchetype: '{unit}: only Chaos armies may take it, and this army is not Chaos (Traitor Guard, Renegades and Dark Mechanicum make it one).',
     valArchetypeNotInAllowedList: 'Archetype "{archetype}": {unit} is not in the allowed unit list.',
     valArchetypeSlotNotAllowed: 'Archetype "{archetype}": {slot} units are not allowed ({unit}).',
@@ -2393,6 +2394,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneCharacterAttached: '{unit}: nur ein Charakter darf gleichzeitig einer Einheit angeschlossen sein (derzeit angeschlossen von {count}: {names}) — weitere Charaktere benötigen die Fähigkeit „Command Squad".',
     valArchetypeUnitNotAllowed: 'Archetyp „{archetype}": {unit} ist nicht erlaubt.',
     valArchetypeAlliedOnly: 'Archetyp „{archetype}" kann nur als verbündetes Kontingent für {faction} genommen werden.',
+    valEnforcerOneExtra: '{unit}: ein XV85 Enforcer darf EINE weitere Waffe oder ein weiteres Unterstützungssystem nehmen, nicht je eines.',
     valUnitNeedsChaosArchetype: '{unit}: nur Chaos-Armeen dürfen sie nehmen, und diese Armee ist nicht Chaos (Traitor Guard, Renegades und Dark Mechanicum machen sie dazu).',
     valArchetypeNotInAllowedList: 'Archetyp „{archetype}": {unit} steht nicht auf der erlaubten Einheitenliste.',
     valArchetypeSlotNotAllowed: 'Archetyp „{archetype}": {slot}-Einheiten sind nicht erlaubt ({unit}).',
@@ -3564,6 +3566,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneCharacterAttached: '{unit}: solo un personaje puede estar unido a una unidad a la vez (actualmente unidos {count}: {names}) — los personajes adicionales necesitan la habilidad "Command Squad".',
     valArchetypeUnitNotAllowed: 'Arquetipo "{archetype}": {unit} no está permitido.',
     valArchetypeAlliedOnly: 'El arquetipo "{archetype}" solo puede tomarse como destacamento aliado de {faction}.',
+    valEnforcerOneExtra: '{unit}: un traje XV85 Enforcer puede tomar UN arma o sistema de apoyo más, no uno de cada.',
     valUnitNeedsChaosArchetype: '{unit}: solo los ejércitos del Caos pueden tomarla, y este ejército no lo es (Traitor Guard, Renegades y Dark Mechanicum lo convierten en uno).',
     valArchetypeNotInAllowedList: 'Arquetipo "{archetype}": {unit} no está en la lista de unidades permitidas.',
     valArchetypeSlotNotAllowed: 'Arquetipo "{archetype}": las unidades de {slot} no están permitidas ({unit}).',
