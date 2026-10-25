@@ -1,0 +1,83 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Nexos",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        2,
+        3,
+        2,
+        7,
+        "5+",
+        32
+    ],
+    [
+        "A Nexos is equipped with: Autopistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Autopistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every 500 points of game size, one Nexos may be included in the army that does not take up an Elite slot."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Command Squad, Infiltrator, Use cover"
+    ],
+    [
+        "Battlefield Analysis: Select one enemy unit on the table during each Reinforcement phase. You may re-roll a single hit, wound or armor penetration roll against the target."
+    ],
+    [
+        "Strategic Coordination: You may re-roll one reserve roll each Reinforcement phase."
+    ],
+    [
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

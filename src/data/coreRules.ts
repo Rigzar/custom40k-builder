@@ -48,6 +48,16 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Armor Piercing({X})',
     description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and a +2 bonus for armor penetration rolls.',
   },
+  // The authors renamed Armor piercing(x+) to Piercing(x+) in every sheet (2026-10). Both names are kept: sheets and saved data move at different times.
+  'piercing': {
+    name: 'Piercing({X})',
+    description: 'Successful wound rolls of {X} always succeed and gain an additional -2 AP. Successful armor penetration rolls of {X} gain a +2 bonus to the result and are considered to have AT(1) unless their AT is already higher.',
+  },
+  // New in the sheets (Unwise, 2026-10): the ward save as an ability with a value, replacing the sentences "The model gains a 5+ ward save".
+  'ward': {
+    name: 'Ward({X})',
+    description: 'The model has a {X} ward save.',
+  },
   'at': {
     name: 'AT({X})',
     description: 'Can cause Penetrating Hits. On a Penetrating Hit, roll {X} dice on the Vehicle Damage Chart and apply all results.',
@@ -85,7 +95,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deadly': {
     name: 'Deadly({X})',
-    description: 'Wound rolls of {X} increase the Damage value of the attack by +1.',
+    description: 'Successful wound rolls of {X} increase the Damage value of the attack by +1.',
   },
   'decimate': {
     name: 'Decimate',
@@ -93,7 +103,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deflagrate': {
     name: 'Deflagrate({X})',
-    description: 'Hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
+    description: 'Successful hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
   },
   'blast': {
     name: 'Blast({X})',
@@ -175,7 +185,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'rending': {
     name: 'Rending({X})',
-    description: 'Wound rolls of {X} gain an additional bonus of -1 to their AP.',
+    description: 'Successful wound rolls of {X} gain an additional bonus of -1 to their AP.',
   },
   'seeking': {
     name: 'Seeking',
@@ -195,7 +205,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'soul burn': {
     name: 'Soul Burn({X})',
-    description: 'Wound rolls of {X} against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work against Vehicles.',
+    description: 'Successful wound rolls of {X} against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work against Vehicles. Excess wounds do not spill over to the next model, as the Mortal Wound is part of the original attack.',
   },
   'limit': {
     name: 'Limit({X})',
@@ -260,7 +270,7 @@ export const RULES: Record<string, RuleEntry> = {
   // Tau Empire ENG.ods — abridged: the full entry carries a token-cost table, kept as prose.
   'markerlight': {
     name: 'Markerlight',
-    description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit; friendly units in range and line of sight of the target may assign theirs to it during the same activation. A unit\'s own tokens must be used up first. Cannot be assigned while locked in melee combat. Tokens are spent for these benefits — 1: re-roll a single wound roll; 1: one Seeker missile equipped by the unit automatically hits the target; 1: reduce enemy Leadership by a cumulative 1 until the end of the battle round; 2: attacks gain the cumulative "Sunder(1)" ability; 2: reduce the to hit penalty for Defensive Fire by 1; 2: re-roll ranged to hit rolls of 1; 2: re-roll a single armor penetration roll; 3: the target must pass a Leadership test or gain a Battleshock token; 3: the target is hit by a Seeker missile from outside the battlefield (vehicles are hit on the side the unit would normally be able to hit). A unit that wants to use Markerlight token effects has to declare it before rolling to hit. Each token can only be used for a single effect and all unused tokens are discarded at the end of the battle round.',
+    description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit; friendly units in range and line of sight of the target may assign theirs to it during the same activation. A unit\'s own tokens must be used up first. Cannot be assigned while locked in melee combat. A maximum of 5 Markerlight tokens may be assigned per activation. Tokens are spent for these benefits — 1: re-roll a single wound roll; 1: one Seeker missile equipped by the unit automatically hits the target; 1: reduce enemy Leadership by a cumulative 1 until the end of the battle round; 2: attacks gain the cumulative "Sunder(1)" ability; 2: reduce the to hit penalty for Defensive Fire by 1; 2: re-roll ranged to hit rolls of 1; 2: re-roll a single armor penetration roll; 3: the target must pass a Leadership test or gain a Battleshock token; 3: the target is hit by a Seeker missile from outside the battlefield (vehicles are hit on the side the unit would normally be able to hit). A unit that wants to use Markerlight token effects has to declare it before rolling to hit. Each token can only be used for a single effect and all unused tokens are discarded at the end of the battle round.',
   },
   // Harlequins.ods
   'neuro disruptor': {
@@ -343,6 +353,11 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Acute Senses',
     description: 'Infiltrators always have to stay more than 18" away during deployment, even if there is no direct Line of Sight to this unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 12" that is deployed from reserves as if it had been given the "Stand & Shoot" order. The attack resolves after the enemy unit has been deployed and before it takes another action.',
   },
+  // Core Rules 1.35: "Advisor" is now a general ability (the per-unit "For every HQ selection..." sentence was removed from the sheets).
+  'advisor': {
+    name: 'Advisor',
+    description: 'For each HQ selection, one copy of this unit may be taken without occupying an AOP slot.',
+  },
   // Core Rules 1.278 (October update): the Pariahs' "Psionic Abomination" became a general ability.
   'blank': {
     name: 'Blank',
@@ -391,7 +406,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deep strike': {
     name: 'Deep Strike',
-    description: 'Models arriving from reserve via Deep Strike can be placed anywhere on the battlefield. They are only allowed to receive the "Charge" or "Move & Shoot" order. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, on impassable terrain or an enemy unit, the unit goes back into reserve and must take a dangerous terrain test. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. The unit counts as having moved 6" and can\'t move any further with its regular Movement profile. The unit may still make its "Charge move". The unit may only perform a "Disorderly Charge".',
+    description: 'Models arriving from reserve via Deep Strike can be placed anywhere on the battlefield. They are only allowed to receive the "Charge" or "Move & Shoot" order. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, on impassable terrain or another unit, the unit goes back into reserve and must take a dangerous terrain test. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. The unit counts as having moved 6" and can\'t move any further with its regular Movement profile. The unit may still make its "Charge move". The unit may only perform a "Disorderly Charge".',
   },
   'deepstrike': {
     name: 'Deep Strike',
@@ -449,6 +464,10 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Hit & Run',
     description: 'After all models in a melee combat have been activated (but before the Combat Result is determined), the unit may move 3D6" away from the enemy in a straight line. The unit may not get into engagement range with another enemy unit with this move. The unit cannot consolidate after making this move. Enemy units cannot pursue and must make a 3" consolidation move if able.',
   },
+  'hunter': {
+    name: 'Hunter',
+    description: "The unit does not scatter when being set up via Deep Strike. Additionally, it gains Charge benefits normally and doesn't have to make a Disorderly Charge.",
+  },
   'infiltrate': {
     name: 'Infiltrate',
     description: 'After all normal deployment, this unit can be deployed anywhere on the battlefield — maintaining 18" from enemy units in line of sight, or 12" if out of line of sight. Units deployed this way cannot make a Vanguard move.',
@@ -471,11 +490,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'narthecium': {
     name: 'Narthecium',
-    description: 'Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
+    description: 'Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1 (to a minimum of 0). Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
   },
   'open': {
     name: 'Open',
-    description: 'The vehicle has fire hatches equal to its passenger capacity. Passengers Can be targeted for ranged attacks. Count as physically present on the battlefield (e.g., Psykers can manifest powers). Ranges are measured from the transport\'s hull. Benefit from cover if the transport does. Cannot participate in melee combat while inside the vehicle. Can always make a 6" Charge move after disembarking, if the vehicle moved up to 12".',
+    description: 'The vehicle has fire hatches equal to its passenger capacity. Passengers Can be targeted for ranged attacks. Count as physically present on the battlefield (e.g., Psykers can manifest powers). Measure ranges from the transport hull. Benefit from cover if the transport does. Cannot participate in melee combat while inside the vehicle. Can always make a 6" Charge move after disembarking, if the vehicle moved up to 12".',
   },
   'outflank': {
     name: 'Outflank',
@@ -593,6 +612,15 @@ export const RULES: Record<string, RuleEntry> = {
   'canticles of the omnissiah': {
     name: 'Canticles of the Omnissiah',
     description: 'At the start of the Command phase, choose one Canticle. All units with this rule within 9" of a Choir Master model roll a D6 — on 4+ they gain the chosen Canticle\'s benefit until the end of the battle round.',
+  },
+  // Adeptus Mechanicus.ods, Index: Special rules
+  'choir master': {
+    name: 'Choir Master',
+    description: 'Units containing this model automatically pass their Canticle of the Omnissiah roll.',
+  },
+  'monotask': {
+    name: 'Monotask',
+    description: 'This unit does not benefit from Canticles of the Omnissiah unless it is accompanied by a character with "Choir Master".',
   },
   'instinctive behaviour': {
     name: 'Instinctive Behaviour',

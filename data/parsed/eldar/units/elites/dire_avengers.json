@@ -86,6 +86,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Shuriken"
+        },
+        {
+            "name": "Sun pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Precision(5+)"
         }
     ],
     "option_groups": [
@@ -101,6 +110,7 @@
         },
         {
             "header": "The Exarch can swap their Diresword and Shuriken pistol",
+            "applies_to_model": "Dire Avenger Exarch",
             "constraint": {
                 "type": "one"
             },
@@ -215,12 +225,30 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": true
+        },
+        {
+            "header": "The Exarch can swap their Shuriken pistol",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Sun pistol",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Shuriken pistol"
+            ],
+            "applies_to_model": "Dire Avenger Exarch"
         }
     ],
     "abilities": [
-        "Battle Focus",
-        "Aspect armor: The model gains a 5+ ward save.",
-        "Shimmershield: The model and its attached unit gain a 4+ ward save in melee."
+        "Battle Focus, Ward(5+)",
+        "Shimmershield: The model and its attached unit gain Ward(4+) in melee."
     ],
     "unit_type": "Infantry",
     "keywords": [

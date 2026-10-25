@@ -62,22 +62,22 @@
     },
     {
       "name": "Legacy of the Hydra",
-      "desc": "The army has access to the Alpha Legion Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
+      "desc": "The army has access to the Alpha Legion Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Alpha Legion"
     },
     {
       "name": "Legacy of the Iron Lord",
-      "desc": "The army has access to the Iron Warriors Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
+      "desc": "The army has access to the Iron Warriors Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Iron Warriors"
     },
     {
       "name": "Legacy of the Night Haunter",
-      "desc": "The army has access to the Night Lords Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
+      "desc": "The army has access to the Night Lords Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Night Lords"
     },
     {
       "name": "Legacy of the Tyrant",
-      "desc": "The army has access to the Red Corsairs Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
+      "desc": "The army has access to the Red Corsairs Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Red Corsairs"
     },
     {
@@ -107,7 +107,7 @@
     },
     {
       "name": "Blood Feud",
-      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round. Only for creature models and Walkers.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,
@@ -116,7 +116,7 @@
     },
     {
       "name": "Desecration",
-      "desc": "The unit gains a 5+ ward save while within 6\" of an objective. Doesn't work against weapons with strength 8 and above.",
+      "desc": "The unit gains Ward(5+) while within 6\" of an objective. Doesn't work against weapons with strength 8 and above.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,
@@ -125,7 +125,7 @@
     },
     {
       "name": "Fallen",
-      "desc": "The unit gains the \"They Shall Know No Fear\" ability (See Space Marines). Only for creature units.",
+      "desc": "The unit gains the \"They Shall Know No Fear\" ability (See Space Marines). Only for creature models.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,
@@ -152,7 +152,7 @@
     },
     {
       "name": "Iron Within, Iron Without",
-      "desc": "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have a ward save from their datasheet or Armory.",
+      "desc": "Creature models gain Ward(6+). Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an ward save from their datasheet or Armory.",
       "pts_unit": "2*",
       "pts_char": "0",
       "enables_second_legacy": false,
@@ -197,7 +197,7 @@
     },
     {
       "name": "Profane Zeal",
-      "desc": "The unit gains the \"Blind Rage\" ability. Only for creature units.",
+      "desc": "The unit gains the \"Blind Rage\" ability. Only for creature units and Walkers.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,
@@ -224,7 +224,7 @@
     },
     {
       "name": "Terror Tactics",
-      "desc": "All melee attacks of the unit gain the \"Gruesome\" ability. The unit itself gains the \"Terrifying(-1)\" ability.",
+      "desc": "All melee attacks of the unit gain the \"Gruesome\" ability. The unit itself gains the \"Terrifying(-1) ability.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,
@@ -233,7 +233,7 @@
     },
     {
       "name": "Warp Pirates",
-      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability. Only for creature models and Walkers.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,

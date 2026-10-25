@@ -51,10 +51,7 @@
             "abilities": "AT(2), Overheating"
         },
         {
-            "name": "Railgun"
-        },
-        {
-            "name": "- Solid shot",
+            "name": "Railgun - Solid shot",
             "range": "72\"",
             "type": "Heavy 1",
             "s": "10",
@@ -63,7 +60,7 @@
             "abilities": "AT(4), Beam, Decimate, Tank hunter"
         },
         {
-            "name": "- Submunition",
+            "name": "Railgun - Submunition",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "6",

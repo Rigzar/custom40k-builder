@@ -30,7 +30,7 @@
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), Sniper, Suppression(3)"
+            "abilities": "Piercing(5+), Sniper, Suppression(6)"
         },
         {
             "name": "Shuriken pistol",
@@ -40,6 +40,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Shuriken"
+        },
+        {
+            "name": "Sun pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Precision(5+)"
         }
     ],
     "option_groups": [
@@ -63,6 +72,24 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "The entire squad may replace their Shuriken pistols",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Sun pistol",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Shuriken pistol"
+            ]
         }
     ],
     "abilities": [

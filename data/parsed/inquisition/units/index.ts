@@ -42,6 +42,7 @@ import dedicated_transport_repressor from './dedicated_transport/repressor.json'
 import dedicated_transport_rhino from './dedicated_transport/rhino.json';
 import dedicated_transport_taurox from './dedicated_transport/taurox.json';
 import dedicated_transport_valkyrie from './dedicated_transport/valkyrie.json';
+import elites_armiger from './elites/armiger.json';
 
 export const faction = "Inquisition";
 
@@ -73,7 +74,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Psykers",
     "Sages",
     "Servitors",
-    "Xenologists"
+    "Xenologists",
+    "Armiger"
   ],
   "Fast Attack": [],
   "Heavy Support": [
@@ -127,4 +129,5 @@ export const units: Record<string, Unit> = {
   "Rhino": dedicated_transport_rhino as Unit,
   "Taurox": dedicated_transport_taurox as Unit,
   "Valkyrie": dedicated_transport_valkyrie as Unit,
+  "Armiger": elites_armiger as Unit,
 };

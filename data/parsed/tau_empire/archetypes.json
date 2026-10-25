@@ -6,7 +6,7 @@
     },
     {
       "name": "Kroot Hunting Pack",
-      "desc": "- Kroot Farstalkers gain the Objective Secured ability.\n- One Kroot Master Shaper may be upgraded to be a Shaman for +10 points. \n- A Kroot Shaman is a Psyker and can cast 1 power and deny 1 power per battle round. It knows two powers from either the Biomancy or Divination disciplines.\n- Only Kroot units count towards mandatory unit minimums in the army's AOP.\n- Only Kroot units count towards the 25% Troops limitation."
+      "desc": "- For every 1,000 points of game size, or part thereof, you gain one Kroot Hunting Blind.\n- Kroot Hunting Blinds are 3\" × 3\" abstract terrain pieces (see Core Rules) that provide Light Cover.\n- Kroot Hunting Blinds are deployed following the rules for Infiltrators. Enemy Infiltrators treat them as enemy units for deployment purposes.\n- Instead of placing a Kroot Hunting Blind, you may designate an existing terrain piece as one, provided it meets all deployment restrictions for Infiltrators.\n- Kroot Farstalkers gain the \"Objective Secured!\" ability.\n- Only Kroot units count towards the 25% Troops requirement."
     },
     {
       "name": "Stealth Cadre",
@@ -170,7 +170,7 @@
     },
     {
       "name": "Signature Evolutionary Adaption",
-      "desc": "Select one Adaptation that must be applied to all Kroot units:\n- Bold: The model gains +1 Leadership.\n- Chameleon: The model gains the \"Deflect\" ability.\n- Fast Reflexes: The model gains +1 Initiative.\n- Hyperactive Nymune Organ: The model gains the \"Frenzy(2\")\" ability.\n- Ork Hybrid: The model gains +1 Toughness.\n- Sixth Sense: The model gains a 6+ ward save.",
+      "desc": "Select one Adaptation that must be applied to all Kroot units:\n- Bold: The model gains +1 Leadership.\n- Chameleon: The model gains the \"Deflect\" ability.\n- Fast Reflexes: The model gains +1 Initiative.\n- Hyperactive Nymune Organ: The model gains the \"Frenzy(2\")\" ability.\n- Ork Hybrid: The model gains +1 Toughness.\n- Sixth Sense: The model gains Ward(6+).",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

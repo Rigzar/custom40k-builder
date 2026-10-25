@@ -168,8 +168,7 @@
         }
     ],
     "abilities": [
-        "Power through Pain",
-        "Ghostplate armor: The unit got a 5+ ward save.",
+        "Power through Pain, Ward(5+)",
         "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
     ],
     "unit_type": "Jump pack infantry",

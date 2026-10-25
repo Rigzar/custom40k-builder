@@ -80,7 +80,7 @@ data/parsed/<faccion>/
 >
 > `node scripts/unit_sync.cjs "Codex/<faccion>.ods" <faccion>` compara una hoja actualizada con los ficheros de unidades e imprime cada diferencia de puntos, estadísticas y armas (`--write` las aplica, `--equipped` reescribe también la frase "equipped with" cuando todos sus elementos son armas conocidas). Nunca toca grupos de opciones ni textos de habilidades: eso lo cablea una persona.
 
-Los dos suplementos de Horus Heresy siguen el mismo layout en `data/parsed/horus_heresy_legiones_astartes/` y `data/parsed/horus_heresy_forces_of_the_machine_god/` (más un `supplement.json` para la armería y lo que no son unidades). **Las claves de facción de la app no siempre coinciden con los nombres de carpeta** (`horus_heresy`, `legio_titanicus`): `src/data/loaders.ts` es el único sitio que las relaciona.
+Los dos suplementos de Horus Heresy siguen el mismo layout en `data/parsed/horus_heresy_legiones_astartes/` y `data/parsed/horus_heresy_forces_of_the_machine_god/` y `data/parsed/legion_of_the_damned/` (más un `supplement.json` para la armería y lo que no son unidades). **Las claves de facción de la app no siempre coinciden con los nombres de carpeta** (`horus_heresy`, `legio_titanicus`): `src/data/loaders.ts` es el único sitio que las relaciona.
 
 ### Quién escribe cada campo — y qué hacer cuando la hoja está mal
 

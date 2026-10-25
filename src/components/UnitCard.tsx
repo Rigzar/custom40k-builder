@@ -4,16 +4,17 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
-import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
-import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
+import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
+import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
+import { OPT_IN_TRAITS } from '../store/army';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
-import { getArchetypeRule } from '../engine/archetypes';
-import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
+import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
+import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned, enforcerWeaponBonus } from '../lib/supportSystems';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
 import { isAttendantModel } from '../lib/battleProfile';
@@ -36,6 +37,8 @@ import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 import { nm, eqText, rl } from '../utils/localName';
+import { AbilityTokens } from './AbilityTokens';
+import { knowsEveryPower } from '../engine/knownPowers';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -131,19 +134,13 @@ function unitMaxSize(u: Unit) {
   return u.models.reduce((s, m) => s + m.max, 0) || 1;
 }
 
-/** Look up an armory item's full data (range, type, stats) across all armory sources. */
+/** Look up an armory item's full data (range, type, stats) across all armory sources — the same ones the resolver
+ *  searches, including the foreign armory an archetype grants (Traitor Guard: the Chaos Space Marines Armory and the
+ *  Mark armories), supplements, allies and borrowed armories. The card had its own shorter list, so an item that only
+ *  exists in a foreign armory (Juggernaut of Khorne, Daemonic armor...) was found for nothing: no description under it,
+ *  no veteran/vehicle category (Discord, 2026-10-20). */
 function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem | undefined {
-  const section = sel.section as 'weapons' | 'equipment' | 'daemon_weapons';
-  const sources: { name: string; weapons: ArmoryItem[]; equipment: ArmoryItem[]; daemon_weapons: ArmoryItem[] }[] = [
-    data.armory_general,
-    ...Object.values(data.armory_marks),
-    ...Object.values(data.armory_legions),
-  ];
-  for (const armory of sources) {
-    const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);
-    if (found) return found;
-  }
-  return undefined;
+  return findArmoryItem(data, sel);
 }
 
 const CAP_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -178,8 +175,12 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   }, [collapseSignal]);
 
   if (!data) return null;
-  const u = resolveUnit(item, data);
-  if (!u) return null;
+  const uPlain = resolveUnit(item, data);
+  if (!uPlain) return null;
+  // An archetype HQ promotion that grants Armory access (Tyranids Megafauna / Subterranean Assault: "The model gains access to the
+  // Hive Fleet Armory") is priced and offered like a Character: the Hive Fleet items are Character-only (p_char), and the Carnifex already reaches the Armory through champion_has_armory.
+  const promoRule = item.archetypeHqUpgrade ? getArchetypeRule(effectiveArchetypeFor(item, store))?.hqPromotion : null;
+  const u = promoRule?.grantsArmoryAccess && promotionFragment(promoRule, uPlain.name) ? { ...uPlain, armory_as_character: true } : uPlain;
 
   const rp = resolveUnitProfile(item, u, store, data);
   const {
@@ -192,7 +193,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
-    optionStatMods, optionStatSets, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     attachedDrones,
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
@@ -200,12 +201,19 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const factionCat = getFactionCat(data.faction);
 
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
-  const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
+  // A vehicle whose printed WS is "-" gets one from an option (Triarch Stalker's Reinforced forelimbs: "gains WS 3+"), and
+  // the column has to exist for it to show.
+  const vehicleHasWS = u.is_vehicle && (!!optionStatSets?.WS || modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-'));
   // "Transport: This model has a transport capacity of 10 infantry models, excluding …" — the
   // number is what a player checks while building, so it is surfaced on the profile header. The
   // sentence itself stays in Abilities, since it carries the exclusions.
   const transportAbility = (u.abilities ?? []).find(a => /transport capacity of\s*\d+/i.test(a)) ?? null;
-  const transportCapacity = transportAbility
+  // A bought upgrade can change it ("Lugga: ... its transport capacity to 20 infantry models"). A line that makes the
+  // number depend on the weapon ("When equipped with a Kannon ... 10") is left to the text.
+  const upgradedCapacity = (injectedAbilities ?? []).map(l => /when equipped/i.test(l) ? null : l.match(/transport capacity to\s*(\d+)/i)).find(Boolean);
+  const transportCapacity = upgradedCapacity
+    ? Number(upgradedCapacity[1]) || null
+    : transportAbility
     ? Number(transportAbility.match(/transport capacity of\s*(\d+)/i)?.[1]) || null
     : null;
   // InvSv stat: best of base-ability + equipment + ACTIVE TRAITS inv saves.
@@ -257,7 +265,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // Whether this unit may be given a Mark, and which ones. NOT `data.animosity` alone: that
   // table exists only for CSM and Chaos Daemons, so the two archetypes whose whole point is
   // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
-  const markPick = markAccess(u, data, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
+  // An ALLIED Chaos Space Marines unit asks whether ITS OWN faction fields Marks (its animosity table), not the primary's: under a
+  // Space Marines or Imperial Guard host `data.animosity` is empty, so no allied CSM unit could ever take a Mark (Stu, Discord 2026-10-22).
+  const markData = (alliedFaction && item.factionSource === alliedFaction && alliedData) ? alliedData : data;
+  const markPick = markAccess(u, markData, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
   // variant's own collapsible block, not in the global action row.
@@ -321,6 +332,25 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // Mirrors ArmoryModal.tsx's isTrueAllyUnit / resolver.ts's isAlliedDetachmentUnit.
   const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
   const effectiveArmData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
+  // The rule text of an option choice that has no weapon of its own (an upgrade like Magos "Manipulus",
+  // a piece of gear like "Omnispex"): the unit's own ability that opens with the choice's name, else
+  // the Armory item of that name. Without it the picker showed a bare name (Discord, 2026-10-24).
+  const choiceBlurb = (name: string): string | null => {
+    const key = name.trim().toLowerCase();
+    for (const ab of u.abilities) {
+      const t = ab.trimStart();
+      if (!t.toLowerCase().startsWith(key)) continue;
+      const rest = t.slice(key.length);
+      if (!/^\s*[:\n]/.test(rest)) continue;
+      const body = rest.replace(/^[\s:]+/, '').trim();
+      if (body.length > 10) return localiseAbility(body);
+    }
+    for (const section of ['equipment', 'weapons'] as const) {
+      const arm = findArmoryItemData(effectiveArmData, { itemName: name, section } as any);
+      if (arm?.desc && !arm.profiles?.length && !arm.range) return localiseAbility(arm.desc);
+    }
+    return null;
+  };
   // "Swarm Controllers" Army Trait (ki-tau-swarmcontrollers-unmodelled-01): "Models with access to
   // drones may buy up to three drones in any combination instead of two" — raises the Drone
   // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.
@@ -615,6 +645,20 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
         );
       })()}
 
+      {/* An opt-in trait (Purity above All) is paid for and applies only on the units that use it. */}
+      {isMainFaction && !item.factionSource && !u.is_character && !u.is_vehicle && !u.is_monster && (u.has_armory_access || u.champion_has_armory) && [...OPT_IN_TRAITS].filter(tn => traitPool.includes(tn)).map(tn => {
+        const def = data.traits.find(x => x.name === tn); const pts = parseInt(String(def?.pts_unit ?? ''), 10); const on = (item.optInTraits ?? []).includes(tn);
+        return (
+          <div key={tn} className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700">
+            <label onClick={() => updateUnit(item.id, { optInTraits: on ? (item.optInTraits ?? []).filter(x => x !== tn) : [...(item.optInTraits ?? []), tn] })} className="flex items-center gap-2 text-[11px] cursor-pointer">
+              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${on ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>{on && <span className="text-[8px] text-white leading-none">✓</span>}</div>
+              <span className="text-zinc-300">{tpl(t('optInTraitLabel'), { trait: tn, pts: isNaN(pts) ? 0 : pts })}</span>
+            </label>
+            {def?.desc && <div className="text-[10px] text-zinc-500 mt-0.5 pl-5">{def.desc}</div>}
+          </div>
+        );
+      })}
+
       {/* ── The archetype's own HQ promotion: "One X ... becomes a HQ selection" (GH#168) ──
            One entry in the army claims it, so the toggle disables once another already has it,
            the same hard enforcement the Yngir C'tan uses. Shown only on the unit the active
@@ -622,9 +666,11 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       {(() => {
         const promo = getArchetypeRule(itemArchetype)?.hqPromotion;
         if (item.factionSource || !promo) return null;
-        if (!u.name.toLowerCase().includes(promo.unitNameContains.toLowerCase())) return null;
+        const frag = promotionFragment(promo, u.name);
+        if (!frag) return null;
         const otherActive = army.some(e => e.id !== item.id && e.archetypeHqUpgrade
-          && e.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase()));
+          && e.unitName.toLowerCase().includes(frag));
+        const tooBig = !!promo.singleModel && (item.size ?? 1) !== 1;
         const checked = !!item.archetypeHqUpgrade;
         const needed = promo.requiresChoice;
         // The upgrade the sheet ties the promotion to, if any — REPORTED rather than enforced by
@@ -634,8 +680,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
             <label
-              onClick={() => { if (!otherActive || checked) updateUnit(item.id, { archetypeHqUpgrade: !checked }); }}
-              className={`flex items-center gap-2 text-[11px] ${otherActive && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+              onClick={() => { if ((!otherActive && !tooBig) || checked) updateUnit(item.id, promo.grantsArmoryAccess && checked && data ? { ...dropLegacyArmory(item, data), archetypeHqUpgrade: false } : { archetypeHqUpgrade: !checked }); }}
+              className={`flex items-center gap-2 text-[11px] ${(otherActive || tooBig) && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
             >
               <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
                 {checked && <span className="text-[8px] text-white leading-none">✓</span>}
@@ -643,7 +689,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               <span className="text-zinc-300">↳ {itemArchetype}: HQ selection</span>
             </label>
             {otherActive && !checked && (
-              <span className="text-[10px] text-red-400/80">Another {promo.unitNameContains} already has it</span>
+              <span className="text-[10px] text-red-400/80">Another {frag} already has it</span>
+            )}
+            {tooBig && !checked && (
+              <span className="text-[10px] text-red-400/80">Single model only</span>
             )}
             {checked && missingChoice && (
               <span className="text-[10px] text-amber-400/80">Needs “{needed}”</span>
@@ -713,7 +762,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       {hasCombatDrugs(u.abilities) && (() => {
         const selected = item.combatDrugs ?? [];
         const stim = item.armory.filter(a => a.itemName === 'Stimulant supply').length;
-        const cap = 1 + stim;
+        // Master Succubus: "The model may select a second Combat drug." (GH#246) - read off the upgrade's own text.
+        const second = optionAbilities.some(ab => /second combat drug/i.test(ab)) ? 1 : 0;
+        const cap = 1 + stim + second;
         const toggle = (name: string) => {
           const has = selected.includes(name);
           if (has) updateUnit(item.id, { combatDrugs: selected.filter(d => d !== name) });
@@ -860,7 +911,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                             ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
                             : statModMark ? [statModMark] : [],
                           favouredLeader: isFavored && i === squadLeaderIdx,
-                          traitStatMods, optionStatMods, optionStatSets,
+                          traitStatMods, optionStatMods, optionStatSets, optionStatExact,
                           equipMods, traitEquipMods,
                           isEquipTarget,
                           ctanYngirActive,
@@ -1448,14 +1499,12 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // max = min(slots×2, dishonored_count)
             const perNPoolSize = isPerN ? (sumModelGroups(g.per_n_pool ?? null) ?? item.size) : null;
             const perNRaw = isPerN
-              ? (g.constraint.count_per_n ?? 1) * Math.floor((perNPoolSize ?? 0) / (g.constraint.per_n ?? 1))
+              ? (g.constraint.count_per_n ?? 1) * Math.floor((perNPoolSize ?? 0) / (g.constraint.per_n ?? 1)) + enforcerWeaponBonus(u, item, g)
               : null;
             const modelGroupCap = sumModelGroups(applyModelNames);
             // Drone controller groups (their choices are all named Tau Drones, see
             // computeAttachedDrones) get +1 to their fixed_max when "Swarm Controllers" is active.
-            const isDroneGroup = isFixedMax && !!effectiveArmData.drones?.length &&
-              g.choices.every(c => effectiveArmData.drones!.some(d => d.name === c.name));
-            const swarmControllersBonus = (isDroneGroup && effectiveTraitPool.includes('Swarm Controllers')) ? 1 : 0;
+            const swarmControllersBonus = isFixedMax ? swarmControllersBonusFor(g, effectiveArmData.drones, effectiveTraitPool) : 0;
             // A swap group can be PER COPY, and the header is what says so: "may swap EACH Scatter
             // laser" is one swap per copy carried, while "may swap BOTH Storm bolters" / "their two
             // Power fists" is a single selection covering all of them. Only the first multiplies
@@ -1712,6 +1761,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                                   {showRowControl ? (
                                     <span className="inline-flex items-center gap-1.5">{control}<span>{nm(c.name)}</span></span>
                                   ) : nm(c.name)}
+                                  {(() => { const blurb = choiceBlurb(c.name); return blurb ? <div className="text-[10px] font-normal text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{blurb}</div> : null; })()}
                                 </td>
                                 <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
                               </tr>
@@ -1751,7 +1801,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? rl(w.abilities) : '—'}</td>
+                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? <AbilityTokens text={w.abilities} /> : '—'}</td>
                               {compound ? (
                                 // The banner row above carries the one price for the whole pairing.
                                 <td className="py-1.5 px-2" />
@@ -1795,7 +1845,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                           }}
                         >
                           {control}
-                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{nm(c.name)}</span>
+                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>
+                            {nm(c.name)}
+                            {(() => { const blurb = choiceBlurb(c.name); return blurb ? <span className="block text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{blurb}</span> : null; })()}
+                          </span>
                           {/* Ork "Da Booma" ("One weapon of the vehicle gains +12\" range and
                               +1 Strength") is the one Kustom Job that names no fixed weapon of
                               its own — every other one either affects a single named weapon or
@@ -1950,7 +2003,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const realPowers = item.powers.filter(p => p.powerName !== '__discipline__').length;
               const hasChosenDisc = item.powers.some(p => p.powerName === '__discipline__');
               const chosenDiscName = item.powers.find(p => p.powerName === '__discipline__')?.disciplineName;
-              const knowsSmiteUnit = u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite'));
+              const knowsSmiteUnit = u.is_psyker && (u.abilities ?? []).some(a => /(psyker|shaman):/i.test(a) && a.toLowerCase().includes('smite'));
               const totalCount = realPowers + item.prayers.length + pactCount;
               const hasAny = totalCount > 0;
               const label = hasPacts && !hasPowers && !hasPrayers
@@ -2112,7 +2165,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('psychicPowers')}</div>
               {/* Smite — always known, shown as fixed (not removable) */}
-              {u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite')) && (
+              {u.is_psyker && (u.abilities ?? []).some(a => /(psyker|shaman):/i.test(a) && a.toLowerCase().includes('smite')) && (
                 <div className="flex justify-between items-center bg-amber-900/20 border border-amber-800/40 px-2 py-1 text-[11px]">
                   <span className="text-amber-400">{nm('Smite')} <span className="text-amber-700">{t('smiteAlwaysKnownSuffix')}</span></span>
                 </div>
@@ -2133,12 +2186,14 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       {meta && <div className="text-[10px] text-amber-600/90 uppercase tracking-wide">{meta}</div>}
                       {eff && <div className="text-[10px] text-zinc-500 leading-snug">{eff}</div>}
                     </div>
-                    <button
-                      onClick={() => useArmyStore.getState().removePower(item.id, p.disciplineName, p.powerName)}
-                      className="text-red-500 hover:text-red-300 shrink-0"
-                    >
-                      ✕
-                    </button>
+                    {!knowsEveryPower(u) && (
+                      <button
+                        onClick={() => useArmyStore.getState().removePower(item.id, p.disciplineName, p.powerName)}
+                        className="text-red-500 hover:text-red-300 shrink-0"
+                      >
+                        ✕
+                      </button>
+                    )}
                   </div>
                 );
               })}
@@ -2343,7 +2398,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         {baseCanticles.length > 0 && (
                           <ul className="text-[10px] text-zinc-500 mt-1 leading-relaxed space-y-0.5 list-none">
                             {baseCanticles.map(c => (
-                              <li key={c.name}><span className="text-zinc-400">{nm(c.name)}:</span> {c.effect}</li>
+                              <li key={c.name}><span className="text-zinc-400">{nm(c.name)}:</span> {localiseAbility(c.effect)}</li>
                             ))}
                           </ul>
                         )}
@@ -2637,7 +2692,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{rl(displayAbilities)}</td>
+                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities === '—' ? '—' : <AbilityTokens text={displayAbilities} />}</td>
               </tr>
               </Fragment>
             );

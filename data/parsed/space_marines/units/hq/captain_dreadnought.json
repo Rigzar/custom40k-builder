@@ -30,7 +30,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Dreadnought close combat weapon",
@@ -49,6 +49,24 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Helfrost destructor - Dispersed",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Grav"
+        },
+        {
+            "name": "Helfrost destructor - Focused",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(2), Grav"
         },
         {
             "name": "Plasma cannon - Standard",
@@ -95,16 +113,20 @@
             },
             "choices": [
                 {
-                    "name": "Dreadnought close combat weapon and Heavy flamer",
+                    "name": "Dreadnought close combat weapon with Heavy flamer",
                     "points": 29
                 },
                 {
-                    "name": "Dreadnought close combat weapon and Storm bolter",
+                    "name": "Dreadnought close combat weapon with Storm bolter",
                     "points": 33
                 },
                 {
                     "name": "Assault cannon",
                     "points": 40
+                },
+                {
+                    "name": "Helfrost destructor",
+                    "points": 69
                 },
                 {
                     "name": "Plasma cannon",
@@ -149,9 +171,9 @@
         }
     ],
     "abilities": [
+        "Ward(5+)",
         "Combat Tactics: The Captain Dreadnought may assign 2 free Veteran abilities to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have.",
-        "Furioso: If the model has two melee weapons, it gains +2 attacks.",
-        "Refractor field: The model receives a 5+ ward save."
+        "Furioso: If the model has two melee weapons, it gains +2 attacks."
     ],
     "unit_type": "Vehicle, Walker",
     "keywords": [],

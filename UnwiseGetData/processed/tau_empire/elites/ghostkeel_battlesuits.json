@@ -1,0 +1,89 @@
+{
+    "name": "Ghostkeel Battlesuits",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "7",
+                "T": "7",
+                "W": "5",
+                "I": "2",
+                "A": "3",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Ghostkeel Shas'vre",
+            "min": 1,
+            "max": 1,
+            "points": 203
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 203,
+    "default_size": 1,
+    "equipped_with": "A Ghostkeel Shas'vre is equipped with: Cyclic ion raker; Drone controller; 2 Flamers; 2 Stealth Drones.",
+    "weapons": [
+        {
+            "name": "Burst cannon",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Cyclic ion raker - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Cyclic ion raker - Overcharged",
+            "range": "24\"",
+            "type": "Rapid Fire 4",
+            "s": "8",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Fusion blaster",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane(3), AT(3)"
+        },
+        {
+            "name": "Fusion collider",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(3), Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Deflect, Infiltrator, Supporting Fire, Use Cover"
+    ],
+    "unit_type": "Jump pack, Monstrous Creature",
+    "is_monster": true,
+    "keywords": []
+}

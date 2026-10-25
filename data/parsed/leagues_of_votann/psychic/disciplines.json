@@ -6,7 +6,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "5",
-      "effect": "Remove all Judgement tokens from the target. For each token, units receive one automatic wound or penetrating hit with S:8 AP:-2 D:2, AT(1), Seeking.",
+      "effect": "Remove all Judgement tokens from the target. For each token, units receive one automatic wound or penetrating hit with S:8 AP:-3 D:2, AT(2), Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -15,8 +15,8 @@
       "type": "Witchfire",
       "range": "18\"",
       "target": "Enemy unit",
-      "cast_value": "6",
-      "effect": "The target unit receives 3 hits +1 for each Judgement token on the target unit. The hits are resolved with S:5 AP:-2 D:1, Seeking.",
+      "cast_value": "5",
+      "effect": "Remove all Judgement tokens from the target. The target unit receives 4 hits for each Judgement token on the target unit. The hits are resolved with S:5 AP:-2 D:1, Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },

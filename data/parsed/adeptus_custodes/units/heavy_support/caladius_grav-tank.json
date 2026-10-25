@@ -48,7 +48,7 @@
             "s": "8",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+), AT(1)"
+            "abilities": "AT(1), Piercing(5+)"
         }
     ],
     "option_groups": [
@@ -72,8 +72,8 @@
         }
     ],
     "abilities": [
-        "Anti-Grav, Shield Host",
-        "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 0)."
+        "Anti-Grav, Shield Host, Ward(5+)",
+        "Custodes Atomantic Shielding: Enemy attacks receive a -1 AT penalty (to a minimum of 0)."
     ],
     "unit_type": "Vehicle",
     "keywords": [],

@@ -49,7 +49,7 @@
             "s": "6",
             "ap": "0",
             "d": "1",
-            "abilities": "Armor piercing(5+), Monofilament, Suppression(2)"
+            "abilities": "Monofilament, Piercing(5+), Suppression(2)"
         },
         {
             "name": "Powerblades",
@@ -169,8 +169,12 @@
         }
     ],
     "abilities": [
+<<<<<<< HEAD
         "Battle Focus",
         "Aspect armor: The model gains a 5+ ward save.",
+=======
+        "Battle Focus, , Ward(5+)",
+>>>>>>> b3afcee4fe5c8f3b0cd37437b6aef6763c276c1a
         "Shunting: The unit rolls and moves an additional 1D6 when using the Advance order. If a double 1 is rolled, the unit suffers one Mortal Wound."
     ],
     "unit_type": "Jump pack infantry",

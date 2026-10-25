@@ -48,7 +48,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Twin heavy bolter",
@@ -139,7 +139,6 @@
         }
     ],
     "abilities": [
-        "<Codex>",
         "Transport: This model has a transport capacity of 6 infantry models, excluding \"Massive(x)\" models."
     ],
     "unit_type": "Vehicle",

@@ -4,5 +4,8 @@
       "path": "/api/cron/cleanup",
       "schedule": "0 4 * * *"
     }
+  ],
+  "regions": [
+    "dub1"
   ]
 }

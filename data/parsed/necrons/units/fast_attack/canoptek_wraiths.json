@@ -48,7 +48,7 @@
             "s": "+2",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         }
     ],
     "option_groups": [
@@ -88,8 +88,8 @@
         }
     ],
     "abilities": [
-        "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself.",
-        "Wraith form: The model gains a 4+ ward save."
+        "Ward(4+)",
+        "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself."
     ],
     "unit_type": "Jet bike, Monstrous Infantry",
     "keywords": [

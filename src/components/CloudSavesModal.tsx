@@ -160,7 +160,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
       ) : (
         <div className="space-y-2">
           {rosters.map(r => (
-            <div key={r.id} className={`bg-zinc-800 border border-zinc-700 border-l-4 p-3 flex items-center gap-3 ${
+            <div key={r.id} className={`bg-zinc-800 border border-zinc-700 border-l-4 p-3 flex flex-col sm:flex-row sm:items-center gap-3 ${
               r.id === activeRosterId ? 'border-l-amber-500' : r.is_public ? 'border-l-emerald-600' : 'border-l-zinc-600'
             }`}>
               <div className="flex-1 min-w-0">
@@ -178,7 +178,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                 {r.faction_label && (
                   <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{factionLabel(r.faction_label)}</div>
                 )}
-                <div className="flex items-center gap-3 mt-1">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
                   <span className="text-[11px] text-zinc-500">{r.total_pts != null ? `${r.total_pts} pts · ` : ''}{formatDate(r.updated_at)}</span>
                   <button
                     onClick={() => handleTogglePublic(r.id, r.is_public ?? false)}
@@ -218,7 +218,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                     onTokenChange={token => setRosters(prev => prev.map(x => x.id === r.id ? { ...x, share_token: token } : x))} />
                 )}
               </div>
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div className="flex items-center gap-1.5 sm:shrink-0">
                 <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">{t('loadButton')}</button>
                 <button disabled={saving} onClick={() => handleOverwrite(r.id)} className="text-[11px] px-2.5 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">{t('save')}</button>
                 <button onClick={() => handleDelete(r.id)} className="text-zinc-600 hover:text-red-400 text-xl leading-none">×</button>
@@ -1169,6 +1169,14 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const [secBusy, setSecBusy]             = useState(false);
   const [secError, setSecError]           = useState('');
   const [secMsg, setSecMsg]               = useState('');
+  const [pwOpen, setPwOpen]               = useState(false);
+  const [pwCurrent, setPwCurrent]         = useState('');
+  const [pwNew, setPwNew]                 = useState('');
+  const [pwMsg, setPwMsg]                 = useState('');
+  const [unOpen, setUnOpen]               = useState(false);
+  const [unNew, setUnNew]                 = useState('');
+  const [unPw, setUnPw]                   = useState('');
+  const [unMsg, setUnMsg]                 = useState('');
 
   function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]; if (!file) return;
@@ -1211,6 +1219,29 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
       setSecQuestion(qRes.hasSecretQuestion ? qRes.question : null);
     } catch (err) { setSecError((err as Error).message); }
     finally { setCodeLoading(false); }
+  }
+
+  async function handleChangePassword() {
+    setSecBusy(true); setSecError(''); setPwMsg('');
+    try {
+      await api.changePassword(pwCurrent, pwNew);
+      setPwCurrent(''); setPwNew(''); setPwOpen(false);
+      setPwMsg(t('passwordChangedMsg'));
+      setTimeout(() => setPwMsg(''), 3000);
+    } catch (err) { setSecError((err as Error).message); }
+    finally { setSecBusy(false); }
+  }
+
+  async function handleChangeUsername() {
+    setSecBusy(true); setSecError(''); setUnMsg('');
+    try {
+      await api.changeUsername(unNew.trim(), unPw);
+      setUnPw(''); setUnNew(''); setUnOpen(false);
+      setUnMsg(t('usernameChangedMsg'));
+      // the name is shown all over the app (header, friends, leagues): reload so every place reads the new one
+      setTimeout(() => window.location.reload(), 1200);
+    } catch (err) { setSecError((err as Error).message); }
+    finally { setSecBusy(false); }
   }
 
   function toggleSecurity() {
@@ -1419,6 +1450,39 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
                 </div>
               ) : (
                 <p className="text-zinc-500 text-xs italic">{t('noRecoveryCode')}</p>
+              )}
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('changeUsernameLabel')}</div>
+              <p className="text-zinc-500 text-[11px] mb-1">{username}</p>
+              {unMsg && <p className="text-emerald-400 text-xs mb-1">{unMsg}</p>}
+              {!unOpen ? (
+                <button onClick={() => setUnOpen(true)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('changeButton')}</button>
+              ) : (
+                <div className="space-y-2">
+                  <input type="text" autoComplete="off" maxLength={24} value={unNew} onChange={e => setUnNew(e.target.value)} placeholder={t('newUsernamePlaceholder')} className="w-full bg-zinc-800 border border-zinc-600 text-zinc-100 text-xs px-2 py-1.5 outline-none focus:border-amber-600" />
+                  <input type="password" autoComplete="current-password" value={unPw} onChange={e => setUnPw(e.target.value)} placeholder={t('currentPasswordPlaceholder')} className="w-full bg-zinc-800 border border-zinc-600 text-zinc-100 text-xs px-2 py-1.5 outline-none focus:border-amber-600" />
+                  <div className="flex gap-2">
+                    <button disabled={secBusy || !unPw || !/^[a-zA-Z0-9_-]{3,24}$/.test(unNew.trim()) || unNew.trim() === username} onClick={handleChangeUsername} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50">{t('changeButton')}</button>
+                    <button onClick={() => { setUnOpen(false); setUnNew(''); setUnPw(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600">✕</button>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('changePasswordLabel')}</div>
+              {pwMsg && <p className="text-emerald-400 text-xs mb-1">{pwMsg}</p>}
+              {!pwOpen ? (
+                <button onClick={() => setPwOpen(true)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('changeButton')}</button>
+              ) : (
+                <div className="space-y-2">
+                  <input type="password" autoComplete="current-password" value={pwCurrent} onChange={e => setPwCurrent(e.target.value)} placeholder={t('currentPasswordPlaceholder')} className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-600 outline-none text-sm text-zinc-200 px-3 py-2" />
+                  <input type="password" autoComplete="new-password" value={pwNew} onChange={e => setPwNew(e.target.value)} placeholder={t('newPasswordPlaceholder')} className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-600 outline-none text-sm text-zinc-200 px-3 py-2" />
+                  <div className="flex gap-2">
+                    <button disabled={secBusy || !pwCurrent || pwNew.length < 8} onClick={handleChangePassword} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">{t('save')}</button>
+                    <button onClick={() => { setPwOpen(false); setPwCurrent(''); setPwNew(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide">{t('cancel')}</button>
+                  </div>
+                </div>
               )}
             </div>
             <div>

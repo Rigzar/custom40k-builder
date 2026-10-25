@@ -104,6 +104,13 @@
       "p_char": null
     },
     {
+      "name": "Moment Shackle",
+      "term_compat": true,
+      "desc": "Once per battle, the model gains +2 Attacks and may reroll 1s for their ward saves until the end of the battle round. Unique.",
+      "p_unit": 20,
+      "p_char": null
+    },
+    {
       "name": "Panoptispex",
       "term_compat": true,
       "desc": "The model and its attached unit gain \"Seeking\" for all ranged weapons. Unique.",

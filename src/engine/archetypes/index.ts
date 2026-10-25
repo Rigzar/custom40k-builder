@@ -44,14 +44,16 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Dark Mechanicum': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
+    // Escalation (Dominic, 2026-10-23): a Chaos army may take the War Dog as an Elite, an Imperial army the Armiger. This archetype makes the army Chaos.
+    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],
     armoryOnlyFaction: 'chaos_space_marines',
-    // ods-verbatim: "Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines."
-    // The standing AdM<->CSM cell is R, so without this the pair read Desperate Allies (reported).
-    alliedRelationshipOverrides: { chaos_space_marines: 'Y' },
+    // Creator ruling 2026-10-24 (Rigzar): "Dark Mechanicum are treated like \"Chaos Space Marines\" in the Ally matrix."
+    // The sheet still says "become Allies of Convenience for Chaos Space Marines" (one cell); the whole row is now rewritten, as for Traitor Guard.
+    alliedMatrixAs: 'chaos_space_marines',
     alliedFaction: 'chaos_space_marines', alliedMarkFilter: 'all',
     alliedUnitsOnly: ['Venomcrawler', 'Defiler', 'Forgefiend', 'Maulerfiend', 'Heldrake'],
     notes: [
-      'Allied to Chaos Space Marines as Allies of Convenience.',
+      'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
       'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',
       'A Mark of Chaos counts as the unit\'s veteran ability, same as Adeptus Mechanicus.',
       'Models with Armory access may also use the Chaos Space Marine Armory.',
@@ -171,13 +173,14 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   // ── Eldar ─────────────────────────────────────────────────────────────────
   'Aspect Focus': { ...BASE,
-    // Eldar 1.01: Dark Reapers are exempted from Aspect Focus — they stay Heavy Support and no
-    // longer count as Troops ("With the exception of Dark Reapers, <Aspect> units can be taken as
-    // Troops").
+    // Eldar 1.01: Dark Reapers are exempted from Aspect Focus and no longer count as Troops ("With the
+    // exception of Dark Reapers, <Aspect> units can be taken as Troops").
     troopsRemap: ['Dire Avengers', 'Fire Dragons', 'Howling Banshees', 'Shadow Spectres', 'Striking Scorpions', 'Shining Spears', 'Swooping Hawks', 'Warp Spiders'],
+    // Eldar 1.7 adds "Dark Reapers become Elite choices." (they used to stay Heavy Support).
+    elitesRemap: ['Dark Reapers'],
     demoteOtherTroops: true,
     notes: [
-      'All Aspect Warrior units except Dark Reapers count as Troops.',
+      'All Aspect Warrior units except Dark Reapers count as Troops; Dark Reapers become Elite choices.',
       'Non-Aspect Troops are moved to the Elites slot.',
     ],
   },
@@ -398,6 +401,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
+    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],   // Chaos army: War Dog yes, Armiger no (Escalation, Dominic 2026-10-23)
     armoryOnlyFaction: 'chaos_space_marines', grantsMarkArmory: true,
     // ods-verbatim: "Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix."
     // CSM<->CSM is G. The note below has said this since the archetype was written; it was display
@@ -421,6 +425,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // Battle Brothers (Green allies)." Without the override the matrix's standing Y (Allies of
     // Convenience) stood and the ally showed yellow (GitHub #83).
     alliedRelationshipOverrides: { tau_empire: 'G' },
+    alliedOnlyTo: 'tau_empire',   // Votann 1.5: "Can only be taken as an allied detachment for T'au Empire."
     notes: [
       'Allied to Tau Empire as Battle Brothers.',
       'The army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army.',
@@ -489,8 +494,11 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Yngir': { ...BASE,
     troopsRemap: ['Pariahs'],
+    // Sheet 1.9: "It loses the "Mindless" ability and gains the "Fearless" ability."
+    unitPatch: { units: ["C'tan Shard"], dropAbilityNames: ['Mindless'] },
+    grantsAbility: { ability: 'Fearless', units: ["C'tan Shard"] },
     notes: [
-      "C'tan Shards count as an HQ selection. A shard may select up to five upgrades (three otherwise), its powers gain +6\" range, and it knows \"Time's Arrow\". Costs +30 pts.",
+      "The C'tan Shard counts as an HQ selection and may select up to five upgrades (three otherwise). It loses \"Mindless\" and gains \"Fearless\"; its powers gain +6\" range and it knows \"Time's Arrow\". Costs +30 pts.",
       'Pariahs count as Troops.',
     ],
   },
@@ -508,10 +516,28 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Speedfreaks': fastArchetype(['Stormboyz', 'Warbikers']),
 
+  // Orks 1.5. Gretchins and Snotlings are Grot units without a Grot keyword, hence the by-name list. Not modelled: the
+  // Runtherd ban and the loss of "Cowardly" (both are unit-model rules; see known-issues).
+  'Gretchin Revolutionary Committee': { ...BASE,
+    allowedKeywords: ['Grot', 'Vehicle'],
+    allowedKeywordUnits: ['Gretchins', 'Snotlings'],
+    troopsMinRatio: 0.15,
+    grantsAbility: { ability: 'Mob', units: ['Gretchins', 'Snotlings'] },
+    unitPatch: { units: ['Gretchins', 'Snotlings'], dropModels: ['Runtherd'], dropAbilityPrefixes: ['Cowardly:', 'Squig hound:'] },
+    notes: [
+      'Only Grot and Vehicle units may be taken.',
+      'The army only needs to spend 15% of its points on Troops.',
+      'All Grot units gain the "Mob" ability.',
+      'Gretchin and Snotlings lose the "Cowardly" ability, and their units may not take Runtherds (removed from the units while this archetype is active).',
+    ],
+  },
+
   // ── Tau Empire ────────────────────────────────────────────────────────────
   'Farsight Enclave': { ...BASE,
     troopsRemap: ['Crisis Battlesuits'], demoteOtherTroops: true,
     bannedUnits: ['Ethereal', 'Ethereal Guard'],
+    // "One unit each of Broadside Battlesuits and Riptide Battlesuits can be taken with an HQ slot if they consist of a single model."
+    hqPromotion: { unitNameContains: 'Broadside', unitNameAlso: ['Riptide'], singleModel: true },
     notes: [
       'Crisis Battlesuits count as Troops. All other Troops become Elites.',
       'Ethereals may not be selected.',
@@ -526,10 +552,11 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // moved every Kroot Elite, Fast Attack and Heavy Support into Troops (Troops 10/6 on the list below).
     troopsRemap: ['Kroot Carnivores'],
     troopsCount: 'remap',
-    minimumsOnlyKeyword: 'Kroot',
+    // Tau 1.4 dropped "Only Kroot units count towards mandatory unit minimums in the AOP" (and moved the Shaman to the
+    // Master Shaper's own list), so `minimumsOnlyKeyword` is gone: every unit counts towards the minimums again.
     notes: [
+      'For every 1,000 points of game size, or part thereof, you gain one Kroot Hunting Blind (3" x 3" abstract terrain, Light Cover, deployed as Infiltrators; not modelled in the builder).',
       'Kroot Farstalkers gain the "Objective secured!" ability.',
-      'One Kroot Master Shaper may be upgraded to a Shaman for +10 pts (Psyker, 1 cast/1 deny, knows 2 powers from Biomancy or Divination).',
       'Only Kroot units count towards the 25% Troops requirement.',
     ],
   },
@@ -571,14 +598,15 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     // option groups, so the promotion is not gated on a choice name here — the note carries the
     // requirement and the validator would need the Armory selection to check it.
     // Tyranids 1.10 added: "The model gains the 'Fearless' and 'Synapse' abilities" and "The model costs +36 points".
-    // "The model gains access to the Hive Fleet Armory" is NOT wired: which fleet's armory (or all five) is an open
-    // question for the author, so it is not guessed here.
+    // "The model gains access to the Hive Fleet Armory": grantsArmoryAccess. It is the same armory a Hive Tyrant
+    // reaches with "May additionally select items from the Hive Fleet Armory" -- the Legacy's, not all five (Discord, Unwise 2026-10-21).
     hqPromotion: { unitNameContains: 'Carnifex', requiresChoice: 'Regeneration', abilityUpgrade: { from: 'Regeneration(1)', to: 'Regeneration(2)' },
-      extraPoints: 36, grantsAbilities: ['Fearless', 'Synapse'] },
+      extraPoints: 36, grantsAbilities: ['Fearless', 'Synapse'], grantsArmoryAccess: true },
     notes: [
       'One Carnifex with the Regeneration(1) Special Biomorph becomes an HQ selection.',
       'Regeneration(1) becomes Regeneration(2) for that model, and does not block a second Special Biomorph.',
       'The model gains Fearless and Synapse, and costs +36 points.',
+      'The model gains access to the Hive Fleet Armory.',
       'Carnifex Broods count as Troops.',
       'Only Carnifex Broods count towards the 25% Troops requirement.',
     ],
@@ -587,11 +615,12 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Subterranean Assault': { ...BASE,
     troopsRemap: ['Ravener Brood', 'Mawloc'], troopsCount: 'remap',
     // "One Trygon must be taken with the Trygon Prime upgrade and it becomes a HQ selection."
-    hqPromotion: { unitNameContains: 'Trygon', requiresChoice: 'Trygon Prime' },
+    hqPromotion: { unitNameContains: 'Trygon', requiresChoice: 'Trygon Prime', grantsArmoryAccess: true },
     // "For every 4 Ravener models, one Mawloc can be taken as Troops." Models, not units.
     troopsModelRatioCap: { sourceUnits: ['Ravener Brood'], modelsPerUnit: 4, cappedUnit: 'Mawloc' },
     notes: [
       'One Trygon with the Trygon Prime upgrade becomes an HQ selection.',
+      'The model gains access to the Hive Fleet Armory.',
       'Ravener Broods count as Troops.',
       'For every 4 Ravener models, one Mawloc may also count as Troops.',
       'Only Ravener Broods and Mawlocs count towards the 25% Troops requirement.',
@@ -644,6 +673,18 @@ const RENAMED_ARCHETYPES: Record<string, string> = {
   'Trueborn': 'Trueborn Raid',             // Dark Eldar, 1.01 codex
 };
 
+/**
+ * Legacies the author has renamed (same reasoning as RENAMED_ARCHETYPES: a saved list stores the name).
+ */
+const RENAMED_LEGACIES: Record<string, string> = {
+  'Legacy of the Damned': 'Legacy of the Relic Hunters',   // Space Marines 1.11 (the name went to the Legion of the Damned supplement)
+};
+
+/** The current name for a legacy, for saved armies written before a rename. */
+export function currentLegacyName(legacy: string): string {
+  return RENAMED_LEGACIES[legacy] ?? legacy;
+}
+
 export function getArchetypeRule(archetype: string): ArchetypeRule | null {
   return ARCHETYPE_RULES[archetype] ?? ARCHETYPE_RULES[RENAMED_ARCHETYPES[archetype]] ?? null;
 }
@@ -655,6 +696,9 @@ export function currentArchetypeName(archetype: string): string {
 
 /** Strip trailing god superscripts (ˢ ᴷ ᵀ ᴺ) from archetype names for display. */
 export function cleanArchetypeName(name: string): string {
+  // The Space Marines and Chaos Space Marines sheets both call their Horus Heresy archetype "Legiones Astartes"; the app keeps
+  // two internal names (the rule table is keyed by name) and shows the sheet's.
+  if (name === 'Legion SM' || name === 'Legion CSM') return 'Legiones Astartes';
   return name.replace(/[ˢᴷᵀᴺ]+$/, '');
 }
 
@@ -671,15 +715,22 @@ export function cleanArchetypeName(name: string): string {
  * Keyed on the flag alone, exactly as `points.ts` charges the +85, and the flag is cleared when the
  * army leaves the Yngir archetype (`setArchetype`).
  */
+/** The part of `hqPromotion` (main name or one of `unitNameAlso`) that matches this unit, lower-cased, or null. Each fragment is claimed by one entry. */
+export function promotionFragment(promo: { unitNameContains: string; unitNameAlso?: string[] }, unitName: string): string | null {
+  const n = unitName.toLowerCase();
+  return [promo.unitNameContains, ...(promo.unitNameAlso ?? [])].map(f => f.toLowerCase()).find(f => n.includes(f)) ?? null;
+}
+
 export function getEffectiveSlotFor(
-  item: { unitName: string; slot: string; ctanYngirUpgrade?: boolean; archetypeHqUpgrade?: boolean },
+  item: { unitName: string; slot: string; size?: number; ctanYngirUpgrade?: boolean; archetypeHqUpgrade?: boolean },
   rule: ArchetypeRule | null,
 ): string {
   if (item.ctanYngirUpgrade && /^C'tan Shard/.test(item.unitName)) return 'HQ';
   // The archetype's own HQ promotion, claimed by one entry (GH#168). Keyed on the flag alone,
   // exactly like the Yngir C'tan above; the flag is cleared when the archetype changes.
   if (item.archetypeHqUpgrade && rule?.hqPromotion
-    && item.unitName.toLowerCase().includes(rule.hqPromotion.unitNameContains.toLowerCase())) return 'HQ';
+    && promotionFragment(rule.hqPromotion, item.unitName)
+    && !(rule.hqPromotion.singleModel && (item.size ?? 1) !== 1)) return 'HQ';
   return getEffectiveSlot(item.unitName, item.slot, rule);
 }
 
@@ -698,10 +749,11 @@ export function getEffectiveSlot(
 
 export function isUnitAllowed(
   unitName: string,
-  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[] },
+  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[]; is_vehicle?: boolean; requires_archetype_unlock?: boolean },
   rule: ArchetypeRule | null,
   originalSlot?: string,
 ): boolean {
+  if (unit.requires_archetype_unlock && !(rule?.unlocksUnits ?? []).includes(unitName)) return false;
   if (!rule) return true;
   if (rule.bannedUnits.includes(unitName)) return false;
   // "No other Troop units may be selected" (Necrons Obeisance Phalanx). Checked against the
@@ -715,9 +767,10 @@ export function isUnitAllowed(
   if (rule.requireVetAbilities && !rule.grantVetAbilitiesToAll && !unit.has_veteran_abilities) return false;
   if (rule.allowedUnitsOnly.length > 0 && !rule.allowedUnitsOnly.includes(unitName)) return false;
   if (rule.allowedKeywords.length > 0) {
-    const kws = unit.keywords ?? [];
+    // A Vehicle carries no keyword of its own: the type counts ("Only Grot and Vehicle units may be taken").
+    const kws = [...(unit.keywords ?? []), ...(unit.is_vehicle ? ['Vehicle'] : [])];
     // "-" = Swords for hire: unit gains the army keyword automatically
-    if (!kws.includes('-') && !kws.some(k => rule.allowedKeywords.includes(k))) return false;
+    if (!kws.includes('-') && !kws.some(k => rule.allowedKeywords.includes(k)) && !(rule.allowedKeywordUnits ?? []).includes(unitName)) return false;
   }
   return true;
 }

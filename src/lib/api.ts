@@ -11,7 +11,7 @@ async function call<T>(url: string, options?: RequestInit): Promise<T> {
     ...options,
   });
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(translateError(json));
+  if (!res.ok) throw new Error(translateError(res.status === 503 && !(json as { key?: string }).key ? { ...json, key: 'dbUnavailable' } : json));
   return json as T;
 }
 
@@ -62,6 +62,18 @@ export function resetPassword(
 ) {
   return call<{ recoveryCode: string }>('/api/auth/reset-password', {
     method: 'POST', body: JSON.stringify({ username, recoveryCode, newPassword, secretAnswer }),
+  });
+}
+
+export function changePassword(currentPassword: string, newPassword: string) {
+  return call<{ ok: true }>('/api/auth/change-password', {
+    method: 'POST', body: JSON.stringify({ currentPassword, newPassword }),
+  });
+}
+
+export function changeUsername(newUsername: string, currentPassword: string) {
+  return call<{ ok: true; username: string }>('/api/auth/change-username', {
+    method: 'POST', body: JSON.stringify({ newUsername, currentPassword }),
   });
 }
 

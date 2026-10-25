@@ -85,6 +85,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Shuriken"
+        },
+        {
+            "name": "Sun pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Precision(5+)"
         }
     ],
     "option_groups": [
@@ -99,26 +108,25 @@
             "is_unique_per_army": false
         },
         {
-            "header": "The Exarch can swap their Scorpion chainsword and Shuriken pistol",
+            "header": "The Exarch can swap their Scorpion chainsword",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
                     "name": "Biting blade",
-                    "points": 3
+                    "points": 5
                 },
                 {
                     "name": "Scorpion claw - Melee",
-                    "points": 12
+                    "points": 14
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Scorpion chainsword",
-                "Shuriken pistol"
+                "Scorpion chainsword"
             ]
         },
         {
@@ -195,11 +203,28 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": true
+        },
+        {
+            "header": "All remaining models can swap their Shuriken pistols",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Sun pistol",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Shuriken pistol"
+            ]
         }
     ],
     "abilities": [
-        "Battle Focus, Deep Strike, Hunter, Infiltrator",
-        "Aspect armor: The model gains a 5+ ward save.",
+        "Battle Focus, Deep Strike, Hunter, Infiltrator, , Ward(5+)",
         "Mandiblaster: During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1."
     ],
     "unit_type": "Infantry",

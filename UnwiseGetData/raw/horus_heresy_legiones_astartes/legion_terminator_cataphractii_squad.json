@@ -1,0 +1,348 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Legion Cataphractii",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        5,
+        2,
+        4,
+        3,
+        8,
+        "2+",
+        85
+    ],
+    [
+        1,
+        "Legion Cataphractii Sergeant",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        5,
+        2,
+        4,
+        3,
+        8,
+        "2+",
+        85
+    ],
+    [
+        "Every model is equipped with: Combi-Bolter; Power sword."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Chainfist",
+        "-",
+        "Melee",
+        "x2",
+        -4,
+        3,
+        "Armorbane(3), AT(2), Slow(-3)"
+    ],
+    [
+        "Combi-bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Combi-flamer *"
+    ],
+    [
+        "- Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Combi, Sunder(1)"
+    ],
+    [
+        "Combi-melta *"
+    ],
+    [
+        "- Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Combi, Melta"
+    ],
+    [
+        "Combi-plasma *"
+    ],
+    [
+        "- Bolter",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Combi"
+    ],
+    [
+        "- Plasma (Standard)",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1), Combi"
+    ],
+    [
+        "- Plasma (Overcharged)",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Combi, Overheating"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Lightning claw",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Shred"
+    ],
+    [
+        "Pair of lightning claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Extra Attack(2), Shred, Unwieldy"
+    ],
+    [
+        "Plasma blaster *"
+    ],
+    [
+        "- Standard",
+        "18\"",
+        "Assault 2",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "18\"",
+        "Assault 2",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Power fist",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(1), Slow(-2)"
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "Reaper autocannon",
+        "36\"",
+        "Heavy 3",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Thunder hammer",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(2), Slow(-3)"
+    ],
+    [
+        "Volkite charger",
+        "15\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "Soul burn(6+)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point."
+    ],
+    [
+        "\u2022 If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+2 points"
+    ],
+    [
+        "- Slaanesh",
+        "+2 points"
+    ],
+    [
+        "- Nurgle",
+        "+2 points"
+    ],
+    [
+        "- Tzeentch",
+        "+0 points"
+    ],
+    [
+        "\u2022 Every Legion Cataphractii may swap their Combi-bolter with:"
+    ],
+    [
+        "- Volkite charger",
+        "-10 points"
+    ],
+    [
+        "- Combi-flamer",
+        "+0 points"
+    ],
+    [
+        "- Combi-melta",
+        "+10 points"
+    ],
+    [
+        "- Combi-plasma",
+        "+15 points"
+    ],
+    [
+        "\u2022 Every Legion Cataphractii may swap their Power sword with:"
+    ],
+    [
+        "- Lightning claw",
+        "+1 points"
+    ],
+    [
+        "- Power fist",
+        "+9 points"
+    ],
+    [
+        "- Thunder hammer",
+        "+15 points"
+    ],
+    [
+        "- Chainfist",
+        "+17 points"
+    ],
+    [
+        "\u2022 Every Legion Cataphractii may swap their Combi-bolter with:"
+    ],
+    [
+        "- Pair of lightning claws",
+        "+0 points"
+    ],
+    [
+        "\u2022 For each 5 models, two Legion Cataphractii may swap their Combi-bolters with:"
+    ],
+    [
+        "- Heavy flamer",
+        "+0 points"
+    ],
+    [
+        "- Plasma Blaster",
+        "+20 points"
+    ],
+    [
+        "- Reaper autocannon",
+        "+20 points"
+    ],
+    [
+        "\u2022 The Legion Cataphractii Sergeant has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Massive(1), Unyielding, Ward(4+)"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

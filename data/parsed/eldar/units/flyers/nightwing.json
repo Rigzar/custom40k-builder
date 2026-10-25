@@ -30,7 +30,7 @@
             "s": "8",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(3), Lance(+2)"
+            "abilities": "AT(3), Armorbane(+2)"
         },
         {
             "name": "Twin shuriken cannon",
@@ -44,9 +44,8 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Deflect",
-        "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability.",
-        "Vector Dancer: The model gains a 5+ ward save."
+        "Deflect, Ward(5+)",
+        "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability."
     ],
     "unit_type": "Flyer",
     "keywords": [

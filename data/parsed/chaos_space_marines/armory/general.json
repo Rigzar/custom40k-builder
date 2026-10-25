@@ -38,6 +38,21 @@
       "p_char": 7
     },
     {
+      "name": "Chain fist",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "Terminator armor only, AT(3), Piercing(5+), Slow(-3), Unwieldy",
+      "p_unit": 20,
+      "p_char": 25,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Combi-bolter",
       "term_compat": true,
       "range": "24\"",
@@ -242,6 +257,18 @@
       ]
     },
     {
+      "name": "Hand flamer",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": 2,
+      "p_char": 1
+    },
+    {
       "name": "Hunter-killer missile",
       "term_compat": false,
       "gravis_compat": false,
@@ -263,7 +290,7 @@
       "s": "6",
       "ap": "-3",
       "d": "2",
-      "abilities": "Armor piercing(5+), Decimate, Shield breaker(-1)",
+      "abilities": "Piercing(5+), Decimate, Shield breaker(-1)",
       "p_unit": null,
       "p_char": null,
       "armour_compat": [
@@ -299,7 +326,7 @@
       "p_char": null
     },
     {
-      "name": "Melta grenade",
+      "name": "Melta grenades",
       "term_compat": true,
       "range": "3\"",
       "type": "Grenade 1",

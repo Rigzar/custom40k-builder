@@ -30,7 +30,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Dreadnought close combat weapon",
@@ -117,11 +117,11 @@
                     "points": 20
                 },
                 {
-                    "name": "Dreadnought close combat weapon and Heavy flamer",
+                    "name": "Dreadnought close combat weapon with Heavy flamer",
                     "points": 29
                 },
                 {
-                    "name": "Dreadnought close combat weapon and Storm bolter",
+                    "name": "Dreadnought close combat weapon with Storm bolter",
                     "points": 33
                 },
                 {
@@ -175,9 +175,9 @@
         }
     ],
     "abilities": [
+        "Ward(5+)",
         "Faithful: May recite 2 prayers per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
-        "Furioso: If the model has two melee weapons, it gains +2 attacks.",
-        "Reliquary: The model receives a 5+ ward save."
+        "Furioso: If the model has two melee weapons, it gains +2 attacks."
     ],
     "unit_type": "Vehicle, Walker",
     "keywords": [],

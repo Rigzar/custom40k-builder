@@ -122,8 +122,7 @@
         }
     ],
     "abilities": [
-        "Deflect, Parry, Terrifying(-1), <Harlequins>",
-        "Holo-suit: The model gains a 4+ ward save.",
+        "Deflect, Parry, Terrifying(-1), <Harlequins>, Ward(4+)",
         "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of light cover."
     ],
     "unit_type": "Jetbike",

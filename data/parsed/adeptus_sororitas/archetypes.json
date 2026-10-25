@@ -52,7 +52,7 @@
     {
       "name": "The Holy Trinity",
       "trait_slot_bonus": 1,
-      "desc": "The army gains access to a third trait and must select these traits: Raging Fervour, Rites of Fire and Unshakeable Vengeance. All traits combined cost 10 points for each non-character units.",
+      "desc": "The army gains access to a third trait and must select these traits: Raging Fervour, Rites of Fire and Unshakeable Vengeance. All traits combined cost 10 points for each non-character unit.",
       "armory_key": "Order"
     }
   ],
@@ -104,7 +104,7 @@
     },
     {
       "name": "Raging Fervour",
-      "desc": "Inferno pistols gain 1.5\" range for their \"Melta\" rule, Meltas gain 3\" range for their \"Melta\" rule and Multi-meltas gain 6\" range for their \"Melta\" rule. (Note that this does NOT increase the actual weapon's range.)",
+      "desc": "Inferno pistols gain 1.5\" range for their \"Melta\" rule, Meltas gain 3\" range for their \"Melta\" rule and Multi-meltas gain 6\" range for their \"Melta\" rule. (Note that this does NOT increase tha actual weapon's range)",
       "pts_unit": "3",
       "pts_char": "0",
       "pts_monster": "3",
@@ -113,7 +113,7 @@
     },
     {
       "name": "Rites of Fire",
-      "desc": "Hand flamers gain 1,5\" range, Flamers gain 3\" range and Heavy flamers gain 6\" range.",
+      "desc": "Hand flamers gain 1.5\" range, Flamers gain 3\" range and Heavy flamers gain 6\" range.",
       "pts_unit": "3",
       "pts_char": "0",
       "pts_monster": "3",

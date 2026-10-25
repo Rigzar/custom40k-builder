@@ -26,7 +26,7 @@
       "p_char": 19
     },
     {
-      "name": "Hunting javelin",
+      "name": "Hunting javelinᴵ",
       "term_compat": false,
       "range": "",
       "type": "",
@@ -160,7 +160,7 @@
     {
       "name": "Blademasterᴵ",
       "term_compat": false,
-      "desc": "The model may chose to either gain the \"Armor piercing(5+)\" or \"Parry\" ability during each activation. \"Parry\" is the default ability. Only for Ethereals. Unique.",
+      "desc": "The model may chose to either gain the \"Piercing(5+)\" or \"Parry\" ability during each activation. \"Parry\" is the default ability. Only for Ethereals. Unique.",
       "p_unit": null,
       "p_char": 3
     },
@@ -188,7 +188,7 @@
     {
       "name": "Ejection system",
       "term_compat": false,
-      "desc": "If the model loses its last wound, replace it with a pilot. The model loses 2 Strength, 2 Toughness, got 1 Wound and a Pulse pistol.",
+      "desc": "If the model loses its last wound, replace it with a pilot. The model loses 2 Strength, 2 Toughness, got 1 Wound and a Pulse pistol. If the model was your Warlord, the pilot is now your Warlord.",
       "p_unit": null,
       "p_char": 5
     },
@@ -254,7 +254,7 @@
     {
       "name": "Mark of the Favored Childᴵ",
       "term_compat": false,
-      "desc": "The model gains a 4+ ward save. Unique. Kroot only.",
+      "desc": "The model gains Ward(4+). Unique. Kroot only.",
       "p_unit": 18,
       "p_char": 29
     },
@@ -275,7 +275,7 @@
       "term_compat": false,
       "desc": "The model gains a 2+ save. Can be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 20
+      "p_char": 25
     },
     {
       "name": "Master-crafted weaponᴵ",
@@ -316,15 +316,15 @@
       "name": "Puretide engram neurochipᴵ",
       "term_compat": false,
       "desc": "During your activation, pick one ability: Counter-attack, Favored enemy, Furious charge or Tank hunter. The ability is active for the model and its attached unit until their next activation. Unique",
-      "p_unit": 10,
-      "p_char": 15
+      "p_unit": 15,
+      "p_char": 20
     },
     {
       "name": "Stimulant injectorᴵ",
       "term_compat": false,
-      "desc": "The model gains a 5+ ward save. Does not work against weapons with strength 8 and above.",
-      "p_unit": 12,
-      "p_char": 22
+      "desc": "The model gains the \"Berserk(5+)\" ability.",
+      "p_unit": 15,
+      "p_char": 27
     },
     {
       "name": "Surefoot Charmᴵ",
@@ -351,7 +351,7 @@
       "name": "Talisman protection chip",
       "term_compat": false,
       "desc": "The model may attempt to deny one psychic power per battle round and receives a +1 bonus to the roll.",
-      "p_unit": 5,
+      "p_unit": null,
       "p_char": 5
     },
     {
@@ -378,16 +378,16 @@
     {
       "name": "XV22 Stalker battlesuit",
       "term_compat": false,
-      "desc": "The models gains the +1 Initiative, as well as the \"Infiltrator\" and \"Stealth\" ability. Can't be combined with other battlesuits.",
+      "desc": "The models gains the +1 Initiative, as well as the \"Infiltrator\" and \"Use Cover\" ability. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 38
+      "p_char": 11
     },
     {
       "name": "XV81 Crisis battlesuit",
       "term_compat": false,
       "desc": "The model gains a Smart missile system. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 14,
+      "p_char": 26,
       "effect": {
         "grants_weapons": [
           "Smart missile system"
@@ -409,16 +409,16 @@
     {
       "name": "XV85 Enforcer battlesuit",
       "term_compat": false,
-      "desc": "The model gains +1 Wound and a 2+ armor save. Additionally, it may select one more weapon or support system. Can't be combined with other battlesuits.",
+      "desc": "The model gains +1 Strength, +1 Toughness and a 2+ armor save. Additionally, it may select one more weapon or support system. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 44
+      "p_char": 32
     },
     {
       "name": "XV86 Coldstar battlesuit",
       "term_compat": false,
-      "desc": "The models gains +1 Wound, the \"Jetbike\" unit type and the \"Hit & Run\" ability. Can't be combined with other battlesuits.",
+      "desc": "The models gains +1 Strength, +1 Toughness, the \"Jetbike\" unit type and the \"Hit & Run\" ability. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 25,
+      "p_char": 11,
       "effect": {
         "adds_unit_types": [
           "Jetbike"
@@ -428,12 +428,9 @@
     {
       "name": "XV86 Supernova battlesuit",
       "term_compat": false,
-      "desc": "The model gains +1 Wound, +1 Attack, +1 Initiative and becomes a \"Monstrous Creature\". Can't be combined with other battlesuits.",
+      "desc": "The model gains +1 Strength, +1 Toughness, +1 Attack, +1 Initiative. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 26,
-      "effect": {
-        "set_unit_type": "Monstrous Creature"
-      }
+      "p_char": 9
     },
     {
       "name": "Blacksun filterᴵ",
@@ -519,8 +516,8 @@
       "name": "Shield generatorᴵ",
       "term_compat": false,
       "desc": "The model gains a 4+ ward save.",
-      "p_unit": 19,
-      "p_char": 39,
+      "p_unit": 28,
+      "p_char": 49,
       "support_system": true
     },
     {

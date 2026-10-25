@@ -1,0 +1,113 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-10",
+        "Flash Git",
+        "6\"",
+        "3+",
+        "4+",
+        4,
+        4,
+        2,
+        3,
+        2,
+        6,
+        "4+",
+        62
+    ],
+    [
+        1,
+        "Nob",
+        "6\"",
+        "3+",
+        "4+",
+        5,
+        4,
+        2,
+        3,
+        3,
+        6,
+        "4+",
+        67
+    ],
+    [
+        "Every model is equipped with: Snazzgun; Stikkbombz."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Snazzgun *"
+    ],
+    [
+        "- Dakka",
+        "24\"",
+        "Assault 3",
+        6,
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "- More Zzzap!",
+        "24\"",
+        "Assault 3",
+        7,
+        -4,
+        2,
+        "AT(1), Overheating"
+    ],
+    [
+        "Stikkbombz",
+        "6\"",
+        "Grenade 1",
+        3,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The Nob has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can get one Kustom job."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

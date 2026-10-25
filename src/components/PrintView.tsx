@@ -14,7 +14,7 @@ import { countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { slotLabel } from '../utils/slotLabel';
 import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { engName } from '../utils/engagementText';
-import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
+import { unitPowerSummary, collectPowerBook, powerBookIsEmpty } from '../utils/powerBook';
 import { applyDelta, applyEquipDeltas } from '../utils/statMods';
 import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -166,6 +166,10 @@ function findArmoryItem(
     data.armory_general,
     ...Object.values(data.armory_marks ?? {}),
     ...Object.values(data.armory_legions ?? {}),
+    // The foreign armory an archetype grants (Traitor Guard -> the Chaos Space Marines Armory and its Mark armories) and the
+    // ones an army may borrow from: searched last, like the resolver does, so a same-named item in the army's own codex wins.
+    ...(data.archetype_armory ? [data.archetype_armory.general, ...Object.values(data.archetype_armory.marks ?? {})] : []),
+    ...Object.values(data.borrowable_armories ?? {}),
   ].filter((a): a is NonNullable<typeof a> => !!a);
   for (const arm of sources)
     for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
@@ -404,7 +408,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, optionStatSets, attachedDrones, optionAbilities, traitAbilities } = rp;
+          optionStatMods, optionStatSets, optionStatExact, attachedDrones, optionAbilities, traitAbilities } = rp;
   // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
   // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
   // affected. Same derivation as the unit card now.
@@ -415,7 +419,10 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   });
   const color = getThemeColor(data.faction, effectiveMark);
 
-  const statKeys  = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
+  // Same rule as the unit card: an option that gives a vehicle a WS ("Reinforced forelimbs") adds the column.
+  const statKeys: readonly string[] = u.is_vehicle
+    ? (optionStatSets?.WS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)
+    : STAT_KEYS_INF;
   // One list, not a choice between two: the codex says a character or Monstrous Creature gains
   // its bonus ADDITIONALLY, so both apply (GH#128).
   const markMods  = markStatMods(statModMark, u);
@@ -495,12 +502,12 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     const melee = withCounts(g.weapons
-      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee' || w.range === '-') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));   // a '-' range with no Melee type (an explosion: Scarab explosion, Spore mine) still has to print, as the battle view does
     return { label: g.label, ranged, melee };
   }).concat(attachedDrones.map(({ drone, count }) => ({
     label: `${count}x ${nm(drone.name)}`,
     ranged: drone.weapons.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '').map(w => ({ ...w, name: `${count}x ${w.name}` })),
-    melee: drone.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee').map(w => ({ ...w, name: `${count}x ${w.name}` })),
+    melee: drone.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee' || w.range === '-').map(w => ({ ...w, name: `${count}x ${w.name}` })),
   })));
 
   // Build filter sets for optional abilities
@@ -509,8 +516,10 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // two copies staying in step. Same logic, same order, moved verbatim.
   const abilitiesList = selectedAbilities(u, item, rp as any);
   const traitList  = item.traits.map(t => t.name);
-  const powerList  = item.powers.filter(p => p.powerName !== '__discipline__').map(p => `${p.powerName} (${p.disciplineName})`);
-  const prayerList = item.prayers;
+  // Names only on the card; the full text of every power and prayer is in the book at the end of the list (utils/powerBook.ts).
+  const psy = unitPowerSummary(item, data);
+  const powerList  = [...psy.wholeDisciplines.map(d => `${nm(d)} (${tFn(lang, 'bookAll')})`), ...psy.names.map(n => nm(n))];
+  const prayerList = [...psy.prayers, ...psy.pacts];
   const hasAbilities = abilitiesList.length > 0 || traitList.length > 0 || powerList.length > 0 || prayerList.length > 0;
 
   let joinedName: string | null = null;
@@ -657,6 +666,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                 const set = v.match(/^(\d+)\+/)?.[1];
                 if (!cur || modStats[k] === '-' || (set && parseInt(set, 10) < parseInt(cur, 10))) modStats[k] = v;
               }
+              for (const [k, v] of Object.entries(optionStatExact ?? {})) if (modStats[k] !== undefined && v) modStats[k] = v;
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
@@ -796,20 +806,12 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                   <div style={{ fontFamily: CONDUIT, fontSize: '.6em', fontWeight: 800, textTransform: 'uppercase', color, letterSpacing: '.08em', marginBottom: 3 }}>
                     {powerList.length > 0 ? tFn(lang, 'prPsychicPowers') : tFn(lang, 'prPrayers')}
                   </div>
-                  {/* Printed sheets used to carry the NAME only, which made them useless at the
-                      table — you could not look up a prayer's range or effect on your own list
-                      (v1.70). Full entry now, same formatter as the app views. */}
-                  {[...powerList, ...prayerList].map((p, i) => {
-                    const meta = powerMetaByName(p, data);
-                    const eff = powerEffectByName(p, data);
-                    return (
-                      <div key={i} style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55`, marginBottom: 2 }}>
-                        <span style={{ fontWeight: 600 }}>{/^(.*?) \((.*)\)$/.test(p) ? p.replace(/^(.*?) \((.*)\)$/, (_m, a, b) => `${nm(a)} (${nm(b)})`) : nm(p)}</span>
-                        {meta && <span style={{ color: '#777' }}> · {meta}</span>}
-                        {eff && <div style={{ fontSize: '.92em', color: '#555', lineHeight: 1.25 }}>{localiseAbility(eff)}</div>}
-                      </div>
-                    );
-                  })}
+                  {/* v1.70 put the full entry here because a bare name is useless at the table. It now lives ONCE in the
+                      book at the end of the list (a Paladin Squad that knows forty-three powers no longer prints forty-three
+                      paragraphs, and a power two Librarians share is not printed twice); the card keeps the names. */}
+                  <div style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55`, lineHeight: 1.35 }}>
+                    {[...powerList, ...prayerList].join(' · ')}
+                  </div>
                 </div>
               )}
             </div>
@@ -918,7 +920,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     const melee = withCounts(g.weapons
-      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee' || w.range === '-') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));   // a '-' range with no Melee type (an explosion: Scarab explosion, Spore mine) still has to print, as the battle view does
     return { ranged, melee };
   });
   const ranged = weaponGroupsPrint.flatMap(g => g.ranged).concat(
@@ -928,7 +930,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
   );
   const melee  = weaponGroupsPrint.flatMap(g => g.melee).concat(
     attachedDrones.flatMap(({ drone, count }) => drone.weapons
-      .filter(w => w.range === 'Melee' || w.type === 'Melee')
+      .filter(w => w.range === 'Melee' || w.type === 'Melee' || w.range === '-')
       .map(w => ({ ...w, name: `${count}x ${w.name}` })))
   );
 
@@ -1733,6 +1735,12 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     for (const ab of rpForRules.injectedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
     for (const ab of rpForRules.optionAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
     for (const ab of rpForRules.equipMods.grantedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
+    // Abilities a TRAIT hands out (Dark Eldar Torturous Efficiency: Rending(5+) on every weapon; Necron Awakened by Murder: Frenzy) are on the
+    // cards but were never collected, so the Special Rules section did not explain them (Discord, 2026-10-24).
+    for (const ta of rpForRules.traitAbilities ?? []) parseGeneric(ta.desc ? `${ta.name}: ${ta.desc}` : ta.name);
+    for (const ta of rpForRules.traitWeaponAbilities ?? []) parseGeneric(ta.name);
+    for (const m of [rpForRules.weaponTraitMap, rpForRules.championWeaponTraitMap])
+      for (const list of (m ? [...m.values()] : [])) for (const ab of list) parseGeneric(ab);
     // Veteran abilities / traits are printed on the card by NAME; their rule text belongs in the
     // Special Rules section too (Discord: "descriptions of Veteran abilities do not show in Print").
     const traitSource = armoryDataFor(item.factionSource);
@@ -2033,6 +2041,38 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         )}
+
+        {/* Psychic powers, prayers and pacts: the full text, once each */}
+        {(() => {
+          const book = collectPowerBook(army, data);
+          if (powerBookIsEmpty(book)) return null;
+          const Block = ({ title, entries }: { title: string; entries: Array<{ name: string; meta: string; effect: string }> }) => (
+            <div style={{ marginBottom: 8 }}>
+              <div style={{ fontFamily: CONDUIT, fontSize: '.7em', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', color: primaryColor, borderBottom: `1px solid ${primaryColor}55`, marginBottom: 3 }}>{title}</div>
+              <div style={{ columnCount: 2, columnGap: 20 }}>
+                {entries.map(e => (
+                  <div key={e.name} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.28, color: '#222', marginBottom: 5, paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55` }}>
+                    <span style={{ fontWeight: 700 }}>{nm(e.name)}</span>
+                    {e.meta && <span style={{ color: '#777' }}> · {e.meta}</span>}
+                    {e.effect && <div style={{ color: '#555', whiteSpace: 'pre-line' }}>{localiseAbility(e.effect)}</div>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+          return (
+            <div style={{ marginBottom: 20, border: `1px solid ${primaryColor}55`, overflow: 'hidden', ['--ac' as string]: primaryColor }}>
+              <div style={{ background: HDR_BG, color: '#fff', padding: '6px 14px', borderTop: `3px solid ${primaryColor}`, fontFamily: CONDUIT, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', fontSize: '.85em' }}>
+                {[book.powers.length ? tFn(rootLang, 'prPsychicPowers') : '', book.prayers.length ? tFn(rootLang, 'prPrayers') : '', book.pacts.length ? tFn(rootLang, 'infernalPactsLabel') : ''].filter(Boolean).join(' · ')}
+              </div>
+              <div style={{ padding: '6px 14px', background: PARCHMENT }}>
+                {book.powers.map(g => <Block key={g.discipline} title={nm(g.discipline)} entries={g.entries} />)}
+                {book.prayers.length > 0 && <Block title={tFn(rootLang, 'prPrayers')} entries={book.prayers} />}
+                {book.pacts.length > 0 && <Block title={tFn(rootLang, 'infernalPactsLabel')} entries={book.pacts} />}
+              </div>
+            </div>
+          );
+        })()}
       </div>
     </div>
   ), document.body);

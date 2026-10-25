@@ -30,7 +30,7 @@
             "s": "8",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(3), Lance(+2)"
+            "abilities": "AT(3), Armorbane(+2)"
         },
         {
             "name": "D-cannon",
@@ -157,10 +157,9 @@
         }
     ],
     "abilities": [
-        "<Wraith>",
+        "Ward(5+), <Wraith>",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Wraithseer discipline.",
-        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0).",
-        "Wraithshield: The model gains a 5+ ward save."
+        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Monstrous Creature",
     "keywords": [

@@ -1,0 +1,20 @@
+{
+  "armory_general": {
+    "name": "Armory",
+    "weapons": [],
+    "equipment": [],
+    "daemon_weapons": []
+  },
+  "armory_marks": {},
+  "armory_legions": {},
+  "archetypes": [],
+  "legacies": [],
+  "traits": [],
+  "animosity": {},
+  "disciplines": {},
+  "pacts": [],
+  "prayers": [],
+  "daemonkin": {},
+  "allied": {},
+  "inherits_parent_armory": true
+}

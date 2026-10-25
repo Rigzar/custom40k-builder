@@ -30,7 +30,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Heavy bolter",
@@ -58,6 +58,15 @@
             "ap": "-5",
             "d": "2",
             "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Plasma Storm battery",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "7",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(1)"
         },
         {
             "name": "Pyrecannon",
@@ -89,25 +98,61 @@
     ],
     "option_groups": [
         {
-            "header": "Every model may swap their Heavy flamer",
+            "header": "The entire squad may receive one of the following upgrades per model",
             "constraint": {
                 "type": "every"
             },
             "choices": [
                 {
-                    "name": "Heavy bolter",
-                    "points": 5
+                    "name": "Tempest",
+                    "points": 5,
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "FRONT",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Dark Shroud",
+                    "points": 10
+                },
+                {
+                    "name": "Vengeance",
+                    "points": 26,
+                    "effect": {
+                        "grants_weapons": [
+                            "Plasma Storm battery"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Every model may swap their Heavy Bolter",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Assault cannon",
+                    "points": 14
                 },
                 {
                     "name": "Multi-melta",
-                    "points": 24
+                    "points": 19
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Heavy flamer"
+                "Heavy bolter"
             ]
         },
         {
@@ -117,9 +162,28 @@
             },
             "choices": [
                 {
+                    "name": "Heavy flamer",
+                    "points": 13
+                },
+                {
+                    "name": "Pyrecannon",
+                    "points": 15
+                },
+                {
                     "name": "Assault cannon",
                     "points": 32
-                },
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Every model may be equipped with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
                 {
                     "name": "Typhoon missile launcher",
                     "points": 81
@@ -132,7 +196,9 @@
     ],
     "abilities": [
         "Anti-Grav, Deep Strike, Squadron",
-        "Tempest: The model gains +1 AV on its Front."
+        "Dark Shroud: Friendly units within 6\" benefit from Obscuring cover.",
+        "Tempest: The model gains +1 AV on its Front.",
+        "Vengeance: The model gains the \"Plasma Storm battery\" weapon."
     ],
     "unit_type": "Vehicle",
     "keywords": [],

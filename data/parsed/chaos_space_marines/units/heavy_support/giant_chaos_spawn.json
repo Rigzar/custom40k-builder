@@ -1,0 +1,112 @@
+{
+    "name": "Giant Chaos Spawn",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "-",
+                "S": "7",
+                "T": "7",
+                "W": "5",
+                "I": "3",
+                "A": "4",
+                "LD": "10",
+                "SV": "5+"
+            },
+            "name": "Giant Chaos Spawn",
+            "min": 1,
+            "max": 3,
+            "points": 69
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Warped mutations.",
+    "weapons": [
+        {
+            "name": "Giant warped mutations",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Blood Drinker"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All models may receive a mark of chaos (points per model)",
+            "constraint": {
+                "type": "mark"
+            },
+            "choices": [
+                {
+                    "name": "Khorne",
+                    "points": 2
+                },
+                {
+                    "name": "Slaanesh",
+                    "points": 2
+                },
+                {
+                    "name": "Nurgle",
+                    "points": 2
+                },
+                {
+                    "name": "Tzeentch",
+                    "points": 6
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Each model may be upgraded with one of the following",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Grasping Pseudopods",
+                    "points": 5
+                },
+                {
+                    "name": "Toxic Haemorrhage",
+                    "points": 5
+                },
+                {
+                    "name": "Subcutaneous Armor",
+                    "points": 30
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Mindless, Move through cover, Terrifying(-1)",
+        "Grasping Pseudopods: The model gains +3 Attacks.",
+        "Toxic Haemorrhage: The model gains the \"Poison(2+)\" ability for all melee attacks.",
+        "Subcutaneous Armor: The model gains a 4+ armor save."
+    ],
+    "unit_type": "Monstrous Creature",
+    "keywords": [
+        "Cultist"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": true,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 69
+}

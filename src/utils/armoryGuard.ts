@@ -82,3 +82,17 @@ export function repairOrphanedArmory(entry: RosterEntry, unit: Unit, data?: Fact
   const kept = entry.armory.filter(a => ACCESS_FREE_ITEMS.has(a.itemName) || isVeteranSelection(a, data));
   return kept.length === entry.armory.length ? entry : { ...entry, armory: kept };
 }
+
+
+/**
+ * An archetype's HQ promotion that grants Armory access (Tyranids Megafauna / Subterranean Assault:
+ * "The model gains access to the Hive Fleet Armory") only lasts while the entry is promoted. Items
+ * bought from a Legacy armory under it are dropped when the promotion goes, as the Veteran-Sergeant
+ * gate above does, so a Carnifex that is no longer an HQ is not left carrying (and paying for) them.
+ */
+export function dropLegacyArmory(entry: RosterEntry, data: FactionData): RosterEntry {
+  if (!entry.armory?.length) return entry;
+  const legacyNames = new Set(Object.entries(data.armory_legions ?? {}).flatMap(([k, v]) => [k, (v as { name?: string }).name ?? k]));
+  const kept = entry.armory.filter(a => !legacyNames.has(a.source));
+  return kept.length === entry.armory.length ? entry : { ...entry, armory: kept };
+}

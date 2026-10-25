@@ -145,6 +145,23 @@ export interface OptionEffect {
    * extractGrantedWeaponName text-pattern extraction.
    */
   grants_weapons?: string[];
+  /**
+   * Datasheet weapons this option takes AWAY while it is selected -- the sheet's "Replaces \"Fists of a Star God\"" on the
+   * C'tan Shard's Spear of the Dragon and Scythe of the Nightbringer. A group-level `replaces` covers a whole group of
+   * choices, and here only two of seventeen replace anything.
+   */
+  removes_weapons?: string[];
+  /**
+   * The option makes the model a psyker while it is selected. Tau 1.4 moved the Kroot Master Shaper's Shaman from an
+   * archetype upgrade (a group with `inline_pts` and "Psyker" in its header) into the Shaper's own "one of the following"
+   * list, where it is a CHOICE next to Flesh Shaper, Trail Shaper and War Shaper.
+   */
+  makes_psyker?: boolean;
+  /**
+   * An option that CHANGES a stat to a fixed value even when that is worse: Orks' Grot Mega armor "changes its BS and WS
+   * to 4+" (a Nob is WS 3+, BS 5+). `stat_set` only ever improves, so it cannot express this.
+   */
+  stat_exact?: { stat: keyof StatBlock; value: string }[];
 }
 
 export type ConstraintType =
@@ -329,6 +346,8 @@ export interface OptionGroup {
 export interface Unit {
   name: string;
   slot: string;
+  /** Hidden unless the army's archetype lists this unit in `unlocksUnits` (the Escalation War Dog in a non-Chaos codex). */
+  requires_archetype_unlock?: boolean;
   models: Model[];
   variant_models: Model[];
   equipped_with: string;

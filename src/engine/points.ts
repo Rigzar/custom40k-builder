@@ -1,7 +1,7 @@
 import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types/data';
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
-import { getArchetypeRule } from './archetypes';
+import { getArchetypeRule, promotionFragment } from './archetypes';
 import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 import { expandAllRemaining } from './allRemaining';
@@ -38,12 +38,16 @@ export function gameSizePrice(itemName: string, pointLimit: number): number | nu
 export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Unit, pointLimit = 0): number {
   const byGameSize = gameSizePrice(a.itemName, pointLimit);
   if (byGameSize !== null) return byGameSize;
-  if (a.scaling === 'perModel') return a.points * item.size;
+  // A vehicle squadron buys each copy for ONE vehicle (the Armory lets it hold as many copies as it has
+  // vehicles), so the price of a copy never scales with the squadron size: scaling it as well charged a
+  // 2-vehicle squadron 4x for an item on both (Sophtym).
+  const copies = unit.is_vehicle ? 1 : item.size;
+  if (a.scaling === 'perModel') return a.points * copies;
   if (a.scaling === 'perWound') {
     const wStatKey = unit.is_vehicle ? 'HP' : 'W';
     const baseModel = unit.models.find(m => m.max > 0) ?? unit.models[0];
     const woundsPerModel = parseInt(String(baseModel?.stats?.[wStatKey] ?? '1'), 10) || 1;
-    return a.points * woundsPerModel * item.size;
+    return a.points * woundsPerModel * copies;
   }
   return a.points;
 }
@@ -155,6 +159,18 @@ export function unitMatchesKeyword(
   return String(unit.unit_type ?? '').split(',').map(t => t.trim()).includes(keyword);
 }
 
+/**
+ * Tau "Swarm Controllers": "Models with access to drones may buy up to three drones in any combination
+ * instead of two." Raises the fixed_max of a group whose choices are all Tau Drones by one. Shared by the
+ * unit card (the stepper's cap) and the validator, which used to keep the printed 2 and flag the third drone.
+ */
+export function swarmControllersBonus(
+  group: OptionGroup, drones: ReadonlyArray<{ name: string }> | undefined, traitPool: readonly string[],
+): number {
+  if (group.constraint?.type !== 'fixed_max' || !drones?.length || !traitPool.includes('Swarm Controllers')) return 0;
+  return group.choices.length > 0 && group.choices.every(c => drones.some(d => d.name === c.name)) ? 1 : 0;
+}
+
 export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Unit): Constraint {
   if (group.promoted_constraint && (item.archetypeHqUpgrade || item.ctanYngirUpgrade)) return group.promoted_constraint;
   const vc = group.variant_constraint;
@@ -173,6 +189,8 @@ export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Uni
 export function variantPromotionCap(group: OptionGroup, size: number): number {
   const c = group.constraint;
   if (c?.type === 'fixed_max') return c.max ?? 1;
+  // "Any Tauros may be upgraded to a Tauros Venator": every model of the squad may be.
+  if (c?.type === 'every') return Math.max(1, size);
   if (c?.type === 'per_n' && c.per_n) return Math.floor(size / c.per_n) * (c.count_per_n ?? 1);
   return 1;
 }
@@ -373,7 +391,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // The promoted model's flat surcharge (Megafauna: "The model costs +36 points"), only on the entry that claimed the promotion.
   if (item.archetypeHqUpgrade) {
     const promo = getArchetypeRule(archetype)?.hqPromotion;
-    if (promo?.extraPoints && item.unitName.toLowerCase().includes(promo.unitNameContains.toLowerCase())) total += promo.extraPoints;
+    if (promo?.extraPoints && promotionFragment(promo, item.unitName)) total += promo.extraPoints;
   }
   // Deployment rule bought on this entry (Webway strike / Webway raid / Lightning strike /
   // Tellyporta): rate x Wounds-or-Hull-Points x models, exactly as the Index tab prices it.

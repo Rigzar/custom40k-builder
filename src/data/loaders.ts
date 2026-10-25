@@ -367,6 +367,14 @@ async function loadFaction(key: string): Promise<FactionData> {
       return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
     }
 
+    case 'legion_of_the_damned': {
+      const [u, rest] = await Promise.all([
+        import('../../data/parsed/legion_of_the_damned/units/index'),
+        import('../../data/parsed/legion_of_the_damned/supplement.json'),
+      ]);
+      return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
+    }
+
     default:
       throw new Error('Unknown faction: ' + key);
   }
@@ -462,12 +470,12 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
    'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'assassins', 'tau_empire',
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
-   'tyranids', 'horus_heresy', 'legio_titanicus'].map(k => [k, async () => {
+   'tyranids', 'horus_heresy', 'legio_titanicus', 'legion_of_the_damned'].map(k => [k, async () => {
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
-     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'escalation'].includes(k));
+     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation'].includes(k));
      return data;
    }])
 );

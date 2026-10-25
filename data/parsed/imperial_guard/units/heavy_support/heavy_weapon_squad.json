@@ -186,9 +186,8 @@
         }
     ],
     "abilities": [
-        "Massive(1)",
-        "Dug-in positions: All selected Heavy Weapons Squads must be combined into a maximum of three units of 1-3 Heavy Weapons Teams each. They count as independent units from the start of the game.",
-        "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Blast(x)\" ability use the unit\u2019s remaining Wounds (instead of the number of models) to determine the amount of hits they can generate."
+        "Massive(1), Swarm",
+        "Dug-in positions: All selected Heavy Weapons Squads must be combined into a maximum of three units of 1-3 Heavy Weapons Teams each. They count as independent units from the start of the game."
     ],
     "unit_type": "Infantry",
     "keywords": [],

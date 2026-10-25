@@ -3291,5 +3291,10 @@
  "ab.1ew19kg": "Advanced Biomorph. Los costes en puntos se pagan por modelo. Una unidad amiga que llegue por Deep Strike a 3\" o menos del portador no se desvía. Solo puede usarse si el portador estaba en el campo de batalla al inicio de la ronda de batalla y aún no se ha movido más de 12\" durante esa ronda.",
  "ab.1nxawpv": "Advanced Biomorph. Los costes en puntos se pagan por modelo. Los equipos como Icons o Teleport homing beacons no funcionan a 12\" o menos del modelo. Además, las unidades que lleguen por Deep Strike y aterricen a 12\" o menos tiran 2D6 adicionales para el desvío.",
  "ab.1spkkj7": "Advanced Biomorph. Los costes en puntos se pagan por modelo. La unidad explota como un vehículo al perder su última Herida. Los Advanced Bioforms resuelven la explosión con Fuerza 7 y AP -1.",
- "ab.1dt6kyg": "Chameleonic Skin: La unidad no se desvía al desplegarse mediante Deep Strike. Además, obtiene normalmente los beneficios de carga y no tiene que hacer una Disorderly Charge."
+ "ab.1dt6kyg": "Chameleonic Skin: La unidad no se desvía al desplegarse mediante Deep Strike. Además, obtiene normalmente los beneficios de carga y no tiene que hacer una Disorderly Charge.",
+ "ab.1xa4xa8": "La unidad obtiene la habilidad «Deflect».",
+ "ab.1cs7vc2": "La unidad obtiene la habilidad «Furious Charge».",
+ "ab.o4yhfe": "La unidad obtiene la habilidad «Warded».",
+ "ab.ii1s1q": "La unidad obtiene la habilidad «Counter-Attack».",
+ "ab.1dqxqom": "Las armas a distancia de la unidad obtienen «Suppression(3)»."
 }

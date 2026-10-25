@@ -89,6 +89,21 @@
     ],
     "option_groups": [
         {
+            "header": "One model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Vexilia",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
             "header": "Every model with a Guardian spear may swap their Bolt caster",
             "constraint": {
                 "type": "every"
@@ -130,8 +145,8 @@
         }
     ],
     "abilities": [
-        "Massive(1), Shield Host",
-        "Custodian armor: The model gains a 5+ ward save."
+        "Massive(1), Shield Host, Ward(5+)",
+        "Vexilia: The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit may not be contested by enemy units. Additionally, all models in the unit gain +1 Attack."
     ],
     "unit_type": "Infantry",
     "keywords": [],

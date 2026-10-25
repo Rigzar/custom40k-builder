@@ -570,7 +570,7 @@
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), Suppression(6)"
+            "abilities": "Piercing(5+), Suppression(6)"
         },
         {
             "name": "Shuriken pistol",
@@ -700,7 +700,7 @@
         "Psionic Flare: While a Mystic is alive, a friendly unit arriving via deep strike does not scatter when set up within 3\" of the unit. If two are alive, this range is increased to 6\".",
         "Psyker (Psyker): A Psyker can cast 1 psychic power and dispel 1 psychic power per round. A Psyker knows Smite, as well as one psychic power from a chosen psychic discipline.",
         "Leadership: While an Alien World Scout is alive, the unit gains the \"Move through Cover\" ability. If two are alive, they additionally gain \"Use Cover\".",
-        "Archaeotech Enhancement: While an Archaeotech Researcher is alive, the unit gains \"Armor piercing(6+)\" for all weapons. If two are alive, they gain \"Armor piercing(5+)\" instead.",
+        "Archaeotech Enhancement: While an Archaeotech Researcher is alive, the unit gains \"Piercing(6+)\" for all weapons. If two are alive, they gain \"Piercing(5+)\" instead.",
         "Know Your Enemy: While a Xenologist is alive, the unit gains the \"Favoured enemy\" ability against all Xeno factions.",
         "Deflect, Parry: granted by the Crusader (Storm shield).",
         "Crusade: The Crusader and its attached unit gain the \"Frenzy(1)\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order.",

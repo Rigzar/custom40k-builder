@@ -48,7 +48,7 @@
             "s": "8",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(3), Lance(+2)"
+            "abilities": "AT(3), Armorbane(+2)"
         },
         {
             "name": "Scatter laser",
@@ -111,8 +111,7 @@
         }
     ],
     "abilities": [
-        "Battle Focus, Squadron",
-        "Power field: The model gains a 5+ ward save."
+        "Battle Focus, Squadron, , Ward(5+)"
     ],
     "unit_type": "Walker",
     "keywords": [

@@ -66,7 +66,7 @@ export type TranslationKey =
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
   | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
-  | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonOnly' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon'
+  | 'navCampaignAlphaOpen' | 'campaignRulesLink' | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonOnly' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon' | 'armReasonTerm' | 'armReasonGravis' | 'armReasonGlyph' | 'armReasonTau' | 'armReasonVehicleShop' | 'armReasonMeleeOnly' | 'armReasonOrdo' | 'armReasonExarch' | 'armReasonAuthority' | 'armReasonPickWeapon' | 'armReasonPickEnh' | 'armReasonCharOnly' | 'armReasonNotChar'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
@@ -140,7 +140,7 @@ export type TranslationKey =
   | 'cultPowersLabel' | 'psychicPowersLabel' | 'andPrayersSuffix' | 'andPactsSuffix' | 'prayersAndPactsLabel'
   | 'prayersLabel' | 'infernalPactsLabel' | 'alwaysKnownBadge' | 'legacyTag' | 'castLabel'
   | 'chooseWord' | 'oneDisciplineLabel' | 'modeAllFromOneMid' | 'allItsPowersLabel' | 'selectedPrefix'
-  | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'powersWord'
+  | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'modeKnowsAll' | 'bookAll' | 'bannerShow' | 'bannerHide' | 'powersWord'
   | 'modeNFromAnyPart2' | 'noDisciplinesAvailable' | 'chosenBadge' | 'includedBadge' | 'noDisciplineChosenWord'
   | 'setCustomNameTitle' | 'copyUnitTitle' | 'favoredBadge' | 'lockedSuffix' | 'archetypeSuffix' | 'joinsLabel'
   | 'noUnitOption' | 'platoonLabel' | 'independentOwnSlotOption' | 'platoonNoAnchorOption' | 'markOfChaosLabel' | 'noneOption'
@@ -165,7 +165,7 @@ export type TranslationKey =
   | 'filterByEvent' | 'filterAnyEvent' | 'filterClear' | 'noEventArmies'
   | 'valPointsToGo'
   | 'valOverPointsLimit' | 'valWithinLimit' | 'valSelectionRequired' | 'prOrdersInfantry' | 'prOrdersVehicles' | 'prOrdersLegacy' | 'valSelectionIncomplete' | 'valSelectionOneListOnly' | 'valOnlyOneArmour'
-  | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valArchetypeNotInAllowedList'
+  | 'valOnlyOneCharacterAttached' | 'valArchetypeUnitNotAllowed' | 'valUnitNeedsChaosArchetype' | 'valEnforcerOneExtra' | 'valArchetypeAlliedOnly' | 'valArchetypeNotInAllowedList'
   | 'valArchetypeSlotNotAllowed' | 'valArchetypeRequiresHqUnit' | 'valArchetypeRequiresHqUpgrade'
   | 'valArchetypeTroopsRatioCap' | 'valArchetypeRequiresEscort' | 'valArchetypeTroopsModelRatioCap'
   | 'valArchetypeNoVetAbilities' | 'valArchetypeHqNotAllowed' | 'valArchetypeForcedMarkConflict'
@@ -229,6 +229,7 @@ export type TranslationKey =
   | 'myCampaignsLabel' | 'campaignRoleGm' | 'campaignRolePlayer' | 'campaignFinishedBadge' | 'openButton'
   | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
+  | 'optInTraitLabel' | 'changeUsernameLabel' | 'newUsernamePlaceholder' | 'usernameChangedMsg' | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
   | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
   | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton'
@@ -503,6 +504,7 @@ export type TranslationKey =
   | 'gfMatched'
   | 'gfLoading'
   | 'gfLoadFail'
+  | 'dbUnavailable'
   | 'gfAgoM'
   | 'gfAgoH'
   | 'gfAgoD'
@@ -789,10 +791,25 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     armReasonMark: 'Needs a different Mark of Chaos',
     armReasonNoPrice: 'Cannot be bought by this unit',
     armReasonVet: 'Veteran ability slots are full',
+    armReasonTerm: "Terminator armour: only items marked ᵀ",
+    armReasonGravis: "Gravis armour: only items marked ᴳ",
+    armReasonGlyph: "This armour only allows items marked {g}",
+    armReasonTau: "T'au models without a battlesuit can only use items marked ᴵ",
+    armReasonVehicleShop: "Vehicles only take Vehicle upgrades from the Armory",
+    armReasonMeleeOnly: "Melee weapons only, without Slow or Unwieldy",
+    armReasonOrdo: "Locked until {x} is unlocked for the army",
+    armReasonExarch: "Exarch powers are for Exarchs; characters use Paragon of war",
+    armReasonAuthority: "Authority of the Inquisition: one item per model, already taken",
+    armReasonPickWeapon: "Choose the weapon it applies to, below",
+    armReasonPickEnh: "Choose the enhancement, below",
+    armReasonCharOnly: "Only for Character models",
+    armReasonNotChar: "Not for Character models",
     armCarryTitle: 'You carry',
     armClearAll: 'Remove all',
     navCampaignAlphaAdmin: 'Campaign — Alpha (Admin)',
     navCampaignComingSoon: 'Campaign — Coming Soon (Alpha)',
+    navCampaignAlphaOpen: 'Campaign — Alpha',
+    campaignRulesLink: 'Read the campaign rules (Google Doc)',
     howToActivate: 'How to activate',
     catalogLabel: 'Catalog',
     unitTypeLabel: 'Type:',
@@ -1018,7 +1035,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} cannot be a Retinue model (it must be an HQ Infantry model that is not unique per army).',
     valRetinueUnique: 'Legendary Retinue: {unit} carries unique equipment ({items}), which a Retinue model may not take.',
     valRetinueSameAsAlly: 'Legendary Retinue: {faction} is also the allied detachment.',
-    termArmourNotice: 'Terminator armour — showing only Terminator-compatible items (ᵀ).',
+    termArmourNotice: "Terminator armour — only Terminator-compatible items (ᵀ) can be bought; the rest are greyed out with the reason.",
     weaponsLabel: 'Weapons',
     bcChampionBanner: '⚜ Black Crusade Champion — access to all four mark armories',
     ascendedAllMarksBanner: '⚜ Ascended Daemon Prince — has all Marks, access to all four mark armories',
@@ -1095,6 +1112,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     fromWord: 'from',
     selectedCountSuffix: 'selected',
     modeNFromAnyPart1: 'Choose up to',
+    modeKnowsAll: 'This unit knows every one of these powers; there is nothing to choose.',
+    bookAll: 'all',
+    bannerShow: 'Show the changes',
+    bannerHide: 'Fold',
     powersWord: 'powers',
     modeNFromAnyPart2: 'from any available discipline',
     noDisciplinesAvailable: 'No disciplines available for this unit.',
@@ -1206,6 +1227,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneArmour: '{unit}: only one armour per model ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: only one character may be attached to a unit at a time (currently joined by {count}: {names}) — additional characters need the "Command Squad" ability.',
     valArchetypeUnitNotAllowed: 'Archetype "{archetype}": {unit} is not allowed.',
+    valArchetypeAlliedOnly: 'Archetype "{archetype}" can only be taken as an allied detachment for {faction}.',
+    valEnforcerOneExtra: '{unit}: an XV85 Enforcer suit may take ONE more weapon or support system, not one of each.',
+    valUnitNeedsChaosArchetype: '{unit}: only Chaos armies may take it, and this army is not Chaos (Traitor Guard, Renegades and Dark Mechanicum make it one).',
     valArchetypeNotInAllowedList: 'Archetype "{archetype}": {unit} is not in the allowed unit list.',
     valArchetypeSlotNotAllowed: 'Archetype "{archetype}": {slot} units are not allowed ({unit}).',
     valArchetypeRequiresHqUnit: 'Archetype "{archetype}": requires at least 1 {hqUnit} as HQ.',
@@ -1230,7 +1254,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valSummoningNoMandatoryAop: 'Summoning: Chaos Daemons units cannot fill mandatory AOP selections, so your Daemon {slot} does not count towards the minimum. The Daemonkin archetype ignores this rule.',
     valSkirmishNoFreeSlots: 'Skirmish: every unit occupies an Army Organisation slot, even if its rules say otherwise — the "does not take up a slot" abilities in this list do not apply here.',
     valSkirmishHqOncePerArmy: 'Skirmish: {unit} is an HQ and may not take a "once per army" upgrade — {upgrade}.',
-    valTroopsRatioFail: '{label}: {havePts} of the {needPts} pts required (25% of the {limit} pt limit).',
+    valTroopsRatioFail: '{label}: {havePts} of the {needPts} pts required ({pct}% of the {limit} pt limit).',
     valTroopsRatioOk: '{label}: {havePts} pts (≥{needPts} required).',
     valAllyArchetypeUnitNotAllowed: 'Allied archetype "{archetype}": {unit} is not allowed.',
     valAllyArchetypeNotInAllowedList: 'Allied archetype "{archetype}": {unit} is not in the allowed unit list.',
@@ -1358,6 +1382,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Save profile', savedMsg: 'Saved!',
     accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
     noRecoveryCode: 'No code on file yet — reset your password once to get one.',
+    optInTraitLabel: "{trait}: use it on this unit (+{pts} pts)",
+    changeUsernameLabel: "Username", newUsernamePlaceholder: "New username (3-24 letters, numbers, _ or -)", usernameChangedMsg: "Username changed!",
+    changePasswordLabel: "Change password", currentPasswordPlaceholder: "Current password", newPasswordPlaceholder: "New password (min. 8 characters)", passwordChangedMsg: "Password changed!",
     secretQuestionSectionLabel: 'Secret question', changeButton: 'Change',
     secretQuestionOptionalHint: 'Optional — required with recovery code to reset password.',
     secretQuestionExample: "e.g. What was your first army's faction?", answerPlaceholder: 'Answer',
@@ -1648,6 +1675,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfMatched: 'Matched',
     gfLoading: 'Loading…',
     gfLoadFail: 'Could not load Gitfinda.',
+    dbUnavailable: "Our database is temporarily unavailable, so logging in and cloud saves are down. Your password is fine; please try again later.",
     gfAgoM: '{n} min ago',
     gfAgoH: '{n} h ago',
     gfAgoD: '{n} d ago',
@@ -1943,10 +1971,25 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     armReasonMark: 'Braucht ein anderes Mal des Chaos',
     armReasonNoPrice: 'Diese Einheit kann es nicht kaufen',
     armReasonVet: 'Die Veteranenplätze sind voll',
+    armReasonTerm: "Terminatorrüstung: nur mit ᵀ markierte Gegenstände",
+    armReasonGravis: "Gravis-Rüstung: nur mit ᴳ markierte Gegenstände",
+    armReasonGlyph: "Diese Rüstung erlaubt nur mit {g} markierte Gegenstände",
+    armReasonTau: "T'au-Modelle ohne Battlesuit dürfen nur mit ᴵ markierte Gegenstände nutzen",
+    armReasonVehicleShop: "Fahrzeuge nehmen nur Fahrzeug-Upgrades aus der Armory",
+    armReasonMeleeOnly: "Nur Nahkampfwaffen, ohne Slow oder Unwieldy",
+    armReasonOrdo: "Gesperrt, bis {x} für die Armee freigeschaltet ist",
+    armReasonExarch: "Exarchenkräfte sind für Exarchen; Charaktere nutzen Paragon of war",
+    armReasonAuthority: "Autorität der Inquisition: ein Gegenstand pro Modell, schon genommen",
+    armReasonPickWeapon: "Wähle unten die Waffe, auf die es wirkt",
+    armReasonPickEnh: "Wähle unten die Verbesserung",
+    armReasonCharOnly: "Nur für Charaktermodelle",
+    armReasonNotChar: "Nicht für Charaktermodelle",
     armCarryTitle: 'Du trägst',
     armClearAll: 'Alle entfernen',
     navCampaignAlphaAdmin: 'Feldzug — Alpha (Admin)',
     navCampaignComingSoon: 'Feldzug — Demnächst (Alpha)',
+    navCampaignAlphaOpen: 'Feldzug — Alpha',
+    campaignRulesLink: 'Kampagnenregeln lesen (Google-Dokument)',
     howToActivate: 'Aktivierung',
     catalogLabel: 'Katalog',
     unitTypeLabel: 'Typ:',
@@ -2172,7 +2215,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} kann kein Retinue-Modell sein (es muss ein HQ-Infanteriemodell sein, das nicht einmalig pro Armee ist).',
     valRetinueUnique: 'Legendary Retinue: {unit} trägt einmalige Ausrüstung ({items}), die ein Retinue-Modell nicht wählen darf.',
     valRetinueSameAsAlly: 'Legendary Retinue: {faction} ist auch das verbündete Kontingent.',
-    termArmourNotice: 'Terminator-Rüstung — zeigt nur Terminator-kompatible Gegenstände (ᵀ).',
+    termArmourNotice: "Terminator-Rüstung — nur Terminator-kompatible Gegenstände (ᵀ) sind kaufbar; die übrigen sind mit Grund ausgegraut.",
     weaponsLabel: 'Waffen',
     bcChampionBanner: '⚜ Schwarzer-Kreuzzug-Champion — Zugriff auf alle vier Mal-Rüstkammern',
     ascendedAllMarksBanner: '⚜ Aufgestiegener Dämonenprinz — hat alle Male, Zugriff auf alle vier Mal-Rüstkammern',
@@ -2249,6 +2292,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     fromWord: 'aus',
     selectedCountSuffix: 'gewählt',
     modeNFromAnyPart1: 'Wähle bis zu',
+    modeKnowsAll: 'Diese Einheit kennt alle diese Kräfte; es gibt nichts zu wählen.',
+    bookAll: 'alle',
+    bannerShow: 'Änderungen anzeigen',
+    bannerHide: 'Einklappen',
     powersWord: 'Kräfte',
     modeNFromAnyPart2: 'aus jeder verfügbaren Disziplin',
     noDisciplinesAvailable: 'Keine Disziplinen für diese Einheit verfügbar.',
@@ -2358,6 +2405,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneArmour: '{unit}: nur eine Rüstung pro Modell ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: nur ein Charakter darf gleichzeitig einer Einheit angeschlossen sein (derzeit angeschlossen von {count}: {names}) — weitere Charaktere benötigen die Fähigkeit „Command Squad".',
     valArchetypeUnitNotAllowed: 'Archetyp „{archetype}": {unit} ist nicht erlaubt.',
+    valArchetypeAlliedOnly: 'Archetyp „{archetype}" kann nur als verbündetes Kontingent für {faction} genommen werden.',
+    valEnforcerOneExtra: '{unit}: ein XV85 Enforcer darf EINE weitere Waffe oder ein weiteres Unterstützungssystem nehmen, nicht je eines.',
+    valUnitNeedsChaosArchetype: '{unit}: nur Chaos-Armeen dürfen sie nehmen, und diese Armee ist nicht Chaos (Traitor Guard, Renegades und Dark Mechanicum machen sie dazu).',
     valArchetypeNotInAllowedList: 'Archetyp „{archetype}": {unit} steht nicht auf der erlaubten Einheitenliste.',
     valArchetypeSlotNotAllowed: 'Archetyp „{archetype}": {slot}-Einheiten sind nicht erlaubt ({unit}).',
     valArchetypeRequiresHqUnit: 'Archetyp „{archetype}": benötigt mindestens 1 {hqUnit} als HQ.',
@@ -2382,7 +2432,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valSummoningNoMandatoryAop: 'Beschwörung: Einheiten aus dem Chaos-Daemons-Codex können keine PFLICHT-Slots der AOP füllen, dein Dämonen-{slot} zählt also nicht zum Minimum. Der Archetyp Daemonkin ignoriert diese Regel.',
     valSkirmishNoFreeSlots: 'Skirmish: Jede Einheit belegt einen Slot im Army Organisation Plan, auch wenn ihre Regeln etwas anderes sagen — die "belegt keinen Slot"-Fähigkeiten in dieser Liste gelten hier nicht.',
     valSkirmishHqOncePerArmy: 'Skirmish: {unit} ist HQ und darf kein „einmal pro Armee“-Upgrade nehmen — {upgrade}.',
-    valTroopsRatioFail: '{label}: {havePts} von {needPts} benötigten Pkt (25% der {limit}-Punkte-Grenze).',
+    valTroopsRatioFail: '{label}: {havePts} von {needPts} benötigten Pkt ({pct}% der {limit}-Punkte-Grenze).',
     valTroopsRatioOk: '{label}: {havePts} Pkt (≥{needPts} benötigt).',
     valAllyArchetypeUnitNotAllowed: 'Verbündeter Archetyp „{archetype}": {unit} ist nicht erlaubt.',
     valAllyArchetypeNotInAllowedList: 'Verbündeter Archetyp „{archetype}": {unit} steht nicht auf der erlaubten Einheitenliste.',
@@ -2510,6 +2560,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Profil speichern', savedMsg: 'Gespeichert!',
     accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
     noRecoveryCode: 'Noch kein Code vorhanden — Passwort einmal zurücksetzen um einen zu erhalten.',
+    optInTraitLabel: "{trait}: bei dieser Einheit nutzen (+{pts} Pkt.)",
+    changeUsernameLabel: "Benutzername", newUsernamePlaceholder: "Neuer Benutzername (3-24 Buchstaben, Zahlen, _ oder -)", usernameChangedMsg: "Benutzername geändert!",
+    changePasswordLabel: "Passwort ändern", currentPasswordPlaceholder: "Aktuelles Passwort", newPasswordPlaceholder: "Neues Passwort (mind. 8 Zeichen)", passwordChangedMsg: "Passwort geändert!",
     secretQuestionSectionLabel: 'Sicherheitsfrage', changeButton: 'Ändern',
     secretQuestionOptionalHint: 'Optional — zusammen mit dem Wiederherstellungscode zum Zurücksetzen des Passworts erforderlich.',
     secretQuestionExample: 'z.B. Welche Fraktion war deine erste Armee?', answerPlaceholder: 'Antwort',
@@ -2800,6 +2853,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfMatched: 'Gematcht',
     gfLoading: 'Lädt…',
     gfLoadFail: 'Gitfinda konnte nicht geladen werden.',
+    dbUnavailable: "Unsere Datenbank ist vorübergehend nicht erreichbar, daher funktionieren Anmeldung und Cloud-Speicherung nicht. Dein Passwort ist in Ordnung; bitte versuche es später erneut.",
     gfAgoM: 'vor {n} Min.',
     gfAgoH: 'vor {n} Std.',
     gfAgoD: 'vor {n} Tg.',
@@ -3095,10 +3149,25 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     armReasonMark: 'Necesita otra Marca del Caos',
     armReasonNoPrice: 'Esta unidad no puede comprarlo',
     armReasonVet: 'Los huecos de habilidades de veterano están llenos',
+    armReasonTerm: "Armadura de Terminator: solo objetos marcados con ᵀ",
+    armReasonGravis: "Armadura Gravis: solo objetos marcados con ᴳ",
+    armReasonGlyph: "Esta armadura solo permite objetos marcados con {g}",
+    armReasonTau: "Los modelos T'au sin battlesuit solo usan objetos marcados con ᴵ",
+    armReasonVehicleShop: "Los vehículos solo toman mejoras de vehículo de la Armería",
+    armReasonMeleeOnly: "Solo armas cuerpo a cuerpo, sin Slow ni Unwieldy",
+    armReasonOrdo: "Bloqueado hasta desbloquear {x} para el ejército",
+    armReasonExarch: "Los poderes de Exarca son para Exarcas; los personajes usan Paragon of war",
+    armReasonAuthority: "Autoridad de la Inquisición: un objeto por modelo, ya tomado",
+    armReasonPickWeapon: "Elige abajo el arma a la que se aplica",
+    armReasonPickEnh: "Elige abajo la mejora",
+    armReasonCharOnly: "Solo para modelos de Personaje",
+    armReasonNotChar: "No para modelos de Personaje",
     armCarryTitle: 'Llevas',
     armClearAll: 'Quitar todo',
     navCampaignAlphaAdmin: 'Campaña — Alpha (Admin)',
     navCampaignComingSoon: 'Campaña — Próximamente (Alpha)',
+    navCampaignAlphaOpen: 'Campaña — Alpha',
+    campaignRulesLink: 'Leer las reglas de la campaña (Google Doc)',
     howToActivate: 'Cómo activarlo',
     catalogLabel: 'Catálogo',
     unitTypeLabel: 'Tipo:',
@@ -3324,7 +3393,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} no puede ser un modelo de la Retinue (debe ser un modelo de Infantería de HQ que no sea único por ejército).',
     valRetinueUnique: 'Legendary Retinue: {unit} lleva equipo único ({items}), que un modelo de la Retinue no puede tomar.',
     valRetinueSameAsAlly: 'Legendary Retinue: {faction} es también el destacamento aliado.',
-    termArmourNotice: 'Armadura Terminator — mostrando solo objetos compatibles con Terminator (ᵀ).',
+    termArmourNotice: "Armadura Terminator — solo se pueden comprar objetos compatibles con Terminator (ᵀ); el resto aparece en gris con el motivo.",
     weaponsLabel: 'Armas',
     bcChampionBanner: '⚜ Campeón de Cruzada Negra — acceso a las cuatro armerías de marca',
     ascendedAllMarksBanner: '⚜ Príncipe Demonio Ascendido — tiene todas las marcas, acceso a las cuatro armerías de marca',
@@ -3401,6 +3470,10 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     fromWord: 'de',
     selectedCountSuffix: 'elegidos',
     modeNFromAnyPart1: 'Elige hasta',
+    modeKnowsAll: 'Esta unidad conoce todos estos poderes; no hay nada que elegir.',
+    bookAll: 'todos',
+    bannerShow: 'Ver los cambios',
+    bannerHide: 'Plegar',
     powersWord: 'poderes',
     modeNFromAnyPart2: 'de cualquier disciplina disponible',
     noDisciplinesAvailable: 'No hay disciplinas disponibles para esta unidad.',
@@ -3510,6 +3583,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valOnlyOneArmour: '{unit}: solo una armadura por modelo ({armours}).',
     valOnlyOneCharacterAttached: '{unit}: solo un personaje puede estar unido a una unidad a la vez (actualmente unidos {count}: {names}) — los personajes adicionales necesitan la habilidad "Command Squad".',
     valArchetypeUnitNotAllowed: 'Arquetipo "{archetype}": {unit} no está permitido.',
+    valArchetypeAlliedOnly: 'El arquetipo "{archetype}" solo puede tomarse como destacamento aliado de {faction}.',
+    valEnforcerOneExtra: '{unit}: un traje XV85 Enforcer puede tomar UN arma o sistema de apoyo más, no uno de cada.',
+    valUnitNeedsChaosArchetype: '{unit}: solo los ejércitos del Caos pueden tomarla, y este ejército no lo es (Traitor Guard, Renegades y Dark Mechanicum lo convierten en uno).',
     valArchetypeNotInAllowedList: 'Arquetipo "{archetype}": {unit} no está en la lista de unidades permitidas.',
     valArchetypeSlotNotAllowed: 'Arquetipo "{archetype}": las unidades de {slot} no están permitidas ({unit}).',
     valArchetypeRequiresHqUnit: 'Arquetipo "{archetype}": requiere al menos 1 {hqUnit} como HQ.',
@@ -3534,7 +3610,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valSummoningNoMandatoryAop: 'Invocación: las unidades de Chaos Daemons no pueden cubrir selecciones obligatorias del AOP, así que tu {slot} demoníaco no cuenta para el mínimo. El arquetipo Daemonkin ignora esta regla.',
     valSkirmishNoFreeSlots: 'Skirmish: toda unidad ocupa un slot del Army Organisation Plan, aunque sus reglas digan lo contrario — las habilidades de "no ocupa slot" de esta lista no se aplican aquí.',
     valSkirmishHqOncePerArmy: 'Skirmish: {unit} es HQ y no puede coger una mejora “una vez por ejército” — {upgrade}.',
-    valTroopsRatioFail: '{label}: {havePts} de los {needPts} pts necesarios (25% del límite de {limit} pts).',
+    valTroopsRatioFail: '{label}: {havePts} de los {needPts} pts necesarios ({pct}% del límite de {limit} pts).',
     valTroopsRatioOk: '{label}: {havePts} pts (≥{needPts} necesarios).',
     valAllyArchetypeUnitNotAllowed: 'Arquetipo aliado "{archetype}": {unit} no está permitido.',
     valAllyArchetypeNotInAllowedList: 'Arquetipo aliado "{archetype}": {unit} no está en la lista de unidades permitidas.',
@@ -3662,6 +3738,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     saveProfile: 'Guardar perfil', savedMsg: '¡Guardado!',
     accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',
     noRecoveryCode: 'Aún no hay código — restablece tu contraseña una vez para obtener uno.',
+    optInTraitLabel: "{trait}: usarlo en esta unidad (+{pts} pts)",
+    changeUsernameLabel: "Nombre de usuario", newUsernamePlaceholder: "Nuevo nombre (3-24 letras, números, _ o -)", usernameChangedMsg: "¡Nombre de usuario cambiado!",
+    changePasswordLabel: "Cambiar contraseña", currentPasswordPlaceholder: "Contraseña actual", newPasswordPlaceholder: "Contraseña nueva (mín. 8 caracteres)", passwordChangedMsg: "¡Contraseña cambiada!",
     secretQuestionSectionLabel: 'Pregunta secreta', changeButton: 'Cambiar',
     secretQuestionOptionalHint: 'Opcional — necesaria junto al código de recuperación para restablecer la contraseña.',
     secretQuestionExample: 'ej. ¿Cuál fue la facción de tu primer ejército?', answerPlaceholder: 'Respuesta',
@@ -3952,6 +4031,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfMatched: 'Match hecho',
     gfLoading: 'Cargando…',
     gfLoadFail: 'No se pudo cargar Gitfinda.',
+    dbUnavailable: "Nuestra base de datos no está disponible temporalmente, así que el inicio de sesión y los guardados en la nube no funcionan. Tu contraseña está bien; inténtalo más tarde.",
     gfAgoM: 'hace {n} min',
     gfAgoH: 'hace {n} h',
     gfAgoD: 'hace {n} d',

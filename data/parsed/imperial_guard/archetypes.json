@@ -93,7 +93,7 @@
   "traits": [
     {
       "name": "Abhuman Auxiliaries",
-      "desc": "Select one improvement that can be applied to any creature unit (except Halflings and Ogryns):\n- Afriel Strain: The unit gains the \"They Shall Know No Fear\" ability (see Space Marines).\n- Beasts: The unit gains the \"Furious Charge\" ability.\n- Gland Warriors: The unit gains +1 Strength. During every activation it needs to pass a Dangerous Terrain test.\n- Nightsiders: The unit gains the \"Acute Senses\" ability.\n- Slave Levies: The unit gains the \"Unyielding\" ability.",
+      "desc": "Select one improvement that can be applied to any creature unit (except Halflings and Ogryns):\n- Afriel Strain: The unit gains the \"They Shall Know No Fear\" ability (see Space Marines).\n- Beasts: The unit gains the \"Furious Charge\" ability.\n- Gland Warriors: The unit gains +2 Strength. During every activation it needs to pass a Dangerous Terrain test.\n- Nightsiders: The unit gains the \"Acute Senses\" ability.\n- Slave Levies: The unit gains the \"Unyielding\" ability.",
       "pts_unit": "5",
       "pts_char": "-",
       "pts_monster": "-",
@@ -102,7 +102,7 @@
     },
     {
       "name": "Bionic Improvement",
-      "desc": "Creature models gain a 6+ ward save. Only for creature models that do not already have a ward save from their datasheet or Armory.",
+      "desc": "Creature models gain Ward(6+). Only for creature models that do not already have an ward save from their datasheet or Armory.",
       "pts_unit": "1*",
       "pts_char": "0",
       "pts_monster": "1*",
@@ -138,7 +138,7 @@
     },
     {
       "name": "Close Order Drill",
-      "desc": "If all models of a unit are in base to base contact, they gain +1 Initiative and +1 Leadership. Weapons with the \"Blast(4)\" or \"Auto Hit\" ability always score +1 additional hit against the unit while the benefits of this trait are active. \"Blast(6)\" weapons score +2 hits and \"Blast(8)\" weapons cause +3 hits. Can only be used by Infantry type units without the \"Massive(x)\" ability. The Initiative bonus is not cumulative with the bonus from the \"Fix bayonets!\" order.",
+      "desc": "If all models of a unit are in base to base contact, they gain +1 Initiative and +1 Leadership. Weapons with the \"Blast(4)\" or \"Auto Hit\" ability always score +1 additional hit against the unit while the benefits of this trait are active. Blast(6) weapons score +2 hits and Blast(8) weapons cause +3 hits. Can only be used by Infantry type units without the \"Massive(x)\" ability. The Initiative bonus is not cumulative with the bonus from the \"Fix bayonets!\" order.",
       "pts_unit": "0",
       "pts_char": "0",
       "pts_monster": "-",

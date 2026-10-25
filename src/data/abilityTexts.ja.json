@@ -3292,5 +3292,10 @@
  "ab.1ew19kg": "Advanced Biomorph. ポイントコストはモデルごとに支払います。持ち主の3\"以内にDeep Strikeで到着する味方ユニットは散らばりません。持ち主がバトルラウンド開始時に戦場にいて、そのラウンドでまだ12\"を超えて移動していない場合のみ使用できます。",
  "ab.1nxawpv": "Advanced Biomorph. ポイントコストはモデルごとに支払います。IconsやTeleport homing beaconsなどの装備は、モデルの12\"以内では機能しません。さらに、12\"以内にDeep Strikeで着地するユニットは、散らばりに追加で2D6を振ります。",
  "ab.1spkkj7": "Advanced Biomorph. ポイントコストはモデルごとに支払います。ユニットは最後のWoundを失うと車両のように爆発します。Advanced Bioformsは爆発をStrength 7、AP -1で解決します。",
- "ab.1dt6kyg": "Chameleonic Skin: このユニットはDeep Strikeで配置されるとき散らばりません。さらに、チャージの恩恵を通常どおり得て、Disorderly Chargeを行う必要がありません。"
+ "ab.1dt6kyg": "Chameleonic Skin: このユニットはDeep Strikeで配置されるとき散らばりません。さらに、チャージの恩恵を通常どおり得て、Disorderly Chargeを行う必要がありません。",
+ "ab.1xa4xa8": "ユニットは「Deflect」アビリティを得ます。",
+ "ab.1cs7vc2": "ユニットは「Furious Charge」アビリティを得ます。",
+ "ab.o4yhfe": "ユニットは「Warded」アビリティを得ます。",
+ "ab.ii1s1q": "ユニットは「Counter-Attack」アビリティを得ます。",
+ "ab.1dqxqom": "ユニットの遠距離武器は「Suppression(3)」を得ます。"
 }

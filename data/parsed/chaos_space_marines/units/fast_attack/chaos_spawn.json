@@ -16,7 +16,7 @@
             },
             "name": "Chaos Spawn",
             "min": 1,
-            "max": 4,
+            "max": 6,
             "points": 23
         }
     ],
@@ -86,7 +86,7 @@
         }
     ],
     "abilities": [
-        "Move through cover, Terrifying(-1)",
+        "Mindless, Move through cover, Terrifying(-1)",
         "Grasping Pseudopods: The model gains +2 Attacks.",
         "Toxic Haemorrhage: The model gains the \"Poison(3+)\" ability for all melee attacks.",
         "Subcutaneous Armor: The model gains a 5+ armor save."

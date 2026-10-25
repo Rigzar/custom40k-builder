@@ -32,6 +32,7 @@ import heavy_support_purgator_squad from './heavy_support/purgator_squad.json';
 import dedicated_transport_razorback from './dedicated_transport/razorback.json';
 import dedicated_transport_rhino from './dedicated_transport/rhino.json';
 import flyers_stormraven_gunship from './flyers/stormraven_gunship.json';
+import elites_armiger from './elites/armiger.json';
 
 export const faction = "Grey Knights";
 
@@ -53,7 +54,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Dreadnought",
     "Ghost Terminator Squad",
     "Paladin Squad",
-    "Purifier Squad"
+    "Purifier Squad",
+    "Armiger"
   ],
   "Fast Attack": [
     "Interceptor Squad"
@@ -99,4 +101,5 @@ export const units: Record<string, Unit> = {
   "Razorback": dedicated_transport_razorback as Unit,
   "Rhino": dedicated_transport_rhino as Unit,
   "Stormraven Gunship": flyers_stormraven_gunship as Unit,
+  "Armiger": elites_armiger as Unit,
 };

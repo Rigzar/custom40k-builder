@@ -43,6 +43,7 @@ import flyers_avenger from './flyers/avenger.json';
 import flyers_lightning from './flyers/lightning.json';
 import flyers_thunderbolt from './flyers/thunderbolt.json';
 import flyers_vulture from './flyers/vulture.json';
+import elites_armiger from './elites/armiger.json';
 
 export const faction = "Imperial Navy";
 
@@ -77,7 +78,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Sages",
     "Servitors",
     "Xenologists",
-    "Daemonhosts"
+    "Daemonhosts",
+    "Armiger"
   ],
   "Fast Attack": [],
   "Heavy Support": [],
@@ -130,4 +132,5 @@ export const units: Record<string, Unit> = {
   "Lightning": flyers_lightning as Unit,
   "Thunderbolt": flyers_thunderbolt as Unit,
   "Vulture": flyers_vulture as Unit,
+  "Armiger": elites_armiger as Unit,
 };

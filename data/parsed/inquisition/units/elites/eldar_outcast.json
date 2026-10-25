@@ -30,7 +30,11 @@
             "s": "5",
             "ap": "-2",
             "d": "2",
+<<<<<<< HEAD
             "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+=======
+            "abilities": "Piercing(5+), Sniper, Suppression(6)"
+>>>>>>> b3afcee4fe5c8f3b0cd37437b6aef6763c276c1a
         },
         {
             "name": "Shuriken pistol",

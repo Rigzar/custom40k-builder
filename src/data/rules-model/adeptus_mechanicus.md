@@ -94,7 +94,7 @@ Budget (Army Customisation): **0-1 Archetype, 0-1 Legacy, 0-2 Traits**. Producti
 CLEAN: 5 archetypes / 7 legacies / 16 traits — matches the `.ods` exactly.
 
 **5 Archetypes**:
-- **Dark Mechanicum** → cross-faction (Allies of Convenience for CSM; buy Marks of Chaos; access
+- **Dark Mechanicum** → cross-faction (treated as CSM in the Ally matrix; buy Marks of Chaos; access
   CSM Armory + 5 CSM daemon-engines; "May not select a Legacy") — direct analogue of IG's Traitor
   Guard ([[project_traitor_guard_bugfix_0608]]).
 - **Cybernetica Cohort** (access HH Mechanicum Robots/Taghmata; Kastelan Robots→Troops; needs a

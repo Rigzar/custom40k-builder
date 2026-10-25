@@ -35,6 +35,8 @@ import heavy_support_skorpius_disintegrator from './heavy_support/skorpius_disin
 import dedicated_transport_skorpius_dunerider from './dedicated_transport/skorpius_dunerider.json';
 import dedicated_transport_termite from './dedicated_transport/termite.json';
 import flyers_archaeopter from './flyers/archaeopter.json';
+import elites_armiger from './elites/armiger.json';
+import elites_war_dog from './elites/war_dog.json';
 
 export const faction = "Adeptus Mechanicus";
 
@@ -56,7 +58,9 @@ export const slot_to_units: Record<string, string[]> = {
     "Sicaran Infiltrators",
     "Sicaran Ruststalkers",
     "Sydonian Skatros",
-    "Tech-Priest"
+    "Tech-Priest",
+    "Armiger",
+    "War Dog"
   ],
   "Fast Attack": [
     "Pteraxii Skystalkers",
@@ -108,4 +112,6 @@ export const units: Record<string, Unit> = {
   "Skorpius Dunerider": dedicated_transport_skorpius_dunerider as Unit,
   "Termite": dedicated_transport_termite as Unit,
   "Archaeopter": flyers_archaeopter as Unit,
+  "Armiger": elites_armiger as Unit,
+  "War Dog": elites_war_dog as Unit,
 };

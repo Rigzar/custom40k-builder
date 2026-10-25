@@ -5,7 +5,7 @@ import { retinueFactionKeys, retinueEligible, isUniqueEquipment, computeRetinueF
 import { factionLabel } from '../utils/factionLabel';
 import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, unitMatchesKeyword, factionForEntry } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, swarmControllersBonus, unitMatchesKeyword, factionForEntry } from './points';
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
@@ -17,10 +17,12 @@ import { removedUnitNote } from './unitRenames';
 import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
+import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
+import { FACTION_NAMES } from '../utils/factionLabel';
 import { archetypeAllowedInSkirmish, SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from './skirmishRules';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP } from './codex_space_marines/legacies';
@@ -137,8 +139,8 @@ function _getAllowedDiscKeys(
  * without taking up a [slot]" (e.g. Orks Mekboyz/Painboyz, SM Techmarine, CSM Master of Execution)
  * — a 1-per-HQ ratio keyed to that specific unit NAME (or `unit.advisorRatio` copies per HQ for
  * the rare exception, e.g. CSM Foetid Virion's "up to 5 per HQ unit"). Core Rules
- * doesn't define a generic "Advisor" special rule; `advisor: true` just flags this per-unit
- * pattern, so the ratio has to be enforced here rather than read off a shared rule. Returns the
+ * 1.35 now defines "Advisor" as a general ability (one copy per HQ selection); `advisor: true` flags the
+ * unit and the ratio is enforced here. Returns the
  * RosterEntry ids exempt from slot occupancy: the first N copies of each advisor unit name in a
  * given allied/primary scope, capped at (HQ selections in that SAME scope) × ratio — extra copies
  * beyond the ratio occupy their slot like any other unit (GitHub #10: Mekboyz/Painboyz never took
@@ -1475,6 +1477,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // composition pass further below (search `allyRule`); without the `!item.factionSource` guard
   // here, the primary's archetype restrictions (banned units, forced mark, etc.) used to wrongly
   // apply to the ally's units too.
+  // An archetype limited to an allied detachment of one faction (Votann Demiurg, for the T'au Empire).
+  {
+    const onlyP = rule?.alliedOnlyTo;
+    if (onlyP) items.push({ type: 'error', text: T('valArchetypeAlliedOnly', { archetype: cleanArchetypeName(state.archetype), faction: FACTION_NAMES[onlyP] ?? onlyP }) });
+    const allyRuleO = state.alliedFaction ? getArchetypeRule(state.alliedArchetype) : null;
+    const onlyA = allyRuleO?.alliedOnlyTo;
+    if (onlyA && FACTION_NAMES[onlyA] !== data.faction) items.push({ type: 'error', text: T('valArchetypeAlliedOnly', { archetype: cleanArchetypeName(state.alliedArchetype), faction: FACTION_NAMES[onlyA] ?? onlyA }) });
+  }
+
+  // Escalation (Dominic, 2026-10-23): the War Dog is a Chaos Elite. In a codex that is not Chaos Space Marines its datasheet is
+  // marked requires_archetype_unlock and only exists under an archetype that makes the army Chaos (Traitor Guard, Renegades, Dark Mechanicum).
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u?.requires_archetype_unlock) continue;
+    const isAlly = !!item.factionSource && item.factionSource === state.alliedFaction;
+    const r = isAlly ? getArchetypeRule(state.alliedArchetype) : rule;
+    if (!(r?.unlocksUnits ?? []).includes(item.unitName)) items.push({ type: 'error', text: T('valUnitNeedsChaosArchetype', { unit: item.unitName }) });
+  }
+
   if (rule) {
     // Banned units
     for (const item of state.army) {
@@ -2092,7 +2113,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
     for (const item of state.army) {
       const u = resolveUnit(item, data);
-      if (!u?.is_character) continue;
+      if (!u?.is_character || item.retinue) continue;   // Inquisition 1.4: the Legacy "Does not apply to Legendary Retinue"
       const picked = item.armory.filter(a => ORDO_GATED_ITEMS.has(a.itemName));
       if (picked.length > 1) {
         items.push({
@@ -2265,6 +2286,16 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         type: 'error',
         text: `${name}: only 1 allowed per army (have ${count}).`,
       });
+    }
+  }
+
+  // One limit shared by two datasheets: "Only one Leman Russ Tank Commander or Rogal Dorn Tank Commander per army." Each unit is
+  // already unique by itself above; this adds the combined count (Imperial Guard 1.9).
+  const SHARED_UNIQUE: string[][] = [['Leman Russ Tank Commander', 'Rogal Dorn Tank Commander']];
+  for (const names of SHARED_UNIQUE) {
+    const have = state.army.filter(i => !i.factionSource && names.includes(i.unitName)).length;
+    if (have > 1 && names.every(n => (uniqueUnitCounts[n] ?? 0) <= 1)) {
+      items.push({ type: 'error', text: `${names.join(' / ')}: only 1 allowed per army in total (have ${have}).` });
     }
   }
 
@@ -2544,7 +2575,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // the 25% requirement (GH#130). The codex's other half -- "Can't be a mandatory unit
         // selection" -- is about the AOP MINIMUM and is enforced separately, by `excludeSlotOptIns`
         // in getSlotUsage; it is not about the points share.
-        const slot = applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule));
+        const slot = applyPlatoonSlotOverride(i, state.army, applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule)));
         if (slot !== 'Troops') return false;
         return countsTroops(i.unitName, u.locked_mark, iRule);
       })
@@ -2596,11 +2627,13 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // over the POINT LIMIT, and a reader takes it as Troops over the army. An army of nothing but
     // Cultists was told it was "9% Troops", which is plainly false — it was 100% Troops and 9% of
     // a 1000-point game. Say it in points instead, where there is nothing to misread.
-    const needPts = Math.ceil(ratioBase * eng.minTroopsRatio);
-    if (ratio < eng.minTroopsRatio) {
+    // An archetype can lower the share ("The army only needs to spend 15% of its points on Troops").
+    const minRatio = rule?.troopsMinRatio ?? eng.minTroopsRatio;
+    const needPts = Math.ceil(ratioBase * minRatio);
+    if (ratio < minRatio) {
       items.push({
         type: 'error',
-        text: T('valTroopsRatioFail', { label, havePts: troopsPts, needPts, limit: ratioBase }),
+        text: T('valTroopsRatioFail', { label, havePts: troopsPts, needPts, limit: ratioBase, pct: Math.round(minRatio * 100) }),
       });
     } else {
       items.push({ type: 'ok', text: T('valTroopsRatioOk', { label, havePts: troopsPts, needPts, limit: ratioBase }) });
@@ -2899,6 +2932,23 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // XV85 Enforcer: "it may select one more weapon OR support system" -- the extra is ONE, taken as either, so weapons beyond the base three
+  // and support systems beyond the base two together may not exceed the number of Enforcer suits.
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const n = enforcerCount(u, item);
+    if (n === 0) continue;
+    const wg = u.option_groups.findIndex(g => enforcerWeaponBonus(u, item, g) > 0);
+    const cap = supportSystemCap(u, item, data, state.traitPool);
+    if (wg < 0 || cap === null) continue;
+    const g = u.option_groups[wg];
+    const baseW = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
+    const usedW = Object.entries(item.optionQty?.[wg] ?? {}).reduce((s, [k, v]) => (k === '__inline' ? s : s + (Number(v) || 0)), 0);
+    const extraS = Math.max(0, supportSystemsOwned(u, item, data) - (cap - n));
+    if (Math.max(0, usedW - baseW) + extraS > n) items.push({ type: 'error', text: T('valEnforcerOneExtra', { unit: item.customName || item.unitName }) });
+  }
+
   // Per_n and fixed_max constraint sums
   for (const item of state.army) {
     const u = resolveUnit(item, data);
@@ -2915,7 +2965,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const modelCap = (applyNames && item.modelSizes)
           ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
           : null;
-        const perNRaw = (g.constraint.count_per_n ?? 1) * Math.floor(poolSize / (g.constraint.per_n ?? 1));
+        const perNRaw = (g.constraint.count_per_n ?? 1) * Math.floor(poolSize / (g.constraint.per_n ?? 1)) + enforcerWeaponBonus(u, item, g);
         const max = modelCap !== null ? Math.min(perNRaw, modelCap) : perNRaw;
         const used = Object.entries(item.optionQty?.[gi] ?? {}).reduce((s, [k, v]) => {
           return k === '__inline' ? s : s + (v ?? 0);
@@ -2937,7 +2987,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // An `independent_choices` group caps EVERY choice at 1, `per_model` included: that flag
         // scales the price by headcount, it does not let a second copy be bought.
         const perChoiceCap = (_ci?: string) => 1;
-        const max = gc.max ?? (g.independent_choices ? 1 : 0);
+        const max = (gc.max ?? (g.independent_choices ? 1 : 0)) + swarmControllersBonus(g, data.drones, state.traitPool);
         const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
         if (g.independent_choices) {
           const over = qtys.find(([k, v]) => (v ?? 0) > perChoiceCap(k));
@@ -3188,7 +3238,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not
     // the flat eng.aop value (Skirmish's flat "0-1" is correct as-is and untouched).
     const rawEffMax = (slot === 'Dedicated Transport' && (state.engagement === 'pitched' || state.engagement === 'epic'))
-      ? countInfantrySelections(state, data, false)
+      ? countInfantrySelections(state, data, false) + (isIntegratedSuppl ? countInfantrySelections(state, data, true) : 0)   // an integrated supplement's Infantry earn transports too (Legion of the Damned Rhino)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
         : (eng.multiAop ? engMax * aopState.unlocked : engMax);

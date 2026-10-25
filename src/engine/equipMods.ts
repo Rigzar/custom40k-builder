@@ -70,7 +70,7 @@ function baseAbilitySet(baseAbilities: string[]): Set<string> {
 /** Lower save = better. Extract (armorSave, invulnSave) from a description for ranking armour. */
 function readSaves(desc: string): { sv: number; inv: number } {
   const a = desc.match(/(\d)\+\s+armou?r\s+save/i);
-  const i = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i);
+  const i = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i) ?? desc.match(/\bWard\((\d)\+\)/i);
   return { sv: a ? parseInt(a[1]) : 99, inv: i ? parseInt(i[1]) : 99 };
 }
 
@@ -174,7 +174,8 @@ export function parseEquipMods(
     // array) via the negative lookahead — that isn't a general armor-save upgrade.
     const armor = desc.match(/(\d)\+\s+armou?r\s+save/i) ?? desc.match(/\bgains an? (\d)\+ save\b(?!\s+against)/i);
     if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }
-    const invuln = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i);
+    // "Ward(X+)" is the new spelling in the sheets (2026-10); the sentence form still works for sheets not moved yet.
+    const invuln = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i) ?? desc.match(/\bWard\((\d)\+\)/i);
     if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }
     // "All [type] weapons gain 'X'" → handled by the weapon table injection in resolver.ts.
     // Don't also add to grantedAbilities — that would duplicate the display.
@@ -722,6 +723,12 @@ export function parseInvSaveFromAbilities(abilities: string[]): number | null {
       if (/^Greater Daemon\b/i.test(it.trim())) {
         if (best === null || 4 < best) best = 4;
       }
+    }
+    // "Ward(X+)": the sheets now write the ward save as an ability with a value (Unwise, 2026-10), alone or inside a
+    // comma-joined line ("Battle Focus, Fast, Ward(4+)"). The old sentence form above still works for sheets not moved yet.
+    for (const m of ab.matchAll(/\bWard\((\d)\+\)/gi)) {
+      const v = parseInt(m[1]);
+      if (!isNaN(v) && (best === null || v < best)) best = v;
     }
     // "Berserk(X+)" → X+
     const berserk = ab.match(/\bBerserk\((\d)\+\)/i);

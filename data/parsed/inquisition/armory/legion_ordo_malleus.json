@@ -10,7 +10,7 @@
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Armor piercing(5+)",
+      "abilities": "AT(1), Piercing(5+)",
       "p_unit": null,
       "p_char": 35
     },
@@ -24,7 +24,7 @@
       "ap": "-2",
       "d": "1",
       "abilities": "Auto Hit, Sunder(1), Shield breaker(-1)",
-      "p_unit": 23,
+      "p_unit": null,
       "p_char": 17
     },
     {
@@ -55,7 +55,7 @@
       "term_compat": true,
       "requires_army_item": "Ordo Malleus",
       "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
-      "p_unit": null,
+      "p_unit": 1,
       "p_char": 1
     },
     {

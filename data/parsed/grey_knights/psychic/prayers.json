@@ -35,7 +35,7 @@
     "name": "Words of Power",
     "range": "-",
     "target": "Self",
-    "effect": "The target gains the \"Armor piercing(5+)\" and \"Shred\" abilities.",
+    "effect": "The target gains the \"Piercing(5+)\" and \"Shred\" abilities.",
     "duration": "Until the caster's next activation",
     "complexity": "Basic"
   },
@@ -51,7 +51,7 @@
     "name": "Focus Recitation",
     "range": "-",
     "target": "Self + attached unit",
-    "effect": "The target gains a 5+ ward save.",
+    "effect": "The target gains Ward(5+).",
     "duration": "Until the caster's next activation",
     "complexity": "Basic"
   },

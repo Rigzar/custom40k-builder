@@ -80,6 +80,23 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
     ],
   },
 
+  // SOURCE — Legion of the Damned (Space Marines 1.11, Army Customisation):
+  // "- The army has only access to units from the Legion of the Damned supplement.
+  //  - May not select any Traits."
+  // The supplement (Codex/Legion of the Damned 1.0.ods) adds "Aid unlooked for" (its units can only attach to and be joined by
+  // characters from the supplement) and "Flaming Vengeance" (cumulative -1 AP and +1 AT on every attack, in the resolver).
+  // `allowedUnitsOnly` holds a name no Space Marines unit has: the primary roster is closed, only the supplement's units remain.
+  'Legion of the Damned': { ...BASE,
+    noTraits: true,
+    allowedUnitsOnly: ['(supplement units only)'],
+    alliedFaction: 'legion_of_the_damned', alliedMarkFilter: 'all',
+    notes: [
+      'Only units from the Legion of the Damned supplement can be taken. No Traits.',
+      'Aid unlooked for: units from the supplement can only attach to and be joined by characters from the supplement.',
+      'Flaming Vengeance: all attacks of the supplement\'s units gain cumulative -1 AP and +1 AT.',
+    ],
+  },
+
   // SOURCE — Legion:
   // "- The army has access to everything from the Horus Heresy Legiones Astartes supplement.
   //  - Only Troops from the Horus Heresy Space Marine Supplement count towards the 25%."
@@ -129,6 +146,7 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
   // [...] The intention is to prevent Cultist type units from accessing the traits. SM don't have
   // that, so it can easily be solved with a flat allowance."
   'Renegades': { ...BASE,
+    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],   // Chaos army: War Dog yes, Armiger no (Escalation, Dominic 2026-10-23)
     foreignTraitFaction: 'chaos_space_marines', foreignTraitMax: 1,
     // ods-verbatim, same row: "Renegades are treated like \"Chaos Space Marines\" in the Ally
     // matrix." The trait half of that row was built on 2026-09-19; this half was not.

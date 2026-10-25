@@ -81,7 +81,7 @@ data/parsed/<fraktion>/
 >
 > `node scripts/unit_sync.cjs "Codex/<fraktion>.ods" <fraktion>` vergleicht eine aktualisierte Tabelle mit den Einheitendateien und gibt jede Abweichung bei Punkten, Werten und Waffen aus (`--write` wendet sie an, `--equipped` schreibt auch den Satz "equipped with" um, wenn alle Eintraege bekannte Waffen sind). Optionsgruppen und Faehigkeitstexte fasst es nie an: die muss ein Mensch verdrahten.
 
-Die beiden Horus-Heresy-Ergänzungen folgen demselben Layout in `data/parsed/horus_heresy_legiones_astartes/` und `data/parsed/horus_heresy_forces_of_the_machine_god/` (plus eine `supplement.json` für die Rüstkammer und die Nicht-Einheiten-Teile). **Die Fraktionsschlüssel der App entsprechen nicht immer den Ordnernamen** (`horus_heresy`, `legio_titanicus`): `src/data/loaders.ts` ist die einzige Stelle, die sie zuordnet.
+Die beiden Horus-Heresy-Ergänzungen folgen demselben Layout in `data/parsed/horus_heresy_legiones_astartes/` und `data/parsed/horus_heresy_forces_of_the_machine_god/` und `data/parsed/legion_of_the_damned/` (plus eine `supplement.json` für die Rüstkammer und die Nicht-Einheiten-Teile). **Die Fraktionsschlüssel der App entsprechen nicht immer den Ordnernamen** (`horus_heresy`, `legio_titanicus`): `src/data/loaders.ts` ist die einzige Stelle, die sie zuordnet.
 
 ### Wer welches Feld schreibt — und was tun, wenn das Blatt falsch ist
 

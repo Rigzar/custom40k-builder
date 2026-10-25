@@ -6,7 +6,7 @@
     },
     {
       "name": "Dark Mechanicum",
-      "desc": "- Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Venomcrawlers, Defilers, Forgefiends, Maulerfiends, and Heldrakes may be taken from the Chaos Space Marine army list.\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy.",
+      "desc": "- Dark Mechanicum are treated like \"Chaos Space Marines\" in the Ally matrix.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Venomcrawlers, Defilers, Forgefiends, Maulerfiends, and Heldrakes may be taken from the Chaos Space Marine army list.\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy.",
       "skirmish": true
     },
     {

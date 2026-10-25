@@ -2,7 +2,7 @@
   "archetypes": [
     {
       "name": "Demiurg",
-      "desc": "- This army and the Tau consider each other Battle Brothers (Green allies).\n- This army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army.",
+      "desc": "- Demiurg become \"Battle Brothers\" for T'au Empire.\n- Can only be taken as an allied detachment for T'au Empire.",
       "skirmish": true
     },
     {
@@ -165,7 +165,7 @@
     },
     {
       "name": "Trivärg Cyber Implants",
-      "desc": "If the unit disembarked from a transport this round, all of its weapons gain the \"Armor piercing(5+)\" ability for this activation.",
+      "desc": "If the unit disembarked from a transport this round, all of its weapons gain the \"Piercing(5+)\" ability for this activation.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "-",

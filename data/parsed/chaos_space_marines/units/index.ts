@@ -26,6 +26,7 @@ import troops_mutants from './troops/mutants.json';
 import troops_poxwalkers from './troops/poxwalkers.json';
 import troops_traitor_guard from './troops/traitor_guard.json';
 import troops_tzaangors from './troops/tzaangors.json';
+import troops_fellgors from './troops/fellgors.json';
 import elites_big_mutants from './elites/big_mutants.json';
 import elites_blightlord_terminators from './elites/blightlord_terminators.json';
 import elites_chaos_terminators from './elites/chaos_terminators.json';
@@ -63,6 +64,8 @@ import fast_attack_venomcrawler from './fast_attack/venomcrawler.json';
 import fast_attack_warptalons from './fast_attack/warptalons.json';
 import heavy_support_blood_slaughterer from './heavy_support/blood_slaughterer.json';
 import heavy_support_chaos_land_raider from './heavy_support/chaos_land_raider.json';
+import heavy_support_giant_chaos_spawn from './heavy_support/giant_chaos_spawn.json';
+import heavy_support_chaos_land_raider_sonic from './heavy_support/chaos_land_raider_sonic.json';
 import heavy_support_chaos_predator from './heavy_support/chaos_predator.json';
 import heavy_support_chaos_vindicator from './heavy_support/chaos_vindicator.json';
 import heavy_support_chaos_decimator from './heavy_support/chaos_decimator.json';
@@ -105,7 +108,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Mutants",
     "Poxwalkers",
     "Traitor Guard",
-    "Tzaangors"
+    "Tzaangors",
+    "Fellgors"
   ],
   "Elites": [
     "Big Mutants",
@@ -149,6 +153,8 @@ export const slot_to_units: Record<string, string[]> = {
   "Heavy Support": [
     "Blood Slaughterer",
     "Chaos Land Raider",
+    "Giant Chaos Spawn",
+    "Chaos Land Raider Sonic",
     "Chaos Predator",
     "Chaos Vindicator",
     "Chaos Decimator",
@@ -198,6 +204,7 @@ export const units: Record<string, Unit> = {
   "Poxwalkers": troops_poxwalkers as Unit,
   "Traitor Guard": troops_traitor_guard as Unit,
   "Tzaangors": troops_tzaangors as Unit,
+  "Fellgors": troops_fellgors as Unit,
   "Big Mutants": elites_big_mutants as Unit,
   "Blightlord Terminators": elites_blightlord_terminators as Unit,
   "Chaos Terminators": elites_chaos_terminators as Unit,
@@ -235,6 +242,8 @@ export const units: Record<string, Unit> = {
   "Warptalons": fast_attack_warptalons as Unit,
   "Blood Slaughterer": heavy_support_blood_slaughterer as Unit,
   "Chaos Land Raider": heavy_support_chaos_land_raider as Unit,
+  "Giant Chaos Spawn": heavy_support_giant_chaos_spawn as Unit,
+  "Chaos Land Raider Sonic": heavy_support_chaos_land_raider_sonic as Unit,
   "Chaos Predator": heavy_support_chaos_predator as Unit,
   "Chaos Vindicator": heavy_support_chaos_vindicator as Unit,
   "Chaos Decimator": heavy_support_chaos_decimator as Unit,

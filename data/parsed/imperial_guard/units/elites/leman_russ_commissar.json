@@ -138,7 +138,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Twin lascannon",
@@ -264,7 +264,7 @@
     ],
     "abilities": [
         "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.        ",
-        "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
+        "Statutory Execution: Each time time a friendly Imperial Guard unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty.        "
     ],
     "unit_type": "Vehicle",
     "keywords": [],

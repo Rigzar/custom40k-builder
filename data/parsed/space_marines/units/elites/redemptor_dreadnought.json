@@ -39,7 +39,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Icarus rocket pod",
@@ -93,7 +93,7 @@
             "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Redemptor claw",
@@ -180,11 +180,11 @@
                     "points": 19
                 },
                 {
-                    "name": "Redemptor fist and Storm bolter",
+                    "name": "Redemptor fist with Storm bolter",
                     "points": 27
                 },
                 {
-                    "name": "Redemptor fist and Heavy flamer",
+                    "name": "Redemptor fist with Heavy flamer",
                     "points": 29
                 },
                 {
@@ -192,7 +192,7 @@
                     "points": 41
                 },
                 {
-                    "name": "Redemptor fist and Onslaught gatling cannon",
+                    "name": "Redemptor fist with Onslaught gatling cannon",
                     "points": 53
                 }
             ],
@@ -211,7 +211,7 @@
                     "points": 19
                 },
                 {
-                    "name": "Redemptor fist and Storm bolter",
+                    "name": "Redemptor fist with Storm bolter",
                     "points": 27
                 },
                 {
@@ -275,7 +275,6 @@
         }
     ],
     "abilities": [
-        "<Codex>",
         "Furioso: If the model has two identical melee weapons, it gains +2 attacks."
     ],
     "unit_type": "Vehicle, Walker",

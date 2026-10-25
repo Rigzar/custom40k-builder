@@ -31,6 +31,7 @@ export const CODEX_SHEET_IDS = {
   tyranids: '1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M',
   horus_heresy: '1vRRoUGkH3HhzZYQk6_3Hp0pSlWGWb9BKaz3VrYfYmFU',
   legio_titanicus: '1SrBhi_8b77QwqoI03xNDxgOwgt-ePmqRQvA5dyquYtM',
+  legion_of_the_damned: '1E9D3ZeBKmXMw5Q6t8VHC1TwnPDCuy84W19hrSTpK85Q',
   escalation: '1i9o9KowRslsN4e1UXjzqME5OzcH5A9nR78LjvTVwXRY',
 };
 

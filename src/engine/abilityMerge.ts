@@ -27,7 +27,8 @@ type CompareMode = 'lower_better' | 'higher_better';
 const MERGEABLE_ABILITIES: Record<string, CompareMode> = {
   'poison':         'lower_better',
   'deflagrate':     'lower_better',
-  'armor piercing': 'lower_better',
+  'armor piercing': 'lower_better',  // renamed Piercing in the 2026-10 sheets; both names are the same ability
+  'piercing':       'lower_better',
   'sunder':         'higher_better',
   'at':             'higher_better',
   // Core Rules 1.262 renamed Flurry to Extra Attack and gave Blast and Suppression values;
@@ -49,7 +50,7 @@ const MERGEABLE_ABILITIES: Record<string, CompareMode> = {
 function parseAbilityValue(ab: string): { key: string; value: number; original: string } | null {
   const m = ab.match(/^([A-Za-z\s]+)\(?[-–]?(\d+)[+)]/);
   if (!m) return null;
-  const key = m[1].trim().toLowerCase();
+  const key = m[1].trim().toLowerCase().replace(/^armor piercing$/, 'piercing');
   if (!(key in MERGEABLE_ABILITIES)) return null;
   return { key, value: parseInt(m[2]), original: ab.trim() };
 }

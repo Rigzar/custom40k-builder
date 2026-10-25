@@ -30,7 +30,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Dreadnought claw",
@@ -66,7 +66,7 @@
             "s": "6",
             "ap": "-1",
             "d": "1",
-            "abilities": "Armor piercing(5+), Suppression(2)"
+            "abilities": "Piercing(5+), Suppression(2)"
         },
         {
             "name": "Heavy flamer",
@@ -186,11 +186,11 @@
             },
             "choices": [
                 {
-                    "name": "Dreadnought claw and Storm bolter",
+                    "name": "Dreadnought claw with Storm bolter",
                     "points": 18
                 },
                 {
-                    "name": "Dreadnought close combat weapon and Storm bolter",
+                    "name": "Dreadnought close combat weapon with Storm bolter",
                     "points": 27
                 },
                 {
@@ -218,7 +218,7 @@
                     "points": 41
                 },
                 {
-                    "name": "Seismic hammer and Heavy flamer",
+                    "name": "Seismic hammer with Heavy flamer",
                     "points": 42
                 },
                 {
@@ -261,8 +261,8 @@
                 "Storm bolter"
             ],
             "requires_choice": [
-                "Dreadnought claw and Storm bolter",
-                "Dreadnought close combat weapon and Storm bolter"
+                "Dreadnought claw with Storm bolter",
+                "Dreadnought close combat weapon with Storm bolter"
             ]
         }
     ],

@@ -43,6 +43,7 @@ export interface StatPipelineInput {
   optionStatMods: StatMod[];
   /** Absolute values an OPTION sets ("gains WS 3+"), applied like an armoury set: best wins. */
   optionStatSets?: Record<string, string | undefined>;
+  optionStatExact?: Record<string, string | undefined>;
   equipMods: EquipLike;
   traitEquipMods: EquipLike;
   /** Does this row actually carry the Armory purchases? (A champion's gear is the champion's.) */
@@ -153,6 +154,9 @@ export function resolveStatValue(
     if (cur && set && parseInt(set, 10) < parseInt(cur, 10)) { display = optSet; src.option = true; }
     else if (!cur || display === '-') { display = optSet; src.option = true; }
   }
+  // "Changes its BS and WS to 4+": the value IS 4+, even when it was better before.
+  const optExact = input.optionStatExact?.[k];
+  if (optExact) { display = optExact; src.option = true; }
 
   return { display: capStat(k, display), source: src };
 }

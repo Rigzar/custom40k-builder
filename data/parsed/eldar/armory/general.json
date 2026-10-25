@@ -77,7 +77,7 @@
       "s": "6",
       "ap": "0",
       "d": "1",
-      "abilities": "Armor piercing(5+), Monofilament, Suppression(2)",
+      "abilities": "Piercing(5+), Monofilament, Suppression(2)",
       "p_unit": null,
       "p_char": 8
     },
@@ -407,7 +407,7 @@
       "ap": "-1",
       "d": "1",
       "abilities": "Shuriken",
-      "p_unit": 3,
+      "p_unit": 2,
       "p_char": 3
     },
     {
@@ -484,6 +484,18 @@
       ]
     },
     {
+      "name": "Sun pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Precision(5+)",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
       "name": "Tempest launcher",
       "term_compat": false,
       "range": "36\"",
@@ -514,7 +526,7 @@
           "s": "+1",
           "ap": "-4",
           "d": "1",
-          "abilities": "Armor piercing(5+)"
+          "abilities": "Piercing(5+)"
         },
         {
           "name": "Shooting",
@@ -523,7 +535,7 @@
           "s": "5",
           "ap": "-4",
           "d": "1",
-          "abilities": "Armor piercing(5+)"
+          "abilities": "Piercing(5+)"
         }
       ]
     },
@@ -871,7 +883,7 @@
     {
       "name": "Piercing strike",
       "term_compat": false,
-      "desc": "Melee attacks of the model gain Armor piercing(5+).",
+      "desc": "Melee attacks of the model gain Piercing(5+).",
       "p_unit": 5,
       "p_char": null
     },

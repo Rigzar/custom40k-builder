@@ -1,12 +1,27 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+
+/**
+ * Which deployment a page belongs to. The commit is written into index.html (a <meta>, read by the page that loaded it, so it is the
+ * build the page really is) and into /version.json (never cached; asks "what is live now?"). The update prompt compares the two and
+ * stays quiet when they are the same build: a waiting service worker for the build you already run is no update, and showing it
+ * made the prompt come back again and again after one push (reported 2026-10-25: three prompts for one push).
+ */
+const BUILD_ID = (process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.GITHUB_SHA ?? 'local').slice(0, 8)
+const buildIdPlugin = (): Plugin => ({
+  name: 'c40k-build-id',
+  transformIndexHtml: { order: 'post', handler: (html: string) => html.replace('</head>', `  <meta name="c40k-build" content="${BUILD_ID}">
+  </head>`) },
+  generateBundle() { this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify({ build: BUILD_ID }) }) },
+})
 
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    buildIdPlugin(),
     /**
      * PWA — installable on Android and iOS, and the army builder works offline.
      *

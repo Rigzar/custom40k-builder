@@ -72,6 +72,8 @@ export async function gitfindaSchema(sql) {
   `;
   // The id of this game's announcement in Discord, kept so the message can be deleted when the game stops being open.
   await sql`ALTER TABLE gitfinda_posts ADD COLUMN IF NOT EXISTS discord_message_id TEXT`;
+  // How many times an announcement was tried, so a game whose first message never got through is announced again (at most 3 tries).
+  await sql`ALTER TABLE gitfinda_posts ADD COLUMN IF NOT EXISTS discord_attempts INT NOT NULL DEFAULT 0`;
   await sql`CREATE INDEX IF NOT EXISTS gitfinda_posts_user_idx ON gitfinda_posts(user_id)`;
   await sql`CREATE INDEX IF NOT EXISTS gitfinda_posts_status_idx ON gitfinda_posts(status, created_at DESC)`;
   await sql`
@@ -190,7 +192,10 @@ function shapePost(r, extra = {}) {
 // The message is asked back (?wait=true) so its id can be stored; the same webhook may delete it again
 // (discordRemover), which is how a game that is cancelled, matched or over leaves the channel.
 const WEBHOOK = /^https:\/\/(discord|discordapp)\.com\/api\/webhooks\/\d+\/[\w-]+$/;
-const NOTIFY_TIMEOUT_MS = 2500;
+const NOTIFY_TIMEOUT_MS = 6000;
+/** "leagues_of_votann" -> "Leagues Of Votann": the first letter of each word, as Dominic asked. */
+const titleCase = s => String(s ?? '').replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+const ENGAGEMENT_NAMES = { skirmish: 'Skirmish', pitched: 'Pitched Battle', epic: 'Epic Battle' };
 const APP_URL = 'https://custom40k-builder.vercel.app';
 
 /** Markdown and mention characters out of a name that came from a player. */
@@ -207,19 +212,34 @@ export function discordNotifier(url = process.env.GITFINDA_DISCORD_WEBHOOK, fetc
         title: 'New game posted on Gitfinda',
         // Opens the app on this very game (App.tsx reads ?gitfinda=<id>); the login is asked for only if needed.
         url: post.id ? `${APP_URL}/?gitfinda=${post.id}` : APP_URL,
-        description: `**${plain(post.username)}** is looking for a game of **${post.army.replace(/_/g, ' ')}**`
-          + ` — ${post.engagement}, ${post.points} points${post.eventName ? `, for **${plain(post.eventName)}**` : ''}.\n\n${slots}`,
+        description: `**${plain(post.username)}** is looking for a game of **${titleCase(post.army)}**`
+          + ` — ${ENGAGEMENT_NAMES[post.engagement] ?? titleCase(post.engagement)}, ${post.points} points${post.eventName ? `, for **${plain(post.eventName)}**` : ''}.\n\n${slots}`,
         footer: { text: 'Times are shown in your own time zone. Open the app, Gitfinda tab, to match it.' },
       }],
     };
-    const ctl = new AbortController();
-    const timer = setTimeout(() => ctl.abort(), NOTIFY_TIMEOUT_MS);
-    try {
-      const r = await fetchFn(url + '?wait=true', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: ctl.signal });
-      if (!r.ok) return null;
-      const id = (await r.json())?.id;
-      return typeof id === 'string' && /^\d+$/.test(id) ? id : null;
-    } finally { clearTimeout(timer); }
+    // One retry: Discord answers 429 (rate limit) or 5xx now and then, and a single failed POST used to mean the
+    // game never reached the channel (a listing missing from it, reported by Dominic 2026-10-20).
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), NOTIFY_TIMEOUT_MS);
+      try {
+        const r = await fetchFn(url + '?wait=true', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: ctl.signal });
+        if (r.ok) {
+          const id = (await r.json())?.id;
+          return typeof id === 'string' && /^\d+$/.test(id) ? id : null;
+        }
+        if (attempt === 0 && (r.status === 429 || r.status >= 500)) {
+          const wait = Math.min(3000, Math.max(300, Number(r.headers?.get?.('retry-after') ?? 1) * 1000 || 1000));
+          await new Promise(res => setTimeout(res, wait));
+          continue;
+        }
+        return null;
+      } catch (e) {
+        if (attempt === 0) continue;
+        throw e;
+      } finally { clearTimeout(timer); }
+    }
+    return null;
   };
 }
 
@@ -252,7 +272,7 @@ export async function dropUserAnnouncements(sql, userId, remove = discordRemover
 // Shared by every request on this server instance, so the sweep below runs at most once per interval however many people poll.
 let lastSweepAt = 0;
 
-export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover(), sweepEveryMs = 30000 } = {}) {
+export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemover(), sweepEveryMs = 120000 } = {}) {
   /** Takes a game's announcement out of Discord and forgets its id. Best effort: a failure keeps the id for the next sweep. */
   async function dropAnnouncement(postId) {
     try {
@@ -266,7 +286,7 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
    * Removes the announcements of games that are no longer open: cancelled, matched or with every time slot in the
    * past. There is no cron on this plan (all 12 functions are taken), so whoever is using Gitfinda does the
    * cleaning, a few at a time: opening the board, posting, opening My posts, and the unread-count poll the app
-   * runs every 30 seconds while Gitfinda is open. At most once per `sweepEveryMs` per server instance.
+   * runs every two minutes while Gitfinda is open. At most once per `sweepEveryMs` per server instance.
    */
   async function sweep() {
     if (sweepEveryMs && Date.now() - lastSweepAt < sweepEveryMs) return;
@@ -280,6 +300,35 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
           OR EXISTS (SELECT 1 FROM gitfinda_matches m WHERE m.post_id = p.id))
         LIMIT 5`;
       for (const row of r.rows) await dropAnnouncement(row.id);
+    } catch { /* ignored on purpose */ }
+    await announceMissing();
+  }
+
+  /**
+   * A game that is still open but has no announcement (the first POST to Discord timed out, was rate limited or
+   * failed) is announced again, at most 3 tries in all, only for games from the last 3 days, and 3 per sweep.
+   * Without this a game could be on the board and never in the channel, and nothing would ever try again.
+   */
+  async function announceMissing() {
+    try {
+      const r = await sql`
+        SELECT p.id, p.army, p.engagement, p.points, u.username, e.name AS event_name,
+          COALESCE((SELECT json_agg(json_build_object('start', s.starts_at, 'end', s.ends_at) ORDER BY s.starts_at)
+                    FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now()), '[]'::json) AS slots
+        FROM gitfinda_posts p
+        JOIN users u ON u.id = p.user_id
+        LEFT JOIN events e ON e.id = p.event_id
+        WHERE p.status = 'active' AND p.discord_message_id IS NULL AND p.discord_attempts < 3
+          AND p.created_at > now() - interval '3 days'
+          AND EXISTS (SELECT 1 FROM gitfinda_slots s WHERE s.post_id = p.id AND s.ends_at > now())
+          AND NOT EXISTS (SELECT 1 FROM gitfinda_matches m WHERE m.post_id = p.id)
+        ORDER BY p.created_at LIMIT 3`;
+      for (const p of r.rows) {
+        let mid = null;
+        try { mid = await notify({ id: p.id, username: p.username, army: p.army, engagement: p.engagement, points: p.points,
+          slots: (typeof p.slots === 'string' ? JSON.parse(p.slots) : p.slots).map(x => ({ start: x.start, end: x.end })), eventName: p.event_name ?? null }); } catch { /* counted as a try */ }
+        await sql`UPDATE gitfinda_posts SET discord_attempts = discord_attempts + 1, discord_message_id = ${typeof mid === 'string' && mid ? mid : null} WHERE id = ${p.id}`;
+      }
     } catch { /* ignored on purpose */ }
   }
 
@@ -392,7 +441,7 @@ export function gitfinda(sql, { notify = discordNotifier(), remove = discordRemo
       const ev = v.eventId !== null ? await sql`SELECT name FROM events WHERE id = ${v.eventId}` : { rows: [] };
       const mid = await notify({ id, username: who.rows[0]?.username, army: v.army, engagement: v.engagement, points: v.points,
         slots: v.slots, eventName: ev.rows[0]?.name ?? null });
-      if (typeof mid === 'string' && mid) await sql`UPDATE gitfinda_posts SET discord_message_id = ${mid} WHERE id = ${id}`;
+      await sql`UPDATE gitfinda_posts SET discord_attempts = 1, discord_message_id = ${typeof mid === 'string' && mid ? mid : null} WHERE id = ${id}`;
     } catch { /* ignored on purpose */ }
     return { ok: true, id };
   }

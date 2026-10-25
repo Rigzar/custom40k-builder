@@ -63,8 +63,8 @@
       "name": "Enhanced Senses",
       "term_compat": false,
       "desc": "Basic Biomorph. Point costs are paid per unit. The unit gains the \"Acute Senses\" ability.",
-      "p_unit": 5,
-      "p_char": 5
+      "p_unit": 10,
+      "p_char": 10
     },
     {
       "name": "Heightened Reflexes",

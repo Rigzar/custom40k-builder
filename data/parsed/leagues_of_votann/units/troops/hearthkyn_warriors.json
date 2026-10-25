@@ -188,10 +188,11 @@
             "is_unique_per_army": false
         },
         {
-            "header": "Up to 3 different Hearthkyn Warriors may take one of the following",
+            "header": "Up to 3 different Hearthkyn Warriors may each select one option from the following list. Each option can only be selected once",
             "constraint": {
                 "type": "fixed_max",
-                "max": 3
+                "max": 3,
+                "max_per_choice": 1
             },
             "choices": [
                 {

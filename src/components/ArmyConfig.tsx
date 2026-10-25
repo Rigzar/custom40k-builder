@@ -8,6 +8,7 @@ import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../en
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
+import { FACTION_NAMES } from '../utils/factionLabel';
 import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
 
 import type { EngagementType, Mark } from '../types/army';
@@ -36,6 +37,7 @@ function SectionHeader({ icon, label, accent = 'amber' }: { icon: string; label:
 export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSetup = true, onlyBattleSetup = false }: { scope?: 'primary' | 'allied'; alliedFactionLabel?: string; showBattleSetup?: boolean; onlyBattleSetup?: boolean }) {
   const store = useArmyStore();
   const isAllied = scope === 'allied';
+  const primaryKey = Object.entries(FACTION_NAMES).find(([, v]) => v === store.data?.faction)?.[0];   // for archetypes limited to an allied detachment of one faction
   const accent: 'amber' | 'emerald' = isAllied ? 'emerald' : 'amber';
   const [openTraitSlot, setOpenTraitSlot] = useState<number | null>(null);
 
@@ -238,6 +240,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       <option value="">{t('noArchetype')}</option>
                       {data.archetypes
                         .filter(a => engagement !== 'skirmish' || archetypeAllowedInSkirmish(data, a.name))
+                        .filter(a => { const only = getArchetypeRule(a.name)?.alliedOnlyTo; return !only || (isAllied && primaryKey === only) || a.name === archetype; })
                         .map(a => <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>)}
                     </select>
                     {engagement === 'skirmish' && (

@@ -3291,5 +3291,10 @@
  "ab.1ew19kg": "Advanced Biomorph. Die Punktkosten werden pro Modell bezahlt. Eine befreundete Einheit, die per Deep Strike innerhalb von 3\" um den Träger eintrifft, weicht nicht ab. Kann nur eingesetzt werden, wenn der Träger zu Beginn der Kampfrunde auf dem Feld war und sich in dieser Kampfrunde noch nicht mehr als 12\" bewegt hat.",
  "ab.1nxawpv": "Advanced Biomorph. Die Punktkosten werden pro Modell bezahlt. Ausrüstung wie Icons oder Teleport homing beacons funktioniert innerhalb von 12\" um das Modell nicht. Außerdem würfeln Einheiten, die per Deep Strike eintreffen und innerhalb von 12\" landen, zusätzlich 2W6 für die Abweichung.",
  "ab.1spkkj7": "Advanced Biomorph. Die Punktkosten werden pro Modell bezahlt. Die Einheit explodiert wie ein Fahrzeug, wenn sie ihren letzten Lebenspunkt verliert. Advanced Bioforms wickeln die Explosion mit Stärke 7 und AP -1 ab.",
- "ab.1dt6kyg": "Chameleonic Skin: Die Einheit weicht beim Aufstellen per Deep Strike nicht ab. Außerdem erhält sie die Vorteile eines Angriffs normal und muss keinen Disorderly Charge ausführen."
+ "ab.1dt6kyg": "Chameleonic Skin: Die Einheit weicht beim Aufstellen per Deep Strike nicht ab. Außerdem erhält sie die Vorteile eines Angriffs normal und muss keinen Disorderly Charge ausführen.",
+ "ab.1xa4xa8": "Die Einheit erhält die Fähigkeit „Deflect“.",
+ "ab.1cs7vc2": "Die Einheit erhält die Fähigkeit „Furious Charge“.",
+ "ab.o4yhfe": "Die Einheit erhält die Fähigkeit „Warded“.",
+ "ab.ii1s1q": "Die Einheit erhält die Fähigkeit „Counter-Attack“.",
+ "ab.1dqxqom": "Die Fernkampfwaffen der Einheit erhalten „Suppression(3)“."
 }

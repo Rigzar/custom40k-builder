@@ -4,13 +4,16 @@ import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, Tra
 import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
-import { getArchetypeRule, currentArchetypeName } from '../engine/archetypes';
+import { getArchetypeRule, currentArchetypeName, currentLegacyName } from '../engine/archetypes';
+import { dataForArchetype } from '../engine/archetypes/dataPatch';
+import { withKnownPowers } from '../engine/knownPowers';
 import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
-import { isPsykerOnlyTrait } from '../engine/traitEffects';
+import { isPsykerOnlyTrait, traitExcludesUnit } from '../engine/traitEffects';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
-import { armoryItemsLostByDeselecting, repairOrphanedArmory } from '../utils/armoryGuard';
+import { armoryItemsLostByDeselecting, repairOrphanedArmory, dropLegacyArmory } from '../utils/armoryGuard';
+import { enforcerWeaponBonus } from '../lib/supportSystems';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -65,12 +68,17 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 }
 
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
+/** Traits that are an UPGRADE rather than a blanket bonus: "One non-character model per squad ... may be upgraded to an Apothecary"
+ *  (Space Marines, Purity above All). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
+export const OPT_IN_TRAITS = new Set(['Purity above All']);
+
 function computeTraitSelections(
   unit: Unit, item: RosterEntry, names: string[], traits: Trait[], data: FactionData,
   freeTraitName?: string | null,
 ): TraitSelection[] {
   return names
     .map(name => {
+      if (OPT_IN_TRAITS.has(name) && !(item.optInTraits ?? []).includes(name)) return null;
       if (name === 'Heavy Infantry' && alreadyHasArmorSave4Plus(unit, item, data)) return null;
       if (name === 'Bionic Improvement' && alreadyHasInvulnSave(unit, item, data)) return null;
 
@@ -101,6 +109,8 @@ function computeTraitSelections(
       // answer has to be no. Dropped HERE, which every read passes through: a saved list, a shared
       // link and an imported code all heal themselves when the app updates, with no migration.
       if (isPsykerOnlyTrait(name) && !unit.is_psyker) return null;
+      // "Only for <Necron> units." (Eternal Conquerors): C'tan, Pariahs, Canoptek and the like do not pay.
+      if (traitExcludesUnit(name, unit)) return null;
 
       let raw: string | null | undefined;
       if (unit.is_vehicle) {
@@ -380,7 +390,7 @@ export const useArmyStore = create<ArmyStore>()(
             supplementData: {},
           };
         }
-        return { data: mergeAlliedIntoData(d, s.alliedFaction, s.alliedData), faction: d.faction };
+        return { data: dataForArchetype(mergeAlliedIntoData(d, s.alliedFaction, s.alliedData), s.archetype), faction: d.faction };
       }),
 
       setAlliedData: (d) => set((s) => {
@@ -462,8 +472,8 @@ export const useArmyStore = create<ArmyStore>()(
          * a different unit.
          */
         const cleared = army.map((e: RosterEntry) =>
-          e.archetypeHqUpgrade ? { ...e, archetypeHqUpgrade: false } : e);
-        return { archetype: a, army: clearYngir ? cleared.map((e: RosterEntry) =>
+          e.archetypeHqUpgrade ? (getArchetypeRule(s.archetype)?.hqPromotion?.grantsArmoryAccess && s.data ? dropLegacyArmory({ ...e, archetypeHqUpgrade: false }, s.data) : { ...e, archetypeHqUpgrade: false }) : e);
+        return { archetype: a, data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
           : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),
@@ -661,7 +671,8 @@ export const useArmyStore = create<ArmyStore>()(
             }];
           }
         }
-        const newArmy = [...s.army, entry];
+        // A psyker that knows every power of its disciplines (Paladin Squad) starts with them.
+        const newArmy = [...s.army, withKnownPowers(entry, u, s.data)];
         const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool);
         set({ army });
       },
@@ -707,7 +718,7 @@ export const useArmyStore = create<ArmyStore>()(
         });
         // Re-sync traits when the mark changes (mark uses a veteran slot) OR when a Dark Eldar
         // unit's sub-faction pick changes — the pick gates which traits it pays for.
-        const army = (('mark' in patch) || ('subfaction' in patch)) && s.data
+        const army = (('mark' in patch) || ('subfaction' in patch) || ('optInTraits' in patch)) && s.data
           ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : newArmy;
         // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes). Scoped: an
@@ -912,6 +923,7 @@ export const useArmyStore = create<ArmyStore>()(
           // and every `state.archetype === '...'` check in the validator would miss.
           if (newState.archetype) newState.archetype = currentArchetypeName(newState.archetype);
           if (newState.alliedArchetype) newState.alliedArchetype = currentArchetypeName(newState.alliedArchetype);
+          for (const k of ['legacy', 'legacy2', 'alliedLegacy'] as const) if (typeof newState[k] === 'string' && newState[k]) newState[k] = currentLegacyName(newState[k] as string);
           // Same for datasheets the author has renamed: a saved entry holds the unit NAME, and a
           // name that no longer resolves renders nothing and costs nothing (see unitRenames.ts).
           if (Array.isArray(newState.army)) {
@@ -941,7 +953,7 @@ export const useArmyStore = create<ArmyStore>()(
           const repairedArmy = s.data
             ? migratedArmy.map((e: RosterEntry) => {
                 const u = resolveUnit(e, s.data!);
-                return u ? repairOrphanedArmory(e, u, s.data!) : e;
+                return u ? withKnownPowers(repairOrphanedArmory(e, u, s.data!), u, s.data!) : e;
               })
             : migratedArmy;
           const army = s.data
@@ -990,6 +1002,7 @@ export const useArmyStore = create<ArmyStore>()(
           // archetype's previous name.
           if (typeof s.archetype === 'string') s.archetype = currentArchetypeName(s.archetype);
           if (typeof s.alliedArchetype === 'string') s.alliedArchetype = currentArchetypeName(s.alliedArchetype);
+          for (const k of ['legacy', 'legacy2', 'alliedLegacy']) if (typeof s[k] === 'string' && s[k]) s[k] = currentLegacyName(s[k] as string);
           if (typeof s.faction === 'string' && Array.isArray(s.army)) {
             s.army = applyUnitRenames(s.faction, s.army as { unitName: string }[]);   // no data at rehydrate; the import path applies the upgrade
             s.army = applyArmoryRenames(s.faction, s.army as { armory?: { itemName: string }[] }[]) as typeof s.army;
@@ -1050,7 +1063,7 @@ function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
     if (g.applies_to_model || g.independent_choices || !oq[gi]) return;
     const c = g.constraint;
     const max = c.type === 'every' ? e.size
-      : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1)
+      : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1) + enforcerWeaponBonus(unit, e, g)
       : null;
     if (max === null) return;
     const group = { ...oq[gi] };

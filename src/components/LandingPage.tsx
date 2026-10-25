@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v185d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186t_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -55,76 +55,336 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.85: Build army asks whether to continue the open list",
-    intro: "Build army can now take you back to the open list.",
+    title: "v1.86: The October sheet update",
+    intro: "The sheets changed a lot this month; the app now reads the new spellings.",
     install: "",
     sections: [
-      { label: "New in this version", rows: [
-        ["T'au Empire","Support systems are counted and capped: the Commander shows n/2 and the Armory stops at the limit."],
-        ["Psychic powers","A psyker that \"knows Smite and two powers\" now stops at two (Warlocks, Broodlords); \"one power\" psykers stop at one."],
-        ["Lists","Importing a list no longer overwrites a saved one (it asks first and Save makes a new list). Build army can also save the open army first."],
-        ["Build army","With an open list you can continue it, start a new one or cancel, instead of only discard or cancel."],
-        ["Necrons","Two Triarch Stalkers can each take their own weapon swap and Reinforced forelimbs."],
+      { label: "General", rows: [
+        ["Campaign","The Planetary Assault campaign is open as an alpha: sign in and press Campaign on the front page. Its rules are linked inside."],
+        ["Rules","Hover (or tap, on a phone) an ability in a weapon table to read its rule."],
+        ["Phones","Saved lists fit a narrow screen, and an update no longer looks like you were signed out."],
+        ["Accounts","You can change your own username from Account security."],
+        ["Print","Psychic powers, prayers and pacts are printed once, in a book after the last unit (and at the bottom of the battle view). Abilities a trait gives are explained in the Special Rules."],
+        ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them."],
+      ] },
+      { label: "Space Marines", rows: [
+        ["New","The Legion of the Damned archetype with its own 7-unit supplement, and the Stormfang Gunship."],
+        ["Legacy","Legacy of the Damned is now Legacy of the Relic Hunters."],
+        ["Purity above All","Paid only when you tick the Apothecary option on the unit."],
+      ] },
+      { label: "Chaos Space Marines", rows: [
+        ["New","Fellgors, Chaos Land Raider Sonic and Giant Chaos Spawn."],
+        ["Poxwalkers","Mindless is listed as a rule."],
+        ["Helbrute","Each Helbrute of a squad can swap its weapons and take its own combi-bolter or heavy flamer."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["New","Incubi Bloodstone, Murderous Assault and Onslaught, the Grotesque Aberration and the Mindphase gauntlet."],
+      ] },
+      { label: "Eldar", rows: [
+        ["New","The Hemlock Wraithfighter."],
+        ["Aspect Focus","Makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Tesla","The Night Scythe and Doom Scythe tesla guns no longer show AT(1)."],
+        ["Scarabs","The Scarab explosion now prints."],
+      ] },
+      { label: "T'au Empire", rows: [
+        ["Sheet 1.9","More Wounds, Strength and Toughness on the battlesuits, new points, Shield, Missile and Stealth Drones changed, Armory items repriced."],
+        ["XV85 Enforcer","Gets its extra weapon (and extra support system), for the Crisis Honor Guard and the Crisis Battlesuits."],
+        ["Kroot","Every Lone-Spear and Great Knarloc can take its own options."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Dark Mechanicum","Treated as Chaos Space Marines in the Ally matrix."],
+        ["Rule texts","Monotask, Choir Master and the Magos and Tech-Priest upgrades now show their text."],
+      ] },
+      { label: "Assassins", rows: [
+        ["Callidus, Vindicare","Both gain Hunter; the Callidus loses Polymorphine."],
+      ] },
+      { label: "Imperial Guard", rows: [
+        ["New","Rogal Dorn Tank Commander (640 pts); only one Leman Russ or Rogal Dorn Tank Commander per army."],
+        ["Updated","Leman Russ Tank Commander costs 294; Rogal Dorn costs 527 and has Strength 7."],
+        ["Platoons","Special and Heavy Weapon Squads taken in a platoon count toward the Troops points requirement."],
+        ["Tauros","Any Tauros can become a Venator, and the Venator stubber swap works. Combat Engineers no longer show a lasgun swap. Vulture, Valkyrie, Vendetta and the other flyers show 2x Hellstrike missiles and 3x Tactical bombs when the option says two or three."],
+      ] },
+      { label: "Grey Knights", rows: [
+        ["Paladins","Paladin Squads start knowing every General and Grey Knight power, so there is nothing to pick."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Atalan Jackals","Every Jackal and Wolfquad can take its own options."],
+      ] },
+      { label: "Leagues of Votann", rows: [
+        ["Demiurg","Can only be an allied detachment for the T’au Empire."],
+      ] },
+      { label: "Escalation", rows: [
+        ["War Dogs, Armigers","War Dogs for every Chaos army and Armigers for every Imperial army (Chaos Daemons excluded)."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.85: Armee bauen fragt, ob die offene Liste fortgesetzt wird",
-    intro: "Armee bauen führt jetzt auch zurück zur offenen Liste.",
+    title: "v1.86: Das Oktober-Update der Datenblätter",
+    intro: "Die Blätter haben sich diesen Monat stark geändert; die App liest jetzt die neuen Schreibweisen.",
     install: "",
     sections: [
-      { label: "Neu in dieser Version", rows: [
-        ["T'au Empire","Support Systems werden gezählt und begrenzt: Der Commander zeigt n/2 und die Armory hält am Limit an."],
-        ["Psionische Kräfte","Ein Psioniker, der „Smite und zwei Kräfte“ kennt, hört jetzt bei zwei auf (Warlocks, Broodlords); bei „einer Kraft“ bei einer."],
-        ["Listen","Ein Import überschreibt keine gespeicherte Liste mehr (er fragt vorher, Speichern legt eine neue an). Armee bauen kann die offene Armee auch zuerst speichern."],
-        ["Armee bauen","Mit offener Liste kannst du sie fortsetzen, eine neue beginnen oder abbrechen, statt nur verwerfen oder abbrechen."],
-        ["Necrons","Zwei Triarch Stalker können je ihren eigenen Waffentausch und Reinforced forelimbs nehmen."],
+      { label: "Allgemein", rows: [
+        ["Feldzug","Die Planetary-Assault-Kampagne ist als Alpha offen: melde dich an und drücke auf der Startseite auf Feldzug. Die Regeln sind dort verlinkt."],
+        ["Regeln","Fahre (oder tippe, auf dem Handy) in einer Waffentabelle auf eine Fähigkeit, um ihre Regel zu lesen."],
+        ["Handy","Gespeicherte Listen passen auf schmale Bildschirme, und ein Update sieht nicht mehr wie eine Abmeldung aus."],
+        ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
+        ["Druck","Psikräfte, Gebete und Pakte stehen einmal in einem Buch hinter der letzten Einheit (und unten in der Kampfansicht). Fähigkeiten eines Wesenszugs werden in den Spezialregeln erklärt."],
+        ["Blätter","Neue Preise, Optionen und Rüstkammer-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte zu Wesenszügen und Legacys folgen ihnen."],
+      ] },
+      { label: "Space Marines", rows: [
+        ["Neu","Der Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten) und das Stormfang Gunship."],
+        ["Legacy","Legacy of the Damned heißt jetzt Legacy of the Relic Hunters."],
+        ["Purity above All","Kostet nur noch, wenn du die Apothekar-Option bei der Einheit ankreuzt."],
+      ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Neu","Fellgors, Chaos Land Raider Sonic und Giant Chaos Spawn."],
+        ["Poxwalkers","Mindless steht als Regel da."],
+        ["Helbrute","Jeder Helbrute eines Trupps kann seine Waffen tauschen und seinen eigenen Combi-bolter oder Heavy flamer nehmen."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Neu","Incubi-Bloodstone, Murderous Assault und Onslaught, die Grotesque-Aberration und der Mindphase gauntlet."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Neu","Der Hemlock Wraithfighter."],
+        ["Aspect Focus","Macht die Dark Reapers zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Tesla","Die Tesla-Waffen von Night Scythe und Doom Scythe zeigen kein AT(1) mehr."],
+        ["Scarabs","Die Scarab-Explosion wird jetzt gedruckt."],
+      ] },
+      { label: "T'au", rows: [
+        ["Tabelle 1.9","Mehr Wunden, Stärke und Widerstand bei den Kampfanzügen, neue Punkte, Schild-, Raketen- und Tarndrohnen geändert, Rüstkammer neu bepreist."],
+        ["XV85 Enforcer","Bekommt seine zusätzliche Waffe (und sein zusätzliches Unterstützungssystem), bei Crisis-Ehrengarde und Crisis-Kampfanzügen."],
+        ["Kroot","Jeder Lone-Spear und jeder Great Knarloc kann seine eigenen Optionen nehmen."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Dark Mechanicum","Werden in der Alliiertenmatrix wie Chaos Space Marines behandelt."],
+        ["Regeltexte","Monotask, Choir Master und die Upgrades von Magos und Tech-Priest zeigen jetzt ihren Text."],
+      ] },
+      { label: "Assassinen", rows: [
+        ["Callidus, Vindicare","Beide erhalten Hunter; der Callidus verliert Polymorphine."],
+      ] },
+      { label: "Imperiale Armee", rows: [
+        ["Neu","Rogal Dorn Tank Commander (640 Pkt.); nur ein Leman Russ oder Rogal Dorn Tank Commander pro Armee."],
+        ["Aktualisiert","Leman Russ Tank Commander kostet 294; Rogal Dorn kostet 527 und hat Stärke 7."],
+        ["Platoons","Special und Heavy Weapon Squads in einem Platoon zählen jetzt für die Truppen-Mindestpunkte."],
+        ["Tauros","Jeder Tauros kann ein Venator werden, und der Stubber-Tausch des Venator funktioniert. Combat Engineers zeigen keinen Lasgun-Tausch mehr. Vulture, Valkyrie, Vendetta und die anderen Flieger zeigen 2x Hellstrike-Raketen und 3x Tactical bombs, wenn die Option zwei oder drei sagt."],
+      ] },
+      { label: "Grey Knights", rows: [
+        ["Paladine","Paladin Squads kennen von Anfang an jede allgemeine und Grey-Knight-Kraft, es gibt nichts zu wählen."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Atalan Jackals","Jeder Jackal und jeder Wolfquad kann seine eigenen Optionen nehmen."],
+      ] },
+      { label: "Leagues of Votann", rows: [
+        ["Demiurg","Kann nur ein verbündetes Kontingent für die T’au sein."],
+      ] },
+      { label: "Escalation", rows: [
+        ["War Dogs, Armigers","War Dogs für jede Chaos-Armee und Armigers für jede imperiale Armee (ohne Chaos Daemons)."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.85: Construir ejército pregunta si continuar la lista abierta",
-    intro: "Construir ejército ahora puede devolverte a la lista abierta.",
+    title: "v1.86: La actualización de hojas de octubre",
+    intro: "Las hojas han cambiado mucho este mes; la app ya lee las grafías nuevas.",
     install: "",
     sections: [
-      { label: "Novedades de esta versión", rows: [
-        ["T'au Empire","Los sistemas de apoyo se cuentan y tienen tope: el Commander muestra n/2 y la Armería se detiene en el límite."],
-        ["Poderes psíquicos","Un psíquico que «conoce Smite y dos poderes» ahora se detiene en dos (Warlocks, Broodlords); con «un poder», en uno."],
-        ["Listas","Importar una lista ya no sobreescribe una guardada (pregunta antes y Guardar crea una nueva). Construir ejército también puede guardar antes el ejército abierto."],
-        ["Construir ejército","Con una lista abierta puedes continuarla, empezar una nueva o cancelar, en vez de solo descartar o cancelar."],
-        ["Necrones","Dos Triarch Stalker pueden tomar cada uno su cambio de arma y sus Reinforced forelimbs."],
+      { label: "General", rows: [
+        ["Campaña","La campaña Planetary Assault está abierta como alpha: inicia sesión y pulsa Campaña en la portada. Las reglas están enlazadas dentro."],
+        ["Reglas","Pasa el ratón (o toca, en el móvil) sobre una habilidad de una tabla de armas para leer su regla."],
+        ["Móvil","Las listas guardadas caben en pantallas estrechas, y una actualización ya no parece un cierre de sesión."],
+        ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
+        ["Impresión","Los poderes psíquicos, plegarias y pactos se imprimen una vez, en un libro tras la última unidad (y al final de la vista de batalla). Las habilidades que da un rasgo se explican en las Reglas especiales."],
+        ["Hojas","Precios, opciones y objetos de Armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos de rasgos y legados los siguen."],
+      ] },
+      { label: "Space Marines", rows: [
+        ["Nuevo","El arquetipo Legion of the Damned con su propio suplemento de 7 unidades, y el Stormfang Gunship."],
+        ["Legado","Legacy of the Damned ahora es Legacy of the Relic Hunters."],
+        ["Purity above All","Solo se paga si marcas la opción del Apothecary en la unidad."],
+      ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Nuevo","Fellgors, Chaos Land Raider Sonic y Giant Chaos Spawn."],
+        ["Poxwalkers","Mindless aparece como regla."],
+        ["Helbrute","Cada Helbrute de un escuadrón puede cambiar sus armas y tomar su propio combi-bolter o heavy flamer."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Nuevo","Incubi Bloodstone, Murderous Assault y Onslaught, la Grotesque Aberration y el Mindphase gauntlet."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Nuevo","El Hemlock Wraithfighter."],
+        ["Aspect Focus","Convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
+      ] },
+      { label: "Necrones", rows: [
+        ["Tesla","Las armas tesla de la Night Scythe y la Doom Scythe ya no muestran AT(1)."],
+        ["Escarabajos","La explosión del Scarab ya se imprime."],
+      ] },
+      { label: "T'au", rows: [
+        ["Hoja 1.9","Más Heridas, Fuerza y Resistencia en los trajes, puntos nuevos, Drones Escudo, de Misiles y Sigilo cambiados, Armería con precios nuevos."],
+        ["XV85 Enforcer","Recibe su arma extra (y su sistema de apoyo extra), en la Guardia de Honor Crisis y los Trajes de Combate Crisis."],
+        ["Kroot","Cada Lone-Spear y cada Great Knarloc puede tomar sus propias opciones."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Dark Mechanicum","Se tratan como Chaos Space Marines en la matriz de aliados."],
+        ["Textos de reglas","Monotask, Choir Master y las mejoras de Magos y Tech-Priest ya muestran su texto."],
+      ] },
+      { label: "Asesinos", rows: [
+        ["Callidus, Vindicare","Ambos ganan Hunter; el Callidus pierde Polymorphine."],
+      ] },
+      { label: "Guardia Imperial", rows: [
+        ["Nuevo","Rogal Dorn Tank Commander (640 pts); solo un Leman Russ o Rogal Dorn Tank Commander por ejército."],
+        ["Actualizado","El Leman Russ Tank Commander cuesta 294; el Rogal Dorn cuesta 527 y tiene Fuerza 7."],
+        ["Pelotones","Los Special y Heavy Weapon Squads de un pelotón ya cuentan para los puntos mínimos de Tropas."],
+        ["Tauros","Cualquier Tauros puede ser un Venator, y el cambio de stubber del Venator funciona. Los Combat Engineers ya no muestran un cambio de lasgun. El Vulture, la Valkyrie, el Vendetta y los demás voladores muestran 2x misiles Hellstrike y 3x Tactical bombs cuando la opción dice dos o tres."],
+      ] },
+      { label: "Grey Knights", rows: [
+        ["Paladines","Los Paladin Squads empiezan conociendo todos los poderes generales y de Grey Knights, así que no hay nada que elegir."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Atalan Jackals","Cada Jackal y cada Wolfquad puede tomar sus propias opciones."],
+      ] },
+      { label: "Leagues of Votann", rows: [
+        ["Demiurg","Solo puede ser un destacamento aliado de los T’au."],
+      ] },
+      { label: "Escalation", rows: [
+        ["War Dogs, Armigers","War Dogs para todo ejército del Caos y Armigers para todo ejército imperial (sin Chaos Daemons)."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "v1.85: «Построить армию» спрашивает, продолжить ли открытый список",
-    intro: "Кнопка «Построить армию» теперь может вернуть к открытому списку.",
+    title: "v1.86: Октябрьское обновление таблиц",
+    intro: "В этом месяце таблицы сильно изменились; приложение теперь читает новые написания.",
     install: "",
     sections: [
-      { label: "Новое в этой версии", rows: [
-        ["T'au Empire","Системы поддержки считаются и ограничены: Commander показывает n/2, а Armory останавливается на пределе."],
-        ["Психические силы","Псайкер, который «знает Smite и две силы», теперь останавливается на двух (Warlocks, Broodlords); с «одной силой» — на одной."],
-        ["Списки","Импорт списка больше не перезаписывает сохранённый (сначала спрашивает, «Сохранить» создаёт новый). «Построить армию» также может сначала сохранить открытую армию."],
-        ["Построить армию","При открытом списке можно продолжить его, начать новый или отменить, а не только сбросить или отменить."],
-        ["Некроны","Два Triarch Stalker могут взять каждый свою замену оружия и Reinforced forelimbs."],
+      { label: "Общее", rows: [
+        ["Кампания","Кампания Planetary Assault открыта как альфа: войдите и нажмите «Кампания» на главной странице. Правила — по ссылке внутри."],
+        ["Правила","Наведите курсор (или коснитесь, на телефоне) на способность в таблице оружия, чтобы прочитать правило."],
+        ["Телефон","Сохранённые списки помещаются на узкий экран, а обновление больше не выглядит как выход из аккаунта."],
+        ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
+        ["Печать","Психические силы, молитвы и пакты печатаются один раз, в книге после последнего юнита (и внизу боевого режима). Способности от черт объяснены в особых правилах."],
+        ["Таблицы","Новые цены, опции и предметы Арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста черт и наследий идут следом."],
+      ] },
+      { label: "Space Marines", rows: [
+        ["Новое","Архетип Legion of the Damned с собственным дополнением из 7 отрядов и Stormfang Gunship."],
+        ["Наследие","Legacy of the Damned теперь называется Legacy of the Relic Hunters."],
+        ["Purity above All","Оплачивается, только если отметить опцию Apothecary у отряда."],
+      ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Новое","Fellgors, Chaos Land Raider Sonic и Giant Chaos Spawn."],
+        ["Poxwalkers","Mindless указан как правило."],
+        ["Helbrute","Каждый Helbrute отряда может заменить своё оружие и взять свой combi-bolter или heavy flamer."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Новое","Incubi Bloodstone, Murderous Assault и Onslaught, Grotesque Aberration и Mindphase gauntlet."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Новое","Hemlock Wraithfighter."],
+        ["Aspect Focus","Делает Dark Reapers Элитой; воинам Аспектов можно менять оружие на Sun pistol и Sun rifle."],
+      ] },
+      { label: "Некроны", rows: [
+        ["Тесла","У тесла-оружия Night Scythe и Doom Scythe больше нет AT(1)."],
+        ["Скарабеи","Взрыв Scarab теперь печатается."],
+      ] },
+      { label: "T'au", rows: [
+        ["Таблица 1.9","Больше Ран, Силы и Стойкости у костюмов, новые очки, изменены щитовые, ракетные и stealth-дроны, новые цены в Арсенале."],
+        ["XV85 Enforcer","Получает дополнительное оружие (и систему поддержки) у Crisis Honor Guard и Crisis Battlesuits."],
+        ["Kroot","Каждый Lone-Spear и Great Knarloc может взять свои опции."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Dark Mechanicum","В матрице союзников считаются Chaos Space Marines."],
+        ["Тексты правил","Monotask, Choir Master и улучшения Magos и Tech-Priest теперь показывают текст."],
+      ] },
+      { label: "Ассасины", rows: [
+        ["Callidus, Vindicare","Оба получают Hunter; Callidus теряет Polymorphine."],
+      ] },
+      { label: "Имперская гвардия", rows: [
+        ["Новое","Rogal Dorn Tank Commander (640 очков); в армии только один Leman Russ или Rogal Dorn Tank Commander."],
+        ["Обновлено","Leman Russ Tank Commander стоит 294; Rogal Dorn стоит 527 и имеет Силу 7."],
+        ["Взводы","Special и Heavy Weapon Squads во взводе теперь учитываются в минимуме очков Troops."],
+        ["Tauros","Любой Tauros может стать Venator, замена станкового пулемёта у Venator работает. Combat Engineers больше не показывают замену лазгана. Vulture, Valkyrie, Vendetta и другие летательные аппараты показывают 2x ракеты Hellstrike и 3x Tactical bombs, когда в опции указано два или три."],
+      ] },
+      { label: "Grey Knights", rows: [
+        ["Паладины","Paladin Squads сразу знают все общие силы и силы Grey Knights, выбирать нечего."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Atalan Jackals","Каждый Jackal и Wolfquad может взять свои опции."],
+      ] },
+      { label: "Leagues of Votann", rows: [
+        ["Demiurg","Может быть только союзным отрядом для T’au."],
+      ] },
+      { label: "Escalation", rows: [
+        ["War Dogs, Armigers","War Dogs для каждой армии Хаоса и Armigers для каждой имперской армии (без Chaos Daemons)."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "v1.85: 「軍を作る」で開いているリストを続けるか確認",
-    intro: "「軍を作る」から開いているリストに戻れるようになりました。",
+    title: "v1.86: 10月のシート更新",
+    intro: "今月はシートが大きく変わりました。アプリは新しい表記を読み取ります。",
     install: "",
     sections: [
-      { label: "このバージョンの新機能", rows: [
-        ["T'au Empire","サポートシステムが数えられ上限が付きました：Commanderはn/2を表示し、Armoryは上限で止まります。"],
-        ["サイキックパワー","「Smiteと2つのパワーを知っている」サイキッカーは2つで止まります（Warlocks、Broodlord）。「1つ」のサイキッカーは1つで止まります。"],
-        ["リスト","リストのインポートで保存済みのリストが上書きされなくなりました（先に確認し、保存すると新規作成）。「軍を作る」で開いている軍を先に保存することもできます。"],
-        ["軍を作る","開いているリストがある場合、破棄かキャンセルだけでなく、続ける・新しく始める・キャンセルから選べます。"],
-        ["ネクロン","2体のTriarch Stalkerがそれぞれ自分の武器交換とReinforced forelimbsを取れます。"],
+      { label: "全般", rows: [
+        ["キャンペーン","Planetary Assaultキャンペーンがアルファとして公開されました。サインインして、トップページのキャンペーンを押してください。ルールへのリンクが中にあります。"],
+        ["ルール","武器表のアビリティにカーソルを合わせる（スマホではタップ）と、ルールを読めます。"],
+        ["スマホ","保存リストが狭い画面に収まり、アップデートでサインアウトされたように見えなくなりました。"],
+        ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
+        ["印刷","サイキックパワー、祈り、協定は最後のユニットの後の「本」に1回だけ印刷されます（戦闘ビューの下にもあります）。特性が与えるアビリティは特殊ルール欄で説明されます。"],
+        ["シート","10月のシートの新しい価格、オプション、アーモリー品目。Perfect Timingのパワーと44の特性・レガシー文がそれに続きます。"],
+      ] },
+      { label: "スペースマリーン", rows: [
+        ["新規","Legion of the Damnedアーキタイプ（7ユニットの専用サプリメント）とStormfang Gunship。"],
+        ["レガシー","Legacy of the DamnedはLegacy of the Relic Huntersになりました。"],
+        ["Purity above All","ユニットのApothecaryオプションにチェックしたときだけ支払います。"],
+      ] },
+      { label: "ケイオス・スペースマリーン", rows: [
+        ["新規","Fellgors、Chaos Land Raider Sonic、Giant Chaos Spawn。"],
+        ["Poxwalkers","Mindlessがルールとして載ります。"],
+        ["Helbrute","分隊の各Helbruteが自分の武器を交換し、自分のcombi-bolterまたはheavy flamerを取れます。"],
+      ] },
+      { label: "ダークエルダー", rows: [
+        ["新規","Incubi Bloodstone、Murderous AssaultとOnslaught、Grotesque Aberration、Mindphase gauntlet。"],
+      ] },
+      { label: "エルダー", rows: [
+        ["新規","Hemlock Wraithfighter。"],
+        ["Aspect Focus","Dark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],
+      ] },
+      { label: "ネクロン", rows: [
+        ["テスラ","Night ScytheとDoom Scytheのテスラ砲にAT(1)が表示されなくなりました。"],
+        ["スカラブ","Scarabの爆発が印刷されるようになりました。"],
+      ] },
+      { label: "タウ", rows: [
+        ["シート1.9","バトルスーツのWound・強さ・耐久が増加、ポイント変更、シールド／ミサイル／ステルスドローンの変更、アーモリーの価格改定。"],
+        ["XV85 Enforcer","Crisis Honor GuardとCrisis Battlesuitsで追加武器（と追加サポートシステム）を使えます。"],
+        ["Kroot","各Lone-SpearとGreat Knarlocが自分のオプションを取れます。"],
+      ] },
+      { label: "アデプトゥス・メカニカス", rows: [
+        ["Dark Mechanicum","同盟マトリクスでChaos Space Marinesとして扱われます。"],
+        ["ルール文","Monotask、Choir Master、MagosとTech-Priestのアップグレードがテキストを表示します。"],
+      ] },
+      { label: "アサシン", rows: [
+        ["Callidus、Vindicare","両方がHunterを得て、CallidusはPolymorphineを失います。"],
+      ] },
+      { label: "インペリアル・ガード", rows: [
+        ["新規","Rogal Dorn Tank Commander（640ポイント）。Leman RussまたはRogal Dorn Tank Commanderは軍に1体のみ。"],
+        ["更新","Leman Russ Tank Commanderは294、Rogal Dornは527で強さ7。"],
+        ["小隊","小隊に入れたSpecial・Heavy Weapon Squadがトループスの最低ポイントに数えられます。"],
+        ["Tauros","任意のTaurosをVenatorにでき、Venatorのスタブ交換が動きます。Combat Engineersはラスガン交換を表示しません。 Vulture、Valkyrie、Vendetta、ほかのフライヤーは、オプションが2または3のとき、Hellstrikeミサイル2xとTactical bombs 3xを表示します。"],
+      ] },
+      { label: "グレイナイト", rows: [
+        ["パラディン","Paladin Squadは最初から一般とグレイナイトの全パワーを知っているため、選ぶ必要はありません。"],
+      ] },
+      { label: "ジェネスティーラー・カルト", rows: [
+        ["Atalan Jackals","各JackalとWolfquadが自分のオプションを取れます。"],
+      ] },
+      { label: "Leagues of Votann", rows: [
+        ["Demiurg","タウの同盟部隊としてのみ使えます。"],
+      ] },
+      { label: "Escalation", rows: [
+        ["War Dogs、Armigers","全ケイオス軍にWar Dogs、全帝国軍にArmiger（Chaos Daemons除く）。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
@@ -149,11 +409,17 @@ function ClipSvg() {
 
 function CommunityAnnouncement() {
   const { language } = useLanguage();
-  const tClose = useT()('close');
+  const tt = useT();
+  const tClose = tt('close');
   const tx = ANNOUNCEMENT_TEXT[language];
   const [dismissed, setDismissed] = useState(
     () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
   );
+  // The announcement opens FOLDED to its title line and a "Show the changes (N)" button (Rigzar, 2026-10-25: "el banner puede salir
+  // plegado, es lo mas sano": fourteen faction headers are a long block at the top of the page). If the reader opens it, that is
+  // remembered for THIS announcement only (it stores the key it was opened for), so the next announcement is folded again.
+  const [folded, setFolded] = useState(() => { try { return localStorage.getItem('c40k_announcement_open') !== ANNOUNCEMENT_KEY; } catch { return true; } });
+  const toggleFolded = () => setFolded(f => { const n = !f; try { n ? localStorage.removeItem('c40k_announcement_open') : localStorage.setItem('c40k_announcement_open', ANNOUNCEMENT_KEY); } catch { /* private window */ } return n; });
   if (dismissed) return null;
   return (
     <div className="relative mb-6">
@@ -181,10 +447,19 @@ function CommunityAnnouncement() {
       {/* Ordo card — pt-14 so content clears the skull overlap */}
       <div className="bg-zinc-900 border border-zinc-700 border-t-2 border-t-amber-900/80 px-5 pt-14 pb-4">
         <div className="flex justify-between items-start gap-4">
-          <div className="text-[10px] text-amber-600 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
+          <button
+            onClick={toggleFolded}
+            aria-expanded={!folded}
+            title={folded ? tt('playExpandAll') : tt('playCollapseAll')}
+            className="flex-1 text-left text-[10px] text-amber-600 hover:text-amber-500 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5 transition-colors"
+          >
             <span className="opacity-60">⚙</span>
-            {tx.title}
-          </div>
+            <span>{tx.title}</span>
+            {/* A visible button, not a bare arrow: it has to be obvious that the card folds, and that the changes are inside it. */}
+            <span className="ml-auto shrink-0 border border-amber-700/70 bg-amber-900/20 px-2 py-0.5 text-[10px] normal-case tracking-normal text-amber-400">
+              {folded ? `${tt('bannerShow')} (${tx.sections.reduce((n, sec) => n + sec.rows.length, 0)}) ▾` : `${tt('bannerHide')} ▴`}
+            </span>
+          </button>
           <button
             onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
             className="text-red-500 hover:text-red-300 text-lg leading-none shrink-0 transition-colors"
@@ -193,7 +468,7 @@ function CommunityAnnouncement() {
             ×
           </button>
         </div>
-        <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
+        {!folded && <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
           {/* `install` is a highlighted block used only when a release leads with the PWA/offline
               news; empty on releases that don't (skipped so it leaves no gap). */}
@@ -247,7 +522,7 @@ function CommunityAnnouncement() {
             </details>
           ))}
           <p className="text-zinc-400">{tx.contrib}</p>
-        </div>
+        </div>}
       </div>
     </div>
   );
@@ -383,7 +658,7 @@ export function LandingPage({
   const [unread, setUnread] = useState(0);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
-  const { loggedIn, username, avatar, isAdmin, isInterrogator } = useAuth();
+  const { loggedIn, username, avatar } = useAuth();
   const refreshUnread = () => { api.getUnreadCount().then(r => setUnread(r.count)).catch(() => {}); };
   useEffect(() => { if (loggedIn) refreshUnread(); else setUnread(0); }, [loggedIn]);
   // Gitfinda: how many unread chat messages / fresh matches are waiting, shown on its button.
@@ -392,7 +667,7 @@ export function LandingPage({
     if (!loggedIn) return;
     const load = () => api.gitfindaUnread().then(r => setGfUnread(r.unread)).catch(() => {});
     load();
-    const id = setInterval(load, 60000);
+    const id = setInterval(() => { if (!document.hidden) load(); }, 180000);
     return () => clearInterval(id);
   }, [loggedIn]);
 
@@ -551,28 +826,16 @@ export function LandingPage({
               {t('navCommunityArmies')}
             </button>
 
-            {/* Campaign (Planetary Assault) is built but not yet opened up to regular players —
-                admins (both Inquisitor and Interrogator) get early access to it while logged in,
-                everyone else still sees the disabled "Coming Soon" state. */}
-            {loggedIn && (isAdmin || isInterrogator) ? (
-              <button
-                onClick={onShowCampaign}
-                title={t('navCampaignAlphaAdmin')}
-                className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
-              >
-                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
-                {t('navCampaignAlphaAdmin')}
-              </button>
-            ) : (
-              <button
-                disabled
-                title={t('navCampaignComingSoon')}
-                className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
-              >
-                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
-                {t('navCampaignComingSoon')}
-              </button>
-            )}
+            {/* Campaign (Planetary Assault) is open to every player as an ALPHA since 2026-10-24, signed in (the sign-in
+                dialog opens for a visitor): sectors, supply, buildings, roster, battle log and weekly events. */}
+            <button
+              onClick={onShowCampaign}
+              title={t('navCampaignAlphaOpen')}
+              className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
+              {t('navCampaignAlphaOpen')}
+            </button>
 
             {/* OPEN TO EVERYONE since 2026-09-14: the alpha gate came off once Dominic, Unwise and
                 atypicalhero had run a league end to end and signed it off. Signing in is still

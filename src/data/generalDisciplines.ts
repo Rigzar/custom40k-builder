@@ -57,8 +57,8 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
     {
       name: 'Perfect Timing',
       type: 'Augmentation', range: '12"', target: 'Friendly unit',
-      cast_value: '5', duration: 'Until the caster\'s next activation', complexity: 'Basic',
-      effect: 'The target may change the result of a single die roll to any result during their own activation.',
+      cast_value: '7', duration: 'Until the caster\'s next activation', complexity: 'Basic',
+      effect: 'The target may re-roll one of each: Advance roll, Armor penetration roll, Hit roll, Save roll, Ward roll, Wound roll.',
     },
     {
       name: 'Premonition',
@@ -70,7 +70,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Foresight',
       type: 'Augmentation', range: '12"', target: 'Friendly unit',
       cast_value: '6', duration: 'Until the caster\'s next activation', complexity: 'Basic',
-      effect: 'The target gains a 5+ ward save.',
+      effect: 'The target gains Ward(5+).',
     },
     {
       name: 'Misfortune',

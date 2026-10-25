@@ -39,16 +39,16 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Each model is equipped with: Combi-Bolter; Power sword.",
+    "equipped_with": "Each model is equipped with: Terminator Armor; Combi-Bolter; Power sword.",
     "weapons": [
         {
-            "name": "Chainfist",
+            "name": "Chain fist",
             "range": "-",
             "type": "Melee",
             "s": "x2",
-            "ap": "-4",
+            "ap": "-3",
             "d": "3",
-            "abilities": "Armorbane(3), AT(3), Slow(-3)"
+            "abilities": "AT(3), Piercing(5+), Slow(-3), Unwieldy"
         },
         {
             "name": "Lightning claw",
@@ -272,8 +272,8 @@
                     "points": 9
                 },
                 {
-                    "name": "Chainfist",
-                    "points": 17
+                    "name": "Chain fist",
+                    "points": 15
                 }
             ],
             "inline_pts": null,
@@ -328,8 +328,7 @@
         }
     ],
     "abilities": [
-        "Deep strike, Massive(1), Unyielding",
-        "Crux Terminatus: This unit has a 5+ ward save."
+        "Deep strike, Massive(1), Unyielding, Ward(5+)"
     ],
     "unit_type": "Infantry",
     "keywords": [

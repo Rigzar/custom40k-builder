@@ -237,7 +237,7 @@
                     "points": 10,
                     "effect": {
                         "grants_abilities": [
-                            "Press the Button: Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Armor piercing(5+)\" for all weapons until the end of the battle round."
+                            "Press the Button: Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Piercing(5+)\" for all weapons until the end of the battle round."
                         ]
                     }
                 },
@@ -272,10 +272,34 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "May be upgraded to a Big Lugga for +40 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Big Lugga",
+                    "points": 40,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "BS",
+                                "value": "4+"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
         "Dakka Dakka Dakka, Open, Ramshackle, Squadron, Waaagh!",
+        "Big Lugga: This model increases its BS to 4+ and its transport capacity to 20 models. It may only transport Grots. When equipped with a Kannon, Lobba, or Zzapp Gun, it has a transport capacity of 10 infantry models. When equipped with Flakka gunz, a Big lobba, Killkannon, or Big Zzappa, it has a transport capacity of 0 infantry models. ",
         "Transport: This model has a transport capacity of 12 infantry models. When equipped with a Kannon, Lobba, or Zzapp Gun, it has a transport capacity of 6 infantry models. When equipped with Flakka gunz, a Big lobba, Killkannon, or Big Zzappa, it has a transport capacity of 0 infantry models. "
     ],
     "unit_type": "Vehicle",

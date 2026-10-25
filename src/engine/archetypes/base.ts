@@ -25,6 +25,17 @@ export interface ArchetypeRule {
   forcedMark: string | null;
   requireForcedMarkOnly: boolean;
   bannedUnits: string[];
+  /**
+   * Units a datasheet marks `requires_archetype_unlock` that THIS archetype makes available. The Escalation War Dog is a Chaos
+   * Elite choice: Chaos Space Marines carry it natively, and the archetypes that make another army Chaos (Traitor Guard, Renegades,
+   * Dark Mechanicum) unlock the copy in that army's own roster.
+   */
+  unlocksUnits?: string[];
+  /**
+   * The archetype can only be chosen for an ALLIED detachment of this faction (loader key). Leagues of Votann 1.5, Demiurg:
+   * "Can only be taken as an allied detachment for T'au Empire."
+   */
+  alliedOnlyTo?: string;
   bannedSlots: string[];
   hqOverride: [number, number] | null;
   hqAllowed: string[];
@@ -95,6 +106,10 @@ export interface ArchetypeRule {
   allowedUnitsOnly: string[];
   /** Units with none of these keywords are blocked (empty = no filter). "-" keyword (Swords for hire) bypasses check. */
   allowedKeywords: string[];
+  /** Units allowed BY NAME in addition to the keyword matches (Orks' Gretchin Revolutionary Committee: Gretchins and Snotlings are Grot units but carry no Grot keyword). */
+  allowedKeywordUnits?: string[];
+  /** Share of the game size that must be spent on qualifying Troops, replacing the engagement's 25% (the Committee: 15%). */
+  troopsMinRatio?: number;
   notes: string[];
   /** Structured notes for rich UI display. When present, rendered instead of plain notes[]. */
   structuredNotes?: StructuredNote[];
@@ -198,6 +213,16 @@ export interface ArchetypeRule {
   hqPromotion?: {
     unitNameContains: string; requiresChoice?: string;
     /**
+     * Further unit names the sheet promotes under the same rule, each claimed by ITS OWN entry
+     * (Tau Farsight Enclave: "One unit each of Broadside Battlesuits and Riptide Battlesuits can
+     * be taken with an HQ slot if they consist of a single model").
+     */
+    unitNameAlso?: string[];
+    /** The promoted entry must be a single model (Farsight Enclave); a larger squad does not qualify. */
+    singleModel?: boolean;
+    /** The promoted model gains access to its faction's Legacy armory (Tyranids "The model gains access to the Hive Fleet Armory"). */
+    grantsArmoryAccess?: boolean;
+    /**
      * An ability value the promoted model improves: Megafauna's "The Regeneration(1) ability becomes
      * Regeneration(2) for that model". Applied to the granted-ability texts of the entry that
      * claimed the promotion (`archetypeHqUpgrade`), and only to it.
@@ -215,6 +240,8 @@ export interface ArchetypeRule {
    * dataHealth, like every other list in this file.
    */
   grantsAbility?: { ability: string; units: string[] } | null;
+  /** Removes models and abilities from named units while the archetype is active (see dataPatch.ts). Gretchin Revolutionary Committee: no Runtherds, no Cowardly. */
+  unitPatch?: { units: string[]; dropModels?: string[]; dropAbilityPrefixes?: string[]; dropAbilityNames?: string[] } | null;
   /**
    * Caps how many Troops selections OTHER than `anchorUnit` are allowed, scaled by how many
    * copies of `anchorUnit` are in the army — e.g. IG Whiteshields' "You are only allowed one

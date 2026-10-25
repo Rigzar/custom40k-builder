@@ -48,7 +48,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Dreadnought close combat weapon",
@@ -81,8 +81,8 @@
         }
     ],
     "abilities": [
-        "Shield Host, Squadron",
-        "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 0)."
+        "Shield Host, Squadron, Ward(5+)",
+        "Custodes Atomantic Shielding: Enemy attacks receive a -1 AT penalty (to a minimum of 0)."
     ],
     "unit_type": "Vehicle, Walker",
     "keywords": [],

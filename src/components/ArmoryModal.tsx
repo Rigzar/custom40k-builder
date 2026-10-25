@@ -20,6 +20,7 @@ import {
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 import { nm, rl } from '../utils/localName';
+import { AbilityTokens } from './AbilityTokens';
 import { armoryAccessorCount, championArmoryBuyers } from '../lib/battleProfile';
 import { supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 
@@ -188,6 +189,8 @@ const ArmoryCountsContext = createContext<{
   capOf: (arm: ArmoryItem, selId: string) => number;
   /** Why this item cannot be added to the weapon table right now, in words (null when it can). */
   reasonOf: (arm: ArmoryItem) => string | null;
+  /** The weapons this item has already been bought for (a per-weapon purchase may not be repeated on the same gun). */
+  targetsTakenOf: (armName: string) => string[];
 } | null>(null);
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
@@ -272,9 +275,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // `activeData` is the data this item's armoury comes from (the sibling gates below use it too).
   const isInquisition = activeData.faction === 'Inquisition';
   // (Imperial Navy 1.1 dropped the single-item pick from the Warrant of Trade: only the Inquisition keeps this tab.)
+  // Inquisition 1.4: Heretic and Iconoclast "Does not apply to Legendary Retinue" - a retinue keeps the Imperial list.
   const hasAuthorityTab = isInquisition;
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
-  const authorityFactions = archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
+  const authorityFactions = item.retinue ? IMPERIAL_AUTHORITY_FACTIONS
+    : archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
   // Level 1 — once per model: blocked once the squad already holds one copy per model (item.size),
   // unless desc says "Can be taken multiple times". For a true Character (is_character:true) or any
@@ -437,8 +442,28 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return cap !== null && supportSystemsOwned(unit, item, activeData) >= cap;
   }
 
+  /**
+   * WHY an item can never be bought by THIS unit (as opposed to "not right now"). These used to filter the item OUT of the
+   * list, so a player looking for it just saw it missing with no explanation (Rigzar, 2026-10-18: nothing hidden, every
+   * item that cannot be bought says why). Items already bought stay out of this so they remain removable.
+   */
+  function structuralReason(arm: ArmoryItem, sec: Section): string | null {
+    if (boughtItemNames.has(arm.name)) return null;
+    if (arm.category === 'veteran' || arm.category === 'vehicle') return null;
+    if (termRestricted && !isItemTermCompat(arm)) return t('armReasonTerm');
+    if (gravisRestricted && !isItemGravisCompat(arm)) return t('armReasonGravis');
+    if (glyphArmourGlyph && !arm.name.includes(glyphArmourGlyph)) return t('armReasonGlyph').replace('{g}', glyphArmourGlyph);
+    if (isTauPlainInfantry && !arm.name.includes('ᴵ')) return t('armReasonTau');
+    if (isVehicle && !unit.is_character && !isOrkKustomJob(arm.name)) return t('armReasonVehicleShop');
+    if (sec === 'weapons' && meleeOnlyNoSlowUnwieldy && !isMeleeNoSlowUnwieldy(arm)) return t('armReasonMeleeOnly');
+    if (isArmyItemGateBlocked(arm, rosterArmoryItemNames)) return t('armReasonOrdo').replace('{x}', arm.requires_army_item ?? '');
+    if (sec === 'equipment' && activeData.faction === 'Eldar' && isChar && ELDAR_EXARCH_POWERS.includes(arm.name)) return t('armReasonExarch');
+    return null;
+  }
+
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
+    if (structuralReason(arm, sec)) return true;
     if (oncePerModelBlocked(arm, sec)) return true;
     if (supportCapBlocked(arm, sec)) return true;
     if (uniqueArmyBlocked(arm, sec)) return true;
@@ -460,6 +485,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
    * change instead of just fading (Rigzar, 2026-10-09: the select/deselect system had to be clearer).
    */
   function blockReason(arm: ArmoryItem, sec: Section): string | null {
+    const structural = structuralReason(arm, sec);
+    if (structural) return structural;
     if (oncePerModelBlocked(arm, sec)) return t('armReasonCap').replace('{n}', String(copyCap(arm, sec)));
     if (supportCapBlocked(arm, sec)) return t('armReasonSupport').replace('{n}', String(supportSystemCap(unit, item, activeData!, traitPool) ?? 0));
     if (uniqueArmyBlocked(arm, sec)) return t('armReasonUnique');
@@ -475,7 +502,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     }
     if (!arm.category) {
       if (isMarkBlocked(arm)) return t('armReasonMark');
-      if (getItemPts(arm) === null) return t('armReasonNoPrice');
+      if (getItemPts(arm) === null) {
+        // Name the real cause: the sheet prices most weapons in two columns (unit / character model) and leaves one empty.
+        const unitPrice = parsePrice(arm.p_unit), charPrice = parsePrice(arm.p_char);
+        if (!isChar && charPrice != null && unitPrice == null) return t('armReasonCharOnly');
+        if (isChar && unitPrice != null && charPrice == null) return t('armReasonNotChar');
+        return t('armReasonNoPrice');
+      }
     }
     return null;
   }
@@ -624,8 +657,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         : effectiveMark && markArmories[effectiveMark] ? [markArmories[effectiveMark]] : []),
     ];
     const pool = sources.flatMap(src => src.daemon_weapons as ArmoryItem[]);
-    return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(pool))))
-      .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+    // The Daemon-weapon picker offers only what can actually be taken (it is a choice list, not the armoury table).
+    return pool.filter(arm => !structuralReason(arm, 'weapons'));
   }
   const daemonWeaponSelections = currentArmory.filter(a => a.section === 'daemon_weapons');
   /** "Daemon weapon" and "Greater Daemon weapon" can't be combined — each gateway's own desc says so. */
@@ -705,10 +738,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // armor as a Lieutenant's veteran pick made the Veteran Abilities picker show "No items in this
   // section" for every OTHER ability, since none of them carry ᵀ.
   function filterTermCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return termRestricted ? armItems.filter(a => a.category === 'veteran' || isItemTermCompat(a) || boughtItemNames.has(a.name)) : armItems;
+    return armItems; // shown, not removed: structuralReason() says why
   }
   function filterGravisCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return gravisRestricted ? armItems.filter(a => a.category === 'veteran' || isItemGravisCompat(a) || boughtItemNames.has(a.name)) : armItems;
+    return armItems;
   }
 
   // Orks "Mega armor" (ᴹ) / Leagues of Votann "Exo-armor" (ᴱ): same shape as ᵀ/ᴳ above, but these
@@ -719,7 +752,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // exemption as above applies here too.
   const glyphArmourGlyph = glyphArmourRestriction(activeData.faction, boughtArmourNames);
   function filterGlyphArmourCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return glyphArmourGlyph ? armItems.filter(a => a.category === 'veteran' || a.name.includes(glyphArmourGlyph) || boughtItemNames.has(a.name)) : armItems;
+    return armItems;
   }
 
   // Tau Empire ("Armory" sheet): "Infantry models may only use equipment marked with ᴵ" — applies
@@ -744,9 +777,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return !/\b(slow|unwieldy)\b/i.test(arm.abilities ?? '');
   }
   function filterMeleeOnlyNoSlowUnwieldy(armItems: ArmoryItem[]): ArmoryItem[] {
-    return meleeOnlyNoSlowUnwieldy
-      ? armItems.filter(a => isMeleeNoSlowUnwieldy(a) || boughtItemNames.has(a.name))
-      : armItems;
+    return armItems;
   }
 
   // Filter items by unit type and category
@@ -759,7 +790,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         if (isVehicle || unit.is_monster) return arm.p_veh != null;
         return true;
       }
-      if (!arm.category && isTauPlainInfantry && !arm.name.includes('ᴵ')) return false;
       // A vehicle cannot shop the general WEAPON/EQUIPMENT sections. Checked against every live
       // sheet: 178 vehicle datasheets say "Has access to vehicle equipment from the Armory" and
       // NOT ONE grants general access. The sheets say it structurally too — the general sections
@@ -771,7 +801,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       // rather than per hull point (which is why these are not modelled as veteran items), and
       // Ork vehicle datasheets explicitly say "Can get one Kustom job" — 13 of them do.
       // Character-bodied vehicles keep full access: their relics are priced via p_char.
-      if (!arm.category && isVehicle && !unit.is_character) return isOrkKustomJob(arm.name);
       return true;
     });
   }
@@ -1027,8 +1056,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (!armory) return [];
     if (sec === 'equipment' && isWeaponsOnly) return [];
     if (sec === 'weapons' && isGearOnly) return [];
-    let list = filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[]))))
-      .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+    let list = filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[]))));
     // Eldar: the 16 Exarch Powers sit in the general armoury as individual +5pt equipment rows so
     // an Aspect squad's Exarch can buy one directly. Their p_char is null (= "not for Character
     // models"), but Eldar psyker characters (Farseer/Spiritseer/Wraithseer) price the general
@@ -1036,9 +1064,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // the Exarch pool's p_unit:5 and wrongly exposed all 16 to them (reported for Farseer). A
     // character only ever gains an Exarch Power via the "Paragon of war" item (its own picker), so
     // hide the raw power rows from any Eldar character.
-    if (sec === 'equipment' && activeData.faction === 'Eldar' && isChar) {
-      list = list.filter(a => !ELDAR_EXARCH_POWERS.includes(a.name));
-    }
     if (sec === 'weapons') list = filterMeleeOnlyNoSlowUnwieldy(list);
     return list;
   }
@@ -1105,7 +1130,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const foreignVehicleEquip: ArmoryItem[] = (!isAllied && archetypeRuleForArmory?.armoryOnlyFaction && isVehicle
     ? ((archetypeArmoryData?.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => a.category === 'vehicle')
     : []
-  ).filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+  );
   // Same shape, same cause, different armoury: a vehicle carrying a Mark could never reach its
   // Mark's VEHICLE UPGRADES. The vehicle panel opens with filterCategory="vehicle" and hides the
   // tab bar, so the "mark" tab — where a Chaos Predator's Mirror plate and Warpflame gargoyles
@@ -1117,7 +1142,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         : effectiveMark ? ((markArmories[effectiveMark]?.equipment ?? []) as ArmoryItem[]) : [])
       .filter(a => a.category === 'vehicle')
     : []
-  ).filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+  );
   const foreignVehicleNames = new Set(foreignVehicleEquip.map(a => a.name));
   const foreignSourceLabel = `${archetype} — ${archetypeArmoryData?.faction ?? ''} Armoury`;
   const vehicleEquipBase = markVehicleEquip.length
@@ -1137,6 +1162,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       return sel ? copyCap(arm, sel.section as Section) : 1;
     },
     reasonOf: (arm: ArmoryItem) => (isAddBlocked(arm, 'weapons') ? blockReason(arm, 'weapons') : null),
+    targetsTakenOf: (armName: string) => currentArmory.filter(a => a.itemName === armName && a.targetWeapon).map(a => a.targetWeapon as string),
   };
 
   // "You carry": every bought item once, with its copies, its price and a way to take it off, at the top of the
@@ -1345,7 +1371,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
-                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')} reasonFor={arm => blockReason(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
                         onAdd={arm => {
@@ -1446,7 +1472,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
                         markless={legMarkless(legName)}
-                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')} reasonFor={arm => blockReason(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
                         onAdd={arm => {
@@ -1547,7 +1573,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         lastAdded={lastAdded}
                         markless
                         getPts={getItemPts}
-                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={() => authorityCapReached}
+                        takenEnhancements={takenEnhancementsFor} isUniqueSelected={() => authorityCapReached} reasonFor={() => t('armReasonAuthority')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
                         onAdd={arm => {
@@ -1569,6 +1595,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       <ArmoryWeaponTable
                         items={foreignWeapons} justAddedName={lastAdded ?? undefined}
                         isBlocked={() => authorityCapReached}
+                        reasonOverride={() => (authorityCapReached ? t('armReasonAuthority') : null)}
                         getPts={getItemPts}
                         getSelId={name => getSelId(name, 'weapons')}
                         getCount={name => getSelCount(name, 'weapons')}
@@ -1607,7 +1634,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   ...(itemRule?.grantsMarkArmory && effectiveMark && archetypeArmoryData.armory_marks?.[effectiveMark]
                     ? ((archetypeArmoryData.armory_marks[effectiveMark].daemon_weapons ?? []) as ArmoryItem[])
                     : []),
-                ].filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+                ];
                 const foreignSrcLabel = `${archetype} — ${archetypeArmoryData.faction} Armoury`;
                 // Respect the WEAPONS/EQUIPMENT sub-tab like every other armoury source does —
                 // this used to render both sections stacked regardless of which sub-tab was
@@ -1628,7 +1655,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       lastAdded={lastAdded}
                       markless
                       getPts={getItemPts}
-                      takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                      takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')} reasonFor={arm => blockReason(arm, 'equipment')}
                       getSelId={name => getSelId(name, 'equipment')}
                       onRemove={removeItem}
                       onAdd={arm => {
@@ -1686,7 +1713,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               lastAdded={lastAdded}
               markless={isMarklessFaction}
               getPts={getItemPts}
-              takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+              takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')} reasonFor={arm => blockReason(arm, 'equipment')}
               getSelId={name => getSelId(name, 'equipment')}
               onRemove={removeItem}
               onAdd={arm => {
@@ -1783,6 +1810,8 @@ interface EquipGroupsProps {
   /** Computes the correct price for this unit type (handles CD Greater Daemon vs regular). */
   getPts?: (arm: ArmoryItem) => number | null;
   isUniqueSelected?: (arm: ArmoryItem) => boolean;
+  /** Why `isUniqueSelected` is true for an item, in words. */
+  reasonFor?: (arm: ArmoryItem) => string | null;
   /** Enhancements of this relic already spoken for anywhere in the army ("Every enhancement is
    *  unique per army") -- the picker disables those. */
   takenEnhancements?: (arm: ArmoryItem) => string[];
@@ -1832,6 +1861,7 @@ function EquipmentGroups({
   markless = false,
   getPts,
   isUniqueSelected,
+  reasonFor,
   takenEnhancements,
   getSelId, onRemove,
   onAdd,
@@ -1845,12 +1875,13 @@ function EquipmentGroups({
   onSetEqExarchPower,
 }: EquipGroupsProps) {
   const t = useT();
+  const countsCtx = useContext(ArmoryCountsContext);
   // Build a per-model/per-wound price label for veteran abilities
   function vetPriceLabel(arm: ArmoryItem): string {
     if (isVehicle || isMonster) {
       const vp = parsePrice(arm.p_veh);
       if (vp == null) return '—';
-      const total = vp * unitWounds * unitSize;
+      const total = vp * unitWounds * (isVehicle ? 1 : unitSize);
       return `+${total} pts (${vp}${t('perWoundSuffix')})`;
     }
     if (isChar) {
@@ -1863,7 +1894,7 @@ function EquipmentGroups({
 
   function vehPriceLabel(arm: ArmoryItem): string {
     const p = parsePrice(arm.p_unit);
-    return p != null ? `+${p * unitSize} pts` : '—';
+    return p != null ? `+${p * (isVehicle ? 1 : unitSize)} pts` : '—';
   }
   // Regular equipment only in full armory; veteran/vehicle only via their dedicated buttons
   const showRegular = !filterCategory && regular.length > 0;
@@ -1911,20 +1942,27 @@ function EquipmentGroups({
             const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
             const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0;
             const chosenPower = eqExarchPower[arm.name] ?? '';
-            const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
+            // "Must be purchased for each weapon separately": the picker stays open after the first purchase so the
+            // next weapon can be chosen, and a weapon that already has it cannot be picked again.
+            const perWeapon = isPerWeaponPurchase(arm.desc);
+            const takenTargets = perWeapon ? (countsCtx?.targetsTakenOf(arm.name) ?? []) : [];
+            const canAdd = !uniqueSel && (!needsTarget || (chosenTarget !== '' && !takenTargets.includes(chosenTarget))) && (!needsPower || chosenPower !== '');
             return (
               <div key={i}>
                 <ArmoryItemRow
                   arm={arm} isChar={isChar} markless={markless}
                   justAdded={lastAdded === arm.name}
                   disabled={!canAdd}
+                  reason={uniqueSel ? (reasonFor?.(arm) ?? null)
+                    : (needsTarget && chosenTarget === '') ? t('armReasonPickWeapon')
+                    : (needsPower && chosenPower === '') ? t('armReasonPickEnh') : null}
                   selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
                   ptsOverride={getPts ? getPts(arm) : undefined}
                   onRemove={onRemove}
                   onAdd={() => canAdd && onAdd(arm)}
                 />
                 {/* Weapon target picker — shown when item needs to target a specific weapon */}
-                {needsTarget && !uniqueSel && (!getSelId?.(arm.name) || allowsMultipleCopies(arm.desc)) && (
+                {needsTarget && !uniqueSel && (!getSelId?.(arm.name) || allowsMultipleCopies(arm.desc) || perWeapon) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
                     <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('applyToLabel')}</span>
                     <select
@@ -1934,7 +1972,7 @@ function EquipmentGroups({
                     >
                       <option value="">{t('selectWeaponOption')}</option>
                       {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
-                        <option key={wn} value={wn}>{wn}</option>
+                        <option key={wn} value={wn} disabled={takenTargets.includes(wn)}>{wn}{takenTargets.includes(wn) ? ' — ' + t('takenLabel') : ''}</option>
                       ))}
                     </select>
                   </div>
@@ -2077,7 +2115,7 @@ function EquipmentGroups({
               const canAdd = (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
               return (
                 <div key={i}>
-                  <ArmoryItemRow arm={arm} isChar={isChar} markless={markless} justAdded={lastAdded === arm.name} disabled={!canAdd} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => canAdd && onAdd(arm)} />
+                  <ArmoryItemRow arm={arm} isChar={isChar} markless={markless} justAdded={lastAdded === arm.name} disabled={!canAdd} reason={(needsTarget && chosenTarget === '') ? t('armReasonPickWeapon') : (needsPower && chosenPower === '') ? t('armReasonPickEnh') : null} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => canAdd && onAdd(arm)} />
                   {needsTarget && !(getSelId?.(arm.name)) && (
                     <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
                       <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('applyToLabel')}</span>
@@ -2485,8 +2523,8 @@ function ArmoryItemRow({
           )}
         </div>
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{localiseAbility(arm.desc)}</div>}
-        {reason && (disabled || priceIsNull) && !inProfile && (
-          <div className="text-[11px] text-amber-500 mt-0.5">⛔ {reason}</div>
+        {(reason ?? (priceIsNull ? t('armReasonNoPrice') : null)) && (disabled || priceIsNull) && !inProfile && (
+          <div className="text-[11px] text-amber-500 mt-0.5">⛔ {reason ?? t('armReasonNoPrice')}</div>
         )}
         <ArmoryWeaponStats arm={arm} />
       </div>
@@ -2543,10 +2581,12 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
  * shape turns out to be common in practice; today's items are effectively all single-profile.
  */
 function ArmoryWeaponTable({
-  items, isBlocked, getPts, getSelId, getCount, onAdd, onRemove, justAddedName, markless = false,
+  items, isBlocked, reasonOverride, getPts, getSelId, getCount, onAdd, onRemove, justAddedName, markless = false,
 }: {
   items: ArmoryItem[];
   isBlocked: (arm: ArmoryItem) => boolean;
+  /** Why a blocked row is blocked, when that is not the unit's own armoury rules (the Inquisition authority cap). */
+  reasonOverride?: (arm: ArmoryItem) => string | null;
   getPts: (arm: ArmoryItem) => number | null;
   getSelId: (name: string) => string | undefined;
   /** How many copies are owned — see getSelCount. A weapon may be bought once per model. */
@@ -2618,8 +2658,11 @@ function ArmoryWeaponTable({
                 </td>
                 <td className="py-1.5 pr-2 font-medium text-zinc-100">
                   {nm(displayName)}
-                  {disabled && !owned && counts?.reasonOf(arm) && (
-                    <div className="text-[10px] font-normal text-amber-500">⛔ {counts.reasonOf(arm)}</div>
+                  {disabled && !owned && (reasonOverride ? reasonOverride(arm) : counts?.reasonOf(arm)) && (
+                    <div className="text-[10px] font-normal text-amber-500">⛔ {reasonOverride ? reasonOverride(arm) : counts?.reasonOf(arm)}</div>
+                  )}
+                  {disabled && !owned && priceIsNull && !(reasonOverride ? reasonOverride(arm) : counts?.reasonOf(arm)) && (
+                    <div className="text-[10px] font-normal text-amber-500">⛔ {t('armReasonNoPrice')}</div>
                   )}
                 </td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.range ?? '-'}</td>
@@ -2627,7 +2670,7 @@ function ArmoryWeaponTable({
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.s ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.ap ?? '-'}</td>
                 <td className="py-1.5 px-1 text-center text-zinc-300">{profile.d ?? '-'}</td>
-                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? rl(profile.abilities) : '—'}</td>
+                <td className="py-1.5 pl-2 text-zinc-400">{profile.abilities && profile.abilities !== '-' ? <AbilityTokens text={profile.abilities} /> : '—'}</td>
                 <td className="py-1.5 px-2 text-right text-amber-600 whitespace-nowrap">{ptsLabel}</td>
               </tr>
             );

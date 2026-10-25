@@ -3,7 +3,7 @@ import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/arm
 import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor, factionForEntry } from './points';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade } from './deploymentUpgrades';
-import { getArchetypeRule, getEffectiveSlot } from './archetypes';
+import { getArchetypeRule, getEffectiveSlot, promotionFragment } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
@@ -159,6 +159,8 @@ export interface ResolvedProfile {
   optionStatMods: Array<{ stat: string; delta: number }>;
   /** Absolute stat values an option sets ("gains WS 3+"), keyed by stat. */
   optionStatSets: Record<string, string>;
+  /** Stats an option sets to an exact value, better or worse (`OptionEffect.stat_exact`). */
+  optionStatExact: Record<string, string>;
   /** Unit types ADDED by selected options (additive), e.g. "Jump pack infantry". */
   optionAddedUnitTypes: string[];
   /** Unit-type line REPLACED by a selected option (datasheet "change type to X"); null if none. */
@@ -594,6 +596,30 @@ const optionalWeapons = new Map<string, Set<string>>();
     }
   }
 
+  // A specialisation's own loadout clause. The Necron Cryptek's equipped_with reads "A Chronomancer is
+  // equipped with: Aeonstave. A Psychomancer is equipped with: Abyssal lance. ..." — one clause per choice,
+  // and the choice's effect.grants_weapons names the same weapon. The "default part of equipped_with" rule
+  // in the filter below saw all seven staves and lances in that sentence and showed every one of them, so a
+  // Cryptek who had taken the Chronomancer upgrade was offered all seven when pointing Master-crafted weapon
+  // at "its" weapon (Sophtym, 2026-10-19). A clause that belongs to a choice which itself grants the weapon is
+  // that choice's weapon, not the base loadout.
+  if (unit.equipped_with) {
+    for (const g of unit.option_groups) {
+      for (const c of g.choices) {
+        const granted = c.effect?.grants_weapons ?? [];
+        if (granted.length === 0) continue;
+        const esc = String(c.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const clause = unit.equipped_with.match(new RegExp(`\\bAn?\\s+${esc}\\s+is equipped with:\\s*([^.]+)\\.`, 'i'))?.[1];
+        if (!clause) continue;
+        for (const gw of granted) {
+          if (!unit.weapons.some(w => baseName(w.name) === baseName(gw))) continue;
+          if (!loadoutNames(clause, baseName(gw))) continue;
+          conditionalGrantWeapons.add(baseName(gw));
+        }
+      }
+    }
+  }
+
   // Weapons exclusive to a secondary model that hasn't been bought yet (e.g. Chaos
   // Ogryn's Power maul before any Ogryn is added) aren't part of the starting loadout.
   // Walks models[0] too: on four datasheets the OPTIONAL model is the first one (Indomitus
@@ -642,6 +668,13 @@ const optionalWeapons = new Map<string, Set<string>>();
   // swappable "default" item) but absent from the base unit's own equipped_with text — such a
   // weapon can only be the variant's own default, so only show it once that variant is active.
   const variantOnlyWeapons = new Set<string>();
+  // The BASE model's loadout: equipped_with minus the clauses written for a promoted variant model ("The Dire
+  // Avenger Exarch is equipped with: Diresword, ..."). The Eldar sheet gained that line, and a weapon named only in
+  // it looked like part of the base loadout, so the "variant-only" test below never flagged the Exarch's Diresword
+  // and Shuriken pistol: swapping them needed a quantity of five (the squad size) to count as done, i.e. the Exarch's
+  // swap changed nothing and the catapult choice looked like it deleted the squad's own catapults (Homicidal Walrus).
+  let baseEquippedWith = unit.equipped_with ?? '';
+  for (const vm of unit.variant_models ?? []) baseEquippedWith = baseEquippedWith.replace(new RegExp(loadoutClauseFor(vm.name, true).source, 'gi'), '');
   if (unit.variant_models.length > 0) {
     // Compare against equipped_with using the weapon's BARE name — strip a multi-profile suffix,
     // either " - Standard" or " (Bolt ammo)" — because equipped_with names the weapon generically
@@ -652,7 +685,7 @@ const optionalWeapons = new Map<string, Set<string>>();
     const bare = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim();
     for (const g of unit.option_groups) {
       for (const name of g.replaces ?? []) {
-        if (loadoutNames(unit.equipped_with, bare(name)) || !unit.weapons.some(w => w.name === name)) continue;
+        if (loadoutNames(baseEquippedWith, bare(name)) || !unit.weapons.some(w => w.name === name)) continue;
         /*
          * ...unless ANOTHER group sells it to the squad, in which case it is not the promoted
          * model's private weapon at all and this flag would hide it for good.
@@ -940,16 +973,26 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     modelCounts = visibleModels.map(() => null);
   }
   const squadLeaderIdx = modelsToShow.length <= 1 ? 0 : (() => {
+    // The leader is ONE model: the promoted champion row (min 0, max 1), else the last lone model. Taking the first optional
+    // row (min 0) alone picked a Jakhals' DISHONORED (0-4 models) over the Pack Leader, so the Favored +1 Attack landed on
+    // them as soon as any were added.
+    const promoted = modelsToShow.findIndex(m => m.min === 0 && m.max === 1);
+    if (promoted >= 0) return promoted;
+    for (let i = modelsToShow.length - 1; i >= 0; i--) if (modelsToShow[i].min === 1 && modelsToShow[i].max === 1) return i;
     const idx = modelsToShow.findIndex(m => m.min === 0);
     return idx >= 0 ? idx : modelsToShow.length - 1;
   })();
 
   // Psyker flags
-  const psykerGroupIdx = unit.option_groups.findIndex(
+  const psykerInlineIdx = unit.option_groups.findIndex(
     g => /psyker/i.test(g.header) && g.inline_pts != null,
   );
-  const isOptionalPsyker = !unit.is_psyker && psykerGroupIdx >= 0 &&
-    (item.optionQty?.[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
+  const psykerChoiceIdx = unit.option_groups.findIndex(g => g.choices.some(c => c.effect?.makes_psyker));
+  const psykerGroupIdx = psykerInlineIdx >= 0 ? psykerInlineIdx : psykerChoiceIdx;
+  const choiceMakesPsyker = psykerChoiceIdx >= 0 && unit.option_groups[psykerChoiceIdx].choices.some((c, ci) =>
+    !!c.effect?.makes_psyker && Number(item.optionQty?.[psykerChoiceIdx]?.[ci] ?? 0) > 0);
+  const isOptionalPsyker = !unit.is_psyker && (choiceMakesPsyker || (psykerInlineIdx >= 0 &&
+    (item.optionQty?.[psykerInlineIdx]?.['__inline'] ?? 0) > 0));
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.
   const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks);
@@ -1105,9 +1148,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
     if (sel.section !== 'daemon_weapons' && sel.section !== 'equipment') continue;
     const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
-    if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
-    const grantedName = extractGrantedWeaponName(armItem.desc);
-    if (!grantedName) continue;
+    if (!armItem?.desc) continue;
     // Find the weapon profile in armory_general.weapons — plus the archetype-granted foreign
     // armory, whose grant-items name weapons that only exist over there (CSM "Kai" → Kai gun).
     const weaponPool = [
@@ -1119,6 +1160,15 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     // silently dropped grants like Votann's "Ancestor’s judgement warhead".
     const sameName = (a: string, b: string) =>
       a.toLowerCase().replace(/[’‘`´]/g, "'") === b.toLowerCase().replace(/[’‘`´]/g, "'");
+    // "The model gains a Storm bolter." / "...a Heavy stubber." name a weapon that ends in neither missile, weapon, gun
+    // nor cannon, so isGrantWeapon never recognised the sentence and the vehicle upgrade was paid for and gave nothing
+    // (Imperial Guard Storm bolter and Heavy stubber, Salamander report 2026-10-20). A sentence that is just
+    // "The model gains <X>." where X is the name of a weapon in the Armory is a grant as well.
+    const gainsName = /^The model gains an? (.+?)\.?$/i.exec(armItem.desc.trim())?.[1];
+    const grantedName = isGrantWeapon(armItem.desc)
+      ? extractGrantedWeaponName(armItem.desc)
+      : (gainsName && weaponPool.some(w => sameName(w.name, gainsName)) ? gainsName : null);
+    if (!grantedName) continue;
     const granted = weaponPool.find(w => sameName(w.name, grantedName));
     if (granted) pushGrantedWeapon(granted);
   }
@@ -1447,6 +1497,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Option effects (ki-parser-02): stat/type/ability changes from selected wargear options.
   const optionStatMods: Array<{ stat: string; delta: number }> = [];
   const optionStatSets: Record<string, string> = {};
+  const optionStatExact: Record<string, string> = {};
   const optionAddedUnitTypes: string[] = [];
   let optionSetUnitType: string | null = null;
   const optionAbilities: string[] = [];
@@ -1488,6 +1539,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (!eff) return;
     for (const sm of eff.stat_mod ?? []) optionStatMods.push({ stat: sm.stat, delta: sm.delta });
     for (const ss of eff.stat_set ?? []) optionStatSets[ss.stat] = ss.value;
+    for (const se of eff.stat_exact ?? []) optionStatExact[se.stat] = se.value;
     for (const t of eff.adds_unit_types ?? [])
       if (!optionAddedUnitTypes.includes(t) && !_baseTypeNorm.includes(_norm(t))) optionAddedUnitTypes.push(t);
     if (eff.set_unit_type) optionSetUnitType = eff.set_unit_type;
@@ -1688,7 +1740,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   // The promoted model improves an ability value (Megafauna: Regeneration(1) -> Regeneration(2)).
   if (item.archetypeHqUpgrade && rule?.hqPromotion?.grantsAbilities
-    && item.unitName.toLowerCase().includes(rule.hqPromotion.unitNameContains.toLowerCase())) {
+    && promotionFragment(rule.hqPromotion, item.unitName)) {
     for (const a of rule.hqPromotion.grantsAbilities) if (!ruleNotes.includes(a)) ruleNotes.push(a);
   }
   const abilityUp = item.archetypeHqUpgrade ? rule?.hqPromotion?.abilityUpgrade : undefined;
@@ -1737,7 +1789,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
-    optionStatMods, optionStatSets, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     familyBoostKeys,
   };
 }
@@ -2063,7 +2115,10 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (!choice) continue;
         const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim()).filter(Boolean);
         for (const part of (parts.length > 1 ? [choice.name, ...parts] : [choice.name])) {
-          const w = remaining.find(x => bareWeapon(x.name) === part.toLowerCase());
+          // "2 Avenger shuriken catapults" names the weapon behind a count word and a plural: the Dire Avenger Exarch's
+          // swap handed its row nothing for that choice, only the plain "Avenger shuriken catapult" one worked.
+          const bareChoice = part.toLowerCase().replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/, '').replace(/s$/, '');
+          const w = remaining.find(x => bareWeapon(x.name) === part.toLowerCase() || bareWeapon(x.name).replace(/s$/, '') === bareChoice);
           if (w && !target.weapons.some(x => x.name === w.name)) target.weapons.push(w);
         }
       }
@@ -2267,8 +2322,11 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
           const matched = grp.weapons.find(w => {
             const wb = baseName(w.name);
             const wbStripped = wb.replace(/\s*\([^)]*\)\s*$/, '').trim();
+            // `partBare` has its plural stripped, so a weapon the sheet writes IN the plural ("Hellstrike missiles", "Tactical bombs")
+            // has to lose its own "s" too, or "two Hellstrike missiles" granted nothing and the row printed a single missile (Vulture).
+            const wl = wb.toLowerCase().replace(/s$/, ''), wsl = wbStripped.toLowerCase().replace(/s$/, '');
             return wb === part || wbStripped === part
-              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare;
+              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare || wl === partBare || wsl === partBare;
           });
           if (matched) {
             const key = baseName(matched.name);
@@ -2534,9 +2592,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]))))))));
+    return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))))));
   }
-  return applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty))))))));
+  return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))))));
 }
 
 /**
@@ -2722,9 +2780,10 @@ const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta?: nu
  * A weapon writes its Strength as "U" (the model's current value), "+x" (added to it), "x2"
  * (doubled) or a flat number.
  *
- * NOTE, recorded rather than hidden: the document says "melee" in both sentences and the author's
- * answer extends it to ranged weapons. Ranged weapons at Strength 7+ nearly always state an AT
- * already, which is why he called it rare.
+ * CORRECTED 2026-10-23: the 2026-09-19 reading above ("this also applies to ranged weapons") was wrong, and the author said so
+ * when a Night Scythe's Tesla destructor showed an AT(1) the sheet does not have: "it was always melee only; ranged weapons
+ * never gain automatic AT. I usually put AT on them if they have enough S, though. Some weapons don't have AT on purpose."
+ * The document says "melee" in both sentences, and now so does the code (see the type check below).
  */
 function applyStrengthSevenAT(
   unit: Unit,
@@ -2758,6 +2817,9 @@ function applyStrengthSevenAT(
     weapons: g.weapons.map(w => {
       // "unless it is already better" -- AT(1) is the weakest AT there is, so ANY stated AT wins.
       if (/\bAT\(\d+\)/i.test(String(w.abilities ?? ''))) return w;
+      // Core Rules, Strength: "If the model's (modified) Strength is 7 or higher, its MELEE attacks automatically gain AT(1)".
+      // Ranged weapons are left alone (a Tesla destructor at Strength 7 does not gain it; Night Scythe / Doom Scythe report, 2026-10-23).
+      if (!/melee/i.test(String(w.type ?? ''))) return w;
       const s = weaponStrength(w.s as string);
       if (s === null || s < 7) return w;
       const had = String(w.abilities ?? '').trim();
@@ -2765,6 +2827,27 @@ function applyStrengthSevenAT(
       return { ...w, abilities };
     }),
   }));
+}
+
+/**
+ * Legion of the Damned supplement, special rule "Flaming Vengeance" (ods-verbatim): "All melee and ranged attacks
+ * made by units from this codex gain cumulative -1 AP and +1 AT." The supplement's units are the roster entries
+ * whose factionSource is the supplement; AP "-" counts as 0, and an AT(x) the weapon already has becomes AT(x+1).
+ */
+function applyFlamingVengeance(item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  if (item.factionSource !== 'legion_of_the_damned') return groups;
+  const bump = (w: Weapon): Weapon => {
+    const ap = String(w.ap ?? '').trim();
+    const apNum = ap === '-' || ap === '' ? 0 : parseInt(ap, 10);
+    const newAp = Number.isFinite(apNum) ? String(apNum - 1) : w.ap;
+    const had = String(w.abilities ?? '').trim();
+    const at = had.match(/\bAT\((\d+)\)/i);
+    const abilities = at
+      ? had.replace(/\bAT\((\d+)\)/i, `AT(${parseInt(at[1], 10) + 1})`)
+      : (!had || had === '-' ? 'AT(1)' : `AT(1), ${had}`);
+    return { ...w, ap: newAp, abilities };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(bump) }));
 }
 
 function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
@@ -3137,6 +3220,17 @@ export function resolveUnitProfile(
   // Cosmetic archetype renames/ability-injections apply AFTER gating (see weaponDisplayOverride
   // doc) so they never interfere with matching choice names against original weapon names.
   if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);
+  // A selected choice that REPLACES a weapon (C'tan Spear / Scythe replace the Fists) removes that row.
+  const removedByChoice = new Set<string>();
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      for (const n of g.choices[parseInt(ci)]?.effect?.removes_weapons ?? []) removedByChoice.add(n.toLowerCase());
+    }
+  }
+  if (removedByChoice.size) profile.weaponsToShow = profile.weaponsToShow.filter(w => !removedByChoice.has(w.name.toLowerCase()));
   profile.weaponGroups = computeWeaponGroups(unit, item, profile);
   profile.modelRowCounts = computeModelRowCounts(unit, item, profile);
   fillMissingWeaponCounts(unit, item, profile.weaponGroups);

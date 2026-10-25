@@ -110,6 +110,18 @@
       "p_char": 2
     },
     {
+      "name": "Heavy stubber",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 3",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Suppression(3)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
       "name": "Hot-shot las pistol",
       "term_compat": false,
       "range": "12\"",
@@ -480,7 +492,7 @@
       "name": "Mechanical steed",
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +1 Strength +1 Toughness, +1 Wound, +1 Attack and the type \"Bike\". For infantry only.",
-      "p_unit": null,
+      "p_unit": 9,
       "p_char": 20
     },
     {

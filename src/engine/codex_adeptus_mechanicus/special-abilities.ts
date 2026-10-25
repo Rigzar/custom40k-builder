@@ -54,7 +54,7 @@ export const ADMECH_SPECIAL_ABILITIES: AdMechSpecialAbilityEntry[] = [
   {
     name: 'Archetypes (5 total)',
     category: 'archetype',
-    text: 'Budget 0-1 Archetype. Dark Mechanicum → cross-faction (Allies of Convenience for CSM; ' +
+    text: 'Budget 0-1 Archetype. Dark Mechanicum → cross-faction (treated as CSM in the Ally matrix; ' +
       'buy Marks of Chaos; access CSM Armory + 5 daemon-engines; "no Legacy") — direct analogue of ' +
       'IG\'s Traitor Guard ([[project_traitor_guard_bugfix_0608]]). Cybernetica Cohort (HH ' +
       'Mechanicum Robots/Taghmata; Kastelan→Troops; needs Magos w/ Datasmith) + Ordo Reductor ' +

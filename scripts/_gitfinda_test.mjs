@@ -229,8 +229,30 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   ok(captured.body.allowed_mentions.parse.length === 0, 'the message can never ping anyone (allowed_mentions.parse is empty)');
   ok(captured.body.embeds[0].url.endsWith('/?gitfinda=42'), 'the link opens the app on that very game', captured.body.embeds[0].url);
   const desc = captured.body.embeds[0].description;
-  ok(!desc.includes('@everyone') && !desc.includes('**Bob**') && desc.includes('space marines') && desc.includes('Autumn Cup') && (desc.match(/<t:\d+:f>/g) ?? []).length === 2,
+  ok(!desc.includes('@everyone') && !desc.includes('**Bob**') && desc.includes('Space Marines') && desc.includes('Autumn Cup') && (desc.match(/<t:\d+:f>/g) ?? []).length === 2,
     'player text is stripped of mentions and markdown; the times are Discord timestamps', desc);
+}
+
+// ── Discord wording, one retry, and announcing again a game whose first message never got through ──
+{
+  let cap;
+  const fake2 = async (u, o) => { cap = JSON.parse(o.body); return { ok: true, json: async () => ({ id: '600' }) }; };
+  await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', fake2)({ id: 7, username: 'Woods', army: 'leagues_of_votann', engagement: 'pitched', points: 2000, slots: [slot(5)] });
+  const d2 = cap.embeds[0].description;
+  ok(d2.includes('**Leagues Of Votann**') && d2.includes('Pitched Battle'), 'the faction is written Like This and the engagement is written out in full', d2);
+  let calls = 0;
+  const flakyFetch = async () => { calls++; return calls === 1 ? { ok: false, status: 429, headers: { get: () => '0.1' }, json: async () => ({}) } : { ok: true, json: async () => ({ id: '601' }) }; };
+  const idRetry = await discordNotifier('https://discord.com/api/webhooks/123/abc-DEF_1', flakyFetch)({ id: 8, username: 'Woods', army: 'orks', engagement: 'epic', points: 3000, slots: [slot(5)] });
+  ok(idRetry === '601' && calls === 2, 'a rate-limited POST is tried once more', String(calls));
+  // a game with no announcement is announced again by the next sweep, three tries at most
+  const triesOf = {};
+  const gm = gitfinda(sql, { sweepEveryMs: 0, notify: async p => { const n = (triesOf[p.id] = (triesOf[p.id] ?? 0) + 1); return p.username === 'redo-announce' && n < 2 ? null : 'm' + p.id + '-' + n; } });
+  const F = (await db.query("INSERT INTO users (username) VALUES ('redo-announce') RETURNING id")).rows[0].id;
+  const pg = (await gm.create(F, post({ slots: [slot(60)] }))).id;
+  const midG = async () => (await db.query('SELECT discord_message_id AS m FROM gitfinda_posts WHERE id = ' + pg)).rows[0].m;
+  ok((await midG()) === null, 'the first message did not get through');
+  await gm.unread(D);
+  ok(String(await midG()).startsWith('m'), 'the next sweep announces the game again');
 }
 
 // ── Discord announcements are deleted when the game stops being open ──
@@ -246,16 +268,19 @@ ok(mU2 > 0, 'the same player can match it again after withdrawing');
   const midOf = async id => (await db.query('SELECT discord_message_id AS m FROM gitfinda_posts WHERE id = ' + id)).rows[0].m;
   const pc = (await gd.create(E, post({ slots: [slot(40)] }))).id;
   ok((await midOf(pc)) !== null, 'the message id is stored with the game');
+  const midC = await midOf(pc);
   await gd.cancel(E, { id: pc });
-  ok(removed.includes('101') && (await midOf(pc)) === null, 'cancelling a game deletes its announcement');
+  ok(removed.includes(midC) && (await midOf(pc)) === null, 'cancelling a game deletes its announcement');
   const pm = (await gd.create(E, post({ slots: [slot(41)] }))).id;
+  const midM = await midOf(pm);
   await gd.match(C, { id: pm });
-  ok(removed.includes('102') && (await midOf(pm)) === null, 'a match deletes the announcement');
+  ok(removed.includes(midM) && (await midOf(pm)) === null, 'a match deletes the announcement');
   const pe = (await gd.create(E, post({ slots: [slot(42)] }))).id;
   await db.exec('UPDATE gitfinda_slots SET starts_at = now() - interval \'5 hours\', ends_at = now() - interval \'2 hours\' WHERE post_id = ' + pe);
-  ok((await midOf(pe)) !== null, 'an over game still has its id until somebody opens the board');
+  const midE = await midOf(pe);
+  ok(midE !== null, 'an over game still has its id until somebody opens the board');
   await gd.unread(D);
-  ok(removed.includes('103') && (await midOf(pe)) === null, 'the unread poll the app runs every 30 s sweeps the announcement of a game that is over');
+  ok(removed.includes(midE) && (await midOf(pe)) === null, 'the unread poll the app runs every 30 s sweeps the announcement of a game that is over');
   const po = (await gd.create(E, post({ slots: [slot(43)] }))).id;
   const before = removed.length;
   await gd.list(D, {});

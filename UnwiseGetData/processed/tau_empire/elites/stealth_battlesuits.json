@@ -1,0 +1,72 @@
+{
+    "name": "Stealth Battlesuits",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "2",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Stealth Shas'ui",
+            "min": 3,
+            "max": 6,
+            "points": 47
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "2",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Stealth Shas'vre",
+            "min": 0,
+            "max": 1,
+            "points": 57
+        }
+    ],
+    "min_cost": 141,
+    "default_size": 3,
+    "equipped_with": "All models are equipped with: Burst cannon.",
+    "weapons": [
+        {
+            "name": "Burst cannon",
+            "range": "18\"",
+            "type": "Rapid Fire 3",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Fusion blaster",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Armorbane(3), AT(3)"
+        }
+    ],
+    "abilities": [
+        "Deflect, Infiltrator, Supporting Fire, Use Cover"
+    ],
+    "unit_type": "Infantry, Jump pack",
+    "is_monster": false,
+    "keywords": []
+}

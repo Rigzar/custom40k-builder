@@ -199,6 +199,12 @@ export function CampaignModal({ onClose, onCreateArmy, onViewArmy, initialOpenId
             {t('campaignEarlyPreview')}
           </p>
 
+          {/* The campaign rules document (Planetary Assault), for the players who join a campaign. */}
+          <a href="https://docs.google.com/document/d/1HZf14XkF4ZLX-gcl3kidVyCeL1jZXXRf5yCOotWx1_8/edit?usp=sharing" target="_blank" rel="noopener noreferrer"
+             className="cog-btn cog-btn-amber text-[10px] inline-block text-center w-full no-underline">
+            📖 {t('campaignRulesLink')}
+          </a>
+
           {error && <p className="cog-text-red text-xs">⚠ {error}</p>}
 
           <div className="flex gap-2">

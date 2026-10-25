@@ -138,8 +138,7 @@
         }
     ],
     "abilities": [
-        "Shield Host",
-        "Custodian armor: The model gains a 5+ ward save."
+        "Shield Host, Ward(5+)"
     ],
     "unit_type": "Jetbike",
     "keywords": [],

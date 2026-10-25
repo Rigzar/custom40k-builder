@@ -39,7 +39,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Each Scarab Occult Terminator is equipped with: Inferno combi-bolter; Prosperine khopesh. The Scarab Occult Sorcerer is equipped with: Force stave; Inferno combi-bolter.",
+    "equipped_with": "Each Scarab Occult Terminator is equipped with: Terminator Armor; Inferno combi-bolter; Prosperine khopesh. The Scarab Occult Sorcerer is equipped with: Terminator Armor; Force stave; Inferno combi-bolter.",
     "weapons": [
         {
             "name": "Force stave",
@@ -93,7 +93,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         }
     ],
     "option_groups": [
@@ -173,8 +173,7 @@
         }
     ],
     "abilities": [
-        "Deep strike, Mark of Tzeentch, Massive(1), Unyielding",
-        "Crux Terminatus: This unit has a 5+ ward save.",
+        "Deep strike, Mark of Tzeentch, Massive(1), Unyielding, Ward(5+)",
         "Psyker: A Scarab Occult Sorcerer may cast and/or deny 1 psychic power. He knows smite as well as one psychic power of a chosen discipline."
     ],
     "unit_type": "Infantry",

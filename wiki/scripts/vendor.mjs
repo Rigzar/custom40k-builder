@@ -49,6 +49,7 @@ const copies = [
   ...FACTIONS.map(f => [`data/parsed/${f}`, `data/parsed/${f}`]),
   ['data/parsed/horus_heresy_legiones_astartes', 'data/parsed/horus_heresy_legiones_astartes'],
   ['data/parsed/horus_heresy_forces_of_the_machine_god', 'data/parsed/horus_heresy_forces_of_the_machine_god'],
+  ['data/parsed/legion_of_the_damned', 'data/parsed/legion_of_the_damned'],
 ];
 
 for (const [from, to] of copies) {

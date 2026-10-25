@@ -94,6 +94,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Shuriken"
+        },
+        {
+            "name": "Sun pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Precision(5+)"
         }
     ],
     "option_groups": [
@@ -149,12 +158,30 @@
             "replaces": [
                 "Aeldari chainsword"
             ]
+        },
+        {
+            "header": "All remaining Guardians can swap their Shuriken pistols",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Sun pistol",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Shuriken pistol"
+            ]
         }
     ],
     "abilities": [
         "Battle Focus",
         "Crewed platform: If the last Guardian Defender is removed, all remaining Serpent scale platforms are destroyed. They are ignored for all kinds of unit strength and moral purposes.",
-        "Serpent shield: The model and its attached unit have a 5+ ward save against ranged attacks. If the unit got 2 Serpent scale platforms, the ward save is improved to 4+."
+        "Serpent shield: The model and its attached unit have Ward(5+) against ranged attacks. If the unit has 2 Serpent scale platforms, they have Ward(4+) instead."
     ],
     "unit_type": "Infantry",
     "keywords": [
