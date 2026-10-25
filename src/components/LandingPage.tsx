@@ -416,9 +416,11 @@ function CommunityAnnouncement() {
     () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
   );
   // The whole card folds to its title line (Rigzar, 2026-10-25: fourteen faction headers are a long block at the top of the
-  // page, "debe poder recogerse todo"). The choice is remembered across versions, so someone who folds it stays folded.
-  const [folded, setFolded] = useState(() => { try { return localStorage.getItem('c40k_announcement_folded') === 'true'; } catch { return false; } });
-  const toggleFolded = () => setFolded(f => { const n = !f; try { localStorage.setItem('c40k_announcement_folded', String(n)); } catch { /* private window */ } return n; });
+  // page, "debe poder recogerse todo"). The fold is remembered FOR THIS ANNOUNCEMENT only: it stores the key it was folded for, so
+  // the next announcement opens unfolded. Remembering it across versions hid every later announcement behind the fold, and the
+  // same day's new banner looked as if it had not been updated at all.
+  const [folded, setFolded] = useState(() => { try { return localStorage.getItem('c40k_announcement_folded') === ANNOUNCEMENT_KEY; } catch { return false; } });
+  const toggleFolded = () => setFolded(f => { const n = !f; try { n ? localStorage.setItem('c40k_announcement_folded', ANNOUNCEMENT_KEY) : localStorage.removeItem('c40k_announcement_folded'); } catch { /* private window */ } return n; });
   if (dismissed) return null;
   return (
     <div className="relative mb-6">
