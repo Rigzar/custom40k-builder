@@ -2565,7 +2565,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // the 25% requirement (GH#130). The codex's other half -- "Can't be a mandatory unit
         // selection" -- is about the AOP MINIMUM and is enforced separately, by `excludeSlotOptIns`
         // in getSlotUsage; it is not about the points share.
-        const slot = applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule));
+        const slot = applyPlatoonSlotOverride(i, state.army, applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule)));
         if (slot !== 'Troops') return false;
         return countsTroops(i.unitName, u.locked_mark, iRule);
       })
