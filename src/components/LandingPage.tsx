@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186s_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186t_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -104,7 +104,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["New","Rogal Dorn Tank Commander (640 pts); only one Leman Russ or Rogal Dorn Tank Commander per army."],
         ["Updated","Leman Russ Tank Commander costs 294; Rogal Dorn costs 527 and has Strength 7."],
         ["Platoons","Special and Heavy Weapon Squads taken in a platoon count toward the Troops points requirement."],
-        ["Tauros","Any Tauros can become a Venator, and the Venator stubber swap works. Combat Engineers no longer show a lasgun swap."],
+        ["Tauros","Any Tauros can become a Venator, and the Venator stubber swap works. Combat Engineers no longer show a lasgun swap. Vulture, Valkyrie, Vendetta and the other flyers show 2x Hellstrike missiles and 3x Tactical bombs when the option says two or three."],
       ] },
       { label: "Grey Knights", rows: [
         ["Paladins","Paladin Squads start knowing every General and Grey Knight power, so there is nothing to pick."],
@@ -171,7 +171,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Neu","Rogal Dorn Tank Commander (640 Pkt.); nur ein Leman Russ oder Rogal Dorn Tank Commander pro Armee."],
         ["Aktualisiert","Leman Russ Tank Commander kostet 294; Rogal Dorn kostet 527 und hat Stärke 7."],
         ["Platoons","Special und Heavy Weapon Squads in einem Platoon zählen jetzt für die Truppen-Mindestpunkte."],
-        ["Tauros","Jeder Tauros kann ein Venator werden, und der Stubber-Tausch des Venator funktioniert. Combat Engineers zeigen keinen Lasgun-Tausch mehr."],
+        ["Tauros","Jeder Tauros kann ein Venator werden, und der Stubber-Tausch des Venator funktioniert. Combat Engineers zeigen keinen Lasgun-Tausch mehr. Vulture, Valkyrie, Vendetta und die anderen Flieger zeigen 2x Hellstrike-Raketen und 3x Tactical bombs, wenn die Option zwei oder drei sagt."],
       ] },
       { label: "Grey Knights", rows: [
         ["Paladine","Paladin Squads kennen von Anfang an jede allgemeine und Grey-Knight-Kraft, es gibt nichts zu wählen."],
@@ -238,7 +238,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Nuevo","Rogal Dorn Tank Commander (640 pts); solo un Leman Russ o Rogal Dorn Tank Commander por ejército."],
         ["Actualizado","El Leman Russ Tank Commander cuesta 294; el Rogal Dorn cuesta 527 y tiene Fuerza 7."],
         ["Pelotones","Los Special y Heavy Weapon Squads de un pelotón ya cuentan para los puntos mínimos de Tropas."],
-        ["Tauros","Cualquier Tauros puede ser un Venator, y el cambio de stubber del Venator funciona. Los Combat Engineers ya no muestran un cambio de lasgun."],
+        ["Tauros","Cualquier Tauros puede ser un Venator, y el cambio de stubber del Venator funciona. Los Combat Engineers ya no muestran un cambio de lasgun. El Vulture, la Valkyrie, el Vendetta y los demás voladores muestran 2x misiles Hellstrike y 3x Tactical bombs cuando la opción dice dos o tres."],
       ] },
       { label: "Grey Knights", rows: [
         ["Paladines","Los Paladin Squads empiezan conociendo todos los poderes generales y de Grey Knights, así que no hay nada que elegir."],
@@ -305,7 +305,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Новое","Rogal Dorn Tank Commander (640 очков); в армии только один Leman Russ или Rogal Dorn Tank Commander."],
         ["Обновлено","Leman Russ Tank Commander стоит 294; Rogal Dorn стоит 527 и имеет Силу 7."],
         ["Взводы","Special и Heavy Weapon Squads во взводе теперь учитываются в минимуме очков Troops."],
-        ["Tauros","Любой Tauros может стать Venator, замена станкового пулемёта у Venator работает. Combat Engineers больше не показывают замену лазгана."],
+        ["Tauros","Любой Tauros может стать Venator, замена станкового пулемёта у Venator работает. Combat Engineers больше не показывают замену лазгана. Vulture, Valkyrie, Vendetta и другие летательные аппараты показывают 2x ракеты Hellstrike и 3x Tactical bombs, когда в опции указано два или три."],
       ] },
       { label: "Grey Knights", rows: [
         ["Паладины","Paladin Squads сразу знают все общие силы и силы Grey Knights, выбирать нечего."],
@@ -372,7 +372,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["新規","Rogal Dorn Tank Commander（640ポイント）。Leman RussまたはRogal Dorn Tank Commanderは軍に1体のみ。"],
         ["更新","Leman Russ Tank Commanderは294、Rogal Dornは527で強さ7。"],
         ["小隊","小隊に入れたSpecial・Heavy Weapon Squadがトループスの最低ポイントに数えられます。"],
-        ["Tauros","任意のTaurosをVenatorにでき、Venatorのスタブ交換が動きます。Combat Engineersはラスガン交換を表示しません。"],
+        ["Tauros","任意のTaurosをVenatorにでき、Venatorのスタブ交換が動きます。Combat Engineersはラスガン交換を表示しません。 Vulture、Valkyrie、Vendetta、ほかのフライヤーは、オプションが2または3のとき、Hellstrikeミサイル2xとTactical bombs 3xを表示します。"],
       ] },
       { label: "グレイナイト", rows: [
         ["パラディン","Paladin Squadは最初から一般とグレイナイトの全パワーを知っているため、選ぶ必要はありません。"],

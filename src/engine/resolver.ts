@@ -2322,8 +2322,11 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
           const matched = grp.weapons.find(w => {
             const wb = baseName(w.name);
             const wbStripped = wb.replace(/\s*\([^)]*\)\s*$/, '').trim();
+            // `partBare` has its plural stripped, so a weapon the sheet writes IN the plural ("Hellstrike missiles", "Tactical bombs")
+            // has to lose its own "s" too, or "two Hellstrike missiles" granted nothing and the row printed a single missile (Vulture).
+            const wl = wb.toLowerCase().replace(/s$/, ''), wsl = wbStripped.toLowerCase().replace(/s$/, '');
             return wb === part || wbStripped === part
-              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare;
+              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare || wl === partBare || wsl === partBare;
           });
           if (matched) {
             const key = baseName(matched.name);
