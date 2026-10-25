@@ -57,6 +57,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "CHAOS SPACE MARINES — HELBRUTE SQUADS COUNT THEIR SWAPS PER MODEL (NUKE). A squad of two Helbrutes could only swap ONE Power scourge or fist, and take ONE combi-bolter or heavy flamer, because those options were a single tick box. Each Helbrute can now swap its own weapons and take its own combi-bolter or heavy flamer, and the weapon table counts them.",
       "\"ANY MODEL MAY\" OPTIONS COUNT PER MODEL ON FIVE MORE UNITS. The sheet says \"Any Tauros may be upgraded to a Tauros Venator\", \"Any Servitor may swap their Paired shock chargers\", \"Any Lone-Spear may swap their Kroot long gun\", \"Any Great Knarloc may be equipped with...\" and \"Any Atalan Jackal / Wolfquad...\", but the app let only one model of the squad take each. Every model can now take its own (a squad of 3 Tauros can all be Venators, +11 each).",
       "IMPERIAL GUARD — PLATOON MEMBERS COUNT TOWARD THE TROOPS REQUIREMENT (GH#253). A Special Weapon Squad or Heavy Weapon Squad linked to a Platoon Command Squad is a Troops selection, and the army list already gave it the Troops slot, but the 25% Troops points check still read its printed slot (Elites, Heavy Support) and left its points out. Now they count.",
+      "CAMPAIGN — A LINK TO THE CAMPAIGN RULES. The Campaign window now has a button that opens the Planetary Assault rules document, so players who join a campaign can read how it works.",
     ],
   },
   {

@@ -1234,5 +1234,6 @@
  "armReasonPickEnh": "Выберите ниже улучшение",
  "armReasonCharOnly": "Только для моделей-персонажей",
  "armReasonNotChar": "Не для моделей-персонажей",
- "navCampaignAlphaOpen": "Кампания — Альфа"
+ "navCampaignAlphaOpen": "Кампания — Альфа",
+ "campaignRulesLink": "Читать правила кампании (Google Doc)"
 }

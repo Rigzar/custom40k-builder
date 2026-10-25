@@ -1234,5 +1234,6 @@
  "armReasonPickEnh": "下で強化を選んでください",
  "armReasonCharOnly": "キャラクターモデル専用",
  "armReasonNotChar": "キャラクターモデルには不可",
- "navCampaignAlphaOpen": "キャンペーン — アルファ"
+ "navCampaignAlphaOpen": "キャンペーン — アルファ",
+ "campaignRulesLink": "キャンペーンルールを読む（Googleドキュメント）"
 }
