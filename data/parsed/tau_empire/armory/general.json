@@ -254,7 +254,7 @@
     {
       "name": "Mark of the Favored Childᴵ",
       "term_compat": false,
-      "desc": "The model gains a 4+ ward save. Unique. Kroot only.",
+      "desc": "The model gains Ward(4+). Unique. Kroot only.",
       "p_unit": 18,
       "p_char": 29
     },
