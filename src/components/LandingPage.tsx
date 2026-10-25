@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186t_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186u_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -65,7 +65,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Phones","Saved lists fit a narrow screen, and an update no longer looks like you were signed out."],
         ["Accounts","You can change your own username from Account security."],
         ["Print","Psychic powers, prayers and pacts are printed once, in a book after the last unit (and at the bottom of the battle view). Abilities a trait gives are explained in the Special Rules."],
-        ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them."],
+        ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them. Eldar: the Hemlock Wraithfighter costs 263 and the Vibro cannon changed."],
       ] },
       { label: "Space Marines", rows: [
         ["New","The Legion of the Damned archetype with its own 7-unit supplement, and the Stormfang Gunship."],
@@ -132,7 +132,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Handy","Gespeicherte Listen passen auf schmale Bildschirme, und ein Update sieht nicht mehr wie eine Abmeldung aus."],
         ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
         ["Druck","Psikräfte, Gebete und Pakte stehen einmal in einem Buch hinter der letzten Einheit (und unten in der Kampfansicht). Fähigkeiten eines Wesenszugs werden in den Spezialregeln erklärt."],
-        ["Blätter","Neue Preise, Optionen und Rüstkammer-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte zu Wesenszügen und Legacys folgen ihnen."],
+        ["Blätter","Neue Preise, Optionen und Rüstkammer-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte zu Wesenszügen und Legacys folgen ihnen. Eldar: Der Hemlock Wraithfighter kostet 263, die Vibro cannon wurde geändert."],
       ] },
       { label: "Space Marines", rows: [
         ["Neu","Der Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten) und das Stormfang Gunship."],
@@ -199,7 +199,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Móvil","Las listas guardadas caben en pantallas estrechas, y una actualización ya no parece un cierre de sesión."],
         ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
         ["Impresión","Los poderes psíquicos, plegarias y pactos se imprimen una vez, en un libro tras la última unidad (y al final de la vista de batalla). Las habilidades que da un rasgo se explican en las Reglas especiales."],
-        ["Hojas","Precios, opciones y objetos de Armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos de rasgos y legados los siguen."],
+        ["Hojas","Precios, opciones y objetos de Armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos de rasgos y legados los siguen. Eldar: el Hemlock Wraithfighter cuesta 263 y la Vibro cannon cambió."],
       ] },
       { label: "Space Marines", rows: [
         ["Nuevo","El arquetipo Legion of the Damned con su propio suplemento de 7 unidades, y el Stormfang Gunship."],
@@ -266,7 +266,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Телефон","Сохранённые списки помещаются на узкий экран, а обновление больше не выглядит как выход из аккаунта."],
         ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
         ["Печать","Психические силы, молитвы и пакты печатаются один раз, в книге после последнего юнита (и внизу боевого режима). Способности от черт объяснены в особых правилах."],
-        ["Таблицы","Новые цены, опции и предметы Арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста черт и наследий идут следом."],
+        ["Таблицы","Новые цены, опции и предметы Арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста черт и наследий идут следом. Eldar: Hemlock Wraithfighter стоит 263, Vibro cannon изменена."],
       ] },
       { label: "Space Marines", rows: [
         ["Новое","Архетип Legion of the Damned с собственным дополнением из 7 отрядов и Stormfang Gunship."],
@@ -333,7 +333,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["スマホ","保存リストが狭い画面に収まり、アップデートでサインアウトされたように見えなくなりました。"],
         ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
         ["印刷","サイキックパワー、祈り、協定は最後のユニットの後の「本」に1回だけ印刷されます（戦闘ビューの下にもあります）。特性が与えるアビリティは特殊ルール欄で説明されます。"],
-        ["シート","10月のシートの新しい価格、オプション、アーモリー品目。Perfect Timingのパワーと44の特性・レガシー文がそれに続きます。"],
+        ["シート","10月のシートの新しい価格、オプション、アーモリー品目。Perfect Timingのパワーと44の特性・レガシー文がそれに続きます。 Eldar: Hemlock Wraithfighterは263、Vibro cannonが変更されました。"],
       ] },
       { label: "スペースマリーン", rows: [
         ["新規","Legion of the Damnedアーキタイプ（7ユニットの専用サプリメント）とStormfang Gunship。"],

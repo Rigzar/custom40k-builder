@@ -17,7 +17,7 @@
       "name": "Hemlock Wraithfighter",
       "min": 1,
       "max": 1,
-      "points": 355
+      "points": 263
     }
   ],
   "variant_models": [],
@@ -58,5 +58,5 @@
   "advisor": false,
   "slot": "Flyers",
   "default_size": 1,
-  "min_cost": 355
+  "min_cost": 263
 }

@@ -57,7 +57,7 @@
             "s": "7",
             "ap": "-2",
             "d": "1",
-            "abilities": "Haywire, Seeking, Suppression(3)"
+            "abilities": "Seeking, Suppression(3)"
         }
     ],
     "option_groups": [
@@ -69,7 +69,7 @@
             "choices": [
                 {
                     "name": "Vibro cannon",
-                    "points": 16
+                    "points": 21
                 },
                 {
                     "name": "D-cannon",
@@ -86,7 +86,7 @@
     ],
     "abilities": [
         "Battle Focus, Swarm",
-        "Vibro: If more than one Vibro cannon is shooting at the same target, the weapon gets the \"Decimate\" ability."
+        "Vibro: The weapon gains a cumulative +1 Strength and +1 AT for each additional Vibro cannon that shoots at the same target until the end of the current battle round."
     ],
     "unit_type": "Infantry",
     "keywords": [
