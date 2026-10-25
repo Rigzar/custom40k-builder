@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186q_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186r_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -80,7 +80,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "App, print and sheets", rows: [
         ["Accounts","You can change your own username from Account security."],
         ["Accounts","An update no longer makes it look like you were signed out."],
-        ["Print","Abilities a trait gives (Torturous Efficiency, Awakened by Murder...) are now explained in the printed Special Rules. The Scarab explosion (and similar explosion profiles) now print."],
+        ["Print","Abilities a trait gives (Torturous Efficiency, Awakened by Murder...) are now explained in the printed Special Rules. The Scarab explosion (and similar explosion profiles) now print. Psychic powers, prayers and pacts are now printed once, in a book after the last unit (and at the bottom of the battle view)."],
         ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them."],
       ] },
     ],
@@ -112,7 +112,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "App, Druck und Tabellen", rows: [
         ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
         ["Konten","Ein Update sieht nicht mehr wie eine Abmeldung aus."],
-        ["Druck","Fähigkeiten, die ein Wesenszug gewährt (Torturous Efficiency, Awakened by Murder ...), werden jetzt in den gedruckten Spezialregeln erklärt. Die Scarab explosion (und ähnliche Explosionsprofile) werden jetzt gedruckt."],
+        ["Druck","Fähigkeiten, die ein Wesenszug gewährt (Torturous Efficiency, Awakened by Murder ...), werden jetzt in den gedruckten Spezialregeln erklärt. Die Scarab explosion (und ähnliche Explosionsprofile) werden jetzt gedruckt. Psikräfte, Gebete und Pakte stehen jetzt einmal in einem Buch hinter der letzten Einheit (und unten in der Kampfansicht)."],
         ["Blätter","Neue Preise, Optionen und Arsenal-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte folgen ihnen."],
       ] },
     ],
@@ -144,7 +144,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "App, impresión y hojas", rows: [
         ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
         ["Cuentas","Una actualización ya no parece un cierre de sesión."],
-        ["Impresión","Las habilidades que da un rasgo (Torturous Efficiency, Awakened by Murder...) ya se explican en las Reglas especiales impresas. La Scarab explosion (y perfiles de explosión parecidos) ya se imprimen."],
+        ["Impresión","Las habilidades que da un rasgo (Torturous Efficiency, Awakened by Murder...) ya se explican en las Reglas especiales impresas. La Scarab explosion (y perfiles de explosión parecidos) ya se imprimen. Los poderes psíquicos, plegarias y pactos se imprimen ahora una vez, en un libro tras la última unidad (y al final de la vista de batalla)."],
         ["Hojas","Precios, opciones y objetos de armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos las siguen."],
       ] },
     ],
@@ -176,7 +176,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Приложение, печать и таблицы", rows: [
         ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
         ["Аккаунты","Обновление больше не выглядит как выход из аккаунта."],
-        ["Печать","Способности, которые дают черты (Torturous Efficiency, Awakened by Murder...), теперь объясняются в печатных особых правилах. Scarab explosion (и похожие профили взрыва) теперь печатаются."],
+        ["Печать","Способности, которые дают черты (Torturous Efficiency, Awakened by Murder...), теперь объясняются в печатных особых правилах. Scarab explosion (и похожие профили взрыва) теперь печатаются. Психические силы, молитвы и пакты теперь печатаются один раз, в книге после последнего юнита (и внизу боевого режима)."],
         ["Таблицы","Новые цены, опции и предметы арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста соответствуют им."],
       ] },
     ],
@@ -208,7 +208,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "アプリ・印刷・シート", rows: [
         ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
         ["アカウント","アップデートでサインアウトされたように見えなくなりました。"],
-        ["印刷","特性が与えるアビリティ（Torturous Efficiency、Awakened by Murderなど）が印刷の特殊ルール欄で説明されます。 Scarab explosion（と同様の爆発プロファイル）が印刷されるようになりました。"],
+        ["印刷","特性が与えるアビリティ（Torturous Efficiency、Awakened by Murderなど）が印刷の特殊ルール欄で説明されます。 Scarab explosion（と同様の爆発プロファイル）が印刷されるようになりました。 サイキックパワー、祈り、協定は、最後のユニットの後の「本」に1回だけ印刷されます（戦闘ビューの下にもあります）。"],
         ["シート","10月のシートの新しい価格、オプション、アーモリーのアイテム。Perfect Timingと44件の文もそれに合わせました。"],
       ] },
     ],

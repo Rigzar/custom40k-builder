@@ -14,7 +14,7 @@ import { countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { slotLabel } from '../utils/slotLabel';
 import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { engName } from '../utils/engagementText';
-import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
+import { unitPowerSummary, collectPowerBook, powerBookIsEmpty } from '../utils/powerBook';
 import { applyDelta, applyEquipDeltas } from '../utils/statMods';
 import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -516,8 +516,10 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // two copies staying in step. Same logic, same order, moved verbatim.
   const abilitiesList = selectedAbilities(u, item, rp as any);
   const traitList  = item.traits.map(t => t.name);
-  const powerList  = item.powers.filter(p => p.powerName !== '__discipline__').map(p => `${p.powerName} (${p.disciplineName})`);
-  const prayerList = item.prayers;
+  // Names only on the card; the full text of every power and prayer is in the book at the end of the list (utils/powerBook.ts).
+  const psy = unitPowerSummary(item, data);
+  const powerList  = [...psy.wholeDisciplines.map(d => `${nm(d)} (${tFn(lang, 'bookAll')})`), ...psy.names.map(n => nm(n))];
+  const prayerList = [...psy.prayers, ...psy.pacts];
   const hasAbilities = abilitiesList.length > 0 || traitList.length > 0 || powerList.length > 0 || prayerList.length > 0;
 
   let joinedName: string | null = null;
@@ -804,20 +806,12 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                   <div style={{ fontFamily: CONDUIT, fontSize: '.6em', fontWeight: 800, textTransform: 'uppercase', color, letterSpacing: '.08em', marginBottom: 3 }}>
                     {powerList.length > 0 ? tFn(lang, 'prPsychicPowers') : tFn(lang, 'prPrayers')}
                   </div>
-                  {/* Printed sheets used to carry the NAME only, which made them useless at the
-                      table — you could not look up a prayer's range or effect on your own list
-                      (v1.70). Full entry now, same formatter as the app views. */}
-                  {[...powerList, ...prayerList].map((p, i) => {
-                    const meta = powerMetaByName(p, data);
-                    const eff = powerEffectByName(p, data);
-                    return (
-                      <div key={i} style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55`, marginBottom: 2 }}>
-                        <span style={{ fontWeight: 600 }}>{/^(.*?) \((.*)\)$/.test(p) ? p.replace(/^(.*?) \((.*)\)$/, (_m, a, b) => `${nm(a)} (${nm(b)})`) : nm(p)}</span>
-                        {meta && <span style={{ color: '#777' }}> · {meta}</span>}
-                        {eff && <div style={{ fontSize: '.92em', color: '#555', lineHeight: 1.25 }}>{localiseAbility(eff)}</div>}
-                      </div>
-                    );
-                  })}
+                  {/* v1.70 put the full entry here because a bare name is useless at the table. It now lives ONCE in the
+                      book at the end of the list (a Paladin Squad that knows forty-three powers no longer prints forty-three
+                      paragraphs, and a power two Librarians share is not printed twice); the card keeps the names. */}
+                  <div style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55`, lineHeight: 1.35 }}>
+                    {[...powerList, ...prayerList].join(' · ')}
+                  </div>
                 </div>
               )}
             </div>
@@ -2047,6 +2041,38 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         )}
+
+        {/* Psychic powers, prayers and pacts: the full text, once each */}
+        {(() => {
+          const book = collectPowerBook(army, data);
+          if (powerBookIsEmpty(book)) return null;
+          const Block = ({ title, entries }: { title: string; entries: Array<{ name: string; meta: string; effect: string }> }) => (
+            <div style={{ marginBottom: 8 }}>
+              <div style={{ fontFamily: CONDUIT, fontSize: '.7em', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', color: primaryColor, borderBottom: `1px solid ${primaryColor}55`, marginBottom: 3 }}>{title}</div>
+              <div style={{ columnCount: 2, columnGap: 20 }}>
+                {entries.map(e => (
+                  <div key={e.name} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.28, color: '#222', marginBottom: 5, paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55` }}>
+                    <span style={{ fontWeight: 700 }}>{nm(e.name)}</span>
+                    {e.meta && <span style={{ color: '#777' }}> · {e.meta}</span>}
+                    {e.effect && <div style={{ color: '#555', whiteSpace: 'pre-line' }}>{localiseAbility(e.effect)}</div>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+          return (
+            <div style={{ marginBottom: 20, border: `1px solid ${primaryColor}55`, overflow: 'hidden', ['--ac' as string]: primaryColor }}>
+              <div style={{ background: HDR_BG, color: '#fff', padding: '6px 14px', borderTop: `3px solid ${primaryColor}`, fontFamily: CONDUIT, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.08em', fontSize: '.85em' }}>
+                {[book.powers.length ? tFn(rootLang, 'prPsychicPowers') : '', book.prayers.length ? tFn(rootLang, 'prPrayers') : '', book.pacts.length ? tFn(rootLang, 'infernalPactsLabel') : ''].filter(Boolean).join(' · ')}
+              </div>
+              <div style={{ padding: '6px 14px', background: PARCHMENT }}>
+                {book.powers.map(g => <Block key={g.discipline} title={nm(g.discipline)} entries={g.entries} />)}
+                {book.prayers.length > 0 && <Block title={tFn(rootLang, 'prPrayers')} entries={book.prayers} />}
+                {book.pacts.length > 0 && <Block title={tFn(rootLang, 'infernalPactsLabel')} entries={book.pacts} />}
+              </div>
+            </div>
+          );
+        })()}
       </div>
     </div>
   ), document.body);

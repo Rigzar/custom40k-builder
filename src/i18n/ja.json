@@ -1236,5 +1236,6 @@
  "armReasonNotChar": "キャラクターモデルには不可",
  "navCampaignAlphaOpen": "キャンペーン — アルファ",
  "campaignRulesLink": "キャンペーンルールを読む（Googleドキュメント）",
- "modeKnowsAll": "このユニットはこれらのパワーをすべて知っています。選ぶ必要はありません。"
+ "modeKnowsAll": "このユニットはこれらのパワーをすべて知っています。選ぶ必要はありません。",
+ "bookAll": "すべて"
 }

@@ -26,7 +26,7 @@ import { selectedAbilities, battleWeapons, selectedExtras, equipTargetsModel } f
 import { resolveStatValue } from '../lib/statPipeline';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
-import { powerMetaByName } from '../utils/psychicFormat';
+import { unitPowerSummary, collectPowerBook, powerBookIsEmpty } from '../utils/powerBook';
 import { useT } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
@@ -90,6 +90,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   const abilities = selectedAbilities(u, item, rp);
   const groups = battleWeapons(rp);
   const extras = selectedExtras(item);
+  const psy = unitPowerSummary(item, data);
   const models = rp.modelsToShow ?? [];
   const statKeys = u.is_vehicle ? STAT_VEH : STAT_INF;
   // A ward save is the other number you roll at the table, and this view showed none at
@@ -229,44 +230,29 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
             </div>
           )}
 
-          {(extras.traits.length > 0 || extras.powers.length > 0 || extras.prayers.length > 0) && (
+          {(extras.traits.length > 0 || extras.powers.length > 0 || extras.prayers.length > 0 || psy.wholeDisciplines.length > 0 || psy.pacts.length > 0) && (
             <div className="mt-3 space-y-0.5 text-[11px]">
               {extras.traits.length > 0 && (
                 <p><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playTraits')}</span>
                    <span className="text-zinc-300">{extras.traits.join(' · ')}</span></p>
               )}
-              {/* The one view you actually read DURING a game, and it listed powers and prayers by
-                  NAME only — so the range and cast value of the thing you are about to cast were
-                  the one detail it did not have. Each entry now carries its meta line (type,
-                  range, cast value, target, duration) from the shared formatter. The effect text
-                  stays out on purpose: this view's whole point is a compact card, and the full
-                  rules text is one tap away on the unit card and on the printed sheet. */}
-              {extras.powers.length > 0 && (
+              {/* Names only: the full text of every power, prayer and pact is in the book at the END of this view (it used to repeat on
+                  every card, and a unit that knows forty-three powers filled the screen). */}
+              {psy.wholeDisciplines.length + psy.names.length > 0 && (
                 <div><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPowers')}</span>
-                  {extras.powers.map((name, i) => {
-                    const meta = powerMetaByName(name, data);
-                    return (
-                      <span key={i} className="text-zinc-300">
-                        {i > 0 && <span className="text-zinc-600"> · </span>}
-                        {name}
-                        {meta && <span className="text-amber-600/90"> ({meta})</span>}
-                      </span>
-                    );
-                  })}
+                  <span className="text-zinc-300">
+                    {[...psy.wholeDisciplines.map(d => `${d} (${t('bookAll')})`), ...psy.names].join(' · ')}
+                  </span>
                 </div>
               )}
-              {extras.prayers.length > 0 && (
+              {psy.prayers.length > 0 && (
                 <div><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPrayers')}</span>
-                  {extras.prayers.map((name, i) => {
-                    const meta = powerMetaByName(name, data);
-                    return (
-                      <span key={i} className="text-zinc-300">
-                        {i > 0 && <span className="text-zinc-600"> · </span>}
-                        {name}
-                        {meta && <span className="text-amber-600/90"> ({meta})</span>}
-                      </span>
-                    );
-                  })}
+                  <span className="text-zinc-300">{psy.prayers.join(' · ')}</span>
+                </div>
+              )}
+              {psy.pacts.length > 0 && (
+                <div><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('infernalPactsLabel')}</span>
+                  <span className="text-zinc-300">{psy.pacts.join(' · ')}</span>
                 </div>
               )}
             </div>
@@ -314,7 +300,38 @@ export function PlayView({ onClose }: { onClose: () => void }) {
             armoryData={item.factionSource && alliedData ? alliedData : undefined}
           />
         ))}
+        <PowerBookPanel army={army} data={data} />
       </div>
+    </div>
+  );
+}
+
+/** The end of the battle view: every power, prayer and pact of the list, once, with its full text. Closed until opened. */
+function PowerBookPanel({ army, data }: { army: RosterEntry[]; data: any }) {
+  const t = useT();
+  const book = collectPowerBook(army, data);
+  if (powerBookIsEmpty(book)) return null;
+  const Entry = ({ e }: { e: { name: string; meta: string; effect: string } }) => (
+    <li className="text-[11px] leading-snug">
+      <span className="text-zinc-200 font-medium">{e.name}</span>
+      {e.meta && <span className="text-amber-600/90"> · {e.meta}</span>}
+      {e.effect && <div className="text-zinc-500">{e.effect}</div>}
+    </li>
+  );
+  const Section = ({ title, entries }: { title: string; entries: Array<{ name: string; meta: string; effect: string }> }) => (
+    <details className="group border border-zinc-800 bg-zinc-900/40">
+      <summary className="cursor-pointer select-none px-2 py-1.5 flex items-center gap-2 text-[10px] uppercase tracking-widest text-amber-600/90">
+        <span>{title}</span><span className="text-zinc-500 tabular-nums">{entries.length}</span>
+      </summary>
+      <ul className="px-2 pb-2 space-y-1.5 list-none">{entries.map(e => <Entry key={e.name} e={e} />)}</ul>
+    </details>
+  );
+  return (
+    <div className="pt-3 space-y-1.5">
+      <p className="text-zinc-600 text-[10px] uppercase tracking-widest">{[book.powers.length ? t('playPowers') : '', book.prayers.length ? t('playPrayers') : '', book.pacts.length ? t('infernalPactsLabel') : ''].filter(Boolean).join(' · ')}</p>
+      {book.powers.map(g => <Section key={g.discipline} title={g.discipline} entries={g.entries} />)}
+      {book.prayers.length > 0 && <Section title={t('playPrayers')} entries={book.prayers} />}
+      {book.pacts.length > 0 && <Section title={t('infernalPactsLabel')} entries={book.pacts} />}
     </div>
   );
 }
