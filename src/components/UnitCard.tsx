@@ -38,6 +38,7 @@ import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 import { nm, eqText, rl } from '../utils/localName';
 import { AbilityTokens } from './AbilityTokens';
+import { knowsEveryPower } from '../engine/knownPowers';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -2185,12 +2186,14 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       {meta && <div className="text-[10px] text-amber-600/90 uppercase tracking-wide">{meta}</div>}
                       {eff && <div className="text-[10px] text-zinc-500 leading-snug">{eff}</div>}
                     </div>
-                    <button
-                      onClick={() => useArmyStore.getState().removePower(item.id, p.disciplineName, p.powerName)}
-                      className="text-red-500 hover:text-red-300 shrink-0"
-                    >
-                      ✕
-                    </button>
+                    {!knowsEveryPower(u) && (
+                      <button
+                        onClick={() => useArmyStore.getState().removePower(item.id, p.disciplineName, p.powerName)}
+                        className="text-red-500 hover:text-red-300 shrink-0"
+                      >
+                        ✕
+                      </button>
+                    )}
                   </div>
                 );
               })}

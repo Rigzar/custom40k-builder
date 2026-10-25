@@ -4,6 +4,7 @@ import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
+import { knowsEveryPower } from '../engine/knownPowers';
 import { hasAllMarksVariant } from '../engine/slotOverrides';
 import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
@@ -208,9 +209,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const psykerAbilityText = (unit.abilities ?? [])
     .find(a => /^(psyker|shaman):/i.test(a))?.toLowerCase() ?? '';
 
-  type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
+  type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited' | 'knows_all';
   function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean; oneDiscipline?: boolean } {
     const knowsSmite = psykerAbilityText.includes('smite');
+    // "Knows Smite and all powers from the General psychic disciplines and ...": nothing to choose, the unit knows them all.
+    if (knowsEveryPower(unit)) return { mode: 'knows_all', limit: 999, knowsSmite };
     // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X"
     // (CD god-specific) OR "all powers from the X discipline" (unit-specific, e.g. Wraithseer)
     if (psykerAbilityText.includes('all powers from a chosen discipline') ||
@@ -273,7 +276,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // different one, so you can't just cherry pick from the whole list". So the picks fill the discipline they started, and only
   // once every power of it is known may a new discipline be opened. Baleful tome and Interdimensional Knowledge are worded
   // differently ("from the general / any general discipline") and keep their own free picks.
-  const sameDiscRule = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
+  const sameDiscRule = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one' && psykerMode !== 'knows_all'
     && (!!oneDiscipline || psychicTrainingCount > 0) && balefulTomeCount === 0 && interdimensionalCount === 0;
   const knownInDisc = (disc: string) => item.powers.filter(p => p.powerName !== '__discipline__' && p.disciplineName === disc).length;
   const discSize = (disc: string) => ((allowedDiscs.find(([d]) => d === disc)?.[1] ?? []) as Power[]).filter(pw => !(knowsSmite && pw.name === 'Smite')).length;
@@ -309,6 +312,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   }
 
   function togglePower(disc: string, power: string) {
+    if (psykerMode === 'knows_all') return;   // known, not chosen
     if (psykerMode === 'all_from_one') {
       chooseAllFromDisc(disc);
       return;
@@ -378,7 +382,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               >
                 {powersLabel} {psykerMode === 'all_from_one'
                   ? `(${chosenDisc ? chosenDisc : t('noDisciplineChosenWord')})`
-                  : `(${selectedPowersCount}${psykerMode !== 'unlimited' ? '/' + effectivePowerLimit : ''})`}
+                  : `(${selectedPowersCount}${psykerMode !== 'unlimited' && psykerMode !== 'knows_all' ? '/' + effectivePowerLimit : ''})`}
               </button>
             )}
             {hasPrayers && (
@@ -462,6 +466,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   : <span className="text-zinc-500 not-italic ml-1">{t('noneChosenYet')}</span>}
               </div>
             )}
+            {psykerMode === 'knows_all' && (
+              <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
+                {t('modeKnowsAll')} <span className="text-zinc-500 not-italic ml-1">({selectedPowersCount})</span>
+              </div>
+            )}
             {psykerMode === 'one_from_one' && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
                 {t('chooseWord')} <strong className="text-amber-400 not-italic">{t('onePowerLabel')}</strong> {t('fromWord')} <strong className="text-amber-400 not-italic">{t('oneDisciplineLabel')}</strong>.
@@ -487,7 +496,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               <div className="space-y-2">
               {allowedDiscs.map(([discName, powers]) => {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
-                const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
+                const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one' && psykerMode !== 'knows_all'
                   && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
                 const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite'));
                 const selectedInDisc = psykerMode === 'all_from_one'

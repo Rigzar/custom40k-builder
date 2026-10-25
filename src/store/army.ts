@@ -6,6 +6,7 @@ import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName, currentLegacyName } from '../engine/archetypes';
 import { dataForArchetype } from '../engine/archetypes/dataPatch';
+import { withKnownPowers } from '../engine/knownPowers';
 import { applyUnitRenames, applyArmoryRenames, applyOptionGroupRemovals, migrateTyranidBiomorphsToArmory, isPreArmoryTyranidList } from '../engine/unitRenames';
 import { findArmoryItem } from '../engine/resolver';
 import { isPsykerOnlyTrait, traitExcludesUnit } from '../engine/traitEffects';
@@ -670,7 +671,8 @@ export const useArmyStore = create<ArmyStore>()(
             }];
           }
         }
-        const newArmy = [...s.army, entry];
+        // A psyker that knows every power of its disciplines (Paladin Squad) starts with them.
+        const newArmy = [...s.army, withKnownPowers(entry, u, s.data)];
         const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool);
         set({ army });
       },
@@ -951,7 +953,7 @@ export const useArmyStore = create<ArmyStore>()(
           const repairedArmy = s.data
             ? migratedArmy.map((e: RosterEntry) => {
                 const u = resolveUnit(e, s.data!);
-                return u ? repairOrphanedArmory(e, u, s.data!) : e;
+                return u ? withKnownPowers(repairOrphanedArmory(e, u, s.data!), u, s.data!) : e;
               })
             : migratedArmy;
           const army = s.data

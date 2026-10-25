@@ -140,7 +140,7 @@ export type TranslationKey =
   | 'cultPowersLabel' | 'psychicPowersLabel' | 'andPrayersSuffix' | 'andPactsSuffix' | 'prayersAndPactsLabel'
   | 'prayersLabel' | 'infernalPactsLabel' | 'alwaysKnownBadge' | 'legacyTag' | 'castLabel'
   | 'chooseWord' | 'oneDisciplineLabel' | 'modeAllFromOneMid' | 'allItsPowersLabel' | 'selectedPrefix'
-  | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'powersWord'
+  | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'modeKnowsAll' | 'powersWord'
   | 'modeNFromAnyPart2' | 'noDisciplinesAvailable' | 'chosenBadge' | 'includedBadge' | 'noDisciplineChosenWord'
   | 'setCustomNameTitle' | 'copyUnitTitle' | 'favoredBadge' | 'lockedSuffix' | 'archetypeSuffix' | 'joinsLabel'
   | 'noUnitOption' | 'platoonLabel' | 'independentOwnSlotOption' | 'platoonNoAnchorOption' | 'markOfChaosLabel' | 'noneOption'
@@ -1112,6 +1112,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     fromWord: 'from',
     selectedCountSuffix: 'selected',
     modeNFromAnyPart1: 'Choose up to',
+    modeKnowsAll: 'This unit knows every one of these powers; there is nothing to choose.',
     powersWord: 'powers',
     modeNFromAnyPart2: 'from any available discipline',
     noDisciplinesAvailable: 'No disciplines available for this unit.',
@@ -2288,6 +2289,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     fromWord: 'aus',
     selectedCountSuffix: 'gewählt',
     modeNFromAnyPart1: 'Wähle bis zu',
+    modeKnowsAll: 'Diese Einheit kennt alle diese Kräfte; es gibt nichts zu wählen.',
     powersWord: 'Kräfte',
     modeNFromAnyPart2: 'aus jeder verfügbaren Disziplin',
     noDisciplinesAvailable: 'Keine Disziplinen für diese Einheit verfügbar.',
@@ -3462,6 +3464,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     fromWord: 'de',
     selectedCountSuffix: 'elegidos',
     modeNFromAnyPart1: 'Elige hasta',
+    modeKnowsAll: 'Esta unidad conoce todos estos poderes; no hay nada que elegir.',
     powersWord: 'poderes',
     modeNFromAnyPart2: 'de cualquier disciplina disponible',
     noDisciplinesAvailable: 'No hay disciplinas disponibles para esta unidad.',

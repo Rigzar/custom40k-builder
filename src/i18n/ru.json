@@ -1235,5 +1235,6 @@
  "armReasonCharOnly": "Только для моделей-персонажей",
  "armReasonNotChar": "Не для моделей-персонажей",
  "navCampaignAlphaOpen": "Кампания — Альфа",
- "campaignRulesLink": "Читать правила кампании (Google Doc)"
+ "campaignRulesLink": "Читать правила кампании (Google Doc)",
+ "modeKnowsAll": "Этот отряд знает все эти силы; выбирать нечего."
 }
