@@ -409,11 +409,16 @@ function ClipSvg() {
 
 function CommunityAnnouncement() {
   const { language } = useLanguage();
-  const tClose = useT()('close');
+  const tt = useT();
+  const tClose = tt('close');
   const tx = ANNOUNCEMENT_TEXT[language];
   const [dismissed, setDismissed] = useState(
     () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
   );
+  // The whole card folds to its title line (Rigzar, 2026-10-25: fourteen faction headers are a long block at the top of the
+  // page, "debe poder recogerse todo"). The choice is remembered across versions, so someone who folds it stays folded.
+  const [folded, setFolded] = useState(() => { try { return localStorage.getItem('c40k_announcement_folded') === 'true'; } catch { return false; } });
+  const toggleFolded = () => setFolded(f => { const n = !f; try { localStorage.setItem('c40k_announcement_folded', String(n)); } catch { /* private window */ } return n; });
   if (dismissed) return null;
   return (
     <div className="relative mb-6">
@@ -441,10 +446,16 @@ function CommunityAnnouncement() {
       {/* Ordo card — pt-14 so content clears the skull overlap */}
       <div className="bg-zinc-900 border border-zinc-700 border-t-2 border-t-amber-900/80 px-5 pt-14 pb-4">
         <div className="flex justify-between items-start gap-4">
-          <div className="text-[10px] text-amber-600 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
+          <button
+            onClick={toggleFolded}
+            aria-expanded={!folded}
+            title={folded ? tt('playExpandAll') : tt('playCollapseAll')}
+            className="flex-1 text-left text-[10px] text-amber-600 hover:text-amber-500 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5 transition-colors"
+          >
             <span className="opacity-60">⚙</span>
-            {tx.title}
-          </div>
+            <span>{tx.title}</span>
+            <span className={`ml-auto text-zinc-500 text-[11px] transition-transform ${folded ? '' : 'rotate-180'}`} aria-hidden="true">▾</span>
+          </button>
           <button
             onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
             className="text-red-500 hover:text-red-300 text-lg leading-none shrink-0 transition-colors"
@@ -453,7 +464,7 @@ function CommunityAnnouncement() {
             ×
           </button>
         </div>
-        <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
+        {!folded && <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
           {/* `install` is a highlighted block used only when a release leads with the PWA/offline
               news; empty on releases that don't (skipped so it leaves no gap). */}
@@ -507,7 +518,7 @@ function CommunityAnnouncement() {
             </details>
           ))}
           <p className="text-zinc-400">{tx.contrib}</p>
-        </div>
+        </div>}
       </div>
     </div>
   );
