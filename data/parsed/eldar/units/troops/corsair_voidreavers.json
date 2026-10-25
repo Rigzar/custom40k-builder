@@ -227,11 +227,7 @@
         }
     ],
     "abilities": [
-<<<<<<< HEAD
-        "Mistshield: The model and it's attached unit gain a 5+ ward save against ranged attacks.",
-=======
         "Mistshield: The model and it's attached unit gain Ward(5+) against ranged attacks.",
->>>>>>> b3afcee4fe5c8f3b0cd37437b6aef6763c276c1a
         "Neuro disruptor: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",
         "Outcasts and Pirates: This unit can't be a mandatory Troop selection."
     ],
