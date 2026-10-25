@@ -1237,5 +1237,7 @@
  "navCampaignAlphaOpen": "キャンペーン — アルファ",
  "campaignRulesLink": "キャンペーンルールを読む（Googleドキュメント）",
  "modeKnowsAll": "このユニットはこれらのパワーをすべて知っています。選ぶ必要はありません。",
- "bookAll": "すべて"
+ "bookAll": "すべて",
+ "bannerShow": "変更点を表示",
+ "bannerHide": "折りたたむ"
 }

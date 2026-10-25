@@ -454,7 +454,10 @@ function CommunityAnnouncement() {
           >
             <span className="opacity-60">⚙</span>
             <span>{tx.title}</span>
-            <span className={`ml-auto text-zinc-500 text-[11px] transition-transform ${folded ? '' : 'rotate-180'}`} aria-hidden="true">▾</span>
+            {/* A visible button, not a bare arrow: it has to be obvious that the card folds, and that the changes are inside it. */}
+            <span className="ml-auto shrink-0 border border-amber-700/70 bg-amber-900/20 px-2 py-0.5 text-[10px] normal-case tracking-normal text-amber-400">
+              {folded ? `${tt('bannerShow')} (${tx.sections.reduce((n, sec) => n + sec.rows.length, 0)}) ▾` : `${tt('bannerHide')} ▴`}
+            </span>
           </button>
           <button
             onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
