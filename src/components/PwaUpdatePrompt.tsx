@@ -54,10 +54,20 @@ const TEXT: Record<Language, Tx> = {
   },
 };
 
+/**
+ * "Later" used to live only in component state, so it was forgotten on every page load: a waiting service worker stays waiting until
+ * it is applied, and the prompt came back each time the page was opened, which reads as "it asks to update several times for ONE
+ * push" (reported 2026-10-25). Now "Later" snoozes the prompt for a few hours in the browser.
+ */
+const SNOOZE_KEY = 'c40k_update_snoozed_until';
+const SNOOZE_MS = 6 * 60 * 60 * 1000;
+const snoozed = () => { try { return Number(localStorage.getItem(SNOOZE_KEY) ?? 0) > Date.now(); } catch { return false; } };
+const snooze = () => { try { localStorage.setItem(SNOOZE_KEY, String(Date.now() + SNOOZE_MS)); } catch { /* private window */ } };
+
 export function PwaUpdatePrompt() {
   const { language } = useLanguage();
   const tx = TEXT[language] ?? TEXT.en;
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(snoozed);
   const [updating, setUpdating] = useState(false);
 
   const {
@@ -91,6 +101,7 @@ export function PwaUpdatePrompt() {
   async function applyUpdate() {
     if (updating) return;
     setUpdating(true);
+    try { localStorage.removeItem(SNOOZE_KEY); } catch { /* ignore */ }
     try { await updateServiceWorker(true); } catch { /* fall through to the reload */ }
     setTimeout(() => window.location.reload(), 1500);
   }
@@ -119,7 +130,7 @@ export function PwaUpdatePrompt() {
             {updating ? tx.updating : tx.update}
           </button>
           <button
-            onClick={() => setDismissed(true)}
+            onClick={() => { snooze(); setDismissed(true); }}
             disabled={updating}
             className="shrink-0 px-2 py-1.5 text-zinc-400 hover:text-zinc-200 text-[11px]
                        uppercase tracking-wide transition-colors"
