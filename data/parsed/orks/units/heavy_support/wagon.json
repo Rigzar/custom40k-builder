@@ -145,7 +145,7 @@
         {
             "header": "May be equipped with one of the following weapons",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -216,7 +216,7 @@
         {
             "header": "Can get one Kustom job.",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

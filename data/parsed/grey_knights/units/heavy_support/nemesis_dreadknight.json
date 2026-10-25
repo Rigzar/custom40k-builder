@@ -73,7 +73,7 @@
         {
             "header": "Can swap one Dreadfist",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

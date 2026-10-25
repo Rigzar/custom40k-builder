@@ -321,7 +321,7 @@
         {
             "header": "Can swap a Storm bolter",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "replaces": [
                 "Storm bolter"

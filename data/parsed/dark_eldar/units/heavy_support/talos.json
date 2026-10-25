@@ -100,7 +100,7 @@
         {
             "header": "Can replace one Macro-scalpel",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -122,7 +122,7 @@
         {
             "header": "Can replace one Macro-scalpel",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -140,7 +140,7 @@
         {
             "header": "Can replace its Twin splinter rifle",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

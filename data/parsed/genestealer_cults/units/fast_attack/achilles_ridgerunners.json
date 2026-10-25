@@ -64,7 +64,7 @@
         {
             "header": "May swap its Heavy mortar",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

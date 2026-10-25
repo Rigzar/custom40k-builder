@@ -100,7 +100,7 @@
         {
             "header": "Can swap the Storm bolter",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -118,7 +118,7 @@
         {
             "header": "Can swap the Heavy flamer",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -136,7 +136,7 @@
         {
             "header": "Can swap the Dreadnought close combat weapon with Storm bolter",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -159,7 +159,7 @@
         {
             "header": "Can swap the Seismic hammer",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

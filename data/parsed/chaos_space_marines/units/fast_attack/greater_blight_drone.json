@@ -73,7 +73,7 @@
         {
             "header": "Can replace the Bile maw",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

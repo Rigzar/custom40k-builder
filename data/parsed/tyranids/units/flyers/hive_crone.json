@@ -81,7 +81,7 @@
         {
             "header": "May be equipped with one of the following",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

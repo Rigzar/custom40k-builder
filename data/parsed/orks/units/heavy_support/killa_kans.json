@@ -113,7 +113,7 @@
         {
             "header": "Can get one Kustom job.",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

@@ -368,6 +368,9 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       // an upgrade's rules are not part of the unit until it is bought (same lines the unit card hides)
       ...(unit.abilities ?? []).filter(ab => !rp.hiddenUpgradeAbilityLines.includes(ab)),
       ...rp.injectedAbilities,
+      // what a bought option choice grants (a Special Biomorph such as Regeneration): the card, the print view and the battle profile
+      // list it, and the Tabletop Simulator mod only knows what is in this array (Unwise, Malanthrope)
+      ...rp.optionAbilities.filter(ab => !/^\d+$/.test(ab.trim()) && !(unit.abilities ?? []).some(a => a.toLowerCase().includes(ab.toLowerCase()))),
       ...rp.equipMods.grantedAbilities,
       ...rp.traitAbilities.map(t => (t.desc ? `${t.name}: ${t.desc}` : t.name)),
     ].filter((v, i, a) => v && a.indexOf(v) === i);

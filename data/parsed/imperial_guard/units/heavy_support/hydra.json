@@ -64,7 +64,7 @@
         {
             "header": "May swap the Heavy bolter",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

@@ -82,7 +82,7 @@
         {
             "header": "Can be equipped with one of the following",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -101,7 +101,7 @@
         {
             "header": "Can replace both Twin pulse carbines",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

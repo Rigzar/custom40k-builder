@@ -46,7 +46,7 @@
         {
             "header": "May replace one Dreadnought close combat weapon:",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

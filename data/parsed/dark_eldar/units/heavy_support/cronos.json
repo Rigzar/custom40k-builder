@@ -55,7 +55,7 @@
         {
             "header": "May be equipped with",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

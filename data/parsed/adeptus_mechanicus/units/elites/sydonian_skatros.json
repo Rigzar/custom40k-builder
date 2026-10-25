@@ -55,7 +55,7 @@
         {
             "header": "May swap the Radium jezzail",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

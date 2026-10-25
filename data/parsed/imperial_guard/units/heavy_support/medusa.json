@@ -73,7 +73,7 @@
         {
             "header": "May be equipped with additional ammunition",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -88,7 +88,7 @@
         {
             "header": "May swap the Heavy bolter",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

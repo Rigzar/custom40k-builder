@@ -118,7 +118,7 @@
         {
             "header": "May swap their Onslaught gatling cannon",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -140,7 +140,7 @@
         {
             "header": "May swap their 2 Fragstorm grenade launcher",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
@@ -162,7 +162,7 @@
         {
             "header": "May swap their Twin Icarus rocket pod",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

@@ -64,7 +64,7 @@
         {
             "header": "Can swap its Multi-melta",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

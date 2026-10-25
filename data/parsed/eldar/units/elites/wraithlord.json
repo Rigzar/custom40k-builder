@@ -118,7 +118,7 @@
         {
             "header": "May swap both Shuriken catapults",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

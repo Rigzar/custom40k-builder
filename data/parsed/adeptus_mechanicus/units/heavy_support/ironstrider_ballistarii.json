@@ -46,7 +46,7 @@
         {
             "header": "May swap the Twin cognis autocannon",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

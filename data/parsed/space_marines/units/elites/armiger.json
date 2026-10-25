@@ -73,7 +73,7 @@
     {
       "header": "May swap the Armiger autocannon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -91,7 +91,7 @@
     {
       "header": "May swap the Chain-cleaver",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -109,7 +109,7 @@
     {
       "header": "May swap the Heavy stubber",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

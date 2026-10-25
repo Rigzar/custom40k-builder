@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tts-option-abilities-missing-01",
+    status: "fixed",
+    title: "Tabletop Simulator export left out what a bought option grants (a Malanthrope with Regeneration showed none)",
+    description: "FIXED 2026-10-25. Unwise: \"I bought Regeneration for my Malanthrope, but it is missing from the json - therefore it does not appear on the model on TTS\". buildTtsExport listed the datasheet abilities, the injected ones, the equipment grants and the traits, but not rp.optionAbilities, which is what a chosen option_groups choice grants (the Special Biomorphs, Colonel-type inline upgrades). The card, the print view and the battle profile already used it. It is now in the export; scripts/check_tts_option_abilities.ts reproduces the report, and a sweep of every option choice that grants an ability (232) and every inline upgrade (34) finds none missing."
+  },
+  {
     id: "ki-eldar-dire-avengers-shimmershield-sheet-01",
     status: "known",
     title: "Eldar Dire Avengers: the sheet lists Shimmershield as a unit ability, but only the Exarch can buy it (+5)",
@@ -9,9 +15,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: "ki-squadron-option-groups-priced-once-01",
-    status: "known",
+    status: "fixed",
     title: "Squadron vehicles: a \"may swap\" option is priced once for the whole squadron (37 units), only the Warbuggy, Wazbom Blastajet and Fighta-Bommer pay per vehicle",
-    description: "FOUND 2026-10-20 with GH#248 (two Wazbom Blastajets paid 6 points for a swap that should cost 12). A Squadron makes every model its own unit, and the datasheet options read \"May swap the smasha gun\" without saying per vehicle. The Warbuggy was already flagged per_model (GH#185); the Wazbom Blastajet and the Fighta-Bommer now are too. The same pattern exists on about 37 other multi-vehicle datasheets whose single-choice groups are priced once: Venerable Contemptor, Sydonian Skatros, Ironstrider Ballistarii, Onager Dunecrawler, Helbrute, War Dog, Talos, Cronos, Wraithlord, Griffon, Hydra, Medusa, Wyvern, Salamander Scout, Tauros, Storm Speeder, Piranha, Harpy, Hive Crone and others. QUESTION FOR THE AUTHORS (Dominic): is every vehicle of a squadron meant to pay for its own swap? If so the flag goes on each of those groups; if the squadron shares one purchase, the Wazbom and Fighta-Bommer flags come off.",
+    description: "FIXED 2026-10-25 after the author answered that on a squadron each model may swap individually: the single-choice 'may swap' groups of 45 multi-vehicle datasheets (83 groups) are now 'every' (or per-model where the unit already was), so each vehicle pays for its own swap. FOUND 2026-10-20 with GH#248 (two Wazbom Blastajets paid 6 points for a swap that should cost 12). A Squadron makes every model its own unit, and the datasheet options read \"May swap the smasha gun\" without saying per vehicle. The Warbuggy was already flagged per_model (GH#185); the Wazbom Blastajet and the Fighta-Bommer now are too. The same pattern exists on about 37 other multi-vehicle datasheets whose single-choice groups are priced once: Venerable Contemptor, Sydonian Skatros, Ironstrider Ballistarii, Onager Dunecrawler, Helbrute, War Dog, Talos, Cronos, Wraithlord, Griffon, Hydra, Medusa, Wyvern, Salamander Scout, Tauros, Storm Speeder, Piranha, Harpy, Hive Crone and others. QUESTION FOR THE AUTHORS (Dominic): is every vehicle of a squadron meant to pay for its own swap? If so the flag goes on each of those groups; if the squadron shares one purchase, the Wazbom and Fighta-Bommer flags come off.",
   },
   {
     id: "ki-oct17-sheets-not-enforced-01",

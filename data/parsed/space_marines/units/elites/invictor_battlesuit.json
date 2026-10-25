@@ -82,7 +82,7 @@
         {
             "header": "Can replace the Incendium cannon",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
