@@ -51,7 +51,7 @@ export const RULES: Record<string, RuleEntry> = {
   // The authors renamed Armor piercing(x+) to Piercing(x+) in every sheet (2026-10). Both names are kept: sheets and saved data move at different times.
   'piercing': {
     name: 'Piercing({X})',
-    description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and a +2 bonus for armor penetration rolls.',
+    description: 'Successful wound rolls of {X} always succeed and gain an additional -2 AP. Successful armor penetration rolls of {X} gain a +2 bonus to the result and are considered to have AT(1) unless their AT is already higher.',
   },
   // New in the sheets (Unwise, 2026-10): the ward save as an ability with a value, replacing the sentences "The model gains a 5+ ward save".
   'ward': {
@@ -95,7 +95,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deadly': {
     name: 'Deadly({X})',
-    description: 'Wound rolls of {X} increase the Damage value of the attack by +1.',
+    description: 'Successful wound rolls of {X} increase the Damage value of the attack by +1.',
   },
   'decimate': {
     name: 'Decimate',
@@ -103,7 +103,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deflagrate': {
     name: 'Deflagrate({X})',
-    description: 'Hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
+    description: 'Successful hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
   },
   'blast': {
     name: 'Blast({X})',
@@ -185,7 +185,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'rending': {
     name: 'Rending({X})',
-    description: 'Wound rolls of {X} gain an additional bonus of -1 to their AP.',
+    description: 'Successful wound rolls of {X} gain an additional bonus of -1 to their AP.',
   },
   'seeking': {
     name: 'Seeking',
@@ -205,7 +205,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'soul burn': {
     name: 'Soul Burn({X})',
-    description: 'Wound rolls of {X} against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work against Vehicles.',
+    description: 'Successful wound rolls of {X} against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work against Vehicles. Excess wounds do not spill over to the next model, as the Mortal Wound is part of the original attack.',
   },
   'limit': {
     name: 'Limit({X})',
@@ -490,11 +490,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'narthecium': {
     name: 'Narthecium',
-    description: 'Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1. Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
+    description: 'Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1 (to a minimum of 0). Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
   },
   'open': {
     name: 'Open',
-    description: 'The vehicle has fire hatches equal to its passenger capacity. Passengers Can be targeted for ranged attacks. Count as physically present on the battlefield (e.g., Psykers can manifest powers). Ranges are measured from the transport\'s hull. Benefit from cover if the transport does. Cannot participate in melee combat while inside the vehicle. Can always make a 6" Charge move after disembarking, if the vehicle moved up to 12".',
+    description: 'The vehicle has fire hatches equal to its passenger capacity. Passengers Can be targeted for ranged attacks. Count as physically present on the battlefield (e.g., Psykers can manifest powers). Measure ranges from the transport hull. Benefit from cover if the transport does. Cannot participate in melee combat while inside the vehicle. Can always make a 6" Charge move after disembarking, if the vehicle moved up to 12".',
   },
   'outflank': {
     name: 'Outflank',

@@ -46,6 +46,7 @@ import heavy_support_support_weapons from './heavy_support/support_weapons.json'
 import heavy_support_war_walkers from './heavy_support/war_walkers.json';
 import dedicated_transport_wave_serpent from './dedicated_transport/wave_serpent.json';
 import flyers_crimson_hunter from './flyers/crimson_hunter.json';
+import flyers_hemlock_wraithfighter from './flyers/hemlock_wraithfighter.json';
 import flyers_nightwing from './flyers/nightwing.json';
 import flyers_phoenix from './flyers/phoenix.json';
 import lords_of_war_lynx from './lords_of_war/lynx.json';
@@ -112,6 +113,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Flyers": [
     "Crimson Hunter",
+    "Hemlock Wraithfighter",
     "Nightwing",
     "Phoenix"
   ]
@@ -155,6 +157,7 @@ export const units: Record<string, Unit> = {
   "War Walkers": heavy_support_war_walkers as Unit,
   "Wave Serpent": dedicated_transport_wave_serpent as Unit,
   "Crimson Hunter": flyers_crimson_hunter as Unit,
+  "Hemlock Wraithfighter": flyers_hemlock_wraithfighter as Unit,
   "Nightwing": flyers_nightwing as Unit,
   "Phoenix": flyers_phoenix as Unit,
   "Lynx": lords_of_war_lynx as Unit,

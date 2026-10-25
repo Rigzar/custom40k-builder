@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186p_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186q_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -68,12 +68,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "By faction", rows: [
         ["Space Marines","New Legion of the Damned archetype with its own 7-unit supplement; Legacy of the Damned is now Legacy of the Relic Hunters. Purity above All is paid only when you tick the Apothecary option on the unit."],
         ["Dark Eldar","Incubi Bloodstone, Murderous Assault and Onslaught, the Grotesque Aberration and the Mindphase gauntlet are in."],
-        ["Eldar","Aspect Focus now makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
+        ["Eldar","Aspect Focus now makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors. New: Hemlock Wraithfighter."],
         ["Necrons","The Night Scythe and Doom Scythe tesla guns no longer show AT(1)."],
         ["T'au Empire","The XV85 Enforcer suit gets its extra weapon (and its extra support system), for the Crisis Honor Guard and the Crisis Battlesuits. Updated to the T'au 1.9 sheet: more Wounds, Strength and Toughness on the battlesuits, new points, Shield, Missile and Stealth Drones changed, Armory items repriced."],
         ["Adeptus Mechanicus","Dark Mechanicum are treated as Chaos Space Marines in the Ally matrix."],
         ["Assassins","Callidus and Vindicare gain Hunter; the Callidus loses Polymorphine."],
-        ["Imperial Guard","Special and Heavy Weapon Squads taken in a platoon now count toward the Troops points requirement."],
+        ["Imperial Guard","Special and Heavy Weapon Squads taken in a platoon now count toward the Troops points requirement. New: Rogal Dorn Tank Commander (640 pts), with Leman Russ and Rogal Dorn updated."],
         ["Leagues of Votann","Demiurg can only be an allied detachment for the T'au Empire."],
         ["Escalation","War Dogs for every Chaos army and Armigers for every Imperial army (Chaos Daemons excluded)."],
       ] },
@@ -100,12 +100,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Nach Fraktion", rows: [
         ["Space Marines","Neuer Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten); Legacy of the Damned heißt jetzt Legacy of the Relic Hunters. Purity above All kostet nur noch, wenn du die Apothekar-Option bei der Einheit ankreuzt."],
         ["Dark Eldar","Incubi-Bloodstone, Murderous Assault und Onslaught, die Grotesque-Aberration und der Mindphase gauntlet sind drin."],
-        ["Eldar","Aspect Focus macht die Dark Reapers jetzt zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
+        ["Eldar","Aspect Focus macht die Dark Reapers jetzt zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden. Neu: Hemlock Wraithfighter."],
         ["Necrons","Die Tesla-Waffen von Night Scythe und Doom Scythe zeigen kein AT(1) mehr."],
         ["T'au","Der XV85 Enforcer bekommt seine zusätzliche Waffe (und sein zusätzliches Unterstützungssystem), bei Crisis-Ehrengarde und Crisis-Kampfanzügen. An die T'au-Tabelle 1.9 angepasst: mehr Wunden, Stärke und Widerstand bei den Kampfanzügen, neue Punkte, Schild-, Raketen- und Tarndrohnen geändert, Rüstkammer neu bepreist."],
         ["Adeptus Mechanicus","Dark Mechanicum werden in der Alliiertenmatrix wie Chaos Space Marines behandelt."],
         ["Assassinen","Callidus und Vindicare erhalten Hunter; der Callidus verliert Polymorphine."],
-        ["Imperiale Armee","Special und Heavy Weapon Squads in einem Platoon zählen jetzt für die Truppen-Mindestpunkte."],
+        ["Imperiale Armee","Special und Heavy Weapon Squads in einem Platoon zählen jetzt für die Truppen-Mindestpunkte. Neu: Rogal Dorn Tank Commander (640 Pkt.), Leman Russ und Rogal Dorn angepasst."],
         ["Leagues of Votann","Demiurg kann nur ein verbündetes Kontingent für die T'au sein."],
         ["Escalation","War Dogs für jede Chaos-Armee und Armigers für jede imperiale Armee (ohne Chaos Daemons)."],
       ] },
@@ -132,12 +132,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Por facción", rows: [
         ["Space Marines","Nuevo arquetipo Legion of the Damned con su suplemento de 7 unidades; Legacy of the Damned ahora es Legacy of the Relic Hunters. Purity above All solo se paga al marcar la opción de Boticario en la unidad."],
         ["Dark Eldar","Bloodstone de Incubi, Murderous Assault y Onslaught, la Aberration de los Grotesques y el Mindphase gauntlet ya están."],
-        ["Eldar","Aspect Focus ahora convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
+        ["Eldar","Aspect Focus ahora convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle. Nuevo: Hemlock Wraithfighter."],
         ["Necrones","Las armas tesla del Night Scythe y del Doom Scythe ya no muestran AT(1)."],
         ["T'au","El traje XV85 Enforcer recibe su arma extra (y su sistema de apoyo extra), en la Guardia de Honor Crisis y los Trajes de Combate Crisis. Actualizado a la hoja T'au 1.9: más Heridas, Fuerza y Resistencia en los trajes, puntos nuevos, Drones Escudo, de Misiles y Sigilo cambiados, Armería con precios nuevos."],
         ["Adeptus Mechanicus","Los Dark Mechanicum se tratan como Chaos Space Marines en la matriz de aliados."],
         ["Asesinos","Callidus y Vindicare ganan Hunter; el Callidus pierde Polymorphine."],
-        ["Guardia Imperial","Los Special y Heavy Weapon Squads de un pelotón ya cuentan para los puntos mínimos de Tropas."],
+        ["Guardia Imperial","Los Special y Heavy Weapon Squads de un pelotón ya cuentan para los puntos mínimos de Tropas. Nuevo: Rogal Dorn Tank Commander (640 pts), con Leman Russ y Rogal Dorn actualizados."],
         ["Leagues of Votann","Demiurg solo puede ser un destacamento aliado de los T'au."],
         ["Escalation","War Dogs para todo ejército del Caos y Armigers para todo ejército Imperial (sin Chaos Daemons)."],
       ] },
@@ -164,12 +164,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "По фракциям", rows: [
         ["Space Marines","Новый архетип Legion of the Damned с собственным дополнением из 7 отрядов; Legacy of the Damned теперь Legacy of the Relic Hunters. Purity above All оплачивается только если отметить опцию Апотекария у отряда."],
         ["Dark Eldar","Добавлены Bloodstone у Incubi, Murderous Assault и Onslaught, Aberration у Grotesques и Mindphase gauntlet."],
-        ["Eldar","Aspect Focus теперь делает Dark Reapers Элитой; воинам Аспектов можно менять на Sun pistol и Sun rifle."],
+        ["Eldar","Aspect Focus теперь делает Dark Reapers Элитой; воинам Аспектов можно менять на Sun pistol и Sun rifle. Новое: Hemlock Wraithfighter."],
         ["Некроны","Тесла-оружие Night Scythe и Doom Scythe больше не показывает AT(1)."],
         ["T'au","Костюм XV85 Enforcer получает дополнительное оружие (и дополнительную систему поддержки) у Crisis Honor Guard и Crisis Battlesuits. Обновлено по таблице T'au 1.9: больше Ран, Силы и Стойкости у костюмов, новые очки, изменены щитовые, ракетные и stealth-дроны, новые цены в Арсенале."],
         ["Adeptus Mechanicus","Dark Mechanicum в матрице союзников считаются Chaos Space Marines."],
         ["Ассасины","Callidus и Vindicare получают Hunter; Callidus теряет Polymorphine."],
-        ["Имперская гвардия","Special и Heavy Weapon Squads во взводе теперь учитываются в минимуме очков Troops."],
+        ["Имперская гвардия","Special и Heavy Weapon Squads во взводе теперь учитываются в минимуме очков Troops. Новое: Rogal Dorn Tank Commander (640 очков), Leman Russ и Rogal Dorn обновлены."],
         ["Leagues of Votann","Demiurg может быть только союзным отрядом для T'au."],
         ["Escalation","War Dog для любой армии Хаоса и Armiger для любой имперской (кроме Chaos Daemons)."],
       ] },
@@ -196,12 +196,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "勢力別", rows: [
         ["スペースマリーン","新アーキタイプ Legion of the Damned と7ユニットの補足を追加。Legacy of the Damned は Legacy of the Relic Hunters に改名。 Purity above All は、ユニットで薬剤師オプションにチェックを入れたときだけ支払います。"],
         ["ダークエルダー","インキュビのBloodstone、Murderous Assault、Onslaught、グロテスクのAberration、Mindphase gauntletを追加しました。"],
-        ["エルダー","Aspect FocusでDark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],
+        ["エルダー","Aspect FocusでDark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。 新規：Hemlock Wraithfighter。"],
         ["ネクロン","Night ScytheとDoom Scytheのテスラ武器にAT(1)が表示されなくなりました。"],
         ["タウ","XV85 Enforcerスーツが追加武器（と追加サポートシステム）を使えるようになりました（Crisis Honor GuardとCrisis Battlesuits）。 タウ1.9シートに更新：バトルスーツのWound・強さ・耐久が増加、ポイント変更、シールド／ミサイル／ステルスドローンの変更、アーモリーの価格改定。"],
         ["アデプトゥス・メカニカス","Dark Mechanicumは同盟マトリクスでChaos Space Marinesとして扱われます。"],
         ["アサシン","CallidusとVindicareがHunterを得て、CallidusはPolymorphineを失います。"],
-        ["インペリアル・ガード","小隊に入れたSpecial・Heavy Weapon Squadがトループスの最低ポイントに数えられます。"],
+        ["インペリアル・ガード","小隊に入れたSpecial・Heavy Weapon Squadがトループスの最低ポイントに数えられます。 新規：Rogal Dorn Tank Commander（640ポイント）。Leman RussとRogal Dornも更新。"],
         ["Leagues of Votann","DemiurgはT'au帝国の同盟部隊としてのみ選べます。"],
         ["Escalation","すべてのカオス軍でWar Dog、すべてのインペリアル軍でArmigerを選べます（Chaos Daemonsを除く）。"],
       ] },

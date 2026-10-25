@@ -2289,6 +2289,16 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // One limit shared by two datasheets: "Only one Leman Russ Tank Commander or Rogal Dorn Tank Commander per army." Each unit is
+  // already unique by itself above; this adds the combined count (Imperial Guard 1.9).
+  const SHARED_UNIQUE: string[][] = [['Leman Russ Tank Commander', 'Rogal Dorn Tank Commander']];
+  for (const names of SHARED_UNIQUE) {
+    const have = state.army.filter(i => !i.factionSource && names.includes(i.unitName)).length;
+    if (have > 1 && names.every(n => (uniqueUnitCounts[n] ?? 0) <= 1)) {
+      items.push({ type: 'error', text: `${names.join(' / ')}: only 1 allowed per army in total (have ${have}).` });
+    }
+  }
+
   // The purchase-capped upgrades named above: only one unit in the army may have bought each.
   const uniqueInlineCounts: Record<string, number> = {};
   for (const item of state.army) {

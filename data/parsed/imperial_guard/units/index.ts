@@ -14,6 +14,7 @@ import hq_captain from './hq/captain.json';
 import hq_leman_russ_tank_commander from './hq/leman_russ_tank_commander.json';
 import hq_lord_commissar from './hq/lord_commissar.json';
 import hq_primaris_psyker from './hq/primaris_psyker.json';
+import hq_rogal_dorn_tank_commander from './hq/rogal_dorn_tank_commander.json';
 import hq_salamander_command from './hq/salamander_command.json';
 import troops_conscript_infantry_platoon from './troops/conscript_infantry_platoon.json';
 import troops_hive_gangers from './troops/hive_gangers.json';
@@ -95,6 +96,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Leman Russ Tank Commander",
     "Lord Commissar",
     "Primaris Psyker",
+    "Rogal Dorn Tank Commander",
     "Salamander Command"
   ],
   "Troops": [
@@ -191,6 +193,7 @@ export const units: Record<string, Unit> = {
   "Leman Russ Tank Commander": hq_leman_russ_tank_commander as Unit,
   "Lord Commissar": hq_lord_commissar as Unit,
   "Primaris Psyker": hq_primaris_psyker as Unit,
+  "Rogal Dorn Tank Commander": hq_rogal_dorn_tank_commander as Unit,
   "Salamander Command": hq_salamander_command as Unit,
   "Conscript Infantry Platoon": troops_conscript_infantry_platoon as Unit,
   "Hive Gangers": troops_hive_gangers as Unit,
