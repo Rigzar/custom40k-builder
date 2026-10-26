@@ -7,7 +7,7 @@ import { alliedSlotFactor } from '../engine/navyRules';
 import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engine/legendaryRetinue';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
+import { computeFreeSlotAdjustments, ctanShardCapBlockReason, pointCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -297,7 +297,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       { const need = unitRequiredLegacy(u); if (need && need !== legacy && need !== legacy2) continue; }
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) {
-        const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? ctanShardCapBlockReason(name, primaryData.faction, army) ?? engagementGateBlockReason(u, engagement) ?? undefined;
+        const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? ctanShardCapBlockReason(name, primaryData.faction, army) ?? pointCapBlockReason(u, store.pointLimit, army) ?? engagementGateBlockReason(u, engagement) ?? undefined;
         effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost, disabledReason });
       }
     }

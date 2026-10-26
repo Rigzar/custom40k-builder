@@ -80,17 +80,6 @@
             "inline_pts": 20,
             "variant_link": null,
             "is_unique_per_army": false
-        },
-        {
-            "header": "Not mandatory. One Praetor may be taken for each full 1000 points of game size.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1000,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
         }
     ],
     "abilities": [
@@ -111,5 +100,6 @@
     "advisor": false,
     "slot": "HQ",
     "default_size": 1,
-    "min_cost": 75
+    "min_cost": 75,
+    "max_per_points": 1000
 }

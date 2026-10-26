@@ -1136,6 +1136,15 @@ export function ctanShardCapBlockReason(unitName: string, faction: string, army:
   return `An army can contain only one C'tan Shard (any kind) — this army already has one.`;
 }
 
+/** "One <unit> may be taken for each full N points of game size" (Index army rule, `Unit.max_per_points`). Grey-out reason for the
+ * catalog, or null while the army is under the cap. */
+export function pointCapBlockReason(unit: Unit, pointLimit: number, army: RosterEntry[]): string | null {
+  if (!unit.max_per_points || !pointLimit) return null;
+  const cap = Math.floor(pointLimit / unit.max_per_points);
+  const have = army.filter(e => e.unitName === unit.name && !e.factionSource).length;
+  return have >= cap ? `Only ${cap} ${unit.name} at ${pointLimit} points (one for each full ${unit.max_per_points}); this army already has ${have}.` : null;
+}
+
 /** Returns a disabled-tooltip reason for a unit gated to a specific engagement (e.g. CSM "War
  * Dog" — Escalation.ods's own "Elite" ability grants it an Elite-slot pick instead of the normal
  * Lords of War slot, but it's still an Escalation-supplement unit and must not be selectable
@@ -1517,6 +1526,21 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const allyRuleO = state.alliedFaction ? getArchetypeRule(state.alliedArchetype) : null;
     const onlyA = allyRuleO?.alliedOnlyTo;
     if (onlyA && FACTION_NAMES[onlyA] !== data.faction) items.push({ type: 'error', text: T('valArchetypeAlliedOnly', { archetype: cleanArchetypeName(state.alliedArchetype), faction: FACTION_NAMES[onlyA] ?? onlyA }) });
+  }
+
+  // Index army rule: one of this unit for each full N points of game size (HH Praetor).
+  {
+    const counts = new Map<string, { n: number; u: Unit }>();
+    for (const item of state.army) {
+      if (item.factionSource) continue;
+      const u = resolveUnit(item, data);
+      if (!u?.max_per_points) continue;
+      const c = counts.get(u.name) ?? { n: 0, u }; c.n++; counts.set(u.name, c);
+    }
+    for (const [name, { n, u }] of counts) {
+      const cap = Math.floor(state.pointLimit / u.max_per_points!);
+      if (n > cap) items.push({ type: 'error', text: `${name}: only ${cap} allowed at ${state.pointLimit} points (one for each full ${u.max_per_points}); the list has ${n}.` });
+    }
   }
 
   // Horus Heresy datasheets that "can only be selected if the army has the Legacy of X".

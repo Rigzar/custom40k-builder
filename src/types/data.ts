@@ -348,6 +348,8 @@ export interface Unit {
   slot: string;
   /** Hidden unless the army's archetype lists this unit in `unlocksUnits` (the Escalation War Dog in a non-Chaos codex). */
   requires_archetype_unlock?: boolean;
+  /** The Index's army rule "One <unit> may be taken for each full N points of game size" (HH Praetor: 1000). */
+  max_per_points?: number;
   models: Model[];
   variant_models: Model[];
   equipped_with: string;
