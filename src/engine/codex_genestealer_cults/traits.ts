@@ -134,7 +134,7 @@ export const GSC_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
       type: 'unit_ability',
       name: 'Synaptic Resonance',
       desc: 'The model can re-roll one psychic test per activation. Psykers only.',
-      applies_to: 'all',
+      applies_to: 'psyker',
     },
   ],
 

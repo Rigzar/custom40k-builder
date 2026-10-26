@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-gsc-ringleader-synaptic-01",
+    status: "fixed",
+    title: "Genestealer Cults — Ringleader units counted one HQ slot each, and the Primus paid for Synaptic Resonance",
+    description: "FIXED 2026-10-26 (GH#261, Dyon). (1) The Magus, Primus and Acolyte Iconward carry Ringleader: up to two units with the ability share a single HQ slot. computeRingleaderFreeSlots gives one HQ slot back per pair of different Ringleader units, through the same free-slot function the catalogue and the validator share. (2) Synaptic Resonance reads Psykers only; the effect was scoped to every unit, so the Primus (not a psyker) was charged 5 points. It is scoped to psykers now, which the trait picker and the cost already honour. The sheet's other line, Each unit may only be taken once, is not enforced as a separate error.",
+  },
+  {
     id: "ki-core-rules-139-01",
     status: "fixed",
     title: "Core Rules 1.36 to 1.39: Jet Bike and Jump Pack movement, Retribution strength, one Armoury weapon of extra attacks",

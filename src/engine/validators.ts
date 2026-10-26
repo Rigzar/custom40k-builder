@@ -1203,6 +1203,23 @@ export function computeNavyFreeSlots(
   return { hq: credit('Voidmaster', 'HQ'), elites: 0, notes };
 }
 
+/**
+ * Genestealer Cults RINGLEADER (Magus, Primus, Acolyte Iconward): "You may select up to two units with this ability for a single HQ
+ * slot. Each unit may only be taken once." Two different Ringleader units share one HQ slot, so each pair hands one slot back.
+ * (GitHub #261: a Magus and a Primus counted as two HQ slots.)
+ */
+export function computeRingleaderFreeSlots(army: RosterEntry[], data: FactionData): { hq: number; notes: string[] } {
+  if (data.faction !== 'Genestealer Cults') return { hq: 0, notes: [] };
+  const names = new Set<string>();
+  for (const item of army) {
+    if (item.factionSource) continue;
+    const u = resolveUnit(item, data);
+    if (u && (u.abilities ?? []).some(a => /^Ringleader:/i.test(String(a).trim()))) names.add(u.name);
+  }
+  const pairs = Math.floor(names.size / 2);
+  return pairs ? { hq: pairs, notes: [`Ringleader: ${[...names].join(', ')} — ${pairs} pair${pairs === 1 ? '' : 's'} share one HQ slot.`] } : { hq: 0, notes: [] };
+}
+
 export function computeFreeSlotAdjustments(
   army: RosterEntry[],
   data: FactionData,
@@ -1234,10 +1251,11 @@ export function computeFreeSlotAdjustments(
   const hqShared        = computeArchetypeHqSharedSlots(army, rule);
   const navy            = computeNavyFreeSlots(army, data);
   const retinue         = computeRetinueFreeSlots(army, data);
+  const ringleader      = computeRingleaderFreeSlots(army, data);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
       + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
@@ -1249,7 +1267,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes,
     ],
   };
 }
