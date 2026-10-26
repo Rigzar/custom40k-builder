@@ -2,6 +2,7 @@ import type { Unit } from '../types/data';
 import { CSM_TRAIT_EFFECTS } from './codex_csm/traits';
 import { CD_TRAIT_EFFECTS } from './codex_chaos_daemons/traits';
 import { SM_TRAIT_EFFECTS } from './codex_space_marines/traits';
+import { HH_TRAIT_EFFECTS } from './codex_horus_heresy/traits';
 import { SORORITAS_TRAIT_EFFECTS } from './codex_adeptus_sororitas/traits';
 import { ORKS_TRAIT_EFFECTS } from './codex_orks/traits';
 import { GSC_TRAIT_EFFECTS } from './codex_genestealer_cults/traits';
@@ -92,6 +93,7 @@ export function isPsykerOnlyTrait(traitName: string): boolean {
  * Each faction lives in its own file under engine/traits/.
  */
 export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
+  ...HH_TRAIT_EFFECTS,   // first, so a codex that has the same trait name keeps its own entry
   ...CSM_TRAIT_EFFECTS,
   ...CD_TRAIT_EFFECTS,
   ...SM_TRAIT_EFFECTS,
