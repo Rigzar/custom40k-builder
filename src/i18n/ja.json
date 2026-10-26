@@ -668,6 +668,7 @@
  "valAllyTroopsRatioFail": "同盟アーキタイプ「{archetype}」：{label} は同盟軍自身の合計の25%以上が必要です（{pct}%、必要 {needPts} pts）。",
  "valAllyTroopsRatioOk": "同盟アーキタイプ「{archetype}」：{label} {pct}%（25%以上）。",
  "valSkirmishUniqueLimit": "スカーミッシュ：ユニークな武器庫アイテムは1軍につき1つまでです（現在 {count}：{names}）。",
+ "valExtraAttackOneArmory": "{unit}：追加攻撃を与えられる武器庫の武器は1つだけです（{weapons}）。他は何も加えません。",
  "valSkirmishHqExceeds": "スカーミッシュ：司令部 {unit} が150ptsを超えています（{pts}）。",
  "valSkirmishUnitExceeds": "スカーミッシュ：{unit} が300ptsを超えています（{pts}）。",
  "valSkirmishSquadronMax": "スカーミッシュ：{unit} はスコードロンです — 最大1モデル（現在 {size}）。",

@@ -1,7 +1,6 @@
 {
  "rules": {
   "Custom40k Reference": "Custom40k リファレンス",
-  "v1.278 · Balance 5.04 · FAQ #5: Codex rules override Core Rules": "v1.278 · バランス 5.04 · FAQ #5：コデックスのルールは基本ルールに優先する",
   "Battle Round": "バトルラウンド",
   "Combat": "戦闘",
   "Unit Types": "部隊タイプ",
@@ -164,7 +163,6 @@
   "<strong>Attached:</strong> cannot be assigned ranged wounds unless the unit is completely destroyed.": "<strong>合流中：</strong>部隊が完全に破壊されない限り、遠距離ウーンドを割り当てられない。",
   "<strong>Attached:</strong> character and unit determine Engagement Range separately and are targeted separately in melee — attacks on one cannot affect the other.": "<strong>合流中：</strong>キャラクターと部隊は交戦距離を別々に決め、近接戦闘でも別々に目標にされる — 一方への攻撃は他方に影響しない。",
   "<span class=\"unit-type-name\">Jet Bike</span> <span class=\"unit-type-sub\">Creature</span>": "<span class='unit-type-name'>Jet Bike</span> <span class='unit-type-sub'>Creature</span>",
-  "Ignores terrain and vertical movement costs.": "地形と垂直移動のコストを無視する。",
   "<span class=\"unit-type-name\">Jump Pack Infantry</span> <span class=\"unit-type-sub\">Creature</span>": "<span class='unit-type-name'>Jump Pack Infantry</span> <span class='unit-type-sub'>Creature</span>",
   "Gains the Deep Strike special rule.": "特殊ルール Deep Strike を得る。",
   "<span class=\"unit-type-name\">Monstrous Creature</span> <span class=\"unit-type-sub\">Creature</span>": "<span class='unit-type-name'>Monstrous Creature</span> <span class='unit-type-sub'>Creature</span>",
@@ -258,7 +256,6 @@
   "² If a model has at least one melee weapon AND one pistol, gains +1 Attack in melee.": "² モデルが近接武器を1つ以上かつピストルを1つ持つ場合、近接戦闘で +1 アタックを得る。",
   "³ A model can fire up to two pistols, OR other eligible weapons (not both).": "³ モデルはピストルを最大2丁、または他の使用可能な武器のいずれかを撃てる（両方は不可）。",
   "⁴ Doubles its attacks against a target within half range. Without a Stand &amp; Shoot order it can only fire at targets within half range.": "⁴ 射程の半分以内の目標に対して、アタックが2倍になる。Stand &amp; Shoot 命令がない場合、射程の半分以内の目標にしか撃てない。",
-  "All model special rules from the Core Rules v1.278. Codex rules may add to or override these (FAQ #5).": "基本ルール v1.278 のすべてのモデル特殊ルール。コデックスのルールはこれらに追加または上書きできる（FAQ #5）。",
   "<span>Deep Strike — Arrival</span>": "<span>Deep Strike — 到着</span>",
   "<span>Hit icon — the model stays</span><span>Arrow — it moves <strong>2D6&Prime;</strong> that way (shown here: a roll of 7)</span><span>The unit then forms a ring touching the first model</span>": "<span>ヒットのアイコン — モデルはその場に留まる</span><span>矢印 — その方向へ <strong>2D6″</strong> 移動する（ここでは出目 7 の例）</span><span>その後、部隊は最初のモデルに接する輪を作る</span>",
   "Infiltrators always stay more than 18″ away during deployment, even without direct LOS. If the unit has not activated this turn, it may use up its order to fire at an enemy unit within 12″ that is deployed from reserves, as if it had the \"Stand &amp; Shoot\" order. The attack resolves after the enemy is deployed and before it acts.": "Infiltrator は、直接の LOS がなくても、配置時に常に 18″ より離れていなければならない。部隊がこのターンまだ起動していない場合、命令を消費して、予備から配置された 12″ 以内の敵部隊に、「Stand &amp; Shoot」命令を持つかのように射撃できる。この攻撃は、敵の配置後、敵が行動する前に解決する。",
@@ -446,7 +443,11 @@
   "Warp Boost": "Warp Boost",
   "Pass Ld value test: +1 to hit and +1 to wound rolls until end of next activation. Fail: 1 Mortal Wound.": "Ld 値テストに合格：次の起動の終わりまで、命中とウーンドのロールに +1。失敗：Mortal Wound 1つ。",
   "Vehicles use Leadership 10 for Perils tests. Fearless models still must pass Leadership <em>value</em> tests.": "車両は Perils のテストに Leadership 10 を使う。Fearless のモデルも、Leadership <em>値</em>テストには合格しなければならない。",
-  "Row = primary faction · Column = ally. The matrix is symmetric. <span class=\"dot dot-g\"></span> Battle Brothers · <span class=\"dot dot-y\"></span> Allies of Convenience · <span class=\"dot dot-r\"></span> Desperate Allies": "行＝主勢力 · 列＝同盟勢力。マトリクスは対称。<span class='dot dot-g'></span> Battle Brothers · <span class='dot dot-y'></span> Allies of Convenience · <span class='dot dot-r'></span> Desperate Allies"
+  "Row = primary faction · Column = ally. The matrix is symmetric. <span class=\"dot dot-g\"></span> Battle Brothers · <span class=\"dot dot-y\"></span> Allies of Convenience · <span class=\"dot dot-r\"></span> Desperate Allies": "行＝主勢力 · 列＝同盟勢力。マトリクスは対称。<span class='dot dot-g'></span> Battle Brothers · <span class='dot dot-y'></span> Allies of Convenience · <span class='dot dot-r'></span> Desperate Allies",
+  "Can move over (enemy) units and terrain.": "（敵の）部隊や地形の上を移動できる。",
+  "Ignores terrain movement and vertical movement costs.": "地形による移動コストと垂直移動のコストを無視する。",
+  "v1.39 · Balance 5.04 · FAQ #5: Codex rules override Core Rules": "v1.39 · バランス 5.04 · FAQ #5：コデックスのルールは基本ルールに優先する",
+  "All model special rules from the Core Rules v1.39. Codex rules may add to or override these (FAQ #5).": "基本ルール v1.39 のすべてのモデル特殊ルール。コデックスのルールはこれらに追加または上書きできる（FAQ #5）。"
  },
  "missions": {
   "Custom40k Supplement": "Custom40k サプリメント",

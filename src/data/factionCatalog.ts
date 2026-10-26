@@ -64,7 +64,7 @@ export const CATEGORIES: FactionCategory[] = [
     pillFg: '#c8b56a', pillFgLight: '#6b5a17', dividerColor: '#3a3520',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.11' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.9' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.10' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'complete', version: '1.5' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'complete', version: '1.6' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.3' },

@@ -1,7 +1,6 @@
 {
  "rules": {
   "Custom40k Reference": "Custom40k-Referenz",
-  "v1.278 · Balance 5.04 · FAQ #5: Codex rules override Core Rules": "v1.278 · Balance 5.04 · FAQ #5: Codex-Regeln gehen den Grundregeln vor",
   "Battle Round": "Kampfrunde",
   "Combat": "Kampf",
   "Unit Types": "Einheitentypen",
@@ -164,7 +163,6 @@
   "<strong>Attached:</strong> cannot be assigned ranged wounds unless the unit is completely destroyed.": "<strong>Angeschlossen:</strong> Kann keine Fernkampf-Wounds zugewiesen bekommen, solange die Einheit nicht vollständig zerstört ist.",
   "<strong>Attached:</strong> character and unit determine Engagement Range separately and are targeted separately in melee — attacks on one cannot affect the other.": "<strong>Angeschlossen:</strong> Charakter und Einheit bestimmen die Engagement-Reichweite getrennt und werden im Nahkampf getrennt als Ziel gewählt — Angriffe auf den einen können den anderen nicht betreffen.",
   "<span class=\"unit-type-name\">Jet Bike</span> <span class=\"unit-type-sub\">Creature</span>": "<span class='unit-type-name'>Jet Bike</span> <span class='unit-type-sub'>Creature</span>",
-  "Ignores terrain and vertical movement costs.": "Ignoriert Gelände und vertikale Bewegungskosten.",
   "<span class=\"unit-type-name\">Jump Pack Infantry</span> <span class=\"unit-type-sub\">Creature</span>": "<span class='unit-type-name'>Jump Pack Infantry</span> <span class='unit-type-sub'>Creature</span>",
   "Gains the Deep Strike special rule.": "Erhält die Sonderregel Deep Strike.",
   "<span class=\"unit-type-name\">Monstrous Creature</span> <span class=\"unit-type-sub\">Creature</span>": "<span class='unit-type-name'>Monstrous Creature</span> <span class='unit-type-sub'>Creature</span>",
@@ -258,7 +256,6 @@
   "² If a model has at least one melee weapon AND one pistol, gains +1 Attack in melee.": "² Hat ein Modell mindestens eine Nahkampfwaffe UND eine Pistole, erhält es im Nahkampf +1 Attack.",
   "³ A model can fire up to two pistols, OR other eligible weapons (not both).": "³ Ein Modell kann bis zu zwei Pistolen ODER andere zulässige Waffen abfeuern (nicht beides).",
   "⁴ Doubles its attacks against a target within half range. Without a Stand &amp; Shoot order it can only fire at targets within half range.": "⁴ Verdoppelt seine Attacks gegen ein Ziel innerhalb der halben Reichweite. Ohne Stand &amp; Shoot-Befehl kann es nur auf Ziele innerhalb der halben Reichweite feuern.",
-  "All model special rules from the Core Rules v1.278. Codex rules may add to or override these (FAQ #5).": "Alle Modell-Sonderregeln aus den Grundregeln v1.278. Codex-Regeln können diese ergänzen oder überschreiben (FAQ #5).",
   "<span>Deep Strike — Arrival</span>": "<span>Deep Strike — Ankunft</span>",
   "<span>Hit icon — the model stays</span><span>Arrow — it moves <strong>2D6&Prime;</strong> that way (shown here: a roll of 7)</span><span>The unit then forms a ring touching the first model</span>": "<span>Treffer-Symbol — das Modell bleibt</span><span>Pfeil — es bewegt sich <strong>2D6″</strong> in diese Richtung (hier gezeigt: ein Wurf von 7)</span><span>Die Einheit bildet dann einen Ring, der das erste Modell berührt</span>",
   "Infiltrators always stay more than 18″ away during deployment, even without direct LOS. If the unit has not activated this turn, it may use up its order to fire at an enemy unit within 12″ that is deployed from reserves, as if it had the \"Stand &amp; Shoot\" order. The attack resolves after the enemy is deployed and before it acts.": "Infiltrators bleiben bei der Aufstellung immer mehr als 18″ entfernt, auch ohne direkte LOS. Hat die Einheit in diesem Zug noch nicht aktiviert, darf sie ihren Befehl verbrauchen, um auf eine aus der Reserve aufgestellte gegnerische Einheit innerhalb von 12″ zu feuern, als hätte sie den Befehl „Stand &amp; Shoot“. Der Angriff wird aufgelöst, nachdem der Gegner aufgestellt wurde und bevor er handelt.",
@@ -446,7 +443,11 @@
   "Warp Boost": "Warp Boost",
   "Pass Ld value test: +1 to hit and +1 to wound rolls until end of next activation. Fail: 1 Mortal Wound.": "Ld-Wert-Test bestanden: +1 auf Treffer- und Verwundungswürfe bis zum Ende der nächsten Aktivierung. Nicht bestanden: 1 Mortal Wound.",
   "Vehicles use Leadership 10 for Perils tests. Fearless models still must pass Leadership <em>value</em> tests.": "Fahrzeuge verwenden Leadership 10 für Perils-Tests. Fearless-Modelle müssen Leadership-<em>Wert</em>-Tests trotzdem bestehen.",
-  "Row = primary faction · Column = ally. The matrix is symmetric. <span class=\"dot dot-g\"></span> Battle Brothers · <span class=\"dot dot-y\"></span> Allies of Convenience · <span class=\"dot dot-r\"></span> Desperate Allies": "Zeile = Hauptfraktion · Spalte = Verbündeter. Die Matrix ist symmetrisch. <span class='dot dot-g'></span> Battle Brothers · <span class='dot dot-y'></span> Allies of Convenience · <span class='dot dot-r'></span> Desperate Allies"
+  "Row = primary faction · Column = ally. The matrix is symmetric. <span class=\"dot dot-g\"></span> Battle Brothers · <span class=\"dot dot-y\"></span> Allies of Convenience · <span class=\"dot dot-r\"></span> Desperate Allies": "Zeile = Hauptfraktion · Spalte = Verbündeter. Die Matrix ist symmetrisch. <span class='dot dot-g'></span> Battle Brothers · <span class='dot dot-y'></span> Allies of Convenience · <span class='dot dot-r'></span> Desperate Allies",
+  "Can move over (enemy) units and terrain.": "Kann sich über (gegnerische) Einheiten und Gelände hinwegbewegen.",
+  "Ignores terrain movement and vertical movement costs.": "Ignoriert Geländebewegungskosten und vertikale Bewegungskosten.",
+  "v1.39 · Balance 5.04 · FAQ #5: Codex rules override Core Rules": "v1.39 · Balance 5.04 · FAQ #5: Codex-Regeln gehen den Grundregeln vor",
+  "All model special rules from the Core Rules v1.39. Codex rules may add to or override these (FAQ #5).": "Alle Modell-Sonderregeln aus den Grundregeln v1.39. Codex-Regeln können diese ergänzen oder überschreiben (FAQ #5)."
  },
  "missions": {
   "Custom40k Supplement": "Custom40k-Supplement",

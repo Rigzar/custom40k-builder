@@ -176,7 +176,7 @@ export type TranslationKey =
   | 'valAllyArchetypeNotInAllowedList' | 'valAllyArchetypeSlotNotAllowed' | 'valAllyArchetypeRequiresHqUnit'
   | 'valAllyArchetypeHqNotAllowed' | 'valAllyArchetypeNoVetAbilities' | 'valAllyArchetypeForcedMarkConflict'
   | 'valAllyNoLegacy' | 'valAllyNoTraits' | 'valAllyTroopsRatioFail' | 'valAllyTroopsRatioOk'
-  | 'valSkirmishUniqueLimit' | 'valSkirmishHqExceeds' | 'valSkirmishUnitExceeds' | 'valSkirmishSquadronMax'
+  | 'valExtraAttackOneArmory' | 'valSkirmishUniqueLimit' | 'valSkirmishHqExceeds' | 'valSkirmishUnitExceeds' | 'valSkirmishSquadronMax'
   | 'valSkirmishCombinedArmour' | 'valSkirmishArmourSaveGain' | 'valSkirmishInvSaveGain' | 'valSkirmishToughnessGain'
   | 'valSkirmishArmourSaveBase' | 'valSkirmishInvSaveBase' | 'valSkirmishToughnessBase'
   | 'valSkirmishDamageGain' | 'valPerNExceeded' | 'valFixedMaxExceeded' | 'valDisjointSquadSize'
@@ -1269,6 +1269,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valAllyTroopsRatioFail: 'Allied archetype "{archetype}": {label} must be ≥25% of the ally\'s own total ({pct}%, need {needPts} pts).',
     valAllyTroopsRatioOk: 'Allied archetype "{archetype}": {label} {pct}% (≥25%).',
     valSkirmishUniqueLimit: 'Skirmish: only 1 Unique armory item allowed per army (have {count}: {names}).',
+    valExtraAttackOneArmory: '{unit}: only one Armory weapon can give extra attacks ({weapons}); the others add nothing.',
     valSkirmishHqExceeds: 'Skirmish: HQ {unit} exceeds 150 pts ({pts}).',
     valSkirmishUnitExceeds: 'Skirmish: {unit} exceeds 300 pts ({pts}).',
     valSkirmishSquadronMax: 'Skirmish: {unit} is a Squadron — maximum 1 model (have {size}).',
@@ -2448,6 +2449,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valAllyTroopsRatioFail: 'Verbündeter Archetyp „{archetype}": {label} muss ≥25% der eigenen Gesamtpunkte des Verbündeten sein ({pct}%, benötigt {needPts} Pkt).',
     valAllyTroopsRatioOk: 'Verbündeter Archetyp „{archetype}": {label} {pct}% (≥25%).',
     valSkirmishUniqueLimit: 'Skirmish: nur 1 einzigartiges Rüstkammer-Item pro Armee erlaubt (haben {count}: {names}).',
+    valExtraAttackOneArmory: '{unit}: Nur eine Rüstkammer-Waffe kann zusätzliche Angriffe geben ({weapons}); die anderen bringen nichts.',
     valSkirmishHqExceeds: 'Skirmish: HQ {unit} überschreitet 150 Pkt ({pts}).',
     valSkirmishUnitExceeds: 'Skirmish: {unit} überschreitet 300 Pkt ({pts}).',
     valSkirmishSquadronMax: 'Skirmish: {unit} ist ein Geschwader — maximal 1 Modell (haben {size}).',
@@ -3627,6 +3629,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valAllyTroopsRatioFail: 'Arquetipo aliado "{archetype}": {label} debe ser ≥25% del total propio del aliado ({pct}%, se necesitan {needPts} pts).',
     valAllyTroopsRatioOk: 'Arquetipo aliado "{archetype}": {label} {pct}% (≥25%).',
     valSkirmishUniqueLimit: 'Skirmish: solo se permite 1 objeto Único de armería por ejército (tienes {count}: {names}).',
+    valExtraAttackOneArmory: '{unit}: solo un arma de la armería puede dar ataques extra ({weapons}); las demás no aportan nada.',
     valSkirmishHqExceeds: 'Skirmish: el HQ {unit} excede los 150 pts ({pts}).',
     valSkirmishUnitExceeds: 'Skirmish: {unit} excede los 300 pts ({pts}).',
     valSkirmishSquadronMax: 'Skirmish: {unit} es un Escuadrón — máximo 1 modelo (tienes {size}).',

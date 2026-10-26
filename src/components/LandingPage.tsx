@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186x_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186y_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -69,6 +69,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Tabletop Simulator","What a bought option gives (the Regeneration biomorph, for example) is now in the army JSON."],
         ["Squadrons","Each vehicle of a squadron now swaps and pays for its weapon on its own (45 datasheets)."],
         ["Bug reports","Gitfinda Match button, psychic power types, Carnodon and other stray weapons, allied Daemon heralds, Storm Guardian swaps, Sororitas Crusaders and Dogmata."],
+        ["Core Rules 1.39","Jet Bike and Jump Pack movement, Retribution uses its own Strength, and only one Armoury weapon gives extra attacks (the list warns)."],
       ] },
       { label: "Space Marines", rows: [
         ["New","The Legion of the Damned archetype with its own 7-unit supplement, and the Stormfang Gunship."],
@@ -139,6 +140,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Tabletop Simulator","Was eine gekaufte Option gibt (zum Beispiel der Biomorph Regeneration), steht jetzt in der Armee-JSON."],
         ["Squadrons","Jedes Fahrzeug einer Squadron tauscht und bezahlt seine Waffe jetzt für sich (45 Datenblätter)."],
         ["Fehlerberichte","Gitfinda-Match-Knopf, Typen der psychischen Kräfte, Carnodon und andere überzählige Waffen, verbündete Daemon-Heralds, Storm-Guardian-Tausch, Sororitas Crusaders und Dogmata."],
+        ["Kernregeln 1.39","Bewegung von Jet Bike und Jump Pack, Retribution nutzt die eigene Stärke, und nur eine Rüstkammer-Waffe gibt zusätzliche Angriffe (die Liste warnt)."],
       ] },
       { label: "Space Marines", rows: [
         ["Neu","Der Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten) und das Stormfang Gunship."],
@@ -209,6 +211,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Tabletop Simulator","Lo que da una opción comprada (por ejemplo el biomorfo Regeneration) está ahora en el JSON del ejército."],
         ["Squadrons","Cada vehículo de una escuadra cambia y paga su arma por su cuenta (45 fichas)."],
         ["Reportes","Botón Match de Gitfinda, tipos de poderes psíquicos, Carnodon y otras armas de más, heraldos daemon aliados, cambios de Storm Guardians, Crusaders y Dogmata de las Sororitas."],
+        ["Reglas base 1.39","Movimiento de Jet Bike y mochila de salto, Retribution usa su propia Fuerza, y solo un arma de la armería da ataques extra (la lista avisa)."],
       ] },
       { label: "Space Marines", rows: [
         ["Nuevo","El arquetipo Legion of the Damned con su propio suplemento de 7 unidades, y el Stormfang Gunship."],
@@ -279,6 +282,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Tabletop Simulator","То, что даёт купленная опция (например, биоморф Regeneration), теперь есть в JSON армии."],
         ["Squadron","Каждая машина отряда Squadron теперь сама меняет оружие и платит за него (45 листов)."],
         ["Отчёты об ошибках","Кнопка Match в Gitfinda, типы псайкерских сил, Carnodon и другое лишнее оружие, союзные герольды демонов, замены Storm Guardians, Crusaders и Dogmata Сороритас."],
+        ["Основные правила 1.39","Движение Jet Bike и ранцев, Retribution использует собственную Силу, и только одно оружие из Арсенала даёт дополнительные атаки (список предупреждает)."],
       ] },
       { label: "Space Marines", rows: [
         ["Новое","Архетип Legion of the Damned с собственным дополнением из 7 отрядов и Stormfang Gunship."],
@@ -349,6 +353,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Tabletop Simulator","購入したオプション（例: Regenerationバイオモーフ）が与える内容が、軍勢JSONに入るようになりました。"],
         ["Squadron","Squadronの各車両が、武器の交換と支払いを個別に行うようになりました（45データシート）。"],
         ["バグ報告","GitfindaのMatchボタン、サイキックパワーの種類、Carnodonなどの余分な武器、同盟デーモンのヘラルド、Storm Guardiansの交換、SororitasのCrusadersとDogmata。"],
+        ["コアルール1.39","ジェットバイクとジャンプパックの移動、Retributionは自身のストレングス、追加攻撃を与える武器庫の武器は1つだけ（リストが警告）。"],
       ] },
       { label: "スペースマリーン", rows: [
         ["新規","Legion of the Damnedアーキタイプ（7ユニットの専用サプリメント）とStormfang Gunship。"],

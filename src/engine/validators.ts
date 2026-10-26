@@ -2796,6 +2796,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // ALLIED_AOP slot minimum (min=1). No percentage check is applied here.
   }
 
+  // Core Rules 1.39, Extra Attack(x): "A model may only benefit from extra attacks from one Armoury weapon." Buying two such weapons
+  // (two Pairs of lightning claws, claws plus a Servo arm) is legal, but only one of them adds attacks, so the second is money for nothing.
+  for (const item of state.army) {
+    if (item.armory.length < 2) continue;
+    const names = item.armory
+      .filter(sel => sel.section === 'weapons')
+      .map(sel => findArmoryItem(data, sel))
+      .filter((ai): ai is NonNullable<typeof ai> => !!ai && /Extra Attack/i.test(String((ai as { abilities?: string }).abilities ?? '')))
+      .map(ai => ai.name);
+    if (names.length > 1) items.push({ type: 'warn', text: T('valExtraAttackOneArmory', { unit: item.unitName, weapons: names.join(', ') }) });
+  }
+
   // Skirmish stat caps
   // Grounded in missions_text.txt L17-31 (Skirmish restrictions) + core L868 (Unique = once per army).
   if (eng.statCaps) {

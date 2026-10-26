@@ -668,6 +668,7 @@
  "valAllyTroopsRatioFail": "Союзный архетип «{archetype}»: {label} должен составлять ≥25% от собственного итога союзника ({pct}%, нужно {needPts} очк.).",
  "valAllyTroopsRatioOk": "Союзный архетип «{archetype}»: {label} {pct}% (≥25%).",
  "valSkirmishUniqueLimit": "Стычка: допускается только 1 Уникальный предмет арсенала на армию (сейчас {count}: {names}).",
+ "valExtraAttackOneArmory": "{unit}: только одно оружие из Арсенала может давать дополнительные атаки ({weapons}); остальные ничего не добавляют.",
  "valSkirmishHqExceeds": "Стычка: Штаб {unit} превышает 150 очк. ({pts}).",
  "valSkirmishUnitExceeds": "Стычка: {unit} превышает 300 очк. ({pts}).",
  "valSkirmishSquadronMax": "Стычка: {unit} — эскадрилья, максимум 1 модель (сейчас {size}).",

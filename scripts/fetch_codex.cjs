@@ -37,7 +37,7 @@ const SHEETS = {
   legio_titanicus:    ['1SrBhi_8b77QwqoI03xNDxgOwgt-ePmqRQvA5dyquYtM', 'Horus Heresy Forces of the Machine God Supplement 1.2.ods'],
   legion_of_the_damned: ['1E9D3ZeBKmXMw5Q6t8VHC1TwnPDCuy84W19hrSTpK85Q', 'Legion of the Damned 1.0.ods'],
   horus_heresy:       ['1vRRoUGkH3HhzZYQk6_3Hp0pSlWGWb9BKaz3VrYfYmFU', 'Horus Heresy Legiones Astartes Supplement 1.2.ods'],
-  imperial_guard:     ['1nii7VyPLnNHlRlpJTxsh79P7qo1WT3D-yJM0g88CbZM', 'Imperial Guard 1.9.ods'],
+  imperial_guard:     ['1nii7VyPLnNHlRlpJTxsh79P7qo1WT3D-yJM0g88CbZM', 'Imperial Guard 1.10.ods'],
   inquisition:        ['1krDncaF0CSf6bDIeA-j20dAo3tqkphkeDd2weq56MN4', 'Inquisition 1.4.ods'],
   imperial_navy:      ['1KhzXT4BjwqlpsMr8p90q4VJomAt71NDu2W689R2j14E', 'Imperial Navy 1.2.ods'],
   leagues_of_votann:  ['1lZ6MxdCM710N-d4ba9RUSdhmeN8iJjzM5hlpVf73iPY', 'Leagues of Votann 1.5.ods'],

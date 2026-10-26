@@ -113,7 +113,7 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Extra Attack({X})',
     // 1.262 split this in two: the cap moved out into Limit(x), so a weapon that had the old
     // capped Extra Attack now carries BOTH, and everything that said Flurry now says this.
-    description: 'This weapon makes {X} attacks with its profile during each activation, in addition to the model\'s normal Attacks (A).',
+    description: 'This weapon makes {X} attacks with its profile during each activation, in addition to the model\'s normal Attacks (A). A model may only benefit from extra attacks from one Armoury weapon.',
   },
   'force weapon': {
     name: 'Force Weapon',
@@ -510,7 +510,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'retribution': {
     name: 'Retribution({X})',
-    description: 'When the model is hit by a melee attack, it inflicts 1 automatic hit with Strength: 4 AP: 0 D: 1 against the attacking unit, to a maximum of {X} automatic hits per Battle round. If a unit contains multiple models with this rule, pool all instances of Retribution({X}) together.',
+    description: 'When the model is hit by a melee attack, it inflicts 1 automatic hit with Strength: U AP: 0 D: 1 against the attacking unit, to a maximum of {X} automatic hits per Battle round. If a unit contains multiple models with this rule, pool all instances of Retribution({X}) together.',
   },
   'squadron': {
     name: 'Squadron',
