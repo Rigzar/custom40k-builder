@@ -1,5 +1,6 @@
 import RU_DESC from './ruleDescriptions.ru.json';
 import JA_DESC from './ruleDescriptions.ja.json';
+import ES_DESC from './ruleDescriptions.es.json';
 import AB_DE from './abilityTexts.de.json';
 import AB_ES from './abilityTexts.es.json';
 import AB_RU from './abilityTexts.ru.json';
@@ -923,7 +924,7 @@ export function setRuleOverrides(o: Partial<Record<string, Record<string, string
 
 /** Glossary descriptions that ship with the app for the languages that have no admin-edited copy
  *  in the database. Rule NAMES stay English (they are the keywords printed on every datasheet). */
-const BUILTIN_DESC: Record<string, Record<string, string>> = { ru: RU_DESC, ja: JA_DESC };
+const BUILTIN_DESC: Record<string, Record<string, string>> = { es: ES_DESC, ru: RU_DESC, ja: JA_DESC };
 /** Datasheet ability texts, keyed by `abilityKey(englishText)`; the admin-edited overrides win over these. */
 const BUILTIN_AB: Record<string, Record<string, string>> = { de: AB_DE, es: AB_ES, ru: AB_RU, ja: AB_JA };
 

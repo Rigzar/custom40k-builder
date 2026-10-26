@@ -33,6 +33,7 @@ const FACTIONS = [
 const copies = [
   ['src/types/data.ts', 'src/types/data.ts'],
   ['src/data/coreRules.ts', 'src/data/coreRules.ts'],
+  ['src/data/ruleDescriptions.es.json', 'src/data/ruleDescriptions.es.json'],
   ['src/data/ruleDescriptions.ru.json', 'src/data/ruleDescriptions.ru.json'],
   ['src/data/ruleDescriptions.ja.json', 'src/data/ruleDescriptions.ja.json'],
   ['src/data/abilityTexts.de.json', 'src/data/abilityTexts.de.json'],

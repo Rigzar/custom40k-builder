@@ -1,0 +1,4 @@
+{
+ "retribution": "Cuando el modelo recibe un impacto de un ataque cuerpo a cuerpo, inflige 1 impacto automático con Fuerza: U, AP: 0, D: 1 a la unidad atacante, hasta un máximo de {X} impactos automáticos por ronda de batalla. Si una unidad contiene varios modelos con esta regla, se suman todos los Retribution({X}).",
+ "extra attack": "Esta arma realiza {X} ataques con su perfil en cada activación, además de los Ataques (A) normales del modelo. Un modelo solo puede beneficiarse de los ataques extra de un arma de la armería."
+}
