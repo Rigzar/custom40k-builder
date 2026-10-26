@@ -13,7 +13,6 @@ import elites_castra_ferrum_dreadnought from './elites/castra_ferrum_dreadnought
 import elites_centurion_command_squad from './elites/centurion_command_squad.json';
 import elites_deredeo_dreadnought from './elites/deredeo_dreadnought.json';
 import elites_indomitus_terminator_squad from './elites/indomitus_terminator_squad.json';
-import elites_legion_champion from './elites/legion_champion.json';
 import elites_legion_contemptor_dreadnought from './elites/legion_contemptor_dreadnought.json';
 import elites_legion_terminator_cataphractii_squad from './elites/legion_terminator_cataphractii_squad.json';
 import elites_legion_veteran_squad from './elites/legion_veteran_squad.json';
@@ -40,8 +39,6 @@ import heavy_support_legion_whirlwind from './heavy_support/legion_whirlwind.jso
 import heavy_support_thunderfire_cannon from './heavy_support/thunderfire_cannon.json';
 import heavy_support_vindicator_siege_tank from './heavy_support/vindicator_siege_tank.json';
 import hq_centurion from './hq/centurion.json';
-import hq_chaplain from './hq/chaplain.json';
-import hq_librarian from './hq/librarian.json';
 import hq_praetor from './hq/praetor.json';
 import troops_legion_breacher_squad from './troops/legion_breacher_squad.json';
 import troops_legion_despoiler_squad from './troops/legion_despoiler_squad.json';
@@ -60,7 +57,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Centurion Command Squad",
     "Deredeo Dreadnought",
     "Indomitus Terminator Squad",
-    "Legion Champion",
     "Legion Contemptor Dreadnought",
     "Legion Terminator Cataphractii Squad",
     "Legion Veteran Squad",
@@ -74,8 +70,6 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "HQ": [
     "Centurion",
-    "Chaplain",
-    "Librarian",
     "Praetor"
   ],
   "Heavy Support": [
@@ -121,7 +115,6 @@ export const units: Record<string, Unit> = {
   "Centurion Command Squad": elites_centurion_command_squad as unknown as Unit,
   "Deredeo Dreadnought": elites_deredeo_dreadnought as unknown as Unit,
   "Indomitus Terminator Squad": elites_indomitus_terminator_squad as unknown as Unit,
-  "Legion Champion": elites_legion_champion as unknown as Unit,
   "Legion Contemptor Dreadnought": elites_legion_contemptor_dreadnought as unknown as Unit,
   "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
   "Legion Veteran Squad": elites_legion_veteran_squad as unknown as Unit,
@@ -131,8 +124,6 @@ export const units: Record<string, Unit> = {
   "Fire Raptor Gunship": flyers_fire_raptor_gunship as unknown as Unit,
   "Xiphon Interceptor": flyers_xiphon_interceptor as unknown as Unit,
   "Centurion": hq_centurion as unknown as Unit,
-  "Chaplain": hq_chaplain as unknown as Unit,
-  "Librarian": hq_librarian as unknown as Unit,
   "Praetor": hq_praetor as unknown as Unit,
   "Firestrike Servo-turret": heavy_support_firestrike_servo_turret as unknown as Unit,
   "Kharybdis Assault Claw": heavy_support_kharybdis_assault_claw as unknown as Unit,
