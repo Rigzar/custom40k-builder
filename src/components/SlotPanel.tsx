@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { unitRequiredLegacy } from '../lib/legacyGatedChoices';
 import { useArmyStore } from '../store/army';
-import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
+import { SLOT_ORDER, ALLIED_AOP, engagementFor } from '../engine/engagements';
 import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
 import { alliedSlotFactor } from '../engine/navyRules';
 import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engine/legendaryRetinue';
@@ -72,7 +72,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   if (isAllied && !Object.keys(data.units).length) {
     return <div className="text-[11px] text-zinc-700 px-1 py-1.5 italic">{t('noUnitsAvailable')}</div>;
   }
-  const eng = ENGAGEMENTS[engagement];
+  const eng = engagementFor(engagement, isAllied ? null : data.faction);
   const rule = getArchetypeRule(archetype);
 
   if (isAllied) {

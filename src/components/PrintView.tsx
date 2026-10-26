@@ -9,7 +9,7 @@ import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
-import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
+import { SLOT_ORDER, engagementFor } from '../engine/engagements';
 import { countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { slotLabel } from '../utils/slotLabel';
 import { unitTypeLabel } from '../utils/unitTypeLabel';
@@ -1256,7 +1256,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   // values for every battle size, so Skirmish read "2/6" Troops and Epic never showed its extra
   // detachments. A platoon member folded into its Command Squad's slot is not counted (it was,
   // which printed "7/6" for a legal six-selection list).
-  const engagement = ENGAGEMENTS[storeState.engagement] ?? ENGAGEMENTS.pitched;
+  const engagement = engagementFor(storeState.engagement, data.faction);
   const compMax = COMP_SLOTS.map(slot => {
     if (slot === 'Transport') return Math.max(infantryCount, 1);
     const cap = engagement.aop[(slot === 'Fast Attack' ? 'Fast Attack' : slot) as keyof typeof engagement.aop]?.[1] ?? 0;

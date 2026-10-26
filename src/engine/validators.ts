@@ -7,7 +7,7 @@ import { jaName } from '../utils/localName';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor, groupConstraint, swarmControllersBonus, unitMatchesKeyword, factionForEntry } from './points';
 import { t, tpl, type Language } from '../i18n';
-import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP, maxArmyTraits } from './engagements';
+import { SLOT_ORDER, ALLIED_AOP, maxArmyTraits, engagementFor } from './engagements';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
 import {
   getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
@@ -372,7 +372,7 @@ export function getAopState(
   alliedFaction?: string,
   freeSlots?: { elites: number; fa: number; hs: number; hq?: number },
 ): AopState {
-  const eng = ENGAGEMENTS[engKey];
+  const eng = engagementFor(engKey, data.faction);
   if (!eng.multiAop) return { taken: 1, unlocked: 1 };
   const usedOf = (slot: typeof SLOT_ORDER[number]): number => {
     // Exclude allied units from main AOP calculation
@@ -1246,7 +1246,7 @@ export function computeFreeSlotAdjustments(
 }
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
-  const eng = ENGAGEMENTS[state.engagement];
+  const eng = engagementFor(state.engagement, data.faction);
   const rule = getArchetypeRule(state.archetype);
   const items: ValidationItem[] = [];
 

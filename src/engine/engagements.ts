@@ -106,3 +106,13 @@ export function maxArmyTraits(
   const cap = ENGAGEMENTS[engagement]?.maxTraits;
   return cap == null ? budget : Math.min(budget, cap);
 }
+
+/**
+ * The Horus Heresy books run their own Army Organization Plan: "3 HQs (minimum 1) and 4 Elites" (Margit, 2026-10-24, because
+ * Heresy lists put many units in those two slots). Everything else is the standard table, and Skirmish keeps its flat 0-1 rows.
+ */
+export function engagementFor(engKey: string, factionName?: string | null): Engagement {
+  const eng = ENGAGEMENTS[engKey] ?? ENGAGEMENTS.pitched;
+  if (engKey === 'skirmish' || !factionName || !/^Horus Heresy: (Loyal|Traitor) Legions$/.test(factionName)) return eng;
+  return { ...eng, aop: { ...eng.aop, HQ: [1, 3], Elites: [0, 4] } };
+}
