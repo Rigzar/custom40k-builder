@@ -477,8 +477,16 @@ const flat = (s: string) => s
   // word ends left to find.
   .map(w => (w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w))
   .join('');
-const loadoutNames = (equipped: string | undefined, name: string): boolean =>
-  flat(equipped ?? '').includes(flat(name));
+const loadoutNames = (equipped: string | undefined, name: string): boolean => {
+  const hay = flat(equipped ?? ''), needle = flat(name);
+  // "Twin multilaser" is a different weapon from "Multilaser": a Multilaser found only behind "Twin" is not in the loadout.
+  // The Carnodon carries a Twin multilaser, so its swap for two Multilasers showed a stray Multilaser from the start (GH#260).
+  for (let i = hay.indexOf(needle); i >= 0 && needle; i = hay.indexOf(needle, i + 1)) {
+    if (!needle.startsWith('twin') && (hay.slice(Math.max(0, i - 4), i) === 'twin' || hay.slice(Math.max(0, i - 10), i) === 'twinlinked')) continue;
+    return true;
+  }
+  return false;
+};
 
 const optionalWeapons = new Map<string, Set<string>>();
   for (const [gi, g] of unit.option_groups.entries()) {

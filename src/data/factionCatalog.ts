@@ -67,7 +67,7 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.9' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'complete', version: '1.5' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'complete', version: '1.6' },
-      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.2' },
+      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.3' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.4' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.4' },
       { key: 'imperial_navy',      name: 'Imperial Navy',      available: true, status: 'complete', version: '1.2' },

@@ -11,7 +11,7 @@ import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
 import { CSM_LOWER_PRAYERS } from '../engine/codex_csm/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
-import { powerMetaLine } from '../utils/psychicFormat';
+import { powerMetaLine, complexityLabel } from '../utils/psychicFormat';
 import { useT } from '../i18n';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
@@ -151,7 +151,9 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     return true;
   });
 
-  const generalDiscs = cultPowersOnly ? [] : Object.entries(GENERAL_DISCIPLINES);
+  // The 'General' discipline holds only Smite, which every psyker knows already (the "Always known" box above). Listed as a choice it showed
+  // an empty row that cost a player their one discipline pick for nothing (reported by Archon of the Obsidian Rose).
+  const generalDiscs = cultPowersOnly ? [] : Object.entries(GENERAL_DISCIPLINES).filter(([, ps]) => ps.some(pw => pw.name !== 'Smite'));
   let allowedDiscs = [...generalDiscs, ...factionDiscs];
 
   // CD: per-unit discipline access derived from psyker ability text.
@@ -420,7 +422,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 </div>
                 {smite && (
                   <div className="text-[10px] text-zinc-500 mt-0.5">
-                    {t('castLabel')} {smite.cast_value} · {localiseAbility(smite.type)} · {localiseAbility(smite.duration)} — {localiseAbility(smite.effect)}
+                    {t('castLabel')} {smite.cast_value} · {localiseAbility(smite.type)} · {complexityLabel(smite.complexity)} · {localiseAbility(smite.duration)} — {localiseAbility(smite.effect)}
                   </div>
                 )}
               </div>
@@ -436,6 +438,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 </div>
                 <div className="text-[10px] text-zinc-500 mt-0.5">
                   {t('castLabel')} {unit.fixed_power.cast_value}
+                  {unit.fixed_power.complexity ? ` · ${complexityLabel(unit.fixed_power.complexity)}` : ''}
                   {unit.fixed_power.range && unit.fixed_power.range !== '-' ? ` · ${unit.fixed_power.range}` : ''}
                   {unit.fixed_power.duration ? ` · ${unit.fixed_power.duration}` : ''}
                   {unit.fixed_power.effect ? ` — ${localiseAbility(unit.fixed_power.effect)}` : ''}
@@ -452,7 +455,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   <span className="text-[9px] text-zinc-500 ml-auto">{t('legacyTag')}</span>
                 </div>
                 <div className="text-[10px] text-zinc-500 mt-0.5">
-                  {t('castLabel')} {legacyPower.details.cast_value} · {localiseAbility(legacyPower.details.type)} · {localiseAbility(legacyPower.details.duration)} — {localiseAbility(legacyPower.details.effect)}
+                  {t('castLabel')} {legacyPower.details.cast_value} · {localiseAbility(legacyPower.details.type)} · {complexityLabel(legacyPower.details.complexity)} · {localiseAbility(legacyPower.details.duration)} — {localiseAbility(legacyPower.details.effect)}
                 </div>
               </div>
             )}
@@ -552,7 +555,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                               )}
                             </div>
                             <div className="text-[10px] text-zinc-500 mt-0.5">
-                              {[localiseAbility(p.type), bumpRange(p.range), p.cast_value ? `${t('castLabel')} ${p.cast_value}` : null]
+                              {[localiseAbility(p.type), complexityLabel(p.complexity), bumpRange(p.range), p.cast_value ? `${t('castLabel')} ${p.cast_value}` : null]
                                 .filter(Boolean).join(' · ')}
                             </div>
                             {p.effect && (

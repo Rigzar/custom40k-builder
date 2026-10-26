@@ -13,7 +13,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186w_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v186x_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -68,6 +68,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them. Eldar: the Hemlock Wraithfighter costs 263 and the Vibro cannon changed."],
         ["Tabletop Simulator","What a bought option gives (the Regeneration biomorph, for example) is now in the army JSON."],
         ["Squadrons","Each vehicle of a squadron now swaps and pays for its weapon on its own (45 datasheets)."],
+        ["Bug reports","Gitfinda Match button, psychic power types, Carnodon and other stray weapons, allied Daemon heralds, Storm Guardian swaps, Sororitas Crusaders and Dogmata."],
       ] },
       { label: "Space Marines", rows: [
         ["New","The Legion of the Damned archetype with its own 7-unit supplement, and the Stormfang Gunship."],
@@ -137,6 +138,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Blätter","Neue Preise, Optionen und Rüstkammer-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte zu Wesenszügen und Legacys folgen ihnen. Eldar: Der Hemlock Wraithfighter kostet 263, die Vibro cannon wurde geändert."],
         ["Tabletop Simulator","Was eine gekaufte Option gibt (zum Beispiel der Biomorph Regeneration), steht jetzt in der Armee-JSON."],
         ["Squadrons","Jedes Fahrzeug einer Squadron tauscht und bezahlt seine Waffe jetzt für sich (45 Datenblätter)."],
+        ["Fehlerberichte","Gitfinda-Match-Knopf, Typen der psychischen Kräfte, Carnodon und andere überzählige Waffen, verbündete Daemon-Heralds, Storm-Guardian-Tausch, Sororitas Crusaders und Dogmata."],
       ] },
       { label: "Space Marines", rows: [
         ["Neu","Der Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten) und das Stormfang Gunship."],
@@ -206,6 +208,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Hojas","Precios, opciones y objetos de Armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos de rasgos y legados los siguen. Eldar: el Hemlock Wraithfighter cuesta 263 y la Vibro cannon cambió."],
         ["Tabletop Simulator","Lo que da una opción comprada (por ejemplo el biomorfo Regeneration) está ahora en el JSON del ejército."],
         ["Squadrons","Cada vehículo de una escuadra cambia y paga su arma por su cuenta (45 fichas)."],
+        ["Reportes","Botón Match de Gitfinda, tipos de poderes psíquicos, Carnodon y otras armas de más, heraldos daemon aliados, cambios de Storm Guardians, Crusaders y Dogmata de las Sororitas."],
       ] },
       { label: "Space Marines", rows: [
         ["Nuevo","El arquetipo Legion of the Damned con su propio suplemento de 7 unidades, y el Stormfang Gunship."],
@@ -275,6 +278,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Таблицы","Новые цены, опции и предметы Арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста черт и наследий идут следом. Eldar: Hemlock Wraithfighter стоит 263, Vibro cannon изменена."],
         ["Tabletop Simulator","То, что даёт купленная опция (например, биоморф Regeneration), теперь есть в JSON армии."],
         ["Squadron","Каждая машина отряда Squadron теперь сама меняет оружие и платит за него (45 листов)."],
+        ["Отчёты об ошибках","Кнопка Match в Gitfinda, типы псайкерских сил, Carnodon и другое лишнее оружие, союзные герольды демонов, замены Storm Guardians, Crusaders и Dogmata Сороритас."],
       ] },
       { label: "Space Marines", rows: [
         ["Новое","Архетип Legion of the Damned с собственным дополнением из 7 отрядов и Stormfang Gunship."],
@@ -344,6 +348,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["シート","10月のシートの新しい価格、オプション、アーモリー品目。Perfect Timingのパワーと44の特性・レガシー文がそれに続きます。 Eldar: Hemlock Wraithfighterは263、Vibro cannonが変更されました。"],
         ["Tabletop Simulator","購入したオプション（例: Regenerationバイオモーフ）が与える内容が、軍勢JSONに入るようになりました。"],
         ["Squadron","Squadronの各車両が、武器の交換と支払いを個別に行うようになりました（45データシート）。"],
+        ["バグ報告","GitfindaのMatchボタン、サイキックパワーの種類、Carnodonなどの余分な武器、同盟デーモンのヘラルド、Storm Guardiansの交換、SororitasのCrusadersとDogmata。"],
       ] },
       { label: "スペースマリーン", rows: [
         ["新規","Legion of the Damnedアーキタイプ（7ユニットの専用サプリメント）とStormfang Gunship。"],

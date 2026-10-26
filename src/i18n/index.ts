@@ -138,7 +138,7 @@ export type TranslationKey =
   | 'copiedLabel' | 'copyToClipboardButton' | 'shareCodeHint' | 'pasteArmyCodePlaceholder'
   | 'pasteJsonPlaceholder' | 'invalidCodeOrJsonAlert' | 'importJsonLink' | 'useBugButtonPart1' | 'useBugButtonPart2'
   | 'cultPowersLabel' | 'psychicPowersLabel' | 'andPrayersSuffix' | 'andPactsSuffix' | 'prayersAndPactsLabel'
-  | 'prayersLabel' | 'infernalPactsLabel' | 'alwaysKnownBadge' | 'legacyTag' | 'castLabel'
+  | 'prayersLabel' | 'infernalPactsLabel' | 'alwaysKnownBadge' | 'legacyTag' | 'castLabel' | 'psyBasic' | 'psyNormal' | 'psyComplex'
   | 'chooseWord' | 'oneDisciplineLabel' | 'modeAllFromOneMid' | 'allItsPowersLabel' | 'selectedPrefix'
   | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'modeKnowsAll' | 'bookAll' | 'bannerShow' | 'bannerHide' | 'powersWord'
   | 'modeNFromAnyPart2' | 'noDisciplinesAvailable' | 'chosenBadge' | 'includedBadge' | 'noDisciplineChosenWord'
@@ -1102,6 +1102,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     alwaysKnownBadge: 'Always known',
     legacyTag: '(Legacy)',
     castLabel: 'Cast:',
+    psyBasic: 'Basic', psyNormal: 'Normal', psyComplex: 'Complex',
     chooseWord: 'Choose',
     oneDisciplineLabel: '1 discipline',
     modeAllFromOneMid: '— you know',
@@ -2282,6 +2283,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     alwaysKnownBadge: 'Immer bekannt',
     legacyTag: '(Legacy)',
     castLabel: 'Wirkung:',
+    psyBasic: 'Einfach', psyNormal: 'Normal', psyComplex: 'Komplex',
     chooseWord: 'Wählen',
     oneDisciplineLabel: '1 Disziplin',
     modeAllFromOneMid: '— du kennst',
@@ -3460,6 +3462,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     alwaysKnownBadge: 'Siempre conocido',
     legacyTag: '(Legacy)',
     castLabel: 'Lanzamiento:',
+    psyBasic: 'Básico', psyNormal: 'Normal', psyComplex: 'Complejo',
     chooseWord: 'Elige',
     oneDisciplineLabel: '1 disciplina',
     modeAllFromOneMid: '— conoces',

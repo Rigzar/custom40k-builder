@@ -46,6 +46,13 @@ export function findPowerByName(name: string, data: FactionData | null | undefin
   return undefined;
 }
 
+const COMPLEXITY_KEY = { basic: 'psyBasic', normal: 'psyNormal', complex: 'psyComplex' } as const;
+export function complexityLabel(c: string | undefined, lang = useLanguage.getState().language): string | null {
+  if (!c) return null;
+  const k = COMPLEXITY_KEY[c.trim().toLowerCase() as keyof typeof COMPLEXITY_KEY];
+  return k ? t(lang, k) : c;
+}
+
 /**
  * The compact metadata line: "Augmentation · 12" · Cast 5 · Friendly unit · Until next activation".
  * Fields absent from the source are simply skipped, and a range of "-" (self-only, the majority of
@@ -61,6 +68,9 @@ export function powerMetaLine(p: Power | undefined): string {
     ? p.range.replace(/\s*radius$/i, ` ${localiseAbility('radius')}`) : null;
   return [
     loc(p.type),
+    // Basic / Normal / Complex decides which orders can cast it (Core Rules, Psychic Powers); every power has one
+    // in the data, but only the cheat sheet printed it, so the picker, the print view and the play view did not.
+    complexityLabel(p.complexity, lang),
     range,
     p.cast_value ? `${cast} ${p.cast_value}` : null,
     loc(p.target),

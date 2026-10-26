@@ -22,7 +22,7 @@ const SHEETS = {
   psychic:            ['1s4SvAC1hoqm1X3DHtQspMHzkvaGVvTKBYGTDDovXFqc', 'General psychic disciplines.ods'],
   adeptus_custodes:   ['1Ic420krL5mcf3_E_vwmwLnGoT1hZ9Qzl0IxWeJ79yoI', 'Adeptus Custodes 1.6.ods'],
   adeptus_mechanicus: ['1uufTN0BOMRNtjSWfFJzEtfXUmpHdU8WTdKDUoXNLs8w', 'Adeptus Mechanicus 1.5.ods'],
-  adeptus_sororitas:  ['1t6sB5Ls5UdXu5LE61Ab_2OOgxD4m2TC6hFvsEy0bP3k', 'Adeptus Sororitas 1.2.ods'],
+  adeptus_sororitas:  ['1t6sB5Ls5UdXu5LE61Ab_2OOgxD4m2TC6hFvsEy0bP3k', 'Adeptus Sororitas 1.3.ods'],
   assassins:          ['1NZepq8IfXgWs9mmZMxg4emgOxTPP5VfVNfRZ3ryh5f4', 'Assassins 1.3.ods'],
   chaos_daemons:      ['1t4UjzvS44a2h-x5KJGM-GyIou66yt0XfpOqqjAE1zl8', 'Chaos Daemons 1.2.ods'],
   chaos_space_marines:['1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw', 'Chaos Space Marines 1.10.ods'],

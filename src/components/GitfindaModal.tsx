@@ -234,7 +234,7 @@ function ZonePicker({ t, value, onChange }: { t: TFn; value: string; onChange: (
 function Slots({ post, zone, locale }: { post: GitfindaPost; zone: string; locale: string }) {
   return (
     <div className="flex flex-wrap gap-x-3 gap-y-0.5">
-      {post.slots.map((s, i) => <span key={i} className="text-orange-100 whitespace-nowrap">{formatSlot(s.start, s.end, zone, locale)}</span>)}
+      {post.slots.map((s, i) => <span key={i} className="text-orange-100 break-words min-w-0">{formatSlot(s.start, s.end, zone, locale)}</span>)}
     </div>
   );
 }

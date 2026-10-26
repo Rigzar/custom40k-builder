@@ -135,6 +135,35 @@ function _getAllowedDiscKeys(
 }
 
 /**
+ * Chaos Daemons as an ALLIED detachment: the Entourage and Herald rules free HQ slots there too. computeCdFreeSlots only looks at
+ * the primary army (it skips every allied item), so an ally with a Lord of Change and one HQ slot could not add a Changecaster although
+ * Entourage frees up to two Heralds of the same god for each Greater Daemon (GH#258). Returns the ids of the allied Heralds that occupy no slot:
+ * first those freed by Entourage (2 per Greater Daemon of the same god), then every second remaining Herald (the Herald rule).
+ */
+export function alliedCdFreeHeraldIds(army: RosterEntry[], data: FactionData, alliedFaction?: string): Set<string> {
+  const free = new Set<string>();
+  if (alliedFaction !== 'chaos_daemons') return free;
+  const greaterByGod: Record<string, number> = {};
+  const heralds: { id: string; god: string }[] = [];
+  for (const i of army) {
+    if (i.factionSource !== alliedFaction) continue;
+    const u = resolveUnit(i, data);
+    if (!u?.locked_mark) continue;
+    const isHerald = (u.abilities ?? []).some(a => /^herald:/i.test(a));
+    if (isHerald) heralds.push({ id: i.id, god: u.locked_mark });
+    else if (u.is_monster) greaterByGod[u.locked_mark] = (greaterByGod[u.locked_mark] ?? 0) + 1;
+  }
+  const left: { id: string; god: string }[] = [];
+  const usedByGod: Record<string, number> = {};
+  for (const h of heralds) {
+    if ((usedByGod[h.god] ?? 0) < (greaterByGod[h.god] ?? 0) * 2) { usedByGod[h.god] = (usedByGod[h.god] ?? 0) + 1; free.add(h.id); }
+    else left.push(h);
+  }
+  for (let k = 0; k < Math.floor(left.length / 2); k++) free.add(left[k].id);
+  return free;
+}
+
+/**
  * Advisor units' literal datasheet text is "For every HQ selection, one <X> may be selected
  * without taking up a [slot]" (e.g. Orks Mekboyz/Painboyz, SM Techmarine, CSM Master of Execution)
  * — a 1-per-HQ ratio keyed to that specific unit NAME (or `unit.advisorRatio` copies per HQ for
@@ -217,6 +246,7 @@ function getSlotUsage(
   excludeSlotOptIns?: boolean,
 ): number {
   const exemptIds = engagement === 'skirmish' ? new Set<string>() : advisorExemptIds(army, data, rule, alliedFaction);
+  if (engagement !== 'skirmish') for (const id of alliedCdFreeHeraldIds(army, data, alliedFaction)) exemptIds.add(id);
   return army.filter(i => {
     if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
@@ -599,12 +629,14 @@ export function computeCrusadersFreeSlots(
 ): { elites: number; notes: string[] } {
   if (data.faction !== 'Adeptus Sororitas') return { elites: 0, notes: [] };
   const crusadersCount = army.filter(i => i.unitName === 'Crusaders').length;
-  const preacherCount = army.filter(i => i.unitName === 'Preacher').length;
+  // The sheet now reads "for each Missionary or Preacher that does not occupy an Elite slot" (Sororitas 1.2). A Missionary is an HQ, so it
+  // always qualifies: a list with a Missionary and no Preacher still paid an Elite slot for its Crusaders (GH#255).
+  const preacherCount = army.filter(i => i.unitName === 'Preacher' || i.unitName === 'Missionary').length;
   if (crusadersCount === 0 || preacherCount === 0) return { elites: 0, notes: [] };
   const credited = Math.min(crusadersCount, preacherCount);
-  const notes = [`Crusaders: ${credited} of ${crusadersCount} unit${crusadersCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Preacher, have ${preacherCount}).`];
+  const notes = [`Crusaders: ${credited} of ${crusadersCount} unit${crusadersCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Missionary or Preacher, have ${preacherCount}).`];
   if (crusadersCount > preacherCount) {
-    notes.push(`Crusaders: ${crusadersCount - preacherCount} extra unit${crusadersCount - preacherCount === 1 ? '' : 's'} exceed the Preacher ratio and still occupy a normal Elite slot.`);
+    notes.push(`Crusaders: ${crusadersCount - preacherCount} extra unit${crusadersCount - preacherCount === 1 ? '' : 's'} exceed the Missionary / Preacher ratio and still occupy a normal Elite slot.`);
   }
   return { elites: credited, notes };
 }
@@ -3070,39 +3102,46 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
-    const seen = new Set<number>();
-    u.option_groups.forEach((g, gi) => {
-      if (seen.has(gi) || !g.replaces?.length || !['per_n', 'every'].includes(g.constraint.type)) return;
+    // One pool PER REPLACED WEAPON. A group that swaps two weapons at once ("swap their Aeldari chainsword and Shuriken pistol")
+    // draws from the chainsword pool AND the pistol pool, but the two pools are separate: summing every group that shares ANY weapon
+    // read 4 + 6 + 6 = 16 chainsword swaps on a ten-model Storm Guardian squad that had swapped 10 (GH#257).
+    const seen = new Set<string>();
+    u.option_groups.forEach(g => {
+      if (!g.replaces?.length || !['per_n', 'every'].includes(g.constraint.type)) return;
       const applyNames = Array.isArray(g.applies_to_model) ? g.applies_to_model : g.applies_to_model ? [g.applies_to_model] : null;
       const sameScope = (other: typeof g) => {
         const otherNames = Array.isArray(other.applies_to_model) ? other.applies_to_model : other.applies_to_model ? [other.applies_to_model] : null;
         return (applyNames === null && otherNames === null) ||
           (applyNames !== null && otherNames !== null && applyNames.length === otherNames.length && applyNames.every(n => otherNames!.includes(n)));
       };
-      const cluster = u.option_groups
-        .map((other, oi) => ({ other, oi }))
-        .filter(({ other }) => ['per_n', 'every'].includes(other.constraint.type) && other.replaces?.some(w => g.replaces!.includes(w)) && sameScope(other));
-      if (cluster.length < 2) return;
-      cluster.forEach(({ oi }) => seen.add(oi));
-      const models = (applyNames && item.modelSizes)
-        ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
-        : item.size;
-      // The pool is one SWAP per copy of the weapon, not one per model. A Tyranid Warrior carries
-      // TWO Scything talons and each of its two groups swaps one of them, so a 3-model brood has
-      // six swaps available, not three — the panel called a completely legal loadout an error.
-      // `weaponCopiesPerModel` is the same reader `computeWeaponGroups` uses for the mirror-image
-      // decision (when the replaced weapon disappears from the profile), so the two agree by
-      // construction instead of by coincidence; a weapon with one copy is unchanged.
-      const copies = Math.max(...g.replaces!.map(n => weaponCopiesPerModel(u.equipped_with, n, g.requires_choice)));
-      const poolSize = models * copies;
-      const used = cluster.reduce((s, { oi }) => s + Object.entries(item.optionQty?.[oi] ?? {}).reduce(
-        (s2, [k, v]) => k === '__inline' ? s2 : s2 + (v ?? 0), 0
-      ), 0);
-      if (used > poolSize) {
-        items.push({
-          type: 'error',
-          text: T('valCrossGroupPoolExceeded', { unit: item.unitName, used, weapon: g.replaces![0], pool: poolSize }),
-        });
+      for (const weapon of g.replaces!) {
+        const key = `${weapon}|${(applyNames ?? []).join(',')}`;
+        if (seen.has(key)) continue;
+        const cluster = u.option_groups
+          .map((other, oi) => ({ other, oi }))
+          .filter(({ other }) => ['per_n', 'every'].includes(other.constraint.type) && other.replaces?.includes(weapon) && sameScope(other));
+        if (cluster.length < 2) continue;
+        seen.add(key);
+        const models = (applyNames && item.modelSizes)
+          ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
+          : item.size;
+        // The pool is one SWAP per copy of the weapon, not one per model. A Tyranid Warrior carries
+        // TWO Scything talons and each of its two groups swaps one of them, so a 3-model brood has
+        // six swaps available, not three — the panel called a completely legal loadout an error.
+        // `weaponCopiesPerModel` is the same reader `computeWeaponGroups` uses for the mirror-image
+        // decision (when the replaced weapon disappears from the profile), so the two agree by
+        // construction instead of by coincidence; a weapon with one copy is unchanged.
+        const copies = weaponCopiesPerModel(u.equipped_with, weapon, g.requires_choice);
+        const poolSize = models * copies;
+        const used = cluster.reduce((s, { oi }) => s + Object.entries(item.optionQty?.[oi] ?? {}).reduce(
+          (s2, [k, v]) => k === '__inline' ? s2 : s2 + (v ?? 0), 0
+        ), 0);
+        if (used > poolSize) {
+          items.push({
+            type: 'error',
+            text: T('valCrossGroupPoolExceeded', { unit: item.unitName, used, weapon, pool: poolSize }),
+          });
+        }
       }
     });
   }
