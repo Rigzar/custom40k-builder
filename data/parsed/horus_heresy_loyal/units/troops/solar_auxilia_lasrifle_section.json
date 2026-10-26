@@ -1,0 +1,116 @@
+{
+    "name": "Solar Auxilia Lasrifle Section",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Auxiliary",
+            "min": 9,
+            "max": 19,
+            "points": 11
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Auxilia Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 12
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Lasrifle; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lasrifle",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One Auxiliary may be equipped with a Vox for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Can only be taken as the Auxilia Retinue of an Overseer (see the Centurion).",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Objective secured!",
+        "Retinue: The unit cannot join another unit and cannot be combined with other units. Only an Overseer can join it."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Solar Auxilia"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 10,
+    "min_cost": 111
+}

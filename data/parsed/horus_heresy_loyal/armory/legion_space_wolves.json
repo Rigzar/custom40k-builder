@@ -1,0 +1,188 @@
+{
+  "name": "Space Wolves Armory",
+  "weapons": [
+    {
+      "name": "Chooser of the Slain",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4), Extra Attack(1), Limit(1), Suppression(3)",
+      "p_unit": 9,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Fenrisian axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Frost axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Unwieldy",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Frost claw",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Frost sword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Great frost axe",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": 16,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "- Cleave",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Slow(-1), Unwieldy",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "- Scythe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(1), Unwieldy",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Axe of Helwinter",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Armorbane(1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Sword of Balenight",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Deadly(5+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Scornspitter",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 3",
+      "s": "4",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Frost weapon",
+      "term_compat": true,
+      "desc": "A melee weapon of the model gains +1 Strength.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Rune weapon",
+      "term_compat": true,
+      "desc": "The model receives a +1 bonus to dispel psychic powers.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Ymira stasis bombs",
+      "term_compat": true,
+      "desc": "Once per game, when the model or its attached unit is charged, it may activate the bombs: until the end of the battle round all weapons of the model and its attached unit gain \"Poison(3+)\" and \"Overheating\". Only for characters and Command squads.",
+      "p_unit": 15,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
+  "daemon_weapons": []
+}

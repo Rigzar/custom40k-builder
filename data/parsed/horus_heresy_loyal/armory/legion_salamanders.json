@@ -1,0 +1,108 @@
+{
+  "name": "Salamanders Armory",
+  "weapons": [
+    {
+      "name": "Dragon's breath cannon",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Heavy 1",
+      "s": "7",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": 5,
+      "p_char": 3
+    },
+    {
+      "name": "Dragon's breath flamer",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": 13,
+      "p_char": 9,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Dragon's breath heavy flamer",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": 4,
+      "p_char": 2,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Dragon's breath pistol",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": 5,
+      "p_char": 3
+    },
+    {
+      "name": "Dawnbringer",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Armorbane(1), Deadly(5+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Furnace's Heart",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "7",
+      "ap": "-2",
+      "d": "3",
+      "abilities": "Deflagrate(6+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Dragon's Breath Gauntlet",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Dragonscale storm shield",
+      "term_compat": true,
+      "desc": "The model gains a 5+ ward save, or improves a ward save it already has by one step (to a maximum of 3+). The model may not gain an additional attack for carrying two close combat weapons.",
+      "p_unit": 9,
+      "p_char": 16,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
+  "daemon_weapons": []
+}

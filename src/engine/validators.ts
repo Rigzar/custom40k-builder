@@ -18,6 +18,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
+import { archetypeRequiredLegacy, legionTraitAllowed, unitRequiredLegacy } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
@@ -1518,6 +1519,13 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (onlyA && FACTION_NAMES[onlyA] !== data.faction) items.push({ type: 'error', text: T('valArchetypeAlliedOnly', { archetype: cleanArchetypeName(state.alliedArchetype), faction: FACTION_NAMES[onlyA] ?? onlyA }) });
   }
 
+  // Horus Heresy datasheets that "can only be selected if the army has the Legacy of X".
+  for (const item of state.army) {
+    if (item.factionSource) continue;
+    const need = unitRequiredLegacy(resolveUnit(item, data));
+    if (need && need !== state.legacy && need !== state.legacy2) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
+  }
+
   // Escalation (Dominic, 2026-10-23): the War Dog is a Chaos Elite. In a codex that is not Chaos Space Marines its datasheet is
   // marked requires_archetype_unlock and only exists under an archetype that makes the army Chaos (Traitor Guard, Renegades, Dark Mechanicum).
   for (const item of state.army) {
@@ -2037,6 +2045,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           type: 'ok',
           text: T('valBlackCrusadeChampionOk', { unit: champion.unitName }),
         });
+      }
+    }
+  }
+
+  // Horus Heresy: an archetype that "can only be selected with the Legacy of X", and Legion traits
+  // that belong to the Legion the Legacy names (data-driven, see lib/legacyGatedChoices.ts).
+  {
+    const needLegacy = archetypeRequiredLegacy(data.archetypes.find(a => a.name === state.archetype));
+    if (needLegacy && needLegacy !== state.legacy) {
+      items.push({ type: 'error', text: `${state.archetype} can only be selected with the ${needLegacy}.` });
+    }
+    const legacyDefs = [state.legacy, state.legacy2].map(n => data.legacies.find(l => l.name === n));
+    for (const n of state.traitPool) {
+      const def = data.traits.find(t => t.name === n);
+      if (def && !legionTraitAllowed(def, legacyDefs)) {
+        items.push({ type: 'error', text: `${n} is a ${def.legion} trait: it needs the Legacy of that Legion.` });
       }
     }
   }

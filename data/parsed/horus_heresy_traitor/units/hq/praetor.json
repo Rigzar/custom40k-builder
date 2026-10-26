@@ -1,0 +1,115 @@
+{
+    "name": "Praetor",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "6",
+                "A": "4",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Praetor",
+            "min": 1,
+            "max": 1,
+            "points": 75
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Praetor is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Archaeotech pistol",
+            "range": "18\"",
+            "type": "Pistol 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Armor piercing(3+), Master-crafted"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Paragon blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Deadly(5+), Quick(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with an Archaeotech pistol for +9 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 9,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May be equipped with a Paragon blade for +20 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 20,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Not mandatory. One Praetor may be taken for each full 1000 points of game size.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 1000,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Master of the Legion: The army may take Legion Command Squads and Retinues, one for each Praetor. An army that has chosen an Archetype (Rite of War) must include at least one Praetor or Delegatus. (Draft wording B, to be confirmed by Eden.)"
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 75
+}

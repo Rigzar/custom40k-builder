@@ -1,0 +1,117 @@
+{
+    "name": "Castellax-Achea Automata",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "3+",
+                "S": "6",
+                "T": "7",
+                "W": "4",
+                "I": "3",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Castellax-Achea",
+            "min": 1,
+            "max": 5,
+            "points": 134
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Asphyx bolt cannon; Twin asphyx bolter; Pair of Achea force claws.",
+    "weapons": [
+        {
+            "name": "Aether-fire cannon",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(2), Blast(4), Force weapon"
+        },
+        {
+            "name": "Asphyx bolt cannon",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Pair of Achea force claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(1), Force weapon,\nRending(5+),"
+        },
+        {
+            "name": "Twin Asphyx bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shred"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Every Castellax-Achea may swap their Asphyx bolt cannon with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Aether-fire cannon",
+                    "points": 45
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Asphyx bolt cannon"
+            ]
+        },
+        {
+            "header": "Can only be selected if the army has the Legacy of the Crimson King.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Aegis(4+), Fearless, Unyielding, Ward(5+)",
+        "Psi-locus: Any Thousand Sons Psyker within 12\" who suffers Perils of the Warp may choose to inflict the effect on this unit before rolling on the Perils of the Warp Table.",
+        "Psychic Conduit: When a friendly Thousand Sons Psyker within 12\" casts a Witchfire or Malediction power, it may measure the range and the line of sight from this model instead. Additionally, if a Thousand Sons psyker within 12\" successfully manifests a spell, this unit counts as successfully manifesting a spell for the purposes of the \"Force weapon\" ability.",
+        "Psychometric Control: If this model is not within 18\" of a Thousand Sons Character with the Psyker ability, it can only be assigned \"Fight\" or \"Stand & Shoot\" Orders, and must fire all its ranged weapons at the nearest enemy unit."
+    ],
+    "unit_type": "Monstrous Infantry",
+    "keywords": [
+        "Thousand Sons"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": true,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 134
+}

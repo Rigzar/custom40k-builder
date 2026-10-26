@@ -1,0 +1,207 @@
+{
+  "name": "Death Guard Armory",
+  "weapons": [
+    {
+      "name": "Alchem cannon",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Overheating",
+      "p_unit": 5,
+      "p_char": 3
+    },
+    {
+      "name": "Alchem flamer",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Overheating",
+      "p_unit": 5,
+      "p_char": 3,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Alchem pistol",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Overheating",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Death’s head grenades",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Blast(6), Poison(4+)",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Heavy alchem flamer",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Overheating",
+      "p_unit": 3,
+      "p_char": 2,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Plasma gun",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 22,
+      "p_char": null,
+      "profiles": []
+    },
+    {
+      "name": "Power scythe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "- Standard",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "- Overcharged",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheat",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Silence",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Deadly(6+), Slow(-1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Lantern",
+      "term_compat": false,
+      "range": "10\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "Armorbane(1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Phosphex bomb",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Blast(4), Poison(3+), Ammo(1), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Cataphractii armor",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+      "p_unit": null,
+      "p_char": 76
+    },
+    {
+      "name": "Nurgle's decay",
+      "term_compat": true,
+      "desc": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability. Can not be taken together with other plagues.",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Nurgling infestation",
+      "term_compat": true,
+      "desc": "The model inflicts 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D:1; Poison(4+).",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Toxin bombs",
+      "term_compat": true,
+      "desc": "Whenever an enemy unit declares a Charge against the unit, roll a die for each of its models that charged. On a 1 that model suffers a wound that only a ward save can prevent. Only for Character models.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Nurgling infestation",
+      "term_compat": false,
+      "desc": "The model inflicts 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D:1; Poison(4+).",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

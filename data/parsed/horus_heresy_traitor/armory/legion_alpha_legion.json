@@ -1,0 +1,163 @@
+{
+  "name": "Alpha Legion Armory",
+  "weapons": [
+    {
+      "name": "Banestrike bolter",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Poison(4+)",
+      "p_unit": 12,
+      "p_char": 14,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Banestrike combi-bolter",
+      "term_compat": true,
+      "range": "18\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 18,
+      "p_char": 22,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Power dagger",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The Instrument",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 37,
+      "profiles": []
+    },
+    {
+      "name": "Venom spheres",
+      "term_compat": false,
+      "range": "8\"",
+      "type": "Assault 6",
+      "s": "1",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Ammo(1), Poison(3+)",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "- Rapid shot",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 3",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Suppression(3), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "- Execution shot",
+      "term_compat": false,
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Sniper, Sunder(2), Suppression(6), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Pale Spear",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Deadly(5+), Armorbane(1), Poison(4+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Hydra's Spite",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(4+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "I am Alpharius",
+      "term_compat": true,
+      "desc": "If at least one character model from the same Army Organisation Plan is alive at the end of the last battle round, the army scores the \"Protect the Warlord\" secondary objective and the enemy can't score the \"Slay the Warlord\" secondary objective. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

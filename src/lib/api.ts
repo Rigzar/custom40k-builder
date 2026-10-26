@@ -32,7 +32,7 @@ function translateError(json: { error?: string; key?: string; vars?: Record<stri
 }
 
 export interface MeResponse {
-  loggedIn: boolean; username?: string; isAdmin?: boolean; isInterrogator?: boolean;
+  loggedIn: boolean; username?: string; isAdmin?: boolean; isInterrogator?: boolean; isServitor?: boolean;
   avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean;
 }
 export function getMe() {
@@ -527,7 +527,7 @@ export function deleteCampaign(campaignId: number, confirmName: string) {
 
 export interface AdminUserRow {
   id: number; username: string; created_at: string;
-  last_seen_at: string | null; last_login_at: string; is_admin: boolean; is_interrogator: boolean; roster_count: number;
+  last_seen_at: string | null; last_login_at: string; is_admin: boolean; is_interrogator: boolean; is_servitor?: boolean; roster_count: number;
 }
 export interface AdminStats { totalUsers: number; totalRosters: number; users: AdminUserRow[] }
 export function adminStats() { return call<{ ok: true } & AdminStats>('/api/admin/stats'); }
@@ -555,6 +555,11 @@ export function adminPromote(userId: number, makeAdmin: boolean) {
 /** Grants/revokes "Interrogator" — the translations-only limited admin rank. */
 export function adminSetInterrogator(userId: number, makeInterrogator: boolean) {
   return call<{ ok: true }>('/api/admin/set-interrogator', { method: 'POST', body: JSON.stringify({ userId, makeInterrogator }) });
+}
+
+/** Grants/revokes "Servitor": the alpha-tester rank, which only unlocks the alpha factions. */
+export function adminSetServitor(userId: number, makeServitor: boolean) {
+  return call<{ ok: true }>('/api/admin/set-servitor', { method: 'POST', body: JSON.stringify({ userId, makeServitor }) });
 }
 
 export interface AdminAction {

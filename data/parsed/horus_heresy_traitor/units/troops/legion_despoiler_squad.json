@@ -1,0 +1,216 @@
+{
+    "name": "Legion Despoiler Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Legionary",
+            "min": 4,
+            "max": 19,
+            "points": 31
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Legion Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 41
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "T",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Chainaxe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy chainaxe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overcharged",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Slow(-2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "All Legionary models may swap their Astartes chainsword for a Chainaxe for +1 point each.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true,
+            "replaces": [
+                "Astartes chainsword"
+            ]
+        },
+        {
+            "header": "For each 5 models, one Legionary may swap their Astartes chainsword",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Heavy chainaxe",
+                    "points": 9
+                },
+                {
+                    "name": "Power fist",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
+            ]
+        },
+        {
+            "header": "For each 5 models, one other Legionary may swap their Bolt pistol",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Plasma pistol",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 5,
+    "min_cost": 165
+}

@@ -1,0 +1,129 @@
+{
+  "name": "Night Lords Armory",
+  "weapons": [
+    {
+      "name": "Chainblade",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": 3,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Chainglaive",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+), Shred",
+      "p_unit": null,
+      "p_char": 9,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Escaton power claw",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(2), Shred, Unwieldy, Slow(-2)",
+      "p_unit": 12,
+      "p_char": 14,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Headsman's axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Mercy and Forgiveness",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Rending(5+), Shred, Quick(+2), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Widowmakers",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(4+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Curze’s Orb",
+      "term_compat": true,
+      "desc": "The army may re-roll any one die per activation. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

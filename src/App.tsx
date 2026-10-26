@@ -9,6 +9,7 @@ import { ValidationPanel } from './components/ValidationPanel';
 import { ArmyList } from './components/ArmyList';
 import { LandingPage } from './components/LandingPage';
 import { FactionStep } from './components/FactionStep';
+import { isAlphaFaction } from './data/factionCatalog';
 import { ReviewStep } from './components/ReviewStep';
 import { StepBar, type Step } from './components/StepBar';
 import { FactionSymbol } from './components/FactionSymbol';
@@ -199,7 +200,11 @@ export default function App() {
   // Set when opened via the Account tab's "My Campaigns" quick-open, so CampaignModal expands
   // straight to that campaign instead of the plain index.
   const [campaignInitialOpenId, setCampaignInitialOpenId] = useState<number | undefined>(undefined);
-  const { username, loggedIn, loading: authLoading, isAdmin, isInterrogator, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
+  const { username, loggedIn, loading: authLoading, isAdmin, isInterrogator, isServitor, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
+  const canSeeAlpha = isAdmin || isServitor;
+  useEffect(() => {
+    if (!authLoading && isAlphaFaction(selectedFaction) && !canSeeAlpha) setSelectedFaction(null);
+  }, [authLoading, selectedFaction, canSeeAlpha]);
   const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
@@ -575,6 +580,7 @@ export default function App() {
    * resolve against the new catalogue and would silently rot in the list.
    */
   function handlePickFaction(key: string) {
+    if (isAlphaFaction(key) && !canSeeAlpha) return;   // alpha factions do not exist for anyone else, whatever route got here
     const isNewFaction = key !== selectedFaction;
     // Whether this actually orphans a list is decided by the faction the UNITS belong to, not by
     // `selectedFaction`: a page reload resets `selectedFaction` to null while zustand still holds
@@ -711,6 +717,7 @@ export default function App() {
   }
 
   function handleLoadArmy(save: SavedArmy) {
+    if (isAlphaFaction(save.factionKey) && !canSeeAlpha) return;
     pendingLoad.current = save;
     setActiveLocalSaveId(save.id);
     setActiveCloudRosterId(null);
@@ -992,6 +999,7 @@ export default function App() {
           saves={saves}
           factionFlags={factionFlags}
           codexVersions={codexVersions}
+          canSeeAlpha={canSeeAlpha}
           onPickFaction={handlePickFaction}
           onLoadArmy={handleLoadArmy}
           onDeleteArmy={(id) => { deleteArmy(id); if (id === activeLocalSaveId) setActiveLocalSaveId(null); }}

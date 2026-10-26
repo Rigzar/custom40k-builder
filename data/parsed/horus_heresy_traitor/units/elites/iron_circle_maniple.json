@@ -1,0 +1,81 @@
+{
+    "name": "Iron Circle Maniple",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "3+",
+                "BS": "4+",
+                "S": "7",
+                "T": "7",
+                "W": "5",
+                "I": "3",
+                "A": "3",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Domitar-ferrum",
+            "min": 1,
+            "max": 1,
+            "points": 141
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Domitar-ferrum is a single model and is equipped with: Shrapnel cannon; Graviton maul.",
+    "weapons": [
+        {
+            "name": "Graviton maul",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Haywire"
+        },
+        {
+            "name": "Shrapnel cannon",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4), Suppression(2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Can only be selected if the army has the Legacy of the Lord of Iron.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Move through cover, Unyielding",
+        "Hammer of Wrath(3): When the model ends a Charge move in base contact with an enemy unit, it makes 3 automatic hits with its own Strength, AP 0 and Damage 1.",
+        "Karceri battle shield: The model gains a 5+ ward save. A Charge against its unit is a Disorderly Charge unless the unit is already in melee.",
+        "Programmed Behaviour: While the unit is not within 6\" of a friendly Character with a Master of Automata ability (Forge Lord, Praevian), whenever it shoots or charges it must target the closest valid enemy unit."
+    ],
+    "unit_type": "Monstrous Infantry",
+    "keywords": [
+        "Iron Warriors"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 141
+}

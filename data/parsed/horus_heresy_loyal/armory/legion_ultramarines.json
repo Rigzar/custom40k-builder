@@ -1,0 +1,109 @@
+{
+  "name": "Ultramarines Armory",
+  "weapons": [
+    {
+      "name": "Legatine axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Sunwrath Pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Unique",
+      "p_unit": 18,
+      "p_char": null
+    },
+    {
+      "name": "The Gladius Incandor",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Rending(5+), Parry, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Hand of Dominion",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+4",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Armorbane(1), Slow(-1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Arbitrator",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "6",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(5+), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Helm of Censure",
+      "term_compat": true,
+      "desc": "The model gains 1 cumulative hit and wound re-roll. Unique.",
+      "p_unit": 10,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Laurels of Victory",
+      "term_compat": true,
+      "desc": "Each wound the model does in combat counts as 2 for combat resolution.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Tarentian Cloak",
+      "term_compat": true,
+      "desc": "The model gains the \"Regeneration(1)\" ability.",
+      "p_unit": 8,
+      "p_char": 12,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Supply Vehicle",
+      "term_compat": false,
+      "desc": "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Space Marine unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

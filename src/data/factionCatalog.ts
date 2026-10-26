@@ -18,6 +18,11 @@ export interface FactionDef {
   status: FactionStatus;
   /** Codex document version (from the faction's canonical .ods title), shown on the button. */
   version?: string;
+  /**
+   * Alpha faction: invisible to everybody except admins and Servitors (alpha testers). Not greyed out, not listed, not
+   * selectable by link or by a saved list: for anyone else it does not exist. See `visibleCategories` and `isAlphaFaction`.
+   */
+  alpha?: boolean;
 }
 
 export interface FactionCategory {
@@ -89,7 +94,32 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.11' },
     ],
   },
+  {
+    name: 'Horus Heresy',
+    icon: '/category-icons/imperium.svg',
+    pillFg: '#c8b56a', pillFgLight: '#6b5a17', dividerColor: '#3a3520',
+    factions: [
+      { key: 'horus_heresy_loyal',   name: 'Horus Heresy: Loyal Legions',   available: true, status: 'unreviewed', version: '2.0 draft', alpha: true },
+      { key: 'horus_heresy_traitor', name: 'Horus Heresy: Traitor Legions', available: true, status: 'unreviewed', version: '2.0 draft', alpha: true },
+    ],
+  },
 ];
+
+/** True for a faction that only admins and Servitors may see. */
+export function isAlphaFaction(key: string | null | undefined): boolean {
+  return !!key && CATEGORIES.some(c => c.factions.some(f => f.key === key && f.alpha));
+}
+
+/**
+ * The catalogue as THIS player may see it: alpha factions are removed (and a category left with none disappears with them) unless
+ * the player is an admin or a Servitor. Every screen that lists factions goes through this, never through CATEGORIES directly.
+ */
+export function visibleCategories(canSeeAlpha: boolean): FactionCategory[] {
+  if (canSeeAlpha) return CATEGORIES;
+  return CATEGORIES
+    .map(c => ({ ...c, factions: c.factions.filter(f => !f.alpha) }))
+    .filter(c => c.factions.length > 0);
+}
 
 /** Flat {key,name,defaultAvailable} list of every faction — used by the admin availability toggles. */
 export const ALL_FACTIONS: { key: string; name: string; defaultAvailable: boolean }[] =

@@ -1,0 +1,171 @@
+{
+  "name": "Sons of Horus Armory",
+  "weapons": [
+    {
+      "name": "Banestrike bolter",
+      "term_compat": true,
+      "range": "18\"",
+      "type": "Rapid Fire 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 12,
+      "p_char": 14,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Banestrike combi-bolter",
+      "term_compat": true,
+      "range": "18\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 18,
+      "p_char": 22,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Carsoran power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(5+)",
+      "p_unit": 5,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Carsoran power tabar",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(4+)",
+      "p_unit": 5,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Heavy bolter",
+      "term_compat": true,
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Unique. Only for models with the Mark of Khorne",
+      "p_unit": 23,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Staff of Dark Authority",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(6+), Unwieldy",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The Warmaster's Talon",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Rending(6+), Shred, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Worldbreaker",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+4",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Deadly(5+), Slow(-2), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Warmaster's Talon (bolter)",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 5",
+      "s": "5",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "The Skull of Ker’ngar",
+      "term_compat": true,
+      "desc": "All to wound rolls against the model suffer a -1 penalty. Unique.",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

@@ -663,6 +663,14 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     } catch (e) { setMsg(String(e)); }
   }
 
+  async function handleSetServitor(userId: number, username: string, makeServitor: boolean) {
+    if (!confirm(`${makeServitor ? 'Grant' : 'Revoke'} Servitor (alpha tester: sees the alpha factions, nothing else) for "${username}"?`)) return;
+    try {
+      await api.adminSetServitor(userId, makeServitor);
+      await load();
+    } catch (e) { setMsg(String(e)); }
+  }
+
   async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | 'codex_content_hashes', value: unknown) {
     // Every one of these four editors is hydrated from adminGetSettings. If that call failed the
     // editors hold code defaults, and writing them back replaces whatever is really stored —
@@ -1305,6 +1313,7 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
                         <span className={u.is_admin ? 'text-amber-400' : 'text-zinc-200'}>{u.username}</span>
                         {u.is_admin && <span className="ml-1 text-[10px] text-amber-600">inqui</span>}
                         {!u.is_admin && u.is_interrogator && <span className="ml-1 text-[10px] text-amber-700">{L.interrogatorBadge}</span>}
+                        {!u.is_admin && u.is_servitor && <span className="ml-1 text-[10px] text-red-700">servitor</span>}
                       </td>
                       <td className="py-2 pr-3 text-zinc-500">{fmt(u.created_at)}</td>
                       <td className="py-2 pr-3 text-zinc-400">{fmt(u.last_seen_at)}</td>
@@ -1329,6 +1338,12 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
                               onClick={() => handleSetInterrogator(u.id, u.username, !u.is_interrogator)}
                               className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
                             >{u.is_interrogator ? L.revokeInterrogator : L.makeInterrogator}</button>
+                          )}
+                          {!u.is_admin && (
+                            <button
+                              onClick={() => handleSetServitor(u.id, u.username, !u.is_servitor)}
+                              className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-red-400 hover:border-red-900"
+                            >{u.is_servitor ? '−servitor' : '+servitor'}</button>
                           )}
                           <button
                             onClick={() => handleDelete(u.id, u.username)}

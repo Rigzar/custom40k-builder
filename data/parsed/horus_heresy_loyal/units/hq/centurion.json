@@ -1,0 +1,257 @@
+{
+    "name": "Centurion",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Centurion",
+            "min": 1,
+            "max": 1,
+            "points": 77
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Centurion is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Paragon blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Deadly(5+), Quick(1)"
+        },
+        {
+            "name": "Power lash",
+            "range": "-",
+            "type": "Melee",
+            "s": "-1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Quick(+1), Rending(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be upgraded to one of the following Consuls (only one)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Armistos",
+                    "points": 2
+                },
+                {
+                    "name": "Champion",
+                    "points": 17,
+                    "effect": {
+                        "grants_abilities": [
+                            "Fearless"
+                        ],
+                        "grants_weapons": [
+                            "Paragon blade"
+                        ]
+                    }
+                },
+                {
+                    "name": "Chaplain",
+                    "points": 6,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "LD",
+                                "value": "10"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Esoterist",
+                    "points": 36,
+                    "effect": {
+                        "makes_psyker": true
+                    }
+                },
+                {
+                    "name": "Delegatus",
+                    "points": 5
+                },
+                {
+                    "name": "Forge Lord",
+                    "points": 5,
+                    "effect": {
+                        "grants_abilities": [
+                            "Blessing of the Omnissiah"
+                        ]
+                    }
+                },
+                {
+                    "name": "Herald",
+                    "points": 3,
+                    "effect": {
+                        "grants_abilities": [
+                            "Fearless",
+                            "Terrifying(-1)"
+                        ]
+                    }
+                },
+                {
+                    "name": "Librarian",
+                    "points": 36,
+                    "effect": {
+                        "makes_psyker": true
+                    }
+                },
+                {
+                    "name": "Master of Signals",
+                    "points": 5
+                },
+                {
+                    "name": "Moritat",
+                    "points": 10,
+                    "effect": {
+                        "grants_abilities": [
+                            "Vanguard",
+                            "Counter-attack"
+                        ]
+                    }
+                },
+                {
+                    "name": "Mortificator",
+                    "points": 14,
+                    "effect": {
+                        "grants_abilities": [
+                            "Blessing of the Omnissiah"
+                        ]
+                    }
+                },
+                {
+                    "name": "Overseer",
+                    "points": 6,
+                    "effect": {
+                        "grants_abilities": [
+                            "Terrifying(-1)"
+                        ],
+                        "grants_weapons": [
+                            "Power lash"
+                        ]
+                    }
+                },
+                {
+                    "name": "Pathfinder",
+                    "points": 10,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "M",
+                                "value": "8\""
+                            }
+                        ],
+                        "grants_abilities": [
+                            "Vanguard",
+                            "Infiltrator",
+                            "Move through cover"
+                        ]
+                    }
+                },
+                {
+                    "name": "Praevian",
+                    "points": 2
+                },
+                {
+                    "name": "Primus Medicae",
+                    "points": 5,
+                    "effect": {
+                        "grants_abilities": [
+                            "Narthecium"
+                        ]
+                    }
+                },
+                {
+                    "name": "Siegebreaker",
+                    "points": 5
+                },
+                {
+                    "name": "Vigilator",
+                    "points": 38,
+                    "effect": {
+                        "grants_abilities": [
+                            "Vanguard"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear",
+        "Consuls: A Centurion takes one Consul upgrade. The points are for the Consul on top of the Centurion. The Warmonger of Margit's list is the Ætheric juncture splicer item in the Armory.",
+        "Armistos: The model may not take a Jump pack, a Space Marine bike or a Jetbike. One weapon it carries gains the Master-crafted ability.",
+        "Champion: The model gains the Fearless ability and a Paragon blade at no extra cost.",
+        "Chaplain: Leadership 10. The model and a unit it joins ignore negative Leadership modifiers. One weapon it carries gains the Master-crafted ability.",
+        "Esoterist: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Esoterist discipline (see Legacy powers). Its Power weapon may be swapped for a Force weapon at no extra cost.",
+        "Delegatus: Rally the Legion. Once per battle, in the Rally phase, take a Leadership test for this model. If it passes, every friendly unit in its line of sight rallies.",
+        "Forge Lord: The model gains the Blessing of the Omnissiah ability (see Techmarine).",
+        "Herald: The model gains the Fearless and Terrifying(-1) abilities and swaps its Bolt pistol for a Legion vexilla at no extra cost.",
+        "Librarian: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline. Its Power weapon may be swapped for a Force weapon at no extra cost.",
+        "Master of Signals: The model carries a Nuncio-vox. Once per battle round, one friendly unit in its line of sight may use this model's Leadership for a Battleshock test.",
+        "Moritat: The model gains the Vanguard and Counter-attack abilities, a second Bolt pistol and Rad grenades. It may not be the Warlord.",
+        "Mortificator: The model gains a Servo arm and the Blessing of the Omnissiah ability, and may join a unit of Dreadnoughts.",
+        "Overseer: The model gains the Terrifying(-1) ability and a Power lash. Master of Auxilia: it may join a Solar Auxilia Lasrifle Section, and that unit does not lose Leadership because of it. Auxilia Retinue: for each Overseer you may select up to three Solar Auxilia Lasrifle Sections (up to 20 models each) that take up no Troops slot. They are part of the army, not allies, and can only be taken this way.",
+        "Pathfinder: Movement 8\" and the Vanguard, Infiltrator and Move through cover abilities.",
+        "Praevian: The model gains the Fearless ability while it is in a unit with Automata models, and may join such a unit.",
+        "Primus Medicae: The model gains the Narthecium ability.",
+        "Siegebreaker: At the start of each shooting activation, this model and one friendly unit within 6\" gain Sunder(1) on their ranged weapons.",
+        "Vigilator: The model gains the Vanguard ability, a Master-crafted Nemesis-Bolter, Melta bombs and the effect of Marked for Death (see the Raven Guard Armory).",
+        "Combat Tactics: The Centurion may assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": true,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 77
+}

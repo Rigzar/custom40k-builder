@@ -1,0 +1,336 @@
+{
+  "archetypes": [
+    {
+      "name": "Pride of the Legion",
+      "desc": "- Legion Veteran Squads and Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Only a single Heavy Support choice and a single Fast Attack choice can be taken.\n- The army cannot include more units that are not Infantry than units that are Infantry.\n- The army cannot include an Allied Detachment or Fortifications."
+    },
+    {
+      "name": "Armoured Spearhead",
+      "desc": "- Legion Predators can be taken as Troops.\n- Legion Sicaran Battle Tanks can be taken as Elites.\n- A unit that could take a Legion Rhino may take a Land Raider Carrier instead if it has ten models or fewer.\n- Infantry units must start the game as passengers inside a transport."
+    },
+    {
+      "name": "Drop Pod Assault (HH)",
+      "desc": "- A unit that could take a Legion Rhino or a Land Raider Carrier may take a Legion Drop Pod instead.\n- A unit with a Legion Drop Pod must arrive by Deep Strike.\n- Units without a Drop Pod must start the game in Reserve and cannot arrive by Deep Strike or Outflank.\n- The army cannot take Fortifications."
+    },
+    {
+      "name": "Recon Demi-Company",
+      "desc": "- Legion Scout Squads and Seeker Squads can be taken as Troops.\n- All compulsory Troops selections must be Legion Scout Squads.\n- The army cannot take Fortifications."
+    },
+    {
+      "name": "Angel's Wrath",
+      "desc": "- A unit that could take a Legion Rhino may take a Caestus Assault Ram instead.\n- A Flyer transport in reserve may enter automatically in the first battle round.\n- Infantry units without jump packs must start the game as passengers inside a Flyer transport.\n- Infantry units with jump packs must start the game in Reserve (they can arrive by Deep Strike).\n- The army cannot include vehicles without the Flyer type, and cannot take Fortifications."
+    },
+    {
+      "name": "Sky-hunter Phalanx",
+      "desc": "- Legion Sky-hunter Squadrons and Land Speeder Squadrons can be taken as Troops.\n- Vehicles in the army must be Fast, Skimmers or Flyers.\n- Infantry units must start the game as passengers inside a Flyer transport.\n- The army cannot include Dreadnoughts, Fortifications or an Allied Detachment."
+    },
+    {
+      "name": "Underworld Assault",
+      "desc": "- A unit that could take a Legion Rhino may take a Legion Termite instead.\n- Legion Termites can be taken as Fast Attack and Heavy Support choices.\n- Infantry units without the Massive(X) ability must start the game as passengers inside a Legion Termite.\n- Units that are not Legion Termites or passengers in one cannot start in Reserve and cannot arrive by Deep Strike or Outflank.\n- The army cannot take Fortifications."
+    },
+    {
+      "name": "Fury of the Ancients",
+      "desc": "- Legion Contemptor Dreadnoughts can be taken as Troops, and all of the army's Troops selections must be Contemptor Dreadnoughts.\n- Only a single Fast Attack choice and a single Heavy Support choice that is not made of Dreadnoughts can be taken.\n- The army cannot take Fortifications."
+    },
+    {
+      "name": "Deathwing Conclave (The Unbroken Vow)",
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Veteran Squads and Terminator Squads can be taken as Troops.\n- At least 25% of the army's Troops selections must be Legion Veteran Squads or Terminator Squads.\n- Every unit gains Regeneration(1) while within 6\" of a mission objective.\n- The army cannot take Allied Detachments.\n- Source: the 1st and 2nd edition Horus Heresy rules (the 3rd edition does not list what this Detachment restricts)."
+    },
+    {
+      "name": "The Steel Fist",
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Predators can be taken as Troops and Legion Kratos Assault Tanks as Elites.\n- Infantry units must start the game as passengers inside a transport that is not a Flyer.\n- No unit can arrive by Deep strike or Outflank."
+    },
+    {
+      "name": "The Storm of War",
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Tactical, Despoiler and Assault Squads can be taken as Elites, and Legion Assault Squads as Fast Attack.\n- Troops selections must take the maximum number of models.\n- Tactical and Despoiler Squads cannot take a Dedicated Transport.\n- No unit can arrive by Deep strike or Outflank."
+    },
+    {
+      "name": "The Seeker's Arrow",
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Sky-hunter and Outrider Squadrons can be taken as Troops.\n- Troops and Fast Attack selections gain the Outflank ability.\n- Vehicles must be Fast, Skimmers or Flyers, and only a single Heavy Support choice can be taken."
+    },
+    {
+      "name": "The Serpent's Bane",
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Seeker Squads can be taken as Troops, and all Troops selections must be Seeker Squads.\n- Up to three Troops units gain the Infiltrator ability."
+    },
+    {
+      "name": "Chogorian Brotherhood",
+      "desc": "- Can only be selected with the Legacy of the Great Khan.\n- Legion Sky-hunter Squadrons and Outrider Squadrons can be taken as Troops."
+    },
+    {
+      "name": "The Bloodied Claw",
+      "desc": "- Can only be selected with the Legacy of the Wolf King.\n- Once per battle, at the start of a battle round, all units gain until the end of that round: +1 to combat resolution, the Furious charge ability, and they ignore negative Leadership modifiers.\n- In that round every unit that can charge must charge an enemy unit it can reach."
+    },
+    {
+      "name": "The Stone Gauntlet",
+      "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- Only Legion Breacher Squads can be taken as Troops."
+    },
+    {
+      "name": "Hammerfall Strike Force",
+      "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- Any Infantry unit can gain the Deep strike ability for +1 point per Wound.\n- Vehicles start the game in reserve and cannot arrive by Deep strike or Outflank.\n- No Fortifications."
+    },
+    {
+      "name": "The Day of Revelation",
+      "desc": "- Can only be selected with the Legacy of the Angel.\n- Before the battle choose battle round 2, 3 or 4: every unit with the Deep strike ability arrives automatically at the start of that round.\n- Units deployed on the battlefield are Fearless until the end of battle round 1.\n- The Compulsory HQ must have a Jump pack. No Fortifications and no units that cannot move."
+    },
+    {
+      "name": "The Head of the Gorgon",
+      "desc": "- Can only be selected with the Legacy of the Gorgon.\n- Infantry units ignore negative Leadership modifiers while within their own deployment zone.\n- Vehicles gain the Outflank ability.\n- Only a single Fast Attack choice can be taken."
+    },
+    {
+      "name": "Logos Lectora",
+      "desc": "- Can only be selected with the Legacy of the Avenging Son.\n- Units cannot be set up as Infiltrators or arrive by Deep Strike.\n- At the start of each battle round, choose one command that applies to all Infantry units until the end of the round. The same command cannot be chosen twice in a row.\n- Full March: +2\" Movement, -1 Weapon Skill and Ballistic Skill.\n- Hold Fast: +1 Leadership and re-roll failed to-hit rolls when shooting, but the units cannot be given an Advance order.\n- Retribution Strike: +1 Weapon Skill and +1 to charge rolls, -1 Ballistic Skill.\n- Regroup: re-roll failed Leadership tests to rally."
+    },
+    {
+      "name": "The Covenant of Fire",
+      "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- Legion Tactical Support Squads armed with Dragon's breath weapons can be taken as Troops.\n- No unit can arrive by Deep strike.\n- The army must include a Centurion with the Champion Consul."
+    },
+    {
+      "name": "The Awakening Fire",
+      "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- Infantry units can gain the Terrifying(-1) ability for +1 point per model.\n- Infantry units ignore negative Leadership modifiers.\n- The army gets one extra HQ choice, which must be a Centurion with the Chaplain Consul, and must include one."
+    },
+    {
+      "name": "Decapitation Strike",
+      "desc": "- Can only be selected with the Legacy of the Liberator.\n- Only one Heavy Support unit can be taken.\n- The army cannot take Fortifications.\n- Units that arrive by Deep Strike gain Light Cover until the end of that battle round."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Legacy of the Lion",
+      "desc": "The army has access to the Dark Angels Armory.\n- Any Character model may swap its Power sword for a Calibanite warblade for +1 point.\nLegion: Dark Angels (Loyalist).",
+      "armory_key": "Dark Angels"
+    },
+    {
+      "name": "Legacy of the Great Khan",
+      "desc": "The army has access to the White Scars Armory.\n- Any Character model may swap its Power sword for a Power glaive for +1 point.\nLegion: White Scars (Loyalist).",
+      "armory_key": "White Scars"
+    },
+    {
+      "name": "Legacy of the Wolf King",
+      "desc": "The army has access to the Space Wolves Armory.\n- Any model in a Legion Terminator Cataphractii Squad may swap their Power sword for a Frost sword, Frost axe or Frost claw for +1 point each.\n- Any model with an Astartes chainsword may swap it for a Fenrisian axe for +1 point each.\nLegion: Space Wolves (Loyalist).",
+      "armory_key": "Space Wolves"
+    },
+    {
+      "name": "Legacy of the Praetorian of Terra",
+      "desc": "The army has access to the Imperial Fists Armory.\nLegion: Imperial Fists (Loyalist).",
+      "armory_key": "Imperial Fists"
+    },
+    {
+      "name": "Legacy of the Angel",
+      "desc": "The army has access to the Blood Angels Armory.\n- Any model with a Plasma pistol may swap it for an Inferno pistol for +0 points.\nLegion: Blood Angels (Loyalist).",
+      "armory_key": "Blood Angels"
+    },
+    {
+      "name": "Legacy of the Gorgon",
+      "desc": "The army has access to the Iron Hands Armory.\nLegion: Iron Hands (Loyalist).",
+      "armory_key": "Iron Hands"
+    },
+    {
+      "name": "Legacy of the Avenging Son",
+      "desc": "The army has access to the Ultramarines Armory.\nLegion: Ultramarines (Loyalist).",
+      "armory_key": "Ultramarines"
+    },
+    {
+      "name": "Legacy of the Lord of Drakes",
+      "desc": "The army has access to the Salamanders Armory.\n- Any model with a Hand flamer may swap it for a Dragon's breath pistol for +4 points each.\nLegion: Salamanders (Loyalist).",
+      "armory_key": "Salamanders"
+    },
+    {
+      "name": "Legacy of the Liberator",
+      "desc": "The army has access to the Raven Guard Armory.\n- Any model with a Lightning claw may swap it for a Raven's talons for +5 points each.\nLegion: Raven Guard (Loyalist).",
+      "armory_key": "Raven Guard"
+    },
+    {
+      "name": "Legacy of the Sundered",
+      "desc": "The army has access to one Legion-specific unit or Consul type per 1000 points of game size.\nArmory: only the general Armory (the Blackshields have no Legion Armory of their own).",
+      "armory_key": null
+    }
+  ],
+  "traits": [
+    {
+      "name": "Grim Resolve",
+      "desc": "The unit does not suffer the to hit penalty from Defensive Fire.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "10",
+      "pts_veh": "10",
+      "enables_second_legacy": false,
+      "legion": "Dark Angels"
+    },
+    {
+      "name": "Scions of the Hexagrammaton",
+      "desc": "Select one improvement that must be applied to any unit:\n- Deathwing: The unit's melee attacks with Astartes chainswords, Force swords, Power swords, Terranic greatswords, Calibanite warblades and Paragon blades re-roll to hit rolls of 1.\n- Dreadwing: The unit gains the \"Move through cover\" ability.\n- Ironwing: The unit's ranged attacks against the vehicles and monstrous creatures re-roll to hit rolls of 1.\n- Firewing: The unit's melee attacks against Characters and its ranged attacks against units containing Characters gain +1 to hit rolls.\n- Ravenwing: The unit gains +1\"  Movement and may re-roll Advance rolls.\n- Stormwing: The unit's ranged attacks with Bolt weapons re-roll to hit rolls of 1.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "10",
+      "pts_veh": "10",
+      "enables_second_legacy": false,
+      "legion": "Dark Angels"
+    },
+    {
+      "name": "Swift Action",
+      "desc": "The unit may fire weapons with an Advance or Charge order, it may fire them without a to hit penalty.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "White Scars"
+    },
+    {
+      "name": "Eye of the Storm",
+      "desc": "The unit gains the \"Vanguard\" ability.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "White Scars"
+    },
+    {
+      "name": "Bestial Savagery",
+      "desc": "The unit gains the \"Counter-Attack\" ability.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Space Wolves"
+    },
+    {
+      "name": "Unleashed Hunters",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round. Only for creature models and Walkers.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Space Wolves"
+    },
+    {
+      "name": "Bolter Drill",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Legion Tactical Squads gain \"Deflagrate(4+)\" with Bolt weapons.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Imperial Fists"
+    },
+    {
+      "name": "Unshakable Defence",
+      "desc": "The unit gains +1 Leadership and cannot be Pinned while it is in cover.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Imperial Fists"
+    },
+    {
+      "name": "Encarmine Fury",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round. Only for creature models and Walkers.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Blood Angels"
+    },
+    {
+      "name": "Without Remorse, Without Relent",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability. Only for creature models and Walkers.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Blood Angels"
+    },
+    {
+      "name": "The Medusa's Scales",
+      "desc": "The unit reduces the strength of all shooting attacks against it by -1. Only for creature models.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5*",
+      "pts_veh": "5*",
+      "enables_second_legacy": false,
+      "legion": "Iron Hands"
+    },
+    {
+      "name": "Inviolate Armor",
+      "desc": "The unit may reroll one armor save per battle round. Only for creature models. Additionally, vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5*",
+      "pts_veh": "5*",
+      "enables_second_legacy": false,
+      "legion": "Iron Hands"
+    },
+    {
+      "name": "Interlocking Tactics",
+      "desc": "Whenever the unit makes a shooting attack against a target which has already been successfully hit in the same Shooting phase by another Ultramarines unit, it may re-roll To Wound and Armor Penetration rolls of 1.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Ultramarines"
+    },
+    {
+      "name": "Certainty and Resolve",
+      "desc": "The unit is immune to the effects of the \"Terrifying\" ability, and a pinned or fleeing unit automatically regroups at the start of the turn or when it reaches the edge of the board.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Ultramarines"
+    },
+    {
+      "name": "Promethean Blood",
+      "desc": "The unit reduces the strength of all Flamer, Melta, Plasma and Volkite ranged attacks against it by -1. Additionally, vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5*",
+      "pts_veh": "5*",
+      "enables_second_legacy": false,
+      "legion": "Salamanders"
+    },
+    {
+      "name": "Strength of Will",
+      "desc": "The unit ignores negative leadership modifiers. Only for creature units.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5*",
+      "pts_veh": "5*",
+      "enables_second_legacy": false,
+      "legion": "Salamanders"
+    },
+    {
+      "name": "By Wing and Talon",
+      "desc": "Infantry units which do not have the \"Unyielding\" ability gain the \"Infiltrator\" ability, while Jump Pack Infantry, Bike, Jet Bike and Walker units gain the \"Furious Charge\" ability.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Raven Guard"
+    },
+    {
+      "name": "Shadow and Fury",
+      "desc": "The unit gains the \"Deflect\" ability against ranged attacks from enemy units which are more than 12\" away.",
+      "pts_unit": "10",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false,
+      "legion": "Raven Guard"
+    }
+  ],
+  "special_traits": [
+    {
+      "name": "Blackshields",
+      "desc": "Two traits chosen in combination from the Space Marines and Chaos Space Marines codexes may be chosen and taken by all units in the army."
+    }
+  ]
+}

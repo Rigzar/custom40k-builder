@@ -1,0 +1,102 @@
+{
+  "name": "Imperial Fists Armory",
+  "weapons": [
+    {
+      "name": "Ferromag shotgun",
+      "term_compat": false,
+      "range": "10\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 6,
+      "p_char": 7
+    },
+    {
+      "name": "Fist of Terra",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-1)",
+      "p_unit": 22,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Solarite power gauntlet",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "10",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Unwieldy, Slow(-2)",
+      "p_unit": 17,
+      "p_char": 21,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Storm's Teeth",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Shred, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Voice of Terra",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 3",
+      "s": "5",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(5+), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Breacher charges",
+      "term_compat": true,
+      "desc": "A model in base contact with a Fortification or a building may give up its melee attacks during its activation to automatically inflict one hit with Strength 10, AP-4 on it.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Vigil storm shield",
+      "term_compat": true,
+      "desc": "The model gains a 3+ ward save. The ward save of a Vigil storm shield does not stack with other ward saves. The model may not gain an additional attack for carrying two close combat weapons.",
+      "p_unit": 19,
+      "p_char": 32,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "-",
+      "term_compat": false,
+      "desc": "-",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

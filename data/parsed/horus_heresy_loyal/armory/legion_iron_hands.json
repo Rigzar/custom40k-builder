@@ -1,0 +1,87 @@
+{
+  "name": "Iron Hands Armory",
+  "weapons": [
+    {
+      "name": "Graviton pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Grav, Haywire",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Graviton shredder",
+      "term_compat": true,
+      "range": "12\"",
+      "type": "Assault 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Grav, Haywire",
+      "p_unit": 12,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Forgebreaker",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Deadly(5+), Slow(-1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Medusan Carapace",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Alpha-12",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Rending(4+), Unique"
+        },
+        {
+          "name": "Epsilon-415",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Graviton, Unique"
+        },
+        {
+          "name": "Phi-71",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Auto Hit, Unique"
+        }
+      ]
+    }
+  ],
+  "equipment": [],
+  "daemon_weapons": []
+}

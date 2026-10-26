@@ -1,0 +1,239 @@
+{
+  "name": "Thousand Sons Armory",
+  "weapons": [
+    {
+      "name": "Achea force axe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Unwieldy, Force Weapon",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Achea force maul",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Force Weapon",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Achea force sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+), Force Weapon",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Æther-fire blaster",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Æther-fire cannon",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Blast(4), Rending(6+)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Æther-fire pistol",
+      "term_compat": false,
+      "range": "10\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Asphyx bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Asphyx bolter",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Asphyx combi-bolter",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Coruscating beam",
+      "term_compat": true,
+      "range": "Unlimited",
+      "type": "Heavy 1",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Ammunition(1), Armorbane(2), AT(4), Blast(6)",
+      "p_unit": null,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Gravis force blade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "9",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Force Weapon",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Prosperine Khopesh",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Soul burn(5+)",
+      "p_unit": 6,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The Blade of Ahn-nunurta",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Force Weapon, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Psyfire Serpenta",
+      "term_compat": false,
+      "range": "15\"",
+      "type": "Assault 3",
+      "s": "6",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Auto Hit, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Arcane compulsion",
+      "term_compat": true,
+      "desc": "Reduce enemy Charge movements targeting the bearer and their attached unit by 2\".",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Astral Grimoire",
+      "term_compat": true,
+      "desc": "Select one friendly unit within 12\" during the Reinforcement phase. For the remainder of the battle round the unit got a Movement value of 12\" and gains the \"Anti-Grav\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Helm of the Third Eye",
+      "term_compat": true,
+      "desc": "The model and any attached unit ignore any or all to hit modifiers, including for Defensive Fire. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

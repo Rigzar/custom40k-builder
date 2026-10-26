@@ -6,7 +6,7 @@ import { useArmyStore } from '../store/army';
 import { FactionSymbol } from './FactionSymbol';
 import { useTheme } from '../theme';
 import { useT } from '../i18n';
-import { CATEGORIES, STATUS_DOT, STATUS_I18N_KEY } from '../data/factionCatalog';
+import { visibleCategories, isAlphaFaction, STATUS_DOT, STATUS_I18N_KEY } from '../data/factionCatalog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import type { SavedArmy } from '../hooks/useSavedArmies';
@@ -26,7 +26,7 @@ function formatDate(ts: number): string {
  * moving away from it costs nothing.
  */
 export function FactionStep({
-  selectedFaction, saves, factionFlags, codexVersions,
+  selectedFaction, saves, factionFlags, codexVersions, canSeeAlpha,
   onPickFaction, onLoadArmy, onDeleteArmy, onContinue,
 }: {
   selectedFaction: string | null;
@@ -34,6 +34,8 @@ export function FactionStep({
   /** Admin overrides, fetched once in App — null keeps the versions compiled into this build. */
   factionFlags: api.FactionFlags | null;
   codexVersions: api.CodexVersions | null;
+  /** Admin or Servitor: may see the alpha factions. Everybody else gets a catalogue without them. */
+  canSeeAlpha: boolean;
   onPickFaction: (key: string) => void;
   onLoadArmy: (save: SavedArmy) => void;
   onDeleteArmy: (id: string) => void;
@@ -42,7 +44,8 @@ export function FactionStep({
   const theme = useTheme(t => t.theme);
   // Does any faction still carry a review status worth showing? Admin overrides count, which is
   // why this is derived here rather than read off the compiled catalogue.
-  const hasUnreviewedFaction = CATEGORIES.some(c => c.factions.some(f =>
+  const categories = visibleCategories(canSeeAlpha);
+  const hasUnreviewedFaction = categories.some(c => c.factions.some(f =>
     (factionFlags?.[f.key] ?? f.available) && (codexVersions?.[f.key]?.status ?? f.status) !== 'complete'));
   const t = useT();
   const { engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
@@ -50,7 +53,7 @@ export function FactionStep({
   const [pointDraft, setPointDraft] = useState<string | null>(null);
 
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
-  const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
+  const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave') && (canSeeAlpha || !isAlphaFaction(s.factionKey)));
 
   function handleSetEngagement(e: EngagementType) {
     const eng = ENGAGEMENTS[e];
@@ -192,7 +195,7 @@ export function FactionStep({
         </div>
 
         <div className="space-y-7">
-          {CATEGORIES.map(cat => (
+          {categories.map(cat => (
             <div key={cat.name}>
               <div className="flex items-center gap-2.5 mb-3">
                 <img
@@ -250,6 +253,7 @@ export function FactionStep({
                           title={t(STATUS_I18N_KEY[f.status])}
                         />
                       )}
+                      {f.alpha && <span className="absolute top-1.5 left-1.5 font-cinzel text-[7px] uppercase tracking-widest text-red-400 border border-red-900/70 px-1">alpha</span>}
                       <FactionSymbol factionKey={f.key} size={40} />
                       <span className={`text-[11px] leading-tight ${selected ? 'text-amber-200' : 'text-zinc-300'}`}>
                         {nm(f.name)}

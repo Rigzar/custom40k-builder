@@ -1,0 +1,141 @@
+{
+    "name": "Legion Saturnine Dreadnought",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "13",
+                "SIDE": "13",
+                "REAR": "12",
+                "I": "4",
+                "A": "2",
+                "HP": "4"
+            },
+            "name": "Saturnine Dreadnought",
+            "min": 1,
+            "max": 1,
+            "points": 411
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Saturnine Dreadnought is equipped with: Twin heavy disintegrator; Plasma bombard; 2 Heavy flamers.",
+    "weapons": [
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Hunter-killer missile",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2)"
+        },
+        {
+            "name": "Plasma bombard - Standard",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Plasma bombard - Overcharged",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(1), Blast(4), Overheating"
+        },
+        {
+            "name": "Twin heavy disintegrator",
+            "range": "24\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap the Twin heavy disintegrator",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Plasma bombard",
+                    "points": 29
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin heavy disintegrator"
+            ]
+        },
+        {
+            "header": "May swap the Plasma bombard",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin heavy disintegrator",
+                    "points": -29
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Plasma bombard - Standard",
+                "Plasma bombard - Overcharged"
+            ]
+        },
+        {
+            "header": "Can be equipped with up to three Hunter-killer missiles for +5 points each.",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 3
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Saturnine plating: The model has a 4+ ward save."
+    ],
+    "unit_type": "Vehicle, Walker",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 411
+}

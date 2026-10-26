@@ -4,11 +4,13 @@ import { BASE, fastArchetype, dropPodArchetype } from './base';
 import { CSM_ARCHETYPES } from '../codex_csm/archetypes/index';
 import { CD_ARCHETYPES } from '../codex_chaos_daemons/archetypes/index';
 import { SM_ARCHETYPES } from '../codex_space_marines/archetypes/index';
+import { HH_ARCHETYPES } from '../codex_horus_heresy/archetypes';
 
 const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   ...CSM_ARCHETYPES,
   ...CD_ARCHETYPES,
   ...SM_ARCHETYPES,
+  ...HH_ARCHETYPES,
 
   // ── Adeptus Custodes ──────────────────────────────────────────────────────
   'Kataphraktoi': { ...BASE,
@@ -699,7 +701,7 @@ export function cleanArchetypeName(name: string): string {
   // The Space Marines and Chaos Space Marines sheets both call their Horus Heresy archetype "Legiones Astartes"; the app keeps
   // two internal names (the rule table is keyed by name) and shows the sheet's.
   if (name === 'Legion SM' || name === 'Legion CSM') return 'Legiones Astartes';
-  return name.replace(/[ˢᴷᵀᴺ]+$/, '');
+  return name.replace(/ \(HH\)$/, '').replace(/[ˢᴷᵀᴺ]+$/, '');
 }
 
 /**

@@ -18,6 +18,8 @@ interface AuthState {
   isAdmin: boolean;
   /** Limited admin rank ("Interrogator"): translations only, enforced server-side too. */
   isInterrogator: boolean;
+  /** Alpha tester rank: sees the alpha factions and nothing else. */
+  isServitor: boolean;
   avatar: string | null;
   socialLinks: Record<string, string>;
   socialPublic: boolean;
@@ -25,7 +27,7 @@ interface AuthState {
 }
 
 let state: AuthState = {
-  username: null, isAdmin: false, isInterrogator: false, avatar: null,
+  username: null, isAdmin: false, isInterrogator: false, isServitor: false, avatar: null,
   socialLinks: {}, socialPublic: false, loading: true,
 };
 
@@ -74,6 +76,7 @@ export async function refreshAuth(): Promise<void> {
           username: res.loggedIn ? res.username ?? null : null,
           isAdmin: res.loggedIn ? res.isAdmin === true : false,
           isInterrogator: res.loggedIn ? res.isInterrogator === true : false,
+          isServitor: res.loggedIn ? res.isServitor === true : false,
           avatar: res.loggedIn ? res.avatar ?? null : null,
           socialLinks: res.loggedIn ? res.socialLinks ?? {} : {},
           socialPublic: res.loggedIn ? res.socialPublic === true : false,
@@ -108,7 +111,7 @@ export async function logoutAuth(): Promise<void> {
   await api.logout();
   writeHint(null);
   setState({
-    username: null, isAdmin: false, isInterrogator: false, avatar: null,
+    username: null, isAdmin: false, isInterrogator: false, isServitor: false, avatar: null,
     socialLinks: {}, socialPublic: false,
   });
 }

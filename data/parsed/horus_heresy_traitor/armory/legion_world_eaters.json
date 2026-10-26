@@ -1,0 +1,149 @@
+{
+  "name": "World Eaters Armory",
+  "weapons": [
+    {
+      "name": "Barb-hook lash",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(5+)",
+      "p_unit": null,
+      "p_char": 3,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Chainaxe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Excoriator chainaxe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(5+), Shred, Unwieldy",
+      "p_unit": null,
+      "p_char": 9,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Heavy chainaxe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy",
+      "p_unit": 17,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Meteor hammer",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Paired falax blades",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Extra Attack(2), Shred, Unwieldy",
+      "p_unit": 6,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Gorefather & Gorechild",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Spite Furnace",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

@@ -367,6 +367,46 @@ async function loadFaction(key: string): Promise<FactionData> {
       return { ...d(rest as Mod), faction: u.faction, slot_to_units: u.slot_to_units, units: u.units } as unknown as FactionData;
     }
 
+    // Alpha faction (admins and Servitors only, see factionCatalog.alpha): the loyal book of the Horus Heresy project, built from the Google book
+    // by scratch_cx/hh_codex/build_*.cjs. Self-contained: its own units, general Armory, one Armory per Legion (opened by the Legacy) and its Archetypes / Legacies / Legion traits.
+    case 'horus_heresy_loyal': {
+      const [u, g, arch, l0, l1, l2, l3, l4, l5, l6, l7, l8] = await Promise.all([
+        import('../../data/parsed/horus_heresy_loyal/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
+        import('../../data/parsed/horus_heresy_loyal/armory/general.json'),
+        import('../../data/parsed/horus_heresy_loyal/archetypes.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_dark_angels.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_white_scars.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_space_wolves.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_imperial_fists.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_blood_angels.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_iron_hands.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_ultramarines.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_salamanders.json'),
+        import('../../data/parsed/horus_heresy_loyal/armory/legion_raven_guard.json'),
+      ]);
+      return asm(u, g, arch, noRules, {}, { "Dark Angels": l0, "White Scars": l1, "Space Wolves": l2, "Imperial Fists": l3, "Blood Angels": l4, "Iron Hands": l5, "Ultramarines": l6, "Salamanders": l7, "Raven Guard": l8 }, {});
+    }
+
+    // Alpha faction (admins and Servitors only, see factionCatalog.alpha): the traitor book of the Horus Heresy project, built from the Google book
+    // by scratch_cx/hh_codex/build_*.cjs. Self-contained: its own units, general Armory, one Armory per Legion (opened by the Legacy) and its Archetypes / Legacies / Legion traits.
+    case 'horus_heresy_traitor': {
+      const [u, g, arch, l0, l1, l2, l3, l4, l5, l6, l7, l8] = await Promise.all([
+        import('../../data/parsed/horus_heresy_traitor/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
+        import('../../data/parsed/horus_heresy_traitor/armory/general.json'),
+        import('../../data/parsed/horus_heresy_traitor/archetypes.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_alpha_legion.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_iron_warriors.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_night_lords.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_word_bearers.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_sons_of_horus.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_world_eaters.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_death_guard.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_emperors_children.json'),
+        import('../../data/parsed/horus_heresy_traitor/armory/legion_thousand_sons.json'),
+      ]);
+      return asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8 }, {});
+    }
+
     case 'legion_of_the_damned': {
       const [u, rest] = await Promise.all([
         import('../../data/parsed/legion_of_the_damned/units/index'),
@@ -470,12 +510,12 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
    'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'assassins', 'tau_empire',
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
-   'tyranids', 'horus_heresy', 'legio_titanicus', 'legion_of_the_damned'].map(k => [k, async () => {
+   'tyranids', 'horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'horus_heresy_loyal', 'horus_heresy_traitor'].map(k => [k, async () => {
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
-     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation'].includes(k));
+     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor'].includes(k));
      return data;
    }])
 );

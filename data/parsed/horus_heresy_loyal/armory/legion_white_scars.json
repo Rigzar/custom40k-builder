@@ -1,0 +1,161 @@
+{
+  "name": "White Scars Armory",
+  "weapons": [
+    {
+      "name": "Power glaive",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(5+)",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Scatterbolt launcher",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Shred",
+      "p_unit": 5,
+      "p_char": 4
+    },
+    {
+      "name": "Scimitar of the Great Khan",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Deadly(5+). Unique",
+      "p_unit": 12,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Stormwrath Bolts",
+      "term_compat": true,
+      "range": "As base weapon",
+      "type": "Assault 1",
+      "s": "7",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1)",
+      "p_unit": null,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The White Tiger Dao",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Quick(+1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Storm's Voice",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "6",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Rending(5+), Deflagrate(6+), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Banner of the Eagle",
+      "term_compat": true,
+      "desc": "This model and its attached unit gain +1 Strength. Ancients only. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Cyber-Eagle Helm",
+      "term_compat": true,
+      "desc": "This model and its attached unit does not suffer the To Hit penalty for Defensive Fire.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Hunter's Eye",
+      "term_compat": true,
+      "desc": "All ranged attacks by this model and its attached unit have the Seeking ability. Unique",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Mantle of the Stormseer",
+      "term_compat": true,
+      "desc": "This model gains +1 to manifest and deny psychic powers. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Plume of the Plainsrunner",
+      "term_compat": false,
+      "desc": "This model and its attached unit gain the cumulative Frenzy(1\") and Haste(1\") abilities. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Stormwrath Bolts",
+      "term_compat": true,
+      "desc": "When firing a bolt weapon, this model may choose to fire a Stormwrath bolt instead of attacking normally. Use their bolt weapon's range and the profile above.",
+      "p_unit": 9,
+      "p_char": 11,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Wrath of the Heavens",
+      "term_compat": false,
+      "desc": "This model gains the \"Jetbike\" type. Bike only. Unique",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "-",
+      "term_compat": false,
+      "desc": "-",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

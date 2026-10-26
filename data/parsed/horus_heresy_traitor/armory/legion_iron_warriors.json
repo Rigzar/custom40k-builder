@@ -1,0 +1,178 @@
+{
+  "name": "Iron Warriors Armory",
+  "weapons": [
+    {
+      "name": "Axe of the Forgemaster",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Armorbane(3). Only for Techmarines",
+      "p_unit": 5,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Graviton crusher",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Haywire, Unwieldy",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Graviton mace",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Deadly(6+), Slow(-1), Armorbane(1)",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Servo arm",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Extra attack(1), Limit(1), Slow(-5)",
+      "p_unit": 9,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Shrapnel bolter",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Blast(4), Suppression(2)",
+      "p_unit": 14,
+      "p_char": 19,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Shrapnel cannon",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Heavy 4",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4), Suppression(2)",
+      "p_unit": 11,
+      "p_char": 14
+    },
+    {
+      "name": "Shrapnel pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Blast(4), Suppression(2)",
+      "p_unit": 8,
+      "p_char": 10
+    },
+    {
+      "name": "Forgebreaker Desecrated",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Deadly(5+), Slow(-2), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Logos Array",
+      "term_compat": false,
+      "range": "30\"",
+      "type": "Assault 6",
+      "s": "6",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Shred, Suppression(1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Siege Breaker",
+      "term_compat": true,
+      "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +5 Strength for these attacks.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Wrack & Ruin",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain +1 Strength for all attacks that target a Vehicle or a model with the Monotask ability. Only for characters and Command squads.",
+      "p_unit": 4,
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

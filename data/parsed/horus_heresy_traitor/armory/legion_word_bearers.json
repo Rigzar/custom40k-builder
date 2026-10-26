@@ -1,0 +1,228 @@
+{
+  "name": "Word Bearers Armory",
+  "weapons": [
+    {
+      "name": "Cursed Crozius",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Gruesome. Only for Chaplains",
+      "p_unit": 5,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Tainted axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Deadly(6+), Unwieldy",
+      "p_unit": null,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Tainted blade",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(6+), Rending(6+)",
+      "p_unit": null,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Tainted maul",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(6+)",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Warpfire blaster",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(4+), Suppression(3)",
+      "p_unit": 16,
+      "p_char": 20
+    },
+    {
+      "name": "Warpfire cannon",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Blast(4), Rending(4+), Suppression(3)",
+      "p_unit": 27,
+      "p_char": 33
+    },
+    {
+      "name": "Warpfire pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Rending(4+), Suppression(3)",
+      "p_unit": 8,
+      "p_char": 10
+    },
+    {
+      "name": "Illuminarum",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Deadly(5+), Poison(4+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Devotion",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Graviton, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Amulet of Spawndom",
+      "term_compat": true,
+      "desc": "If the model destroys an enemy character model, you can immediately place a friendly Chaos Spawn within 3\" of this model. If not, you can set up a Chaos Spawn following the rules for Deep Strike in any subsequent Reinforcement Phase. When set up, the closest enemy unit within 12\" immediately gains one Battleshock token. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Baleful icon",
+      "term_compat": true,
+      "desc": "Any unit selecting this model or its attached unit as a charge target must resolve a test for dangerous terrain.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Crown of the Blasphemer",
+      "term_compat": true,
+      "desc": "If the model attempts to use a prayer, the roll is automatically successful.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Gal Vorbak possession",
+      "term_compat": false,
+      "desc": "The model gains +1 Strength, +1 Toughness and +1 Wound, and the \"Daemon\" and \"Regeneration(1)\" abilities. Only for characters and Command squads.",
+      "p_unit": 47,
+      "p_char": 71
+    },
+    {
+      "name": "The Scripts of Erebus",
+      "term_compat": true,
+      "desc": "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The Skull of Monarchia",
+      "term_compat": true,
+      "desc": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Fell-blessed machine",
+      "term_compat": false,
+      "desc": "The vehicle may pray once per battle round. A prayer is successful at a roll of 3+. The vehicle knows all prayers from the Exalted Prayers discipline.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Mhara Gal",
+      "term_compat": false,
+      "desc": "The model gains a 5+ ward save. Only for Walkers.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

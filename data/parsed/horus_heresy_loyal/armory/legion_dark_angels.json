@@ -1,0 +1,233 @@
+{
+  "name": "Dark Angels Armory",
+  "weapons": [
+    {
+      "name": "Calibanite warblade",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Plasma burner",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+)",
+      "p_unit": 6,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Plasma incineratorᵀ",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 23,
+      "p_char": 29,
+      "profiles": []
+    },
+    {
+      "name": "Plasma repeater",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 3",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Overheating, Rending(4+)",
+      "p_unit": 20,
+      "p_char": 25
+    },
+    {
+      "name": "- Standard",
+      "term_compat": false,
+      "range": "30\"",
+      "type": "Rapid Fire 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "- Overheating",
+      "term_compat": false,
+      "range": "30\"",
+      "type": "Rapid Fire 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheating",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Plasma-caster",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Armor piercing(5+)",
+      "p_unit": 3,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Stasis missiles",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Heavy 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Blast(4)",
+      "p_unit": 9,
+      "p_char": 11
+    },
+    {
+      "name": "Terranic greatsword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(5+), Rending(5+)",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The Lion Sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Wolf Blade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(4+), Shred, Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Fusil Actinaeus",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "7",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Rending(4+), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Conversion field",
+      "term_compat": true,
+      "desc": "The model gains a 4+ ward save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
+      "p_unit": null,
+      "p_char": 35,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Eye of the Unseen",
+      "term_compat": true,
+      "desc": "The model gains the \"Favoured Enemy\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Foe-smiter",
+      "term_compat": true,
+      "desc": "One ranged weapon of the model gains the \"Shred\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Heavenfall blade",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains one of the following:\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+      "p_unit": 10,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Monster Slayer",
+      "term_compat": true,
+      "desc": "The model gains the \"Tank hunter\" ability.",
+      "p_unit": 2,
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Shroud of Heroes",
+      "term_compat": true,
+      "desc": "The model gains the \"Stealth\" ability, while it is not attached to a unit. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

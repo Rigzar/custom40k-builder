@@ -108,6 +108,7 @@ export default async function handler(req, res) {
     case 'create-user':       return createUser(req, res);
     case 'promote':           return promote(req, res);
     case 'set-interrogator':  return setInterrogator(req, res);
+    case 'set-servitor':      return setServitor(req, res);
     case 'recovery-requests': return recoveryRequests(req, res);
     case 'resolve-recovery':  return resolveRecovery(req, res);
     case 'actions':           return actions(req, res);
@@ -132,7 +133,7 @@ async function stats(req, res) {
     const [uCount, rCount, rPerUser] = await Promise.all([
       sql`SELECT COUNT(*)::int AS n FROM users`,
       sql`SELECT COUNT(*)::int AS n FROM rosters`,
-      sql`SELECT u.id, u.username, u.created_at, u.last_seen_at, u.last_login_at, u.is_admin, u.is_interrogator,
+      sql`SELECT u.id, u.username, u.created_at, u.last_seen_at, u.last_login_at, u.is_admin, u.is_interrogator, u.is_servitor,
                COUNT(r.id)::int AS roster_count
           FROM users u LEFT JOIN rosters r ON r.user_id = u.id
           GROUP BY u.id ORDER BY u.last_seen_at DESC NULLS LAST`,
@@ -319,6 +320,23 @@ async function setInterrogator(req, res) {
     const tgt = await sql`SELECT username FROM users WHERE id=${userId}`;
     await sql`UPDATE users SET is_interrogator = ${!!makeInterrogator} WHERE id = ${userId}`;
     await logAction(adminId, makeInterrogator ? 'grant_interrogator' : 'revoke_interrogator', userId, tgt.rows[0]?.username, null);
+    res.status(200).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+// Servitor (alpha tester): sees the alpha factions and nothing else. Granted and revoked by a full admin only.
+async function setServitor(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  const adminId = await requireAdmin(req, res);
+  if (!adminId) return;
+  const { userId, makeServitor } = req.body ?? {};
+  if (userId == null) return res.status(400).json({ error: 'Missing userId' });
+  try {
+    const tgt = await sql`SELECT username FROM users WHERE id=${userId}`;
+    await sql`UPDATE users SET is_servitor = ${!!makeServitor} WHERE id = ${userId}`;
+    await logAction(adminId, makeServitor ? 'grant_servitor' : 'revoke_servitor', userId, tgt.rows[0]?.username, null);
     res.status(200).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: String(err) });

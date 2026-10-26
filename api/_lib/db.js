@@ -73,6 +73,9 @@ export async function ensureSchema() {
   // Users tab. Scoped to translation work only: the i18n editor and the (client-side, read-only)
   // faction-data search. Enforced server-side in api/admin/[action].js, not just hidden in the UI.
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_interrogator BOOLEAN NOT NULL DEFAULT false`;
+  // "Servitor" — the alpha-tester rank. It grants ONE thing: seeing the factions marked `alpha` in the catalogue (the Horus Heresy books)
+  // that are otherwise visible only to admins. No admin panel, no translations, nothing else. Granted by an admin in the Users tab.
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_servitor BOOLEAN NOT NULL DEFAULT false`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_seen_at TIMESTAMPTZ`;
   await sql`UPDATE users SET is_admin = true WHERE LOWER(username) = 'rigzar' AND is_admin = false`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar TEXT`;

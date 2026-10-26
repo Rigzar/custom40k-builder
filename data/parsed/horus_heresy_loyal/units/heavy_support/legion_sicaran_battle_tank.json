@@ -1,0 +1,188 @@
+{
+    "name": "Legion Sicaran Battle Tank",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Sicaran Battle Tank",
+            "min": 1,
+            "max": 1,
+            "points": 305
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Sicaran Battle Tank is equipped with: Heracles autocannon.",
+    "weapons": [
+        {
+            "name": "Arcus missile launcher",
+            "range": "60\"",
+            "type": "Heavy 4",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Armor piercing(5+)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Heracles autocannon",
+            "range": "48\"",
+            "type": "Heavy 6",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Armor piercing(5+), AT(1)"
+        },
+        {
+            "name": "Lascannon",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Omega plasma array - Overcharged",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "AT(3), Blast(4), Overheating"
+        },
+        {
+            "name": "Omega plasma array - Standard",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4)"
+        },
+        {
+            "name": "Punisher gatling cannon",
+            "range": "24\"",
+            "type": "Heavy 10",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armor piercing(5+)"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "two Heavy flamers",
+                    "points": 26
+                },
+                {
+                    "name": "two Heavy bolters",
+                    "points": 36
+                },
+                {
+                    "name": "two Lascannons",
+                    "points": 138
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Can be equipped with a Storm bolter for +11 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 11,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May swap their Heracles autocannon",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Punisher gatling cannon",
+                    "points": -92
+                },
+                {
+                    "name": "Arcus missile launcher",
+                    "points": 23
+                },
+                {
+                    "name": "Omega plasma array",
+                    "points": 293
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Heracles autocannon"
+            ]
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 305
+}

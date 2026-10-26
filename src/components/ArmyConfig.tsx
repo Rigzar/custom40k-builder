@@ -5,6 +5,7 @@ import { localiseAbility } from '../data/coreRules';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
+import { archetypeRequiredLegacy, legionTraitAllowed } from '../lib/legacyGatedChoices';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
@@ -241,6 +242,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       {data.archetypes
                         .filter(a => engagement !== 'skirmish' || archetypeAllowedInSkirmish(data, a.name))
                         .filter(a => { const only = getArchetypeRule(a.name)?.alliedOnlyTo; return !only || (isAllied && primaryKey === only) || a.name === archetype; })
+                        .filter(a => { const need = archetypeRequiredLegacy(a); return !need || need === legacy || a.name === archetype; })
                         .map(a => <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>)}
                     </select>
                     {engagement === 'skirmish' && (
@@ -402,7 +404,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     {openTraitSlot !== null && (
                       <TraitPickerModal
                         traits={(() => {
-                          const own = data.traits.filter(t => !t.foreign_faction);
+                          const legacyDefs = [legacy, legacy2].map(n => data.legacies.find(l => l.name === n));
+                          const own = data.traits.filter(t => !t.foreign_faction && legionTraitAllowed(t, legacyDefs));
                           if (!foreignTraitMax) return own;
                           // This slot may still offer the borrowed list while the army is under
                           // the cap, or when THIS slot is the one already holding a borrowed

@@ -1,0 +1,158 @@
+{
+  "name": "Blood Angels Armory",
+  "weapons": [
+    {
+      "name": "Axe of Perdition",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Blade of Perdition",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Iliastus assault cannon",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Heavy 4",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+)",
+      "p_unit": 32,
+      "p_char": 40,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Inferno pistol",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Maul of Perdition",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Spear of Perdition",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "The Blade Encarmine",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Deadly(5+), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Spear of Telesto",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Armorbane(1), Slow(-1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Infernus",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "8",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "Melta, Ammo(1), Unique",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Death mask",
+      "term_compat": false,
+      "desc": "The model gains the \"Terrifying(-2)\" ability .",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Executioner",
+      "term_compat": true,
+      "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Lord of Death",
+      "term_compat": true,
+      "desc": "The model gains +1 Strength and +1 Toughness. If you pass a Leadership test during your activation, all melee attacks against one single enemy model in direct base contact may re-roll all to hit rolls. Unique. Only for Librarians.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
+  "daemon_weapons": []
+}

@@ -1,0 +1,171 @@
+{
+    "name": "Legion Tactical Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Legionary",
+            "min": 4,
+            "max": 19,
+            "points": 39
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Legion Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 49
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Boltgun; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "T",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bayonet",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Boltgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Chain bayonet",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "Any model armed with a Bolt gun may be equipped with one of the following",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Bayonet",
+                    "points": 1
+                },
+                {
+                    "name": "Chain bayonet",
+                    "points": 3
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "All Legionary models in the unit may be equipped with an Astartes chainsword for +5 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Heart of the Legion: The unit gains a 5+ ward saving throw while within 6\" of a mission objective.",
+        "Wrath of the Legion: All weapons in the unit have the \"Deflagrate(5+)\" ability."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 5,
+    "min_cost": 205
+}

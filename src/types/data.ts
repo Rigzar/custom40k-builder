@@ -578,6 +578,8 @@ export interface Trait {
   pts_veh: string | null;
   /** True for traits whose description says the army must select a second Legacy. */
   enables_second_legacy?: boolean;
+  /** Horus Heresy Legion traits: the Legion (an `armory_key`) whose Legacy may take this trait. */
+  legion?: string;
   /**
    * Set only on a trait borrowed from ANOTHER codex's list, to the display name of that codex
    * (Space Marines' Renegades archetype borrows from Chaos Space Marines). Used to cap how many
