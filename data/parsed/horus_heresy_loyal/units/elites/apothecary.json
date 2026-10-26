@@ -16,7 +16,7 @@
             },
             "name": "Apothecary",
             "min": 1,
-            "max": 3,
+            "max": 1,
             "points": 50
         }
     ],
@@ -40,7 +40,7 @@
             "points": 65
         }
     ],
-    "equipped_with": "Every Apothecary is equipped with: Frag grenades; Krak grenades.",
+    "equipped_with": "A Apothecarius is a single character and is equipped with: Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Frag grenades",
