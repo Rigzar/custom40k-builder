@@ -19,7 +19,7 @@ import heavy_support_lancebreakers from './heavy_support/lancebreakers.json';
 import heavy_support_siegebreakers from './heavy_support/siegebreakers.json';
 import hq_scion from './hq/scion.json';
 import troops_feudal_levy from './troops/feudal_levy.json';
-import troops_men_at_arms from './troops/men_at_arms.json';
+import troops_men_at_arms from './troops/men-at-arms.json';
 
 export const faction = "Knight Households";
 
