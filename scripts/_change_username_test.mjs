@@ -7,7 +7,6 @@
 import { PGlite } from '@electric-sql/pglite';
 import fs from 'node:fs';
 import path from 'node:path';
-import os from 'node:os';
 
 process.env.SESSION_SECRET = process.env.SESSION_SECRET || 'test-secret-test-secret-test-secret';
 // inside the project so node_modules (bcryptjs) resolves; removed at the end
@@ -23,8 +22,6 @@ fs.writeFileSync(path.join(tmp, '_lib', 'db.js'), `
   export function isDbUnavailable() { return false; }
 `);
 // the handler imports '../_lib/db.js' and '../_lib/auth.js': same relative layout as in api/
-const src = fs.readFileSync(path.join(tmp, 'auth', 'action.js'), 'utf8').replace(/from '\.\.\/_lib\//g, "from '../_lib/");
-fs.writeFileSync(path.join(tmp, 'auth', 'action.js'), src);
 
 const db = new PGlite();
 globalThis.__sql = async (strings, ...vals) => {

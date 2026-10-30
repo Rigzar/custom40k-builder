@@ -11,9 +11,6 @@ let calls = 0;
 let pass = 0, fail = 0; const ok = (c: boolean, n: string, e = '') => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'FAIL'}  ${n}${c ? '' : '  ' + e}`); };
 (async () => {
   const auth: any = await import('../src/hooks/useAuth');
-  const useAuthStore = () => (auth as any);
-  // read the module state through logoutAuth-free path: refreshAuth then inspect via useAuth's snapshot is React-only, so use a tiny reader
-  const snap = () => (auth.__snapshot ? auth.__snapshot() : null);
   // 1. the server answers: signed in
   script = [{ loggedIn: true, username: 'alice' }]; calls = 0;
   await auth.refreshAuth();

@@ -15,7 +15,7 @@ const SACRED: Record<string, number> = { Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzee
       const lo = unitMinSize(u), hi = unitMaxSize(u);
       for (const mark of marks) for (let size = lo; size <= hi; size++) {
         const it: Any = { id: 'x', unitName: name, slot: u.slot, size, mark: u.locked_mark ? null : mark, optionQty: {}, armory: [], traits: [], powers: [], prayers: [], pacts: [] };
-        if (u.models.length > 1) { it.modelSizes = {}; let left = size; u.models.forEach((m: Any, i: number) => { const n = i === 0 ? Math.max(m.min, size - (u.models.length - 1) * Math.max(1, u.models[1]?.min ?? 1)) : (m.min); it.modelSizes[m.name] = i === 0 ? n : m.min; }); }
+        if (u.models.length > 1) { it.modelSizes = {}; u.models.forEach((m: Any, i: number) => { const n = i === 0 ? Math.max(m.min, size - (u.models.length - 1) * Math.max(1, u.models[1]?.min ?? 1)) : (m.min); it.modelSizes[m.name] = i === 0 ? n : m.min; }); }
         const st: Any = { army: [it], faction: data.faction, data, traits: {}, traitPool: [], archetype: '', legacy: '', legacy2: '', hqMark: null, engagement: 'epic', pointLimit: 4000, alliedFaction: null, alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [], campaignTraitBonus: 0 };
         let r: Any; try { r = resolveUnitProfile(it, u, st, data); } catch (e) { bad.push(`${name} ${mark} ${size}: THROW`); continue; }
         checked++;
