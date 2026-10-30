@@ -131,8 +131,7 @@
         }
     ],
     "abilities": [
-        "Massive(4), Squadron, Swarm",
-        "The Peasant's Duty: Units with the <Feudal Levy> keyword gain a +1 bonus to their Leadership value if at least one <Noble> unit is within 12\" range, as long as that <Noble> unit does not possess 2 Battleshock tokens."
+        "Massive(4), Squadron, Swarm"
     ],
     "unit_type": "Infantry",
     "keywords": [

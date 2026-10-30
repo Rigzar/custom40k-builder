@@ -41,17 +41,7 @@
         }
     ],
     "equipped_with": "A Scion is equipped with: -.",
-    "weapons": [
-        {
-            "name": "-",
-            "range": "-",
-            "type": "-",
-            "s": "-",
-            "ap": "-",
-            "d": "-",
-            "abilities": "-"
-        }
-    ],
+    "weapons": [],
     "option_groups": [
         {
             "header": "One Scion per army can be upgraded to a Baron for +15 points.",

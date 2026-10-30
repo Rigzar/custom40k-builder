@@ -25,6 +25,7 @@
 
 import type { FactionData } from '../types/data';
 import { applyDataOverrides, type DataOverrides } from '../engine/dataOverrides';
+import { applyKnightHouseholdRules } from './knightRules';
 
 type Mod = { default: any };
 const d = (m: Mod) => m.default;
@@ -525,6 +526,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
+     if (k === 'knight_households') applyKnightHouseholdRules(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].includes(k));
      return data;

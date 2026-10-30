@@ -33,6 +33,12 @@ def download_sheet(faction, sheet_id):
         sheet_name = sheet_name.lower().replace("\'", "").replace(" ", "_")
         
         if sheet_name == "index":
+            # Everything under the "Special rules" row is rules text, not units. It can run over more than one column (Knight Households
+            # puts a D6 damage table in B:C), and after the transpose those cells sat in the Troops list as units named "Result",
+            # "Nothing happens"... so the whole update stopped on a missing raw/knight_households/result.json (2026-10-30).
+            marker = values.apply(lambda row: row.astype(str).str.strip().eq("Special rules").any(), axis=1)
+            if marker.any():
+                values = values.iloc[: int(marker.values.argmax()) + 1]
             values = values.transpose()
         
         values = values.to_dict(orient="records")
