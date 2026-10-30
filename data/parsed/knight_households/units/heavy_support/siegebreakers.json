@@ -1,0 +1,155 @@
+{
+    "name": "Siegebreakers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "7",
+                "W": "3",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Siegebreaker Team",
+            "min": 1,
+            "max": 2,
+            "points": 58
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: 4 Las carbines.",
+    "weapons": [
+        {
+            "name": "Earthshaker cannon - HE shells",
+            "range": "240\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3), Blast(6), Indirect"
+        },
+        {
+            "name": "Earthshaker cannon - Gas shells",
+            "range": "240\"",
+            "type": "Heavy 1",
+            "s": "1",
+            "ap": "0",
+            "d": "2",
+            "abilities": "Blast(6), Poison(2+), Indirect, Seeking"
+        },
+        {
+            "name": "Las carbine",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Medusa siege cannon - HE shells",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(4), Blast(6)"
+        },
+        {
+            "name": "Medusa siege cannon - Bastion-breacher shells",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "10",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(4), Blast(4), Tank hunter"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Must pick one weapon from this list",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Medusa siege cannon with HE shells",
+                    "points": 115,
+                    "effect": {
+                        "grants_weapons": [
+                            "Medusa siege cannon"
+                        ]
+                    }
+                },
+                {
+                    "name": "Earthshaker cannon with HE shells",
+                    "points": 177,
+                    "effect": {
+                        "grants_weapons": [
+                            "Earthshaker cannon"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "A battery equipped with a Medusa siege cannon may be equipped with additional ammunition",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Bastion-breacher shells",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "A battery equipped with an Earthshaker cannon may be equipped with additional ammunition",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Gas shells",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Massive(4), Squadron, Swarm",
+        "The Peasant's Duty: Units with the <Feudal Levy> keyword gain a +1 bonus to their Leadership value if at least one <Noble> unit is within 12\" range, as long as that <Noble> unit does not possess 2 Battleshock tokens."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Feudal Levy"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 58
+}

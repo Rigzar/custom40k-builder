@@ -120,18 +120,6 @@
       "abilities": "Graviton, Unique",
       "p_unit": null,
       "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "equipment": [
@@ -193,13 +181,6 @@
       ]
     },
     {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
       "name": "Fell-blessed machine",
       "term_compat": false,
       "desc": "The vehicle may pray once per battle round. A prayer is successful at a roll of 3+. The vehicle knows all prayers from the Exalted Prayers discipline.",
@@ -211,14 +192,6 @@
       "name": "Mhara Gal",
       "term_compat": false,
       "desc": "The model gains a 5+ ward save. Only for Walkers.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
       "p_unit": null,
       "p_char": null,
       "category": "vehicle"

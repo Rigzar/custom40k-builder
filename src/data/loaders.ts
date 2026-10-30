@@ -231,6 +231,17 @@ async function loadFaction(key: string): Promise<FactionData> {
       return asm(u, g, arch, noRules, {}, {}, { disciplines: discs, prayers });
     }
 
+    // Knight Households (standalone Imperial codex, 2026-10-30): units, Armory (with Reputations and vehicle equipment) and two Archetypes.
+    // Built from the author's sheet by scratch_cx/hh_codex/build_units.cjs knights, build_knights_armory.cjs and build_knights_arch.cjs.
+    case 'knight_households': {
+      const [u, g, arch] = await Promise.all([
+        import('../../data/parsed/knight_households/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
+        import('../../data/parsed/knight_households/armory/general.json'),
+        import('../../data/parsed/knight_households/archetypes.json'),
+      ]);
+      return asm(u, g, arch, noRules, {}, {}, {});
+    }
+
     case 'assassins': {
       const [u, g] = await Promise.all([
         import('../../data/parsed/assassins/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
@@ -510,12 +521,12 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
    'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'assassins', 'tau_empire',
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
-   'tyranids', 'horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'horus_heresy_loyal', 'horus_heresy_traitor'].map(k => [k, async () => {
+   'tyranids', 'horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].map(k => [k, async () => {
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
-     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor'].includes(k));
+     applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].includes(k));
      return data;
    }])
 );

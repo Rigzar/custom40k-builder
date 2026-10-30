@@ -1,6 +1,7 @@
 ---
 import type { ArmoryItem } from '../vendor/src/types/data';
 import { localiseAbility } from '../vendor/src/data/coreRules';
+import { ruleTextHtml } from '../lib/glossary';
 import { findClanIcon } from '../lib/clans';
 import { wn, wp } from '../lib/loc';
 
@@ -27,7 +28,7 @@ function pts(item: ArmoryItem): string {
           <span class="equipment-name">{wn(item.name)}</span>
           <span class="equipment-pts">{pts(item)}</span>
         </div>
-        {item.desc && <p class="equipment-desc">{localiseAbility(item.desc)}</p>}
+        {item.desc && <p class="equipment-desc" set:html={ruleTextHtml(localiseAbility(item.desc))} />}
       </div>
     );
   })}

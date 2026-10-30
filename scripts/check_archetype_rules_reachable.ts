@@ -34,6 +34,23 @@ const KNOWN_UNWIRED = new Set([
   'inquisition/Sector Lord',    // Henchman Warband without an Inquisitor, size 5-10
   'imperial_navy/Heretic',      // widens the Legendary Retinue (engine/legendaryRetinue.ts), no ArchetypeRule needed
   'imperial_navy/Iconoclast',   // same, with the Xenos codices
+  // Horus Heresy books (hidden alpha work, deliberately not in known-issues): detachments whose effects are movement, reserve or ability
+  // rules the rule table cannot express, so they stay as the sheet's text. Their slot effects are in engine/codex_horus_heresy/archetypes.ts.
+  "horus_heresy_loyal/Drop Pod Assault (HH)",
+  "horus_heresy_loyal/Angel's Wrath",
+  "horus_heresy_loyal/Underworld Assault",
+  "horus_heresy_loyal/The Bloodied Claw",
+  "horus_heresy_loyal/Hammerfall Strike Force",
+  "horus_heresy_loyal/The Day of Revelation",
+  "horus_heresy_loyal/Logos Lectora",
+  "horus_heresy_loyal/The Awakening Fire",
+  "horus_heresy_traitor/Drop Pod Assault (HH)",
+  "horus_heresy_traitor/Angel's Wrath",
+  "horus_heresy_traitor/Underworld Assault",
+  "horus_heresy_traitor/The Coils of the Hydra",
+  "horus_heresy_traitor/The Hammer of Olympia",
+  "horus_heresy_traitor/The Maru Skara",
+  "horus_heresy_traitor/Berserker Assault",
 ]);
 
 function main() {

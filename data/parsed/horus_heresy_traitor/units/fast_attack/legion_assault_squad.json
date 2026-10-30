@@ -167,7 +167,7 @@
                 "type": "every"
             },
             "choices": [],
-            "inline_pts": 9,
+            "inline_pts": -9,
             "variant_link": null,
             "is_unique_per_army": false
         },
@@ -223,6 +223,16 @@
                 "Astartes chainsword",
                 "Bolt pistol"
             ]
+        },
+        {
+            "header": "The Assault Marine Sergeant may be upgraded to a Veteran Assault Marine Sergeant for +10 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Veteran Assault Marine Sergeant",
+            "is_unique_per_army": false
         },
         {
             "header": "All models may swap their Bolt pistol with a Volkite serpenta for +2 points each.",

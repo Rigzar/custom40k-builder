@@ -1,0 +1,231 @@
+{
+    "name": "Royal Guard",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Guard",
+            "min": 9,
+            "max": 19,
+            "points": 15
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Guard Captain",
+            "min": 1,
+            "max": 1,
+            "points": 20
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Power axe; Las carbine; Las pistol; Shield.",
+    "weapons": [
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Las carbine",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power maul",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Every model may be equipped with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Heavy armor",
+                    "points": 3,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "SV",
+                                "value": "4+"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "One model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Instrument",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Another model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Household banner",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "For every ten models, four Guards may swap their Las carbine",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 10,
+                "count_per_n": 4
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 3
+                },
+                {
+                    "name": "Melta",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Las carbine"
+            ]
+        },
+        {
+            "header": "Every model may swap their Power axe",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Power maul",
+                    "points": 0
+                },
+                {
+                    "name": "Power sword",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Power axe"
+            ]
+        }
+    ],
+    "abilities": [
+        "Heavy armor: The model gains a 4+ armor save.",
+        "The Peasant's Duty: Units with the <Feudal Levy> keyword gain a +1 bonus to their Leadership value if at least one <Noble> unit is within 12\" range, as long as that <Noble> unit does not possess 2 Battleshock tokens."
+    ],
+    "unit_type": "Bodyguard, Deflect, Infantry, Parry",
+    "keywords": [
+        "Feudal Levy"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 10,
+    "min_cost": 155
+}

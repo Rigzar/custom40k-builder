@@ -1,0 +1,15 @@
+{
+  "archetypes": [
+    {
+      "name": "Freeblade",
+      "desc": "- A single <Scion> and <Knight> must be selected as an allied force.\n- No other unit from the codex \"Knight Households\" may be selected."
+    },
+    {
+      "name": "Chaos Knights",
+      "desc": "- Chaos Knights are treated like \"Chaos Space Marines\" in the Ally matrix.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Models with access to the Armory and a Mark of a God can also access the god specific Armory.\n- Models with the \"Psyker\" ability and a Mark of a God can also access that god specific psychic discipline.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- Must adhere to the \"Animosity of the Gods\" rule (see Chaos Space Marines).\n- Must adhere to the \"Summoning\" rule (see Chaos Space Marines)."
+    }
+  ],
+  "legacies": [],
+  "traits": [],
+  "special_traits": []
+}

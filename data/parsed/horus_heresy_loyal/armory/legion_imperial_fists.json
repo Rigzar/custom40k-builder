@@ -88,14 +88,6 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "-",
-      "term_compat": false,
-      "desc": "-",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

@@ -36,6 +36,7 @@ const LOADERS: Record<string, () => Promise<FactionUnits>> = {
   chaos_daemons: () => import('../vendor/data/parsed/chaos_daemons/units/index'),
   space_marines: () => import('../vendor/data/parsed/space_marines/units/index'),
   imperial_guard: () => import('../vendor/data/parsed/imperial_guard/units/index'),
+  knight_households: () => import('../vendor/data/parsed/knight_households/units/index'),
   adeptus_mechanicus: () => import('../vendor/data/parsed/adeptus_mechanicus/units/index'),
   adeptus_custodes: () => import('../vendor/data/parsed/adeptus_custodes/units/index'),
   adeptus_sororitas: () => import('../vendor/data/parsed/adeptus_sororitas/units/index'),

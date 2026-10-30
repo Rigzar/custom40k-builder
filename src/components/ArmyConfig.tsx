@@ -300,6 +300,19 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         <option value="">{t('noLegacy')}</option>
                         {data.legacies.map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
                       </select>
+                      {data.legacies.length > 1 && (
+                        <details className="mt-2 border border-zinc-800 bg-zinc-950/50">
+                          <summary className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-zinc-500 cursor-pointer select-none hover:text-zinc-300">{t('legacyBrowseAll')}</summary>
+                          <div className="px-3 pb-2 space-y-2">
+                            {data.legacies.map(l => (
+                              <div key={l.name} className="text-[10px] leading-relaxed">
+                                <div className={l.name === legacy ? 'text-amber-400 font-semibold' : 'text-zinc-300 font-semibold'}>{nm(l.name)}</div>
+                                <div className="text-zinc-500 whitespace-pre-line">{localiseAbility(l.desc ?? '')}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </details>
+                      )}
                       {legacy && (
                         <div className={`mt-2 text-[10px] text-zinc-400 border-l-2 ${accentBorder} pl-3 leading-relaxed`}>
                           {localiseAbility(data.legacies.find(l => l.name === legacy)?.desc ?? "")}

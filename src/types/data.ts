@@ -348,6 +348,8 @@ export interface Unit {
   slot: string;
   /** Hidden unless the army's archetype lists this unit in `unlocksUnits` (the Escalation War Dog in a non-Chaos codex). */
   requires_archetype_unlock?: boolean;
+  /** Horus Heresy: "Can only be selected if the army has the Legacy of X" (Iron Circle, Kakophoni, Palatine Blade, Castellax-Achea). */
+  requires_legacy?: string;
   /** The Index's army rule "One <unit> may be taken for each full N points of game size" (HH Praetor: 1000). */
   max_per_points?: number;
   models: Model[];

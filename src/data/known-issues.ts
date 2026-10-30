@@ -2,6 +2,24 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-knight-households-new-faction-01",
+    status: "known",
+    title: "Knight Households (new faction, 1.0): what is in, and what is still text only",
+    description: "ADDED 2026-10-30 from the author's sheet (atypicalhero: standalone Imperial codex). IN: 15 units, the Armory (14 weapons, 18 equipment, 19 Reputations, 12 vehicle equipment), the Freeblade and Chaos Knights Archetypes, and the ally matrix row (treated as Imperial Guard; Chaos Knights as Chaos Space Marines). A Knight Paladin takes up to two Reputations through the veteran-ability picker (same cap and prices, shown under its own name). ENFORCED: Pilot (a list with more Knights than Scions is an error) and Freeblade (one Scion and one Knight Paladin only). ON THE CARD AS TEXT, not applied: The Peasant's Duty (every Feudal Levy unit lists it; it depends on what is within 12 inches during the game). NOT MODELLED: the Chaos Knights' Animosity of the Gods and Summoning (the same as Traitor Guard, which also states them as text), and most Reputations' effects on the model (Adamantium Knight, Paragon, Wyrd, Revered Knight and Last of Their Line's first Attack are applied; the rest are listed with their text). Also: the Siegebreakers' shells show both profiles of their gun as soon as it is bought (the app cannot tell the profiles apart), the Lancers' Refractor Harnesses ward (ranged only) is text, and two sheet slips are for the author: Cunning Commander reads 'Ouflank', and the Machine spirit vehicle upgrade names 'Crew shaken' in quotes so the app lists it as an ability. The unit data is generated from the sheet by scratch_cx/hh_codex/build_units.cjs knights, not yet by the unit update script (it needs a line in factions.csv); 13 option groups were built by the heuristic and should be read once against the sheet.",
+  },
+  {
+    id: "ki-multiprofile-weapon-name-no-space-01",
+    status: "known",
+    title: "Multi-profile weapons written as \"Header- Mode\" (no space) by the unit update: the Malcador shows all three Inferno gun profiles from the start (GH#263)",
+    description: "OPEN 2026-10-30. A weapon with several firing profiles is one header row marked with * and one \"- Mode\" row per profile on the sheet (Malcador: Inferno gun*, - Chem cannon, - Inferno cannon, - Melta cannon). The unit update writes the weapon names as \"Inferno gun- Chem cannon\", with no space before the dash, while everything in the app that links a profile to the option that buys it (utils/weaponName.ts, the resolver) reads \"Inferno gun - Chem cannon\". The three profiles are therefore three unrelated weapons that no option names, so they are shown on every Malcador whether or not the Inferno gun was bought (the price is correct). The same spelling is in 9 weapon rows: Malcador (3), Orks Kannon (2), Kombi-rokkit launcha (2) and Kombi-burna (2). Not patched in the app: the unit files belong to the update script, so the author is asked to write \"Header - Mode\" and the files regenerate from there.",
+  },
+  {
+    id: "ki-changelog-translation-offset-01",
+    status: "fixed",
+    title: "The translated v1.86 changelog was shifted by one line",
+    description: "FIXED 2026-10-30 (v1.87). The translations of a changelog entry are matched to the English text by position. A double comma in the English v1.86 list left an empty slot at position 33, so every German, Spanish, Russian and Japanese line after it (six entries) was shown against its neighbour's English. The comma is gone; scripts/_changelog_align_test.ts reports all versions aligned. That script only counts lines, so a hole of this kind (an array with a missing element, whose length still looks right) is worth a check of its own if it ever happens again.",
+  },
+  {
     id: "ki-gsc-ringleader-synaptic-01",
     status: "fixed",
     title: "Genestealer Cults — Ringleader units counted one HQ slot each, and the Primus paid for Synaptic Resonance",

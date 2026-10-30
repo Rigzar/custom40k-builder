@@ -32,8 +32,8 @@
       ]
     },
     {
-      "name": "Plasma incineratorᵀ",
-      "term_compat": false,
+      "name": "Plasma incinerator",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -42,7 +42,29 @@
       "abilities": "",
       "p_unit": 23,
       "p_char": 29,
-      "profiles": []
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overheating",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Plasma repeater",
@@ -55,30 +77,6 @@
       "abilities": "Overheating, Rending(4+)",
       "p_unit": 20,
       "p_char": 25
-    },
-    {
-      "name": "- Standard",
-      "term_compat": false,
-      "range": "30\"",
-      "type": "Rapid Fire 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "- Overheating",
-      "term_compat": false,
-      "range": "30\"",
-      "type": "Rapid Fire 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheating",
-      "p_unit": null,
-      "p_char": null
     },
     {
       "name": "Plasma-caster",

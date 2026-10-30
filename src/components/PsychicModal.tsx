@@ -487,6 +487,27 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               </div>
             )}
 
+            {/* General discipline — every psyker knows it, so it is listed like any other discipline with its power shown,
+                but as known: no pick, no count against the powers the unit may choose. */}
+            {knowsSmite && smite && (
+              <details className="border border-amber-800/60 bg-zinc-900/20">
+                <summary className="flex items-center justify-between gap-2 px-2.5 py-1.5 cursor-pointer select-none hover:bg-zinc-800/40">
+                  <span className="text-[11px] uppercase tracking-widest text-amber-700">{nm('General')}</span>
+                  <span className="shrink-0 text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
+                </summary>
+                <div className="p-2 pt-0.5">
+                  <div className="text-left px-3 py-2 border bg-amber-900/30 border-amber-700 text-amber-300">
+                    <div className="text-sm font-medium">{nm(smite.name)}</div>
+                    <div className="text-[10px] text-zinc-500 mt-0.5">
+                      {[localiseAbility(smite.type), complexityLabel(smite.complexity), bumpRange(smite.range), smite.cast_value ? `${t('castLabel')} ${smite.cast_value}` : null]
+                        .filter(Boolean).join(' · ')}
+                    </div>
+                    <div className="text-[10px] text-zinc-400 mt-1 leading-relaxed">{localiseAbility(smite.effect)}</div>
+                  </div>
+                </div>
+              </details>
+            )}
+
             {/* Disciplines — collapsible accordion so a psyker with many disciplines (General +
                 faction) isn't one long scroll. Each opens by default only if it holds a selection
                 (or is the chosen discipline), or when it's the only one. Powers render in a

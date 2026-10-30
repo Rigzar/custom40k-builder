@@ -39,36 +39,32 @@
       "s": "",
       "ap": "",
       "d": "",
-      "abilities": "-",
+      "abilities": "",
       "p_unit": 10,
       "p_char": null,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Charge, Quick(+1)"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ],
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "- Charge",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(1), Charge, Quick(+1)",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "- Melee",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Unwieldy",
-      "p_unit": null,
-      "p_char": null
     },
     {
       "name": "Rapture Lash",
@@ -120,18 +116,6 @@
       "abilities": "Deflagrate(6+), Shred, Unique",
       "p_unit": null,
       "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "equipment": [
@@ -173,24 +157,9 @@
       ]
     },
     {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
       "name": "Doom Siren",
       "term_compat": false,
       "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
       "p_unit": null,
       "p_char": null,
       "category": "vehicle"

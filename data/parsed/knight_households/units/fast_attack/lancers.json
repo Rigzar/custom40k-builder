@@ -1,0 +1,206 @@
+{
+    "name": "Lancers",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "6",
+                "SV": "4+"
+            },
+            "name": "Lancer",
+            "min": 5,
+            "max": 10,
+            "points": 33
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "2",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Lancer Captain",
+            "min": 0,
+            "max": 1,
+            "points": 43
+        }
+    ],
+    "equipped_with": "Every model is equipped with: Hot-shot las pistol; Krak lance; Mechanical Steed; Shield.",
+    "weapons": [
+        {
+            "name": "Hot-shot las pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krak lance - Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Charge, Quick(+1)"
+        },
+        {
+            "name": "Krak lance - Normal",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Unwieldy"
+        },
+        {
+            "name": "Melta lance - Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+5",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(4), Charge, Quick(+1)"
+        },
+        {
+            "name": "Melta lance - Normal",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "Unwieldy"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "The entire squad may receive one of the following upgrades per model",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Refractor Harnesses",
+                    "points": 4
+                },
+                {
+                    "name": "Ceramite Barding",
+                    "points": 7,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "SV",
+                                "value": "3+"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "One model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Instrument",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Another model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Household banner",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "For every five models, two Lancers may swap their Krak lances",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 2
+            },
+            "choices": [
+                {
+                    "name": "Melta lance",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Krak lance - Charge",
+                "Krak lance - Normal"
+            ]
+        },
+        {
+            "header": "One model may be upgraded to a Lancer Captain for +10 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Lancer Captain",
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Deflect, Parry",
+        "Upgrades:",
+        "Ceramite Barding: The model gains a 3+ armor save.",
+        "Refractor Harnesses: The model gains Ward(5+) against ranged attacks."
+    ],
+    "unit_type": "Bike",
+    "keywords": [
+        "Noble"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 5,
+    "min_cost": 165
+}

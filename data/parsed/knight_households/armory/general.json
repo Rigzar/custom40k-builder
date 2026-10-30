@@ -1,0 +1,639 @@
+{
+  "name": "Knight Households Armory",
+  "weapons": [
+    {
+      "name": "Close combat weapon",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Force axe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Force Weapon",
+      "p_unit": 3,
+      "p_char": null
+    },
+    {
+      "name": "Force staff",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Force Weapon",
+      "p_unit": 3,
+      "p_char": null
+    },
+    {
+      "name": "Force sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Force Weapon",
+      "p_unit": 3,
+      "p_char": null
+    },
+    {
+      "name": "Hot-shot las pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Hot-shot lasgun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), AT(2)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Krak lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 6,
+      "p_char": 9,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Charge, Quick(+1)"
+        },
+        {
+          "name": "Normal",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ],
+      "desc": "Only for Bikes."
+    },
+    {
+      "name": "Melta bomb",
+      "term_compat": false,
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane(3), AT(3)",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Melta lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 8,
+      "p_char": 17,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+5",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "Armorbane(3), AT(4), Charge, Quick(+1)"
+        },
+        {
+          "name": "Normal",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "Unwieldy"
+        }
+      ],
+      "desc": "Only for Bikes."
+    },
+    {
+      "name": "Plasma pistol",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 8,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Overheating",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Standard",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        }
+      ]
+    },
+    {
+      "name": "Power axe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power maul",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Auspex scanner",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Bionics",
+      "term_compat": false,
+      "desc": "The model gains Ward(6+).",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Heavy armor",
+      "term_compat": false,
+      "desc": "The model gains a 4+ armor save.",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Heirloom",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Household banner",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain +1 Leadership.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Instrument",
+      "term_compat": false,
+      "desc": "The model and its attached unit may reroll Leadership tests during the Rally phase.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Light armor",
+      "term_compat": false,
+      "desc": "The model gains a 5+ armor save.",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Ballistic skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Master-crafted armor",
+      "term_compat": false,
+      "desc": "The model gains a 2+ armor save.",
+      "p_unit": 23,
+      "p_char": 29
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": false,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Mechanical steed",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Strength +1 Toughness, +1 Wound, +1 Attack and the type \"Bike\". For infantry only.",
+      "p_unit": 6,
+      "p_char": 14
+    },
+    {
+      "name": "Psychic training",
+      "term_compat": false,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Purity seal",
+      "term_compat": false,
+      "desc": "Enemy psykers suffer a -1 penalty to manifest a power when they target the model or its attached unit.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Refractor field",
+      "term_compat": false,
+      "desc": "The model gains Ward(5+)",
+      "p_unit": 4,
+      "p_char": 6
+    },
+    {
+      "name": "Shield",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
+      "p_unit": 2,
+      "p_char": 4
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Trophy",
+      "term_compat": false,
+      "desc": "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Adamantium Knight",
+      "term_compat": false,
+      "desc": "The model gains +1 Armor Value on all sides.",
+      "p_unit": 15,
+      "p_char": 15,
+      "category": "veteran",
+      "effect": {
+        "stat_mod": [
+          {
+            "stat": "FRONT",
+            "delta": 1
+          },
+          {
+            "stat": "SIDE",
+            "delta": 1
+          },
+          {
+            "stat": "REAR",
+            "delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Blessed by the Sacristans",
+      "term_compat": false,
+      "desc": "One weapon of the model gains the \"Soul Burn(5+)\" ability.",
+      "p_unit": 15,
+      "p_char": 15,
+      "category": "veteran"
+    },
+    {
+      "name": "Champion of the Household",
+      "term_compat": false,
+      "desc": "The model gains the \"Frenzy(2\")\" ability.",
+      "p_unit": 5,
+      "p_char": 5,
+      "category": "veteran"
+    },
+    {
+      "name": "Cold-blooded",
+      "term_compat": false,
+      "desc": "The model gains +1 to hit rolls against enemy units with at least 1 Battleshock token.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Cunning Commander",
+      "term_compat": false,
+      "desc": "The model gains the \"Ouflank\" and \"Vanguard\" abilities.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "First Knight",
+      "term_compat": false,
+      "desc": "The model may reroll hit rolls of 1.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Glooming Legacy",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\" ability.",
+      "p_unit": 8,
+      "p_char": 8,
+      "category": "veteran"
+    },
+    {
+      "name": "Indomitable",
+      "term_compat": false,
+      "desc": "The model gains the \"Parry\" ability.",
+      "p_unit": 8,
+      "p_char": 8,
+      "category": "veteran"
+    },
+    {
+      "name": "Knight of Mars",
+      "term_compat": false,
+      "desc": "All ranged weapons of the model gain the \"Rending(5+)\" ability.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Last of Their Line",
+      "term_compat": false,
+      "desc": "The model gains +1 Attack and another +1 for each missing Hull Point.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Legendary Hero",
+      "term_compat": false,
+      "desc": "During each activation, you may remove one Battleshock token from each unit in your army.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Master of the Joust",
+      "term_compat": false,
+      "desc": "The model resolves Tank Shock attacks at Strength 10.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Master of the Trial",
+      "term_compat": false,
+      "desc": "Enemy attacks reduce their AT by 1 (to a minimum of 0) against this model.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Paragon",
+      "term_compat": false,
+      "desc": "The model gains +1 Hull Point.",
+      "p_unit": 20,
+      "p_char": 20,
+      "category": "veteran",
+      "effect": {
+        "stat_mod": [
+          {
+            "stat": "HP",
+            "delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Peerless Warrior",
+      "term_compat": false,
+      "desc": "The model may re-roll one of each: Armor penetration roll, Hit roll, Wound roll.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran"
+    },
+    {
+      "name": "Revered Knight",
+      "term_compat": false,
+      "desc": "The model gains +1 Initiative.",
+      "p_unit": 15,
+      "p_char": 15,
+      "category": "veteran"
+    },
+    {
+      "name": "Sworn to Quest",
+      "term_compat": false,
+      "desc": "The model gains the \"Objective Secured!\" ability.",
+      "p_unit": 15,
+      "p_char": 15,
+      "category": "veteran"
+    },
+    {
+      "name": "Tireless",
+      "term_compat": false,
+      "desc": "The model may make a 6\" consolidation move after melee combat.",
+      "p_unit": 5,
+      "p_char": 5,
+      "category": "veteran"
+    },
+    {
+      "name": "Wyrd",
+      "term_compat": false,
+      "desc": "The model becomes a psyker and can manifest 1 power per activation. It knows one Witchfire from a chosen discipline.",
+      "p_unit": 10,
+      "p_char": 10,
+      "category": "veteran",
+      "effect": {
+        "makes_psyker": true
+      }
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Blessed Autosimulacra",
+      "term_compat": false,
+      "desc": "The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "desc": "The model gains a Hunter-killer missile.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Imperial Banner",
+      "term_compat": false,
+      "desc": "All friendly units within 12\" must reroll failed Leadership tests.",
+      "p_unit": 10,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Ion Bulwark",
+      "term_compat": false,
+      "desc": "The model gains the \"Warded\" ability.",
+      "p_unit": 35,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Machine spirit",
+      "term_compat": false,
+      "desc": "If the model is under the effect of \"Crew shaken\", it may use one weapon at BS 3+.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Purity seal",
+      "term_compat": false,
+      "desc": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+      "p_unit": 4,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Relic heirloom",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": 20,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Sanctuary Shield",
+      "term_compat": false,
+      "desc": "The model's ward saves works in melee and ranged combat.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

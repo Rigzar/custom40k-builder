@@ -692,6 +692,8 @@ html:lang(ru) .font-cinzel, html:lang(ru) .font-bankgothic { font-family: 'Alumn
 .cog-appear { animation: cog-appear 0.25s ease-out both; }
 
 @media print {
+  /* the text-size setting (textSize.ts) is for the screen; paper is always 100% */
+  html { zoom: 1 !important; }
   /* Print ONLY the Print View sheet. PrintView renders into a portal at <body> (#pv-root, a sibling
      of #root), so we can hide the entire app shell outright — no visibility tricks, no blank pages
      from the builder behind the overlay. The overlay's fixed/scroll positioning is neutralised so

@@ -29,7 +29,8 @@ export function legionTraitAllowed(
 }
 
 /** The Legacy a datasheet demands ("Can only be selected if the army has the Legacy of X."), or null. */
-export function unitRequiredLegacy(unit: { option_groups?: Array<{ header?: string }> } | undefined | null): string | null {
+export function unitRequiredLegacy(unit: { requires_legacy?: string; option_groups?: Array<{ header?: string }> } | undefined | null): string | null {
+  if (unit?.requires_legacy) return unit.requires_legacy;
   for (const g of unit?.option_groups ?? []) {
     const m = String(g.header ?? '').match(/Can only be selected if the army has the (Legacy of [^.\n]+?)\./);
     if (m) return m[1].trim();

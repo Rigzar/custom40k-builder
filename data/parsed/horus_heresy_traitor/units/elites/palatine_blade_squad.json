@@ -80,30 +80,11 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true
-        },
-        {
-            "header": "Every model got access to melee weapons from the Armory. May not select weapons with the \"Slow\" or \"Unwieldy\" rule.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
-        },
-        {
-            "header": "Can only be selected if the army has the Legacy of the Phoenician.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "Skill Unmatched: The unit may re-roll 1 to hit and 1 to wound roll each activation per model."
+        "Skill Unmatched: The unit may re-roll 1 to hit and 1 to wound roll each activation per model.",
+        "Armory melee weapons: Every model got access to melee weapons from the Armory. May not select weapons with the \"Slow\" or \"Unwieldy\" rule."
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -120,5 +101,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 225
+    "min_cost": 225,
+    "requires_legacy": "Legacy of the Phoenician"
 }

@@ -78,16 +78,6 @@
             "replaces": [
                 "Asphyx bolt cannon"
             ]
-        },
-        {
-            "header": "Can only be selected if the army has the Legacy of the Crimson King.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -103,7 +93,7 @@
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,
-    "is_psyker": true,
+    "is_psyker": false,
     "has_armory_access": false,
     "champion_has_armory": false,
     "has_veteran_abilities": false,
@@ -113,5 +103,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 134
+    "min_cost": 134,
+    "requires_legacy": "Legacy of the Crimson King"
 }

@@ -1,0 +1,232 @@
+{
+    "name": "Mounted Pistoleers",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Pistoleer",
+            "min": 5,
+            "max": 10,
+            "points": 18
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Outrider",
+            "min": 0,
+            "max": 1,
+            "points": 23
+        }
+    ],
+    "equipped_with": "Every model is equipped with: 2 Hot-shot las pistols.",
+    "weapons": [
+        {
+            "name": "Hot-shot blunderbuss",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4), Rending(5+)"
+        },
+        {
+            "name": "Hot-shot las pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Hot-shot volley gun",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "3",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Inferno pistol",
+            "range": "6\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Every model may be equipped with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Heavy armor",
+                    "points": 3,
+                    "effect": {
+                        "stat_set": [
+                            {
+                                "stat": "SV",
+                                "value": "4+"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "One model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Instrument",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Another model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Household banner",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "For every five models, two Pistoleers may swap both their Hot-shot las pistols",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 2
+            },
+            "choices": [
+                {
+                    "name": "2 Inferno pistols",
+                    "points": 9
+                },
+                {
+                    "name": "2 Plasma pistols",
+                    "points": 12
+                },
+                {
+                    "name": "Hot-shot blunderbuss",
+                    "points": 12
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Hot-shot las pistol"
+            ]
+        },
+        {
+            "header": "All remaining models may swap both Hot-shot las pistols",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Hot-shot volley gun",
+                    "points": 6
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Hot-shot las pistol"
+            ]
+        },
+        {
+            "header": "One model may be upgraded to an Outrider for +10 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Outrider",
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Outflank"
+    ],
+    "unit_type": "Bike",
+    "keywords": [
+        "Noble"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 5,
+    "min_cost": 90
+}

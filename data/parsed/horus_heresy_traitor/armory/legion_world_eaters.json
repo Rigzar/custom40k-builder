@@ -90,60 +90,8 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Gorefather & Gorechild",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "The Spite Furnace",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
-  "equipment": [
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    }
-  ],
+  "equipment": [],
   "daemon_weapons": []
 }

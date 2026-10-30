@@ -446,8 +446,8 @@
   "Row = primary faction · Column = ally. The matrix is symmetric. <span class=\"dot dot-g\"></span> Battle Brothers · <span class=\"dot dot-y\"></span> Allies of Convenience · <span class=\"dot dot-r\"></span> Desperate Allies": "Fila = facción principal · Columna = aliado. La matriz es simétrica. <span class='dot dot-g'></span> Battle Brothers · <span class='dot dot-y'></span> Allies of Convenience · <span class='dot dot-r'></span> Desperate Allies",
   "Can move over (enemy) units and terrain.": "Puede moverse por encima de unidades (enemigas) y terreno.",
   "Ignores terrain movement and vertical movement costs.": "Ignora los costes de movimiento por terreno y los de movimiento vertical.",
-  "v1.39 · Balance 5.04 · FAQ #5: Codex rules override Core Rules": "v1.39 · Balance 5.04 · FAQ #5: Las reglas del Codex anulan las Core Rules",
-  "All model special rules from the Core Rules v1.39. Codex rules may add to or override these (FAQ #5).": "Todas las reglas especiales de modelo de las Core Rules v1.39. Las reglas del Codex pueden añadirse a estas o anularlas (FAQ #5)."
+  "v1.40 · Balance 5.05 · FAQ #5: Codex rules override Core Rules": "v1.40 · Balance 5.05 · FAQ #5: Las reglas del Codex anulan las Core Rules",
+  "All model special rules from the Core Rules v1.40. Codex rules may add to or override these (FAQ #5).": "Todas las reglas especiales de modelo de las Core Rules v1.40. Las reglas del Codex pueden añadirse a estas o anularlas (FAQ #5)."
  },
  "missions": {
   "Custom40k Supplement": "Suplemento de Custom40k",

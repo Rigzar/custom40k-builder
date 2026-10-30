@@ -126,18 +126,6 @@
       "abilities": "Rending(6+), Unique",
       "p_unit": null,
       "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "equipment": [
@@ -150,21 +138,6 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

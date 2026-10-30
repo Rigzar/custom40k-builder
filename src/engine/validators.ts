@@ -1561,6 +1561,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // Knight Households. Pilot (Scion): "Each <Knight> unit selected in this AOP must be assigned one Scion/Baron ... Each Scion/Baron may only be
+  // assigned to one <Knight> unit", and the Knight Paladin's own line "Only one <Knight> unit may be selected for each <Scion> unit".
+  // Freeblade: "A single <Scion> and <Knight> must be selected".
+  if (data.faction === 'Knight Households') {
+    let knights = 0, scions = 0;
+    for (const item of state.army) {
+      if (item.factionSource) continue;
+      const u = resolveUnit(item, data);
+      if (!u) continue;
+      if ((u.keywords ?? []).includes('Knight')) knights++;
+      if (u.name === 'Scion') scions++;
+    }
+    if (knights > scions) items.push({ type: 'error', text: `Pilot: each Knight needs a Scion of its own (${knights} Knight${knights === 1 ? '' : 's'}, ${scions} Scion${scions === 1 ? '' : 's'}).` });
+    if (state.archetype === 'Freeblade' && (knights > 1 || scions > 1)) items.push({ type: 'error', text: `Freeblade: a single Scion and a single Knight (the list has ${scions} and ${knights}).` });
+  }
+
   // Horus Heresy datasheets that "can only be selected if the army has the Legacy of X".
   for (const item of state.army) {
     if (item.factionSource) continue;

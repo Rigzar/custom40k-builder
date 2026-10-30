@@ -24,7 +24,7 @@ export const CATEGORIES: FactionCategory[] = [
     dividerColor: '#3a3520',
     factionKeys: [
       'space_marines', 'imperial_guard', 'adeptus_mechanicus', 'adeptus_custodes',
-      'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy',
+      'adeptus_sororitas', 'grey_knights', 'inquisition', 'imperial_navy', 'knight_households',
     ],
   },
   {
@@ -74,6 +74,8 @@ export const FACTION_DESCRIPTIONS: Record<string, string> = {
     'The Inquisition is the secret police of the Imperium — autonomous agents empowered to root out heresy, xenos corruption, and daemonic influence by any means necessary. An Inquisitor operates above the law, commanding acolyte warbands, mercenaries, and specialist troops as they pursue their purges without oversight.',
   imperial_navy:
     'The Imperial Navy is the Imperium\'s fleet service: rogue traders and void-masters, crews of ratings and voidsmen, boarding parties, and the Valkyries, Vendettas and fighters of the Aeronautica. It fields few units of its own and is best taken with an allied detachment; a retinue of henchmen travels with every Rogue Trader.',
+  knight_households:
+    'The noble Knight Households of the Imperium: a Scion pilots each towering Knight or Armiger, while feudal levies, men-at-arms, royal guards, lancers, pistoleers and siege teams fight in the household\'s name. A standalone Imperial codex that is treated as Imperial Guard in the ally matrix.',
   tau_empire:
     'A young and rapidly expanding interstellar civilisation, the Tau Empire is united under the doctrine of the Greater Good. Where other races make war through brute force, the Tau combine coordinated firepower, aerial supremacy, and sophisticated battlesuits into a military that punches far above its apparent weight.',
   necrons:

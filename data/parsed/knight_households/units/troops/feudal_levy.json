@@ -1,0 +1,74 @@
+{
+    "name": "Feudal Levy",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "5+",
+                "BS": "5+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "5",
+                "SV": "6+"
+            },
+            "name": "Levy",
+            "min": 10,
+            "max": 30,
+            "points": 3
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: -.",
+    "weapons": [
+        {
+            "name": "Blaze gun",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "2",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Each model may be equipped with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Blaze gun",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "The Peasant's Duty: Units with the <Feudal Levy> keyword gain a +1 bonus to their Leadership value if at least one <Noble> unit is within 12\" range, as long as that <Noble> unit does not possess 2 Battleshock tokens."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [
+        "Feudal Levy"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 10,
+    "min_cost": 30
+}

@@ -78,7 +78,9 @@ export function resolveChoiceWeapons<W extends { name: string }>(weapons: W[], c
   const key = weaponKey(choiceName);
   const loose = weapons.filter(w => weaponKey(w.name) === key);
   if (loose.length > 0) return { weapons: loose, compound: false };
-  const parts = choiceName.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+  // "with" joins a bundle like "and" ("Dreadnought close combat weapon with Storm bolter"), and "in-built" is a word of the sheet,
+  // not of the weapon ("Leviathan siege claws with in-built Melta").
+  const parts = choiceName.split(/\s*(?:&|\band\b|\bwith\b)\s*/i).map(x => x.replace(/^in-built\s+/i, '')).filter(Boolean);
   if (parts.length > 1) {
     const resolved = parts.map(p => resolveChoiceWeapons(weapons, p));
     if (resolved.every(r => r.weapons.length > 0)) {

@@ -124,3 +124,15 @@ function active(href: string) {
     width: 16px; height: 16px; fill: currentColor; flex-shrink: 0;
   }
 </style>
+
+<style is:global>
+  /* A rule named in quotes inside another rule's text: dotted underline, rule text on hover or keyboard focus. */
+  a.rule-tip { position: relative; color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; cursor: help; }
+  a.rule-tip::after {
+    content: attr(data-tip); display: none; position: absolute; left: 0; top: 100%; z-index: 20;
+    width: max-content; max-width: min(22rem, 85vw); margin-top: 0.25rem; padding: 0.4rem 0.6rem;
+    background: #111; color: #eee; border: 1px solid var(--c40k-red, #a21217); border-radius: 3px;
+    font-size: 0.8rem; font-weight: normal; line-height: 1.35; text-align: left; white-space: normal; text-decoration: none;
+  }
+  a.rule-tip:hover::after, a.rule-tip:focus::after { display: block; }
+</style>

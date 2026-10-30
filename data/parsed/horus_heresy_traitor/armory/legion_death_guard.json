@@ -78,7 +78,26 @@
       "abilities": "",
       "p_unit": 22,
       "p_char": null,
-      "profiles": []
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overcharged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheat"
+        }
+      ]
     },
     {
       "name": "Power scythe",
@@ -94,30 +113,6 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "- Standard",
-      "term_compat": false,
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "AT(1)",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "- Overcharged",
-      "term_compat": false,
-      "range": "24\"",
-      "type": "Rapid Fire 1",
-      "s": "8",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Overheat",
-      "p_unit": null,
-      "p_char": null
     },
     {
       "name": "Silence",

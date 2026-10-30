@@ -3,6 +3,7 @@ import * as api from '../lib/api';
 import { ChangelogModal } from './ChangelogModal';
 import { LanguageSelector } from './LanguageSelector';
 import { ThemeToggle } from './ThemeToggle';
+import { TextSizeToggle } from './TextSizeToggle';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
 import { Avatar } from './Avatar';
@@ -13,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v186y_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187a_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -55,356 +56,171 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.86: The October sheet update",
-    intro: "The sheets changed a lot this month; the app now reads the new spellings.",
+    title: "v1.87: Easier for new players",
+    intro: "Mostly suggestions from a new player: more things explain themselves.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Campaign","The Planetary Assault campaign is open as an alpha: sign in and press Campaign on the front page. Its rules are linked inside."],
-        ["Rules","Hover (or tap, on a phone) an ability in a weapon table to read its rule."],
-        ["Phones","Saved lists fit a narrow screen, and an update no longer looks like you were signed out."],
-        ["Accounts","You can change your own username from Account security."],
-        ["Print","Psychic powers, prayers and pacts are printed once, in a book after the last unit (and at the bottom of the battle view). Abilities a trait gives are explained in the Special Rules."],
-        ["Sheets","New prices, options and Armory items from the October sheets; the Perfect Timing power and 44 trait and legacy texts follow them. Eldar: the Hemlock Wraithfighter costs 263 and the Vibro cannon changed."],
-        ["Tabletop Simulator","What a bought option gives (the Regeneration biomorph, for example) is now in the army JSON."],
-        ["Squadrons","Each vehicle of a squadron now swaps and pays for its weapon on its own (45 datasheets)."],
-        ["Bug reports","Gitfinda Match button, psychic power types, Carnodon and other stray weapons, allied Daemon heralds, Storm Guardian swaps, Sororitas Crusaders and Dogmata."],
-        ["Core Rules 1.39","Jet Bike and Jump Pack movement, Retribution uses its own Strength, and only one Armoury weapon gives extra attacks (the list warns)."],
+        ["Hover","Hover (or tap) a weapon type such as Pistol or Assault, or a rule named in quotes inside an ability, to read its rule."],
+        ["Legacies","A list in the army setup shows what every Legacy does."],
+        ["Text size","New A/A button on the front page: 115% or 130%, without breaking the layout."],
+        ["Psychic powers","The General discipline is listed, with Smite as always known."],
       ] },
-      { label: "Space Marines", rows: [
-        ["New","The Legion of the Damned archetype with its own 7-unit supplement, and the Stormfang Gunship."],
-        ["Legacy","Legacy of the Damned is now Legacy of the Relic Hunters."],
-        ["Purity above All","Paid only when you tick the Apothecary option on the unit."],
+      { label: "Knight Households", rows: [
+        ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
       ] },
-      { label: "Chaos Space Marines", rows: [
-        ["New","Fellgors, Chaos Land Raider Sonic and Giant Chaos Spawn."],
-        ["Poxwalkers","Mindless is listed as a rule."],
-        ["Helbrute","Each Helbrute of a squad can swap its weapons and take its own combi-bolter or heavy flamer."],
+      { label: "Core Rules 1.40", rows: [
+        ["1.40","Welcome introduction, Knight Households in the codex list, and the Leagues of Votann are Battle Brothers with themselves."],
       ] },
-      { label: "Dark Eldar", rows: [
-        ["New","Incubi Bloodstone, Murderous Assault and Onslaught, the Grotesque Aberration and the Mindphase gauntlet."],
-      ] },
-      { label: "Eldar", rows: [
-        ["New","The Hemlock Wraithfighter."],
-        ["Aspect Focus","Makes the Dark Reapers Elite choices; Sun pistols and Sun rifles can be swapped in on the Aspect Warriors."],
-      ] },
-      { label: "Necrons", rows: [
-        ["Tesla","The Night Scythe and Doom Scythe tesla guns no longer show AT(1)."],
-        ["Scarabs","The Scarab explosion now prints."],
-      ] },
-      { label: "T'au Empire", rows: [
-        ["Sheet 1.9","More Wounds, Strength and Toughness on the battlesuits, new points, Shield, Missile and Stealth Drones changed, Armory items repriced."],
-        ["XV85 Enforcer","Gets its extra weapon (and extra support system), for the Crisis Honor Guard and the Crisis Battlesuits."],
-        ["Kroot","Every Lone-Spear and Great Knarloc can take its own options."],
-      ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Dark Mechanicum","Treated as Chaos Space Marines in the Ally matrix."],
-        ["Rule texts","Monotask, Choir Master and the Magos and Tech-Priest upgrades now show their text."],
-      ] },
-      { label: "Assassins", rows: [
-        ["Callidus, Vindicare","Both gain Hunter; the Callidus loses Polymorphine."],
+      { label: "Weapons", rows: [
+        ["Options","A Cyclone missile launcher no longer adds a plain Missile launcher; \"X with Y\" options show both profiles."],
       ] },
       { label: "Imperial Guard", rows: [
-        ["New","Rogal Dorn Tank Commander (640 pts); only one Leman Russ or Rogal Dorn Tank Commander per army."],
-        ["Updated","Leman Russ Tank Commander costs 294; Rogal Dorn costs 527 and has Strength 7."],
-        ["Platoons","Special and Heavy Weapon Squads taken in a platoon count toward the Troops points requirement."],
-        ["Tauros","Any Tauros can become a Venator, and the Venator stubber swap works. Combat Engineers no longer show a lasgun swap. Vulture, Valkyrie, Vendetta and the other flyers show 2x Hellstrike missiles and 3x Tactical bombs when the option says two or three."],
-      ] },
-      { label: "Grey Knights", rows: [
-        ["Paladins","Paladin Squads start knowing every General and Grey Knight power, so there is nothing to pick."],
+        ["Bug reports","Abhuman Auxiliaries is a tick-box per creature unit; a bought Heavy stubber shows after a swap; the Sentinel chainsaw costs +15 per Sentinel."],
       ] },
       { label: "Genestealer Cults", rows: [
-        ["Atalan Jackals","Every Jackal and Wolfquad can take its own options."],
+        ["Ringleader","Two different Ringleader units (Magus, Primus, Acolyte Iconward) share one HQ slot."],
+        ["Primus","Synaptic Resonance is psykers only, so the Primus stays at 40 points."],
       ] },
-      { label: "Leagues of Votann", rows: [
-        ["Demiurg","Can only be an allied detachment for the T’au Empire."],
-      ] },
-      { label: "Escalation", rows: [
-        ["War Dogs, Armigers","War Dogs for every Chaos army and Armigers for every Imperial army (Chaos Daemons excluded)."],
+      { label: "Wiki", rows: [
+        ["Units button","Looks like the other buttons now."],
+        ["Links","Seven broken unit links fixed, including the Corsairs; rules named in quotes show their text on hover."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.86: Das Oktober-Update der Datenblätter",
-    intro: "Die Blätter haben sich diesen Monat stark geändert; die App liest jetzt die neuen Schreibweisen.",
+    title: "v1.87: Leichter für neue Spieler",
+    intro: "Vor allem Vorschläge eines neuen Spielers: mehr erklärt sich von selbst.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
-        ["Feldzug","Die Planetary-Assault-Kampagne ist als Alpha offen: melde dich an und drücke auf der Startseite auf Feldzug. Die Regeln sind dort verlinkt."],
-        ["Regeln","Fahre (oder tippe, auf dem Handy) in einer Waffentabelle auf eine Fähigkeit, um ihre Regel zu lesen."],
-        ["Handy","Gespeicherte Listen passen auf schmale Bildschirme, und ein Update sieht nicht mehr wie eine Abmeldung aus."],
-        ["Konten","Du kannst deinen Benutzernamen unter Kontosicherheit selbst ändern."],
-        ["Druck","Psikräfte, Gebete und Pakte stehen einmal in einem Buch hinter der letzten Einheit (und unten in der Kampfansicht). Fähigkeiten eines Wesenszugs werden in den Spezialregeln erklärt."],
-        ["Blätter","Neue Preise, Optionen und Rüstkammer-Gegenstände aus den Oktober-Blättern; die Kraft Perfect Timing und 44 Texte zu Wesenszügen und Legacys folgen ihnen. Eldar: Der Hemlock Wraithfighter kostet 263, die Vibro cannon wurde geändert."],
-        ["Tabletop Simulator","Was eine gekaufte Option gibt (zum Beispiel der Biomorph Regeneration), steht jetzt in der Armee-JSON."],
-        ["Squadrons","Jedes Fahrzeug einer Squadron tauscht und bezahlt seine Waffe jetzt für sich (45 Datenblätter)."],
-        ["Fehlerberichte","Gitfinda-Match-Knopf, Typen der psychischen Kräfte, Carnodon und andere überzählige Waffen, verbündete Daemon-Heralds, Storm-Guardian-Tausch, Sororitas Crusaders und Dogmata."],
-        ["Kernregeln 1.39","Bewegung von Jet Bike und Jump Pack, Retribution nutzt die eigene Stärke, und nur eine Rüstkammer-Waffe gibt zusätzliche Angriffe (die Liste warnt)."],
+        ["Mauszeiger","Fahre über einen Waffentyp wie Pistol oder Assault (oder tippe darauf) oder über eine in Anführungszeichen genannte Regel in einer Fähigkeit, um die Regel zu lesen."],
+        ["Vermächtnisse","Eine Liste in der Armee-Einrichtung zeigt, was jedes Vermächtnis bewirkt."],
+        ["Textgröße","Neuer A/A-Knopf auf der Startseite: 115 % oder 130 %, ohne das Layout zu zerstören."],
+        ["Psychische Kräfte","Die allgemeine Disziplin wird angezeigt, Smite als immer bekannt."],
       ] },
-      { label: "Space Marines", rows: [
-        ["Neu","Der Archetyp Legion of the Damned mit eigener Ergänzung (7 Einheiten) und das Stormfang Gunship."],
-        ["Legacy","Legacy of the Damned heißt jetzt Legacy of the Relic Hunters."],
-        ["Purity above All","Kostet nur noch, wenn du die Apothekar-Option bei der Einheit ankreuzt."],
+      { label: "Knight Households", rows: [
+        ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
       ] },
-      { label: "Chaos Space Marines", rows: [
-        ["Neu","Fellgors, Chaos Land Raider Sonic und Giant Chaos Spawn."],
-        ["Poxwalkers","Mindless steht als Regel da."],
-        ["Helbrute","Jeder Helbrute eines Trupps kann seine Waffen tauschen und seinen eigenen Combi-bolter oder Heavy flamer nehmen."],
+      { label: "Kernregeln 1.40", rows: [
+        ["1.40","Einleitung „Welcome“, Knight Households in der Codex-Liste, und die Leagues of Votann sind mit sich selbst Battle Brothers."],
       ] },
-      { label: "Dark Eldar", rows: [
-        ["Neu","Incubi-Bloodstone, Murderous Assault und Onslaught, die Grotesque-Aberration und der Mindphase gauntlet."],
+      { label: "Waffen", rows: [
+        ["Optionen","Ein Cyclone missile launcher fügt keinen einfachen Missile launcher mehr hinzu; „X with Y“-Optionen zeigen beide Profile."],
       ] },
-      { label: "Eldar", rows: [
-        ["Neu","Der Hemlock Wraithfighter."],
-        ["Aspect Focus","Macht die Dark Reapers zu Elite-Auswahlen; Sun pistol und Sun rifle können bei den Aspektkriegern getauscht werden."],
-      ] },
-      { label: "Necrons", rows: [
-        ["Tesla","Die Tesla-Waffen von Night Scythe und Doom Scythe zeigen kein AT(1) mehr."],
-        ["Scarabs","Die Scarab-Explosion wird jetzt gedruckt."],
-      ] },
-      { label: "T'au", rows: [
-        ["Tabelle 1.9","Mehr Wunden, Stärke und Widerstand bei den Kampfanzügen, neue Punkte, Schild-, Raketen- und Tarndrohnen geändert, Rüstkammer neu bepreist."],
-        ["XV85 Enforcer","Bekommt seine zusätzliche Waffe (und sein zusätzliches Unterstützungssystem), bei Crisis-Ehrengarde und Crisis-Kampfanzügen."],
-        ["Kroot","Jeder Lone-Spear und jeder Great Knarloc kann seine eigenen Optionen nehmen."],
-      ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Dark Mechanicum","Werden in der Alliiertenmatrix wie Chaos Space Marines behandelt."],
-        ["Regeltexte","Monotask, Choir Master und die Upgrades von Magos und Tech-Priest zeigen jetzt ihren Text."],
-      ] },
-      { label: "Assassinen", rows: [
-        ["Callidus, Vindicare","Beide erhalten Hunter; der Callidus verliert Polymorphine."],
-      ] },
-      { label: "Imperiale Armee", rows: [
-        ["Neu","Rogal Dorn Tank Commander (640 Pkt.); nur ein Leman Russ oder Rogal Dorn Tank Commander pro Armee."],
-        ["Aktualisiert","Leman Russ Tank Commander kostet 294; Rogal Dorn kostet 527 und hat Stärke 7."],
-        ["Platoons","Special und Heavy Weapon Squads in einem Platoon zählen jetzt für die Truppen-Mindestpunkte."],
-        ["Tauros","Jeder Tauros kann ein Venator werden, und der Stubber-Tausch des Venator funktioniert. Combat Engineers zeigen keinen Lasgun-Tausch mehr. Vulture, Valkyrie, Vendetta und die anderen Flieger zeigen 2x Hellstrike-Raketen und 3x Tactical bombs, wenn die Option zwei oder drei sagt."],
-      ] },
-      { label: "Grey Knights", rows: [
-        ["Paladine","Paladin Squads kennen von Anfang an jede allgemeine und Grey-Knight-Kraft, es gibt nichts zu wählen."],
+      { label: "Imperial Guard", rows: [
+        ["Fehlerberichte","Abhuman Auxiliaries ist ein Kästchen je Kreatur-Einheit; ein gekaufter Heavy stubber erscheint nach einem Tausch; die Sentinel-Kettensäge kostet +15 pro Sentinel."],
       ] },
       { label: "Genestealer Cults", rows: [
-        ["Atalan Jackals","Jeder Jackal und jeder Wolfquad kann seine eigenen Optionen nehmen."],
+        ["Ringleader","Zwei verschiedene Ringleader-Einheiten (Magus, Primus, Acolyte Iconward) teilen sich einen HQ-Platz."],
+        ["Primus","Synaptic Resonance gibt es nur für Psyker, der Primus bleibt bei 40 Punkten."],
       ] },
-      { label: "Leagues of Votann", rows: [
-        ["Demiurg","Kann nur ein verbündetes Kontingent für die T’au sein."],
-      ] },
-      { label: "Escalation", rows: [
-        ["War Dogs, Armigers","War Dogs für jede Chaos-Armee und Armigers für jede imperiale Armee (ohne Chaos Daemons)."],
+      { label: "Wiki", rows: [
+        ["Units-Knopf","Sieht jetzt aus wie die anderen Knöpfe."],
+        ["Links","Sieben kaputte Einheiten-Links repariert, auch die Corsairs; in Anführungszeichen genannte Regeln zeigen ihren Text beim Darüberfahren."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.86: La actualización de hojas de octubre",
-    intro: "Las hojas han cambiado mucho este mes; la app ya lee las grafías nuevas.",
+    title: "v1.87: Más fácil para jugadores nuevos",
+    intro: "Sobre todo sugerencias de un jugador nuevo: más cosas se explican solas.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Campaña","La campaña Planetary Assault está abierta como alpha: inicia sesión y pulsa Campaña en la portada. Las reglas están enlazadas dentro."],
-        ["Reglas","Pasa el ratón (o toca, en el móvil) sobre una habilidad de una tabla de armas para leer su regla."],
-        ["Móvil","Las listas guardadas caben en pantallas estrechas, y una actualización ya no parece un cierre de sesión."],
-        ["Cuentas","Puedes cambiar tu nombre de usuario en Seguridad de la cuenta."],
-        ["Impresión","Los poderes psíquicos, plegarias y pactos se imprimen una vez, en un libro tras la última unidad (y al final de la vista de batalla). Las habilidades que da un rasgo se explican en las Reglas especiales."],
-        ["Hojas","Precios, opciones y objetos de Armería nuevos de las hojas de octubre; el poder Perfect Timing y 44 textos de rasgos y legados los siguen. Eldar: el Hemlock Wraithfighter cuesta 263 y la Vibro cannon cambió."],
-        ["Tabletop Simulator","Lo que da una opción comprada (por ejemplo el biomorfo Regeneration) está ahora en el JSON del ejército."],
-        ["Squadrons","Cada vehículo de una escuadra cambia y paga su arma por su cuenta (45 fichas)."],
-        ["Reportes","Botón Match de Gitfinda, tipos de poderes psíquicos, Carnodon y otras armas de más, heraldos daemon aliados, cambios de Storm Guardians, Crusaders y Dogmata de las Sororitas."],
-        ["Reglas base 1.39","Movimiento de Jet Bike y mochila de salto, Retribution usa su propia Fuerza, y solo un arma de la armería da ataques extra (la lista avisa)."],
+        ["Ratón","Pasa el ratón (o toca) un tipo de arma como Pistol o Assault, o una regla nombrada entre comillas dentro de una habilidad, para leer su regla."],
+        ["Legados","Una lista en la configuración del ejército muestra qué hace cada Legado."],
+        ["Tamaño del texto","Botón nuevo A/A en la portada: 115 % o 130 %, sin romper el diseño."],
+        ["Poderes psíquicos","Se muestra la disciplina General, con Smite siempre conocido."],
       ] },
-      { label: "Space Marines", rows: [
-        ["Nuevo","El arquetipo Legion of the Damned con su propio suplemento de 7 unidades, y el Stormfang Gunship."],
-        ["Legado","Legacy of the Damned ahora es Legacy of the Relic Hunters."],
-        ["Purity above All","Solo se paga si marcas la opción del Apothecary en la unidad."],
+      { label: "Knight Households", rows: [
+        ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
       ] },
-      { label: "Chaos Space Marines", rows: [
-        ["Nuevo","Fellgors, Chaos Land Raider Sonic y Giant Chaos Spawn."],
-        ["Poxwalkers","Mindless aparece como regla."],
-        ["Helbrute","Cada Helbrute de un escuadrón puede cambiar sus armas y tomar su propio combi-bolter o heavy flamer."],
+      { label: "Reglas Base 1.40", rows: [
+        ["1.40","Introducción «Welcome», Knight Households en la lista de códices, y las Leagues of Votann son Battle Brothers consigo mismas."],
       ] },
-      { label: "Dark Eldar", rows: [
-        ["Nuevo","Incubi Bloodstone, Murderous Assault y Onslaught, la Grotesque Aberration y el Mindphase gauntlet."],
+      { label: "Armas", rows: [
+        ["Opciones","Un Cyclone missile launcher ya no añade un Missile launcher normal; las opciones «X with Y» muestran los dos perfiles."],
       ] },
-      { label: "Eldar", rows: [
-        ["Nuevo","El Hemlock Wraithfighter."],
-        ["Aspect Focus","Convierte a los Dark Reapers en Élites; en los Guerreros Aspecto se pueden cambiar a Sun pistol y Sun rifle."],
-      ] },
-      { label: "Necrones", rows: [
-        ["Tesla","Las armas tesla de la Night Scythe y la Doom Scythe ya no muestran AT(1)."],
-        ["Escarabajos","La explosión del Scarab ya se imprime."],
-      ] },
-      { label: "T'au", rows: [
-        ["Hoja 1.9","Más Heridas, Fuerza y Resistencia en los trajes, puntos nuevos, Drones Escudo, de Misiles y Sigilo cambiados, Armería con precios nuevos."],
-        ["XV85 Enforcer","Recibe su arma extra (y su sistema de apoyo extra), en la Guardia de Honor Crisis y los Trajes de Combate Crisis."],
-        ["Kroot","Cada Lone-Spear y cada Great Knarloc puede tomar sus propias opciones."],
-      ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Dark Mechanicum","Se tratan como Chaos Space Marines en la matriz de aliados."],
-        ["Textos de reglas","Monotask, Choir Master y las mejoras de Magos y Tech-Priest ya muestran su texto."],
-      ] },
-      { label: "Asesinos", rows: [
-        ["Callidus, Vindicare","Ambos ganan Hunter; el Callidus pierde Polymorphine."],
-      ] },
-      { label: "Guardia Imperial", rows: [
-        ["Nuevo","Rogal Dorn Tank Commander (640 pts); solo un Leman Russ o Rogal Dorn Tank Commander por ejército."],
-        ["Actualizado","El Leman Russ Tank Commander cuesta 294; el Rogal Dorn cuesta 527 y tiene Fuerza 7."],
-        ["Pelotones","Los Special y Heavy Weapon Squads de un pelotón ya cuentan para los puntos mínimos de Tropas."],
-        ["Tauros","Cualquier Tauros puede ser un Venator, y el cambio de stubber del Venator funciona. Los Combat Engineers ya no muestran un cambio de lasgun. El Vulture, la Valkyrie, el Vendetta y los demás voladores muestran 2x misiles Hellstrike y 3x Tactical bombs cuando la opción dice dos o tres."],
-      ] },
-      { label: "Grey Knights", rows: [
-        ["Paladines","Los Paladin Squads empiezan conociendo todos los poderes generales y de Grey Knights, así que no hay nada que elegir."],
+      { label: "Imperial Guard", rows: [
+        ["Reportes de errores","Abhuman Auxiliaries es una casilla por unidad criatura; un Heavy stubber comprado se muestra tras un cambio; la sierra del Sentinel cuesta +15 por Sentinel."],
       ] },
       { label: "Genestealer Cults", rows: [
-        ["Atalan Jackals","Cada Jackal y cada Wolfquad puede tomar sus propias opciones."],
+        ["Ringleader","Dos unidades Ringleader distintas (Magus, Primus, Acolyte Iconward) comparten un slot de HQ."],
+        ["Primus","Synaptic Resonance es solo para psíquicos, así que el Primus se queda en 40 puntos."],
       ] },
-      { label: "Leagues of Votann", rows: [
-        ["Demiurg","Solo puede ser un destacamento aliado de los T’au."],
-      ] },
-      { label: "Escalation", rows: [
-        ["War Dogs, Armigers","War Dogs para todo ejército del Caos y Armigers para todo ejército imperial (sin Chaos Daemons)."],
+      { label: "Wiki", rows: [
+        ["Botón Units","Ahora se ve como los demás botones."],
+        ["Enlaces","Siete enlaces de unidades rotos arreglados, incluidos los Corsairs; las reglas nombradas entre comillas muestran su texto al pasar el ratón."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "v1.86: Октябрьское обновление таблиц",
-    intro: "В этом месяце таблицы сильно изменились; приложение теперь читает новые написания.",
+    title: "v1.87: Проще для новых игроков",
+    intro: "В основном предложения нового игрока: больше вещей объясняют себя сами.",
     install: "",
     sections: [
       { label: "Общее", rows: [
-        ["Кампания","Кампания Planetary Assault открыта как альфа: войдите и нажмите «Кампания» на главной странице. Правила — по ссылке внутри."],
-        ["Правила","Наведите курсор (или коснитесь, на телефоне) на способность в таблице оружия, чтобы прочитать правило."],
-        ["Телефон","Сохранённые списки помещаются на узкий экран, а обновление больше не выглядит как выход из аккаунта."],
-        ["Аккаунты","Имя пользователя можно сменить в разделе «Безопасность аккаунта»."],
-        ["Печать","Психические силы, молитвы и пакты печатаются один раз, в книге после последнего юнита (и внизу боевого режима). Способности от черт объяснены в особых правилах."],
-        ["Таблицы","Новые цены, опции и предметы Арсенала из октябрьских таблиц; сила Perfect Timing и 44 текста черт и наследий идут следом. Eldar: Hemlock Wraithfighter стоит 263, Vibro cannon изменена."],
-        ["Tabletop Simulator","То, что даёт купленная опция (например, биоморф Regeneration), теперь есть в JSON армии."],
-        ["Squadron","Каждая машина отряда Squadron теперь сама меняет оружие и платит за него (45 листов)."],
-        ["Отчёты об ошибках","Кнопка Match в Gitfinda, типы псайкерских сил, Carnodon и другое лишнее оружие, союзные герольды демонов, замены Storm Guardians, Crusaders и Dogmata Сороритас."],
-        ["Основные правила 1.39","Движение Jet Bike и ранцев, Retribution использует собственную Силу, и только одно оружие из Арсенала даёт дополнительные атаки (список предупреждает)."],
+        ["Наведение","Наведите (или коснитесь) на тип оружия вроде Pistol или Assault либо на правило в кавычках внутри способности, чтобы прочитать его."],
+        ["Наследия","Список в настройке армии показывает, что делает каждое Наследие."],
+        ["Размер текста","Новая кнопка A/A на главной странице: 115 % или 130 %, раскладка не ломается."],
+        ["Психические силы","Показана общая дисциплина, Smite — всегда известна."],
       ] },
-      { label: "Space Marines", rows: [
-        ["Новое","Архетип Legion of the Damned с собственным дополнением из 7 отрядов и Stormfang Gunship."],
-        ["Наследие","Legacy of the Damned теперь называется Legacy of the Relic Hunters."],
-        ["Purity above All","Оплачивается, только если отметить опцию Apothecary у отряда."],
+      { label: "Knight Households", rows: [
+        ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
       ] },
-      { label: "Chaos Space Marines", rows: [
-        ["Новое","Fellgors, Chaos Land Raider Sonic и Giant Chaos Spawn."],
-        ["Poxwalkers","Mindless указан как правило."],
-        ["Helbrute","Каждый Helbrute отряда может заменить своё оружие и взять свой combi-bolter или heavy flamer."],
+      { label: "Основные правила 1.40", rows: [
+        ["1.40","Вступление «Welcome», Knight Households в списке кодексов, Leagues of Votann с самими собой — Battle Brothers."],
       ] },
-      { label: "Dark Eldar", rows: [
-        ["Новое","Incubi Bloodstone, Murderous Assault и Onslaught, Grotesque Aberration и Mindphase gauntlet."],
+      { label: "Оружие", rows: [
+        ["Опции","Cyclone missile launcher больше не добавляет обычный Missile launcher; опции «X with Y» показывают оба профиля."],
       ] },
-      { label: "Eldar", rows: [
-        ["Новое","Hemlock Wraithfighter."],
-        ["Aspect Focus","Делает Dark Reapers Элитой; воинам Аспектов можно менять оружие на Sun pistol и Sun rifle."],
-      ] },
-      { label: "Некроны", rows: [
-        ["Тесла","У тесла-оружия Night Scythe и Doom Scythe больше нет AT(1)."],
-        ["Скарабеи","Взрыв Scarab теперь печатается."],
-      ] },
-      { label: "T'au", rows: [
-        ["Таблица 1.9","Больше Ран, Силы и Стойкости у костюмов, новые очки, изменены щитовые, ракетные и stealth-дроны, новые цены в Арсенале."],
-        ["XV85 Enforcer","Получает дополнительное оружие (и систему поддержки) у Crisis Honor Guard и Crisis Battlesuits."],
-        ["Kroot","Каждый Lone-Spear и Great Knarloc может взять свои опции."],
-      ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Dark Mechanicum","В матрице союзников считаются Chaos Space Marines."],
-        ["Тексты правил","Monotask, Choir Master и улучшения Magos и Tech-Priest теперь показывают текст."],
-      ] },
-      { label: "Ассасины", rows: [
-        ["Callidus, Vindicare","Оба получают Hunter; Callidus теряет Polymorphine."],
-      ] },
-      { label: "Имперская гвардия", rows: [
-        ["Новое","Rogal Dorn Tank Commander (640 очков); в армии только один Leman Russ или Rogal Dorn Tank Commander."],
-        ["Обновлено","Leman Russ Tank Commander стоит 294; Rogal Dorn стоит 527 и имеет Силу 7."],
-        ["Взводы","Special и Heavy Weapon Squads во взводе теперь учитываются в минимуме очков Troops."],
-        ["Tauros","Любой Tauros может стать Venator, замена станкового пулемёта у Venator работает. Combat Engineers больше не показывают замену лазгана. Vulture, Valkyrie, Vendetta и другие летательные аппараты показывают 2x ракеты Hellstrike и 3x Tactical bombs, когда в опции указано два или три."],
-      ] },
-      { label: "Grey Knights", rows: [
-        ["Паладины","Paladin Squads сразу знают все общие силы и силы Grey Knights, выбирать нечего."],
+      { label: "Imperial Guard", rows: [
+        ["Отчёты об ошибках","Abhuman Auxiliaries — флажок на каждом юните-существе; купленный Heavy stubber виден после замены; цепная пила Sentinel стоит +15 за каждого Sentinel."],
       ] },
       { label: "Genestealer Cults", rows: [
-        ["Atalan Jackals","Каждый Jackal и Wolfquad может взять свои опции."],
+        ["Ringleader","Два разных юнита с Ringleader (Magus, Primus, Acolyte Iconward) делят один слот HQ."],
+        ["Primus","Synaptic Resonance только для псайкеров, поэтому Primus остаётся за 40 очков."],
       ] },
-      { label: "Leagues of Votann", rows: [
-        ["Demiurg","Может быть только союзным отрядом для T’au."],
-      ] },
-      { label: "Escalation", rows: [
-        ["War Dogs, Armigers","War Dogs для каждой армии Хаоса и Armigers для каждой имперской армии (без Chaos Daemons)."],
+      { label: "Вики", rows: [
+        ["Кнопка Units","Теперь выглядит как остальные кнопки."],
+        ["Ссылки","Исправлены семь сломанных ссылок на юниты, включая Corsairs; правила в кавычках показывают текст при наведении."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "v1.86: 10月のシート更新",
-    intro: "今月はシートが大きく変わりました。アプリは新しい表記を読み取ります。",
+    title: "v1.87: 新しいプレイヤーに分かりやすく",
+    intro: "主に新規プレイヤーからの提案：説明が増えました。",
     install: "",
     sections: [
       { label: "全般", rows: [
-        ["キャンペーン","Planetary Assaultキャンペーンがアルファとして公開されました。サインインして、トップページのキャンペーンを押してください。ルールへのリンクが中にあります。"],
-        ["ルール","武器表のアビリティにカーソルを合わせる（スマホではタップ）と、ルールを読めます。"],
-        ["スマホ","保存リストが狭い画面に収まり、アップデートでサインアウトされたように見えなくなりました。"],
-        ["アカウント","アカウントのセキュリティからユーザー名を変更できます。"],
-        ["印刷","サイキックパワー、祈り、協定は最後のユニットの後の「本」に1回だけ印刷されます（戦闘ビューの下にもあります）。特性が与えるアビリティは特殊ルール欄で説明されます。"],
-        ["シート","10月のシートの新しい価格、オプション、アーモリー品目。Perfect Timingのパワーと44の特性・レガシー文がそれに続きます。 Eldar: Hemlock Wraithfighterは263、Vibro cannonが変更されました。"],
-        ["Tabletop Simulator","購入したオプション（例: Regenerationバイオモーフ）が与える内容が、軍勢JSONに入るようになりました。"],
-        ["Squadron","Squadronの各車両が、武器の交換と支払いを個別に行うようになりました（45データシート）。"],
-        ["バグ報告","GitfindaのMatchボタン、サイキックパワーの種類、Carnodonなどの余分な武器、同盟デーモンのヘラルド、Storm Guardiansの交換、SororitasのCrusadersとDogmata。"],
-        ["コアルール1.39","ジェットバイクとジャンプパックの移動、Retributionは自身のストレングス、追加攻撃を与える武器庫の武器は1つだけ（リストが警告）。"],
+        ["ホバー","Pistol や Assault などの武器タイプ、または能力内の引用符付きルールに重ねる（タップする）と、そのルールが読めます。"],
+        ["レガシー","軍の設定の一覧で、各レガシーの効果が分かります。"],
+        ["文字サイズ","トップページに新しい A/A ボタン：115% または 130%、レイアウトは崩れません。"],
+        ["サイキックパワー","一般ディシプリンが表示され、Smite は常に習得済みです。"],
       ] },
-      { label: "スペースマリーン", rows: [
-        ["新規","Legion of the Damnedアーキタイプ（7ユニットの専用サプリメント）とStormfang Gunship。"],
-        ["レガシー","Legacy of the DamnedはLegacy of the Relic Huntersになりました。"],
-        ["Purity above All","ユニットのApothecaryオプションにチェックしたときだけ支払います。"],
+      { label: "Knight Households", rows: [
+        ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],
       ] },
-      { label: "ケイオス・スペースマリーン", rows: [
-        ["新規","Fellgors、Chaos Land Raider Sonic、Giant Chaos Spawn。"],
-        ["Poxwalkers","Mindlessがルールとして載ります。"],
-        ["Helbrute","分隊の各Helbruteが自分の武器を交換し、自分のcombi-bolterまたはheavy flamerを取れます。"],
+      { label: "基本ルール 1.40", rows: [
+        ["1.40","導入「Welcome」、コデックス一覧に Knight Households、Leagues of Votann 同士は Battle Brothers に。"],
       ] },
-      { label: "ダークエルダー", rows: [
-        ["新規","Incubi Bloodstone、Murderous AssaultとOnslaught、Grotesque Aberration、Mindphase gauntlet。"],
+      { label: "武器", rows: [
+        ["オプション","Cyclone missile launcher が通常の Missile launcher を追加しなくなり、「X with Y」オプションは両方のプロファイルを表示します。"],
       ] },
-      { label: "エルダー", rows: [
-        ["新規","Hemlock Wraithfighter。"],
-        ["Aspect Focus","Dark Reapersがエリート枠になります。アスペクトウォリアーはSun pistolとSun rifleに交換できます。"],
+      { label: "Imperial Guard", rows: [
+        ["不具合報告","Abhuman Auxiliaries はクリーチャーユニットごとのチェックボックス。買った Heavy stubber は交換後も表示。Sentinel のチェーンソーは 1 体につき +15。"],
       ] },
-      { label: "ネクロン", rows: [
-        ["テスラ","Night ScytheとDoom Scytheのテスラ砲にAT(1)が表示されなくなりました。"],
-        ["スカラブ","Scarabの爆発が印刷されるようになりました。"],
+      { label: "Genestealer Cults", rows: [
+        ["Ringleader","異なる Ringleader ユニット 2 つ（Magus、Primus、Acolyte Iconward）が HQ 枠を 1 つ共有します。"],
+        ["Primus","Synaptic Resonance はサイカー専用なので、Primus は 40 ポイントのままです。"],
       ] },
-      { label: "タウ", rows: [
-        ["シート1.9","バトルスーツのWound・強さ・耐久が増加、ポイント変更、シールド／ミサイル／ステルスドローンの変更、アーモリーの価格改定。"],
-        ["XV85 Enforcer","Crisis Honor GuardとCrisis Battlesuitsで追加武器（と追加サポートシステム）を使えます。"],
-        ["Kroot","各Lone-SpearとGreat Knarlocが自分のオプションを取れます。"],
-      ] },
-      { label: "アデプトゥス・メカニカス", rows: [
-        ["Dark Mechanicum","同盟マトリクスでChaos Space Marinesとして扱われます。"],
-        ["ルール文","Monotask、Choir Master、MagosとTech-Priestのアップグレードがテキストを表示します。"],
-      ] },
-      { label: "アサシン", rows: [
-        ["Callidus、Vindicare","両方がHunterを得て、CallidusはPolymorphineを失います。"],
-      ] },
-      { label: "インペリアル・ガード", rows: [
-        ["新規","Rogal Dorn Tank Commander（640ポイント）。Leman RussまたはRogal Dorn Tank Commanderは軍に1体のみ。"],
-        ["更新","Leman Russ Tank Commanderは294、Rogal Dornは527で強さ7。"],
-        ["小隊","小隊に入れたSpecial・Heavy Weapon Squadがトループスの最低ポイントに数えられます。"],
-        ["Tauros","任意のTaurosをVenatorにでき、Venatorのスタブ交換が動きます。Combat Engineersはラスガン交換を表示しません。 Vulture、Valkyrie、Vendetta、ほかのフライヤーは、オプションが2または3のとき、Hellstrikeミサイル2xとTactical bombs 3xを表示します。"],
-      ] },
-      { label: "グレイナイト", rows: [
-        ["パラディン","Paladin Squadは最初から一般とグレイナイトの全パワーを知っているため、選ぶ必要はありません。"],
-      ] },
-      { label: "ジェネスティーラー・カルト", rows: [
-        ["Atalan Jackals","各JackalとWolfquadが自分のオプションを取れます。"],
-      ] },
-      { label: "Leagues of Votann", rows: [
-        ["Demiurg","タウの同盟部隊としてのみ使えます。"],
-      ] },
-      { label: "Escalation", rows: [
-        ["War Dogs、Armigers","全ケイオス軍にWar Dogs、全帝国軍にArmiger（Chaos Daemons除く）。"],
+      { label: "Wiki", rows: [
+        ["Units ボタン","他のボタンと同じ見た目になりました。"],
+        ["リンク","壊れていたユニットのリンク 7 件（Corsairs を含む）を修正。引用符付きのルールは重ねると文章が表示されます。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
@@ -702,6 +518,7 @@ export function LandingPage({
           <div className="flex items-center gap-1">
             <LanguageSelector />
             <ThemeToggle />
+            <TextSizeToggle />
           </div>
           <div className="flex items-center gap-3">
             <button

@@ -1,5 +1,5 @@
 ---
-import Layout from '../../../components/Layout.astro';
+import Layout from '../../../components/Layout.astro';
 import { localiseAbility } from '../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../lib/factions';
 import { getFactionExtras } from '../../../lib/factionExtras';
@@ -210,7 +210,7 @@ const TAG_COLORS: Record<string, string> = {
     )}
 
     <nav class="hub-nav reveal">
-      <a href={`/factions/${factionKey}/units`} class="nav-btn primary">
+      <a href={`/factions/${factionKey}/units`} class="nav-btn">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="1" width="14" height="2"/><rect x="0" y="6" width="14" height="2"/><rect x="0" y="11" width="14" height="2"/></svg>
         {wt('navUnits')}
       </a>
@@ -497,6 +497,4 @@ const TAG_COLORS: Record<string, string> = {
     text-decoration: none; border-radius: 3px; transition: background 0.15s, color 0.15s;
   }
   .nav-btn:hover { background: var(--c40k-red, #a21217); color: #fff; }
-  .nav-btn.primary { background: var(--c40k-red, #a21217); color: #fff; }
-  .nav-btn.primary:hover { background: #8a0e12; }
 </style>

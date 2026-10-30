@@ -76,6 +76,7 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.4' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.4' },
       { key: 'imperial_navy',      name: 'Imperial Navy',      available: true, status: 'complete', version: '1.2' },
+      { key: 'knight_households',  name: 'Knight Households',  available: true, status: 'unreviewed', version: '1.0' },
     ],
   },
   {

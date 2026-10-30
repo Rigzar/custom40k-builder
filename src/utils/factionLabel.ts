@@ -22,6 +22,7 @@ export const FACTION_NAMES: Record<string, string> = {
   grey_knights:         'Grey Knights',
   inquisition:          'Inquisition',
   imperial_navy:        'Imperial Navy',
+  knight_households:    'Knight Households',
   assassins:            'Assassins',
   tau_empire:           'Tau Empire',
   necrons:              'Necrons',
@@ -57,3 +58,10 @@ export function factionLabel(v: string | null | undefined): string {
   if (!v.includes('_')) return v;
   return v.split('_').map(w => (w ? w[0].toUpperCase() + w.slice(1) : w)).join(' ');
 }
+
+/** The word a faction uses for its veteran-style picks: Knight Households call them Reputations. */
+export const usesReputations = (faction: string | undefined | null): boolean => faction === 'Knight Households';
+
+/** The emblem file of a faction when no archetype or Legacy symbol applies. The Horus Heresy books share the Horus Heresy emblem; every other faction's file is its lower-cased, hyphenated name. */
+export const factionSymbolFile = (faction: string): string =>
+  /^Horus Heresy: /.test(faction) ? '/faction-symbols/horus-heresy.svg' : `/faction-symbols/${faction.toLowerCase().replace(/s+/g, '-').replace(/[^a-z0-9-]/g, '')}.svg`;

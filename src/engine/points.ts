@@ -332,7 +332,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
         // one-off inline options (promote one Sergeant, etc.) are charged once. (per_model flag)
         // A counted tick-box ("one Guardsman PER BATTERY may take a Vox") is a per_n group with no
         // choices: its stored value is how many, not on/off.
-        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model ? item.size : g.constraint?.type === 'per_n' ? Number(qty) : 1);
+        // A tick-box under an "every" constraint ("Each Sentinel may be equipped with +15 points Sentinel chainsaw", "All models may remove
+        // their Jump packs for -9 points each", "Any Tauros may be upgraded...") is bought by every model: GH#265, it was charged once.
+        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model || g.constraint?.type === 'every' ? item.size : g.constraint?.type === 'per_n' ? Number(qty) : 1);
         continue;
       }
       const choice = g.choices[parseInt(ci)];

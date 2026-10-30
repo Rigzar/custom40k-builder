@@ -89,16 +89,6 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true
-        },
-        {
-            "header": "Can only be selected if the army has the Legacy of the Phoenician.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -119,5 +109,6 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 5,
-    "min_cost": 305
+    "min_cost": 305,
+    "requires_legacy": "Legacy of the Phoenician"
 }

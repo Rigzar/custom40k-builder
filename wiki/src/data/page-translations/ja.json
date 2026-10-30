@@ -446,8 +446,8 @@
   "Row = primary faction · Column = ally. The matrix is symmetric. <span class=\"dot dot-g\"></span> Battle Brothers · <span class=\"dot dot-y\"></span> Allies of Convenience · <span class=\"dot dot-r\"></span> Desperate Allies": "行＝主勢力 · 列＝同盟勢力。マトリクスは対称。<span class='dot dot-g'></span> Battle Brothers · <span class='dot dot-y'></span> Allies of Convenience · <span class='dot dot-r'></span> Desperate Allies",
   "Can move over (enemy) units and terrain.": "（敵の）部隊や地形の上を移動できる。",
   "Ignores terrain movement and vertical movement costs.": "地形による移動コストと垂直移動のコストを無視する。",
-  "v1.39 · Balance 5.04 · FAQ #5: Codex rules override Core Rules": "v1.39 · バランス 5.04 · FAQ #5：コデックスのルールは基本ルールに優先する",
-  "All model special rules from the Core Rules v1.39. Codex rules may add to or override these (FAQ #5).": "基本ルール v1.39 のすべてのモデル特殊ルール。コデックスのルールはこれらに追加または上書きできる（FAQ #5）。"
+  "v1.40 · Balance 5.05 · FAQ #5: Codex rules override Core Rules": "v1.40 · バランス 5.04 · FAQ #5：コデックスのルールは基本ルールに優先する",
+  "All model special rules from the Core Rules v1.40. Codex rules may add to or override these (FAQ #5).": "基本ルール v1.40 のすべてのモデル特殊ルール。コデックスのルールはこれらに追加または上書きできる（FAQ #5）。"
  },
  "missions": {
   "Custom40k Supplement": "Custom40k サプリメント",

@@ -60,6 +60,7 @@ const DEFAULT_SOURCE_IDS: Record<string, string> = {
   grey_knights: '1XkDkdshwkySGDwBaF4sQblDcE4xITkm1iSSlZSUE_mk',
   inquisition: '1krDncaF0CSf6bDIeA-j20dAo3tqkphkeDd2weq56MN4',
   imperial_navy: '1KhzXT4BjwqlpsMr8p90q4VJomAt71NDu2W689R2j14E',
+  knight_households: '1zG4HN7FmFw8QEswqWHF0I883zurtlGSnH0A1UOE_t7c',
   assassins: '1NZepq8IfXgWs9mmZMxg4emgOxTPP5VfVNfRZ3ryh5f4',
   tau_empire: '1S1Uub6VvvlBuxlqh61S5DhZYIKtdRHvkRs1CsIRgu8s',
   necrons: '1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA',

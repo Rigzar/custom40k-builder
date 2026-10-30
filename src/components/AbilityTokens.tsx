@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { lookupRule } from '../data/coreRules';
+import { lookupRule, lookupWeaponType } from '../data/coreRules';
 import { rl } from '../utils/localName';
 
 /**
@@ -66,6 +66,29 @@ export function AbilityTokens({ text }: { text: string }) {
             {rule ? <AbilityTip label={label} name={rule.displayName} description={rule.description} /> : label}
           </Fragment>
         );
+      })}
+    </>
+  );
+}
+
+/** A weapon's "Type" cell ("Pistol 1", "Rapid Fire 2", "Melee"...) with the Core Rules text of that weapon type on hover or tap. */
+export function WeaponTypeTip({ type }: { type: string }) {
+  const rule = type ? lookupWeaponType(type) : null;
+  return rule ? <AbilityTip label={rl(type)} name={rule.displayName} description={rule.description} /> : <>{rl(type)}</>;
+}
+
+/**
+ * A rule's description with every quoted rule name in it explained on hover or tap: ... gains the "Shunting" ability ...
+ * Only a quote that matches a Core Rules glossary entry becomes a tip; anything else stays plain text.
+ */
+export function RuleText({ text }: { text: string }) {
+  const parts = text.split(/(["“][^"”\n]{2,40}["”])/);
+  return (
+    <>
+      {parts.map((p, i) => {
+        const m = p.match(/^["“]([^"”\n]{2,40})["”]$/);
+        const rule = m ? lookupRule(m[1].trim()) : null;
+        return rule ? <AbilityTip key={i} label={p} name={rule.displayName} description={rule.description} /> : <Fragment key={i}>{p}</Fragment>;
       })}
     </>
   );

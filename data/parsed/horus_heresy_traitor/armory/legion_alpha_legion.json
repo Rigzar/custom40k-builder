@@ -57,7 +57,26 @@
       "abilities": "",
       "p_unit": null,
       "p_char": 37,
-      "profiles": []
+      "profiles": [
+        {
+          "name": "Rapid shot",
+          "range": "24\"",
+          "type": "Assault 3",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Suppression(3), Unique"
+        },
+        {
+          "name": "Execution shot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Sniper, Sunder(2), Suppression(6), Unique"
+        }
+      ]
     },
     {
       "name": "Venom spheres",
@@ -70,30 +89,6 @@
       "abilities": "Ammo(1), Poison(3+)",
       "p_unit": null,
       "p_char": 4
-    },
-    {
-      "name": "- Rapid shot",
-      "term_compat": false,
-      "range": "24\"",
-      "type": "Assault 3",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Suppression(3), Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "- Execution shot",
-      "term_compat": false,
-      "range": "48\"",
-      "type": "Heavy 1",
-      "s": "7",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(1), Sniper, Sunder(2), Suppression(6), Unique",
-      "p_unit": null,
-      "p_char": null
     },
     {
       "name": "The Pale Spear",
@@ -118,18 +113,6 @@
       "abilities": "Rending(4+), Unique",
       "p_unit": null,
       "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "equipment": [
@@ -142,21 +125,6 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Models in Terminator armor can only receive equipment marked with ᵀ.",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

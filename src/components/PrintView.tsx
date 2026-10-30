@@ -65,6 +65,9 @@ const FACTION_SYMBOL: Record<string, string> = {
   'Genestealer Cults':          '/faction-symbols/genestealer-cults.svg',
   'Leagues of Votann':          '/faction-symbols/leagues-of-votann.svg',
   'Escalation':                 '/faction-symbols/escalation.svg',
+  'Knight Households':          '/faction-symbols/knight-households.svg',
+  'Horus Heresy: Loyal Legions':  '/faction-symbols/horus-heresy.svg',
+  'Horus Heresy: Traitor Legions': '/faction-symbols/horus-heresy.svg',
 };
 
 function getCardSymbol(faction: string, archetype: string | null, legacy: string | null, legacy2: string | null): string {

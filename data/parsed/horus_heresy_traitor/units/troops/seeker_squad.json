@@ -211,6 +211,16 @@
             "is_unique_per_army": false
         },
         {
+            "header": "The Infiltrator Sergeant may be upgraded to a Veteran Infiltrator Sergeant for +10 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Veteran Infiltrator Sergeant",
+            "is_unique_per_army": false
+        },
+        {
             "header": "Any model may swap their Bolt carbine",
             "constraint": {
                 "type": "every"

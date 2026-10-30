@@ -44,16 +44,6 @@
     ],
     "option_groups": [
         {
-            "header": "For every HQ selection, the army may include one Honor Guard / Veterans unit.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
-        },
-        {
             "header": "The entire squad may receive one of the following upgrades per model",
             "constraint": {
                 "type": "one"
@@ -99,6 +89,7 @@
         }
     ],
     "abilities": [
+        "Advisor",
         "Combat squads, They Shall Know No Fear",
         "Upgrades:",
         "Bladeguard: The model gains the \"Warded\" ability. Only for Infantry.",
@@ -122,7 +113,7 @@
     "veteran_required": false,
     "veteran_max": 1,
     "locked_mark": null,
-    "advisor": false,
+    "advisor": true,
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 35

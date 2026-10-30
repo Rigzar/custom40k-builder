@@ -187,6 +187,13 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
       'Ordo Xenos': makeOrdo('Ordo Xenos'),
     }, d(discs), d(prayers));
   },
+  knight_households: async () => {
+    const [g, arch] = await Promise.all([
+      import('../vendor/data/parsed/knight_households/armory/general.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/knight_households/archetypes.json') as unknown as Promise<Mod<ArchData>>,
+    ]);
+    return assemble(d(g), d(arch), {}, {});
+  },
   assassins: async () => {
     const [g] = await Promise.all([
       import('../vendor/data/parsed/assassins/armory/general.json') as unknown as Promise<Mod<Armory>>,

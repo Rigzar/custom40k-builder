@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, useContext } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
+import { usesReputations } from '../utils/factionLabel';
 import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
@@ -20,7 +21,7 @@ import {
 import { legacyItemAllowed } from '../lib/legacyGate';
 import { useT } from '../i18n';
 import { nm, rl } from '../utils/localName';
-import { AbilityTokens } from './AbilityTokens';
+import { AbilityTokens, WeaponTypeTip } from './AbilityTokens';
 import { armoryAccessorCount, championArmoryBuyers } from '../lib/battleProfile';
 import { supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 
@@ -1188,7 +1189,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
             {filterCategory === 'veteran'
-              ? `${t('veteranAbilities')} — ${nm(unit.name)}`
+              ? `${usesReputations(data.faction) ? t('reputationsLabel') : t('veteranAbilities')} — ${nm(unit.name)}`
               : filterCategory === 'vehicle'
                 ? `${t('armoryTitleVehicle')} — ${nm(unit.name)}`
                 : `${t('armourySuffix')} — ${nm(unit.name)}`
@@ -1211,7 +1212,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             <span className="ml-auto flex items-center gap-2">
               {armoryVetMax !== null && (
                 <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${veteranSlotsFull ? 'bg-red-900/40 border-red-700 text-red-400' : 'bg-amber-900/30 border-amber-700 text-amber-400'}`}>
-                  {t('veteranAbilities')} {veteranItemsUsed}/{armoryVetMax}
+                  {usesReputations(data.faction) ? t('reputationsLabel') : t('veteranAbilities')} {veteranItemsUsed}/{armoryVetMax}
                 </span>
               )}
               <span className="text-[11px] font-bold text-amber-400">{carriedTotal >= 0 ? '+' : ''}{carriedTotal} pts</span>
@@ -1370,6 +1371,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         profileAbilityNames={profileAbilityNames}
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
+                        vetHeading={usesReputations(data.faction) ? t('reputationsLabel') : undefined}
                         lastAdded={lastAdded}
                         takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')} reasonFor={arm => blockReason(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
@@ -1470,6 +1472,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         profileAbilityNames={profileAbilityNames}
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
+                        vetHeading={usesReputations(data.faction) ? t('reputationsLabel') : undefined}
                         lastAdded={lastAdded}
                         markless={legMarkless(legName)}
                         takenEnhancements={takenEnhancementsFor} isUniqueSelected={arm => isAddBlocked(arm, 'equipment')} reasonFor={arm => blockReason(arm, 'equipment')}
@@ -1570,6 +1573,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         profileAbilityNames={profileAbilityNames}
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
+                        vetHeading={usesReputations(data.faction) ? t('reputationsLabel') : undefined}
                         lastAdded={lastAdded}
                         markless
                         getPts={getItemPts}
@@ -1802,6 +1806,8 @@ interface EquipGroupsProps {
   veteranItemsUsed: number;
   veteranSlotsFull: boolean;
   filterCategory?: 'veteran' | 'vehicle';
+  /** Heading of the veteran group when the faction names it differently (Knight Households: Reputations). */
+  vetHeading?: string;
   lastAdded: string | null;
   /** When true, the items come from a mark-less armory (the Horus Heresy supplement): a
    * trailing ᵀ means Terminator-compat (term_compat), NOT Mark of Tzeentch, so no mark gating
@@ -1857,6 +1863,7 @@ function EquipmentGroups({
   profileAbilityNames,
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
   filterCategory,
+  vetHeading,
   lastAdded,
   markless = false,
   getPts,
@@ -2043,7 +2050,7 @@ function EquipmentGroups({
         <div>
           {!filterCategory && (
             <div className="flex items-center gap-2 mb-1 border-t border-zinc-700 pt-2">
-              <span className="text-[10px] text-amber-600 uppercase tracking-widest">{t('veteranAbilities')}</span>
+              <span className="text-[10px] text-amber-600 uppercase tracking-widest">{vetHeading ?? t('veteranAbilities')}</span>
               {armoryVetMax !== null && (
                 <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
                   veteranSlotsFull
@@ -2543,7 +2550,7 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
         {arm.profiles.map((p, i) => (
           <div key={i} className="text-[10px] text-zinc-600">
             <span className="text-zinc-500 italic">{p.name}:</span>{' '}
-            {p.range} · {rl(p.type)} · S{p.s} AP{p.ap} D{p.d}
+            {p.range} · <WeaponTypeTip type={p.type} /> · S{p.s} AP{p.ap} D{p.d}
             {p.abilities && p.abilities !== '-' && <span> · {rl(p.abilities)}</span>}
           </div>
         ))}
@@ -2553,7 +2560,7 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
   if (arm.range) {
     return (
       <div className="text-[10px] text-zinc-600 mt-0.5">
-        {arm.range} · {rl(arm.type)} · S{arm.s} AP{arm.ap} D{arm.d}
+        {arm.range} · <WeaponTypeTip type={arm.type} /> · S{arm.s} AP{arm.ap} D{arm.d}
         {arm.abilities && arm.abilities !== '-' && <span> · {rl(arm.abilities)}</span>}
       </div>
     );

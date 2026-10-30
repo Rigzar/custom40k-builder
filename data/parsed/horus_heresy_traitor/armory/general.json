@@ -150,8 +150,8 @@
       "p_char": null
     },
     {
-      "name": "Combi-disintegratorᵀ",
-      "term_compat": false,
+      "name": "Combi-disintegrator",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -179,11 +179,14 @@
           "d": "1",
           "abilities": "Overheating, Combi"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
-      "name": "Combi-flamerᵀ",
-      "term_compat": false,
+      "name": "Combi-flamer",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -211,11 +214,14 @@
           "d": "1",
           "abilities": "Auto Hit, Combi, Sunder(1)"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
-      "name": "Combi-gravᵀ",
-      "term_compat": false,
+      "name": "Combi-grav",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -243,11 +249,14 @@
           "d": "1",
           "abilities": "Grav, Combi"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
-      "name": "Combi-grenade launcherᵀ",
-      "term_compat": false,
+      "name": "Combi-grenade launcher",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -275,11 +284,14 @@
           "d": "1",
           "abilities": "Blast(4), Combi"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
-      "name": "Combi-meltaᵀ",
-      "term_compat": false,
+      "name": "Combi-melta",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -307,11 +319,14 @@
           "d": "1",
           "abilities": "AT(1), Combi, Melta"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
-      "name": "Combi-plasmaᵀ",
-      "term_compat": false,
+      "name": "Combi-plasma",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -348,11 +363,14 @@
           "d": "2",
           "abilities": "AT(2), Combi, Overheating"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
-      "name": "Combi-volkiteᵀ",
-      "term_compat": false,
+      "name": "Combi-volkite",
+      "term_compat": true,
       "range": "",
       "type": "",
       "s": "",
@@ -380,6 +398,9 @@
           "d": "1",
           "abilities": "Soul burn(6+), Combi"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
@@ -668,33 +689,29 @@
       "s": "",
       "ap": "",
       "d": "",
-      "abilities": "-",
+      "abilities": "",
       "p_unit": 10,
-      "p_char": null
-    },
-    {
-      "name": "- Charge",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(1), Charge, Quick(+1)",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "- Melee",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Unwieldy",
-      "p_unit": null,
-      "p_char": null
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Charge, Quick(+1)"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ]
     },
     {
       "name": "Power maul",

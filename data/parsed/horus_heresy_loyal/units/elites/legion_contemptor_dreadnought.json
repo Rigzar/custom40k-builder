@@ -233,16 +233,6 @@
     ],
     "option_groups": [
         {
-            "header": "For every HQ selection, the army may include one Legion Contemptor Dreadnought unit that does not use up an Elite slot.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
-        },
-        {
             "header": "Must pick two weapons from this list",
             "constraint": {
                 "type": "fixed_max",
@@ -343,6 +333,7 @@
         }
     ],
     "abilities": [
+        "Advisor",
         "Squadron",
         "Atomantic Shielding: The model has a 5+ ward save.",
         "Furioso: If the model has two melee weapons, it gains +2 attacks."
@@ -359,7 +350,7 @@
     "veteran_required": false,
     "veteran_max": 1,
     "locked_mark": null,
-    "advisor": false,
+    "advisor": true,
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 192

@@ -79,21 +79,12 @@
             "inline_pts": 5,
             "variant_link": null,
             "is_unique_per_army": false
-        },
-        {
-            "header": "Can only be taken as the Auxilia Retinue of an Overseer (see the Centurion).",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
         }
     ],
     "abilities": [
         "Objective secured!",
-        "Retinue: The unit cannot join another unit and cannot be combined with other units. Only an Overseer can join it."
+        "Retinue: The unit cannot join another unit and cannot be combined with other units. Only an Overseer can join it.",
+        "Auxilia Retinue: Can only be taken as the Auxilia Retinue of an Overseer (see the Centurion)."
     ],
     "unit_type": "Infantry",
     "keywords": [

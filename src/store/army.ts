@@ -70,7 +70,18 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
 /** Traits that are an UPGRADE rather than a blanket bonus: "One non-character model per squad ... may be upgraded to an Apothecary"
  *  (Space Marines, Purity above All). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
-export const OPT_IN_TRAITS = new Set(['Purity above All']);
+export const OPT_IN_TRAITS = new Set(['Purity above All', 'Abhuman Auxiliaries']);
+
+/**
+ * May this unit take an opt-in trait (offered as a tick-box on its card)?
+ * Purity above All: a non-character infantry squad that can reach the Armory to buy the Apothecary. Abhuman Auxiliaries
+ * (Imperial Guard): "Select one improvement that can be applied to any creature unit (except Halflings and Ogryns)" — a
+ * choice per unit, not a blanket bonus (GH#262, Dyon: it was applied to every creature unit automatically).
+ */
+export function optInTraitApplies(name: string, unit: Unit): boolean {
+  if (name === 'Abhuman Auxiliaries') return !unit.is_vehicle && !/ogryn|bullgryn|ratling|halfling/i.test(unit.name);
+  return !unit.is_character && !unit.is_vehicle && !unit.is_monster && !!(unit.has_armory_access || unit.champion_has_armory);
+}
 
 function computeTraitSelections(
   unit: Unit, item: RosterEntry, names: string[], traits: Trait[], data: FactionData,

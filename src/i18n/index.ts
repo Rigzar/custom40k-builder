@@ -131,7 +131,7 @@ export type TranslationKey =
   | 'vehicleWargearHintA' | 'vehicleWargearHintB' | 'applyToLabel' | 'selectWeaponOption'
   | 'exarchPowerLabel' | 'selectPowerOption' | 'enhancementLabel' | 'selectEnhancementOption' | 'daemonWeaponAbilitiesLabel' | 'noDaemonWeaponTraits'
   | 'uniqueBadge' | 'selectedBadge' | 'takenByAnotherUnit' | 'pickWeaponButton' | 'capReachedButton'
-  | 'traitSearchPlaceholder' | 'traitPickerClearSlot' | 'noResultsFound' | 'browseTraitsButton' | 'traitSlotLabel' | 'traitTakenByOtherSlot'
+  | 'traitSearchPlaceholder' | 'traitPickerClearSlot' | 'noResultsFound' | 'browseTraitsButton' | 'legacyBrowseAll' | 'reputationsLabel' | 'textSizeTitle' | 'traitSlotLabel' | 'traitTakenByOtherSlot'
   | 'addButton' | 'appliedToPrefix' | 'addedBadge' | 'gravisBadge' | 'termBadge' | 'inProfileBadge'
   | 'freeSlotLabel' | 'addAnotherButton' | 'seeFactionRulesProfile' | 'perWoundSuffix'
   | 'copyCodeButton' | 'importCodeButton' | 'invalidJsonFileAlert' | 'clearArmyConfirm' | 'clearButton'
@@ -874,6 +874,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     traitPickerClearSlot: '— None (clear this slot) —',
     noResultsFound: 'Nothing matches your search.',
     browseTraitsButton: 'Browse',
+    legacyBrowseAll: 'What each Legacy does',
+    reputationsLabel: 'Reputations',
+    textSizeTitle: 'Text size',
     traitSlotLabel: 'Trait',
     traitTakenByOtherSlot: 'In another slot',
     blackCrusadeChampionRequired: 'Black Crusade — Champion required',
@@ -2056,6 +2059,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     traitPickerClearSlot: '— Keine (Slot leeren) —',
     noResultsFound: 'Nichts entspricht deiner Suche.',
     browseTraitsButton: 'Durchsuchen',
+    legacyBrowseAll: 'Was jedes Vermächtnis bewirkt',
+    reputationsLabel: 'Reputationen',
+    textSizeTitle: 'Textgröße',
     traitSlotLabel: 'Eigenschaft',
     traitTakenByOtherSlot: 'In einem anderen Slot',
     blackCrusadeChampionRequired: 'Schwarzer Kreuzzug — Champion erforderlich',
@@ -3236,6 +3242,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     traitPickerClearSlot: '— Ninguno (vaciar este hueco) —',
     noResultsFound: 'Nada coincide con tu búsqueda.',
     browseTraitsButton: 'Explorar',
+    legacyBrowseAll: 'Qué hace cada Legado',
+    reputationsLabel: 'Reputaciones',
+    textSizeTitle: 'Tamaño del texto',
     traitSlotLabel: 'Rasgo',
     traitTakenByOtherSlot: 'En otro hueco',
     blackCrusadeChampionRequired: 'Cruzada Negra — Campeón requerido',

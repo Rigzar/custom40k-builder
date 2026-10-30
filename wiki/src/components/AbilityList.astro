@@ -1,5 +1,5 @@
 ---
-import { parseAbility, normaliseKey } from '../lib/glossary';
+import { parseAbility, normaliseKey, ruleTextHtml } from '../lib/glossary';
 import { wr } from '../lib/loc';
 
 interface Props {
@@ -20,7 +20,7 @@ const parsed = abilities.flatMap(a => parseAbility(a));
         ) : (
           <strong>{wr(part.displayName)}</strong>
         )}
-        {part.description && <span>: {part.description}</span>}
+        {part.description && <span>: <Fragment set:html={ruleTextHtml(part.description)} /></span>}
       </li>
     );
   })}

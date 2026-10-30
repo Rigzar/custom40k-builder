@@ -1,0 +1,193 @@
+{
+    "name": "Knight Paladin",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "4",
+                "A": "4",
+                "HP": "4"
+            },
+            "name": "Knight Paladin",
+            "min": 1,
+            "max": 1,
+            "points": 752
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Knight Paladin is equipped with: 2 Heavy stubbers; Rapid-fire battle cannon; Reaper chainsword.",
+    "weapons": [
+        {
+            "name": "Heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Ironstorm missile pod",
+            "range": "36\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(6), Suppression(3)"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Rapid-fire Battle cannon",
+            "range": "72\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Blast(6), Tank hunter"
+        },
+        {
+            "name": "Reaper chainsword - Strike",
+            "range": "-",
+            "type": "Melee",
+            "s": "D",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Reaper chainsword - Sweep",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Stormspear rocket pod",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Anti-Air"
+        },
+        {
+            "name": "Thunderstrike gauntlet",
+            "range": "-",
+            "type": "Melee",
+            "s": "D",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(4)"
+        },
+        {
+            "name": "Twin icarus autocannon",
+            "range": "48\"",
+            "type": "Heavy 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(1), Anti-Air"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap the Reaper chainsword",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Thunderstrike gauntlet",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Reaper chainsword - Strike",
+                "Reaper chainsword - Sweep"
+            ]
+        },
+        {
+            "header": "May swap one Heavy stubber",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Melta",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Heavy stubber"
+            ]
+        },
+        {
+            "header": "May select one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Ironstorm missile pod",
+                    "points": 35
+                },
+                {
+                    "name": "Twin icarus autocannon",
+                    "points": 53
+                },
+                {
+                    "name": "Stormspear rocket pod",
+                    "points": 81
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Ward(5+)",
+        "Ion shield: The model's ward save functions only against ranged attacks."
+    ],
+    "unit_type": "Super-heavy Vehicle, Walker",
+    "keywords": [
+        "Knight",
+        "Noble"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 752
+}

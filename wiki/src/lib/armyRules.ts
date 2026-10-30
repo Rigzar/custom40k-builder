@@ -232,6 +232,19 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
     },
   ],
 
+  knight_households: [
+    {
+      name: 'Allegiance',
+      description: 'Knight Households are treated like "Imperial Guard" in the ally matrix.',
+      tag: 'signature',
+    },
+    {
+      name: "The Peasant's Duty",
+      description: 'Units with the <Feudal Levy> keyword gain a +1 bonus to their Leadership value if at least one <Noble> unit is within 12" range, as long as that <Noble> unit does not possess 2 Battleshock tokens.',
+      tag: 'signature',
+    },
+  ],
+
   assassins: [
     {
       name: 'Execution Force',

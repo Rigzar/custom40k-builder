@@ -495,9 +495,14 @@ const optionalWeapons = new Map<string, Set<string>>();
     // fixed default and appeared on the datasheet for free. Tie it to the group's '__inline'
     // pseudo-choice, the same key the tick-box writes into optionQty.
     if (g.choices.length === 0 && g.inline_pts != null) {
+      const inHeader = (kk: string) => new RegExp(`\\b${kk.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}s?\\b`, 'i').test(g.header);
+      const namedInHeader = unit.weapons.map(x => wkey(x.name)).filter(inHeader);
       for (const w of unit.weapons) {
         const k = wkey(w.name);
-        if (!new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}s?\\b`, 'i').test(g.header)) continue;
+        if (!inHeader(k)) continue;
+        // "a Cyclone missile launcher" also contains "missile launcher": the longer weapon is the one the header names, so a shorter
+        // weapon that is only a part of its name is not (it put a plain Missile launcher on the Contemptor that bought the Cyclone).
+        if (namedInHeader.some(kk => kk.length > k.length && kk.includes(k))) continue;
         if (loadoutNames(unit.equipped_with, baseName(w.name))) continue;   // already a real default
         if (!optionalWeapons.has(k)) optionalWeapons.set(k, new Set());
         // Keyed to THIS group, not to a shared '__inline' token. Reported on the Horus Heresy
@@ -877,9 +882,11 @@ const optionalWeapons = new Map<string, Set<string>>();
   return weapons.filter(w => {
     // Variant-only weapons: show iff variant active AND not replaced by a choice
     if (variantOnlyWeapons.has(w.name)) return variantActive && !replacedWeaponNames.has(w.name);
+    // Bought from the Armory beats a swap that took the datasheet's copy away: the Malcador that swaps both Heavy stubbers for
+    // Heavy bolters and then buys the Heavy stubber vehicle upgrade carries a Heavy stubber again (GH#264).
+    if (boughtFromArmory.has(w.name)) return true;
     if (replacedWeaponNames.has(w.name)) return false;
     if (zeroCountModelWeapons.has(w.name)) return false;
-    if (boughtFromArmory.has(w.name)) return true;
     const owningChoices = optionalWeapons.get(wkey(w.name));
     if (!owningChoices) return true;
     // A weapon that's a default part of equipped_with must always show even if the same weapon
@@ -999,7 +1006,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const psykerGroupIdx = psykerInlineIdx >= 0 ? psykerInlineIdx : psykerChoiceIdx;
   const choiceMakesPsyker = psykerChoiceIdx >= 0 && unit.option_groups[psykerChoiceIdx].choices.some((c, ci) =>
     !!c.effect?.makes_psyker && Number(item.optionQty?.[psykerChoiceIdx]?.[ci] ?? 0) > 0);
-  const isOptionalPsyker = !unit.is_psyker && (choiceMakesPsyker || (psykerInlineIdx >= 0 &&
+  // An Armory item can do it too: the Knight Households Reputation "Wyrd" ("The model becomes a psyker").
+  const armoryMakesPsyker = item.armory.some(sel => !!findArmoryItem(data, sel, !!unit.is_vehicle)?.effect?.makes_psyker);
+  const isOptionalPsyker = !unit.is_psyker && (choiceMakesPsyker || armoryMakesPsyker || (psykerInlineIdx >= 0 &&
     (item.optionQty?.[psykerInlineIdx]?.['__inline'] ?? 0) > 0));
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.

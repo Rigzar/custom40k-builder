@@ -78,16 +78,6 @@
             "replaces": [
                 "Twin power axe"
             ]
-        },
-        {
-            "header": "The Red Butcher Champion has access to gear from the Armory.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -103,7 +93,7 @@
     "is_monster": false,
     "is_psyker": false,
     "has_armory_access": false,
-    "champion_has_armory": false,
+    "champion_has_armory": true,
     "has_veteran_abilities": true,
     "veteran_required": false,
     "veteran_max": 1,

@@ -183,6 +183,8 @@ function getSymbols(
   legacy: string | null,
   legacy2: string | null,
 ): { archetypeSymbol: string | null; legacySymbol: string | null } {
+  // Knight Households: the Mechanicus questor emblem is the faction's own (components/FactionSymbol, PrintView); the Chaos Knights archetype swaps it for the Traitoris one.
+  if (faction === 'Knight Households') return { archetypeSymbol: archetype === 'Chaos Knights' ? '/faction-symbols/knight-households-chaos.svg' : null, legacySymbol: null };
   if (isCsm(faction)) return {
     archetypeSymbol: findSymbol(CSM_ARCHETYPE_SYMBOL, archetype),
     legacySymbol:    findSymbol(CSM_LEGACY_SYMBOL, legacy) ?? findSymbol(CSM_LEGACY_SYMBOL, legacy2),

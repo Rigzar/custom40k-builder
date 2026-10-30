@@ -18,7 +18,7 @@ const check = (ok: boolean, msg: string) => { if (!ok) { bad++; console.log('FAI
 
   // every slot_to_units entry resolves, and every unit prices and has a slot
   const names = Object.values(navy.slot_to_units).flat() as string[];
-  check(names.length === 33, `expected 33 units, got ${names.length}`);
+  check(names.length === 34, `expected 34 units, got ${names.length}`);
   for (const n of names) check(!!navy.units[n], `slot_to_units names ${n} but units{} has none`);
   check(navy.archetypes.map((a: Any) => a.name).join() === 'Heretic,Iconoclast' && navy.archetypes.every((a: Any) => a.skirmish === true), 'Heretic/Iconoclast must both be skirmish-legal');
 

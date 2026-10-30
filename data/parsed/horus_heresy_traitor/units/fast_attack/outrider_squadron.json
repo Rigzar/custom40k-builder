@@ -220,6 +220,16 @@
             "replaces": [
                 "Onslaught gatling cannon"
             ]
+        },
+        {
+            "header": "The Outrider Sergeant may be upgraded to a Veteran Outrider Sergeant for +10 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": "Veteran Outrider Sergeant",
+            "is_unique_per_army": false
         }
     ],
     "abilities": [

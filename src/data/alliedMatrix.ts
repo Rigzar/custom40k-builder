@@ -31,6 +31,8 @@ const FACTION_TO_CODE: Record<string, string> = {
   dark_eldar:          'DaE',
   imperial_guard:      'IG',
   imperial_navy:       'IN',
+  // "Allegiance: Knight Households are treated like Imperial Guard in the ally matrix." (Index, Special rules)
+  knight_households:   'IG',
   inquisition:         'Inq',
   assassins:           'Inq',
   leagues_of_votann:   'LoV',
@@ -43,6 +45,7 @@ const FACTION_TO_CODE: Record<string, string> = {
   harlequins:          'Eld',
 };
 
+// (Core Rules 1.40, 2026-10-30: the Leagues of Votann read Green with themselves, where they read Yellow.)
 // Allied Matrix, 17×17, transcribed from the live Core Rules document rather than typed by
 // hand — the author rewrote it on 2026-08-17, adding Grey Knights as a row of their own and
 // filling the cells that used to be blank. Ten cells changed with it: the Inquisition is now
@@ -63,7 +66,7 @@ const MATRIX: Record<string, Record<string, Relationship>> = {
   IG: { AdC:'G', AdM:'G', AdS:'G', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'G', IN:'G', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'G', Tau:'Y', Tyr:'R' },
   IN: { AdC:'G', AdM:'G', AdS:'G', CD:'Y', CSM:'Y', DaE:'Y', Eld:'Y', GK:'Y', GSC:'Y', IG:'G', IN:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'G', Tau:'Y', Tyr:'R' },
   Inq: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'Y', CSM:'Y', DaE:'Y', Eld:'Y', GK:'Y', GSC:'Y', IG:'Y', IN:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'Y' },
-  LoV: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', IN:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'R' },
+  LoV: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', IN:'Y', Inq:'Y', LoV:'G', Nec:'Y', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'R' },
   Nec: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'R', DaE:'R', Eld:'R', GK:'Y', GSC:'R', IG:'Y', IN:'Y', Inq:'Y', LoV:'Y', Nec:'G', Ork:'Y', SM:'Y', Tau:'Y', Tyr:'R' },
   Ork: { AdC:'Y', AdM:'Y', AdS:'Y', CD:'R', CSM:'Y', DaE:'Y', Eld:'Y', GK:'Y', GSC:'R', IG:'Y', IN:'Y', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'G', SM:'Y', Tau:'Y', Tyr:'R' },
   SM: { AdC:'G', AdM:'G', AdS:'G', CD:'R', CSM:'R', DaE:'R', Eld:'Y', GK:'Y', GSC:'R', IG:'G', IN:'G', Inq:'Y', LoV:'Y', Nec:'Y', Ork:'Y', SM:'G', Tau:'Y', Tyr:'R' },

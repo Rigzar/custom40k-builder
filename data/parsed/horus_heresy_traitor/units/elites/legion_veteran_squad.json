@@ -173,32 +173,13 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
-        },
-        {
-            "header": "All models got access to weapons and gear from Legacy Armories, even if the respective Legacy is not chosen. Each model may only pick from a single Legacy Armory.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
-        },
-        {
-            "header": "Up to three models that are equipped with a Power fist, a Storm bolter and Terminator armor may take any upgrade from the Terminator Squad datasheet at the given cost.",
-            "constraint": {
-                "type": "fixed_max",
-                "max": 3
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
         }
     ],
     "abilities": [
         "Combat squads, They Shall Know No Fear",
-        "Kill Team: At the start of the Deployment phase, choose a battlefield role (HQ, Troops, Elite, Fast Attack, Heavy Support). The Kill Team may re-roll one to-hit and one to-wound roll per activation against enemy units of that battlefield role."
+        "Kill Team: At the start of the Deployment phase, choose a battlefield role (HQ, Troops, Elite, Fast Attack, Heavy Support). The Kill Team may re-roll one to-hit and one to-wound roll per activation against enemy units of that battlefield role.",
+        "Legacy Armories: All models got access to weapons and gear from Legacy Armories, even if the respective Legacy is not chosen. Each model may only pick from a single Legacy Armory.",
+        "Terminator upgrades: Up to three models that are equipped with a Power fist, a Storm bolter and Terminator armor may take any upgrade from the Terminator Squad datasheet at the given cost."
     ],
     "unit_type": "Infantry",
     "keywords": [],

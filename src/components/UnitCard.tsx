@@ -10,7 +10,8 @@ import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
 import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
-import { OPT_IN_TRAITS } from '../store/army';
+import { OPT_IN_TRAITS, optInTraitApplies } from '../store/army';
+import { usesReputations, factionSymbolFile } from '../utils/factionLabel';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { weaponBaseName, weaponMode, isModeRow, resolveChoiceWeapons } from '../utils/weaponName';
 import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
@@ -36,8 +37,8 @@ import { slotLabel } from '../utils/slotLabel';
 import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
-import { nm, eqText, rl } from '../utils/localName';
-import { AbilityTokens } from './AbilityTokens';
+import { nm, eqText } from '../utils/localName';
+import { AbilityTokens, WeaponTypeTip, RuleText } from './AbilityTokens';
 import { knowsEveryPower } from '../engine/knownPowers';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
@@ -419,7 +420,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           {/* Army symbol */}
           {(() => {
             const sym = getArmySymbolUrl(data.faction, archetype ?? null, legacy ?? null, legacy2 ?? null);
-            const src = sym ?? `/faction-symbols/${data.faction.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}.svg`;
+            const src = sym ?? factionSymbolFile(data.faction);
             return (
               <img src={src} alt="" aria-hidden="true" className="shrink-0 mt-0.5 opacity-60"
                 style={{ width: 44, height: 44, filter: 'var(--icon-tint-fixed)' }} />
@@ -646,7 +647,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       })()}
 
       {/* An opt-in trait (Purity above All) is paid for and applies only on the units that use it. */}
-      {isMainFaction && !item.factionSource && !u.is_character && !u.is_vehicle && !u.is_monster && (u.has_armory_access || u.champion_has_armory) && [...OPT_IN_TRAITS].filter(tn => traitPool.includes(tn)).map(tn => {
+      {isMainFaction && !item.factionSource && [...OPT_IN_TRAITS].filter(tn => traitPool.includes(tn) && optInTraitApplies(tn, u)).map(tn => {
         const def = data.traits.find(x => x.name === tn); const pts = parseInt(String(def?.pts_unit ?? ''), 10); const on = (item.optInTraits ?? []).includes(tn);
         return (
           <div key={tn} className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700">
@@ -1793,7 +1794,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                                   return (
                                     <span className="flex flex-wrap items-center gap-x-1 leading-tight">
                                       {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
-                                      <span>{rl(w.type)}</span>
+                                      <span><WeaponTypeTip type={w.type} /></span>
                                     </span>
                                   );
                                 })()}
@@ -2110,7 +2111,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 )}
                 {veterans.length > 0 && (
                   <div className="space-y-1">
-                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('veteranAbilities')}</div>
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">{usesReputations(data.faction) ? t('reputationsLabel') : t('veteranAbilities')}</div>
                     {veterans.map(a => <ArmoryRow key={a.id} a={a} />)}
                   </div>
                 )}
@@ -2372,7 +2373,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                         <div className="text-[11px] text-zinc-200 font-medium">{nm(part.displayName)}</div>
                         {part.description && (
-                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line">{part.description}</div>
+                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed whitespace-pre-line"><RuleText text={part.description} /></div>
                         )}
                         {/* The orders an Imperial Guard officer can issue. They lived only on the Print View, so
                             nothing in the builder told a Guard player what an "order" is; grouped the way the
@@ -2684,7 +2685,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                     return (
                       <span className="flex items-center gap-1">
                         {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
-                        <span>{rl(w.type)}</span>
+                        <span><WeaponTypeTip type={w.type} /></span>
                       </span>
                     );
                   })()}

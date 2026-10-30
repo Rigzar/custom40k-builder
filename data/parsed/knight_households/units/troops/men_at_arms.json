@@ -1,0 +1,169 @@
+{
+    "name": "Men-at-Arms",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Man-at-Arms",
+            "min": 10,
+            "max": 30,
+            "points": 11
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Captain",
+            "min": 0,
+            "max": 1,
+            "points": 16
+        }
+    ],
+    "equipped_with": "Every model is equipped with: Bayonet; Las carbine; Shield.",
+    "weapons": [
+        {
+            "name": "Bayonet",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Quick(+1), Unwieldy"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Las carbine",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Instrument",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Another model may be equipped with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Household banner",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "For every 10 models, two Man-at-Arms may swap their Las carbine",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 10,
+                "count_per_n": 2
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 5
+                },
+                {
+                    "name": "Melta",
+                    "points": 11
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Las carbine"
+            ]
+        },
+        {
+            "header": "One model may be upgraded to a Captain for +5 points and gains access to weapons and gear from the Armory.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": "Captain",
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "The Peasant's Duty: Units with the <Feudal Levy> keyword gain a +1 bonus to their Leadership value if at least one <Noble> unit is within 12\" range, as long as that <Noble> unit does not possess 2 Battleshock tokens."
+    ],
+    "unit_type": "Deflect, Infantry, Parry",
+    "keywords": [
+        "Feudal Levy"
+    ],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 10,
+    "min_cost": 110
+}

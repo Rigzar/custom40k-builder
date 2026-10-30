@@ -1,0 +1,91 @@
+{
+    "name": "Scion",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Scion",
+            "min": 1,
+            "max": 1,
+            "points": 25
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "5+"
+            },
+            "name": "Baron",
+            "min": 0,
+            "max": 1,
+            "points": 40
+        }
+    ],
+    "equipped_with": "A Scion is equipped with: -.",
+    "weapons": [
+        {
+            "name": "-",
+            "range": "-",
+            "type": "-",
+            "s": "-",
+            "ap": "-",
+            "d": "-",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One Scion per army can be upgraded to a Baron for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Baron",
+            "is_unique_per_army": true
+        }
+    ],
+    "abilities": [
+        "Baron: A Baron may select an additional target.",
+        "Oath of Moment: At the beginning of the first battle round, select one enemy unit. For the rest of the battle, all friendly <Feudal Levy> and <Noble> units may re-roll one Hit roll and one Wound or Armor Penetration roll per activation when attacking the selected unit.",
+        "Pilot: Each <Knight> unit selected in this AOP must be assigned one Scion/Baron from the same AOP. Each Scion/Baron may only be assigned to one <Knight> unit. An assigned Scion/Baron must start the battle embarked within its <Knight>, even though the vehicle has no Transport Capacity, and cannot disembark unless the <Knight> is destroyed. When this happens, the Scion/Baron disembarks following the normal rules for passengers in a destroyed Transport. If there is no <Knight> without an assigned <Scion> left, a Scion/Baron may start the game inside an <Armiger> instead."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [
+        "Noble",
+        "Scion"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 25
+}

@@ -42,18 +42,7 @@
             "abilities": "Blast(4), Suppression(2)"
         }
     ],
-    "option_groups": [
-        {
-            "header": "Can only be selected if the army has the Legacy of the Lord of Iron.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
-        }
-    ],
+    "option_groups": [],
     "abilities": [
         "Move through cover, Unyielding",
         "Hammer of Wrath(3): When the model ends a Charge move in base contact with an enemy unit, it makes 3 automatic hits with its own Strength, AP 0 and Damage 1.",
@@ -77,5 +66,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 141
+    "min_cost": 141,
+    "requires_legacy": "Legacy of the Lord of Iron"
 }

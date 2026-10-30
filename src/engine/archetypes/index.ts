@@ -5,12 +5,14 @@ import { CSM_ARCHETYPES } from '../codex_csm/archetypes/index';
 import { CD_ARCHETYPES } from '../codex_chaos_daemons/archetypes/index';
 import { SM_ARCHETYPES } from '../codex_space_marines/archetypes/index';
 import { HH_ARCHETYPES } from '../codex_horus_heresy/archetypes';
+import { KNIGHT_HOUSEHOLD_ARCHETYPES } from '../codex_knight_households/archetypes';
 
 const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   ...CSM_ARCHETYPES,
   ...CD_ARCHETYPES,
   ...SM_ARCHETYPES,
   ...HH_ARCHETYPES,
+  ...KNIGHT_HOUSEHOLD_ARCHETYPES,
 
   // ── Adeptus Custodes ──────────────────────────────────────────────────────
   'Kataphraktoi': { ...BASE,
