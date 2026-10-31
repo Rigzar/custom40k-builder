@@ -241,7 +241,7 @@
         "Dakka Dakka Dakka, Ramshackle, Squadron",
         "Grot-guided: This weapon is fired with a BS of 4+ and gains Seeking.",
         "Grot Gunner: A weapon with a Grot gunner is fired with a BS of 4+.",
-        "Tellyported: Any To Wound roll of a 6 made with this weapon inflicts 1 Mortal Wound. If this weapon rolls a 6 for armour penetration, it causes a penetrating hit, regardless of whether the armour penetration result was higher than the target’s armour value or not.",
+        "Tellyported: Any To Wound roll of a 6 made with this weapon inflicts 1 Mortal Wound. If this weapon rolls a 6 for armour penetration, it causes a penetrating hit, regardless of whether the armour penetration result was higher than the target\u2019s armour value or not.",
         "Traktor: Attacks with this weapon against vehicles receive an additional +1 bonus on hit rolls.",
         "Wazbom Force Field: A Blastajet equipped with a Wazbom Force Field gains the \"Warded\" ability against ranged attacks."
     ],

@@ -1,62 +1,62 @@
 {
-  "name": "Hemlock Wraithfighter",
-  "models": [
-    {
-      "stats": {
-        "M": "12\"",
-        "WS": "-",
-        "BS": "3+",
-        "S": "5",
-        "FRONT": "11",
-        "SIDE": "11",
-        "REAR": "10",
-        "I": "5",
-        "A": "1",
-        "HP": "2"
-      },
-      "name": "Hemlock Wraithfighter",
-      "min": 1,
-      "max": 1,
-      "points": 263
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Hemlock Wraithfighter is equipped with: 2 Heavy D-scythes.",
-  "weapons": [
-    {
-      "name": "Heavy D-scythe",
-      "range": "18\"",
-      "type": "Assault 2",
-      "s": "D",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "AT(2), Auto Hit, Sunder(1)"
-    }
-  ],
-  "option_groups": [],
-  "abilities": [
-    "Deflect, Ward(5+)",
-    "Distortion: The weapon has a -1 penalty for armor penetration and wound rolls.",
-    "Mindshock Pods: Enemy units within 24\" range reduce their Leadership by -1.",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
-    "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
-  ],
-  "unit_type": "Flyer",
-  "keywords": [
-    "Craftworld"
-  ],
-  "is_vehicle": true,
-  "is_character": false,
-  "is_monster": false,
-  "is_psyker": true,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Flyers",
-  "default_size": 1,
-  "min_cost": 263
+    "name": "Hemlock Wraithfighter",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "11",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "5",
+                "A": "1",
+                "HP": "2"
+            },
+            "name": "Hemlock Wraithfighter",
+            "min": 1,
+            "max": 1,
+            "points": 263
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Hemlock Wraithfighter is equipped with: 2 Heavy D-scythes.",
+    "weapons": [
+        {
+            "name": "Heavy D-scythe",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "D",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Auto Hit, Sunder(1)"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Deflect, Ward(5+)",
+        "Distortion: The weapon has a -1 penalty for armor penetration and wound rolls.",
+        "Mindshock Pods: Enemy units within 24\" range reduce their Leadership by -1.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
+        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+    ],
+    "unit_type": "Flyer",
+    "keywords": [
+        "Craftworld"
+    ],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": true,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Flyers",
+    "default_size": 1,
+    "min_cost": 263
 }

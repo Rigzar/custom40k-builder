@@ -51,7 +51,7 @@
             "abilities": "Ammo (1), AT(2), Blast(6), Indirect, Grot Gunner, Seeking"
         },
         {
-            "name": "Kannon- Frag",
+            "name": "Kannon - Frag",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "5",
@@ -60,7 +60,7 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Kannon- Shell",
+            "name": "Kannon - Shell",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "8",

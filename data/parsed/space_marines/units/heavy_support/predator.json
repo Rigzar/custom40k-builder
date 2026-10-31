@@ -24,6 +24,24 @@
     "equipped_with": "A Predator is a single model and is equipped with: Twin flamestorm cannon.",
     "weapons": [
         {
+            "name": "Executioner plasma cannon - Standard",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Blast(4)"
+        },
+        {
+            "name": "Executioner plasma cannon - Overheating",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Blast(4), Overheating"
+        },
+        {
             "name": "Heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 2",
