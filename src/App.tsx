@@ -965,6 +965,14 @@ export default function App() {
                 }}
                 className="py-2 px-3 bg-amber-800 border border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold"
               >{t('startNewArmy')}</button>
+              {/* Discord: reach earlier lists from here instead of going through Community Armies first. */}
+              <button
+                onClick={() => {
+                  setStartChoiceOpen(false);
+                  if (loggedIn) { setCloudSavesDefaultTab('armies'); setShowCloudSaves(true); } else setShowArmies(true);
+                }}
+                className="py-2 px-3 border border-zinc-600 text-zinc-300 hover:text-zinc-100 hover:border-zinc-400 text-[12px] uppercase tracking-wider"
+              >{t('tabMyArmies')}</button>
               <button
                 onClick={() => setStartChoiceOpen(false)}
                 className="py-2 px-3 border border-zinc-700 text-zinc-400 hover:text-zinc-200 text-[12px] uppercase tracking-wider"
@@ -989,7 +997,6 @@ export default function App() {
           }}
           onResume={() => { setScreen('flow'); setStep('units'); }}
           onLoadArmy={handleLoadArmy}
-          onLoadCloudRoster={handleLoadCloudRoster}
           onShowAuth={() => setShowAuth(true)}
           onShowCloudSaves={loggedIn ? () => { setCloudSavesDefaultTab('armies'); setShowCloudSaves(true); } : undefined}
           onShowCommunity={loggedIn
