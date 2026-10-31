@@ -46,5 +46,18 @@ export function useSavedArmies() {
     persist(load().filter(s => s.id !== id));
   }
 
-  return { saves, saveArmy, deleteArmy };
+  /** Copy a save under a new id, so renaming and re-saving the open army can no longer be the only
+   *  way to keep the old version. */
+  function duplicateArmy(id: string) {
+    const current = load();
+    const src = current.find(s => s.id === id);
+    if (!src) return;
+    const taken = new Set(current.map(s => s.name));
+    let name = src.name + ' (copy)';
+    for (let n = 2; taken.has(name); n++) name = src.name + ' (copy ' + n + ')';
+    const copy: SavedArmy = { ...src, id: 'save-' + Date.now(), name, savedAt: Date.now(), state: { ...src.state, armyName: name } };
+    persist([copy, ...current]);
+  }
+
+  return { saves, saveArmy, deleteArmy, duplicateArmy };
 }

@@ -14,7 +14,7 @@ function formatDate(ts: number): string {
 
 export function SavedArmiesModal({ onLoad, onClose }: Props) {
   const t = useT();
-  const { saves, deleteArmy } = useSavedArmies();
+  const { saves, deleteArmy, duplicateArmy } = useSavedArmies();
 
   return (
     <div
@@ -52,6 +52,12 @@ export function SavedArmiesModal({ onLoad, onClose }: Props) {
                       className="text-[11px] px-3 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide transition-colors"
                     >
                       {t('loadButton')}
+                    </button>
+                    <button
+                      onClick={() => duplicateArmy(save.id)}
+                      className="text-[11px] px-2 py-1.5 border border-zinc-600 text-zinc-300 hover:bg-zinc-700 uppercase tracking-wide transition-colors"
+                    >
+                      {t('duplicate')}
                     </button>
                     <button
                       onClick={() => deleteArmy(save.id)}

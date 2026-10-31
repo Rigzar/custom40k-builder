@@ -316,7 +316,12 @@
       "p_char": 90,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_weapons": [
+          "Coruscating beam"
+        ]
+      }
     },
     {
       "name": "Stone of siphoning",

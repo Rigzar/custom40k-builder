@@ -38,7 +38,7 @@ import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost, deploymentUpgradeCap } from '../engine/deploymentUpgrades';
 import { nm, eqText } from '../utils/localName';
-import { AbilityTokens, WeaponTypeTip, RuleText } from './AbilityTokens';
+import { AbilityTokens, WeaponTypeTip, RuleText, UnitTypeTip } from './AbilityTokens';
 import { knowsEveryPower } from '../engine/knownPowers';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
@@ -482,7 +482,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 ? <><span className="line-through text-zinc-600">{unitTypeLabel(uiLang, u.unit_type)}</span> → <span className="text-violet-400">{unitTypeLabel(uiLang, [optionSetUnitType, ...optionAddedUnitTypes].join(', '))}</span></>
                 : optionAddedUnitTypes.length > 0
                   ? <><span>{unitTypeLabel(uiLang, u.unit_type)}</span><span className="text-violet-400">, {unitTypeLabel(uiLang, optionAddedUnitTypes.join(', '))}</span></>
-                  : unitTypeLabel(uiLang, unitTypeDisplay)}
+                  : <UnitTypeTip lang={uiLang} raw={unitTypeDisplay} />}
             </span>
             {blackCrusadeChampion ? (
               <span className="inline-flex items-center gap-0.5 ml-1">

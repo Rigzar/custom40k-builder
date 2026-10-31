@@ -1,13 +1,16 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { lookupRule, lookupWeaponType } from '../data/coreRules';
 import { rl } from '../utils/localName';
+import { lookupUnitType } from '../data/unitTypeRules';
+import { unitTypeLabel } from '../utils/unitTypeLabel';
+import type { Language } from '../i18n';
 
 /**
  * One weapon ability with its rule text in a popover: shown on mouse hover, and on a tap for touch screens (a native `title`
  * tooltip never opens on a phone). The box is positioned from the token's rectangle with `position: fixed`, so a table with
  * overflow clipping cannot cut it off.
  */
-function AbilityTip({ label, name, description }: { label: string; name: string; description: string }) {
+export function AbilityTip({ label, name, description }: { label: string; name: string; description: string }) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const ref = useRef<HTMLSpanElement>(null);
   const pointer = useRef('mouse');
@@ -89,6 +92,24 @@ export function RuleText({ text }: { text: string }) {
         const m = p.match(/^["“]([^"”\n]{2,40})["”]$/);
         const rule = m ? lookupRule(m[1].trim()) : null;
         return rule ? <AbilityTip key={i} label={p} name={rule.displayName} description={rule.description} /> : <Fragment key={i}>{p}</Fragment>;
+      })}
+    </>
+  );
+}
+
+/** A unit's type line ("Character model, Infantry") with the Core Rules text of each type on hover or tap. */
+export function UnitTypeTip({ lang, raw }: { lang: Language; raw: string }) {
+  return (
+    <>
+      {raw.split(/,\s*/).filter(Boolean).map((part, i) => {
+        const rule = lookupUnitType(part);
+        const label = unitTypeLabel(lang, part);
+        return (
+          <Fragment key={i}>
+            {i > 0 && ', '}
+            {rule ? <AbilityTip label={label} name={rule.name} description={rule.description} /> : label}
+          </Fragment>
+        );
       })}
     </>
   );

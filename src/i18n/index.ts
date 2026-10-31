@@ -55,7 +55,7 @@ export type TranslationKey =
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
   | 'addUnit' | 'removeUnit' | 'size' | 'mark' | 'options' | 'armory' | 'psychic' | 'prayers'
-  | 'validation' | 'print' | 'back' | 'close' | 'save' | 'delete' | 'export' | 'import'
+  | 'validation' | 'print' | 'back' | 'close' | 'save' | 'delete' | 'duplicate' | 'export' | 'import'
   | 'unitName' | 'customNamePlaceholder'
   | 'weapon' | 'range' | 'strength' | 'ap' | 'damage'
   | 'ranged' | 'melee' | 'equipment' | 'abilities' | 'veteranAbilities' | 'psychicPowers' | 'keywords'
@@ -628,6 +628,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     close: 'Close',
     save: 'Save',
     delete: 'Delete',
+    duplicate: 'Duplicate',
     export: 'Export',
     import: 'Import',
     unitName: 'Unit name',
@@ -1813,6 +1814,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     close: 'Schließen',
     save: 'Speichern',
     delete: 'Löschen',
+    duplicate: 'Duplizieren',
     export: 'Exportieren',
     import: 'Importieren',
     unitName: 'Einheitenname',
@@ -2996,6 +2998,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     close: 'Cerrar',
     save: 'Guardar',
     delete: 'Eliminar',
+    duplicate: 'Duplicar',
     export: 'Exportar',
     import: 'Importar',
     unitName: 'Nombre de unidad',
