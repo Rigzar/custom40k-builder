@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187h_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -56,8 +56,8 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "{v}: New faction Knight Households, Core Rules 1.40",
-    intro: "Plus Save as copy, rule tips on unit types, and fixes from the new players.",
+    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
+    intro: "Plus Eldar 1.9, Genestealer Cults 1.5, and the Knights now only in Knight Households.",
     install: "",
     sections: [
       { label: "General", rows: [
@@ -72,6 +72,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Factions","The faction list under Build Army is alphabetical."],
         ["Build Army","It now always opens a window with a My Armies button that shows your lists; click one to keep editing."],
         ["Opening lists","Opening another list while one is open asks first: save, open without saving, or cancel."],
+        ["Chaos Space Marines","Hydra: +1 Elite per AOP. Night Haunter: +1 Fast Attack per AOP. Iron Lord: one Imperial Guard vehicle Heavy Support choice per AOP."],
+        ["Space Marines","The Predator can swap to the Executioner plasma cannon (+74)."],
+        ["Eldar","Rangers and Shroud Runners can swap their long rifles for the Ranger needle rifle."],
+        ["Knights","Armiger, War Dog, Knight Castellan, Paladin, Desecrator and Rampager are gone from the codices: they are in Knight Households."],
+        ["Armory","Imperial Guard Krak grenades are for Bikes only; Harlequins lose the Teleport homing beacon."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -97,8 +102,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "{v}: Neue Fraktion Knight Households, Core Rules 1.40",
-    intro: "Dazu Als Kopie speichern, Regel-Tooltips für Einheitentypen und Korrekturen aus den Meldungen neuer Spieler.",
+    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
+    intro: "Dazu Eldar 1.9, Genestealer Cults 1.5, und die Knights gibt es nur noch bei Knight Households.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
@@ -113,6 +118,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
         ["Armee bauen","Öffnet jetzt immer ein Fenster mit dem Knopf Meine Armeen, der deine Listen zeigt; ein Klick zum Weiterbearbeiten."],
         ["Listen öffnen","Beim Öffnen einer anderen Liste wird gefragt: speichern, ohne Speichern öffnen oder abbrechen."],
+        ["Chaos Space Marines","Hydra: +1 Elite pro AOP. Night Haunter: +1 Fast Attack pro AOP. Iron Lord: ein Imperial-Guard-Fahrzeug aus Heavy Support pro AOP."],
+        ["Space Marines","Der Predator kann gegen die Executioner plasma cannon getauscht werden (+74)."],
+        ["Eldar","Rangers und Shroud Runners können ihre Long Rifles gegen das Ranger needle rifle tauschen."],
+        ["Knights","Armiger, War Dog, Knight Castellan, Paladin, Desecrator und Rampager sind aus den Codizes verschwunden: sie sind bei Knight Households."],
+        ["Armory","Imperial-Guard-Krak-Granaten nur für Bikes; die Harlequins verlieren den Teleport homing beacon."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -138,8 +148,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "{v}: Nueva facción Knight Households, Core Rules 1.40",
-    intro: "Además, Guardar como copia, reglas al pasar el ratón por los tipos de unidad y arreglos de los jugadores nuevos.",
+    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
+    intro: "Además Eldar 1.9, Genestealer Cults 1.5, y los Knights ahora solo están en Knight Households.",
     install: "",
     sections: [
       { label: "General", rows: [
@@ -154,6 +164,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
         ["Construir ejército","Ahora abre siempre una ventana con un botón Mis ejércitos que muestra tus listas; un clic para seguir editando."],
         ["Abrir listas","Al abrir otra lista con una abierta, pregunta: guardar, abrir sin guardar o cancelar."],
+        ["Chaos Space Marines","Hidra: +1 Élite por AOP. Night Haunter: +1 Ataque Rápido por AOP. Iron Lord: un vehículo de Apoyo Pesado de la Imperial Guard por AOP."],
+        ["Space Marines","El Predator puede cambiar al Executioner plasma cannon (+74)."],
+        ["Eldar","Rangers y Shroud Runners pueden cambiar sus long rifles por el Ranger needle rifle."],
+        ["Knights","Armiger, War Dog, Knight Castellan, Paladin, Desecrator y Rampager ya no están en los códices: están en Knight Households."],
+        ["Armería","Las Krak grenades de la Imperial Guard son solo para Bikes; los Harlequins pierden el Teleport homing beacon."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -179,8 +194,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "{v}: Новая фракция Knight Households, Core Rules 1.40",
-    intro: "А также «Сохранить как копию», подсказки о типах юнитов и исправления по сообщениям новых игроков.",
+    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
+    intro: "А также Eldar 1.9, Genestealer Cults 1.5, и Рыцари теперь только в Knight Households.",
     install: "",
     sections: [
       { label: "Общее", rows: [
@@ -195,6 +210,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
         ["Собрать армию","Теперь всегда открывает окно с кнопкой «Мои армии», показывающей ваши списки; клик, чтобы продолжить правку."],
         ["Открытие списков","При открытии другого списка спрашивает: сохранить, открыть без сохранения или отменить."],
+        ["Chaos Space Marines","Гидра: +1 Элита на AOP. Night Haunter: +1 Fast Attack на AOP. Iron Lord: один транспорт тяжёлой поддержки Imperial Guard на AOP."],
+        ["Space Marines","Predator может заменить оружие на Executioner plasma cannon (+74)."],
+        ["Eldar","Rangers и Shroud Runners могут заменить long rifle на Ranger needle rifle."],
+        ["Рыцари","Armiger, War Dog, Knight Castellan, Paladin, Desecrator и Rampager убраны из кодексов: они в Knight Households."],
+        ["Арсенал","Krak-гранаты Imperial Guard только для байков; у Harlequins убран Teleport homing beacon."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -220,8 +240,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "{v}: 新勢力 Knight Households、Core Rules 1.40",
-    intro: "さらに「コピーとして保存」、ユニットタイプのルール表示、新規プレイヤーからの報告の修正。",
+    title: "{v}: Space Marines 1.12、Imperial Guard 1.11、Tyranids 1.12、Chaos Space Marines 1.11",
+    intro: "さらに Eldar 1.9、Genestealer Cults 1.5、ナイトは Knight Households のみになりました。",
     install: "",
     sections: [
       { label: "全般", rows: [
@@ -236,6 +256,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
         ["軍勢を作る","常にウィンドウが開き、リストを表示する「マイアーミー」ボタンから編集を続けられます。"],
         ["リストを開く","別のリストを開くときに、保存・保存せず開く・キャンセルを確認します。"],
+        ["Chaos Space Marines","ヒドラ：AOPごとにエリート+1。ナイトホーンター：AOPごとにファストアタック+1。アイアンロード：AOPごとにインペリアルガードの車両ヘビーサポート1つ。"],
+        ["Space Marines","プレデターは Executioner plasma cannon (+74) に交換できます。"],
+        ["Eldar","レンジャーとシュラウドランナーは Ranger needle rifle に交換できます。"],
+        ["ナイト","Armiger、War Dog、Knight Castellan、Paladin、Desecrator、Rampager はコデックスから削除され、Knight Households にあります。"],
+        ["アーモリー","インペリアルガードのクラックグレネードはバイク専用。ハーレクインから Teleport homing beacon を削除。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],

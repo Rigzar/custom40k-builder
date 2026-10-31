@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'g';
+export const REVISION = 'h';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -60,6 +60,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       "FACTION LIST IN ALPHABETICAL ORDER (Dominic). The factions under Build Army are sorted by name in each group (Chaos, Imperium, Xenos), in your language.",
       "MY ARMIES WHEN BUILDING (Discord). Build Army now always opens a window with a My Armies button that shows your saved lists; one click opens one for editing, without going through Community Armies first. With no list open, only the \"will be discarded\" warning is left out.",
       "ASKS BEFORE REPLACING A LIST (Discord). Opening another list (My Armies, your cloud lists, a Community army) while one is open now asks first: save this one and open the other, open without saving, or cancel. Before, the open list was replaced and its unsaved changes were lost.",
+      "CODEX UPDATES. Space Marines 1.12 (the Predator can swap to the Executioner plasma cannon for +74; Machine spirit says \"use one weapon\"), Imperial Guard 1.11 (Krak grenades are for Bikes only), Tyranids 1.12 (Synapse affects friendly Tyranid units), Chaos Space Marines 1.11 (Legacy of the Hydra: +1 Elite per AOP; Night Haunter: +1 Fast Attack per AOP; Iron Lord: one Imperial Guard vehicle Heavy Support choice per AOP), Eldar 1.9 (Rangers and Shroud Runners can swap to the Ranger needle rifle), Genestealer Cults 1.5, and small Armory fixes in Custodes, Grey Knights and Harlequins (the Teleport homing beacon is gone).",
+      "THE KNIGHTS LEAVE THE CODICES (Escalation 1.0). Armiger, War Dog, Knight Castellan, Knight Paladin, Knight Desecrator and Knight Rampager are removed from the codices, as the author of Knight Households confirmed: they live in Knight Households now. A saved list that holds one of them simply loses that unit.",
     ],
   },
   {
