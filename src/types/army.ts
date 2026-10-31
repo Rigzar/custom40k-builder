@@ -66,6 +66,11 @@ export interface RosterEntry {
    */
   retinue?: boolean;
   /**
+   * The single Imperial Guard vehicle Heavy Support choice per AOP that Legacy of the Iron Lord (CSM 1.11) allows.
+   * See engine/ironLordGuard.ts.
+   */
+  ironLordGuard?: boolean;
+  /**
    * Second-level nested ally, e.g. when factionSource = 'chaos_space_marines' (the player's
    * Allied Detachment) and that detachment's OWN archetype (e.g. Plaguehost) intrinsically
    * grants it Chaos Daemons units — nestedFaction = 'chaos_daemons'. factionSource still names

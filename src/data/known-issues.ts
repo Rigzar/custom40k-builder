@@ -3,9 +3,9 @@ import type { KnownIssue } from './changelog';
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: "ki-csm-iron-lord-imperial-guard-vehicle-01",
-    status: "known",
-    title: "Chaos Space Marines 1.11: the Iron Lord's Imperial Guard vehicle is not enforced",
-    description: "ADDED 2026-10-31 from the CSM 1.11 sheet. Legacy of the Iron Lord now reads: \"The army may include a single vehicle Heavy Support choice from codex Imperial Guard per AOP.\" The text is shown on the Legacy, but the builder does not let you add that vehicle: there is no per-AOP cross-codex pick in the engine yet. Workaround: take an Imperial Guard Allied Detachment. The other two new Legacy lines (Hydra: +1 Elite per AOP; Night Haunter: +1 Fast Attack per AOP) ARE enforced (scripts/check_csm_legacy_slot_bonus.ts). Also in 1.11: Summoning now says characters cannot join Chaos Daemons units \"and vice versa\" (already true: characters never attach to a unit of another codex), and Foetid Virion is a single model (already so in the data).",
+    status: "fixed",
+    title: "Chaos Space Marines 1.11: the Iron Lord's Imperial Guard vehicle",
+    description: "FIXED 2026-10-31. Legacy of the Iron Lord (CSM sheet 1.11) reads: \"The army may include a single vehicle Heavy Support choice from codex Imperial Guard per AOP.\" With the Legacy picked, the Heavy Support list now offers the Imperial Guard Heavy Support vehicles under their own header; the pick is a normal Imperial Guard roster entry (priced and armed from the Imperial Guard sheet) that takes one Heavy Support slot, limited to one per AOP, and is refused without the Legacy, when Imperial Guard is already your Allied Detachment, or for a unit that is not an Imperial Guard Heavy Support vehicle. Guard: scripts/check_iron_lord_guard_vehicle.ts. Also in 1.11: Hydra +1 Elite and Night Haunter +1 Fast Attack per AOP are enforced (scripts/check_csm_legacy_slot_bonus.ts); Summoning \"and vice versa\" was already true (characters never attach to a unit of another codex); Foetid Virion was already a single model.",
   },
   {
     id: "ki-knight-households-new-faction-01",

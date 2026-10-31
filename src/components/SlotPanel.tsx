@@ -5,6 +5,7 @@ import { SLOT_ORDER, ALLIED_AOP, engagementFor } from '../engine/engagements';
 import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
 import { alliedSlotFactor } from '../engine/navyRules';
 import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engine/legendaryRetinue';
+import { ironLordGuardKeys, ironLordGuardEligible } from '../engine/ironLordGuard';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, pointCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
@@ -26,6 +27,8 @@ interface SlotEntry {
   factionSource?: string;
   /** A Legendary Retinue model (Imperial Navy / Inquisition HQ): added flagged so the validator shares one HQ slot among them. */
   retinue?: boolean;
+  /** The Imperial Guard vehicle Heavy Support choice of Legacy of the Iron Lord (CSM 1.11). */
+  ironLordGuard?: boolean;
   /**
    * True when the unit is injected by the active archetype (e.g. Horus Heresy via Legion,
    * daemons via Daemonkin/Plaguehost/cult archetypes). These are OWN units of the army, not
@@ -414,6 +417,23 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const aopMult = getAopState(army, primaryData, engagement, rule, alliedFaction ?? undefined,
     engagement === 'skirmish' ? undefined : freeSlots).unlocked;
 
+  // Legacy of the Iron Lord (CSM 1.11): "a single vehicle Heavy Support choice from codex Imperial Guard per AOP".
+  {
+    const eng0 = engagementFor(engagement);
+    const perAop = eng0.multiAop ? aopMult : 1;
+    const taken = army.filter(e => e.ironLordGuard).length;
+    for (const key of ironLordGuardKeys(primaryData.faction, store.legacy, store.legacy2)) {
+      const fd = primaryData.allied?.[key];
+      if (!fd) continue;
+      const disabledReason = key === alliedFaction ? t('ironLordGuardSameAsAlly') : taken >= perAop ? t('ironLordGuardFull') : undefined;
+      for (const name of fd.slot_to_units['Heavy Support'] ?? []) {
+        const u = fd.units[name];
+        if (!u || !ironLordGuardEligible(u)) continue;
+        effectiveSlotUnits['Heavy Support'].push({ name, factionSource: key, injected: true, ironLordGuard: true, groupLabel: 'Imperial Guard (Legacy of the Iron Lord)', minCost: u.min_cost, disabledReason });
+      }
+    }
+  }
+
   return (
     <div className="divide-y divide-zinc-800/50">
       {SLOT_ORDER.map(slot => {
@@ -492,7 +512,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           </div>
                         )}
                         <button
-                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource, undefined, entry.retinue); } }}
+                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource, undefined, entry.retinue, entry.ironLordGuard); } }}
                           disabled={!!entry.disabledReason}
                           title={entry.disabledReason}
                           className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${

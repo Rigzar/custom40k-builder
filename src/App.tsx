@@ -21,6 +21,7 @@ import { getArchetypeRule } from './engine/archetypes';
 import { getArmySymbolPair } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
 import { retinueFactionKeys } from './engine/legendaryRetinue';
+import { ironLordGuardKeys } from './engine/ironLordGuard';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
 import { useSavedArmies, type SavedArmy, AUTOSAVE_ID, AUTOSAVE_DISMISSED_KEY } from './hooks/useSavedArmies';
@@ -371,7 +372,7 @@ export default function App() {
     const assassinKey = getAssassinAccessAlignment(data.faction) ? 'assassins' : null;
     const chamberMilitantKey = chamberMilitantOrdo(data.faction, archetype) ? 'inquisition' : null;
     const keys = [...new Set(
-      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey, chamberMilitantKey, ...retinueFactionKeys(data.faction, archetype)]
+      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey, chamberMilitantKey, ...retinueFactionKeys(data.faction, archetype), ...ironLordGuardKeys(data.faction, legacy, legacy2)]
         .filter((k): k is string => !!k)
     )];
     for (const key of keys) {

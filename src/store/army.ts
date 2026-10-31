@@ -284,7 +284,7 @@ export interface ArmyStore extends ArmyState {
    */
   setLegacyArmoryLock: (id: string, key: string | null) => void;
 
-  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean) => void;
+  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => void;
   removeUnit: (id: string) => void;
   duplicateUnit: (id: string) => void;
   updateUnit: (id: string, patch: Partial<RosterEntry>) => void;
@@ -625,7 +625,7 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
-      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean) => {
+      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => {
         const s = get();
         if (!s.data) return;
         const u = nestedFaction
@@ -656,6 +656,7 @@ export const useArmyStore = create<ArmyStore>()(
           factionSource,
           ...(nestedFaction ? { nestedFaction } : {}),
           ...(retinue ? { retinue: true } : {}),
+          ...(ironLordGuard ? { ironLordGuard: true } : {}),
           size: computedSize,
           mark: autoMark,
           optionQty: {},

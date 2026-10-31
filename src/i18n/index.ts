@@ -123,7 +123,7 @@ export type TranslationKey =
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
-  | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
+  | 'ironLordGuardFull' | 'ironLordGuardSameAsAlly' | 'valIronLordGuardMax' | 'valIronLordGuardNoLegacy' | 'valIronLordGuardUnit' | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
@@ -1039,6 +1039,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     retinueFull: 'The Legendary Retinue is full (up to 4 models).',
     retinueSameAsAlly: 'This codex is your allied detachment; pick another one for the Retinue.',
     valRetinueMax: 'Legendary Retinue: up to {max} models (have {count}).',
+    ironLordGuardFull: "Legacy of the Iron Lord: one Imperial Guard vehicle per AOP is already taken.",
+    ironLordGuardSameAsAlly: "Imperial Guard is your Allied Detachment: take the vehicle there.",
+    valIronLordGuardMax: "Legacy of the Iron Lord: a single Imperial Guard vehicle per AOP (up to {max}, have {count}).",
+    valIronLordGuardNoLegacy: "{unit}: an Imperial Guard vehicle needs the Legacy of the Iron Lord.",
+    valIronLordGuardUnit: "{unit}: Legacy of the Iron Lord only allows a vehicle from the Imperial Guard Heavy Support section.",
     valRetinueFactionTwice: 'Legendary Retinue: only one model per codex ({faction} has {count}).',
     valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} comes from {faction}, which this army cannot take Retinue models from.',
     valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} cannot be a Retinue model (it must be an HQ Infantry model that is not unique per army).',
@@ -2230,6 +2235,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     retinueFull: 'Die Legendary Retinue ist voll (bis zu 4 Modelle).',
     retinueSameAsAlly: 'Dieser Codex ist dein Verbündeter; wähle für die Retinue einen anderen.',
     valRetinueMax: 'Legendary Retinue: bis zu {max} Modelle (hat {count}).',
+    ironLordGuardFull: "Vermächtnis des Iron Lord: Pro AOP ist bereits ein Imperial-Guard-Fahrzeug gewählt.",
+    ironLordGuardSameAsAlly: "Imperial Guard ist dein verbündetes Kontingent: wähle das Fahrzeug dort.",
+    valIronLordGuardMax: "Vermächtnis des Iron Lord: ein Imperial-Guard-Fahrzeug pro AOP (bis zu {max}, hat {count}).",
+    valIronLordGuardNoLegacy: "{unit}: Ein Imperial-Guard-Fahrzeug braucht das Vermächtnis des Iron Lord.",
+    valIronLordGuardUnit: "{unit}: Das Vermächtnis des Iron Lord erlaubt nur ein Fahrzeug aus dem Heavy Support der Imperial Guard.",
     valRetinueFactionTwice: 'Legendary Retinue: nur ein Modell pro Codex ({faction} hat {count}).',
     valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} stammt aus {faction}, woher diese Armee keine Retinue-Modelle nehmen darf.',
     valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} kann kein Retinue-Modell sein (es muss ein HQ-Infanteriemodell sein, das nicht einmalig pro Armee ist).',
@@ -3419,6 +3429,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     retinueFull: 'La Legendary Retinue está completa (hasta 4 modelos).',
     retinueSameAsAlly: 'Este códice es tu destacamento aliado; elige otro para la Retinue.',
     valRetinueMax: 'Legendary Retinue: hasta {max} modelos (tiene {count}).',
+    ironLordGuardFull: "Legacy of the Iron Lord: ya hay un vehículo de la Imperial Guard por AOP.",
+    ironLordGuardSameAsAlly: "La Imperial Guard es tu Destacamento Aliado: toma el vehículo allí.",
+    valIronLordGuardMax: "Legacy of the Iron Lord: un solo vehículo de la Imperial Guard por AOP (hasta {max}, tiene {count}).",
+    valIronLordGuardNoLegacy: "{unit}: un vehículo de la Imperial Guard necesita el Legacy of the Iron Lord.",
+    valIronLordGuardUnit: "{unit}: el Legacy of the Iron Lord solo permite un vehículo del Apoyo Pesado de la Imperial Guard.",
     valRetinueFactionTwice: 'Legendary Retinue: solo un modelo por códice ({faction} tiene {count}).',
     valRetinueFactionNotAllowed: 'Legendary Retinue: {unit} viene de {faction}, de la que este ejército no puede tomar modelos para la Retinue.',
     valRetinueUnitNotAllowed: 'Legendary Retinue: {unit} no puede ser un modelo de la Retinue (debe ser un modelo de Infantería de HQ que no sea único por ejército).',

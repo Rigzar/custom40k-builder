@@ -1,6 +1,7 @@
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
 import { alliedSlotFactor } from './navyRules';
+import { ironLordGuardKeys, ironLordGuardEligible } from './ironLordGuard';
 import { retinueFactionKeys, retinueEligible, isUniqueEquipment, computeRetinueFreeSlots, RETINUE_MAX_MODELS } from './legendaryRetinue';
 import { factionLabel } from '../utils/factionLabel';
 import { jaName } from '../utils/localName';
@@ -3393,6 +3394,25 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       return `${cap} ${slotLabel(language, sl)}`;
     }).join(', ');
     items.push({ type: 'warn', text: T('valSecondAopNeedsFull', { list: fillList }) });
+  }
+
+  // Legacy of the Iron Lord (CSM 1.11): "The army may include a single vehicle Heavy Support choice from codex Imperial Guard per AOP."
+  {
+    const picks = state.army.filter(e => e.ironLordGuard);
+    if (picks.length > 0) {
+      const keys = ironLordGuardKeys(data.faction, state.legacy, state.legacy2);
+      const perAop = eng.multiAop ? aopState.unlocked : 1;
+      if (picks.length > perAop) items.push({ type: 'error', text: T('valIronLordGuardMax', { max: perAop, count: picks.length }) });
+      for (const m of picks) {
+        const name = m.customName || m.unitName;
+        const key = m.factionSource ?? '';
+        if (!keys.includes(key)) { items.push({ type: 'error', text: T('valIronLordGuardNoLegacy', { unit: name }) }); continue; }
+        if (key === state.alliedFaction) items.push({ type: 'error', text: T('ironLordGuardSameAsAlly') });
+        const fd = data.allied?.[key];
+        const u = fd?.units[m.unitName];
+        if (fd && u && (!(fd.slot_to_units['Heavy Support'] ?? []).includes(m.unitName) || !ironLordGuardEligible(u))) items.push({ type: 'error', text: T('valIronLordGuardUnit', { unit: name }) });
+      }
+    }
   }
 
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units

@@ -68,7 +68,7 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
   //     Siege Breakerᵀ (5/5)
   'Legacy of the Iron Lord': [
     { category: 'mechanic',    text: 'Army gains access to the Iron Warriors Armory.' },
-    { category: 'in_game',     text: 'The army may include a single vehicle Heavy Support choice from codex "Imperial Guard" per AOP (codex 1.11) - not enforced by the builder: use an Allied Detachment.' },
+    { category: 'mechanic',    text: 'The army may include a single vehicle Heavy Support choice from codex "Imperial Guard" per AOP (codex 1.11); see engine/ironLordGuard.ts.' },
     { category: 'restriction', text: 'Only units with no Mark or the Mark of Chaos Undivided may be selected.' },
     { category: 'restriction', text: 'Axe of the Forgemaster and Nest of Mechaserpents: Only for Warpsmiths.' },
   ],
