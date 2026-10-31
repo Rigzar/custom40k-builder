@@ -1,3 +1,5 @@
+import { lookupRuleGeneric } from './coreRules';
+
 /**
  * Core Rules "Unit Types" in short form, for the hover / tap tip on a unit card's type line.
  * Wording follows Custom40k Core Rules (Unit Types section); a type with no section there has no entry.
@@ -26,5 +28,10 @@ export function lookupUnitType(part: string): UnitTypeRule | null {
   const s = part.toLowerCase().replace(/\(.*?\)/g, '').replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
   if (s === 'jetbike') return RULES['jet bike'];
   for (const k of KEYS) if (s === k) return RULES[k];
+  // Types whose text lives in the rules glossary (Escalation supplement, the Squadron special rule), not in this table.
+  if (s === 'super heavy vehicle' || s === 'gargantuan creature' || s === 'squadron') {
+    const g = lookupRuleGeneric(s === 'super heavy vehicle' ? 'super-heavy vehicle' : s);
+    return g ? { name: g.displayName, description: g.description } : null;
+  }
   return null;
 }
