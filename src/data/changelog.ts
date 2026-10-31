@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'h';
+export const REVISION = 'g';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -60,7 +60,6 @@ export const CHANGELOG: ChangelogEntry[] = [
       "FACTION LIST IN ALPHABETICAL ORDER (Dominic). The factions under Build Army are sorted by name in each group (Chaos, Imperium, Xenos), in your language.",
       "MY ARMIES WHEN BUILDING (Discord). Build Army now always opens a window with a My Armies button that shows your saved lists; one click opens one for editing, without going through Community Armies first. With no list open, only the \"will be discarded\" warning is left out.",
       "ASKS BEFORE REPLACING A LIST (Discord). Opening another list (My Armies, your cloud lists, a Community army) while one is open now asks first: save this one and open the other, open without saving, or cancel. Before, the open list was replaced and its unsaved changes were lost.",
-      "CHAOS SPACE MARINES CODEX 1.11. Legacy of the Hydra adds one Elite selection per AOP and Legacy of the Night Haunter one Fast Attack selection per AOP; the Legacy texts match the sheet. The Iron Lord's single Imperial Guard vehicle Heavy Support choice per AOP is listed but not enforced yet (use an Allied Detachment). The rest of the sheet change was a wording fix.",
     ],
   },
   {

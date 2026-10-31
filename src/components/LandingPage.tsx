@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187h_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187g_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -72,7 +72,6 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Factions","The faction list under Build Army is alphabetical."],
         ["Build Army","It now always opens a window with a My Armies button that shows your lists; click one to keep editing."],
         ["Opening lists","Opening another list while one is open asks first: save, open without saving, or cancel."],
-        ["Chaos Space Marines","Codex 1.11: Hydra +1 Elite per AOP, Night Haunter +1 Fast Attack per AOP."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -114,7 +113,6 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
         ["Armee bauen","Öffnet jetzt immer ein Fenster mit dem Knopf Meine Armeen, der deine Listen zeigt; ein Klick zum Weiterbearbeiten."],
         ["Listen öffnen","Beim Öffnen einer anderen Liste wird gefragt: speichern, ohne Speichern öffnen oder abbrechen."],
-        ["Chaos Space Marines","Codex 1.11: Hydra +1 Elite pro AOP, Night Haunter +1 Fast Attack pro AOP."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -156,7 +154,6 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
         ["Construir ejército","Ahora abre siempre una ventana con un botón Mis ejércitos que muestra tus listas; un clic para seguir editando."],
         ["Abrir listas","Al abrir otra lista con una abierta, pregunta: guardar, abrir sin guardar o cancelar."],
-        ["Chaos Space Marines","Códex 1.11: Hidra +1 Élite por AOP, Night Haunter +1 Ataque Rápido por AOP."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -198,7 +195,6 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
         ["Собрать армию","Теперь всегда открывает окно с кнопкой «Мои армии», показывающей ваши списки; клик, чтобы продолжить правку."],
         ["Открытие списков","При открытии другого списка спрашивает: сохранить, открыть без сохранения или отменить."],
-        ["Chaos Space Marines","Кодекс 1.11: Гидра +1 Элита на AOP, Night Haunter +1 Fast Attack на AOP."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -240,7 +236,6 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
         ["軍勢を作る","常にウィンドウが開き、リストを表示する「マイアーミー」ボタンから編集を続けられます。"],
         ["リストを開く","別のリストを開くときに、保存・保存せず開く・キャンセルを確認します。"],
-        ["Chaos Space Marines","コデックス1.11：ヒドラはAOPごとにエリート+1、ナイトホーンターはファストアタック+1。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],
