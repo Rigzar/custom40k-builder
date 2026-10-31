@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187g_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the

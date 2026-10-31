@@ -202,11 +202,9 @@ export interface ResolvedProfile {
  * thing. Derived from the UNIT at read time rather than stored on the selection, so a list saved
  * before this fix heals itself on open.
  */
-export function findArmoryItem(
-  data: FactionData, sel: ArmorySelection, forVehicle?: boolean,
-): ArmoryItem | undefined {
-  const section = sel.section as keyof typeof data.armory_general;
-  const sources = [
+/** Every armoury an item can be bought from, own codex first (the order findArmoryItem searches them in). */
+function armorySources(data: FactionData) {
+  return [
     data.armory_general,
     ...Object.values(data.armory_marks),
     ...Object.values(data.armory_legions),
@@ -231,6 +229,13 @@ export function findArmoryItem(
     // Last of all: these are not this army's own gear, they are one item it was allowed to fetch.
     ...Object.values(data.borrowable_armories ?? {}),
   ];
+}
+
+export function findArmoryItem(
+  data: FactionData, sel: ArmorySelection, forVehicle?: boolean,
+): ArmoryItem | undefined {
+  const section = sel.section as keyof typeof data.armory_general;
+  const sources = armorySources(data);
   for (const armory of sources) {
     const matches = (armory[section] as ArmoryItem[]).filter(a => a.name === sel.itemName);
     if (!matches.length) continue;
@@ -1605,8 +1610,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     const ai = findArmoryItem(data, sel, !!unit.is_vehicle);
     if (ai?.effect) applyEffect(ai.effect);
     for (const grantedName of ai?.effect?.grants_weapons ?? []) {
-      const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
-        .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+      // The weapon is looked up in the armoury the ITEM comes from first (a Mark armoury sells its own "Coruscating beam"
+      // for Lord of the Silver Tower), then in the general one, then anywhere else.
+      const pools = armorySources(data);
+      const own = pools.find(p => ((p[sel.section as keyof typeof p] ?? []) as import('../types/data').ArmoryItem[]).includes(ai));
+      const find = (p?: (typeof pools)[number]) => ((p?.weapons ?? []) as import('../types/data').ArmoryItem[]).find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+      const granted = find(own) ?? find(data.armory_general) ?? pools.map(find).find(Boolean);
       if (granted) pushGrantedWeapon(granted);
     }
   }

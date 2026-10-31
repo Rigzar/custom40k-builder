@@ -44,7 +44,12 @@
       "term_compat": true,
       "desc": "This model gains the \"Magnificent Gleam\" weapon. It and its attached unit gains the \"Move Through Cover\" ability. Unique. Emissaries Imperatus only.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_weapons": [
+          "Magnificent Gleam"
+        ]
+      }
     },
     {
       "name": "Praesidius",

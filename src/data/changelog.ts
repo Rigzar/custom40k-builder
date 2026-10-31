@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'f';
+export const REVISION = 'g';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -53,7 +53,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "CORE RULES 1.40 (Balance 5.05). The rulebook gained a \"Welcome to Custom40k!\" introduction (a different approach to army building, no named characters, a living community ruleset, finding games with the Matchfinder), Knight Households joined the list of codices, and in the Allied Matrix the Leagues of Votann now read Battle Brothers with themselves instead of Allies of Convenience. The app follows the matrix cell; the wiki rules page shows the new version.",
       "WEAPONS: A SHORTER NAME NO LONGER RIDES ALONG WITH A LONGER ONE. An option that names \"a Cyclone missile launcher\" or \"a Heavy flamer\" also contains the words \"missile launcher\" and \"flamer\", so buying it showed a plain Missile launcher on the Contemptor Dreadnought (Horus Heresy supplement) and a stray Flamer on the Imperial Guard Company Command Squad. The longer weapon is the one named now. In the option lists, a choice written \"X with Y\" (for example \"Dreadnought close combat weapon with Storm bolter\") shows the profiles of both weapons.",
       "SAVED ARMIES CAN BE DUPLICATED (Discord). In My Armies each list has a Duplicate button that saves a copy (\"Name (copy)\"), so you can rename and keep changing one while the old version stays.",
-      "THOUSAND SONS — LORD OF THE SILVER TOWER SHOWS ITS WEAPON (Discord). The upgrade now grants the Coruscating beam, so its profile appears on the unit card, in the print view and in battle view.",
+      "ARMORY ITEMS THAT GIVE A WEAPON NOW SHOW IT (Discord, Archon of the Obsidian Rose). Lord of the Silver Tower (Thousand Sons) never showed its Coruscating beam on the unit card, in the print view or in battle view: the weapon only exists in the Mark of Tzeentch armoury and the game looked for it in the general one. It is now looked up in the armoury the item comes from first. The Custodes Halo of the Torchbearer had the same problem with its Magnificent Gleam and is fixed too.",
       "HOVER ON UNIT TYPES (Discord). On a unit card, each type (Infantry, Bike, Character model, Monstrous creature, Walker, Vehicle, Flyer...) shows its Core Rules text on hover or tap, like weapon types.",
       "SAVE AS COPY (Discord). Next to Save there is now a \"Save as copy\" button on a list you already saved: the old list stays as it was and what is on screen is saved as a new one.",
       "KNIGHT HOUSEHOLDS — REPUTATIONS COULD NOT BE PICKED (Discord, Truesight and Dominic). The Veteran button on a Knight opened an empty list: the Reputations are priced flat (15, 10, 5 points, \"up to two\") but the Armory only offered veteran abilities to vehicles that have a per-Hull-Point price. They now show with their price and the slot counter.",
