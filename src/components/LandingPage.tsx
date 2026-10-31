@@ -11,10 +11,11 @@ import { MessagesModal, InquisitorBadge } from './MessagesModal';
 import { useT, useLanguage, type Language } from '../i18n';
 import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
+import { FACTION_NAMES } from '../utils/factionLabel';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187e_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -70,6 +71,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower now shows its Coruscating beam in print and battle view."],
         ["Knights","Reputations can be picked again: the Veteran button no longer opens an empty list."],
         ["Factions","The faction list under Build Army is alphabetical."],
+        ["Front page","Signed in, your latest lists are listed there; click one to keep editing."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -109,6 +111,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower zeigt seinen Coruscating beam jetzt in Druck- und Schlachtansicht."],
         ["Knights","Reputationen lassen sich wieder wählen: Der Veteran-Knopf öffnet keine leere Liste mehr."],
         ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
+        ["Startseite","Angemeldet siehst du dort deine letzten Listen; ein Klick zum Weiterbearbeiten."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -148,6 +151,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower ya muestra su Coruscating beam en impresión y vista de batalla."],
         ["Knights","Las Reputations se pueden elegir otra vez: el botón Veteran ya no abre una lista vacía."],
         ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
+        ["Portada","Con sesión iniciada, salen tus últimas listas; un clic para seguir editando."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -187,6 +191,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower теперь показывает Coruscating beam в печати и в режиме боя."],
         ["Knights","Репутации снова можно выбрать: кнопка Veteran больше не открывает пустой список."],
         ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
+        ["Главная","После входа там видны ваши последние списки; клик, чтобы продолжить правку."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -226,6 +231,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower の Coruscating beam が印刷とバトルビューに表示されます。"],
         ["ナイト","Reputation を再び選べます。Veteran ボタンが空のリストを開かなくなりました。"],
         ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
+        ["トップページ","ログインすると最近のリストが表示され、クリックで編集を続けられます。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],
@@ -494,6 +500,8 @@ interface Props {
   onStart: () => void;
   onResume: () => void;
   onLoadArmy: (save: SavedArmy) => void;
+  /** Opens one of the signed-in player's own cloud lists for editing (same path as the My Armies tab). */
+  onLoadCloudRoster?: (data: Record<string, unknown>, rosterId: number) => void;
   onShowAuth: () => void;
   onShowCloudSaves?: () => void;
   onShowCommunity?: () => void;
@@ -505,7 +513,7 @@ interface Props {
 
 export function LandingPage({
   saves, announcement, canResume,
-  onStart, onResume, onLoadArmy, onShowAuth, onShowCloudSaves, onShowCommunity, onShowCheatSheets,
+  onStart, onResume, onLoadArmy, onLoadCloudRoster, onShowAuth, onShowCloudSaves, onShowCommunity, onShowCheatSheets,
   onShowCampaign,
   onShowEvents,
   onShowGitfinda,
@@ -533,6 +541,17 @@ export function LandingPage({
     return () => clearInterval(id);
   }, [loggedIn]);
 
+  // A signed-in player's lists live in the cloud, not in the browser list above, so the quick-load showed nothing for them
+  // (Discord: open your previous lists from here instead of Community Armies > your own armies).
+  const [cloudLists, setCloudLists] = useState<api.RosterSummary[]>([]);
+  useEffect(() => {
+    if (!loggedIn) { setCloudLists([]); return; }
+    let live = true;
+    api.listRosters().then(r => { if (live) setCloudLists([...r.rosters].sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at)))); }).catch(() => {});
+    return () => { live = false; };
+  }, [loggedIn]);
+  const openCloudList = (id: number) => { api.loadRoster(id).then(res => onLoadCloudRoster?.(res.roster.data as Record<string, unknown>, id)).catch(() => {}); };
+  const factionKeyOfLabel = (label?: string) => Object.entries(FACTION_NAMES).find(([k, v]) => k === label || v === label)?.[0] ?? '';
   const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
 
   return (
@@ -584,13 +603,26 @@ export function LandingPage({
           </div>
 
           {/* Quick-load: saved armies */}
-          {displaySaves.length > 0 && (
+          {(displaySaves.length > 0 || (loggedIn && cloudLists.length > 0 && onLoadCloudRoster)) && (
             <div className="w-full max-w-xs mb-6 anim-fade-up anim-delay-3">
               <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-2 text-center">
                 {t('savedArmies')}
               </div>
               <div className="space-y-1.5 max-h-36 overflow-y-auto">
-                {displaySaves.slice(0, 4).map(save => (
+                {loggedIn && onLoadCloudRoster && cloudLists.slice(0, 4).map(r => (
+                  <button
+                    key={'cloud-' + r.id}
+                    onClick={() => openCloudList(r.id)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 bg-zinc-900 border border-zinc-800 hover:border-amber-800/60 hover:bg-zinc-800 transition-colors text-left"
+                  >
+                    <FactionSymbol factionKey={factionKeyOfLabel(r.faction_label)} size={22} />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[12px] text-zinc-200 truncate">{r.name}</div>
+                      <div className="text-[10px] text-zinc-500">{r.faction_label ? r.faction_label + ' · ' : ''}{r.total_pts ?? 0} pts · {formatDate(new Date(r.updated_at).getTime())}</div>
+                    </div>
+                  </button>
+                ))}
+                {!(loggedIn && onLoadCloudRoster) && displaySaves.slice(0, 4).map(save => (
                   <button
                     key={save.id}
                     onClick={() => onLoadArmy(save)}

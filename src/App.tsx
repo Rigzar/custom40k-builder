@@ -989,6 +989,7 @@ export default function App() {
           }}
           onResume={() => { setScreen('flow'); setStep('units'); }}
           onLoadArmy={handleLoadArmy}
+          onLoadCloudRoster={handleLoadCloudRoster}
           onShowAuth={() => setShowAuth(true)}
           onShowCloudSaves={loggedIn ? () => { setCloudSavesDefaultTab('armies'); setShowCloudSaves(true); } : undefined}
           onShowCommunity={loggedIn

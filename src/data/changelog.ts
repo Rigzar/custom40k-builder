@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'd';
+export const REVISION = 'e';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -58,6 +58,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "SAVE AS COPY (Discord). Next to Save there is now a \"Save as copy\" button on a list you already saved: the old list stays as it was and what is on screen is saved as a new one.",
       "KNIGHT HOUSEHOLDS — REPUTATIONS COULD NOT BE PICKED (Discord, Truesight and Dominic). The Veteran button on a Knight opened an empty list: the Reputations are priced flat (15, 10, 5 points, \"up to two\") but the Armory only offered veteran abilities to vehicles that have a per-Hull-Point price. They now show with their price and the slot counter.",
       "FACTION LIST IN ALPHABETICAL ORDER (Dominic). The factions under Build Army are sorted by name in each group (Chaos, Imperium, Xenos), in your language.",
+      "YOUR LISTS ON THE FRONT PAGE (Discord). Signed in, the front page now shows your latest saved lists (name, faction, points); one click opens it for editing, without going through Community Armies first. It used to list only the lists saved in this browser.",
     ],
   },
   {
