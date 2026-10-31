@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187a_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -65,6 +65,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Legacies","A list in the army setup shows what every Legacy does."],
         ["Text size","New A/A button on the front page: 115% or 130%, without breaking the layout."],
         ["Psychic powers","The General discipline is listed, with Smite as always known."],
+        ["My Armies","New Duplicate button: keep the old list and carry on with a copy."],
+        ["Unit types","Hover (or tap) Infantry, Bike, Walker... on a unit card to read its rule."],
+        ["Thousand Sons","Lord of the Silver Tower now shows its Coruscating beam in print and battle view."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -99,6 +102,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Vermächtnisse","Eine Liste in der Armee-Einrichtung zeigt, was jedes Vermächtnis bewirkt."],
         ["Textgröße","Neuer A/A-Knopf auf der Startseite: 115 % oder 130 %, ohne das Layout zu zerstören."],
         ["Psychische Kräfte","Die allgemeine Disziplin wird angezeigt, Smite als immer bekannt."],
+        ["Meine Armeen","Neuer Button Duplizieren: die alte Liste behalten und mit einer Kopie weitermachen."],
+        ["Einheitentypen","Fahre auf der Einheitenkarte über Infanterie, Bike, Läufer... (oder tippe darauf), um die Regel zu lesen."],
+        ["Thousand Sons","Lord of the Silver Tower zeigt seinen Coruscating beam jetzt in Druck- und Schlachtansicht."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -133,6 +139,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Legados","Una lista en la configuración del ejército muestra qué hace cada Legado."],
         ["Tamaño del texto","Botón nuevo A/A en la portada: 115 % o 130 %, sin romper el diseño."],
         ["Poderes psíquicos","Se muestra la disciplina General, con Smite siempre conocido."],
+        ["Mis ejércitos","Nuevo botón Duplicar: conserva la lista antigua y sigue con una copia."],
+        ["Tipos de unidad","Pasa el ratón (o toca) Infantería, Moto, Caminante... en la ficha para leer su regla."],
+        ["Thousand Sons","Lord of the Silver Tower ya muestra su Coruscating beam en impresión y vista de batalla."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -167,6 +176,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Наследия","Список в настройке армии показывает, что делает каждое Наследие."],
         ["Размер текста","Новая кнопка A/A на главной странице: 115 % или 130 %, раскладка не ломается."],
         ["Психические силы","Показана общая дисциплина, Smite — всегда известна."],
+        ["Мои армии","Новая кнопка «Дублировать»: сохраните старый список и продолжайте с копией."],
+        ["Типы юнитов","Наведите (или коснитесь) Пехота, Мотоцикл, Ходун... в карточке, чтобы прочитать правило."],
+        ["Thousand Sons","Lord of the Silver Tower теперь показывает Coruscating beam в печати и в режиме боя."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -201,6 +213,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["レガシー","軍の設定の一覧で、各レガシーの効果が分かります。"],
         ["文字サイズ","トップページに新しい A/A ボタン：115% または 130%、レイアウトは崩れません。"],
         ["サイキックパワー","一般ディシプリンが表示され、Smite は常に習得済みです。"],
+        ["マイアーミー","新しい「複製」ボタン：古いリストを残して、コピーで作業を続けられます。"],
+        ["ユニットタイプ","ユニットカードの歩兵・バイク・ウォーカーなどにカーソルを合わせる（またはタップ）とルールが読めます。"],
+        ["Thousand Sons","Lord of the Silver Tower の Coruscating beam が印刷とバトルビューに表示されます。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],
