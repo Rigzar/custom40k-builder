@@ -21,7 +21,7 @@ import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwn
 import { archetypeRequiredLegacy, legionTraitAllowed, unitRequiredLegacy } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
-import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
+import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
 import { FACTION_NAMES } from '../utils/factionLabel';
 import { archetypeAllowedInSkirmish, SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from './skirmishRules';
@@ -3375,7 +3375,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
         : (eng.multiAop ? engMax * aopState.unlocked : engMax);
-    const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
+    const cappedMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
+    // Legacy extras (CSM Hydra: +1 Elite, Night Haunter: +1 Fast Attack, per AOP).
+    const effMax = cappedMax + csmLegacySlotBonus([state.legacy, state.legacy2], slot) * (eng.multiAop ? aopState.unlocked : 1);
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
     }

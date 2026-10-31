@@ -62,17 +62,17 @@
     },
     {
       "name": "Legacy of the Hydra",
-      "desc": "The army has access to the Alpha Legion Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
+      "desc": "The army has access to the Alpha Legion Armory.\nThe army may have one additional Elite selection per AOP.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Alpha Legion"
     },
     {
       "name": "Legacy of the Iron Lord",
-      "desc": "The army has access to the Iron Warriors Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
+      "desc": "The army has access to the Iron Warriors Armory.\nThe army may include a single vehicle Heavy Support choice from codex \"Imperial Guard\" per AOP.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Iron Warriors"
     },
     {
       "name": "Legacy of the Night Haunter",
-      "desc": "The army has access to the Night Lords Armory.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
+      "desc": "The army has access to the Night Lords Armory.\nThe army may have one additional Fast Attack selection per AOP.\nCan only select units from the Chaos Space Marine codex with no Mark or the Mark of Chaos Undivided.",
       "armory_key": "Night Lords"
     },
     {

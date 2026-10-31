@@ -12,6 +12,7 @@ import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupL
 import type { FactionData } from '../types/data';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { useT, type TranslationKey } from '../i18n';
+import { csmLegacySlotBonus } from '../engine/codex_csm/legacies';
 import { nm } from '../utils/localName';
 
 const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
@@ -429,7 +430,9 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           : (slot === 'HQ' && rule?.hqOverride)
             ? rawMax
             : eng.multiAop ? rawMax * aopMult : rawMax;
-        const max = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawScaledMax, rule.slotCapOverride.max) : rawScaledMax;
+        const cappedMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawScaledMax, rule.slotCapOverride.max) : rawScaledMax;
+        // Legacy extras, per AOP (CSM Hydra: +1 Elite, Night Haunter: +1 Fast Attack).
+        const max = cappedMax + csmLegacySlotBonus(isAllied ? [store.alliedLegacy] : [store.legacy, store.legacy2], slot) * (eng.multiAop ? aopMult : 1);
 
         const units = effectiveSlotUnits[slot] ?? [];
         if (rule?.bannedSlots.includes(slot)) return null;

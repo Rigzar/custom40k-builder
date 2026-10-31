@@ -52,6 +52,7 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
   //   NOTE: Drakescale Plate has no ᵀ → term_compat:false → non-Terminator models can take it.
   'Legacy of the Hydra': [
     { category: 'mechanic',    text: 'Army gains access to the Alpha Legion Armory.' },
+    { category: 'mechanic',    text: 'The army may have one additional Elite selection per AOP (codex 1.11).' },
     { category: 'restriction', text: 'Only units with no Mark or the Mark of Chaos Undivided may be selected.' },
   ],
 
@@ -67,6 +68,7 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
   //     Siege Breakerᵀ (5/5)
   'Legacy of the Iron Lord': [
     { category: 'mechanic',    text: 'Army gains access to the Iron Warriors Armory.' },
+    { category: 'in_game',     text: 'The army may include a single vehicle Heavy Support choice from codex "Imperial Guard" per AOP (codex 1.11) - not enforced by the builder: use an Allied Detachment.' },
     { category: 'restriction', text: 'Only units with no Mark or the Mark of Chaos Undivided may be selected.' },
     { category: 'restriction', text: 'Axe of the Forgemaster and Nest of Mechaserpents: Only for Warpsmiths.' },
   ],
@@ -81,6 +83,7 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
   //     Stormbolt Plateᵀ (-/5), Vox Daemonicusᵀ (5/5)
   'Legacy of the Night Haunter': [
     { category: 'mechanic',    text: 'Army gains access to the Night Lords Armory.' },
+    { category: 'mechanic',    text: 'The army may have one additional Fast Attack selection per AOP (codex 1.11).' },
     { category: 'restriction', text: 'Only units with no Mark or the Mark of Chaos Undivided may be selected.' },
   ],
 
@@ -108,6 +111,21 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
   ],
 
 };
+
+/**
+ * Extra selections a Legacy adds to a slot, PER AOP (codex 1.11, Army Customisation): Hydra "one additional Elite selection per AOP",
+ * Night Haunter "one additional Fast Attack selection per AOP". Read by the slot validator and the slot panel, which multiply it by the
+ * number of AOPs in play. It raises the maximum only: it never raises what an AOP must hold before the next one opens.
+ */
+const CSM_LEGACY_SLOT_BONUS: Record<string, Record<string, number>> = {
+  'Legacy of the Hydra': { 'Elites': 1 },
+  'Legacy of the Night Haunter': { 'Fast Attack': 1 },
+};
+export function csmLegacySlotBonus(legacies: (string | null | undefined)[], slot: string): number {
+  let n = 0;
+  for (const l of new Set(legacies)) if (l) n += CSM_LEGACY_SLOT_BONUS[l]?.[slot] ?? 0;
+  return n;
+}
 
 /**
  * Per-legacy item restrictions enforced by the validator.

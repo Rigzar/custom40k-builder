@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-csm-iron-lord-imperial-guard-vehicle-01",
+    status: "known",
+    title: "Chaos Space Marines 1.11: the Iron Lord's Imperial Guard vehicle is not enforced",
+    description: "ADDED 2026-10-31 from the CSM 1.11 sheet. Legacy of the Iron Lord now reads: \"The army may include a single vehicle Heavy Support choice from codex Imperial Guard per AOP.\" The text is shown on the Legacy, but the builder does not let you add that vehicle: there is no per-AOP cross-codex pick in the engine yet. Workaround: take an Imperial Guard Allied Detachment. The other two new Legacy lines (Hydra: +1 Elite per AOP; Night Haunter: +1 Fast Attack per AOP) ARE enforced (scripts/check_csm_legacy_slot_bonus.ts). Also in 1.11: Summoning now says characters cannot join Chaos Daemons units \"and vice versa\" (already true: characters never attach to a unit of another codex), and Foetid Virion is a single model (already so in the data).",
+  },
+  {
     id: "ki-knight-households-new-faction-01",
     status: "known",
     title: "Knight Households (new faction, 1.0): what is in, and what is still text only",
