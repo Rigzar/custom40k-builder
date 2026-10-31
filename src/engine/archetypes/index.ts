@@ -48,8 +48,6 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Dark Mechanicum': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
-    // Escalation (Dominic, 2026-10-23): a Chaos army may take the War Dog as an Elite, an Imperial army the Armiger. This archetype makes the army Chaos.
-    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],
     armoryOnlyFaction: 'chaos_space_marines',
     // Creator ruling 2026-10-24 (Rigzar): "Dark Mechanicum are treated like \"Chaos Space Marines\" in the Ally matrix."
     // The sheet still says "become Allies of Convenience for Chaos Space Marines" (one cell); the whole row is now rewritten, as for Traitor Guard.
@@ -405,7 +403,6 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
-    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],   // Chaos army: War Dog yes, Armiger no (Escalation, Dominic 2026-10-23)
     armoryOnlyFaction: 'chaos_space_marines', grantsMarkArmory: true,
     // ods-verbatim: "Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix."
     // CSM<->CSM is G. The note below has said this since the archetype was written; it was display

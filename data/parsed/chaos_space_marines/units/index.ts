@@ -51,7 +51,6 @@ import elites_scarab_occult_terminators from './elites/scarab_occult_terminators
 import elites_sekhetar_robots from './elites/sekhetar_robots.json';
 import elites_slaughterbound from './elites/slaughterbound.json';
 import elites_tzaangor_shaman from './elites/tzaangor_shaman.json';
-import elites_war_dog from './elites/war_dog.json';
 import fast_attack_chaos_bikers from './fast_attack/chaos_bikers.json';
 import fast_attack_chaos_spawn from './fast_attack/chaos_spawn.json';
 import fast_attack_foetid_bloat_drone from './fast_attack/foetid_bloat-drone.json';
@@ -81,8 +80,6 @@ import fortifications_miasmic_malignifier from './fortifications/miasmic_maligni
 import fortifications_noctilith_crown from './fortifications/noctilith_crown.json';
 import flyers_heldrake from './flyers/heldrake.json';
 import lords_of_war_lord_of_skulls from './lords_of_war/lord_of_skulls.json';
-import lords_of_war_knight_desecrator from './lords_of_war/knight_desecrator.json';
-import lords_of_war_knight_rampager from './lords_of_war/knight_rampager.json';
 import lords_of_war_chaos_spartan from './lords_of_war/chaos_spartan.json';
 import lords_of_war_chaos_fellblade from './lords_of_war/chaos_fellblade.json';
 import lords_of_war_chaos_warhound from './lords_of_war/chaos_warhound.json';
@@ -136,7 +133,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Sekhetar Robots",
     "Slaughterbound",
     "Tzaangor Shaman",
-    "War Dog"
   ],
   "Fast Attack": [
     "Greater Blight Drone",
@@ -178,8 +174,6 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Lords of War": [
     "Lord of Skulls",
-    "Knight Desecrator",
-    "Knight Rampager",
     "Chaos Spartan",
     "Chaos Fellblade",
     "Chaos Warhound"
@@ -229,7 +223,6 @@ export const units: Record<string, Unit> = {
   "Sekhetar Robots": elites_sekhetar_robots as Unit,
   "Slaughterbound": elites_slaughterbound as Unit,
   "Tzaangor Shaman": elites_tzaangor_shaman as Unit,
-  "War Dog": elites_war_dog as Unit,
   "Chaos Bikers": fast_attack_chaos_bikers as Unit,
   "Chaos Spawn": fast_attack_chaos_spawn as Unit,
   "Foetid Bloat-Drone": fast_attack_foetid_bloat_drone as Unit,
@@ -259,8 +252,6 @@ export const units: Record<string, Unit> = {
   "Noctilith Crown": fortifications_noctilith_crown as Unit,
   "Heldrake": flyers_heldrake as Unit,
   "Lord of Skulls": lords_of_war_lord_of_skulls as Unit,
-  "Knight Desecrator": lords_of_war_knight_desecrator as Unit,
-  "Knight Rampager": lords_of_war_knight_rampager as Unit,
   "Chaos Spartan": lords_of_war_chaos_spartan as Unit,
   "Chaos Fellblade": lords_of_war_chaos_fellblade as Unit,
   "Chaos Warhound": lords_of_war_chaos_warhound as Unit,

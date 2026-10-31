@@ -146,7 +146,6 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
   // [...] The intention is to prevent Cultist type units from accessing the traits. SM don't have
   // that, so it can easily be solved with a flat allowance."
   'Renegades': { ...BASE,
-    unlocksUnits: ['War Dog'], bannedUnits: ['Armiger'],   // Chaos army: War Dog yes, Armiger no (Escalation, Dominic 2026-10-23)
     foreignTraitFaction: 'chaos_space_marines', foreignTraitMax: 1,
     // ods-verbatim, same row: "Renegades are treated like \"Chaos Space Marines\" in the Ally
     // matrix." The trait half of that row was built on 2026-09-19; this half was not.

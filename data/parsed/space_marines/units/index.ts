@@ -28,7 +28,6 @@ import troops_scout_squad from './troops/scout_squad.json';
 import troops_tactical_squad from './troops/tactical_squad.json';
 import elites_aggressor_squad from './elites/aggressor_squad.json';
 import elites_ancient from './elites/ancient.json';
-import elites_armiger from './elites/armiger.json';
 import elites_apothecary from './elites/apothecary.json';
 import elites_company_champion from './elites/company_champion.json';
 import elites_death_company from './elites/death_company.json';
@@ -88,11 +87,8 @@ import flyers_stormtalon_gunship from './flyers/stormtalon_gunship.json';
 import flyers_stormfang_gunship from './flyers/stormfang_gunship.json';
 import lords_of_war_fellblade from './lords_of_war/fellblade.json';
 import lords_of_war_spartan from './lords_of_war/spartan.json';
-import lords_of_war_knight_castellan from './lords_of_war/knight_castellan.json';
-import lords_of_war_knight_paladin from './lords_of_war/knight_paladin.json';
 import lords_of_war_warhound from './lords_of_war/warhound.json';
 import elites_legion_of_the_damned from './elites/legion_of_the_damned.json';
-import elites_war_dog from './elites/war_dog.json';
 
 export const faction = "Space Marines";
 
@@ -120,7 +116,6 @@ export const slot_to_units: Record<string, string[]> = {
   "Elites": [
     "Aggressor Squad",
     "Ancient",
-    "Armiger",
     "Apothecary",
     "Company Champion",
     "Death Company",
@@ -137,7 +132,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Terminator Squad",
     "Wolf Scout Squad",
     "Legion of the Damned",
-    "War Dog"
   ],
   "Fast Attack": [
     "Assault Squad",
@@ -194,8 +188,6 @@ export const slot_to_units: Record<string, string[]> = {
   "Lords of War": [
     "Fellblade",
     "Spartan",
-    "Knight Castellan",
-    "Knight Paladin",
     "Warhound"
   ]
 };
@@ -220,7 +212,6 @@ export const units: Record<string, Unit> = {
   "Tactical Squad": troops_tactical_squad as Unit,
   "Aggressor Squad": elites_aggressor_squad as Unit,
   "Ancient": elites_ancient as Unit,
-  "Armiger": elites_armiger as Unit,
   "Apothecary": elites_apothecary as Unit,
   "Company Champion": elites_company_champion as Unit,
   "Death Company": elites_death_company as Unit,
@@ -280,9 +271,6 @@ export const units: Record<string, Unit> = {
   "Stormfang Gunship": flyers_stormfang_gunship as Unit,
   "Fellblade": lords_of_war_fellblade as Unit,
   "Spartan": lords_of_war_spartan as Unit,
-  "Knight Castellan": lords_of_war_knight_castellan as Unit,
-  "Knight Paladin": lords_of_war_knight_paladin as Unit,
   "Warhound": lords_of_war_warhound as Unit,
   "Legion of the Damned": elites_legion_of_the_damned as Unit,
-  "War Dog": elites_war_dog as Unit,
 };
