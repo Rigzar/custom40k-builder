@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CHANGELOG, type IssueStatus, type I18nString, type I18nStringArray } from '../data/changelog';
+import { CHANGELOG, versionLabel, type IssueStatus, type I18nString, type I18nStringArray } from '../data/changelog';
 import { TAB_FACTIONS, FACTION_CHANGES, FACTION_ISSUES, LATEST_FACTIONS, GENERAL } from '../data/changelogFactions';
 import { useLanguage, type Language } from '../i18n';
 
@@ -170,7 +170,7 @@ export function ChangelogModal({ onClose }: Props) {
               return (
                 <div key={entry.version}>
                   <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-amber-500 font-bold text-sm">v{entry.version}</span>
+                    <span className="text-amber-500 font-bold text-sm">v{versionLabel(entry.version)}</span>
                     {isLatest && (
                       <span className="text-[10px] uppercase tracking-wide bg-amber-700/30 text-amber-400 border border-amber-700/50 px-1.5 py-0.5 leading-none">
                         {u.todayBadge}

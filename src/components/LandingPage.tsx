@@ -11,10 +11,10 @@ import { MessagesModal, InquisitorBadge } from './MessagesModal';
 import { useT, useLanguage, type Language } from '../i18n';
 import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
-import { CHANGELOG } from '../data/changelog';
+import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187c_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -56,8 +56,8 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.87: Easier for new players",
-    intro: "Mostly suggestions from a new player: more things explain themselves.",
+    title: "{v}: New faction Knight Households, Core Rules 1.40",
+    intro: "Plus Save as copy, rule tips on unit types, and fixes from the new players.",
     install: "",
     sections: [
       { label: "General", rows: [
@@ -93,8 +93,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.87: Leichter für neue Spieler",
-    intro: "Vor allem Vorschläge eines neuen Spielers: mehr erklärt sich von selbst.",
+    title: "{v}: Neue Fraktion Knight Households, Core Rules 1.40",
+    intro: "Dazu Als Kopie speichern, Regel-Tooltips für Einheitentypen und Korrekturen aus den Meldungen neuer Spieler.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
@@ -130,8 +130,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.87: Más fácil para jugadores nuevos",
-    intro: "Sobre todo sugerencias de un jugador nuevo: más cosas se explican solas.",
+    title: "{v}: Nueva facción Knight Households, Core Rules 1.40",
+    intro: "Además, Guardar como copia, reglas al pasar el ratón por los tipos de unidad y arreglos de los jugadores nuevos.",
     install: "",
     sections: [
       { label: "General", rows: [
@@ -167,8 +167,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "v1.87: Проще для новых игроков",
-    intro: "В основном предложения нового игрока: больше вещей объясняют себя сами.",
+    title: "{v}: Новая фракция Knight Households, Core Rules 1.40",
+    intro: "А также «Сохранить как копию», подсказки о типах юнитов и исправления по сообщениям новых игроков.",
     install: "",
     sections: [
       { label: "Общее", rows: [
@@ -204,8 +204,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "v1.87: 新しいプレイヤーに分かりやすく",
-    intro: "主に新規プレイヤーからの提案：説明が増えました。",
+    title: "{v}: 新勢力 Knight Households、Core Rules 1.40",
+    intro: "さらに「コピーとして保存」、ユニットタイプのルール表示、新規プレイヤーからの報告の修正。",
     install: "",
     sections: [
       { label: "全般", rows: [
@@ -305,7 +305,7 @@ function CommunityAnnouncement() {
             className="flex-1 text-left text-[10px] text-amber-600 hover:text-amber-500 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5 transition-colors"
           >
             <span className="opacity-60">⚙</span>
-            <span>{tx.title}</span>
+            <span>{tx.title.replace('{v}', 'v' + versionLabel(CHANGELOG[0]?.version))}</span>
             {/* A visible button, not a bare arrow: it has to be obvious that the card folds, and that the changes are inside it. */}
             <span className="ml-auto shrink-0 border border-amber-700/70 bg-amber-900/20 px-2 py-0.5 text-[10px] normal-case tracking-normal text-amber-400">
               {folded ? `${tt('bannerShow')} (${tx.sections.reduce((n, sec) => n + sec.rows.length, 0)}) ▾` : `${tt('bannerHide')} ▴`}
@@ -319,8 +319,9 @@ function CommunityAnnouncement() {
             ×
           </button>
         </div>
+        {/* The subtitle is always shown, folded or not. */}
+        <p className="text-[12px] text-zinc-400 mb-2">{tx.intro}</p>
         {!folded && <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
-          <p>{tx.intro}</p>
           {/* `install` is a highlighted block used only when a release leads with the PWA/offline
               news; empty on releases that don't (skipped so it leaves no gap). */}
           {tx.install && (
@@ -540,7 +541,7 @@ export function LandingPage({
               onClick={() => setShowChangelog(true)}
               className="text-[11px] uppercase tracking-wide text-zinc-500 hover:text-amber-400 transition-colors"
             >
-              v{latestVersion}
+              v{versionLabel(latestVersion)}
             </button>
           </div>
         </div>

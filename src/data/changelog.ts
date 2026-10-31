@@ -13,6 +13,17 @@ export interface ChangelogEntry {
   changes: I18nStringArray;
 }
 
+/**
+ * Which push of the current version this is. The first push of a version shows no letter ("v1.87"); each later push of the
+ * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
+ * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
+ */
+export const REVISION = 'c';
+/** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
+export function versionLabel(version: string | undefined): string {
+  return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
+}
+
 export type IssueStatus = 'known' | 'investigating' | 'fixed' | 'by_design' | 'planned';
 
 export interface KnownIssue {
