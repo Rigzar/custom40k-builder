@@ -632,7 +632,8 @@ export default function App() {
     return `${base} (${n})`;
   }
 
-  async function handleSaveArmy(): Promise<boolean> {
+  /** `asCopy` keeps the list you opened as it was and saves what is on screen as a NEW list. */
+  async function handleSaveArmy(asCopy = false): Promise<boolean> {
     if (!data || !selectedFaction) return false;
 
     const total = army.reduce((s, i) => {
@@ -651,7 +652,7 @@ export default function App() {
 
     if (loggedIn) {
       try {
-        if (activeCloudRosterId != null) {
+        if (activeCloudRosterId != null && !asCopy) {
           await api.updateRoster(activeCloudRosterId, { name: baseName, data: stateSnapshot });
         } else {
           const { rosters } = await api.listRosters();
@@ -679,7 +680,7 @@ export default function App() {
 
     // Not logged in: fall back to the local, per-browser "My Armies" list.
     // If activeLocalSaveId refers to a deleted save (no longer in the list), treat this as new.
-    const saveStillExists = activeLocalSaveId != null && saves.some(s => s.id === activeLocalSaveId);
+    const saveStillExists = !asCopy && activeLocalSaveId != null && saves.some(s => s.id === activeLocalSaveId);
     let name = baseName;
     if (!saveStillExists) {
       name = uniqueName(baseName, saves.filter(s => s.factionKey === selectedFaction).map(s => s.name));
@@ -868,7 +869,7 @@ export default function App() {
                 <div className="flex items-center gap-1.5 flex-wrap">
                   {data && (
                     <button
-                      onClick={handleSaveArmy}
+                      onClick={() => handleSaveArmy()}
                       className={`text-[11px] uppercase tracking-wide border px-2.5 py-1 transition-colors
                         ${savedMsg
                           ? 'text-green-400 border-green-700 bg-green-900/20'
@@ -876,6 +877,15 @@ export default function App() {
                         }`}
                     >
                       {savedMsg || t('save')}
+                    </button>
+                  )}
+                  {data && (loggedIn ? activeCloudRosterId != null : activeLocalSaveId != null && saves.some(x => x.id === activeLocalSaveId)) && (
+                    <button
+                      onClick={() => handleSaveArmy(true)}
+                      title={t('saveAsCopyTitle')}
+                      className="text-[11px] uppercase tracking-wide border px-2.5 py-1 transition-colors text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800"
+                    >
+                      {t('saveAsCopy')}
                     </button>
                   )}
                   {!loggedIn && (
@@ -1179,7 +1189,7 @@ export default function App() {
         <ReviewStep
           onPlay={() => setShowPlay(true)}
           onPrint={() => setShowPrint(true)}
-          onSave={handleSaveArmy}
+          onSave={() => handleSaveArmy()}
           onImported={() => { setActiveLocalSaveId(null); setActiveCloudRosterId(null); setViewingCopyOf(null); }}
           savedMsg={savedMsg}
           onBack={() => setStep('units')}

@@ -21,7 +21,8 @@
         "WAFFEN: EIN KÜRZERER NAME RUTSCHT NICHT MEHR MIT EINEM LÄNGEREN MIT. Eine Option, die „a Cyclone missile launcher“ oder „a Heavy flamer“ nennt, enthält auch die Wörter „missile launcher“ und „flamer“; der Kauf zeigte deshalb einen einfachen Missile launcher am Contemptor Dreadnought (Horus-Heresy-Supplement) und einen überzähligen Flamer am Company Command Squad der Imperial Guard. Jetzt gilt die längere Waffe. In den Optionslisten zeigt eine Auswahl „X with Y“ (zum Beispiel „Dreadnought close combat weapon with Storm bolter“) die Profile beider Waffen.",
         "GESPEICHERTE ARMEEN LASSEN SICH DUPLIZIEREN (Discord). In Meine Armeen hat jede Liste einen Button Duplizieren, der eine Kopie (\"Name (copy)\") speichert; so kannst du eine Liste umbenennen und weiter ändern, während die alte Version bleibt.",
         "THOUSAND SONS — LORD OF THE SILVER TOWER ZEIGT SEINE WAFFE (Discord). Die Aufwertung gewährt jetzt den Coruscating beam, sein Profil erscheint auf der Einheitenkarte, in der Druckansicht und in der Schlachtansicht.",
-        "HOVER AUF EINHEITENTYPEN (Discord). Auf der Einheitenkarte zeigt jeder Typ (Infanterie, Bike, Charaktermodell, Monströse Kreatur, Läufer, Fahrzeug, Flieger...) beim Überfahren oder Antippen seinen Text aus den Core Rules, wie bei Waffentypen."
+        "HOVER AUF EINHEITENTYPEN (Discord). Auf der Einheitenkarte zeigt jeder Typ (Infanterie, Bike, Charaktermodell, Monströse Kreatur, Läufer, Fahrzeug, Flieger...) beim Überfahren oder Antippen seinen Text aus den Core Rules, wie bei Waffentypen.",
+        "ALS KOPIE SPEICHERN (Discord). Neben Speichern gibt es bei einer bereits gespeicherten Liste jetzt „Als Kopie speichern“: Die alte Liste bleibt unverändert, der aktuelle Stand wird als neue Liste gespeichert."
       ],
       "es": [
         "EL RATÓN EXPLICA MÁS (sugerencia de un jugador nuevo). El tipo de un arma (Pistol, Assault, Heavy, Rapid Fire, Grenade, Melee) muestra ahora su texto de las Reglas Base al pasar el ratón (o al tocarlo en el móvil), en la ficha de la unidad, en la vista de batalla y en la Armería. Las reglas nombradas entre comillas dentro de una habilidad, como la habilidad «Shunting» o «Move through cover», se explican igual en la ficha; la wiki convierte cada una en un enlace al glosario que muestra la regla al pasar el ratón.",
@@ -37,7 +38,8 @@
         "ARMAS: UN NOMBRE MÁS CORTO YA NO SE COLA CON UNO MÁS LARGO. Una opción que nombra «a Cyclone missile launcher» o «a Heavy flamer» también contiene las palabras «missile launcher» y «flamer», así que comprarla mostraba un Missile launcher normal en el Contemptor Dreadnought (suplemento de Horus Heresy) y un Flamer de más en el Company Command Squad de la Guardia Imperial. Ahora cuenta el arma más larga. En las listas de opciones, una elección escrita «X with Y» (por ejemplo «Dreadnought close combat weapon with Storm bolter») muestra los perfiles de las dos armas.",
         "LAS LISTAS GUARDADAS SE PUEDEN DUPLICAR (Discord). En Mis ejércitos cada lista tiene un botón Duplicar que guarda una copia (\"Nombre (copy)\"), así puedes renombrar y seguir cambiando una mientras la versión anterior se conserva.",
         "THOUSAND SONS — LORD OF THE SILVER TOWER MUESTRA SU ARMA (Discord). La mejora ahora concede el Coruscating beam, y su perfil aparece en la ficha, en la vista de impresión y en la vista de batalla.",
-        "PASAR EL RATÓN POR LOS TIPOS DE UNIDAD (Discord). En la ficha, cada tipo (Infantería, Moto, Modelo de personaje, Criatura monstruosa, Caminante, Vehículo, Volador...) muestra su texto de las Core Rules al pasar el ratón o tocar, como los tipos de arma."
+        "PASAR EL RATÓN POR LOS TIPOS DE UNIDAD (Discord). En la ficha, cada tipo (Infantería, Moto, Modelo de personaje, Criatura monstruosa, Caminante, Vehículo, Volador...) muestra su texto de las Core Rules al pasar el ratón o tocar, como los tipos de arma.",
+        "GUARDAR COMO COPIA (Discord). Junto a Guardar, en una lista ya guardada, hay un botón \"Guardar como copia\": la lista antigua se queda como estaba y lo que ves se guarda como una nueva."
       ],
       "ru": [
         "ПОДСКАЗКИ ОБЪЯСНЯЮТ БОЛЬШЕ (предложение нового игрока). Тип оружия (Pistol, Assault, Heavy, Rapid Fire, Grenade, Melee) теперь показывает текст Основных правил при наведении (на телефоне — при касании) на карточке юнита, в боевом режиме и в арсенале. Правила, названные в кавычках внутри способности, например «Shunting» или «Move through cover», объясняются так же на карточке; вики превращает каждое в ссылку на глоссарий, показывающую правило при наведении.",
@@ -53,7 +55,8 @@
         "ОРУЖИЕ: БОЛЕЕ КОРОТКОЕ НАЗВАНИЕ БОЛЬШЕ НЕ ЦЕПЛЯЕТСЯ ЗА БОЛЕЕ ДЛИННЫМ. Опция, называющая «a Cyclone missile launcher» или «a Heavy flamer», содержит и слова «missile launcher» и «flamer», поэтому покупка показывала обычный Missile launcher у Contemptor Dreadnought (дополнение Horus Heresy) и лишний Flamer у Company Command Squad Imperial Guard. Теперь учитывается более длинное оружие. В списках опций выбор вида «X with Y» (например «Dreadnought close combat weapon with Storm bolter») показывает профили обоих видов оружия.",
         "СОХРАНЁННЫЕ АРМИИ МОЖНО ДУБЛИРОВАТЬ (Discord). В «Моих армиях» у каждого списка есть кнопка «Дублировать», сохраняющая копию («Имя (copy)»): можно переименовывать и менять один список, а старая версия останется.",
         "THOUSAND SONS — LORD OF THE SILVER TOWER ПОКАЗЫВАЕТ СВОЁ ОРУЖИЕ (Discord). Улучшение теперь даёт Coruscating beam, и его профиль виден в карточке, в печатной версии и в режиме боя.",
-        "ПОДСКАЗКИ О ТИПАХ ЮНИТОВ (Discord). В карточке каждый тип (Пехота, Мотоцикл, Модель-персонаж, Монстр, Ходун, Техника, Летательный аппарат...) при наведении или касании показывает текст Core Rules, как типы оружия."
+        "ПОДСКАЗКИ О ТИПАХ ЮНИТОВ (Discord). В карточке каждый тип (Пехота, Мотоцикл, Модель-персонаж, Монстр, Ходун, Техника, Летательный аппарат...) при наведении или касании показывает текст Core Rules, как типы оружия.",
+        "СОХРАНИТЬ КАК КОПИЮ (Discord). Рядом с «Сохранить» у уже сохранённого списка есть кнопка «Сохранить как копию»: старый список остаётся как был, а текущий сохраняется как новый."
       ],
       "ja": [
         "ホバーでの説明を拡充（新規プレイヤーからの提案）。武器のタイプ（Pistol、Assault、Heavy、Rapid Fire、Grenade、Melee）にマウスを重ねる（スマホではタップ）と、ユニットカード、バトルビュー、アーモリーでコアルールの説明が表示されます。能力の中で引用符付きで挙げられたルール（「Shunting」や「Move through cover」など）もカード上で同様に説明され、wiki ではそれぞれ用語集へのリンクになり、重ねるとルールが表示されます。",
@@ -69,7 +72,8 @@
         "武器：短い名前が長い名前に紛れ込まなくなりました。「a Cyclone missile launcher」や「a Heavy flamer」を挙げるオプションには「missile launcher」や「flamer」という語も含まれるため、購入するとコンテンプター・ドレッドノート（ホルス・ヘレシー補足）に通常の Missile launcher、インペリアルガードの Company Command Squad に余分な Flamer が表示されていました。今は長い方の武器が対象です。オプション一覧では「X with Y」と書かれた選択肢（例：「Dreadnought close combat weapon with Storm bolter」）が両方の武器のプロファイルを表示します。",
         "保存した軍勢を複製できます (Discord)。「マイアーミー」の各リストに「複製」ボタンが付き、コピー（「名前 (copy)」）を保存します。古い版を残したまま、名前を変えて編集を続けられます。",
         "THOUSAND SONS — LORD OF THE SILVER TOWER が武器を表示 (Discord)。このアップグレードが Coruscating beam を付与するようになり、ユニットカード、印刷ビュー、バトルビューにプロファイルが表示されます。",
-        "ユニットタイプのホバー表示 (Discord)。ユニットカード上の各タイプ（歩兵、バイク、キャラクターモデル、モンストラス・クリーチャー、ウォーカー、車両、フライヤー…）にカーソルを合わせるかタップすると、武器タイプと同様に Core Rules の文が表示されます。"
+        "ユニットタイプのホバー表示 (Discord)。ユニットカード上の各タイプ（歩兵、バイク、キャラクターモデル、モンストラス・クリーチャー、ウォーカー、車両、フライヤー…）にカーソルを合わせるかタップすると、武器タイプと同様に Core Rules の文が表示されます。",
+        "コピーとして保存 (Discord)。保存済みのリストでは「保存」の隣に「コピーとして保存」ボタンが付きます。古いリストはそのままで、画面の内容が新しいリストとして保存されます。"
       ]
     }
   },

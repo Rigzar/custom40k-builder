@@ -45,6 +45,8 @@
  "save": "保存",
  "delete": "削除",
  "duplicate": "複製",
+ "saveAsCopy": "コピーとして保存",
+ "saveAsCopyTitle": "保存済みのリストはそのままに、画面の内容を新しいリストとして保存します",
  "export": "エクスポート",
  "import": "インポート",
  "unitName": "部隊名",

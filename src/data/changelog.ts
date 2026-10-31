@@ -44,6 +44,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "SAVED ARMIES CAN BE DUPLICATED (Discord). In My Armies each list has a Duplicate button that saves a copy (\"Name (copy)\"), so you can rename and keep changing one while the old version stays.",
       "THOUSAND SONS — LORD OF THE SILVER TOWER SHOWS ITS WEAPON (Discord). The upgrade now grants the Coruscating beam, so its profile appears on the unit card, in the print view and in battle view.",
       "HOVER ON UNIT TYPES (Discord). On a unit card, each type (Infantry, Bike, Character model, Monstrous creature, Walker, Vehicle, Flyer...) shows its Core Rules text on hover or tap, like weapon types.",
+      "SAVE AS COPY (Discord). Next to Save there is now a \"Save as copy\" button on a list you already saved: the old list stays as it was and what is on screen is saved as a new one.",
     ],
   },
   {

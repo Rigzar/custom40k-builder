@@ -55,7 +55,7 @@ export type TranslationKey =
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
   | 'addUnit' | 'removeUnit' | 'size' | 'mark' | 'options' | 'armory' | 'psychic' | 'prayers'
-  | 'validation' | 'print' | 'back' | 'close' | 'save' | 'delete' | 'duplicate' | 'export' | 'import'
+  | 'validation' | 'print' | 'back' | 'close' | 'save' | 'delete' | 'duplicate' | 'saveAsCopy' | 'saveAsCopyTitle' | 'export' | 'import'
   | 'unitName' | 'customNamePlaceholder'
   | 'weapon' | 'range' | 'strength' | 'ap' | 'damage'
   | 'ranged' | 'melee' | 'equipment' | 'abilities' | 'veteranAbilities' | 'psychicPowers' | 'keywords'
@@ -629,6 +629,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Save',
     delete: 'Delete',
     duplicate: 'Duplicate',
+    saveAsCopy: "Save as copy",
+    saveAsCopyTitle: "Keep the saved list as it was and save what is on screen as a new list",
     export: 'Export',
     import: 'Import',
     unitName: 'Unit name',
@@ -1815,6 +1817,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Speichern',
     delete: 'Löschen',
     duplicate: 'Duplizieren',
+    saveAsCopy: "Als Kopie speichern",
+    saveAsCopyTitle: "Die gespeicherte Liste unverändert lassen und den aktuellen Stand als neue Liste speichern",
     export: 'Exportieren',
     import: 'Importieren',
     unitName: 'Einheitenname',
@@ -2999,6 +3003,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Guardar',
     delete: 'Eliminar',
     duplicate: 'Duplicar',
+    saveAsCopy: "Guardar como copia",
+    saveAsCopyTitle: "Conserva la lista guardada como estaba y guarda lo que ves como una lista nueva",
     export: 'Exportar',
     import: 'Importar',
     unitName: 'Nombre de unidad',
