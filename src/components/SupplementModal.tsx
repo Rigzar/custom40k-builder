@@ -1,4 +1,5 @@
 import { nm } from '../utils/localName';
+import { UnitTypeTip } from './AbilityTokens';
 import { useEffect, useState } from 'react';
 import type { Unit, Weapon, Model, Armory } from '../types/data';
 import { useT, useLanguage, type Language } from '../i18n';
@@ -575,11 +576,12 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
 
 function UnitFiche({ unit }: { unit: Unit }) {
   const t = useT();
+  const { language } = useLanguage();
   return (
     <div className="bg-zinc-950/60 border-t border-zinc-800 px-3 py-3 space-y-3">
       <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide">
         <span className="text-zinc-500">{t('unitTypeLabel')}</span>
-        <span className="text-violet-400">{unit.unit_type}</span>
+        <span className="text-violet-400"><UnitTypeTip lang={language} raw={unit.unit_type} /></span>
       </div>
 
       <StatTable unit={unit} />

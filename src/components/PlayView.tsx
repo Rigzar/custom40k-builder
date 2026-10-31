@@ -27,11 +27,11 @@ import { resolveStatValue } from '../lib/statPipeline';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { getFactionCat, entryFaction, HDR_BG, HDR_BORDER } from '../lib/factionTheme';
 import { unitPowerSummary, collectPowerBook, powerBookIsEmpty } from '../utils/powerBook';
-import { useT } from '../i18n';
+import { useT, useLanguage } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
 import { nm } from '../utils/localName';
-import { AbilityTokens, WeaponTypeTip } from './AbilityTokens';
+import { AbilityTokens, WeaponTypeTip, UnitTypeTip } from './AbilityTokens';
 
 const STAT_INF = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV'];
 const STAT_VEH = ['M', 'WS', 'BS', 'S', 'FRONT', 'SIDE', 'REAR', 'I', 'A', 'HP'];
@@ -78,6 +78,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   item: RosterEntry; data: FactionData; armoryData?: FactionData; defaultOpen: boolean;
 }) {
   const t = useT();
+  const { language: uiLang } = useLanguage();
   // Seeded from the header's expand-all, and free to diverge afterwards: the card is remounted
   // (its key carries the flag) whenever that toggle changes, so the seed is re-applied then and
   // a card the player opened by hand in between is not fought over on every render.
@@ -153,6 +154,9 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
 
       {open && (
         <div className="px-3 pb-3 bg-zinc-950/40" style={{ borderTop: `1px solid ${HDR_BORDER[cat]}55` }}>
+          {u.unit_type && (
+            <div className="text-[10px] text-zinc-500 uppercase tracking-wide mt-2"><UnitTypeTip lang={uiLang} raw={u.unit_type} /></div>
+          )}
           {/* stats */}
           {models.length > 0 && (
             <div className="overflow-x-auto mt-2">
