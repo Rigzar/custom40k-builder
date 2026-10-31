@@ -172,13 +172,6 @@
       "p_char": 5
     },
     {
-      "name": "Teleport homing beacon",
-      "term_compat": false,
-      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
-      "p_unit": 10,
-      "p_char": 10
-    },
-    {
       "name": "The Laughing God’s Eye",
       "term_compat": false,
       "desc": "The model and all friendly units within 6\" gain the \"Aegis (5+)\" ability.",

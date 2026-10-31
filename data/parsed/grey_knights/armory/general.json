@@ -658,7 +658,7 @@
       "name": "Machine spirit",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
+      "desc": "If the model is under the effect of \"Crew shaken\", it may use one weapon at BS 3+.",
       "p_unit": 5,
       "p_char": null
     },

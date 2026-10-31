@@ -335,7 +335,7 @@
     {
       "name": "Magos-class machine spirit",
       "term_compat": false,
-      "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 2+.",
+      "desc": "If the model is under the effect of \"Crew shaken\", it may use one weapon at BS 2+.",
       "p_unit": 5,
       "p_char": null,
       "category": "vehicle"

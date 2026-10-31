@@ -87,6 +87,24 @@
             "replaces": [
                 "Shuriken pistol"
             ]
+        },
+        {
+            "header": "The entire squad may replace their Ranger long rifles",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Ranger needle rifle",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Ranger long rifle"
+            ]
         }
     ],
     "abilities": [
