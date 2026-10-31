@@ -381,7 +381,8 @@
             "delta": 1
           }
         ]
-      }
+      },
+      "flat_price": true
     },
     {
       "name": "Blessed by the Sacristans",
@@ -389,7 +390,8 @@
       "desc": "One weapon of the model gains the \"Soul Burn(5+)\" ability.",
       "p_unit": 15,
       "p_char": 15,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Champion of the Household",
@@ -397,7 +399,8 @@
       "desc": "The model gains the \"Frenzy(2\")\" ability.",
       "p_unit": 5,
       "p_char": 5,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Cold-blooded",
@@ -405,7 +408,8 @@
       "desc": "The model gains +1 to hit rolls against enemy units with at least 1 Battleshock token.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Cunning Commander",
@@ -413,7 +417,8 @@
       "desc": "The model gains the \"Ouflank\" and \"Vanguard\" abilities.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "First Knight",
@@ -421,7 +426,8 @@
       "desc": "The model may reroll hit rolls of 1.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Glooming Legacy",
@@ -429,7 +435,8 @@
       "desc": "The model gains the \"Deflect\" ability.",
       "p_unit": 8,
       "p_char": 8,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Indomitable",
@@ -437,7 +444,8 @@
       "desc": "The model gains the \"Parry\" ability.",
       "p_unit": 8,
       "p_char": 8,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Knight of Mars",
@@ -445,7 +453,8 @@
       "desc": "All ranged weapons of the model gain the \"Rending(5+)\" ability.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Last of Their Line",
@@ -453,7 +462,8 @@
       "desc": "The model gains +1 Attack and another +1 for each missing Hull Point.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Legendary Hero",
@@ -461,7 +471,8 @@
       "desc": "During each activation, you may remove one Battleshock token from each unit in your army.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Master of the Joust",
@@ -469,7 +480,8 @@
       "desc": "The model resolves Tank Shock attacks at Strength 10.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Master of the Trial",
@@ -477,7 +489,8 @@
       "desc": "Enemy attacks reduce their AT by 1 (to a minimum of 0) against this model.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Paragon",
@@ -493,7 +506,8 @@
             "delta": 1
           }
         ]
-      }
+      },
+      "flat_price": true
     },
     {
       "name": "Peerless Warrior",
@@ -501,7 +515,8 @@
       "desc": "The model may re-roll one of each: Armor penetration roll, Hit roll, Wound roll.",
       "p_unit": 10,
       "p_char": 10,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Revered Knight",
@@ -509,7 +524,8 @@
       "desc": "The model gains +1 Initiative.",
       "p_unit": 15,
       "p_char": 15,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Sworn to Quest",
@@ -517,7 +533,8 @@
       "desc": "The model gains the \"Objective Secured!\" ability.",
       "p_unit": 15,
       "p_char": 15,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Tireless",
@@ -525,7 +542,8 @@
       "desc": "The model may make a 6\" consolidation move after melee combat.",
       "p_unit": 5,
       "p_char": 5,
-      "category": "veteran"
+      "category": "veteran",
+      "flat_price": true
     },
     {
       "name": "Wyrd",
@@ -536,7 +554,8 @@
       "category": "veteran",
       "effect": {
         "makes_psyker": true
-      }
+      },
+      "flat_price": true
     },
     {
       "name": "Additional armor",

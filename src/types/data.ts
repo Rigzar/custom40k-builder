@@ -462,6 +462,11 @@ export interface WeaponProfile {
 
 export interface ArmoryItem {
   name: string;
+  /**
+   * A veteran-category item priced FLAT (p_unit) instead of per Wound / Hull Point, and open to vehicles with no p_veh.
+   * Knight Households Reputations: the sheet has one POINTS column and "May select up to two Reputations".
+   */
+  flat_price?: boolean;
   term_compat: boolean;
   gravis_compat?: boolean;
   /**

@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -68,6 +68,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["My Armies","New Duplicate button: keep the old list and carry on with a copy."],
         ["Unit types","Hover (or tap) Infantry, Bike, Walker... on a unit card to read its rule."],
         ["Thousand Sons","Lord of the Silver Tower now shows its Coruscating beam in print and battle view."],
+        ["Knights","Reputations can be picked again: the Veteran button no longer opens an empty list."],
+        ["Factions","The faction list under Build Army is alphabetical."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -105,6 +107,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Meine Armeen","Neuer Button Duplizieren: die alte Liste behalten und mit einer Kopie weitermachen."],
         ["Einheitentypen","Fahre auf der Einheitenkarte über Infanterie, Bike, Läufer... (oder tippe darauf), um die Regel zu lesen."],
         ["Thousand Sons","Lord of the Silver Tower zeigt seinen Coruscating beam jetzt in Druck- und Schlachtansicht."],
+        ["Knights","Reputationen lassen sich wieder wählen: Der Veteran-Knopf öffnet keine leere Liste mehr."],
+        ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -142,6 +146,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Mis ejércitos","Nuevo botón Duplicar: conserva la lista antigua y sigue con una copia."],
         ["Tipos de unidad","Pasa el ratón (o toca) Infantería, Moto, Caminante... en la ficha para leer su regla."],
         ["Thousand Sons","Lord of the Silver Tower ya muestra su Coruscating beam en impresión y vista de batalla."],
+        ["Knights","Las Reputations se pueden elegir otra vez: el botón Veteran ya no abre una lista vacía."],
+        ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -179,6 +185,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Мои армии","Новая кнопка «Дублировать»: сохраните старый список и продолжайте с копией."],
         ["Типы юнитов","Наведите (или коснитесь) Пехота, Мотоцикл, Ходун... в карточке, чтобы прочитать правило."],
         ["Thousand Sons","Lord of the Silver Tower теперь показывает Coruscating beam в печати и в режиме боя."],
+        ["Knights","Репутации снова можно выбрать: кнопка Veteran больше не открывает пустой список."],
+        ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -216,6 +224,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["マイアーミー","新しい「複製」ボタン：古いリストを残して、コピーで作業を続けられます。"],
         ["ユニットタイプ","ユニットカードの歩兵・バイク・ウォーカーなどにカーソルを合わせる（またはタップ）とルールが読めます。"],
         ["Thousand Sons","Lord of the Silver Tower の Coruscating beam が印刷とバトルビューに表示されます。"],
+        ["ナイト","Reputation を再び選べます。Veteran ボタンが空のリストを開かなくなりました。"],
+        ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],

@@ -211,7 +211,8 @@ export function FactionStep({
               </div>
 
               <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
-                {cat.factions.map(fDef => {
+                {/* Alphabetical by the name the reader sees, in their language (Dominic, 2026-10-31). */}
+                {[...cat.factions].sort((x, y) => nm(x.name).localeCompare(nm(y.name))).map(fDef => {
                   // availability and codex version can be overridden by the admin settings
                   const over = codexVersions?.[fDef.key];
                   const f = { ...fDef,

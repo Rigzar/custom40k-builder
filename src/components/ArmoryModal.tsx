@@ -788,6 +788,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       if (arm.category === 'veteran') {
         if (!armoryVetEnabled) return false;
         // Infiltrator / Vanguard etc. have p_veh:null — not available to vehicles/monsters
+        if (arm.flat_price) return true;
         if (isVehicle || unit.is_monster) return arm.p_veh != null;
         return true;
       }
@@ -911,7 +912,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;
     let scaling: 'perWound' | 'perModel' | undefined;
-    if (arm.category === 'veteran') {
+    if (arm.category === 'veteran' && arm.flat_price) {
+      // Flat price off the sheet (Knight Households Reputations): no Wound / Hull Point scaling.
+      pts = parsePrice(arm.p_unit) ?? 0;
+    } else if (arm.category === 'veteran') {
       // Cost is per wound per model, characters included (rule verbatim: "paid for every model in
       // the unit and per Wound or Hull point of the model" — GH#26: this was missed for Character
       // buyers, who paid a flat p_char/p_unit with no Wound scaling; Daemon Prince happened to
@@ -1885,6 +1889,7 @@ function EquipmentGroups({
   const countsCtx = useContext(ArmoryCountsContext);
   // Build a per-model/per-wound price label for veteran abilities
   function vetPriceLabel(arm: ArmoryItem): string {
+    if (arm.flat_price) return `+${parsePrice(arm.p_unit) ?? 0} pts`;
     if (isVehicle || isMonster) {
       const vp = parsePrice(arm.p_veh);
       if (vp == null) return '—';

@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'c';
+export const REVISION = 'd';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -56,6 +56,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       "THOUSAND SONS — LORD OF THE SILVER TOWER SHOWS ITS WEAPON (Discord). The upgrade now grants the Coruscating beam, so its profile appears on the unit card, in the print view and in battle view.",
       "HOVER ON UNIT TYPES (Discord). On a unit card, each type (Infantry, Bike, Character model, Monstrous creature, Walker, Vehicle, Flyer...) shows its Core Rules text on hover or tap, like weapon types.",
       "SAVE AS COPY (Discord). Next to Save there is now a \"Save as copy\" button on a list you already saved: the old list stays as it was and what is on screen is saved as a new one.",
+      "KNIGHT HOUSEHOLDS — REPUTATIONS COULD NOT BE PICKED (Discord, Truesight and Dominic). The Veteran button on a Knight opened an empty list: the Reputations are priced flat (15, 10, 5 points, \"up to two\") but the Armory only offered veteran abilities to vehicles that have a per-Hull-Point price. They now show with their price and the slot counter.",
+      "FACTION LIST IN ALPHABETICAL ORDER (Dominic). The factions under Build Army are sorted by name in each group (Chaos, Imperium, Xenos), in your language.",
     ],
   },
   {
