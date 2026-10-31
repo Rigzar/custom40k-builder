@@ -71,6 +71,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Knights","Reputations can be picked again: the Veteran button no longer opens an empty list."],
         ["Factions","The faction list under Build Army is alphabetical."],
         ["Build Army","It now always opens a window with a My Armies button that shows your lists; click one to keep editing."],
+        ["Opening lists","Opening another list while one is open asks first: save, open without saving, or cancel."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -111,6 +112,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Knights","Reputationen lassen sich wieder wählen: Der Veteran-Knopf öffnet keine leere Liste mehr."],
         ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
         ["Armee bauen","Öffnet jetzt immer ein Fenster mit dem Knopf Meine Armeen, der deine Listen zeigt; ein Klick zum Weiterbearbeiten."],
+        ["Listen öffnen","Beim Öffnen einer anderen Liste wird gefragt: speichern, ohne Speichern öffnen oder abbrechen."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -151,6 +153,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Knights","Las Reputations se pueden elegir otra vez: el botón Veteran ya no abre una lista vacía."],
         ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
         ["Construir ejército","Ahora abre siempre una ventana con un botón Mis ejércitos que muestra tus listas; un clic para seguir editando."],
+        ["Abrir listas","Al abrir otra lista con una abierta, pregunta: guardar, abrir sin guardar o cancelar."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -191,6 +194,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Knights","Репутации снова можно выбрать: кнопка Veteran больше не открывает пустой список."],
         ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
         ["Собрать армию","Теперь всегда открывает окно с кнопкой «Мои армии», показывающей ваши списки; клик, чтобы продолжить правку."],
+        ["Открытие списков","При открытии другого списка спрашивает: сохранить, открыть без сохранения или отменить."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -231,6 +235,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["ナイト","Reputation を再び選べます。Veteran ボタンが空のリストを開かなくなりました。"],
         ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
         ["軍勢を作る","常にウィンドウが開き、リストを表示する「マイアーミー」ボタンから編集を続けられます。"],
+        ["リストを開く","別のリストを開くときに、保存・保存せず開く・キャンセルを確認します。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],

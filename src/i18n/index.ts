@@ -70,7 +70,7 @@ export type TranslationKey =
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
   | 'stepFaction' | 'stepConfig' | 'stepUnits' | 'stepReview' | 'homeLabel' | 'stepLockedHint'
-  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'startNewArmy' | 'saveAndStartNew' | 'importReplacesConfirm' | 'armReasonSupport' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
+  | 'continueLabel' | 'continueArmy' | 'discardArmyConfirm' | 'startNewArmy' | 'loadGuardText' | 'saveAndOpen' | 'openWithoutSaving' | 'saveAndStartNew' | 'importReplacesConfirm' | 'armReasonSupport' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
   | 'skirmishDropsAllyConfirm' | 'skirmishDropsArchetypeConfirm' | 'skirmishArchetypesOnly'
   | 'armoryLostOnDowngradeConfirm'
@@ -833,6 +833,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueArmy: 'Continue this army',
     discardArmyConfirm: 'Start a new army? The list you have open will be discarded (saved copies are not touched).',
     startNewArmy: 'Start a new army',
+    loadGuardText: "Open another list? The list you have open will be replaced, and any changes you have not saved are lost.",
+    saveAndOpen: "Save this list, then open the other",
+    openWithoutSaving: "Open without saving",
     saveAndStartNew: 'Save this army, then start a new one',
     armReasonSupport: 'Only {n} support systems allowed',
     importReplacesConfirm: 'Importing replaces the list you have open. The import is kept apart from your saved lists and Save will create a NEW list (nothing already saved is touched). Continue?',
@@ -2021,6 +2024,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueArmy: 'Diese Armee fortsetzen',
     discardArmyConfirm: 'Neue Armee beginnen? Die geöffnete Liste wird verworfen (gespeicherte Kopien bleiben unverändert).',
     startNewArmy: 'Neue Armee beginnen',
+    loadGuardText: "Eine andere Liste öffnen? Die geöffnete Liste wird ersetzt, und nicht gespeicherte Änderungen gehen verloren.",
+    saveAndOpen: "Diese Liste speichern, dann die andere öffnen",
+    openWithoutSaving: "Ohne Speichern öffnen",
     saveAndStartNew: 'Diese Armee speichern und eine neue beginnen',
     armReasonSupport: 'Nur {n} Support Systems erlaubt',
     importReplacesConfirm: 'Der Import ersetzt die geöffnete Liste. Der Import bleibt von deinen gespeicherten Listen getrennt, und Speichern legt eine NEUE Liste an (nichts bereits Gespeichertes wird berührt). Fortfahren?',
@@ -3207,6 +3213,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     continueArmy: 'Continuar este ejército',
     discardArmyConfirm: '¿Empezar un ejército nuevo? Se descartará la lista abierta (las copias guardadas no se tocan).',
     startNewArmy: 'Empezar un ejército nuevo',
+    loadGuardText: "¿Abrir otra lista? La lista que tienes abierta se reemplazará y los cambios sin guardar se perderán.",
+    saveAndOpen: "Guardar esta lista y abrir la otra",
+    openWithoutSaving: "Abrir sin guardar",
     saveAndStartNew: 'Guardar este ejército y empezar uno nuevo',
     armReasonSupport: 'Solo se permiten {n} sistemas de apoyo',
     importReplacesConfirm: 'Importar reemplaza la lista que tienes abierta. La importación queda separada de tus listas guardadas y Guardar creará una lista NUEVA (no se toca nada de lo ya guardado). ¿Continuar?',

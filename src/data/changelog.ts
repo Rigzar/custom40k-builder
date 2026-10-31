@@ -59,6 +59,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "KNIGHT HOUSEHOLDS — REPUTATIONS COULD NOT BE PICKED (Discord, Truesight and Dominic). The Veteran button on a Knight opened an empty list: the Reputations are priced flat (15, 10, 5 points, \"up to two\") but the Armory only offered veteran abilities to vehicles that have a per-Hull-Point price. They now show with their price and the slot counter.",
       "FACTION LIST IN ALPHABETICAL ORDER (Dominic). The factions under Build Army are sorted by name in each group (Chaos, Imperium, Xenos), in your language.",
       "MY ARMIES WHEN BUILDING (Discord). Build Army now always opens a window with a My Armies button that shows your saved lists; one click opens one for editing, without going through Community Armies first. With no list open, only the \"will be discarded\" warning is left out.",
+      "ASKS BEFORE REPLACING A LIST (Discord). Opening another list (My Armies, your cloud lists, a Community army) while one is open now asks first: save this one and open the other, open without saving, or cancel. Before, the open list was replaced and its unsaved changes were lost.",
     ],
   },
   {

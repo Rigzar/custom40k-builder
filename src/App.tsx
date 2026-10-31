@@ -717,7 +717,14 @@ export default function App() {
     }
   }
 
-  function handleLoadArmy(save: SavedArmy) {
+  /** Opening another list replaces the one on the table, and its unsaved edits with it. With units on the table, ask first
+   *  (Discord: edit a list, open another of yours, and the first one's changes were gone). */
+  const [pendingOpen, setPendingOpen] = useState<null | (() => void)>(null);
+  function guardedLoad(run: () => void) {
+    if (army.length > 0) setPendingOpen(() => run); else run();
+  }
+  function handleLoadArmy(save: SavedArmy) { guardedLoad(() => loadArmyNow(save)); }
+  function loadArmyNow(save: SavedArmy) {
     if (isAlphaFaction(save.factionKey) && !canSeeAlpha) return;
     pendingLoad.current = save;
     setActiveLocalSaveId(save.id);
@@ -732,7 +739,8 @@ export default function App() {
     enterFlow('units');
   }
 
-  function handleLoadCloudRoster(data: Record<string, unknown>, rosterId: number) {
+  function handleLoadCloudRoster(data: Record<string, unknown>, rosterId: number) { guardedLoad(() => loadCloudRosterNow(data, rosterId)); }
+  function loadCloudRosterNow(data: Record<string, unknown>, rosterId: number) {
     const fLabel = data.faction as string;
     const fKey = FACTION_NAMES[fLabel]
       ? fLabel
@@ -776,7 +784,8 @@ export default function App() {
     setShowCampaign(false);
   }
 
-  function handleLoadCommunityArmy(data: Record<string, unknown>, from?: { name: string; author: string }) {
+  function handleLoadCommunityArmy(data: Record<string, unknown>, from?: { name: string; author: string }) { guardedLoad(() => loadCommunityArmyNow(data, from)); }
+  function loadCommunityArmyNow(data: Record<string, unknown>, from?: { name: string; author: string }) {
     const fLabel = data.faction as string;
     const fKey = FACTION_NAMES[fLabel]
       ? fLabel
@@ -927,6 +936,30 @@ export default function App() {
               </div>
             </header>
           )}
+        </div>
+      )}
+
+      {pendingOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 px-4" onClick={() => setPendingOpen(null)}>
+          <div className="w-full max-w-sm border border-zinc-600 bg-zinc-900 p-4 space-y-3" onClick={e => e.stopPropagation()}>
+            <p className="text-[13px] text-zinc-200">{t('loadGuardText')}</p>
+            <div className="flex flex-col gap-2">
+              {viewingCopyOf == null && (
+                <button
+                  onClick={async () => { const run = pendingOpen; if (!(await handleSaveArmy())) return; setPendingOpen(null); run(); }}
+                  className="py-2 px-3 border border-amber-700 text-amber-400 hover:text-amber-300 hover:border-amber-500 text-[12px] uppercase tracking-wider"
+                >{t('saveAndOpen')}</button>
+              )}
+              <button
+                onClick={() => { const run = pendingOpen; setPendingOpen(null); run(); }}
+                className="py-2 px-3 bg-amber-800 border border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold"
+              >{t('openWithoutSaving')}</button>
+              <button
+                onClick={() => setPendingOpen(null)}
+                className="py-2 px-3 border border-zinc-700 text-zinc-400 hover:text-zinc-200 text-[12px] uppercase tracking-wider"
+              >{t('cancel')}</button>
+            </div>
+          </div>
         </div>
       )}
 
