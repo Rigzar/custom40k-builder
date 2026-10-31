@@ -147,8 +147,7 @@
     ],
     "unit_type": "Vehicle, Walker",
     "keywords": [
-        "Armiger",
-        "Noble"
+        "Armiger, Noble"
     ],
     "is_vehicle": true,
     "is_character": false,

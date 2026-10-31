@@ -1,96 +1,96 @@
 {
-  "name": "Y'vahra Battlesuit",
-  "models": [
-    {
-      "stats": {
-        "M": "12\"",
-        "WS": "4+",
-        "BS": "4+",
-        "S": "7",
-        "T": "7",
-        "W": "6",
-        "I": "2",
-        "A": "4",
-        "LD": "8",
-        "SV": "2+"
-      },
-      "name": "Y'vahra Shas'vre",
-      "min": 1,
-      "max": 1,
-      "points": 400
-    }
-  ],
-  "variant_models": [],
-  "equipped_with": "A Y'vahra Shas'vre is a single model and is equipped with: Drone Controller; Ionic discharge cannon; 2 Missile Drones; Phased plasma flamer.",
-  "weapons": [
-    {
-      "name": "Ionic discharge cannon - Standard",
-      "range": "24\"",
-      "type": "Heavy 5",
-      "s": "8",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "AT(2)"
-    },
-    {
-      "name": "Ionic discharge cannon - Nova-charge",
-      "range": "24\"",
-      "type": "Heavy 5",
-      "s": "9",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "AT(3), Overheating"
-    },
-    {
-      "name": "Phased plasma flamer - Standard",
-      "range": "12\"",
-      "type": "Assault 6",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Auto Hit, Piercing(5+), Sunder(1)"
-    },
-    {
-      "name": "Phased plasma flamer - Nova-charge",
-      "range": "12\"",
-      "type": "Assault 6",
-      "s": "6",
-      "ap": "-1",
-      "d": "2",
-      "abilities": "Auto Hit, Overheating, Piercing(5+) Sunder(1)"
-    }
-  ],
-  "option_groups": [
-    {
-      "header": "Any Y'vahra Shas'vre may pick up to two SUPPORT SYSTEMS from the armory.",
-      "constraint": {
-        "type": "fixed_max",
-        "max": 2
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
-  "abilities": [
-    "Supporting Fire, Ward(5+)",
-    "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius and Strength 7."
-  ],
-  "unit_type": "Jump pack, Monstrous Creature",
-  "keywords": [],
-  "is_vehicle": false,
-  "is_character": false,
-  "is_monster": true,
-  "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
-  "has_veteran_abilities": false,
-  "veteran_required": false,
-  "veteran_max": null,
-  "locked_mark": null,
-  "advisor": false,
-  "slot": "Fast Attack",
-  "default_size": 1,
-  "min_cost": 400
+    "name": "Y'vahra Battlesuit",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "7",
+                "T": "7",
+                "W": "6",
+                "I": "2",
+                "A": "4",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Y'vahra Shas'vre",
+            "min": 1,
+            "max": 1,
+            "points": 400
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Y'vahra Shas'vre is a single model and is equipped with: Drone Controller; Ionic discharge cannon; 2 Missile Drones; Phased plasma flamer.",
+    "weapons": [
+        {
+            "name": "Ionic discharge cannon - Standard",
+            "range": "24\"",
+            "type": "Heavy 5",
+            "s": "8",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Ionic discharge cannon - Nova-charge",
+            "range": "24\"",
+            "type": "Heavy 5",
+            "s": "9",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(3), Overheating"
+        },
+        {
+            "name": "Phased plasma flamer - Standard",
+            "range": "12\"",
+            "type": "Assault 6",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Piercing(5+), Sunder(1)"
+        },
+        {
+            "name": "Phased plasma flamer - Nova-charge",
+            "range": "12\"",
+            "type": "Assault 6",
+            "s": "6",
+            "ap": "-1",
+            "d": "2",
+            "abilities": "Auto Hit, Overheating, Piercing(5+) Sunder(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Any Y'vahra Shas'vre may pick up to two SUPPORT SYSTEMS from the armory.",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 2
+            },
+            "choices": [],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Supporting Fire, Ward(5+)",
+        "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius and Strength 7."
+    ],
+    "unit_type": "Jump pack, Monstrous Creature",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": true,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 1,
+    "min_cost": 400
 }

@@ -435,7 +435,6 @@
     ],
     "abilities": [
         "Outflank",
-        "Charge: The charge profile of each lance can only be used if the unit has executed a \"Charge\" command during its activation.",
         "Attilan-Rider: The model gains +1 Strength.",
         "Chem-Rider: The model gains \"Berserk(5+)\".",
         "Death-Rider: The model gains +1 Attack.",

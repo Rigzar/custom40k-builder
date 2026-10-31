@@ -262,7 +262,7 @@
         }
     ],
     "abilities": [
-        "Battle Focus, Deflect, , Ward(5+)",
+        "Battle Focus, Deflect, Ward(5+)",
         "Shimmershield: The model and its attached unit gain Ward(4+) in melee."
     ],
     "unit_type": "Jetbike",

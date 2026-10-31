@@ -17,7 +17,7 @@
             "name": "Astropath",
             "min": 1,
             "max": 1,
-            "points": 11
+            "points": 12
         }
     ],
     "variant_models": [],
@@ -39,7 +39,7 @@
             "s": "+1",
             "ap": "0",
             "d": "1",
-            "abilities": "-"
+            "abilities": "Force"
         }
     ],
     "option_groups": [],
@@ -63,5 +63,5 @@
     "advisor": true,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 11
+    "min_cost": 12
 }

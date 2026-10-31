@@ -64,8 +64,7 @@
     ],
     "abilities": [
         "Massive(1)",
-        "Distortion: The weapon has a -1 penalty for to wound rolls.",
-        "Strength \"D\": A to wound roll of 2+ always wounds a creature or penetrates a vehicle.",
+        "Distortion: The weapon has a -1 penalty for armor penetration and wound rolls.",
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Monstrous Infantry",

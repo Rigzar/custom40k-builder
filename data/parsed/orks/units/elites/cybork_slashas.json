@@ -60,7 +60,7 @@
             "abilities": "-"
         },
         {
-            "name": "Kombi-burna- Shoota",
+            "name": "Kombi-burna - Shoota",
             "range": "18\"",
             "type": "Assault 3",
             "s": "4",
@@ -69,7 +69,7 @@
             "abilities": "Combi"
         },
         {
-            "name": "Kombi-burna- Burna",
+            "name": "Kombi-burna - Burna",
             "range": "9\"",
             "type": "Assault 4",
             "s": "4",
@@ -78,7 +78,7 @@
             "abilities": "Auto Hit, Combi, Sunder(1)"
         },
         {
-            "name": "Kombi-rokkit launcha- Shoota",
+            "name": "Kombi-rokkit launcha - Shoota",
             "range": "18\"",
             "type": "Assault 3",
             "s": "4",
@@ -87,7 +87,7 @@
             "abilities": "Combi"
         },
         {
-            "name": "Kombi-rokkit launcha- Rokkit launcha",
+            "name": "Kombi-rokkit launcha - Rokkit launcha",
             "range": "24\"",
             "type": "Assault 1",
             "s": "8",
