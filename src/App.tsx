@@ -934,7 +934,7 @@ export default function App() {
       {screen === 'home' && startChoiceOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" onClick={() => setStartChoiceOpen(false)}>
           <div className="w-full max-w-sm border border-zinc-600 bg-zinc-900 p-4 space-y-3" onClick={e => e.stopPropagation()}>
-            <p className="text-[13px] text-zinc-200">{t('discardArmyConfirm')}</p>
+            {army.length > 0 && <p className="text-[13px] text-zinc-200">{t('discardArmyConfirm')}</p>}
             <div className="flex flex-col gap-2">
               {flowUnlocked && (
                 <button
@@ -942,7 +942,7 @@ export default function App() {
                   className="py-2 px-3 border border-emerald-700 text-emerald-400 hover:text-emerald-300 hover:border-emerald-500 text-[12px] uppercase tracking-wider"
                 >↩ {t('continueArmy')}</button>
               )}
-              <button
+              {army.length > 0 && <button
                 onClick={async () => {
                   if (!(await handleSaveArmy())) return;
                   setStartChoiceOpen(false);
@@ -953,7 +953,7 @@ export default function App() {
                   setScreen('flow'); setStep('faction');
                 }}
                 className="py-2 px-3 border border-amber-700 text-amber-400 hover:text-amber-300 hover:border-amber-500 text-[12px] uppercase tracking-wider"
-              >{t('saveAndStartNew')}</button>
+              >{t('saveAndStartNew')}</button>}
               <button
                 onClick={() => {
                   setStartChoiceOpen(false);
@@ -990,10 +990,9 @@ export default function App() {
           canResume={flowUnlocked && army.length > 0}
           onStart={() => {
             // "Build army" used to drop straight back into the open list, and the next save
-            // overwrote it (Discord). A non-empty list now asks first, and a fresh start forgets
-            // which save it was linked to so it can never write over that one.
-            if (army.length > 0) { setStartChoiceOpen(true); return; }
-            setScreen('flow'); setStep('faction');
+            // overwrote it (Discord). It now always asks: with a list open (continue, save, discard) and without one
+            // (start fresh or open My Armies), and a fresh start forgets which save it was linked to.
+            setStartChoiceOpen(true);
           }}
           onResume={() => { setScreen('flow'); setStep('units'); }}
           onLoadArmy={handleLoadArmy}

@@ -25,7 +25,7 @@
         "ALS KOPIE SPEICHERN (Discord). Neben Speichern gibt es bei einer bereits gespeicherten Liste jetzt „Als Kopie speichern“: Die alte Liste bleibt unverändert, der aktuelle Stand wird als neue Liste gespeichert.",
         "KNIGHT HOUSEHOLDS — REPUTATIONEN KONNTEN NICHT GEWÄHLT WERDEN (Discord, Truesight und Dominic). Der Veteran-Knopf bei einem Knight öffnete eine leere Liste: Die Reputationen haben einen festen Preis (15, 10, 5 Punkte, „bis zu zwei“), aber das Arsenal bot Veteranenfähigkeiten nur Fahrzeugen mit einem Preis pro Rumpfpunkt an. Sie erscheinen jetzt mit Preis und Platzzähler.",
         "FRAKTIONSLISTE ALPHABETISCH (Dominic). Die Fraktionen unter Armee bauen sind in jeder Gruppe (Chaos, Imperium, Xenos) nach Namen sortiert, in deiner Sprache.",
-        "MEINE ARMEEN IN „NEUE ARMEE BEGINNEN?“ (Discord). Das Fenster, das erscheint, wenn du bei geöffneter Liste auf Armee bauen drückst, hat jetzt einen Knopf „Meine Armeen“, der deine gespeicherten Listen zeigt; ein Klick öffnet eine zum Bearbeiten, ohne erst über Community-Armeen zu gehen."
+        "MEINE ARMEEN BEIM ARMEE-BAUEN (Discord). „Armee bauen“ öffnet jetzt immer ein Fenster mit dem Knopf „Meine Armeen“, der deine gespeicherten Listen zeigt; ein Klick öffnet eine zum Bearbeiten, ohne erst über Community-Armeen zu gehen. Ohne geöffnete Liste fehlt nur der Hinweis auf das Verwerfen."
       ],
       "es": [
         "EL RATÓN EXPLICA MÁS (sugerencia de un jugador nuevo). El tipo de un arma (Pistol, Assault, Heavy, Rapid Fire, Grenade, Melee) muestra ahora su texto de las Reglas Base al pasar el ratón (o al tocarlo en el móvil), en la ficha de la unidad, en la vista de batalla y en la Armería. Las reglas nombradas entre comillas dentro de una habilidad, como la habilidad «Shunting» o «Move through cover», se explican igual en la ficha; la wiki convierte cada una en un enlace al glosario que muestra la regla al pasar el ratón.",
@@ -45,7 +45,7 @@
         "GUARDAR COMO COPIA (Discord). Junto a Guardar, en una lista ya guardada, hay un botón \"Guardar como copia\": la lista antigua se queda como estaba y lo que ves se guarda como una nueva.",
         "KNIGHT HOUSEHOLDS — NO SE PODÍAN ELEGIR LAS REPUTATIONS (Discord, Truesight y Dominic). El botón Veteran de un Knight abría una lista vacía: las Reputations tienen precio fijo (15, 10, 5 puntos, \"hasta dos\"), pero la Armería solo ofrecía habilidades de veterano a vehículos con precio por Hull Point. Ahora salen con su precio y el contador de huecos.",
         "LISTA DE FACCIONES EN ORDEN ALFABÉTICO (Dominic). Las facciones de Construir ejército están ordenadas por nombre dentro de cada grupo (Caos, Imperium, Xenos), en tu idioma.",
-        "MIS EJÉRCITOS EN \"¿EMPEZAR UN EJÉRCITO NUEVO?\" (Discord). La ventana que sale al pulsar Construir ejército con una lista abierta tiene ahora un botón \"Mis ejércitos\" que muestra tus listas guardadas; un clic abre una para editarla, sin pasar antes por Ejércitos de la comunidad."
+        "MIS EJÉRCITOS AL CONSTRUIR (Discord). \"Construir ejército\" abre ahora siempre una ventana con un botón \"Mis ejércitos\" que muestra tus listas guardadas; un clic abre una para editarla, sin pasar antes por Ejércitos de la comunidad. Sin lista abierta, solo desaparece el aviso de descarte."
       ],
       "ru": [
         "ПОДСКАЗКИ ОБЪЯСНЯЮТ БОЛЬШЕ (предложение нового игрока). Тип оружия (Pistol, Assault, Heavy, Rapid Fire, Grenade, Melee) теперь показывает текст Основных правил при наведении (на телефоне — при касании) на карточке юнита, в боевом режиме и в арсенале. Правила, названные в кавычках внутри способности, например «Shunting» или «Move through cover», объясняются так же на карточке; вики превращает каждое в ссылку на глоссарий, показывающую правило при наведении.",
@@ -65,7 +65,7 @@
         "СОХРАНИТЬ КАК КОПИЮ (Discord). Рядом с «Сохранить» у уже сохранённого списка есть кнопка «Сохранить как копию»: старый список остаётся как был, а текущий сохраняется как новый.",
         "KNIGHT HOUSEHOLDS — РЕПУТАЦИИ НЕЛЬЗЯ БЫЛО ВЫБРАТЬ (Discord, Truesight и Dominic). Кнопка Veteran у Knight открывала пустой список: у Репутаций фиксированная цена (15, 10, 5 очков, «до двух»), а Арсенал предлагал способности ветерана только технике с ценой за Hull Point. Теперь они видны с ценой и счётчиком слотов.",
         "СПИСОК ФРАКЦИЙ В АЛФАВИТНОМ ПОРЯДКЕ (Dominic). Фракции в «Собрать армию» отсортированы по названию внутри каждой группы (Хаос, Империум, Ксеносы) на вашем языке.",
-        "«МОИ АРМИИ» В ОКНЕ «НАЧАТЬ НОВУЮ АРМИЮ?» (Discord). В окне, которое появляется при нажатии «Собрать армию» с открытым списком, теперь есть кнопка «Мои армии», показывающая сохранённые списки; один клик открывает список для правки, без захода в «Армии сообщества»."
+        "«МОИ АРМИИ» ПРИ СБОРКЕ АРМИИ (Discord). «Собрать армию» теперь всегда открывает окно с кнопкой «Мои армии», показывающей сохранённые списки; один клик открывает список для правки, без захода в «Армии сообщества». Без открытого списка просто нет предупреждения об отбрасывании."
       ],
       "ja": [
         "ホバーでの説明を拡充（新規プレイヤーからの提案）。武器のタイプ（Pistol、Assault、Heavy、Rapid Fire、Grenade、Melee）にマウスを重ねる（スマホではタップ）と、ユニットカード、バトルビュー、アーモリーでコアルールの説明が表示されます。能力の中で引用符付きで挙げられたルール（「Shunting」や「Move through cover」など）もカード上で同様に説明され、wiki ではそれぞれ用語集へのリンクになり、重ねるとルールが表示されます。",
@@ -85,7 +85,7 @@
         "コピーとして保存 (Discord)。保存済みのリストでは「保存」の隣に「コピーとして保存」ボタンが付きます。古いリストはそのままで、画面の内容が新しいリストとして保存されます。",
         "KNIGHT HOUSEHOLDS — Reputation を選べなかった問題 (Discord、Truesight、Dominic)。ナイトの Veteran ボタンが空のリストを開いていました。Reputation は固定価格（15・10・5 ポイント、「最大2つ」）ですが、アーモリーは Hull Point ごとの価格がある車両にしかベテラン能力を出していませんでした。価格とスロットカウンター付きで表示されます。",
         "勢力リストをアルファベット順に (Dominic)。「軍勢を作る」の勢力は各グループ（カオス、帝国、ゼノ）内で、お使いの言語の名前順に並びます。",
-        "「新しい軍勢を始めますか？」に「マイアーミー」ボタン (Discord)。リストを開いたまま「軍勢を作る」を押したときの画面に「マイアーミー」ボタンが加わり、保存したリストを表示します。クリックで編集でき、コミュニティアーミー経由は不要です。"
+        "軍勢を作るときに「マイアーミー」(Discord)。「軍勢を作る」を押すと常にウィンドウが開き、保存したリストを表示する「マイアーミー」ボタンから、コミュニティアーミー経由なしで編集できます。リストを開いていない場合は、破棄の警告だけが出ません。"
       ]
     }
   },

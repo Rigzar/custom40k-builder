@@ -70,7 +70,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower now shows its Coruscating beam in print and battle view."],
         ["Knights","Reputations can be picked again: the Veteran button no longer opens an empty list."],
         ["Factions","The faction list under Build Army is alphabetical."],
-        ["Build Army","The \"Start a new army?\" window has a My Armies button that shows your lists; click one to keep editing."],
+        ["Build Army","It now always opens a window with a My Armies button that shows your lists; click one to keep editing."],
       ] },
       { label: "Knight Households", rows: [
         ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
@@ -110,7 +110,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower zeigt seinen Coruscating beam jetzt in Druck- und Schlachtansicht."],
         ["Knights","Reputationen lassen sich wieder wählen: Der Veteran-Knopf öffnet keine leere Liste mehr."],
         ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
-        ["Armee bauen","Das Fenster „Neue Armee beginnen?“ hat einen Knopf Meine Armeen, der deine Listen zeigt; ein Klick zum Weiterbearbeiten."],
+        ["Armee bauen","Öffnet jetzt immer ein Fenster mit dem Knopf Meine Armeen, der deine Listen zeigt; ein Klick zum Weiterbearbeiten."],
       ] },
       { label: "Knight Households", rows: [
         ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
@@ -150,7 +150,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower ya muestra su Coruscating beam en impresión y vista de batalla."],
         ["Knights","Las Reputations se pueden elegir otra vez: el botón Veteran ya no abre una lista vacía."],
         ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
-        ["Construir ejército","La ventana \"¿Empezar un ejército nuevo?\" tiene un botón Mis ejércitos que muestra tus listas; un clic para seguir editando."],
+        ["Construir ejército","Ahora abre siempre una ventana con un botón Mis ejércitos que muestra tus listas; un clic para seguir editando."],
       ] },
       { label: "Knight Households", rows: [
         ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
@@ -190,7 +190,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower теперь показывает Coruscating beam в печати и в режиме боя."],
         ["Knights","Репутации снова можно выбрать: кнопка Veteran больше не открывает пустой список."],
         ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
-        ["Собрать армию","В окне «Начать новую армию?» есть кнопка «Мои армии», показывающая ваши списки; клик, чтобы продолжить правку."],
+        ["Собрать армию","Теперь всегда открывает окно с кнопкой «Мои армии», показывающей ваши списки; клик, чтобы продолжить правку."],
       ] },
       { label: "Knight Households", rows: [
         ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
@@ -230,7 +230,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Thousand Sons","Lord of the Silver Tower の Coruscating beam が印刷とバトルビューに表示されます。"],
         ["ナイト","Reputation を再び選べます。Veteran ボタンが空のリストを開かなくなりました。"],
         ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
-        ["軍勢を作る","「新しい軍勢を始めますか？」の画面に、リストを表示する「マイアーミー」ボタンが加わりました。クリックで編集を続けられます。"],
+        ["軍勢を作る","常にウィンドウが開き、リストを表示する「マイアーミー」ボタンから編集を続けられます。"],
       ] },
       { label: "Knight Households", rows: [
         ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],
