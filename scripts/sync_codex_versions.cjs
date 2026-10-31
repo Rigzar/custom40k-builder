@@ -1,6 +1,6 @@
 /**
  * Reads the live title of every faction's Google Sheet (the author records the codex version in
- * it, e.g. "Chaos Space Marines 1.10"), compares the number with the `version:` in
+ * it, e.g. "Chaos Space Marines 1.11"), compares the number with the `version:` in
  * src/data/factionCatalog.ts and REWRITES the catalog when a codex moved. Prints a markdown
  * report. The sheet ids come from the SHEETS table in scripts/fetch_codex.cjs, so there is one
  * list to maintain.

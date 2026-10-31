@@ -25,7 +25,7 @@ const SHEETS = {
   adeptus_sororitas:  ['1t6sB5Ls5UdXu5LE61Ab_2OOgxD4m2TC6hFvsEy0bP3k', 'Adeptus Sororitas 1.3.ods'],
   assassins:          ['1NZepq8IfXgWs9mmZMxg4emgOxTPP5VfVNfRZ3ryh5f4', 'Assassins 1.3.ods'],
   chaos_daemons:      ['1t4UjzvS44a2h-x5KJGM-GyIou66yt0XfpOqqjAE1zl8', 'Chaos Daemons 1.2.ods'],
-  chaos_space_marines:['1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw', 'Chaos Space Marines 1.10.ods'],
+  chaos_space_marines:['1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw', 'Chaos Space Marines 1.11.ods'],
   dark_eldar:         ['1SGc2WinOPa4gy66gICT4KiczzOgugDMe-v5JGz-bPQ8', 'Dark Eldar 1.6.ods'],
   eldar:              ['139EqmDtxDjDZ4t6tllqHKjATrTpKQgJks7UzmKkUSkw', 'Eldar 1.8.ods'],
   genestealer_cults:  ['1s0RwILJINi2QcCYnpjQ8und3QRoTDZWp83UJGlo8hqQ', 'Genestealer Cults 1.4.ods'],
