@@ -116,7 +116,7 @@
     ],
     "option_groups": [
         {
-            "header": "May swap their Twin assault cannon",
+            "header": "May swap their Twin flamestorm cannon",
             "constraint": {
                 "type": "one"
             },
@@ -132,13 +132,17 @@
                 {
                     "name": "Twin lascannon",
                     "points": 78
+                },
+                {
+                    "name": "Executioner plasma cannon",
+                    "points": 74
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Twin assault cannon"
+                "Twin flamestorm cannon"
             ]
         },
         {

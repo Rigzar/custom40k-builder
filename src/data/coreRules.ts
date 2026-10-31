@@ -629,7 +629,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'synapse': {
     name: 'Synapse',
-    description: 'Units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; if they fail a Leadership test they suffer 1 Mortal Wound per point of difference (instead of a Battleshock token) and count as having passed; and lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
+    description: 'Friendly Tyranid units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; if they fail a Leadership test they suffer 1 Mortal Wound per point of difference (instead of a Battleshock token) and count as having passed; and lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
   },
   'void armor': {
     name: 'Void Armor',

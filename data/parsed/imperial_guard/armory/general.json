@@ -166,7 +166,10 @@
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "-",
+      "abilities": "Only for Bikes",
+      "requires_keywords": [
+        "Bike"
+      ],
       "p_unit": 1,
       "p_char": 1
     },
