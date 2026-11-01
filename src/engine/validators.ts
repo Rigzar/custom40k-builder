@@ -19,7 +19,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
-import { archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype } from '../lib/legacyGatedChoices';
+import { archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus, legacySlotBonusOnly } from './codex_csm/legacies';
@@ -1613,7 +1613,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const need = unitRequiredLegacy(resolveUnit(item, data));
     if (need && need !== state.legacy && need !== state.legacy2) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
     const needArch = unitRequiredArchetype(resolveUnit(item, data));
-    if (needArch && needArch !== state.archetype) items.push({ type: 'error', text: `${item.unitName} can only be selected with the ${needArch} archetype.` });
+    if (needArch && !archetypeOpensUnit(needArch, state.archetype, state.legacy, data.archetypes)) items.push({ type: 'error', text: `${item.unitName} can only be selected with the ${needArch} archetype.` });
   }
 
   // Escalation (Dominic, 2026-10-23): the War Dog is a Chaos Elite. In a codex that is not Chaos Space Marines its datasheet is

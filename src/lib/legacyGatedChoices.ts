@@ -34,6 +34,22 @@ export function unitRequiredLegacy(unit: { requires_legacy?: string; option_grou
   return null;
 }
 
+/**
+ * May the army take a datasheet that needs the archetype `needArch`? Yes with that archetype, and also with the Legion Specialists
+ * archetype when the army has the Legacy of the Legion that archetype belongs to (its special units are open to the Specialists of that Legacy).
+ */
+export function archetypeOpensUnit(
+  needArch: string,
+  archetype: string | null | undefined,
+  legacy: string | null | undefined,
+  archetypes: Array<Pick<Archetype, 'name' | 'desc'>>,
+): boolean {
+  if (needArch === archetype) return true;
+  if (archetype !== 'Legion Specialists') return false;
+  const legacyOfNeed = archetypeRequiredLegacy(archetypes.find(a => a.name === needArch));
+  return !!legacyOfNeed && legacyOfNeed === legacy;
+}
+
 /** The archetype a datasheet demands (`requires_archetype`), or null. */
 export function unitRequiredArchetype(unit: { requires_archetype?: string } | undefined | null): string | null {
   return unit?.requires_archetype ?? null;
