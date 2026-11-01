@@ -62,5 +62,5 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
     legionTerm: term('Sons of Horus', 'SoH', 1, 'the model gains +1" Movement.'),
     statMods: [{ stat: 'M', delta: 1, creatureOnly: true }],
   }),
-  'Thousand Sons': r({}),
+  'Thousand Sons': r({ troopsRemap: ['Castellax-Achea Automata'] }),
 };

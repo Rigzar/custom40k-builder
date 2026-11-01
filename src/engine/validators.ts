@@ -1017,19 +1017,6 @@ export function computeOverseerAuxiliaFreeSlots(
 }
 
 /**
- * Horus Heresy Thousand Sons: the Armory item "Castellax-Achea retinue" lets the army take one Castellax-Achea Automata
- * unit per model that bought it without using a slot (Elites, where the datasheet sits).
- */
-export function computeCastellaxRetinueFreeSlots(army: RosterEntry[]): { elites: number; notes: string[] } {
-  const units = army.filter(i => i.unitName === 'Castellax-Achea Automata').length;
-  if (units === 0) return { elites: 0, notes: [] };
-  const items = army.reduce((n, i) => n + (i.armory ?? []).filter(a => a.itemName === 'Castellax-Achea retinue').length, 0);
-  if (items === 0) return { elites: 0, notes: [] };
-  const credited = Math.min(units, items);
-  return { elites: credited, notes: [`Castellax-Achea retinue: ${credited} of ${units} Castellax-Achea Automata unit${units === 1 ? '' : 's'} exempted from the Elites slot (one per item bought, have ${items}).`] };
-}
-
-/**
  * Necrons Hexmark Destroyer: "Royal Assassin — For each Lord or Skorpekh Lord, a Hexmark
  * Destroyer can be chosen that does not occupy an Elite slot." Ratio-against-sibling pattern,
  * same as computeKrootShaperFreeSlots. Source: Hexmark Destroyer ability text (datasheet).
@@ -1285,14 +1272,13 @@ export function computeFreeSlotAdjustments(
   const retinue         = computeRetinueFreeSlots(army, data);
   const ringleader      = computeRingleaderFreeSlots(army, data);
   const overseerAuxilia = computeOverseerAuxiliaFreeSlots(army);
-  const castellax        = computeCastellaxRetinueFreeSlots(army);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
       + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
-      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites + castellax.elites,
+      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
     fa: cd.fa + krootEscort.fa,
     hs: krootEscort.hs,
     troops: overseerAuxilia.troops,
@@ -1302,7 +1288,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes, ...castellax.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes,
     ],
   };
 }

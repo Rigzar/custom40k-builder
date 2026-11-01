@@ -161,14 +161,6 @@
       "p_char": null
     }
   ],
-  "equipment": [
-    {
-      "name": "Castellax-Achea retinue",
-      "term_compat": false,
-      "desc": "A Praetor or Centurion may be accompanied by a Castellax-Achea Automata unit: for each model that has bought this item, one Castellax-Achea Automata unit can be taken that takes no slot and is part of the army. The unit is bought and equipped as normal.",
-      "p_unit": 1,
-      "p_char": 1
-    }
-  ],
+  "equipment": [],
   "daemon_weapons": []
 }

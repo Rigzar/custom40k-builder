@@ -104,5 +104,5 @@
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 134,
-    "requires_legacy": "Legacy of the Crimson King"
+    "requires_archetype": "Thousand Sons"
 }
