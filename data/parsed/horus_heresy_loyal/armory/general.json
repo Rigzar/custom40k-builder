@@ -568,6 +568,21 @@
       ]
     },
     {
+      "name": "Paragon blade",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Deadly(6+)",
+      "p_unit": null,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Plasma blaster",
       "term_compat": true,
       "range": "",
