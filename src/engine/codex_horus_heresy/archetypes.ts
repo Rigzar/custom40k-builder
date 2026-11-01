@@ -36,7 +36,11 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Iron Hands': r({ slotCapOverride: { slot: 'Fast Attack', max: 1 } }),
   'The Covenant of Fire (Salamanders)': r({ troopsRemap: ['Legion Tactical Support Squad'] }),
   'Raven Guard': r({ slotCapOverride: { slot: 'Heavy Support', max: 1 } }),
-  "Emperor's Children": r({ troopsRemap: ['Kakophoni Squad'] }),
+  "Emperor's Children": r({
+    troopsRemap: ['Kakophoni Squad'],
+    legionTerm: term("Emperor's Children", 'EC', 1, 'the model gains +1" Movement.'),
+    statMods: [{ stat: 'M', delta: 1, creatureOnly: true }],
+  }),
   'Death Guard': r({
     legionTerm: term('Death Guard', 'DG', 2, 'the model gains +1 Toughness; a character model or Monstrous Creature also gains +1 Wound. Vehicles may roll 2D6 during each Reinforcement phase: on a 7+ they may remove a "Crew Shaken" result, one "Engine Damage" or one "Weapon Damage" result, or restore one lost HP. Units automatically pass Dangerous Terrain tests.', 10),
     statMods: [{ stat: 'T', delta: 1, creatureOnly: true }, { stat: 'W', delta: 1, characterOrMonsterOnly: true }],
@@ -53,6 +57,10 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
     legionTerm: term('Word Bearers', 'WB', 1, 'the model gains +1 Leadership.'),
     statMods: [{ stat: 'LD', delta: 1, creatureOnly: true }],
   }),
-  'Sons of Horus': r({ troopsRemap: [...TERMS, 'Legion Assault Squad'] }),
+  'Sons of Horus': r({
+    troopsRemap: [...TERMS, 'Legion Assault Squad'],
+    legionTerm: term('Sons of Horus', 'SoH', 1, 'the model gains +1" Movement.'),
+    statMods: [{ stat: 'M', delta: 1, creatureOnly: true }],
+  }),
   'Thousand Sons': r({ troopsRemap: ['Castellax-Achea Automata'] }),
 };

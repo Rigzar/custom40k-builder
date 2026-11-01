@@ -10,8 +10,8 @@
       "ap": "-2",
       "d": "1",
       "abilities": "Unwieldy, Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 5,
+      "p_char": 6
     },
     {
       "name": "Achea force maul",
@@ -22,8 +22,8 @@
       "ap": "-3",
       "d": "1",
       "abilities": "Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 6,
+      "p_char": 7
     },
     {
       "name": "Achea force sword",
@@ -34,8 +34,8 @@
       "ap": "-3",
       "d": "1",
       "abilities": "Rending(5+), Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 5,
+      "p_char": 7
     },
     {
       "name": "Aether-fire blaster",
@@ -46,8 +46,8 @@
       "ap": "-2",
       "d": "2",
       "abilities": "Rending(6+), Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 29,
+      "p_char": 37
     },
     {
       "name": "Aether-fire cannon",
@@ -58,8 +58,8 @@
       "ap": "-2",
       "d": "2",
       "abilities": "Blast(6), Rending(6+), Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 61,
+      "p_char": 77
     },
     {
       "name": "Aether-fire pistol",
@@ -70,8 +70,8 @@
       "ap": "-2",
       "d": "2",
       "abilities": "Rending(6+), Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 7,
+      "p_char": 8
     },
     {
       "name": "Asphyx bolt pistol",
@@ -82,8 +82,8 @@
       "ap": "-1",
       "d": "1",
       "abilities": "Rending(6+)",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 2,
+      "p_char": 2
     },
     {
       "name": "Asphyx bolter",
@@ -94,8 +94,8 @@
       "ap": "-1",
       "d": "1",
       "abilities": "Rending(6+)",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 5,
+      "p_char": 6
     },
     {
       "name": "Asphyx combi-bolter",
@@ -106,8 +106,8 @@
       "ap": "-1",
       "d": "1",
       "abilities": "Rending(6+)",
-      "p_unit": null,
-      "p_char": null
+      "p_unit": 9,
+      "p_char": 12
     },
     {
       "name": "Coruscating beam",
