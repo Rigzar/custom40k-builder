@@ -67,5 +67,5 @@
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 141,
-    "requires_legacy": "Legacy of the Lord of Iron"
+    "requires_archetype": "Iron Warriors"
 }

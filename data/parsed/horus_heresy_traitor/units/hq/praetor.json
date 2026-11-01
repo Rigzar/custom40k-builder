@@ -62,6 +62,16 @@
             "inline_pts": 5,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "Only with the Iron Warriors archetype, Warsmith: the Praetor becomes a Warsmith (see Warsmith below) for +12 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 12,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -70,7 +80,8 @@
         "Praetor: A Praetor may use Combat Tactics a second time.",
         "Master of the Legion: The army may take Legion Command Squads and Retinues, one for each Praetor. An army that has chosen an Archetype (Rite of War) must include at least one Praetor or Delegatus. (Draft wording B, to be confirmed by Eden.)",
         "Burning Lore: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and the powers of the Anathemata discipline (see Psychic disciplines, Esoterist (Anathemata)). It knows no other powers. It has Terrifying(-1) (the Fear (1) of the book).",
-        "Dark Oratory: At the start of each of its activations, choose one friendly Legion: Word Bearers unit within 6\" of this model: until the start of this model's next activation, the Leadership of all models of that unit is increased by 2."
+        "Dark Oratory: At the start of each of its activations, choose one friendly Legion: Word Bearers unit within 6\" of this model: until the start of this model's next activation, the Leadership of all models of that unit is increased by 2.",
+        "Warsmith: Only with the Iron Warriors archetype. The model gains the Blessing of the Omnissiah ability (see Techmarine) and the Master of Automata ability of the Praevian: it gains the Fearless ability while it is in a unit with Automata models, may join such a unit and may use \"Blessing of the Omnissiah\" on units with Automata models."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

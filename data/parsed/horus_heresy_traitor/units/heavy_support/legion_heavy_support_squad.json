@@ -166,6 +166,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Soul burn(6+)"
+        },
+        {
+            "name": "Shrapnel cannon",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4), Suppression(2)"
         }
     ],
     "option_groups": [
@@ -210,6 +219,20 @@
             "replaces": [
                 "Heavy flamer"
             ]
+        },
+        {
+            "header": "Only with the Iron Warriors archetype, as Iron Havocs: all models may swap their Heavy flamer for a Shrapnel cannon for +3 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 3,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Heavy flamer"
+            ],
+            "per_model": true
         }
     ],
     "abilities": [

@@ -247,6 +247,24 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Soul burn(6+)"
+        },
+        {
+            "name": "Tyrant rocket launcher - Swarmer",
+            "range": "48\"",
+            "type": "Heavy 3",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Rending(6+)"
+        },
+        {
+            "name": "Tyrant rocket launcher - Breaker",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armorbane(1)"
         }
     ],
     "option_groups": [
@@ -409,6 +427,20 @@
             "replaces": [
                 "Combi-bolter",
                 "Power sword"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "Only with the Iron Warriors archetype, as Tyrant Siege Terminators: all models may swap their Combi-bolter for a Tyrant rocket launcher for +15 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
             ],
             "per_model": true
         }
