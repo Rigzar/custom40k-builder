@@ -52,8 +52,9 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Terror Assault (Night Lords)': r({ troopsRemap: ['Legion Veteran Squad'], banOtherTroops: true }),
   'Word Bearers': r({
   }),
-  'Shattered Legions': r({ twoLegacies: true }),
-  'Blackshields': r({ twoLegacies: true }),
+  // two Legacies and a third Trait (three instead of the one every Horus Heresy army has)
+  'Shattered Legions': r({ twoLegacies: true, archetypeTraitBonus: 2 }),
+  'Blackshields': r({ twoLegacies: true, archetypeTraitBonus: 2 }),
   'Thousand Sons': r({ unitsArePsykers: { discipline: 'Prosperine Arcana' } }),
   'Sons of Horus': r({
   }),

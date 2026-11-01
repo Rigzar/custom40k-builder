@@ -98,7 +98,7 @@
     },
     {
       "name": "Shattered Legions",
-      "desc": "- The army has two Legacies (two Legions of this book, all of them Loyalist), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Survivors of several betrayed Legions fighting together under one banner (Shadrak Meduson, Master of the Shattered Legions)."
+      "desc": "- The army has two Legacies (two Legions of this book, all of them Loyalist), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Survivors of several betrayed Legions fighting together under one banner (Shadrak Meduson, Master of the Shattered Legions).\n- The army has access to a third Trait: three Legion Traits instead of one."
     }
   ],
   "legacies": [
@@ -146,11 +146,6 @@
       "name": "Legacy of the Liberator",
       "desc": "The army has access to the Raven Guard Armory.\n- Any model with a Lightning claw may swap it for a Raven's talons for +5 points each.\n- The army has access to the Primarch Corvus Corax.",
       "armory_key": "Raven Guard"
-    },
-    {
-      "name": "Legacy of the Sundered",
-      "desc": "The army has access to one Legion-specific unit or Consul type per 1000 points of game size.\nArmory: only the general Armory (the Sundered Legion has no Legion Armory of its own).",
-      "armory_key": null
     }
   ],
   "traits": [
