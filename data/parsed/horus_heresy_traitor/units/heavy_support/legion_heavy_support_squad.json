@@ -215,7 +215,7 @@
                 {
                     "name": "Shrapnel cannon",
                     "points": 3,
-                    "requires_archetype": "Iron Warriors"
+                    "requires_legacy": "Legacy of the Lord of Iron"
                 }
             ],
             "inline_pts": null,

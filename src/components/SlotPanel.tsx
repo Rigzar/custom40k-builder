@@ -77,7 +77,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     return <div className="text-[11px] text-zinc-700 px-1 py-1.5 italic">{t('noUnitsAvailable')}</div>;
   }
   const eng = engagementFor(engagement, isAllied ? null : data.faction);
-  const rule = getArchetypeRule(archetype);
+  const rule = getArchetypeRule(archetype, isAllied ? alliedLegacy : legacy);
 
   if (isAllied) {
     // Allied scope: the ally's own nested-ally injection (e.g. CSM "Plaguehost" granting Chaos
@@ -452,7 +452,8 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           : (slot === 'HQ' && rule?.hqOverride)
             ? rawMax
             : eng.multiAop ? rawMax * aopMult : rawMax;
-        const cappedMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawScaledMax, rule.slotCapOverride.max) : rawScaledMax;
+        const capOv = rule?.slotCapOverride?.slot === slot ? rule.slotCapOverride.max : (rule?.slotCaps ?? []).find(c => c.slot === slot)?.max;
+        const cappedMax = capOv != null ? Math.min(rawScaledMax, capOv) : rawScaledMax;
         // Legacy extras, per AOP (CSM Hydra: +1 Elite, Night Haunter: +1 Fast Attack).
         const max = cappedMax + csmLegacySlotBonus(isAllied ? [store.alliedLegacy] : [store.legacy, store.legacy2], slot) * (eng.multiAop ? aopMult : 1);
 

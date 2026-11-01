@@ -131,7 +131,12 @@
                 },
                 {
                     "name": "2 Twin lascannon",
-                    "points": 262
+                    "points": 262,
+                    "effect": {
+                        "grants_weapons": [
+                            "Twin lascannon"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,

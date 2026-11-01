@@ -102,5 +102,5 @@
     "slot": "Elites",
     "default_size": 5,
     "min_cost": 370,
-    "requires_archetype": "World Eaters"
+    "requires_legacy": "Legacy of the Lord of Red Sands"
 }

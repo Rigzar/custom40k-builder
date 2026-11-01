@@ -78,7 +78,12 @@
             "choices": [
                 {
                     "name": "2 Twin lascannons",
-                    "points": 60
+                    "points": 60,
+                    "effect": {
+                        "grants_weapons": [
+                            "Twin lascannon"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,
@@ -96,7 +101,12 @@
             "choices": [
                 {
                     "name": "2 Quad heavy bolters",
-                    "points": 37
+                    "points": 37,
+                    "effect": {
+                        "grants_weapons": [
+                            "Quad heavy bolter"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,

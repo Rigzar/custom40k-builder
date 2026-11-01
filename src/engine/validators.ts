@@ -1295,7 +1295,7 @@ export function computeFreeSlotAdjustments(
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
   const eng = engagementFor(state.engagement, data.faction);
-  const rule = getArchetypeRule(state.archetype);
+  const rule = getArchetypeRule(state.archetype, state.legacy);
   const items: ValidationItem[] = [];
 
   // True when the primary archetype grants a supplement faction (HH, future similar supplements)
@@ -1322,7 +1322,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit, effectiveLegacyFor(i, state)) : 0);
   }, 0);
 
   // Horus Heresy: the Solar Auxilia Lasrifle Section "can't be selected without an Overseer" (up to 3 per Overseer).
@@ -2724,7 +2724,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       })
       .reduce((s, i) => {
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
-        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
+        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit, effectiveLegacyFor(i, state)) : 0);
       }, 0);
     // Transport vehicles "from Mechanised Infantry" count toward the 25% Troops requirement
     // (Imperial Guard 1.01.ods): 50% of their point cost BY DEFAULT, raised to 75% by the
@@ -2747,7 +2747,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           })
           .map(i => {
             const u = resolveUnit(i, data);
-            return u ? computeUnitPoints(i, u, state.archetype, factionForEntry(i, data), state.pointLimit) : 0;
+            return u ? computeUnitPoints(i, u, state.archetype, factionForEntry(i, data), state.pointLimit, effectiveLegacyFor(i, state)) : 0;
           })
           .sort((a, b) => b - a)
           .slice(0, mechInfCount)
@@ -2942,7 +2942,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
-      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data), state.pointLimit);
+      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state));
       const effSlot = getEffectiveSlotFor(item, effectiveRuleFor(item, state));
       if (effSlot === 'HQ' && pts > 150) {
         items.push({ type: 'error', text: T('valSkirmishHqExceeds', { unit: item.unitName, pts }) });
@@ -3324,7 +3324,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       } else {
         const lowPts = lowUnits.reduce((s, i) => {
           const u = resolveUnit(i, data);
-          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
+          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit, effectiveLegacyFor(i, state)) : 0);
         }, 0);
         const cap = Math.floor(total * 0.33);
         if (lowPts > cap) {
@@ -3405,7 +3405,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
         : (eng.multiAop ? engMax * aopState.unlocked : engMax);
-    const cappedMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
+    const capOv = rule?.slotCapOverride?.slot === slot ? rule.slotCapOverride.max : (rule?.slotCaps ?? []).find(c => c.slot === slot)?.max;
+    const cappedMax = capOv != null ? Math.min(rawEffMax, capOv) : rawEffMax;
     // Legacy extras (CSM Hydra: +1 Elite, Night Haunter: +1 Fast Attack, per AOP).
     const effMax = cappedMax + csmLegacySlotBonus([state.legacy, state.legacy2], slot) * (eng.multiAop ? aopState.unlocked : 1);
     if (used > effMax) {

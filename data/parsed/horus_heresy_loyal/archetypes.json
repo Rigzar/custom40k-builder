@@ -34,113 +34,113 @@
     },
     {
       "name": "Legion Specialists",
-      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae.\n- The army has access to the Primarch of the chosen Legacy (if it has one).\n- The army may select the special units of the Legion of the chosen Legacy that otherwise need its archetype."
+      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae.\n- The army may select the special units of the Legion of the chosen Legacy that otherwise need its archetype."
     },
     {
       "name": "Deathwing Conclave (The Unbroken Vow)",
-      "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Veteran Squads and Terminator Squads can be taken as Troops.\n- At least 25% of the army's Troops selections must be Legion Veteran Squads or Terminator Squads.\n- Every unit gains Regeneration(1) while within 6\" of a mission objective.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken.\n- Source: the 1st and 2nd edition Horus Heresy rules (the 3rd edition does not list what this Detachment restricts)."
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Veteran Squads and Terminator Squads can be taken as Troops.\n- At least 25% of the army's Troops selections must be Legion Veteran Squads or Terminator Squads.\n- Every unit gains Regeneration(1) while within 6\" of a mission objective.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken.\n- Source: the 1st and 2nd edition Horus Heresy rules (the 3rd edition does not list what this Detachment restricts)."
     },
     {
       "name": "The Steel Fist (Dark Angels)",
-      "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Predators can be taken as Troops and Legion Kratos Assault Tanks as Elites.\n- Infantry units must start the game as passengers inside a transport that is not a Flyer.\n- No unit can arrive by Deep strike or Outflank."
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Predators can be taken as Troops and Legion Kratos Assault Tanks as Elites.\n- Infantry units must start the game as passengers inside a transport that is not a Flyer.\n- No unit can arrive by Deep strike or Outflank."
     },
     {
       "name": "The Storm of War (Dark Angels)",
-      "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Tactical, Despoiler and Assault Squads can be taken as Elites, and Legion Assault Squads as Fast Attack.\n- Troops selections must take the maximum number of models.\n- Tactical and Despoiler Squads cannot take a Dedicated Transport.\n- No unit can arrive by Deep strike or Outflank."
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Tactical, Despoiler and Assault Squads can be taken as Elites, and Legion Assault Squads as Fast Attack.\n- Troops selections must take the maximum number of models.\n- Tactical and Despoiler Squads cannot take a Dedicated Transport.\n- No unit can arrive by Deep strike or Outflank."
     },
     {
       "name": "The Seeker's Arrow (Dark Angels)",
-      "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Sky-hunter and Outrider Squadrons can be taken as Troops.\n- Troops and Fast Attack selections gain the Outflank ability.\n- Vehicles must be Fast, Skimmers or Flyers, and only a single Heavy Support choice can be taken."
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Sky-hunter and Outrider Squadrons can be taken as Troops.\n- Troops and Fast Attack selections gain the Outflank ability.\n- Vehicles must be Fast, Skimmers or Flyers, and only a single Heavy Support choice can be taken."
     },
     {
       "name": "The Serpent's Bane (Dark Angels)",
-      "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Seeker Squads can be taken as Troops, and all Troops selections must be Seeker Squads.\n- Up to three Troops units gain the Infiltrator ability."
+      "desc": "- Can only be selected with the Legacy of the Lion.\n- Legion Seeker Squads can be taken as Troops, and all Troops selections must be Seeker Squads.\n- Up to three Troops units gain the Infiltrator ability."
     },
     {
       "name": "White Scars",
-      "desc": "- Can only be selected with the Legacy of the Great Khan.\n- The army has access to the Primarch Jaghatai Khan.\n- Legion Sky-hunter Squadrons and Outrider Squadrons can be taken as Troops."
+      "desc": "- Can only be selected with the Legacy of the Great Khan.\n- Legion Sky-hunter Squadrons and Outrider Squadrons can be taken as Troops."
     },
     {
       "name": "Space Wolves",
-      "desc": "- Can only be selected with the Legacy of the Wolf King.\n- The army has access to the Primarch Leman Russ.\n- Once per battle, at the start of a battle round, all units gain until the end of that round: +1 to combat resolution, the Furious charge ability, and they ignore negative Leadership modifiers.\n- In that round every unit that can charge must charge an enemy unit it can reach."
+      "desc": "- Can only be selected with the Legacy of the Wolf King.\n- Once per battle, at the start of a battle round, all units gain until the end of that round: +1 to combat resolution, the Furious charge ability, and they ignore negative Leadership modifiers.\n- In that round every unit that can charge must charge an enemy unit it can reach."
     },
     {
       "name": "The Stone Gauntlet (Imperial Fists)",
-      "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- The army has access to the Primarch Rogal Dorn.\n- Only Legion Breacher Squads can be taken as Troops."
+      "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- Only Legion Breacher Squads can be taken as Troops."
     },
     {
       "name": "Hammerfall Strike Force (Imperial Fists)",
-      "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- The army has access to the Primarch Rogal Dorn.\n- Any Infantry unit can gain the Deep strike ability for +1 point per Wound.\n- Vehicles start the game in reserve and cannot arrive by Deep strike or Outflank.\n- No Fortifications."
+      "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- Any Infantry unit can gain the Deep strike ability for +1 point per Wound.\n- Vehicles start the game in reserve and cannot arrive by Deep strike or Outflank.\n- No Fortifications."
     },
     {
       "name": "Blood Angels",
-      "desc": "- Can only be selected with the Legacy of the Angel.\n- The army has access to the Primarch Sanguinius.\n- Before the battle choose battle round 2, 3 or 4: every unit with the Deep strike ability arrives automatically at the start of that round.\n- Units deployed on the battlefield are Fearless until the end of battle round 1.\n- The Compulsory HQ must have a Jump pack. No Fortifications and no units that cannot move."
+      "desc": "- Can only be selected with the Legacy of the Angel.\n- Before the battle choose battle round 2, 3 or 4: every unit with the Deep strike ability arrives automatically at the start of that round.\n- Units deployed on the battlefield are Fearless until the end of battle round 1.\n- The Compulsory HQ must have a Jump pack. No Fortifications and no units that cannot move."
     },
     {
       "name": "Iron Hands",
-      "desc": "- Can only be selected with the Legacy of the Gorgon.\n- The army has access to the Primarch Ferrus Manus.\n- Infantry units ignore negative Leadership modifiers while within their own deployment zone.\n- Vehicles gain the Outflank ability.\n- Only a single Fast Attack choice can be taken."
+      "desc": "- Can only be selected with the Legacy of the Gorgon.\n- Infantry units ignore negative Leadership modifiers while within their own deployment zone.\n- Vehicles gain the Outflank ability.\n- Only a single Fast Attack choice can be taken."
     },
     {
       "name": "Ultramarines",
-      "desc": "- Can only be selected with the Legacy of the Avenging Son.\n- The army has access to the Primarch Roboute Guilliman.\n- Units cannot be set up as Infiltrators or arrive by Deep Strike.\n- At the start of each battle round, choose one command that applies to all Infantry units until the end of the round. The same command cannot be chosen twice in a row.\n- Full March: +2\" Movement, -1 Weapon Skill and Ballistic Skill.\n- Hold Fast: +1 Leadership and re-roll failed to-hit rolls when shooting, but the units cannot be given an Advance order.\n- Retribution Strike: +1 Weapon Skill and +1 to charge rolls, -1 Ballistic Skill.\n- Regroup: re-roll failed Leadership tests to rally."
+      "desc": "- Can only be selected with the Legacy of the Avenging Son.\n- Units cannot be set up as Infiltrators or arrive by Deep Strike.\n- At the start of each battle round, choose one command that applies to all Infantry units until the end of the round. The same command cannot be chosen twice in a row.\n- Full March: +2\" Movement, -1 Weapon Skill and Ballistic Skill.\n- Hold Fast: +1 Leadership and re-roll failed to-hit rolls when shooting, but the units cannot be given an Advance order.\n- Retribution Strike: +1 Weapon Skill and +1 to charge rolls, -1 Ballistic Skill.\n- Regroup: re-roll failed Leadership tests to rally."
     },
     {
       "name": "The Covenant of Fire (Salamanders)",
-      "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- The army has access to the Primarch Vulkan.\n- Legion Tactical Support Squads armed with Dragon's breath weapons can be taken as Troops.\n- No unit can arrive by Deep strike.\n- Character models may gain Drakenscale for +10 points each: the Damage of the wounds the model suffers from Flamer, Melta, Plasma and Volkite ranged attacks is 1.\n- The army must include a Legion Champion."
+      "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- Legion Tactical Support Squads armed with Dragon's breath weapons can be taken as Troops.\n- No unit can arrive by Deep strike.\n- Character models may gain Drakenscale for +10 points each: the Damage of the wounds the model suffers from Flamer, Melta, Plasma and Volkite ranged attacks is 1.\n- The army must include a Legion Champion."
     },
     {
       "name": "The Awakening Fire (Salamanders)",
-      "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- The army has access to the Primarch Vulkan.\n- Infantry units can gain the Terrifying(-1) ability for +1 point per model.\n- Infantry units ignore negative Leadership modifiers.\n- The army gets one extra HQ choice, which must be a Chaplain, and must include one."
+      "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- Infantry units can gain the Terrifying(-1) ability for +1 point per model.\n- Infantry units ignore negative Leadership modifiers.\n- The army gets one extra HQ choice, which must be a Chaplain, and must include one."
     },
     {
       "name": "Raven Guard",
-      "desc": "- Can only be selected with the Legacy of the Liberator.\n- The army has access to the Primarch Corvus Corax.\n- Only one Heavy Support unit can be taken.\n- The army cannot take Fortifications.\n- Units that arrive by Deep Strike gain Light Cover until the end of that battle round."
+      "desc": "- Can only be selected with the Legacy of the Liberator.\n- Only one Heavy Support unit can be taken.\n- The army cannot take Fortifications.\n- Units that arrive by Deep Strike gain Light Cover until the end of that battle round."
     }
   ],
   "legacies": [
     {
       "name": "Legacy of the Lion",
-      "desc": "The army has access to the Dark Angels Armory, and may select the Excindio Battle-automata, which cannot be selected without this Legacy.\n- Any Character model may swap its Power sword for a Calibanite warblade for +1 point.\nLegion: Dark Angels (Loyalist).",
+      "desc": "The army has access to the Dark Angels Armory, and may select the Excindio Battle-automata, which cannot be selected without this Legacy.\n- Any Character model may swap its Power sword for a Calibanite warblade for +1 point.\n- The army has access to the Primarch Lion El'Jonson.",
       "armory_key": "Dark Angels"
     },
     {
       "name": "Legacy of the Great Khan",
-      "desc": "The army has access to the White Scars Armory.\n- Any Character model may swap its Power sword for a Power glaive for +1 point.\nLegion: White Scars (Loyalist).",
+      "desc": "The army has access to the White Scars Armory.\n- Any Character model may swap its Power sword for a Power glaive for +1 point.\n- The army has access to the Primarch Jaghatai Khan.",
       "armory_key": "White Scars"
     },
     {
       "name": "Legacy of the Wolf King",
-      "desc": "The army has access to the Space Wolves Armory.\n- Any model in a Legion Terminator Cataphractii Squad may swap their Power sword for a Frost sword, Frost axe or Frost claw for +1 point each.\n- Any model with an Astartes chainsword may swap it for a Fenrisian axe for +1 point each.\nLegion: Space Wolves (Loyalist).",
+      "desc": "The army has access to the Space Wolves Armory.\n- Any model in a Legion Terminator Cataphractii Squad may swap their Power sword for a Frost sword, Frost axe or Frost claw for +1 point each.\n- Any model with an Astartes chainsword may swap it for a Fenrisian axe for +1 point each.\n- The army has access to the Primarch Leman Russ.",
       "armory_key": "Space Wolves"
     },
     {
       "name": "Legacy of the Praetorian of Terra",
-      "desc": "The army has access to the Imperial Fists Armory.\nLegion: Imperial Fists (Loyalist).",
+      "desc": "The army has access to the Imperial Fists Armory.\n- The army has access to the Primarch Rogal Dorn.",
       "armory_key": "Imperial Fists"
     },
     {
       "name": "Legacy of the Angel",
-      "desc": "The army has access to the Blood Angels Armory.\n- Any model with a Plasma pistol may swap it for an Inferno pistol for +0 points.\nLegion: Blood Angels (Loyalist).",
+      "desc": "The army has access to the Blood Angels Armory.\n- Any model with a Plasma pistol may swap it for an Inferno pistol for +0 points.\n- The army has access to the Primarch Sanguinius.",
       "armory_key": "Blood Angels"
     },
     {
       "name": "Legacy of the Gorgon",
-      "desc": "The army has access to the Iron Hands Armory.\nLegion: Iron Hands (Loyalist).",
+      "desc": "The army has access to the Iron Hands Armory.\n- The army has access to the Primarch Ferrus Manus.",
       "armory_key": "Iron Hands"
     },
     {
       "name": "Legacy of the Avenging Son",
-      "desc": "The army has access to the Ultramarines Armory.\nLegion: Ultramarines (Loyalist).",
+      "desc": "The army has access to the Ultramarines Armory.\n- The army has access to the Primarch Roboute Guilliman.",
       "armory_key": "Ultramarines"
     },
     {
       "name": "Legacy of the Lord of Drakes",
-      "desc": "The army has access to the Salamanders Armory.\n- Any model with a Hand flamer may swap it for a Dragon's breath pistol for +4 points each.\nLegion: Salamanders (Loyalist).",
+      "desc": "The army has access to the Salamanders Armory.\n- Any model with a Hand flamer may swap it for a Dragon's breath pistol for +4 points each.\n- The army has access to the Primarch Vulkan.",
       "armory_key": "Salamanders"
     },
     {
       "name": "Legacy of the Liberator",
-      "desc": "The army has access to the Raven Guard Armory.\n- Any model with a Lightning claw may swap it for a Raven's talons for +5 points each.\nLegion: Raven Guard (Loyalist).",
+      "desc": "The army has access to the Raven Guard Armory.\n- Any model with a Lightning claw may swap it for a Raven's talons for +5 points each.\n- The army has access to the Primarch Corvus Corax.",
       "armory_key": "Raven Guard"
     },
     {

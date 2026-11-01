@@ -14,9 +14,9 @@ import dedicated_transport_spartan from './dedicated_transport/spartan.json';
 import elites_castellax_achea_automata from './elites/castellax_achea_automata.json';
 import elites_castra_ferrum_dreadnought from './elites/castra_ferrum_dreadnought.json';
 import elites_centurion_command_squad from './elites/centurion_command_squad.json';
-import elites_dark_brethren from './elites/dark_brethren.json';
 import elites_deathshroud_terminator_squad from './elites/deathshroud_terminator_squad.json';
 import elites_deredeo_dreadnought from './elites/deredeo_dreadnought.json';
+import elites_gal_vorbak from './elites/gal_vorbak.json';
 import elites_grave_wardens from './elites/grave_wardens.json';
 import elites_indomitus_terminator_squad from './elites/indomitus_terminator_squad.json';
 import elites_iron_circle_maniple from './elites/iron_circle_maniple.json';
@@ -120,9 +120,9 @@ export const slot_to_units: Record<string, string[]> = {
     "Castellax-Achea Automata",
     "Castra Ferrum Dreadnought",
     "Centurion Command Squad",
-    "Dark Brethren",
     "Deathshroud Terminator Squad",
     "Deredeo Dreadnought",
+    "Gal Vorbak",
     "Grave Wardens",
     "Indomitus Terminator Squad",
     "Iron Circle Maniple",
@@ -206,9 +206,9 @@ export const units: Record<string, Unit> = {
   "Castellax-Achea Automata": elites_castellax_achea_automata as unknown as Unit,
   "Castra Ferrum Dreadnought": elites_castra_ferrum_dreadnought as unknown as Unit,
   "Centurion Command Squad": elites_centurion_command_squad as unknown as Unit,
-  "Dark Brethren": elites_dark_brethren as unknown as Unit,
   "Deathshroud Terminator Squad": elites_deathshroud_terminator_squad as unknown as Unit,
   "Deredeo Dreadnought": elites_deredeo_dreadnought as unknown as Unit,
+  "Gal Vorbak": elites_gal_vorbak as unknown as Unit,
   "Grave Wardens": elites_grave_wardens as unknown as Unit,
   "Indomitus Terminator Squad": elites_indomitus_terminator_squad as unknown as Unit,
   "Iron Circle Maniple": elites_iron_circle_maniple as unknown as Unit,

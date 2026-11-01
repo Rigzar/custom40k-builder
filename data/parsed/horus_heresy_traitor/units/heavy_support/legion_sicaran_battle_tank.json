@@ -114,15 +114,30 @@
             "choices": [
                 {
                     "name": "two Heavy flamers",
-                    "points": 26
+                    "points": 26,
+                    "effect": {
+                        "grants_weapons": [
+                            "Heavy flamer"
+                        ]
+                    }
                 },
                 {
                     "name": "two Heavy bolters",
-                    "points": 36
+                    "points": 36,
+                    "effect": {
+                        "grants_weapons": [
+                            "Heavy bolter"
+                        ]
+                    }
                 },
                 {
                     "name": "two Lascannons",
-                    "points": 138
+                    "points": 138,
+                    "effect": {
+                        "grants_weapons": [
+                            "Lascannon"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,

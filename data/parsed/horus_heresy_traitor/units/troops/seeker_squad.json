@@ -254,7 +254,7 @@
                 {
                     "name": "Nemesis bolter",
                     "points": 19,
-                    "requires_archetype": "Thousand Sons"
+                    "requires_legacy": "Legacy of the Crimson King"
                 }
             ],
             "inline_pts": null,

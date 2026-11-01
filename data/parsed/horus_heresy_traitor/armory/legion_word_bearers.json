@@ -205,7 +205,7 @@
     {
       "name": "Unswerving Devotion",
       "term_compat": true,
-      "desc": "Warlord Trait. Once per battle round, the first failed Battleshock test of each friendly Legion: Word Bearers unit within 6\" of the model counts as passed. Unique.",
+      "desc": "Warlord Trait. Once per battle round, the first failed Battleshock test of each friendly unit with the Mark of Word Bearers within 6\" of the model counts as passed. Unique.",
       "p_unit": null,
       "p_char": 5,
       "armour_compat": [

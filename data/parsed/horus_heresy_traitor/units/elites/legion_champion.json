@@ -60,7 +60,7 @@
             "abilities": "-"
         },
         {
-            "name": "Melta bombsᵀ",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade",
             "s": "8",
@@ -113,7 +113,7 @@
             },
             "choices": [
                 {
-                    "name": "Melta bombsᵀ",
+                    "name": "Melta bombs",
                     "points": 5
                 }
             ],

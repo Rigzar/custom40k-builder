@@ -132,15 +132,30 @@
             "choices": [
                 {
                     "name": "Two Graviton guns",
-                    "points": 65
+                    "points": 65,
+                    "effect": {
+                        "grants_weapons": [
+                            "Graviton gun"
+                        ]
+                    }
                 },
                 {
                     "name": "Two Plasma guns",
-                    "points": 0
+                    "points": 0,
+                    "effect": {
+                        "grants_weapons": [
+                            "Plasma gun"
+                        ]
+                    }
                 },
                 {
                     "name": "Two Irad cleansers",
-                    "points": -20
+                    "points": -20,
+                    "effect": {
+                        "grants_weapons": [
+                            "Irad cleanser"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,

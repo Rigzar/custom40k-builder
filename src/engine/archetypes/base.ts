@@ -189,6 +189,8 @@ export interface ArchetypeRule {
    * other structural field able to express "1, not however many the AOP table would give".
    */
   slotCapOverride?: { slot: string; max: number } | null;
+  /** More than one slot capped at once (Horus Heresy Pride of the Legion: a single Heavy Support and a single Fast Attack choice). */
+  slotCaps?: { slot: string; max: number }[];
   /**
    * Stricter than `requiresHqUnit`: the army must field at least one HQ unit (name match, same
    * substring convention) that ALSO has a specific option-group choice selected — e.g. AdMech
@@ -358,6 +360,8 @@ export interface ArchetypeRule {
   legionTerm?: { name: string; abbr: string; note: string; perWound: number; vehicleFlat?: number } | null;
   /** Units whose own profile already has the term's stat bonus (the World Eaters Red Butcher Terminators): no second bonus and no charge. */
   statModsExceptUnits?: string[];
+  /** Horus Heresy Thousand Sons (Cult Arcana): every unit that is not a character, a Monstrous Creature or a vehicle is a Psyker (Smite and one power of its discipline). */
+  unitsArePsykers?: { discipline: string } | null;
 }
 
 export const BASE: ArchetypeRule = {

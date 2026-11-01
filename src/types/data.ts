@@ -45,6 +45,8 @@ export interface Choice {
   points: number;
   /** Horus Heresy: the choice is a Legion change of a swap list, only offered with this archetype (hidden, not priced and not applied otherwise). */
   requires_archetype?: string;
+  /** Horus Heresy: the choice comes with this Legacy (its Mark): offered, priced and applied only with it. */
+  requires_legacy?: string;
   /** Abilities that are only active when this choice is selected. */
   abilities?: string[];
   /** Stat/type/ability effects active only while this choice is selected (ki-parser-02). */
@@ -329,6 +331,8 @@ export interface OptionGroup {
   requires_trait?: string;
   /** Horus Heresy: the option only exists in an army whose archetype is this one ("Only with the Death Guard archetype, as Grave Wardens: ..."); hidden, not priced and not applied otherwise. */
   requires_archetype?: string;
+  /** Horus Heresy: the option comes with this Legacy (its Mark): offered, priced and applied only with it. */
+  requires_legacy?: string;
   /**
    * Per_n groups only: overrides the per_n DIVISOR to the sum of modelSizes[...] for the listed
    * group(s), instead of the unit's total `size`. Needed when the datasheet's "for every N X

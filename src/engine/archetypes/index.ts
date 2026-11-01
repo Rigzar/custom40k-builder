@@ -4,7 +4,7 @@ import { BASE, fastArchetype, dropPodArchetype } from './base';
 import { CSM_ARCHETYPES } from '../codex_csm/archetypes/index';
 import { CD_ARCHETYPES } from '../codex_chaos_daemons/archetypes/index';
 import { SM_ARCHETYPES } from '../codex_space_marines/archetypes/index';
-import { HH_ARCHETYPES } from '../codex_horus_heresy/archetypes';
+import { HH_ARCHETYPES, HH_LEGACY_TROOPS } from '../codex_horus_heresy/archetypes';
 import { KNIGHT_HOUSEHOLD_ARCHETYPES } from '../codex_knight_households/archetypes';
 
 const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
@@ -686,8 +686,19 @@ export function currentLegacyName(legacy: string): string {
   return RENAMED_LEGACIES[legacy] ?? legacy;
 }
 
-export function getArchetypeRule(archetype: string): ArchetypeRule | null {
-  return ARCHETYPE_RULES[archetype] ?? ARCHETYPE_RULES[RENAMED_ARCHETYPES[archetype]] ?? null;
+const withLegacyCache = new Map<string, ArchetypeRule>();
+/**
+ * The rule of an archetype. Horus Heresy: the units a Legacy makes Troops (the Mark of its Legion) are added to the archetype's own, so the slot code,
+ * which only reads `troopsRemap`, needs nothing else.
+ */
+export function getArchetypeRule(archetype: string, legacy?: string | null): ArchetypeRule | null {
+  const own = ARCHETYPE_RULES[archetype] ?? ARCHETYPE_RULES[RENAMED_ARCHETYPES[archetype]] ?? null;
+  const extra = legacy ? HH_LEGACY_TROOPS[legacy] : undefined;
+  if (!extra) return own;
+  const key = archetype + '|' + legacy;
+  let merged = withLegacyCache.get(key);
+  if (!merged) { merged = { ...(own ?? BASE), troopsRemap: [...(own?.troopsRemap ?? []), ...extra] }; withLegacyCache.set(key, merged); }
+  return merged;
 }
 
 /** The current name for an archetype, for saved armies written before a rename. */

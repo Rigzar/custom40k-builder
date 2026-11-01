@@ -2,6 +2,7 @@ import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 import { getArchetypeRule, promotionFragment } from './archetypes';
+import { hhMarkFor } from './codex_horus_heresy/archetypes';
 import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 import { expandAllRemaining } from './allRemaining';
@@ -239,7 +240,7 @@ function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
  * and a defaulted parameter would let a forgotten call site under-charge in silence. Making it
  * required means the compiler names every one of the ten places that sum unit points.
  */
-export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string, pointLimit: number): number {
+export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: string, faction: string, pointLimit: number, legacy: string = ''): number {
   item = expandAllRemaining(item, unit);   // "All remaining models may swap ..." covers every remaining model
   let total = 0;
   const active = getActiveVariant(item, unit);
@@ -326,8 +327,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // it costs points even though nobody picked it per unit. Same convention as the Traitor Guard's purchased Mark above
   // ("point cost per model and per Wound", vehicles flat): the rate is the Legion's, set in its archetype rule.
   if (!item.factionSource) {
-    const lt = getArchetypeRule(archetype)?.legionTerm;
-    if (lt && !(getArchetypeRule(archetype)?.statModsExceptUnits ?? []).includes(unit.name)) {
+    const mark = hhMarkFor(legacy, faction);
+    const lt = mark?.legionTerm;
+    if (lt && !(mark?.statModsExceptUnits ?? []).includes(unit.name)) {
       if (unit.is_vehicle) total += (lt.vehicleFlat ?? 0) * item.size;
       else total += lt.perWound * (parseInt(unit.models[0]?.stats.W ?? '1', 10) || 1) * item.size;
     }
@@ -338,8 +340,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     if (!g || isMarkGroup(g)) continue;
     if (g.variant_link) continue;
     if (g.requires_archetype && g.requires_archetype !== archetype) continue;   // an option of another archetype is not bought
+    if (g.requires_legacy && g.requires_legacy !== legacy) continue;            // an option of another Legacy is not bought
     for (const [ci, qty] of Object.entries(ch)) {
-      { const rq = g.choices?.[Number(ci)]?.requires_archetype; if (rq && rq !== archetype) continue; }   // a Legion choice of another archetype is not bought
+      { const c0 = g.choices?.[Number(ci)]; if ((c0?.requires_archetype && c0.requires_archetype !== archetype) || (c0?.requires_legacy && c0.requires_legacy !== legacy)) continue; }   // a Legion choice of another archetype / Legacy is not bought
       if (ci === '__inline') {
         // Per-model inline upgrades ("…for +X points per model") scale with unit size; flat
         // one-off inline options (promote one Sergeant, etc.) are charged once. (per_model flag)

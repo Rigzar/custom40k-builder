@@ -1,5 +1,5 @@
 {
-    "name": "Dark Brethren",
+    "name": "Gal Vorbak",
     "models": [
         {
             "stats": {
@@ -117,5 +117,5 @@
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 110,
-    "requires_archetype": "Word Bearers"
+    "requires_legacy": "Legacy of the Archtraitor"
 }

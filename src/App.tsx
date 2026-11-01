@@ -16,7 +16,7 @@ import { FactionSymbol } from './components/FactionSymbol';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { getRelationship, allySide, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
 import { getArmySymbolPair } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
@@ -123,7 +123,7 @@ function HeaderStatus({ onOpenReview }: { onOpenReview: () => void }) {
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit, effectiveLegacyFor(i, state)) : 0);
   }, 0);
 
   const pct  = Math.min(100, (total / state.pointLimit) * 100);
@@ -533,7 +533,7 @@ export default function App() {
         const totalPts = st.data
           ? st.army.reduce((sum, e) => {
               const u = resolveUnit(e, st.data!);
-              return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, st), factionForEntry(e, st.data), st.pointLimit) : 0);
+              return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, st), factionForEntry(e, st.data), st.pointLimit, effectiveLegacyFor(e, st)) : 0);
             }, 0)
           : 0;
         const entry: SavedArmy = {
@@ -639,7 +639,7 @@ export default function App() {
 
     const total = army.reduce((s, i) => {
       const u = resolveUnit(i, data);
-      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store), factionForEntry(i, store.data), store.pointLimit) : 0);
+      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store), factionForEntry(i, store.data), store.pointLimit, effectiveLegacyFor(i, store)) : 0);
     }, 0);
 
     const baseName = armyName.trim() || tpl(t('defaultArmyName'), { faction: nm(FACTION_NAMES[selectedFaction] ?? selectedFaction) });

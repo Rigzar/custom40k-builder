@@ -4,7 +4,7 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
@@ -260,6 +260,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // option when Tau is the ALLY); scope 'force' stays on the PRIMARY faction by design (its only
   // data user is the integrated HH supplement, whose host is the primary army).
   const itemArchetype = effectiveArchetypeFor(item, store);
+  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && item.factionSource === store.alliedFaction ? '' : store.legacy2].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
@@ -1296,7 +1297,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // here moves nothing.
             && (!g.requires_trait || effectiveTraitPool.includes(g.requires_trait))
             // A Legion option (Horus Heresy) is only shown with its own archetype.
-            && (!g.requires_archetype || g.requires_archetype === (effectiveArchetypeFor(item, store) ?? ''))).map((g) => {
+            && (!g.requires_archetype || g.requires_archetype === (effectiveArchetypeFor(item, store) ?? ''))
+            && (!g.requires_legacy || itemLegacies.includes(g.requires_legacy))).map((g) => {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
             // Host-gated branches (BSData condition, scope:'force') — e.g. a Horus Heresy squad's
@@ -1637,7 +1639,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
 
             function qtyControl(ci: number, c: Choice) {
               const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
-              const canUseQty = ['per_n', 'fixed_max', 'every'].includes(gc.type);
+              // "All models may swap / remove / be equipped with..." is ONE decision for the whole unit: a toggle that takes every model at once, never a count one by one
+              // ("Every Terminator may..." keeps its stepper: there each model decides). Taking one entry of such a list drops the others.
+              const allOrNothing = isEvery && /^(all|the whole)/i.test(String(g.header).trim()) && groupMax != null && !_perCopyHeader;
+              const canUseQty = ['per_n', 'fixed_max', 'every'].includes(gc.type) && !allOrNothing;
               // Independent choices measure against their own quantity, capped at 1 each — Tyranid
               // Biomorphs are a one-time flat buy per unit ("Point costs are paid per unit," ods
               // Armory sheet), not one copy per model, so a choice is either bought or not.
@@ -1699,6 +1704,12 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                     if (choiceMarkBlocked) return;
                     // A keyword-blocked choice can still be turned OFF (legacy selection).
                     if (addBlocked && qty === 0) return;
+                    if (allOrNothing) {
+                      if (qty > 0) { setQty(realGi, ci, 0); return; }
+                      g.choices.forEach((_, oi) => { if (oi !== ci && Number(item.optionQty?.[realGi]?.[oi] ?? 0) > 0) setQty(realGi, oi, 0); });
+                      setQty(realGi, ci, groupMax as number);
+                      return;
+                    }
                     setQty(realGi, ci, qty > 0 ? 0 : 1);
                   }}
                   className={`w-4 h-4 border flex-shrink-0 flex items-center justify-center transition-colors
@@ -1752,7 +1763,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       </thead>
                       <tbody>
                         {g.choices.map((c: Choice, ci: number) => {
-                          if (c.requires_archetype && c.requires_archetype !== (itemArchetype ?? '')) return null;
+                          if ((c.requires_archetype && c.requires_archetype !== (itemArchetype ?? '')) || (c.requires_legacy && !itemLegacies.includes(c.requires_legacy))) return null;
                           const { weapons, compound } = choiceWeaponsList[ci];
                           const { control, choiceMarkBlocked, blockTitle } = qtyControl(ci, c);
                           const ptsLabel = `${c.points >= 0 ? '+' : ''}${c.points}`;
@@ -1832,7 +1843,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 ) : (
                   <div className="divide-y divide-zinc-800/60 -mx-2 -mb-2">
                     {g.choices.map((c: Choice, ci: number) => {
-                      if (c.requires_archetype && c.requires_archetype !== (itemArchetype ?? '')) return null;
+                      if ((c.requires_archetype && c.requires_archetype !== (itemArchetype ?? '')) || (c.requires_legacy && !itemLegacies.includes(c.requires_legacy))) return null;
                       const { control, choiceMarkBlocked, blockTitle } = qtyControl(ci, c);
                       const active = (item.optionQty?.[realGi]?.[ci] ?? 0) > 0;
                       return (
@@ -2339,7 +2350,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
               if (/^\d+$/.test(ab.trim()) || ab.trim() === '-') return false;
               // An ability the sheet marks "Only with the X archetype" (Horus Heresy) is shown only with that archetype.
-              { const ga = ab.match(/Only with the (.+?) archetype/); if (ga && ga[1].trim() !== (itemArchetype ?? '')) return false; }
+              { const ga = ab.match(/Only with the (Legacy of [^.]+)./); if (ga && !itemLegacies.includes(ga[1].trim())) return false; }
               const ci = ab.indexOf(':');
               const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
               if (_unselectedOptionalWeapons.has(label)) return false;

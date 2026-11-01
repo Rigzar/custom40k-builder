@@ -51,7 +51,7 @@
             "abilities": "-"
         },
         {
-            "name": "Melta bombsᵀ",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade",
             "s": "8",
@@ -60,7 +60,7 @@
             "abilities": "AT(3), Armorbane(3)"
         },
         {
-            "name": "Power maulᵀ",
+            "name": "Power maul",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -86,7 +86,7 @@
             },
             "choices": [
                 {
-                    "name": "Power maulᵀ",
+                    "name": "Power maul",
                     "points": 0
                 }
             ],
@@ -104,7 +104,7 @@
             },
             "choices": [
                 {
-                    "name": "Melta bombsᵀ",
+                    "name": "Melta bombs",
                     "points": 5
                 }
             ],

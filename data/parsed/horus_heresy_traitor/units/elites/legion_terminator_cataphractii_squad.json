@@ -257,7 +257,7 @@
                 {
                     "name": "Tyrant rocket launcher",
                     "points": 15,
-                    "requires_archetype": "Iron Warriors"
+                    "requires_legacy": "Legacy of the Lord of Iron"
                 }
             ],
             "inline_pts": null,

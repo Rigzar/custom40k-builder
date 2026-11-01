@@ -84,5 +84,5 @@
     "slot": "Elites",
     "default_size": 5,
     "min_cost": 295,
-    "requires_archetype": "Emperor's Children"
+    "requires_legacy": "Legacy of the Phoenician"
 }

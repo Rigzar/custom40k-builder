@@ -33,7 +33,7 @@
             "abilities": "Auto Hit, Poison(2+)"
         },
         {
-            "name": "Melta bombsᵀ",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade",
             "s": "8",
@@ -59,7 +59,7 @@
             },
             "choices": [
                 {
-                    "name": "Melta bombsᵀ",
+                    "name": "Melta bombs",
                     "points": 5
                 }
             ],
@@ -88,5 +88,5 @@
     "slot": "Elites",
     "default_size": 2,
     "min_cost": 170,
-    "requires_archetype": "Death Guard"
+    "requires_legacy": "Legacy of the Death Lord"
 }

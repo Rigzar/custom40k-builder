@@ -231,9 +231,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     .find(a => /^(psyker|shaman):/i.test(a))?.toLowerCase()
     ?? (madePsykerBy ? (unit.abilities ?? []).find(a => a.toLowerCase().startsWith(madePsykerBy.toLowerCase() + ':'))?.toLowerCase() : undefined)
     ?? (unit.abilities ?? []).find(a => /^[^:]{2,40}:s*the model is a psyker/i.test(a))?.toLowerCase()
+    // Cult Arcana (Thousand Sons archetype): a unit made a Psyker by the archetype knows Smite and one power of the archetype's discipline
+    ?? (rule?.unitsArePsykers && !unit.is_character && !unit.is_monster && !unit.is_vehicle && !/monstrous/i.test(unit.unit_type ?? '') ? `psyker: it can cast 1 power per battle round. it knows smite and one power from the ${rule.unitsArePsykers.discipline.toLowerCase()} discipline.` : undefined)
     ?? '';
   // "It knows Smite and all powers from the Esoterist discipline": that one discipline of the book is all it knows besides Smite.
-  const namedDiscipline = psykerAbilityText.match(/(?:all )?powers (?:from|of) the ([a-z' ]+?) discipline/)?.[1]?.trim() ?? '';
+  const namedDiscipline = psykerAbilityText.match(/(?:all )?powers? (?:from|of) the ([a-z' ]+?) discipline/)?.[1]?.trim() ?? '';
   if (namedDiscipline) { const only = Object.entries(ownDisciplines).filter(([n]) => n.toLowerCase().includes(namedDiscipline)); if (only.length) allowedDiscs = only; }
 
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited' | 'knows_all';

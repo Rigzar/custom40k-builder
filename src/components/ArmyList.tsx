@@ -68,7 +68,7 @@ function MissingUnitCard({ item, faction }: { item: RosterEntry; faction: string
  */
 export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }) {
   const t = useT();
-  const { army, data, archetype, alliedFaction, alliedArchetype, pointLimit } = useArmyStore();
+  const { army, data, archetype, alliedFaction, alliedArchetype, pointLimit, legacy, alliedLegacy } = useArmyStore();
   // Declared BEFORE the early return below: a hook under a `return null` is what took the whole
   // app down on 2026-09-21 (React #310). `npm run lint` catches it; so does putting it here.
   const [collapseSignal, setCollapseSignal] = useState(0);
@@ -90,7 +90,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
     );
   }
 
-  const rule = getArchetypeRule(effectiveArchetype);
+  const rule = getArchetypeRule(effectiveArchetype, scope === 'allied' ? alliedLegacy : legacy);
 
   return (
     <div>
@@ -120,7 +120,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
 
         const slotPts = slotUnits.reduce((s, item) => {
           const u = resolveUnit(item, data);
-          return s + (u ? computeUnitPoints(item, u, effectiveArchetype, factionForEntry(item, data), pointLimit) : 0);
+          return s + (u ? computeUnitPoints(item, u, effectiveArchetype, factionForEntry(item, data), pointLimit, scope === 'allied' ? (alliedLegacy ?? '') : legacy) : 0);
         }, 0);
 
         return (

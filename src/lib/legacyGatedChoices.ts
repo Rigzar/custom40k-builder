@@ -50,16 +50,15 @@ export function archetypeOpensUnit(
   return !!legacyOfNeed && legacyOfNeed === legacy;
 }
 
-/** Whether the chosen archetype gives access to the Primarch of `needLegacy`: a Legion archetype of that Legacy, or Legion Specialists with it. */
+/** Whether the chosen Legacy gives access to the Primarch of `needLegacy`: the Legacy of his Legion, whatever the archetype. */
 export function primarchOpened(
   needLegacy: string,
-  archetype: string | null | undefined,
+  _archetype: string | null | undefined,
   legacy: string | null | undefined,
-  archetypes: Array<Pick<Archetype, 'name' | 'desc'>>,
+  _archetypes?: Array<Pick<Archetype, 'name' | 'desc'>>,
+  legacy2?: string | null,
 ): boolean {
-  if (!archetype) return false;
-  if (archetype === 'Legion Specialists') return legacy === needLegacy;
-  return archetypeRequiredLegacy(archetypes.find(a => a.name === archetype)) === needLegacy;
+  return legacy === needLegacy || legacy2 === needLegacy;
 }
 
 /** The archetype a datasheet demands (`requires_archetype`), or null. */

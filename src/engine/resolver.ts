@@ -1,9 +1,10 @@
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect, DroneType } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
-import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor, factionForEntry } from './points';
+import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor, effectiveLegacyFor, factionForEntry } from './points';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade } from './deploymentUpgrades';
 import { getArchetypeRule, getEffectiveSlot, promotionFragment } from './archetypes';
+import { hhMarkFor } from './codex_horus_heresy/archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
@@ -909,10 +910,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Allied Detachment units use the allied faction's OWN Army Customisation (Core Rules: "Allies
   // may select their own Army Customisation options"), not the primary faction's archetype.
   const effectiveArchetype = effectiveArchetypeFor(item, state);
-  const rule = getArchetypeRule(effectiveArchetype);
+  const rule = getArchetypeRule(effectiveArchetype, effectiveLegacyFor(item, state));
 
   // Points & slot
-  const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit);
+  const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state));
   // Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) — re-slots
   // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
   // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
@@ -1018,7 +1019,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.
   const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks);
-  const effectivePsyker = unit.is_psyker || isTzeentchPsyker || isOptionalPsyker;
+  // Horus Heresy Thousand Sons (Cult Arcana, part of the archetype): every unit that is not a character, a Monstrous Creature or a vehicle is a Psyker
+  const isArchetypePsyker = !!rule?.unitsArePsykers && !unit.is_psyker && !unit.is_character && !unit.is_monster && !unit.is_vehicle && !/monstrous/i.test(unit.unit_type ?? '');
+  const effectivePsyker = unit.is_psyker || isTzeentchPsyker || isOptionalPsyker || isArchetypePsyker;
 
   // Weapons & loadout (unmodified — faction resolvers apply overrides)
   const equippedWith = unit.equipped_with ?? '';
@@ -1089,7 +1092,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   // An archetype can change stats army-wide too (Ratling Company). Same list as the traits,
   // so the card, the print view and the TTS export all honour it with no second code path.
-  for (const sm of (rule?.statModsExceptUnits ?? []).includes(unit.name) ? [] : rule?.statMods ?? []) {
+  // Horus Heresy: the Mark of the Legion comes from the Legion archetype or from the Legion of the Legacy
+  const hhMark = hhMarkFor(effectiveLegacyFor(item, state), data.faction);
+  const markRule = data.faction.startsWith('Horus Heresy') ? hhMark : rule;
+  for (const sm of (markRule?.statModsExceptUnits ?? []).includes(unit.name) ? [] : markRule?.statMods ?? []) {
     if (sm.creatureOnly && unit.is_vehicle) continue;
     if (sm.characterOnly && !unit.is_character) continue;
     if (sm.characterOrMonsterOnly && !unit.is_character && !unit.is_monster) continue;
@@ -1758,7 +1764,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   // Horus Heresy Legion term (World Eaters (WE), Death Guard (DG)...): the archetype puts it on every unit; the stat changes
   // came in through `statMods` above, this is the reminder of the whole rule.
-  if (rule?.legionTerm) ruleNotes.push(rule.legionTerm.note);
+  { const mk = data.faction.startsWith('Horus Heresy') ? hhMarkFor(effectiveLegacyFor(item, state), data.faction) : rule; if (mk?.legionTerm) ruleNotes.push(mk.legionTerm.note); }
   // Archetype-granted "Command squad" (e.g. Sorcerer Circle → Chaos Sorcerers, Librarian
   // Conclave → Librarians): surface the granted ability on the profile so the player can SEE it —
   // the join mechanics read the same grant (UnitCard dropdown + validator). Scoped via `rule`.
@@ -3223,18 +3229,20 @@ export function resolveUnitProfile(
   // weapon list, the counts, the points and the card cannot disagree about it. This is the same
   // shape as a saved list keeping a Yngir upgrade after leaving the archetype: the selection
   // survives in the save (so re-adding the trait restores it) and simply does not apply.
-  const gated = unit.option_groups.some(g => g.requires_trait || g.requires_archetype || g.choices.some(c => c.requires_archetype));
+  const gated = unit.option_groups.some(g => g.requires_trait || g.requires_archetype || g.requires_legacy || g.choices.some(c => c.requires_archetype || c.requires_legacy));
   if (gated) {
     const arch = (item.factionSource && item.factionSource === state.alliedFaction) ? state.alliedArchetype : state.archetype;
     const pool = (item.factionSource && item.factionSource === state.alliedFaction)
       ? (state.alliedTraitPool ?? []) : (state.traitPool ?? []);
+    const legs = [effectiveLegacyFor(item, state), item.factionSource && item.factionSource === state.alliedFaction ? '' : state.legacy2].filter(Boolean) as string[];
     const kept: Record<number, Record<string, number>> = {};
     for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
       const g = unit.option_groups[Number(gi)];
       if (g?.requires_trait && !pool.includes(g.requires_trait)) continue;
       if (g?.requires_archetype && g.requires_archetype !== arch) continue;
+      if (g?.requires_legacy && !legs.includes(g.requires_legacy)) continue;
       // a Legion choice of a swap list (Horus Heresy) does not apply with another archetype
-      kept[Number(gi)] = Object.fromEntries(Object.entries(ch as Record<string, number>).filter(([ci]) => { const rq = g?.choices?.[Number(ci)]?.requires_archetype; return !rq || rq === arch; }));
+      kept[Number(gi)] = Object.fromEntries(Object.entries(ch as Record<string, number>).filter(([ci]) => { const c0 = g?.choices?.[Number(ci)]; return (!c0?.requires_archetype || c0.requires_archetype === arch) && (!c0?.requires_legacy || legs.includes(c0.requires_legacy)); }));
     }
     item = { ...item, optionQty: kept };
   }

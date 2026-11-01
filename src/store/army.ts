@@ -1077,6 +1077,12 @@ function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
   unit.option_groups.forEach((g, gi) => {
     if (g.applies_to_model || g.independent_choices || !oq[gi]) return;
     const c = g.constraint;
+    // "All models may..." is taken by the whole unit or not at all (UnitCard toggles it): follow the size in both directions
+    if (c.type === 'every' && /^(all|the whole)/i.test(String(g.header).trim()) && !/each|any of the/i.test(g.header)) {
+      const group = Object.fromEntries(Object.entries(oq[gi]).map(([k, v]) => [k, k === '__inline' || !v ? v : e.size]));
+      oq = { ...oq, [gi]: group as typeof oq[number] };
+      return;
+    }
     const max = c.type === 'every' ? e.size
       : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1) + enforcerWeaponBonus(unit, e, g)
       : null;

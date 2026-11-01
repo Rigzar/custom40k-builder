@@ -34,93 +34,93 @@
     },
     {
       "name": "Legion Specialists",
-      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae.\n- The army has access to the Primarch of the chosen Legacy (if it has one).\n- The army may select the special units of the Legion of the chosen Legacy that otherwise need its archetype."
+      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae."
     },
     {
       "name": "Alpha Legion",
-      "desc": "- Can only be selected with the Legacy of the Hydra.\n- The army has access to the Primarch Alpharius.\n- Any unit can gain the Deep strike or the Outflank ability for +1 point per Wound.\n- A unit that arrives from Reserve gains +1 to hit with all its attacks in the battle round it arrives."
+      "desc": "- Can only be selected with the Legacy of the Hydra.\n- Any unit can gain the Deep strike or the Outflank ability for +1 point per Wound.\n- A unit that arrives from Reserve gains +1 to hit with all its attacks in the battle round it arrives."
     },
     {
       "name": "Iron Warriors",
-      "desc": "- Can only be selected with the Legacy of the Lord of Iron.\n- The army has access to the Primarch Perturabo.\n- The army may select the Iron Circle Maniple, which cannot be selected without this archetype.\n- The army must include Perturabo, a Warsmith or a Centurion with the Siegebreaker Consul.\n- Shrapnel bolters and Shrapnel pistols gain +1 shot (not the Shrapnel cannon).\n- Warsmith, Iron Havocs and Tyrant Siege Terminators: see the options of the Praetor, the Legion Heavy Support Squad and the Legion Terminator Cataphractii Squad."
+      "desc": "- Can only be selected with the Legacy of the Lord of Iron.\n- The army must include Perturabo, a Warsmith or a Centurion with the Siegebreaker Consul.\n- Shrapnel bolters and Shrapnel pistols gain +1 shot (not the Shrapnel cannon)."
     },
     {
       "name": "Emperor's Children",
-      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- The army has access to the Primarch Fulgrim.\n- The army may select the Kakophoni Squad, the Palatine Blade Squad and the Phoenix Terminator Squad, which cannot be selected without this archetype.\n- Kakophoni Squads can be taken as Troops.\n- All units of the army have the Legion: Emperor's Children (EC).\n- Up to four units (not Heavy or Slow) can gain the Outflank ability for +1 point per Wound. At most half of the units can start in reserve.\n- The army must include a Legion Champion."
+      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- Up to four units (not Heavy or Slow) can gain the Outflank ability for +1 point per Wound. At most half of the units can start in reserve.\n- The army must include a Legion Champion."
     },
     {
       "name": "Terror Assault (Night Lords)",
-      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- The army has access to the Primarch Konrad Curze.\n- Legion Veteran Squads can be taken as Troops, and all of the army's Troops selections must be Legion Veteran Squads."
+      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- Legion Veteran Squads can be taken as Troops, and all of the army's Troops selections must be Legion Veteran Squads."
     },
     {
       "name": "The Swift Blade (Night Lords)",
-      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- The army has access to the Primarch Konrad Curze.\n- Legion Outrider Squadrons can be taken as Troops.\n- No Heavy Support choices."
+      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- Legion Outrider Squadrons can be taken as Troops.\n- No Heavy Support choices."
     },
     {
       "name": "World Eaters",
-      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- The army has access to the Primarch Angron.\n- The army may select the Rampager Squad, the Red Butcher Terminators, the Red Hand Destroyer Assault Squad and the Red Hand Destroyer Squad, which cannot be selected without this archetype.\n- Rampager Squads can be taken as Troops.\n- Only one Heavy Support selection can be taken.\n- All units of the army have the Legion: World Eaters (WE).\n- Blind Rage: any unit may gain the Blind Rage ability for +10 points.\n- Butcher's Nails: a psyker suffers \"Perils of the Warp\" on any double when it tries to manifest a power, and applies both Perils results.\n- Models that already have the +1 Attack in their profile (the Red Butcher Terminators) do not gain it twice."
+      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- Only one Heavy Support selection can be taken.\n- Blind Rage: any unit may gain the Blind Rage ability for +10 points.\n- Butcher's Nails: a psyker suffers \"Perils of the Warp\" on any double when it tries to manifest a power, and applies both Perils results.\n- Models that already have the +1 Attack in their profile (the Red Butcher Terminators) do not gain it twice."
     },
     {
       "name": "Word Bearers",
-      "desc": "- Can only be selected with the Legacy of the Archtraitor.\n- The army has access to the Primarch Lorgar.\n- All units of the army have the Legion: Word Bearers (WB).\n- Unwavering Conviction: if at least one model of the army takes part in a melee, its side gets +1 to its combat resolution.\n- The Dark Brethren (a Centurion Command Squad with the Gal Vorbak possession) can be taken as Troops.\n- The army may select the Dark Brethren and the Ashen Circle, which cannot be selected without this archetype.\n- Glorious Martyrdom: once per battle, when an enemy unit makes a ranged attack against a friendly Legion: Word Bearers unit, choose one model of the target unit: all the wounds of that attack are allocated to it, and if it is removed as a casualty the rest of the wounds of that attack are discarded.\n- Diabolist: a Centurion may take the Diabolist Consul."
+      "desc": "- Can only be selected with the Legacy of the Archtraitor.\n- Unwavering Conviction: if at least one model of the army takes part in a melee, its side gets +1 to its combat resolution.\n- Glorious Martyrdom: once per battle, when an enemy unit makes a ranged attack against a friendly unit with the Mark of Word Bearers, choose one model of the target unit: all the wounds of that attack are allocated to it, and if it is removed as a casualty the rest of the wounds of that attack are discarded."
     },
     {
       "name": "Death Guard",
-      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- The army has access to the Primarch Mortarion.\n- The army may select the Deathshroud Terminator Squad and the Grave Wardens, which cannot be selected without this archetype.\n- All units of the army have the Legion: Death Guard (DG).\n- Units with the Legion: Death Guard automatically pass Dangerous Terrain tests.\n- Units cannot be given an Advance order and cannot arrive by Deep Strike or Outflank (Charge orders are allowed)."
+      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- Units with the Mark of Death Guard automatically pass Dangerous Terrain tests.\n- Units cannot be given an Advance order and cannot arrive by Deep Strike or Outflank (Charge orders are allowed)."
     },
     {
       "name": "Sons of Horus",
-      "desc": "- Can only be selected with the Legacy of the Warmaster.\n- The army has access to the Primarch Horus Lupercal.\n- Legion Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Legion Assault Squads can be taken as Troops.\n- All units of the army have the Legion: Sons of Horus (SoH)."
+      "desc": "- Can only be selected with the Legacy of the Warmaster."
     },
     {
       "name": "Thousand Sons",
-      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- The army has access to the Primarch Magnus the Red.\n- The army may select the Castellax-Achea Automata and the Khenetai Squad, which cannot be selected without this archetype; the Castellax-Achea can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Flesh Change: a unit that is not a character ignores Perils of the Warp. Instead, on any double in a psychic test roll 1D6 and apply the result until the end of its next activation: 1 +2\" Movement, 2 +1 Strength, 3 +1 Toughness, 4 +1 Initiative, 5 +1 Wound, 6 +1 Attack. The third time the same result comes up for that unit, one model of the unit erupts: it is removed and explodes like a vehicle, and a Chaos Spawn is placed within 3\" of it.\n- Gravis force blade: a Contemptor Dreadnought may swap its close combat weapon for it for -1 point.\n- Ammitara: see the options of the Seeker Squad."
+      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- Cult Arcana: every unit of the army that is not a character or a Monstrous Creature gains the \"Psyker\" ability and can cast 1 psychic power per battle round. It knows Smite and one power of the Prosperine Arcana. Additionally, the unit gains the \"Brotherhood of Psykers\" ability.\n- Flesh Change: a unit that is not a character ignores Perils of the Warp. Instead, on any double in a psychic test roll 1D6 and apply the result until the end of its next activation: 1 +2\" Movement, 2 +1 Strength, 3 +1 Toughness, 4 +1 Initiative, 5 +1 Wound, 6 +1 Attack. The third time the same result comes up for that unit, one model of the unit erupts: it is removed and explodes like a vehicle, and a Chaos Spawn is placed within 3\" of it.\n- Gravis force blade: a Contemptor Dreadnought may swap its close combat weapon for it for -1 point."
     }
   ],
   "legacies": [
     {
       "name": "Legacy of the Hydra",
-      "desc": "The army has access to the Alpha Legion Armory.\nLegion: Alpha Legion (Traitor).",
+      "desc": "The army has access to the Alpha Legion Armory.\n- The army has access to the Primarch Alpharius.",
       "armory_key": "Alpha Legion"
     },
     {
       "name": "Legacy of the Lord of Iron",
-      "desc": "The army has access to the Iron Warriors Armory.\nLegion: Iron Warriors (Traitor).",
+      "desc": "The army has access to the Iron Warriors Armory.\n- The army may select the Iron Circle Maniple, which cannot be selected without this Legacy.\n- Warsmith, Iron Havocs and Tyrant Siege Terminators: see the options of the Praetor, the Legion Heavy Support Squad and the Legion Terminator Cataphractii Squad.\n- The army has access to the Primarch Perturabo.",
       "armory_key": "Iron Warriors"
     },
     {
       "name": "Legacy of the Night Haunter",
-      "desc": "The army has access to the Night Lords Armory.\nLegion: Night Lords (Traitor).",
+      "desc": "The army has access to the Night Lords Armory.\n- The army has access to the Primarch Konrad Curze.",
       "armory_key": "Night Lords"
     },
     {
       "name": "Legacy of the Archtraitor",
-      "desc": "The army has access to the Word Bearers Armory.\nLegion: Word Bearers (Traitor).",
+      "desc": "The army has access to the Word Bearers Armory.\nAll units of the army have the Mark of Word Bearers (WB).\n- The Gal Vorbak can be taken as Troops.\n- The army may select the Gal Vorbak and the Ashen Circle, which cannot be selected without this Legacy.\n- Diabolist: a Centurion may take the Diabolist Consul.\n- The army has access to the Primarch Lorgar.",
       "armory_key": "Word Bearers"
     },
     {
       "name": "Legacy of the Warmaster",
-      "desc": "The army has access to the Sons of Horus Armory.\n- Any model in a Legion Terminator Cataphractii Squad may swap their Combi-bolter for a Banestrike combi-bolter for +3 points each, and their Power sword for a Carsoran power axe for +0 points or a Carsoran power tabar for +1 point each.\nLegion: Sons of Horus (Traitor).",
+      "desc": "The army has access to the Sons of Horus Armory.\n- Any model in a Legion Terminator Cataphractii Squad may swap their Combi-bolter for a Banestrike combi-bolter for +3 points each, and their Power sword for a Carsoran power axe for +0 points or a Carsoran power tabar for +1 point each.\nAll units of the army have the Mark of Sons of Horus (SoH).\n- Legion Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Legion Assault Squads can be taken as Troops.\n- The army has access to the Primarch Horus Lupercal.",
       "armory_key": "Sons of Horus"
     },
     {
       "name": "Legacy of the Lord of Red Sands",
-      "desc": "The army has access to the World Eaters Armory.\nThe army may have one additional Elite selection per AOP, which can only be used for Rampager Squads.\nLegion: World Eaters (Traitor).",
+      "desc": "The army has access to the World Eaters Armory.\nThe army may have one additional Elite selection per AOP, which can only be used for Rampager Squads.\nAll units of the army have the Mark of World Eaters (WE).\n- The army may select the Rampager Squad, the Red Butcher Terminators, the Red Hand Destroyer Assault Squad and the Red Hand Destroyer Squad, which cannot be selected without this Legacy.\n- Rampager Squads can be taken as Troops.\n- The army has access to the Primarch Angron.",
       "armory_key": "World Eaters"
     },
     {
       "name": "Legacy of the Death Lord",
-      "desc": "The army has access to the Death Guard Armory.\nLegion: Death Guard (Traitor).",
+      "desc": "The army has access to the Death Guard Armory.\nAll units of the army have the Mark of Death Guard (DG).\n- The army may select the Deathshroud Terminator Squad and the Grave Wardens, which cannot be selected without this Legacy.\n- The army has access to the Primarch Mortarion.",
       "armory_key": "Death Guard"
     },
     {
       "name": "Legacy of the Phoenician",
-      "desc": "The army has access to the Emperor's Children Armory.\nLegion: Emperor's Children (Traitor).",
+      "desc": "The army has access to the Emperor's Children Armory.\nAll units of the army have the Mark of Emperor's Children (EC).\n- The army may select the Kakophoni Squad, the Palatine Blade Squad and the Phoenix Terminator Squad, which cannot be selected without this Legacy.\n- Kakophoni Squads can be taken as Troops.\n- The army has access to the Primarch Fulgrim.",
       "armory_key": "Emperor's Children"
     },
     {
       "name": "Legacy of the Crimson King",
-      "desc": "The army has access to the Thousand Sons Armory.\nLegion: Thousand Sons (Traitor).",
+      "desc": "The army has access to the Thousand Sons Armory.\n- The army may select the Castellax-Achea Automata and the Khenetai Squad, which cannot be selected without this Legacy; the Castellax-Achea can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Ammitara: see the options of the Seeker Squad.\n- The army has access to the Primarch Magnus the Red.",
       "armory_key": "Thousand Sons"
     },
     {
@@ -218,15 +218,6 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false
-    },
-    {
-      "name": "Cult Arcana",
-      "desc": "The unit gains the \"Psyker\" ability and can cast 1 psychic power per battle round. It knows both powers from one Prosperine Cult discipline. Additionally, the unit gains the \"Brotherhood of Psykers\" ability.",
-      "pts_unit": "10",
-      "pts_char": "-",
-      "pts_monster": "-",
-      "pts_veh": "-",
       "enables_second_legacy": false
     },
     {

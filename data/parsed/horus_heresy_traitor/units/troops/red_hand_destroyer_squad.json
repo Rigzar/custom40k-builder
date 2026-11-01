@@ -114,7 +114,7 @@
             "abilities": "Blast(4), Poison(3+), Suppression(3), Rending(5+)"
         },
         {
-            "name": "Melta bombsᵀ",
+            "name": "Melta bombs",
             "range": "3\"",
             "type": "Grenade",
             "s": "8",
@@ -168,7 +168,7 @@
             "abilities": "-"
         },
         {
-            "name": "Thunder hammerᵀ",
+            "name": "Thunder hammer",
             "range": "-",
             "type": "Melee",
             "s": "x2",
@@ -177,7 +177,7 @@
             "abilities": "AT(3), Slow(-3)"
         },
         {
-            "name": "Barb-hook lashᵀ",
+            "name": "Barb-hook lash",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -186,7 +186,7 @@
             "abilities": "Deadly(6+), Rad"
         },
         {
-            "name": "Excoriator chainaxeᵀ",
+            "name": "Excoriator chainaxe",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -195,7 +195,7 @@
             "abilities": "Rending(6+), Shred"
         },
         {
-            "name": "Meteor hammerᵀ",
+            "name": "Meteor hammer",
             "range": "-",
             "type": "Melee",
             "s": "+3",
@@ -204,7 +204,7 @@
             "abilities": "-"
         },
         {
-            "name": "Paired falax bladesᵀ",
+            "name": "Paired falax blades",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -303,19 +303,19 @@
             },
             "choices": [
                 {
-                    "name": "Barb-hook lashᵀ",
+                    "name": "Barb-hook lash",
                     "points": 10
                 },
                 {
-                    "name": "Excoriator chainaxeᵀ",
+                    "name": "Excoriator chainaxe",
                     "points": 10
                 },
                 {
-                    "name": "Meteor hammerᵀ",
+                    "name": "Meteor hammer",
                     "points": 10
                 },
                 {
-                    "name": "Paired falax bladesᵀ",
+                    "name": "Paired falax blades",
                     "points": 10
                 }
             ],
@@ -335,7 +335,7 @@
             },
             "choices": [
                 {
-                    "name": "Thunder hammerᵀ",
+                    "name": "Thunder hammer",
                     "points": 15
                 }
             ],
@@ -377,7 +377,7 @@
                     "points": 8
                 },
                 {
-                    "name": "Melta bombsᵀ",
+                    "name": "Melta bombs",
                     "points": 5
                 }
             ],
@@ -465,5 +465,5 @@
     "slot": "Troops",
     "default_size": 5,
     "min_cost": 170,
-    "requires_archetype": "World Eaters"
+    "requires_legacy": "Legacy of the Lord of Red Sands"
 }
