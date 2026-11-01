@@ -2417,7 +2417,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       g => g.is_unique_per_army && !g.variant_link && g.constraint.type === 'unique_upgrade'
         && !(g.inline_pts != null && g.choices.length === 0),
     );
-    if (isUniqueUnit) {
+    // Horus Heresy Primarch: "Each Primarch has the Unique ability (only one of him per army)".
+    if (isUniqueUnit || u.requires_primarch_legacy) {
       uniqueUnitCounts[item.unitName] = (uniqueUnitCounts[item.unitName] ?? 0) + 1;
     }
   }

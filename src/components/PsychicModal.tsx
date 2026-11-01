@@ -148,6 +148,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       }
       return hasActiveLegacy;
     }
+    // Horus Heresy: a discipline written "Name (Legion)" (Diabolism (Word Bearers), Stormcalling (White Scars)...) is opened by the Legacy of that
+    // Legion, or by its archetype. The ones a datasheet names for itself (the Esoterist's, Lorgar's) are added below, whatever the Legacy.
+    if (data.faction.startsWith('Horus Heresy')) {
+      const legion = /(([^)]+))s*$/.exec(name)?.[1];
+      if (legion) {
+        const opened = [legacy, legacy2].map(l => (data.legacies ?? []).find(x => x.name === l)?.armory_key).filter(Boolean);
+        return opened.includes(legion) || archetype === legion;
+      }
+    }
     return true;
   });
 
@@ -225,7 +234,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     ?? '';
   // "It knows Smite and all powers from the Esoterist discipline": that one discipline of the book is all it knows besides Smite.
   const namedDiscipline = psykerAbilityText.match(/(?:all )?powers (?:from|of) the ([a-z' ]+?) discipline/)?.[1]?.trim() ?? '';
-  if (namedDiscipline) { const only = allowedDiscs.filter(([n]) => n.toLowerCase().includes(namedDiscipline)); if (only.length) allowedDiscs = only; }
+  if (namedDiscipline) { const only = Object.entries(ownDisciplines).filter(([n]) => n.toLowerCase().includes(namedDiscipline)); if (only.length) allowedDiscs = only; }
 
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited' | 'knows_all';
   function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean; oneDiscipline?: boolean } {

@@ -1,34 +1,90 @@
 {
   "Esoterist (Anathemata)": [
     {
-      "name": "Void Darts"
+      "name": "Void Darts",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "4",
+      "effect": "The target suffers three automatic hits with Strength: 5 AP: -2 D: 1; Shred, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Seal the Veil"
+      "name": "Seal the Veil",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy Chaos Daemons unit",
+      "cast_value": "5",
+      "effect": "The target does not get the bonus of the Charge order, as if it were affected by Hold Your Ground.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Normal"
     }
   ],
   "Stormcalling (White Scars)": [
     {
-      "name": "Unseen Bolt"
+      "name": "Unseen Bolt",
+      "type": "Witchfire",
+      "range": "36\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers one automatic hit with Strength: 4 AP: -2 D: 1; Blast(6), Suppression(2), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Call of the Wind"
+      "name": "Call of the Wind",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly White Scars unit",
+      "cast_value": "5",
+      "effect": "The target adds its Initiative value in inches to its Movement and cannot be given an Advance order.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ],
   "Runecasting (Space Wolves)": [
     {
-      "name": "Wrath of the Death Wolf"
+      "name": "Wrath of the Death Wolf",
+      "type": "Witchfire",
+      "range": "9\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers three automatic hits with Strength: 6 AP: -2 D: 1; Suppression(1), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Stormwrought"
+      "name": "Stormwrought",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Space Wolves unit",
+      "cast_value": "5",
+      "effect": "The target gains the Deflect ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ],
   "Fury of the Salamander (Salamanders)": [
     {
-      "name": "Elemental Horror"
+      "name": "Elemental Horror",
+      "type": "Witchfire",
+      "range": "9\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers three automatic hits with Strength: 7 AP: -2 D: 1; Suppression(3), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Salamander's Fury"
+      "name": "Salamander's Fury",
+      "type": "Malediction",
+      "range": "18\" radius",
+      "target": "Self",
+      "cast_value": "6",
+      "effect": "All enemy units in range treat Open Terrain as Difficult Terrain.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ]
 }

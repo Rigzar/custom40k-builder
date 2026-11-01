@@ -1,38 +1,108 @@
 {
   "Esoterist (Anathemata)": [
     {
-      "name": "Void Darts"
+      "name": "Void Darts",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "4",
+      "effect": "The target suffers three automatic hits with Strength: 5 AP: -2 D: 1; Shred, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Breach the Veil"
+      "name": "Breach the Veil",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Friendly Chaos Daemons unit in reserve",
+      "cast_value": "6",
+      "effect": "The target arrives from reserve at the next Reinforcement phase without making a reserve roll.",
+      "duration": "Instant",
+      "complexity": "Normal"
     }
   ],
   "Diabolism (Word Bearers)": [
     {
-      "name": "Hellfire"
+      "name": "Hellfire",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers two automatic hits with Strength: 7 AP: -2 D: 1; Rending(6+), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Dark Channeling"
+      "name": "Dark Channeling",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Word Bearers unit",
+      "cast_value": "5",
+      "effect": "The target gains the Ward(6+) ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ],
   "Prosperine Arcana (Thousand Sons)": [
     {
-      "name": "Doombolt"
+      "name": "Doombolt",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "One automatic hit with S: 9 AP: -3 D: 2; AT(3), Seeking, Tank hunter.",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Prosperine Arcana: Raptora"
+      "name": "Prosperine Arcana: Raptora",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Thousand Sons unit",
+      "cast_value": "5",
+      "effect": "The target gains the Ward(6+) ability; if it already has a ward save, it improves by one step, to a maximum of 4+.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     },
     {
-      "name": "Prosperine Arcana: Pyrae"
+      "name": "Prosperine Arcana: Pyrae",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Thousand Sons unit",
+      "cast_value": "5",
+      "effect": "Each enemy unit that charges the target suffers two automatic hits with Strength: 4 AP: -1 D: 1; Sunder(1) when its charge move ends.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     },
     {
-      "name": "Prosperine Arcana: Pavoni"
+      "name": "Prosperine Arcana: Pavoni",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Thousand Sons unit",
+      "cast_value": "5",
+      "effect": "The target gains +3\" Movement and ignores the penalties of Difficult Terrain.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     },
     {
-      "name": "Prosperine Arcana: Corvidae"
+      "name": "Prosperine Arcana: Corvidae",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Thousand Sons unit",
+      "cast_value": "6",
+      "effect": "The first wound caused by each ranged attack of the target is allocated by its controller to the model it chooses.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     },
     {
-      "name": "Prosperine Arcana: Athanaen"
+      "name": "Prosperine Arcana: Athanaen",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly Thousand Sons unit",
+      "cast_value": "5",
+      "effect": "Enemy units that suffer a ranged attack from the target take -1 Leadership for the Battleshock tests that attack causes.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ]
 }

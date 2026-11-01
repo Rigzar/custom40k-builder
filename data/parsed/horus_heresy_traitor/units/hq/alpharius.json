@@ -67,24 +67,6 @@
             "ap": "0",
             "d": "1",
             "abilities": "Ammo(1), Poison(3+)"
-        },
-        {
-            "name": "- Rapid shot",
-            "range": "24\"",
-            "type": "Assault 3",
-            "s": "5",
-            "ap": "-2",
-            "d": "1",
-            "abilities": "Suppression(3), Unique"
-        },
-        {
-            "name": "- Execution shot",
-            "range": "48\"",
-            "type": "Heavy 1",
-            "s": "7",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "AT(1), Sniper, Sunder(2), Suppression(6), Unique"
         }
     ],
     "option_groups": [],
