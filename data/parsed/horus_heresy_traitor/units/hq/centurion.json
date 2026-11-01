@@ -77,7 +77,10 @@
                 {
                     "name": "Diabolist",
                     "points": 34,
-                    "requires_archetype": "Word Bearers"
+                    "requires_archetype": "Word Bearers",
+                    "effect": {
+                        "makes_psyker": true
+                    }
                 },
                 {
                     "name": "Delegatus",
@@ -122,7 +125,7 @@
         "They Shall Know No Fear",
         "Consuls: A Centurion takes one Consul upgrade. The points are for the Consul on top of the Centurion. The Warmonger of Margit's list is the Aetheric juncture splicer item in the Armory. A Centurion with a Consul cannot take Saturnine armor.",
         "Esoterist: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Esoterist discipline (see Psychic disciplines). It knows no other powers. It has Terrifying(-1) (the Fear (1) of the book). Its Power weapon may be swapped for a Force weapon at no extra cost.",
-        "Diabolist: Only with the Word Bearers archetype. The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and the powers of the Diabolism discipline:\n- Hellfire (Witchfire, 12\", target: enemy unit, cast value 5, instant, Normal): the target suffers two automatic hits with Strength: 7 AP: -2 D: 1; Rending(6+), Seeking.\n- Dark Channeling (Augmentation, 12\", target: friendly Legion: Word Bearers unit, cast value 5, until the end of the battle round, Normal): all models of the target gain the Ward(6+) ability.\nIt knows no other powers. It has Terrifying(-1) (the Fear (1) of the book). Its Power weapon may be swapped for a Force weapon at no extra cost.",
+        "Diabolist: Only with the Word Bearers archetype. The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Diabolism discipline (see Psychic disciplines). It knows no other powers. It has Terrifying(-1) (the Fear (1) of the book). Its Power weapon may be swapped for a Force weapon at no extra cost.",
         "Delegatus: Rally the Legion. Once per battle, in the Rally phase, take a Leadership test for this model. If it passes, every friendly unit in its line of sight rallies. Master of the Legion (see the Praetor): he can be taken in games of less than 1000 points, but not in an army that has a Praetor or a Primarch.",
         "Herald: The model gains the Fearless and Terrifying(-1) abilities, a Power sword and a Legion vexilla (instead of its Bolt pistol) at no extra cost.",
         "Librarian: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers of the General psychic disciplines, plus the discipline of its Legacy or archetype if it has one. Its Power weapon may be swapped for a Force weapon at no extra cost.",
