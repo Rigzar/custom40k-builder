@@ -79,6 +79,15 @@
             "abilities": "-"
         },
         {
+            "name": "Destroyer missile launcher",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "4",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Poison(2+), Rad"
+        },
+        {
             "name": "Eviscerator",
             "range": "-",
             "type": "Melee",
@@ -283,7 +292,7 @@
             "per_model": true
         },
         {
-            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol or Twin bolt pistol for a Thunder hammer for +15 points, and the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each.",
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol for a Thunder hammer for +15 points.",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -294,9 +303,46 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Bolt pistol or Twin bolt pistol"
+                "Bolt pistol"
             ],
             "per_model": true
+        },
+        {
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: for each 5 models, one other model may swap its Bolt pistol for a Destroyer missile launcher for +20 points.",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [],
+            "inline_pts": 20,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 10,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: the unit gains Bearers of the Blood Hand (+1 to its combat resolution in melee, as the Legion vexilla) and Firestorm (it does not suffer the to hit penalty from Defensive Fire) for +15 points. A unit with these abilities (Bitter Duty) cannot be joined by a character that does not have them.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
