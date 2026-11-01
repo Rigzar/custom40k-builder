@@ -99,10 +99,6 @@
     {
       "name": "Shattered Legions",
       "desc": "- The army has two Legacies (two Legions of this book, all of them Loyalist), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Survivors of several betrayed Legions fighting together under one banner (Shadrak Meduson, Master of the Shattered Legions)."
-    },
-    {
-      "name": "Blackshields",
-      "desc": "- The army has two Legacies (any two Legions of this book), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Warriors who cast off their Legion's insignia and honours: a unit is of one Legion or of the other, never of a third."
     }
   ],
   "legacies": [
@@ -153,7 +149,7 @@
     },
     {
       "name": "Legacy of the Sundered",
-      "desc": "The army has access to one Legion-specific unit or Consul type per 1000 points of game size.\nArmory: only the general Armory (the Blackshields have no Legion Armory of their own).",
+      "desc": "The army has access to one Legion-specific unit or Consul type per 1000 points of game size.\nArmory: only the general Armory (the Sundered Legion has no Legion Armory of its own).",
       "armory_key": null
     }
   ],
@@ -321,10 +317,5 @@
       "enables_second_legacy": false
     }
   ],
-  "special_traits": [
-    {
-      "name": "Blackshields",
-      "desc": "Two traits chosen in combination from the Space Marines and Chaos Space Marines codexes may be chosen and taken by all units in the army."
-    }
-  ]
+  "special_traits": []
 }

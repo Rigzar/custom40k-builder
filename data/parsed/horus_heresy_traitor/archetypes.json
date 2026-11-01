@@ -126,11 +126,6 @@
       "name": "Legacy of the Crimson King",
       "desc": "The army has access to the Thousand Sons Armory.\n- The army may select the Castellax-Achea Automata and the Khenetai Squad, which cannot be selected without this Legacy; the Castellax-Achea can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Ammitara: see the options of the Seeker Squad.\n- The army has access to the Primarch Magnus the Red.",
       "armory_key": "Thousand Sons"
-    },
-    {
-      "name": "Legacy of the Sundered",
-      "desc": "The army has access to one Legion-specific unit or Consul type per 1000 points of game size.\nArmory: only the general Armory (the Blackshields have no Legion Armory of their own).",
-      "armory_key": null
     }
   ],
   "traits": [
