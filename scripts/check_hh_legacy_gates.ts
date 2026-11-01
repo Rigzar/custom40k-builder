@@ -10,7 +10,9 @@ import { archetypeRequiredLegacy, legionTraitAllowed } from '../src/lib/legacyGa
       const ok = d.traits.filter((t: any) => legionTraitAllowed(t, [l]));
       console.log(k, l.name.padEnd(32), 'traits', ok.length, 'archetypes', d.archetypes.filter((a: any) => { const n = archetypeRequiredLegacy(a); return !n || n === l.name; }).length);
     }
-    console.log(k, 'no legacy -> traits', d.traits.filter((t: any) => legionTraitAllowed(t, [])).length);
+    const open = d.traits.filter((t: any) => legionTraitAllowed(t, [])).length;
+    console.log(k, 'no legacy -> traits', open, 'of', d.traits.length);
+    if (open !== d.traits.length) { console.log('TRAITS ARE NOT OPEN TO EVERY LEGION'); bad++; }
   }
   process.exit(bad ? 1 : 0);
 })();

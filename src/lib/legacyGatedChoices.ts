@@ -1,10 +1,8 @@
 import type { Archetype, Trait } from '../types/data';
 
 /**
- * The Horus Heresy books tie two kinds of choice to a Legacy:
- *  - an archetype whose own text says "Can only be selected with the Legacy of the Lion."
- *  - a Legion trait, which belongs to the Legion the Legacy names (`Legion: Dark Angels (Loyalist).`).
- * Both are read from the data, not listed by hand, so a rename on the sheet needs no code change.
+ * The Horus Heresy books tie an archetype to a Legacy when its own text says "Can only be selected with the Legacy of the Lion."
+ * (Legion traits used to be tied too; they are open to every Legion now.) It is read from the data, not listed by hand, so a rename on the sheet needs no code change.
  */
 
 /** The Legacy an archetype demands, or null when its text names none. */
@@ -15,17 +13,15 @@ export function archetypeRequiredLegacy(archetype: Pick<Archetype, 'desc'> | und
 
 /**
  * May this Legion trait be taken with the army's Legacy (or Legacies)?
- * A trait with no `legion` tag is open to everyone. A tagged one needs a Legacy that opens that
- * Legion's Armory. A Legacy with no Legion of its own (the Sundered) can take any Legion's traits.
+ * Rigzar 2026-11-01: the traits are open to every Legion again (two per army, from the whole list).
+ * The Legacy no longer gates them. The function stays as the one place to tell the Blackshields and the
+ * Legacy of the Sundered apart when those two are reworked.
  */
 export function legionTraitAllowed(
-  trait: Pick<Trait, 'legion'>,
-  legacies: Array<{ armory_key?: string | null } | undefined>,
+  _trait: Pick<Trait, 'legion'>,
+  _legacies: Array<{ armory_key?: string | null } | undefined>,
 ): boolean {
-  if (!trait.legion) return true;
-  const picked = legacies.filter((l): l is { armory_key?: string | null } => !!l);
-  if (!picked.length) return false;
-  return picked.some(l => !l.armory_key || l.armory_key === trait.legion);
+  return true;
 }
 
 /** The Legacy a datasheet demands ("Can only be selected if the army has the Legacy of X."), or null. */
