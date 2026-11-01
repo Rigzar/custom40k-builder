@@ -49,9 +49,93 @@
             "ap": "-2",
             "d": "1",
             "abilities": "Extra Attack(1)"
+        },
+        {
+            "name": "Chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(2), Slow(-3)"
+        },
+        {
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Pair of lightning claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+            "header": "Every Red Butcher may swap their Twin power axe with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Combi-bolter and Power sword",
+                    "points": 7,
+                    "effect": {
+                        "grants_weapons": [
+                            "Combi-bolter",
+                            "Power sword"
+                        ]
+                    }
+                },
+                {
+                    "name": "Pair of lightning claws",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin power axe"
+            ]
+        },
+        {
+            "header": "The Red Butcher Sergeant may swap its Twin power axe with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Chainfist",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin power axe"
+            ],
+            "applies_to_model": "Red Butcher Sergeant"
+        }
+    ],
     "abilities": [
         "Deep strike, Massive(1), They Shall Know No Fear, Unyielding",
         "Cataphractii Terminator armor: The model gains a 4+ ward save."
