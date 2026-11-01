@@ -38,7 +38,6 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Raven Guard': r({ slotCapOverride: { slot: 'Heavy Support', max: 1 } }),
   "Emperor's Children": r({ troopsRemap: ['Kakophoni Squad'] }),
   'Death Guard': r({
-    troopsRemap: ['Legion Terminator Cataphractii Squad'],
     legionTerm: term('Death Guard', 'DG', 2, 'the model gains +1 Toughness; a character model or Monstrous Creature also gains +1 Wound. Vehicles may roll 2D6 during each Reinforcement phase: on a 7+ they may remove a "Crew Shaken" result, one "Engine Damage" or one "Weapon Damage" result, or restore one lost HP. Units automatically pass Dangerous Terrain tests.', 10),
     statMods: [{ stat: 'T', delta: 1, creatureOnly: true }, { stat: 'W', delta: 1, characterOrMonsterOnly: true }],
   }),
