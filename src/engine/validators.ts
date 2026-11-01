@@ -19,7 +19,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
-import { archetypeRequiredLegacy, legionTraitAllowed, unitRequiredLegacy, unitRequiredArchetype } from '../lib/legacyGatedChoices';
+import { archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus, legacySlotBonusOnly } from './codex_csm/legacies';
@@ -2139,19 +2139,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Horus Heresy: an archetype that "can only be selected with the Legacy of X", and Legion traits
-  // that belong to the Legion the Legacy names (data-driven, see lib/legacyGatedChoices.ts).
+  // Horus Heresy: an archetype that "can only be selected with the Legacy of X" (data-driven, see lib/legacyGatedChoices.ts).
+  // The traits are open to every Legion (Rigzar 2026-11-01).
   {
     const needLegacy = archetypeRequiredLegacy(data.archetypes.find(a => a.name === state.archetype));
     if (needLegacy && needLegacy !== state.legacy) {
       items.push({ type: 'error', text: `${state.archetype} can only be selected with the ${needLegacy}.` });
-    }
-    const legacyDefs = [state.legacy, state.legacy2].map(n => data.legacies.find(l => l.name === n));
-    for (const n of state.traitPool) {
-      const def = data.traits.find(t => t.name === n);
-      if (def && !legionTraitAllowed(def, legacyDefs)) {
-        items.push({ type: 'error', text: `${n} is a ${def.legion} trait: it needs the Legacy of that Legion.` });
-      }
     }
   }
 

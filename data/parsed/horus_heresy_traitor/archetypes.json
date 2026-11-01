@@ -145,8 +145,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Emperor's Children"
+      "enables_second_legacy": false
     },
     {
       "name": "Exemplars of War",
@@ -155,8 +154,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Emperor's Children"
+      "enables_second_legacy": false
     },
     {
       "name": "To The Bitter End",
@@ -165,8 +163,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Iron Warriors"
+      "enables_second_legacy": false
     },
     {
       "name": "Siege Experts",
@@ -175,8 +172,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Iron Warriors"
+      "enables_second_legacy": false
     },
     {
       "name": "Horrors of the Night",
@@ -185,8 +181,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Night Lords"
+      "enables_second_legacy": false
     },
     {
       "name": "Bloody Murder",
@@ -195,8 +190,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Night Lords"
+      "enables_second_legacy": false
     },
     {
       "name": "The Butcher's Nails",
@@ -205,8 +199,7 @@
       "pts_char": "0",
       "pts_monster": "-",
       "pts_veh": "-",
-      "enables_second_legacy": false,
-      "legion": "World Eaters"
+      "enables_second_legacy": false
     },
     {
       "name": "Bloodlust",
@@ -215,8 +208,7 @@
       "pts_char": "0",
       "pts_monster": "-",
       "pts_veh": "-",
-      "enables_second_legacy": false,
-      "legion": "World Eaters"
+      "enables_second_legacy": false
     },
     {
       "name": "Remorseless and Intractable",
@@ -225,8 +217,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Death Guard"
+      "enables_second_legacy": false
     },
     {
       "name": "Sons of Barbarus",
@@ -235,8 +226,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Death Guard"
+      "enables_second_legacy": false
     },
     {
       "name": "Cult Arcana",
@@ -245,8 +235,7 @@
       "pts_char": "-",
       "pts_monster": "-",
       "pts_veh": "-",
-      "enables_second_legacy": false,
-      "legion": "Thousand Sons"
+      "enables_second_legacy": false
     },
     {
       "name": "Signs and Portents",
@@ -255,8 +244,7 @@
       "pts_char": "-",
       "pts_monster": "-",
       "pts_veh": "-",
-      "enables_second_legacy": false,
-      "legion": "Thousand Sons"
+      "enables_second_legacy": false
     },
     {
       "name": "Merciless Fighters",
@@ -265,8 +253,7 @@
       "pts_char": "0",
       "pts_monster": "10",
       "pts_veh": "10",
-      "enables_second_legacy": false,
-      "legion": "Sons of Horus"
+      "enables_second_legacy": false
     },
     {
       "name": "Death Dealers",
@@ -275,8 +262,7 @@
       "pts_char": "0",
       "pts_monster": "10",
       "pts_veh": "10",
-      "enables_second_legacy": false,
-      "legion": "Sons of Horus"
+      "enables_second_legacy": false
     },
     {
       "name": "True Believers",
@@ -285,8 +271,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Word Bearers"
+      "enables_second_legacy": false
     },
     {
       "name": "Cut Them Down",
@@ -295,8 +280,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Word Bearers"
+      "enables_second_legacy": false
     },
     {
       "name": "Mutable Tactics",
@@ -305,8 +289,7 @@
       "pts_char": "0",
       "pts_monster": "3",
       "pts_veh": "3",
-      "enables_second_legacy": false,
-      "legion": "Alpha Legion"
+      "enables_second_legacy": false
     },
     {
       "name": "Lies and Obfuscation",
@@ -315,8 +298,7 @@
       "pts_char": "0",
       "pts_monster": "3",
       "pts_veh": "3",
-      "enables_second_legacy": false,
-      "legion": "Alpha Legion"
+      "enables_second_legacy": false
     }
   ],
   "special_traits": [

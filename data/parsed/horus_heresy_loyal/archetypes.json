@@ -157,8 +157,7 @@
       "pts_char": "0",
       "pts_monster": "10",
       "pts_veh": "10",
-      "enables_second_legacy": false,
-      "legion": "Dark Angels"
+      "enables_second_legacy": false
     },
     {
       "name": "Scions of the Hexagrammaton",
@@ -167,8 +166,7 @@
       "pts_char": "0",
       "pts_monster": "10",
       "pts_veh": "10",
-      "enables_second_legacy": false,
-      "legion": "Dark Angels"
+      "enables_second_legacy": false
     },
     {
       "name": "Swift Action",
@@ -177,8 +175,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "White Scars"
+      "enables_second_legacy": false
     },
     {
       "name": "Eye of the Storm",
@@ -187,8 +184,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "White Scars"
+      "enables_second_legacy": false
     },
     {
       "name": "Bestial Savagery",
@@ -197,8 +193,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Space Wolves"
+      "enables_second_legacy": false
     },
     {
       "name": "Unleashed Hunters",
@@ -207,8 +202,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Space Wolves"
+      "enables_second_legacy": false
     },
     {
       "name": "Bolter Drill",
@@ -217,8 +211,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Imperial Fists"
+      "enables_second_legacy": false
     },
     {
       "name": "Unshakable Defence",
@@ -227,8 +220,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Imperial Fists"
+      "enables_second_legacy": false
     },
     {
       "name": "Encarmine Fury",
@@ -237,8 +229,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Blood Angels"
+      "enables_second_legacy": false
     },
     {
       "name": "Without Remorse, Without Relent",
@@ -247,8 +238,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Blood Angels"
+      "enables_second_legacy": false
     },
     {
       "name": "The Medusa's Scales",
@@ -257,8 +247,7 @@
       "pts_char": "0",
       "pts_monster": "5*",
       "pts_veh": "5*",
-      "enables_second_legacy": false,
-      "legion": "Iron Hands"
+      "enables_second_legacy": false
     },
     {
       "name": "Inviolate Armor",
@@ -267,8 +256,7 @@
       "pts_char": "0",
       "pts_monster": "5*",
       "pts_veh": "5*",
-      "enables_second_legacy": false,
-      "legion": "Iron Hands"
+      "enables_second_legacy": false
     },
     {
       "name": "Interlocking Tactics",
@@ -277,8 +265,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Ultramarines"
+      "enables_second_legacy": false
     },
     {
       "name": "Certainty and Resolve",
@@ -287,8 +274,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Ultramarines"
+      "enables_second_legacy": false
     },
     {
       "name": "Promethean Blood",
@@ -297,8 +283,7 @@
       "pts_char": "0",
       "pts_monster": "5*",
       "pts_veh": "5*",
-      "enables_second_legacy": false,
-      "legion": "Salamanders"
+      "enables_second_legacy": false
     },
     {
       "name": "Strength of Will",
@@ -307,8 +292,7 @@
       "pts_char": "0",
       "pts_monster": "5*",
       "pts_veh": "5*",
-      "enables_second_legacy": false,
-      "legion": "Salamanders"
+      "enables_second_legacy": false
     },
     {
       "name": "By Wing and Talon",
@@ -317,8 +301,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Raven Guard"
+      "enables_second_legacy": false
     },
     {
       "name": "Shadow and Fury",
@@ -327,8 +310,7 @@
       "pts_char": "0",
       "pts_monster": "5",
       "pts_veh": "5",
-      "enables_second_legacy": false,
-      "legion": "Raven Guard"
+      "enables_second_legacy": false
     }
   ],
   "special_traits": [
