@@ -350,7 +350,12 @@ export interface ArchetypeRule {
    *
    * `creatureOnly` skips vehicles, matching the codex's own "All Creature units" wording.
    */
-  statMods?: { stat: string; delta: number; creatureOnly?: boolean }[];
+  statMods?: { stat: string; delta: number; creatureOnly?: boolean; characterOnly?: boolean; characterOrMonsterOnly?: boolean }[];
+  /**
+   * Horus Heresy: the Legion term the archetype gives to every unit of the army ("Legion: World Eaters (WE)"). Its bonuses
+   * that change a number go in `statMods`; `note` is the rule text, shown on every unit card like the Marks' reminders.
+   */
+  legionTerm?: { name: string; abbr: string; note: string; perWound: number; vehicleFlat?: number } | null;
 }
 
 export const BASE: ArchetypeRule = {

@@ -14,6 +14,12 @@ const DREADS = ['Legion Contemptor Dreadnought', 'Castra Ferrum Dreadnought', 'D
 
 const r = (over: Partial<ArchetypeRule>): ArchetypeRule => ({ ...BASE, ...over });
 
+/** The Legion term an archetype gives to every unit ("Legion: World Eaters (WE)"); the text is the Special rules entry of the sheet. */
+const term = (name: string, abbr: string, perWound: number, note: string, vehicleFlat?: number) => ({
+  name, abbr, perWound, vehicleFlat,
+  note: `Legion: ${name} (${abbr}): ${note} Costs ${perWound} point${perWound === 1 ? '' : 's'} per model and per Wound${vehicleFlat ? `, ${vehicleFlat} points per vehicle` : ''}.`,
+});
+
 export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Pride of the Legion': r({ troopsRemap: VETS }),
   'Armoured Spearhead': r({ troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran Battle Tank'] }),
@@ -31,10 +37,23 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'The Covenant of Fire (Salamanders)': r({ troopsRemap: ['Legion Tactical Support Squad'] }),
   'Raven Guard': r({ slotCapOverride: { slot: 'Heavy Support', max: 1 } }),
   "Emperor's Children": r({ troopsRemap: ['Kakophoni Squad'] }),
-  'World Eaters': r({ troopsRemap: ['Rampager Squad'] }),
+  'Death Guard': r({
+    troopsRemap: ['Legion Terminator Cataphractii Squad'],
+    legionTerm: term('Death Guard', 'DG', 2, 'the model gains +1 Toughness; a character model or Monstrous Creature also gains +1 Wound. Vehicles may roll 2D6 during each Reinforcement phase: on a 7+ they may remove a "Crew Shaken" result, one "Engine Damage" or one "Weapon Damage" result, or restore one lost HP. Units automatically pass Dangerous Terrain tests.', 10),
+    statMods: [{ stat: 'T', delta: 1, creatureOnly: true }, { stat: 'W', delta: 1, characterOrMonsterOnly: true }],
+  }),
+  'World Eaters': r({
+    troopsRemap: ['Rampager Squad'], slotCapOverride: { slot: 'Heavy Support', max: 1 },
+    legionTerm: term('World Eaters', 'WE', 1, 'the model gains +1 Attack; a character model also gains +1 Strength.'),
+    statMods: [{ stat: 'A', delta: 1, creatureOnly: true }, { stat: 'S', delta: 1, characterOnly: true }],
+  }),
   'The Swift Blade (Night Lords)': r({ troopsRemap: ['Outrider Squadron'], bannedSlots: ['Heavy Support'] }),
   'Terror Assault (Night Lords)': r({ troopsRemap: ['Legion Veteran Squad'], banOtherTroops: true }),
-  'Word Bearers': r({ troopsRemap: ['Centurion Command Squad'] }),
-  'Sons of Horus': r({ troopsRemap: TERMS }),
+  'Word Bearers': r({
+    troopsRemap: ['Centurion Command Squad'],
+    legionTerm: term('Word Bearers', 'WB', 1, 'the model gains +1 Leadership.'),
+    statMods: [{ stat: 'LD', delta: 1, creatureOnly: true }],
+  }),
+  'Sons of Horus': r({ troopsRemap: [...TERMS, 'Legion Assault Squad'] }),
   'Thousand Sons': r({ troopsRemap: ['Castellax-Achea Automata'] }),
 };

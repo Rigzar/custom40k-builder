@@ -166,11 +166,31 @@
       ]
     },
     {
+      "name": "Enslaved by Darkness",
+      "term_compat": true,
+      "desc": "Warlord Trait. The model gains +1 Strength and +1 Toughness in battle rounds 1 to 3, and has -1 Strength and -1 Toughness from battle round 6. It counts as a Daemon. Unique.",
+      "p_unit": null,
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Gal Vorbak possession",
       "term_compat": false,
       "desc": "The model gains +1 Strength, +1 Toughness and +1 Wound, and the \"Daemon\" and \"Regeneration(1)\" abilities. Only for characters and Command squads.",
       "p_unit": 47,
       "p_char": 71
+    },
+    {
+      "name": "Iconoclast",
+      "term_compat": true,
+      "desc": "Warlord Trait. The model and its attached unit gain +1 Attack in melee against units that include a character model or a vexilla, and +2 Strength against Fortifications and buildings. Unique.",
+      "p_unit": null,
+      "p_char": 3,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Scripts of Erebus",
@@ -186,6 +206,16 @@
       "name": "The Skull of Monarchia",
       "term_compat": true,
       "desc": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Unswerving Devotion",
+      "term_compat": true,
+      "desc": "Warlord Trait. Once per battle round, the first failed Battleshock test of each friendly Legion: Word Bearers unit within 6\" of the model counts as passed. Unique.",
       "p_unit": null,
       "p_char": 5,
       "armour_compat": [

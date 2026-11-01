@@ -1091,6 +1091,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // so the card, the print view and the TTS export all honour it with no second code path.
   for (const sm of rule?.statMods ?? []) {
     if (sm.creatureOnly && unit.is_vehicle) continue;
+    if (sm.characterOnly && !unit.is_character) continue;
+    if (sm.characterOrMonsterOnly && !unit.is_character && !unit.is_monster) continue;
     traitStatMods.push({ stat: sm.stat, delta: sm.delta });
   }
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
@@ -1754,6 +1756,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   if (rule?.forcedAbility && !(rule.forcedAbility.creatureOnly && unit.is_vehicle)) {
     ruleNotes.push(rule.forcedAbility.name);
   }
+  // Horus Heresy Legion term (World Eaters (WE), Death Guard (DG)...): the archetype puts it on every unit; the stat changes
+  // came in through `statMods` above, this is the reminder of the whole rule.
+  if (rule?.legionTerm) ruleNotes.push(rule.legionTerm.note);
   // Archetype-granted "Command squad" (e.g. Sorcerer Circle → Chaos Sorcerers, Librarian
   // Conclave → Librarians): surface the granted ability on the profile so the player can SEE it —
   // the join mechanics read the same grant (UnitCard dropdown + validator). Scoped via `rule`.
