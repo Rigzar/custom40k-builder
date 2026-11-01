@@ -12,7 +12,7 @@ import { factionSymbolFile } from '../src/utils/factionLabel';
       for (const g of u.option_groups) if ((g.choices ?? []).length === 0 && g.inline_pts == null && !g.variant_link) fails.push(`${k}/${name}: "${String(g.header).slice(0, 60)}" is a text line left as an option`);
       const item: any = { id: 'x', unitName: name, slot: u.slot, size: u.default_size ?? 1, optionQty: {}, armory: [], traits: [], powers: [], prayers: [], pacts: [] };
       const r: any = resolveUnitProfile(item, u, { army: [item], traits: {}, traitPool: [], archetype: null, legacy: null, legacy2: null, hqMark: null, engagement: 'pitched', pointLimit: 2500, alliedFaction: null, alliedArchetype: null } as any, d);
-      if (r.effectivePsyker) fails.push(`${k}/${name}: shows psychic powers with nothing bought`);
+      if (r.effectivePsyker && !u.requires_primarch_legacy) fails.push(`${k}/${name}: shows psychic powers with nothing bought`);
     }
     const jump = d.units['Legion Assault Squad']?.option_groups.find((g: any) => /remove their Jump packs/i.test(g.header));
     if (!jump || jump.inline_pts >= 0) fails.push(`${k}: removing the Jump packs must be a discount (inline_pts ${jump?.inline_pts})`);

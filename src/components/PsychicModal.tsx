@@ -221,6 +221,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const psykerAbilityText = (unit.abilities ?? [])
     .find(a => /^(psyker|shaman):/i.test(a))?.toLowerCase()
     ?? (madePsykerBy ? (unit.abilities ?? []).find(a => a.toLowerCase().startsWith(madePsykerBy.toLowerCase() + ':'))?.toLowerCase() : undefined)
+    ?? (unit.abilities ?? []).find(a => /^[^:]{2,40}:s*the model is a psyker/i.test(a))?.toLowerCase()
     ?? '';
   // "It knows Smite and all powers from the Esoterist discipline": that one discipline of the book is all it knows besides Smite.
   const namedDiscipline = psykerAbilityText.match(/(?:all )?powers (?:from|of) the ([a-z' ]+?) discipline/)?.[1]?.trim() ?? '';

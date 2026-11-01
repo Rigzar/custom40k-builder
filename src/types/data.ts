@@ -354,6 +354,8 @@ export interface Unit {
   requires_archetype_unlock?: boolean;
   /** Horus Heresy: "Can only be selected if the army has the Legacy of X" (Iron Circle, Kakophoni, Palatine Blade, Castellax-Achea). */
   requires_legacy?: string;
+  /** Horus Heresy Primarch: "Only through the archetypes of the Legacy of X" - any Legion archetype of that Legacy (or Legion Specialists with it) opens him. */
+  requires_primarch_legacy?: string;
   /** Horus Heresy: "Only with the <archetype> archetype" (the World Eaters Rampager Squad and Red Butcher Terminators need the World Eaters archetype). */
   requires_archetype?: string;
   /** The Index's army rule "One <unit> may be taken for each full N points of game size" (HH Praetor: 1000). */

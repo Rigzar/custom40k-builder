@@ -59,9 +59,18 @@ import heavy_support_legion_sicaran_battle_tank from './heavy_support/legion_sic
 import heavy_support_legion_whirlwind from './heavy_support/legion_whirlwind.json';
 import heavy_support_thunderfire_cannon from './heavy_support/thunderfire_cannon.json';
 import heavy_support_vindicator_siege_tank from './heavy_support/vindicator_siege_tank.json';
+import hq_alpharius from './hq/alpharius.json';
+import hq_angron from './hq/angron.json';
 import hq_apothecary from './hq/apothecary.json';
 import hq_centurion from './hq/centurion.json';
 import hq_chaplain from './hq/chaplain.json';
+import hq_fulgrim from './hq/fulgrim.json';
+import hq_horus_lupercal from './hq/horus_lupercal.json';
+import hq_konrad_curze from './hq/konrad_curze.json';
+import hq_lorgar from './hq/lorgar.json';
+import hq_magnus_the_red from './hq/magnus_the_red.json';
+import hq_mortarion from './hq/mortarion.json';
+import hq_perturabo from './hq/perturabo.json';
 import hq_praetor from './hq/praetor.json';
 import hq_techmarine from './hq/techmarine.json';
 import troops_legion_breacher_squad from './troops/legion_breacher_squad.json';
@@ -77,9 +86,18 @@ export const faction = "Horus Heresy: Traitor Legions";
 
 export const slot_to_units: Record<string, string[]> = {
   "HQ": [
+    "Alpharius",
+    "Angron",
     "Apothecary",
     "Centurion",
     "Chaplain",
+    "Fulgrim",
+    "Horus Lupercal",
+    "Konrad Curze",
+    "Lorgar",
+    "Magnus the Red",
+    "Mortarion",
+    "Perturabo",
     "Praetor",
     "Techmarine"
   ],
@@ -160,9 +178,18 @@ export const slot_to_units: Record<string, string[]> = {
 };
 
 export const units: Record<string, Unit> = {
+  "Alpharius": hq_alpharius as unknown as Unit,
+  "Angron": hq_angron as unknown as Unit,
   "Apothecary": hq_apothecary as unknown as Unit,
   "Centurion": hq_centurion as unknown as Unit,
   "Chaplain": hq_chaplain as unknown as Unit,
+  "Fulgrim": hq_fulgrim as unknown as Unit,
+  "Horus Lupercal": hq_horus_lupercal as unknown as Unit,
+  "Konrad Curze": hq_konrad_curze as unknown as Unit,
+  "Lorgar": hq_lorgar as unknown as Unit,
+  "Magnus the Red": hq_magnus_the_red as unknown as Unit,
+  "Mortarion": hq_mortarion as unknown as Unit,
+  "Perturabo": hq_perturabo as unknown as Unit,
   "Praetor": hq_praetor as unknown as Unit,
   "Techmarine": hq_techmarine as unknown as Unit,
   "Ashen Circle": fast_attack_ashen_circle as unknown as Unit,

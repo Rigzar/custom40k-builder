@@ -1,0 +1,94 @@
+{
+    "name": "Magnus the Red",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "6",
+                "T": "6",
+                "W": "6",
+                "I": "6",
+                "A": "6",
+                "LD": "10",
+                "SV": "2+"
+            },
+            "name": "Magnus the Red",
+            "min": 1,
+            "max": 1,
+            "points": 321
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Magnus the Red is equipped with: Frag grenades; Krak grenades; The Blade of Ahn-nunurta; Psyfire Serpenta.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "The Blade of Ahn-nunurta",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Force Weapon, Unique"
+        },
+        {
+            "name": "Psyfire Serpenta",
+            "range": "15\"",
+            "type": "Assault 3",
+            "s": "6",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Auto Hit, Unique"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Unique",
+        "They Shall Know No Fear",
+        "Fearless",
+        "Terrifying(-1)",
+        "Ward(4+)",
+        "Regeneration(1)",
+        "Massive(4)",
+        "Arch-Sorcerer: The model is a Psyker: it can cast 3 powers and deny 3 powers per battle round. It knows Smite and all powers from all general disciplines and from the five Prosperine Arcana (see Legacy powers).",
+        "Restriction: Cannot take weapons or gear from the Armory."
+    ],
+    "unit_type": "Character model, Monstrous Infantry",
+    "keywords": [
+        "Legiones Astartes"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": true,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 321,
+    "requires_primarch_legacy": "Legacy of the Crimson King"
+}

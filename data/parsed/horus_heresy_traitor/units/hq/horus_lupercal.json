@@ -1,0 +1,103 @@
+{
+    "name": "Horus Lupercal",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "6",
+                "T": "6",
+                "W": "7",
+                "I": "6",
+                "A": "6",
+                "LD": "10",
+                "SV": "2+"
+            },
+            "name": "Horus Lupercal",
+            "min": 1,
+            "max": 1,
+            "points": 426
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Horus Lupercal is equipped with: Frag grenades; Krak grenades; The Warmaster's Talon; Worldbreaker; The Warmaster's Talon (bolter).",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "The Warmaster's Talon",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Rending(6+), Shred, Unique"
+        },
+        {
+            "name": "Worldbreaker",
+            "range": "-",
+            "type": "Melee",
+            "s": "+4",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Deadly(5+), Slow(-2), Unique"
+        },
+        {
+            "name": "The Warmaster's Talon (bolter)",
+            "range": "24\"",
+            "type": "Assault 5",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Rending(6+), Unique"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Unique",
+        "They Shall Know No Fear",
+        "Fearless",
+        "Terrifying(-1)",
+        "Ward(4+)",
+        "Regeneration(1)",
+        "Massive(5)",
+        "Master of War: Combat Tactics, as the Centurion, for up to three units.",
+        "Restriction: Cannot take weapons or gear from the Armory."
+    ],
+    "unit_type": "Character model, Monstrous Infantry",
+    "keywords": [
+        "Legiones Astartes"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 426,
+    "requires_primarch_legacy": "Legacy of the Warmaster"
+}

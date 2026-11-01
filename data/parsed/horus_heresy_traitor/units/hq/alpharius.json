@@ -1,0 +1,121 @@
+{
+    "name": "Alpharius",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "6",
+                "T": "6",
+                "W": "6",
+                "I": "7",
+                "A": "6",
+                "LD": "10",
+                "SV": "2+"
+            },
+            "name": "Alpharius",
+            "min": 1,
+            "max": 1,
+            "points": 335
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Alpharius is equipped with: Frag grenades; Krak grenades; The Pale Spear; The Hydra's Spite; Venom spheres.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "The Pale Spear",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Deadly(5+), Armorbane(1), Poison(4+), Unique"
+        },
+        {
+            "name": "The Hydra's Spite",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Rending(4+), Unique"
+        },
+        {
+            "name": "Venom spheres",
+            "range": "8\"",
+            "type": "Assault 6",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Ammo(1), Poison(3+)"
+        },
+        {
+            "name": "- Rapid shot",
+            "range": "24\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Suppression(3), Unique"
+        },
+        {
+            "name": "- Execution shot",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Sniper, Sunder(2), Suppression(6), Unique"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Unique",
+        "They Shall Know No Fear",
+        "Fearless",
+        "Terrifying(-1)",
+        "Ward(4+)",
+        "Regeneration(1)",
+        "Massive(3)",
+        "Everywhere and Nowhere: After deployment the model may be removed and deployed again, and may join a different unit.",
+        "Restriction: Cannot take weapons or gear from the Armory."
+    ],
+    "unit_type": "Character model, Monstrous Infantry",
+    "keywords": [
+        "Legiones Astartes"
+    ],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 335,
+    "requires_primarch_legacy": "Legacy of the Hydra"
+}

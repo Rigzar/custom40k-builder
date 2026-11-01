@@ -51,8 +51,17 @@ import heavy_support_vindicator_siege_tank from './heavy_support/vindicator_sieg
 import hq_apothecary from './hq/apothecary.json';
 import hq_centurion from './hq/centurion.json';
 import hq_chaplain from './hq/chaplain.json';
+import hq_corvus_corax from './hq/corvus_corax.json';
+import hq_ferrus_manus from './hq/ferrus_manus.json';
+import hq_jaghatai_khan from './hq/jaghatai_khan.json';
+import hq_leman_russ from './hq/leman_russ.json';
+import hq_lion_eljonson from './hq/lion_eljonson.json';
 import hq_praetor from './hq/praetor.json';
+import hq_roboute_guilliman from './hq/roboute_guilliman.json';
+import hq_rogal_dorn from './hq/rogal_dorn.json';
+import hq_sanguinius from './hq/sanguinius.json';
 import hq_techmarine from './hq/techmarine.json';
+import hq_vulkan from './hq/vulkan.json';
 import troops_legion_breacher_squad from './troops/legion_breacher_squad.json';
 import troops_legion_despoiler_squad from './troops/legion_despoiler_squad.json';
 import troops_legion_scout_squad from './troops/legion_scout_squad.json';
@@ -68,8 +77,17 @@ export const slot_to_units: Record<string, string[]> = {
     "Apothecary",
     "Centurion",
     "Chaplain",
+    "Corvus Corax",
+    "Ferrus Manus",
+    "Jaghatai Khan",
+    "Leman Russ",
+    "Lion El'Jonson",
     "Praetor",
-    "Techmarine"
+    "Roboute Guilliman",
+    "Rogal Dorn",
+    "Sanguinius",
+    "Techmarine",
+    "Vulkan"
   ],
   "Flyers": [
     "Caestus Assault Ram",
@@ -139,8 +157,17 @@ export const units: Record<string, Unit> = {
   "Apothecary": hq_apothecary as unknown as Unit,
   "Centurion": hq_centurion as unknown as Unit,
   "Chaplain": hq_chaplain as unknown as Unit,
+  "Corvus Corax": hq_corvus_corax as unknown as Unit,
+  "Ferrus Manus": hq_ferrus_manus as unknown as Unit,
+  "Jaghatai Khan": hq_jaghatai_khan as unknown as Unit,
+  "Leman Russ": hq_leman_russ as unknown as Unit,
+  "Lion El'Jonson": hq_lion_eljonson as unknown as Unit,
   "Praetor": hq_praetor as unknown as Unit,
+  "Roboute Guilliman": hq_roboute_guilliman as unknown as Unit,
+  "Rogal Dorn": hq_rogal_dorn as unknown as Unit,
+  "Sanguinius": hq_sanguinius as unknown as Unit,
   "Techmarine": hq_techmarine as unknown as Unit,
+  "Vulkan": hq_vulkan as unknown as Unit,
   "Caestus Assault Ram": flyers_caestus_assault_ram as unknown as Unit,
   "Fire Raptor Gunship": flyers_fire_raptor_gunship as unknown as Unit,
   "Storm Eagle": flyers_storm_eagle as unknown as Unit,
