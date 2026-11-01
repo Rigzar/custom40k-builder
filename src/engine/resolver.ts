@@ -3223,7 +3223,7 @@ export function resolveUnitProfile(
   // weapon list, the counts, the points and the card cannot disagree about it. This is the same
   // shape as a saved list keeping a Yngir upgrade after leaving the archetype: the selection
   // survives in the save (so re-adding the trait restores it) and simply does not apply.
-  const gated = unit.option_groups.some(g => g.requires_trait || g.requires_archetype);
+  const gated = unit.option_groups.some(g => g.requires_trait || g.requires_archetype || g.choices.some(c => c.requires_archetype));
   if (gated) {
     const arch = (item.factionSource && item.factionSource === state.alliedFaction) ? state.alliedArchetype : state.archetype;
     const pool = (item.factionSource && item.factionSource === state.alliedFaction)
@@ -3233,7 +3233,8 @@ export function resolveUnitProfile(
       const g = unit.option_groups[Number(gi)];
       if (g?.requires_trait && !pool.includes(g.requires_trait)) continue;
       if (g?.requires_archetype && g.requires_archetype !== arch) continue;
-      kept[Number(gi)] = ch as Record<string, number>;
+      // a Legion choice of a swap list (Horus Heresy) does not apply with another archetype
+      kept[Number(gi)] = Object.fromEntries(Object.entries(ch as Record<string, number>).filter(([ci]) => { const rq = g?.choices?.[Number(ci)]?.requires_archetype; return !rq || rq === arch; }));
     }
     item = { ...item, optionQty: kept };
   }

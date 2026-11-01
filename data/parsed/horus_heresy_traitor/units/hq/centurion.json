@@ -75,8 +75,9 @@
                     }
                 },
                 {
-                    "name": "Diabolist (only with the Word Bearers archetype)",
-                    "points": 34
+                    "name": "Diabolist",
+                    "points": 34,
+                    "requires_archetype": "Word Bearers"
                 },
                 {
                     "name": "Delegatus",

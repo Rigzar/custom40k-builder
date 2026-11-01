@@ -289,6 +289,16 @@
                 {
                     "name": "Combi-plasma",
                     "points": 15
+                },
+                {
+                    "name": "Tyrant rocket launcher",
+                    "points": 15,
+                    "requires_archetype": "Iron Warriors"
+                },
+                {
+                    "name": "Assault grenade launcher",
+                    "points": 19,
+                    "requires_archetype": "Death Guard"
                 }
             ],
             "inline_pts": null,
@@ -375,21 +385,6 @@
             ]
         },
         {
-            "header": "Grave Wardens: all models may swap their Combi-bolter for an Assault grenade launcher for +19 points each.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 19,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "replaces": [
-                "Combi-bolter"
-            ],
-            "per_model": true,
-            "requires_archetype": "Death Guard"
-        },
-        {
             "header": "Grave Wardens: for each 5 models, one model may swap its Combi-bolter for a Heavy alchem flamer for +1 point.",
             "constraint": {
                 "type": "per_n",
@@ -433,21 +428,6 @@
             ],
             "per_model": true,
             "requires_archetype": "World Eaters"
-        },
-        {
-            "header": "Tyrant Siege Terminators: all models may swap their Combi-bolter for a Tyrant rocket launcher for +15 points each.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 15,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "replaces": [
-                "Combi-bolter"
-            ],
-            "per_model": true,
-            "requires_archetype": "Iron Warriors"
         }
     ],
     "abilities": [

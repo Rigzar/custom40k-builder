@@ -250,6 +250,11 @@
                 {
                     "name": "Combi-plasma",
                     "points": 15
+                },
+                {
+                    "name": "Nemesis bolter",
+                    "points": 19,
+                    "requires_archetype": "Thousand Sons"
                 }
             ],
             "inline_pts": null,
@@ -258,20 +263,6 @@
             "replaces": [
                 "Bolt carbine"
             ]
-        },
-        {
-            "header": "Ammitara: any model may swap its Bolt carbine for a Nemesis bolter for +19 points.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 19,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "replaces": [
-                "Bolt carbine"
-            ],
-            "requires_archetype": "Thousand Sons"
         }
     ],
     "abilities": [

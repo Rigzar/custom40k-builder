@@ -1752,6 +1752,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                       </thead>
                       <tbody>
                         {g.choices.map((c: Choice, ci: number) => {
+                          if (c.requires_archetype && c.requires_archetype !== (itemArchetype ?? '')) return null;
                           const { weapons, compound } = choiceWeaponsList[ci];
                           const { control, choiceMarkBlocked, blockTitle } = qtyControl(ci, c);
                           const ptsLabel = `${c.points >= 0 ? '+' : ''}${c.points}`;
@@ -1831,6 +1832,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 ) : (
                   <div className="divide-y divide-zinc-800/60 -mx-2 -mb-2">
                     {g.choices.map((c: Choice, ci: number) => {
+                      if (c.requires_archetype && c.requires_archetype !== (itemArchetype ?? '')) return null;
                       const { control, choiceMarkBlocked, blockTitle } = qtyControl(ci, c);
                       const active = (item.optionQty?.[realGi]?.[ci] ?? 0) > 0;
                       return (

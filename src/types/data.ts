@@ -43,6 +43,8 @@ export interface Weapon {
 export interface Choice {
   name: string;
   points: number;
+  /** Horus Heresy: the choice is a Legion change of a swap list, only offered with this archetype (hidden, not priced and not applied otherwise). */
+  requires_archetype?: string;
   /** Abilities that are only active when this choice is selected. */
   abilities?: string[];
   /** Stat/type/ability effects active only while this choice is selected (ki-parser-02). */
