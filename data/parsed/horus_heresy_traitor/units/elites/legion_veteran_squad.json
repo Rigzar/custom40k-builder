@@ -139,15 +139,6 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Auto Hit, Sunder(1)"
-        },
-        {
-            "name": "Paired Achea force swords",
-            "range": "-",
-            "type": "Melee",
-            "s": "+2",
-            "ap": "-3",
-            "d": "1",
-            "abilities": "Extra Attack(1), Rending(5+), Force Weapon"
         }
     ],
     "option_groups": [
@@ -182,30 +173,6 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
-        },
-        {
-            "header": "Khenetai: all models gain +1\" Movement and +1 Attack for +3 points each.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 3,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true,
-            "requires_archetype": "Thousand Sons"
-        },
-        {
-            "header": "Khenetai: all models may take Paired Achea force swords for +22 points each.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 22,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true,
-            "requires_archetype": "Thousand Sons"
         }
     ],
     "abilities": [

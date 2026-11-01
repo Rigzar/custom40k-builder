@@ -1,0 +1,76 @@
+{
+    "name": "Red Butchers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Red Butcher",
+            "min": 4,
+            "max": 9,
+            "points": 79
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Red Butcher Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 79
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Twin power axe.",
+    "weapons": [
+        {
+            "name": "Twin power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Deep strike, Massive(1), They Shall Know No Fear, Unyielding",
+        "Cataphractii Terminator armor: The model gains a 4+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 395,
+    "requires_archetype": "World Eaters"
+}

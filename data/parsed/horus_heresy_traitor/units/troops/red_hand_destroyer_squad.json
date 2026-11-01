@@ -1,0 +1,432 @@
+{
+    "name": "Red Hand Destroyer Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Legionary",
+            "min": 4,
+            "max": 19,
+            "points": 32
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Legion Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 42
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "T",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Chainaxe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Destroyer missile launcher",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "4",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Poison(2+), Rad"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy chainaxe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Phosphex bombs",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Poison(3+), Suppression(3), Rending(5+)"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        },
+        {
+            "name": "Rad grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Rad"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overcharged",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Slow(-2)"
+        },
+        {
+            "name": "Twin bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Thunder hammerᵀ",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Slow(-3)"
+        },
+        {
+            "name": "Barb-hook lashᵀ",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Deadly(6+), Rad"
+        },
+        {
+            "name": "Excoriator chainaxeᵀ",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Rending(6+), Shred"
+        },
+        {
+            "name": "Meteor hammerᵀ",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Paired falax bladesᵀ",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "All Legionary models may swap their Astartes chainsword for a Chainaxe for +1 point each.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true,
+            "replaces": [
+                "Astartes chainsword"
+            ]
+        },
+        {
+            "header": "For each 5 models, one Legionary may swap their Astartes chainsword",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Heavy chainaxe",
+                    "points": 9
+                },
+                {
+                    "name": "Power fist",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
+            ]
+        },
+        {
+            "header": "For each 5 models, one other Legionary may swap their Bolt pistol",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Plasma pistol",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        },
+        {
+            "header": "All models may swap their Bolt pistol for a Twin bolt pistol for +2 points each.",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [],
+            "inline_pts": 2,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "All models may swap their Astartes chainsword with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Barb-hook lashᵀ",
+                    "points": 10
+                },
+                {
+                    "name": "Excoriator chainaxeᵀ",
+                    "points": 10
+                },
+                {
+                    "name": "Meteor hammerᵀ",
+                    "points": 10
+                },
+                {
+                    "name": "Paired falax bladesᵀ",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
+            ]
+        },
+        {
+            "header": "For each 5 models, one model may swap its Bolt pistol",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Thunder hammerᵀ",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        },
+        {
+            "header": "For each 5 models, one other model may swap its Bolt pistol",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Destroyer missile launcher",
+                    "points": 20
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        },
+        {
+            "header": "The Sergeant may be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Phosphex bombs",
+                    "points": 8
+                },
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "applies_to_model": "Legion Sergeant"
+        },
+        {
+            "header": "One model may be equipped with a Legion vexilla for +5 points (+1 to the unit's combat resolution in melee).",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "All models may be equipped with Rad grenades for +1 point each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "All models may be equipped with Jump packs for +9 points each (the unit then has the Jump pack unit type and the Jump pack rule, like the Red Hand Destroyer Assault Squad).",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 9,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 5,
+    "min_cost": 170,
+    "requires_archetype": "World Eaters"
+}

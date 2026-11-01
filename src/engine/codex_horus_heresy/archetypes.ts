@@ -53,7 +53,7 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'The Swift Blade (Night Lords)': r({ troopsRemap: ['Outrider Squadron'], bannedSlots: ['Heavy Support'] }),
   'Terror Assault (Night Lords)': r({ troopsRemap: ['Legion Veteran Squad'], banOtherTroops: true }),
   'Word Bearers': r({
-    troopsRemap: ['Centurion Command Squad'],
+    troopsRemap: ['Dark Brethren'],
     legionTerm: term('Word Bearers', 'WB', 1, 'the model gains +1 Leadership.'),
     statMods: [{ stat: 'LD', delta: 1, creatureOnly: true }],
   }),
@@ -62,5 +62,5 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
     legionTerm: term('Sons of Horus', 'SoH', 1, 'the model gains +1" Movement.'),
     statMods: [{ stat: 'M', delta: 1, creatureOnly: true }],
   }),
-  'Thousand Sons': r({ troopsRemap: ['Castellax-Achea Automata'] }),
+  'Thousand Sons': r({}),
 };

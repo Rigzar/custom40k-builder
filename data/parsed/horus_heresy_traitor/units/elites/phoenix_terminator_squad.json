@@ -1,0 +1,88 @@
+{
+    "name": "Phoenix Terminator Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "7\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Phoenix Terminator",
+            "min": 4,
+            "max": 9,
+            "points": 59
+        },
+        {
+            "stats": {
+                "M": "7\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Phoenix Champion",
+            "min": 1,
+            "max": 1,
+            "points": 59
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Phoenix power spear.",
+    "weapons": [
+        {
+            "name": "Phoenix power spear",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Rending(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "The unit gains Skill Unmatched (the model and its attached unit may re-roll 1 to hit and 1 to wound roll each activation per model) for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Combat squads, Deep Strike, Massive(1), They Shall Know No Fear, Unyielding",
+        "Terminator armor: The model gains a 5+ ward save."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 295,
+    "requires_archetype": "Emperor's Children"
+}

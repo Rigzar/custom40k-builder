@@ -14,10 +14,13 @@ import dedicated_transport_spartan from './dedicated_transport/spartan.json';
 import elites_castellax_achea_automata from './elites/castellax_achea_automata.json';
 import elites_castra_ferrum_dreadnought from './elites/castra_ferrum_dreadnought.json';
 import elites_centurion_command_squad from './elites/centurion_command_squad.json';
+import elites_dark_brethren from './elites/dark_brethren.json';
 import elites_deathshroud_terminator_squad from './elites/deathshroud_terminator_squad.json';
 import elites_deredeo_dreadnought from './elites/deredeo_dreadnought.json';
+import elites_grave_wardens from './elites/grave_wardens.json';
 import elites_indomitus_terminator_squad from './elites/indomitus_terminator_squad.json';
 import elites_iron_circle_maniple from './elites/iron_circle_maniple.json';
+import elites_khenetai_squad from './elites/khenetai_squad.json';
 import elites_legion_champion from './elites/legion_champion.json';
 import elites_legion_contemptor_dreadnought from './elites/legion_contemptor_dreadnought.json';
 import elites_legion_terminator_cataphractii_squad from './elites/legion_terminator_cataphractii_squad.json';
@@ -26,15 +29,19 @@ import elites_moritat from './elites/moritat.json';
 import elites_mortificator from './elites/mortificator.json';
 import elites_overseer from './elites/overseer.json';
 import elites_palatine_blade_squad from './elites/palatine_blade_squad.json';
+import elites_phoenix_terminator_squad from './elites/phoenix_terminator_squad.json';
 import elites_rampager_squad from './elites/rampager_squad.json';
+import elites_red_butchers from './elites/red_butchers.json';
 import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squad.json';
 import elites_vigilator from './elites/vigilator.json';
 import elites_warmonger from './elites/warmonger.json';
+import fast_attack_ashen_circle from './fast_attack/ashen_circle.json';
 import fast_attack_land_speeder_squadron from './fast_attack/land_speeder_squadron.json';
 import fast_attack_legion_assault_squad from './fast_attack/legion_assault_squad.json';
 import fast_attack_legion_bike_squad from './fast_attack/legion_bike_squad.json';
 import fast_attack_legion_sky_hunter_squadron from './fast_attack/legion_sky_hunter_squadron.json';
 import fast_attack_outrider_squadron from './fast_attack/outrider_squadron.json';
+import fast_attack_red_hand_destroyer_assault_squad from './fast_attack/red_hand_destroyer_assault_squad.json';
 import flyers_caestus_assault_ram from './flyers/caestus_assault_ram.json';
 import flyers_fire_raptor_gunship from './flyers/fire_raptor_gunship.json';
 import flyers_storm_eagle from './flyers/storm_eagle.json';
@@ -62,6 +69,7 @@ import troops_legion_despoiler_squad from './troops/legion_despoiler_squad.json'
 import troops_legion_scout_squad from './troops/legion_scout_squad.json';
 import troops_legion_tactical_squad from './troops/legion_tactical_squad.json';
 import troops_legion_tactical_support_squad from './troops/legion_tactical_support_squad.json';
+import troops_red_hand_destroyer_squad from './troops/red_hand_destroyer_squad.json';
 import troops_seeker_squad from './troops/seeker_squad.json';
 import troops_solar_auxilia_lasrifle_section from './troops/solar_auxilia_lasrifle_section.json';
 
@@ -75,6 +83,15 @@ export const slot_to_units: Record<string, string[]> = {
     "Praetor",
     "Techmarine"
   ],
+  "Fast Attack": [
+    "Ashen Circle",
+    "Land Speeder Squadron",
+    "Legion Assault Squad",
+    "Legion Bike Squad",
+    "Legion Sky-hunter Squadron",
+    "Outrider Squadron",
+    "Red Hand Destroyer Assault Squad"
+  ],
   "Flyers": [
     "Caestus Assault Ram",
     "Fire Raptor Gunship",
@@ -85,10 +102,13 @@ export const slot_to_units: Record<string, string[]> = {
     "Castellax-Achea Automata",
     "Castra Ferrum Dreadnought",
     "Centurion Command Squad",
+    "Dark Brethren",
     "Deathshroud Terminator Squad",
     "Deredeo Dreadnought",
+    "Grave Wardens",
     "Indomitus Terminator Squad",
     "Iron Circle Maniple",
+    "Khenetai Squad",
     "Legion Champion",
     "Legion Contemptor Dreadnought",
     "Legion Terminator Cataphractii Squad",
@@ -97,7 +117,9 @@ export const slot_to_units: Record<string, string[]> = {
     "Mortificator",
     "Overseer",
     "Palatine Blade Squad",
+    "Phoenix Terminator Squad",
     "Rampager Squad",
+    "Red Butchers",
     "Saturnine Terminator Squad",
     "Vigilator",
     "Warmonger"
@@ -125,19 +147,13 @@ export const slot_to_units: Record<string, string[]> = {
     "Thunderfire Cannon",
     "Vindicator Siege Tank"
   ],
-  "Fast Attack": [
-    "Land Speeder Squadron",
-    "Legion Assault Squad",
-    "Legion Bike Squad",
-    "Legion Sky-hunter Squadron",
-    "Outrider Squadron"
-  ],
   "Troops": [
     "Legion Breacher Squad",
     "Legion Despoiler Squad",
     "Legion Scout Squad",
     "Legion Tactical Squad",
     "Legion Tactical Support Squad",
+    "Red Hand Destroyer Squad",
     "Seeker Squad",
     "Solar Auxilia Lasrifle Section"
   ]
@@ -149,6 +165,13 @@ export const units: Record<string, Unit> = {
   "Chaplain": hq_chaplain as unknown as Unit,
   "Praetor": hq_praetor as unknown as Unit,
   "Techmarine": hq_techmarine as unknown as Unit,
+  "Ashen Circle": fast_attack_ashen_circle as unknown as Unit,
+  "Land Speeder Squadron": fast_attack_land_speeder_squadron as unknown as Unit,
+  "Legion Assault Squad": fast_attack_legion_assault_squad as unknown as Unit,
+  "Legion Bike Squad": fast_attack_legion_bike_squad as unknown as Unit,
+  "Legion Sky-hunter Squadron": fast_attack_legion_sky_hunter_squadron as unknown as Unit,
+  "Outrider Squadron": fast_attack_outrider_squadron as unknown as Unit,
+  "Red Hand Destroyer Assault Squad": fast_attack_red_hand_destroyer_assault_squad as unknown as Unit,
   "Caestus Assault Ram": flyers_caestus_assault_ram as unknown as Unit,
   "Fire Raptor Gunship": flyers_fire_raptor_gunship as unknown as Unit,
   "Storm Eagle": flyers_storm_eagle as unknown as Unit,
@@ -156,10 +179,13 @@ export const units: Record<string, Unit> = {
   "Castellax-Achea Automata": elites_castellax_achea_automata as unknown as Unit,
   "Castra Ferrum Dreadnought": elites_castra_ferrum_dreadnought as unknown as Unit,
   "Centurion Command Squad": elites_centurion_command_squad as unknown as Unit,
+  "Dark Brethren": elites_dark_brethren as unknown as Unit,
   "Deathshroud Terminator Squad": elites_deathshroud_terminator_squad as unknown as Unit,
   "Deredeo Dreadnought": elites_deredeo_dreadnought as unknown as Unit,
+  "Grave Wardens": elites_grave_wardens as unknown as Unit,
   "Indomitus Terminator Squad": elites_indomitus_terminator_squad as unknown as Unit,
   "Iron Circle Maniple": elites_iron_circle_maniple as unknown as Unit,
+  "Khenetai Squad": elites_khenetai_squad as unknown as Unit,
   "Legion Champion": elites_legion_champion as unknown as Unit,
   "Legion Contemptor Dreadnought": elites_legion_contemptor_dreadnought as unknown as Unit,
   "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
@@ -168,7 +194,9 @@ export const units: Record<string, Unit> = {
   "Mortificator": elites_mortificator as unknown as Unit,
   "Overseer": elites_overseer as unknown as Unit,
   "Palatine Blade Squad": elites_palatine_blade_squad as unknown as Unit,
+  "Phoenix Terminator Squad": elites_phoenix_terminator_squad as unknown as Unit,
   "Rampager Squad": elites_rampager_squad as unknown as Unit,
+  "Red Butchers": elites_red_butchers as unknown as Unit,
   "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
   "Vigilator": elites_vigilator as unknown as Unit,
   "Warmonger": elites_warmonger as unknown as Unit,
@@ -191,16 +219,12 @@ export const units: Record<string, Unit> = {
   "Legion Whirlwind": heavy_support_legion_whirlwind as unknown as Unit,
   "Thunderfire Cannon": heavy_support_thunderfire_cannon as unknown as Unit,
   "Vindicator Siege Tank": heavy_support_vindicator_siege_tank as unknown as Unit,
-  "Land Speeder Squadron": fast_attack_land_speeder_squadron as unknown as Unit,
-  "Legion Assault Squad": fast_attack_legion_assault_squad as unknown as Unit,
-  "Legion Bike Squad": fast_attack_legion_bike_squad as unknown as Unit,
-  "Legion Sky-hunter Squadron": fast_attack_legion_sky_hunter_squadron as unknown as Unit,
-  "Outrider Squadron": fast_attack_outrider_squadron as unknown as Unit,
   "Legion Breacher Squad": troops_legion_breacher_squad as unknown as Unit,
   "Legion Despoiler Squad": troops_legion_despoiler_squad as unknown as Unit,
   "Legion Scout Squad": troops_legion_scout_squad as unknown as Unit,
   "Legion Tactical Squad": troops_legion_tactical_squad as unknown as Unit,
   "Legion Tactical Support Squad": troops_legion_tactical_support_squad as unknown as Unit,
+  "Red Hand Destroyer Squad": troops_red_hand_destroyer_squad as unknown as Unit,
   "Seeker Squad": troops_seeker_squad as unknown as Unit,
   "Solar Auxilia Lasrifle Section": troops_solar_auxilia_lasrifle_section as unknown as Unit,
 };
