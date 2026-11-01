@@ -208,14 +208,30 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   //   "one psychic power of a chosen discipline" → mode:'one_from_one' (pick 1 disc, pick 1)
   //   "N powers from chosen disciplines"     → mode:'n_from_any', limit N (pick N from any)
   //   "knows Smite" always means Smite is a fixed known power, not selected by the player.
+  // Horus Heresy: the ability that makes the model a psyker is named after the option that does it ("Diabolist: The model is a Psyker: ...",
+  // the Esoterist and Librarian Consuls, the Praetor's Burning Lore), so it is looked up by the option the player picked.
+  const madePsykerBy = (() => {
+    for (const [gi, g] of unit.option_groups.entries()) {
+      const ci = g.choices.findIndex((c, k) => !!c.effect?.makes_psyker && Number(item.optionQty?.[gi]?.[k] ?? 0) > 0);
+      if (ci >= 0) return g.choices[ci].name;
+      if (/psyker/i.test(g.header) && g.inline_pts != null && Number(item.optionQty?.[gi]?.['__inline'] ?? 0) > 0) return g.header.split(':')[0];
+    }
+    return '';
+  })();
   const psykerAbilityText = (unit.abilities ?? [])
-    .find(a => /^(psyker|shaman):/i.test(a))?.toLowerCase() ?? '';
+    .find(a => /^(psyker|shaman):/i.test(a))?.toLowerCase()
+    ?? (madePsykerBy ? (unit.abilities ?? []).find(a => a.toLowerCase().startsWith(madePsykerBy.toLowerCase() + ':'))?.toLowerCase() : undefined)
+    ?? '';
+  // "It knows Smite and all powers from the Esoterist discipline": that one discipline of the book is all it knows besides Smite.
+  const namedDiscipline = psykerAbilityText.match(/(?:all )?powers (?:from|of) the ([a-z' ]+?) discipline/)?.[1]?.trim() ?? '';
+  if (namedDiscipline) { const only = allowedDiscs.filter(([n]) => n.toLowerCase().includes(namedDiscipline)); if (only.length) allowedDiscs = only; }
 
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited' | 'knows_all';
   function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean; oneDiscipline?: boolean } {
     const knowsSmite = psykerAbilityText.includes('smite');
     // "Knows Smite and all powers from the General psychic disciplines and ...": nothing to choose, the unit knows them all.
     if (knowsEveryPower(unit)) return { mode: 'knows_all', limit: 999, knowsSmite };
+    if (namedDiscipline && Object.keys(data.disciplines ?? {}).some(k => k.toLowerCase().includes(namedDiscipline))) return { mode: 'all_from_one', limit: 999, knowsSmite };
     // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X"
     // (CD god-specific) OR "all powers from the X discipline" (unit-specific, e.g. Wraithseer)
     if (psykerAbilityText.includes('all powers from a chosen discipline') ||

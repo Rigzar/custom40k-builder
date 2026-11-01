@@ -1,0 +1,34 @@
+{
+  "Esoterist (Anathemata)": [
+    {
+      "name": "Void Darts"
+    },
+    {
+      "name": "Seal the Veil"
+    }
+  ],
+  "Stormcalling (White Scars)": [
+    {
+      "name": "Unseen Bolt"
+    },
+    {
+      "name": "Call of the Wind"
+    }
+  ],
+  "Runecasting (Space Wolves)": [
+    {
+      "name": "Wrath of the Death Wolf"
+    },
+    {
+      "name": "Stormwrought"
+    }
+  ],
+  "Fury of the Salamander (Salamanders)": [
+    {
+      "name": "Elemental Horror"
+    },
+    {
+      "name": "Salamander's Fury"
+    }
+  ]
+}

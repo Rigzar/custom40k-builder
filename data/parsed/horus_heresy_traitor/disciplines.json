@@ -1,0 +1,38 @@
+{
+  "Esoterist (Anathemata)": [
+    {
+      "name": "Void Darts"
+    },
+    {
+      "name": "Breach the Veil"
+    }
+  ],
+  "Diabolism (Word Bearers)": [
+    {
+      "name": "Hellfire"
+    },
+    {
+      "name": "Dark Channeling"
+    }
+  ],
+  "Prosperine Arcana (Thousand Sons)": [
+    {
+      "name": "Doombolt"
+    },
+    {
+      "name": "Prosperine Arcana: Raptora"
+    },
+    {
+      "name": "Prosperine Arcana: Pyrae"
+    },
+    {
+      "name": "Prosperine Arcana: Pavoni"
+    },
+    {
+      "name": "Prosperine Arcana: Corvidae"
+    },
+    {
+      "name": "Prosperine Arcana: Athanaen"
+    }
+  ]
+}
