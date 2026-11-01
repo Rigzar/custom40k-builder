@@ -1,4 +1,5 @@
 import type { Archetype, Trait } from '../types/data';
+import { getArchetypeRule } from '../engine/archetypes';
 
 /**
  * The Horus Heresy books tie an archetype to a Legacy when its own text says "Can only be selected with the Legacy of the Lion."
@@ -58,6 +59,7 @@ export function primarchOpened(
   _archetypes?: Array<Pick<Archetype, 'name' | 'desc'>>,
   legacy2?: string | null,
 ): boolean {
+  if (_archetype && getArchetypeRule(_archetype)?.twoLegacies) return false;   // Shattered Legions / Blackshields: no Primarch
   return legacy === needLegacy || legacy2 === needLegacy;
 }
 

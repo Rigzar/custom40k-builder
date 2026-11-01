@@ -808,7 +808,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
 
   // Allied units don't have access to the main army's legacy armories
-  const legacyLegionKeys = [legacy, legacy2]
+  const twoLegaciesRule = getArchetypeRule(archetype)?.twoLegacies;
+  const unitOwnLegacy = twoLegaciesRule ? (item.unitLegacy && [legacy, legacy2].includes(item.unitLegacy) ? item.unitLegacy : legacy) : null;
+  const legacyLegionKeys = (unitOwnLegacy ? [unitOwnLegacy] : [legacy, legacy2])
     .filter(Boolean)
     .map(name => data.legacies.find(l => l.name === name)?.armory_key)
     .filter((k): k is string => !!k && k in data.armory_legions);
@@ -852,7 +854,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Legacies' items rendered together under a tab labelled with only the first Legacy's name — read
   // as "the second Legacy never got added" (Rigzar, live: Legion archetype + Hydra + Warmaster).
   const traitPoolData = (isTrueAllyUnit && alliedData) ? alliedData : data;
-  const isMixedWarband = effectiveTraitPool.some(n =>
+  const isMixedWarband = !!twoLegaciesRule || effectiveTraitPool.some(n =>
     traitPoolData.traits.find(t => t.name === n)?.enables_second_legacy
   );
   const hasTwoLegacies = activeLegionKeys.length >= 2;

@@ -1295,7 +1295,7 @@ export function computeFreeSlotAdjustments(
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
   const eng = engagementFor(state.engagement, data.faction);
-  const rule = getArchetypeRule(state.archetype, state.legacy);
+  const rule = getArchetypeRule(state.archetype, state.legacy, state.legacy2);
   const items: ValidationItem[] = [];
 
   // True when the primary archetype grants a supplement faction (HH, future similar supplements)
@@ -2151,7 +2151,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // 2nd legacy requires a "enables_second_legacy" trait to be active
-  if (state.legacy2 && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
+  if (state.legacy2 && !rule?.twoLegacies && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
     items.push({ type: 'error', text: T('val2ndLegacyRequiresTrait') });
   }
 
@@ -2174,7 +2174,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // Mixed Warband: each unit may only select items from ONE legacy armory
-  const isMixedWarbandActive = state.traitPool.some(n =>
+  const isMixedWarbandActive = !!rule?.twoLegacies || state.traitPool.some(n =>
     data.traits.find(t => t.name === n)?.enables_second_legacy
   );
   if (isMixedWarbandActive && state.legacy2) {

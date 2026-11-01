@@ -95,6 +95,14 @@
     {
       "name": "Raven Guard",
       "desc": "- Can only be selected with the Legacy of the Liberator.\n- Only one Heavy Support unit can be taken.\n- The army cannot take Fortifications.\n- Units that arrive by Deep Strike gain Light Cover until the end of that battle round."
+    },
+    {
+      "name": "Shattered Legions",
+      "desc": "- The army has two Legacies (two Legions of this book, all of them Loyalist), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Survivors of several betrayed Legions fighting together under one banner (Shadrak Meduson, Master of the Shattered Legions)."
+    },
+    {
+      "name": "Blackshields",
+      "desc": "- The army has two Legacies (any two Legions of this book), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Warriors who cast off their Legion's insignia and honours: a unit is of one Legion or of the other, never of a third."
     }
   ],
   "legacies": [

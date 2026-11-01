@@ -118,7 +118,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
 
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
-  const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
+  const hasSecondLegacyTrait = !isAllied && (!!rule?.twoLegacies || traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy));
 
   // A trait BORROWED from another codex (Renegades -> Chaos Space Marines) occupies one of the
   // army's normal slots, and only `foreignTraitMax` of them may be borrowed: "Renegades may

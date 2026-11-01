@@ -805,6 +805,19 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
 
       {!collapsed && (
         <div className="space-y-0 md:grid md:grid-cols-2 md:items-start">
+          {/* Horus Heresy Shattered Legions / Blackshields: which of the army's two Legacies (Legions) this unit belongs to. */}
+          {!item.factionSource && getArchetypeRule(archetype ?? '')?.twoLegacies && (
+            <div className="md:col-span-2 px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('legacy')}</span>
+              <select
+                value={itemLegacies[0] ?? ''}
+                onChange={e => updateUnit(item.id, { unitLegacy: e.target.value || undefined })}
+                className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+              >
+                {[store.legacy, store.legacy2].filter(Boolean).map(l => <option key={l} value={l}>{l}</option>)}
+              </select>
+            </div>
+          )}
           {/* Default loadout */}
           {equippedWith && (
             <div className="md:col-span-2 px-3 py-1.5 bg-zinc-800/50 border-b border-zinc-700/60 text-[11px] text-zinc-400">

@@ -77,7 +77,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     return <div className="text-[11px] text-zinc-700 px-1 py-1.5 italic">{t('noUnitsAvailable')}</div>;
   }
   const eng = engagementFor(engagement, isAllied ? null : data.faction);
-  const rule = getArchetypeRule(archetype, isAllied ? alliedLegacy : legacy);
+  const rule = getArchetypeRule(archetype, isAllied ? alliedLegacy : legacy, isAllied ? undefined : legacy2);
 
   if (isAllied) {
     // Allied scope: the ally's own nested-ally injection (e.g. CSM "Plaguehost" granting Chaos

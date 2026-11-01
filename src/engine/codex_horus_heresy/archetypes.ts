@@ -52,6 +52,8 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Terror Assault (Night Lords)': r({ troopsRemap: ['Legion Veteran Squad'], banOtherTroops: true }),
   'Word Bearers': r({
   }),
+  'Shattered Legions': r({ twoLegacies: true }),
+  'Blackshields': r({ twoLegacies: true }),
   'Thousand Sons': r({ unitsArePsykers: { discipline: 'Prosperine Arcana' } }),
   'Sons of Horus': r({
   }),

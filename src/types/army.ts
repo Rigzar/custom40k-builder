@@ -133,6 +133,8 @@ export interface RosterEntry {
    * Null/undefined = no lock yet chosen.
    */
   legacyArmoryLock?: string | null;
+  /** Horus Heresy Shattered Legions / Blackshields: the Legacy (Legion) this unit belongs to, one of the two the army has. */
+  unitLegacy?: string;
   /**
    * Per-model-group sizes for units with multiple model types (e.g. Jakhals:
    * { "Jakhal": 8, "Jakhal Pack Leader": 1, "Dishonored": 2 }).

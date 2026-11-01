@@ -910,7 +910,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Allied Detachment units use the allied faction's OWN Army Customisation (Core Rules: "Allies
   // may select their own Army Customisation options"), not the primary faction's archetype.
   const effectiveArchetype = effectiveArchetypeFor(item, state);
-  const rule = getArchetypeRule(effectiveArchetype, effectiveLegacyFor(item, state));
+  const rule = getArchetypeRule(effectiveArchetype, effectiveLegacyFor(item, state), item.factionSource && item.factionSource === state.alliedFaction ? undefined : state.legacy2);
 
   // Points & slot
   const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state));

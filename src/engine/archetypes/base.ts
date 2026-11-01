@@ -362,6 +362,8 @@ export interface ArchetypeRule {
   statModsExceptUnits?: string[];
   /** Horus Heresy Thousand Sons (Cult Arcana): every unit that is not a character, a Monstrous Creature or a vehicle is a Psyker (Smite and one power of its discipline). */
   unitsArePsykers?: { discipline: string } | null;
+  /** Horus Heresy Shattered Legions / Blackshields: the army has TWO Legacies (two Legions) and each unit chooses which of them it belongs to; no Primarch. */
+  twoLegacies?: boolean;
 }
 
 export const BASE: ArchetypeRule = {
