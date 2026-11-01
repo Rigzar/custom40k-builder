@@ -338,7 +338,7 @@
             ]
         },
         {
-            "header": "Only with the Emperor's Children archetype, as Phoenix Terminators: the Phoenix power spear swap above, and all models gain +1\" Movement and Weapon Skill 2+ for +2 points each.",
+            "header": "Phoenix Terminators: the Phoenix power spear swap above, and all models gain +1\" Movement and Weapon Skill 2+ for +2 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -351,10 +351,11 @@
                 "and all models gain +1\" Movement",
                 "Weapon Skill 2+"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Emperor's Children"
         },
         {
-            "header": "Only with the Emperor's Children archetype, as Phoenix Terminators: the unit gains Skill Unmatched (the model and its attached unit may re-roll 1 to hit and 1 to wound roll each activation per model) for +5 points.",
+            "header": "Phoenix Terminators: the unit gains Skill Unmatched (the model and its attached unit may re-roll 1 to hit and 1 to wound roll each activation per model) for +5 points.",
             "constraint": {
                 "type": "one"
             },
@@ -362,7 +363,8 @@
             "inline_pts": 5,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Emperor's Children"
         }
     ],
     "abilities": [

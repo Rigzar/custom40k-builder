@@ -221,7 +221,7 @@
             ]
         },
         {
-            "header": "Only with the Iron Warriors archetype, as Iron Havocs: all models may swap their Heavy flamer for a Shrapnel cannon for +3 points each.",
+            "header": "Iron Havocs: all models may swap their Heavy flamer for a Shrapnel cannon for +3 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -232,7 +232,8 @@
             "replaces": [
                 "Heavy flamer"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Iron Warriors"
         }
     ],
     "abilities": [

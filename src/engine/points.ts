@@ -337,6 +337,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     const g = unit.option_groups[Number(gi)];
     if (!g || isMarkGroup(g)) continue;
     if (g.variant_link) continue;
+    if (g.requires_archetype && g.requires_archetype !== archetype) continue;   // an option of another archetype is not bought
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline') {
         // Per-model inline upgrades ("…for +X points per model") scale with unit size; flat

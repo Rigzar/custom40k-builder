@@ -375,7 +375,7 @@
             ]
         },
         {
-            "header": "Only with the Death Guard archetype, as Grave Wardens: all models may swap their Combi-bolter for an Assault grenade launcher for +19 points each.",
+            "header": "Grave Wardens: all models may swap their Combi-bolter for an Assault grenade launcher for +19 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -386,10 +386,11 @@
             "replaces": [
                 "Combi-bolter"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Death Guard"
         },
         {
-            "header": "Only with the Death Guard archetype, as Grave Wardens: for each 5 models, one model may swap its Combi-bolter for a Heavy alchem flamer for +1 point.",
+            "header": "Grave Wardens: for each 5 models, one model may swap its Combi-bolter for a Heavy alchem flamer for +1 point.",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -402,10 +403,11 @@
             "replaces": [
                 "Combi-bolter"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Death Guard"
         },
         {
-            "header": "Only with the Death Guard archetype, as Grave Wardens: the unit gains Plague carrier for +15 points: all models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+            "header": "Grave Wardens: the unit gains Plague carrier for +15 points: all models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
             "constraint": {
                 "type": "one"
             },
@@ -413,10 +415,11 @@
             "inline_pts": 15,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Death Guard"
         },
         {
-            "header": "Only with the World Eaters archetype, as Red Butchers: all models may swap their Combi-bolter and Power sword for a Twin power axe for -7 points each.",
+            "header": "Red Butchers: all models may swap their Combi-bolter and Power sword for a Twin power axe for -7 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -428,10 +431,11 @@
                 "Combi-bolter",
                 "Power sword"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "World Eaters"
         },
         {
-            "header": "Only with the Iron Warriors archetype, as Tyrant Siege Terminators: all models may swap their Combi-bolter for a Tyrant rocket launcher for +15 points each.",
+            "header": "Tyrant Siege Terminators: all models may swap their Combi-bolter for a Tyrant rocket launcher for +15 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -442,7 +446,8 @@
             "replaces": [
                 "Combi-bolter"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Iron Warriors"
         }
     ],
     "abilities": [

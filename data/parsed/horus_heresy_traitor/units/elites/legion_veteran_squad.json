@@ -184,7 +184,7 @@
             "is_unique_per_army": false
         },
         {
-            "header": "Only with the Thousand Sons archetype, as Khenetai: all models gain +1\" Movement and +1 Attack for +3 points each.",
+            "header": "Khenetai: all models gain +1\" Movement and +1 Attack for +3 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -192,10 +192,11 @@
             "inline_pts": 3,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Thousand Sons"
         },
         {
-            "header": "Only with the Thousand Sons archetype, as Khenetai: all models may take Paired Achea force swords for +22 points each.",
+            "header": "Khenetai: all models may take Paired Achea force swords for +22 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -203,7 +204,8 @@
             "inline_pts": 22,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Thousand Sons"
         }
     ],
     "abilities": [

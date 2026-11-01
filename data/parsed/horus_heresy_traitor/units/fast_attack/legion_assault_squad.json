@@ -314,7 +314,7 @@
             "per_model": true
         },
         {
-            "header": "Only with the World Eaters archetype, as Red Hand Destroyers: all models may swap their Bolt pistol for a Twin bolt pistol for +2 points each, and may swap their Astartes chainsword for a Caedere weapon of the World Eaters Armory (Barb-hook lash, Excoriator chainaxe, Meteor hammer or Paired falax blades) for +10 points each.",
+            "header": "Red Hand Destroyers: all models may swap their Bolt pistol for a Twin bolt pistol for +2 points each, and may swap their Astartes chainsword for a Caedere weapon of the World Eaters Armory (Barb-hook lash, Excoriator chainaxe, Meteor hammer or Paired falax blades) for +10 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -325,10 +325,11 @@
             "replaces": [
                 "Bolt pistol"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "World Eaters"
         },
         {
-            "header": "Only with the World Eaters archetype, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol for a Thunder hammer for +15 points.",
+            "header": "Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol for a Thunder hammer for +15 points.",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -341,10 +342,11 @@
             "replaces": [
                 "Bolt pistol"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "World Eaters"
         },
         {
-            "header": "Only with the World Eaters archetype, as Red Hand Destroyers: for each 5 models, one other model may swap its Bolt pistol for a Destroyer missile launcher for +20 points.",
+            "header": "Red Hand Destroyers: for each 5 models, one other model may swap its Bolt pistol for a Destroyer missile launcher for +20 points.",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -357,10 +359,11 @@
             "replaces": [
                 "Bolt pistol"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "World Eaters"
         },
         {
-            "header": "Only with the World Eaters archetype, as Red Hand Destroyers: the Sergeant may be equipped with one of the following",
+            "header": "Red Hand Destroyers: the Sergeant may be equipped with one of the following",
             "constraint": {
                 "type": "one"
             },
@@ -377,20 +380,22 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "applies_to_model": "Assault Marine Sergeant"
+            "applies_to_model": "Assault Marine Sergeant",
+            "requires_archetype": "World Eaters"
         },
         {
-            "header": "Only with the World Eaters archetype, as Red Hand Destroyers: one model may be equipped with a Legion vexilla for +5 points (+1 to the unit's combat resolution in melee).",
+            "header": "Red Hand Destroyers: one model may be equipped with a Legion vexilla for +5 points (+1 to the unit's combat resolution in melee).",
             "constraint": {
                 "type": "one"
             },
             "choices": [],
             "inline_pts": 5,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "requires_archetype": "World Eaters"
         },
         {
-            "header": "Only with the Word Bearers archetype, as Ashen Circle: all models may swap their Bolt pistol for a Hand flamer for +1 point each, and their Astartes chainsword for an Axe-rake for +3 points each.",
+            "header": "Ashen Circle: all models may swap their Bolt pistol for a Hand flamer for +1 point each, and their Astartes chainsword for an Axe-rake for +3 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -401,7 +406,8 @@
             "replaces": [
                 "Bolt pistol"
             ],
-            "per_model": true
+            "per_model": true,
+            "requires_archetype": "Word Bearers"
         }
     ],
     "abilities": [

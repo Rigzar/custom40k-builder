@@ -325,6 +325,8 @@ export interface OptionGroup {
    * behaves exactly as before.
    */
   requires_trait?: string;
+  /** Horus Heresy: the option only exists in an army whose archetype is this one ("Only with the Death Guard archetype, as Grave Wardens: ..."); hidden, not priced and not applied otherwise. */
+  requires_archetype?: string;
   /**
    * Per_n groups only: overrides the per_n DIVISOR to the sum of modelSizes[...] for the listed
    * group(s), instead of the unit's total `size`. Needed when the datasheet's "for every N X

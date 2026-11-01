@@ -1294,7 +1294,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // A group the datasheet only has because an army TRAIT grants it (IG Close Combat
             // Specialists). `realGi` below is an index into the unfiltered array, so hiding it
             // here moves nothing.
-            && (!g.requires_trait || effectiveTraitPool.includes(g.requires_trait))).map((g) => {
+            && (!g.requires_trait || effectiveTraitPool.includes(g.requires_trait))
+            // A Legion option (Horus Heresy) is only shown with its own archetype.
+            && (!g.requires_archetype || g.requires_archetype === (effectiveArchetypeFor(item, store) ?? ''))).map((g) => {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
             // Host-gated branches (BSData condition, scope:'force') — e.g. a Horus Heresy squad's
@@ -2334,6 +2336,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const ascendedAll = hasAllMarksVariant(item, u);
             const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
               if (/^\d+$/.test(ab.trim()) || ab.trim() === '-') return false;
+              // An ability the sheet marks "Only with the X archetype" (Horus Heresy) is shown only with that archetype.
+              { const ga = ab.match(/Only with the (.+?) archetype/); if (ga && ga[1].trim() !== (itemArchetype ?? '')) return false; }
               const ci = ab.indexOf(':');
               const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
               if (_unselectedOptionalWeapons.has(label)) return false;

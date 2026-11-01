@@ -260,7 +260,7 @@
             ]
         },
         {
-            "header": "Only with the Thousand Sons archetype, as Ammitara: any model may swap its Bolt carbine for a Nemesis bolter for +19 points.",
+            "header": "Ammitara: any model may swap its Bolt carbine for a Nemesis bolter for +19 points.",
             "constraint": {
                 "type": "one"
             },
@@ -270,7 +270,8 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Bolt carbine"
-            ]
+            ],
+            "requires_archetype": "Thousand Sons"
         }
     ],
     "abilities": [
