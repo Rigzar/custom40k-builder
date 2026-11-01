@@ -15,7 +15,9 @@ import { factionSymbolFile } from '../src/utils/factionLabel';
       if (r.effectivePsyker && !u.requires_primarch_legacy) fails.push(`${k}/${name}: shows psychic powers with nothing bought`);
     }
     const jump = d.units['Legion Assault Squad']?.option_groups.find((g: any) => /remove their Jump packs/i.test(g.header));
-    if (!jump || jump.inline_pts >= 0) fails.push(`${k}: removing the Jump packs must be a discount (inline_pts ${jump?.inline_pts})`);
+    // a choice of its own (like the Space Marines Assault Squad's "Remove jump pack"): a discount that also takes 6" of Movement and the Jump pack type away
+    const jc = jump?.choices?.[0];
+    if (!jc || jc.points >= 0 || !jc.effect?.stat_mod?.some((m: any) => m.stat === 'M' && m.delta < 0) || !jc.effect?.set_unit_type) fails.push(`${k}: removing the Jump packs must be a discount that lowers Movement and sets the unit type (${JSON.stringify(jc)})`);
     for (const n of ['Legion Contemptor Dreadnought', 'Centurion Command Squad']) if (!d.units[n]?.advisor) fails.push(`${k}/${n}: should carry the Advisor ability`);
   }
   if (fails.length) { console.error('FAIL\n' + fails.join('\n')); process.exit(1); }

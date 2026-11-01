@@ -116,10 +116,16 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 8,
+            "choices": [
+                {
+                    "name": "Volkite caliver",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
+            "per_model": false,
             "replaces": [
                 "Heavy bolter"
             ]
@@ -129,10 +135,16 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 11,
+            "choices": [
+                {
+                    "name": "Storm bolter",
+                    "points": 11
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         }
     ],
     "abilities": [

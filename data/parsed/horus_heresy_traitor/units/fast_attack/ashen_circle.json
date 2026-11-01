@@ -112,10 +112,25 @@
             "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": -9,
+            "choices": [
+                {
+                    "name": "Remove jump pack",
+                    "points": -9,
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": -6
+                            }
+                        ],
+                        "set_unit_type": "Infantry"
+                    }
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         },
         {
             "header": "The Ashen Circle Sergeant may be upgraded to a Veteran Ashen Circle Sergeant for +10 points and gains access to weapons and gear from the Armory.",
@@ -130,13 +145,18 @@
         {
             "header": "All models may be equipped with Rad grenades for +1 point each.",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
-            "choices": [],
-            "inline_pts": 1,
+            "choices": [
+                {
+                    "name": "Rad grenades",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": false
         }
     ],
     "abilities": [

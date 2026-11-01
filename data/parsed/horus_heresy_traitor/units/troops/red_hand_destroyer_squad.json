@@ -219,11 +219,16 @@
             "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": 1,
+            "choices": [
+                {
+                    "name": "Chainaxe",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true,
+            "per_model": false,
             "replaces": [
                 "Astartes chainsword"
             ]
@@ -277,14 +282,19 @@
             "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": 2,
+            "choices": [
+                {
+                    "name": "Twin bolt pistol",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
                 "Bolt pistol"
             ],
-            "per_model": true
+            "per_model": false
         },
         {
             "header": "All models may swap their Astartes chainsword with",
@@ -381,32 +391,59 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 5,
+            "choices": [
+                {
+                    "name": "Legion vexilla",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         },
         {
             "header": "All models may be equipped with Rad grenades for +1 point each.",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
-            "choices": [],
-            "inline_pts": 1,
+            "choices": [
+                {
+                    "name": "Rad grenades",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": false
         },
         {
             "header": "All models may be equipped with Jump packs for +9 points each (the unit then has the Jump pack unit type and the Jump pack rule, like the Red Hand Destroyer Assault Squad).",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
-            "choices": [],
-            "inline_pts": 9,
+            "choices": [
+                {
+                    "name": "Jump packs",
+                    "points": 9,
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 6
+                            }
+                        ],
+                        "adds_unit_types": [
+                            "Jump pack"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": false
         }
     ],
     "abilities": [

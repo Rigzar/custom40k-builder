@@ -55,13 +55,18 @@
         {
             "header": "Any model may be equipped with Melta bombs for +5 points each.",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
-            "choices": [],
-            "inline_pts": 5,
+            "choices": [
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": false
         }
     ],
     "abilities": [

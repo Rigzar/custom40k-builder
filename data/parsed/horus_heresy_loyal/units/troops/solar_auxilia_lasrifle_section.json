@@ -119,13 +119,18 @@
         {
             "header": "Every model may be equipped with a Bayonet for +2 points each.",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
-            "choices": [],
-            "inline_pts": 2,
+            "choices": [
+                {
+                    "name": "Bayonet",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "per_model": false
         },
         {
             "header": "One Auxiliary may carry a vexilla for +5 points (see the Legion vexilla of the Armory).",

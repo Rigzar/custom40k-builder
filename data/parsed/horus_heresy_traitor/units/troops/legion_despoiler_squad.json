@@ -129,11 +129,16 @@
             "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": 1,
+            "choices": [
+                {
+                    "name": "Chainaxe",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true,
+            "per_model": false,
             "replaces": [
                 "Astartes chainsword"
             ]

@@ -57,10 +57,16 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 11,
+            "choices": [
+                {
+                    "name": "Storm bolter",
+                    "points": 11
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         }
     ],
     "abilities": [

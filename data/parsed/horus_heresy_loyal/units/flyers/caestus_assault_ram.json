@@ -164,10 +164,16 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 64,
+            "choices": [
+                {
+                    "name": "Hurricane Bolter",
+                    "points": 64
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         }
     ],
     "abilities": [

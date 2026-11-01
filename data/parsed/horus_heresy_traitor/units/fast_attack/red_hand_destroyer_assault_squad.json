@@ -247,23 +247,52 @@
             "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": -9,
+            "choices": [
+                {
+                    "name": "Remove jump pack",
+                    "points": -9,
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": -6
+                            }
+                        ],
+                        "set_unit_type": "Infantry"
+                    }
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         },
         {
-            "header": "All models may be equipped with Heavy bolt pistols for +1 point each.",
+            "header": "All models may swap their Bolt pistol with",
             "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": 1,
+            "choices": [
+                {
+                    "name": "Heavy bolt pistol",
+                    "points": 1
+                },
+                {
+                    "name": "Twin bolt pistol",
+                    "points": 2
+                },
+                {
+                    "name": "Volkite serpenta",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
                 "Bolt pistol"
-            ]
+            ],
+            "per_model": false
         },
         {
             "header": "Up to two Assault Marines may swap their Astartes chainswords and Bolt pistols",
@@ -316,43 +345,20 @@
             "is_unique_per_army": false
         },
         {
-            "header": "All models may swap their Bolt pistol with a Volkite serpenta for +2 points each.",
-            "constraint": {
-                "type": "every"
-            },
-            "choices": [],
-            "inline_pts": 2,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true,
-            "replaces": [
-                "Bolt pistol"
-            ]
-        },
-        {
             "header": "All models may be equipped with Rad grenades for +1 point each.",
             "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
-        },
-        {
-            "header": "All models may swap their Bolt pistol for a Twin bolt pistol for +2 points each.",
-            "constraint": {
                 "type": "every"
             },
-            "choices": [],
-            "inline_pts": 2,
+            "choices": [
+                {
+                    "name": "Rad grenades",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "replaces": [
-                "Bolt pistol"
-            ],
-            "per_model": true
+            "per_model": false
         },
         {
             "header": "All models may swap their Astartes chainsword with",
@@ -449,10 +455,16 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 5,
+            "choices": [
+                {
+                    "name": "Legion vexilla",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "per_model": false
         }
     ],
     "abilities": [
