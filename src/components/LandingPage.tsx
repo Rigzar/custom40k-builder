@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187h_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v187i_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -56,11 +56,12 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
-    intro: "Plus Eldar 1.9, Genestealer Cults 1.5, and the Knights now only in Knight Households.",
+    title: "{v}: the army symbol on unit cards works again",
+    intro: "From v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, and the Knights now only in Knight Households.",
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Unit cards","The army symbol at the top left of a unit card showed as a broken image in most factions; fixed."],
         ["Hover","Hover (or tap) a weapon type such as Pistol or Assault, or a rule named in quotes inside an ability, to read its rule."],
         ["Legacies","A list in the army setup shows what every Legacy does."],
         ["Text size","New A/A button on the front page: 115% or 130%, without breaking the layout."],
@@ -102,11 +103,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
-    intro: "Dazu Eldar 1.9, Genestealer Cults 1.5, und die Knights gibt es nur noch bei Knight Households.",
+    title: "{v}: das Armeesymbol auf den Einheitenkarten funktioniert wieder",
+    intro: "Seit v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, und die Knights gibt es nur noch bei Knight Households.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Einheitenkarten","Das Armeesymbol oben links auf einer Einheitenkarte wurde bei den meisten Fraktionen als defektes Bild angezeigt; behoben."],
         ["Mauszeiger","Fahre über einen Waffentyp wie Pistol oder Assault (oder tippe darauf) oder über eine in Anführungszeichen genannte Regel in einer Fähigkeit, um die Regel zu lesen."],
         ["Vermächtnisse","Eine Liste in der Armee-Einrichtung zeigt, was jedes Vermächtnis bewirkt."],
         ["Textgröße","Neuer A/A-Knopf auf der Startseite: 115 % oder 130 %, ohne das Layout zu zerstören."],
@@ -148,11 +150,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
-    intro: "Además Eldar 1.9, Genestealer Cults 1.5, y los Knights ahora solo están en Knight Households.",
+    title: "{v}: el símbolo del ejército en las fichas vuelve a funcionar",
+    intro: "Desde v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, y los Knights ahora solo están en Knight Households.",
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Fichas de unidad","El símbolo del ejército arriba a la izquierda de la ficha salía como imagen rota en la mayoría de facciones; arreglado."],
         ["Ratón","Pasa el ratón (o toca) un tipo de arma como Pistol o Assault, o una regla nombrada entre comillas dentro de una habilidad, para leer su regla."],
         ["Legados","Una lista en la configuración del ejército muestra qué hace cada Legado."],
         ["Tamaño del texto","Botón nuevo A/A en la portada: 115 % o 130 %, sin romper el diseño."],
@@ -194,11 +197,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "{v}: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11",
-    intro: "А также Eldar 1.9, Genestealer Cults 1.5, и Рыцари теперь только в Knight Households.",
+    title: "{v}: символ армии на карточках отрядов снова работает",
+    intro: "С v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, и Рыцари теперь только в Knight Households.",
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Карточки отрядов","Символ армии в левом верхнем углу карточки отряда у большинства фракций отображался как битое изображение; исправлено."],
         ["Наведение","Наведите (или коснитесь) на тип оружия вроде Pistol или Assault либо на правило в кавычках внутри способности, чтобы прочитать его."],
         ["Наследия","Список в настройке армии показывает, что делает каждое Наследие."],
         ["Размер текста","Новая кнопка A/A на главной странице: 115 % или 130 %, раскладка не ломается."],
@@ -240,11 +244,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "{v}: Space Marines 1.12、Imperial Guard 1.11、Tyranids 1.12、Chaos Space Marines 1.11",
-    intro: "さらに Eldar 1.9、Genestealer Cults 1.5、ナイトは Knight Households のみになりました。",
+    title: "{v}: ユニットカードの軍シンボルが再び表示されます",
+    intro: "v1.87h 以降: Space Marines 1.12、Imperial Guard 1.11、Tyranids 1.12、Chaos Space Marines 1.11、Eldar 1.9、Genestealer Cults 1.5、ナイトは Knight Households のみになりました。",
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["ユニットカード","ユニットカードの左上にある軍シンボルが、ほとんどの勢力で壊れた画像として表示されていました。修正しました。"],
         ["ホバー","Pistol や Assault などの武器タイプ、または能力内の引用符付きルールに重ねる（タップする）と、そのルールが読めます。"],
         ["レガシー","軍の設定の一覧で、各レガシーの効果が分かります。"],
         ["文字サイズ","トップページに新しい A/A ボタン：115% または 130%、レイアウトは崩れません。"],

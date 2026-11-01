@@ -1,0 +1,87 @@
+{
+    "name": "Deathshroud Terminator Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "7\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Deathshroud",
+            "min": 2,
+            "max": 10,
+            "points": 85
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Alchem caster; Power scythe.",
+    "weapons": [
+        {
+            "name": "Alchem caster",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+)"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        },
+        {
+            "name": "Power scythe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(1), Rending(5+), Slow(-1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Any model may be equipped with Melta bombs for +5 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Bodyguard, Massive(1), They Shall Know No Fear, Unyielding, Ward(5+)"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 2,
+    "min_cost": 170,
+    "requires_archetype": "Death Guard"
+}

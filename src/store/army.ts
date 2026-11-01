@@ -445,6 +445,7 @@ export const useArmyStore = create<ArmyStore>()(
           s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0,
           getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0,
           s.campaignTraitBonus ?? 0,
+          s.data?.faction,
         );
         const clipped = s.traitPool.length > traitCap ? s.traitPool.slice(0, traitCap) : s.traitPool;
         const retrait = (army: RosterEntry[]) => (s.data && clipped !== s.traitPool)
@@ -514,6 +515,7 @@ export const useArmyStore = create<ArmyStore>()(
           s.data?.legacies.find(lg => lg.name === l)?.trait_slot_bonus ?? 0,
           archetypeTraitBonus,
           0,
+          s.data?.faction,
         );
         if (s.traitPool.length > maxTraits) {
           const newPool = s.traitPool.slice(0, maxTraits);
@@ -544,6 +546,7 @@ export const useArmyStore = create<ArmyStore>()(
           s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0,
           archetypeTraitBonus2,
           s.campaignTraitBonus ?? 0,
+          s.data?.faction,
         );
         const newPool = pool.slice(0, maxTraits);
         const hadBC = s.traitPool.includes('Black Crusade');

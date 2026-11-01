@@ -55,9 +55,9 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": "-1",
+            "ap": "-3",
             "d": "1",
-            "abilities": "Rending(5+)"
+            "abilities": "Deadly(6+), Rad"
         },
         {
             "name": "Caedere weapon - Excoriator chainaxe",
@@ -66,15 +66,15 @@
             "s": "+3",
             "ap": "-3",
             "d": "1",
-            "abilities": "Deadly(5+), Shred, Unwieldy"
+            "abilities": "Rending(6+), Shred"
         },
         {
             "name": "Caedere weapon - Meteor hammer",
             "range": "-",
             "type": "Melee",
             "s": "+3",
-            "ap": "-1",
-            "d": "1",
+            "ap": "-3",
+            "d": "2",
             "abilities": "-"
         },
         {
@@ -82,9 +82,9 @@
             "range": "-",
             "type": "Melee",
             "s": "U",
-            "ap": "-2",
+            "ap": "-3",
             "d": "1",
-            "abilities": "Extra Attack(2), Shred, Unwieldy"
+            "abilities": "Extra Attack(2)"
         },
         {
             "name": "Frag grenades",
@@ -197,7 +197,7 @@
         }
     ],
     "abilities": [
-        "They Shall Know No Fear, Furious charge, Vanguard"
+        "They Shall Know No Fear, Furious charge"
     ],
     "unit_type": "Infantry",
     "keywords": [
@@ -217,5 +217,5 @@
     "slot": "Elites",
     "default_size": 5,
     "min_cost": 135,
-    "requires_archetype": "Berserker Assault"
+    "requires_archetype": "World Eaters"
 }

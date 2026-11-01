@@ -136,6 +136,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
     data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0,
     rule?.archetypeTraitBonus ?? 0,
     campaignTraitBonus,
+    data.faction,
   );
   const traitSlots = Array.from({ length: traitSlotCount }, (_, i) => i);
 

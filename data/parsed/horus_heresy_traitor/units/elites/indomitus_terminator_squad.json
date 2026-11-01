@@ -159,6 +159,15 @@
             "abilities": "Extra Attack(2), Shred, Unwieldy"
         },
         {
+            "name": "Phoenix power spear",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Rending(6+)"
+        },
+        {
             "name": "Plasma cannon - Standard",
             "range": "36\"",
             "type": "Heavy 1",
@@ -250,6 +259,10 @@
                             "Thunder hammer"
                         ]
                     }
+                },
+                {
+                    "name": "Phoenix power spear",
+                    "points": -20
                 }
             ],
             "inline_pts": null,
@@ -323,6 +336,33 @@
             "replaces": [
                 "Storm bolter"
             ]
+        },
+        {
+            "header": "Only with the Emperor's Children archetype, as Phoenix Terminators: the Phoenix power spear swap above, and all models gain +1\" Movement and Weapon Skill 2+ for +2 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 2,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "above",
+                "and all models gain +1\" Movement",
+                "Weapon Skill 2+"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "Only with the Emperor's Children archetype, as Phoenix Terminators: the unit gains Skill Unmatched (the model and its attached unit may re-roll 1 to hit and 1 to wound roll each activation per model) for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
         }
     ],
     "abilities": [

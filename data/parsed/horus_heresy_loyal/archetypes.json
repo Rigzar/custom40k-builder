@@ -34,66 +34,66 @@
     },
     {
       "name": "Legion Specialists",
-      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae."
+      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae.\n- The army has access to the Primarch of the chosen Legacy (if it has one)."
     },
     {
       "name": "Deathwing Conclave (The Unbroken Vow)",
       "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Veteran Squads and Terminator Squads can be taken as Troops.\n- At least 25% of the army's Troops selections must be Legion Veteran Squads or Terminator Squads.\n- Every unit gains Regeneration(1) while within 6\" of a mission objective.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken.\n- Source: the 1st and 2nd edition Horus Heresy rules (the 3rd edition does not list what this Detachment restricts)."
     },
     {
-      "name": "The Steel Fist",
+      "name": "The Steel Fist (Dark Angels)",
       "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Predators can be taken as Troops and Legion Kratos Assault Tanks as Elites.\n- Infantry units must start the game as passengers inside a transport that is not a Flyer.\n- No unit can arrive by Deep strike or Outflank."
     },
     {
-      "name": "The Storm of War",
+      "name": "The Storm of War (Dark Angels)",
       "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Tactical, Despoiler and Assault Squads can be taken as Elites, and Legion Assault Squads as Fast Attack.\n- Troops selections must take the maximum number of models.\n- Tactical and Despoiler Squads cannot take a Dedicated Transport.\n- No unit can arrive by Deep strike or Outflank."
     },
     {
-      "name": "The Seeker's Arrow",
+      "name": "The Seeker's Arrow (Dark Angels)",
       "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Sky-hunter and Outrider Squadrons can be taken as Troops.\n- Troops and Fast Attack selections gain the Outflank ability.\n- Vehicles must be Fast, Skimmers or Flyers, and only a single Heavy Support choice can be taken."
     },
     {
-      "name": "The Serpent's Bane",
+      "name": "The Serpent's Bane (Dark Angels)",
       "desc": "- Can only be selected with the Legacy of the Lion.\n- The army has access to the Primarch Lion El'Jonson.\n- Legion Seeker Squads can be taken as Troops, and all Troops selections must be Seeker Squads.\n- Up to three Troops units gain the Infiltrator ability."
     },
     {
-      "name": "Chogorian Brotherhood",
+      "name": "White Scars",
       "desc": "- Can only be selected with the Legacy of the Great Khan.\n- The army has access to the Primarch Jaghatai Khan.\n- Legion Sky-hunter Squadrons and Outrider Squadrons can be taken as Troops."
     },
     {
-      "name": "The Bloodied Claw",
+      "name": "Space Wolves",
       "desc": "- Can only be selected with the Legacy of the Wolf King.\n- The army has access to the Primarch Leman Russ.\n- Once per battle, at the start of a battle round, all units gain until the end of that round: +1 to combat resolution, the Furious charge ability, and they ignore negative Leadership modifiers.\n- In that round every unit that can charge must charge an enemy unit it can reach."
     },
     {
-      "name": "The Stone Gauntlet",
+      "name": "The Stone Gauntlet (Imperial Fists)",
       "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- The army has access to the Primarch Rogal Dorn.\n- Only Legion Breacher Squads can be taken as Troops."
     },
     {
-      "name": "Hammerfall Strike Force",
+      "name": "Hammerfall Strike Force (Imperial Fists)",
       "desc": "- Can only be selected with the Legacy of the Praetorian of Terra.\n- The army has access to the Primarch Rogal Dorn.\n- Any Infantry unit can gain the Deep strike ability for +1 point per Wound.\n- Vehicles start the game in reserve and cannot arrive by Deep strike or Outflank.\n- No Fortifications."
     },
     {
-      "name": "The Day of Revelation",
+      "name": "Blood Angels",
       "desc": "- Can only be selected with the Legacy of the Angel.\n- The army has access to the Primarch Sanguinius.\n- Before the battle choose battle round 2, 3 or 4: every unit with the Deep strike ability arrives automatically at the start of that round.\n- Units deployed on the battlefield are Fearless until the end of battle round 1.\n- The Compulsory HQ must have a Jump pack. No Fortifications and no units that cannot move."
     },
     {
-      "name": "The Head of the Gorgon",
+      "name": "Iron Hands",
       "desc": "- Can only be selected with the Legacy of the Gorgon.\n- The army has access to the Primarch Ferrus Manus.\n- Infantry units ignore negative Leadership modifiers while within their own deployment zone.\n- Vehicles gain the Outflank ability.\n- Only a single Fast Attack choice can be taken."
     },
     {
-      "name": "Logos Lectora",
+      "name": "Ultramarines",
       "desc": "- Can only be selected with the Legacy of the Avenging Son.\n- The army has access to the Primarch Roboute Guilliman.\n- Units cannot be set up as Infiltrators or arrive by Deep Strike.\n- At the start of each battle round, choose one command that applies to all Infantry units until the end of the round. The same command cannot be chosen twice in a row.\n- Full March: +2\" Movement, -1 Weapon Skill and Ballistic Skill.\n- Hold Fast: +1 Leadership and re-roll failed to-hit rolls when shooting, but the units cannot be given an Advance order.\n- Retribution Strike: +1 Weapon Skill and +1 to charge rolls, -1 Ballistic Skill.\n- Regroup: re-roll failed Leadership tests to rally."
     },
     {
-      "name": "The Covenant of Fire",
+      "name": "The Covenant of Fire (Salamanders)",
       "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- The army has access to the Primarch Vulkan.\n- Legion Tactical Support Squads armed with Dragon's breath weapons can be taken as Troops.\n- No unit can arrive by Deep strike.\n- Character models may gain Drakenscale for +10 points each: the Damage of the wounds the model suffers from Flamer, Melta, Plasma and Volkite ranged attacks is 1.\n- The army must include a Legion Champion."
     },
     {
-      "name": "The Awakening Fire",
+      "name": "The Awakening Fire (Salamanders)",
       "desc": "- Can only be selected with the Legacy of the Lord of Drakes.\n- The army has access to the Primarch Vulkan.\n- Infantry units can gain the Terrifying(-1) ability for +1 point per model.\n- Infantry units ignore negative Leadership modifiers.\n- The army gets one extra HQ choice, which must be a Chaplain, and must include one."
     },
     {
-      "name": "Decapitation Strike",
+      "name": "Raven Guard",
       "desc": "- Can only be selected with the Legacy of the Liberator.\n- The army has access to the Primarch Corvus Corax.\n- Only one Heavy Support unit can be taken.\n- The army cannot take Fortifications.\n- Units that arrive by Deep Strike gain Light Cover until the end of that battle round."
     }
   ],
@@ -260,7 +260,7 @@
     },
     {
       "name": "Interlocking Tactics",
-      "desc": "Whenever the unit makes a shooting attack against a target which has already been successfully hit in the same Shooting phase by another Ultramarines unit, it may re-roll To Wound and Armor Penetration rolls of 1.",
+      "desc": "Whenever the unit makes a shooting attack against a target which has already been successfully hit in the same Shooting phase by another friendly unit, it may re-roll To Wound and Armor Penetration rolls of 1.",
       "pts_unit": "10",
       "pts_char": "0",
       "pts_monster": "5",

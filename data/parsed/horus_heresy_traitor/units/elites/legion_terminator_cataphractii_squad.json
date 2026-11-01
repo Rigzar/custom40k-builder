@@ -42,6 +42,24 @@
     "equipped_with": "Every model is equipped with: Combi-Bolter; Power sword.",
     "weapons": [
         {
+            "name": "Assault grenade launcher - Krak",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Assault grenade launcher - Toxin",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        },
+        {
             "name": "Chainfist",
             "range": "-",
             "type": "Melee",
@@ -123,6 +141,15 @@
             "abilities": "AT(2), Combi, Overheating"
         },
         {
+            "name": "Heavy alchem flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+)"
+        },
+        {
             "name": "Heavy flamer",
             "range": "9\"",
             "type": "Assault 1",
@@ -202,6 +229,15 @@
             "ap": "-3",
             "d": "3",
             "abilities": "AT(2), Slow(-3)"
+        },
+        {
+            "name": "Twin power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(1)"
         },
         {
             "name": "Volkite charger",
@@ -319,6 +355,62 @@
             "replaces": [
                 "Combi-bolter"
             ]
+        },
+        {
+            "header": "Only with the Death Guard archetype, as Grave Wardens: all models may swap their Combi-bolter for an Assault grenade launcher for +19 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 19,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "Only with the Death Guard archetype, as Grave Wardens: for each 5 models, one model may swap its Combi-bolter for a Heavy alchem flamer for +1 point.",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "Only with the Death Guard archetype, as Grave Wardens: the unit gains Plague carrier for +15 points: all models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        },
+        {
+            "header": "Only with the World Eaters archetype, as Red Butchers: all models may swap their Combi-bolter and Power sword for a Twin power axe for -7 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": -7,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter",
+                "Power sword"
+            ],
+            "per_model": true
         }
     ],
     "abilities": [

@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Warmonger is a single character and is equipped with: Boltgun; Bolt pistol; Ætheric juncture splicer; Frag grenades; Krak grenades.",
+    "equipped_with": "A Warmonger is a single character and is equipped with: Boltgun; Bolt pistol; Aetheric juncture splicer; Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Bolt pistol",
@@ -88,7 +88,7 @@
     ],
     "abilities": [
         "They Shall Know No Fear",
-        "Ætheric juncture splicer: The model gains the Deep strike ability. If it joins a unit of Legion Infantry in reserve whose models have no Massive(2) or more, all models of that unit gain Deep strike too. Only for characters."
+        "Aetheric juncture splicer: The model gains the Deep strike ability. If it joins a unit of Legion Infantry in reserve whose models have no Massive(2) or more, all models of that unit gain Deep strike too. Only for characters."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

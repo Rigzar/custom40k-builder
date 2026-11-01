@@ -568,6 +568,21 @@
       ]
     },
     {
+      "name": "Paragon blade",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Deadly(6+)",
+      "p_unit": null,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Plasma blaster",
       "term_compat": true,
       "range": "",
@@ -834,7 +849,7 @@
   ],
   "equipment": [
     {
-      "name": "Ætheric juncture splicer",
+      "name": "Aetheric juncture splicer",
       "term_compat": false,
       "desc": "The model gains the Deep strike ability. If it joins a unit of Legion Infantry in reserve whose models have no Massive(2) or more, all models of that unit gain Deep strike too. Only for characters.",
       "p_unit": null,

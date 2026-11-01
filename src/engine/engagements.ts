@@ -96,13 +96,17 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
  * an over-full pool), so the two can never disagree about the number -- the same reason
  * computeFreeSlotAdjustments() is shared.
  */
+/** Traits every army starts with: 2, except the Horus Heresy books, which allow one Legion Trait (Rigzar 2026-11-01). */
+export const baseArmyTraits = (faction?: string | null): number => (faction && /^Horus Heresy: /.test(faction) ? 1 : 2);
+
 export function maxArmyTraits(
   engagement: string,
   legacyBonus: number,
   archetypeBonus: number,
   campaignBonus: number,
+  faction?: string | null,
 ): number {
-  const budget = 2 + legacyBonus + archetypeBonus + campaignBonus;
+  const budget = baseArmyTraits(faction) + legacyBonus + archetypeBonus + campaignBonus;
   const cap = ENGAGEMENTS[engagement]?.maxTraits;
   return cap == null ? budget : Math.min(budget, cap);
 }

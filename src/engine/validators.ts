@@ -3560,6 +3560,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     data.legacies.find(lg => lg.name === state.legacy)?.trait_slot_bonus ?? 0,
     rule?.archetypeTraitBonus ?? 0,
     state.campaignTraitBonus ?? 0,
+    data.faction,
   );
   if (state.traitPool.length > maxTraits) {
     items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length, max: maxTraits }) });

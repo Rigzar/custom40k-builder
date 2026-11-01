@@ -34,55 +34,47 @@
     },
     {
       "name": "Legion Specialists",
-      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae."
+      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae.\n- The army has access to the Primarch of the chosen Legacy (if it has one)."
     },
     {
-      "name": "The Coils of the Hydra",
+      "name": "Alpha Legion",
       "desc": "- Can only be selected with the Legacy of the Hydra.\n- The army has access to the Primarch Alpharius.\n- Every unit starts the game in Reserve and may arrive by Deep Strike or Outflank. Up to three units may start deployed on the battlefield instead.\n- A unit that arrives from Reserve gains +1 to hit with all its attacks in the battle round it arrives."
     },
     {
-      "name": "The Hammer of Olympia",
+      "name": "Iron Warriors",
       "desc": "- Can only be selected with the Legacy of the Lord of Iron.\n- The army has access to the Primarch Perturabo.\n- Shrapnel bolters and Shrapnel pistols gain +1 shot (not the Shrapnel cannon).\n- The army must include Perturabo or a Centurion with the Siegebreaker Consul.\n- No unit can arrive by Deep Strike or Outflank."
     },
     {
-      "name": "IIIrd Company Elite",
-      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- The army has access to the Primarch Fulgrim.\n- Kakophoni Squads can be taken as Troops."
+      "name": "Emperor's Children",
+      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- The army has access to the Primarch Fulgrim.\n- The army may select the Kakophoni Squad and the Palatine Blade Squad, which cannot be selected without this archetype.\n- Kakophoni Squads can be taken as Troops.\n- Up to four units (not Heavy or Slow) gain Outflank. Deployed units gain +1\" Movement; at most half of the units can start in reserve.\n- The army must include a Legion Champion.\n- Phoenix power weapons: a character or Sergeant may swap a Power sword for a Phoenix rapier or Phoenix power spear at no extra cost.\n- Phoenix Terminators: the Indomitus Terminator Squad can take the options on its sheet (Phoenix power spear -20 points, +1\" Movement and WS 2+ +2 points each, Skill Unmatched +5 points)."
     },
     {
-      "name": "The Maru Skara",
-      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- The army has access to the Primarch Fulgrim.\n- Up to four units (not Heavy or Slow ones) gain the Outflank ability.\n- Units deployed on the battlefield gain +1\" Movement. No more than half of the units can start in reserve.\n- The army must include a Legion Champion."
-    },
-    {
-      "name": "Terror Assault",
+      "name": "Terror Assault (Night Lords)",
       "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- The army has access to the Primarch Konrad Curze.\n- Legion Veteran Squads can be taken as Troops, and all of the army's Troops selections must be Legion Veteran Squads."
     },
     {
-      "name": "The Swift Blade (HH)",
+      "name": "The Swift Blade (Night Lords)",
       "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- The army has access to the Primarch Konrad Curze.\n- Legion Outrider Squadrons can be taken as Troops.\n- No Heavy Support choices."
     },
     {
-      "name": "Berserker Assault",
-      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- The army has access to the Primarch Angron.\n- All units of the army have the Legion: World Eaters keyword.\n- All models with the Legion: World Eaters keyword gain +1 Attack, and character models also gain +1 Strength. Models that already have this bonus in their profile (the Red Butcher Terminators) do not gain it twice.\n- Savage Fervour: any model with an Astartes chainsword may swap it for a Chainaxe at no extra cost.\n- Butcher's Nails: every psyker of the army suffers a \"Perils of the Warp\" attack on each double whenever it tries to manifest a psychic power, and it rolls two dice and applies both Perils results.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken."
+      "name": "World Eaters",
+      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- The army has access to the Primarch Angron.\n- The army may select the Rampager Squad, which cannot be selected without this archetype.\n- Savage Fervour: an Astartes chainsword may become a Chainaxe at no extra cost.\n- Red Butchers: the Legion Terminator Cataphractii Squad can swap its Combi-bolter and Power sword for a Twin power axe (-7 points each).\n- Blind Rage: any unit may gain the Blind Rage ability for +10 points.\n- Butcher's Nails: a psyker suffers \"Perils of the Warp\" on any double when it tries to manifest a power, and applies both Perils results."
     },
     {
-      "name": "Last of the Serrated Sun",
+      "name": "Word Bearers",
       "desc": "- Can only be selected with the Legacy of the Archtraitor.\n- The army has access to the Primarch Lorgar.\n- Centurion Command Squads equipped with the Gal Vorbak possession can be taken as Troops."
     },
     {
-      "name": "The Reaping",
-      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- The army has access to the Primarch Mortarion.\n- Legion Veteran Squads can be taken as Troops.\n- Legion Heavy Support Squads can be taken as Troops (they do not count towards the minimum).\n- Units cannot be given an Advance order (the extra Advance move) and cannot arrive by Deep Strike or Outflank. They can still be given Charge orders and fight in melee."
+      "name": "Death Guard",
+      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- The army has access to the Primarch Mortarion.\n- The army may select the Deathshroud Terminator Squad, which cannot be selected without this archetype.\n- Units cannot be given an Advance order and cannot arrive by Deep Strike or Outflank (Charge orders are allowed).\n- Grave Wardens: the Legion Terminator Cataphractii Squad can take the options on its sheet (Assault grenade launcher +19 points each, Heavy alchem flamer +1 point per 5 models, Plague carrier +15 points).\n- Alchem munitions: a Hand flamer, Flamer, Heavy flamer and Flamestorm cannon may become an Alchem pistol, Alchem flamer, Heavy alchem flamer and Alchem cannon at no extra cost; a combi-weapon may take the Alchem combi-flamer as secondary weapon.\n- Power scythe: a character or Sergeant may swap a Power sword for it at no extra cost.\n- Mortarion's Edict: every psyker in the army suffers -1 to manifest a psychic power."
     },
     {
-      "name": "The Long March",
+      "name": "Sons of Horus",
       "desc": "- Can only be selected with the Legacy of the Warmaster.\n- The army has access to the Primarch Horus Lupercal.\n- Legion Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Infantry and Dreadnought units gain +1\" Movement."
     },
     {
-      "name": "The Achaean Configuration",
-      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- Castellax-Achea Automata can be taken as Troops, with at least two models.\n- The range of the Psi-locus ability of the Castellax-Achea is 24\", and they gain the Aegis(3+) ability.\n- A Castellax-Achea only has the Objective secured! ability while it is within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- The army must include a Techmarine and a Centurion with the Praevian upgrade."
-    },
-    {
-      "name": "The Guard of the Crimson King",
-      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- Up to six units made up entirely of Infantry gain the Deep strike ability. The turn they arrive by Deep strike they gain Terrifying(-1).\n- Legion Terminator Cataphractii Squads can be taken as Troops.\n- The army must include a Chief Librarian or a Praetor that has a psychic discipline."
+      "name": "Thousand Sons",
+      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- The army has access to the Primarch Magnus the Red.\n- The army may select the Castellax-Achea Automata, which cannot be selected without this archetype; they can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Up to six units made up entirely of Infantry gain Deep strike and, the turn they arrive, Terrifying(-1).\n- Asphyx: a Bolt pistol, a Bolter (also the one of a combi-weapon) and a Combi-bolter may become Asphyx versions for +2, +1 and +1 points.\n- Aether-fire: a Plasma pistol, Plasma blaster and Plasma cannon may become Aether-fire versions at no extra cost.\n- Achea force weapons: characters may swap a Power sword for an Achea force sword or axe at no extra cost, or an Achea force maul for +2 points; Legion Terminator Cataphractii Squads: +0 points, or +1 for the maul.\n- Gravis force blade: a Contemptor Dreadnought may swap its close combat weapon for it at no extra cost.\n- Khenetai and Ammitara: see the options of the Legion Veteran Squad and the Seeker Squad."
     }
   ],
   "legacies": [
@@ -118,17 +110,17 @@
     },
     {
       "name": "Legacy of the Death Lord",
-      "desc": "The army has access to the Death Guard Armory.\n- Any model with a Hand flamer may swap it for an Alchem pistol for +1 point each.\nMortarion's Edict: every psyker in the army suffers a -1 penalty when it tries to manifest a psychic power.\nLegion: Death Guard (Traitor).",
+      "desc": "The army has access to the Death Guard Armory.\nLegion: Death Guard (Traitor).",
       "armory_key": "Death Guard"
     },
     {
       "name": "Legacy of the Phoenician",
-      "desc": "The army has access to the Emperor's Children Armory, and may select the Kakophoni Squad and the Palatine Blade Squad, which cannot be selected without this Legacy.\nLegion: Emperor's Children (Traitor).",
+      "desc": "The army has access to the Emperor's Children Armory.\nLegion: Emperor's Children (Traitor).",
       "armory_key": "Emperor's Children"
     },
     {
       "name": "Legacy of the Crimson King",
-      "desc": "The army has access to the Thousand Sons Armory, and may select the Castellax-Achea Automata, which cannot be selected without this Legacy.\n- Any model may upgrade their Bolt pistols to Asphyx bolt pistols for +2 points each, Bolters (including the Bolter components of Combi-weapons) to Asphyx bolters for +1 point each and Combi-bolters to Asphyx combi-bolters for +1 point each.\n- Any model may upgrade their Plasma pistols to Æther-fire pistols, Plasma blasters to Æther-fire blasters and Plasma cannons to Æther-fire cannons for +0 points each.\n- Any Character model may swap its Power sword for an Achea force sword or an Achea force axe for +0 points, or for an Achea force maul for +2 points. Models in a Legion Terminator Cataphractii Squad may do the same for +0 points, or +1 point for the maul.\n- Any Contemptor Dreadnought may swap its Dreadnought close combat weapon for a Gravis force blade for +0 points.\nLegion: Thousand Sons (Traitor).",
+      "desc": "The army has access to the Thousand Sons Armory.\nLegion: Thousand Sons (Traitor).",
       "armory_key": "Thousand Sons"
     },
     {

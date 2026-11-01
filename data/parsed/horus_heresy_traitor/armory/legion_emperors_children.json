@@ -6,10 +6,10 @@
       "term_compat": true,
       "range": "-",
       "type": "Melee",
-      "s": "+3",
+      "s": "+2",
       "ap": "-3",
       "d": "1",
-      "abilities": "Deadly(6+), Rending(6+)",
+      "abilities": "Rending(6+)",
       "p_unit": 6,
       "p_char": 8,
       "armour_compat": [
@@ -21,62 +21,12 @@
       "term_compat": true,
       "range": "-",
       "type": "Melee",
-      "s": "+1",
+      "s": "U",
       "ap": "-3",
       "d": "1",
-      "abilities": "Deadly(6+), Rending(6+)",
+      "abilities": "Rending(6+)",
       "p_unit": null,
       "p_char": 6,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Power lance",
-      "term_compat": true,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 10,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Charge",
-          "range": "-",
-          "type": "Melee",
-          "s": "+3",
-          "ap": "-3",
-          "d": "2",
-          "abilities": "AT(1), Charge, Quick(+1)"
-        },
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "Unwieldy"
-        }
-      ],
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Rapture Lash",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Extra Attack(2)",
-      "p_unit": 4,
-      "p_char": null,
       "armour_compat": [
         "Terminator"
       ]
@@ -87,9 +37,9 @@
       "range": "9\"",
       "type": "Assault 1",
       "s": "2",
-      "ap": "0",
+      "ap": "-1",
       "d": "1",
-      "abilities": "Auto Hit, Rending(6+), Suppression(3)",
+      "abilities": "Auto Hit, Rending(6+)",
       "p_unit": null,
       "p_char": 1
     },
@@ -120,33 +70,6 @@
   ],
   "equipment": [
     {
-      "name": "Combat Drugs",
-      "term_compat": true,
-      "desc": "Once per battle, select any number of abilities for the model when performing a Charge command:\n- +1 Attack\n- +1\" Charge move\n- +1 Strength\n- +1 Weapon Skill\n- warded\nThe effects last until the end of the current battle round. Roll 1D6 for each selected ability. The model suffers one Mortal Wound for each same die roll result.",
-      "p_unit": null,
-      "p_char": 10,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Doom Siren",
-      "term_compat": true,
-      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
-      "p_unit": 5,
-      "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Shrieking armor",
-      "term_compat": false,
-      "desc": "The model gains the \"Retribution(3)\" ability.",
-      "p_unit": 5,
-      "p_char": 5
-    },
-    {
       "name": "Skill Unmatched",
       "term_compat": true,
       "desc": "The model and its attached unit may re-roll 1 to hit and 1 to wound roll each activation per model. Only for characters and Command squads.",
@@ -162,14 +85,6 @@
       "desc": "When the model or a unit it has joined makes a Charge move, the target unit of that charge cannot use Defensive Reactions (Counter-Attack, Defensive Fire, Hold Your Ground, Take Cover) against it. Only for characters.",
       "p_unit": null,
       "p_char": 15
-    },
-    {
-      "name": "Doom Siren",
-      "term_compat": false,
-      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
-      "p_unit": 10,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

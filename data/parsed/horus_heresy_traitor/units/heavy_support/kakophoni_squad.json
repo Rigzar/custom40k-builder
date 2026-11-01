@@ -98,5 +98,5 @@
     "slot": "Heavy Support",
     "default_size": 5,
     "min_cost": 310,
-    "requires_legacy": "Legacy of the Phoenician"
+    "requires_archetype": "Emperor's Children"
 }

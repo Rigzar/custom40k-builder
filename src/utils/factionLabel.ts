@@ -64,4 +64,4 @@ export const usesReputations = (faction: string | undefined | null): boolean => 
 
 /** The emblem file of a faction when no archetype or Legacy symbol applies. The Horus Heresy books share the Horus Heresy emblem; every other faction's file is its lower-cased, hyphenated name. */
 export const factionSymbolFile = (faction: string): string =>
-  /^Horus Heresy: /.test(faction) ? '/faction-symbols/horus-heresy.svg' : `/faction-symbols/${faction.toLowerCase().replace(/s+/g, '-').replace(/[^a-z0-9-]/g, '')}.svg`;
+  /^Horus Heresy: /.test(faction) ? '/faction-symbols/horus-heresy.svg' : `/faction-symbols/${faction.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}.svg`;

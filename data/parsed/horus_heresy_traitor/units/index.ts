@@ -14,6 +14,7 @@ import dedicated_transport_spartan from './dedicated_transport/spartan.json';
 import elites_castellax_achea_automata from './elites/castellax_achea_automata.json';
 import elites_castra_ferrum_dreadnought from './elites/castra_ferrum_dreadnought.json';
 import elites_centurion_command_squad from './elites/centurion_command_squad.json';
+import elites_deathshroud_terminator_squad from './elites/deathshroud_terminator_squad.json';
 import elites_deredeo_dreadnought from './elites/deredeo_dreadnought.json';
 import elites_indomitus_terminator_squad from './elites/indomitus_terminator_squad.json';
 import elites_iron_circle_maniple from './elites/iron_circle_maniple.json';
@@ -26,7 +27,6 @@ import elites_mortificator from './elites/mortificator.json';
 import elites_overseer from './elites/overseer.json';
 import elites_palatine_blade_squad from './elites/palatine_blade_squad.json';
 import elites_rampager_squad from './elites/rampager_squad.json';
-import elites_red_butcher_terminators from './elites/red_butcher_terminators.json';
 import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squad.json';
 import elites_vigilator from './elites/vigilator.json';
 import elites_warmonger from './elites/warmonger.json';
@@ -85,6 +85,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Castellax-Achea Automata",
     "Castra Ferrum Dreadnought",
     "Centurion Command Squad",
+    "Deathshroud Terminator Squad",
     "Deredeo Dreadnought",
     "Indomitus Terminator Squad",
     "Iron Circle Maniple",
@@ -97,7 +98,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Overseer",
     "Palatine Blade Squad",
     "Rampager Squad",
-    "Red Butcher Terminators",
     "Saturnine Terminator Squad",
     "Vigilator",
     "Warmonger"
@@ -156,6 +156,7 @@ export const units: Record<string, Unit> = {
   "Castellax-Achea Automata": elites_castellax_achea_automata as unknown as Unit,
   "Castra Ferrum Dreadnought": elites_castra_ferrum_dreadnought as unknown as Unit,
   "Centurion Command Squad": elites_centurion_command_squad as unknown as Unit,
+  "Deathshroud Terminator Squad": elites_deathshroud_terminator_squad as unknown as Unit,
   "Deredeo Dreadnought": elites_deredeo_dreadnought as unknown as Unit,
   "Indomitus Terminator Squad": elites_indomitus_terminator_squad as unknown as Unit,
   "Iron Circle Maniple": elites_iron_circle_maniple as unknown as Unit,
@@ -168,7 +169,6 @@ export const units: Record<string, Unit> = {
   "Overseer": elites_overseer as unknown as Unit,
   "Palatine Blade Squad": elites_palatine_blade_squad as unknown as Unit,
   "Rampager Squad": elites_rampager_squad as unknown as Unit,
-  "Red Butcher Terminators": elites_red_butcher_terminators as unknown as Unit,
   "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
   "Vigilator": elites_vigilator as unknown as Unit,
   "Warmonger": elites_warmonger as unknown as Unit,
