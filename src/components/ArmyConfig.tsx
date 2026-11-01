@@ -147,6 +147,10 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
     return ARCHETYPE_MARK[name.slice(-1)] ?? null;
   }
 
+  // An archetype that names its Legacy ("Can only be selected with the Legacy of X") sets it and locks the choice: the Legacy is only free again when the
+  // archetype is changed to one that does not (Rigzar 2026-11-01).
+  const lockedLegacy = (() => { const need = archetypeRequiredLegacy(data.archetypes.find(x => x.name === archetype)); return need && data.legacies.some(l => l.name === need) ? need : null; })();
+
   function handleSetArchetype(a: string) {
     // A Legion archetype says "Can only be selected with the Legacy of X": picking it sets that Legacy (when it exists in this book),
     // so the player does not have to know the order (Rigzar 2026-11-01).
@@ -302,9 +306,10 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     <div>
                       <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5">{t('legacy')}</div>
                       <select
-                        value={legacy}
+                        value={lockedLegacy ?? legacy}
                         onChange={e => setLegacy(e.target.value)}
-                        className={selectClass}
+                        disabled={!!lockedLegacy}
+                        className={`${selectClass}${lockedLegacy ? ' opacity-60 cursor-not-allowed' : ''}`}
                       >
                         <option value="">{t('noLegacy')}</option>
                         {data.legacies.map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
