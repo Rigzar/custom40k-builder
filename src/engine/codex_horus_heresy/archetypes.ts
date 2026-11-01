@@ -31,6 +31,7 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'The Covenant of Fire (Salamanders)': r({ troopsRemap: ['Legion Tactical Support Squad'] }),
   'Raven Guard': r({ slotCapOverride: { slot: 'Heavy Support', max: 1 } }),
   "Emperor's Children": r({ troopsRemap: ['Kakophoni Squad'] }),
+  'World Eaters': r({ troopsRemap: ['Rampager Squad'] }),
   'The Swift Blade (Night Lords)': r({ troopsRemap: ['Outrider Squadron'], bannedSlots: ['Heavy Support'] }),
   'Terror Assault (Night Lords)': r({ troopsRemap: ['Legion Veteran Squad'], banOtherTroops: true }),
   'Word Bearers': r({ troopsRemap: ['Centurion Command Squad'] }),

@@ -86,6 +86,17 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true
+        },
+        {
+            "header": "Only with the Word Bearers archetype, as Dark Brethren: all models equipped with the Gal Vorbak possession gain +2\" Movement, +1 Initiative, +1 Attack, +1 Leadership, the Ward(5+) ability, Vanguard and Terrifying(-1) for +28 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 28,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
         }
     ],
     "abilities": [

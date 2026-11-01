@@ -243,8 +243,13 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       {data.archetypes
                         .filter(a => engagement !== 'skirmish' || archetypeAllowedInSkirmish(data, a.name))
                         .filter(a => { const only = getArchetypeRule(a.name)?.alliedOnlyTo; return !only || (isAllied && primaryKey === only) || a.name === archetype; })
-                        .filter(a => { const need = archetypeRequiredLegacy(a); return !need || need === legacy || a.name === archetype; })
-                        .map(a => <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>)}
+                        .map(a => {
+                          // A Legion archetype is listed from the start but can only be picked once its Legacy is chosen,
+                          // so a player sees that it exists and which Legacy opens it (Rigzar 2026-11-01).
+                          const need = archetypeRequiredLegacy(a);
+                          const locked = !!need && need !== legacy && a.name !== archetype;
+                          return <option key={a.name} value={a.name} disabled={locked}>{nm(cleanArchetypeName(a.name))}{locked ? ` — ${need}` : ''}</option>;
+                        })}
                     </select>
                     {engagement === 'skirmish' && (
                       <div className="text-[10px] text-zinc-500 mt-1 pl-1">{t('skirmishArchetypesOnly')}</div>

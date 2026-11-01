@@ -142,6 +142,24 @@
             "abilities": "AT(2), Overheating"
         },
         {
+            "name": "Hand flamer",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Axe-rake",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Deadly(6+), Rad"
+        },
+        {
             "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
@@ -370,6 +388,20 @@
             "inline_pts": 5,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "Only with the Word Bearers archetype, as Ashen Circle: all models may swap their Bolt pistol for a Hand flamer for +1 point each, and their Astartes chainsword for an Axe-rake for +3 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ],
+            "per_model": true
         }
     ],
     "abilities": [
