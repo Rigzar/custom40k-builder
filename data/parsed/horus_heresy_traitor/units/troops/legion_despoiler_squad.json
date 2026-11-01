@@ -105,6 +105,24 @@
             "abilities": "-"
         },
         {
+            "name": "Phosphex bombs",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(4), Poison(3+), Suppression(3), Rending(5+)"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        },
+        {
             "name": "Rad grenades",
             "range": "6\"",
             "type": "Grenade 1",
@@ -256,23 +274,32 @@
             "per_model": true
         },
         {
-            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each.",
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: the Sergeant may be equipped with one of the following",
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 10,
+            "choices": [
+                {
+                    "name": "Phosphex bombs",
+                    "points": 8
+                },
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
-            "per_model": true
+            "applies_to_model": "Legion Sergeant"
         },
         {
-            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: the unit gains Bearers of the Blood Hand (+1 to its combat resolution in melee, as the Legion vexilla) and Firestorm (it does not suffer the to hit penalty from Defensive Fire) for +15 points. A unit with these abilities (Bitter Duty) cannot be joined by a character that does not have them.",
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: one model may be equipped with a Legion vexilla for +5 points (+1 to the unit's combat resolution in melee).",
             "constraint": {
                 "type": "one"
             },
             "choices": [],
-            "inline_pts": 15,
+            "inline_pts": 5,
             "variant_link": null,
             "is_unique_per_army": false
         },
