@@ -148,6 +148,10 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   }
 
   function handleSetArchetype(a: string) {
+    // A Legion archetype says "Can only be selected with the Legacy of X": picking it sets that Legacy (when it exists in this book),
+    // so the player does not have to know the order (Rigzar 2026-11-01).
+    const need = archetypeRequiredLegacy(data.archetypes.find(x => x.name === a));
+    if (need && need !== legacy && data.legacies.some(l => l.name === need)) setLegacy(need);
     setArchetype(a);
     if (!isAllied) {
       const r = getArchetypeRule(a);
@@ -244,11 +248,10 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         .filter(a => engagement !== 'skirmish' || archetypeAllowedInSkirmish(data, a.name))
                         .filter(a => { const only = getArchetypeRule(a.name)?.alliedOnlyTo; return !only || (isAllied && primaryKey === only) || a.name === archetype; })
                         .map(a => {
-                          // A Legion archetype is listed from the start but can only be picked once its Legacy is chosen,
-                          // so a player sees that it exists and which Legacy opens it (Rigzar 2026-11-01).
+                          // A Legion archetype is listed from the start with the Legacy it goes with; picking it sets that Legacy.
                           const need = archetypeRequiredLegacy(a);
-                          const locked = !!need && need !== legacy && a.name !== archetype;
-                          return <option key={a.name} value={a.name} disabled={locked}>{nm(cleanArchetypeName(a.name))}{locked ? ` — ${need}` : ''}</option>;
+                          const other = !!need && need !== legacy && a.name !== archetype;
+                          return <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}{other ? ` — ${need}` : ''}</option>;
                         })}
                     </select>
                     {engagement === 'skirmish' && (
