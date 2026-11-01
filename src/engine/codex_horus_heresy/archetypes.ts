@@ -49,6 +49,7 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
     troopsRemap: ['Rampager Squad'], slotCapOverride: { slot: 'Heavy Support', max: 1 },
     legionTerm: term('World Eaters', 'WE', 1, 'the model gains +1 Attack; a character model also gains +1 Strength.'),
     statMods: [{ stat: 'A', delta: 1, creatureOnly: true }, { stat: 'S', delta: 1, characterOnly: true }],
+    statModsExceptUnits: ['Red Butcher Terminators'],
   }),
   'The Swift Blade (Night Lords)': r({ troopsRemap: ['Outrider Squadron'], bannedSlots: ['Heavy Support'] }),
   'Terror Assault (Night Lords)': r({ troopsRemap: ['Legion Veteran Squad'], banOtherTroops: true }),

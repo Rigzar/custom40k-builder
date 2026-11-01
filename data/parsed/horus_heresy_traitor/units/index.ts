@@ -31,7 +31,7 @@ import elites_overseer from './elites/overseer.json';
 import elites_palatine_blade_squad from './elites/palatine_blade_squad.json';
 import elites_phoenix_terminator_squad from './elites/phoenix_terminator_squad.json';
 import elites_rampager_squad from './elites/rampager_squad.json';
-import elites_red_butchers from './elites/red_butchers.json';
+import elites_red_butcher_terminators from './elites/red_butcher_terminators.json';
 import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squad.json';
 import elites_vigilator from './elites/vigilator.json';
 import elites_warmonger from './elites/warmonger.json';
@@ -119,7 +119,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Palatine Blade Squad",
     "Phoenix Terminator Squad",
     "Rampager Squad",
-    "Red Butchers",
+    "Red Butcher Terminators",
     "Saturnine Terminator Squad",
     "Vigilator",
     "Warmonger"
@@ -196,7 +196,7 @@ export const units: Record<string, Unit> = {
   "Palatine Blade Squad": elites_palatine_blade_squad as unknown as Unit,
   "Phoenix Terminator Squad": elites_phoenix_terminator_squad as unknown as Unit,
   "Rampager Squad": elites_rampager_squad as unknown as Unit,
-  "Red Butchers": elites_red_butchers as unknown as Unit,
+  "Red Butcher Terminators": elites_red_butcher_terminators as unknown as Unit,
   "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
   "Vigilator": elites_vigilator as unknown as Unit,
   "Warmonger": elites_warmonger as unknown as Unit,

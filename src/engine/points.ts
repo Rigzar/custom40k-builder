@@ -327,7 +327,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // ("point cost per model and per Wound", vehicles flat): the rate is the Legion's, set in its archetype rule.
   if (!item.factionSource) {
     const lt = getArchetypeRule(archetype)?.legionTerm;
-    if (lt) {
+    if (lt && !(getArchetypeRule(archetype)?.statModsExceptUnits ?? []).includes(unit.name)) {
       if (unit.is_vehicle) total += (lt.vehicleFlat ?? 0) * item.size;
       else total += lt.perWound * (parseInt(unit.models[0]?.stats.W ?? '1', 10) || 1) * item.size;
     }

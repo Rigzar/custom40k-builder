@@ -356,6 +356,8 @@ export interface ArchetypeRule {
    * that change a number go in `statMods`; `note` is the rule text, shown on every unit card like the Marks' reminders.
    */
   legionTerm?: { name: string; abbr: string; note: string; perWound: number; vehicleFlat?: number } | null;
+  /** Units whose own profile already has the term's stat bonus (the World Eaters Red Butcher Terminators): no second bonus and no charge. */
+  statModsExceptUnits?: string[];
 }
 
 export const BASE: ArchetypeRule = {

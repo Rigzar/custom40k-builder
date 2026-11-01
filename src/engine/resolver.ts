@@ -1089,7 +1089,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   // An archetype can change stats army-wide too (Ratling Company). Same list as the traits,
   // so the card, the print view and the TTS export all honour it with no second code path.
-  for (const sm of rule?.statMods ?? []) {
+  for (const sm of (rule?.statModsExceptUnits ?? []).includes(unit.name) ? [] : rule?.statMods ?? []) {
     if (sm.creatureOnly && unit.is_vehicle) continue;
     if (sm.characterOnly && !unit.is_character) continue;
     if (sm.characterOrMonsterOnly && !unit.is_character && !unit.is_monster) continue;
