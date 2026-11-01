@@ -108,11 +108,10 @@ export function maxArmyTraits(
 }
 
 /**
- * The Horus Heresy books run their own Army Organization Plan: "3 HQs (minimum 1) and 4 Elites" (Margit, 2026-10-24, because
- * Heresy lists put many units in those two slots). Everything else is the standard table, and Skirmish keeps its flat 0-1 rows.
+ * The Horus Heresy books used their own Army Organization Plan (HQ 1-3, Elites 0-4; Margit, 2026-10-24). Rigzar 2026-11-01:
+ * back to the classic AOP, so every faction (HH included) uses the engagement table as it is. Kept as the one place to
+ * adjust a faction's plan, should that come back.
  */
-export function engagementFor(engKey: string, factionName?: string | null): Engagement {
-  const eng = ENGAGEMENTS[engKey] ?? ENGAGEMENTS.pitched;
-  if (engKey === 'skirmish' || !factionName || !/^Horus Heresy: (Loyal|Traitor) Legions$/.test(factionName)) return eng;
-  return { ...eng, aop: { ...eng.aop, HQ: [1, 3], Elites: [0, 4] } };
+export function engagementFor(engKey: string, _factionName?: string | null): Engagement {
+  return ENGAGEMENTS[engKey] ?? ENGAGEMENTS.pitched;
 }
