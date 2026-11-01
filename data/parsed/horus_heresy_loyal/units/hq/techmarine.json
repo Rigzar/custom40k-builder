@@ -5,51 +5,51 @@
             "stats": {
                 "M": "6\"",
                 "WS": "3+",
-                "BS": "2+",
+                "BS": "3+",
                 "S": "4",
                 "T": "4",
-                "W": "3",
+                "W": "2",
                 "I": "4",
                 "A": "2",
-                "LD": "8",
+                "LD": "7",
                 "SV": "2+"
             },
             "name": "Techmarine",
             "min": 1,
             "max": 1,
-            "points": 140
+            "points": 61
         }
     ],
     "variant_models": [
         {
             "stats": {
                 "M": "6\"",
-                "WS": "3+",
+                "WS": "2+",
                 "BS": "2+",
                 "S": "4",
                 "T": "4",
-                "W": "4",
+                "W": "3",
                 "I": "5",
-                "A": "3",
-                "LD": "9",
+                "A": "2",
+                "LD": "8",
                 "SV": "2+"
             },
-            "name": "Master of the Forge",
+            "name": "Forge Lord",
             "min": 0,
             "max": 1,
-            "points": 155
+            "points": 82
         }
     ],
-    "equipped_with": "A Techmarine is equipped with: Grav pistol; Omnissiah Power axe; Forge bolter; Servo arm; Frag grenades; Krak grenades.",
+    "equipped_with": "A Techmarine is equipped with: Bolt pistol; Power axe; Servo arm; Frag grenades; Krak grenades.",
     "weapons": [
         {
-            "name": "Forge bolter",
-            "range": "24\"",
-            "type": "Assault 3",
-            "s": "5",
-            "ap": "-2",
-            "d": "2",
-            "abilities": "Extra Attack(1), Limit(1)"
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         },
         {
             "name": "Frag grenades",
@@ -61,15 +61,6 @@
             "abilities": "Blast(4)"
         },
         {
-            "name": "Grav pistol",
-            "range": "12\"",
-            "type": "Pistol 1",
-            "s": "5",
-            "ap": "-3",
-            "d": "1",
-            "abilities": "Grav"
-        },
-        {
             "name": "Krak grenades",
             "range": "6\"",
             "type": "Grenade 1",
@@ -79,12 +70,12 @@
             "abilities": "-"
         },
         {
-            "name": "Omnissiah Power axe",
+            "name": "Power axe",
             "range": "-",
             "type": "Melee",
             "s": "+2",
             "ap": "-2",
-            "d": "2",
+            "d": "1",
             "abilities": "-"
         },
         {
@@ -99,21 +90,20 @@
     ],
     "option_groups": [
         {
-            "header": "One Techmarine per army May be upgraded to a Master of the Forge for +15 points.",
+            "header": "Only without the Legion Specialists archetype: one Techmarine per army may be upgraded to a Forge Lord for +21 points.",
             "constraint": {
                 "type": "unique_upgrade"
             },
             "choices": [],
-            "inline_pts": 15,
-            "variant_link": "Master of the Forge",
+            "inline_pts": 21,
+            "variant_link": "Forge Lord",
             "is_unique_per_army": true
         }
     ],
     "abilities": [
-        "Command squad, They Shall Know No Fear",
-        "Advisor: For every HQ selection, one Techmarine may be selected without taking up an Elite slot.",
+        "They Shall Know No Fear",
         "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" may reroll a hit roll and a wound or armor penetration roll.",
-        "Master of the Forge: A Master of the Forge may use \"Blessing of the Omnissiah\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
+        "Forge Lord: The model carries a Machinator Array instead of its Servo arm and may use \"Blessing of the Omnissiah\" two times per battle round."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],
@@ -128,7 +118,7 @@
     "veteran_max": 1,
     "locked_mark": null,
     "advisor": false,
-    "slot": "Elites",
+    "slot": "HQ",
     "default_size": 1,
-    "min_cost": 140
+    "min_cost": 61
 }

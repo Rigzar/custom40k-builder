@@ -1,0 +1,166 @@
+{
+    "name": "Storm Eagle",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "-",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Storm Eagle",
+            "min": 1,
+            "max": 1,
+            "points": 229
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Storm Eagle is a single model and is equipped with: Twin heavy bolter; Vengeance launcher; Tempest rockets.",
+    "weapons": [
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Vengeance launcher",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(5)"
+        },
+        {
+            "name": "Tempest rockets",
+            "range": "48\"",
+            "type": "Heavy 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "3",
+            "abilities": "Ammo(1), AT(2)"
+        },
+        {
+            "name": "Twin multi-melta",
+            "range": "24\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Cyclone missile launcher - Frag missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Cyclone missile launcher - Krak missile",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Anti-air"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Hunter-killer missiles",
+            "range": "120\"",
+            "type": "Heavy 4",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May replace the Twin heavy bolter",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin multi-melta",
+                    "points": 37
+                },
+                {
+                    "name": "Cyclone missile launcher",
+                    "points": 45
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin heavy bolter"
+            ]
+        },
+        {
+            "header": "May replace the Tempest rockets",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Hunter-killer missiles",
+                    "points": 6
+                },
+                {
+                    "name": "2 Twin lascannon",
+                    "points": 262
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Tempest rockets"
+            ]
+        }
+    ],
+    "abilities": [
+        "Hover Mode",
+        "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
+        "Transport: This model has a transport capacity of 16 infantry models."
+    ],
+    "unit_type": "Flyer",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Flyers",
+    "default_size": 1,
+    "min_cost": 229
+}

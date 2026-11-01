@@ -17,7 +17,7 @@
             "name": "Legion Rhino",
             "min": 1,
             "max": 1,
-            "points": 111
+            "points": 158
         }
     ],
     "variant_models": [],
@@ -46,8 +46,8 @@
         }
     ],
     "abilities": [
-        "Fire hatches(2)",
-        "Transport: This model has a transport capacity of 10 infantry models, excluding \"Massive(x)\" models."
+        "Fire hatches(2), Ward(4+)",
+        "Transport: This model has a transport capacity of 12 infantry models, excluding \"Massive(x)\" models."
     ],
     "unit_type": "Vehicle",
     "keywords": [],
@@ -64,5 +64,5 @@
     "advisor": false,
     "slot": "Dedicated Transport",
     "default_size": 1,
-    "min_cost": 111
+    "min_cost": 158
 }

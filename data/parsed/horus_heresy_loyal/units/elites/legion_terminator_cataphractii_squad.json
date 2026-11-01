@@ -17,7 +17,7 @@
             "name": "Legion Cataphractii",
             "min": 4,
             "max": 9,
-            "points": 85
+            "points": 86
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legion Cataphractii Sergeant",
             "min": 1,
             "max": 1,
-            "points": 85
+            "points": 86
         }
     ],
     "variant_models": [],
@@ -215,17 +215,6 @@
     ],
     "option_groups": [
         {
-            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
-        },
-        {
             "header": "Every Legion Cataphractii may swap their Combi-bolter with",
             "constraint": {
                 "type": "every"
@@ -333,7 +322,7 @@
         }
     ],
     "abilities": [
-        "Deep strike, Massive(1), Unyielding",
+        "Deep strike, Massive(1), They Shall Know No Fear, Unyielding",
         "Cataphractii Terminator armor: The model gains a 4+ ward save."
     ],
     "unit_type": "Infantry",
@@ -351,5 +340,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 425
+    "min_cost": 430
 }

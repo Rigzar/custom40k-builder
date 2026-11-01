@@ -2,6 +2,41 @@
   "name": "Dark Angels Armory",
   "weapons": [
     {
+      "name": "Calibanite charge-blade",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 7,
+      "profiles": [
+        {
+          "name": "Uncharged",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+2)"
+        },
+        {
+          "name": "Charged",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Rending(6+), Slow(-1)"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Calibanite warblade",
       "term_compat": true,
       "range": "-",
@@ -222,7 +257,7 @@
       "name": "Teleport homing beacon",
       "term_compat": false,
       "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
-      "p_unit": null,
+      "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
     }

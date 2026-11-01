@@ -466,6 +466,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           : slot === 'Fast Attack' ? freeSlots.fa
           : slot === 'Heavy Support' ? freeSlots.hs
           : slot === 'Elites' ? freeSlots.elites
+          : slot === 'Troops' ? freeSlots.troops
           : 0;
         // Missions (Skirmish): the allies' selections are part of the army's regular AOP, so they are counted here.
         const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction ?? undefined, (engagement === 'skirmish' && alliedFaction) ? undefined : false, engagement) - slotAdj);

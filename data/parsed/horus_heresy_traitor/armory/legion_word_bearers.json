@@ -98,6 +98,18 @@
       "p_char": 10
     },
     {
+      "name": "Warpfire projector",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Blast(4), Rending(5+), Shred",
+      "p_unit": 27,
+      "p_char": 33
+    },
+    {
       "name": "Illuminarum",
       "term_compat": false,
       "range": "-",
@@ -184,7 +196,7 @@
       "name": "Fell-blessed machine",
       "term_compat": false,
       "desc": "The vehicle may pray once per battle round. A prayer is successful at a roll of 3+. The vehicle knows all prayers from the Exalted Prayers discipline.",
-      "p_unit": null,
+      "p_unit": 20,
       "p_char": null,
       "category": "vehicle"
     },
@@ -192,7 +204,7 @@
       "name": "Mhara Gal",
       "term_compat": false,
       "desc": "The model gains a 5+ ward save. Only for Walkers.",
-      "p_unit": null,
+      "p_unit": 45,
       "p_char": null,
       "category": "vehicle"
     }

@@ -17,7 +17,7 @@
             "name": "Legionary",
             "min": 4,
             "max": 4,
-            "points": 35
+            "points": 36
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legion Sergeant",
             "min": 1,
             "max": 1,
-            "points": 45
+            "points": 46
         }
     ],
     "variant_models": [],
@@ -143,17 +143,6 @@
     ],
     "option_groups": [
         {
-            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
-        },
-        {
             "header": "All models may swap their Flamer",
             "constraint": {
                 "type": "every"
@@ -200,7 +189,7 @@
         }
     ],
     "abilities": [
-        "-"
+        "They Shall Know No Fear"
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -217,5 +206,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 185
+    "min_cost": 190
 }

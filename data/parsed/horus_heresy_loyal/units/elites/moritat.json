@@ -1,0 +1,137 @@
+{
+    "name": "Moritat",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "1",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Moritat",
+            "min": 1,
+            "max": 1,
+            "points": 78
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Moritat is a single character and is equipped with: Twin overcharged volkite serpenta; Frag grenades; Krak grenades; Rad grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        },
+        {
+            "name": "Rad grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Rad"
+        },
+        {
+            "name": "Twin overcharged plasma pistol",
+            "range": "12\"",
+            "type": "Pistol 6",
+            "s": "8",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Rending(4+), Overheating"
+        },
+        {
+            "name": "Twin overcharged volkite serpenta",
+            "range": "10\"",
+            "type": "Pistol 8",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(5+), Overheating"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap the Twin overcharged volkite serpenta with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin overcharged plasma pistol",
+                    "points": 22
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin overcharged volkite serpenta"
+            ]
+        },
+        {
+            "header": "May be equipped with Melta bombs for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear, Deep strike, Massive(1)",
+        "Restriction: Cannot take Terminator armor, a Jump pack, a Space Marine bike or a Jetbike.",
+        "Restriction: He may not be the Warlord."
+    ],
+    "unit_type": "Character model, Infantry, Jump pack",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 78
+}

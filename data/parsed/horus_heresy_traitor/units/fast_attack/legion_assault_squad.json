@@ -151,6 +151,15 @@
             "abilities": "Rad"
         },
         {
+            "name": "Twin bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Volkite serpenta",
             "range": "10\"",
             "type": "Pistol 2",
@@ -258,6 +267,20 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true
+        },
+        {
+            "header": "Only with the Legacy of the Lord of Red Sands, as Red Hand Destroyers: all models may swap their Bolt pistol for a Twin bolt pistol for +2 points each, and may swap their Astartes chainsword for a Caedere weapon of the World Eaters Armory (Barb-hook lash, Excoriator chainaxe, Meteor hammer or Paired falax blades) for +10 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 2,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ],
+            "per_model": true
         }
     ],
     "abilities": [
@@ -278,5 +301,6 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 5,
-    "min_cost": 220
+    "min_cost": 220,
+    "requires_legacy": "Legacy of the Lord of Red Sands, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol or Twin bolt pistol for a Thunder hammer for +15 points, and the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each"
 }

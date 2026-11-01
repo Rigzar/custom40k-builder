@@ -96,6 +96,13 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Trophies of Judgement",
+      "term_compat": false,
+      "desc": "The model gains the \"Terrifying(-1)\" ability. Not combinable with other versions of Terrifying. Only for characters.",
+      "p_unit": null,
+      "p_char": 10
     }
   ],
   "daemon_weapons": []

@@ -29,6 +29,21 @@
       ]
     },
     {
+      "name": "Iliastus assault cannon",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Heavy 4",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+)",
+      "p_unit": 32,
+      "p_char": 40,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Solarite power gauntlet",
       "term_compat": true,
       "range": "-",

@@ -17,7 +17,7 @@
             "name": "Legionary",
             "min": 4,
             "max": 19,
-            "points": 31
+            "points": 32
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legion Sergeant",
             "min": 1,
             "max": 1,
-            "points": 41
+            "points": 42
         }
     ],
     "variant_models": [],
@@ -121,20 +121,18 @@
             "ap": "-3",
             "d": "2",
             "abilities": "AT(1), Slow(-2)"
+        },
+        {
+            "name": "Twin bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
         }
     ],
     "option_groups": [
-        {
-            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
-        },
         {
             "header": "All Legionary models may swap their Astartes chainsword for a Chainaxe for +1 point each.",
             "constraint": {
@@ -192,10 +190,24 @@
             "replaces": [
                 "Bolt pistol"
             ]
+        },
+        {
+            "header": "Only with the Legacy of the Lord of Red Sands, as Red Hand Destroyers: all models may swap their Bolt pistol for a Twin bolt pistol for +2 points each, and may swap their Astartes chainsword for a Caedere weapon of the World Eaters Armory (Barb-hook lash, Excoriator chainaxe, Meteor hammer or Paired falax blades) for +10 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 2,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ],
+            "per_model": true
         }
     ],
     "abilities": [
-        "-"
+        "They Shall Know No Fear"
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -212,5 +224,6 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 165
+    "min_cost": 170,
+    "requires_legacy": "Legacy of the Lord of Red Sands, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol or Twin bolt pistol for a Thunder hammer for +15 points, and the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each"
 }

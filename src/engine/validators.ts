@@ -1000,6 +1000,23 @@ export function computeCryptothrallsFreeSlots(
 }
 
 /**
+ * Horus Heresy Overseer: "The following units can be selected for each Overseer. They take up no slot and
+ * are part of the army: 0-3 Solar Auxilia Lasrifle Sections." (Overseer sheet.) Three Troops-slot-free
+ * Lasrifle Sections per Overseer; more than that is an error (see validateArmy).
+ */
+export function computeOverseerAuxiliaFreeSlots(
+  army: RosterEntry[],
+): { troops: number; notes: string[] } {
+  const sections = army.filter(i => i.unitName === 'Solar Auxilia Lasrifle Section').length;
+  if (sections === 0) return { troops: 0, notes: [] };
+  const overseers = army.filter(i => i.unitName === 'Overseer').length;
+  if (overseers === 0) return { troops: 0, notes: [] };
+  const credited = Math.min(sections, overseers * 3);
+  const notes = [`Overseer: ${credited} of ${sections} Lasrifle Section${sections === 1 ? '' : 's'} exempted from Troops slot (up to 3 per Overseer, have ${overseers}).`];
+  return { troops: credited, notes };
+}
+
+/**
  * Necrons Hexmark Destroyer: "Royal Assassin — For each Lord or Skorpekh Lord, a Hexmark
  * Destroyer can be chosen that does not occupy an Elite slot." Ratio-against-sibling pattern,
  * same as computeKrootShaperFreeSlots. Source: Hexmark Destroyer ability text (datasheet).
@@ -1166,6 +1183,7 @@ export interface FreeSlotAdjustments {
   elites: number;
   fa: number;
   hs: number;
+  troops: number;
   /** Per-mechanic explanations, in a stable order. Suppressed in Skirmish by the caller. */
   notes: string[];
 }
@@ -1253,6 +1271,7 @@ export function computeFreeSlotAdjustments(
   const navy            = computeNavyFreeSlots(army, data);
   const retinue         = computeRetinueFreeSlots(army, data);
   const ringleader      = computeRingleaderFreeSlots(army, data);
+  const overseerAuxilia = computeOverseerAuxiliaFreeSlots(army);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
@@ -1262,13 +1281,14 @@ export function computeFreeSlotAdjustments(
       + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
     fa: cd.fa + krootEscort.fa,
     hs: krootEscort.hs,
+    troops: overseerAuxilia.troops,
     notes: [
       ...cd.notes, ...assassin.notes, ...warlock.notes, ...geminaeSuperia.notes,
       ...archetypeHq.notes, ...crusaders.notes, ...servitor.notes, ...gscElite.notes,
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes,
     ],
   };
 }
@@ -1304,6 +1324,15 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const u = resolveUnit(i, data);
     return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state), factionForEntry(i, data), state.pointLimit) : 0);
   }, 0);
+
+  // Horus Heresy: the Solar Auxilia Lasrifle Section "can't be selected without an Overseer" (up to 3 per Overseer).
+  {
+    const sections = state.army.filter(i => i.unitName === 'Solar Auxilia Lasrifle Section').length;
+    const overseers = state.army.filter(i => i.unitName === 'Overseer').length;
+    if (sections > overseers * 3) {
+      items.push({ type: 'error', text: `Solar Auxilia Lasrifle Section: ${sections} selected, but each Overseer allows up to 3 (have ${overseers} Overseer${overseers === 1 ? '' : 's'}).` });
+    }
+  }
 
   // ── Entries whose datasheet no longer exists ─────────────────────────────────
   // Every consumer in the app treats an unresolvable unit as `: 0` / `return null`, so without
@@ -2650,6 +2679,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       : slot === 'Fast Attack' ? freeSlots.fa
       : slot === 'Heavy Support' ? freeSlots.hs
       : slot === 'Elites' ? freeSlots.elites
+      : slot === 'Troops' ? freeSlots.troops
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // The minimums grow with the AOPs the list has EARNED, never with the ones it merely overflows into: a list that is
@@ -3367,6 +3397,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       : slot === 'Fast Attack' ? freeSlots.fa
       : slot === 'Heavy Support' ? freeSlots.hs
       : slot === 'Elites' ? freeSlots.elites
+      : slot === 'Troops' ? freeSlots.troops
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

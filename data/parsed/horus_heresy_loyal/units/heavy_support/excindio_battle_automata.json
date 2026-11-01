@@ -1,0 +1,213 @@
+{
+    "name": "Excindio Battle-automata",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "7",
+                "T": "7",
+                "W": "8",
+                "I": "4",
+                "A": "4",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Excindio",
+            "min": 0,
+            "max": 1,
+            "points": 264
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "An Excindio is a single model and is equipped with: Two Combi-bolters; Excindio claws.",
+    "weapons": [
+        {
+            "name": "Athanax phosphex canister launcher",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4), Indirect, Poison(2+), Rad, Suppression(3)"
+        },
+        {
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Cytheron graviton flux projector",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Auto Hit, Graviton, Rending(5+), Suppression(3)"
+        },
+        {
+            "name": "Excindio claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Rending(5+), Extra Attack(1)"
+        },
+        {
+            "name": "Graviton gun",
+            "range": "18\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Blast(4), Graviton, Impuls, Sunder(2)"
+        },
+        {
+            "name": "Hunter-killer missile",
+            "range": "120\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2)"
+        },
+        {
+            "name": "Irad cleanser",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "2",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+), Rad, Suppression(2)"
+        },
+        {
+            "name": "Magaron atomantic pulse cannon",
+            "range": "24\"",
+            "type": "Assault 3",
+            "s": "8",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Armorbane(1), Suppression(3)"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Tyrhenius nerve induction shredder",
+            "range": "18\"",
+            "type": "Assault 10",
+            "s": "1",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(2+), Suppression(2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap the two Combi-bolters with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Two Graviton guns",
+                    "points": 65
+                },
+                {
+                    "name": "Two Plasma guns",
+                    "points": 0
+                },
+                {
+                    "name": "Two Irad cleansers",
+                    "points": -20
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ]
+        },
+        {
+            "header": "May have one of the following in addition",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Athanax phosphex canister launcher",
+                    "points": 33
+                },
+                {
+                    "name": "Tyrhenius nerve induction shredder",
+                    "points": 28
+                },
+                {
+                    "name": "Magaron atomantic pulse cannon",
+                    "points": 64
+                },
+                {
+                    "name": "Cytheron graviton flux projector",
+                    "points": 7
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May have up to two Hunter-killer missiles for +5 points each.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Ward(5+), Massive(5)",
+        "Favoured enemy"
+    ],
+    "unit_type": "Monstrous Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 0,
+    "requires_legacy": "Legacy of the Lion"
+}

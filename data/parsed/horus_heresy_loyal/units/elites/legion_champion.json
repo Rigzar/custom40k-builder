@@ -1,0 +1,146 @@
+{
+    "name": "Legion Champion",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "3",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Legion Champion",
+            "min": 1,
+            "max": 1,
+            "points": 98
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Legion Champion is a single character and is equipped with: Paragon blade; Volkite serpenta; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Combi-melta - Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Combi"
+        },
+        {
+            "name": "Combi-melta - Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Combi, Melta"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        },
+        {
+            "name": "Paragon blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Deadly(5+), Quick(1)"
+        },
+        {
+            "name": "Volkite serpenta",
+            "range": "10\"",
+            "type": "Pistol 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap the Volkite serpenta with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Combi-melta",
+                    "points": 18
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Volkite serpenta"
+            ]
+        },
+        {
+            "header": "May be equipped with Melta bombs for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Command squad, They Shall Know No Fear",
+        "Advisor: For every HQ selection, one Legion Champion may be selected without taking up an Elite slot.",
+        "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 10\", the placed Order is converted to Charge. The Company champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 98
+}

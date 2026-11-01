@@ -76,8 +76,13 @@
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 8,
+            "choices": [
+                {
+                    "name": "Paragon blade",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
         }
@@ -86,7 +91,8 @@
         "They Shall Know No Fear",
         "Combat Tactics: The Praetor may assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have.",
         "Praetor: A Praetor may use Combat Tactics a second time.",
-        "Master of the Legion: The army may take Legion Command Squads and Retinues, one for each Praetor. An army that has chosen an Archetype (Rite of War) must include at least one Praetor or Delegatus. (Draft wording B, to be confirmed by Eden.)"
+        "Master of the Legion: The army may take Legion Command Squads and Retinues, one for each Praetor. An army that has chosen an Archetype (Rite of War) must include at least one Praetor or Delegatus. (Draft wording B, to be confirmed by Eden.)",
+        "Restriction: In Cataphractii or Terminator armor he cannot carry the Archaeotech pistol: it has no ᵀ mark (see the Armory)."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],

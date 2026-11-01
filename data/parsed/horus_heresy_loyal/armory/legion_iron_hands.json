@@ -2,6 +2,21 @@
   "name": "Iron Hands Armory",
   "weapons": [
     {
+      "name": "Artificer power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Graviton pistol",
       "term_compat": false,
       "range": "12\"",
@@ -82,6 +97,15 @@
       ]
     }
   ],
-  "equipment": [],
+  "equipment": [
+    {
+      "name": "Armatus Necrotechnika",
+      "term_compat": false,
+      "desc": "At the start of each Rally phase, roll a D6 for the vehicle: on a 5+ it repairs one Engine Damage or Weapon Damage result (on a 4+ if any model was removed as a casualty within 6\" of it during the battle round). Not for Flyers.",
+      "p_unit": 10,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
   "daemon_weapons": []
 }

@@ -2,6 +2,21 @@
   "name": "Raven Guard Armory",
   "weapons": [
     {
+      "name": "Raven's talon",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred, Rending(5+)",
+      "p_unit": 5,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Raven's talons",
       "term_compat": true,
       "range": "-",
@@ -55,6 +70,27 @@
   ],
   "equipment": [
     {
+      "name": "Cameleoline",
+      "term_compat": false,
+      "desc": "The model gains a 6+ ward save against ranged attacks, or improves a ward save against ranged attacks it already has by one step (to a maximum of 4+). Only for Praetors and Centurions.",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Corvid pattern jump pack",
+      "term_compat": false,
+      "desc": "The model gains +8\" movement and the \"Jump pack\" and \"Deep strike\" abilities. Replaces a Jump pack. Only for infantry characters.",
+      "p_unit": null,
+      "p_char": 29
+    },
+    {
+      "name": "Infravisor",
+      "term_compat": false,
+      "desc": "The model improves its BS by 1. Only for characters.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
       "name": "Marked for Death",
       "term_compat": true,
       "desc": "At the beginning of the first Battle round, select one enemy Character model. Your entire army gains the \"Favored Enemy\" ability against that model. While that model is attached to a unit, you gain \"Favored Enemy\" against that unit as well. Unique.",
@@ -68,7 +104,7 @@
       "name": "Shadow Master",
       "term_compat": true,
       "desc": "The model and its attatched unit may consolidate +3\".",
-      "p_unit": null,
+      "p_unit": 3,
       "p_char": null,
       "armour_compat": [
         "Terminator"

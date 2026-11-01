@@ -14,38 +14,6 @@
       "p_char": 8
     },
     {
-      "name": "Assault-Flamer",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 11,
-      "p_char": 11,
-      "profiles": [
-        {
-          "name": "Pyre blaster",
-          "range": "12\"",
-          "type": "Assault 4",
-          "s": "4",
-          "ap": "0",
-          "d": "1",
-          "abilities": "Auto Hit, Combi, Sunder(1)"
-        },
-        {
-          "name": "Assault ammo",
-          "range": "24\"",
-          "type": "Assault 2",
-          "s": "4",
-          "ap": "0",
-          "d": "1",
-          "abilities": "Combi"
-        }
-      ]
-    },
-    {
       "name": "Assault-Plasma",
       "term_compat": false,
       "range": "",
@@ -133,6 +101,21 @@
       "abilities": "-",
       "p_unit": 3,
       "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Charnabal tabar",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 6,
       "armour_compat": [
         "Terminator"
       ]
@@ -248,41 +231,6 @@
           "ap": "-3",
           "d": "1",
           "abilities": "Grav, Combi"
-        }
-      ],
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Combi-grenade launcher",
-      "term_compat": true,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 20,
-      "p_char": 24,
-      "profiles": [
-        {
-          "name": "Bolter",
-          "range": "24\"",
-          "type": "Rapid Fire 2",
-          "s": "4",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Combi"
-        },
-        {
-          "name": "Grenade launcher",
-          "range": "24\"",
-          "type": "Assault 1",
-          "s": "4",
-          "ap": "0",
-          "d": "1",
-          "abilities": "Blast(4), Combi"
         }
       ],
       "armour_compat": [
@@ -620,6 +568,41 @@
       ]
     },
     {
+      "name": "Plasma blaster",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 27,
+      "p_char": 34,
+      "profiles": [
+        {
+          "name": "Sustained fire",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Rending(6+)"
+        },
+        {
+          "name": "Maximal fire",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "8",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Rending(5+), Overheating"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Plasma pistol",
       "term_compat": false,
       "range": "",
@@ -771,6 +754,42 @@
       "p_char": 24
     },
     {
+      "name": "Saturnine concussion hammerˢᴬ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(3), Deadly(6+), Slow(-3)",
+      "p_unit": null,
+      "p_char": 25
+    },
+    {
+      "name": "Saturnine disruption fistˢᴬ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(2), Slow(-2)",
+      "p_unit": null,
+      "p_char": 22
+    },
+    {
+      "name": "Saturnine war axeˢᴬ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Extra Attack(1)",
+      "p_unit": null,
+      "p_char": 14
+    },
+    {
       "name": "Storm bolter",
       "term_compat": true,
       "range": "24\"",
@@ -847,16 +866,6 @@
       "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
       "p_unit": 44,
       "p_char": 61
-    },
-    {
-      "name": "Crusade weapon",
-      "term_compat": true,
-      "desc": "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Armor piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".",
-      "p_unit": 10,
-      "p_char": 10,
-      "armour_compat": [
-        "Terminator"
-      ]
     },
     {
       "name": "Familiar",
@@ -944,31 +953,11 @@
       "p_char": null
     },
     {
-      "name": "Psychic training",
-      "term_compat": true,
-      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. May be taken multiple times.",
-      "p_unit": 5,
-      "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
       "name": "Refractor field",
       "term_compat": false,
       "desc": "The model gains a 5+ ward save.",
       "p_unit": 9,
       "p_char": 19
-    },
-    {
-      "name": "Relic blade",
-      "term_compat": true,
-      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. May only be used on weapons with D:1. Only for Lieutenants.",
-      "p_unit": null,
-      "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
     },
     {
       "name": "Saturnine armor",
@@ -1163,7 +1152,7 @@
       "name": "Additional armor",
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
-      "p_unit": null,
+      "p_unit": 5,
       "p_char": null,
       "category": "vehicle"
     },
@@ -1179,7 +1168,7 @@
       "name": "Hunter-killer missile",
       "term_compat": false,
       "desc": "The model gains a Hunter-killer missile.",
-      "p_unit": null,
+      "p_unit": 5,
       "p_char": null,
       "category": "vehicle"
     },
@@ -1187,7 +1176,7 @@
       "name": "Machine spirit",
       "term_compat": false,
       "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
-      "p_unit": null,
+      "p_unit": 5,
       "p_char": null,
       "category": "vehicle"
     },
@@ -1195,7 +1184,7 @@
       "name": "Smoke Launcher",
       "term_compat": false,
       "desc": "The model may use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units may only deal glancing hits with ranged attacks until the next activation.",
-      "p_unit": null,
+      "p_unit": 15,
       "p_char": null,
       "category": "vehicle"
     }

@@ -1,0 +1,138 @@
+{
+    "name": "Apothecary",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Apothecary",
+            "min": 1,
+            "max": 1,
+            "points": 37
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Primus Medicae",
+            "min": 0,
+            "max": 1,
+            "points": 82
+        }
+    ],
+    "equipped_with": "An Apothecary is a single character and is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "T",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Needle pistol",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "2",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Poison(3+), Suppression(3)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Only without the Legion Specialists archetype: one Apothecary per army may be upgraded to a Primus Medicae for +45 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 45,
+            "variant_link": "Primus Medicae",
+            "is_unique_per_army": true
+        },
+        {
+            "header": "The Primus Medicae may swap his Bolt pistol for a Needle pistol for +1 point.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 1,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear",
+        "Narthecium: Once per battle round, the damage of a wound against the model or attached unit May be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
+        "Primus Medicae: The model may use \"Narthecium\" two times per battle round.",
+        "Restriction: The Primus Medicae cannot take a Pair of lightning claws or a Boarding shield."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "HQ",
+    "default_size": 1,
+    "min_cost": 37
+}

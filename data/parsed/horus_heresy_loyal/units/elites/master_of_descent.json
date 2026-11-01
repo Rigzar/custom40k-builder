@@ -1,0 +1,110 @@
+{
+    "name": "Master of Descent",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "1",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Master of Descent",
+            "min": 1,
+            "max": 1,
+            "points": 64
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Master of Descent is a single character and is equipped with: Astartes chainsword; Bolt pistol; Strato-vox; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with Melta bombs for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear, Deep strike, Massive(1)",
+        "Master of Descent: The model can arrive by Deep strike in the first battle round.",
+        "Strato-vox: If a friendly unit arrives on the table via Deep strike, reduce the amount of dice rolled for scatter by 1 (to a minimum of 1D6). The model carrying the Nuncio-vox must have a line of sight to the friendly unit that arrives to use the effect."
+    ],
+    "unit_type": "Character model, Infantry, Jump pack",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 64
+}

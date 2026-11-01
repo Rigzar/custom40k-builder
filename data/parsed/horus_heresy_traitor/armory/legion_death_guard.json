@@ -14,6 +14,41 @@
       "p_char": 3
     },
     {
+      "name": "Alchem combi-flamer",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 11,
+      "p_char": 7,
+      "profiles": [
+        {
+          "name": "Bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi"
+        },
+        {
+          "name": "Alchem flamer",
+          "range": "9\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Auto Hit, Combi, Overheating"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Alchem flamer",
       "term_compat": true,
       "range": "9\"",
@@ -193,7 +228,7 @@
       "name": "Nurgling infestation",
       "term_compat": false,
       "desc": "The model inflicts 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D:1; Poison(4+).",
-      "p_unit": null,
+      "p_unit": 5,
       "p_char": null,
       "category": "vehicle"
     }

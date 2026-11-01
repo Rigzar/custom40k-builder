@@ -47,6 +47,21 @@
       ]
     },
     {
+      "name": "Gorechild Reforged",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(6+), Shred, Unique. Only for characters. Not with Angron.",
+      "p_unit": null,
+      "p_char": 17,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Heavy chainaxe",
       "term_compat": true,
       "range": "-",
@@ -90,6 +105,45 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "The Cutter",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(6+), Unique. Only for characters.",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Gorefather & Gorechild",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Rending(6+), Shred, Quick(+1), Unique",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "The Spite Furnace",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "7",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Overheating, Master-crafted, Unique",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [],

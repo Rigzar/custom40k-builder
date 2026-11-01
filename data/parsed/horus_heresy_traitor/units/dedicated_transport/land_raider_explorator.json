@@ -1,0 +1,99 @@
+{
+    "name": "Land Raider Explorator",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Land Raider Explorator",
+            "min": 1,
+            "max": 1,
+            "points": 595
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Land Raider Explorator is a single model and is equipped with: 2 Twin lascannon.",
+    "weapons": [
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Twin heavy flamer",
+            "range": "9\"",
+            "type": "Assault 8",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin lascannon",
+                    "points": 138
+                },
+                {
+                    "name": "Twin heavy bolter",
+                    "points": 36
+                },
+                {
+                    "name": "Twin heavy flamer",
+                    "points": 17
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Ward(5+)",
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Dedicated Transport",
+    "default_size": 1,
+    "min_cost": 595
+}

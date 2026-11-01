@@ -67,6 +67,13 @@
   ],
   "equipment": [
     {
+      "name": "Argyrum pattern boarding shield",
+      "term_compat": false,
+      "desc": "The model gains a 5+ ward save, or a 4+ ward save against attacks made in close combat. Not combinable with other ward saves. Only for non-unique characters.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
       "name": "Helm of Censure",
       "term_compat": true,
       "desc": "The model gains 1 cumulative hit and wound re-roll. Unique.",
@@ -100,7 +107,7 @@
       "name": "Supply Vehicle",
       "term_compat": false,
       "desc": "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Space Marine unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
-      "p_unit": null,
+      "p_unit": 5,
       "p_char": null,
       "category": "vehicle"
     }

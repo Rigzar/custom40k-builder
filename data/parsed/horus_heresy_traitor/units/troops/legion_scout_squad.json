@@ -17,7 +17,7 @@
             "name": "Scout",
             "min": 4,
             "max": 9,
-            "points": 32
+            "points": 33
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Scout Sergeant",
             "min": 1,
             "max": 1,
-            "points": 42
+            "points": 43
         }
     ],
     "variant_models": [],
@@ -143,17 +143,6 @@
     ],
     "option_groups": [
         {
-            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
-        },
-        {
             "header": "Every Scout may swap their Combat knife",
             "constraint": {
                 "type": "every"
@@ -214,7 +203,7 @@
         }
     ],
     "abilities": [
-        "Infiltrator",
+        "Infiltrator, They Shall Know No Fear",
         "Camo cloak: The model gains the \"Stealth\" ability."
     ],
     "unit_type": "Infantry",
@@ -232,5 +221,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 170
+    "min_cost": 175
 }

@@ -2,7 +2,7 @@
   "archetypes": [
     {
       "name": "Pride of the Legion",
-      "desc": "- Legion Veteran Squads and Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Only a single Heavy Support choice and a single Fast Attack choice can be taken.\n- The army cannot include more units that are not Infantry than units that are Infantry.\n- The army cannot include an Allied Detachment or Fortifications."
+      "desc": "- Legion Veteran Squads and Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Only a single Heavy Support choice and a single Fast Attack choice can be taken.\n- The army cannot include more units that are not Infantry than units that are Infantry.\n- The army cannot include Fortifications.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken."
     },
     {
       "name": "Armoured Spearhead",
@@ -22,7 +22,7 @@
     },
     {
       "name": "Sky-hunter Phalanx",
-      "desc": "- Legion Sky-hunter Squadrons and Land Speeder Squadrons can be taken as Troops.\n- Vehicles in the army must be Fast, Skimmers or Flyers.\n- Infantry units must start the game as passengers inside a Flyer transport.\n- The army cannot include Dreadnoughts, Fortifications or an Allied Detachment."
+      "desc": "- Legion Sky-hunter Squadrons and Land Speeder Squadrons can be taken as Troops.\n- Vehicles in the army must be Fast, Skimmers or Flyers.\n- Infantry units must start the game as passengers inside a Flyer transport.\n- The army cannot include Dreadnoughts or Fortifications.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken."
     },
     {
       "name": "Underworld Assault",
@@ -33,44 +33,48 @@
       "desc": "- Legion Contemptor Dreadnoughts can be taken as Troops, and all of the army's Troops selections must be Contemptor Dreadnoughts.\n- Only a single Fast Attack choice and a single Heavy Support choice that is not made of Dreadnoughts can be taken.\n- The army cannot take Fortifications."
     },
     {
+      "name": "Legion Specialists",
+      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae."
+    },
+    {
       "name": "The Coils of the Hydra",
-      "desc": "- Can only be selected with the Legacy of the Hydra.\n- Every unit starts the game in Reserve and may arrive by Deep Strike or Outflank. Up to three units may start deployed on the battlefield instead.\n- A unit that arrives from Reserve gains +1 to hit with all its attacks in the battle round it arrives."
+      "desc": "- Can only be selected with the Legacy of the Hydra.\n- The army has access to the Primarch Alpharius.\n- Every unit starts the game in Reserve and may arrive by Deep Strike or Outflank. Up to three units may start deployed on the battlefield instead.\n- A unit that arrives from Reserve gains +1 to hit with all its attacks in the battle round it arrives."
     },
     {
       "name": "The Hammer of Olympia",
-      "desc": "- Can only be selected with the Legacy of the Lord of Iron.\n- Shrapnel bolters and Shrapnel pistols gain +1 shot (not the Shrapnel cannon).\n- The army must include Perturabo or a Centurion with the Siegebreaker Consul.\n- No unit can arrive by Deep Strike or Outflank."
+      "desc": "- Can only be selected with the Legacy of the Lord of Iron.\n- The army has access to the Primarch Perturabo.\n- Shrapnel bolters and Shrapnel pistols gain +1 shot (not the Shrapnel cannon).\n- The army must include Perturabo or a Centurion with the Siegebreaker Consul.\n- No unit can arrive by Deep Strike or Outflank."
     },
     {
       "name": "IIIrd Company Elite",
-      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- Kakophoni Squads can be taken as Troops."
+      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- The army has access to the Primarch Fulgrim.\n- Kakophoni Squads can be taken as Troops."
     },
     {
       "name": "The Maru Skara",
-      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- Up to four units (not Heavy or Slow ones) gain the Outflank ability.\n- Units deployed on the battlefield gain +1\" Movement. No more than half of the units can start in reserve.\n- The army must include a Centurion with the Champion Consul."
+      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- The army has access to the Primarch Fulgrim.\n- Up to four units (not Heavy or Slow ones) gain the Outflank ability.\n- Units deployed on the battlefield gain +1\" Movement. No more than half of the units can start in reserve.\n- The army must include a Legion Champion."
     },
     {
       "name": "Terror Assault",
-      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- Legion Veteran Squads can be taken as Troops, and all of the army's Troops selections must be Legion Veteran Squads."
+      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- The army has access to the Primarch Konrad Curze.\n- Legion Veteran Squads can be taken as Troops, and all of the army's Troops selections must be Legion Veteran Squads."
     },
     {
       "name": "The Swift Blade (HH)",
-      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- Legion Outrider Squadrons can be taken as Troops.\n- No Heavy Support choices."
+      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- The army has access to the Primarch Konrad Curze.\n- Legion Outrider Squadrons can be taken as Troops.\n- No Heavy Support choices."
     },
     {
       "name": "Berserker Assault",
-      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- All units gain the Frenzy(2\") and Haste(2\") abilities.\n- Legion Predators can be taken as Fast Attack.\n- Every unit must charge when an enemy unit is within 12\" and in line of sight.\n- The army cannot include an Allied Detachment."
+      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- The army has access to the Primarch Angron.\n- All units of the army have the Legion: World Eaters keyword.\n- All models with the Legion: World Eaters keyword gain +1 Attack, and character models also gain +1 Strength. Models that already have this bonus in their profile (the Red Butcher Terminators) do not gain it twice.\n- Savage Fervour: any model with an Astartes chainsword may swap it for a Chainaxe at no extra cost.\n- Butcher's Nails: every psyker of the army suffers a \"Perils of the Warp\" attack on each double whenever it tries to manifest a psychic power, and it rolls two dice and applies both Perils results.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken."
     },
     {
       "name": "Last of the Serrated Sun",
-      "desc": "- Can only be selected with the Legacy of the Archtraitor.\n- Centurion Command Squads equipped with the Gal Vorbak possession can be taken as Troops."
+      "desc": "- Can only be selected with the Legacy of the Archtraitor.\n- The army has access to the Primarch Lorgar.\n- Centurion Command Squads equipped with the Gal Vorbak possession can be taken as Troops."
     },
     {
       "name": "The Reaping",
-      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- Legion Veteran Squads can be taken as Troops.\n- Legion Heavy Support Squads can be taken as Troops (they do not count towards the minimum).\n- Units cannot be given an Advance order (the extra Advance move) and cannot arrive by Deep Strike or Outflank. They can still be given Charge orders and fight in melee."
+      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- The army has access to the Primarch Mortarion.\n- Legion Veteran Squads can be taken as Troops.\n- Legion Heavy Support Squads can be taken as Troops (they do not count towards the minimum).\n- Units cannot be given an Advance order (the extra Advance move) and cannot arrive by Deep Strike or Outflank. They can still be given Charge orders and fight in melee."
     },
     {
       "name": "The Long March",
-      "desc": "- Can only be selected with the Legacy of the Warmaster.\n- Legion Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Infantry and Dreadnought units gain +1\" Movement."
+      "desc": "- Can only be selected with the Legacy of the Warmaster.\n- The army has access to the Primarch Horus Lupercal.\n- Legion Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Infantry and Dreadnought units gain +1\" Movement."
     },
     {
       "name": "The Achaean Configuration",
@@ -109,7 +113,7 @@
     },
     {
       "name": "Legacy of the Lord of Red Sands",
-      "desc": "The army has access to the World Eaters Armory.\nButcher's Nails: every psyker in the army carries the effect of the Rune of brass on itself. Whenever it tries to manifest a psychic power it suffers a \"Perils of the Warp\" attack on each double, and it rolls two dice and applies both Perils results.\nLegion: World Eaters (Traitor).",
+      "desc": "The army has access to the World Eaters Armory, and may select the Rampager Squad and the Red Butcher Terminators, which cannot be selected without this Legacy.\nLegion: World Eaters (Traitor).",
       "armory_key": "World Eaters"
     },
     {

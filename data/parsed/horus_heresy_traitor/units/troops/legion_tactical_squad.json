@@ -17,7 +17,7 @@
             "name": "Legionary",
             "min": 4,
             "max": 19,
-            "points": 39
+            "points": 40
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legion Sergeant",
             "min": 1,
             "max": 1,
-            "points": 49
+            "points": 50
         }
     ],
     "variant_models": [],
@@ -107,17 +107,6 @@
     ],
     "option_groups": [
         {
-            "header": "All models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [],
-            "inline_pts": 1,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": true
-        },
-        {
             "header": "Any model armed with a Bolt gun may be equipped with one of the following",
             "constraint": {
                 "type": "every"
@@ -149,6 +138,7 @@
         }
     ],
     "abilities": [
+        "They Shall Know No Fear",
         "Heart of the Legion: The unit gains a 5+ ward saving throw while within 6\" of a mission objective.",
         "Wrath of the Legion: All weapons in the unit have the \"Deflagrate(5+)\" ability."
     ],
@@ -167,5 +157,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 205
+    "min_cost": 210
 }

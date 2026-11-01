@@ -17,7 +17,7 @@
             "name": "Caestus Assault Ram",
             "min": 1,
             "max": 1,
-            "points": 442
+            "points": 448
         }
     ],
     "variant_models": [],
@@ -173,7 +173,7 @@
     "abilities": [
         "Hover Mode",
         "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
-        "Transport: This model has a transport capacity of 10 infantry models and 1 Dreadnought."
+        "Transport: This model has a transport capacity of 16 infantry models and 1 Dreadnought."
     ],
     "unit_type": "Flyer",
     "keywords": [],
@@ -190,5 +190,5 @@
     "advisor": false,
     "slot": "Flyers",
     "default_size": 1,
-    "min_cost": 442
+    "min_cost": 448
 }

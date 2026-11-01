@@ -1,0 +1,139 @@
+{
+    "name": "Spartan",
+    "models": [
+        {
+            "stats": {
+                "M": "10\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "5"
+            },
+            "name": "Spartan",
+            "min": 1,
+            "max": 1,
+            "points": 763
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Spartan is a single model and is equipped with: 2 Twin lascannon; Twin heavy bolter.",
+    "weapons": [
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Laser destroyers",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "10",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(3)"
+        },
+        {
+            "name": "Gravis heavy bolter batteries",
+            "range": "36\"",
+            "type": "Rapid Fire 5",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Suppression(2)"
+        },
+        {
+            "name": "Twin heavy flamer",
+            "range": "9\"",
+            "type": "Assault 8",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May replace both Twin lascannon with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Laser destroyers",
+                    "points": -105
+                },
+                {
+                    "name": "Gravis heavy bolter batteries",
+                    "points": -186
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin lascannon"
+            ]
+        },
+        {
+            "header": "May replace the Twin heavy bolter with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Twin heavy flamer",
+                    "points": -19
+                },
+                {
+                    "name": "Twin lascannon",
+                    "points": 102
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin heavy bolter"
+            ]
+        }
+    ],
+    "abilities": [
+        "Ward(4+)",
+        "Assault ramp: Passengers may still make a 6\" charge move after the vehicle moves and they exit.",
+        "Transport: This model has a transport capacity of 26 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Dedicated Transport",
+    "default_size": 1,
+    "min_cost": 763
+}

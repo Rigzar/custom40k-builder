@@ -1,0 +1,139 @@
+{
+    "name": "Overseer",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "5",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Overseer",
+            "min": 1,
+            "max": 1,
+            "points": 85
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "An Overseer is a single character and is equipped with: Power lash; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta bombsᵀ",
+            "range": "3\"",
+            "type": "Grenade",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(3), Armorbane(3)"
+        },
+        {
+            "name": "Power maulᵀ",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power lash",
+            "range": "-",
+            "type": "Melee",
+            "s": "-1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Quick(+1), Rending(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap the Power lash with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Power maulᵀ",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Power lash"
+            ]
+        },
+        {
+            "header": "May be equipped with Melta bombs for +5 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Melta bombsᵀ",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "They Shall Know No Fear",
+        "Terrifying(-1)",
+        "Master of Auxilia: The model can only join Solar Auxilia units (it cannot join any other unit), and that unit does not lose Leadership because of it.",
+        "Restriction: Cannot take Terminator armor, a Jump pack, a Space Marine bike or a Jetbike.",
+        "Overseer retinue: The following units can be selected for each Overseer. They take up no slot and are part of the army: 0-3 Solar Auxilia Lasrifle Sections."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 85
+}
