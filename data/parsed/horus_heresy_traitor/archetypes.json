@@ -74,7 +74,7 @@
     },
     {
       "name": "Thousand Sons",
-      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- The army has access to the Primarch Magnus the Red.\n- The army may select the Castellax-Achea Automata and the Khenetai Squad, which cannot be selected without this archetype; the Castellax-Achea can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Flesh Change: a unit that is not a character ignores Perils of the Warp. Instead, on any double in a psychic test roll 1D6 and apply the result until the end of its next activation: 1 +2\" Movement, 2 +1 Strength, 3 +1 Toughness, 4 +1 Initiative, 5 +1 Wound, 6 +1 Attack. The third time the same result comes up for that unit, one model of the unit erupts: it is removed and explodes like a vehicle, and a Chaos Spawn is placed within 3\" of it.\n- Any Infantry unit can gain the Deep strike ability for +2 points per Wound; the turn it arrives by Deep strike it also has Terrifying(-1).\n- Gravis force blade: a Contemptor Dreadnought may swap its close combat weapon for it for -1 point.\n- Ammitara: see the options of the Seeker Squad."
+      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- The army has access to the Primarch Magnus the Red.\n- The army may select the Castellax-Achea Automata and the Khenetai Squad, which cannot be selected without this archetype; the Castellax-Achea can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Flesh Change: a unit that is not a character ignores Perils of the Warp. Instead, on any double in a psychic test roll 1D6 and apply the result until the end of its next activation: 1 +2\" Movement, 2 +1 Strength, 3 +1 Toughness, 4 +1 Initiative, 5 +1 Wound, 6 +1 Attack. The third time the same result comes up for that unit, one model of the unit erupts: it is removed and explodes like a vehicle, and a Chaos Spawn is placed within 3\" of it.\n- Gravis force blade: a Contemptor Dreadnought may swap its close combat weapon for it for -1 point.\n- Ammitara: see the options of the Seeker Squad."
     }
   ],
   "legacies": [
@@ -233,6 +233,15 @@
       "name": "Signs and Portents",
       "desc": "If the unit or an attached Character suffer Perils of the Warp, the unit gains one Battleshock token.",
       "pts_unit": "10",
+      "pts_char": "-",
+      "pts_monster": "-",
+      "pts_veh": "-",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Sorcerous Translocation",
+      "desc": "Up to six Infantry units (not characters) gain the \"Deep strike\" ability; the turn such a unit arrives by Deep strike it also has the \"Terrifying(-1)\" ability.",
+      "pts_unit": "2*",
       "pts_char": "-",
       "pts_monster": "-",
       "pts_veh": "-",
