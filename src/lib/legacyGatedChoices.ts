@@ -33,3 +33,8 @@ export function unitRequiredLegacy(unit: { requires_legacy?: string; option_grou
   }
   return null;
 }
+
+/** The archetype a datasheet demands (`requires_archetype`), or null. */
+export function unitRequiredArchetype(unit: { requires_archetype?: string } | undefined | null): string | null {
+  return unit?.requires_archetype ?? null;
+}

@@ -113,7 +113,7 @@
     },
     {
       "name": "Legacy of the Lord of Red Sands",
-      "desc": "The army has access to the World Eaters Armory, and may select the Rampager Squad and the Red Butcher Terminators, which cannot be selected without this Legacy.\nLegion: World Eaters (Traitor).",
+      "desc": "The army has access to the World Eaters Armory.\nThe army may have one additional Elite selection per AOP, which can only be used for Rampager Squads.\nLegion: World Eaters (Traitor).",
       "armory_key": "World Eaters"
     },
     {

@@ -21,7 +21,6 @@ import elites_legion_champion from './elites/legion_champion.json';
 import elites_legion_contemptor_dreadnought from './elites/legion_contemptor_dreadnought.json';
 import elites_legion_terminator_cataphractii_squad from './elites/legion_terminator_cataphractii_squad.json';
 import elites_legion_veteran_squad from './elites/legion_veteran_squad.json';
-import elites_master_of_descent from './elites/master_of_descent.json';
 import elites_moritat from './elites/moritat.json';
 import elites_mortificator from './elites/mortificator.json';
 import elites_overseer from './elites/overseer.json';
@@ -93,7 +92,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Contemptor Dreadnought",
     "Legion Terminator Cataphractii Squad",
     "Legion Veteran Squad",
-    "Master of Descent",
     "Moritat",
     "Mortificator",
     "Overseer",
@@ -165,7 +163,6 @@ export const units: Record<string, Unit> = {
   "Legion Contemptor Dreadnought": elites_legion_contemptor_dreadnought as unknown as Unit,
   "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
   "Legion Veteran Squad": elites_legion_veteran_squad as unknown as Unit,
-  "Master of Descent": elites_master_of_descent as unknown as Unit,
   "Moritat": elites_moritat as unknown as Unit,
   "Mortificator": elites_mortificator as unknown as Unit,
   "Overseer": elites_overseer as unknown as Unit,

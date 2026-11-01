@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import { unitRequiredLegacy } from '../lib/legacyGatedChoices';
+import { unitRequiredLegacy, unitRequiredArchetype } from '../lib/legacyGatedChoices';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ALLIED_AOP, engagementFor } from '../engine/engagements';
 import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
@@ -299,6 +299,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       if (!isUnitAllowed(name, u, rule, originalSlot)) continue;
       if (isArmyItemGateBlocked(u, rosterArmoryItemNames)) continue;
       { const need = unitRequiredLegacy(u); if (need && need !== legacy && need !== legacy2) continue; }
+      { const needArch = unitRequiredArchetype(u); if (needArch && needArch !== archetype) continue; }
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) {
         const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? ctanShardCapBlockReason(name, primaryData.faction, army) ?? pointCapBlockReason(u, store.pointLimit, army) ?? engagementGateBlockReason(u, engagement) ?? undefined;

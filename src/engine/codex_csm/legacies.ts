@@ -120,7 +120,18 @@ export const CSM_LEGACY_NOTES: Record<string, StructuredNote[]> = {
 const CSM_LEGACY_SLOT_BONUS: Record<string, Record<string, number>> = {
   'Legacy of the Hydra': { 'Elites': 1 },
   'Legacy of the Night Haunter': { 'Fast Attack': 1 },
+  // Horus Heresy Traitor (alpha), by lore: the Brutal Tide of the World Eaters is waves of berserkers; the extra Elite selection is for Rampager Squads only.
+  'Legacy of the Lord of Red Sands': { 'Elites': 1 },
 };
+
+/** Slot extras a Legacy restricts to ONE datasheet (the rest of the slot keeps its normal cap). */
+export const LEGACY_SLOT_BONUS_ONLY: Record<string, Record<string, string>> = {
+  'Legacy of the Lord of Red Sands': { 'Elites': 'Rampager Squad' },
+};
+export function legacySlotBonusOnly(legacies: (string | null | undefined)[], slot: string): string | null {
+  for (const l of new Set(legacies)) { const u = l ? LEGACY_SLOT_BONUS_ONLY[l]?.[slot] : undefined; if (u) return u; }
+  return null;
+}
 export function csmLegacySlotBonus(legacies: (string | null | undefined)[], slot: string): number {
   let n = 0;
   for (const l of new Set(legacies)) if (l) n += CSM_LEGACY_SLOT_BONUS[l]?.[slot] ?? 0;

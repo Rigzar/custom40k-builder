@@ -192,7 +192,7 @@
             ]
         },
         {
-            "header": "Only with the Legacy of the Lord of Red Sands, as Red Hand Destroyers: all models may swap their Bolt pistol for a Twin bolt pistol for +2 points each, and may swap their Astartes chainsword for a Caedere weapon of the World Eaters Armory (Barb-hook lash, Excoriator chainaxe, Meteor hammer or Paired falax blades) for +10 points each.",
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: all models may swap their Bolt pistol for a Twin bolt pistol for +2 points each, and may swap their Astartes chainsword for a Caedere weapon of the World Eaters Armory (Barb-hook lash, Excoriator chainaxe, Meteor hammer or Paired falax blades) for +10 points each.",
             "constraint": {
                 "type": "one"
             },
@@ -202,6 +202,22 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Bolt pistol"
+            ],
+            "per_model": true
+        },
+        {
+            "header": "Only with the Berserker Assault archetype, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol or Twin bolt pistol for a Thunder hammer for +15 points, and the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each.",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol or Twin bolt pistol"
             ],
             "per_model": true
         }
@@ -224,6 +240,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 170,
-    "requires_legacy": "Legacy of the Lord of Red Sands, as Red Hand Destroyers: for each 5 models, one model may swap its Bolt pistol or Twin bolt pistol for a Thunder hammer for +15 points, and the Sergeant may be equipped with Phosphex bombs or Melta bombs for +10 points each"
+    "min_cost": 170
 }

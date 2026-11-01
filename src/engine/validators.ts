@@ -19,10 +19,10 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
-import { archetypeRequiredLegacy, legionTraitAllowed, unitRequiredLegacy } from '../lib/legacyGatedChoices';
+import { archetypeRequiredLegacy, legionTraitAllowed, unitRequiredLegacy, unitRequiredArchetype } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
-import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus } from './codex_csm/legacies';
+import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus, legacySlotBonusOnly } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
 import { FACTION_NAMES } from '../utils/factionLabel';
 import { archetypeAllowedInSkirmish, SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from './skirmishRules';
@@ -1612,6 +1612,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (item.factionSource) continue;
     const need = unitRequiredLegacy(resolveUnit(item, data));
     if (need && need !== state.legacy && need !== state.legacy2) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
+    const needArch = unitRequiredArchetype(resolveUnit(item, data));
+    if (needArch && needArch !== state.archetype) items.push({ type: 'error', text: `${item.unitName} can only be selected with the ${needArch} archetype.` });
   }
 
   // Escalation (Dominic, 2026-10-23): the War Dog is a Chaos Elite. In a codex that is not Chaos Space Marines its datasheet is
@@ -3412,6 +3414,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const effMax = cappedMax + csmLegacySlotBonus([state.legacy, state.legacy2], slot) * (eng.multiAop ? aopState.unlocked : 1);
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
+    }
+    // The extra selection of a Legacy that names one datasheet (World Eaters: Rampager Squads) cannot be used by anything else.
+    const onlyUnit = legacySlotBonusOnly([state.legacy, state.legacy2], slot);
+    if (onlyUnit && used <= effMax) {
+      const others = Math.max(0, used - state.army.filter(i => i.unitName === onlyUnit && !i.factionSource).length);
+      if (others > cappedMax) items.push({ type: 'error', text: `${slot}: the additional selection of ${state.legacy} can only be used for ${onlyUnit}s (${others} other selections, ${cappedMax} allowed).` });
     }
   }
   if (eng.multiAop && aopMult > 1) {

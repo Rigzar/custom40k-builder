@@ -217,5 +217,5 @@
     "slot": "Elites",
     "default_size": 5,
     "min_cost": 135,
-    "requires_legacy": "Legacy of the Lord of Red Sands"
+    "requires_archetype": "Berserker Assault"
 }
