@@ -174,9 +174,9 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Heavy bolt rifle (Bolt ammo)",
-                "Heavy bolt rifle (Stalker ammo)",
-                "Heavy bolt rifle (Assault ammo)"
+                "Heavy bolt rifle - Bolt ammo",
+                "Heavy bolt rifle - Stalker ammo",
+                "Heavy bolt rifle - Assault ammo"
             ]
         },
         {
