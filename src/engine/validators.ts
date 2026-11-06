@@ -3468,14 +3468,21 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // means up to 2 Elites AND 2 Fast Attack AND 2 Heavy Support (each slot independently), not a
       // flat 1. Codex may override Core (FAQ #5). So these three slots are NOT capped by the flat
       // ALLIED_AOP max of 1 — their effective max is the allied Troop count.
+      // SUPERSEDED 2026-11-06 (rules author, atypicalhero): "Two non troops in total, in any combination but
+      // not more than 1 of each battlefield role, and each of these requires a Troop unit to unlock." So the
+      // three slots share ONE allowance equal to the Troop count, and each holds at most 1 (x Warrant of Trade).
       const troopScaledSlots: readonly string[] = ['Elites', 'Fast Attack', 'Heavy Support'];
       const alliedTroops = getSlotUsage(state.army, data, 'Troops', allyRuleForAop, state.alliedFaction, true, state.engagement);
+      const extrasUsed = troopScaledSlots.reduce((n, sl) => n + getSlotUsage(state.army, data, sl, allyRuleForAop, state.alliedFaction, true, state.engagement), 0);
+      if (extrasUsed > alliedTroops * alliedSlotFactor(data.faction)) {
+        items.push({ type: 'error', text: T('valAlliedRatioExceedsTroops', { slot: troopScaledSlots.join(' / '), used: extrasUsed, troops: alliedTroops }) });
+      }
       for (const slot of SLOT_ORDER) {
         const [min, baseMax] = slot === 'HQ'
           ? getEffectiveHqLimits(allyRuleForAop, ALLIED_AOP['HQ'] as [number, number])
           : ALLIED_AOP[slot];
         // Imperial Navy, Warrant of Trade: the army doubles its available slots for allied detachments.
-        const max = (troopScaledSlots.includes(slot) ? alliedTroops : baseMax) * alliedSlotFactor(data.faction);
+        const max = baseMax * alliedSlotFactor(data.faction);
         const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: T('valAlliedNeedAtLeast', { min, slot, used }) });
@@ -3486,9 +3493,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
             items.push({ type: 'error', text: T('valAlliedTransportOverMax', { used, max: alliedMax }) });
           }
         } else if (troopScaledSlots.includes(slot) && used > max) {
-          // Elite/FA/HS over the Troop-scaled cap: report against the Troop count so the message
-          // explains WHY (1 slot per Troop), not a misleading flat "max 1".
-          items.push({ type: 'error', text: T('valAlliedRatioExceedsTroops', { slot, used, troops: alliedTroops }) });
+          items.push({ type: 'error', text: T('valAlliedSlotOverMax', { slot, used, max }) });
         } else if (max === 0 && used > 0) {
           items.push({ type: 'error', text: T('valAlliedSlotNotAllowed', { slot, used }) });
         } else if (max > 0 && used > max) {

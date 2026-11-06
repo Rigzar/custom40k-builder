@@ -45,6 +45,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "ARMY LIST: MOVE UNITS UP AND DOWN (Discord). Each unit in a slot has a pair of arrows to its left that move it up or down inside its slot, which also sets the order of the print view.",
       "SERGEANTS AND SQUAD WEAPONS (Discord, several reports). A sergeant no longer inherits the weapons the squad buys, and buying an Armory item for him no longer wipes his default weapon. Swapping a weapon in one option group no longer removes weapons given by another (Chaos Space Marine Jakhals). Promoted models (Votann Theyn) now show the Armory weapons they bought. Gue'vesa Pulse rifles show correctly. Magos with a ward save no longer trigger a false Skirmish ward error, and Remora has its Armory button back.",
       "CORE RULES 1.43 (was 1.40). Rule texts in the app follow the new rulebook: Extra Attack(x) on a ranged weapon means x extra shots, Favoured Enemy also covers datasheet abilities and psychic powers, Defensive Fire can also answer a Tank Shock or a Flyer, Take Cover lasts until the enemy's activation ends, and Outflank no longer limits the units to a Move & Shoot order. The allied Army Organization Plan is unchanged.",
+      "ALLIED DETACHMENTS: HOW MANY ELITES / FAST ATTACK / HEAVY SUPPORT (Discord, Unwise; answered by the rules author). An allied detachment may take as many Elite, Fast Attack and Heavy Support units IN TOTAL as it has Troop units, in any mix, but never more than one of each. Before, two Troops allowed two of each.",
     ],
   },
   {

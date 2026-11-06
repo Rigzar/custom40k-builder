@@ -166,6 +166,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       getSlotUsage(army, store.data!, slot, rule, alliedFactionKey ?? undefined, true, engagement);
     // Core Rules: each Troop beyond 1 grants +1 Elites/FA/HS slot — precompute troop count.
     const allyTroopCount = usedAllied('Troops');
+    const allyExtrasUsed = ['Elites', 'Fast Attack', 'Heavy Support'].reduce((n, sl) => n + usedAllied(sl), 0);
     return (
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
@@ -192,7 +193,8 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
             : slot === 'Dedicated Transport'
             ? countInfantrySelections(store, store.data as FactionData, true)
             : (slot === 'Elites' || slot === 'Fast Attack' || slot === 'Heavy Support')
-            ? allyTroopCount * aFactor
+            // Rules author 2026-11-06: ONE shared allowance equal to the Troop count, at most 1 per role.
+            ? Math.min(max, used + Math.max(0, allyTroopCount * aFactor - allyExtrasUsed))
             : max;
           const isFull = effectiveMax > 0 && used >= effectiveMax;
           const isUnder = min > 0 && used < min;
