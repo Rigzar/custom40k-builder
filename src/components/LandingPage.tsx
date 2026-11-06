@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188a_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -73,6 +73,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifles show correctly."],
         ["Magos", "No false ward error in Skirmish."],
         ["Remora", "The Armory button is back."],
+        ["T'au Armory", "Rows nobody can buy (Markerlight, Seeker missile...) are no longer listed."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: Chaos Daemons units can be picked right away."],
@@ -103,6 +104,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifles werden korrekt angezeigt."],
         ["Magos", "Kein falscher Ward-Fehler im Skirmish."],
         ["Remora", "Der Armory-Knopf ist zurück."],
+        ["T'au Armory", "Zeilen, die niemand kaufen kann (Markerlight, Seeker missile...), werden nicht mehr aufgeführt."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: Chaos-Daemons-Einheiten sind sofort wählbar."],
@@ -133,6 +135,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Los Pulse rifle se muestran bien."],
         ["Magos", "Sin falso error de ward en Skirmish."],
         ["Remora", "Vuelve el botón de Armería."],
+        ["Armería T'au", "Ya no se listan filas que nadie puede comprar (Markerlight, Seeker missile...)."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: las unidades de Chaos Daemons se pueden elegir desde el principio."],
@@ -163,6 +166,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifle отображаются правильно."],
         ["Magos", "Нет ложной ошибки ward в Skirmish."],
         ["Remora", "Кнопка Арсенала вернулась."],
+        ["Арсенал T'au", "Строки, которые никто не может купить (Markerlight, Seeker missile...), больше не показываются."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: отряды Chaos Daemons можно выбирать сразу."],
@@ -193,6 +197,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifleが正しく表示されます。"],
         ["Magos", "Skirmishでの誤ったwardエラーを解消。"],
         ["Remora", "アーモリーのボタンが戻りました。"],
+        ["T'auアーモリー", "誰も購入できない行（Markerlight、Seeker missileなど）は表示されなくなりました。"],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin：Chaos Daemonsのユニットをすぐに選べます。"],
