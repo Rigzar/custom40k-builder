@@ -2211,6 +2211,20 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     groups = [{ label: null, count: null, weapons: remaining, traitMap: profile.weaponTraitMap }];
     // The model that bought them: the datasheet's own champion, or the PROMOTED model of a one-row squad (Hernkyn Pioneers' Theyn: "gains access to
     // weapons and gear from the Armory") - his Plasma spear never reached a weapon table, in the builder or the print view (TeCrisis 2026-11-05).
+    // A unit with no champion row (Chosen) where ONE model buys a bike: the Combi-bolter it brings belongs to that model, not to
+    // all five (GH#269). Each purchase is one copy for one model, so the weapon's count is the number of purchases - unless the
+    // item is priced for every model of the unit (`scaling`), which does give it to all of them.
+    if (!builtInChampion && !variantArmoryActive && (item.size ?? 1) > 1) {
+      const everyModel = new Set<string>();
+      if (item.armory.some(sel => sel.scaling)) groups[0].weapons.forEach(w => everyModel.add(w.name));   // priced for every model: they all carry it
+      const ov = new Map<string, number>();
+      for (const w of groups[0].weapons) {
+        if (everyModel.has(w.name) || (unit.equipped_with ?? '').toLowerCase().includes(weaponBaseName(w.name).toLowerCase())) continue;
+        const bought = profile.armoryGrantedWeapons.filter(n => n === w.name).length;
+        if (bought > 0) ov.set(w.name, Math.min(bought, item.size));
+      }
+      if (ov.size > 0) groups[0].countOverrides = ov;
+    }
     const buyer = builtInChampion ?? (variantArmoryActive ? profile.variant : null);
     if (championExtraWeapons.length > 0 && buyer) {
       groups.push({ label: buyer.name, count: builtInChampion ? null : 1, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });

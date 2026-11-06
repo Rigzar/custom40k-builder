@@ -721,7 +721,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // Terminator / Cataphractii armour restriction — fires on the innate armour keyword OR on a
   // dynamically-bought Terminator/Cataphractii armor equipment item (both gate to the ᵀ subset).
-  const boughtArmourNames = currentArmory.filter(a => a.section === 'equipment').map(a => a.itemName);
+  // One model of a squad putting on Terminator armour does not bar the others from the rest of the Armory (GH#269): the gate
+  // only applies once EVERY model wears it (one purchase per model), or when the unit is a single model.
+  const allEquipment = currentArmory.filter(a => a.section === 'equipment').map(a => a.itemName);
+  const boughtArmourNames = allEquipment.filter((n, _i, arr) =>
+    (item.size ?? 1) <= 1 || arr.filter(x => x === n).length >= (item.size ?? 1));
   const termRestricted = modelRestrictsToTermSubset(unit, boughtArmourNames);
   // Gravis armour gates to the ᴳ subset, exactly like Terminator gates to ᵀ (SM Armory.html L69:
   // "Models wearing Gravis armor can only receive equipment with ᴳ"). Mutually exclusive with ᵀ.

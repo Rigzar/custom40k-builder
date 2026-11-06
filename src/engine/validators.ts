@@ -1001,6 +1001,26 @@ export function computeCryptothrallsFreeSlots(
 }
 
 /**
+ * Chaos Space Marines Slaughterbound, Possessed Lord: "For every \"Eightbound\" unit, you may select one
+ * Slaughterbound without using up an Elite slot." (GH#272: both took an Elite slot.) One free Elite per Eightbound
+ * unit, up to the number of Slaughterbound taken.
+ */
+export function computePossessedLordFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Chaos Space Marines') return { elites: 0, notes: [] };
+  let bearers = 0, eightbound = 0;
+  for (const item of army) {
+    if (item.factionSource) continue;
+    if (item.unitName === 'Eightbound') eightbound++;
+    else if (item.unitName === 'Slaughterbound') bearers++;
+  }
+  const free = Math.min(bearers, eightbound);
+  return free ? { elites: free, notes: [`Possessed Lord: ${free} Slaughterbound occupy no Elite slot (1 per Eightbound unit).`] } : { elites: 0, notes: [] };
+}
+
+/**
  * Horus Heresy Overseer: "The following units can be selected for each Overseer. They take up no slot and
  * are part of the army: 0-3 Solar Auxilia Lasrifle Sections." (Overseer sheet.) Three Troops-slot-free
  * Lasrifle Sections per Overseer; more than that is an error (see validateArmy).
@@ -1265,6 +1285,7 @@ export function computeFreeSlotAdjustments(
   const krootShaper     = computeKrootShaperFreeSlots(army, data);
   const plasmacyte      = computeNecronPlasmacyteFreeSlots(army, data, pts);
   const cryptothralls   = computeCryptothrallsFreeSlots(army, data);
+  const possessedLord   = computePossessedLordFreeSlots(army, data);
   const hexmark         = computeHexmarkDestroyerFreeSlots(army, data);
   const spiritseer      = computeSpiritseerFreeSlots(army, data);
   const royalCourt      = computeRoyalCourtFreeSlots(army, data);
@@ -1279,7 +1300,7 @@ export function computeFreeSlotAdjustments(
       + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
-      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites,
+      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites + possessedLord.elites,
     fa: cd.fa + krootEscort.fa,
     hs: krootEscort.hs,
     troops: overseerAuxilia.troops,
@@ -1288,7 +1309,7 @@ export function computeFreeSlotAdjustments(
       ...archetypeHq.notes, ...crusaders.notes, ...servitor.notes, ...gscElite.notes,
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
-      ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
+      ...plasmacyte.notes, ...cryptothralls.notes, ...possessedLord.notes, ...hexmark.notes, ...spiritseer.notes,
       ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes,
     ],
   };

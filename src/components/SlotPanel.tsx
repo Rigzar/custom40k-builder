@@ -323,7 +323,9 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         if (rule.alliedMarkFilter === 'forced') {
           if (!u.locked_mark || u.locked_mark !== rule.forcedMark) continue;
         } else if (rule.alliedMarkFilter === 'hq_mark') {
-          if (u.locked_mark && u.locked_mark !== hqMark) continue;
+          // Until an HQ carries a Mark, hqMark is the default 'Undivided' and would hide every Mark-locked Daemon
+          // (Daemonkin: "not selectable", GH#271). The validator already demands one shared Mark, so show them all then.
+          if (u.locked_mark && hqMark !== 'Undivided' && u.locked_mark !== hqMark) continue;
         }
 
         const effSlot = getEffectiveSlot(name, originalSlot, rule);
