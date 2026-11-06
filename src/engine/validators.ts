@@ -3121,7 +3121,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const cap = supportSystemCap(u, item, data, state.traitPool);
     if (wg < 0 || cap === null) continue;
     const g = u.option_groups[wg];
-    const baseW = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
+    const baseW = g.constraint.type === 'fixed_max' ? (g.constraint.max ?? 0) : (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
     const usedW = Object.entries(item.optionQty?.[wg] ?? {}).reduce((s, [k, v]) => (k === '__inline' ? s : s + (Number(v) || 0)), 0);
     const extraS = Math.max(0, supportSystemsOwned(u, item, data) - (cap - n));
     if (Math.max(0, usedW - baseW) + extraS > n) items.push({ type: 'error', text: T('valEnforcerOneExtra', { unit: item.customName || item.unitName }) });
@@ -3165,7 +3165,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // An `independent_choices` group caps EVERY choice at 1, `per_model` included: that flag
         // scales the price by headcount, it does not let a second copy be bought.
         const perChoiceCap = (_ci?: string) => 1;
-        const max = (gc.max ?? (g.independent_choices ? 1 : 0)) + swarmControllersBonus(g, data.drones, state.traitPool);
+        const max = (gc.max ?? (g.independent_choices ? 1 : 0)) + swarmControllersBonus(g, data.drones, state.traitPool) + enforcerWeaponBonus(u, item, g);
         const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
         if (g.independent_choices) {
           const over = qtys.find(([k, v]) => (v ?? 0) > perChoiceCap(k));

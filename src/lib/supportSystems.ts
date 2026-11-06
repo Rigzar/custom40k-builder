@@ -40,7 +40,8 @@ export function enforcerCount(unit: Unit, item: RosterEntry): number {
 
 /** The Tau "up to three of the following" weapon group of a Crisis suit: one extra weapon per Enforcer. */
 export function enforcerWeaponBonus(unit: Unit, item: RosterEntry, g: Group): number {
-  if (g.constraint?.type !== 'per_n' || !(g.choices ?? []).some(c => /^Burst cannon$/i.test(c.name))) return 0;
+  // per_n on the Crisis suits; fixed_max on the Commander ("Can be equipped with up to three of the following"), who takes the Enforcer from the Armory.
+  if ((g.constraint?.type !== 'per_n' && g.constraint?.type !== 'fixed_max') || !(g.choices ?? []).some(c => /^Burst cannon$/i.test(c.name))) return 0;
   return enforcerCount(unit, item);
 }
 

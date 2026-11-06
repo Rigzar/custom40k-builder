@@ -1579,8 +1579,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 : isFixedMax
                   ? Math.min(
                       modelGroupCap !== null
-                        ? Math.min((gc.max ?? item.size) + swarmControllersBonus, modelGroupCap)
-                        : (gc.max ?? item.size) + swarmControllersBonus,
+                        ? Math.min((gc.max ?? item.size) + swarmControllersBonus + (isFixedMax ? enforcerWeaponBonus(u, item, g) : 0), modelGroupCap)
+                        : (gc.max ?? item.size) + swarmControllersBonus + (isFixedMax ? enforcerWeaponBonus(u, item, g) : 0),
                       ownedFromOtherGroups ?? Infinity)
                   : null;
             // "every"/"fixed_max" groups (not just per_n) share a combined budget across all their
