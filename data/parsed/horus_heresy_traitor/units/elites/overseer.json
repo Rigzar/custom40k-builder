@@ -72,10 +72,10 @@
             "name": "Power lash",
             "range": "-",
             "type": "Melee",
-            "s": "-1",
+            "s": "U",
             "ap": "-3",
             "d": "1",
-            "abilities": "Quick(+1), Rending(6+)"
+            "abilities": "Quick(+1)"
         }
     ],
     "option_groups": [

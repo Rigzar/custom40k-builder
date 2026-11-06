@@ -568,21 +568,6 @@
       ]
     },
     {
-      "name": "Paragon blade",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Deadly(6+)",
-      "p_unit": null,
-      "p_char": 8,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
       "name": "Plasma blaster",
       "term_compat": true,
       "range": "",
@@ -848,6 +833,26 @@
     }
   ],
   "equipment": [
+    {
+      "name": "Relic blade",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. May only be used on weapons with D:1. Only for Centurions and Praetors.",
+      "p_unit": null,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Relic of the Chapter",
+      "term_compat": true,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
     {
       "name": "Aetheric juncture splicer",
       "term_compat": false,

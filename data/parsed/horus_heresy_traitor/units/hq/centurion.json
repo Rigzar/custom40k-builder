@@ -42,22 +42,13 @@
             "abilities": "-"
         },
         {
-            "name": "Paragon blade",
+            "name": "Power sword",
             "range": "-",
             "type": "Melee",
-            "s": "+2",
-            "ap": "-4",
-            "d": "2",
-            "abilities": "Deadly(5+), Quick(1)"
-        },
-        {
-            "name": "Power lash",
-            "range": "-",
-            "type": "Melee",
-            "s": "-1",
+            "s": "+1",
             "ap": "-3",
             "d": "1",
-            "abilities": "Quick(+1), Rending(6+)"
+            "abilities": "-"
         }
     ],
     "option_groups": [
@@ -83,16 +74,14 @@
                     }
                 },
                 {
-                    "name": "Delegatus",
-                    "points": 5
-                },
-                {
                     "name": "Herald",
                     "points": 14,
                     "effect": {
                         "grants_abilities": [
-                            "Fearless",
                             "Terrifying(-1)"
+                        ],
+                        "grants_weapons": [
+                            "Power sword"
                         ]
                     }
                 },
@@ -123,15 +112,7 @@
     ],
     "abilities": [
         "They Shall Know No Fear",
-        "Consuls: A Centurion takes one Consul upgrade. The points are for the Consul on top of the Centurion. The Warmonger of Margit's list is the Aetheric juncture splicer item in the Armory. A Centurion with a Consul cannot take Saturnine armor.",
-        "Esoterist: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Esoterist discipline (see Psychic disciplines). It knows no other powers. It has Terrifying(-1) (the Fear (1) of the book). Its Power weapon may be swapped for a Force weapon at no extra cost.",
-        "Diabolist: Only with the Legacy of the Archtraitor. The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Diabolism discipline (see Psychic disciplines). It knows no other powers. It has Terrifying(-1) (the Fear (1) of the book). Its Power weapon may be swapped for a Force weapon at no extra cost.",
-        "Delegatus: Rally the Legion. Once per battle, in the Rally phase, take a Leadership test for this model. If it passes, every friendly unit in its line of sight rallies. Master of the Legion (see the Praetor): he can be taken in games of less than 1000 points, but not in an army that has a Praetor or a Primarch.",
-        "Herald: The model gains the Fearless and Terrifying(-1) abilities, a Power sword and a Legion vexilla (instead of its Bolt pistol) at no extra cost.",
-        "Librarian: The model is a Psyker: it can cast 1 power and deny 1 power per battle round. It knows Smite and all powers of the General psychic disciplines, plus the discipline of its Legacy or archetype if it has one. Its Power weapon may be swapped for a Force weapon at no extra cost.",
-        "Master of Signals: The model carries a Nuncio-vox. Once per battle round, one friendly unit in its line of sight may use this model's Leadership for a Battleshock test. If that unit is not the unit he has joined, the unit he has joined cannot use his Leadership until the end of the battle round. It may not take Terminator armor.",
-        "Praevian: The model gains the Fearless ability while it is in a unit with Automata models, and may join such a unit. It may use \"Blessing of the Omnissiah\" on units with Automata models. It may not take Terminator armor, a Jump pack, a Space Marine bike or a Jetbike.",
-        "Siegebreaker: At the start of each shooting activation, this model and one friendly unit within 6\" gain Sunder(1) on their ranged weapons.",
+        "Librarian:   The model is a Psyker: Psyker: The model may cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
         "Combat Tactics: The Centurion may assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have."
     ],
     "unit_type": "Character model, Infantry",

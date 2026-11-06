@@ -17,11 +17,11 @@
             "name": "Legion Champion",
             "min": 1,
             "max": 1,
-            "points": 98
+            "points": 89
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Champion is a single character and is equipped with: Paragon blade; Volkite serpenta; Frag grenades; Krak grenades.",
+    "equipped_with": "A Legion Champion is a single character and is equipped with: Power sword; Volkite serpenta; Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Combi-melta - Bolter",
@@ -69,13 +69,13 @@
             "abilities": "AT(3), Armorbane(3)"
         },
         {
-            "name": "Paragon blade",
+            "name": "Power sword",
             "range": "-",
             "type": "Melee",
-            "s": "+2",
-            "ap": "-4",
-            "d": "2",
-            "abilities": "Deadly(5+), Quick(1)"
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
         },
         {
             "name": "Volkite serpenta",
@@ -142,5 +142,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 98
+    "min_cost": 89
 }
