@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'i';
+export const REVISION = '';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -36,6 +36,16 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.88',
+    date: '2026-11-06',
+    title: "Sorting, ordering and sergeant fixes",
+    changes: [
+      "ARMORY: SORT THE WEAPONS TABLE (Discord). Click the Weapon, Range, Type or Pts header in the Armory's weapon table to sort by it; click again to reverse, a third time to go back to the sheet order.",
+      "ARMY LIST: MOVE UNITS UP AND DOWN (Discord). Each unit in a slot has a pair of arrows to its left that move it up or down inside its slot, which also sets the order of the print view.",
+      "SERGEANTS AND SQUAD WEAPONS (Discord, several reports). A sergeant no longer inherits the weapons the squad buys, and buying an Armory item for him no longer wipes his default weapon. Swapping a weapon in one option group no longer removes weapons given by another (Chaos Space Marine Jakhals). Promoted models (Votann Theyn) now show the Armory weapons they bought. Gue'vesa Pulse rifles show correctly. Magos with a ward save no longer trigger a false Skirmish ward error, and Remora has its Armory button back.",
+    ],
+  },
   {
     version: '1.87',
     date: '2026-10-30',
@@ -63,9 +73,6 @@ export const CHANGELOG: ChangelogEntry[] = [
       "CODEX UPDATES. Space Marines 1.12 (the Predator can swap to the Executioner plasma cannon for +74; Machine spirit says \"use one weapon\"), Imperial Guard 1.11 (Krak grenades are for Bikes only), Tyranids 1.12 (Synapse affects friendly Tyranid units), Chaos Space Marines 1.11 (Legacy of the Hydra: +1 Elite per AOP; Night Haunter: +1 Fast Attack per AOP; Iron Lord: one Imperial Guard vehicle Heavy Support choice per AOP), Eldar 1.9 (Rangers and Shroud Runners can swap to the Ranger needle rifle), Genestealer Cults 1.5, and small Armory fixes in Custodes, Grey Knights and Harlequins (the Teleport homing beacon is gone).",
       "THE KNIGHTS LEAVE THE CODICES (Escalation 1.0). Armiger, War Dog, Knight Castellan, Knight Paladin, Knight Desecrator and Knight Rampager are removed from the codices, as the author of Knight Households confirmed: they live in Knight Households now. A saved list that holds one of them simply loses that unit.",
       "FIX — BROKEN ARMY SYMBOL ON THE UNIT CARDS. When no archetype or Legacy symbol applied, the symbol at the top left of every unit card asked for a file name with every \"s\" missing (chao--pacemarine-.svg for Chaos Space Marines), so most factions showed a broken-image square. The file name is built correctly again for every faction.",
-      "ARMORY: SORT THE WEAPONS TABLE (Discord). Click the Weapon, Range, Type or Pts header in the Armory's weapon table to sort by it; click again to reverse, a third time to go back to the sheet order.",
-      "ARMY LIST: MOVE UNITS UP AND DOWN (Discord). Each unit in a slot has a pair of arrows to its left that move it up or down inside its slot, which also sets the order of the print view.",
-      "SERGEANTS AND SQUAD WEAPONS (Discord, several reports). A sergeant no longer inherits the weapons the squad buys, and buying an Armory item for him no longer wipes his default weapon. Swapping a weapon in one option group no longer removes weapons given by another (Chaos Space Marine Jakhals). Promoted models (Votann Theyn) now show the Armory weapons they bought. Gue'vesa Pulse rifles show correctly. Magos with a ward save no longer trigger a false Skirmish ward error, and Remora has its Armory button back.",
     ],
   },
   {
