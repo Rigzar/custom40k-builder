@@ -1472,7 +1472,7 @@ const META_ORDERS: Record<Language, OrderEntry[]> = {
     },
     {
       name: 'Defensive Fire',
-      prerequisite: 'The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.',
+      prerequisite: 'The unit is declared as a target for a charge move or Tank Shock and after the charging unit has declared all charge targets OR an enemy Flyer has been placed on the battlefield.',
       effect: [
         'It may fire ranged weapons at the attacking unit with a –1 to hit penalty.',
         'It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at the attacking unit or itself.',
@@ -1489,10 +1489,10 @@ const META_ORDERS: Record<Language, OrderEntry[]> = {
     },
     {
       name: 'Take Cover',
-      prerequisite: 'The unit is selected as a target for a ranged attack, psychic power or similar effect (incantations, prayers, …) and after the shooting unit has declared all ranged targets.',
+      prerequisite: 'The unit is selected as a target for a ranged attack, psychic power or similar effect (incantations, prayers, …).',
       effect: [
         "It gains a +1 bonus to Saving throws against ranged attacks until the enemy's activation ends.",
-        'Ranged attacks against it reduce their AT by 1 (to a minimum of 0).',
+        'Ranged attacks against it reduce their AT by 1 (to a minimum of 0) until the enemy\'s activation ends.',
       ],
     },
   ],

@@ -114,7 +114,7 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Extra Attack({X})',
     // 1.262 split this in two: the cap moved out into Limit(x), so a weapon that had the old
     // capped Extra Attack now carries BOTH, and everything that said Flurry now says this.
-    description: 'This weapon makes {X} attacks with its profile during each activation, in addition to the model\'s normal Attacks (A). A model may only benefit from extra attacks from one Armoury weapon.',
+    description: 'A ranged weapon can be used {X} times with its profile during each activation, in addition to the model\'s normal shooting attacks. A melee weapon makes {X} attacks with its profile during each activation, in addition to the model\'s normal Attacks (A). A model may only benefit from extra attacks from one Armoury weapon.',
   },
   'force weapon': {
     name: 'Force Weapon',
@@ -435,11 +435,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'favoured enemy': {
     name: 'Favoured Enemy',
-    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from equipment and abilities by -1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
+    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from Armory equipment, datasheet abilities and psychic powers by 1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
   },
   'favored enemy': {
     name: 'Favoured Enemy',
-    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from equipment and abilities by -1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
+    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from Armory equipment, datasheet abilities and psychic powers by 1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
   },
   'fire hatches': {
     name: 'Fire Hatches({X})',
@@ -499,7 +499,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'outflank': {
     name: 'Outflank',
-    description: 'When arriving from reserves, the unit may also be deployed along the side edges of the battlefield. Limitations Units deployed this way count as having already moved up to their maximum Movement value this Battle Round and can only receive a "Move & Shoot" order. Units may not be deployed in the opponent\'s deployment zone. Units may not be deployed on the side edges on turn 1.',
+    description: 'When arriving from reserves, the unit may also be deployed along the side edges of the battlefield. Limitations Units may not be deployed in the opponent\'s deployment zone. Units may not be deployed on the side edges on turn 1.',
   },
   'parry': {
     name: 'Parry',
@@ -806,7 +806,7 @@ export const META_ORDERS: OrderEntry[] = [
   },
   {
     name: 'Defensive Fire',
-    prerequisite: 'The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.',
+    prerequisite: 'The unit is declared as a target for a charge move or Tank Shock and after the charging unit has declared all charge targets OR an enemy Flyer has been placed on the battlefield.',
     effect: [
       'It may fire ranged weapons at the attacking unit with a –1 to hit penalty.',
       'It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at the attacking unit or itself.',
@@ -823,10 +823,10 @@ export const META_ORDERS: OrderEntry[] = [
   },
   {
     name: 'Take Cover',
-    prerequisite: 'The unit is selected as a target for a ranged attack, psychic power or similar effect (incantations, prayers, …) and after the shooting unit has declared all ranged targets.',
+    prerequisite: 'The unit is selected as a target for a ranged attack, psychic power or similar effect (incantations, prayers, …).',
     effect: [
       'It gains a +1 bonus to Saving throws against ranged attacks until the enemy\'s activation ends.',
-      'Ranged attacks against it reduce their AT by 1 (to a minimum of 0).',
+      'Ranged attacks against it reduce their AT by 1 (to a minimum of 0) until the enemy\'s activation ends.',
     ],
   },
 ];
