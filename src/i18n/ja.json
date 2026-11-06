@@ -212,7 +212,7 @@
  "armReasonNeeds": "このユニットは条件を満たしていません",
  "armReasonOnly": "{kw}専用",
  "armReasonMark": "別のカオスの印が必要です",
- "armReasonNoPrice": "このユニットは購入できません",
+ "armReasonNoPrice": "単独では購入できません：ユニットまたは装備品に付属します",
  "armReasonVet": "ベテラン能力の枠が埋まっています",
  "armCarryTitle": "所持品",
  "armClearAll": "すべて外す",
