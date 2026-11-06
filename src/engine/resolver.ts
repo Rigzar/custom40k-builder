@@ -762,6 +762,7 @@ const optionalWeapons = new Map<string, Set<string>>();
   // selection (e.g. Fellblade "may swap their 2 Laser destroyers" -> "2 Quad lascannons",
   // one choice) — there, item.size is already the correct threshold, and multiplying by N
   // would make it unreachable (ki-replaces-swap-manual-review-01 regression, found 2026-06-27).
+  const replacedOwners = new Map<string, Set<string>>();
   const replaceGroupCountByName = new Map<string, number>();
   for (const g of unit.option_groups) {
     for (const name of g.replaces ?? []) {
@@ -791,8 +792,13 @@ const optionalWeapons = new Map<string, Set<string>>();
           // it — not once the whole squad has. Guardian Defenders field up to 2 Heavy weapon
           // platforms in a squad of 10; the default threshold of item.size meant both platforms
           // could swap their Scatter laser and the laser stayed on the profile anyway (GH#89).
-          const owners = Array.isArray(g.applies_to_model) ? g.applies_to_model : [g.applies_to_model];
-          const owned = owners.reduce((s, label) => {
+          // Several scoped groups can replace the SAME weapon (the Jakhals' Chainblade: one Jakhal may take a Mauler chainblade, two Dishonored a Skullsmasher):
+          // the weapon is only gone once every model of ALL those groups took a swap, so the owners add up. The last group's count alone made the
+          // Chainblades vanish from the whole unit as soon as one swap was bought in each (Discord, 2026-11-05).
+          const ownersOf = replacedOwners.get(name) ?? new Set<string>();
+          for (const label of Array.isArray(g.applies_to_model) ? g.applies_to_model : [g.applies_to_model]) ownersOf.add(label);
+          replacedOwners.set(name, ownersOf);
+          const owned = [...ownersOf].reduce((s, label) => {
             const m = unit.models.find(x => x.name === label);
             return s + (item.modelSizes?.[label] ?? m?.min ?? 0);
           }, 0);
@@ -1901,8 +1907,12 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // what the Champion's row may show and, mirrored just below, what the squad's row may show.
   const squadOnlyGrantedNames = new Set<string>();
   if (builtInChampion) {
+    // The Champion's own name ("Veteran Sergeant" -> "sergeant"): a group that does not name him and is not for one named model is the squad's, whether it
+    // swaps a weapon or ADDS one ("Up to three Veterans may be equipped with a Special weapon" - his row printed the squad's Flamers, Birdy 2026-11-05).
+    const champWord = (builtInChampion.name ?? '').toLowerCase().split(/s+/).pop() ?? '';
     for (const [gi, g] of unit.option_groups.entries()) {
-      if (!g.replaces?.length || g.applies_to_model) continue;
+      if (g.applies_to_model) continue;
+      if (!g.replaces?.length && (!champWord || String(g.header).toLowerCase().includes(champWord))) continue;
       for (const [ci, qty] of Object.entries(item.optionQty?.[gi] ?? {})) {
         if (ci === '__inline' || !qty) continue;
         const choice = g.choices[parseInt(ci)];
@@ -1931,7 +1941,10 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     : [];
   // Of those, the ones the squad never bought for itself belong to the Champion alone and must be
   // kept off the squad's row.
-  const championOnlyWeapons = championBought.filter(w => !squadOnlyGrantedNames.has(weaponBaseName(w.name)));
+  // A weapon the whole squad already carries by default (the Intercessors' Heavy bolt pistol) is not the Champion's alone just because he bought another copy:
+  // it stays on the squad's row too (Birdy 2026-11-05: "if I give a sgt a bolt pistol from the armory, the squad has none").
+  const inDefaultLoadout = (name: string) => weaponCopiesPerModel(unit.equipped_with ?? '', weaponBaseName(name)) > 0;
+  const championOnlyWeapons = championBought.filter(w => !squadOnlyGrantedNames.has(weaponBaseName(w.name)) && !inDefaultLoadout(w.name));
   const squadWeapons = remaining.filter(w => !championOnlyWeapons.includes(w));
   // AND THE MIRROR OF THAT, which was missing: a weapon the SQUAD bought through one of its own
   // option groups belongs to the squad's row only. The Champion's row was built from the whole
@@ -2196,8 +2209,21 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     }
   } else {
     groups = [{ label: null, count: null, weapons: remaining, traitMap: profile.weaponTraitMap }];
-    if (championExtraWeapons.length > 0 && builtInChampion) {
-      groups.push({ label: builtInChampion.name, count: null, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });
+    // The model that bought them: the datasheet's own champion, or the PROMOTED model of a one-row squad (Hernkyn Pioneers' Theyn: "gains access to
+    // weapons and gear from the Armory") - his Plasma spear never reached a weapon table, in the builder or the print view (TeCrisis 2026-11-05).
+    const buyer = builtInChampion ?? (variantArmoryActive ? profile.variant : null);
+    if (championExtraWeapons.length > 0 && buyer) {
+      groups.push({ label: buyer.name, count: builtInChampion ? null : 1, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });
+    }
+  }
+
+  // The Champion's own copy of a default weapon plus the ones he bought: "2x Heavy bolt pistol" on his row, the squad's row untouched.
+  if (builtInChampion) {
+    const cg = groups.find(g => g.label === builtInChampion.name);
+    if (cg) for (const w of championBought.filter(x => inDefaultLoadout(x.name))) {
+      const bought = profile.armoryGrantedWeapons.filter(n => n === w.name).length || 1;
+      if (!cg.countOverrides) cg.countOverrides = new Map();
+      cg.countOverrides.set(w.name, weaponCopiesPerModel(unit.equipped_with ?? '', weaponBaseName(w.name)) + bought);
     }
   }
 
@@ -3276,6 +3302,7 @@ export function resolveUnitProfile(
   profile.weaponGroups = computeWeaponGroups(unit, item, profile);
   profile.modelRowCounts = computeModelRowCounts(unit, item, profile);
   fillMissingWeaponCounts(unit, item, profile.weaponGroups);
+  applyGueVesaSwaps(item, profile);
   profile.attachedDrones = computeAttachedDrones(unit, item, data);
   return profile;
 }
@@ -3313,6 +3340,29 @@ function computeModelRowCounts(unit: Unit, item: RosterEntry, profile: ResolvedP
  * A weapon row never reads uncounted: when the group has no "Nx" of its own (a lone Overlord, a Rhino, a
  * squad with one loadout clause) the number is the models carrying it times the copies each one starts with.
  */
+/**
+ * Gue'vesa (Imperial Guard archetype): "creature units equipped with a Lasgun may exchange it for +3 points for a Pulse rifle" (+2 for a Hot-shot lasgun). The
+ * purchase was priced but never reached a weapon table: the stat line of the Pulse rifle was missing in the builder and the print view (TeCrisis 2026-11-05).
+ */
+const PULSE_RIFLE = { name: 'Pulse rifle', range: '30"', type: 'Rapid Fire 1', s: '5', ap: '-1', d: '1', abilities: '-' };
+function applyGueVesaSwaps(item: RosterEntry, profile: ResolvedProfile): void {
+  for (const [swaps, from] of [[item.gueVesaLasgunSwaps ?? 0, 'Lasgun'], [item.gueVesaHotshotSwaps ?? 0, 'Hot-shot lasgun']] as const) {
+    let left = Math.min(swaps, item.size ?? swaps);
+    for (const g of profile.weaponGroups) {
+      if (left <= 0) break;
+      const w = g.weapons.find(x => weaponBaseName(x.name) === from); if (!w) continue;
+      const have = g.countOverrides?.get(w.name) ?? g.count ?? item.size ?? 1; const take = Math.min(left, have); if (take <= 0) continue;
+      if (!g.countOverrides) g.countOverrides = new Map();
+      g.countOverrides.set(w.name, have - take);
+      if (have - take === 0) g.weapons = g.weapons.filter(x => x !== w);
+      if (!g.weapons.some(x => x.name === 'Pulse rifle')) g.weapons = [...g.weapons, { ...PULSE_RIFLE } as Weapon];
+      g.countOverrides.set('Pulse rifle', (g.countOverrides.get('Pulse rifle') ?? 0) + take);
+      if (!profile.weaponsToShow.some(x => x.name === 'Pulse rifle')) profile.weaponsToShow = [...profile.weaponsToShow, { ...PULSE_RIFLE } as Weapon];
+      left -= take;
+    }
+  }
+}
+
 function fillMissingWeaponCounts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): void {
   for (const g of groups) {
     const models = g.count ?? Math.max(1, item.size ?? 1);

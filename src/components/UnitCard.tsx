@@ -308,7 +308,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       .some(src => [...(src.weapons as ArmoryItem[]), ...(src.equipment as ArmoryItem[])]
         .some(a => !a.category && isOrkKustomJob(a.name)))
   );
-  const showArmory = (u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
+  // "Any model may pick up to two SUPPORT SYSTEMS from the armory" (the Remora Stealth Drones): the group is there to be bought from the Armory, so the button is too,
+  // even though the datasheet carries no general access flag (Sedroc 2026-11-05: "Remoras can't take any upgrades. There is no button for that.").
+  const hasSupportSystemGroup = (u.option_groups ?? []).some(g => isSupportSystemGroup(g));
+  const showArmory = (u.has_armory_access || hasSupportSystemGroup || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
     && (!u.is_vehicle || u.is_character || vehicleHasGeneralItems);
   // When Armory access is gated to a single champion/promoted-variant model (not the whole unit),
   // the live profile's equipment stat-mods (T/Sv/etc. from `item.armory`) must only land on THAT

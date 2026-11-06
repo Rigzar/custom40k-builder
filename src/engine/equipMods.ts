@@ -744,7 +744,8 @@ export function parseInvSaveFromAbilities(abilities: string[]): number | null {
   // word "Warded" appeared beside it with nothing behind it (Discord report).
   // It has to be applied AFTER the flat sources above, because what it improves is whatever they
   // settled on — and counted, not just detected, since two instances stack.
-  const warded = abilities.filter(ab => /(^|[^A-Za-z])Warded\b/i.test(ab)).length;
+  // "...gain the Warded ability while within 6" of an objective" is a condition of a moment, not a ward save the unit has: it does not count here.
+  const warded = abilities.filter(ab => /(^|[^A-Za-z])Warded\b/i.test(ab) && !/\b(?:while|when|if)\b[^.]*\bwithin\b/i.test(ab)).length;
   if (warded > 0) {
     // No ward save yet: the first instance grants 6+, and each further one improves it.
     let v = best ?? 7;

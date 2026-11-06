@@ -21,6 +21,7 @@ import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolve
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
 import { archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit, primarchOpened } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
+import { ownWardAbilities } from '../lib/wardSave';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus, legacySlotBonusOnly } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
@@ -3026,7 +3027,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
       // A ward save from the datasheet's OWN abilities. Equipment-granted ones stay with the
       // equipment check below, so a unit is never reported twice for the same save.
-      const wardBase = parseInvSaveFromAbilities(u.abilities ?? []);
+      // Only the abilities the unit really has: the lines of an upgrade nobody bought (the Magos' Technoarchaeologist "Warded") are not its ward save (TeCrisis 2026-11-05).
+      const wardBase = parseInvSaveFromAbilities(ownWardAbilities(u, item));
       if (wardBase !== null && wardBase <= 4) {
         items.push({ type: 'error', text: T('valSkirmishInvSaveBase', { unit: item.unitName, sv: wardBase }) });
       }
