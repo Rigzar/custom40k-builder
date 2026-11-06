@@ -741,6 +741,8 @@
  "unitNotInCodexTitle": "このコデックスにもう存在しません",
  "unitNotInCodexBody": "このデータシートはコデックスの更新で削除または名称変更されました。0ポイントでプロファイルもありませんが、枠は占有したままです。",
  "removeFromList": "リストから削除",
+ "moveUnitUp": "上へ",
+ "moveUnitDown": "下へ",
  "valHenchmanWarbandCapLord": "ヘンチマン・ウォーバンド：専門モデルは最大 {cap} 体（インクイジター・ロード / Rogue Trader Majoris）（現在 {count}）。",
  "valNavyWarbandPerTrader": "ヘンチマン・ウォーバンド：ローグ・トレーダー1人につきウォーバンドは1つまで（ウォーバンド {warbands}、ローグ・トレーダー {traders}）。",
  "valCsmLegacyKhorne": "{armory} 武器庫 —「{item}」：コーンの印を持つモデル専用です（{unit} は {mark} の印）。",

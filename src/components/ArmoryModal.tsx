@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
@@ -2612,6 +2612,24 @@ function ArmoryWeaponTable({
 }) {
   const t = useT();
   const counts = useContext(ArmoryCountsContext);
+  // Click a header to sort (click again to reverse); a third click restores the sheet order.
+  const [sort, setSort] = useState<{ key: 'name' | 'range' | 'type' | 'pts'; dir: 1 | -1 } | null>(null);
+  const toggleSort = (key: 'name' | 'range' | 'type' | 'pts') =>
+    setSort(cur => !cur || cur.key !== key ? { key, dir: 1 } : cur.dir === 1 ? { key, dir: -1 } : null);
+  const rangeNum = (a: ArmoryItem) => { const pr = a.profiles && a.profiles.length > 0 ? a.profiles[0] : a; const m = String(pr.range ?? '').match(/\d+/); return m ? Number(m[0]) : 0; };
+  const sorted = useMemo(() => {
+    if (!sort) return items;
+    const keyOf = (a: ArmoryItem): string | number => {
+      const pr = a.profiles && a.profiles.length > 0 ? a.profiles[0] : a;
+      if (sort.key === 'name') return stripMarkGlyph(a.name).toLowerCase();
+      if (sort.key === 'range') return rangeNum(a);
+      if (sort.key === 'type') return String(pr.type ?? '').toLowerCase();
+      return getPts(a) ?? Number.MAX_SAFE_INTEGER;
+    };
+    return [...items].sort((x, y) => { const a = keyOf(x), b = keyOf(y); return (a < b ? -1 : a > b ? 1 : 0) * sort.dir; });
+  }, [items, sort, getPts]);
+  const arrow = (key: string) => sort?.key === key ? (sort.dir === 1 ? ' ▲' : ' ▼') : '';
+  const sortable = 'cursor-pointer select-none hover:text-zinc-200';
   return (
     <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
       {/* NOT table-fixed — same reasoning as the datasheet's own weapon-swap table: forcing the
@@ -2620,18 +2638,18 @@ function ArmoryWeaponTable({
         <thead>
           <tr className="border-b border-zinc-600">
             <th className="py-1.5 pl-2 w-[7%]" />
-            <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[22%]">{t('weapon')}</th>
-            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">{t('rangeFullLabel')}</th>
-            <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[12%]">{t('typeFullLabel')}</th>
+            <th className={`text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[22%] ${sortable}`} onClick={() => toggleSort('name')}>{t('weapon')}{arrow('name')}</th>
+            <th className={`text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%] ${sortable}`} onClick={() => toggleSort('range')}>{t('rangeFullLabel')}{arrow('range')}</th>
+            <th className={`text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[12%] ${sortable}`} onClick={() => toggleSort('type')}>{t('typeFullLabel')}{arrow('type')}</th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
             <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
-            <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">{t('ptsHeader')}</th>
+            <th className={`text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%] ${sortable}`} onClick={() => toggleSort('pts')}>{t('ptsHeader')}{arrow('pts')}</th>
           </tr>
         </thead>
         <tbody>
-          {items.map((arm, i) => {
+          {sorted.map((arm, i) => {
             const selId = getSelId(arm.name);
             const owned = !!selId;
             const count = getCount(arm.name);

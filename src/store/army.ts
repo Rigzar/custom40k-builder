@@ -286,6 +286,8 @@ export interface ArmyStore extends ArmyState {
 
   addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => void;
   removeUnit: (id: string) => void;
+  /** Swap two roster entries in the army array (list / print order). */
+  swapUnits: (idA: string, idB: string) => void;
   duplicateUnit: (id: string) => void;
   updateUnit: (id: string, patch: Partial<RosterEntry>) => void;
   /** Update the size of one model group in a multi-group unit. Keeps `size` in sync as the total. */
@@ -693,6 +695,12 @@ export const useArmyStore = create<ArmyStore>()(
       },
 
       removeUnit: (id: string) => set((s: S) => ({ army: s.army.filter((e: RosterEntry) => e.id !== id) })),
+      swapUnits: (idA: string, idB: string) => set((s: S) => {
+        const a = s.army.findIndex((e: RosterEntry) => e.id === idA), b = s.army.findIndex((e: RosterEntry) => e.id === idB);
+        if (a < 0 || b < 0 || a === b) return {};
+        const army = [...s.army]; [army[a], army[b]] = [army[b], army[a]];
+        return { army };
+      }),
 
       // Exact copy of a roster entry — same unit, size, mark, option choices, armory, traits,
       // powers/prayers/pacts, modelSizes, etc. Cleared on the copy: `joinedToUnit`/`platoonId`

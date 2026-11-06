@@ -185,7 +185,7 @@ export type TranslationKey =
   | 'valAlliedTransportOverMax' | 'valAlliedSlotNotAllowed' | 'valAlliedSlotOverMax' | 'valAlliedRatioExceedsTroops'
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
   | 'valLockedMarkIncompatibleAllyHq' | 'valOnlyTwoTraits' | 'valSectorLordAcolytes' | 'valScarabsAsTroopsCap' | 'valUnitNotInCodex' | 'valUnitRemovedFromCodex' | 'valMinistorumThirdTraitPerUnit'
-  | 'unitNotInCodexTitle' | 'unitNotInCodexBody' | 'removeFromList' | 'valVeteranRequired' | 'valUndividedLegacyRestriction'
+  | 'unitNotInCodexTitle' | 'unitNotInCodexBody' | 'removeFromList' | 'moveUnitUp' | 'moveUnitDown' | 'valVeteranRequired' | 'valUndividedLegacyRestriction'
   | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valSkirmishArchetypeNotAllowed' | 'valSkirmishAllyTroops' | 'valSkirmishAllyExtras' | 'valArmyValid'
   | 'valIronWithin'
   | 'valBlackCrusadeNoChampion' | 'valBlackCrusadeTooMany' | 'valBlackCrusadeLockedMark' | 'valBlackCrusadeChampionOk'
@@ -1345,6 +1345,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Not in this codex any more',
     unitNotInCodexBody: 'This datasheet was removed or renamed in a codex update. It contributes 0 points and has no profile, but it is still holding its slot.',
     removeFromList: 'Remove from list',
+    moveUnitUp: 'Move up',
+    moveUnitDown: 'Move down',
     valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord / Rogue Trader Majoris) (have {count}).',
     valNavyWarbandPerTrader: 'Henchman Warband: each Rogue Trader may select a single Warband ({warbands} Warbands, {traders} Rogue Traders).',
     valCsmLegacyKhorne: '{armory} armory — "{item}": only for models with the Mark of Khorne ({unit} has Mark of {mark}).',
@@ -2539,6 +2541,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Nicht mehr in diesem Codex',
     unitNotInCodexBody: 'Dieses Datenblatt wurde in einem Codex-Update entfernt oder umbenannt. Es kostet 0 Punkte und hat kein Profil, belegt aber weiterhin seinen Slot.',
     removeFromList: 'Aus der Liste entfernen',
+    moveUnitUp: 'Nach oben',
+    moveUnitDown: 'Nach unten',
     valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord / Rogue Trader Majoris) (hat {count}).',
     valNavyWarbandPerTrader: 'Gefolgsleute-Warband: Jeder Rogue Trader darf nur eine Warband wählen ({warbands} Warbands, {traders} Rogue Trader).',
     valCsmLegacyKhorne: '{armory}-Rüstkammer — „{item}": nur für Modelle mit der Mark des Khorne ({unit} hat Mark des {mark}).',
@@ -3733,6 +3737,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     unitNotInCodexTitle: 'Ya no está en este códex',
     unitNotInCodexBody: 'Esta hoja se eliminó o se renombró en una actualización del códex. Cuesta 0 puntos y no tiene perfil, pero sigue ocupando su hueco.',
     removeFromList: 'Quitar de la lista',
+    moveUnitUp: 'Subir',
+    moveUnitDown: 'Bajar',
     valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord / Rogue Trader Majoris) (tiene {count}).',
     valNavyWarbandPerTrader: 'Séquito: cada Rogue Trader puede elegir una sola banda ({warbands} bandas, {traders} Rogue Traders).',
     valCsmLegacyKhorne: 'Armería {armory} — "{item}": solo para modelos con la Marca de Khorne ({unit} tiene Marca de {mark}).',

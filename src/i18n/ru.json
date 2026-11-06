@@ -741,6 +741,8 @@
  "unitNotInCodexTitle": "Больше нет в этом кодексе",
  "unitNotInCodexBody": "Этот датащит был удалён или переименован при обновлении кодекса. Он даёт 0 очков и не имеет профиля, но всё ещё занимает слот.",
  "removeFromList": "Удалить из списка",
+ "moveUnitUp": "Выше",
+ "moveUnitDown": "Ниже",
  "valHenchmanWarbandCapLord": "Банда приспешников: до {cap} специалистов (Лорд-Инквизитор / Rogue Trader Majoris) (сейчас {count}).",
  "valNavyWarbandPerTrader": "Банда приспешников: каждый Rogue Trader может выбрать только одну банду ({warbands} банд, {traders} Rogue Trader).",
  "valCsmLegacyKhorne": "Арсенал {armory} — «{item}»: только для моделей с Меткой Кхорна (у {unit} Метка {mark}).",

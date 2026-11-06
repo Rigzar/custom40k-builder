@@ -68,7 +68,7 @@ function MissingUnitCard({ item, faction }: { item: RosterEntry; faction: string
  */
 export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }) {
   const t = useT();
-  const { army, data, archetype, alliedFaction, alliedArchetype, pointLimit, legacy, legacy2, alliedLegacy } = useArmyStore();
+  const { army, data, archetype, alliedFaction, alliedArchetype, pointLimit, legacy, legacy2, alliedLegacy, swapUnits } = useArmyStore();
   // Declared BEFORE the early return below: a hook under a `return null` is what took the whole
   // app down on 2026-09-21 (React #310). `npm run lint` catches it; so does putting it here.
   const [collapseSignal, setCollapseSignal] = useState(0);
@@ -136,9 +136,24 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
                 {slotUnits.length} {slotUnits.length === 1 ? t('prUnitWord') : t('prUnitsWord')} · {slotPts} pts
               </span>
             </div>
-            {slotUnits.map(item => (resolveUnit(item, data)
-              ? <UnitCard key={item.id} item={item} collapseSignal={collapseSignal} collapseAll={collapseAll} />
-              : <MissingUnitCard key={item.id} item={item} faction={data.faction} />))}
+            {slotUnits.map((item, idx) => (
+              <div key={item.id} className="flex items-stretch gap-1">
+                {slotUnits.length > 1 && (
+                  <div className="flex flex-col justify-center gap-1 shrink-0">
+                    <button type="button" disabled={idx === 0} onClick={() => swapUnits(item.id, slotUnits[idx - 1].id)}
+                      title={t('moveUnitUp')} aria-label={t('moveUnitUp')}
+                      className="w-5 h-6 text-[10px] leading-none border border-zinc-800 text-zinc-500 hover:text-amber-500 hover:border-amber-900 disabled:opacity-20 disabled:pointer-events-none">▲</button>
+                    <button type="button" disabled={idx === slotUnits.length - 1} onClick={() => swapUnits(item.id, slotUnits[idx + 1].id)}
+                      title={t('moveUnitDown')} aria-label={t('moveUnitDown')}
+                      className="w-5 h-6 text-[10px] leading-none border border-zinc-800 text-zinc-500 hover:text-amber-500 hover:border-amber-900 disabled:opacity-20 disabled:pointer-events-none">▼</button>
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  {resolveUnit(item, data)
+                    ? <UnitCard item={item} collapseSignal={collapseSignal} collapseAll={collapseAll} />
+                    : <MissingUnitCard item={item} faction={data.faction} />}
+                </div>
+              </div>))}
           </div>
         );
       })}
