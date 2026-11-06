@@ -175,8 +175,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: "ki-ally-aop-elite-fa-hs-cap-01",
     status: "investigating",
     title: "Allied detachment: how many Elites / Fast Attack / Heavy Support per Troop?",
-    description: "OPEN 2026-11-06. The Core Rules give the allied AOP as 0-1 Elite*, 0-1 Fast Attack*, 0-1 Heavy Support*, and say \"For each Troop unit, one Elite, Fast Attack, or Heavy Support unit may be chosen.\" The builder reads it as a cap PER SLOT that scales with the Troops (2 Troops = up to 2 Elites AND 2 Fast Attack AND 2 Heavy Support, the author's ruling of 2026-07-10). A player reads it as a TOTAL: 2 Troops = 2 extra units in all, in any mix, never more than one of each. Question sent to the rules author; nothing changed until he answers.
-",
+    description: "OPEN 2026-11-06. The Core Rules give the allied AOP as 0-1 Elite*, 0-1 Fast Attack*, 0-1 Heavy Support*, and say \"For each Troop unit, one Elite, Fast Attack, or Heavy Support unit may be chosen.\" The builder reads it as a cap PER SLOT that scales with the Troops (2 Troops = up to 2 Elites AND 2 Fast Attack AND 2 Heavy Support, the author's ruling of 2026-07-10). A player reads it as a TOTAL: 2 Troops = 2 extra units in all, in any mix, never more than one of each. Question sent to the rules author; nothing changed until he answers.",
   },
   {
     id: "ki-necron-list-saved-as-csm-01",
