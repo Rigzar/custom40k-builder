@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v187i_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -56,236 +56,151 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "{v}: the army symbol on unit cards works again",
-    intro: "From v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, and the Knights now only in Knight Households.",
+    title: "{v}: sort the Armory, move your units",
+    intro: "Armory columns sort, units move up and down the list, Core Rules 1.43, and fixes from your reports.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Unit cards","The army symbol at the top left of a unit card showed as a broken image in most factions; fixed."],
-        ["Hover","Hover (or tap) a weapon type such as Pistol or Assault, or a rule named in quotes inside an ability, to read its rule."],
-        ["Legacies","A list in the army setup shows what every Legacy does."],
-        ["Text size","New A/A button on the front page: 115% or 130%, without breaking the layout."],
-        ["Psychic powers","The General discipline is listed, with Smite as always known."],
-        ["My Armies","New Duplicate button: keep the old list and carry on with a copy."],
-        ["Unit types","Hover (or tap) Infantry, Bike, Walker... on a unit card to read its rule."],
-        ["Thousand Sons","Lord of the Silver Tower now shows its Coruscating beam in print and battle view."],
-        ["Knights","Reputations can be picked again: the Veteran button no longer opens an empty list."],
-        ["Factions","The faction list under Build Army is alphabetical."],
-        ["Build Army","It now always opens a window with a My Armies button that shows your lists; click one to keep editing."],
-        ["Opening lists","Opening another list while one is open asks first: save, open without saving, or cancel."],
-        ["Chaos Space Marines","Hydra: +1 Elite per AOP. Night Haunter: +1 Fast Attack per AOP. Iron Lord: one Imperial Guard vehicle Heavy Support choice per AOP."],
-        ["Space Marines","The Predator can swap to the Executioner plasma cannon (+74)."],
-        ["Eldar","Rangers and Shroud Runners can swap their long rifles for the Ranger needle rifle."],
-        ["Knights","Armiger, War Dog, Knight Castellan, Paladin, Desecrator and Rampager are gone from the codices: they are in Knight Households."],
-        ["Armory","Imperial Guard Krak grenades are for Bikes only; Harlequins lose the Teleport homing beacon."],
+        ["Armory", "Click Weapon, Range, Type or Pts in the weapon table to sort."],
+        ["Army list", "Arrows beside each unit move it up or down in its slot (also sets the print order)."],
+        ["Core Rules 1.43", "Rule texts updated: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
+        ["Allied detachments", "Elite, Fast Attack and Heavy Support together can't exceed the Troops taken, and no more than one of each."],
       ] },
-      { label: "Knight Households", rows: [
-        ["New","New: 15 units, Armory with Reputations and two Archetypes, Freeblade and Chaos Knights."],
+      { label: "Discord", rows: [
+        ["Imperial Guard", "A Sergeant no longer inherits squad weapons; buying him gear keeps his default weapon."],
+        ["Jakhals", "Swapping a weapon in one option group no longer removes another group's weapons."],
+        ["Votann", "The Hernkyn Theyn shows the Armory weapons he bought."],
+        ["Gue'vesa", "Pulse rifles show correctly."],
+        ["Magos", "No false ward error in Skirmish."],
+        ["Remora", "The Armory button is back."],
       ] },
-      { label: "Core Rules 1.40", rows: [
-        ["1.40","Welcome introduction, Knight Households in the codex list, and the Leagues of Votann are Battle Brothers with themselves."],
+      { label: "GitHub", rows: [
+        ["#271", "Daemonkin: Chaos Daemons units can be picked right away."],
+        ["#272", "An Eightbound frees one Elite slot for a Slaughterbound."],
+        ["#269", "Chosen: a bike on one model gives one Combi-bolter; one Terminator no longer greys out the Armory for the rest."],
       ] },
-      { label: "Weapons", rows: [
-        ["Options","A Cyclone missile launcher no longer adds a plain Missile launcher; \"X with Y\" options show both profiles."],
-      ] },
-      { label: "Imperial Guard", rows: [
-        ["Bug reports","Abhuman Auxiliaries is a tick-box per creature unit; a bought Heavy stubber shows after a swap; the Sentinel chainsaw costs +15 per Sentinel."],
-      ] },
-      { label: "Genestealer Cults", rows: [
-        ["Ringleader","Two different Ringleader units (Magus, Primus, Acolyte Iconward) share one HQ slot."],
-        ["Primus","Synaptic Resonance is psykers only, so the Primus stays at 40 points."],
-      ] },
-      { label: "Wiki", rows: [
-        ["Units button","Looks like the other buttons now."],
-        ["Links","Seven broken unit links fixed, including the Corsairs; rules named in quotes show their text on hover."],
+      { label: "We need your help", rows: [
+        ["T'au Pathfinder", "Markerlights vanishing? Send us the list.", "https://github.com/Rigzar/custom40k-builder/issues"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "{v}: das Armeesymbol auf den Einheitenkarten funktioniert wieder",
-    intro: "Seit v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, und die Knights gibt es nur noch bei Knight Households.",
+    title: "{v}: Arsenal sortieren, Einheiten verschieben",
+    intro: "Arsenal-Spalten sortierbar, Einheiten in der Liste verschiebbar, Core Rules 1.43 und Korrekturen aus euren Meldungen.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
-        ["Einheitenkarten","Das Armeesymbol oben links auf einer Einheitenkarte wurde bei den meisten Fraktionen als defektes Bild angezeigt; behoben."],
-        ["Mauszeiger","Fahre über einen Waffentyp wie Pistol oder Assault (oder tippe darauf) oder über eine in Anführungszeichen genannte Regel in einer Fähigkeit, um die Regel zu lesen."],
-        ["Vermächtnisse","Eine Liste in der Armee-Einrichtung zeigt, was jedes Vermächtnis bewirkt."],
-        ["Textgröße","Neuer A/A-Knopf auf der Startseite: 115 % oder 130 %, ohne das Layout zu zerstören."],
-        ["Psychische Kräfte","Die allgemeine Disziplin wird angezeigt, Smite als immer bekannt."],
-        ["Meine Armeen","Neuer Button Duplizieren: die alte Liste behalten und mit einer Kopie weitermachen."],
-        ["Einheitentypen","Fahre auf der Einheitenkarte über Infanterie, Bike, Läufer... (oder tippe darauf), um die Regel zu lesen."],
-        ["Thousand Sons","Lord of the Silver Tower zeigt seinen Coruscating beam jetzt in Druck- und Schlachtansicht."],
-        ["Knights","Reputationen lassen sich wieder wählen: Der Veteran-Knopf öffnet keine leere Liste mehr."],
-        ["Fraktionen","Die Fraktionsliste unter Armee bauen ist alphabetisch."],
-        ["Armee bauen","Öffnet jetzt immer ein Fenster mit dem Knopf Meine Armeen, der deine Listen zeigt; ein Klick zum Weiterbearbeiten."],
-        ["Listen öffnen","Beim Öffnen einer anderen Liste wird gefragt: speichern, ohne Speichern öffnen oder abbrechen."],
-        ["Chaos Space Marines","Hydra: +1 Elite pro AOP. Night Haunter: +1 Fast Attack pro AOP. Iron Lord: ein Imperial-Guard-Fahrzeug aus Heavy Support pro AOP."],
-        ["Space Marines","Der Predator kann gegen die Executioner plasma cannon getauscht werden (+74)."],
-        ["Eldar","Rangers und Shroud Runners können ihre Long Rifles gegen das Ranger needle rifle tauschen."],
-        ["Knights","Armiger, War Dog, Knight Castellan, Paladin, Desecrator und Rampager sind aus den Codizes verschwunden: sie sind bei Knight Households."],
-        ["Armory","Imperial-Guard-Krak-Granaten nur für Bikes; die Harlequins verlieren den Teleport homing beacon."],
+        ["Armory", "Klicke in der Waffentabelle auf Waffe, Reichweite, Typ oder Pkt, um zu sortieren."],
+        ["Armeeliste", "Pfeile neben jeder Einheit verschieben sie in ihrem Slot (bestimmt auch die Druckreihenfolge)."],
+        ["Core Rules 1.43", "Regeltexte aktualisiert: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
+        ["Verbündete", "Elite, Fast Attack und Heavy Support zusammen dürfen die Zahl der Troops nicht überschreiten, jeweils höchstens eine."],
       ] },
-      { label: "Knight Households", rows: [
-        ["Neu","Neu: 15 Einheiten, Arsenal mit Reputationen und zwei Archetypen, Freeblade und Chaos Knights."],
+      { label: "Discord", rows: [
+        ["Imperial Guard", "Ein Sergeant erbt keine Trupp-Waffen mehr; Ausrüstung für ihn behält seine Standardwaffe."],
+        ["Jakhals", "Ein Waffentausch in einer Optionsgruppe entfernt keine Waffen anderer Gruppen mehr."],
+        ["Votann", "Der Hernkyn Theyn zeigt die gekauften Armory-Waffen."],
+        ["Gue'vesa", "Pulse rifles werden korrekt angezeigt."],
+        ["Magos", "Kein falscher Ward-Fehler im Skirmish."],
+        ["Remora", "Der Armory-Knopf ist zurück."],
       ] },
-      { label: "Kernregeln 1.40", rows: [
-        ["1.40","Einleitung „Welcome“, Knight Households in der Codex-Liste, und die Leagues of Votann sind mit sich selbst Battle Brothers."],
+      { label: "GitHub", rows: [
+        ["#271", "Daemonkin: Chaos-Daemons-Einheiten sind sofort wählbar."],
+        ["#272", "Ein Eightbound macht einen Elite-Slot für einen Slaughterbound frei."],
+        ["#269", "Chosen: ein Bike an einem Modell gibt einen Combi-bolter; ein Terminator sperrt die Armory nicht mehr für den Rest."],
       ] },
-      { label: "Waffen", rows: [
-        ["Optionen","Ein Cyclone missile launcher fügt keinen einfachen Missile launcher mehr hinzu; „X with Y“-Optionen zeigen beide Profile."],
-      ] },
-      { label: "Imperial Guard", rows: [
-        ["Fehlerberichte","Abhuman Auxiliaries ist ein Kästchen je Kreatur-Einheit; ein gekaufter Heavy stubber erscheint nach einem Tausch; die Sentinel-Kettensäge kostet +15 pro Sentinel."],
-      ] },
-      { label: "Genestealer Cults", rows: [
-        ["Ringleader","Zwei verschiedene Ringleader-Einheiten (Magus, Primus, Acolyte Iconward) teilen sich einen HQ-Platz."],
-        ["Primus","Synaptic Resonance gibt es nur für Psyker, der Primus bleibt bei 40 Punkten."],
-      ] },
-      { label: "Wiki", rows: [
-        ["Units-Knopf","Sieht jetzt aus wie die anderen Knöpfe."],
-        ["Links","Sieben kaputte Einheiten-Links repariert, auch die Corsairs; in Anführungszeichen genannte Regeln zeigen ihren Text beim Darüberfahren."],
+      { label: "Wir brauchen Hilfe", rows: [
+        ["T'au Pathfinder", "Markerlights verschwinden? Schickt uns die Liste.", "https://github.com/Rigzar/custom40k-builder/issues"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "{v}: el símbolo del ejército en las fichas vuelve a funcionar",
-    intro: "Desde v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, y los Knights ahora solo están en Knight Households.",
+    title: "{v}: ordena la Armería, mueve tus unidades",
+    intro: "Las columnas de la Armería se ordenan, las unidades suben y bajan en la lista, Core Rules 1.43 y arreglos de vuestros reportes.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Fichas de unidad","El símbolo del ejército arriba a la izquierda de la ficha salía como imagen rota en la mayoría de facciones; arreglado."],
-        ["Ratón","Pasa el ratón (o toca) un tipo de arma como Pistol o Assault, o una regla nombrada entre comillas dentro de una habilidad, para leer su regla."],
-        ["Legados","Una lista en la configuración del ejército muestra qué hace cada Legado."],
-        ["Tamaño del texto","Botón nuevo A/A en la portada: 115 % o 130 %, sin romper el diseño."],
-        ["Poderes psíquicos","Se muestra la disciplina General, con Smite siempre conocido."],
-        ["Mis ejércitos","Nuevo botón Duplicar: conserva la lista antigua y sigue con una copia."],
-        ["Tipos de unidad","Pasa el ratón (o toca) Infantería, Moto, Caminante... en la ficha para leer su regla."],
-        ["Thousand Sons","Lord of the Silver Tower ya muestra su Coruscating beam en impresión y vista de batalla."],
-        ["Knights","Las Reputations se pueden elegir otra vez: el botón Veteran ya no abre una lista vacía."],
-        ["Facciones","La lista de facciones de Construir ejército está en orden alfabético."],
-        ["Construir ejército","Ahora abre siempre una ventana con un botón Mis ejércitos que muestra tus listas; un clic para seguir editando."],
-        ["Abrir listas","Al abrir otra lista con una abierta, pregunta: guardar, abrir sin guardar o cancelar."],
-        ["Chaos Space Marines","Hidra: +1 Élite por AOP. Night Haunter: +1 Ataque Rápido por AOP. Iron Lord: un vehículo de Apoyo Pesado de la Imperial Guard por AOP."],
-        ["Space Marines","El Predator puede cambiar al Executioner plasma cannon (+74)."],
-        ["Eldar","Rangers y Shroud Runners pueden cambiar sus long rifles por el Ranger needle rifle."],
-        ["Knights","Armiger, War Dog, Knight Castellan, Paladin, Desecrator y Rampager ya no están en los códices: están en Knight Households."],
-        ["Armería","Las Krak grenades de la Imperial Guard son solo para Bikes; los Harlequins pierden el Teleport homing beacon."],
+        ["Armería", "Haz clic en Arma, Alcance, Tipo o Pts de la tabla de armas para ordenar."],
+        ["Lista del ejército", "Las flechas junto a cada unidad la suben o bajan dentro de su slot (también fija el orden de impresión)."],
+        ["Core Rules 1.43", "Textos de reglas actualizados: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
+        ["Aliados", "Elite, Fast Attack y Heavy Support juntos no pueden superar las Troops tomadas, y no más de una de cada."],
       ] },
-      { label: "Knight Households", rows: [
-        ["Nuevo","Nuevo: 15 unidades, Armería con Reputaciones y dos Arquetipos, Freeblade y Chaos Knights."],
+      { label: "Discord", rows: [
+        ["Imperial Guard", "Un Sargento ya no hereda las armas de la escuadra; comprarle equipo conserva su arma por defecto."],
+        ["Jakhals", "Cambiar un arma en un grupo de opciones ya no quita las armas de otro grupo."],
+        ["Votann", "El Hernkyn Theyn muestra las armas de Armería que compró."],
+        ["Gue'vesa", "Los Pulse rifle se muestran bien."],
+        ["Magos", "Sin falso error de ward en Skirmish."],
+        ["Remora", "Vuelve el botón de Armería."],
       ] },
-      { label: "Reglas Base 1.40", rows: [
-        ["1.40","Introducción «Welcome», Knight Households en la lista de códices, y las Leagues of Votann son Battle Brothers consigo mismas."],
+      { label: "GitHub", rows: [
+        ["#271", "Daemonkin: las unidades de Chaos Daemons se pueden elegir desde el principio."],
+        ["#272", "Un Eightbound libera un slot de Elite para un Slaughterbound."],
+        ["#269", "Chosen: una moto en un modelo da un Combi-bolter; un Terminator ya no apaga la Armería del resto."],
       ] },
-      { label: "Armas", rows: [
-        ["Opciones","Un Cyclone missile launcher ya no añade un Missile launcher normal; las opciones «X with Y» muestran los dos perfiles."],
-      ] },
-      { label: "Imperial Guard", rows: [
-        ["Reportes de errores","Abhuman Auxiliaries es una casilla por unidad criatura; un Heavy stubber comprado se muestra tras un cambio; la sierra del Sentinel cuesta +15 por Sentinel."],
-      ] },
-      { label: "Genestealer Cults", rows: [
-        ["Ringleader","Dos unidades Ringleader distintas (Magus, Primus, Acolyte Iconward) comparten un slot de HQ."],
-        ["Primus","Synaptic Resonance es solo para psíquicos, así que el Primus se queda en 40 puntos."],
-      ] },
-      { label: "Wiki", rows: [
-        ["Botón Units","Ahora se ve como los demás botones."],
-        ["Enlaces","Siete enlaces de unidades rotos arreglados, incluidos los Corsairs; las reglas nombradas entre comillas muestran su texto al pasar el ratón."],
+      { label: "Necesitamos ayuda", rows: [
+        ["T'au Pathfinder", "¿Desaparecen los Markerlights? Mándanos la lista.", "https://github.com/Rigzar/custom40k-builder/issues"],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "{v}: символ армии на карточках отрядов снова работает",
-    intro: "С v1.87h: Space Marines 1.12, Imperial Guard 1.11, Tyranids 1.12, Chaos Space Marines 1.11, Eldar 1.9, Genestealer Cults 1.5, и Рыцари теперь только в Knight Households.",
+    title: "{v}: сортировка Арсенала и перемещение отрядов",
+    intro: "Колонки Арсенала сортируются, отряды двигаются по списку, Core Rules 1.43 и исправления по вашим сообщениям.",
     install: "",
     sections: [
       { label: "Общее", rows: [
-        ["Карточки отрядов","Символ армии в левом верхнем углу карточки отряда у большинства фракций отображался как битое изображение; исправлено."],
-        ["Наведение","Наведите (или коснитесь) на тип оружия вроде Pistol или Assault либо на правило в кавычках внутри способности, чтобы прочитать его."],
-        ["Наследия","Список в настройке армии показывает, что делает каждое Наследие."],
-        ["Размер текста","Новая кнопка A/A на главной странице: 115 % или 130 %, раскладка не ломается."],
-        ["Психические силы","Показана общая дисциплина, Smite — всегда известна."],
-        ["Мои армии","Новая кнопка «Дублировать»: сохраните старый список и продолжайте с копией."],
-        ["Типы юнитов","Наведите (или коснитесь) Пехота, Мотоцикл, Ходун... в карточке, чтобы прочитать правило."],
-        ["Thousand Sons","Lord of the Silver Tower теперь показывает Coruscating beam в печати и в режиме боя."],
-        ["Knights","Репутации снова можно выбрать: кнопка Veteran больше не открывает пустой список."],
-        ["Фракции","Список фракций в «Собрать армию» отсортирован по алфавиту."],
-        ["Собрать армию","Теперь всегда открывает окно с кнопкой «Мои армии», показывающей ваши списки; клик, чтобы продолжить правку."],
-        ["Открытие списков","При открытии другого списка спрашивает: сохранить, открыть без сохранения или отменить."],
-        ["Chaos Space Marines","Гидра: +1 Элита на AOP. Night Haunter: +1 Fast Attack на AOP. Iron Lord: один транспорт тяжёлой поддержки Imperial Guard на AOP."],
-        ["Space Marines","Predator может заменить оружие на Executioner plasma cannon (+74)."],
-        ["Eldar","Rangers и Shroud Runners могут заменить long rifle на Ranger needle rifle."],
-        ["Рыцари","Armiger, War Dog, Knight Castellan, Paladin, Desecrator и Rampager убраны из кодексов: они в Knight Households."],
-        ["Арсенал","Krak-гранаты Imperial Guard только для байков; у Harlequins убран Teleport homing beacon."],
+        ["Арсенал", "Нажмите Оружие, Дальность, Тип или Очки в таблице оружия, чтобы отсортировать."],
+        ["Список армии", "Стрелки рядом с отрядом двигают его вверх или вниз в своём слоте (это же задаёт порядок печати)."],
+        ["Core Rules 1.43", "Тексты правил обновлены: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
+        ["Союзники", "Elite, Fast Attack и Heavy Support вместе не могут превышать число Troops, и не больше одного каждого."],
       ] },
-      { label: "Knight Households", rows: [
-        ["Новое","Новое: 15 юнитов, арсенал с Репутациями и два Архетипа — Freeblade и Chaos Knights."],
+      { label: "Discord", rows: [
+        ["Imperial Guard", "Сержант больше не наследует оружие отряда; покупка снаряжения сохраняет его оружие по умолчанию."],
+        ["Jakhals", "Замена оружия в одной группе опций больше не убирает оружие другой группы."],
+        ["Votann", "Hernkyn Theyn показывает купленное оружие из Арсенала."],
+        ["Gue'vesa", "Pulse rifle отображаются правильно."],
+        ["Magos", "Нет ложной ошибки ward в Skirmish."],
+        ["Remora", "Кнопка Арсенала вернулась."],
       ] },
-      { label: "Основные правила 1.40", rows: [
-        ["1.40","Вступление «Welcome», Knight Households в списке кодексов, Leagues of Votann с самими собой — Battle Brothers."],
+      { label: "GitHub", rows: [
+        ["#271", "Daemonkin: отряды Chaos Daemons можно выбирать сразу."],
+        ["#272", "Eightbound освобождает слот Elite для Slaughterbound."],
+        ["#269", "Chosen: байк у одной модели даёт один Combi-bolter; один Terminator больше не блокирует Арсенал остальным."],
       ] },
-      { label: "Оружие", rows: [
-        ["Опции","Cyclone missile launcher больше не добавляет обычный Missile launcher; опции «X with Y» показывают оба профиля."],
-      ] },
-      { label: "Imperial Guard", rows: [
-        ["Отчёты об ошибках","Abhuman Auxiliaries — флажок на каждом юните-существе; купленный Heavy stubber виден после замены; цепная пила Sentinel стоит +15 за каждого Sentinel."],
-      ] },
-      { label: "Genestealer Cults", rows: [
-        ["Ringleader","Два разных юнита с Ringleader (Magus, Primus, Acolyte Iconward) делят один слот HQ."],
-        ["Primus","Synaptic Resonance только для псайкеров, поэтому Primus остаётся за 40 очков."],
-      ] },
-      { label: "Вики", rows: [
-        ["Кнопка Units","Теперь выглядит как остальные кнопки."],
-        ["Ссылки","Исправлены семь сломанных ссылок на юниты, включая Corsairs; правила в кавычках показывают текст при наведении."],
+      { label: "Нужна помощь", rows: [
+        ["T'au Pathfinder", "Пропадают Markerlights? Пришлите список.", "https://github.com/Rigzar/custom40k-builder/issues"],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "{v}: ユニットカードの軍シンボルが再び表示されます",
-    intro: "v1.87h 以降: Space Marines 1.12、Imperial Guard 1.11、Tyranids 1.12、Chaos Space Marines 1.11、Eldar 1.9、Genestealer Cults 1.5、ナイトは Knight Households のみになりました。",
+    title: "{v}: アーモリーの並べ替えとユニットの移動",
+    intro: "アーモリーの列を並べ替え、ユニットをリスト内で上下に移動、Core Rules 1.43、そしてご報告の修正。",
     install: "",
     sections: [
       { label: "全般", rows: [
-        ["ユニットカード","ユニットカードの左上にある軍シンボルが、ほとんどの勢力で壊れた画像として表示されていました。修正しました。"],
-        ["ホバー","Pistol や Assault などの武器タイプ、または能力内の引用符付きルールに重ねる（タップする）と、そのルールが読めます。"],
-        ["レガシー","軍の設定の一覧で、各レガシーの効果が分かります。"],
-        ["文字サイズ","トップページに新しい A/A ボタン：115% または 130%、レイアウトは崩れません。"],
-        ["サイキックパワー","一般ディシプリンが表示され、Smite は常に習得済みです。"],
-        ["マイアーミー","新しい「複製」ボタン：古いリストを残して、コピーで作業を続けられます。"],
-        ["ユニットタイプ","ユニットカードの歩兵・バイク・ウォーカーなどにカーソルを合わせる（またはタップ）とルールが読めます。"],
-        ["Thousand Sons","Lord of the Silver Tower の Coruscating beam が印刷とバトルビューに表示されます。"],
-        ["ナイト","Reputation を再び選べます。Veteran ボタンが空のリストを開かなくなりました。"],
-        ["勢力","「軍勢を作る」の勢力リストがアルファベット順になりました。"],
-        ["軍勢を作る","常にウィンドウが開き、リストを表示する「マイアーミー」ボタンから編集を続けられます。"],
-        ["リストを開く","別のリストを開くときに、保存・保存せず開く・キャンセルを確認します。"],
-        ["Chaos Space Marines","ヒドラ：AOPごとにエリート+1。ナイトホーンター：AOPごとにファストアタック+1。アイアンロード：AOPごとにインペリアルガードの車両ヘビーサポート1つ。"],
-        ["Space Marines","プレデターは Executioner plasma cannon (+74) に交換できます。"],
-        ["Eldar","レンジャーとシュラウドランナーは Ranger needle rifle に交換できます。"],
-        ["ナイト","Armiger、War Dog、Knight Castellan、Paladin、Desecrator、Rampager はコデックスから削除され、Knight Households にあります。"],
-        ["アーモリー","インペリアルガードのクラックグレネードはバイク専用。ハーレクインから Teleport homing beacon を削除。"],
+        ["アーモリー", "武器表のWeapon、Range、Type、Ptsをクリックして並べ替え。"],
+        ["軍リスト", "各ユニットの横の矢印でスロット内を上下に移動（印刷順も決まります）。"],
+        ["Core Rules 1.43", "ルール文を更新：Extra Attack、Favoured Enemy、Outflank、Defensive Fire、Take Cover。"],
+        ["同盟軍", "Elite、Fast Attack、Heavy Supportの合計は選んだTroopsの数まで、各1つまで。"],
       ] },
-      { label: "Knight Households", rows: [
-        ["新規","新規：15 ユニット、名声付きアーモリー、アーキタイプ 2 つ（Freeblade と Chaos Knights）。"],
+      { label: "Discord", rows: [
+        ["Imperial Guard", "軍曹が分隊の武器を引き継がなくなり、装備を買っても標準武器が残ります。"],
+        ["Jakhals", "ある選択肢グループで武器を交換しても、他グループの武器が消えません。"],
+        ["Votann", "Hernkyn Theynが購入したアーモリー武器を表示します。"],
+        ["Gue'vesa", "Pulse rifleが正しく表示されます。"],
+        ["Magos", "Skirmishでの誤ったwardエラーを解消。"],
+        ["Remora", "アーモリーのボタンが戻りました。"],
       ] },
-      { label: "基本ルール 1.40", rows: [
-        ["1.40","導入「Welcome」、コデックス一覧に Knight Households、Leagues of Votann 同士は Battle Brothers に。"],
+      { label: "GitHub", rows: [
+        ["#271", "Daemonkin：Chaos Daemonsのユニットをすぐに選べます。"],
+        ["#272", "EightboundがSlaughterbound用のEliteスロットを1つ空けます。"],
+        ["#269", "Chosen：1体のバイクでCombi-bolterは1つ。Terminator 1体で他のアーモリーが無効になりません。"],
       ] },
-      { label: "武器", rows: [
-        ["オプション","Cyclone missile launcher が通常の Missile launcher を追加しなくなり、「X with Y」オプションは両方のプロファイルを表示します。"],
-      ] },
-      { label: "Imperial Guard", rows: [
-        ["不具合報告","Abhuman Auxiliaries はクリーチャーユニットごとのチェックボックス。買った Heavy stubber は交換後も表示。Sentinel のチェーンソーは 1 体につき +15。"],
-      ] },
-      { label: "Genestealer Cults", rows: [
-        ["Ringleader","異なる Ringleader ユニット 2 つ（Magus、Primus、Acolyte Iconward）が HQ 枠を 1 つ共有します。"],
-        ["Primus","Synaptic Resonance はサイカー専用なので、Primus は 40 ポイントのままです。"],
-      ] },
-      { label: "Wiki", rows: [
-        ["Units ボタン","他のボタンと同じ見た目になりました。"],
-        ["リンク","壊れていたユニットのリンク 7 件（Corsairs を含む）を修正。引用符付きのルールは重ねると文章が表示されます。"],
+      { label: "ご協力のお願い", rows: [
+        ["T'au Pathfinder", "Markerlightが消える？リストを送ってください。", "https://github.com/Rigzar/custom40k-builder/issues"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
