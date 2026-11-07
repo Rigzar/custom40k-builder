@@ -792,7 +792,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       // is bought some other way (an equipment item, a unit), so nobody can take it from here. Do not list what cannot be taken
       // (Sedroc, Discord) - unless it is already owned, so it stays removable.
       if (!arm.category && parsePrice(arm.p_unit) == null && parsePrice(arm.p_char) == null && parsePrice(arm.p_veh) == null
-        && !isWeaponCostSpecial(arm.desc) && !boughtItemNames.has(arm.name)) return false;
+        && !isWeaponCostSpecial(arm.desc) && gameSizePrice(arm.name, 1) === null && !boughtItemNames.has(arm.name)) return false;
       if (arm.category === 'vehicle') return isVehicle;
       if (arm.category === 'veteran') {
         if (!armoryVetEnabled) return false;
