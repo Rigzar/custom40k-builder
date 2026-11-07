@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'b';
+export const REVISION = 'c';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-06',
     title: "Sorting, ordering and sergeant fixes",
     changes: [
+      "STRENGTH \"U\" WEAPONS AND +1 STRENGTH ENHANCEMENTS (Discord, TeCrisis). A weapon whose Strength is U (the wielder's own) ignored the Regimental relic and every other +1 Strength enhancement: a Lord Commissar's melee weapons showed no change. U with +1 now reads +1, i.e. the wielder's Strength plus one, as the Core Rules define it.",
       "ARMORY: SORT THE WEAPONS TABLE (Discord). Click the Weapon, Range, Type or Pts header in the Armory's weapon table to sort by it; click again to reverse, a third time to go back to the sheet order.",
       "ARMY LIST: MOVE UNITS UP AND DOWN (Discord). Each unit in a slot has a pair of arrows to its left that move it up or down inside its slot, which also sets the order of the print view.",
       "SERGEANTS AND SQUAD WEAPONS (Discord, several reports). A sergeant no longer inherits the weapons the squad buys, and buying an Armory item for him no longer wipes his default weapon. Swapping a weapon in one option group no longer removes weapons given by another (Chaos Space Marine Jakhals). Promoted models (Votann Theyn) now show the Armory weapons they bought. Gue'vesa Pulse rifles show correctly. Magos with a ward save no longer trigger a false Skirmish ward error, and Remora has its Armory button back.",

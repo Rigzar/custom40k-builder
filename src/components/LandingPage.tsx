@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188c_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -75,6 +75,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Remora", "The Armory button is back."],
         ["T'au Armory", "Rows nobody can buy (Markerlight, Seeker missile...) are no longer listed."],
         ["T'au Commander", "An XV85 Enforcer battlesuit allows a fourth weapon."],
+        ["Strength U", "A weapon with Strength U now gets +1 Strength enhancements (Regimental relic and similar)."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: Chaos Daemons units can be picked right away."],
@@ -107,6 +108,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Remora", "Der Armory-Knopf ist zurück."],
         ["T'au Armory", "Zeilen, die niemand kaufen kann (Markerlight, Seeker missile...), werden nicht mehr aufgeführt."],
         ["T'au Commander", "Ein XV85 Enforcer battlesuit erlaubt eine vierte Waffe."],
+        ["Stärke U", "Eine Waffe mit Stärke U erhält jetzt +1-Stärke-Verbesserungen (Regimental relic und ähnliche)."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: Chaos-Daemons-Einheiten sind sofort wählbar."],
@@ -139,6 +141,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Remora", "Vuelve el botón de Armería."],
         ["Armería T'au", "Ya no se listan filas que nadie puede comprar (Markerlight, Seeker missile...)."],
         ["Commander T'au", "Un XV85 Enforcer battlesuit permite una cuarta arma."],
+        ["Fuerza U", "Un arma con Fuerza U ahora recibe las mejoras de +1 Fuerza (Regimental relic y similares)."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: las unidades de Chaos Daemons se pueden elegir desde el principio."],
@@ -171,6 +174,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Remora", "Кнопка Арсенала вернулась."],
         ["Арсенал T'au", "Строки, которые никто не может купить (Markerlight, Seeker missile...), больше не показываются."],
         ["T'au Commander", "XV85 Enforcer battlesuit даёт четвёртое оружие."],
+        ["Сила U", "Оружие с Силой U теперь получает улучшения +1 к Силе (Regimental relic и подобные)."],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin: отряды Chaos Daemons можно выбирать сразу."],
@@ -203,6 +207,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Remora", "アーモリーのボタンが戻りました。"],
         ["T'auアーモリー", "誰も購入できない行（Markerlight、Seeker missileなど）は表示されなくなりました。"],
         ["T'au Commander", "XV85 Enforcer battlesuitで4つ目の武器を持てます。"],
+        ["強さU", "強さUの武器にも+1強さの強化（Regimental relicなど）が反映されます。"],
       ] },
       { label: "GitHub", rows: [
         ["#271", "Daemonkin：Chaos Daemonsのユニットをすぐに選べます。"],

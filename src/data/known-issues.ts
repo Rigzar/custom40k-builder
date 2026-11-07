@@ -2111,4 +2111,10 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: "War Dog and Armiger are copied into the other Chaos and Imperial codices (temporary)",
     description: "2026-10-23, Dominic: let any of them take both or none at all; the Knights are reworked next week and then neither is available through Escalation. Done as: the Armiger datasheet is copied into the Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition and Imperial Navy folders, and the War Dog into Imperial Guard, Space Marines and Adeptus Mechanicus, where it is marked requires_archetype_unlock and only exists under Traitor Guard, Renegades or Dark Mechanicum (unlocksUnits). Chaos Daemons and the xenos codices get neither. scripts/check_escalation_war_dog_armiger.ts guards it. WHEN THE KNIGHTS ARE REWORKED: delete the copies (data/parsed/*/units/elites/armiger.json and war_dog.json except in Space Marines and Chaos Space Marines, and their index.ts lines) and the unlocksUnits and bannedUnits lines on the three archetypes. Dark Mechanicum counts as Chaos here on our reading (it takes Marks and is Allies of Convenience for Chaos Space Marines); say if it should not.",
   },
+  {
+    id: "ki-strength-u-ignores-plus-one-01",
+    status: "fixed",
+    title: "A weapon with Strength U ignored +1 Strength enhancements such as the Regimental relic",
+    description: "FIXED 2026-11-07. Reported by TeCrisis on a Lord Commissar with different S:U melee weapons. addStrength() left U untouched on the argument that U resolves against the model, so the enhancement did nothing on those weapons. The Core Rules define U as the wielder's base Strength and a +N modifier as that Strength plus N, so U with +1 is now written +1, which the rest of the engine (the Strength 7 AT(1) rule included) already reads. x2, D and T are still left alone: additive bonuses apply before multiplicative ones, so +1 on x2 cannot be written on the profile. Guard: scripts/check_strength_modifier_boost.ts.",
+  },
 ];

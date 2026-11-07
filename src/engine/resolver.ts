@@ -2818,11 +2818,15 @@ function applyDaBoomaBoost(unit: Unit, item: RosterEntry, groups: WeaponGroup[])
  * melee weapon stayed at +2 with the Tomb World relic applied (GH#134). 103 weapons in five
  * factions alone print Strength this way.
  *
- * "U", "x2", "D" and "T" are left alone: those resolve against the model rather than being a
- * number on the profile, so there is nothing here to add to.
+ * "U" is the wielder's own Strength (Core Rules, Strength: "attacks are resolved using the wielder's base
+ * Strength value"), and a "+N" profile is that Strength plus N, so "U" with a +1 Strength enhancement is
+ * exactly "+1" (TeCrisis, Discord 2026-11-07: a Lord Commissar's S:U melee weapons ignored the Regimental
+ * relic). "x2", "D" and "T" are left alone: additive bonuses apply before multiplicative ones, so a
+ * "+1" on "x2" cannot be written on the profile, and "D" has no number to add to.
  */
 export function addStrength(s: string, delta: number): string {
   if (/^\d+$/.test(s)) return String(parseInt(s, 10) + delta);
+  if (/^U$/i.test(s.trim()) && delta > 0) return `+${delta}`;
   const mod = s.match(/^\+(\d+)$/);
   if (mod) return `+${parseInt(mod[1], 10) + delta}`;
   return s;
