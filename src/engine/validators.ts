@@ -2171,7 +2171,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // Horus Heresy: an archetype that "can only be selected with the Legacy of X" (data-driven, see lib/legacyGatedChoices.ts).
   // The traits are open to every Legion (Rigzar 2026-11-01).
   {
-    const needLegacy = archetypeRequiredLegacy(data.archetypes.find(a => a.name === state.archetype));
+    const needLegacy = archetypeRequiredLegacy(data.archetypes.find(a => a.name === state.archetype), data.faction);
     if (needLegacy && needLegacy !== state.legacy) {
       items.push({ type: 'error', text: `${state.archetype} can only be selected with the ${needLegacy}.` });
     }

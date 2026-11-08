@@ -30,6 +30,7 @@ import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { paginate } from '../utils/printPagination';
 import { nm, rl, eqText } from '../utils/localName';
+import { hhDisciplineLabel } from '../utils/hhDisciplineLabel';
 
 
 /**
@@ -521,7 +522,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const traitList  = item.traits.map(t => t.name);
   // Names only on the card; the full text of every power and prayer is in the book at the end of the list (utils/powerBook.ts).
   const psy = unitPowerSummary(item, data);
-  const powerList  = [...psy.wholeDisciplines.map(d => `${nm(d)} (${tFn(lang, 'bookAll')})`), ...psy.names.map(n => nm(n))];
+  const powerList  = [...psy.wholeDisciplines.map(d => `${nm(hhDisciplineLabel(d))} (${tFn(lang, 'bookAll')})`), ...psy.names.map(n => nm(n))];
   const prayerList = [...psy.prayers, ...psy.pacts];
   const hasAbilities = abilitiesList.length > 0 || traitList.length > 0 || powerList.length > 0 || prayerList.length > 0;
 
@@ -2069,7 +2070,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                 {[book.powers.length ? tFn(rootLang, 'prPsychicPowers') : '', book.prayers.length ? tFn(rootLang, 'prPrayers') : '', book.pacts.length ? tFn(rootLang, 'infernalPactsLabel') : ''].filter(Boolean).join(' · ')}
               </div>
               <div style={{ padding: '6px 14px', background: PARCHMENT }}>
-                {book.powers.map(g => <Block key={g.discipline} title={nm(g.discipline)} entries={g.entries} />)}
+                {book.powers.map(g => <Block key={g.discipline} title={nm(hhDisciplineLabel(g.discipline))} entries={g.entries} />)}
                 {book.prayers.length > 0 && <Block title={tFn(rootLang, 'prPrayers')} entries={book.prayers} />}
                 {book.pacts.length > 0 && <Block title={tFn(rootLang, 'infernalPactsLabel')} entries={book.pacts} />}
               </div>

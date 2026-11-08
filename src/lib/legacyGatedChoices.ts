@@ -6,11 +6,11 @@ import { getArchetypeRule } from '../engine/archetypes';
  * (Legion traits used to be tied too; they are open to every Legion now.) It is read from the data, not listed by hand, so a rename on the sheet needs no code change.
  */
 
-/** The Legacy an archetype demands, or null when its text names none. */
-export function archetypeRequiredLegacy(archetype: Pick<Archetype, 'desc'> | undefined): string | null {
+/** The Legacy an archetype demands, or null when its text names none. `faction` is the loader's faction name: only the Horus Heresy books write it as 'Must select "Legacy of X"'. */
+export function archetypeRequiredLegacy(archetype: Pick<Archetype, 'desc'> | undefined, faction?: string): string | null {
   const text = String(archetype?.desc ?? '');
-  // the Legion archetypes of the Loyal / Traitor books: 'Must select "Legacy of the Lion".'
-  const m = text.match(/Can only be selected with the (Legacy of [^.\n]+?)\./) ?? text.match(/Must select ["“](Legacy of [^"”\n]+?)["”]/);
+  let m = text.match(/Can only be selected with the (Legacy of [^.\n]+?)\./);
+  if (!m && faction?.startsWith('Horus Heresy')) m = text.match(/Must select ["“](Legacy of [^"”\n]+?)["”]/);
   return m ? m[1].trim() : null;
 }
 
@@ -49,7 +49,7 @@ export function archetypeOpensUnit(
 ): boolean {
   if (needArch === archetype) return true;
   if (archetype !== 'Legion Specialists') return false;
-  const legacyOfNeed = archetypeRequiredLegacy(archetypes.find(a => a.name === needArch));
+  const legacyOfNeed = archetypeRequiredLegacy(archetypes.find(a => a.name === needArch), 'Horus Heresy');
   return !!legacyOfNeed && legacyOfNeed === legacy;
 }
 

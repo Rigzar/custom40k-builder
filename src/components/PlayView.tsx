@@ -31,6 +31,7 @@ import { useT, useLanguage } from '../i18n';
 import type { RosterEntry } from '../types/army';
 import type { FactionData, Weapon } from '../types/data';
 import { nm } from '../utils/localName';
+import { hhDisciplineLabel } from '../utils/hhDisciplineLabel';
 import { AbilityTokens, WeaponTypeTip, UnitTypeTip } from './AbilityTokens';
 
 const STAT_INF = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV'];
@@ -245,7 +246,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
               {psy.wholeDisciplines.length + psy.names.length > 0 && (
                 <div><span className="text-zinc-600 uppercase text-[9px] tracking-widest mr-1">{t('playPowers')}</span>
                   <span className="text-zinc-300">
-                    {[...psy.wholeDisciplines.map(d => `${d} (${t('bookAll')})`), ...psy.names].join(' · ')}
+                    {[...psy.wholeDisciplines.map(d => `${hhDisciplineLabel(d)} (${t('bookAll')})`), ...psy.names].join(' · ')}
                   </span>
                 </div>
               )}
@@ -333,7 +334,7 @@ function PowerBookPanel({ army, data }: { army: RosterEntry[]; data: any }) {
   return (
     <div className="pt-3 space-y-1.5">
       <p className="text-zinc-600 text-[10px] uppercase tracking-widest">{[book.powers.length ? t('playPowers') : '', book.prayers.length ? t('playPrayers') : '', book.pacts.length ? t('infernalPactsLabel') : ''].filter(Boolean).join(' · ')}</p>
-      {book.powers.map(g => <Section key={g.discipline} title={g.discipline} entries={g.entries} />)}
+      {book.powers.map(g => <Section key={g.discipline} title={hhDisciplineLabel(g.discipline)} entries={g.entries} />)}
       {book.prayers.length > 0 && <Section title={t('playPrayers')} entries={book.prayers} />}
       {book.pacts.length > 0 && <Section title={t('infernalPactsLabel')} entries={book.pacts} />}
     </div>

@@ -13,6 +13,7 @@ import { CSM_LOWER_PRAYERS } from '../engine/codex_csm/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
 import { powerMetaLine, complexityLabel } from '../utils/psychicFormat';
 import { useT } from '../i18n';
+import { hhDisciplineLabel } from '../utils/hhDisciplineLabel';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
@@ -567,7 +568,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                     {/* Discipline header — the whole row toggles open/close; in all_from_one mode the
                         "Choose" badge (which selects the whole discipline) is a separate control. */}
                     <summary className="flex items-center justify-between gap-2 px-2.5 py-1.5 cursor-pointer select-none hover:bg-zinc-800/40">
-                      <span className={`text-[11px] uppercase tracking-widest ${isChosen ? 'text-amber-400' : 'text-amber-700'}`}>{nm(discName)}</span>
+                      <span className={`text-[11px] uppercase tracking-widest ${isChosen ? 'text-amber-400' : 'text-amber-700'}`}>{nm(hhDisciplineLabel(discName))}</span>
                       {psykerMode === 'all_from_one' ? (
                         <button
                           onClick={e => { e.preventDefault(); e.stopPropagation(); chooseAllFromDisc(discName); }}

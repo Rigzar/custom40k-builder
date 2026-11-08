@@ -149,12 +149,12 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
 
   // An archetype that names its Legacy ("Can only be selected with the Legacy of X") sets it and locks the choice: the Legacy is only free again when the
   // archetype is changed to one that does not (Rigzar 2026-11-01).
-  const lockedLegacy = (() => { const need = archetypeRequiredLegacy(data.archetypes.find(x => x.name === archetype)); return need && data.legacies.some(l => l.name === need) ? need : null; })();
+  const lockedLegacy = (() => { const need = archetypeRequiredLegacy(data.archetypes.find(x => x.name === archetype), data.faction); return need && data.legacies.some(l => l.name === need) ? need : null; })();
 
   function handleSetArchetype(a: string) {
     // A Legion archetype says "Can only be selected with the Legacy of X": picking it sets that Legacy (when it exists in this book),
     // so the player does not have to know the order (Rigzar 2026-11-01).
-    const need = archetypeRequiredLegacy(data.archetypes.find(x => x.name === a));
+    const need = archetypeRequiredLegacy(data.archetypes.find(x => x.name === a), data.faction);
     if (need && need !== legacy && data.legacies.some(l => l.name === need)) setLegacy(need);
     setArchetype(a);
     if (!isAllied) {
@@ -252,10 +252,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         .filter(a => engagement !== 'skirmish' || archetypeAllowedInSkirmish(data, a.name))
                         .filter(a => { const only = getArchetypeRule(a.name)?.alliedOnlyTo; return !only || (isAllied && primaryKey === only) || a.name === archetype; })
                         .map(a => {
-                          // A Legion archetype is listed from the start with the Legacy it goes with; picking it sets that Legacy.
-                          const need = archetypeRequiredLegacy(a);
-                          const other = !!need && need !== legacy && a.name !== archetype;
-                          return <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}{other ? ` — ${need}` : ''}</option>;
+                          // Listed by its name, as the sheet writes it; a Legion archetype sets its Legacy when picked (the text under the list says which).
+                          return <option key={a.name} value={a.name}>{nm(cleanArchetypeName(a.name))}</option>;
                         })}
                     </select>
                     {engagement === 'skirmish' && (
