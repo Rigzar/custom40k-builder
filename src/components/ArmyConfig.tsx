@@ -6,6 +6,7 @@ import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
 import { archetypeRequiredLegacy } from '../lib/legacyGatedChoices';
+import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
@@ -328,6 +329,9 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       {legacy && (
                         <div className={`mt-2 text-[10px] text-zinc-400 border-l-2 ${accentBorder} pl-3 leading-relaxed`}>
                           {localiseAbility(data.legacies.find(l => l.name === legacy)?.desc ?? "")}
+                          {hhMarkFor(legacy, data.faction)?.legionTerm.note && (
+                            <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
+                          )}
                         </div>
                       )}
 
@@ -347,6 +351,9 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                           {legacy2 && (
                             <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
                               {localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
+                              {hhMarkFor(legacy2, data.faction)?.legionTerm.note && (
+                                <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy2, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
+                              )}
                             </div>
                           )}
                         </div>

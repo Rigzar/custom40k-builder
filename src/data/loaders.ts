@@ -24,6 +24,7 @@
  */
 
 import type { FactionData } from '../types/data';
+import { registerHhMarks } from '../engine/codex_horus_heresy/archetypes';
 import { applyDataOverrides, type DataOverrides } from '../engine/dataOverrides';
 import { applyKnightHouseholdRules } from './knightRules';
 
@@ -48,6 +49,7 @@ async function asm(
     archetypes: a?.archetypes ?? [],
     legacies: a?.legacies ?? [],
     traits: a?.traits ?? [],
+    legion_marks: a?.legion_marks,
     animosity: r?.animosity ?? {},
     allied: r?.allied ?? {},
     // Defaults must match the DECLARED type, not just be falsy-ish: `disciplines` is a
@@ -398,7 +400,9 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/horus_heresy_loyal/armory/legion_salamanders.json'),
         import('../../data/parsed/horus_heresy_loyal/armory/legion_raven_guard.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { "Dark Angels": l0, "White Scars": l1, "Space Wolves": l2, "Imperial Fists": l3, "Blood Angels": l4, "Iron Hands": l5, "Ultramarines": l6, "Salamanders": l7, "Raven Guard": l8 }, { disciplines: discs, prayers });
+      const hh = await asm(u, g, arch, noRules, {}, { "Dark Angels": l0, "White Scars": l1, "Space Wolves": l2, "Imperial Fists": l3, "Blood Angels": l4, "Iron Hands": l5, "Ultramarines": l6, "Salamanders": l7, "Raven Guard": l8 }, { disciplines: discs, prayers });
+      registerHhMarks(hh.faction, hh.legacies, (hh as any).legion_marks);
+      return hh;
     }
 
     // Alpha faction (admins and Servitors only, see factionCatalog.alpha): the traitor book of the Horus Heresy project, built from the Google book
@@ -421,7 +425,9 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/horus_heresy_traitor/armory/legion_thousand_sons.json'),
         import('../../data/parsed/horus_heresy_traitor/armory/legion_blackshields.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8, "Blackshields": l9 }, { disciplines: discs, prayers });
+      const hh = await asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8, "Blackshields": l9 }, { disciplines: discs, prayers });
+      registerHhMarks(hh.faction, hh.legacies, (hh as any).legion_marks);
+      return hh;
     }
 
     case 'legion_of_the_damned': {

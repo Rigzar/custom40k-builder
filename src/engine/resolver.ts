@@ -945,7 +945,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!rule?.grantsMarkPurchase;
   // The four god marks count as a veteran ability. Mark of Chaos Undivided does NOT (rule omits the clause).
   // Locked-mark units (e.g. Plague Marines) use veteran_max:1 in their data instead.
-  const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark && effectiveMark !== 'Undivided';
+  // Horus Heresy: the mark of the Legion counts as a veteran ability too (the Index: "Counts as a veteran ability"); a special unit's own locked mark does not take the slot.
+  const hhMarkUsesVet = data.faction.startsWith('Horus Heresy:') && !item.factionSource && !unit.requires_legacy && !!hhMarkFor(effectiveLegacyFor(item, state), data.faction, unit);
+  const markUsesVetSlot = (hasMarkGroup && !unit.locked_mark && !!effectiveMark && effectiveMark !== 'Undivided') || hhMarkUsesVet;
   // AdMech "Veteran Maniple": "Any unit with the option to purchase a Doctrina Imperitive may
   // purchase a second one" — only for units with an explicit veteran_max (the Doctrina-eligible
   // roster), not units defaulting to the generic fallback of 2.
@@ -1027,7 +1029,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks);
   // Horus Heresy Thousand Sons (Cult Arcana, part of the archetype): every unit that is not a character, a Monstrous Creature or a vehicle is a Psyker
   const isArchetypePsyker = !!rule?.unitsArePsykers && !unit.is_psyker && !unit.is_character && !unit.is_monster && !unit.is_vehicle && !/monstrous/i.test(unit.unit_type ?? '');
-  const effectivePsyker = unit.is_psyker || isTzeentchPsyker || isOptionalPsyker || isArchetypePsyker;
+  // Horus Heresy: the mark of Thousand Sons / Word Bearers makes a character model or Monstrous Creature a psyker
+  const hhMarkPsyker = !!hhMarkFor(effectiveLegacyFor(item, state), data.faction, unit)?.makesPsykerChars && (unit.is_character || unit.is_monster);
+  const effectivePsyker = unit.is_psyker || isTzeentchPsyker || isOptionalPsyker || isArchetypePsyker || hhMarkPsyker;
 
   // Weapons & loadout (unmodified — faction resolvers apply overrides)
   const equippedWith = unit.equipped_with ?? '';
@@ -1098,16 +1102,22 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   // An archetype can change stats army-wide too (Ratling Company). Same list as the traits,
   // so the card, the print view and the TTS export all honour it with no second code path.
-  // Horus Heresy: the Mark of the Legion comes from the Legion archetype or from the Legion of the Legacy
-  const hhMark = hhMarkFor(effectiveLegacyFor(item, state), data.faction);
-  const markRule = data.faction.startsWith('Horus Heresy') ? hhMark : rule;
-  for (const sm of (markRule?.statModsExceptUnits ?? []).includes(unit.name) ? [] : markRule?.statMods ?? []) {
+  // Horus Heresy: the mark of the Legion (the Legion of the Legacy, or the locked one of a special unit) gives every unit its stats and abilities
+  const hhMark = hhMarkFor(effectiveLegacyFor(item, state), data.faction, unit);
+  const markRule = data.faction.startsWith('Horus Heresy:') ? hhMark : rule;
+  for (const sm of markRule?.statMods ?? []) {
     if (sm.creatureOnly && unit.is_vehicle) continue;
+    if (sm.vehicleOnly && !unit.is_vehicle) continue;
     if (sm.characterOnly && !unit.is_character) continue;
     if (sm.characterOrMonsterOnly && !unit.is_character && !unit.is_monster) continue;
     traitStatMods.push({ stat: sm.stat, delta: sm.delta });
   }
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
+  if (hhMark && data.faction.startsWith('Horus Heresy:')) {
+    const markName = `Mark of ${hhMark.legion}`;
+    const infantry = String(unit.unit_type).toLowerCase().includes('infantry');
+    for (const ab of unit.is_vehicle ? hhMark.vehicleAbilities : (!hhMark.infantryOnlyAbilities || infantry ? hhMark.creatureAbilities : [])) traitAbilities.push({ traitName: markName, name: ab });
+  }
   const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
   const traitGrantedItems: string[] = [];
   // Dark Eldar traits are sub-faction-gated: a ᴷ/ᶜᵒ/ᶜᵘ trait only applies to a unit whose
@@ -1770,7 +1780,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   // Horus Heresy Legion term (World Eaters (WE), Death Guard (DG)...): the archetype puts it on every unit; the stat changes
   // came in through `statMods` above, this is the reminder of the whole rule.
-  { const mk = data.faction.startsWith('Horus Heresy') ? hhMarkFor(effectiveLegacyFor(item, state), data.faction) : rule; if (mk?.legionTerm) ruleNotes.push(mk.legionTerm.note); }
+  { const mk = data.faction.startsWith('Horus Heresy:') ? hhMarkFor(effectiveLegacyFor(item, state), data.faction, unit) : rule; if (mk?.legionTerm) ruleNotes.push(mk.legionTerm.note); }
   // Archetype-granted "Command squad" (e.g. Sorcerer Circle → Chaos Sorcerers, Librarian
   // Conclave → Librarians): surface the granted ability on the profile so the player can SEE it —
   // the join mechanics read the same grant (UnitCard dropdown + validator). Scoped via `rule`.

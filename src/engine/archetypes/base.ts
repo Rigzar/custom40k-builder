@@ -356,12 +356,12 @@ export interface ArchetypeRule {
    *
    * `creatureOnly` skips vehicles, matching the codex's own "All Creature units" wording.
    */
-  statMods?: { stat: string; delta: number; creatureOnly?: boolean; characterOnly?: boolean; characterOrMonsterOnly?: boolean }[];
+  statMods?: { stat: string; delta: number; creatureOnly?: boolean; characterOnly?: boolean; characterOrMonsterOnly?: boolean; vehicleOnly?: boolean }[];
   /**
    * Horus Heresy: the Legion term the archetype gives to every unit of the army ("Legion: World Eaters (WE)"). Its bonuses
    * that change a number go in `statMods`; `note` is the rule text, shown on every unit card like the Marks' reminders.
    */
-  legionTerm?: { name: string; abbr: string; note: string; perWound: number; vehicleFlat?: number } | null;
+  legionTerm?: { name: string; abbr: string; note: string; perWound: number; vehicleFlat?: number; perModel?: number; perCharacter?: number } | null;
   /** Units whose own profile already has the term's stat bonus (the World Eaters Red Butcher Terminators): no second bonus and no charge. */
   statModsExceptUnits?: string[];
   /** Horus Heresy Thousand Sons (Cult Arcana): every unit that is not a character, a Monstrous Creature or a vehicle is a Psyker (Smite and one power of its discipline). */

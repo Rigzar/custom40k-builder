@@ -25,6 +25,7 @@ import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
 import { unitSubfactions, DE_SUBFACTIONS } from '../engine/codex_dark_eldar/subfaction';
 import { DARK_ELDAR_COMBAT_DRUGS, hasCombatDrugs } from '../engine/codex_dark_eldar/combatDrugs';
+import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -260,6 +261,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // option when Tau is the ALLY); scope 'force' stays on the PRIMARY faction by design (its only
   // data user is the integrated HH supplement, whose host is the primary army).
   const itemArchetype = effectiveArchetypeFor(item, store);
+  const hhLegionMark = data.faction.startsWith('Horus Heresy:') && !item.factionSource ? hhMarkFor(effectiveLegacyFor(item, store), data.faction, u) : null;
   const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && item.factionSource === store.alliedFaction ? '' : store.legacy2].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
@@ -503,6 +505,11 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 />
               </span>
             ) : null}
+            {hhLegionMark && (
+              <span className="ml-1" title={hhLegionMark.legionTerm.note}>
+                <MarkBadge mark={`Mark of ${hhLegionMark.legion}`} suffix={u.requires_legacy ? t('lockedSuffix') : undefined} />
+              </span>
+            )}
             {isFavored && (
               <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700/60 px-1.5 py-px uppercase tracking-wide font-semibold rounded-sm">
                 {t('favoredBadge')}

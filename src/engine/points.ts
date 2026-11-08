@@ -326,17 +326,16 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     }
   }
 
-  // Horus Heresy Legion term (Legion: World Eaters (WE)...): the archetype puts it on every unit and, like a Mark of Chaos,
-  // it costs points even though nobody picked it per unit. Same convention as the Traitor Guard's purchased Mark above
-  // ("point cost per model and per Wound", vehicles flat): the rate is the Legion's, set in its archetype rule.
+  // Horus Heresy: the mark of the Legion is on EVERY unit of the army (the Legion of its Legacy, or of the special unit itself) and has its price per model,
+  // for a character model, or flat for a vehicle (the Index of the sheet) - like a Mark of Chaos in the Chaos Space Marines.
   if (!item.factionSource) {
-    const mark = hhMarkFor(legacy, faction);
-    const lt = mark?.legionTerm;
-    if (lt && !(mark?.statModsExceptUnits ?? []).includes(unit.name)) {
+    const lt = hhMarkFor(legacy, faction, unit)?.legionTerm;
+    if (lt) {
       if (unit.is_vehicle) total += (lt.vehicleFlat ?? 0) * item.size;
-      else total += lt.perWound * (parseInt(unit.models[0]?.stats.W ?? '1', 10) || 1) * item.size;
+      else total += ((unit.is_character || unit.is_monster) ? (lt.perCharacter ?? 0) : (lt.perModel ?? 0)) * item.size;
     }
   }
+
 
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];

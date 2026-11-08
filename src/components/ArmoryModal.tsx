@@ -6,6 +6,8 @@ import { usesReputations } from '../utils/factionLabel';
 import { useArmyStore } from '../store/army';
 import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
+import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
+import { effectiveLegacyFor } from '../engine/points';
 import { armoryDataFor } from '../engine/armorySource';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
 import { findArmoryItem, resolveUnitProfile, armoryWeaponTargets } from '../engine/resolver';
@@ -677,7 +679,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // item like Horus Heresy/Legio Titanicus stays governed by the primary archetype).
   const itemRule = isTrueAllyUnit ? getArchetypeRule(alliedArchetype) : rule;
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!itemRule?.grantsMarkPurchase;
-  const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
+  const hhMarkUsesVet = !!data?.faction.startsWith('Horus Heresy:') && !item.factionSource && !unit.requires_legacy && !!hhMarkFor(effectiveLegacyFor(item, { legacy, legacy2, alliedLegacy, alliedFaction, archetype } as never), data.faction, unit);
+  const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark) || hhMarkUsesVet;
   // Henchman Warband: every specialist sheet grants "one Veteran ability" PER SPECIALIST TYPE
   // present in the unit, not a flat per-unit pool — count distinct model types with count > 0.
   const isHenchmanWarband = unit.name === 'Henchman Warband';

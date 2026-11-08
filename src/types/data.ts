@@ -722,6 +722,8 @@ export interface FactionData {
   armory_legions: Record<string, Armory>;
   archetypes: Archetype[];
   legacies: Legacy[];
+  /** Horus Heresy books: what the Legion of the army gives every unit (built from the Index of the sheet). */
+  legion_marks?: Record<string, any>;
   traits: Trait[];
   /**
    * The faction's OWN trait list, stashed the first time an archetype injects foreign traits

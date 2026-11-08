@@ -80,47 +80,47 @@
   "legacies": [
     {
       "name": "Legacy of the Phoenician",
-      "desc": "The army has access to the Emperor's Children Armory.\n- The units of the army may receive the benefits of the Emperor's Children Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Emperor's Children Armory.\n- The army has the mark of the Emperor's Children Legion (see the Special rules in the Index).",
       "armory_key": "Emperor's Children"
     },
     {
       "name": "Legacy of the Lord of Iron",
-      "desc": "The army has access to the Iron Warriors Armory.\n- The units of the army may receive the benefits of the Iron Warriors Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Iron Warriors Armory.\n- The army has the mark of the Iron Warriors Legion (see the Special rules in the Index).",
       "armory_key": "Iron Warriors"
     },
     {
       "name": "Legacy of the Night Haunter",
-      "desc": "The army has access to the Night Lords Armory.\n- The units of the army may receive the benefits of the Night Lords Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Night Lords Armory.\n- The army has the mark of the Night Lords Legion (see the Special rules in the Index).",
       "armory_key": "Night Lords"
     },
     {
       "name": "Legacy of the Lord of Red Sands",
-      "desc": "The army has access to the World Eaters Armory.\n- The units of the army may receive the benefits of the World Eaters Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the World Eaters Armory.\n- The army has the mark of the World Eaters Legion (see the Special rules in the Index).",
       "armory_key": "World Eaters"
     },
     {
       "name": "Legacy of the Death Lord",
-      "desc": "The army has access to the Death Guard Armory and the Witchblood psychic discipline.\n- The units of the army may receive the benefits of the Death Guard Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Death Guard Armory and the Witchblood psychic discipline.\n- The army has the mark of the Death Guard Legion (see the Special rules in the Index).",
       "armory_key": "Death Guard"
     },
     {
       "name": "Legacy of the Crimson King",
-      "desc": "The army has access to the Thousand Sons Armory and the Prosperine Arcana psychic discipline.\n- The units of the army may receive the benefits of the Thousand Sons Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Thousand Sons Armory and the Prosperine Arcana psychic discipline.\n- The army has the mark of the Thousand Sons Legion (see the Special rules in the Index).",
       "armory_key": "Thousand Sons"
     },
     {
       "name": "Legacy of the Warmaster",
-      "desc": "The army has access to the Sons of Horus Armory.\n- The units of the army may receive the benefits of the Sons of Horus Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Sons of Horus Armory.\n- The army has the mark of the Sons of Horus Legion (see the Special rules in the Index).",
       "armory_key": "Sons of Horus"
     },
     {
       "name": "Legacy of the Archtraitor",
-      "desc": "The army has access to the Word Bearers Armory and the Diabolism psychic discipline.\n- The units of the army may receive the benefits of the Word Bearers Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Word Bearers Armory and the Diabolism psychic discipline.\n- The army has the mark of the Word Bearers Legion (see the Special rules in the Index).",
       "armory_key": "Word Bearers"
     },
     {
       "name": "Legacy of the Hydra",
-      "desc": "The army has access to the Alpha Legion Armory.\n- The units of the army may receive the benefits of the Alpha Legion Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Alpha Legion Armory.\n- The army has the mark of the Alpha Legion Legion (see the Special rules in the Index).",
       "armory_key": "Alpha Legion"
     },
     {
@@ -293,5 +293,230 @@
       "enables_second_legacy": false
     }
   ],
-  "special_traits": []
+  "special_traits": [],
+  "legion_marks": {
+    "Emperor's Children": {
+      "abbr": "EC",
+      "note": "Mark of Emperor's Children (EC): The model gains +1 Weapon skill. A character model or Monstrous Creature gains additionally +2\" Movement. Vehicles lower the Ld or close combat result of hostile models by -1 within a 18\" range and by -2 within 9\". Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "WS",
+            "delta": -1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "M",
+            "delta": 2
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Iron Warriors": {
+      "abbr": "IW",
+      "note": "Mark of Iron Warriors (IW): The model gains +1 Ballistic skill. A character model or Monstrous Creature gains additionally +1 Strength. Vehicles gain the \"Sunder(1)\" ability for all ranged attacks. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "BS",
+            "delta": -1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "S",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Night Lords": {
+      "abbr": "NL",
+      "note": "Mark of Night Lords (NL): The model gains +1 Initiative. A character model or Monstrous Creature gains additionally +1 Attack. Vehicles gain the \"Terrifying(-1)\" ability. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "I",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {
+        "grants_abilities": [
+          "Terrifying(-1)"
+        ]
+      }
+    },
+    "World Eaters": {
+      "abbr": "WE",
+      "note": "Mark of World Eaters (WE): The model gains +1 Attack. A character model or Monstrous Creature gains additionally +1 Strength. Vehicles cause double hits when performing a Tank Shock. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "S",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Death Guard": {
+      "abbr": "DG",
+      "note": "Mark of Death Guard (DG): The model gains +1 Toughness. A character model or Monstrous Creature gains additionally +1 Wound. Vehicles roll 2D6 during each Reinforcement phase. On a roll of 7+ they may either remove a \"Crew Shaken\" result, or one \"Engine Damage\" or one \"Weapon Damage\" or restore one lost HP. Costs +2 points per model, +19 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 2,
+        "char": 19,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "T",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "W",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Thousand Sons": {
+      "abbr": "TS",
+      "note": "Mark of Thousand Sons (TS): The model gains the \"Warded\" ability. A character model, a squad leader or a Monstrous Creature becomes a psyker and knows 1 power from any discipline. If the model is already a psyker, instead it can manifest and deny an additional power per battle round. Vehicles get a Warpflamer weapon (Range: 9\", Type: Assault 4, S: 4, AP: -1, Dmg: 1, Auto Hit, Sunder(1)). Costs +5 points per model, +13 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 5,
+        "char": 13,
+        "vehicle": 10
+      },
+      "all": {
+        "grants_abilities": [
+          "Warded"
+        ]
+      },
+      "char": {
+        "makes_psyker": true
+      },
+      "veh": {}
+    },
+    "Sons of Horus": {
+      "abbr": "SoH",
+      "note": "Mark of Sons of Horus (SoH): The model gains +1 Strength. A character model or Monstrous Creature gains additionally +1 Attack. Vehicles ignore the first \"Weapon Destroyed\" result each battle round. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "S",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Word Bearers": {
+      "abbr": "WB",
+      "note": "Mark of Word Bearers (WB): The model gains +1 Leadership. A character model or Monstrous Creature becomes a psyker and knows 1 power from any discipline. If the model is already a psyker, instead it can manifest and deny an additional power per battle round. Vehicles cause a Battleshock token on each Infantry unit they Tank Shock. Costs +3 points per model, +7 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 7,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "LD",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "makes_psyker": true
+      },
+      "veh": {}
+    },
+    "Alpha Legion": {
+      "abbr": "AL",
+      "note": "Mark of Alpha Legion (AL): The model gains the \"Infiltrator\" ability if it is Infantry, otherwise +1 Initiative. A character model or Monstrous Creature gains additionally +1 Weapon skill. Vehicles gain the benefit of light cover until their first activation. Costs +1 points per model, +4 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 1,
+        "char": 4,
+        "vehicle": 10
+      },
+      "all": {
+        "grants_abilities": [
+          "Infiltrator"
+        ],
+        "infantry_only": true
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "WS",
+            "delta": -1
+          }
+        ]
+      },
+      "veh": {}
+    }
+  }
 }

@@ -80,47 +80,47 @@
   "legacies": [
     {
       "name": "Legacy of the Lion",
-      "desc": "The army has access to the Dark Angels Armory.\n- The units of the army may receive the benefits of the Dark Angels Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Dark Angels Armory.\n- The army has the mark of the Dark Angels Legion (see the Special rules in the Index).",
       "armory_key": "Dark Angels"
     },
     {
       "name": "Legacy of the Great Khan",
-      "desc": "The army has access to the White Scars Armory and the Stormcalling psychic discipline.\n- The units of the army may receive the benefits of the White Scars Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the White Scars Armory and the Stormcalling psychic discipline.\n- The army has the mark of the White Scars Legion (see the Special rules in the Index).",
       "armory_key": "White Scars"
     },
     {
       "name": "Legacy of the Wolf King",
-      "desc": "The army has access to the Space Wolves Armory and the Runecasting psychic discipline.\n- The units of the army may receive the benefits of the Space Wolves Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Space Wolves Armory and the Runecasting psychic discipline.\n- The army has the mark of the Space Wolves Legion (see the Special rules in the Index).",
       "armory_key": "Space Wolves"
     },
     {
       "name": "Legacy of the Praetorian of Terra",
-      "desc": "The army has access to the Imperial Fists Armory.\n- The units of the army may receive the benefits of the Imperial Fists Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Imperial Fists Armory.\n- The army has the mark of the Imperial Fists Legion (see the Special rules in the Index).",
       "armory_key": "Imperial Fists"
     },
     {
       "name": "Legacy of the Angel",
-      "desc": "The army has access to the Blood Angels Armory.\n- The units of the army may receive the benefits of the Blood Angels Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Blood Angels Armory.\n- The army has the mark of the Blood Angels Legion (see the Special rules in the Index).",
       "armory_key": "Blood Angels"
     },
     {
       "name": "Legacy of the Gorgon",
-      "desc": "The army has access to the Iron Hands Armory.\n- The units of the army may receive the benefits of the Iron Hands Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Iron Hands Armory.\n- The army has the mark of the Iron Hands Legion (see the Special rules in the Index).",
       "armory_key": "Iron Hands"
     },
     {
       "name": "Legacy of the Avenging Son",
-      "desc": "The army has access to the Ultramarines Armory.\n- The units of the army may receive the benefits of the Ultramarines Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Ultramarines Armory.\n- The army has the mark of the Ultramarines Legion (see the Special rules in the Index).",
       "armory_key": "Ultramarines"
     },
     {
       "name": "Legacy of the Lord of Drakes",
-      "desc": "The army has access to the Salamanders Armory and the Fury of the Salamander psychic discipline.\n- The units of the army may receive the benefits of the Salamanders Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Salamanders Armory and the Fury of the Salamander psychic discipline.\n- The army has the mark of the Salamanders Legion (see the Special rules in the Index).",
       "armory_key": "Salamanders"
     },
     {
       "name": "Legacy of the Liberator",
-      "desc": "The army has access to the Raven Guard Armory.\n- The units of the army may receive the benefits of the Raven Guard Legion (see the Special rules in the Index).",
+      "desc": "The army has access to the Raven Guard Armory.\n- The army has the mark of the Raven Guard Legion (see the Special rules in the Index).",
       "armory_key": "Raven Guard"
     }
   ],
@@ -288,5 +288,257 @@
       "enables_second_legacy": false
     }
   ],
-  "special_traits": []
+  "special_traits": [],
+  "legion_marks": {
+    "Dark Angels": {
+      "abbr": "DA",
+      "note": "Mark of Dark Angels (DA): The model gains +1 Leadership. A character model or Monstrous Creature gains additionally +1 Attack. Vehicles ignore the first \"Crew Shaken\" result each battle round. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "LD",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "White Scars": {
+      "abbr": "WS",
+      "note": "Mark of White Scars (WS): The model gains +2\" Movement. A character model or Monstrous Creature gains additionally +1 Initiative. Vehicles gain the \"Haste(2\")\" ability. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "M",
+            "delta": 2
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "I",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {
+        "grants_abilities": [
+          "Haste(2\")"
+        ]
+      }
+    },
+    "Space Wolves": {
+      "abbr": "SW",
+      "note": "Mark of Space Wolves (SW): The model gains +1 Attack. A character model or Monstrous Creature gains additionally +1 Strength. Vehicles cause double hits when performing a Tank Shock. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "S",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Imperial Fists": {
+      "abbr": "IF",
+      "note": "Mark of Imperial Fists (IF): The model gains +1 Ballistic skill. A character model or Monstrous Creature gains additionally +1 Toughness. Vehicles ignore the first \"Weapon Destroyed\" result each battle round. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "BS",
+            "delta": -1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "T",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Blood Angels": {
+      "abbr": "BA",
+      "note": "Mark of Blood Angels (BA): The model gains +1 Strength. A character model or Monstrous Creature gains additionally +1 Attack. Vehicles gain the \"Furious charge\" ability. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "S",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {
+        "grants_abilities": [
+          "Furious charge"
+        ]
+      }
+    },
+    "Iron Hands": {
+      "abbr": "IH",
+      "note": "Mark of Iron Hands (IH): The model gains +1 Toughness. A character model or Monstrous Creature gains additionally +1 Wound. Vehicles roll 2D6 during each Reinforcement phase. On a roll of 7+ they may either remove a \"Crew Shaken\" result, or one \"Engine Damage\" or one \"Weapon Damage\" or restore one lost HP. Costs +2 points per model, +19 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 2,
+        "char": 19,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "T",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "W",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Ultramarines": {
+      "abbr": "UM",
+      "note": "Mark of Ultramarines (UM): The model gains +1 Weapon skill. A character model or Monstrous Creature gains additionally +1 Ballistic skill. Vehicles re-roll one failed ranged hit roll per battle round. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "WS",
+            "delta": -1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "BS",
+            "delta": -1
+          }
+        ]
+      },
+      "veh": {}
+    },
+    "Salamanders": {
+      "abbr": "SAL",
+      "note": "Mark of Salamanders (SAL): The model gains the \"Warded\" ability. A character model or Monstrous Creature gains additionally +1 Toughness. Vehicles gain +1 HP. Costs +5 points per model, +12 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 5,
+        "char": 12,
+        "vehicle": 10
+      },
+      "all": {
+        "grants_abilities": [
+          "Warded"
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "T",
+            "delta": 1
+          }
+        ]
+      },
+      "veh": {
+        "stat_mod": [
+          {
+            "stat": "HP",
+            "delta": 1
+          }
+        ]
+      }
+    },
+    "Raven Guard": {
+      "abbr": "RG",
+      "note": "Mark of Raven Guard (RG): The model gains +1 Initiative. A character model or Monstrous Creature gains additionally +2\" Movement. Vehicles gain the \"Deflect\" ability against ranged attacks from enemy units which are more than 12\" away. Costs +3 points per model, +6 per character model, +10 per vehicle.",
+      "cost": {
+        "unit": 3,
+        "char": 6,
+        "vehicle": 10
+      },
+      "all": {
+        "stat_mod": [
+          {
+            "stat": "I",
+            "delta": 1
+          }
+        ]
+      },
+      "char": {
+        "stat_mod": [
+          {
+            "stat": "M",
+            "delta": 2
+          }
+        ]
+      },
+      "veh": {
+        "grants_abilities": [
+          "Deflect"
+        ]
+      }
+    }
+  }
 }
