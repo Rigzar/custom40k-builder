@@ -69,7 +69,7 @@
             "choices": [
                 {
                     "name": "Twin chainfist",
-                    "points": 26
+                    "points": 0
                 }
             ],
             "inline_pts": null,
@@ -81,13 +81,10 @@
         }
     ],
     "abilities": [
-        "Blind Rage, Deep strike, Massive(1), Unyielding",
-        "Cataphractii armor: The model has a 4+ ward save."
+        "Blind Rage, Deep strike, Massive(1), Unyielding, Ward(4+), World Eaters Legion"
     ],
     "unit_type": "Infantry",
-    "keywords": [
-        "World Eaters"
-    ],
+    "keywords": [],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

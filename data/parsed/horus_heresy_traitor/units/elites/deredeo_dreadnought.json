@@ -39,7 +39,7 @@
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Icarus rocket pod",
@@ -87,28 +87,19 @@
             "abilities": "AT(2), Anti-air"
         },
         {
-            "name": "Missile launcher - Rad missile",
-            "range": "48\"",
-            "type": "Heavy 1",
-            "s": "4",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Rad"
-        },
-        {
             "name": "Onslaught gatling cannon",
             "range": "24\"",
             "type": "Heavy 5",
             "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
         },
         {
             "name": "Redemptor claw",
             "range": "-",
             "type": "Melee",
-            "s": "+2",
+            "s": "2",
             "ap": "-3",
             "d": "2",
             "abilities": "AT(2), Extra Attack(2)"
@@ -305,6 +296,75 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Phoenician"
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Iron"
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "grants_abilities": [
+                            "Terrifying(-1)"
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Red Sands"
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Death Lord"
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Crimson King"
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Warmaster"
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Archtraitor"
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -317,11 +377,11 @@
     "is_character": false,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": true,
+    "has_armory_access": false,
     "champion_has_armory": false,
-    "has_veteran_abilities": true,
+    "has_veteran_abilities": false,
     "veteran_required": false,
-    "veteran_max": 1,
+    "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
     "slot": "Elites",

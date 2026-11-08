@@ -1,0 +1,115 @@
+{
+    "name": "Contemptor Incaendius",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "4",
+                "A": "3",
+                "HP": "3"
+            },
+            "name": "Contemptor Incaendius",
+            "min": 1,
+            "max": 1,
+            "points": 250
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Contemptor Incaendius is a single model and is equipped with: Redemptor claw; 2 Heavy flamers.",
+    "weapons": [
+        {
+            "name": "Assault cannon",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Piercing(5+)"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Redemptor claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra Attack(2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Both Heavy flamers may be swapped for",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Two Meltaguns",
+                    "points": 26,
+                    "effect": {
+                        "grants_weapons": [
+                            "Meltagun"
+                        ]
+                    }
+                },
+                {
+                    "name": "Two Assault cannons",
+                    "points": 55,
+                    "effect": {
+                        "grants_weapons": [
+                            "Assault cannon"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Blood Angels Legion, Deep strike",
+        "Atomantic Shielding: The model has a 5+ ward save."
+    ],
+    "unit_type": "Vehicle, Walker",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 250,
+    "requires_legacy": "Legacy of the Angel"
+}

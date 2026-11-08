@@ -140,24 +140,6 @@
             "ap": "-2",
             "d": "1",
             "abilities": "-"
-        },
-        {
-            "name": "Rad grenades",
-            "range": "6\"",
-            "type": "Grenade 1",
-            "s": "4",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Rad"
-        },
-        {
-            "name": "Volkite serpenta",
-            "range": "10\"",
-            "type": "Pistol 2",
-            "s": "5",
-            "ap": "-1",
-            "d": "1",
-            "abilities": "Soul burn(6+)"
         }
     ],
     "option_groups": [
@@ -187,7 +169,7 @@
             "per_model": false
         },
         {
-            "header": "All models may swap their Bolt pistol with",
+            "header": "All models may swap their Bolt pistol with a Heavy bolt pistol for +1 point each.",
             "constraint": {
                 "type": "every"
             },
@@ -195,19 +177,15 @@
                 {
                     "name": "Heavy bolt pistol",
                     "points": 1
-                },
-                {
-                    "name": "Volkite serpenta",
-                    "points": 2
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
+            "per_model": false,
             "replaces": [
                 "Bolt pistol"
-            ],
-            "per_model": false
+            ]
         },
         {
             "header": "Up to two Assault Marines may swap their Astartes chainswords and Bolt pistols",
@@ -260,20 +238,135 @@
             "is_unique_per_army": false
         },
         {
-            "header": "All models may be equipped with Rad grenades for +1 point each.",
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
             "constraint": {
-                "type": "every"
+                "type": "one"
             },
             "choices": [
                 {
-                    "name": "Rad grenades",
-                    "points": 1
+                    "name": "Emperor's Children",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Phoenician",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Iron",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Red Sands",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 2,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Death Lord",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 5,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Crimson King",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ]
+                    }
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Warmaster",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Archtraitor",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 1,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "grants_abilities": [
+                            "Infiltrator"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": false
+            "is_unique_per_army": false
         }
     ],
     "abilities": [

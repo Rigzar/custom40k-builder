@@ -1,0 +1,102 @@
+{
+    "name": "Grey Slayer Pack",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Grey Slayer",
+            "min": 9,
+            "max": 19,
+            "points": 44
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Huscarl",
+            "min": 1,
+            "max": 1,
+            "points": 45
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Power axe; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Combat squads, Space Wolves Legion, They Shall Know No Fear"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 10,
+    "min_cost": 441,
+    "requires_legacy": "Legacy of the Wolf King"
+}

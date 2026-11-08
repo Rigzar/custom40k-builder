@@ -117,7 +117,7 @@
         {
             "name": "Multi-melta",
             "range": "24\"",
-            "type": "Heavy 1",
+            "type": "Assault 1",
             "s": "8",
             "ap": "-5",
             "d": "2",
@@ -130,7 +130,25 @@
             "s": "5",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armor piercing(5+)"
+            "abilities": "Piercing(5+)"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
         },
         {
             "name": "Twin bolt rifle - Bolt ammo",
@@ -156,24 +174,6 @@
             "type": "Assault 4",
             "s": "4",
             "ap": "0",
-            "d": "1",
-            "abilities": "-"
-        },
-        {
-            "name": "Power fist",
-            "range": "-",
-            "type": "Melee",
-            "s": "x2",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "AT(2), Slow(-2)"
-        },
-        {
-            "name": "Power sword",
-            "range": "-",
-            "type": "Melee",
-            "s": "+1",
-            "ap": "-3",
             "d": "1",
             "abilities": "-"
         }
@@ -229,6 +229,140 @@
             "choices": [],
             "inline_pts": 10,
             "variant_link": "Veteran Outrider Sergeant",
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Phoenician",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Iron",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Red Sands",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 2,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Death Lord",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 5,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Crimson King",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ]
+                    }
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Warmaster",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Archtraitor",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 1,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
             "is_unique_per_army": false
         }
     ],

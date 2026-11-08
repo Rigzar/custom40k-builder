@@ -1,0 +1,200 @@
+{
+    "name": "Sanctifier Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Sanctifier",
+            "min": 4,
+            "max": 9,
+            "points": 48
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Consecrator",
+            "min": 1,
+            "max": 1,
+            "points": 48
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Bolter; Bolt pistol; Astartes chainsword; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Hand flamer",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Rotor cannon",
+            "range": "30\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Volkite serpenta",
+            "range": "10\"",
+            "type": "Pistol 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Any model may swap their Bolter and Bolt pistol with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Two Bolt pistols",
+                    "points": 0,
+                    "effect": {
+                        "grants_weapons": [
+                            "Bolt pistol"
+                        ]
+                    }
+                },
+                {
+                    "name": "Two Volkite serpentas",
+                    "points": 5,
+                    "effect": {
+                        "grants_weapons": [
+                            "Volkite serpenta"
+                        ]
+                    }
+                },
+                {
+                    "name": "Two Hand flamers",
+                    "points": 10,
+                    "effect": {
+                        "grants_weapons": [
+                            "Hand flamer"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolter"
+            ]
+        },
+        {
+            "header": "For each 5 models, one Sanctifier may swap their Bolter with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Rotor cannon",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolter"
+            ]
+        }
+    ],
+    "abilities": [
+        "Combat squads, Salamanders Legion, They Shall Know No Fear, Vanguard"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 5,
+    "min_cost": 240,
+    "requires_legacy": "Legacy of the Lord of Drakes"
+}

@@ -1,0 +1,171 @@
+{
+    "name": "Medusan Immortal Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Immortal",
+            "min": 4,
+            "max": 19,
+            "points": 51
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Immortal Sergeant",
+            "min": 1,
+            "max": 1,
+            "points": 51
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Bolter; Bolt pistol; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Graviton gun",
+            "range": "18\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Blast(4), Graviton, Impuls, Sunder(2)"
+        },
+        {
+            "name": "Graviton shredder",
+            "range": "12\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Grav, Haywire"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "For each 5 models, one Immortal may swap their Bolter with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 5
+                },
+                {
+                    "name": "Graviton gun",
+                    "points": 10
+                },
+                {
+                    "name": "Graviton shredder",
+                    "points": 15
+                },
+                {
+                    "name": "Meltagun",
+                    "points": 15
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolter"
+            ]
+        }
+    ],
+    "abilities": [
+        "Combat squads, Iron Hands Legion, They Shall Know No Fear, Ward(5+)"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Troops",
+    "default_size": 5,
+    "min_cost": 255,
+    "requires_legacy": "Legacy of the Gorgon"
+}

@@ -44,15 +44,13 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Move through cover, Unyielding",
+        "Iron Warriors Legion, Move through cover, Unyielding",
         "Hammer of Wrath(3): When the model ends a Charge move in base contact with an enemy unit, it makes 3 automatic hits with its own Strength, AP 0 and Damage 1.",
         "Karceri battle shield: The model gains a 5+ ward save. A Charge against its unit is a Disorderly Charge unless the unit is already in melee.",
         "Programmed Behaviour: While the unit is not within 6\" of a friendly Character with a Master of Automata ability (Forge Lord, Praevian), whenever it shoots or charges it must target the closest valid enemy unit."
     ],
     "unit_type": "Monstrous Infantry",
-    "keywords": [
-        "Iron Warriors"
-    ],
+    "keywords": [],
     "is_vehicle": false,
     "is_character": false,
     "is_monster": false,

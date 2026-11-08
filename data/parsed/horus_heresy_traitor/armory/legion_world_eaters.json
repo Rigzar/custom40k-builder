@@ -1,121 +1,15 @@
 {
   "name": "World Eaters Armory",
-  "weapons": [
+  "weapons": [],
+  "equipment": [
     {
-      "name": "Barb-hook lash",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Deadly(6+), Rad",
+      "name": "LEGION ARCHETYPES",
+      "term_compat": false,
+      "desc": "",
       "p_unit": null,
-      "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Chainaxe",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-",
-      "p_unit": 4,
       "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Excoriator chainaxe",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Rending(6+), Shred",
-      "p_unit": null,
-      "p_char": 9,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Gorechild Reforged",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Deadly(6+), Shred, Unique. Only for characters. Not with Angron.",
-      "p_unit": null,
-      "p_char": 17,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Meteor hammer",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "-",
-      "p_unit": 12,
-      "p_char": 15,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Paired falax blades",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Extra Attack(2)",
-      "p_unit": 7,
-      "p_char": 9,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Gorefather & Gorechild",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "Rending(6+), Shred, Quick(+1), Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "The Spite Furnace",
-      "term_compat": false,
-      "range": "12\"",
-      "type": "Pistol 2",
-      "s": "7",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Overheating, Master-crafted, Unique",
-      "p_unit": null,
-      "p_char": null
+      "category": "vehicle"
     }
   ],
-  "equipment": [],
   "daemon_weapons": []
 }

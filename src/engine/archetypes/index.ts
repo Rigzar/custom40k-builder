@@ -788,6 +788,11 @@ export function isUnitAllowed(
   return true;
 }
 
+/** Extra selections of `slot` that the archetype grants (0 when it grants none). */
+export function archetypeSlotBonus(rule: ArchetypeRule | null | undefined, slot: string): number {
+  return (rule?.slotBonus ?? []).filter(b => b.slot === slot).reduce((n, b) => n + b.add, 0);
+}
+
 export function getEffectiveHqLimits(
   rule: ArchetypeRule | null,
   engagementHq: [number, number],

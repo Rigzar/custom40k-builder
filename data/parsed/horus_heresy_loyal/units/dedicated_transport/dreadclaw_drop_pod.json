@@ -42,7 +42,87 @@
             "abilities": "Auto Hit, Sunder(1)"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lion"
+                },
+                {
+                    "name": "White Scars",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "grants_abilities": [
+                            "Haste(2\")"
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Wolf King"
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Praetorian of Terra"
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "grants_abilities": [
+                            "Furious charge"
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Gorgon"
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Avenging Son"
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "HP",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "grants_abilities": [
+                            "Deflect"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
     "abilities": [
         "Anti-Grav, Deep strike",
         "Control Jets: The Drop Pod must land at least 6\" away from other units (friendly or enemy) and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the Drop Pod.",
@@ -55,11 +135,11 @@
     "is_character": false,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": true,
+    "has_armory_access": false,
     "champion_has_armory": false,
-    "has_veteran_abilities": true,
+    "has_veteran_abilities": false,
     "veteran_required": false,
-    "veteran_max": 2,
+    "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
     "slot": "Dedicated Transport",

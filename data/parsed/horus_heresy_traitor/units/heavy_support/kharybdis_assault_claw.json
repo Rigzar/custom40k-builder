@@ -42,7 +42,77 @@
             "abilities": "Armorbane(3), AT(3), Extra Attack(1), Limit(1)"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Phoenician"
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Iron"
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "grants_abilities": [
+                            "Terrifying(-1)"
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Red Sands"
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Death Lord"
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Crimson King"
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Warmaster"
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Archtraitor"
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
     "abilities": [
         "Anti-Grav, Deep Strike",
         "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",

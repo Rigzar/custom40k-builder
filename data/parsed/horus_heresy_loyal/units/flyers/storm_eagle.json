@@ -24,42 +24,6 @@
     "equipped_with": "A Storm Eagle is a single model and is equipped with: Twin heavy bolter; Vengeance launcher; Tempest rockets.",
     "weapons": [
         {
-            "name": "Twin heavy bolter",
-            "range": "36\"",
-            "type": "Rapid Fire 4",
-            "s": "5",
-            "ap": "-2",
-            "d": "1",
-            "abilities": "-"
-        },
-        {
-            "name": "Vengeance launcher",
-            "range": "48\"",
-            "type": "Heavy 1",
-            "s": "7",
-            "ap": "-2",
-            "d": "1",
-            "abilities": "Blast(5)"
-        },
-        {
-            "name": "Tempest rockets",
-            "range": "48\"",
-            "type": "Heavy 4",
-            "s": "7",
-            "ap": "-2",
-            "d": "3",
-            "abilities": "Ammo(1), AT(2)"
-        },
-        {
-            "name": "Twin multi-melta",
-            "range": "24\"",
-            "type": "Assault 2",
-            "s": "8",
-            "ap": "-5",
-            "d": "2",
-            "abilities": "AT(2), Melta"
-        },
-        {
             "name": "Cyclone missile launcher - Frag missile",
             "range": "48\"",
             "type": "Heavy 2",
@@ -78,6 +42,33 @@
             "abilities": "AT(1), Anti-air"
         },
         {
+            "name": "Hunter-killer missiles",
+            "range": "120\"",
+            "type": "Heavy 4",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Ammo(1), AT(2)"
+        },
+        {
+            "name": "Tempest rockets",
+            "range": "48\"",
+            "type": "Heavy 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "3",
+            "abilities": "Ammo(1), AT(2)"
+        },
+        {
+            "name": "Twin heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Twin lascannon",
             "range": "48\"",
             "type": "Heavy 2",
@@ -87,13 +78,22 @@
             "abilities": "AT(3)"
         },
         {
-            "name": "Hunter-killer missiles",
-            "range": "120\"",
-            "type": "Heavy 4",
+            "name": "Twin multi-melta",
+            "range": "24\"",
+            "type": "Heavy 2",
             "s": "8",
-            "ap": "-3",
+            "ap": "-5",
             "d": "2",
-            "abilities": "Ammo(1), AT(2)"
+            "abilities": "AT(2), Melta"
+        },
+        {
+            "name": "Vengeance launcher",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(5)"
         }
     ],
     "option_groups": [
@@ -145,6 +145,85 @@
             "replaces": [
                 "Tempest rockets"
             ]
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lion"
+                },
+                {
+                    "name": "White Scars",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "grants_abilities": [
+                            "Haste(2\")"
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Wolf King"
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Praetorian of Terra"
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "grants_abilities": [
+                            "Furious charge"
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Gorgon"
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Avenging Son"
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "HP",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "grants_abilities": [
+                            "Deflect"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -158,7 +237,7 @@
     "is_character": false,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": true,
+    "has_armory_access": false,
     "champion_has_armory": false,
     "has_veteran_abilities": false,
     "veteran_required": false,

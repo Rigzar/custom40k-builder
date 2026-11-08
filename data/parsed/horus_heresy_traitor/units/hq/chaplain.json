@@ -17,21 +17,31 @@
             "name": "Chaplain",
             "min": 1,
             "max": 1,
-            "points": 122
+            "points": 129
         }
     ],
-    "variant_models": [],
-    "equipped_with": "A Chaplain is a single character and is equipped with: Crozius Arcanum; Frag grenades; Krak grenades.",
-    "weapons": [
+    "variant_models": [
         {
-            "name": "Crozius Arcanum",
-            "range": "-",
-            "type": "Melee",
-            "s": "+2",
-            "ap": "-2",
-            "d": "2",
-            "abilities": "-"
-        },
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "High Chaplain",
+            "min": 0,
+            "max": 1,
+            "points": 144
+        }
+    ],
+    "equipped_with": "A Chaplain is equipped with: Crozius Arcanum; Frag grenades; Krak grenades.",
+    "weapons": [
         {
             "name": "Frag grenades",
             "range": "6\"",
@@ -49,12 +59,188 @@
             "ap": "-2",
             "d": "1",
             "abilities": "-"
+        },
+        {
+            "name": "Crozius Arcanum",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "-"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+            "header": "One Chaplain per army May be upgraded to a High Chaplain for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "High Chaplain",
+            "is_unique_per_army": true
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Phoenician",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lord of Iron",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lord of Red Sands",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 19,
+                    "requires_legacy": "Legacy of the Death Lord",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "W",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 13,
+                    "requires_legacy": "Legacy of the Crimson King",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ],
+                        "makes_psyker": true
+                    }
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Warmaster",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 7,
+                    "requires_legacy": "Legacy of the Archtraitor",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ],
+                        "makes_psyker": true
+                    }
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 4,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "grants_abilities": [
+                            "Infiltrator"
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
     "abilities": [
-        "Command squad, They Shall Know No Fear",
-        "Favoured enemy: The model and a unit it joins gain the \"Favoured enemy\" ability. It does not count as a Veteran ability of either."
+        "They Shall Know No Fear, Ward(4+)",
+        "Faithful: May recite 1 prayer per round. A prayer is successfully recited on a roll of 3+. Knows all the prayers of the Prayers tab.",
+        "High Chaplain: A High Chaplain may recite 1 additional prayer per battle round.",
+        "Restriction: Only one High Chaplain per army."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],
@@ -62,14 +248,15 @@
     "is_character": true,
     "is_monster": false,
     "is_psyker": false,
+    "is_priest": true,
     "has_armory_access": true,
     "champion_has_armory": false,
     "has_veteran_abilities": true,
     "veteran_required": false,
-    "veteran_max": 1,
+    "veteran_max": 2,
     "locked_mark": null,
     "advisor": false,
     "slot": "HQ",
     "default_size": 1,
-    "min_cost": 122
+    "min_cost": 129
 }

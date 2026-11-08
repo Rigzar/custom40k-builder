@@ -191,10 +191,145 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": false
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lion",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "White Scars",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Wolf King",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Praetorian of Terra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 2,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Gorgon",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Avenging Son",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 5,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "They Shall Know No Fear"
+        "They Shall Know No Fear",
+        "-"
     ],
     "unit_type": "Infantry",
     "keywords": [],

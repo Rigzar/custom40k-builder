@@ -6,109 +6,83 @@
 import type { Unit } from '../../../../src/types/data';
 
 import dedicated_transport_dreadclaw_drop_pod from './dedicated_transport/dreadclaw_drop_pod.json';
-import dedicated_transport_land_raider_explorator from './dedicated_transport/land_raider_explorator.json';
+import dedicated_transport_land_raider_carrier from './dedicated_transport/land_raider_carrier.json';
 import dedicated_transport_legion_drop_pod from './dedicated_transport/legion_drop_pod.json';
 import dedicated_transport_legion_rhino from './dedicated_transport/legion_rhino.json';
 import dedicated_transport_legion_termite from './dedicated_transport/legion_termite.json';
 import dedicated_transport_spartan from './dedicated_transport/spartan.json';
-import elites_castellax_achea_automata from './elites/castellax_achea_automata.json';
+import elites_apothecary from './elites/apothecary.json';
 import elites_castra_ferrum_dreadnought from './elites/castra_ferrum_dreadnought.json';
-import elites_centurion_command_squad from './elites/centurion_command_squad.json';
 import elites_deathshroud_terminator_squad from './elites/deathshroud_terminator_squad.json';
 import elites_deredeo_dreadnought from './elites/deredeo_dreadnought.json';
 import elites_gal_vorbak from './elites/gal_vorbak.json';
-import elites_grave_wardens from './elites/grave_wardens.json';
-import elites_indomitus_terminator_squad from './elites/indomitus_terminator_squad.json';
 import elites_iron_circle_maniple from './elites/iron_circle_maniple.json';
-import elites_khenetai_squad from './elites/khenetai_squad.json';
 import elites_legion_champion from './elites/legion_champion.json';
 import elites_legion_contemptor_dreadnought from './elites/legion_contemptor_dreadnought.json';
+import elites_legion_saturnine_dreadnought from './elites/legion_saturnine_dreadnought.json';
+import elites_legion_tartaros_terminator_squad from './elites/legion_tartaros_terminator_squad.json';
 import elites_legion_terminator_cataphractii_squad from './elites/legion_terminator_cataphractii_squad.json';
 import elites_legion_veteran_squad from './elites/legion_veteran_squad.json';
-import elites_moritat from './elites/moritat.json';
-import elites_mortificator from './elites/mortificator.json';
-import elites_overseer from './elites/overseer.json';
 import elites_palatine_blade_squad from './elites/palatine_blade_squad.json';
-import elites_phoenix_terminator_squad from './elites/phoenix_terminator_squad.json';
-import elites_rampager_squad from './elites/rampager_squad.json';
 import elites_red_butcher_terminators from './elites/red_butcher_terminators.json';
 import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squad.json';
-import elites_vigilator from './elites/vigilator.json';
-import elites_warmonger from './elites/warmonger.json';
-import fast_attack_ashen_circle from './fast_attack/ashen_circle.json';
+import elites_scarab_occult_terminator_squad from './elites/scarab_occult_terminator_squad.json';
+import elites_techmarine from './elites/techmarine.json';
+import fast_attack_headhunter_kill_team from './fast_attack/headhunter_kill_team.json';
 import fast_attack_land_speeder_squadron from './fast_attack/land_speeder_squadron.json';
 import fast_attack_legion_assault_squad from './fast_attack/legion_assault_squad.json';
 import fast_attack_legion_bike_squad from './fast_attack/legion_bike_squad.json';
 import fast_attack_legion_sky_hunter_squadron from './fast_attack/legion_sky_hunter_squadron.json';
+import fast_attack_night_raptor_squad from './fast_attack/night_raptor_squad.json';
 import fast_attack_outrider_squadron from './fast_attack/outrider_squadron.json';
-import fast_attack_red_hand_destroyer_assault_squad from './fast_attack/red_hand_destroyer_assault_squad.json';
 import flyers_caestus_assault_ram from './flyers/caestus_assault_ram.json';
 import flyers_fire_raptor_gunship from './flyers/fire_raptor_gunship.json';
 import flyers_storm_eagle from './flyers/storm_eagle.json';
 import flyers_xiphon_interceptor from './flyers/xiphon_interceptor.json';
+import heavy_support_castellax_achea_automata from './heavy_support/castellax_achea_automata.json';
 import heavy_support_firestrike_servo_turret from './heavy_support/firestrike_servo_turret.json';
 import heavy_support_kakophoni_squad from './heavy_support/kakophoni_squad.json';
 import heavy_support_kharybdis_assault_claw from './heavy_support/kharybdis_assault_claw.json';
-import heavy_support_land_raider_carrier from './heavy_support/land_raider_carrier.json';
 import heavy_support_legion_heavy_support_squad from './heavy_support/legion_heavy_support_squad.json';
 import heavy_support_legion_kratos_assault_tank from './heavy_support/legion_kratos_assault_tank.json';
 import heavy_support_legion_leviathan_dreadnought from './heavy_support/legion_leviathan_dreadnought.json';
 import heavy_support_legion_predator from './heavy_support/legion_predator.json';
-import heavy_support_legion_saturnine_dreadnought from './heavy_support/legion_saturnine_dreadnought.json';
 import heavy_support_legion_sicaran_battle_tank from './heavy_support/legion_sicaran_battle_tank.json';
 import heavy_support_legion_whirlwind from './heavy_support/legion_whirlwind.json';
 import heavy_support_thunderfire_cannon from './heavy_support/thunderfire_cannon.json';
 import heavy_support_vindicator_siege_tank from './heavy_support/vindicator_siege_tank.json';
-import hq_alpharius from './hq/alpharius.json';
-import hq_angron from './hq/angron.json';
-import hq_apothecary from './hq/apothecary.json';
 import hq_centurion from './hq/centurion.json';
 import hq_chaplain from './hq/chaplain.json';
-import hq_fulgrim from './hq/fulgrim.json';
-import hq_horus_lupercal from './hq/horus_lupercal.json';
-import hq_konrad_curze from './hq/konrad_curze.json';
-import hq_lorgar from './hq/lorgar.json';
-import hq_magnus_the_red from './hq/magnus_the_red.json';
-import hq_mortarion from './hq/mortarion.json';
-import hq_perturabo from './hq/perturabo.json';
-import hq_praetor from './hq/praetor.json';
-import hq_techmarine from './hq/techmarine.json';
+import hq_librarian from './hq/librarian.json';
 import troops_legion_breacher_squad from './troops/legion_breacher_squad.json';
 import troops_legion_despoiler_squad from './troops/legion_despoiler_squad.json';
 import troops_legion_scout_squad from './troops/legion_scout_squad.json';
 import troops_legion_tactical_squad from './troops/legion_tactical_squad.json';
 import troops_legion_tactical_support_squad from './troops/legion_tactical_support_squad.json';
-import troops_red_hand_destroyer_squad from './troops/red_hand_destroyer_squad.json';
+import troops_reaver_attack_squad from './troops/reaver_attack_squad.json';
 import troops_seeker_squad from './troops/seeker_squad.json';
-import troops_solar_auxilia_lasrifle_section from './troops/solar_auxilia_lasrifle_section.json';
 
 export const faction = "Horus Heresy: Traitor Legions";
 
 export const slot_to_units: Record<string, string[]> = {
-  "HQ": [
-    "Alpharius",
-    "Angron",
+  "Elites": [
     "Apothecary",
-    "Centurion",
-    "Chaplain",
-    "Fulgrim",
-    "Horus Lupercal",
-    "Konrad Curze",
-    "Lorgar",
-    "Magnus the Red",
-    "Mortarion",
-    "Perturabo",
-    "Praetor",
+    "Castra Ferrum Dreadnought",
+    "Deathshroud Terminator Squad",
+    "Deredeo Dreadnought",
+    "Gal Vorbak",
+    "Iron Circle Maniple",
+    "Legion Champion",
+    "Legion Contemptor Dreadnought",
+    "Legion Saturnine Dreadnought",
+    "Legion Tartaros Terminator Squad",
+    "Legion Terminator Cataphractii Squad",
+    "Legion Veteran Squad",
+    "Palatine Blade Squad",
+    "Red Butcher Terminators",
+    "Saturnine Terminator Squad",
+    "Scarab Occult Terminator Squad",
     "Techmarine"
-  ],
-  "Fast Attack": [
-    "Ashen Circle",
-    "Land Speeder Squadron",
-    "Legion Assault Squad",
-    "Legion Bike Squad",
-    "Legion Sky-hunter Squadron",
-    "Outrider Squadron",
-    "Red Hand Destroyer Assault Squad"
   ],
   "Flyers": [
     "Caestus Assault Ram",
@@ -116,54 +90,41 @@ export const slot_to_units: Record<string, string[]> = {
     "Storm Eagle",
     "Xiphon Interceptor"
   ],
-  "Elites": [
+  "Heavy Support": [
     "Castellax-Achea Automata",
-    "Castra Ferrum Dreadnought",
-    "Centurion Command Squad",
-    "Deathshroud Terminator Squad",
-    "Deredeo Dreadnought",
-    "Gal Vorbak",
-    "Grave Wardens",
-    "Indomitus Terminator Squad",
-    "Iron Circle Maniple",
-    "Khenetai Squad",
-    "Legion Champion",
-    "Legion Contemptor Dreadnought",
-    "Legion Terminator Cataphractii Squad",
-    "Legion Veteran Squad",
-    "Moritat",
-    "Mortificator",
-    "Overseer",
-    "Palatine Blade Squad",
-    "Phoenix Terminator Squad",
-    "Rampager Squad",
-    "Red Butcher Terminators",
-    "Saturnine Terminator Squad",
-    "Vigilator",
-    "Warmonger"
+    "Firestrike Servo-turret",
+    "Kakophoni Squad",
+    "Kharybdis Assault Claw",
+    "Legion Heavy Support Squad",
+    "Legion Kratos Assault Tank",
+    "Legion Leviathan Dreadnought",
+    "Legion Predator",
+    "Legion Sicaran Battle Tank",
+    "Legion Whirlwind",
+    "Thunderfire Cannon",
+    "Vindicator Siege Tank"
+  ],
+  "HQ": [
+    "Centurion",
+    "Chaplain",
+    "Librarian"
   ],
   "Dedicated Transport": [
     "Dreadclaw Drop Pod",
-    "Land Raider Explorator",
+    "Land Raider Carrier",
     "Legion Drop Pod",
     "Legion Rhino",
     "Legion Termite",
     "Spartan"
   ],
-  "Heavy Support": [
-    "Firestrike Servo-turret",
-    "Kakophoni Squad",
-    "Kharybdis Assault Claw",
-    "Land Raider Carrier",
-    "Legion Heavy Support Squad",
-    "Legion Kratos Assault Tank",
-    "Legion Leviathan Dreadnought",
-    "Legion Predator",
-    "Legion Saturnine Dreadnought",
-    "Legion Sicaran Battle Tank",
-    "Legion Whirlwind",
-    "Thunderfire Cannon",
-    "Vindicator Siege Tank"
+  "Fast Attack": [
+    "Headhunter Kill Team",
+    "Land Speeder Squadron",
+    "Legion Assault Squad",
+    "Legion Bike Squad",
+    "Legion Sky-hunter Squadron",
+    "Night Raptor Squad",
+    "Outrider Squadron"
   ],
   "Troops": [
     "Legion Breacher Squad",
@@ -171,87 +132,66 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Scout Squad",
     "Legion Tactical Squad",
     "Legion Tactical Support Squad",
-    "Red Hand Destroyer Squad",
-    "Seeker Squad",
-    "Solar Auxilia Lasrifle Section"
+    "Reaver Attack Squad",
+    "Seeker Squad"
   ]
 };
 
 export const units: Record<string, Unit> = {
-  "Alpharius": hq_alpharius as unknown as Unit,
-  "Angron": hq_angron as unknown as Unit,
-  "Apothecary": hq_apothecary as unknown as Unit,
-  "Centurion": hq_centurion as unknown as Unit,
-  "Chaplain": hq_chaplain as unknown as Unit,
-  "Fulgrim": hq_fulgrim as unknown as Unit,
-  "Horus Lupercal": hq_horus_lupercal as unknown as Unit,
-  "Konrad Curze": hq_konrad_curze as unknown as Unit,
-  "Lorgar": hq_lorgar as unknown as Unit,
-  "Magnus the Red": hq_magnus_the_red as unknown as Unit,
-  "Mortarion": hq_mortarion as unknown as Unit,
-  "Perturabo": hq_perturabo as unknown as Unit,
-  "Praetor": hq_praetor as unknown as Unit,
-  "Techmarine": hq_techmarine as unknown as Unit,
-  "Ashen Circle": fast_attack_ashen_circle as unknown as Unit,
-  "Land Speeder Squadron": fast_attack_land_speeder_squadron as unknown as Unit,
-  "Legion Assault Squad": fast_attack_legion_assault_squad as unknown as Unit,
-  "Legion Bike Squad": fast_attack_legion_bike_squad as unknown as Unit,
-  "Legion Sky-hunter Squadron": fast_attack_legion_sky_hunter_squadron as unknown as Unit,
-  "Outrider Squadron": fast_attack_outrider_squadron as unknown as Unit,
-  "Red Hand Destroyer Assault Squad": fast_attack_red_hand_destroyer_assault_squad as unknown as Unit,
+  "Apothecary": elites_apothecary as unknown as Unit,
+  "Castra Ferrum Dreadnought": elites_castra_ferrum_dreadnought as unknown as Unit,
+  "Deathshroud Terminator Squad": elites_deathshroud_terminator_squad as unknown as Unit,
+  "Deredeo Dreadnought": elites_deredeo_dreadnought as unknown as Unit,
+  "Gal Vorbak": elites_gal_vorbak as unknown as Unit,
+  "Iron Circle Maniple": elites_iron_circle_maniple as unknown as Unit,
+  "Legion Champion": elites_legion_champion as unknown as Unit,
+  "Legion Contemptor Dreadnought": elites_legion_contemptor_dreadnought as unknown as Unit,
+  "Legion Saturnine Dreadnought": elites_legion_saturnine_dreadnought as unknown as Unit,
+  "Legion Tartaros Terminator Squad": elites_legion_tartaros_terminator_squad as unknown as Unit,
+  "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
+  "Legion Veteran Squad": elites_legion_veteran_squad as unknown as Unit,
+  "Palatine Blade Squad": elites_palatine_blade_squad as unknown as Unit,
+  "Red Butcher Terminators": elites_red_butcher_terminators as unknown as Unit,
+  "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
+  "Scarab Occult Terminator Squad": elites_scarab_occult_terminator_squad as unknown as Unit,
+  "Techmarine": elites_techmarine as unknown as Unit,
   "Caestus Assault Ram": flyers_caestus_assault_ram as unknown as Unit,
   "Fire Raptor Gunship": flyers_fire_raptor_gunship as unknown as Unit,
   "Storm Eagle": flyers_storm_eagle as unknown as Unit,
   "Xiphon Interceptor": flyers_xiphon_interceptor as unknown as Unit,
-  "Castellax-Achea Automata": elites_castellax_achea_automata as unknown as Unit,
-  "Castra Ferrum Dreadnought": elites_castra_ferrum_dreadnought as unknown as Unit,
-  "Centurion Command Squad": elites_centurion_command_squad as unknown as Unit,
-  "Deathshroud Terminator Squad": elites_deathshroud_terminator_squad as unknown as Unit,
-  "Deredeo Dreadnought": elites_deredeo_dreadnought as unknown as Unit,
-  "Gal Vorbak": elites_gal_vorbak as unknown as Unit,
-  "Grave Wardens": elites_grave_wardens as unknown as Unit,
-  "Indomitus Terminator Squad": elites_indomitus_terminator_squad as unknown as Unit,
-  "Iron Circle Maniple": elites_iron_circle_maniple as unknown as Unit,
-  "Khenetai Squad": elites_khenetai_squad as unknown as Unit,
-  "Legion Champion": elites_legion_champion as unknown as Unit,
-  "Legion Contemptor Dreadnought": elites_legion_contemptor_dreadnought as unknown as Unit,
-  "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
-  "Legion Veteran Squad": elites_legion_veteran_squad as unknown as Unit,
-  "Moritat": elites_moritat as unknown as Unit,
-  "Mortificator": elites_mortificator as unknown as Unit,
-  "Overseer": elites_overseer as unknown as Unit,
-  "Palatine Blade Squad": elites_palatine_blade_squad as unknown as Unit,
-  "Phoenix Terminator Squad": elites_phoenix_terminator_squad as unknown as Unit,
-  "Rampager Squad": elites_rampager_squad as unknown as Unit,
-  "Red Butcher Terminators": elites_red_butcher_terminators as unknown as Unit,
-  "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
-  "Vigilator": elites_vigilator as unknown as Unit,
-  "Warmonger": elites_warmonger as unknown as Unit,
-  "Dreadclaw Drop Pod": dedicated_transport_dreadclaw_drop_pod as unknown as Unit,
-  "Land Raider Explorator": dedicated_transport_land_raider_explorator as unknown as Unit,
-  "Legion Drop Pod": dedicated_transport_legion_drop_pod as unknown as Unit,
-  "Legion Rhino": dedicated_transport_legion_rhino as unknown as Unit,
-  "Legion Termite": dedicated_transport_legion_termite as unknown as Unit,
-  "Spartan": dedicated_transport_spartan as unknown as Unit,
+  "Castellax-Achea Automata": heavy_support_castellax_achea_automata as unknown as Unit,
   "Firestrike Servo-turret": heavy_support_firestrike_servo_turret as unknown as Unit,
   "Kakophoni Squad": heavy_support_kakophoni_squad as unknown as Unit,
   "Kharybdis Assault Claw": heavy_support_kharybdis_assault_claw as unknown as Unit,
-  "Land Raider Carrier": heavy_support_land_raider_carrier as unknown as Unit,
   "Legion Heavy Support Squad": heavy_support_legion_heavy_support_squad as unknown as Unit,
   "Legion Kratos Assault Tank": heavy_support_legion_kratos_assault_tank as unknown as Unit,
   "Legion Leviathan Dreadnought": heavy_support_legion_leviathan_dreadnought as unknown as Unit,
   "Legion Predator": heavy_support_legion_predator as unknown as Unit,
-  "Legion Saturnine Dreadnought": heavy_support_legion_saturnine_dreadnought as unknown as Unit,
   "Legion Sicaran Battle Tank": heavy_support_legion_sicaran_battle_tank as unknown as Unit,
   "Legion Whirlwind": heavy_support_legion_whirlwind as unknown as Unit,
   "Thunderfire Cannon": heavy_support_thunderfire_cannon as unknown as Unit,
   "Vindicator Siege Tank": heavy_support_vindicator_siege_tank as unknown as Unit,
+  "Centurion": hq_centurion as unknown as Unit,
+  "Chaplain": hq_chaplain as unknown as Unit,
+  "Librarian": hq_librarian as unknown as Unit,
+  "Dreadclaw Drop Pod": dedicated_transport_dreadclaw_drop_pod as unknown as Unit,
+  "Land Raider Carrier": dedicated_transport_land_raider_carrier as unknown as Unit,
+  "Legion Drop Pod": dedicated_transport_legion_drop_pod as unknown as Unit,
+  "Legion Rhino": dedicated_transport_legion_rhino as unknown as Unit,
+  "Legion Termite": dedicated_transport_legion_termite as unknown as Unit,
+  "Spartan": dedicated_transport_spartan as unknown as Unit,
+  "Headhunter Kill Team": fast_attack_headhunter_kill_team as unknown as Unit,
+  "Land Speeder Squadron": fast_attack_land_speeder_squadron as unknown as Unit,
+  "Legion Assault Squad": fast_attack_legion_assault_squad as unknown as Unit,
+  "Legion Bike Squad": fast_attack_legion_bike_squad as unknown as Unit,
+  "Legion Sky-hunter Squadron": fast_attack_legion_sky_hunter_squadron as unknown as Unit,
+  "Night Raptor Squad": fast_attack_night_raptor_squad as unknown as Unit,
+  "Outrider Squadron": fast_attack_outrider_squadron as unknown as Unit,
   "Legion Breacher Squad": troops_legion_breacher_squad as unknown as Unit,
   "Legion Despoiler Squad": troops_legion_despoiler_squad as unknown as Unit,
   "Legion Scout Squad": troops_legion_scout_squad as unknown as Unit,
   "Legion Tactical Squad": troops_legion_tactical_squad as unknown as Unit,
   "Legion Tactical Support Squad": troops_legion_tactical_support_squad as unknown as Unit,
-  "Red Hand Destroyer Squad": troops_red_hand_destroyer_squad as unknown as Unit,
+  "Reaver Attack Squad": troops_reaver_attack_squad as unknown as Unit,
   "Seeker Squad": troops_seeker_squad as unknown as Unit,
-  "Solar Auxilia Lasrifle Section": troops_solar_auxilia_lasrifle_section as unknown as Unit,
 };

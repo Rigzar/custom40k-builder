@@ -9,9 +9,9 @@
       "s": "+2",
       "ap": "-3",
       "d": "2",
-      "abilities": "Gruesome. Only for Chaplains",
-      "p_unit": 5,
-      "p_char": null,
+      "abilities": "Gruesome, Shield Breaker(-2)",
+      "p_unit": null,
+      "p_char": 8,
       "armour_compat": [
         "Terminator"
       ]
@@ -24,24 +24,9 @@
       "s": "+2",
       "ap": "-2",
       "d": "1",
-      "abilities": "Deadly(6+), Unwieldy",
-      "p_unit": null,
-      "p_char": 6,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Tainted blade",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Deadly(6+), Rending(6+)",
-      "p_unit": null,
-      "p_char": 6,
+      "abilities": "Soul Burn(6+)",
+      "p_unit": 7,
+      "p_char": 10,
       "armour_compat": [
         "Terminator"
       ]
@@ -52,86 +37,169 @@
       "range": "-",
       "type": "Melee",
       "s": "+3",
-      "ap": "-3",
+      "ap": "-1",
       "d": "1",
-      "abilities": "Deadly(6+)",
-      "p_unit": null,
-      "p_char": 7,
+      "abilities": "Soul Burn(6+)",
+      "p_unit": 7,
+      "p_char": 10,
       "armour_compat": [
         "Terminator"
       ]
     },
     {
-      "name": "Warpfire blaster",
-      "term_compat": false,
-      "range": "24\"",
-      "type": "Assault 2",
-      "s": "6",
-      "ap": "-2",
+      "name": "Tainted sword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
       "d": "1",
-      "abilities": "Rending(4+), Suppression(3)",
-      "p_unit": 16,
-      "p_char": 20
-    },
-    {
-      "name": "Warpfire cannon",
-      "term_compat": false,
-      "range": "36\"",
-      "type": "Heavy 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Blast(4), Rending(4+), Suppression(3)",
-      "p_unit": 27,
-      "p_char": 33
+      "abilities": "Soul Burn(6+)",
+      "p_unit": 7,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Warpfire pistol",
       "term_compat": false,
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Rending(4+), Suppression(3)",
-      "p_unit": 8,
-      "p_char": 10
-    },
-    {
-      "name": "Warpfire projector",
-      "term_compat": false,
-      "range": "36\"",
-      "type": "Heavy 1",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Blast(4), Rending(5+), Shred",
-      "p_unit": 27,
-      "p_char": 33
-    },
-    {
-      "name": "Illuminarum",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "Deadly(5+), Poison(4+), Unique",
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
       "p_unit": null,
-      "p_char": null
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Suppression(3)"
+        },
+        {
+          "name": "Overcharged",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating, Shield Breaker(-1), Suppression(3)"
+        }
+      ]
     },
     {
-      "name": "Devotion",
+      "name": "Warpfire blaster",
       "term_compat": false,
-      "range": "12\"",
-      "type": "Assault 1",
-      "s": "8",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Graviton, Unique",
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
       "p_unit": null,
-      "p_char": null
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Suppression(3)"
+        },
+        {
+          "name": "Overcharged",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating, Shield Breaker(-1), Suppression(3)"
+        }
+      ]
+    },
+    {
+      "name": "Warpfire cannon",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Blast(4), Suppression(3)"
+        },
+        {
+          "name": "Overheating",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Blast(4), Overheating, Shield Breaker(-1), Suppression(3)"
+        }
+      ]
+    },
+    {
+      "name": "Combi-warpfire blaster",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 34,
+      "p_char": 40,
+      "profiles": [
+        {
+          "name": "Bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi"
+        },
+        {
+          "name": "Warpfire blaster (standard)",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Combi, Suppression(3)"
+        },
+        {
+          "name": "Warpfire blaster (overcharged)",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Combi, Overheating, Shield Breaker(-1), Suppression(3)"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -156,28 +224,31 @@
       ]
     },
     {
-      "name": "Enslaved by Darkness",
+      "name": "Burning lore",
       "term_compat": true,
-      "desc": "Warlord Trait. The model gains +1 Strength and +1 Toughness in battle rounds 1 to 3, and has -1 Strength and -1 Toughness from battle round 6. It counts as a Daemon. Unique.",
+      "desc": "The model gains the \"Psyker\" ability and may cast 1 power and deny 1 power per battle round. It knows Smite, and all powers from Dark Hereticus or a chosen General discipline. Legion Praetor only.",
       "p_unit": null,
-      "p_char": 4,
+      "p_char": 25,
       "armour_compat": [
         "Terminator"
       ]
     },
     {
-      "name": "Gal Vorbak possession",
-      "term_compat": false,
-      "desc": "The model gains +1 Strength, +1 Toughness and +1 Wound, and the \"Daemon\" and \"Regeneration(1)\" abilities. Only for characters and Command squads.",
-      "p_unit": 47,
-      "p_char": 71
+      "name": "Charismatic leadership",
+      "term_compat": true,
+      "desc": "The model gains +1 Leadership, but loses this bonus if it ever flees.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
-      "name": "Iconoclast",
+      "name": "Crown of the Blasphemer",
       "term_compat": true,
-      "desc": "Warlord Trait. The model and its attached unit gain +1 Attack in melee against units that include a character model or a vexilla, and +2 Strength against Fortifications and buildings. Unique.",
+      "desc": "If the model attempts to use a prayer, the roll is automatically successful. Chaplain only. Unique.",
       "p_unit": null,
-      "p_char": 3,
+      "p_char": 5,
       "armour_compat": [
         "Terminator"
       ]
@@ -185,7 +256,7 @@
     {
       "name": "The Scripts of Erebus",
       "term_compat": true,
-      "desc": "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item.",
+      "desc": "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item. Unique.",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [
@@ -203,20 +274,34 @@
       ]
     },
     {
-      "name": "Unswerving Devotion",
-      "term_compat": true,
-      "desc": "Warlord Trait. Once per battle round, the first failed Battleshock test of each friendly unit with the Mark of Word Bearers within 6\" of the model counts as passed. Unique.",
-      "p_unit": null,
-      "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
       "name": "Mhara Gal",
       "term_compat": false,
-      "desc": "The model gains a 5+ ward save. Only for Walkers.",
-      "p_unit": 45,
+      "desc": "The model gains the \"Daemon\" and \"Terrifying(-2)\" abilities. Only for Walkers.",
+      "p_unit": 50,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "LEGION ARCHETYPES",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Dark Brethren\n(Traitor only)",
+      "term_compat": false,
+      "desc": "- The army may take up to one Troops, Elites or Fast Attack choice from the Chaos Daemon Codex per 500 points of game size.\n- The first time any unit (including attached characters) kills an enemy unit or forces one to flee from melee combat, it receives the benefits of one Mark of Chaos like a non-character model.\n- Enemy psykers may be forced to re-roll their result on the Perils of the Warp table.\n- Only a single Heavy Support choice may be taken in this army.\n- The army must take a Legion Centurion with the Chaplain upgrade that does not take up an HQ slot.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Last of the Serrated\nSun (Traitor only)",
+      "term_compat": false,
+      "desc": "- Gal Vorbak Squads may be taken as Troops.\n- Only units with the Dark Channelling upgrade or \"Daemon\" ability count towards the 25% Troops limitation.\n- The army cannot take any units with 0\" Movement characteristic.\n- The army must take a Legion Centurion with the Chaplain upgrade that does not take up an HQ slot.",
+      "p_unit": null,
       "p_char": null,
       "category": "vehicle"
     }

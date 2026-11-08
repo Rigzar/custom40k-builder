@@ -1,0 +1,252 @@
+{
+    "name": "Dark Sons of Death Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Dark Son",
+            "min": 4,
+            "max": 14,
+            "points": 47
+        },
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Death's Champion",
+            "min": 1,
+            "max": 1,
+            "points": 49
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Jump pack; Krak grenades; Rad grenades.",
+    "weapons": [
+        {
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Charnabal sabre",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Hand flamer",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overcharged",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overcharged",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Rad grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Rad"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Any model may swap their Astartes chainsword with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Charnabal sabre",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
+            ]
+        },
+        {
+            "header": "Any model may swap their Bolt pistol with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Hand flamer",
+                    "points": 5
+                },
+                {
+                    "name": "Plasma pistol",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        },
+        {
+            "header": "For each 5 models, one Dark Son may swap their Bolt pistol with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Flamer",
+                    "points": 5
+                },
+                {
+                    "name": "Meltagun",
+                    "points": 15
+                },
+                {
+                    "name": "Plasma gun",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolt pistol"
+            ]
+        }
+    ],
+    "abilities": [
+        "Combat squads, Deep strike, They Shall Know No Fear, White Scars Legion"
+    ],
+    "unit_type": "Jump pack infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 5,
+    "min_cost": 237,
+    "requires_legacy": "Legacy of the Great Khan"
+}

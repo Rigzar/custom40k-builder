@@ -1,0 +1,176 @@
+{
+    "name": "Crimson Paladins Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Crimson Paladin",
+            "min": 4,
+            "max": 9,
+            "points": 77
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Crimson Exemplar",
+            "min": 1,
+            "max": 1,
+            "points": 78
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Power sword.",
+    "weapons": [
+        {
+            "name": "Assault cannon",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Piercing(5+)"
+        },
+        {
+            "name": "Chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(3), Slow(-3)"
+        },
+        {
+            "name": "Heavy flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Plasma blaster - Standard",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma blaster - Overcharged",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "For each 5 models, one Crimson Paladin may receive an additional weapon",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Heavy flamer",
+                    "points": 5
+                },
+                {
+                    "name": "Assault cannon",
+                    "points": 15
+                },
+                {
+                    "name": "Plasma blaster",
+                    "points": 10
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "Up to two Crimson Paladins may swap their Power sword with",
+            "constraint": {
+                "type": "fixed_max",
+                "max": 2
+            },
+            "choices": [
+                {
+                    "name": "Power fist",
+                    "points": 9
+                },
+                {
+                    "name": "Chainfist",
+                    "points": 17
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Power sword"
+            ]
+        }
+    ],
+    "abilities": [
+        "Blood Angels Legion, Deep strike, Massive(1), They Shall Know No Fear, Unyielding, Ward(4+)"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 386,
+    "requires_legacy": "Legacy of the Angel"
+}

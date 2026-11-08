@@ -1,121 +1,14 @@
 {
   "name": "Raven Guard Armory",
-  "weapons": [
-    {
-      "name": "Raven's talon",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Shred, Rending(5+)",
-      "p_unit": 5,
-      "p_char": 6,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Raven's talons",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Extra Attack(2), Shred, Rending(5+), Unwieldy",
-      "p_unit": 10,
-      "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Talionis",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Rending(6+), Quick(+2), Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "The Corvidine Talons",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "1",
-      "abilities": "Deadly(6+), Quick(+1), Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Wrath & Justice",
-      "term_compat": false,
-      "range": "12\"",
-      "type": "Pistol 6",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Rending(6+), Unique",
-      "p_unit": null,
-      "p_char": null
-    }
-  ],
+  "weapons": [],
   "equipment": [
     {
-      "name": "Cameleoline",
+      "name": "LEGION ARCHETYPES",
       "term_compat": false,
-      "desc": "The model gains a 6+ ward save against ranged attacks, or improves a ward save against ranged attacks it already has by one step (to a maximum of 4+). Only for Praetors and Centurions.",
+      "desc": "",
       "p_unit": null,
-      "p_char": 20
-    },
-    {
-      "name": "Corvid pattern jump pack",
-      "term_compat": false,
-      "desc": "The model gains +8\" movement and the \"Jump pack\" and \"Deep strike\" abilities. Replaces a Jump pack. Only for infantry characters.",
-      "p_unit": null,
-      "p_char": 29
-    },
-    {
-      "name": "Infravisor",
-      "term_compat": false,
-      "desc": "The model improves its BS by 1. Only for characters.",
-      "p_unit": null,
-      "p_char": 10
-    },
-    {
-      "name": "Marked for Death",
-      "term_compat": true,
-      "desc": "At the beginning of the first Battle round, select one enemy Character model. Your entire army gains the \"Favored Enemy\" ability against that model. While that model is attached to a unit, you gain \"Favored Enemy\" against that unit as well. Unique.",
-      "p_unit": null,
-      "p_char": 15,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Shadow Master",
-      "term_compat": true,
-      "desc": "The model and its attatched unit may consolidate +3\".",
-      "p_unit": 3,
       "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "The Armor of Shadows",
-      "term_compat": false,
-      "desc": "The model can't be targeted by anything outside of 12\". Unique.",
-      "p_unit": null,
-      "p_char": 10
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

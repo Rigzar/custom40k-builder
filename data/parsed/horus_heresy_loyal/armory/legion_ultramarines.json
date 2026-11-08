@@ -6,12 +6,12 @@
       "term_compat": true,
       "range": "-",
       "type": "Melee",
-      "s": "+2",
-      "ap": "-2",
+      "s": "U",
+      "ap": "-4",
       "d": "1",
-      "abilities": "-",
-      "p_unit": 4,
-      "p_char": 6,
+      "abilities": "Precision(4+)",
+      "p_unit": null,
+      "p_char": 7,
       "armour_compat": [
         "Terminator"
       ]
@@ -25,58 +25,32 @@
       "ap": "-3",
       "d": "2",
       "abilities": "AT(2), Unique",
-      "p_unit": 18,
-      "p_char": null
-    },
-    {
-      "name": "The Gladius Incandor",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Rending(5+), Parry, Unique",
       "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "The Hand of Dominion",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+4",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "Armorbane(1), Slow(-1), Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "The Arbitrator",
-      "term_compat": false,
-      "range": "18\"",
-      "type": "Assault 2",
-      "s": "6",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Rending(5+), Unique",
-      "p_unit": null,
-      "p_char": null
+      "p_char": 18
     }
   ],
   "equipment": [
     {
-      "name": "Argyrum pattern boarding shield",
-      "term_compat": false,
-      "desc": "The model gains a 5+ ward save, or a 4+ ward save against attacks made in close combat. Not combinable with other ward saves. Only for non-unique characters.",
+      "name": "Adamantine Wreath",
+      "term_compat": true,
+      "desc": "The model gains a 4+ ward save and the \"Aegis(4+)\" ability. Unique.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 35,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Argyrum-pattern boarding shield",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\", \"Parry\", \"Unyielding\" and \"Warded\" abilities. All melee weapons carried by the model gain the \"Unwieldy\" ability. Additionally, the model always benefits from the \"Hold Your Ground\" effect.",
+      "p_unit": null,
+      "p_char": 12
     },
     {
       "name": "Helm of Censure",
       "term_compat": true,
-      "desc": "The model gains 1 cumulative hit and wound re-roll. Unique.",
+      "desc": "The model gains 1 hit and wound re-roll. Unique.",
       "p_unit": 10,
       "p_char": 10,
       "armour_compat": [
@@ -84,7 +58,7 @@
       ]
     },
     {
-      "name": "Laurels of Victory",
+      "name": "Laurels of victory",
       "term_compat": true,
       "desc": "Each wound the model does in combat counts as 2 for combat resolution.",
       "p_unit": 5,
@@ -94,10 +68,17 @@
       ]
     },
     {
+      "name": "Mantles of Ultramar",
+      "term_compat": false,
+      "desc": "The model gains a 2+ armor save and +1 Toughness. Not combinable with other armors. Unique.",
+      "p_unit": null,
+      "p_char": 25
+    },
+    {
       "name": "Tarentian Cloak",
       "term_compat": true,
-      "desc": "The model gains the \"Regeneration(1)\" ability.",
-      "p_unit": 8,
+      "desc": "The model gains the \"Regeneration(1)\" ability. Unique.",
+      "p_unit": null,
       "p_char": 12,
       "armour_compat": [
         "Terminator"
@@ -106,8 +87,32 @@
     {
       "name": "Supply Vehicle",
       "term_compat": false,
-      "desc": "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Space Marine unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
-      "p_unit": 5,
+      "desc": "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Ultramarines unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
+      "p_unit": null,
+      "p_char": 5,
+      "category": "vehicle"
+    },
+    {
+      "name": "LEGION ARCHETYPES",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Logos Lectora",
+      "term_compat": false,
+      "desc": "- At the start of the Command phase, this army may choose a single Logos Lectora Command, which affects all Infantry and Walker units for the rest of the round:\n  - Full March: Units may change their assigned command to \"Advance\" when they activate and may re-roll Advance distances.\n  - Hold Fast: Units may change their assigned command to \"Stand & Shoot\" when they activate and do not suffer the to hit penalty from Defensive Fire.\n  - Retribution Strike: Units may change their assigned command to \"Charge\" when they activate and gain the \"Counter-attack\" ability.\n\n- Units in this army may not use the \"Deep Strike\", \"Infiltrate\" or \"Outflank\" abilities. Units which must use one of these abilities to deploy cannot be taken.\n- The army must take one additional compulsory Troops unit.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Vigil Opertii Mission\n(Loyalist only)",
+      "term_compat": false,
+      "desc": "- The army must take an Imperial Army Allied Detachment which does not have an Archetype. \n- Units that are taken in the Allied Detachment can make use of the “Objective secured!” rule.\n- The army must have the Loyalist alignment.",
+      "p_unit": null,
       "p_char": null,
       "category": "vehicle"
     }

@@ -3,30 +3,35 @@
   "weapons": [
     {
       "name": "Power glaive",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Rending(5+)",
-      "p_unit": null,
-      "p_char": 7,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Scatterbolt launcher",
       "term_compat": false,
-      "range": "9\"",
-      "type": "Assault 1",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Auto Hit, Shred",
-      "p_unit": 5,
-      "p_char": 4
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 9,
+      "p_char": 11,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+4",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Charge, Quick(+1), Unwieldy"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+), Unwieldy"
+        }
+      ]
     },
     {
       "name": "Scimitar of the Great Khan",
@@ -37,11 +42,23 @@
       "ap": "-3",
       "d": "2",
       "abilities": "Deadly(5+). Unique",
-      "p_unit": 12,
-      "p_char": null,
+      "p_unit": null,
+      "p_char": 12,
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Scatterbolt launcher",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Auto Hit, Shred, Sunder(2), Suppression(3)",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Stormwrath Bolts",
@@ -57,37 +74,23 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "The White Tiger Dao",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "Quick(+1), Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Storm's Voice",
-      "term_compat": false,
-      "range": "12\"",
-      "type": "Pistol 2",
-      "s": "6",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Rending(5+), Deflagrate(6+), Unique",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "equipment": [
     {
       "name": "Banner of the Eagle",
       "term_compat": true,
-      "desc": "This model and its attached unit gain +1 Strength. Ancients only. Unique.",
+      "desc": "This model and its attached unit gain +1 Strength. Character only. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Chogorian Dreadplate",
+      "term_compat": true,
+      "desc": "This model gains a 3+ ward save against any wounds caused by models with the \"Daemon\", \"Greater Daemon\" or \"Psyker\" abilities. Unique.",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [
@@ -105,9 +108,19 @@
       ]
     },
     {
+      "name": "Cyber-hawk",
+      "term_compat": true,
+      "desc": "At the beginning of its activation, this model may designate an enemy unit within 24\". Until the end of its activation, this model and its attached unit may re-roll ranged to hit rolls of 1 when firing at the designated unit, and gain the \"Move through cover\" ability while making a Charge move towards the designated unit.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Hunter's Eye",
       "term_compat": true,
-      "desc": "All ranged attacks by this model and its attached unit have the Seeking ability. Unique",
+      "desc": "All ranged attacks by this model and its attached unit have the Seeking ability. Unique.",
       "p_unit": null,
       "p_char": 15,
       "armour_compat": [
@@ -132,6 +145,13 @@
       "p_char": 10
     },
     {
+      "name": "Shamshir Jetbike (Scatterbolt launcher)",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, a 2+ Armor save, a Scatterbolt launcher and the \"Jet Bike\" type. Only for infantry.",
+      "p_unit": null,
+      "p_char": 65
+    },
+    {
       "name": "Stormwrath Bolts",
       "term_compat": true,
       "desc": "When firing a bolt weapon, this model may choose to fire a Stormwrath bolt instead of attacking normally. Use their bolt weapon's range and the profile above.",
@@ -142,11 +162,36 @@
       ]
     },
     {
-      "name": "Wrath of the Heavens",
+      "name": "Enhanced engines",
       "term_compat": false,
-      "desc": "This model gains the \"Jetbike\" type. Bike only. Unique",
+      "desc": "This vehicle automatically advances 6\" when given an Advance order.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "category": "vehicle"
+    },
+    {
+      "name": "LEGION ARCHETYPES",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Chogorian Brotherhood",
+      "term_compat": false,
+      "desc": "- Legion Outrider Squadron and Legion Sky-hunter Squadron units may be taken as Troops.\n- All Bike and Jet Bike units gain the \"Hit and Run\" ability.\n- All Infantry units gain the \"Outflank\" ability.\n- All units with less than 12\" Movement may only be deployed at the start of the game as passengers inside a transport.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Sagyar Mazan",
+      "term_compat": false,
+      "desc": "- Ebon Keshig Cohort units may be taken as Troops.\n- All Creature units must be upgraded to gain the \"Blind Rage\" ability for +5 points per unit.\n- Heavy Support units with the Vehicle unit type may not be taken.\n- The army may not choose to start the game with any units in Reserve. Units which cannot begin the game deployed on the table cannot be taken.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

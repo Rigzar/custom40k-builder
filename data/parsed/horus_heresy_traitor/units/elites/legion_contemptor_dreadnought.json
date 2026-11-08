@@ -132,15 +132,6 @@
             "abilities": "AT(1), Anti-air"
         },
         {
-            "name": "Missile launcher - Rad missile",
-            "range": "48\"",
-            "type": "Heavy 1",
-            "s": "4",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Rad"
-        },
-        {
             "name": "Multi-melta",
             "range": "24\"",
             "type": "Assault 1",
@@ -241,7 +232,7 @@
             },
             "choices": [
                 {
-                    "name": "Dreadnought close combat weapon with Storm bolter",
+                    "name": "Dreadnought claw with Storm bolter",
                     "points": 27,
                     "effect": {
                         "grants_weapons": [
@@ -336,10 +327,78 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": false
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Phoenician"
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Iron"
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "grants_abilities": [
+                            "Terrifying(-1)"
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Red Sands"
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Death Lord"
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Crimson King"
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Warmaster"
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Archtraitor"
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "Advisor",
         "Squadron",
         "Atomantic Shielding: The model has a 5+ ward save.",
         "Furioso: If the model has two melee weapons, it gains +2 attacks."
@@ -356,7 +415,7 @@
     "veteran_required": false,
     "veteran_max": 1,
     "locked_mark": null,
-    "advisor": true,
+    "advisor": false,
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 192

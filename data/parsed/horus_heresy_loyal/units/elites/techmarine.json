@@ -1,0 +1,296 @@
+{
+    "name": "Techmarine",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "2+"
+            },
+            "name": "Techmarine",
+            "min": 1,
+            "max": 1,
+            "points": 140
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Forge Lord",
+            "min": 0,
+            "max": 1,
+            "points": 155
+        }
+    ],
+    "equipped_with": "A Techmarine is equipped with: Grav pistol; Omnissiah Power axe; Forge bolter; Servo arm; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Forge bolter",
+            "range": "24\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Extra Attack(1), Limit(1)"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Grav pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Grav"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Omnissiah Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Servo arm",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra Attack(1), Limit(1), Slow(-5)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One Techmarine per army May be upgraded to a Forge Lord for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Forge Lord",
+            "is_unique_per_army": true
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lion",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "White Scars",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            },
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Wolf King",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Praetorian of Terra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 19,
+                    "requires_legacy": "Legacy of the Gorgon",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "W",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Avenging Son",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 12,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Advisor, Command squad, They Shall Know No Fear",
+        "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" may reroll a hit roll and a wound or armor penetration roll.",
+        "Forge Lord: A Forge Lord may use \"Blessing of the Omnissiah\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": true,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 140
+}

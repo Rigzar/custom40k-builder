@@ -6,7 +6,7 @@ import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MA
 import { alliedSlotFactor } from '../engine/navyRules';
 import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engine/legendaryRetinue';
 import { ironLordGuardKeys, ironLordGuardEligible } from '../engine/ironLordGuard';
-import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits, archetypeSlotBonus } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, pointCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
@@ -459,7 +459,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         const capOv = rule?.slotCapOverride?.slot === slot ? rule.slotCapOverride.max : (rule?.slotCaps ?? []).find(c => c.slot === slot)?.max;
         const cappedMax = capOv != null ? Math.min(rawScaledMax, capOv) : rawScaledMax;
         // Legacy extras, per AOP (CSM Hydra: +1 Elite, Night Haunter: +1 Fast Attack).
-        const max = cappedMax + csmLegacySlotBonus(isAllied ? [store.alliedLegacy] : [store.legacy, store.legacy2], slot) * (eng.multiAop ? aopMult : 1);
+        const max = cappedMax + csmLegacySlotBonus(isAllied ? [store.alliedLegacy] : [store.legacy, store.legacy2], slot) * (eng.multiAop ? aopMult : 1) + archetypeSlotBonus(rule, slot);
 
         const units = effectiveSlotUnits[slot] ?? [];
         if (rule?.bannedSlots.includes(slot)) return null;

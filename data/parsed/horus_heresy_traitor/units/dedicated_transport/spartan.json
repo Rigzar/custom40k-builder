@@ -24,12 +24,21 @@
     "equipped_with": "A Spartan is a single model and is equipped with: 2 Twin lascannon; Twin heavy bolter.",
     "weapons": [
         {
-            "name": "Twin lascannon",
-            "range": "48\"",
+            "name": "Gravis heavy bolter batteries",
+            "range": "36\"",
+            "type": "Rapid Fire 5",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Suppression(2)"
+        },
+        {
+            "name": "Laser destroyers",
+            "range": "36\"",
             "type": "Heavy 2",
-            "s": "9",
+            "s": "10",
             "ap": "-4",
-            "d": "3",
+            "d": "2",
             "abilities": "AT(3)"
         },
         {
@@ -42,24 +51,6 @@
             "abilities": "-"
         },
         {
-            "name": "Laser destroyers",
-            "range": "36\"",
-            "type": "Heavy 2",
-            "s": "10",
-            "ap": "-4",
-            "d": "2",
-            "abilities": "AT(3)"
-        },
-        {
-            "name": "Gravis heavy bolter batteries",
-            "range": "36\"",
-            "type": "Rapid Fire 5",
-            "s": "5",
-            "ap": "-2",
-            "d": "1",
-            "abilities": "Suppression(2)"
-        },
-        {
             "name": "Twin heavy flamer",
             "range": "9\"",
             "type": "Assault 8",
@@ -67,6 +58,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
         }
     ],
     "option_groups": [
@@ -113,6 +113,75 @@
             "replaces": [
                 "Twin heavy bolter"
             ]
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Phoenician"
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Iron"
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "grants_abilities": [
+                            "Terrifying(-1)"
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Red Sands"
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Death Lord"
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Crimson King"
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Warmaster"
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Archtraitor"
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -126,7 +195,7 @@
     "is_character": false,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": true,
+    "has_armory_access": false,
     "champion_has_armory": false,
     "has_veteran_abilities": false,
     "veteran_required": false,

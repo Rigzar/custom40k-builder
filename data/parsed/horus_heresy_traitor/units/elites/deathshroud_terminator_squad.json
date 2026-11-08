@@ -3,14 +3,14 @@
     "models": [
         {
             "stats": {
-                "M": "7\"",
+                "M": "6\"",
                 "WS": "2+",
                 "BS": "3+",
                 "S": "4",
                 "T": "5",
                 "W": "2",
                 "I": "4",
-                "A": "3",
+                "A": "2",
                 "LD": "9",
                 "SV": "2+"
             },
@@ -21,17 +21,8 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every model is equipped with: Alchem caster; Power scythe.",
+    "equipped_with": "Every model is equipped with: Alchem caster; Scythe.",
     "weapons": [
-        {
-            "name": "Alchem caster",
-            "range": "6\"",
-            "type": "Pistol 4",
-            "s": "3",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Auto Hit, Poison(2+)"
-        },
         {
             "name": "Melta bombs",
             "range": "3\"",
@@ -42,20 +33,29 @@
             "abilities": "AT(3), Armorbane(3)"
         },
         {
-            "name": "Power scythe",
+            "name": "Alchem caster",
+            "range": "6\"",
+            "type": "Pistol 4",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+)"
+        },
+        {
+            "name": "Scythe",
             "range": "-",
             "type": "Melee",
-            "s": "+2",
+            "s": "+1",
             "ap": "-3",
             "d": "1",
-            "abilities": "Extra Attack(1), Rending(5+), Slow(-1)"
+            "abilities": "Extra Attack(1), Unwieldy"
         }
     ],
     "option_groups": [
         {
             "header": "Any model may be equipped with Melta bombs for +5 points each.",
             "constraint": {
-                "type": "every"
+                "type": "one"
             },
             "choices": [
                 {
@@ -65,12 +65,11 @@
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": false
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "Bodyguard, Massive(1), They Shall Know No Fear, Unyielding, Ward(5+)"
+        "Bodyguard, Death Guard Legion, Massive(1), They Shall Know No Fear, Unyielding, Ward(5+)"
     ],
     "unit_type": "Infantry",
     "keywords": [],

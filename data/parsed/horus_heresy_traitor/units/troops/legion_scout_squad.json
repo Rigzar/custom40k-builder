@@ -4,20 +4,20 @@
         {
             "stats": {
                 "M": "6\"",
-                "WS": "3+",
-                "BS": "3+",
+                "WS": "4+",
+                "BS": "4+",
                 "S": "4",
                 "T": "4",
-                "W": "2",
+                "W": "1",
                 "I": "4",
                 "A": "2",
-                "LD": "7",
-                "SV": "3+"
+                "LD": "6",
+                "SV": "4+"
             },
             "name": "Scout",
             "min": 4,
             "max": 9,
-            "points": 33
+            "points": 15
         },
         {
             "stats": {
@@ -30,12 +30,12 @@
                 "I": "4",
                 "A": "2",
                 "LD": "8",
-                "SV": "3+"
+                "SV": "4+"
             },
             "name": "Scout Sergeant",
             "min": 1,
             "max": 1,
-            "points": 43
+            "points": 35
         }
     ],
     "variant_models": [],
@@ -123,22 +123,13 @@
             "abilities": "AT(2), Anti-air"
         },
         {
-            "name": "Missile launcher - Rad missile",
-            "range": "48\"",
-            "type": "Heavy 1",
-            "s": "4",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Rad"
-        },
-        {
             "name": "Sniper rifle",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Armor piercing(5+), Sniper, Suppression(6)"
+            "abilities": "Piercing(5+), Sniper, Suppression(6)"
         }
     ],
     "option_groups": [
@@ -150,15 +141,15 @@
             "choices": [
                 {
                     "name": "Astartes shotgun",
-                    "points": 4
+                    "points": 2
                 },
                 {
                     "name": "Boltgun",
-                    "points": 4
+                    "points": 2
                 },
                 {
                     "name": "Sniper rifle",
-                    "points": 17
+                    "points": 16
                 }
             ],
             "inline_pts": null,
@@ -176,11 +167,11 @@
             "choices": [
                 {
                     "name": "Heavy bolter",
-                    "points": 17
+                    "points": 11
                 },
                 {
                     "name": "Missile launcher",
-                    "points": 40
+                    "points": 28
                 }
             ],
             "inline_pts": null,
@@ -200,10 +191,141 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Phoenician",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Iron",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Red Sands",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 2,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Death Lord",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 5,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Crimson King",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ]
+                    }
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Warmaster",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Archtraitor",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 1,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "grants_abilities": [
+                            "Infiltrator"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "Infiltrator, They Shall Know No Fear",
+        "Combat squads, Infiltrator, They Shall Know No Fear",
         "Camo cloak: The model gains the \"Stealth\" ability."
     ],
     "unit_type": "Infantry",
@@ -221,5 +343,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 175
+    "min_cost": 95
 }

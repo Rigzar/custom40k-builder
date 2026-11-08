@@ -2,165 +2,432 @@
   "name": "Thousand Sons Armory",
   "weapons": [
     {
-      "name": "Achea force axe",
+      "name": "Pair of force swords",
       "term_compat": false,
       "range": "-",
       "type": "Melee",
-      "s": "+2",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Unwieldy, Force Weapon",
-      "p_unit": 5,
-      "p_char": 6
-    },
-    {
-      "name": "Achea force maul",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
+      "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Force Weapon",
-      "p_unit": 6,
-      "p_char": 7
+      "abilities": "Extra Attack(1), Force weapon",
+      "p_unit": null,
+      "p_char": null
     },
     {
-      "name": "Achea force sword",
+      "name": "Aether-fire pistol",
       "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
       "ap": "-3",
       "d": "1",
-      "abilities": "Rending(5+), Force Weapon",
-      "p_unit": 5,
-      "p_char": 7
+      "abilities": "AT(2), Force weapon",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Aether-fire blaster",
       "term_compat": false,
       "range": "18\"",
       "type": "Assault 2",
-      "s": "6",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Rending(6+), Force Weapon",
-      "p_unit": 29,
-      "p_char": 37
+      "s": "8",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(2), Force weapon",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Aether-fire cannon",
       "term_compat": false,
       "range": "24\"",
       "type": "Heavy 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Blast(6), Rending(6+), Force Weapon",
-      "p_unit": 61,
-      "p_char": 77
-    },
-    {
-      "name": "Aether-fire pistol",
-      "term_compat": false,
-      "range": "10\"",
-      "type": "Pistol 1",
-      "s": "6",
-      "ap": "-2",
-      "d": "2",
-      "abilities": "Rending(6+), Force Weapon",
-      "p_unit": 7,
-      "p_char": 8
+      "s": "8",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(2), Blast(4), Force weapon",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Asphyx bolt pistol",
       "term_compat": false,
-      "range": "8\"",
+      "range": "12\"",
       "type": "Pistol 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Rending(6+)",
-      "p_unit": 2,
-      "p_char": 2
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Asphyx bolter",
       "term_compat": false,
-      "range": "18\"",
+      "range": "24\"",
       "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Rending(6+)",
-      "p_unit": 5,
-      "p_char": 6
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Asphyx combi-bolter",
       "term_compat": false,
-      "range": "18\"",
+      "range": "24\"",
       "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Rending(6+)",
-      "p_unit": 9,
-      "p_char": 12
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
     },
     {
-      "name": "Coruscating beam",
-      "term_compat": true,
-      "range": "Unlimited",
-      "type": "Heavy 1",
-      "s": "9",
-      "ap": "-4",
-      "d": "3",
-      "abilities": "Ammunition(1), Armorbane(2), AT(4), Blast(6)",
+      "name": "Asphyx heavy bolter",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred",
       "p_unit": null,
-      "p_char": null,
+      "p_char": null
+    },
+    {
+      "name": "Asphyx rotor cannon",
+      "term_compat": false,
+      "range": "30\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Shred, Suppression(3)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Asphyx twin heavy bolter",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Rapid Fire 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Asphyx combi-aetherfire blaster",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 34,
+      "p_char": 40,
+      "profiles": [
+        {
+          "name": "Asphyx bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Combi, Shred"
+        },
+        {
+          "name": "Aether-fire blaster",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(2), Combi, Force weapon"
+        }
+      ],
       "armour_compat": [
         "Terminator"
       ]
     },
     {
-      "name": "Gravis force blade",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "9",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(2), Force Weapon",
-      "p_unit": null,
-      "p_char": null
+      "name": "Asphyx combi-flamer",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 14,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Asphyx bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi, Shred"
+        },
+        {
+          "name": "Flamer",
+          "range": "9\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Auto Hit, Combi, Sunder(1)"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
-      "name": "The Blade of Ahn-nunurta",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "Force Weapon, Unique",
-      "p_unit": null,
-      "p_char": null
+      "name": "Asphyx combi-melta",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 19,
+      "p_char": 27,
+      "profiles": [
+        {
+          "name": "Asphyx bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi, Shred"
+        },
+        {
+          "name": "Melta",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Combi, Melta"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
-      "name": "Psyfire Serpenta",
-      "term_compat": false,
-      "range": "15\"",
-      "type": "Assault 3",
-      "s": "6",
-      "ap": "-3",
+      "name": "Asphyx combi-volkite",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 18,
+      "p_char": 25,
+      "profiles": [
+        {
+          "name": "Asphyx bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi, Shred"
+        },
+        {
+          "name": "Volkite charger",
+          "range": "15\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi, Soul burn(6+)"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Prosperine Khopesh",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
       "d": "1",
-      "abilities": "Auto Hit, Unique",
-      "p_unit": null,
-      "p_char": null
+      "abilities": "Force weapon, Soul burn(5+)",
+      "p_unit": 7,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
-  "equipment": [],
+  "equipment": [
+    {
+      "name": "Arcane compulsion",
+      "term_compat": true,
+      "desc": "Reduce enemy Charge movements targeting the bearer and their attached unit by 2\".",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Arcane litanies",
+      "term_compat": true,
+      "desc": "The model or its attached unit ignore the first Perils of the Warp effect they suffer each game.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Astral Grimoire",
+      "term_compat": true,
+      "desc": "Select one friendly unit within 12\" during the Reinforcement phase. For the remainder of the battle round the unit got a Movement value of 12\" and gains the \"Anti-Grav\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Athanaean Scroll",
+      "term_compat": true,
+      "desc": "If a test to manifest a psychic power rolls any doubles, the power is manifested and can't be denied. If a test to deny a psychic power rolls any doubles, the power is denied regardless of the actual result. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Helm of the Third Eye",
+      "term_compat": true,
+      "desc": "The model and any attached unit ignore any or all to hit modifiers, including for Defensive Fire. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Hourglass of Destiny",
+      "term_compat": true,
+      "desc": "Roll a die the first time the model is eliminated: \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound. \n5,6 - Set it up again with 2 wounds.\nUnique.",
+      "p_unit": 15,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Magister",
+      "term_compat": true,
+      "desc": "The model gains the \"Psyker\" ability and may cast 2 powers and deny 2 powers per battle round. It knows Smite, both powers from a chosen Prosperine Cult discipline and all powers from a chosen General discipline. Additionally, it gains the \"Brotherhood of Psykers\" ability. Legion Praetor only.",
+      "p_unit": null,
+      "p_char": 40,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Prosperine lore",
+      "term_compat": true,
+      "desc": "The model gains the \"Psyker\" ability and may cast 1 power and deny 1 power per battle round. It knows Smite, both powers from a chosen Prosperine Cult discipline and all powers from a chosen General discipline. Additionally, it gains the \"Brotherhood of Psykers\" ability. Legion Centurion only.",
+      "p_unit": null,
+      "p_char": 25,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Tizcan Tutelary",
+      "term_compat": true,
+      "desc": "Can be activated once per game to grant friendly and enemy psykers a +1 bonus to manifestation rolls until the next battle round. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Weaver of Primordial Force",
+      "term_compat": true,
+      "desc": "The model may give itself one of these bonuses each round:\n- Change one \"Normal\" psychic power to \"Basic\".\n- Change one \"Complex\" psychic power to \"Normal\".\n- Get a +1 bonus to manifest one psychic power.\n- Get a +1 bonus to deny one psychic power.\nUnique.",
+      "p_unit": 10,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Wielder of Fates",
+      "term_compat": true,
+      "desc": "The player may demand a single die to be re-rolled each round, regardless from which player. Unique.",
+      "p_unit": null,
+      "p_char": 20,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Osiron dreadnought",
+      "term_compat": false,
+      "desc": "The model may cast 1 power and deny 1 power per battle round. It knows Smite, both powers from a chosen Prosperine Cult discipline and all powers from a chosen General discipline except Biomancy. Walker only.",
+      "p_unit": 30,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Resonant focus",
+      "term_compat": false,
+      "desc": "When selected as a target of a friendly's psyker's Augmentation psychic power, you can choose a friendly unit within 12\" that this model has Line of Sight to. That unit gains the effects of the psychic power in addition of this model, if able.",
+      "p_unit": 10,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "LEGION ARCHETYPES",
+      "term_compat": false,
+      "desc": "",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Achean Configuration",
+      "term_compat": false,
+      "desc": "- Castellax-achea Battle-automata Maniple units may be taken as Troops.\n- On a roll of 4+, Castellax-achea Battle-automata Maniple units may ignore a Mortal Wound caused by a friendly unit suffering Perils of the Warp.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Axis of Dissolution",
+      "term_compat": false,
+      "desc": "- Units automatically pass any Leadership test while within 6\" of an objective.\n- Units do not suffer the to hit penalty from Defensive Fire.\n- Units taken as compulsory Troops choices must contain at least 20 models.\n- The army must take more units with the Infantry type than the Vehicle type.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
   "daemon_weapons": []
 }

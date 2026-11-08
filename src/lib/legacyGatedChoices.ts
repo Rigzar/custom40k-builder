@@ -8,7 +8,9 @@ import { getArchetypeRule } from '../engine/archetypes';
 
 /** The Legacy an archetype demands, or null when its text names none. */
 export function archetypeRequiredLegacy(archetype: Pick<Archetype, 'desc'> | undefined): string | null {
-  const m = String(archetype?.desc ?? '').match(/Can only be selected with the (Legacy of [^.\n]+?)\./);
+  const text = String(archetype?.desc ?? '');
+  // the Legion archetypes of the Loyal / Traitor books: 'Must select "Legacy of the Lion".'
+  const m = text.match(/Can only be selected with the (Legacy of [^.\n]+?)\./) ?? text.match(/Must select ["“](Legacy of [^"”\n]+?)["”]/);
   return m ? m[1].trim() : null;
 }
 

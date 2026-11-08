@@ -24,12 +24,21 @@
     "equipped_with": "A Spartan is a single model and is equipped with: 2 Twin lascannon; Twin heavy bolter.",
     "weapons": [
         {
-            "name": "Twin lascannon",
-            "range": "48\"",
+            "name": "Gravis heavy bolter batteries",
+            "range": "36\"",
+            "type": "Rapid Fire 5",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Suppression(2)"
+        },
+        {
+            "name": "Laser destroyers",
+            "range": "36\"",
             "type": "Heavy 2",
-            "s": "9",
+            "s": "10",
             "ap": "-4",
-            "d": "3",
+            "d": "2",
             "abilities": "AT(3)"
         },
         {
@@ -42,24 +51,6 @@
             "abilities": "-"
         },
         {
-            "name": "Laser destroyers",
-            "range": "36\"",
-            "type": "Heavy 2",
-            "s": "10",
-            "ap": "-4",
-            "d": "2",
-            "abilities": "AT(3)"
-        },
-        {
-            "name": "Gravis heavy bolter batteries",
-            "range": "36\"",
-            "type": "Rapid Fire 5",
-            "s": "5",
-            "ap": "-2",
-            "d": "1",
-            "abilities": "Suppression(2)"
-        },
-        {
             "name": "Twin heavy flamer",
             "range": "9\"",
             "type": "Assault 8",
@@ -67,6 +58,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
         }
     ],
     "option_groups": [
@@ -113,6 +113,85 @@
             "replaces": [
                 "Twin heavy bolter"
             ]
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lion"
+                },
+                {
+                    "name": "White Scars",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "grants_abilities": [
+                            "Haste(2\")"
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Wolf King"
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Praetorian of Terra"
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "grants_abilities": [
+                            "Furious charge"
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Gorgon"
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Avenging Son"
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "HP",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "grants_abilities": [
+                            "Deflect"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -126,7 +205,7 @@
     "is_character": false,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": true,
+    "has_armory_access": false,
     "champion_has_armory": false,
     "has_veteran_abilities": false,
     "veteran_required": false,

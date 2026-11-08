@@ -1,0 +1,129 @@
+{
+    "name": "Firedrake Terminator Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Firedrake",
+            "min": 4,
+            "max": 9,
+            "points": 90
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "5",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "2+"
+            },
+            "name": "Firedrake Master",
+            "min": 1,
+            "max": 1,
+            "points": 90
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Thunder hammer.",
+    "weapons": [
+        {
+            "name": "Chainfist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(3), Slow(-3)"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Thunder hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Slow(-3)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "Any model may swap their Thunder hammer with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Power sword",
+                    "points": -16
+                },
+                {
+                    "name": "Power fist",
+                    "points": -7
+                },
+                {
+                    "name": "Chainfist",
+                    "points": 1
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Thunder hammer"
+            ]
+        }
+    ],
+    "abilities": [
+        "Salamanders Legion, They Shall Know No Fear, Vanguard, Ward(4+)"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Elites",
+    "default_size": 5,
+    "min_cost": 450,
+    "requires_legacy": "Legacy of the Lord of Drakes"
+}

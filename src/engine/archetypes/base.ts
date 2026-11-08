@@ -38,6 +38,10 @@ export interface ArchetypeRule {
   alliedOnlyTo?: string;
   bannedSlots: string[];
   hqOverride: [number, number] | null;
+  /** The archetype names no Legion itself, so the army must pick a Legacy: the Legion of that Legacy is the Legion of the whole army (Horus Heresy general archetypes). */
+  requiresLegacy?: boolean;
+  /** Extra selections of a slot that the archetype grants once (Horus Heresy Legion Specialists: 0-4 Elites in the first AOP instead of 0-3). */
+  slotBonus?: { slot: string; add: number }[];
   hqAllowed: string[];
   requiresHqUnit: string | null;
   noAnimosity: boolean;

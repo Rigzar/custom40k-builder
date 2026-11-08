@@ -1,0 +1,260 @@
+{
+    "name": "Apothecary",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Apothecary",
+            "min": 1,
+            "max": 1,
+            "points": 50
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Primus Medicae",
+            "min": 0,
+            "max": 1,
+            "points": 65
+        }
+    ],
+    "equipped_with": "A Apothecarius is a single character and is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "One Apothecary per army May be upgraded to a Primus Medicae for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Primus Medicae",
+            "is_unique_per_army": true
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lion",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "White Scars",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            },
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Wolf King",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Praetorian of Terra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 19,
+                    "requires_legacy": "Legacy of the Gorgon",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "W",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Avenging Son",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 12,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Advisor, Command squad, They Shall Know No Fear",
+        "Primus Medicae: A Primus Medicae may use \"Narthecium\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively.",
+        "Narthecium: Once per battle round, the damage of a wound against the model or attached unit May be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
+    ],
+    "unit_type": "Character model, Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": true,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": true,
+    "slot": "Elites",
+    "default_size": 1,
+    "min_cost": 50
+}

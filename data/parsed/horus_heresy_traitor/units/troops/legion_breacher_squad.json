@@ -168,6 +168,137 @@
             "replaces": [
                 "Boltgun"
             ]
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Emperor's Children",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Phoenician",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Warriors",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Iron",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Lord of Red Sands",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 2,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Death Lord",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 5,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Crimson King",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ]
+                    }
+                },
+                {
+                    "name": "Sons of Horus",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Warmaster",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Word Bearers",
+                    "points": 3,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Archtraitor",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Alpha Legion",
+                    "points": 1,
+                    "per_model": true,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "grants_abilities": [
+                            "Infiltrator"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [

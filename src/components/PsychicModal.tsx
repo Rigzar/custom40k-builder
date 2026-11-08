@@ -151,8 +151,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     // Horus Heresy: a discipline written "Name (Legion)" (Diabolism (Word Bearers), Stormcalling (White Scars)...) is opened by the Legacy of that
     // Legion, or by its archetype. The ones a datasheet names for itself (the Esoterist's, Lorgar's) are added below, whatever the Legacy.
     if (data.faction.startsWith('Horus Heresy')) {
-      const legion = /(([^)]+))s*$/.exec(name)?.[1];
+      const legion = /\(([^)]+)\)\s*$/.exec(name)?.[1];
       if (legion) {
+        // "Bladesinging (Khenetai upgrade)": only a unit that bought that upgrade. "Numerology (Legion Tactical Squad)": only that datasheet.
+        const upgrade = /^(.+) upgrade$/.exec(legion)?.[1];
+        if (upgrade) {
+          return unit.option_groups.some((g, gi) => g.choices.some((c, ci) => c.name === upgrade && (item.optionQty?.[gi]?.[ci] ?? 0) > 0));
+        }
+        if (legion === 'Anathemata') return true;                          // the Esoterist's own discipline is open to any psyker
+        if (legion === unit.name) return archetype === 'Thousand Sons';    // Numerology: the Legion Tactical Squad leader of the Thousand Sons archetype
         const opened = [legacy, legacy2].map(l => (data.legacies ?? []).find(x => x.name === l)?.armory_key).filter(Boolean);
         return opened.includes(legion) || archetype === legion;
       }

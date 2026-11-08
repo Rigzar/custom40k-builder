@@ -1,12 +1,74 @@
 {
+  "Librarius": [
+    {
+      "name": "Psionic Scourge",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "4",
+      "effect": "Roll 1D6 and add the caster's Ld score. The target suffers one automatic wound for each point of difference to its own Ld value with Strength: 4 AP: 0 Damage: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Fury of the Ancients",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers five hits with Strength: 6 AP: -2 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Power of Heroes",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly model",
+      "cast_value": "5",
+      "effect": "The target gains +2 Strength and +2 Attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psionic Fortress",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains Ward(5+).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Veil of Time",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains +2 Initiative.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Null Zone",
+      "type": "Malediction",
+      "range": "6\" radius",
+      "target": "Self",
+      "cast_value": "7",
+      "effect": "All enemy units in range lose their ward saving throw. Psychic test results from enemy units are halved.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ],
   "Esoterist (Anathemata)": [
     {
       "name": "Void Darts",
       "type": "Witchfire",
       "range": "18\"",
       "target": "Enemy unit",
-      "cast_value": "4",
-      "effect": "The target suffers three automatic hits with Strength: 5 AP: -2 D: 1; Shred, Seeking.",
+      "cast_value": "5",
+      "effect": "The target suffers D6 automatic hits with S: 5 AP: -2 D: 1; Shred.",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -14,11 +76,51 @@
       "name": "Breach the Veil",
       "type": "Augmentation",
       "range": "-",
-      "target": "Friendly Chaos Daemons unit in reserve",
+      "target": "Friendly Daemon unit in reserves",
       "cast_value": "6",
-      "effect": "The target arrives from reserve at the next Reinforcement phase without making a reserve roll.",
+      "effect": "Cast at the start of the Reinforcement phase. The target arrives from reserves automatically, without a reserve roll. Only one unit per battle round.",
       "duration": "Instant",
       "complexity": "Normal"
+    },
+    {
+      "name": "Warp Ward",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "The target gains a 5+ ward save against wounds caused by models with the \"Daemon\" or \"Greater Daemon\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Banish",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the Psyker's total is greater than or equal to the target's, the target suffers D3 Mortal Wounds if it has the \"Daemon\" or \"Greater Daemon\" ability, otherwise one Mortal Wound.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Rend the Veil",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers a -1 penalty to manifest and deny psychic powers.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Sanctic Focus",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The Void Darts of the caster gain +1 Damage.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ],
   "Diabolism (Word Bearers)": [
@@ -27,8 +129,8 @@
       "type": "Witchfire",
       "range": "12\"",
       "target": "Enemy unit",
-      "cast_value": "5",
-      "effect": "The target suffers two automatic hits with Strength: 7 AP: -2 D: 1; Rending(6+), Seeking.",
+      "cast_value": "6",
+      "effect": "The target suffers D3 automatic hits with Strength: 7 AP: -2 D: 1; AT(1).",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -37,72 +139,312 @@
       "type": "Augmentation",
       "range": "12\"",
       "target": "Friendly Word Bearers unit",
+      "cast_value": "6",
+      "effect": "The target gains Ward(6+) and the Retribution(1) ability.",
+      "duration": "Until the end of the battle round",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Diabolic Strength",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly model",
       "cast_value": "5",
-      "effect": "The target gains the Ward(6+) ability.",
+      "effect": "The target gains +4 Strength and the \"Decimate\" ability for melee attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Death Hex",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "Attacks against target unit gain the (cumulative) Shieldbreaker(-1) ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Infernal Gaze",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "Roll 2D6. For every 4+, the target suffers one Mortal Wound.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Warptime",
+      "type": "Augmentation",
+      "range": "6\"",
+      "target": "Friendly unit",
+      "cast_value": "5",
+      "effect": "The target gains +6\" Movement.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ],
+  "Witchblood (Death Guard)": [
+    {
+      "name": "Gift of Contagion",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers a -1 penalty to its Toughness. \"Poison(x+)\" attacks gain a +1 bonus to wound rolls.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Miasma of Pestilence",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "Enemy models attacking the target in melee reduce their number of attacks by 1 (to a minimum of 1).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Decaying Touch",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers a (cumulative) -1 penalty to its Saving throw or Armor value.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Plague Wind",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Each model of the target must succeed on a Toughness test or receive one Mortal Wound.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Putrescent Vitality",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target receives +2 Toughness.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Resilient Rot",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The caster may heal a friendly unit (excluding itself) for 1D3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first. Can only be successfully manifested once per round and per psyker.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Complex"
+    }
+  ],
+  "Malignant (Blackshields)": [
+    {
+      "name": "Warp Torrent",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers D6 automatic hits with Strength: 5 AP: -1 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Abyss",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
+      "duration": "Until the target's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Umbral Form",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The target gains Ward(4+).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Shadowstep",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "One friendly character may be removed from the table and placed immediately via the rules for Deep Strike.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Darkness Within",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Select up to 3 enemy units. Each target must pass a Leadership test or suffer 1 Mortal Wound. The same unit may be targeted multiple times.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Enveloping Darkness",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target can't use Meta orders.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }
   ],
   "Prosperine Arcana (Thousand Sons)": [
     {
-      "name": "Doombolt",
-      "type": "Witchfire",
-      "range": "24\"",
+      "name": "Clarity",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "5",
+      "effect": "The target's Leadership value counts as 9, and cannot be reduced or increased further.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Fated Shots",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "The target may re-roll ranged to hit rolls of 1.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Quickblood",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "5",
+      "effect": "The target gains +3\" Movement and the \"Move through cover\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Emanation of Dread",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target must pass a Leadership test or receive a Battleshock token.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Path of Consequence",
+      "type": "Malediction",
+      "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "One automatic hit with S: 9 AP: -3 D: 2; AT(3), Seeking, Tank hunter.",
+      "effect": "The target suffers -2\" to its Movement and reduces its Charge movement by 2\".",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Cure Wounds",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "The target gains the \"Narthecium\" ability, or may use it an additional time per battle round if it already has the ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Scorching Ray",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers one hit with Strength: 8 AP: -5 D: 1; AT(1), Melta, Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
     },
     {
-      "name": "Prosperine Arcana: Raptora",
-      "type": "Augmentation",
-      "range": "12\"",
-      "target": "Friendly Thousand Sons unit",
-      "cast_value": "5",
-      "effect": "The target gains the Ward(6+) ability; if it already has a ward save, it improves by one step, to a maximum of 4+.",
-      "duration": "Until the caster's next activation",
-      "complexity": "Basic"
+      "name": "Crushing Force",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "4",
+      "effect": "The target suffers four automatic hits with S:5 AP:-1 D:1; Seeking, Suppression(2).",
+      "duration": "Instant",
+      "complexity": "Normal"
     },
     {
-      "name": "Prosperine Arcana: Pyrae",
+      "name": "Inferno Aegis",
       "type": "Augmentation",
-      "range": "12\"",
-      "target": "Friendly Thousand Sons unit",
-      "cast_value": "5",
-      "effect": "Each enemy unit that charges the target suffers two automatic hits with Strength: 4 AP: -1 D: 1; Sunder(1) when its charge move ends.",
-      "duration": "Until the caster's next activation",
-      "complexity": "Basic"
-    },
-    {
-      "name": "Prosperine Arcana: Pavoni",
-      "type": "Augmentation",
-      "range": "12\"",
-      "target": "Friendly Thousand Sons unit",
-      "cast_value": "5",
-      "effect": "The target gains +3\" Movement and ignores the penalties of Difficult Terrain.",
-      "duration": "Until the caster's next activation",
-      "complexity": "Basic"
-    },
-    {
-      "name": "Prosperine Arcana: Corvidae",
-      "type": "Augmentation",
-      "range": "12\"",
-      "target": "Friendly Thousand Sons unit",
+      "range": "-",
+      "target": "Self + attached unit",
       "cast_value": "6",
-      "effect": "The first wound caused by each ranged attack of the target is allocated by its controller to the model it chooses.",
-      "duration": "Until the caster's next activation",
+      "effect": "Each model in the target unit gains the Retribution(1) ability.",
+      "duration": "Until the caster's next activation.",
       "complexity": "Basic"
     },
     {
-      "name": "Prosperine Arcana: Athanaen",
+      "name": "Kine Shields",
       "type": "Augmentation",
-      "range": "12\"",
-      "target": "Friendly Thousand Sons unit",
+      "range": "-",
+      "target": "Self + attached unit",
       "cast_value": "5",
-      "effect": "Enemy units that suffer a ranged attack from the target take -1 Leadership for the Battleshock tests that attack causes.",
-      "duration": "Until the caster's next activation",
+      "effect": "The target gains the \"Warded\" ability.",
+      "duration": "Until the caster's next activation.",
       "complexity": "Basic"
+    }
+  ],
+  "Numerology (Legion Tactical Squad)": [
+    {
+      "name": "Psy-Synchronicity",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains +1 Ballistic skill and the target's ranged attacks gain the \"Sunder(1)\" ability.",
+      "duration": "Until the caster's next activation.",
+      "complexity": "Basic"
+    }
+  ],
+  "Bladesinging (Khenetai upgrade)": [
+    {
+      "name": "Mindsong of Blades",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "7",
+      "effect": "The target gains +1\" Movement, +1 Weapon skill and +1 Attacks.",
+      "duration": "Until the caster's next activation.",
+      "complexity": "Basic"
+    }
+  ],
+  "Clairvoyance (Ammitara upgrade)": [
+    {
+      "name": "Mind Killer",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "7",
+      "effect": "The target's ranged attacks gain the \"Armor piercing(4+)\" and \"Seeking\" abilities.",
+      "duration": "Until the caster's next activation.",
+      "complexity": "Complex"
     }
   ]
 }

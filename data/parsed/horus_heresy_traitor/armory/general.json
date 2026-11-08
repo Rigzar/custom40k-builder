@@ -14,47 +14,6 @@
       "p_char": 8
     },
     {
-      "name": "Assault-Plasma",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 22,
-      "p_char": 29,
-      "profiles": [
-        {
-          "name": "Assault ammo",
-          "range": "24\"",
-          "type": "Assault 2",
-          "s": "4",
-          "ap": "0",
-          "d": "1",
-          "abilities": "Combi"
-        },
-        {
-          "name": "Plasma (Standard)",
-          "range": "24\"",
-          "type": "Rapid Fire 1",
-          "s": "7",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "AT(1), Combi"
-        },
-        {
-          "name": "Plasma (Overcharged)",
-          "range": "24\"",
-          "type": "Rapid Fire 1",
-          "s": "8",
-          "ap": "-4",
-          "d": "2",
-          "abilities": "AT(2), Combi, Overheating"
-        }
-      ]
-    },
-    {
       "name": "Astartes chainsword",
       "term_compat": false,
       "range": "-",
@@ -101,21 +60,6 @@
       "abilities": "-",
       "p_unit": 3,
       "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Charnabal tabar",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-",
-      "p_unit": 4,
-      "p_char": 6,
       "armour_compat": [
         "Terminator"
       ]
@@ -238,6 +182,41 @@
       ]
     },
     {
+      "name": "Combi-grenade launcher",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 20,
+      "p_char": 24,
+      "profiles": [
+        {
+          "name": "Bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Combi"
+        },
+        {
+          "name": "Grenade launcher",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Blast(4), Combi"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Combi-melta",
       "term_compat": true,
       "range": "",
@@ -352,7 +331,7 @@
       ]
     },
     {
-      "name": "Disintegrator pistol",
+      "name": "Desintegrator pistol",
       "term_compat": false,
       "range": "12\"",
       "type": "Pistol 1",
@@ -460,18 +439,6 @@
       "p_char": null
     },
     {
-      "name": "Heavy bolt pistol",
-      "term_compat": false,
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "4",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "-",
-      "p_unit": 4,
-      "p_char": null
-    },
-    {
       "name": "Heavy bolter",
       "term_compat": false,
       "range": "36\"",
@@ -550,7 +517,7 @@
       "d": "2",
       "abilities": "Armor piercing(5+), Precision(5+), Sniper, Suppression(6)",
       "p_unit": null,
-      "p_char": 13
+      "p_char": null
     },
     {
       "name": "Pair of lightning claws",
@@ -563,41 +530,6 @@
       "abilities": "Extra Attack(2), Shred, Unwieldy",
       "p_unit": 7,
       "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Plasma blaster",
-      "term_compat": true,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 27,
-      "p_char": 34,
-      "profiles": [
-        {
-          "name": "Sustained fire",
-          "range": "18\"",
-          "type": "Assault 2",
-          "s": "7",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Rending(6+)"
-        },
-        {
-          "name": "Maximal fire",
-          "range": "18\"",
-          "type": "Assault 2",
-          "s": "8",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Rending(5+), Overheating"
-        }
-      ],
       "armour_compat": [
         "Terminator"
       ]
@@ -727,69 +659,6 @@
       ]
     },
     {
-      "name": "Rad grenades",
-      "term_compat": true,
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Rad",
-      "p_unit": 1,
-      "p_char": 1,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Rotor cannon",
-      "term_compat": false,
-      "range": "30\"",
-      "type": "Assault 4",
-      "s": "5",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Suppression(3)",
-      "p_unit": 18,
-      "p_char": 24
-    },
-    {
-      "name": "Saturnine concussion hammerˢᴬ",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "x2",
-      "ap": "-3",
-      "d": "3",
-      "abilities": "AT(3), Deadly(6+), Slow(-3)",
-      "p_unit": null,
-      "p_char": 25
-    },
-    {
-      "name": "Saturnine disruption fistˢᴬ",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-3",
-      "d": "3",
-      "abilities": "AT(2), Slow(-2)",
-      "p_unit": null,
-      "p_char": 22
-    },
-    {
-      "name": "Saturnine war axeˢᴬ",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "Extra Attack(1)",
-      "p_unit": null,
-      "p_char": 14
-    },
-    {
       "name": "Storm bolter",
       "term_compat": true,
       "range": "24\"",
@@ -834,33 +703,6 @@
   ],
   "equipment": [
     {
-      "name": "Relic blade",
-      "term_compat": true,
-      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. May only be used on weapons with D:1. Only for Centurions and Praetors.",
-      "p_unit": null,
-      "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Relic of the Chapter",
-      "term_compat": true,
-      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
-      "p_unit": null,
-      "p_char": 10,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Aetheric juncture splicer",
-      "term_compat": false,
-      "desc": "The model gains the Deep strike ability. If it joins a unit of Legion Infantry in reserve whose models have no Massive(2) or more, all models of that unit gain Deep strike too. Only for characters.",
-      "p_unit": null,
-      "p_char": 13
-    },
-    {
       "name": "Astartes bionics",
       "term_compat": true,
       "desc": "The model gains the \"Warded\" ability.",
@@ -881,6 +723,36 @@
       ]
     },
     {
+      "name": "Auxiliary grenade launcher",
+      "term_compat": true,
+      "desc": "All grenades of the model have four times the range.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Book of Malcador",
+      "term_compat": true,
+      "desc": "The model knows one more psychic power from any psychic discipline it normally has access to. Unique. Only for Librarians.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Breacher shield",
+      "term_compat": true,
+      "desc": "The model gains the \"Deflect\", \"Parry\" and \"Unyielding\" abilities. All melee weapons carried by the model gain the \"Unwieldy\" ability. Additionally, the model always benefits from the \"Hold Your Ground\" effect.",
+      "p_unit": 4,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Cataphractii armor",
       "term_compat": false,
       "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
@@ -888,11 +760,11 @@
       "p_char": 61
     },
     {
-      "name": "Familiar",
+      "name": "Crusade weapon",
       "term_compat": true,
-      "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Librarians.",
-      "p_unit": null,
-      "p_char": 5,
+      "desc": "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Armor piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".",
+      "p_unit": 10,
+      "p_char": 10,
       "armour_compat": [
         "Terminator"
       ]
@@ -939,7 +811,7 @@
       "p_char": null
     },
     {
-      "name": "Artificer armor",
+      "name": "Master-crafted armor",
       "term_compat": true,
       "desc": "The model gains a 2+ armor save. Not combinable with other armors.",
       "p_unit": 7,
@@ -966,11 +838,28 @@
       "p_char": null
     },
     {
+      "name": "Parry shield",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Parry\".",
+      "p_unit": 2,
+      "p_char": 4
+    },
+    {
       "name": "Power armor",
       "term_compat": false,
       "desc": "The model gains a 3+ armor save. Not combinable with other armors.",
       "p_unit": 7,
       "p_char": null
+    },
+    {
+      "name": "Psychic training",
+      "term_compat": true,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. May be taken multiple times.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Refractor field",
@@ -980,21 +869,21 @@
       "p_char": 19
     },
     {
+      "name": "Relic blade",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. May only be used on weapons with D:1. Only for Lieutenants.",
+      "p_unit": null,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Saturnine armor",
       "term_compat": false,
       "desc": "The model gains +2 Toughness, +1 Wound, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(2)\" and \"Unyielding\". Only for infantry.",
       "p_unit": 77,
       "p_char": 96
-    },
-    {
-      "name": "Signum",
-      "term_compat": true,
-      "desc": "Instead of using their own ranged weapons, the model may grant a friendly creature model within 6\" range +1 to hit rolls this round.",
-      "p_unit": 5,
-      "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
     },
     {
       "name": "Space Marine bike",
@@ -1090,19 +979,6 @@
       }
     },
     {
-      "name": "Honor or Death",
-      "term_compat": false,
-      "desc": "The model gains the ability \"Honor or Death\": at the start of the activation, if an enemy HQ or Character is within 10\", the placed Order is converted to Charge, and the model and an attached unit must use it to engage in close combat with that model. Only for characters and Command squads.",
-      "p_unit": 1,
-      "p_char": 2,
-      "category": "veteran",
-      "effect": {
-        "grants_abilities": [
-          "Honor Or Death"
-        ]
-      }
-    },
-    {
       "name": "Infiltrator",
       "term_compat": false,
       "desc": "The model gains the ability \"Infiltrator\".",
@@ -1172,7 +1048,7 @@
       "name": "Additional armor",
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
-      "p_unit": 5,
+      "p_unit": null,
       "p_char": null,
       "category": "vehicle"
     },
@@ -1188,7 +1064,23 @@
       "name": "Hunter-killer missile",
       "term_compat": false,
       "desc": "The model gains a Hunter-killer missile.",
-      "p_unit": 5,
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and may choose a new target for each weapon.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+      "p_unit": null,
       "p_char": null,
       "category": "vehicle"
     },
@@ -1196,7 +1088,7 @@
       "name": "Machine spirit",
       "term_compat": false,
       "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
-      "p_unit": 5,
+      "p_unit": null,
       "p_char": null,
       "category": "vehicle"
     },
@@ -1204,7 +1096,7 @@
       "name": "Smoke Launcher",
       "term_compat": false,
       "desc": "The model may use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units may only deal glancing hits with ranged attacks until the next activation.",
-      "p_unit": 15,
+      "p_unit": null,
       "p_char": null,
       "category": "vehicle"
     }

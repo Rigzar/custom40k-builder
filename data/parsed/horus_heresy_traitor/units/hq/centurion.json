@@ -8,7 +8,7 @@
                 "BS": "2+",
                 "S": "4",
                 "T": "4",
-                "W": "3",
+                "W": "4",
                 "I": "5",
                 "A": "2",
                 "LD": "8",
@@ -20,7 +20,26 @@
             "points": 77
         }
     ],
-    "variant_models": [],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "2+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "4",
+                "I": "5",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Praetor",
+            "min": 0,
+            "max": 1,
+            "points": 92
+        }
+    ],
     "equipped_with": "A Centurion is equipped with: Frag grenades; Krak grenades.",
     "weapons": [
         {
@@ -40,69 +59,167 @@
             "ap": "-2",
             "d": "1",
             "abilities": "-"
-        },
-        {
-            "name": "Power sword",
-            "range": "-",
-            "type": "Melee",
-            "s": "+1",
-            "ap": "-3",
-            "d": "1",
-            "abilities": "-"
         }
     ],
     "option_groups": [
         {
-            "header": "May be upgraded to one of the following Consuls (only one)",
+            "header": "One Centurion per army May be upgraded to a Praetor for +15 points.",
+            "constraint": {
+                "type": "unique_upgrade"
+            },
+            "choices": [],
+            "inline_pts": 15,
+            "variant_link": "Praetor",
+            "is_unique_per_army": true
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
-                    "name": "Esoterist",
-                    "points": 34,
+                    "name": "Emperor's Children",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Phoenician",
                     "effect": {
-                        "makes_psyker": true
-                    }
-                },
-                {
-                    "name": "Diabolist",
-                    "points": 34,
-                    "requires_legacy": "Legacy of the Archtraitor",
-                    "effect": {
-                        "makes_psyker": true
-                    }
-                },
-                {
-                    "name": "Herald",
-                    "points": 14,
-                    "effect": {
-                        "grants_abilities": [
-                            "Terrifying(-1)"
-                        ],
-                        "grants_weapons": [
-                            "Power sword"
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            }
                         ]
                     }
                 },
                 {
-                    "name": "Librarian",
-                    "points": 34,
+                    "name": "Iron Warriors",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lord of Iron",
                     "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Night Lords",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Night Haunter",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "World Eaters",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lord of Red Sands",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Death Guard",
+                    "points": 19,
+                    "requires_legacy": "Legacy of the Death Lord",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "W",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Thousand Sons",
+                    "points": 13,
+                    "requires_legacy": "Legacy of the Crimson King",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ],
                         "makes_psyker": true
                     }
                 },
                 {
-                    "name": "Master of Signals",
-                    "points": 18
+                    "name": "Sons of Horus",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Warmaster",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Praevian",
-                    "points": 7
+                    "name": "Word Bearers",
+                    "points": 7,
+                    "requires_legacy": "Legacy of the Archtraitor",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            }
+                        ],
+                        "makes_psyker": true
+                    }
                 },
                 {
-                    "name": "Siegebreaker",
-                    "points": 5
+                    "name": "Alpha Legion",
+                    "points": 4,
+                    "requires_legacy": "Legacy of the Hydra",
+                    "effect": {
+                        "grants_abilities": [
+                            "Infiltrator"
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            }
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,
@@ -112,8 +229,8 @@
     ],
     "abilities": [
         "They Shall Know No Fear",
-        "Librarian:   The model is a Psyker: Psyker: The model may cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
-        "Combat Tactics: The Centurion may assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have."
+        "Combat Tactics: The Centurion may assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit may have.",
+        "Praetor: A Praetor may use Combat Tactics a second time."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],
@@ -125,7 +242,7 @@
     "champion_has_armory": false,
     "has_veteran_abilities": true,
     "veteran_required": false,
-    "veteran_max": 1,
+    "veteran_max": 2,
     "locked_mark": null,
     "advisor": false,
     "slot": "HQ",

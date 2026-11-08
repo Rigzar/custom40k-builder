@@ -11,7 +11,7 @@ import { t, tpl, type Language } from '../i18n';
 import { SLOT_ORDER, ALLIED_AOP, maxArmyTraits, engagementFor } from './engagements';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
 import {
-  getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
+  getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, archetypeSlotBonus, countsTroops, cleanArchetypeName,
 } from './archetypes';
 import { applyVariantSlotOverride, hasSlotOptIn, variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { removedUnitNote } from './unitRenames';
@@ -1694,6 +1694,11 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           });
         }
       }
+    }
+
+    // Horus Heresy general archetypes: the Legion of the army is the Legion of its Legacy, so there must be one
+    if (rule.requiresLegacy && !state.legacy) {
+      items.push({ type: 'error', text: `${cleanArchetypeName(state.archetype)}: select a Legacy. The Legion of that Legacy is the Legion of the whole army.` });
     }
 
     // Required HQ unit type (e.g. LIIVI needs a Farseer, The First Curse needs a Patriarch)
@@ -3431,7 +3436,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const capOv = rule?.slotCapOverride?.slot === slot ? rule.slotCapOverride.max : (rule?.slotCaps ?? []).find(c => c.slot === slot)?.max;
     const cappedMax = capOv != null ? Math.min(rawEffMax, capOv) : rawEffMax;
     // Legacy extras (CSM Hydra: +1 Elite, Night Haunter: +1 Fast Attack, per AOP).
-    const effMax = cappedMax + csmLegacySlotBonus([state.legacy, state.legacy2], slot) * (eng.multiAop ? aopState.unlocked : 1);
+    const effMax = cappedMax + csmLegacySlotBonus([state.legacy, state.legacy2], slot) * (eng.multiAop ? aopState.unlocked : 1) + archetypeSlotBonus(rule, slot);
     if (used > effMax) {
       items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
     }

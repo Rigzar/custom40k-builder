@@ -1,24 +1,126 @@
 {
+  "Librarius": [
+    {
+      "name": "Psionic Scourge",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "4",
+      "effect": "Roll 1D6 and add the caster's Ld score. The target suffers one automatic wound for each point of difference to its own Ld value with Strength: 4 AP: 0 Damage: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Fury of the Ancients",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers five hits with Strength: 6 AP: -2 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Power of Heroes",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly model",
+      "cast_value": "5",
+      "effect": "The target gains +2 Strength and +2 Attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psionic Fortress",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains Ward(5+).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Veil of Time",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains +2 Initiative.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Null Zone",
+      "type": "Malediction",
+      "range": "6\" radius",
+      "target": "Self",
+      "cast_value": "7",
+      "effect": "All enemy units in range lose their ward saving throw. Psychic test results from enemy units are halved.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ],
   "Esoterist (Anathemata)": [
     {
       "name": "Void Darts",
       "type": "Witchfire",
       "range": "18\"",
       "target": "Enemy unit",
-      "cast_value": "4",
-      "effect": "The target suffers three automatic hits with Strength: 5 AP: -2 D: 1; Shred, Seeking.",
+      "cast_value": "5",
+      "effect": "The target suffers D6 automatic hits with S: 5 AP: -2 D: 1; Shred.",
       "duration": "Instant",
       "complexity": "Normal"
     },
     {
       "name": "Seal the Veil",
       "type": "Malediction",
-      "range": "18\"",
-      "target": "Enemy Chaos Daemons unit",
-      "cast_value": "5",
-      "effect": "The target does not get the bonus of the Charge order, as if it were affected by Hold Your Ground.",
-      "duration": "Until the caster's next activation",
+      "range": "12\"",
+      "target": "Enemy unit that has declared a charge against the caster's unit",
+      "cast_value": "6",
+      "effect": "Can only be cast as part of a Defensive Fire reaction. If the target has the \"Daemon\" or \"Greater Daemon\" ability, its charge move is reduced to 3\" and it cannot set up within 1\" of the caster's unit.",
+      "duration": "Instant",
       "complexity": "Normal"
+    },
+    {
+      "name": "Warp Ward",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "The target gains a 5+ ward save against wounds caused by models with the \"Daemon\" or \"Greater Daemon\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Banish",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the Psyker's total is greater than or equal to the target's, the target suffers D3 Mortal Wounds if it has the \"Daemon\" or \"Greater Daemon\" ability, otherwise one Mortal Wound.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Rend the Veil",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers a -1 penalty to manifest and deny psychic powers.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Sanctic Focus",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The Void Darts of the caster gain +1 Damage.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
     }
   ],
   "Stormcalling (White Scars)": [
@@ -28,7 +130,7 @@
       "range": "36\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target suffers one automatic hit with Strength: 4 AP: -2 D: 1; Blast(6), Suppression(2), Seeking.",
+      "effect": "The target suffers one hit with Strength: 4 AP: -2 D: 1; Blast(5), Suppression(2).",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -38,7 +140,47 @@
       "range": "12\"",
       "target": "Friendly White Scars unit",
       "cast_value": "5",
-      "effect": "The target adds its Initiative value in inches to its Movement and cannot be given an Advance order.",
+      "effect": "The target gains +1\" Movement for each point of the Initiative characteristic of its models when it makes a Move order, but cannot make an Advance move.",
+      "duration": "Until the end of the activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Hurricane",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
+      "duration": "Until the target's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Thunderblast",
+      "type": "Witchfire",
+      "range": "6\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "All models of the target suffer an automatic wound with Strength: 4 AP: 0 D: 1; Seeking. Additionally, the target gains one Battleshock token.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Stormcaller",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "The target gains the benefit of light cover.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Spirits of Chogoris",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target receives a -1 penalty to their Leadership and to all hit rolls.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }
@@ -50,7 +192,7 @@
       "range": "9\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target suffers three automatic hits with Strength: 6 AP: -2 D: 1; Suppression(1), Seeking.",
+      "effect": "The target suffers D6 automatic hits with Strength: 6 AP: 0 D: 1; Suppression(2).",
       "duration": "Instant",
       "complexity": "Normal"
     },
@@ -59,32 +201,112 @@
       "type": "Augmentation",
       "range": "12\"",
       "target": "Friendly Space Wolves unit",
+      "cast_value": "6",
+      "effect": "Can only be cast when the target is the target of a ranged attack. Hit rolls of that attack suffer a -1 penalty (cumulative with cover).",
+      "duration": "Until the end of the attack",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Awoken Instincts",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
       "cast_value": "5",
-      "effect": "The target gains the Deflect ability.",
+      "effect": "The target gains the \"Favoured enemy\", \"Furious charge\" and \"Move through cover\" abilities.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
-    }
-  ],
-  "Fury of the Salamander (Salamanders)": [
+    },
     {
-      "name": "Elemental Horror",
+      "name": "Blasting Gale",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target's Movement is halved, rounding up.",
+      "duration": "Until the target's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Maw of the World Wolf",
       "type": "Witchfire",
-      "range": "9\"",
+      "range": "12\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target suffers three automatic hits with Strength: 7 AP: -2 D: 1; Suppression(3), Seeking.",
+      "effect": "Draw a straight 1\" wide line from the caster in any direction. All creatures touched by the line must pass an initiative test or suffer one Mortal Wound. Vehicles suffer an automatic Hull point loss with no save allowed.",
       "duration": "Instant",
       "complexity": "Normal"
     },
     {
-      "name": "Salamander's Fury",
-      "type": "Malediction",
-      "range": "18\" radius",
+      "name": "Eye of the Storm",
+      "type": "Witchfire",
+      "range": "12\" radius",
       "target": "Self",
       "cast_value": "6",
-      "effect": "All enemy units in range treat Open Terrain as Difficult Terrain.",
+      "effect": "Roll 1D6 for each enemy unit in range, adding +1 if the unit has the \"Anti-Grav\" ability or is a Flyer or Jump Pack unit. On a 3+, the unit suffers one Mortal Wound.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ],
+  "Fury of the Salamander (Salamanders)": [
+    {
+      "name": "Drake's Breath",
+      "type": "Witchfire",
+      "range": "9\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target suffers four automatic hits with Strength: 5 AP: -2 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Forgefire Blade",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The target gains +1 Strength and -1 AP for one melee weapon.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
+    },
+    {
+      "name": "Scales of the Drake",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "6",
+      "effect": "All attacks reduce their Strength and AP by 1 against the target.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Molten Lance",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers one hit with Strength: 8 AP: -5 D: 2; AT(4), Melta, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Fireforged Endurance",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains Ward(6+).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Burning Ground",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Terrain piece",
+      "cast_value": "6",
+      "effect": "The target must make a dangerous terrain test. If it was standing inside or on a terrain piece, the terrain becomes dangerous terrain until the end of the game.",
+      "duration": "Instant",
+      "complexity": "Normal"
     }
   ]
 }

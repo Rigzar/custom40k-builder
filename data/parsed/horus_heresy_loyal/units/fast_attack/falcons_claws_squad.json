@@ -1,0 +1,94 @@
+{
+    "name": "Falcon's Claws Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "7",
+                "SV": "4+"
+            },
+            "name": "Falcon's Claw",
+            "min": 4,
+            "max": 9,
+            "points": 41
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Falcon's Claw Champion",
+            "min": 1,
+            "max": 1,
+            "points": 43
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Pair of lightning claws; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Pair of lightning claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Outflank, They Shall Know No Fear, White Scars Legion",
+        "Smoke grenades: The unit may use its Smoke grenades once per game (as the Seeker Squad)."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 5,
+    "min_cost": 207,
+    "requires_legacy": "Legacy of the Great Khan"
+}

@@ -5,42 +5,24 @@
             "stats": {
                 "M": "6\"",
                 "WS": "2+",
-                "BS": "2+",
+                "BS": "3+",
                 "S": "4",
                 "T": "4",
-                "W": "3",
+                "W": "4",
                 "I": "5",
                 "A": "3",
-                "LD": "7",
-                "SV": "3+"
+                "LD": "8",
+                "SV": "2+"
             },
             "name": "Legion Champion",
             "min": 1,
             "max": 1,
-            "points": 89
+            "points": 123
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Champion is a single character and is equipped with: Power sword; Volkite serpenta; Frag grenades; Krak grenades.",
+    "equipped_with": "A Legion Champion is equipped with: Power sword; Volkite serpenta; Frag grenades; Krak grenades.",
     "weapons": [
-        {
-            "name": "Combi-melta - Bolter",
-            "range": "24\"",
-            "type": "Rapid Fire 1",
-            "s": "4",
-            "ap": "-1",
-            "d": "1",
-            "abilities": "Combi"
-        },
-        {
-            "name": "Combi-melta - Melta",
-            "range": "12\"",
-            "type": "Assault 1",
-            "s": "8",
-            "ap": "-5",
-            "d": "1",
-            "abilities": "AT(1), Combi, Melta"
-        },
         {
             "name": "Frag grenades",
             "range": "6\"",
@@ -58,15 +40,6 @@
             "ap": "-2",
             "d": "1",
             "abilities": "-"
-        },
-        {
-            "name": "Melta bombs",
-            "range": "3\"",
-            "type": "Grenade",
-            "s": "8",
-            "ap": "-5",
-            "d": "2",
-            "abilities": "AT(3), Armorbane(3)"
         },
         {
             "name": "Power sword",
@@ -89,32 +62,162 @@
     ],
     "option_groups": [
         {
-            "header": "May swap the Volkite serpenta with",
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
-                    "name": "Combi-melta",
-                    "points": 18
-                }
-            ],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false,
-            "replaces": [
-                "Volkite serpenta"
-            ]
-        },
-        {
-            "header": "May be equipped with Melta bombs for +5 points.",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [
+                    "name": "Dark Angels",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Lion",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "LD",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
                 {
-                    "name": "Melta bombs",
-                    "points": 5
+                    "name": "White Scars",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            },
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Wolf King",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Praetorian of Terra",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "S",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "A",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 19,
+                    "requires_legacy": "Legacy of the Gorgon",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "W",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Avenging Son",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "WS",
+                                "delta": -1
+                            },
+                            {
+                                "stat": "BS",
+                                "delta": -1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 12,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "grants_abilities": [
+                            "Warded"
+                        ],
+                        "stat_mod": [
+                            {
+                                "stat": "T",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 6,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "I",
+                                "delta": 1
+                            },
+                            {
+                                "stat": "M",
+                                "delta": 2
+                            }
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,
@@ -123,9 +226,11 @@
         }
     ],
     "abilities": [
-        "Command squad, They Shall Know No Fear",
-        "Advisor: For every HQ selection, one Legion Champion may be selected without taking up an Elite slot.",
-        "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 10\", the placed Order is converted to Charge. The Company champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
+        "Advisor, Command squad, They Shall Know No Fear",
+        "Honor or Death: At the start of the activation, if an enemy HQ or Character model is within 10\", the placed Order is converted to \"Charge\". The Legion Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model.",
+        "Martial superiority: The model may re-roll 1 to hit and 1 to wound roll.",
+        "Never Back Down: While an enemy HQ or Character model is within 10\", the Legion Champion and an attached unit may never use the \"Escape\" order.",
+        "Restriction: An army may only contain 1 Legion Champion."
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [],
@@ -139,8 +244,8 @@
     "veteran_required": false,
     "veteran_max": 1,
     "locked_mark": null,
-    "advisor": false,
+    "advisor": true,
     "slot": "Elites",
     "default_size": 1,
-    "min_cost": 89
+    "min_cost": 123
 }

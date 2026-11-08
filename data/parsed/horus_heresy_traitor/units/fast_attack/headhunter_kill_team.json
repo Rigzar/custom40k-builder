@@ -1,0 +1,155 @@
+{
+    "name": "Headhunter Kill Team",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Headhunter",
+            "min": 4,
+            "max": 9,
+            "points": 46
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "2+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Headhunter Prime",
+            "min": 1,
+            "max": 1,
+            "points": 46
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Banestrike bolter; Bolt pistol; Combat knife; Frag grenades; Krak grenades; Smoke grenades.",
+    "weapons": [
+        {
+            "name": "Banestrike bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Poison(4+)"
+        },
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Combat knife",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Multi-melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(2), Melta"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "For each 5 models, one Headhunter may swap their Banestrike bolter with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Heavy bolter",
+                    "points": 5
+                },
+                {
+                    "name": "Multi-melta",
+                    "points": 20
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Banestrike bolter"
+            ]
+        }
+    ],
+    "abilities": [
+        "Alpha Legion Legion, Combat squads, Infiltrator, Move through cover, They Shall Know No Fear",
+        "Smoke grenades: The unit may use its Smoke grenades once per game (as the Seeker Squad)."
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 5,
+    "min_cost": 230,
+    "requires_legacy": "Legacy of the Hydra"
+}

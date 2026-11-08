@@ -17,7 +17,7 @@
             "name": "Kratos Assault Tank",
             "min": 1,
             "max": 1,
-            "points": 476
+            "points": 493
         }
     ],
     "variant_models": [],
@@ -33,7 +33,7 @@
             "abilities": "AT(1)"
         },
         {
-            "name": "Heavy bolter",
+            "name": "Heavy bolter - Bolt ammo",
             "range": "36\"",
             "type": "Rapid Fire 2",
             "s": "5",
@@ -42,9 +42,27 @@
             "abilities": "-"
         },
         {
+            "name": "Heavy bolter - Stalker ammo",
+            "range": "42\"",
+            "type": "Heavy 2",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Heavy bolter - Assault ammo",
+            "range": "30\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Heavy flamer",
             "range": "9\"",
-            "type": "Assault 1",
+            "type": "Assault 4",
             "s": "5",
             "ap": "-1",
             "d": "1",
@@ -142,7 +160,9 @@
             "is_unique_per_army": false,
             "per_model": false,
             "replaces": [
-                "Heavy bolter"
+                "Heavy bolter - Bolt ammo",
+                "Heavy bolter - Stalker ammo",
+                "Heavy bolter - Assault ammo"
             ]
         },
         {
@@ -158,8 +178,86 @@
             ],
             "inline_pts": null,
             "variant_link": null,
-            "is_unique_per_army": false,
-            "per_model": false
+            "is_unique_per_army": false
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lion"
+                },
+                {
+                    "name": "White Scars",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "grants_abilities": [
+                            "Haste(2\")"
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Wolf King"
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Praetorian of Terra"
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "grants_abilities": [
+                            "Furious charge"
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Gorgon"
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Avenging Son"
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "HP",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "grants_abilities": [
+                            "Deflect"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
@@ -171,7 +269,7 @@
     "is_character": false,
     "is_monster": false,
     "is_psyker": false,
-    "has_armory_access": true,
+    "has_armory_access": false,
     "champion_has_armory": false,
     "has_veteran_abilities": false,
     "veteran_required": false,
@@ -180,5 +278,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 476
+    "min_cost": 493
 }

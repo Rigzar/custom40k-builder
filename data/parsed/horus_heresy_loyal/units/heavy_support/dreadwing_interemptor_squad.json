@@ -1,0 +1,111 @@
+{
+    "name": "Dreadwing Interemptor Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Interemptor",
+            "min": 1,
+            "max": 6,
+            "points": 67
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "2",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Interemptor Praefectus",
+            "min": 1,
+            "max": 1,
+            "points": 67
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Plasma burner; Bolt pistol; Frag grenades; Krak grenades; Rad grenades.",
+    "weapons": [
+        {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma burner",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Auto Hit, AT(1), Sunder(1)"
+        },
+        {
+            "name": "Rad grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Rad"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Combat squads, Dark Angels Legion, They Shall Know No Fear"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 2,
+    "min_cost": 134,
+    "requires_legacy": "Legacy of the Lion"
+}

@@ -15,13 +15,13 @@
                 "SV": "3+"
             },
             "name": "Excindio",
-            "min": 0,
+            "min": 1,
             "max": 1,
             "points": 264
         }
     ],
     "variant_models": [],
-    "equipped_with": "An Excindio is a single model and is equipped with: Two Combi-bolters; Excindio claws.",
+    "equipped_with": "An Excindio is a single model and is equipped with: Two Combi-bolters; Redemptor claw.",
     "weapons": [
         {
             "name": "Athanax phosphex canister launcher",
@@ -51,15 +51,6 @@
             "abilities": "Auto Hit, Graviton, Rending(5+), Suppression(3)"
         },
         {
-            "name": "Excindio claws",
-            "range": "-",
-            "type": "Melee",
-            "s": "+2",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "Rending(5+), Extra Attack(1)"
-        },
-        {
             "name": "Graviton gun",
             "range": "18\"",
             "type": "Heavy 1",
@@ -76,15 +67,6 @@
             "ap": "-3",
             "d": "2",
             "abilities": "Ammo(1), AT(2)"
-        },
-        {
-            "name": "Irad cleanser",
-            "range": "9\"",
-            "type": "Assault 1",
-            "s": "2",
-            "ap": "-1",
-            "d": "1",
-            "abilities": "Auto Hit, Poison(2+), Rad, Suppression(2)"
         },
         {
             "name": "Magaron atomantic pulse cannon",
@@ -105,13 +87,31 @@
             "abilities": "AT(1)"
         },
         {
-            "name": "Plasma gun - Overheating",
+            "name": "Plasma gun - Overcharged",
             "range": "24\"",
             "type": "Rapid Fire 1",
             "s": "8",
             "ap": "-4",
             "d": "2",
             "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Rad cleanser",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+), Rad, Sunder(1)"
+        },
+        {
+            "name": "Redemptor claw",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Extra Attack(2)"
         },
         {
             "name": "Tyrhenius nerve induction shredder",
@@ -149,11 +149,11 @@
                     }
                 },
                 {
-                    "name": "Two Irad cleansers",
+                    "name": "Two Rad cleansers",
                     "points": -20,
                     "effect": {
                         "grants_weapons": [
-                            "Irad cleanser"
+                            "Rad cleanser"
                         ]
                     }
                 }
@@ -205,7 +205,7 @@
         }
     ],
     "abilities": [
-        "Ward(5+), Massive(5)",
+        "Dark Angels Legion, Massive(5), Ward(5+)",
         "Favoured enemy"
     ],
     "unit_type": "Monstrous Infantry",
@@ -223,6 +223,6 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 0,
+    "min_cost": 264,
     "requires_legacy": "Legacy of the Lion"
 }

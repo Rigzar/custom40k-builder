@@ -1,78 +1,102 @@
 {
-  "name": "Emperor's Children Armory",
+  "name": "Emperors Children Armory",
   "weapons": [
     {
-      "name": "Phoenix power spear",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+2",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Rending(6+)",
-      "p_unit": 6,
-      "p_char": 8,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
-      "name": "Phoenix rapier",
+      "name": "Phoenix power sabre",
       "term_compat": true,
       "range": "-",
       "type": "Melee",
       "s": "U",
       "ap": "-3",
       "d": "1",
-      "abilities": "Rending(6+)",
-      "p_unit": null,
-      "p_char": 6,
+      "abilities": "Parry",
+      "p_unit": 6,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Phoenix power spear",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 8,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Charge, Quick(+1), Unwieldy"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Rapture lash",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Extra Attack(2)",
+      "p_unit": 4,
+      "p_char": 4,
       "armour_compat": [
         "Terminator"
       ]
     },
     {
       "name": "Sonic lance",
-      "term_compat": false,
+      "term_compat": true,
       "range": "9\"",
-      "type": "Assault 1",
-      "s": "2",
+      "type": "Assault 4",
+      "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Auto Hit, Rending(6+)",
-      "p_unit": null,
-      "p_char": 1
-    },
-    {
-      "name": "The Laeran Blade",
-      "term_compat": false,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "2",
-      "abilities": "Quick(+1), Parry, Unique",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Firebrand",
-      "term_compat": false,
-      "range": "15\"",
-      "type": "Assault 2",
-      "s": "6",
-      "ap": "-4",
-      "d": "1",
-      "abilities": "Deflagrate(6+), Shred, Unique",
-      "p_unit": null,
-      "p_char": null
+      "abilities": "Auto Hit, Sunder(2), Suppression(3)",
+      "p_unit": 11,
+      "p_char": 13,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
     {
-      "name": "Skill Unmatched",
+      "name": "Combat drugs",
       "term_compat": true,
-      "desc": "The model and its attached unit may re-roll 1 to hit and 1 to wound roll each activation per model. Only for characters and Command squads.",
+      "desc": "Once per battle, select any number of abilities for the model when performing a Charge command:\n- +1 Attack\n- +1\" Charge move\n- +1 Strength\n- +1 Weapon Skill\n- The \"Warded\" ability\nThe effects last until the end of the current battle round. Roll 1D6 for each selected ability. The model suffers one Mortal Wound for each matching die roll result.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Doom siren",
+      "term_compat": true,
+      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
       "p_unit": 5,
       "p_char": 5,
       "armour_compat": [
@@ -80,11 +104,80 @@
       ]
     },
     {
-      "name": "Sonic shriekers",
+      "name": "Rapturous Aura",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Berserk(5+)\" ability. Unique.",
+      "p_unit": 40,
+      "p_char": 40,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Shrieking armor",
       "term_compat": false,
-      "desc": "When the model or a unit it has joined makes a Charge move, the target unit of that charge cannot use Defensive Reactions (Counter-Attack, Defensive Fire, Hold Your Ground, Take Cover) against it. Only for characters.",
+      "desc": "The model gains the \"Retribution(3)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Sonic shrieker",
+      "term_compat": true,
+      "desc": "If model and its attached the unit uses a Charge order or gets charged by an enemy unit, enemies suffer -1 to melee hit rolls until the end of the current battle round.",
+      "p_unit": 10,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Sub-sonic pulser",
+      "term_compat": true,
+      "desc": "The model and its attached unit always gain the benefit of the \"Hold Your Ground\" Defensive Reaction.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Xenotech stinger",
+      "term_compat": false,
+      "desc": "The model can make one additional melee attack per round. Strength: 2 AP: -4 D: 1. Hits wound automatically.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Doom Siren",
+      "term_compat": false,
+      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression(6).",
+      "p_unit": 10,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "LEGION ARCHETYPES",
+      "term_compat": false,
+      "desc": "",
       "p_unit": null,
-      "p_char": 15
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "3rd Company Elite \n(Traitor only)",
+      "term_compat": false,
+      "desc": "- Kakophoni Squad units may be taken as Troops.\n- Only Kakophoni Squad units count towards the 25% Troops limitation.\n- The army must have the Traitor alignment.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Maru Skara",
+      "term_compat": false,
+      "desc": "- At the beginning of the Deployment Phase, select up 1-3 Elites, Troops or Fast Attack units that do not have the \"Unyielding\" ability. These units gain the \"Outflank\" ability. From the second round onwards, these units may be deployed together from Reserves using the \"Outflanking\" ability without making a Reserves roll.\n- In the first round, units which began the game deployed on the table gain +2\" Movement.\n- The army cannot take any units with 0\" Movement characteristic.",
+      "p_unit": null,
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

@@ -132,15 +132,6 @@
             "abilities": "AT(1), Anti-air"
         },
         {
-            "name": "Missile launcher - Rad missile",
-            "range": "48\"",
-            "type": "Heavy 1",
-            "s": "4",
-            "ap": "0",
-            "d": "1",
-            "abilities": "Rad"
-        },
-        {
             "name": "Multi-melta",
             "range": "24\"",
             "type": "Assault 1",
@@ -241,7 +232,7 @@
             },
             "choices": [
                 {
-                    "name": "Dreadnought close combat weapon with Storm bolter",
+                    "name": "Dreadnought claw with Storm bolter",
                     "points": 27,
                     "effect": {
                         "grants_weapons": [
@@ -336,10 +327,88 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": false
+        },
+        {
+            "header": "May receive the benefits of the Legion of the army (see the Special rules in the Index)",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Dark Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lion"
+                },
+                {
+                    "name": "White Scars",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Great Khan",
+                    "effect": {
+                        "grants_abilities": [
+                            "Haste(2\")"
+                        ]
+                    }
+                },
+                {
+                    "name": "Space Wolves",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Wolf King"
+                },
+                {
+                    "name": "Imperial Fists",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Praetorian of Terra"
+                },
+                {
+                    "name": "Blood Angels",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Angel",
+                    "effect": {
+                        "grants_abilities": [
+                            "Furious charge"
+                        ]
+                    }
+                },
+                {
+                    "name": "Iron Hands",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Gorgon"
+                },
+                {
+                    "name": "Ultramarines",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Avenging Son"
+                },
+                {
+                    "name": "Salamanders",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Lord of Drakes",
+                    "effect": {
+                        "stat_mod": [
+                            {
+                                "stat": "HP",
+                                "delta": 1
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Raven Guard",
+                    "points": 10,
+                    "requires_legacy": "Legacy of the Liberator",
+                    "effect": {
+                        "grants_abilities": [
+                            "Deflect"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
-        "Advisor",
         "Squadron",
         "Atomantic Shielding: The model has a 5+ ward save.",
         "Furioso: If the model has two melee weapons, it gains +2 attacks."
@@ -356,7 +425,7 @@
     "veteran_required": false,
     "veteran_max": 1,
     "locked_mark": null,
-    "advisor": true,
+    "advisor": false,
     "slot": "Elites",
     "default_size": 1,
     "min_cost": 192

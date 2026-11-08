@@ -1,229 +1,230 @@
 {
   "archetypes": [
     {
-      "name": "Pride of the Legion",
-      "desc": "- Legion Veteran Squads and Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Only a single Heavy Support choice and a single Fast Attack choice can be taken.\n- The army cannot include more units that are not Infantry than units that are Infantry.\n- The army cannot include Fortifications.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken."
+      "name": "Armoured Spearhead",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Predators can be taken as Troops.\n- Legion Sicaran Battle Tanks can be taken as Elites.\n- A unit that could take a Legion Rhino may take a Land Raider Carrier instead if it has ten models or fewer."
     },
     {
-      "name": "Armoured Spearhead",
-      "desc": "- Legion Predators can be taken as Troops.\n- Legion Sicaran Battle Tanks can be taken as Elites.\n- A unit that could take a Legion Rhino may take a Land Raider Carrier instead if it has ten models or fewer.\n- Infantry units must start the game as passengers inside a transport."
+      "name": "Brethren of Iron",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- The army has access to all Robot units from the Horus Heresy Mechanicum supplement.\n- Castellax Battle-automata Maniple units may be taken as Troops.\n- Only Robot units count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Death from Above",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Assault Squad units may be taken as Troops.\n- Only Legion Assault Squad units count towards the 25% Troops limitation.\n- At least half of all Legion Assault Squad models must start the game in reserves, even if the mission does not allow reserves."
     },
     {
       "name": "Drop Pod Assault (HH)",
-      "desc": "- A unit that could take a Legion Rhino or a Land Raider Carrier may take a Legion Drop Pod instead.\n- A unit with a Legion Drop Pod must arrive by Deep Strike.\n- Units without a Drop Pod must start the game in Reserve and cannot arrive by Deep Strike or Outflank.\n- The army cannot take Fortifications."
-    },
-    {
-      "name": "Recon Demi-Company",
-      "desc": "- Legion Scout Squads and Seeker Squads can be taken as Troops.\n- All compulsory Troops selections must be Legion Scout Squads.\n- The army cannot take Fortifications."
-    },
-    {
-      "name": "Angel's Wrath",
-      "desc": "- A unit that could take a Legion Rhino may take a Caestus Assault Ram instead.\n- A Flyer transport in reserve may enter automatically in the first battle round.\n- Infantry units without jump packs must start the game as passengers inside a Flyer transport.\n- Infantry units with jump packs must start the game in Reserve (they can arrive by Deep Strike).\n- The army cannot include vehicles without the Flyer type, and cannot take Fortifications."
-    },
-    {
-      "name": "Sky-hunter Phalanx",
-      "desc": "- Legion Sky-hunter Squadrons and Land Speeder Squadrons can be taken as Troops.\n- Vehicles in the army must be Fast, Skimmers or Flyers.\n- Infantry units must start the game as passengers inside a Flyer transport.\n- The army cannot include Dreadnoughts or Fortifications.\n- Allied Detachments: factions that are Battle Brothers count as Allies of Convenience, Allies of Convenience stay as they are, and Desperate Allies cannot be taken."
-    },
-    {
-      "name": "Underworld Assault",
-      "desc": "- A unit that could take a Legion Rhino may take a Legion Termite instead.\n- Legion Termites can be taken as Fast Attack and Heavy Support choices.\n- Infantry units without the Massive(X) ability must start the game as passengers inside a Legion Termite.\n- Units that are not Legion Termites or passengers in one cannot start in Reserve and cannot arrive by Deep Strike or Outflank.\n- The army cannot take Fortifications."
-    },
-    {
-      "name": "Fury of the Ancients",
-      "desc": "- Legion Contemptor Dreadnoughts can be taken as Troops, and all of the army's Troops selections must be Contemptor Dreadnoughts.\n- Only a single Fast Attack choice and a single Heavy Support choice that is not made of Dreadnoughts can be taken.\n- The army cannot take Fortifications."
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- All units must start the game as passengers inside a Legion Drop Pod.\n- Half of all Legion Drop Pods in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrive automatically in the second battle round."
     },
     {
       "name": "Legion Specialists",
-      "desc": "- Techmarines and Apothecaries gain the Advisor ability (for each HQ selection, one copy of each may be taken without occupying an AOP slot) and the Command squad ability (they can join any unit), but cannot be promoted to a Forge Lord or a Primus Medicae."
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- The army may take 1-3 HQ and 0-4 Elite units in the first AOP.\n- Techmarines and Apothecaries cannot be promoted to a Forge Lord or a Primus Medicae."
+    },
+    {
+      "name": "Outrider Phalanx",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Outrider Squadron and Legion Sky-hunter Squadron units may be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    },
+    {
+      "name": "Pride of the Legion",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Veteran Squad, Legion Terminator Cataphractii Squad, Legion Tartaros Terminator Squad units may be taken as Troops.\n- Any unit composed entirely of models with either Cataphractii Terminator armor, Tartaros Terminator armor or any other pattern of Terminator armor and that is normally selected as an Elites choice may be taken as Troops.\n- Only Veteran and Terminator units count towards the 25% Troops limitation.\n- Only a single Heavy Support choice and a single Fast Attack choice may be taken in this army."
+    },
+    {
+      "name": "Recon Demi-Company",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Scout Squads and Seeker Squads can be taken as Troops."
+    },
+    {
+      "name": "Underworld Assault",
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- All units must start the game as passengers inside a Legion Termite.\n- Half of all Legion Termites in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrive automatically in the second battle round."
     },
     {
       "name": "Alpha Legion",
-      "desc": "- Can only be selected with the Legacy of the Hydra.\n- Any unit can gain the Deep strike or the Outflank ability for +1 point per Wound.\n- A unit that arrives from Reserve gains +1 to hit with all its attacks in the battle round it arrives."
+      "desc": "- Must select \"Legacy of the Hydra\".\n- Any model in a Legion Tartaros Terminator Squad, Legion Terminator Cataphractii Squad, Legion Veteran Squad or Seeker Squad may give its Bolters the \"Poison(4+)\" ability for +5 points each.\n- The army gets access to all units from this book that can take the Alpha Legion Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Mutable Tactics\" or \"Lies and Obfuscation\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Iron Warriors",
-      "desc": "- Can only be selected with the Legacy of the Lord of Iron.\n- The army must include Perturabo, a Warsmith or a Centurion with the Siegebreaker Consul.\n- Shrapnel bolters and Shrapnel pistols gain +1 shot (not the Shrapnel cannon)."
+      "desc": "- Must select \"Legacy of the Lord of Iron\".\n- Any model may exchange their Power mauls for Graviton maces for +1 point each and Thunder hammers for Graviton crushers for +1 point each.\n- Any model may exchange their Bolt pistols for Shrapnel bolt pistols for +5 points each, Bolters for Shrapnel bolters for +7 points each and Heavy bolters for Shrapnel heavy bolters for +3 points each.\n- The army gets access to all units from this book that can take the Iron Warriors Legion and all units must take it.\n- The army can only take a second trait if the first one is \"To The Bitter End\" or \"Siege Experts\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Emperor's Children",
-      "desc": "- Can only be selected with the Legacy of the Phoenician.\n- Up to four units (not Heavy or Slow) can gain the Outflank ability for +1 point per Wound. At most half of the units can start in reserve.\n- The army must include a Legion Champion."
+      "desc": "- Must select \"Legacy of the Phoenician\".\n- Kakophoni Squads can be taken as Troops.\n- Only Kakophoni Squads count towards the 25% Troops limitation.\n- The army gets access to all units from this book that can take the Emperor's Children Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Flawless Execution\" or \"Exemplars of War\". All traits combined cost 10 points for each non-character unit."
     },
     {
-      "name": "Terror Assault (Night Lords)",
-      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- Legion Veteran Squads can be taken as Troops, and all of the army's Troops selections must be Legion Veteran Squads."
-    },
-    {
-      "name": "The Swift Blade (Night Lords)",
-      "desc": "- Can only be selected with the Legacy of the Night Haunter.\n- Legion Outrider Squadrons can be taken as Troops.\n- No Heavy Support choices."
+      "name": "Night Lords",
+      "desc": "- Must select \"Legacy of the Night Haunter\".\n- The army gets access to all units from this book that can take the Night Lords Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Horrors of the Night\" or \"Bloody Murder\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "World Eaters",
-      "desc": "- Can only be selected with the Legacy of the Lord of Red Sands.\n- Only one Heavy Support selection can be taken.\n- Blind Rage: any unit may gain the Blind Rage ability for +10 points.\n- Butcher's Nails: a psyker suffers \"Perils of the Warp\" on any double when it tries to manifest a power, and applies both Perils results.\n- Models that already have the +1 Attack in their profile (the Red Butcher Terminators) do not gain it twice."
+      "desc": "- Must select \"Legacy of the Lord of Red Sands\".\n- Any model may exchange their Astartes chainswords for Chainaxes for +1 point each.\n- The army gets access to all units from this book that can take the World Eaters Legion and all units must take it.\n- The army can only take a second trait if the first one is \"The Butcher's Nails\" or \"Bloodlust\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Word Bearers",
-      "desc": "- Can only be selected with the Legacy of the Archtraitor.\n- Unwavering Conviction: if at least one model of the army takes part in a melee, its side gets +1 to its combat resolution.\n- Glorious Martyrdom: once per battle, when an enemy unit makes a ranged attack against a friendly unit with the Mark of Word Bearers, choose one model of the target unit: all the wounds of that attack are allocated to it, and if it is removed as a casualty the rest of the wounds of that attack are discarded."
+      "desc": "- Must select \"Legacy of the Archtraitor\".\n- Any model may exchange their Plasma pistols for Warpfire pistols for +1 point each and Plasma blasters for Warpfire blasters for +1 point each.\n- Gal Vorbak can also be taken as Troops.\n- Only Gal Vorbak count towards the 25% Troops limitation.\n- The army gets access to all units from this book that can take the Word Bearers Legion and all units must take it.\n- The army can only take a second trait if the first one is \"True Believers\" or \"Cut Them Down\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Death Guard",
-      "desc": "- Can only be selected with the Legacy of the Death Lord.\n- Units with the Mark of Death Guard automatically pass Dangerous Terrain tests.\n- Units cannot be given an Advance order and cannot arrive by Deep Strike or Outflank (Charge orders are allowed)."
+      "desc": "- Must select \"Legacy of the Death Lord\".\n- Any model may exchange their Hand flamers for Alchem pistols for +1 point each, Flamers for Alchem flamers for +3 points each and Combi-flamers for Alchem combi-flamers for +1 point each.\n- The army gets access to all units from this book that can take the Death Guard Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Remorseless and Intractable\" or \"Sons of Barbarus\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Sons of Horus",
-      "desc": "- Can only be selected with the Legacy of the Warmaster."
+      "desc": "- Must select \"Legacy of the Warmaster\".\n- Any model in a Legion Tartaros Terminator Squad, Legion Terminator Cataphractii Squad, Legion Veteran Squad or Seeker Squad may give its Bolters and Combi-bolters the \"Rending(6+)\" ability for +5 points each.\n- Any model may give its Power weapons the \"Rending(5+)\" ability for +2 points each.\n- The army gets access to all units from this book that can take the Sons of Horus Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Merciless Fighters\" or \"Death Dealers\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Thousand Sons",
-      "desc": "- Can only be selected with the Legacy of the Crimson King.\n- Cult Arcana: every unit of the army that is not a character or a Monstrous Creature gains the \"Psyker\" ability and can cast 1 psychic power per battle round. It knows Smite and one power of the Prosperine Arcana. Additionally, the unit gains the \"Brotherhood of Psykers\" ability.\n- Flesh Change: a unit that is not a character ignores Perils of the Warp. Instead, on any double in a psychic test roll 1D6 and apply the result until the end of its next activation: 1 +2\" Movement, 2 +1 Strength, 3 +1 Toughness, 4 +1 Initiative, 5 +1 Wound, 6 +1 Attack. The third time the same result comes up for that unit, one model of the unit erupts: it is removed and explodes like a vehicle, and a Chaos Spawn is placed within 3\" of it.\n- Gravis force blade: a Contemptor Dreadnought may swap its close combat weapon for it for -1 point."
+      "desc": "- Must select \"Legacy of the Crimson King\".\n- Any Legion Veteran Squad may take the \"Khenetai\" upgrade: all its models replace their melee weapons with a Pair of force swords for +24 points per model, and its squad leader may choose the \"Mindsong of Blades\" power (Bladesinging discipline) as the power of its Thousand Sons Legion benefit.\n- Any Seeker Squad may take the \"Ammitara\" upgrade at no extra cost: its squad leader may choose the \"Mind Killer\" power (Clairvoyance discipline) as the power of its Thousand Sons Legion benefit.\n- The squad leader of a Legion Tactical Squad may choose the \"Psy-Synchronicity\" power (Numerology discipline) as the power of its Thousand Sons Legion benefit.\n- Any model may exchange their Bolt pistols for Asphyx bolt pistols for +1 point each and Bolters for Asphyx bolters for +1 point each.\n- Castellax-Achea Automata can be taken as Troops.\n- Only Castellax-Achea Automata count towards the 25% Troops limitation.\n- The army gets access to all units from this book that can take the Thousand Sons Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Signs and Portents\" or \"Sorcerous Translocation\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Blackshields",
-      "desc": "- The army has two Legacies (any two Legions of this book), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Mark, its Armory, the special units, the Troops and the options of that Legion.\n- The army has no access to a Primarch.\n- Warriors who cast off their Legion's insignia and honours: a unit is of one Legion or of the other, never of a third.\n- The army has access to a third Trait, to choose from the list: three Legion Traits instead of two."
+      "desc": "- The army has two Legacies (any two Legions of this book), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Legion benefits, its Armory, the special units, the Troops and the options of that Legion.\n- The two Legacies must be of Legions that are not marked red against each other in the Legion alliances tab.\n- Warriors who cast off their Legion's insignia and honours: a unit is of one Legion or of the other, never of a third.\n- The army has access to a third Trait, to choose from the list: three Legion Traits instead of two."
     }
   ],
   "legacies": [
     {
-      "name": "Legacy of the Hydra",
-      "desc": "The army has access to the Alpha Legion Armory.\n- The army has access to the Primarch Alpharius.",
-      "armory_key": "Alpha Legion"
+      "name": "Legacy of the Phoenician",
+      "desc": "The army has access to the Emperor's Children Armory.\n- The units of the army may receive the benefits of the Emperor's Children Legion (see the Special rules in the Index).",
+      "armory_key": "Emperor's Children"
     },
     {
       "name": "Legacy of the Lord of Iron",
-      "desc": "The army has access to the Iron Warriors Armory.\n- The army may select the Iron Circle Maniple, which cannot be selected without this Legacy.\n- Warsmith, Iron Havocs and Tyrant Siege Terminators: see the options of the Praetor, the Legion Heavy Support Squad and the Legion Terminator Cataphractii Squad.\n- The army has access to the Primarch Perturabo.",
+      "desc": "The army has access to the Iron Warriors Armory.\n- The units of the army may receive the benefits of the Iron Warriors Legion (see the Special rules in the Index).",
       "armory_key": "Iron Warriors"
     },
     {
       "name": "Legacy of the Night Haunter",
-      "desc": "The army has access to the Night Lords Armory.\n- The army has access to the Primarch Konrad Curze.",
+      "desc": "The army has access to the Night Lords Armory.\n- The units of the army may receive the benefits of the Night Lords Legion (see the Special rules in the Index).",
       "armory_key": "Night Lords"
     },
     {
-      "name": "Legacy of the Archtraitor",
-      "desc": "The army has access to the Word Bearers Armory.\nAll units of the army have the Mark of Word Bearers (WB).\n- The Gal Vorbak can be taken as Troops.\n- The army may select the Gal Vorbak and the Ashen Circle, which cannot be selected without this Legacy.\n- Diabolist: a Centurion may take the Diabolist Consul.\n- The army has access to the Primarch Lorgar.",
-      "armory_key": "Word Bearers"
-    },
-    {
-      "name": "Legacy of the Warmaster",
-      "desc": "The army has access to the Sons of Horus Armory.\n- Any model in a Legion Terminator Cataphractii Squad may swap their Combi-bolter for a Banestrike combi-bolter for +3 points each, and their Power sword for a Carsoran power axe for +0 points or a Carsoran power tabar for +1 point each.\nAll units of the army have the Mark of Sons of Horus (SoH).\n- Legion Terminator Squads (Saturnine, Cataphractii and Indomitus) can be taken as Troops.\n- Legion Assault Squads can be taken as Troops.\n- The army has access to the Primarch Horus Lupercal.",
-      "armory_key": "Sons of Horus"
-    },
-    {
       "name": "Legacy of the Lord of Red Sands",
-      "desc": "The army has access to the World Eaters Armory.\nThe army may have one additional Elite selection per AOP, which can only be used for Rampager Squads.\nAll units of the army have the Mark of World Eaters (WE).\n- The army may select the Rampager Squad, the Red Butcher Terminators, the Red Hand Destroyer Assault Squad and the Red Hand Destroyer Squad, which cannot be selected without this Legacy.\n- Rampager Squads can be taken as Troops.\n- The army has access to the Primarch Angron.",
+      "desc": "The army has access to the World Eaters Armory.\n- The units of the army may receive the benefits of the World Eaters Legion (see the Special rules in the Index).",
       "armory_key": "World Eaters"
     },
     {
       "name": "Legacy of the Death Lord",
-      "desc": "The army has access to the Death Guard Armory.\nAll units of the army have the Mark of Death Guard (DG).\n- The army may select the Deathshroud Terminator Squad and the Grave Wardens, which cannot be selected without this Legacy.\n- The army has access to the Primarch Mortarion.",
+      "desc": "The army has access to the Death Guard Armory and the Witchblood psychic discipline.\n- The units of the army may receive the benefits of the Death Guard Legion (see the Special rules in the Index).",
       "armory_key": "Death Guard"
     },
     {
-      "name": "Legacy of the Phoenician",
-      "desc": "The army has access to the Emperor's Children Armory.\nAll units of the army have the Mark of Emperor's Children (EC).\n- The army may select the Kakophoni Squad, the Palatine Blade Squad and the Phoenix Terminator Squad, which cannot be selected without this Legacy.\n- Kakophoni Squads can be taken as Troops.\n- The army has access to the Primarch Fulgrim.",
-      "armory_key": "Emperor's Children"
+      "name": "Legacy of the Crimson King",
+      "desc": "The army has access to the Thousand Sons Armory and the Prosperine Arcana psychic discipline.\n- The units of the army may receive the benefits of the Thousand Sons Legion (see the Special rules in the Index).",
+      "armory_key": "Thousand Sons"
     },
     {
-      "name": "Legacy of the Crimson King",
-      "desc": "The army has access to the Thousand Sons Armory.\n- The army may select the Castellax-Achea Automata and the Khenetai Squad, which cannot be selected without this Legacy; the Castellax-Achea can be taken as Troops, with at least two models.\n- Castellax-Achea: Psi-locus range 24\" and Aegis(3+); Objective secured! only within 6\" of a friendly Thousand Sons Psyker (not a Psy-automata).\n- Ammitara: see the options of the Seeker Squad.\n- The army has access to the Primarch Magnus the Red.",
-      "armory_key": "Thousand Sons"
+      "name": "Legacy of the Warmaster",
+      "desc": "The army has access to the Sons of Horus Armory.\n- The units of the army may receive the benefits of the Sons of Horus Legion (see the Special rules in the Index).",
+      "armory_key": "Sons of Horus"
+    },
+    {
+      "name": "Legacy of the Archtraitor",
+      "desc": "The army has access to the Word Bearers Armory and the Diabolism psychic discipline.\n- The units of the army may receive the benefits of the Word Bearers Legion (see the Special rules in the Index).",
+      "armory_key": "Word Bearers"
+    },
+    {
+      "name": "Legacy of the Hydra",
+      "desc": "The army has access to the Alpha Legion Armory.\n- The units of the army may receive the benefits of the Alpha Legion Legion (see the Special rules in the Index).",
+      "armory_key": "Alpha Legion"
+    },
+    {
+      "name": "Legacy of the Sundered",
+      "desc": "The army has access to the Blackshields Armory and the Malignant psychic discipline.",
+      "armory_key": "Blackshields"
     }
   ],
   "traits": [
     {
       "name": "Flawless Execution",
       "desc": "If the unit uses a Charge order, it gains +1 Initiative and may re-roll melee to hit rolls of 1 until the end of the current battle round. Only for creature models and Walkers.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Exemplars of War",
       "desc": "The unit gains the \"Haste(2\")\" ability.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "To The Bitter End",
       "desc": "When the unit would flee, it may choose to become pinned instead.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Siege Experts",
       "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Horrors of the Night",
       "desc": "The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock token or if the enemy unit is outnumbered. When determining if a unit is outnumbered, models with the \"Massive(X) special rule count as a number of models equal to 1 + the value included as part of that special rule. Models with the Vehicle Unit Type count as a number of models equal to 3 x their hull points.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Bloody Murder",
       "desc": "All melee attacks of the unit gain the \"Gruesome\" ability. The unit itself gains the \"Terrifying(-1)\" ability.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "The Butcher's Nails",
       "desc": "The unit gains the \"Berserk(5+)\" ability. At the end of each activation, roll a D6 for each unit with this rule that is not engaged in close combat. For each 1, remove one model from the unit. Only for creature units.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "-",
-      "pts_veh": "-",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Bloodlust",
       "desc": "The unit gains the \"Blind Rage\" ability.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "-",
-      "pts_veh": "-",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Remorseless and Intractable",
       "desc": "At the beginning of its activation, the unit may choose to gain the \"Unyielding\" ability until its next activation.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Sons of Barbarus",
       "desc": "The unit gains the \"Move through cover\" ability.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Signs and Portents",
       "desc": "If the unit or an attached Character suffer Perils of the Warp, the unit gains one Battleshock token.",
-      "pts_unit": "10",
-      "pts_char": "-",
+      "pts_unit": null,
+      "pts_char": "10",
       "pts_monster": "-",
       "pts_veh": "-",
       "enables_second_legacy": false
@@ -231,8 +232,8 @@
     {
       "name": "Sorcerous Translocation",
       "desc": "Up to six Infantry units (not characters) gain the \"Deep strike\" ability; the turn such a unit arrives by Deep strike it also has the \"Terrifying(-1)\" ability.",
-      "pts_unit": "2*",
-      "pts_char": "-",
+      "pts_unit": null,
+      "pts_char": "2*",
       "pts_monster": "-",
       "pts_veh": "-",
       "enables_second_legacy": false
@@ -240,62 +241,57 @@
     {
       "name": "Merciless Fighters",
       "desc": "The unit gains +1 attack in melee against units with at least one Battleshock token or if the enemy unit is outnumbered. When determining if a unit is outnumbered, models with the \"Massive(X) special rule count as a number of models equal to 1 + the value included as part of that special rule. Models with the Vehicle Unit Type count as a number of models equal to 3 x their hull points. Additionally, Vehicles gain an additional +3 automatic hits when performing a Tank Shock.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "10",
-      "pts_veh": "10",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Death Dealers",
       "desc": "If the unit is making a ranged attack against targets within 12\", it gains +1 to ranged to wound rolls.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "10",
-      "pts_veh": "10",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "True Believers",
       "desc": "The unit may re-roll failed Leadership tests.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Cut Them Down",
       "desc": "The unit gains +1d3 to its combat resolution in melee (not cumulative between multiple units), and may roll 2d6 to pursue fleeing units.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "5",
-      "pts_veh": "5",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Mutable Tactics",
       "desc": "Each creature unit may select one Veteran ability, or gain an additional one if it already has access to them.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "3",
-      "pts_veh": "3",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
       "name": "Lies and Obfuscation",
       "desc": "The unit gains the benefit of light cover until its first activation.",
-      "pts_unit": "10",
-      "pts_char": "0",
-      "pts_monster": "3",
-      "pts_veh": "3",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
       "enables_second_legacy": false
     }
   ],
-  "special_traits": [
-    {
-      "name": "Blackshields",
-      "desc": "Two traits chosen in combination from the Space Marines and Chaos Space Marines codexes may be chosen and taken by all units in the army."
-    }
-  ]
+  "special_traits": []
 }
