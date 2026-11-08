@@ -10,7 +10,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 export function archetypeRequiredLegacy(archetype: Pick<Archetype, 'desc'> | undefined, faction?: string): string | null {
   const text = String(archetype?.desc ?? '');
   let m = text.match(/Can only be selected with the (Legacy of [^.\n]+?)\./);
-  if (!m && faction?.startsWith('Horus Heresy')) m = text.match(/Must select ["“](Legacy of [^"”\n]+?)["”]/);
+  if (!m && faction?.startsWith('Horus Heresy:')) m = text.match(/Must select ["“](Legacy of [^"”\n]+?)["”]/);
   return m ? m[1].trim() : null;
 }
 
@@ -49,7 +49,7 @@ export function archetypeOpensUnit(
 ): boolean {
   if (needArch === archetype) return true;
   if (archetype !== 'Legion Specialists') return false;
-  const legacyOfNeed = archetypeRequiredLegacy(archetypes.find(a => a.name === needArch), 'Horus Heresy');
+  const legacyOfNeed = archetypeRequiredLegacy(archetypes.find(a => a.name === needArch), 'Horus Heresy:');
   return !!legacyOfNeed && legacyOfNeed === legacy;
 }
 

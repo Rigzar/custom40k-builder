@@ -151,7 +151,8 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     }
     // Horus Heresy: a discipline written "Name (Legion)" (Diabolism (Word Bearers), Stormcalling (White Scars)...) is opened by the Legacy of that
     // Legion, or by its archetype. The ones a datasheet names for itself (the Esoterist's, Lorgar's) are added below, whatever the Legacy.
-    if (data.faction.startsWith('Horus Heresy')) {
+    // the two alpha books are named "Horus Heresy: …"; the public supplements ("Horus Heresy Legiones Astartes", "…Forces of the Machine God") are not touched
+    if (data.faction.startsWith('Horus Heresy:')) {
       const legion = /\(([^)]+)\)\s*$/.exec(name)?.[1];
       if (legion) {
         // "Bladesinging (Khenetai upgrade)": only a unit that bought that upgrade. "Numerology (Legion Tactical Squad)": only that datasheet.
