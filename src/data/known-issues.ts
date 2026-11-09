@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-dark-eldar-sslyth-armory-model-type-01",
+    status: "fixed",
+    title: "Dark Eldar Court of the Archon: the Sslyth had no Armory button",
+    description: "FIXED 2026-11-09, reported on Discord (mattrubin: \"the app does not have an armory button in the Hand of the Archon unit to equip the Sslyth\"; the rules author: \"a Sslyth has access to the armory\"). CAUSE: the sheet reads \"Sslyth have access to weapons and gear from the Armory\", and the unit flags can only say unit-wide access or ONE champion (`champion_has_armory`); the Sslyth is a model TYPE (0-6 models) inside a mixed retinue, so it fell between the two and the unit had no Armory at all (a note in unit-notes.md said \"not fully modelled\"). FIX: new optional `Unit.armory_model_types` (the model names that hold the access), set by the loader from a small table in `loaders.ts` because the unit update does not write it. The Armory button shows while a Sslyth is in the unit, the once-per-model copy cap counts the Sslyth only (`armoryTypeHolders`), and equipment stat changes apply to the Sslyth rows only on the unit card, the print view and the battle view. Making the whole unit `has_armory_access` was rejected: it would also have armed the Lhaemaean, Medusae and Ur-Ghul. The same shape elsewhere in the sheets was swept: the Orks Spannas are promoted variants and already work; no other unit gives the Armory to a model type. LEFT AS IS: weapon-trait items (\"…of the model gain X\") are not scoped to the Sslyth, and the \"apply to\" picker lists the whole unit's weapons, because the Sslyth carries none by default.",
+  },
+  {
     id: "ki-csm-iron-lord-imperial-guard-vehicle-01",
     status: "fixed",
     title: "Chaos Space Marines 1.11: the Iron Lord's Imperial Guard vehicle",

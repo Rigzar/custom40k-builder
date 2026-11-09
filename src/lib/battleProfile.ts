@@ -186,6 +186,18 @@ export function armoryAccessorCount(u: Unit, size: number): number {
 }
 
 /**
+ * How many models of a unit whose Armory access belongs to model TYPES (`armory_model_types`, e.g. the Sslyth of a
+ * Court of the Archon) are fielded: the "once per model" copy cap and the Armory button both read it. A type that is
+ * not in `modelSizes` counts at its minimum, like the unit card does.
+ */
+export function armoryTypeHolders(u: Unit, modelSizes?: Record<string, number>): number {
+  return (u.armory_model_types ?? []).reduce((n, name) => {
+    const m = u.models.find(x => x.name === name);
+    return n + (m ? (modelSizes?.[name] ?? m.min) : 0);
+  }, 0);
+}
+
+/**
  * Extra single models that hold Armory access next to the built-in champion. The Legion of the Damned sheet reads
  * "The Legionnaire Sergeant has access to weapons and gear from the Armory" AND the same for the Legionnaire Ancient,
  * and the engine only ever knew models[1]. A model past the champion that is a lone model (max 1) shares the
@@ -217,6 +229,7 @@ export function championArmoryBuyers(u: Unit, modelSizes?: Record<string, number
 export function equipTargetsModel(u: Unit, m: Model, variant?: Model | null): boolean {
   if (isAttendantModel(u, m)) return false;
   if (u.has_armory_access) return true;
+  if (u.armory_model_types?.length) return u.armory_model_types.includes(m.name);
   const gatedByVariant = u.option_groups.some(g =>
     g.variant_link && (/armory/i.test(g.header) || u.champion_has_armory));
   const champion = u.models.length > 1 && u.models[1].min === 1 && u.models[1].max === 1 ? u.models[1] : null;

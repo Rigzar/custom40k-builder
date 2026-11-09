@@ -528,6 +528,22 @@ function normaliseMonsterFlag(data: FactionData): void {
   }
 }
 
+/**
+ * Units whose datasheet gives the Armory to a whole MODEL TYPE of a mixed unit, not to the unit or to one champion
+ * ("Sslyth have access to weapons and gear from the Armory"). The unit flags cannot say it, and the sheet script does
+ * not write it, so the list lives here. Faction key -> unit name -> the model names that hold the access.
+ */
+const ARMORY_MODEL_TYPES: Record<string, Record<string, string[]>> = {
+  dark_eldar: { 'Court of the Archon': ['Sslyth'] },
+};
+
+function applyArmoryModelTypes(data: FactionData, key: string): void {
+  for (const [unitName, types] of Object.entries(ARMORY_MODEL_TYPES[key] ?? {})) {
+    const unit = data.units[unitName];
+    if (unit && !unit.has_armory_access) unit.armory_model_types = types.filter(t => unit.models.some(m => m.name === t));
+  }
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -537,6 +553,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
+     applyArmoryModelTypes(data, k);
      if (k === 'knight_households') applyKnightHouseholdRules(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].includes(k));

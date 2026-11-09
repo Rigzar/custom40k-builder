@@ -18,7 +18,7 @@ import { getArchetypeRule, promotionFragment } from '../engine/archetypes';
 import { isSupportSystemGroup, supportSystemCap, supportSystemsOwned, enforcerWeaponBonus } from '../lib/supportSystems';
 import { markAccess } from '../lib/markAccess';
 import { hasAllMarksVariant, ascendedKeywordLine } from '../engine/slotOverrides';
-import { isAttendantModel } from '../lib/battleProfile';
+import { isAttendantModel, armoryTypeHolders } from '../lib/battleProfile';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS } from '../engine/codex_imperial_guard/special-abilities';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -313,7 +313,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // "Any model may pick up to two SUPPORT SYSTEMS from the armory" (the Remora Stealth Drones): the group is there to be bought from the Armory, so the button is too,
   // even though the datasheet carries no general access flag (Sedroc 2026-11-05: "Remoras can't take any upgrades. There is no button for that.").
   const hasSupportSystemGroup = (u.option_groups ?? []).some(g => isSupportSystemGroup(g));
-  const showArmory = (u.has_armory_access || hasSupportSystemGroup || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
+  // Armory access that belongs to a model TYPE of a mixed unit (the Sslyth of a Court of the Archon): the button shows
+  // while at least one model of that type is in the unit.
+  const hasArmoryTypeHolder = !u.has_armory_access && armoryTypeHolders(u, item.modelSizes) > 0;
+  const showArmory = (u.has_armory_access || hasArmoryTypeHolder || hasSupportSystemGroup || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
     && (!u.is_vehicle || u.is_character || vehicleHasGeneralItems);
   // When Armory access is gated to a single champion/promoted-variant model (not the whole unit),
   // the live profile's equipment stat-mods (T/Sv/etc. from `item.armory`) must only land on THAT
@@ -905,7 +908,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   // The model row actually entitled to the Armory's stat-mod effects (see
                   // equipModsScopedToChampion above) — every row when access is unit-wide,
                   // otherwise only the promoted variant / built-in champion row.
-                  const isEquipTarget = !isAttendantModel(u, m) && (!equipModsScopedToChampion || isVar || m === builtInChampion);
+                  const isEquipTarget = !isAttendantModel(u, m) && (u.armory_model_types?.length && !u.has_armory_access
+                    ? u.armory_model_types.includes(m.name)
+                    : (!equipModsScopedToChampion || isVar || m === builtInChampion));
                   // Row count: variant-split count (modelCounts) takes priority, then per-group
                   // size for multi-model units (Traitor Guard's Guardsman/Ogryn), then the plain
                   // squad-size stepper for a single-model-row unit (e.g. Chaos Space Marines).

@@ -405,6 +405,11 @@ export interface Unit {
    *  targeting) elsewhere. */
   armory_as_character?: boolean;
   champion_has_armory: boolean;
+  /** Armory access that belongs to one or more MODEL TYPES of a mixed unit ("Sslyth have access to weapons and gear
+   *  from the Armory", Dark Eldar Court of the Archon): those models can buy, the rest of the unit cannot. Not a
+   *  champion (the type can have several models) and not unit-wide. Set by the loader from a table, because the sheet
+   *  script does not write it. */
+  armory_model_types?: string[];
   /** When true, the unit (or champion) may only access weapons from the Armory — the equipment
    *  section (armour, relics, veteran abilities, vehicle upgrades) is hidden entirely. */
   armory_weapons_only?: boolean;

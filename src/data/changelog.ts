@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'd';
+export const REVISION = 'e';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -51,6 +51,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "ARMORY: WHAT CANNOT BE TAKEN IS NOT LISTED (Discord, Sedroc). Rows with no price in any column are profiles printed for reference (the T'au Markerlight, Seeker missile, Smart missile system and Krootox fist in the Commander's Armory); they come with an equipment item or a unit, so they were greyed out as \"cannot be bought\" for every unit. They no longer appear, unless you already own one so you can remove it.",
       "T'AU TACTICAL PHILOSOPHIES BACK IN THE ARMORY (Discord, TeCrisis and Sedroc). The change that hides unbuyable Armory rows also hid this item, because the sheet prices it by game size (\"10p per 500p game size\") and the parser stores no number for that. It is listed again, at its game-size price.",
       "T'AU COMMANDER IN AN XV85 ENFORCER SUIT CAN TAKE A FOURTH WEAPON (Discord, Sedroc). The Enforcer's extra weapon only worked on the Crisis Honor Guard; the Commander's weapon line (\"up to three of the following\") stayed at three after buying the XV85 Enforcer battlesuit. It is now four, and the list still reports an error if the suit takes both the extra weapon and the extra support system.",
+      "DARK ELDAR COURT OF THE ARCHON: THE SSLYTH CAN USE THE ARMORY (Discord, mattrubin; answered by the rules author). The sheet gives the Armory to the Sslyth (\"Sslyth have access to weapons and gear from the Armory\"), and the app had no way to give Armory access to ONE TYPE of model in a mixed unit, so the unit had no Armory button. It now shows while at least one Sslyth is in the unit, the once-per-model limit counts the Sslyth only, and armor and other stat changes land on the Sslyth rows alone (the Lhaemaean, Medusae and Ur-Ghul keep their own stats).",
     ],
   },
   {

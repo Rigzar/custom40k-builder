@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188e_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -73,6 +73,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifles show correctly."],
         ["Magos", "No false ward error in Skirmish."],
         ["Remora", "The Armory button is back."],
+        ["Dark Eldar", "The Sslyth of a Court of the Archon can use the Armory."],
         ["T'au Armory", "Rows nobody can buy (Markerlight, Seeker missile...) are no longer listed."],
         ["T'au Armory", "Tactical philosophies is back in the Armory (it had been hidden by mistake)."],
         ["T'au Commander", "An XV85 Enforcer battlesuit allows a fourth weapon."],
@@ -107,6 +108,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifles werden korrekt angezeigt."],
         ["Magos", "Kein falscher Ward-Fehler im Skirmish."],
         ["Remora", "Der Armory-Knopf ist zurück."],
+        ["Dark Eldar", "Die Sslyth eines Court of the Archon können das Arsenal nutzen."],
         ["T'au Armory", "Zeilen, die niemand kaufen kann (Markerlight, Seeker missile...), werden nicht mehr aufgeführt."],
         ["T'au Armory", "Tactical philosophies ist wieder im Arsenal (war versehentlich ausgeblendet)."],
         ["T'au Commander", "Ein XV85 Enforcer battlesuit erlaubt eine vierte Waffe."],
@@ -141,6 +143,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Los Pulse rifle se muestran bien."],
         ["Magos", "Sin falso error de ward en Skirmish."],
         ["Remora", "Vuelve el botón de Armería."],
+        ["Dark Eldar", "Los Sslyth de una Court of the Archon pueden usar la Armería."],
         ["Armería T'au", "Ya no se listan filas que nadie puede comprar (Markerlight, Seeker missile...)."],
         ["Armería T'au", "Tactical philosophies vuelve a la armería (se había ocultado por error)."],
         ["Commander T'au", "Un XV85 Enforcer battlesuit permite una cuarta arma."],
@@ -175,6 +178,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifle отображаются правильно."],
         ["Magos", "Нет ложной ошибки ward в Skirmish."],
         ["Remora", "Кнопка Арсенала вернулась."],
+        ["Dark Eldar", "Сслиты из Court of the Archon могут пользоваться Арсеналом."],
         ["Арсенал T'au", "Строки, которые никто не может купить (Markerlight, Seeker missile...), больше не показываются."],
         ["Арсенал T'au", "Tactical philosophies снова в арсенале (по ошибке было скрыто)."],
         ["T'au Commander", "XV85 Enforcer battlesuit даёт четвёртое оружие."],
@@ -209,6 +213,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Gue'vesa", "Pulse rifleが正しく表示されます。"],
         ["Magos", "Skirmishでの誤ったwardエラーを解消。"],
         ["Remora", "アーモリーのボタンが戻りました。"],
+        ["Dark Eldar", "Court of the Archon のスリスはアーモリーを使えます。"],
         ["T'auアーモリー", "誰も購入できない行（Markerlight、Seeker missileなど）は表示されなくなりました。"],
         ["T'auアーモリー", "Tactical philosophiesがアーモリーに戻りました（誤って非表示になっていました）。"],
         ["T'au Commander", "XV85 Enforcer battlesuitで4つ目の武器を持てます。"],
