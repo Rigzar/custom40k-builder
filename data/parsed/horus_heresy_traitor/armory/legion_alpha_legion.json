@@ -1,7 +1,79 @@
 {
   "name": "Alpha Legion Armory",
-  "weapons": [],
+  "weapons": [
+    {
+      "name": "Venom spheres",
+      "term_compat": false,
+      "range": "8\"",
+      "type": "Assault 6",
+      "s": "1",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Ammo(1), Poison(3+)",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Banestrike bolter",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Banestrike combi-bolter",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 11,
+      "p_char": 13
+    },
+    {
+      "name": "Power dagger",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 6,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
   "equipment": [
+    {
+      "name": "I am Alpharius",
+      "term_compat": true,
+      "desc": "If at least one character model from the same Army Organisation Plan is alive at the end of the last battle round, the army scores the \"Protect the Warlord\" secondary objective and the enemy can't score the \"Slay the Warlord\" secondary objective. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "False Colours",
+      "term_compat": true,
+      "desc": "The model can't be targeted by anything outside of 12\". Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
     {
       "name": "LEGION ARCHETYPES",
       "term_compat": false,

@@ -1,7 +1,72 @@
 {
   "name": "Sons of Horus Armory",
-  "weapons": [],
+  "weapons": [
+    {
+      "name": "Carsoran power tabar",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Banestrike bolter",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Banestrike combi-bolter",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(6+)",
+      "p_unit": 11,
+      "p_char": 13
+    },
+    {
+      "name": "Carsoran power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 6,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
   "equipment": [
+    {
+      "name": "The Skull of Ker’ngar",
+      "term_compat": true,
+      "desc": "All to wound rolls against the model suffer a -1 penalty. Unique.",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
     {
       "name": "LEGION ARCHETYPES",
       "term_compat": false,

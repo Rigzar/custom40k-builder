@@ -1346,7 +1346,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (ep.allWeapons?.ability || ep.allWeapons?.deadlyStack || ep.allWeapons?.atDelta) {
       for (const weapon of weapons) {
         const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
-        const applies = (ep.allWeapons.type === 'melee' && isMelee) || (ep.allWeapons.type === 'ranged' && !isMelee);
+        const applies = ep.allWeapons.type === 'all' || (ep.allWeapons.type === 'melee' && isMelee) || (ep.allWeapons.type === 'ranged' && !isMelee);
         if (!applies) continue;
         const grants: string[] = [];
         if (ep.allWeapons.ability) grants.push(ep.allWeapons.ability);
@@ -3204,7 +3204,7 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
 function getActiveExarchPowers(unit: Unit, item: RosterEntry): string[] {
   const powers: string[] = [];
   for (const sel of item.armory) {
-    if (sel.itemName === 'Paragon of war' && sel.chosenPower) powers.push(sel.chosenPower);
+    if ((sel.itemName === 'Paragon of war' || sel.itemName === 'Orders of the Hekatonystika') && sel.chosenPower) powers.push(sel.chosenPower);
   }
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];

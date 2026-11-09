@@ -9,7 +9,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { effectiveLegacyFor } from '../engine/points';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices, parseNamedChoices, namedWeaponsBlockedBy, allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
 import { findArmoryItem, resolveUnitProfile, armoryWeaponTargets } from '../engine/resolver';
 import { getActiveVariant, gameSizePrice, liveArmoryPoints } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -1966,7 +1966,9 @@ function EquipmentGroups({
             // the item's own desc text via parseEnumerableWeaponChoices instead of a hardcoded
             // list, since not every item offers all 4 — Heavenfall blade excludes Range).
             const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
-            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0;
+            // Orders of the Hekatonystika (Horus Heresy): the item's own text lists six NAMED orders and says "only one": the same picker, with the names read from the text.
+            const namedChoices = (enumOptions.length === 0 && arm.name !== 'Crusade weapon' && arm.name !== 'Paragon of war') ? parseNamedChoices(arm.desc) : [];
+            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0 || namedChoices.length > 0;
             const chosenPower = eqExarchPower[arm.name] ?? '';
             // "Must be purchased for each weapon separately": the picker stays open after the first purchase so the
             // next weapon can be chosen, and a weapon that already has it cannot be picked again.
@@ -2024,6 +2026,7 @@ function EquipmentGroups({
                       <option value="">{arm.name === 'Paragon of war' ? t('selectPowerOption') : t('selectEnhancementOption')}</option>
                       {(arm.name === 'Paragon of war' ? ELDAR_EXARCH_POWERS
                         : arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS
+                        : namedChoices.length > 0 ? namedChoices
                         : enumOptions).map(pn => {
                         const taken = (takenEnhancements?.(arm) ?? []).includes(pn);
                         return <option key={pn} value={pn} disabled={taken}>{pn}{taken ? ' — ' + t('takenLabel') : ''}</option>;
@@ -2298,7 +2301,10 @@ function ReaverLordPicker({
 }
 
 /** The weapons a weapon-target item may be pointed at: "One melee weapon..." only the melee ones, "One ranged weapon..." only the others. */
-function targetsFor(arm: ArmoryItem, all: string[], melee: string[]): string[] {
+function targetsFor(arm: ArmoryItem, all0: string[], melee: string[]): string[] {
+  // "Can not be applied to named weapons: ..." (the Crusade weapon of the Horus Heresy books): those weapons are not offered.
+  const blocked = namedWeaponsBlockedBy(arm.desc);
+  const all = blocked.size ? all0.filter(w => !blocked.has(weaponBaseName(w).toLowerCase())) : all0;
   const kind = weaponTargetKind(arm.desc);
   if (kind === 'any') return all;
   const m = new Set(melee);

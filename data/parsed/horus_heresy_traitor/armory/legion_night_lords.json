@@ -1,7 +1,92 @@
 {
   "name": "Night Lords Armory",
-  "weapons": [],
+  "weapons": [
+    {
+      "name": "Headsman's axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Unwieldy",
+      "p_unit": 7,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Chainblade",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": 5,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Chainglaive",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1), Quick(1), Shred, Unwieldy",
+      "p_unit": 11,
+      "p_char": 13,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Escaton power claw",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1)",
+      "p_unit": 13,
+      "p_char": 17,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
   "equipment": [
+    {
+      "name": "Curze’s Orb",
+      "term_compat": true,
+      "desc": "The army may re-roll any one die per activation. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Trophies of Judgement",
+      "term_compat": false,
+      "desc": "The model gains the \"Terrifying(-1)\" ability. Not combinable with other versions of Terrifying. Only for characters.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Prey Sight",
+      "term_compat": false,
+      "desc": "The model improves its BS by 1. Only for characters.",
+      "p_unit": null,
+      "p_char": 10
+    },
     {
       "name": "LEGION ARCHETYPES",
       "term_compat": false,

@@ -59,9 +59,71 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Alchem cannon",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Overheating",
+      "p_unit": 5,
+      "p_char": 3
+    },
+    {
+      "name": "Heavy alchem flamer",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Auto Hit, Poison(2+)",
+      "p_unit": 3,
+      "p_char": 2,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Power scythe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(1), Unwieldy",
+      "p_unit": 9,
+      "p_char": 12,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
+    {
+      "name": "Toxin bombs",
+      "term_compat": true,
+      "desc": "Whenever an enemy unit declares a Charge against the unit, roll a die for each of its models that charged. On a 1 that model suffers a wound that only a ward save can prevent. Only for Character models.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Unnatural Resilience",
+      "term_compat": true,
+      "desc": "The model gains +1 Wound. Only for Centurions. Unique.",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
     {
       "name": "LEGION ARCHETYPES",
       "term_compat": false,

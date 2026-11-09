@@ -331,7 +331,7 @@
       ]
     },
     {
-      "name": "Desintegrator pistol",
+      "name": "Disintegrator pistol",
       "term_compat": false,
       "range": "12\"",
       "type": "Pistol 1",
@@ -762,7 +762,7 @@
     {
       "name": "Crusade weapon",
       "term_compat": true,
-      "desc": "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Armor piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".",
+      "desc": "One melee weapon of the model gains one of the following:\n- Chain: The weapon gains the \"Shred\" ability.\n- Charnabal: The weapon gains the \"Quick(+1)\" ability.\n- Nocturne masterwork: The weapon may re-roll all to hit rolls.\n- Phoenix: The weapon gains the \"Armor piercing(5+)\" ability.\n- Solarite: The weapon's Strength value is set to x3. Only for weapons that have a x2 for their Strength value.\nEvery enhancement in the army must be the same. Can not be combined with any other equipment apart from \"Master-crafted weapon\".\nCan not be applied to named weapons: Phoenix power sabre, Phoenix power spear, Rapture lash, Axe of the Forgemaster, Barb-hook lash, Excoriator chainaxe, Meteor hammer, Paired falax blades, Cursed Crozius, Prosperine Khopesh, Carsoran power tabar, Escaton power claw.",
       "p_unit": 10,
       "p_char": 10,
       "armour_compat": [
@@ -845,6 +845,13 @@
       "p_char": 4
     },
     {
+      "name": "Phobos armor",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Move Through Cover\" and \"Infiltrator.\" Not combinable with other armors.",
+      "p_unit": 3,
+      "p_char": 6
+    },
+    {
       "name": "Power armor",
       "term_compat": false,
       "desc": "The model gains a 3+ armor save. Not combinable with other armors.",
@@ -884,6 +891,16 @@
       "desc": "The model gains +2 Toughness, +1 Wound, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(2)\" and \"Unyielding\". Only for infantry.",
       "p_unit": 77,
       "p_char": 96
+    },
+    {
+      "name": "Signum",
+      "term_compat": true,
+      "desc": "Instead of using their own ranged weapons, the model may grant a friendly creature model within 6\" range +1 to hit rolls this round.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Space Marine bike",

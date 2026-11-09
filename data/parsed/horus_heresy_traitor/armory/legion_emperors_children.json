@@ -80,6 +80,21 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Phoenix rapier",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 6,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
