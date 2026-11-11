@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188i_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188j_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -67,6 +67,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Allied detachments", "Elite, Fast Attack and Heavy Support together can't exceed the Troops taken, and no more than one of each."],
       ] },
       { label: "Discord", rows: [
+        ["Space Marines 1.14", "Intercessors, Techmarine, Ironclad, Thunderfire and the Ultramarines Armory follow the new sheet."],
         ["Imperial Guard 1.15", "Guard orders, Jungle Fighters, Seasoned officer, Vox, Deathstrike and Telepathic Order follow the new sheet."],
         ["Orks 1.8", "Armory updated: Grot Mega armor, Sneakiest Git, and the Waaagh!-Trike weapons."],
         ["Boyz", "Shoota replacement and extra Shoota share the unit size, as on the sheet."],
@@ -110,6 +111,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Verbündete", "Elite, Fast Attack und Heavy Support zusammen dürfen die Zahl der Troops nicht überschreiten, jeweils höchstens eine."],
       ] },
       { label: "Discord", rows: [
+        ["Space Marines 1.14", "Intercessors, Techmarine, Ironclad, Thunderfire und das Ultramarines-Arsenal folgen dem neuen Datenblatt."],
         ["Imperial Guard 1.15", "Befehle, Jungle Fighters, Seasoned officer, Vox, Deathstrike und Telepathic Order folgen dem neuen Datenblatt."],
         ["Orks 1.8", "Armory aktualisiert: Grot-Megarüstung, Sneakiest Git und die Waaagh!-Trike-Waffen."],
         ["Boyz", "Ersatz-Shoota und zusätzliche Shoota teilen sich die Einheitengröße, wie im Datenblatt."],
@@ -153,6 +155,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Aliados", "Elite, Fast Attack y Heavy Support juntos no pueden superar las Troops tomadas, y no más de una de cada."],
       ] },
       { label: "Discord", rows: [
+        ["Space Marines 1.14", "Intercessors, Techmarine, Ironclad, Thunderfire y la Armería de Ultramarines siguen la hoja nueva."],
         ["Imperial Guard 1.15", "Las órdenes, Jungle Fighters, Seasoned officer, Vox, Deathstrike y Telepathic Order siguen la hoja nueva."],
         ["Orks 1.8", "Armería actualizada: Grot Mega armor, Sneakiest Git y las armas del Waaagh!-Trike."],
         ["Boyz", "El cambio por Shoota y la Shoota adicional comparten el tamaño de la unidad, como en la hoja."],
@@ -196,6 +199,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Союзники", "Elite, Fast Attack и Heavy Support вместе не могут превышать число Troops, и не больше одного каждого."],
       ] },
       { label: "Discord", rows: [
+        ["Space Marines 1.14", "Intercessors, Techmarine, Ironclad, Thunderfire и Арсенал Ultramarines приведены к новой таблице."],
         ["Imperial Guard 1.15", "Приказы, Jungle Fighters, Seasoned officer, Vox, Deathstrike и Telepathic Order приведены к новой таблице."],
         ["Orks 1.8", "Арсенал обновлён: Grot Mega armor, Sneakiest Git и оружие Waaagh!-Trike."],
         ["Boyz", "Замена на Shoota и дополнительная Shoota делят размер отряда, как в таблице."],
@@ -239,6 +243,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["同盟軍", "Elite、Fast Attack、Heavy Supportの合計は選んだTroopsの数まで、各1つまで。"],
       ] },
       { label: "Discord", rows: [
+        ["Space Marines 1.14", "Intercessors、Techmarine、Ironclad、Thunderfire、Ultramarinesのアーモリーを新しいシートに合わせました。"],
         ["Imperial Guard 1.15", "命令、Jungle Fighters、Seasoned officer、Vox、Deathstrike、Telepathic Orderを新しいシートに合わせました。"],
         ["Orks 1.8", "アーモリーを更新:Grot Mega armor、Sneakiest Git、Waaagh!-Trikeの武器。"],
         ["Boyz", "Shootaへの交換と追加のShootaはユニットのサイズを共有します(シートどおり)。"],

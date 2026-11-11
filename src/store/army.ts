@@ -775,11 +775,14 @@ export const useArmyStore = create<ArmyStore>()(
           const oq = { ...e.optionQty };
           const group = { ...(oq[gi] ?? {}) };
           // Alternatives of one rule ("do one of the following") share the unit size: clamp this change to what the others leave.
-          const shared = s.data ? resolveUnit(e, s.data)?.option_groups[gi]?.shares_cap_with : undefined;
+          const grp = s.data ? resolveUnit(e, s.data)?.option_groups[gi] : undefined;
+          const shared = grp?.shares_cap_with;
+          // The pool is the unit size, or for "for every N models, M may..." the M per N models (Space Marines Intercessors: two per five).
+          const pool = grp?.constraint?.type === 'per_n' && grp.constraint.per_n ? Math.floor(e.size / grp.constraint.per_n) * (grp.constraint.count_per_n ?? 1) : e.size;
           if (shared?.length && qty > 0) {
             const others = shared.reduce((n, og) => n + Object.entries(oq[og] ?? {}).reduce((m, [k, q]) => m + (k === '__inline' ? 0 : Number(q) || 0), 0), 0);
             const mine = Object.entries(group).reduce((m, [k, q]) => m + (k === ci || k === '__inline' ? 0 : Number(q) || 0), 0);
-            qty = Math.max(0, Math.min(qty, e.size - others - mine));
+            qty = Math.max(0, Math.min(qty, pool - others - mine));
           }
           if (qty === 0) delete group[ci];
           else group[ci] = qty;
