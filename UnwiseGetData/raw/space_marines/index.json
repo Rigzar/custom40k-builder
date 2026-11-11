@@ -1,0 +1,106 @@
+[
+    [
+        "Space Marines"
+    ],
+    [
+        "HQ",
+        "Captain Dreadnought",
+        "Chaplain",
+        "Chaplain Dreadnought",
+        "Emperor's Champion",
+        "Librarian",
+        "Librarian Dreadnought",
+        "Lieutenant",
+        "Special rules"
+    ],
+    [
+        "Troops",
+        "Assault Intercessor Squad",
+        "Blood Claws",
+        "Grey Hunters",
+        "Heavy Intercessor Squad",
+        "Indomitus Crusader Squad",
+        "Infiltrator Squad",
+        "Intercessor Squad",
+        "Scout Squad",
+        "Tactical Squad"
+    ],
+    [
+        "Elite",
+        "Aggressor Squad",
+        "Ancient",
+        "Apothecary",
+        "Company Champion",
+        "Death Company",
+        "Deathwing Knights",
+        "Dreadnought",
+        "Honor Guard or Veterans",
+        "Invictor Battlesuit",
+        "Ironclad Dreadnought",
+        "Judicar",
+        "Kill Team Veterans",
+        "Legion of the Damned",
+        "Redemptor Dreadnought",
+        "Reiver Marines",
+        "Techmarine",
+        "Terminator Squad",
+        "Wolf Scout Squad"
+    ],
+    [
+        "Fast Attack",
+        "Assault Squad",
+        "Bike Squad",
+        "Inceptor Squad",
+        "Infernus Squad",
+        "Invader-Quad",
+        "Land Speeder",
+        "Outrider Bikes",
+        "Ravenwing Black Knights",
+        "Razorback Rikarius",
+        "Storm Speeder",
+        "Suppressor Squad",
+        "Wolf Companions"
+    ],
+    [
+        "Heavy Support",
+        "Centurion Devastator Squad",
+        "Desolation Squad",
+        "Devastator Squad",
+        "Eliminator Squad",
+        "Eradicator Squad",
+        "Firestrike Servo-turret",
+        "Gladiator",
+        "Hellblaster Squad",
+        "Land Raider",
+        "Land Raider Ares",
+        "Land Raider Crusader",
+        "Land Raider Redeemer",
+        "Predator",
+        "Repulsor",
+        "Repulsor Executioner",
+        "Thunderfire Cannon",
+        "Vindicator",
+        "Whirlwind"
+    ],
+    [
+        "Transports",
+        "Drop Pod",
+        "Impulsor",
+        "Land Speeder Storm",
+        "Razorback",
+        "Rhino"
+    ],
+    [
+        "Fortifications",
+        "Hammerfall Bunker"
+    ],
+    [
+        "Flyers",
+        "Fire Raptor Gunship",
+        "Nephilim Jetfighter",
+        "Stormfang Gunship",
+        "Stormhawk Interceptor",
+        "Stormraven Gunship",
+        "Stormtalon Gunship"
+    ]
+]

@@ -1,0 +1,118 @@
+{
+    "name": "Royal Guard",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Guard",
+            "min": 9,
+            "max": 19,
+            "points": 15
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Guard Captain",
+            "min": 1,
+            "max": 1,
+            "points": 20
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 155,
+    "default_size": 10,
+    "equipped_with": "Every model is equipped with: Power axe; Las carbine; Las pistol; Shield.",
+    "weapons": [
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Las carbine",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power maul",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Heavy armor: The model gains a 4+ armor save."
+    ],
+    "unit_type": "Bodyguard, Deflect, Infantry, Parry",
+    "is_monster": false,
+    "keywords": [
+        "Feudal Levy"
+    ]
+}

@@ -1,0 +1,109 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-3",
+        "Achilles Ridgerunner",
+        "12\"",
+        "-",
+        "4+",
+        5,
+        10,
+        10,
+        10,
+        3,
+        2,
+        2,
+        126
+    ],
+    [
+        "Each model is equipped with: 2 Heavy stubbers; Heavy mortar."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Achilles missile launcher",
+        "36\"",
+        "Heavy 2",
+        7,
+        -3,
+        2,
+        "Anti-air, AT(1)"
+    ],
+    [
+        "Heavy mining laser",
+        "36\"",
+        "Heavy 1",
+        9,
+        -3,
+        3,
+        "AT(3), Blast(4)"
+    ],
+    [
+        "Heavy mortar",
+        "36\"",
+        "Heavy 1",
+        6,
+        -1,
+        1,
+        "Blast(4), Indirect, Suppression(3)"
+    ],
+    [
+        "Heavy stubber",
+        "36\"",
+        "Heavy 3",
+        4,
+        0,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap its Heavy mortar:"
+    ],
+    [
+        "- Achilles missile launcher",
+        "+18 points"
+    ],
+    [
+        "- Heavy mining laser",
+        "+21 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Ambush, Infiltrator, Squadron, Use cover, Vanguard"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

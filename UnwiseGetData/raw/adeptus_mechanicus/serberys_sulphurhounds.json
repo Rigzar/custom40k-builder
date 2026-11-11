@@ -1,0 +1,124 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-5",
+        "Sulphurhound",
+        "12\"",
+        "4+",
+        "3+",
+        3,
+        4,
+        2,
+        3,
+        2,
+        6,
+        "4+",
+        35
+    ],
+    [
+        1,
+        "Sulphurhound Alpha",
+        "12\"",
+        "4+",
+        "3+",
+        3,
+        4,
+        2,
+        3,
+        2,
+        7,
+        "4+",
+        40
+    ],
+    [
+        "Every model is equipped with: 2 Phosphor pistols, Bionics; Sulphur breath."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Phosphor blast carbine",
+        "18\"",
+        "Pistol 2",
+        4,
+        -1,
+        1,
+        "Blast(4), Luminagen"
+    ],
+    [
+        "Phosphor pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "Luminagen"
+    ],
+    [
+        "Sulphur breath",
+        "9\"",
+        "Pistol 2",
+        4,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Sulphurhound may be equipped with:"
+    ],
+    [
+        "- Enhanced data-tether",
+        "+10 points"
+    ],
+    [
+        "\u2022 For every 3 models, one Sulphurhound may swap both Phosphor pistols:"
+    ],
+    [
+        "- Phosphor blast carbine",
+        "+9 points"
+    ],
+    [
+        "\u2022 The Sulphurhound Alpha has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah, Move through cover"
+    ],
+    [
+        "Rad-saturation: Enemy models in direct base contact suffer a -1 penalty to their Toughness."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike"
+    ]
+]

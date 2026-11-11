@@ -1,0 +1,93 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "10-30",
+        "Tech-thrall",
+        "6\"",
+        "5+",
+        "5+",
+        3,
+        3,
+        1,
+        2,
+        1,
+        6,
+        "5+",
+        9
+    ],
+    [
+        "Each Tech-thrall is equipped with: Bionics; Chainsword; Las-lock."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Chainsword",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Las-lock",
+        "18\"",
+        "Assault 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Mitra-lock",
+        "9\"",
+        "Assault 1",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1), Suppression(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 All tech-thralls may swap their Chainswords and Las-locks:"
+    ],
+    [
+        "- Mitra-lock",
+        "+0 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Mindless, Monotask, Unyielding"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

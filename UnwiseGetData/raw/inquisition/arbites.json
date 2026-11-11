@@ -1,0 +1,187 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Arbitrator",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "4+",
+        13
+    ],
+    [
+        1,
+        "Proctor",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "4+",
+        18
+    ],
+    [
+        "Every model is equipped with: Arbites combat shotgun; Arbites shotpistol; Frag grenade; Krak grenade."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Arbites combat shotgun",
+        "15\"",
+        "Assault 2",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Arbites grenade launcher",
+        "18\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Arbites shotpistol",
+        "6\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Executioner shotgun",
+        "15\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Heavy stubber",
+        "36\"",
+        "Heavy 3",
+        4,
+        0,
+        1,
+        "Suppression(3)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Shock maul",
+        "-",
+        "Melee",
+        "+2",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Webber",
+        "18\"",
+        "Assault 2",
+        1,
+        0,
+        1,
+        "Monofilament"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Two Arbitrators may swap their Arbites combat shotguns:"
+    ],
+    [
+        "- Webber",
+        "+0 points"
+    ],
+    [
+        "- Arbites grenade launcher",
+        "+2 points"
+    ],
+    [
+        "- Executioner shotgun",
+        "+4 points"
+    ],
+    [
+        "- Heavy stubber",
+        "+8 points"
+    ],
+    [
+        "\u2022 Any remaining models may swap their Arbites combat shotguns:"
+    ],
+    [
+        "- Arbites shield & Shock maul",
+        "+2 points"
+    ],
+    [
+        "\u2022 The Proctor has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Arbites shield: The model gains \"Deflect\" and \"Parry\"."
+    ],
+    [
+        "Monofilament: If the target enemy unit is in cover and at least one hit has been scored with the weapon, the terrain counts as difficult and dangerous terrain until the end of the next activation of the target unit."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

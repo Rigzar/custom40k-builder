@@ -1,0 +1,122 @@
+[
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Malediction",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "12\"",
+        "Range:",
+        "18\"",
+        "Range:",
+        "24\""
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        5,
+        "Cast value:",
+        6,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "The target gains the \"Warded\" ability.",
+        "Effect:",
+        "The target must pass a Leadership test with a -2 penalty or gain a Battleshock token.",
+        "Effect:",
+        "The target may not use a Defensive Reaction."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Immediately",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Warp Blast",
+        "Name:",
+        "Neuroparasite",
+        "Name:",
+        "Onslaught"
+    ],
+    [
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "24\"",
+        "Range:",
+        "18''",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Friendly unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        7,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "The target suffers one automatic hit with one of the two profiles:\nBurst: Strength: 5 AP: -3 D: 1; Blast(4), Seeking.\nLance: Strength: 10 AP: -4 D: 3; AT(3), Seeking.",
+        "Effect:",
+        "Each model of the target must succeed on a Toughness test or receive one Mortal Wound.",
+        "Effect:",
+        "The target gains an additional Movement of 1D6\", which is not taken into account when determining which weapons it may fire (Stand & Shoot) or how far it moved before doing a Charge movement."
+    ],
+    [
+        "Duration:",
+        "Immediately",
+        "Duration:",
+        "Immediately",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ]
+]

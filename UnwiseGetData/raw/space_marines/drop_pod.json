@@ -1,0 +1,103 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Drop Pod",
+        "-",
+        "-",
+        "4+",
+        5,
+        10,
+        10,
+        10,
+        "-",
+        "-",
+        2,
+        97
+    ],
+    [
+        "A Drop Pod is a single model and is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Deathwind missile launcher",
+        "18\"",
+        "Heavy 2",
+        5,
+        -1,
+        1,
+        "Blast(4), Anti-air, Suppression(3)"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May be equipped with:"
+    ],
+    [
+        "- Storm bolter",
+        "+8 points"
+    ],
+    [
+        "- Deathwind missile launcher",
+        "+22 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep Strike"
+    ],
+    [
+        "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and may never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model."
+    ],
+    [
+        "Drop Pod Assault: Drop Pods always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!"
+    ],
+    [
+        "Transport: This model has a transport capacity of 10 infantry models or 1 Dreadnought or 1 Ironclad Dreadnought."
+    ],
+    [
+        "Unmanned: A Drop Pod cannot contest or hold mission objectives."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

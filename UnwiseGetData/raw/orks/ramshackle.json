@@ -1,0 +1,39 @@
+[
+    [
+        "Die result",
+        "1, 2, 3",
+        "Die result",
+        "4, 5, 6"
+    ],
+    [
+        "Effect:",
+        "The vehicle explodes with a radius of 6\".",
+        "Effect:",
+        "Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction."
+    ],
+    [
+        "Ramshackle Transports",
+        "Name:",
+        "Kaboom!",
+        "Name:",
+        "Kareen!",
+        "Name:",
+        "Kerrunch!"
+    ],
+    [
+        "Die result",
+        "1, 2",
+        "Die result",
+        "3, 4",
+        "Die result",
+        "5, 6"
+    ],
+    [
+        "Effect:",
+        "The vehicle explodes with a radius of 6\".",
+        "Effect:",
+        "Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled.  If the scatter die is a hit symbol, the controlling player can decide the direction.",
+        "Effect:",
+        "Passengers must disembark and receive no damage. The vehicle remains as wreckage."
+    ]
+]

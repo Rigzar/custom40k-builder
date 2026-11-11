@@ -1,0 +1,143 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Stalker",
+        "6\"",
+        "-",
+        "3+",
+        5,
+        11,
+        11,
+        11,
+        2,
+        1,
+        2,
+        157
+    ],
+    [
+        "A Stalker is a single model and equipped with: Particle shredder."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Heat ray *"
+    ],
+    [
+        "- Dispersed",
+        "9\"",
+        "Heavy 4",
+        6,
+        -5,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "- Focused",
+        "24\"",
+        "Heavy 2",
+        8,
+        -5,
+        2,
+        "AT(3), Melta"
+    ],
+    [
+        "Particle shredder",
+        "24\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(6)"
+    ],
+    [
+        "Reinforced forelimbs",
+        "-",
+        "Melee",
+        "+2",
+        -3,
+        2,
+        "AT(1)"
+    ],
+    [
+        "Twin heavy gauss cannon",
+        "36\"",
+        "Assault 2",
+        9,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can replace the Particle shredder:"
+    ],
+    [
+        "- Heat ray",
+        "+36 points"
+    ],
+    [
+        "- Twin heavy gauss cannon",
+        "+83 points"
+    ],
+    [
+        "\u2022 Can be equipped with:"
+    ],
+    [
+        "- Reinforced forelimbs",
+        "+13 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Move through cover, Squadron"
+    ],
+    [
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order."
+    ],
+    [
+        "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase."
+    ],
+    [
+        "Targeting relay: After scoring a hit on an enemy unit, the next friendly unit firing on the same target can re-roll one failed to hit and wound roll."
+    ],
+    [
+        "Reinforced forelimbs: The model gains WS 3+ and +2 A."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Walker"
+    ]
+]
