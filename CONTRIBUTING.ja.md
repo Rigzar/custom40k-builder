@@ -180,7 +180,7 @@ Dactylisは、Woundsと Leadershipが入れ替わった状態で入ってしま�
 | `veteran` | ベテラン能力のスロット |
 | `unique_upgrade` | ユニット単位の唯一制限 |
 
-制約タイプではなく、グループ自身にある2つのフラグ：`per_model: true`（コストが部隊に比例する）と
+制約タイプではなく、グループ自身にある3つのフラグ：`per_model: true`（コストが部隊に比例する。例:Mek Gunz）、`shares_cap_with: [n]`（1つのシートルールのグループはユニットのサイズを共有する。例:Boyz の2つの Shoota グループ）、
 `independent_choices: true`（各選択肢が1つのプールを共有せず、それぞれ独自の上限を持つ — Tyranidの
 バイオモルフのリストで、古い共有の `max: 16` は規則ではなく選択肢の数でした）。
 `variant_link` はグループを `variant_models` の昇格（Spanna、Overlord、Veteran Sergeant）に結び付けます。
@@ -751,6 +751,57 @@ node tts/test/run_table.cjs army.json    # オールインワンのGlobalスク�
 - **Wiki**はビルド時に `wiki/src/lib/loc.ts`（`wn` 名前、`wr` 武器の種類と能力、`wp` ページに入力されたラベルと文、`wPhrase`、`wRange`、`wEquipped`、`wUnitType`、`wSlot`）とラベルの表 `wiki/src/lib/phrases.ts` を通して翻訳します。アプリの純粋なヘルパー（`src/utils/localName.ts`、`jaProse.ts`、`unitTypeLabel.ts`）と `src/data/names.ja.json` を再利用し、`wiki/scripts/vendor.mjs` がコピーします；サイキックの汎用ディシプリンもアプリからvendorされます（以前はwikiがコピーを持っていて、ずれていました）。`node wiki/scripts/build-all.mjs` の前に `node wiki/scripts/vendor.mjs` を実行しないと、wikiは前回のビルドのコピーでビルドされます。wikiのページに英語のテキストを直接入力しないでください：`phrases.ts` に行を追加してください。
 - その他の英語のエンジンデータには専用の描画ヘルパーがあり、素の `{x.name}` は決して使いません：スロットは `slotLabel(lang, slot)`（`src/utils/slotLabel.ts`）、ユニットタイプは `unitTypeLabel(lang, type)`（`src/utils/unitTypeLabel.ts`）、形式の名前とルールの行は `engName`/`engNotes`（`src/utils/engagementText.ts`）、サイキックパワーの種類／ターゲット／持続は `powerMetaLine`（テキストの表を使う）、バリデーターのメッセージは `src/engine/validators.ts` の `T()` の中で `{slot}`/`{unit}` の値がローカライズされます。コンポーネントに直書きした英語のラベルはバグです：代わりに `src/i18n`（5言語すべて）にキーを追加してください。
 - **オプショングループの見出し**（`g.header`、各オプションブロックの上の文）は、`localiseAbility()` と `src/data/abilityTexts.<言語>.json` を通して、英語テキストのハッシュをキーにして文ごとに翻訳されます — ルールのテキストとまったく同じです。シートが言い換えた見出しは、追加されるまで翻訳がありません；`npx tsx scripts/_headers_test.ts` は、ゲーム内で翻訳のない見出しを、4つの言語それぞれについて一覧にします。
+
+### シートスクリプトのオプショングループ:ローダーが正規化するもの(`src/data/loaders.ts`)
+
+シートをユニットファイルに変換するスクリプトは、"Every X may..." の行をすべて単純なグループとして書き出します。アプリはシートを内側から直せないため、勢力の読み込み時にいくつかの形を正規化します。そのために生成されたユニットファイルを手で編集しないでください。`loaders.ts` にルールを追加・調整し、シート自体が間違っているときはシートの作者に伝えてください。
+
+- `normaliseEveryModelPick`: 見出しが "Every Mek Gun must select one weapon" のグループは、各モデルごとの選択です。例:Ork Mek Gunz。サイズを1から2にしても武器が1つのままでしたが、今はグループが `per_model` になり、武器の数と価格がユニットのサイズに従います。
+- `linkSharedCapGroups`: シートの "Any number of models may do one of the following" は複数のグループとして書かれます。それらに `shares_cap_with`(他のグループの番号)が付き、`src/store/army.ts` の `setOptionQty` が合計をユニットのサイズ以内に保ちます。例:Boyz の "Replace their Choppa and Slugga with a Shoota" と "Be additionally equipped with a Shoota" は、10体のユニットで合わせて10を超えられません。
+- `requires_choice`: モデルがまだ持っていない武器への交換(Boyz:"two Boyz equipped with a Shoota may swap it")は、必要な選択が済むまで、グレーアウトのまま選択肢と価格を並べてカードに残ります。シートに載っているルールを隠してはいけません。
+
+### 全体ボーナスではなくアップグレードとなる特性(`OPT_IN_TRAITS`、`src/store/army.ts`)
+
+Space Marines の "Purity above All"(Apothecary)と "Sons of Mars"(Techmarine)、Imperial Guard の "Abhuman Auxiliaries" は、使うユニットごとのチェックボックスで、そのユニットだけが支払います。追加するには、名前を `OPT_IN_TRAITS` に入れ、条件があれば `optInTraitApplies` にも入れます。例:Sons of Mars は、キャラクターではなくアーモリーに届く歩兵にだけ提示されます。
+
+### 軍曹が買った武器強化(`championBoostSelIds`、`src/engine/resolver.ts`)
+
+オークの "More Boom!"(強さ+2)のようなアーモリーのアイテムをノブや軍曹のために買った場合、変わるのは「その本人の」武器だけです。リゾルバが本人の名前で1体だけの行を作り、分隊の行には手を付けません。誰が買ったかは、誰が買えるかで決まります:`p_char` だけに価格がある場合、または指揮官だけがアーモリーにアクセスできるユニット(Flash Gitz)です。
+
+### 武器やアイテムを書く前に:まずアーモリーを見る
+
+何かを作る前に、その書のすべてのアーモリーと、Space Marines・Chaos Space Marines のアーモリーを見てください。例:スカウト分隊(Horus Heresy)用の Nemesis-Bolter は、HH の書の共通アーモリーに価格なしで既にありました。正しい対応は、そのプロファイルを使って計算機(`src/data/pointsCalculator.ts`)で価格を付けることで、2つ目を書くことではありません。ルールも同じで、"Marked for Death" と Melta bombs は既にありました。
+
+### ユニットファイルを最新にする("Run unit update")
+
+Inquisitor パネルのボタンは Action `update-units.yml` を起動し、プルリクエストを開きます(`main` には直接プッシュしません)。書き換えるのはユニットだけで、アーモリー、Army Customisation、アーキタイプ、サイキックパワーは引き続きシートを見て手で合わせます。マージ後は、それらも一致したときだけ `src/data/factionCatalog.ts` の勢力バージョンを上げ、`Codex/<勢力> X.ods` の名前を変えてください(バージョンが変わると `node scripts/fetch_codex.cjs <勢力>` が知らせます)。
+
+### 複雑なケースのガイド
+
+**1. 「アプリがシートと違う表示になる」**(Boyz の報告、2026年11月)
+1. プレイヤーが使っている版を確認します:隅のバージョン表示(例:`v1.88g`)を見て、強制リロード(Ctrl+Shift+R)します。Service Worker が古いビルドを返すことがあります。
+2. シートとデータを比べます:`node scripts/fetch_codex.cjs <勢力>` でライブシートが動いたか分かります。シートの OPTIONS の行をユニットの `option_groups` と照合します。
+3. アプリを開き、ユニットを追加してカードを読みます(ブラウザパネルでは `get_page_text`)。データが合っていてもカードがルールを隠していることがあります:`requires_choice`、`available_if`、`requires_trait`、`variant_link` を探します。
+4. どこが間違いかを決めます:シート(作者に伝え、外側でパッチしない)、スクリプトが悪く書く形(`loaders.ts`)、カード(`UnitCard.tsx`)、エンジン(`resolver.ts`、`points.ts`)。
+
+**2. 別の選択に依存するオプション** - どのフィールドを使うか
+- 交換に、別のグループからしか得られない武器が必要:`requires_choice`(Boyz:Big shoota への交換には Shoota が必要)。
+- この選択が別のグループの上限を下げる:`reduced_when_selected`(Warbuggy:小型砲は3つ、大型砲があれば1つ)。
+- 2つのグループが実は1つのシートルール("do one of the following"):`shares_cap_with`(Boyz:2つの Shoota グループがユニットのサイズを共有)。
+- 分隊のモデルが昇格する:`variant_link`(Boyz:Boy の1体が Nob になる)。
+変更後は、アプリでユニットを動かし、すべてのカウンターを上限まで上げて確認します。
+
+**3. 新しいものの価格付け(Horus Heresy のシート)**
+1. まずすべてのアーモリー(その書、Space Marines、Chaos Space Marines)を見ます。既にあるものは、そのプロファイルのまま再利用します。
+2. 新規なら計算機(`src/data/pointsCalculator.ts` の `rangedPoints`、`meleePoints`、`creaturePoints`)で、それを買うモデルの BS または WS で価格を付けます。
+3. 交換の価格は、新しい武器から置き換える武器を引いたものです。例:Land Speeder の Twin lascannon は計算機で138、置き換える Heavy bolter の18を引いて +120 です。
+4. 特殊ルールの価格はルール表のとおりです。例:車両の Outflank は車体点1につき1なので、Land Speeder(車体点2)では +2 です。
+5. 作者が数字を確認できるよう、理由を変更履歴の項目に書きます。
+
+**4. 変更のテストとプッシュ**
+1. `npm run build` が通ること。見た目の変更では、プレビューサーバーを起動し、ユニットを追加してカードを読みます。データだけを信用しないでください。
+2. 他のコミットをローカルに残したまま一部だけプッシュするには、`origin/main` から worktree を作り、そのファイルだけを適用し、そこからプッシュして、自分のブランチはそのままにします。
+3. オーナーの了承なしにプッシュしません。バナーキーとリビジョン文字はプッシュ時に上げ、その前には上げません。
 
 ### Gitfinda — 対戦相手探し（`api/_lib/gitfinda.js`、`src/components/GitfindaModal.tsx`）
 

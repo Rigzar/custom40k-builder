@@ -190,7 +190,7 @@ are yours to fix.
 | `veteran` | Veteran ability slot |
 | `unique_upgrade` | Unit-level unique restriction |
 
-Two flags on the group itself, not constraint types: `per_model: true` (the cost scales with the squad) and
+Three flags on the group itself, not constraint types: `per_model: true` (the cost scales with the squad; example: Mek Gunz) and `shares_cap_with: [n]` (the groups of one sheet rule share the unit size; example: the two Shoota groups of the Boyz) and
 `independent_choices: true` (every choice has its own cap instead of sharing one pool — the Tyranid
 biomorph lists, where the old shared `max: 16` was the NUMBER OF OPTIONS, not a rule).
 `variant_link` ties a group to a promotion in `variant_models` (Spanna, Overlord, Veteran Sergeant);
@@ -868,6 +868,57 @@ A Japanese player asked for names in katakana. **The data is never translated**:
 - **The wiki** translates at build time through `wiki/src/lib/loc.ts` (`wn` names, `wr` weapon types and abilities, `wp` labels and sentences typed into a page, `wPhrase`, `wRange`, `wEquipped`, `wUnitType`, `wSlot`) and the label table `wiki/src/lib/phrases.ts`. It reuses the app's pure helpers (`src/utils/localName.ts`, `jaProse.ts`, `unitTypeLabel.ts`) and `src/data/names.ja.json`, copied in by `wiki/scripts/vendor.mjs`; the psychic general disciplines are vendored from the app too (the wiki used to keep a copy and it had drifted). Run `node wiki/scripts/vendor.mjs` before `node wiki/scripts/build-all.mjs` or the wiki builds with last build's copies. Never type English text into a wiki page: add a row to `phrases.ts`.
 - Other English engine data has its own drawing helper, never a raw `{x.name}`: slots through `slotLabel(lang, slot)` (`src/utils/slotLabel.ts`), unit types through `unitTypeLabel(lang, type)` (`src/utils/unitTypeLabel.ts`), engagement names and rule lines through `engName`/`engNotes` (`src/utils/engagementText.ts`), psychic power type/target/duration through `powerMetaLine` (it uses the text table), and validator messages get their `{slot}`/`{unit}` values localised inside `T()` in `src/engine/validators.ts`. A hard-coded English label in a component is a bug: add a key to `src/i18n` (all five languages) instead.
 - **Option-group headings** (`g.header`, the sentence above each option block) are translated sentence by sentence through `localiseAbility()` and `src/data/abilityTexts.<lang>.json`, keyed by a hash of the English text, exactly like a rule text. A heading the sheets reword has no translation until it is added; `npx tsx scripts/_headers_test.ts` lists every heading in the game that has none, in each of the four languages.
+
+### Option groups from the sheet script: what the loader normalises (`src/data/loaders.ts`)
+
+The script that turns the sheets into unit files writes every "Every X may..." line as a plain group, and the app cannot fix a sheet from the inside, so a few shapes are normalised when the faction loads. Do not hand-edit the generated unit files for these: add or adjust the rule in `loaders.ts`, and tell the sheet author when the sheet itself is wrong.
+
+- `normaliseEveryModelPick`: a group headed "Every Mek Gun must select one weapon" is a pick for EACH model. Example: Ork Mek Gunz, size 1 to 2 used to keep ONE weapon; the group is now `per_model` and the weapon count and the price follow the unit size.
+- `linkSharedCapGroups`: the sheet rule "Any number of models may do one of the following" is written as several groups. They get `shares_cap_with` (the indexes of the others) and `setOptionQty` in `src/store/army.ts` keeps the total at the unit size. Example: Boyz, "Replace their Choppa and Slugga with a Shoota" and "Be additionally equipped with a Shoota" together cannot pass 10 on a unit of 10.
+- `requires_choice`: a swap for a weapon the model does not have yet (Boyz: "two Boyz equipped with a Shoota may swap it") stays on the card, greyed out and listing its choices with their prices, until the choice it needs is taken. Never hide a rule the sheet shows.
+
+### Traits that are an upgrade, not a blanket bonus (`OPT_IN_TRAITS`, `src/store/army.ts`)
+
+Space Marines "Purity above All" (Apothecary) and "Sons of Mars" (Techmarine), and Imperial Guard "Abhuman Auxiliaries", are a tick-box on each unit that uses them, and only those units pay. To add one, put its name in `OPT_IN_TRAITS` and, if it has a condition, in `optInTraitApplies`. Example: Sons of Mars is offered only on infantry that is not a character and can reach the Armory.
+
+### A weapon boost bought by a sergeant (`championBoostSelIds`, `src/engine/resolver.ts`)
+
+An Armory item such as the Ork "More Boom!" (+2 Strength) bought for the Nob or a Sergeant changes only HIS copy of the weapon: the resolver gives him a one-model row under his own name and leaves the squad's row alone. Who bought it is decided by who can: a price in `p_char` only, or a unit where only the champion has Armory access (Flash Gitz).
+
+### Before you write a weapon or an item: look in the Armory first
+
+Look in every Armory of the book, and in Space Marines and Chaos Space Marines, before creating anything. Example: the Nemesis-Bolter for a Scout squad (Horus Heresy) already existed in the general Armory of the HH books, with no price; the right move was to use that profile and price it with the calculator (`src/data/pointsCalculator.ts`), not to write a second one. The same goes for rules: "Marked for Death" and Melta bombs already existed.
+
+### Bringing the unit files up to date ("Run unit update")
+
+The Inquisitor panel button starts the Action `update-units.yml`, which opens a pull request and never pushes to `main`. It only rewrites units; the Armory, Army Customisation, archetypes and psychic powers still follow the sheet by hand. After merging, raise the faction version in `src/data/factionCatalog.ts` only when those parts match too, and rename `Codex/<Faction> X.ods` (`node scripts/fetch_codex.cjs <faction>` tells you when the version moved).
+
+### Guides for the complex cases
+
+**1. "The app shows something different from the sheet"** (the Boyz report, November 2026)
+1. Check what the player runs: the version badge in the top corner (for example `v1.88g`), then a hard refresh (Ctrl+Shift+R); the service worker can serve an old build.
+2. Compare the sheet with the data: `node scripts/fetch_codex.cjs <faction>` says whether the live sheet moved; read the sheet's OPTIONS lines against the unit's `option_groups`.
+3. Open the app, add the unit and read the card (in the browser pane, `get_page_text`). The data can match and the card can still hide a rule: look for `requires_choice`, `available_if`, `requires_trait`, `variant_link`.
+4. Decide where it is wrong: the sheet (tell the author, never patch around it), a shape the script writes badly (`loaders.ts`), the card (`UnitCard.tsx`) or the engine (`resolver.ts`, `points.ts`).
+
+**2. An option that depends on another choice** - which field to use
+- The swap needs a weapon the model only gets from another group: `requires_choice` (Boyz: the Big shoota swap needs a Shoota).
+- Taking this choice lowers the cap of another group: `reduced_when_selected` (Warbuggy: three small guns, one if it has a big gun).
+- Two groups are really one sheet rule ("do one of the following"): `shares_cap_with` (Boyz: the two Shoota groups share the unit size).
+- A model of the squad is promoted: `variant_link` (Boyz: one Boy becomes a Nob).
+After the change, run the unit in the app and move every counter to its limit.
+
+**3. Pricing something new (Horus Heresy sheets)**
+1. Look in every Armory first (the book's, Space Marines, Chaos Space Marines). Reuse what exists, with its profile.
+2. If it is new, price it with the calculator (`rangedPoints`, `meleePoints`, `creaturePoints` in `src/data/pointsCalculator.ts`), at the BS or WS of the model that buys it.
+3. A swap costs the new weapon minus the weapon it replaces. Example: the Twin lascannon on a Land Speeder is 138 in the calculator, minus 18 for the Heavy bolter it replaces, so +120.
+4. A special rule costs what the rule table says. Example: Outflank on a vehicle is 1 per Hull point, so +2 on a Land Speeder (2 Hull points).
+5. Write the reasoning in the changelog entry, so the author can check the number.
+
+**4. Testing and pushing a change**
+1. `npm run build` must pass. For a visible change, start the preview server, add the unit and read the card; never trust the data alone.
+2. To push only some work while other commits stay local, make a worktree from `origin/main`, apply just those files, push from there, and keep your own branch as it is.
+3. Do not push without the owner's yes, and raise the banner key and the revision letter at the push, not before.
 
 ### Gitfinda — looking for a game (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 

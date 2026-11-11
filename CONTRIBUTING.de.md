@@ -174,7 +174,7 @@ Die Felder der Spalte „vom Blatt“ oben stehen hier, damit du weißt, worauf 
 | `veteran` | Veteranen-Faehigkeitsslot |
 | `unique_upgrade` | Einheitenbezogene Einzigartigkeitsbeschraenkung |
 
-Zwei Flags der Gruppe selbst, keine Beschränkungstypen: `per_model: true` (die Kosten wachsen mit dem Trupp) und `independent_choices: true` (jede Wahl hat eine eigene Obergrenze statt eines gemeinsamen Topfs — die Tyraniden-Biomorph-Listen, bei denen das alte gemeinsame `max: 16` die ANZAHL DER OPTIONEN war, keine Regel). `variant_link` bindet eine Gruppe an eine Beförderung in `variant_models` (Spanna, Overlord, Veteranen-Sergeant); `applies_to_model` begrenzt einen Tausch auf eine Modellzeile. **Neue Wahlmöglichkeiten kommen ans ENDE einer Liste**: eine gespeicherte Armee hält den INDEX der Wahl, und Umsortieren verschiebt Auswahlen stillschweigend.
+Drei Flags der Gruppe selbst, keine Beschränkungstypen: `per_model: true` (die Kosten wachsen mit dem Trupp; Beispiel: Mek Gunz), `shares_cap_with: [n]` (die Gruppen einer Sheet-Regel teilen sich die Einheitengröße; Beispiel: die zwei Shoota-Gruppen der Boyz) und `independent_choices: true` (jede Wahl hat eine eigene Obergrenze statt eines gemeinsamen Topfs — die Tyraniden-Biomorph-Listen, bei denen das alte gemeinsame `max: 16` die ANZAHL DER OPTIONEN war, keine Regel). `variant_link` bindet eine Gruppe an eine Beförderung in `variant_models` (Spanna, Overlord, Veteranen-Sergeant); `applies_to_model` begrenzt einen Tausch auf eine Modellzeile. **Neue Wahlmöglichkeiten kommen ans ENDE einer Liste**: eine gespeicherte Armee hält den INDEX der Wahl, und Umsortieren verschiebt Auswahlen stillschweigend.
 
 ### Eine Waffe, ein Arsenal-Objekt, einen Archetyp, einen Trait oder ein Legacy hinzufuegen
 
@@ -1042,6 +1042,57 @@ Ein japanischer Spieler wollte die Namen in Katakana. **Die Daten werden nie üb
 - **Das Wiki** übersetzt beim Bauen über `wiki/src/lib/loc.ts` (`wn` Namen, `wr` Waffentypen und Fähigkeiten, `wp` in Seiten getippte Beschriftungen und Sätze, `wPhrase`, `wRange`, `wEquipped`, `wUnitType`, `wSlot`) und die Beschriftungstabelle `wiki/src/lib/phrases.ts`. Es nutzt die reinen Helfer der App (`src/utils/localName.ts`, `jaProse.ts`, `unitTypeLabel.ts`) und `src/data/names.ja.json`, die `wiki/scripts/vendor.mjs` hineinkopiert; auch die allgemeinen Psi-Disziplinen kommen aus der App (das Wiki hatte eine eigene Kopie, die abgedriftet war). Führe `node wiki/scripts/vendor.mjs` vor `node wiki/scripts/build-all.mjs` aus, sonst baut das Wiki mit den Kopien vom letzten Mal. Tippe nie englischen Text in eine Wiki-Seite: ergänze eine Zeile in `phrases.ts`.
 - Andere englische Engine-Daten haben ihren eigenen Zeichenhelfer, nie ein rohes `{x.name}`: Slots über `slotLabel(lang, slot)` (`src/utils/slotLabel.ts`), Einheitentypen über `unitTypeLabel(lang, typ)` (`src/utils/unitTypeLabel.ts`), Engagement-Namen und Regelzeilen über `engName`/`engNotes` (`src/utils/engagementText.ts`), Typ/Ziel/Dauer von Psikräften über `powerMetaLine` (nutzt die Texttabelle), und Prüfmeldungen lokalisieren ihre `{slot}`/`{unit}`-Werte in `T()` in `src/engine/validators.ts`. Eine fest eingetippte englische Beschriftung in einer Komponente ist ein Fehler: lege stattdessen einen Schlüssel in `src/i18n` an (in allen fünf Sprachen).
 - **Überschriften von Optionsgruppen** (`g.header`, der Satz über jedem Optionsblock) werden Satz für Satz über `localiseAbility()` und `src/data/abilityTexts.<lang>.json` übersetzt, Schlüssel ist ein Hash des englischen Textes, genau wie bei einem Regeltext. Eine von den Blättern umformulierte Überschrift hat keine Übersetzung, bis sie ergänzt wird; `npx tsx scripts/_headers_test.ts` listet jede Überschrift des Spiels ohne Übersetzung auf, in allen vier Sprachen.
+
+### Optionsgruppen aus dem Sheet-Skript: was der Loader normalisiert (`src/data/loaders.ts`)
+
+Das Skript, das die Sheets in Einheitendateien umwandelt, schreibt jede Zeile "Every X may..." als einfache Gruppe, und die App kann ein Sheet nicht von innen reparieren. Deshalb werden einige Formen beim Laden der Fraktion normalisiert. Bearbeite die erzeugten Einheitendateien dafür nicht von Hand: ergänze oder ändere die Regel in `loaders.ts` und sag dem Sheet-Autor Bescheid, wenn der Fehler im Sheet liegt.
+
+- `normaliseEveryModelPick`: eine Gruppe mit der Überschrift "Every Mek Gun must select one weapon" ist eine Wahl für JEDES Modell. Beispiel: Ork Mek Gunz; von Größe 1 auf 2 blieb EINE Waffe; jetzt ist die Gruppe `per_model`, und Waffenanzahl und Preis folgen der Einheitengröße.
+- `linkSharedCapGroups`: die Sheet-Regel "Any number of models may do one of the following" steht als mehrere Gruppen im Skript-Ergebnis. Sie bekommen `shares_cap_with` (die Indizes der anderen), und `setOptionQty` in `src/store/army.ts` hält die Summe bei der Einheitengröße. Beispiel: Boyz, "Replace their Choppa and Slugga with a Shoota" und "Be additionally equipped with a Shoota" zusammen dürfen bei 10 Modellen nicht über 10 kommen.
+- `requires_choice`: ein Tausch gegen eine Waffe, die das Modell noch nicht hat (Boyz: "two Boyz equipped with a Shoota may swap it"), bleibt auf der Karte, ausgegraut und mit seinen Optionen samt Preisen, bis die nötige Wahl getroffen ist. Verstecke nie eine Regel, die das Sheet zeigt.
+
+### Eigenschaften, die ein Upgrade und kein Pauschalbonus sind (`OPT_IN_TRAITS`, `src/store/army.ts`)
+
+"Purity above All" (Apothecary) und "Sons of Mars" (Techmarine) bei den Space Marines sowie "Abhuman Auxiliaries" bei der Imperialen Armee sind ein Kästchen an jeder Einheit, die sie nutzt, und nur diese Einheiten zahlen. Um eine hinzuzufügen, trage ihren Namen in `OPT_IN_TRAITS` ein und, falls es eine Bedingung gibt, in `optInTraitApplies`. Beispiel: Sons of Mars wird nur für Infanterie angeboten, die kein Charakter ist und das Arsenal erreichen kann.
+
+### Waffenverbesserung, die ein Sergeant kauft (`championBoostSelIds`, `src/engine/resolver.ts`)
+
+Ein Arsenal-Gegenstand wie das Ork-"More Boom!" (+2 Stärke), den der Nob oder ein Sergeant kauft, ändert nur SEINE Kopie der Waffe: der Resolver gibt ihm eine Ein-Modell-Zeile unter seinem eigenen Namen und lässt die Zeile der Einheit in Ruhe. Wer ihn kauft, entscheidet, wer ihn kaufen kann: ein Preis nur in `p_char` oder eine Einheit, in der nur der Champion Arsenalzugang hat (Flash Gitz).
+
+### Bevor du eine Waffe oder einen Gegenstand schreibst: erst ins Arsenal schauen
+
+Schau zuerst in alle Arsenale des Buchs sowie in Space Marines und Chaos Space Marines, bevor du etwas neu anlegst. Beispiel: der Nemesis-Bolter für einen Scout-Trupp (Horus Heresy) gab es schon im allgemeinen Arsenal der HH-Bücher, ohne Preis; richtig war, dieses Profil zu nehmen und es mit dem Rechner (`src/data/pointsCalculator.ts`) zu bepreisen, nicht ein zweites zu schreiben. Bei Regeln genauso: "Marked for Death" und Melta-Bomben gab es schon.
+
+### Die Einheitendateien aktualisieren ("Run unit update")
+
+Der Knopf im Inquisitor-Panel startet die Action `update-units.yml`, die einen Pull Request öffnet und nie auf `main` pusht. Sie schreibt nur Einheiten neu; Arsenal, Army Customisation, Archetypen und psychische Kräfte folgen weiter von Hand dem Sheet. Erhöhe nach dem Merge die Fraktionsversion in `src/data/factionCatalog.ts` nur, wenn auch diese Teile übereinstimmen, und benenne `Codex/<Fraktion> X.ods` um (`node scripts/fetch_codex.cjs <Fraktion>` meldet es, wenn sich die Version ändert).
+
+### Anleitungen für die komplexen Fälle
+
+**1. "Die App zeigt etwas anderes als das Sheet"** (die Boyz-Meldung, November 2026)
+1. Prüfe, was der Spieler nutzt: das Versionsabzeichen in der Ecke (zum Beispiel `v1.88g`), dann ein erzwungenes Neuladen (Strg+Umschalt+R); der Service Worker kann einen alten Stand ausliefern.
+2. Vergleiche Sheet und Daten: `node scripts/fetch_codex.cjs <Fraktion>` zeigt, ob sich das Live-Sheet bewegt hat; lies die OPTIONS-Zeilen des Sheets gegen die `option_groups` der Einheit.
+3. Öffne die App, füge die Einheit hinzu und lies die Karte (im Browser-Panel `get_page_text`). Die Daten können stimmen und die Karte kann trotzdem eine Regel verstecken: achte auf `requires_choice`, `available_if`, `requires_trait`, `variant_link`.
+4. Entscheide, wo der Fehler liegt: im Sheet (sag es dem Autor, nie außen herum flicken), in einer Form, die das Skript schlecht schreibt (`loaders.ts`), in der Karte (`UnitCard.tsx`) oder in der Engine (`resolver.ts`, `points.ts`).
+
+**2. Eine Option, die von einer anderen Wahl abhängt** - welches Feld
+- Der Tausch braucht eine Waffe, die das Modell nur aus einer anderen Gruppe bekommt: `requires_choice` (Boyz: der Tausch gegen Big shoota braucht eine Shoota).
+- Diese Wahl senkt die Obergrenze einer anderen Gruppe: `reduced_when_selected` (Warbuggy: drei kleine Waffen, eine mit großer Waffe).
+- Zwei Gruppen sind eigentlich eine Sheet-Regel ("do one of the following"): `shares_cap_with` (Boyz: die zwei Shoota-Gruppen teilen sich die Einheitengröße).
+- Ein Modell des Trupps wird befördert: `variant_link` (Boyz: ein Boy wird zum Nob).
+Teste nach der Änderung die Einheit in der App und fahre jeden Zähler bis zur Grenze.
+
+**3. Etwas Neues bepreisen (Horus-Heresy-Sheets)**
+1. Schau zuerst in alle Arsenale (das des Buchs, Space Marines, Chaos Space Marines). Verwende, was es gibt, mit seinem Profil.
+2. Ist es neu, bepreise es mit dem Rechner (`rangedPoints`, `meleePoints`, `creaturePoints` in `src/data/pointsCalculator.ts`), mit BS oder WS des Modells, das es kauft.
+3. Ein Tausch kostet die neue Waffe minus die ersetzte Waffe. Beispiel: die Twin lascannon am Land Speeder ist im Rechner 138 wert, minus 18 für den ersetzten Heavy bolter, also +120.
+4. Eine Sonderregel kostet, was die Regeltabelle sagt. Beispiel: Outflank bei einem Fahrzeug ist 1 pro Rumpfpunkt, also +2 beim Land Speeder (2 Rumpfpunkte).
+5. Schreibe die Begründung in den Changelog-Eintrag, damit der Autor die Zahl prüfen kann.
+
+**4. Eine Änderung testen und pushen**
+1. `npm run build` muss durchlaufen. Starte bei sichtbaren Änderungen den Vorschau-Server, füge die Einheit hinzu und lies die Karte; verlass dich nie nur auf die Daten.
+2. Um nur einen Teil zu pushen, während andere Commits lokal bleiben, lege einen Worktree von `origin/main` an, wende nur diese Dateien an, pushe von dort und lass deinen Branch unverändert.
+3. Pushe nicht ohne das Ja des Besitzers, und erhöhe Banner-Schlüssel und Revisionsbuchstaben beim Push, nicht vorher.
 
 ### Gitfinda — Spieler gesucht (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
