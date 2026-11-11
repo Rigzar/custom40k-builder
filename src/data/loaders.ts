@@ -542,6 +542,22 @@ function normaliseEveryModelPick(data: FactionData): void {
 }
 
 /**
+ * "Any number of models may do one of the following": the sheet script splits the alternatives into one group each, so the
+ * counters ran independently and a unit of 10 could take 10 of each. The groups of one such rule share the unit size.
+ * Only the Boyz use it today; detected by the wording of the two headers so a sheet fix keeps working.
+ */
+function linkSharedCapGroups(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    const idx: number[] = [];
+    (unit.option_groups ?? []).forEach((g, i) => {
+      if (g.constraint?.type === 'every' && /^Any number of models may (replace their .+ with a|be additionally equipped with a) /i.test(g.header ?? '')) idx.push(i);
+    });
+    if (idx.length < 2) continue;
+    for (const i of idx) unit.option_groups[i].shares_cap_with = idx.filter(j => j !== i);
+  }
+}
+
+/**
  * Units whose datasheet gives the Armory to a whole MODEL TYPE of a mixed unit, not to the unit or to one champion
  * ("Sslyth have access to weapons and gear from the Armory"). The unit flags cannot say it, and the sheet script does
  * not write it, so the list lives here. Faction key -> unit name -> the model names that hold the access.
@@ -567,6 +583,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
      normaliseEveryModelPick(data);
+     linkSharedCapGroups(data);
      applyArmoryModelTypes(data, k);
      if (k === 'knight_households') applyKnightHouseholdRules(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.

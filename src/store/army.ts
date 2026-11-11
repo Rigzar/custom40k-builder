@@ -774,6 +774,13 @@ export const useArmyStore = create<ArmyStore>()(
           if (e.id !== id) return e;
           const oq = { ...e.optionQty };
           const group = { ...(oq[gi] ?? {}) };
+          // Alternatives of one rule ("do one of the following") share the unit size: clamp this change to what the others leave.
+          const shared = s.data ? resolveUnit(e, s.data)?.option_groups[gi]?.shares_cap_with : undefined;
+          if (shared?.length && qty > 0) {
+            const others = shared.reduce((n, og) => n + Object.entries(oq[og] ?? {}).reduce((m, [k, q]) => m + (k === '__inline' ? 0 : Number(q) || 0), 0), 0);
+            const mine = Object.entries(group).reduce((m, [k, q]) => m + (k === ci || k === '__inline' ? 0 : Number(q) || 0), 0);
+            qty = Math.max(0, Math.min(qty, e.size - others - mine));
+          }
           if (qty === 0) delete group[ci];
           else group[ci] = qty;
           oq[gi] = group;

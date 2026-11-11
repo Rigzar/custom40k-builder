@@ -349,6 +349,13 @@ export interface OptionGroup {
    * leave this UNSET. Choice-based "every-model" swaps don't need it (their qty already = size).
    */
   per_model?: boolean;
+  /**
+   * Indexes of the OTHER groups of the same unit that draw from the same models: "Any number of models may do ONE of the
+   * following" is a single rule on the sheet, and the script writes it as separate groups. Together they cannot go
+   * over the unit size (Orks Boyz: replace the Choppa and Slugga with a Shoota, OR be additionally equipped with one).
+   * Set by the loader; the store clamps the total when a quantity changes.
+   */
+  shares_cap_with?: number[];
 }
 
 export interface Unit {
