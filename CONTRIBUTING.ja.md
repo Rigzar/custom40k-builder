@@ -768,10 +768,6 @@ Space Marines の "Purity above All"(Apothecary)と "Sons of Mars"(Techmarine)�
 
 オークの "More Boom!"(強さ+2)のようなアーモリーのアイテムをノブや軍曹のために買った場合、変わるのは「その本人の」武器だけです。リゾルバが本人の名前で1体だけの行を作り、分隊の行には手を付けません。誰が買ったかは、誰が買えるかで決まります:`p_char` だけに価格がある場合、または指揮官だけがアーモリーにアクセスできるユニット(Flash Gitz)です。
 
-### 武器やアイテムを書く前に:まずアーモリーを見る
-
-何かを作る前に、その書のすべてのアーモリーと、Space Marines・Chaos Space Marines のアーモリーを見てください。例:スカウト分隊(Horus Heresy)用の Nemesis-Bolter は、HH の書の共通アーモリーに価格なしで既にありました。正しい対応は、そのプロファイルを使って計算機(`src/data/pointsCalculator.ts`)で価格を付けることで、2つ目を書くことではありません。ルールも同じで、"Marked for Death" と Melta bombs は既にありました。
-
 ### ユニットファイルを最新にする("Run unit update")
 
 Inquisitor パネルのボタンは Action `update-units.yml` を起動し、プルリクエストを開きます(`main` には直接プッシュしません)。書き換えるのはユニットだけで、アーモリー、Army Customisation、アーキタイプ、サイキックパワーは引き続きシートを見て手で合わせます。マージ後は、それらも一致したときだけ `src/data/factionCatalog.ts` の勢力バージョンを上げ、`Codex/<勢力> X.ods` の名前を変えてください(バージョンが変わると `node scripts/fetch_codex.cjs <勢力>` が知らせます)。
@@ -791,14 +787,7 @@ Inquisitor パネルのボタンは Action `update-units.yml` を起動し、プ
 - 分隊のモデルが昇格する:`variant_link`(Boyz:Boy の1体が Nob になる)。
 変更後は、アプリでユニットを動かし、すべてのカウンターを上限まで上げて確認します。
 
-**3. 新しいものの価格付け(Horus Heresy のシート)**
-1. まずすべてのアーモリー(その書、Space Marines、Chaos Space Marines)を見ます。既にあるものは、そのプロファイルのまま再利用します。
-2. 新規なら計算機(`src/data/pointsCalculator.ts` の `rangedPoints`、`meleePoints`、`creaturePoints`)で、それを買うモデルの BS または WS で価格を付けます。
-3. 交換の価格は、新しい武器から置き換える武器を引いたものです。例:Land Speeder の Twin lascannon は計算機で138、置き換える Heavy bolter の18を引いて +120 です。
-4. 特殊ルールの価格はルール表のとおりです。例:車両の Outflank は車体点1につき1なので、Land Speeder(車体点2)では +2 です。
-5. 作者が数字を確認できるよう、理由を変更履歴の項目に書きます。
-
-**4. 変更のテストとプッシュ**
+**3. 変更のテストとプッシュ**
 1. `npm run build` が通ること。見た目の変更では、プレビューサーバーを起動し、ユニットを追加してカードを読みます。データだけを信用しないでください。
 2. 他のコミットをローカルに残したまま一部だけプッシュするには、`origin/main` から worktree を作り、そのファイルだけを適用し、そこからプッシュして、自分のブランチはそのままにします。
 3. オーナーの了承なしにプッシュしません。バナーキーとリビジョン文字はプッシュ時に上げ、その前には上げません。

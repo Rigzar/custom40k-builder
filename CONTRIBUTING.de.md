@@ -1059,10 +1059,6 @@ Das Skript, das die Sheets in Einheitendateien umwandelt, schreibt jede Zeile "E
 
 Ein Arsenal-Gegenstand wie das Ork-"More Boom!" (+2 Stärke), den der Nob oder ein Sergeant kauft, ändert nur SEINE Kopie der Waffe: der Resolver gibt ihm eine Ein-Modell-Zeile unter seinem eigenen Namen und lässt die Zeile der Einheit in Ruhe. Wer ihn kauft, entscheidet, wer ihn kaufen kann: ein Preis nur in `p_char` oder eine Einheit, in der nur der Champion Arsenalzugang hat (Flash Gitz).
 
-### Bevor du eine Waffe oder einen Gegenstand schreibst: erst ins Arsenal schauen
-
-Schau zuerst in alle Arsenale des Buchs sowie in Space Marines und Chaos Space Marines, bevor du etwas neu anlegst. Beispiel: der Nemesis-Bolter für einen Scout-Trupp (Horus Heresy) gab es schon im allgemeinen Arsenal der HH-Bücher, ohne Preis; richtig war, dieses Profil zu nehmen und es mit dem Rechner (`src/data/pointsCalculator.ts`) zu bepreisen, nicht ein zweites zu schreiben. Bei Regeln genauso: "Marked for Death" und Melta-Bomben gab es schon.
-
 ### Die Einheitendateien aktualisieren ("Run unit update")
 
 Der Knopf im Inquisitor-Panel startet die Action `update-units.yml`, die einen Pull Request öffnet und nie auf `main` pusht. Sie schreibt nur Einheiten neu; Arsenal, Army Customisation, Archetypen und psychische Kräfte folgen weiter von Hand dem Sheet. Erhöhe nach dem Merge die Fraktionsversion in `src/data/factionCatalog.ts` nur, wenn auch diese Teile übereinstimmen, und benenne `Codex/<Fraktion> X.ods` um (`node scripts/fetch_codex.cjs <Fraktion>` meldet es, wenn sich die Version ändert).
@@ -1082,14 +1078,7 @@ Der Knopf im Inquisitor-Panel startet die Action `update-units.yml`, die einen P
 - Ein Modell des Trupps wird befördert: `variant_link` (Boyz: ein Boy wird zum Nob).
 Teste nach der Änderung die Einheit in der App und fahre jeden Zähler bis zur Grenze.
 
-**3. Etwas Neues bepreisen (Horus-Heresy-Sheets)**
-1. Schau zuerst in alle Arsenale (das des Buchs, Space Marines, Chaos Space Marines). Verwende, was es gibt, mit seinem Profil.
-2. Ist es neu, bepreise es mit dem Rechner (`rangedPoints`, `meleePoints`, `creaturePoints` in `src/data/pointsCalculator.ts`), mit BS oder WS des Modells, das es kauft.
-3. Ein Tausch kostet die neue Waffe minus die ersetzte Waffe. Beispiel: die Twin lascannon am Land Speeder ist im Rechner 138 wert, minus 18 für den ersetzten Heavy bolter, also +120.
-4. Eine Sonderregel kostet, was die Regeltabelle sagt. Beispiel: Outflank bei einem Fahrzeug ist 1 pro Rumpfpunkt, also +2 beim Land Speeder (2 Rumpfpunkte).
-5. Schreibe die Begründung in den Changelog-Eintrag, damit der Autor die Zahl prüfen kann.
-
-**4. Eine Änderung testen und pushen**
+**3. Eine Änderung testen und pushen**
 1. `npm run build` muss durchlaufen. Starte bei sichtbaren Änderungen den Vorschau-Server, füge die Einheit hinzu und lies die Karte; verlass dich nie nur auf die Daten.
 2. Um nur einen Teil zu pushen, während andere Commits lokal bleiben, lege einen Worktree von `origin/main` an, wende nur diese Dateien an, pushe von dort und lass deinen Branch unverändert.
 3. Pushe nicht ohne das Ja des Besitzers, und erhöhe Banner-Schlüssel und Revisionsbuchstaben beim Push, nicht vorher.

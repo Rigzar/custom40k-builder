@@ -1047,10 +1047,6 @@ El script que convierte las hojas en ficheros de unidades escribe cada línea "E
 
 Un objeto de Armería como el "More Boom!" de Orks (+2 de Fuerza) comprado para el Nob o un Sargento cambia solo SU copia del arma: el resolver le da una fila de una miniatura con su propio nombre y deja en paz la fila de la escuadra. Quién lo compró lo decide quién puede: un precio solo en `p_char`, o una unidad donde solo el campeón tiene acceso a la Armería (Flash Gitz).
 
-### Antes de escribir un arma o un objeto: mira primero la Armería
-
-Mira todas las Armerías del libro, y las de Space Marines y Chaos Space Marines, antes de crear nada. Ejemplo: el Nemesis-Bolter para una escuadra de Scouts (Horus Heresy) ya existía en la Armería general de los libros de HH, sin precio; lo correcto fue usar ese perfil y ponerle precio con la calculadora (`src/data/pointsCalculator.ts`), no escribir un segundo. Con las reglas igual: "Marked for Death" y las Melta bombs ya existían.
-
 ### Poner al día los ficheros de unidades ("Run unit update")
 
 El botón del panel de Inquisitor lanza la Action `update-units.yml`, que abre un pull request y nunca sube a `main`. Solo reescribe unidades; la Armería, Army Customisation, los arquetipos y los poderes psíquicos se siguen a mano desde la hoja. Tras mergear, sube la versión de la facción en `src/data/factionCatalog.ts` solo cuando esas partes también coincidan, y renombra `Codex/<Facción> X.ods` (`node scripts/fetch_codex.cjs <facción>` avisa cuando cambia la versión).
@@ -1070,14 +1066,7 @@ El botón del panel de Inquisitor lanza la Action `update-units.yml`, que abre u
 - Un modelo de la escuadra se promociona: `variant_link` (Boyz: un Boy pasa a Nob).
 Tras el cambio, prueba la unidad en la app y lleva cada contador a su límite.
 
-**3. Poner precio a algo nuevo (hojas de Horus Heresy)**
-1. Mira primero todas las Armerías (la del libro, Space Marines, Chaos Space Marines). Reutiliza lo que existe, con su perfil.
-2. Si es nuevo, ponle precio con la calculadora (`rangedPoints`, `meleePoints`, `creaturePoints` en `src/data/pointsCalculator.ts`), al BS o WS del modelo que lo compra.
-3. Un intercambio cuesta el arma nueva menos el arma que sustituye. Ejemplo: la Twin lascannon de un Land Speeder vale 138 en la calculadora, menos 18 de la Heavy bolter que sustituye: +120.
-4. Una regla especial cuesta lo que dice la tabla de reglas. Ejemplo: Outflank en un vehículo es 1 por punto de casco, así que +2 en un Land Speeder (2 puntos de casco).
-5. Escribe el razonamiento en la entrada del changelog, para que el autor pueda comprobar el número.
-
-**4. Probar y subir un cambio**
+**3. Probar y subir un cambio**
 1. `npm run build` debe pasar. Para un cambio visible, arranca el servidor de vista previa, añade la unidad y lee la tarjeta; nunca te fíes solo de los datos.
 2. Para subir solo una parte mientras otros commits siguen en local, crea un worktree desde `origin/main`, aplica solo esos ficheros, sube desde ahí y deja tu rama como está.
 3. No subas sin el visto bueno del dueño, y sube la clave del banner y la letra de revisión al subir, no antes.

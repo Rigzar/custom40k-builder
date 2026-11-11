@@ -885,10 +885,6 @@ Space Marines "Purity above All" (Apothecary) and "Sons of Mars" (Techmarine), a
 
 An Armory item such as the Ork "More Boom!" (+2 Strength) bought for the Nob or a Sergeant changes only HIS copy of the weapon: the resolver gives him a one-model row under his own name and leaves the squad's row alone. Who bought it is decided by who can: a price in `p_char` only, or a unit where only the champion has Armory access (Flash Gitz).
 
-### Before you write a weapon or an item: look in the Armory first
-
-Look in every Armory of the book, and in Space Marines and Chaos Space Marines, before creating anything. Example: the Nemesis-Bolter for a Scout squad (Horus Heresy) already existed in the general Armory of the HH books, with no price; the right move was to use that profile and price it with the calculator (`src/data/pointsCalculator.ts`), not to write a second one. The same goes for rules: "Marked for Death" and Melta bombs already existed.
-
 ### Bringing the unit files up to date ("Run unit update")
 
 The Inquisitor panel button starts the Action `update-units.yml`, which opens a pull request and never pushes to `main`. It only rewrites units; the Armory, Army Customisation, archetypes and psychic powers still follow the sheet by hand. After merging, raise the faction version in `src/data/factionCatalog.ts` only when those parts match too, and rename `Codex/<Faction> X.ods` (`node scripts/fetch_codex.cjs <faction>` tells you when the version moved).
@@ -908,14 +904,7 @@ The Inquisitor panel button starts the Action `update-units.yml`, which opens a 
 - A model of the squad is promoted: `variant_link` (Boyz: one Boy becomes a Nob).
 After the change, run the unit in the app and move every counter to its limit.
 
-**3. Pricing something new (Horus Heresy sheets)**
-1. Look in every Armory first (the book's, Space Marines, Chaos Space Marines). Reuse what exists, with its profile.
-2. If it is new, price it with the calculator (`rangedPoints`, `meleePoints`, `creaturePoints` in `src/data/pointsCalculator.ts`), at the BS or WS of the model that buys it.
-3. A swap costs the new weapon minus the weapon it replaces. Example: the Twin lascannon on a Land Speeder is 138 in the calculator, minus 18 for the Heavy bolter it replaces, so +120.
-4. A special rule costs what the rule table says. Example: Outflank on a vehicle is 1 per Hull point, so +2 on a Land Speeder (2 Hull points).
-5. Write the reasoning in the changelog entry, so the author can check the number.
-
-**4. Testing and pushing a change**
+**3. Testing and pushing a change**
 1. `npm run build` must pass. For a visible change, start the preview server, add the unit and read the card; never trust the data alone.
 2. To push only some work while other commits stay local, make a worktree from `origin/main`, apply just those files, push from there, and keep your own branch as it is.
 3. Do not push without the owner's yes, and raise the banner key and the revision letter at the push, not before.
