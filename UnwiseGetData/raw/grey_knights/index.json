@@ -1,0 +1,52 @@
+[
+    [
+        "Grey Knights"
+    ],
+    [
+        "HQ",
+        "Brotherhood Champion",
+        "Captain",
+        "Captain in Nemesis Armor",
+        "Chaplain",
+        "Librarian",
+        "Special rules"
+    ],
+    [
+        "Troops",
+        "Strike Squad",
+        "Terminator Squad"
+    ],
+    [
+        "Elite",
+        "Ancient",
+        "Apothecary",
+        "Dreadnought",
+        "Ghost Terminator Squad",
+        "Paladin Squad",
+        "Purifier Squad"
+    ],
+    [
+        "Fast Attack",
+        "Interceptor Squad"
+    ],
+    [
+        "Heavy Support",
+        "Land Raider",
+        "Land Raider Crusader",
+        "Land Raider Redeemer",
+        "Nemesis Dreadknight",
+        "Purgator Squad"
+    ],
+    [
+        "Transports",
+        "Razorback",
+        "Rhino"
+    ],
+    [
+        "Fortifications"
+    ],
+    [
+        "Flyers",
+        "Stormraven Gunship"
+    ]
+]

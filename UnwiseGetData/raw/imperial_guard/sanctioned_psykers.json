@@ -1,0 +1,86 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-10",
+        "Sanctioned Psyker",
+        "6\"",
+        "5+",
+        "4+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        6,
+        "6+",
+        9
+    ],
+    [
+        "Every model is equipped with: Sanctioned psi stave; Las pistol."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Sanctioned psi stave",
+        "-",
+        "Melee",
+        "+1",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "It's for your own good: Instead of suffering a Perils of the Warp attack, one model is immediately slain if a Commissar is within 6\".        "
+    ],
+    [
+        "Psionic Choir: For every 3 models, the unit can manifest and banish +1 psychic power per round. As long as it consists of at least 3 models, it receives +1 on rolls to manifest psychic powers.        "
+    ],
+    [
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline per Sanctioned Psyker model."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

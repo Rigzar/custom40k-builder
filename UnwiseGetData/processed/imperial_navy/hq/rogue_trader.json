@@ -1,0 +1,76 @@
+{
+    "name": "Rogue Trader",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "2",
+                "LD": "8",
+                "SV": "4+"
+            },
+            "name": "Rogue Trader",
+            "min": 1,
+            "max": 1,
+            "points": 36
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "3",
+                "T": "3",
+                "W": "3",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "4+"
+            },
+            "name": "Rogue Trader Majoris",
+            "min": 0,
+            "max": 1,
+            "points": 51
+        }
+    ],
+    "min_cost": 36,
+    "default_size": 1,
+    "equipped_with": "A Rogue Trader is equipped with: Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Command squad",
+        "Exotic Collection: At the start of each activation, the Rogue Trader may choose an enhancement for themselves and an attached unit:\n1. Archaeotech Weapons: Ranged weapons gain +1 Strength.\n2. Personal Shield Generators: Models gain the \"Warded\" ability.\n3. Forbidden Stimulants: Models gain +1 Initiative.\nThe effect lasts until the Rogue Trader's next activation.",
+        "Rogue Trader Majoris: You may choose a second upgrade from the Exotic Collection each round."
+    ],
+    "unit_type": "Character, Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Crew"
+    ]
+}

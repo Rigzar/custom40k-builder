@@ -1,0 +1,144 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Equis-Pattern Bolt Pistol\u1d33",
+        "12\"",
+        "Pistol 5",
+        4,
+        -1,
+        1,
+        "-",
+        10,
+        13
+    ],
+    [
+        "Glaive of Vengeance",
+        "Unique",
+        "-",
+        13
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "x2",
+        -4,
+        2,
+        "AT(2), Charge, Quick(+2)"
+    ],
+    [
+        "- Melee",
+        "-",
+        "Melee",
+        "+2",
+        -4,
+        1,
+        "AT(2), Unwieldy"
+    ],
+    [
+        "Scimitar of the Great Khan\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+1",
+        "-3",
+        2,
+        "Deadly(5+). Unique",
+        "-",
+        12
+    ],
+    [
+        "Stormwrath Bolts\u1d33 \u1d40",
+        "As base weapon",
+        "Assault 1",
+        7,
+        -2,
+        2,
+        "AT(1)",
+        "-",
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Banner of the Eagle\u1d33 \u1d40",
+        "This model and its attached unit gain +1 Strength. Ancients only. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Cyber-Eagle Helm\u1d33 \u1d40",
+        "This model and its attached unit does not suffer the To Hit penalty for Defensive Fire.",
+        5,
+        5
+    ],
+    [
+        "Hunter's Eye\u1d33 \u1d40",
+        "All ranged attacks by this model and its attached unit have the Seeking ability. Unique",
+        "-",
+        15
+    ],
+    [
+        "Mantle of the Stormseer\u1d33 \u1d40",
+        "This model gains +1 to manifest and deny psychic powers. Unique.",
+        "-",
+        5
+    ],
+    [
+        "Plume of the Plainsrunner",
+        "This model and its attached unit gain the cumulative Frenzy(1\") and Haste(1\") abilities. Unique.",
+        "-",
+        10
+    ],
+    [
+        "Stormwrath Bolts\u1d33 \u1d40",
+        "When firing a bolt weapon, this model may choose to fire a Stormwrath bolt instead of attacking normally. Use their bolt weapon's range and the profile above.",
+        9,
+        11
+    ],
+    [
+        "Wrath of the Heavens",
+        "This model gains the \"Jetbike\" type. Bike only. Unique",
+        "-",
+        5
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "-",
+        "-",
+        "-"
+    ]
+]

@@ -1,0 +1,59 @@
+[
+    [
+        "When creating your army list, choose your most expensive HQ model. Its Mark of Chaos determines which marks and/or units may be used. A model with a Mark of Chaos may only join units with the same mark, undivided or none at all."
+    ],
+    [
+        "Mark of the unit"
+    ],
+    [
+        "Undivided / Without",
+        "Khorne",
+        "Slaanesh",
+        "Nurgle",
+        "Tzeentch"
+    ],
+    [
+        "Mark of the HQ model",
+        "Undivided / Without",
+        "Yes",
+        "Yes",
+        "Yes",
+        "Yes",
+        "Yes"
+    ],
+    [
+        "Khorne",
+        "Yes",
+        "Yes",
+        "No",
+        "Yes",
+        "Yes"
+    ],
+    [
+        "Slaanesh",
+        "Yes",
+        "No",
+        "Yes",
+        "Yes",
+        "Yes"
+    ],
+    [
+        "Nurgle",
+        "Yes",
+        "Yes",
+        "Yes",
+        "Yes",
+        "No"
+    ],
+    [
+        "Tzeentch",
+        "Yes",
+        "Yes",
+        "Yes",
+        "No",
+        "Yes"
+    ],
+    [
+        "Example: A Daemon Prince is your most expensive HQ model. The Daemon Prince is equipped with the Mark of Khorne. You can neither use any units or models with the Mark of Slaanesh (i.e. Daemonettes) nor the Mark itself. Not even as allies!"
+    ]
+]

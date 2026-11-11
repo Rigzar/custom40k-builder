@@ -1,0 +1,101 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Land Raider",
+        "12\"",
+        "6+",
+        "3+",
+        7,
+        14,
+        14,
+        14,
+        4,
+        1,
+        4,
+        378
+    ],
+    [
+        "A Land Raider is a single model and equipped with: 2 Quad heavy bolters."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Quad heavy bolter",
+        "36\"",
+        "Rapid Fire 8",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May be equipped with a Multi-melta for +11 points."
+    ],
+    [
+        "\u2022 May be equipped with a Storm bolter for +11 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit."
+    ],
+    [
+        "Improved Comms: You may re-roll one Reserve roll per turn."
+    ],
+    [
+        "Transport: This model has a transport capacity of 10 infantry models."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

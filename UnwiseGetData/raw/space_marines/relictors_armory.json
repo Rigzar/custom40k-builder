@@ -1,0 +1,85 @@
+[
+    [
+        "Unless stated otherwise, every item may only be purchased once by each model. Any model with access to the Armory may buy as many items as it wants. Items with a cost of \"-\" may not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Artekus' Scourge\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Extra Attack(2), Poison(4+), Soul Burn(5+). Unique.",
+        11,
+        12
+    ],
+    [
+        "Sword of St. Aquitaine\u1d33 \u1d40",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Force Weapon. Unique. The model and its attached unit can't be targeted by anything outside of 18\".",
+        "-",
+        20
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Book of Pain\u1d33 \u1d40",
+        "Select one enemy unit during your activation. The target must pass a Leadership test or gain one Battleshock token. Unique.",
+        5,
+        5
+    ],
+    [
+        "Grimoire Pandaemonica\u1d33 \u1d40",
+        "Once per battle round, you may re-roll both scatter dice from ANY player. Unique.",
+        5,
+        5
+    ],
+    [
+        "Shard of the Monolith\u1d33 \u1d40",
+        "The model gains +1 Strength and +1 Initiative. It may never use a \"Stand & Shoot\" order voluntarily and must always move closer to the nearest enemy unit, if possible.",
+        5,
+        5
+    ],
+    [
+        "Models wearing Gravis armor may only receive equipment with \u1d33."
+    ],
+    [
+        "Models wearing Cataphracti or Terminator armor may only receive equipment with \u1d40."
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "-",
+        "-",
+        "-"
+    ]
+]

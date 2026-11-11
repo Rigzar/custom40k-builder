@@ -1,0 +1,93 @@
+{
+    "name": "Armiger",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "6",
+                "FRONT": "12",
+                "SIDE": "11",
+                "REAR": "10",
+                "I": "4",
+                "A": "3",
+                "HP": "3"
+            },
+            "name": "Armiger",
+            "min": 1,
+            "max": 4,
+            "points": 192
+        }
+    ],
+    "variant_models": [],
+    "min_cost": 192,
+    "default_size": 1,
+    "equipped_with": "An Armiger is equipped with: 2 Reaper chain-cleavers; Heavy stubber.",
+    "weapons": [
+        {
+            "name": "Armiger autocannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Piercing(5+)"
+        },
+        {
+            "name": "Heavy stubber",
+            "range": "36\"",
+            "type": "Heavy 3",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Reaper chain-cleaver - Strike",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "Reaper chain-cleaver - Sweep",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Blast(2)"
+        },
+        {
+            "name": "Thermal spear",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "3",
+            "abilities": "Armorbane(3), AT(4)"
+        }
+    ],
+    "abilities": [
+        "Squadron, Ward(5+)",
+        "Furioso: If the model has two melee weapons, it gains +2 attacks.",
+        "Ion shield: The model's ward save functions only against ranged attacks."
+    ],
+    "unit_type": "Vehicle, Walker",
+    "is_monster": false,
+    "keywords": [
+        "Armiger, Noble"
+    ]
+}

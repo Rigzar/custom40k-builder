@@ -1,0 +1,96 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Tomb Stalker",
+        "12\"",
+        "4+",
+        "4+",
+        6,
+        7,
+        5,
+        4,
+        4,
+        10,
+        "3+",
+        156
+    ],
+    [
+        "Every model is equipped with: 2 Gauss flayers; Monstrous automaton claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Gauss flayer",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Gauss"
+    ],
+    [
+        "Monstrous automaton claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        2,
+        "Extra Attacks(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any number of models can each be equipped with:"
+    ],
+    [
+        "- Dark Prison",
+        "+5 points"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acute Senses, Deep Strike, Move Through Cover, Squadron"
+    ],
+    [
+        "Dark prison: The model can try to dispel 1 psychic power per battle round."
+    ],
+    [
+        "Phase tunneling: The model does not scatter when being set up via Deep Strike."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Creature"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Canoptek"
+    ]
+]

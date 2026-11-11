@@ -1,0 +1,45 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Connoisseur of Pain",
+        "Each \"Power through Pain\" token that is assigned to the model or its attached unit may select a second ability assigned to it.",
+        10
+    ],
+    [
+        "Scarlet Epicurean",
+        "All to wound rolls against the model suffer a -1 penalty. Unique.",
+        10
+    ],
+    [
+        "Spirit-Sting",
+        "One weapon of the model gains the \"Soul burn(5+)\" ability. Unique.",
+        10
+    ]
+]

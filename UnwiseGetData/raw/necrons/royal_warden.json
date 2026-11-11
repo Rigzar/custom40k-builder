@@ -1,0 +1,95 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Royal Warden",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        3,
+        3,
+        2,
+        10,
+        "3+",
+        86
+    ],
+    [
+        "A Royal Warden is equipped with: Relic tesla carbine."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Relic gauss blaster",
+        "30\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "Gauss"
+    ],
+    [
+        "Relic tesla carbine",
+        "24\"",
+        "Assault 2",
+        5,
+        0,
+        1,
+        "Tesla"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap its Relic tesla carbine with a Relic gauss blaster for +8 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory like a Lord."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command squad, Regeneration(1)"
+    ],
+    [
+        "Royal Court: If an Overlord is present, up to four Royal Wardens can be chosen that do not occupy an HQ slot. If a Lord is present, up to two Royal Wardens can be chosen that do not occupy an HQ slot."
+    ],
+    [
+        "Relentless March: The model and its attached unit may shoot \u201cRapid fire\u201d weapons at full range with a \"Move & Shoot\" order and ignores the to hit penalty for \"Advance\" orders with \"Assault\" weapons."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Necron"
+    ]
+]

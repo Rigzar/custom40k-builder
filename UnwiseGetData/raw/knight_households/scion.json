@@ -1,0 +1,101 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Scion",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        2,
+        7,
+        "5+",
+        25
+    ],
+    [
+        "*",
+        "Baron",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        8,
+        "5+",
+        40
+    ],
+    [
+        "A Scion is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Scion per army can be upgraded to a Baron for +15 points."
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Baron: A Baron may select an additional target."
+    ],
+    [
+        "Oath of Moment: At the beginning of the first battle round, select one enemy unit. For the rest of the battle, all friendly <Feudal Levy> and <Noble> units may re-roll one Hit roll and one Wound or Armor Penetration roll per activation when attacking the selected unit."
+    ],
+    [
+        "Pilot: Each <Knight> unit selected in this AOP must be assigned one Scion/Baron from the same AOP. Each Scion/Baron may only be assigned to one <Knight> unit. An assigned Scion/Baron must start the battle embarked within its <Knight>, even though the vehicle has no Transport Capacity, and cannot disembark unless the <Knight> is destroyed. When this happens, the Scion/Baron disembarks following the normal rules for passengers in a destroyed Transport. If there is no <Knight> without an assigned <Scion> left, a Scion/Baron may start the game inside an <Armiger> instead."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Noble, Scion"
+    ]
+]

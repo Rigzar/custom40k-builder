@@ -1,0 +1,120 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Palatine Warrior",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "2+",
+        45
+    ],
+    [
+        1,
+        "Palatine Prefector",
+        "6\"",
+        "2+",
+        "2+",
+        4,
+        4,
+        2,
+        4,
+        2,
+        8,
+        "2+",
+        45
+    ],
+    [
+        "Every model is equipped with: Bolt pistol; Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point."
+    ],
+    [
+        "\u2022 If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Slaanesh",
+        "+2 points"
+    ],
+    [
+        "\u2022 Every model got access to melee weapons from the Armory. May not select weapons with the \"Slow\" or \"Unwieldy\" rule."
+    ],
+    [
+        "\u2022 The Palantine Prefector has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Skill Unmatched: The unit may re-roll 1 to hit and 1 to wound roll each activation per model."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]
