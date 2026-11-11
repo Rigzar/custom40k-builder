@@ -43,7 +43,7 @@ const SHEETS = {
   knight_households:  ['1zG4HN7FmFw8QEswqWHF0I883zurtlGSnH0A1UOE_t7c', 'Knight Households 1.0.ods'],
   leagues_of_votann:  ['1lZ6MxdCM710N-d4ba9RUSdhmeN8iJjzM5hlpVf73iPY', 'Leagues of Votann 1.5.ods'],
   necrons:            ['1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA', 'Necrons 1.9.ods'],
-  orks:               ['1gt2q98cnPczVyaujVWX56r2F_GJXBFp8IW9VpAWZ6qI', 'Orks 1.6.ods'],
+  orks:               ['1gt2q98cnPczVyaujVWX56r2F_GJXBFp8IW9VpAWZ6qI', 'Orks1.8.ods'],
   space_marines:      ['16Ri3G9Jx1NAzguMbTKtxsL8uaOq6hik3h7NVuU85mZA', 'Space Marines 1.12.ods'],
   tau_empire:         ['1S1Uub6VvvlBuxlqh61S5DhZYIKtdRHvkRs1CsIRgu8s', 'Tau Empire 1.10.ods'],
   // The Core Rules doc links two Tyranid workbooks. The live one has 46 tabs and a normal Index;

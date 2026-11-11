@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188h_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -67,6 +67,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Allied detachments", "Elite, Fast Attack and Heavy Support together can't exceed the Troops taken, and no more than one of each."],
       ] },
       { label: "Discord", rows: [
+        ["Orks 1.8", "Armory updated: Grot Mega armor, Sneakiest Git, and the Waaagh!-Trike weapons."],
         ["Boyz", "Shoota replacement and extra Shoota share the unit size, as on the sheet."],
         ["Ork Mek Gunz", "Changing the unit size now changes the number of guns."],
         ["Gue'vesa", "The Pulse rifle swap also works in an allied Imperial Guard detachment."],
@@ -108,6 +109,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Verbündete", "Elite, Fast Attack und Heavy Support zusammen dürfen die Zahl der Troops nicht überschreiten, jeweils höchstens eine."],
       ] },
       { label: "Discord", rows: [
+        ["Orks 1.8", "Armory aktualisiert: Grot-Megarüstung, Sneakiest Git und die Waaagh!-Trike-Waffen."],
         ["Boyz", "Ersatz-Shoota und zusätzliche Shoota teilen sich die Einheitengröße, wie im Datenblatt."],
         ["Ork Mek Gunz", "Eine andere Einheitengröße ändert jetzt die Anzahl der Geschütze."],
         ["Gue'vesa", "Der Pulse-rifle-Tausch gilt auch in einem verbündeten Imperial-Guard-Kontingent."],
@@ -149,6 +151,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Aliados", "Elite, Fast Attack y Heavy Support juntos no pueden superar las Troops tomadas, y no más de una de cada."],
       ] },
       { label: "Discord", rows: [
+        ["Orks 1.8", "Armería actualizada: Grot Mega armor, Sneakiest Git y las armas del Waaagh!-Trike."],
         ["Boyz", "El cambio por Shoota y la Shoota adicional comparten el tamaño de la unidad, como en la hoja."],
         ["Ork Mek Gunz", "Cambiar el tamaño de la unidad ahora cambia el número de cañones."],
         ["Gue'vesa", "El cambio a Pulse rifle también funciona en un destacamento aliado de la Guardia Imperial."],
@@ -190,6 +193,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Союзники", "Elite, Fast Attack и Heavy Support вместе не могут превышать число Troops, и не больше одного каждого."],
       ] },
       { label: "Discord", rows: [
+        ["Orks 1.8", "Арсенал обновлён: Grot Mega armor, Sneakiest Git и оружие Waaagh!-Trike."],
         ["Boyz", "Замена на Shoota и дополнительная Shoota делят размер отряда, как в таблице."],
         ["Ork Mek Gunz", "Изменение размера отряда теперь меняет число орудий."],
         ["Gue'vesa", "Замена на Pulse rifle работает и в союзном отряде Imperial Guard."],
@@ -231,6 +235,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["同盟軍", "Elite、Fast Attack、Heavy Supportの合計は選んだTroopsの数まで、各1つまで。"],
       ] },
       { label: "Discord", rows: [
+        ["Orks 1.8", "アーモリーを更新:Grot Mega armor、Sneakiest Git、Waaagh!-Trikeの武器。"],
         ["Boyz", "Shootaへの交換と追加のShootaはユニットのサイズを共有します(シートどおり)。"],
         ["Ork Mek Gunz", "ユニットのサイズを変えると砲の数も変わるようになりました。"],
         ["Gue'vesa", "Pulse rifleへの交換が同盟のImperial Guard部隊でも使えます。"],
