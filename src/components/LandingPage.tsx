@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v188f_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -67,6 +67,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Allied detachments", "Elite, Fast Attack and Heavy Support together can't exceed the Troops taken, and no more than one of each."],
       ] },
       { label: "Discord", rows: [
+        ["Ork Mek Gunz", "Changing the unit size now changes the number of guns."],
+        ["Gue'vesa", "The Pulse rifle swap also works in an allied Imperial Guard detachment."],
+        ["Sons of Mars", "The Techmarine is a tick-box on each unit, and only those units pay for it."],
+        ["Flash Gitz", "A weapon boost bought for the Nob or a Sergeant changes only his own weapon."],
+        ["Boyz", "The swap for Big shoota, Burna and Rokkit launcha is listed from the start."],
         ["Imperial Guard", "A Sergeant no longer inherits squad weapons; buying him gear keeps his default weapon."],
         ["Jakhals", "Swapping a weapon in one option group no longer removes another group's weapons."],
         ["Votann", "The Hernkyn Theyn shows the Armory weapons he bought."],
@@ -102,6 +107,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Verbündete", "Elite, Fast Attack und Heavy Support zusammen dürfen die Zahl der Troops nicht überschreiten, jeweils höchstens eine."],
       ] },
       { label: "Discord", rows: [
+        ["Ork Mek Gunz", "Eine andere Einheitengröße ändert jetzt die Anzahl der Geschütze."],
+        ["Gue'vesa", "Der Pulse-rifle-Tausch gilt auch in einem verbündeten Imperial-Guard-Kontingent."],
+        ["Sons of Mars", "Der Techmarine ist ein Kästchen pro Einheit, nur diese Einheiten zahlen dafür."],
+        ["Flash Gitz", "Eine Waffenverbesserung für den Nob oder einen Sergeant ändert nur seine eigene Waffe."],
+        ["Boyz", "Der Tausch gegen Big shoota, Burna und Rokkit launcha wird von Anfang an angezeigt."],
         ["Imperial Guard", "Ein Sergeant erbt keine Trupp-Waffen mehr; Ausrüstung für ihn behält seine Standardwaffe."],
         ["Jakhals", "Ein Waffentausch in einer Optionsgruppe entfernt keine Waffen anderer Gruppen mehr."],
         ["Votann", "Der Hernkyn Theyn zeigt die gekauften Armory-Waffen."],
@@ -137,6 +147,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Aliados", "Elite, Fast Attack y Heavy Support juntos no pueden superar las Troops tomadas, y no más de una de cada."],
       ] },
       { label: "Discord", rows: [
+        ["Ork Mek Gunz", "Cambiar el tamaño de la unidad ahora cambia el número de cañones."],
+        ["Gue'vesa", "El cambio a Pulse rifle también funciona en un destacamento aliado de la Guardia Imperial."],
+        ["Sons of Mars", "El Techmarine es una casilla en cada unidad, y solo esas unidades pagan por él."],
+        ["Flash Gitz", "Una mejora de arma comprada para el Nob o un Sargento cambia solo su propia arma."],
+        ["Boyz", "El cambio por Big shoota, Burna y Rokkit launcha se muestra desde el principio."],
         ["Imperial Guard", "Un Sargento ya no hereda las armas de la escuadra; comprarle equipo conserva su arma por defecto."],
         ["Jakhals", "Cambiar un arma en un grupo de opciones ya no quita las armas de otro grupo."],
         ["Votann", "El Hernkyn Theyn muestra las armas de Armería que compró."],
@@ -172,6 +187,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Союзники", "Elite, Fast Attack и Heavy Support вместе не могут превышать число Troops, и не больше одного каждого."],
       ] },
       { label: "Discord", rows: [
+        ["Ork Mek Gunz", "Изменение размера отряда теперь меняет число орудий."],
+        ["Gue'vesa", "Замена на Pulse rifle работает и в союзном отряде Imperial Guard."],
+        ["Sons of Mars", "Техмарин — это флажок на каждом отряде, и платят за него только эти отряды."],
+        ["Flash Gitz", "Улучшение оружия, купленное для ноба или сержанта, меняет только его собственное оружие."],
+        ["Boyz", "Замена на Big shoota, Burna и Rokkit launcha видна с самого начала."],
         ["Imperial Guard", "Сержант больше не наследует оружие отряда; покупка снаряжения сохраняет его оружие по умолчанию."],
         ["Jakhals", "Замена оружия в одной группе опций больше не убирает оружие другой группы."],
         ["Votann", "Hernkyn Theyn показывает купленное оружие из Арсенала."],
@@ -207,6 +227,11 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["同盟軍", "Elite、Fast Attack、Heavy Supportの合計は選んだTroopsの数まで、各1つまで。"],
       ] },
       { label: "Discord", rows: [
+        ["Ork Mek Gunz", "ユニットのサイズを変えると砲の数も変わるようになりました。"],
+        ["Gue'vesa", "Pulse rifleへの交換が同盟のImperial Guard部隊でも使えます。"],
+        ["Sons of Mars", "テックマリーンは各ユニットのチェックボックスになり、使うユニットだけが支払います。"],
+        ["Flash Gitz", "ノブや軍曹のために買った武器強化は、その本人の武器だけを変えます。"],
+        ["Boyz", "Big shoota、Burna、Rokkit launchaへの交換が最初から表示されます。"],
         ["Imperial Guard", "軍曹が分隊の武器を引き継がなくなり、装備を買っても標準武器が残ります。"],
         ["Jakhals", "ある選択肢グループで武器を交換しても、他グループの武器が消えません。"],
         ["Votann", "Hernkyn Theynが購入したアーモリー武器を表示します。"],

@@ -69,8 +69,8 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
 /** Traits that are an UPGRADE rather than a blanket bonus: "One non-character model per squad ... may be upgraded to an Apothecary"
- *  (Space Marines, Purity above All). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
-export const OPT_IN_TRAITS = new Set(['Purity above All', 'Abhuman Auxiliaries']);
+ *  (Space Marines, Purity above All and Sons of Mars - the Techmarine). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
+export const OPT_IN_TRAITS = new Set(['Purity above All', 'Sons of Mars', 'Abhuman Auxiliaries']);
 
 /**
  * May this unit take an opt-in trait (offered as a tick-box on its card)?
