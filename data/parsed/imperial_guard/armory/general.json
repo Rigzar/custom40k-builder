@@ -162,7 +162,7 @@
       "name": "Krak grenades",
       "term_compat": false,
       "range": "6\"",
-      "type": "Grenade",
+      "type": "Grenade 1",
       "s": "6",
       "ap": "-2",
       "d": "1",
@@ -213,7 +213,7 @@
       "name": "Melta bomb",
       "term_compat": false,
       "range": "3\"",
-      "type": "Grenade",
+      "type": "Grenade 1",
       "s": "8",
       "ap": "-5",
       "d": "2",
@@ -404,6 +404,18 @@
       "abilities": "-",
       "p_unit": 1,
       "p_char": 1
+    },
+    {
+      "name": "Heavy flamer",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [
@@ -550,7 +562,7 @@
     {
       "name": "Seasoned officer",
       "term_compat": false,
-      "desc": "A single unit can receive up to two simultaneous orders per turn if it is activated within range of an officer.",
+      "desc": "For each friendly model equipped with this item on the battlefield, one of your units may receive up to two orders simultaneously per turn, provided it is activated within range of an Officer.",
       "p_unit": null,
       "p_char": 5
     },
@@ -585,7 +597,7 @@
     {
       "name": "Vox",
       "term_compat": false,
-      "desc": "As long as the model is alive, it always counts as being within range of an officer, as long as at least one officer is on the field and has a (personal) vox.",
+      "desc": "As long as the model is alive, its unit always counts as being within range of an officer, as long as at least one officer is on the field and has a (personal) vox. Additionally, while an officer model is attached to a unit with a Vox, they are treated as being equipped with a Personal Vox.",
       "p_unit": null,
       "p_char": null
     },

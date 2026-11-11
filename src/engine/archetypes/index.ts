@@ -369,8 +369,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Jungle Fighters': { ...BASE,
     notes: [
-      'All units gain Move through Cover and Use Cover.',
-      'All creature units additionally gain Infiltrate.',
+      'All units gain Infiltrator, Move through Cover and Use Cover.',
       'All creature units have their armor save reduced by -1.',
     ],
   },
