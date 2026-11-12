@@ -7,7 +7,7 @@ import { nm } from '../utils/localName';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
-import type { Power } from '../types/data';
+import type { FactionData, Power } from '../types/data';
 
 /**
  * FIELD MANUAL — a single combined Quick Rules reference, viewable + printable/downloadable as
@@ -1983,7 +1983,7 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
   const [paperSize, setPaperSize] = usePaperSize();
   // The faction reference pages below are driven by whatever army is currently loaded, so the
   // Field Manual carries YOUR prayers/pacts/powers to the table alongside the core rules.
-  const data = useArmyStore(s => s.data);
+  const data: FactionData = useArmyStore(s => s.data);
   const legacy = useArmyStore(s => s.legacy);
   const legacy2 = useArmyStore(s => s.legacy2);
   const prayers = data?.prayers ?? [];

@@ -37,6 +37,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.88a',
+    date: '2026-11-12',
+    title: 'Fixed Trygon slot to Heavy Support',
+    changes: [
+      "FIX - TRYGON IS HEAVY SUPPORT (GH#274): Updated Trygon to correctly use a Heavy Support slot instead of a Fast Attack slot."
+    ]
+  },
+  {
     version: '1.88',
     date: '2026-11-06',
     title: "Sorting, ordering and sergeant fixes",

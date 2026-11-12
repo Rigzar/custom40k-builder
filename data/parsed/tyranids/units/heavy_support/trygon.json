@@ -167,7 +167,7 @@
     "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
-    "slot": "Fast Attack",
+    "slot": "Heavy Support",
     "default_size": 1,
     "min_cost": 174,
     "is_monster": true
