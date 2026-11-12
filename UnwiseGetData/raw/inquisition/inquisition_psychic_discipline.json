@@ -1,0 +1,380 @@
+[
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "-",
+        "Range:",
+        "-"
+    ],
+    [
+        "Target:",
+        "Self + Attached unit",
+        "Target:",
+        "Self",
+        "Target:",
+        "Self"
+    ],
+    [
+        "Cast value:",
+        4,
+        "Cast value:",
+        4,
+        "Cast value:",
+        4
+    ],
+    [
+        "Effect:",
+        "All wound losses caused by the target count twice for any combat resolution.",
+        "Effect:",
+        "Starting at the caster going outwards, D3 enemy psykers suffer a Perils of the Warp attack",
+        "Effect:",
+        "All tests of enemy models to use a psychic power, an incantation, a prayer or similar abilities receive a penalty of -1."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Purgatus",
+        "Name:",
+        "Divine Pronouncement",
+        "Name:",
+        "Soul-lightning"
+    ],
+    [
+        "Type:",
+        "Malediction",
+        "Type:",
+        "Malediction",
+        "Type:",
+        "Witchfire"
+    ],
+    [
+        "Range:",
+        "18\"",
+        "Range:",
+        "24\"",
+        "Range:",
+        "24\""
+    ],
+    [
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        5,
+        "Cast value:",
+        6,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "Both the caster and the target roll a D6 and add their respective Leadership values. If the target\u2019s total is greater than the caster\u2019s total, nothing happens. If the Psyker\u2019s total is greater than or equal to the target\u2019s total, the target model suffers a -3 penalty to its Leadership.",
+        "Effect:",
+        "The target is treated as activating in difficult and dangerous terrain, even if it would normally ignore it.",
+        "Effect:",
+        "The target unit suffers a hit with the following profile: S: 5 AP: -1 D: 1; Blast(6), Seeking."
+    ],
+    [
+        "Duration:",
+        "Until the end of the game",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal"
+    ],
+    [
+        "Malefic (Daemonhosts only)",
+        "Name:",
+        "Cursed earth",
+        "Name:",
+        "Devour",
+        "Name:",
+        "Warp marked"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "6\"",
+        "Range:",
+        "24\""
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Friendly model",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        5,
+        "Cast value:",
+        5,
+        "Cast value:",
+        5
+    ],
+    [
+        "Effect:",
+        "The target gains the \"Aegis(4+) and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+        "Effect:",
+        "The target is destroyed. The caster gains +1 Strength and +1 Wound.",
+        "Effect:",
+        "Friendly units gain +3\" to their charge move against the target."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the end of the game.",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Name:",
+        "Infernal might",
+        "Name:",
+        "Pact of flesh",
+        "Name:",
+        "Pact of steel"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation"
+    ],
+    [
+        "Range:",
+        "-",
+        "Range:",
+        "18\"",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Friendly unit (Creature)",
+        "Target:",
+        "Friendly unit (Vehicle)"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        6,
+        "Cast value:",
+        7
+    ],
+    [
+        "Effect:",
+        "The target gains +2 Strength.",
+        "Effect:",
+        "The target regains one lost wound.",
+        "Effect:",
+        "The target repairs one permanent damage result or regains one lost Hull point."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ],
+    [
+        "Telethesia",
+        "Name:",
+        "Psychic Fortitude",
+        "Name:",
+        "Warding Incantation",
+        "Name:",
+        "Castigation"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Witchfire"
+    ],
+    [
+        "Range:",
+        "24\"",
+        "Range:",
+        "-",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Friendly unit (Creature)",
+        "Target:",
+        "Self + attached unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        4,
+        "Cast value:",
+        5,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+        "Effect:",
+        "The target gains the \"Aegis(4+) and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+        "Effect:",
+        "Roll 3D6 and substract the target's Leadership. The unit receives that amount of automatic wounds with S:4 AP:0 D:1, Seeking."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Instant"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Normal"
+    ],
+    [
+        "Name:",
+        "Psychic Pursuit",
+        "Name:",
+        "Scouring",
+        "Name:",
+        "Terrify"
+    ],
+    [
+        "Type:",
+        "Augmentation",
+        "Type:",
+        "Malediction",
+        "Type:",
+        "Malediction"
+    ],
+    [
+        "Range:",
+        "12''",
+        "Range:",
+        "18\"",
+        "Range:",
+        "18\""
+    ],
+    [
+        "Target:",
+        "Friendly unit",
+        "Target:",
+        "Enemy unit",
+        "Target:",
+        "Enemy unit"
+    ],
+    [
+        "Cast value:",
+        6,
+        "Cast value:",
+        6,
+        "Cast value:",
+        6
+    ],
+    [
+        "Effect:",
+        "Select a friendly and an enemy unit within 12\". The enemy unit does not receive the benefits of cover against attacks from the friendly unit.",
+        "Effect:",
+        "Each model of the target reduce their number of attacks by 1 (to a minimum of 1).",
+        "Effect:",
+        "The target must pass a Leadership test with a -1 penalty or gain a Battleshock token."
+    ],
+    [
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation",
+        "Duration:",
+        "Until the caster's next activation"
+    ],
+    [
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic",
+        "Complexity:",
+        "Basic"
+    ]
+]

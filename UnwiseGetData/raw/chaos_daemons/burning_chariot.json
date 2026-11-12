@@ -1,0 +1,95 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Burning Chariot",
+        "12\"",
+        "5+",
+        "3+",
+        4,
+        5,
+        5,
+        4,
+        4,
+        9,
+        "6+",
+        262
+    ],
+    [
+        "Every model is equipped with: Fire of Tzeentch, Warp jaws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Fire of Tzeentch *"
+    ],
+    [
+        "- Blue fire",
+        "18\"",
+        "Assault 3",
+        9,
+        -4,
+        3,
+        "AT(2)"
+    ],
+    [
+        "- Pink fire",
+        "12\"",
+        "Assault 6",
+        6,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Warp jaws",
+        "-",
+        "Melee",
+        "+1",
+        -4,
+        1,
+        "Shred"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deepstrike, Daemon, Daemonic instability, Mark of Tzeentch, Squadron, Terrifying(-1) "
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jet bike"
+    ]
+]

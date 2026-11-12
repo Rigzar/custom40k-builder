@@ -1,0 +1,106 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "10-20",
+        "Warrior",
+        "6\"",
+        "4+",
+        "4+",
+        4,
+        4,
+        1,
+        2,
+        1,
+        10,
+        "4+",
+        18
+    ],
+    [
+        "Every model is equipped with: Gauss flayer."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Disruptor field",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Gauss flayer",
+        "24\"",
+        "Rapid Fire 1",
+        4,
+        -1,
+        1,
+        "Gauss"
+    ],
+    [
+        "Gauss reaper",
+        "12\"",
+        "Assault 2",
+        5,
+        -2,
+        1,
+        "Gauss"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 The unit can swap their Gauss flayers:"
+    ],
+    [
+        "- Gauss reaper",
+        "+5 points/model"
+    ],
+    [
+        "\u2022 The unit can be equipped with:"
+    ],
+    [
+        "- Disruptor field",
+        "+1 point/model"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Reanimation Protocols"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Necron"
+    ]
+]

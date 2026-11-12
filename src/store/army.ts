@@ -69,8 +69,8 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
 /** Traits that are an UPGRADE rather than a blanket bonus: "One non-character model per squad ... may be upgraded to an Apothecary"
- *  (Space Marines, Purity above All). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
-export const OPT_IN_TRAITS = new Set(['Purity above All', 'Abhuman Auxiliaries']);
+ *  (Space Marines, Purity above All and Sons of Mars - the Techmarine). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
+export const OPT_IN_TRAITS = new Set(['Purity above All', 'Sons of Mars', 'Abhuman Auxiliaries']);
 
 /**
  * May this unit take an opt-in trait (offered as a tick-box on its card)?
@@ -774,6 +774,16 @@ export const useArmyStore = create<ArmyStore>()(
           if (e.id !== id) return e;
           const oq = { ...e.optionQty };
           const group = { ...(oq[gi] ?? {}) };
+          // Alternatives of one rule ("do one of the following") share the unit size: clamp this change to what the others leave.
+          const grp = s.data ? resolveUnit(e, s.data)?.option_groups[gi] : undefined;
+          const shared = grp?.shares_cap_with;
+          // The pool is the unit size, or for "for every N models, M may..." the M per N models (Space Marines Intercessors: two per five).
+          const pool = grp?.constraint?.type === 'per_n' && grp.constraint.per_n ? Math.floor(e.size / grp.constraint.per_n) * (grp.constraint.count_per_n ?? 1) : e.size;
+          if (shared?.length && qty > 0) {
+            const others = shared.reduce((n, og) => n + Object.entries(oq[og] ?? {}).reduce((m, [k, q]) => m + (k === '__inline' ? 0 : Number(q) || 0), 0), 0);
+            const mine = Object.entries(group).reduce((m, [k, q]) => m + (k === ci || k === '__inline' ? 0 : Number(q) || 0), 0);
+            qty = Math.max(0, Math.min(qty, pool - others - mine));
+          }
           if (qty === 0) delete group[ci];
           else group[ci] = qty;
           oq[gi] = group;

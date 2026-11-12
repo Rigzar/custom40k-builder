@@ -1,0 +1,165 @@
+{
+    "name": "Voidsmen",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Voidsman",
+            "min": 9,
+            "max": 19,
+            "points": 8
+        },
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Sergeant-at-arms",
+            "min": 1,
+            "max": 1,
+            "points": 8
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Veteran Sergeant-at-arms",
+            "min": 0,
+            "max": 1,
+            "points": 13
+        }
+    ],
+    "min_cost": 80,
+    "default_size": 10,
+    "equipped_with": "Every model is equipped with: Lasgun; Frag grenade; Krak grenade.",
+    "weapons": [
+        {
+            "name": "Frag grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenade",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Lasgun",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Las-volley",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        },
+        {
+            "name": "Meltagun",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Navis heavy shotgun",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Navis shotgun",
+            "range": "12\"",
+            "type": "Assault 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma gun - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma gun - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        },
+        {
+            "name": "Rotor cannon",
+            "range": "30\"",
+            "type": "Assault 4",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Suppression(3)"
+        }
+    ],
+    "abilities": [
+        "Boarding shield: The model gains the \"Deflect\" and \"Parry\" abilities. A unit with this model always benefits from the \"Hold Your Ground\" effect.",
+        "Carapace Armor: This model has a 4+ save."
+    ],
+    "unit_type": "Infantry",
+    "is_monster": false,
+    "keywords": [
+        "Crew"
+    ]
+}

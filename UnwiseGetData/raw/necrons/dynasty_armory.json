@@ -1,0 +1,60 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Bloodshroud",
+        "During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\". Novokh only.",
+        10
+    ],
+    [
+        "Dominance Weapon",
+        "The model gains the \"Decimate\" ability with all melee attacks. Mephrit only.",
+        10
+    ],
+    [
+        "Domination Staff",
+        "Select one enemy model in direct base contact. The model suffers a -2 penalty to its Initiative for the remaining battleround. Szarekhan only.",
+        10
+    ],
+    [
+        "Starfire Mantle",
+        "When the model moves over an enemy unit, it inflicts 1 Mortal Wound. Nephrekh only.",
+        5
+    ],
+    [
+        "Stormshroud",
+        "One melee weapon of the model gains the \"Soul burn(5+)\" ability. Sautekh only.",
+        10
+    ],
+    [
+        "Yth Engrams",
+        "The model may re-roll any one die per activation. Nihilakh only.",
+        5
+    ]
+]

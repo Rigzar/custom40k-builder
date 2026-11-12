@@ -1,0 +1,82 @@
+{
+    "name": "Stormboyz",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "3",
+                "A": "2",
+                "LD": "5",
+                "SV": "6+"
+            },
+            "name": "Stormboy",
+            "min": 5,
+            "max": 20,
+            "points": 14
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "3+",
+                "BS": "5+",
+                "S": "5",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "3",
+                "LD": "6",
+                "SV": "6+"
+            },
+            "name": "Nob",
+            "min": 0,
+            "max": 1,
+            "points": 29
+        }
+    ],
+    "min_cost": 70,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Choppa; Slugga; Stikkbombz.",
+    "weapons": [
+        {
+            "name": "Choppa",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Slugga",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Stikkbombz",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        }
+    ],
+    "abilities": [
+        "Dakka Dakka Dakka, Deep strike, Mob, Furious charge, Waaagh!",
+        "Rocket pack: The unit rolls 2D6 on an Advance command and adds up the result. On a double, the unit suffers D6 automatic wounds with S:5 AP:0 D:1."
+    ],
+    "unit_type": "Jump pack infantry",
+    "is_monster": false,
+    "keywords": []
+}

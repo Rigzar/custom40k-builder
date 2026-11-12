@@ -1,0 +1,192 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "9-19",
+        "Guard",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "5+",
+        15
+    ],
+    [
+        1,
+        "Guard Captain",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        1,
+        3,
+        1,
+        7,
+        "5+",
+        20
+    ],
+    [
+        "Every model is equipped with: Power axe; Las carbine; Las pistol; Shield."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Flamer",
+        "9\"",
+        "Assault 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Las carbine",
+        "18\"",
+        "Assault 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Melta",
+        "12\"",
+        "Assault 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Power axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Power maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every model may be equipped with:"
+    ],
+    [
+        "- Heavy armor",
+        "+3 points"
+    ],
+    [
+        "\u2022 One model may be equipped with:"
+    ],
+    [
+        "- Instrument",
+        "+5 points"
+    ],
+    [
+        "\u2022 Another model may be equipped with:"
+    ],
+    [
+        "- Household banner",
+        "+5 points"
+    ],
+    [
+        "\u2022 For every ten models, four Guards may swap their Las carbine:"
+    ],
+    [
+        "- Flamer",
+        "+3 points"
+    ],
+    [
+        "- Melta",
+        "+15 points"
+    ],
+    [
+        "\u2022 Every model may swap their Power axe:"
+    ],
+    [
+        "- Power maul",
+        "+0 points"
+    ],
+    [
+        "- Power sword",
+        "+0 points"
+    ],
+    [
+        "\u2022 The Guard Captain has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Heavy armor: The model gains a 4+ armor save."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bodyguard, Deflect, Infantry, Parry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Feudal Levy"
+    ]
+]

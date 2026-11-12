@@ -141,47 +141,47 @@ export interface OfficerOrderEntry {
 export const IG_INFANTRY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Fix bayonets!',
-    when: 'When the unit fights in close combat.',
+    when: 'When a Fight order involving this unit is resolved.',
     effect: 'The unit receives +1 Initiative and -1 AP for its melee attacks.',
   },
   {
     name: 'Take cover!',
-    when: 'When the unit is selected as a target for a ranged weapon.',
+    when: 'When this unit is targeted by a ranged weapon or damaging effect.',
     effect: 'The unit receives a cumulative +1 bonus to its armor save.',
   },
   {
     name: 'First rank, fire! Second rank, fire!',
-    when: 'When the unit is activated.',
-    effect: 'Hot-shot lasguns and lasguns change their type to "Rapid Fire 2".',
+    when: 'When this unit is activated or uses Defensive Fire.',
+    effect: 'Hot-shot lasguns and Lasguns change their type to "Rapid Fire 2".',
   },
   {
     name: 'Overcharge batteries!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated or uses Defensive Fire.',
     effect: 'All las weapons in the unit receive the "Decimate" ability.',
   },
   {
     name: 'Move! Move! Move!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
     effect: 'The unit swaps its command for "Advance" and rolls 2D6 for the additional movement, taking only the highest roll.',
   },
   {
     name: 'Bring it down!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
     effect: 'The unit can re-roll all wound and armor penetration rolls against Monstrous Infantry, Monstrous Creatures and Vehicles.',
   },
   {
     name: 'Forwards, for the Emperor!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
     effect: 'The unit can still fire all weapons after an "Advance" command as if it had used a "Move & Shoot" command.',
   },
   {
     name: 'Get back in the fight!',
-    when: 'During the Rally phase. This order can be used by any unit, even if the order itself was not given during the prior Battle round, as long as there is at least one Officer on the table that is not fleeing. Reduce the amount of orders you may give in this round\'s Reinforcement phase by 1.',
+    when: 'During the Rally phase. Any unit may use this order, even if it was not issued during the previous Battle Round, provided at least one non-fleeing Officer is on the battlefield. Reduce the number of orders you may issue during this round\'s Reinforcement phase by 1 if this order is used by at least one unit.',
     effect: 'The unit loses all Battle shock tokens.',
   },
   {
     name: 'Fall back!',
-    when: 'After the unit has used Defensive fire.',
+    when: 'After this unit resolves Defensive Fire.',
     effect: 'The unit moves up to D6".',
   },
 ];
@@ -189,13 +189,13 @@ export const IG_INFANTRY_ORDERS: OfficerOrderEntry[] = [
 export const IG_VEHICLE_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Gunners, kill on sight!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated or uses Defensive Fire.',
     effect: 'The unit can re-roll a single hit, wound or armor penetration roll.',
   },
   {
     name: 'Fire and fade!',
-    when: 'When the unit is activated.',
-    effect: 'The unit can use its smoke launcher even if it has fired its weapons this turn.',
+    when: 'When this unit is activated or uses Defensive Fire.',
+    effect: 'The unit can use its Smoke launcher in addition to firing its weapons.',
   },
   {
     name: 'Scorched earth!',
@@ -207,41 +207,41 @@ export const IG_VEHICLE_ORDERS: OfficerOrderEntry[] = [
 export const IG_LEGACY_ORDERS: OfficerOrderEntry[] = [
   {
     name: 'Burn them out!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated or uses Defensive Fire.',
     effect: 'The unit gains the "Decimate" ability with all weapons that have the "Auto Hit" ability.',
     legacyGrant: 'Death World',
   },
   {
     name: 'Get around behind them!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
     effect: 'The unit can move normally (up to 6"), afterwards its order is changed to "Stand & Shoot".',
     legacyGrant: 'Desert World',
   },
   {
     name: 'Suppressive fire!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
     effect: 'If the unit uses a "Stand & Shoot" order, all ranged weapons in the unit gain the "Suppression(2)" ability.',
     legacyGrant: 'Fortress World',
   },
   {
     name: 'Fire on my command!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
+    effect: 'The unit may target an enemy unit engaged in melee with a friendly unit. Any failed hit rolls are instead resolved as hits against the friendly unit. Weapons that have the "Blast(x)" ability can\'t be used. Weapons with the "Auto Hit" ability hit both the friendly and the enemy unit. In all cases, if more than one friendly unit is engaged, the friendly unit with the most models left is hit first.',
     // Two sentences restored from the live sheet 2026-09-13. Our copy of Imperial Guard 1.05
     // had this cell printing the order ABOVE it instead of its own text, which is the duplicate
     // reported to Unwise; he corrected it, and the restored text is LONGER than what we carried.
     // Both ability names are the post-clean-up ones now that Core Rules 1.262 has landed.
-    effect: 'The unit may target an enemy unit engaged in melee with a friendly unit. Any failed hit rolls are instead resolved as hits against the friendly unit. Weapons that have the "Blast(x)" ability can\'t be used. Weapons with the "Auto Hit" ability hit both the friendly and the enemy unit. In all cases, if more than one friendly unit is engaged, the friendly unit with the most models left is hit first.',
     legacyGrant: 'Frozen World',
   },
   {
     name: 'Mount off! / Mount up!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated.',
     effect: 'The unit ignores the -1 to hit penalty when disembarking from a transport that moved 6"+. Alternatively, the unit may embark on a transport after using its ranged weapons. The alternative effect can only be used if the unit did not disembark during its activation.',
     legacyGrant: 'Industrial World',
   },
   {
     name: 'Form firing squad!',
-    when: 'When the unit is activated.',
+    when: 'When this unit is activated or uses Defensive Fire.',
     effect: 'When firing "Rapid Fire" weapons at a target within 12", the unit may choose which enemy model its ranged attacks are allocated to.',
     legacyGrant: 'Macropol World',
   },

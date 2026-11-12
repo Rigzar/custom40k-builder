@@ -1,0 +1,110 @@
+{
+    "name": "Mounted Pistoleers",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Pistoleer",
+            "min": 5,
+            "max": 10,
+            "points": 18
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "4",
+                "W": "2",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Outrider",
+            "min": 0,
+            "max": 1,
+            "points": 23
+        }
+    ],
+    "min_cost": 90,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: 2 Hot-shot las pistols.",
+    "weapons": [
+        {
+            "name": "Hot-shot blunderbuss",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast(4), Rending(5+)"
+        },
+        {
+            "name": "Hot-shot las pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "3",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Hot-shot volley gun",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "3",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Inferno pistol",
+            "range": "6\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Plasma pistol - Standard",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)"
+        },
+        {
+            "name": "Plasma pistol - Overheating",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheating"
+        }
+    ],
+    "abilities": [
+        "Outflank"
+    ],
+    "unit_type": "Bike",
+    "is_monster": false,
+    "keywords": [
+        "Noble"
+    ]
+}

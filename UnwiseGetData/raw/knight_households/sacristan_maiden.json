@@ -1,0 +1,80 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Maiden",
+        "6\"",
+        "4+",
+        "4+",
+        3,
+        3,
+        2,
+        3,
+        2,
+        6,
+        "6+",
+        11
+    ],
+    [
+        "A Maiden is equipped with: Las pistol; Telepath staff."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Telepath staff",
+        "-",
+        "Melee",
+        "+1",
+        0,
+        1,
+        "Force"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Advisor, Command Squad"
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Noble"
+    ]
+]

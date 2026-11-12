@@ -1,0 +1,369 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        "1-2",
+        "Contemptor Dreadnought",
+        "6\"",
+        "3+",
+        "3+",
+        6,
+        12,
+        12,
+        10,
+        4,
+        3,
+        3,
+        192
+    ],
+    [
+        "A Contemptor Dreadnought is equipped with: -."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Assault cannon",
+        "24\"",
+        "Heavy 4",
+        6,
+        -2,
+        1,
+        "Piercing(5+)"
+    ],
+    [
+        "Conversion beamer *",
+        "Only for Techmarines"
+    ],
+    [
+        "- Short range",
+        "0\" - 24\"",
+        "Heavy 1",
+        6,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "- Mid range",
+        "24\" - 48\"",
+        "Heavy 1",
+        7,
+        -2,
+        2,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Long range",
+        "48\" - 72\"",
+        "Heavy 1",
+        8,
+        -3,
+        3,
+        "AT(2), Blast(6)"
+    ],
+    [
+        "Cyclone missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 2",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 2",
+        8,
+        -3,
+        2,
+        "AT(1), Anti-air"
+    ],
+    [
+        "Dreadnought close combat weapon",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Graviton blaster",
+        "18\"",
+        "Assault 2",
+        5,
+        -3,
+        1,
+        "Grav"
+    ],
+    [
+        "Heavy flamer",
+        "9\"",
+        "Assault 1",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Kheres-pattern assault cannon",
+        "24\"",
+        "Heavy 5",
+        6,
+        -2,
+        1,
+        "Piercing(5+)"
+    ],
+    [
+        "Missile launcher *"
+    ],
+    [
+        "- Frag missile",
+        "48\"",
+        "Heavy 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "- Krak missile",
+        "48\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "AT(1), Anti-air"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Plasma blaster *"
+    ],
+    [
+        "- Standard",
+        "18\"",
+        "Assault 2",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overcharged",
+        "18\"",
+        "Assault 2",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "Plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overcharged",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "Storm bolter",
+        "24\"",
+        "Rapid Fire 2",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Twin autocannon",
+        "48\"",
+        "Heavy 4",
+        7,
+        -2,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Twin heavy bolter",
+        "36\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin lascannon",
+        "48\"",
+        "Heavy 2",
+        9,
+        -4,
+        3,
+        "AT(2)"
+    ],
+    [
+        "Twin volkite culverin",
+        "48\"",
+        "Heavy 6",
+        6,
+        -1,
+        1,
+        "Soul burn(6+)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 If the model is part of a Chaos Space Marine army, it may receive a Mark of Chaos:"
+    ],
+    [
+        "- Khorne",
+        "+10 points"
+    ],
+    [
+        "- Nurgle",
+        "+10 points"
+    ],
+    [
+        "- Slaanesh",
+        "+10 points"
+    ],
+    [
+        "- Tzeentch",
+        "+10 points"
+    ],
+    [
+        "\u2022 Must pick two weapons from this list:"
+    ],
+    [
+        "- Dreadnought claw with Storm bolter",
+        "+27 points"
+    ],
+    [
+        "- Assault cannon",
+        "+32 points"
+    ],
+    [
+        "- Twin heavy bolter",
+        "+36 points"
+    ],
+    [
+        "- Multi-melta",
+        "+37 points"
+    ],
+    [
+        "- Kheres-pattern assault cannon",
+        "+40 points"
+    ],
+    [
+        "- Missile launcher",
+        "+41 points"
+    ],
+    [
+        "- Twin autocannon",
+        "+53 points"
+    ],
+    [
+        "- Conversion beamer",
+        "+51 points"
+    ],
+    [
+        "- Twin volkite culverin",
+        "+68 points"
+    ],
+    [
+        "- Plasma cannon",
+        "+98 points"
+    ],
+    [
+        "- Twin lascannon",
+        "+138 points"
+    ],
+    [
+        "\u2022 Can swap a Storm bolter:"
+    ],
+    [
+        "- Heavy flamer",
+        "+2 points"
+    ],
+    [
+        "- Graviton blaster",
+        "+5 points"
+    ],
+    [
+        "- Plasma blaster",
+        "+31 points"
+    ],
+    [
+        "\u2022 Can be equipped with a Cyclone missile launcher for +80 points."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "\u2022 The unit may gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Squadron, Ward(5+)"
+    ],
+    [
+        "Furioso: If the model has two melee weapons, it gains +2 attacks."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle, Walker"
+    ]
+]

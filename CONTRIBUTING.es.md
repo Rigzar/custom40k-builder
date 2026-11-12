@@ -174,7 +174,7 @@ Los campos de la columna "de la hoja" de arriba aparecen aquí para que sepas qu
 | `veteran` | Slot de habilidad veterana |
 | `unique_upgrade` | Restricción de unicidad a nivel de unidad |
 
-Dos flags del propio grupo, que no son tipos de restricción: `per_model: true` (el coste escala con el escuadrón) e `independent_choices: true` (cada opción tiene su propio tope en vez de compartir un solo pozo — las listas de biomorfos tiránidos, donde el viejo `max: 16` compartido era el NÚMERO DE OPCIONES, no una regla). `variant_link` une un grupo a una promoción de `variant_models` (Spanna, Overlord, Sargento Veterano); `applies_to_model` limita un cambio a una fila de modelo. **Las opciones nuevas van al FINAL de la lista**: una lista guardada almacena el ÍNDICE de la opción, y reordenar mueve en silencio las selecciones de la gente.
+Tres flags del propio grupo, que no son tipos de restricción: `per_model: true` (el coste escala con el escuadrón; ejemplo: Mek Gunz), `shares_cap_with: [n]` (los grupos de una misma regla de la hoja comparten el tamaño de la unidad; ejemplo: los dos grupos de Shoota de los Boyz) e `independent_choices: true` (cada opción tiene su propio tope en vez de compartir un solo pozo — las listas de biomorfos tiránidos, donde el viejo `max: 16` compartido era el NÚMERO DE OPCIONES, no una regla). `variant_link` une un grupo a una promoción de `variant_models` (Spanna, Overlord, Sargento Veterano); `applies_to_model` limita un cambio a una fila de modelo. **Las opciones nuevas van al FINAL de la lista**: una lista guardada almacena el ÍNDICE de la opción, y reordenar mueve en silencio las selecciones de la gente.
 
 ### Añadir un arma, un ítem de armería, un arquetipo, un trait o un legacy
 
@@ -1030,6 +1030,46 @@ Un jugador japonés pidió los nombres en katakana. **Los datos nunca se traduce
 - **La wiki** traduce al construirse con `wiki/src/lib/loc.ts` (`wn` nombres, `wr` tipos y habilidades de armas, `wp` etiquetas y frases escritas en una página, `wPhrase`, `wRange`, `wEquipped`, `wUnitType`, `wSlot`) y la tabla de etiquetas `wiki/src/lib/phrases.ts`. Reutiliza los ayudantes puros de la app (`src/utils/localName.ts`, `jaProse.ts`, `unitTypeLabel.ts`) y `src/data/names.ja.json`, que copia `wiki/scripts/vendor.mjs`; las disciplinas psíquicas generales también se copian de la app (la wiki tenía su propia copia y se había desviado). Ejecuta `node wiki/scripts/vendor.mjs` antes de `node wiki/scripts/build-all.mjs`, o la wiki se construye con las copias de la vez anterior. Nunca escribas texto en inglés en una página de la wiki: añade una fila a `phrases.ts`.
 - Los demás datos del motor en inglés tienen su propio ayudante de dibujo, nunca un `{x.name}` en bruto: los slots con `slotLabel(lang, slot)` (`src/utils/slotLabel.ts`), los tipos de unidad con `unitTypeLabel(lang, tipo)` (`src/utils/unitTypeLabel.ts`), los nombres de engagement y sus líneas de reglas con `engName`/`engNotes` (`src/utils/engagementText.ts`), el tipo/objetivo/duración de los poderes psíquicos con `powerMetaLine` (usa la tabla de textos) y los mensajes del validador localizan sus valores `{slot}`/`{unit}` dentro de `T()` en `src/engine/validators.ts`. Una etiqueta en inglés escrita a mano en un componente es un fallo: añade una clave a `src/i18n` (en los cinco idiomas).
 - Los **encabezados de grupos de opciones** (`g.header`, la frase sobre cada bloque de opciones) se traducen frase a frase con `localiseAbility()` y `src/data/abilityTexts.<lang>.json`, con clave un hash del texto en inglés, igual que un texto de regla. Un encabezado que las hojas reescriben no tiene traducción hasta añadirla; `npx tsx scripts/_headers_test.ts` lista cada encabezado del juego que no la tiene, en los cuatro idiomas.
+
+### Grupos de opciones del script de las hojas: lo que normaliza el cargador (`src/data/loaders.ts`)
+
+El script que convierte las hojas en ficheros de unidades escribe cada línea "Every X may..." como un grupo simple, y la app no puede arreglar una hoja desde dentro, así que algunas formas se normalizan al cargar la facción. No edites a mano los ficheros de unidades generados para esto: añade o ajusta la regla en `loaders.ts` y avisa al autor de la hoja cuando el fallo esté en la hoja.
+
+- `normaliseEveryModelPick`: un grupo con el encabezado "Every Mek Gun must select one weapon" es una elección para CADA modelo. Ejemplo: Mek Gunz de Orks; al pasar de 1 a 2 se quedaba UNA arma; ahora el grupo es `per_model` y el número de armas y el precio siguen el tamaño de la unidad.
+- `linkSharedCapGroups`: la regla de la hoja "Any number of models may do one of the following" se escribe como varios grupos. Reciben `shares_cap_with` (los índices de los otros) y `setOptionQty` en `src/store/army.ts` mantiene el total en el tamaño de la unidad. Ejemplo: Boyz, "Replace their Choppa and Slugga with a Shoota" y "Be additionally equipped with a Shoota" juntos no pueden pasar de 10 en una unidad de 10.
+- `requires_choice`: un intercambio por un arma que el modelo aún no tiene (Boyz: "two Boyz equipped with a Shoota may swap it") se queda en la tarjeta, apagado y con sus opciones y precios a la vista, hasta que se toma la opción que necesita. Nunca ocultes una regla que la hoja muestra.
+
+### Rasgos que son una mejora, no un bonus general (`OPT_IN_TRAITS`, `src/store/army.ts`)
+
+"Purity above All" (Apothecary) y "Sons of Mars" (Techmarine) de Space Marines, y "Abhuman Auxiliaries" de la Guardia Imperial, son una casilla en cada unidad que los usa, y solo esas unidades pagan. Para añadir uno, pon su nombre en `OPT_IN_TRAITS` y, si tiene condición, en `optInTraitApplies`. Ejemplo: Sons of Mars solo se ofrece en infantería que no sea personaje y pueda llegar a la Armería.
+
+### Mejora de arma comprada por un sargento (`championBoostSelIds`, `src/engine/resolver.ts`)
+
+Un objeto de Armería como el "More Boom!" de Orks (+2 de Fuerza) comprado para el Nob o un Sargento cambia solo SU copia del arma: el resolver le da una fila de una miniatura con su propio nombre y deja en paz la fila de la escuadra. Quién lo compró lo decide quién puede: un precio solo en `p_char`, o una unidad donde solo el campeón tiene acceso a la Armería (Flash Gitz).
+
+### Poner al día los ficheros de unidades ("Run unit update")
+
+El botón del panel de Inquisitor lanza la Action `update-units.yml`, que abre un pull request y nunca sube a `main`. Solo reescribe unidades; la Armería, Army Customisation, los arquetipos y los poderes psíquicos se siguen a mano desde la hoja. Tras mergear, sube la versión de la facción en `src/data/factionCatalog.ts` solo cuando esas partes también coincidan, y renombra `Codex/<Facción> X.ods` (`node scripts/fetch_codex.cjs <facción>` avisa cuando cambia la versión).
+
+### Guías para los casos complejos
+
+**1. "La app muestra algo distinto de la hoja"** (el reporte de los Boyz, noviembre de 2026)
+1. Comprueba qué versión usa el jugador: la etiqueta de versión en la esquina (por ejemplo `v1.88g`) y luego un refresco forzado (Ctrl+Shift+R); el service worker puede servir una versión vieja.
+2. Compara la hoja con los datos: `node scripts/fetch_codex.cjs <facción>` dice si la hoja viva cambió; lee las líneas OPTIONS de la hoja frente a los `option_groups` de la unidad.
+3. Abre la app, añade la unidad y lee la tarjeta (en el panel del navegador, `get_page_text`). Los datos pueden coincidir y la tarjeta ocultar una regla: busca `requires_choice`, `available_if`, `requires_trait`, `variant_link`.
+4. Decide dónde está el fallo: la hoja (avisa al autor, nunca lo parches por fuera), una forma que el script escribe mal (`loaders.ts`), la tarjeta (`UnitCard.tsx`) o el motor (`resolver.ts`, `points.ts`).
+
+**2. Una opción que depende de otra elección** - qué campo usar
+- El intercambio necesita un arma que el modelo solo recibe de otro grupo: `requires_choice` (Boyz: el cambio por Big shoota necesita una Shoota).
+- Tomar esta opción baja el tope de otro grupo: `reduced_when_selected` (Warbuggy: tres armas pequeñas, una si tiene arma grande).
+- Dos grupos son en realidad una regla de la hoja ("do one of the following"): `shares_cap_with` (Boyz: los dos grupos de Shoota comparten el tamaño de la unidad).
+- Un modelo de la escuadra se promociona: `variant_link` (Boyz: un Boy pasa a Nob).
+Tras el cambio, prueba la unidad en la app y lleva cada contador a su límite.
+
+**3. Probar y subir un cambio**
+1. `npm run build` debe pasar. Para un cambio visible, arranca el servidor de vista previa, añade la unidad y lee la tarjeta; nunca te fíes solo de los datos.
+2. Para subir solo una parte mientras otros commits siguen en local, crea un worktree desde `origin/main`, aplica solo esos ficheros, sube desde ahí y deja tu rama como está.
+3. No subas sin el visto bueno del dueño, y sube la clave del banner y la letra de revisión al subir, no antes.
 
 ### Gitfinda — busco partida (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 

@@ -838,6 +838,7 @@
  "recoveryCodeLabel": "Код восстановления",
  "noRecoveryCode": "Кода пока нет — сбросьте пароль один раз, чтобы получить его.",
  "optInTraitLabel": "{trait}: применить к этому отряду (+{pts} очк.)",
+ "needsChoiceFirst": "Доступно, когда отряд возьмёт: {choice}",
  "changeUsernameLabel": "Имя пользователя",
  "newUsernamePlaceholder": "Новое имя (3-24 буквы, цифры, _ или -)",
  "usernameChangedMsg": "Имя пользователя изменено!",

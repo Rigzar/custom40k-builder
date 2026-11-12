@@ -6,6 +6,10 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     status: "fixed",
     title: "Trygon Slot incorrectly set to Fast Attack (GH#274)",
     description: "FIXED 2026-11-12, reported on Discord (TeCrisis: \"For a Skirmish game I was curious if a Trygon was a valid unit, but on adding them to check, their AOP changed from Heavy Support to Fast Attack. I can't think why this might've happened.\". CAUSE: slot was incorrectly set to \"Fast Attack\" in the data"
+    id: "ki-nov11-discord-five-reports-01",
+    status: "fixed",
+    title: "Mek Gunz size, allied Gue'vesa Pulse rifles, Sons of Mars Techmarine, sergeant weapon boosts, Boyz swap hidden",
+    description: "FIXED 2026-11-11 (v1.88f/g). Mek Gunz: the per-model weapon group counted as one pick for the whole unit (loaders.ts normaliseEveryModelPick). Gue'vesa: the swap controls checked the main army's archetype and ignored allied detachments. Sons of Mars: now an opt-in tick-box per unit (OPT_IN_TRAITS), as Purity above All. Sergeant boosts: numeric weapon boosts (+Strength, +shots, +range) bought by the champion went to every group; resolver.ts applyChosenWeaponStatBoosts now gives him a one-model row (profile.championBoostSelIds). Boyz: a swap group gated by requires_choice (needs a Shoota) was hidden; it is now shown with the requirement. v1.88g: the two Boyz Shoota groups (replace / additionally equipped) share the unit size (OptionGroup.shares_cap_with, set by the loader; the store clamps). STILL OPEN: the Nob is a champion box and not a +15 upgrade line.",
   },
   {
     id: "ki-dark-eldar-sslyth-armory-model-type-01",

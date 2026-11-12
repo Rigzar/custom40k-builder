@@ -1,0 +1,175 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory and the Mark of Khorne equipped can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER MODELS"
+    ],
+    [
+        "Chainaxe\u1d40",
+        "-",
+        "Melee",
+        "+1",
+        -1,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Eviscerating blade\u1d40",
+        "-",
+        "Melee",
+        "U",
+        -3,
+        1,
+        "Shred",
+        5,
+        6
+    ],
+    [
+        "Heavy chainaxe\u1d40",
+        "-",
+        "Melee",
+        "+3",
+        -3,
+        2,
+        "AT(1), Deadly(5+), Slow(-1), Unwieldy",
+        13,
+        17
+    ],
+    [
+        "Heavy chainglaive\u1d40",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        2,
+        "AT(1), Quick(1), Shred, Unwieldy",
+        11,
+        13
+    ],
+    [
+        "Hellblade\u1d40",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Deadly(5+)",
+        5,
+        7
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Bloodsoaked mantle\u1d40",
+        "Everytime the model kills an enemy Character model, a Monstrous Creature or a Vehicle, it gains +1 Strength and +1 Attack for the rest of the game.",
+        "-",
+        10
+    ],
+    [
+        "Bloodstep rune\u1d40",
+        "Once per game, the model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep strike rules.",
+        "-",
+        5
+    ],
+    [
+        "Collar of Khorne\u1d40",
+        "The unit can dispel 1 psychic power per battle round.",
+        5,
+        5
+    ],
+    [
+        "Juggernaut of Khorne",
+        "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the \"Bike\" unit type. Only for infantry.",
+        "-",
+        52
+    ],
+    [
+        "Khornate rage\u1d40",
+        "The model gains +1D3 bonus attacks for a charge move, instead of just 1.",
+        5,
+        5
+    ],
+    [
+        "Obsidian blade\u1d40",
+        "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
+        10,
+        20
+    ],
+    [
+        "Rage stimms ",
+        "Once per game, when this model activates, this model and any attached unit may gain Mindless and improve their A characteristic by 1. Lasts until this model's next activation. Only for <Cultist> units.",
+        5,
+        "-"
+    ],
+    [
+        "Rune of brass\u1d40",
+        "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results. Unique.",
+        "-",
+        15
+    ],
+    [
+        "Talisman of Burning Blood\u1d40",
+        "The model and its attached unit gain the \"Blind Rage\" ability. Roll 2D6 for Blind Rage and take the higher result.",
+        5,
+        5
+    ],
+    [
+        "Witchskull totem\u1d40",
+        "If this model used an Advance or Charge order this turn, psykers within 12\" suffer a -1 penalty when attempting to manifest psychic powers.",
+        10,
+        12
+    ],
+    [
+        "Models in Terminator armor can only receive equipment marked with \u1d40."
+    ],
+    [
+        "DAEMON WEAPONS",
+        "POINTS"
+    ],
+    [
+        "Betraying",
+        "Roll 1D6 during each activation in close combat. On a 3+ you gain the rolled number as additional Attacks. On a 1 or 2 the additional attacks are directed at friendly models in direct base contact. If there are no friendly models, it will attack itself. Unique.",
+        10
+    ],
+    [
+        "Bloodied",
+        "The weapon gains \"Blood drinker\". Unique.",
+        5
+    ],
+    [
+        "Wrathful",
+        "The weapon gains +2 Strength. Unique.",
+        10
+    ],
+    [
+        "VEHICLE UPGRADES",
+        "POINTS"
+    ],
+    [
+        "Ascendant spirit",
+        "Whenever the model successfully performs a Charge order against an enemy vehicle, immediately inflict a Glancing hit with AT(2) against that vehicle. ",
+        10
+    ],
+    [
+        "Gruesome spikes",
+        "If this model successfully pursues an enemy unit after winning Melee Combat, inflict automatic hits according to the rules of Tank Shock, treating the distance travelled as 6.",
+        10
+    ]
+]
