@@ -3,7 +3,7 @@ import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
-import { useArmyStore } from '../store/army';
+import { useArmyStore, type ArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
@@ -157,7 +157,7 @@ function headerForPromotedCap(header: string, g: { constraint: { max?: number };
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
   const { language: uiLang } = useLanguage();
-  const store = useArmyStore();
+  const store: ArmyStore = useArmyStore();
   const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);

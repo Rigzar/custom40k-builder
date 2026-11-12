@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tyranids-trygon-hs-01",
+    status: "fixed",
+    title: "Trygon Slot incorrectly set to Fast Attack (GH#274)",
+    description: "FIXED 2026-11-12, reported on Discord (TeCrisis: \"For a Skirmish game I was curious if a Trygon was a valid unit, but on adding them to check, their AOP changed from Heavy Support to Fast Attack. I can't think why this might've happened.\". CAUSE: slot was incorrectly set to \"Fast Attack\" in the data"
+  },
+  {
     id: "ki-dark-eldar-sslyth-armory-model-type-01",
     status: "fixed",
     title: "Dark Eldar Court of the Archon: the Sslyth had no Armory button",

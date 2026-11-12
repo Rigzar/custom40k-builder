@@ -712,7 +712,7 @@ export const useArmyStore = create<ArmyStore>()(
       // that field is documented as "unique per selection".
       duplicateUnit: (id: string) => {
         const s = get();
-        const entry = s.army.find((e: RosterEntry) => e.id === id);
+        const entry: RosterEntry = s.army.find((e: RosterEntry) => e.id === id);
         if (!entry || !s.data) return;
         const copy: RosterEntry = {
           ...entry,

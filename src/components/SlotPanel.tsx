@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit, primarchOpened } from '../lib/legacyGatedChoices';
-import { useArmyStore } from '../store/army';
+import { useArmyStore, type ArmyStore } from '../store/army';
 import { SLOT_ORDER, ALLIED_AOP, engagementFor } from '../engine/engagements';
 import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from '../engine/skirmishRules';
 import { alliedSlotFactor } from '../engine/navyRules';
@@ -63,7 +63,7 @@ interface SlotEntry {
  * genuinely primary-army-only concepts and stay skipped for the allied-detachment scope.
  */
 export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'primary' | 'allied'; alliedFactionKey?: string }) {
-  const store = useArmyStore();
+  const store: ArmyStore = useArmyStore();
   const isAllied = scope === 'allied';
   const { army, engagement, hqMark, addUnit, alliedFaction, legacy, legacy2, alliedLegacy } = store;
   const [open, setOpen] = useState<Record<string, boolean>>({});
