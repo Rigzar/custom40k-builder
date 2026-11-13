@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189a_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -64,6 +64,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Print view", "Simple view applies Hardened Carapace and other profile changes; unit types, Power Through Pain rules and the General psychic disciplines are printed; the buttons wrap on phones."],
         ["Print view", "A new Army rules card lists the codex's army-wide rules (Shadow in the Warp, Waaagh!, ...)."],
         ["Ymgarl", "The Ymgarl Genestealers upgrade removes Infiltrator from the card and the printout."],
+        ["Entourage", "Entourage and Herald now free HQ slots for the Daemons a Chaos Space Marine archetype reaches, and for allied Daemons, within the same detachment as the Greater Daemon."],
         ["Ghostkeel", "Its two Stealth Drones are listed."],
         ["Coronus", "The Twin arachnus blaze cannon has its 18\" range."],
         ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
@@ -90,6 +91,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Druckansicht", "Die einfache Ansicht wendet Hardened Carapace und andere Profiländerungen an; Einheitentypen, Power-Through-Pain-Regeln und die allgemeinen psychischen Disziplinen werden gedruckt; die Knöpfe brechen auf Handys um."],
         ["Druckansicht", "Eine neue Karte Armeeregeln listet die armeeweiten Regeln des Codex (Shadow in the Warp, Waaagh!, ...)."],
         ["Ymgarl", "Das Ymgarl-Upgrade entfernt Infiltrator von Karte und Ausdruck."],
+        ["Entourage", "Entourage und Herald geben jetzt HQ-Plätze frei für Dämonen, die ein Chaos-Space-Marine-Archetyp erreicht, und für verbündete Dämonen, im selben Kontingent wie der Greater Daemon."],
         ["Ghostkeel", "Seine zwei Stealth Drones werden aufgeführt."],
         ["Coronus", "Die Twin arachnus blaze cannon hat ihre Reichweite von 18\"."],
         ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
@@ -116,6 +118,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Vista de impresión", "La vista simple aplica Hardened Carapace y otros cambios de perfil; se imprimen los tipos de unidad, las reglas de Power Through Pain y las disciplinas psíquicas generales; los botones se ajustan en el móvil."],
         ["Vista de impresión", "Una tarjeta nueva de Reglas de ejército lista las reglas del códice para todo el ejército (Shadow in the Warp, Waaagh!, ...)."],
         ["Ymgarl", "La mejora Ymgarl quita Infiltrator de la tarjeta y de la impresión."],
+        ["Entourage", "Entourage y Herald liberan ahora espacios de HQ para los Demonios a los que llega un arquetipo de Chaos Space Marines y para los demonios aliados, dentro del mismo destacamento que el Greater Daemon."],
         ["Ghostkeel", "Se listan sus dos Stealth Drones."],
         ["Coronus", "La Twin arachnus blaze cannon tiene su alcance de 18\"."],
         ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
@@ -142,6 +145,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Печать", "Простой вид применяет Hardened Carapace и другие изменения профиля; печатаются типы отрядов, правила Power Through Pain и общие псионические дисциплины; кнопки переносятся на телефоне."],
         ["Печать", "Новая карточка «Правила армии» перечисляет общеармейские правила кодекса (Shadow in the Warp, Waaagh! и др.)."],
         ["Ymgarl", "Улучшение Ymgarl убирает Infiltrator с карточки и из печати."],
+        ["Entourage", "Entourage и Herald теперь освобождают слоты HQ для Демонов, доступных через архетип Chaos Space Marines, и для союзных Демонов, в том же отряде, что и Greater Daemon."],
         ["Ghostkeel", "Два Stealth Drones теперь показаны."],
         ["Coronus", "У Twin arachnus blaze cannon указана дальность 18\"."],
         ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
@@ -168,6 +172,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["印刷ビュー", "シンプル表示でHardened Carapaceなどのプロファイル変更を反映。ユニットタイプ、Power Through Painのルール、共通サイキック学派も印刷。スマホでボタンが折り返します。"],
         ["印刷ビュー", "新しい「軍全体のルール」カードにコデックスの軍全体ルール(Shadow in the Warp、Waaagh!など)を表示します。"],
         ["Ymgarl", "Ymgarlのアップグレードで、カードと印刷からInfiltratorが外れます。"],
+        ["Entourage", "EntourageとHeraldが、Chaos Space Marinesのアーキタイプで使えるDaemonと同盟のDaemonにもHQ枠の免除を与えます（Greater Daemonと同じ分遣隊内）。"],
         ["Ghostkeel", "2体のStealth Droneが表示されます。"],
         ["Coronus", "Twin arachnus blaze cannonに射程18\"を追加しました。"],
         ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
