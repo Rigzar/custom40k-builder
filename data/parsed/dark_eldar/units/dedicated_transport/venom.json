@@ -17,21 +17,12 @@
             "name": "Venom",
             "min": 1,
             "max": 1,
-            "points": 174
+            "points": 129
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Venom is a single model and equipped with: Bladevanes; Splinter cannon; Twin splinter rifle.",
+    "equipped_with": "A Venom is a single model and equipped with: Splinter cannon; Twin splinter rifle.",
     "weapons": [
-        {
-            "name": "Bladevanes",
-            "range": "-",
-            "type": "Melee",
-            "s": "+1",
-            "ap": "-2",
-            "d": "1",
-            "abilities": "Unwieldy"
-        },
         {
             "name": "Splinter cannon",
             "range": "36\"",
@@ -71,12 +62,12 @@
             ]
         },
         {
-            "header": "Can be equipped with a Flickerfield for +40 points.",
+            "header": "Can be equipped with a Flickerfield for +32 points.",
             "constraint": {
                 "type": "one"
             },
             "choices": [],
-            "inline_pts": 40,
+            "inline_pts": 32,
             "variant_link": null,
             "is_unique_per_army": false
         }
@@ -84,8 +75,7 @@
     "abilities": [
         "Anti-Grav, Fast, Open",
         "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit.",
-        "Transport: This model has a transport capacity of 6 infantry models.",
-        "Vector Strike: Any unit this model overflows takes an automatic hit with its melee weapon profile."
+        "Transport: This model has a transport capacity of 6 infantry models."
     ],
     "unit_type": "Vehicle",
     "keywords": [
@@ -104,5 +94,5 @@
     "advisor": false,
     "slot": "Dedicated Transport",
     "default_size": 1,
-    "min_cost": 174
+    "min_cost": 129
 }

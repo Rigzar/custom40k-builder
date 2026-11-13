@@ -3236,7 +3236,7 @@ function applyChosenWeaponStatBoosts(unit: Unit, item: RosterEntry, profile: Res
 function getActiveExarchPowers(unit: Unit, item: RosterEntry): string[] {
   const powers: string[] = [];
   for (const sel of item.armory) {
-    if (sel.itemName === 'Paragon of war' && sel.chosenPower) powers.push(sel.chosenPower);
+    if (sel.itemName === 'Paragon of war' && sel.chosenPower) powers.push(...sel.chosenPower.split(' + ').filter(Boolean));  // Eldar 1.13: two powers, "A + B"
   }
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];

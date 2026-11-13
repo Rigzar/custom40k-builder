@@ -30,7 +30,7 @@
             "s": "D",
             "ap": "-4",
             "d": "2",
-            "abilities": "AT(2), Auto Hit, Sunder(1)"
+            "abilities": "AT(2), Auto Hit, Distortion, Sunder(1)"
         }
     ],
     "option_groups": [],
@@ -39,7 +39,7 @@
         "Distortion: The weapon has a -1 penalty for armor penetration and wound rolls.",
         "Mindshock Pods: Enemy units within 24\" range reduce their Leadership by -1.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
-        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+        "Wraithbone: Reduces AP and AT of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Flyer",
     "keywords": [

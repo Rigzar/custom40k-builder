@@ -145,7 +145,7 @@
       "name": "Fusion pistol",
       "term_compat": false,
       "range": "6\"",
-      "type": "Assault 1",
+      "type": "Pistol 1",
       "s": "8",
       "ap": "-5",
       "d": "1",
@@ -402,7 +402,7 @@
       "name": "Shuriken pistol",
       "term_compat": false,
       "range": "12\"",
-      "type": "Assault 1",
+      "type": "Pistol 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -673,9 +673,9 @@
     {
       "name": "Mandiblaster",
       "term_compat": false,
-      "desc": "During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1.",
+      "desc": "During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1. Additionally, the model gains the \"Hunter\" ability.",
       "p_unit": null,
-      "p_char": 2
+      "p_char": 6
     },
     {
       "name": "Marksman honours",
@@ -713,7 +713,7 @@
     {
       "name": "Paragon of war",
       "term_compat": false,
-      "desc": "The model gains +1 Strength, Toughness, Wounds and Attacks. It can chose a single Exarch power. Unique.",
+      "desc": "The model gains +1 Strength, +1 Toughness, +1 Wounds and +1 Attack. It must chose two Exarch powers. Unique.",
       "p_unit": null,
       "p_char": 17,
       "effect": {
@@ -999,6 +999,13 @@
       "desc": "The model and its attached unit gain the \"Acute Senses\" ability.",
       "p_unit": 10,
       "p_char": 10
+    },
+    {
+      "name": "Banshee mask",
+      "term_compat": false,
+      "desc": "Units that are selected as Charge targets may not use a Defensive Reaction. The majority of a unit needs to be equipped with this item to make use of its effect.",
+      "p_unit": null,
+      "p_char": 3
     }
   ],
   "daemon_weapons": []

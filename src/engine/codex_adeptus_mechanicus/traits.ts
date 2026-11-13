@@ -129,9 +129,9 @@ export const ADMECH_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Scarifying Weaponry:
-  // "This unit's Radiation weapons (any weapon with Decimate) gain Deadly(6+)."
+  // "This unit's Radiation weapons (any weapon with the "Rad" ability) gain Deadly(6+)."
   // COST: 5 | - | - | -
-  // NOTE: conditional on a weapon already having "Decimate" — no generic "weapons with ability
+  // NOTE: conditional on a weapon already having "Rad" — no generic "weapons with ability
   // X gain ability Y" effect type; descriptive only.
   'Scarifying Weaponry': [
     {

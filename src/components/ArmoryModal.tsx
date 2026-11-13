@@ -1972,7 +1972,10 @@ function EquipmentGroups({
             // next weapon can be chosen, and a weapon that already has it cannot be picked again.
             const perWeapon = isPerWeaponPurchase(arm.desc);
             const takenTargets = perWeapon ? (countsCtx?.targetsTakenOf(arm.name) ?? []) : [];
-            const canAdd = !uniqueSel && (!needsTarget || (chosenTarget !== '' && !takenTargets.includes(chosenTarget))) && (!needsPower || chosenPower !== '');
+            // Eldar 1.13: "Paragon of war ... must chose two Exarch powers". The two names travel together in `chosenPower` ("A + B").
+            const isParagon = arm.name === 'Paragon of war';
+            const powersChosen = chosenPower.split(' + ').filter(Boolean);
+            const canAdd = !uniqueSel && (!needsTarget || (chosenTarget !== '' && !takenTargets.includes(chosenTarget))) && (!needsPower || chosenPower !== '') && (!isParagon || powersChosen.length === 2);
             return (
               <div key={i}>
                 <ArmoryItemRow
@@ -1981,7 +1984,7 @@ function EquipmentGroups({
                   disabled={!canAdd}
                   reason={uniqueSel ? (reasonFor?.(arm) ?? null)
                     : (needsTarget && chosenTarget === '') ? t('armReasonPickWeapon')
-                    : (needsPower && chosenPower === '') ? t('armReasonPickEnh') : null}
+                    : (needsPower && (chosenPower === '' || (isParagon && powersChosen.length < 2))) ? t('armReasonPickEnh') : null}
                   selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
                   ptsOverride={getPts ? getPts(arm) : undefined}
                   onRemove={onRemove}
@@ -2017,18 +2020,28 @@ function EquipmentGroups({
                       {arm.name === 'Paragon of war' ? t('exarchPowerLabel') : t('enhancementLabel')}
                     </span>
                     <select
-                      value={chosenPower}
-                      onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
+                      value={isParagon ? (powersChosen[0] ?? '') : chosenPower}
+                      onChange={e => onSetEqExarchPower?.(arm.name, isParagon ? [e.target.value, powersChosen[1]].filter(Boolean).join(' + ') : e.target.value)}
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
                       <option value="">{arm.name === 'Paragon of war' ? t('selectPowerOption') : t('selectEnhancementOption')}</option>
                       {(arm.name === 'Paragon of war' ? ELDAR_EXARCH_POWERS
                         : arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS
                         : enumOptions).map(pn => {
-                        const taken = (takenEnhancements?.(arm) ?? []).includes(pn);
+                        const taken = (takenEnhancements?.(arm) ?? []).includes(pn) || (isParagon && pn === powersChosen[1]);
                         return <option key={pn} value={pn} disabled={taken}>{pn}{taken ? ' — ' + t('takenLabel') : ''}</option>;
                       })}
                     </select>
+                    {isParagon && (
+                      <select
+                        value={powersChosen[1] ?? ''}
+                        onChange={e => onSetEqExarchPower?.(arm.name, [powersChosen[0], e.target.value].filter(Boolean).join(' + '))}
+                        className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                      >
+                        <option value="">{t('selectPowerOption')}</option>
+                        {ELDAR_EXARCH_POWERS.map(pn => <option key={pn} value={pn} disabled={pn === powersChosen[0]}>{pn}{pn === powersChosen[0] ? ' — ' + t('takenLabel') : ''}</option>)}
+                      </select>
+                    )}
                   </div>
                 )}
                 {/* Daemon weapon ability picker — shown inline right under whichever gateway

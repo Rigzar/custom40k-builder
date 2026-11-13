@@ -9,7 +9,7 @@
       "s": "2",
       "ap": "-4",
       "d": "1",
-      "abilities": "Extra Attack(1), Limit(1), Hits automatically wound the target",
+      "abilities": "Extra Attack(1), Limit(1), Hits automatically wound the target. Only for units without the Flyer type.",
       "p_unit": null,
       "p_char": null
     },
@@ -21,7 +21,7 @@
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Extra Attack(3)",
+      "abilities": "Extra Attack(3). Only for units without the Flyer type.",
       "p_unit": null,
       "p_char": null
     },
@@ -34,7 +34,7 @@
       "s": "10",
       "ap": "-2",
       "d": "1",
-      "abilities": "AT(2), Auto Hit, Blast(4), Charge, Extra Attack(1), Limit(1), Quick(+7)",
+      "abilities": "AT(2), Auto Hit, Blast(4), Charge, Extra Attack(1), Limit(1), Quick(+7). Can only be taken by Monstrous creatures without the Flyer unit type.",
       "p_unit": null,
       "p_char": null
     }
@@ -206,7 +206,7 @@
       "term_compat": false,
       "desc": "Advanced Biomorph. Point costs are paid per model. The unit gains the \"Symbiote Rippers\" weapon. Only for units without the Flyer type.",
       "p_unit": null,
-      "p_char": 3,
+      "p_char": 5,
       "effect": {
         "grants_weapons": [
           "Symbiote Rippers"

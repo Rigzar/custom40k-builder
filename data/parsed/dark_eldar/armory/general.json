@@ -360,6 +360,18 @@
       "abilities": "Poison(2+)",
       "p_unit": 6,
       "p_char": 7
+    },
+    {
+      "name": "Bladevanes",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Can't be used normally in combat. Instead, every enemy model that this model moves over takes one automatic hit with the profile.",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [
@@ -485,9 +497,9 @@
     {
       "name": "Skybike",
       "term_compat": false,
-      "desc": "The bearer gains +6\" Movement, +1 Toughness, +1 Wound and the \"Jetbike\" ability.",
+      "desc": "The bearer gains +6\" Movement, +1 Toughness, +1 Wound, the \"Jetbike\" type and the \"Bladevanes\" equipment.",
       "p_unit": null,
-      "p_char": 27
+      "p_char": 32
     },
     {
       "name": "Skyboard",
@@ -589,10 +601,10 @@
       "category": "vehicle"
     },
     {
-      "name": "Bladevanes",
+      "name": "Diamond-tipped bladevanes",
       "term_compat": false,
-      "desc": "The model gains the \"Vector strike\" ability and the following weapon: S:+1 AP:-2 D:1, Unwieldy.",
-      "p_unit": 5,
+      "desc": "Every enemy model that this unit moves over takes one automatic hit with the following profile: Strength: +1 AP: -2 D: 1; Rending.",
+      "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
     },

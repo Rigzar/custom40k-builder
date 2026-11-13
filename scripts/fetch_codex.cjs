@@ -20,17 +20,17 @@ const { execFileSync } = require('child_process');
 /** key → [google sheet id, local filename in Codex/ (null = we hold no copy)] */
 const SHEETS = {
   psychic:            ['1s4SvAC1hoqm1X3DHtQspMHzkvaGVvTKBYGTDDovXFqc', 'General psychic disciplines.ods'],
-  adeptus_custodes:   ['1Ic420krL5mcf3_E_vwmwLnGoT1hZ9Qzl0IxWeJ79yoI', 'Adeptus Custodes 1.6.ods'],
+  adeptus_custodes:   ['1Ic420krL5mcf3_E_vwmwLnGoT1hZ9Qzl0IxWeJ79yoI', 'AdeptusCustodes1.7.ods'],
   adeptus_mechanicus: ['1uufTN0BOMRNtjSWfFJzEtfXUmpHdU8WTdKDUoXNLs8w', 'Adeptus Mechanicus 1.5.ods'],
   adeptus_sororitas:  ['1t6sB5Ls5UdXu5LE61Ab_2OOgxD4m2TC6hFvsEy0bP3k', 'Adeptus Sororitas 1.3.ods'],
   assassins:          ['1NZepq8IfXgWs9mmZMxg4emgOxTPP5VfVNfRZ3ryh5f4', 'Assassins 1.3.ods'],
-  chaos_daemons:      ['1t4UjzvS44a2h-x5KJGM-GyIou66yt0XfpOqqjAE1zl8', 'Chaos Daemons 1.2.ods'],
+  chaos_daemons:      ['1t4UjzvS44a2h-x5KJGM-GyIou66yt0XfpOqqjAE1zl8', 'ChaosDaemons1.3.ods'],
   chaos_space_marines:['1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw', 'Chaos Space Marines 1.11.ods'],
-  dark_eldar:         ['1SGc2WinOPa4gy66gICT4KiczzOgugDMe-v5JGz-bPQ8', 'Dark Eldar 1.6.ods'],
-  eldar:              ['139EqmDtxDjDZ4t6tllqHKjATrTpKQgJks7UzmKkUSkw', 'Eldar 1.9.ods'],
+  dark_eldar:         ['1SGc2WinOPa4gy66gICT4KiczzOgugDMe-v5JGz-bPQ8', 'DarkEldar1.7.ods'],
+  eldar:              ['139EqmDtxDjDZ4t6tllqHKjATrTpKQgJks7UzmKkUSkw', 'Eldar1.13.ods'],
   genestealer_cults:  ['1s0RwILJINi2QcCYnpjQ8und3QRoTDZWp83UJGlo8hqQ', 'Genestealer Cults 1.5.ods'],
   grey_knights:       ['1XkDkdshwkySGDwBaF4sQblDcE4xITkm1iSSlZSUE_mk', 'Grey Knights 1.4.ods'],
-  harlequins:         ['1E_9Vy6kWaAUXVBV-BiyJK4GD7_r72cYwEa115_G2Dec', 'Harlequins 1.3.ods'],
+  harlequins:         ['1E_9Vy6kWaAUXVBV-BiyJK4GD7_r72cYwEa115_G2Dec', 'Harlequins1.4.ods'],
   // Was "Legio Titanicus"; the author renamed it in the 2026-08 codex and moved the Secutarii,
   // Tech-thralls, Macrocarid and Triaros into it. Same workbook, same id — only the title moved,
   // so there is no separate "Forces of the Machine God" file to look for.
@@ -41,14 +41,14 @@ const SHEETS = {
   inquisition:        ['1krDncaF0CSf6bDIeA-j20dAo3tqkphkeDd2weq56MN4', 'Inquisition 1.4.ods'],
   imperial_navy:      ['1KhzXT4BjwqlpsMr8p90q4VJomAt71NDu2W689R2j14E', 'Imperial Navy 1.2.ods'],
   knight_households:  ['1zG4HN7FmFw8QEswqWHF0I883zurtlGSnH0A1UOE_t7c', 'Knight Households 1.0.ods'],
-  leagues_of_votann:  ['1lZ6MxdCM710N-d4ba9RUSdhmeN8iJjzM5hlpVf73iPY', 'Leagues of Votann 1.5.ods'],
-  necrons:            ['1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA', 'Necrons 1.9.ods'],
+  leagues_of_votann:  ['1lZ6MxdCM710N-d4ba9RUSdhmeN8iJjzM5hlpVf73iPY', 'LeaguesofVotann1.7.ods'],
+  necrons:            ['1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA', 'Necrons1.12.ods'],
   orks:               ['1gt2q98cnPczVyaujVWX56r2F_GJXBFp8IW9VpAWZ6qI', 'Orks1.8.ods'],
-  space_marines:      ['16Ri3G9Jx1NAzguMbTKtxsL8uaOq6hik3h7NVuU85mZA', 'Space Marines 1.12.ods'],
+  space_marines:      ['16Ri3G9Jx1NAzguMbTKtxsL8uaOq6hik3h7NVuU85mZA', 'SpaceMarines1.14.ods'],
   tau_empire:         ['1S1Uub6VvvlBuxlqh61S5DhZYIKtdRHvkRs1CsIRgu8s', 'Tau Empire 1.10.ods'],
   // The Core Rules doc links two Tyranid workbooks. The live one has 46 tabs and a normal Index;
   // the other has 40 and opens with "Designer's notes" — that is the author's test copy, not canon.
-  tyranids:           ['1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M', 'Tyranids 1.12.ods'],
+  tyranids:           ['1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M', 'Tyranids1.14.ods'],
   tyranids_test:      ['1-oox_d8xDqNM7hlMKLey1779tDGhUPpPJ3KeHRusGqA', null],
   escalation:         ['1i9o9KowRslsN4e1UXjzqME5OzcH5A9nR78LjvTVwXRY', 'Escalation.ods'],
 };

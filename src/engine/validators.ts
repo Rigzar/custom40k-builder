@@ -848,6 +848,24 @@ export function computeSubCommanderFreeSlots(
 }
 
 /**
+ * Necrons 1.12: the Catacomb Command Barge is listed under HQ and "Can not be selected without having an Overlord in the army. Does not use up
+ * an HQ slot." One Barge per Lord in the army is exempted from the HQ slot (the Overlord is a Lord that starts the game inside it).
+ */
+export function computeCatacombBargeFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Necrons') return { hq: 0, notes: [] };
+  const barges = army.filter(i => i.unitName === 'Catacomb Command Barge' && !i.factionSource).length;
+  const lords = army.filter(i => i.unitName === 'Lord' && !i.factionSource).length;
+  if (barges === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(barges, lords);
+  const notes = [`Catacomb Command Barge: ${credited} of ${barges} exempted from the HQ slot (needs an Overlord, one per Lord; have ${lords}).`];
+  if (barges > lords) notes.push(`Catacomb Command Barge: ${barges - lords} without a Lord to carry still occupy${barges - lords === 1 ? 's' : ''} a normal HQ slot.`);
+  return { hq: credited, notes };
+}
+
+/**
  * T'au Ethereal Guard: same wrong-anchor bug — "1 unit of Ethereal Guard can be taken for each
  * Ethereal. Does not occupy an HQ slot", anchored to Ethereal count specifically, not any HQ.
  */
@@ -1294,10 +1312,11 @@ export function computeFreeSlotAdjustments(
   const retinue         = computeRetinueFreeSlots(army, data);
   const ringleader      = computeRingleaderFreeSlots(army, data);
   const overseerAuxilia = computeOverseerAuxiliaFreeSlots(army);
+  const barge           = computeCatacombBargeFreeSlots(army, data);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq + barge.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
       + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites + possessedLord.elites,
@@ -1310,7 +1329,7 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...possessedLord.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes, ...barge.notes,
     ],
   };
 }

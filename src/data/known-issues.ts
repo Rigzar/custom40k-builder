@@ -2,10 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-nov13-sheets-1-89-01",
+    status: "fixed",
+    title: "Fourteen codex sheets brought up to date (v1.89)",
+    description: "FIXED 2026-11-13 (v1.89). The sheets that had moved since 1.88 (Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 and the changed tabs of Mechanicus, T'au, Knights and Navy) were compared with the app by unit, option, ability text, Armory item and Army Customisation entry; every difference found was applied. Eldar Paragon of War now takes two Exarch powers (the two names travel together in ArmorySelection.chosenPower as \"A + B\"), and the Necron Catacomb Command Barge is an HQ that uses no HQ slot (computeCatacombBargeFreeSlots). OPEN, for the sheet authors: the Eldar sheet lists the Exarch swap of the Striking Scorpions as \"+3 Biting blade, +12 Scorpion claw\" in the line and \"+5 / +14\" in the rows (the app follows the rows); the Harlequin Skyweavers say \"replace its Haywire cannon\" where the default weapon is the Twin shuriken catapult.",
+  },
+  {
     id: "ki-tyranids-trygon-hs-01",
     status: "fixed",
     title: "Trygon Slot incorrectly set to Fast Attack (GH#274)",
-    description: "FIXED 2026-11-12, reported on Discord (TeCrisis: \"For a Skirmish game I was curious if a Trygon was a valid unit, but on adding them to check, their AOP changed from Heavy Support to Fast Attack. I can't think why this might've happened.\". CAUSE: slot was incorrectly set to \"Fast Attack\" in the data"
+    description: "FIXED 2026-11-12, reported on Discord (TeCrisis: \"For a Skirmish game I was curious if a Trygon was a valid unit, but on adding them to check, their AOP changed from Heavy Support to Fast Attack. I can't think why this might've happened.\". CAUSE: slot was incorrectly set to \"Fast Attack\" in the data file. Fixed by DemonGyro (PR #275), thank you.",
+  },
+  {
     id: "ki-nov11-discord-five-reports-01",
     status: "fixed",
     title: "Mek Gunz size, allied Gue'vesa Pulse rifles, Sons of Mars Techmarine, sergeant weapon boosts, Boyz swap hidden",

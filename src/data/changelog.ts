@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'j';
+export const REVISION = '';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -36,6 +36,20 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.89',
+    date: '2026-11-13',
+    title: "14 codices up to date",
+    changes: [
+      "THE SHEETS THAT MOVED SINCE 1.88 ARE IN THE APP. Adeptus Custodes 1.7, Chaos Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Leagues of Votann 1.7, Necrons 1.12, Tyranids 1.14, and the changed tabs of Adeptus Mechanicus, T'au Empire, Knight Households and the Imperial Navy were read cell by cell against the app: unit facts, options, abilities, the Armory, Army Customisation and the Index. Space Marines 1.14, Imperial Guard 1.15 and Orks 1.8 went out earlier in 1.88.",
+      "ELDAR 1.13. PARAGON OF WAR now takes TWO Exarch powers (\"It must chose two Exarch powers\"): the Armory item shows two pickers and cannot be bought with one. BANSHEE MASK is an Armory item (3) and the Howling Banshees are equipped with it; Howling Banshee costs 26. MANDIBLASTER costs 6 and gives the Hunter ability, so the Striking Scorpions no longer list Hunter or the Mandiblaster text themselves. Fusion pistol and Shuriken pistol are Pistol 1. WRAITHBONE reduces AP and AT. The Hemlock Wraithfighter's Heavy D-scythe has Distortion.",
+      "DARK ELDAR 1.7. Reaver 33, Venom 129 and without Bladevanes by default, Flickerfield for the Venom +32, Skybike +32 (it gives the Bladevanes), and Diamond-tipped bladevanes (10) replace the old Bladevanes vehicle upgrade. The Bladevanes weapon of the Reavers has the new text.",
+      "NECRONS 1.12. The CATACOMB COMMAND BARGE is listed under HQ and \"does not use up an HQ slot\": one Barge per Lord is exempted from the HQ slot (the validator says so), and the Barge has Open and the new Chariot text. Canoptek Spyders and Doomstalker follow the new wording.",
+      "TYRANIDS 1.14. Barbed strangler and Venom cannon cost 21 on the Tyranid Warriors, the Symbiote Rippers biomorph costs 5, and the Headlong Charge, Implant Attack and Symbiote Rippers weapons carry the Flyer restriction. Malanthrope and Venomthrope say Obscuring Terrain.",
+      "HARLEQUINS 1.4: Hand flamer and Power fist are in the Armory. CHAOS DAEMONS 1.3: the Great Unclean One's Nurgling infestation is Auto Hit, Extra Attack(4), Poison(4+). ADEPTUS MECHANICUS: Scarifying Weaponry works on weapons with Rad. T'AU: the Support Turrets are a Squadron. LEAGUES OF VOTANN: Resource Transmutation spelling.",
+      "TRYGON (GH#274, #275, thank you DemonGyro): the Trygon is a Heavy Support unit again; it took a Fast Attack slot. The same pull request left a broken line in the Known Issues file, repaired here.",
+    ],
+  },
   {
     version: '1.88a',
     date: '2026-11-12',

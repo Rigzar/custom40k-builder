@@ -138,8 +138,8 @@
         }
     ],
     "abilities": [
-        "Supporting Fire",
-        "Deployment: Support Turrets always start in reserves and arrive whenever the controlling player wants to and in whatever quantity. Do not make reserve rolls for Support Turrets. During each Reinforcement phase, one Support Turret per Breacher or Strike Team can be placed anywhere within 3\" of any Breacher or Strike Team. If a Breacher or Strike team is currently transported within a Devilfish, the Support Turret can be placed within 3\" of the Devilfish. Support Turrets count as being completely immobilised after setup.",
+        "Squadron, Supporting Fire",
+        "Deployment: Support Turrets always start in reserves. Do not make reserve rolls for Support Turrets. During each Reinforcement phase, one Support Turret per Breacher or Strike Team can be placed anywhere within 3\" of any Breacher or Strike Team. If a Breacher or Strike team is currently transported within a Devilfish, the Support Turret can be placed within 3\" of the Devilfish. Support Turrets count as being completely immobilised after setup.",
         "Expanding the sphere of influence: If a Support Turret is placed on a mission objective that was secured by a Troop selection (via the \"Objective secured!\" ability), it will still control the mission objective, even if an enemy unit is standing on it. This means all Support Turrets on an objective need to be destroyed, before the enemy may capture or contest the point!"
     ],
     "unit_type": "Vehicle",

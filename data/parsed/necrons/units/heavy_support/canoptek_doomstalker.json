@@ -44,9 +44,9 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Ward(5+) ",
+        "Ward(5+)",
         "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
-        "Sentinel construct: If a friendly unit is charged within 12\", the Doomstalker can also fire Overwatch."
+        "Sentinel construct: If a friendly unit is charged within 12\", the Doomstalker can also use Defensive Fire against the attacker."
     ],
     "unit_type": "Squadron, Walker",
     "keywords": [

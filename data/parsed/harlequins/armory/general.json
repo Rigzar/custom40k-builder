@@ -14,6 +14,18 @@
       "p_char": 5
     },
     {
+      "name": "Hand flamer",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Auto Hit, Sunder(1)",
+      "p_unit": 2,
+      "p_char": 1
+    },
+    {
       "name": "Haywire grenades",
       "term_compat": false,
       "range": "6\"",
@@ -50,10 +62,22 @@
       "p_char": 11
     },
     {
+      "name": "Power fist",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)",
+      "p_unit": 11,
+      "p_char": 13
+    },
+    {
       "name": "Shuriken pistol",
       "term_compat": false,
       "range": "12\"",
-      "type": "Assault 1",
+      "type": "Pistol 1",
       "s": "4",
       "ap": "-1",
       "d": "1",

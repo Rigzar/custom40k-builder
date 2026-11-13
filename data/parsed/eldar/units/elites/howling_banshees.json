@@ -17,7 +17,7 @@
             "name": "Howling Banshee",
             "min": 5,
             "max": 10,
-            "points": 25
+            "points": 26
         }
     ],
     "variant_models": [
@@ -40,7 +40,7 @@
             "points": 46
         }
     ],
-    "equipped_with": "Every model is equipped with: Banshee blade; Shuriken pistol.",
+    "equipped_with": "Every model is equipped with: Banshee blade; Banshee mask; Shuriken pistol.",
     "weapons": [
         {
             "name": "Banshee blade",
@@ -272,5 +272,5 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 125
+    "min_cost": 130
 }

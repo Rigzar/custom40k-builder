@@ -85,14 +85,14 @@ export const CATEGORIES: FactionCategory[] = [
     pillFg: '#6ab88a', pillFgLight: '#1d6944', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'complete', version: '1.10' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.11' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.12' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.8' },
-      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.12' },
+      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.13' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.7' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.5' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.4' },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.6' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.13' },
+      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.7' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.14' },
     ],
   },
   {
