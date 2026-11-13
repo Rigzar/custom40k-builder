@@ -44,6 +44,7 @@ const copies = [
   ['src/data/names.ja.json', 'src/data/names.ja.json'],
   // The general psychic disciplines: the wiki had its own copy and it had drifted (9 powers differed).
   ['src/data/generalDisciplines.ts', 'src/data/generalDisciplines.ts'],
+  ['src/data/factionIndexRules.ts', 'src/data/factionIndexRules.ts'],
   ['src/utils/localName.ts', 'src/utils/localName.ts'],
   ['src/utils/jaProse.ts', 'src/utils/jaProse.ts'],
   ['src/utils/unitTypeLabel.ts', 'src/utils/unitTypeLabel.ts'],

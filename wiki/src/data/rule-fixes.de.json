@@ -1,0 +1,11 @@
+{
+ "ward": "Das Modell hat einen {X} Ward-Rettungswurf.",
+ "blank": "Kein Modell mit dieser Regel kann jemals von einer psionischen Kraft anvisiert werden. Außerdem kann das Modell von nichts außerhalb von 18\" anvisiert werden. Außerdem erleiden alle Psyker innerhalb von 18\" einen Malus von -1 beim Wirken und Verweigern psionischer Kräfte. Außerdem erleiden alle Einheiten innerhalb von 12\" einen Malus von -1 auf ihre Leadership-Werte.",
+ "advisor": "Für jede HQ-Auswahl darf eine Kopie dieser Einheit genommen werden, ohne einen AOP-Platz zu belegen.",
+ "hunter": "Die Einheit weicht beim Aufstellen per Deep Strike nicht ab. Außerdem erhält sie Charge-Vorteile normal und muss keinen Disorderly Charge ausführen.",
+ "auto hit": "Die Waffe trifft automatisch.",
+ "blast": "Ein erfolgreicher Trefferwurf mit dieser Waffe erzeugt 1 Treffer pro Modell der Zieleinheit, höchstens {X} Treffer. Ein misslungener Trefferwurf kann einmal wiederholt werden und kann dann nur die Hälfte (abgerundet) dieser Höchstzahl an Treffern erzeugen.",
+ "limit": "Mit dieser Waffe können pro Runde nur {X} Angriffe ausgeführt werden.",
+ "piercing": "Erfolgreiche Verwundungswürfe von {X} gelingen immer und erhalten zusätzlich -2 AP. Erfolgreiche Rüstungsdurchschlagswürfe von {X} erhalten einen Bonus von +2 auf das Ergebnis und gelten als AT(1), sofern ihr AT nicht bereits höher ist.",
+ "armorbane": "Die Waffe erhält einen Bonus von +{X} auf Rüstungsdurchschlagswürfe."
+}

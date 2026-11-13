@@ -12,6 +12,7 @@ import { unitTypeLabel } from '../vendor/src/utils/unitTypeLabel';
 import { localiseAbility } from '../vendor/src/data/coreRules';
 import { WIKI_LANG, wtSlot } from './i18n';
 import { phrase } from './phrases';
+import DATA_LINES from '../data/data-lines.json';
 
 if (WIKI_LANG === 'ja') setNameTable(NAMES_JA as Record<string, string>);
 
@@ -34,3 +35,21 @@ export const wSlot = (slot: string): string => {
 export const wp = (text: string): string => (typeof text === 'string' ? phrase(WIKI_LANG, text) : text);
 /** A short descriptive phrase from the text table ("Instant", "Friendly unit"). */
 export const wPhrase = (text: string): string => (typeof text === 'string' ? localiseAbility(text) : text);
+
+/**
+ * A descriptive text from the data (archetype and legacy rules, Armory item text, psychic and prayer effects). The sheets are in English,
+ * so each LINE of the text is looked up in src/data/data-lines.json (German, Spanish, Russian, Japanese); a line with no entry stays English,
+ * and a text with no entry at all goes through the app's own ability translation as before.
+ */
+export const wd = (text: string): string => {
+  if (typeof text !== 'string') return text;
+  const table = (DATA_LINES as Record<string, Record<string, string>>)[WIKI_LANG];
+  if (!table) return localiseAbility(text);
+  let hit = false;
+  const out = text.split('\n').map(line => {
+    const t = table[line.trim()];
+    if (t) { hit = true; return t; }
+    return line;
+  });
+  return hit ? out.join('\n') : localiseAbility(text);
+};

@@ -49,7 +49,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Aquilon Custodians",
     "Galatus Contemptor Dreadnought",
     "Custodian Wardens",
-    "Venerable Contemptor Dreadnought",,
+    "Venerable Contemptor Dreadnought",
   ],
   "Fast Attack": [
     "Vertus Praetors",

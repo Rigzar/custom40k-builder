@@ -177,7 +177,7 @@ import { wt } from '../../lib/i18n';
           </svg>
         </div>
         <div class="scoring-title">Attrition</div>
-        <p class="scoring-desc">Units are worth their point cost in VP when destroyed by end of round 5. Units at or below half strength are worth 50% of their cost. Single-model units use remaining Wounds/HP to determine value.</p>
+        <p class="scoring-desc">Each enemy unit is worth VP equal to its point cost, judged at the end of round 5: destroyed = 100%, at or below half of its starting strength = 50%, above half = nothing. Single-model units use their remaining Wounds or Hull Points instead of model count.</p>
       </div>
       <div class="scoring-card">
         <div class="scoring-icon" aria-hidden="true">
@@ -191,7 +191,7 @@ import { wt } from '../../lib/i18n';
           </svg>
         </div>
         <div class="scoring-title">Mission Objectives</div>
-        <p class="scoring-desc">Hold an objective by keeping at least one model within 3" of it with no enemy model in range. If an enemy model is in range, the objective is contested and scores for nobody. Each unit can only hold or contest ONE objective per turn — if it qualifies for several, roll to decide which. Elevation: a unit can capture or contest an objective directly one level above or below it. Control is lost the moment no friendly model is within the 3" radius, or an enemy model enters it.</p>
+        <p class="scoring-desc">An objective is controlled if at least one friendly model is within 3" of it and no enemy model is. If models of both players are in range it is contested and nobody scores. Each unit can control or contest only ONE objective per battle round — if it qualifies for several, roll a die to decide which. Elevation: a unit can control or contest an objective directly one level above or below it. Control and contesting are determined at the end of each battle round, from the positions of all models at that moment, and VP are awarded as the mission states.</p>
       </div>
       <div class="scoring-card">
         <div class="scoring-icon" aria-hidden="true">
@@ -201,7 +201,7 @@ import { wt } from '../../lib/i18n';
           </svg>
         </div>
         <div class="scoring-title">Winning</div>
-        <p class="scoring-desc">After round 5, count all VP for each side. A player wins by having at least <strong>100 more VP</strong> than the opponent. Otherwise the game is a draw.</p>
+        <p class="scoring-desc">At the end of the final battle round each player totals their VP. The player with at least <strong>100 VP more</strong> than the opponent wins; otherwise the battle is a draw.</p>
       </div>
     </div>
   </section>

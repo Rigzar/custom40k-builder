@@ -1,5 +1,19 @@
 ---
 import Layout from '../../components/Layout.astro';
+import { RULES } from '../../lib/glossary';
+import { wtContent } from '../../lib/i18n';
+import { wr } from '../../lib/loc';
+
+// The Special Rules and Weapon Abilities tabs are GENERATED from the glossary (the same text the glossary pages and the app show, which
+// matches Core Rules 1.45 rule by rule), in the order the Core Rules print them. They used to be typed by hand and had drifted
+// (Armorbane "+3" instead of "+x", "Armor Piercing" for Piercing, no Advisor, Sniper, Charge or Hover Mode).
+const SPECIAL_KEYS = ["ward","open","objective secured!","vanguard","deep strike","stealth","terrifying","swarm","berserk","aegis","blank","acute senses","advisor","anti-grav","blind rage","bodyguard","brotherhood of psykers","combat squads","command squad","counter-attack","deflect","daemon","daemonic instability","fast","fearless","favored enemy","frenzy","furious charge","greater daemon","haste","hit & run","hunter","infiltrator","massive","mindless","move through cover","narthecium","outflank","parry","regeneration","retribution","squadron","tank hunter","use cover","unique","unyielding","warded"]
+  .sort((a, b) => RULES[a].name.localeCompare(RULES[b].name));
+const WEAPON_KEYS = ["ammo","anti-air","armorbane","at","auto hit","beam","blast","blind","blood drinker","bomb","charge","combi","deadly","decimate","deflagrate","extra attack","force weapon","grav","graviton","gruesome","haywire","hover mode","indirect","life curse","limit","master-crafted","melta","monofilament","overheating","piercing","poison","precision","psi-shock","quick","rad","rending","seeking","shield breaker","shred","slow","sniper","soul burn","sunder","suppression","unwieldy"];
+const ruleName = (k: string) => wr(RULES[k].name.replace('({X})', ' (X)').replace('{X}', 'X'));
+// Rules whose parameter is a roll ("Rending(5+)"): the Core Rules print it "x+", the glossary keeps only the placeholder.
+const ROLL_PARAM = new Set(['ward', 'aegis', 'berserk', 'deadly', 'rending', 'soul burn', 'deflagrate', 'precision', 'poison', 'piercing']);
+const ruleText = (k: string) => wtContent('glossary', k, RULES[k].description).replace(/\{X\}/g, ROLL_PARAM.has(k) ? 'X+' : 'X');
 ---
 <Layout title="Core Rules — Custom40k Wiki">
 
@@ -19,7 +33,7 @@ import Layout from '../../components/Layout.astro';
       </div>
       <p class="rules-supertitle">Custom40k Reference</p>
       <h1 class="rules-title">Core Rules</h1>
-      <p class="rules-meta">v1.40 · Balance 5.05 · FAQ #5: Codex rules override Core Rules</p>
+      <p class="rules-meta">v1.45 · Balance 5.05 · FAQ #5: Codex rules override Core Rules</p>
     </div>
   </div>
 
@@ -47,8 +61,8 @@ import Layout from '../../components/Layout.astro';
         <div class="sub-rule">
           <strong>Battleshock Tokens</strong>
           <ul>
-            <li><span class="badge-inline">1 token — Pinned</span> −1 to hit, movement halved, no Charge bonus.</li>
-            <li><span class="badge-inline badge-red">2 tokens — Fleeing</span> Move D6+6″ toward nearest friendly board edge. Can't receive orders. Removed if reaching board edge.</li>
+            <li><span class="badge-inline">1 token — Pinned</span> −1 to hit, movement halved. May only make a Disorderly Charge.</li>
+            <li><span class="badge-inline badge-red">2 tokens — Fleeing</span> Move D6+6″ toward the nearest friendly board edge. Can't receive orders, counts as activated, can't hold or contest objectives and ignores difficult and dangerous terrain. Removed if reaching the board edge. If it enters melee again that round it can't fight and automatically loses; instead of fleeing again it stays in place with 1 token.</li>
           </ul>
         </div>
       </div>
@@ -82,7 +96,7 @@ import Layout from '../../components/Layout.astro';
           <div class="order-pill">Move &amp; Shoot</div>
           <div class="order-pill">Stand &amp; Shoot</div>
         </div>
-        <p class="note">If one player has more orders, the other gets Skip tokens (1 per 2 extra orders, rounded up).</p>
+        <p class="note">At the end of each Command Phase the player with fewer Orders gets 1 Skip token per 2 Orders of difference, rounded up (1–2 = 1 token, 3–4 = 2, 5–6 = 3). Unused Skip tokens expire at the end of the battle round.</p>
       </div>
 
       <div class="phase-card phase-card--4">
@@ -96,6 +110,7 @@ import Layout from '../../components/Layout.astro';
         <div class="phase-name">Action Phase</div>
         <p>Players alternate activating one unit at a time, starting with the initiative holder. Each unit carries out its assigned order.</p>
         <p class="note">A unit may move, shoot, and fight in the same round — but each action only once. A unit already activated may still fight if charged later.</p>
+        <p class="note">Doing nothing: a unit does not need to perform every part of an order — a Move &amp; Shoot unit may skip either the move or the shooting. Passing: a player with no units left to activate passes, and the other keeps activating until every unit has acted.</p>
       </div>
     </div>
 
@@ -134,8 +149,12 @@ import Layout from '../../components/Layout.astro';
     <div class="rule-section reveal">
       <div class="section-divider"><span>Meta Orders (Defensive Reactions)</span></div>
       <p class="section-intro">Not assigned in the Command Phase — triggered. A Defensive Reaction may only be used by a unit that has not yet been activated this round, and using one removes that unit&rsquo;s order. None of them can be used by a unit engaged in melee.</p>
-      <p class="section-note">Triggered in specific situations — not assigned in the Command Phase. Can only be used by units that haven't activated yet this round and are not in melee.</p>
+      <p class="section-note">Triggered in specific situations — not assigned in the Command Phase. Can only be used by units that haven't activated yet this round and are not in melee. If several units use Defensive Reactions, all declare them simultaneously.</p>
       <div class="rule-grid">
+        <div class="rule-card">
+          <div class="rule-name">Acute Senses</div>
+          <p>Requires the Acute Senses ability, a unit that has not activated yet, and an enemy unit deployed from reserves within 12″: fire at it as if it had a Stand &amp; Shoot order. Resolves after the enemy is deployed and before it takes another action.</p>
+        </div>
         <div class="rule-card">
           <div class="rule-name">Counter-Attack</div>
           <p>Requires Counter-Attack ability. When declared as a charge target: treated as having executed a Charge order. Must pick Charge bonus before attacker does.</p>
@@ -150,7 +169,7 @@ import Layout from '../../components/Layout.astro';
         </div>
         <div class="rule-card">
           <div class="rule-name">Take Cover</div>
-          <p>When declared as a ranged target: +1 to Saving throws vs ranged attacks and −1 AT until end of enemy activation.</p>
+          <p>When declared as a ranged target: +1 to Saving throws vs ranged attacks and −1 AT (to a minimum of 0) until end of enemy activation.</p>
         </div>
       </div>
     </div>
@@ -173,6 +192,10 @@ import Layout from '../../components/Layout.astro';
           <div class="rule-name">Enemy models</div>
           <p>Models must keep a minimum distance of <strong>1&Prime;</strong> from all enemy models.
              Creatures may move through friendly models; vehicles must be bypassed.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Mixed movement profiles</div>
+          <p>A unit with models of different movement limits applies them to the whole unit. A character in Terminator armor joining an Infantry unit means the unit cannot Advance and cannot pursue in melee (Unyielding).</p>
         </div>
       </div>
       <div class="diagram-box">
@@ -679,7 +702,7 @@ import Layout from '../../components/Layout.astro';
   <!-- TAB: SPECIAL RULES                                         -->
   <!-- ══════════════════════════════════════════════════════════ -->
   <div id="tab-special" class="tab-panel">
-    <p class="tab-intro">All model special rules from the Core Rules v1.40. Codex rules may add to or override these (FAQ #5).</p>
+    <p class="tab-intro">All model special rules from the Core Rules v1.45. Codex rules may add to or override these (FAQ #5).</p>
 
     <div class="rule-section reveal">
       <div class="section-divider"><span>Deep Strike — Arrival</span></div>
@@ -691,53 +714,7 @@ import Layout from '../../components/Layout.astro';
     </div>
 
     <div class="ability-grid">
-
-      <div class="ability-card"><div class="ability-name">Acute Senses</div><p>Infiltrators always stay more than 18″ away during deployment, even without direct LOS. If the unit has not activated this turn, it may use up its order to fire at an enemy unit within 12″ that is deployed from reserves, as if it had the "Stand &amp; Shoot" order. The attack resolves after the enemy is deployed and before it acts.</p></div>
-      <div class="ability-card"><div class="ability-name">Aegis (X+)</div><p>Dispel any psychic power directly targeting this model on X+. Also prevent Perils of the Warp on X+. Best Aegis in unit applies.</p></div>
-      <div class="ability-card"><div class="ability-name">Anti-Grav</div><p>Ignores terrain, units, and vertical movement costs when moving.</p></div>
-      <div class="ability-card"><div class="ability-name">Blank</div><p>Can never be targeted by any psychic power, nor by anything from outside 18″. All psykers within 18″ suffer -1 to manifest and deny psychic powers, and all units within 12″ suffer -1 to their Leadership.</p></div>
-      <div class="ability-card"><div class="ability-name">Disorderly Charge</div><p>A unit that can only perform a Disorderly Charge may select just one target for its Charge order and gains no Charge bonus or other benefit for charging.</p></div>
-      <div class="ability-card"><div class="ability-name">Berserk (X+)</div><p>Gain X+ ward save (doesn't work vs S8+). Cannot use Escape or Take Cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Blind Rage</div><p>Instead of Battleshock tests: move D6″ toward nearest enemy (may trigger charge). In melee: fail Ld test → lose D3 wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Bodyguard</div><p>Ranged wounds assigned to Bodyguard before characters. Attacks in melee must target Bodyguard first. Can pile in simultaneously with characters.</p></div>
-      <div class="ability-card"><div class="ability-name">Brotherhood of Psykers</div><p>If unit has ≥2 models with this rule: +1 to all psychic cast and deny rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">Combat Squads</div><p>If unit is at maximum models, may split into two equal units during deployment.</p></div>
-      <div class="ability-card"><div class="ability-name">Command Squad</div><p>Models with this ability can join: a squad, a single character, or a squad that already has a character attached.</p></div>
-      <div class="ability-card"><div class="ability-name">Counter-Attack</div><p>Model is able to use the Counter-Attack Meta-Order.</p></div>
-      <div class="ability-card"><div class="ability-name">Daemon</div><p>The model has a 5+ ward save.</p></div>
-      <div class="ability-card"><div class="ability-name">Daemonic Instability</div><p>Ignore effects of 1 Battleshock token. On 2nd token: suffer D3 auto wounds (no saves), discard all tokens, do not flee. In melee: suffer D3+1 auto wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Deep Strike</div><p>Arriving from reserve, place anywhere, with only the "Charge" or "Move &amp; Shoot" order. Roll a scatter die: hit icon = stay, arrow = move 2D6″. If the first model lands outside the table, on impassable terrain or on an enemy unit, the unit returns to reserve and takes a dangerous terrain test. Models on terrain take dangerous terrain tests. The unit counts as having moved 6″ and may only perform a Disorderly Charge.</p></div>
-      <div class="ability-card"><div class="ability-name">Deflect</div><p>Ranged attacks against this model suffer −1 to hit rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">Fast</div><p>Vehicles double their movement (max 24″). May fire one additional weapon if moved up to 12″.</p></div>
-      <div class="ability-card"><div class="ability-name">Fearless</div><p>Automatically passes any Leadership test. Cannot use Escape or Take Cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Favoured Enemy</div><p>At game start, choose a faction. Reduce total hit penalty against that faction by −1 (min 0). Leadership tests caused by this model vs that faction suffer cumulative −1.</p></div>
-      <div class="ability-card"><div class="ability-name">Frenzy (x″)</div><p>Infantry model gains x″ increased movement for Charge movement.</p></div>
-      <div class="ability-card"><div class="ability-name">Furious Charge</div><p>Gain +1 Strength and +1 Initiative until end of battle round when making a charge move.</p></div>
-      <div class="ability-card"><div class="ability-name">Greater Daemon</div><p>The model has a 4+ ward save.</p></div>
-      <div class="ability-card"><div class="ability-name">Haste (x″)</div><p>Infantry model gains x″ increased movement for Advance movement.</p></div>
-      <div class="ability-card"><div class="ability-name">Hit &amp; Run</div><p>After all models in melee activated (before result): unit may move 3D6″ away in straight line. Cannot enter engagement range and cannot consolidate after the move. Enemy cannot pursue and must make a 3″ consolidation move if able.</p></div>
-      <div class="ability-card"><div class="ability-name">Infiltrator</div><p>After all normal deployment, deploy anywhere: 18″ from enemies in LOS, 12″ from enemies out of LOS. Cannot Vanguard move. Alternate placement if both players have Infiltrators.</p></div>
-      <div class="ability-card"><div class="ability-name">Massive (X)</div><p>Occupies X additional spaces in transport vehicles.</p></div>
-      <div class="ability-card"><div class="ability-name">Mindless</div><p>Auto-passes every Leadership test. Can contest objectives but never hold them.</p></div>
-      <div class="ability-card"><div class="ability-name">Move Through Cover</div><p>Does not suffer movement penalties for moving through terrain.</p></div>
-      <div class="ability-card"><div class="ability-name">Narthecium</div><p>Once per battle round, reduce damage of one wound to the model or its unit by 1 (declared after saves). Doesn't work vs S8+, or Mortal Wounds.</p></div>
-      <div class="ability-card"><div class="ability-name">Objective Secured!</div><p>Captured objective remains under control even with no friendly units in range — until opponent contests/conquers it at end of a battle round. Automatically granted to all Troops selections.</p></div>
-      <div class="ability-card"><div class="ability-name">Open</div><p>Vehicle has fire hatches = passenger capacity. Passengers can be targeted, cast psychic powers, benefit from cover with transport. Cannot fight in melee while inside. After disembarking, can always make 6″ Charge if vehicle moved ≤12″.</p></div>
-      <div class="ability-card"><div class="ability-name">Outflank</div><p>When arriving from reserve, may deploy along side edges (not opponent's deployment zone, not turn 1). Counts as having already moved up to its maximum Movement value this Battle Round; Move &amp; Shoot order only.</p></div>
-      <div class="ability-card"><div class="ability-name">Parry</div><p>Melee attacks against the model suffer −1 to hit rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">Regeneration (X)</div><p>Regains X wounds at the start of each Reinforcement phase.</p></div>
-      <div class="ability-card"><div class="ability-name">Retribution (X)</div><p>Each melee hit against the model inflicts 1 automatic wound (S4 AP0 D1) against the attacking unit, to a maximum of X per Battle round. Multiple models with this rule pool their instances.</p></div>
-      <div class="ability-card"><div class="ability-name">Squadron</div><p>Each model becomes an independent unit during deployment and stays independent for the rest of the game.</p></div>
-      <div class="ability-card"><div class="ability-name">Stealth</div><p>The model always counts as being in Heavy cover, except when targeted by a Charge.</p></div>
-      <div class="ability-card"><div class="ability-name">Swarm</div><p>All attacks targeting the unit have their Damage reduced to 1 if higher. Blast(x) uses the unit's remaining Wounds (not the number of models) for how many hits it generates.</p></div>
-      <div class="ability-card"><div class="ability-name">Tank Hunter</div><p>One armor penetration roll vs vehicle (or wound roll vs Monstrous Creature) may be re-rolled. Multiple models with the same weapon: one roll per model may be re-rolled.</p></div>
-      <div class="ability-card"><div class="ability-name">Terrifying (−X)</div><p>Enemy units within 6″ suffer −X Leadership.</p></div>
-      <div class="ability-card"><div class="ability-name">Unique</div><p>The weapon or wargear may only be included once per army.</p></div>
-      <div class="ability-card"><div class="ability-name">Unyielding</div><p>May fire Heavy with Move &amp; Shoot. Always fires Rapid Fire up to full range. All weapon types at −1 on Charge. Cannot Advance or pursue fleeing units in melee.</p></div>
-      <div class="ability-card"><div class="ability-name">Use Cover</div><p>Models benefiting from cover impose an additional −1 to hit rolls for ranged attacks.</p></div>
-      <div class="ability-card"><div class="ability-name">Vanguard</div><p>At the start of the first battle round: move 6″ (or 12″ from a transport). Alternate activation with opponent's Vanguard units, starting with the player who deployed first.</p></div>
-      <div class="ability-card"><div class="ability-name">Warded</div><p>Gain a 6+ ward save, or improve existing invul by +1 (max 4+). Cumulative with itself.</p></div>
-
+      {SPECIAL_KEYS.map(k => <div class="ability-card"><div class="ability-name">{ruleName(k)}</div><p>{ruleText(k)}</p></div>)}
     </div>
   </div><!-- /tab-special -->
 
@@ -748,51 +725,7 @@ import Layout from '../../components/Layout.astro';
   <div id="tab-weapons" class="tab-panel">
     <p class="tab-intro">Weapon ability keywords that appear in weapon profiles. Codex entries may define additional faction-specific abilities.</p>
     <div class="ability-grid">
-
-      <div class="ability-card"><div class="ability-name">Ammo (X)</div><p>This weapon can only be used X times per game.</p></div>
-      <div class="ability-card"><div class="ability-name">Anti-Air</div><p>Attacks vs Anti-Grav, Jet Bike, Jump Pack models or Flyers gain +1 to hit and +1 Strength.</p></div>
-      <div class="ability-card"><div class="ability-name">Armorbane</div><p>Gains a +3 bonus on armor penetration rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">Armor Piercing (X+)</div><p>Wound rolls of X+ always succeed and gain −2 AP. Armor penetration rolls of X+ gain +1 AT and a +2 bonus for armor penetration rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">AT (X)</div><p>Can cause Penetrating Hits. On a penetrating hit, roll X dice on the Vehicle Damage Chart and apply all results.</p></div>
-      <div class="ability-card"><div class="ability-name">Auto Hit</div><p>The weapon hits automatically.</p></div>
-      <div class="ability-card"><div class="ability-name">Blast (X)</div><p>Successful hit → 1 hit per model in the target unit, to a maximum of X. Failed hit → re-roll once, and it can then only generate half (rounded down) that many hits. Replaces the old Explosive (4), Barrage (6) and Colossal Blast (8).</p></div>
-      <div class="ability-card"><div class="ability-name">Beam</div><p>Choose target, make normal hit roll. If hit: draw a line from shooting model's base to target. Make wound roll vs target AND any unit the line passes through.</p></div>
-      <div class="ability-card"><div class="ability-name">Blind</div><p>If weapon scores at least one hit, target unit does not gain a Charge bonus for its Charge order.</p></div>
-      <div class="ability-card"><div class="ability-name">Blood Drinker</div><p>When the model causes a Wound loss, it regains 1 Wound (up to starting value).</p></div>
-      <div class="ability-card"><div class="ability-name">Bomb</div><p>Range unaffected by the −12″ range reduction for Flyers.</p></div>
-      <div class="ability-card"><div class="ability-name">Combi</div><p>Combines two weapon profiles. Can fire both simultaneously at same target at −1 to hit.</p></div>
-      <div class="ability-card"><div class="ability-name">Deadly (X+)</div><p>Wound rolls of X+ increase the Damage value of the attack by +1.</p></div>
-      <div class="ability-card"><div class="ability-name">Decimate</div><p>Wound rolls gain +1. Does not work against Vehicles.</p></div>
-      <div class="ability-card"><div class="ability-name">Deflagrate (X+)</div><p>Hit rolls of X+ score an additional hit. Does not work with Blast(x) weapons.</p></div>
-      <div class="ability-card"><div class="ability-name">Extra Attack (X)</div><p>X attacks with this weapon profile each activation, in addition to any attacks the unit can normally make. Maximum X attacks with this weapon per activation.</p></div>
-      <div class="ability-card"><div class="ability-name">Limit (X)</div><p>You can only make X attacks with this weapon each turn.</p></div>
-      <div class="ability-card"><div class="ability-name">Force Weapon</div><p>If bearer successfully manifests ≥1 psychic power during activation, this weapon gains +1 Damage for the rest of the battle round.</p></div>
-      <div class="ability-card"><div class="ability-name">Grav</div><p>Unless already better, wound roll = enemy's armour save. Unless already worse, enemy's armour save against this = 5+. Does not work vs Vehicles.</p></div>
-      <div class="ability-card"><div class="ability-name">Graviton</div><p>Creatures that <em>lose a wound</em> to this weapon must pass a Strength test or suffer another wound with S:4 AP:0 D:1, Seeking. This is in addition to the actual wound roll.</p></div>
-      <div class="ability-card"><div class="ability-name">Gruesome</div><p>Each wound caused counts as two for combat resolution. Fleeing models caught by pursuit suffer one additional automatic wound.</p></div>
-      <div class="ability-card"><div class="ability-name">Haywire</div><p>Each hit causes one automatic penetrating hit against a Vehicle (in addition to normal damage). Does not work vs Creatures.</p></div>
-      <div class="ability-card"><div class="ability-name">Indirect</div><p>Can target enemy units and cause casualties without LOS. Target only gets cover bonus if in a terrain zone. Can only be fired with Stand &amp; Shoot order.</p></div>
-      <div class="ability-card"><div class="ability-name">Lance (+X)</div><p>Armor penetration rolls gain +X bonus.</p></div>
-      <div class="ability-card"><div class="ability-name">Life Curse</div><p>One wound roll may be re-rolled against Creatures. Multiple models with same weapon: one wound roll per model may be re-rolled.</p></div>
-      <div class="ability-card"><div class="ability-name">Master-crafted</div><p>One hit roll may be re-rolled — or, if the weapon has Blast(x) or Auto Hit, a single wound or armour penetration roll instead. Multiple models: one roll per model. Cannot be used on Grenade weapons with Ammo(X).</p></div>
-      <div class="ability-card"><div class="ability-name">Melta</div><p>At half range: +1 Damage, +2 AT, and a +3 bonus on armor penetration rolls.</p></div>
-      <div class="ability-card"><div class="ability-name">Monofilament</div><p>If target in cover and ≥1 hit: terrain becomes difficult and dangerous until end of target's next activation.</p></div>
-      <div class="ability-card"><div class="ability-name">Overheating</div><p>Each roll of 1 on a hit roll → user suffers a Mortal Wound (or glancing hit for vehicles, using weapon's AT). Re-rolls: initial roll determines overheating. Auto-hit weapons: roll of 1 to wound instead triggers this.</p></div>
-      <div class="ability-card"><div class="ability-name">Poison (X+)</div><p>Wound rolls of X+ against Creatures always succeed.</p></div>
-      <div class="ability-card"><div class="ability-name">Precision (X+)</div><p>Successful hit rolls of X+ automatically wound creatures. Cannot be used with Blast(x) weapons.</p></div>
-      <div class="ability-card"><div class="ability-name">Psi-shock</div><p>If creature unit is hit, a random psyker in that unit must pass a Ld value test or suffer D3 Mortal Wounds. Vehicles: random psyker suffers D3 Critical Damage instead. Each additional hit from same unit = cumulative −1. Triggers once per activating unit.</p></div>
-      <div class="ability-card"><div class="ability-name">Quick (+X)</div><p>The model gains +X to its Initiative.</p></div>
-      <div class="ability-card"><div class="ability-name">Rad</div><p>A unit hit by this weapon suffers a −1 penalty to its Toughness value until the end of its next activation.</p></div>
-      <div class="ability-card"><div class="ability-name">Rending (X+)</div><p>Wound rolls of X+ gain an additional −1 AP.</p></div>
-      <div class="ability-card"><div class="ability-name">Seeking</div><p>Enemy units in cover do not gain any cover benefit and are treated as being outside cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Shield Breaker (−X)</div><p>Ward saves of enemy models are degraded by −X.</p></div>
-      <div class="ability-card"><div class="ability-name">Shred</div><p>May re-roll any wound rolls made with this weapon.</p></div>
-      <div class="ability-card"><div class="ability-name">Slow (−X)</div><p>The model suffers −X to its Initiative.</p></div>
-      <div class="ability-card"><div class="ability-name">Soul Burn (X+)</div><p>Wound rolls of X+ against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work vs Vehicles.</p></div>
-      <div class="ability-card"><div class="ability-name">Sunder (X)</div><p>Enemy units in cover reduce their cover armour save bonus by −X (min 0).</p></div>
-      <div class="ability-card"><div class="ability-name">Suppression (X)</div><p>Every hit from a weapon with this ability counts as X hits when determining Suppressive Fire.</p></div>
-      <div class="ability-card"><div class="ability-name">Unwieldy</div><p>Model does not gain the +1 Attack for having a pistol in melee. Each model may carry only one Unwieldy item.</p></div>
-
+      {WEAPON_KEYS.map(k => <div class="ability-card"><div class="ability-name">{ruleName(k)}</div><p>{ruleText(k)}</p></div>)}
     </div>
   </div><!-- /tab-weapons -->
 
