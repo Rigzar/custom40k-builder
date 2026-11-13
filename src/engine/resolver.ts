@@ -1883,6 +1883,29 @@ function renderedAbilities(w: Weapon, traitMap: Map<string, string[]>): string {
  *   - Everything else (units with no built-in Champion) returns a single unlabeled,
  *     uncounted group — unchanged from the previous flat weaponsToShow rendering.
  */
+/** Abilities the chosen options take away (`effect.removes_abilities`), lower-cased. */
+export function removedAbilityNames(unit: Unit, item: RosterEntry): string[] {
+  const out: string[] = [];
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      for (const n of g.choices[parseInt(ci)]?.effect?.removes_abilities ?? []) out.push(n.toLowerCase());
+    }
+  }
+  return out;
+}
+
+/** An ability line without the removed names: "Infiltrator, Move Through Cover" loses Infiltrator and keeps the rest; a line that is only a removed name disappears (returns ''). */
+export function dropRemovedAbilities(line: string, removed: string[]): string {
+  if (removed.length === 0) return line;
+  const colon = line.indexOf(':');
+  if (colon > 0 && colon < 60) return removed.includes(line.slice(0, colon).trim().toLowerCase()) ? '' : line;
+  const kept = line.split(',').map(x => x.trim()).filter(x => x && !removed.includes(x.toLowerCase()));
+  return kept.join(', ');
+}
+
 export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: ResolvedProfile): WeaponGroup[] {
   const baseName = (n: string) => n.split(' - ')[0];
 
@@ -3451,6 +3474,14 @@ function computeAttachedDrones(unit: Unit, item: RosterEntry, data: FactionData)
       counts.set(c.name, (counts.get(c.name) ?? 0) + qty);
     });
   });
+  // Drones that come WITH the datasheet ("A Ghostkeel Shas'vre is equipped with: ...; 2 Stealth Drones") are not an option, so the loop above never saw them
+  // (Discord, Dave, 2026-11-13: "Ghostkeels come with 2x stealth drones, which don't show"). Counted here from the loadout sentence.
+  for (const d of data.drones!) {
+    if (counts.has(d.name) || !unit.equipped_with) continue;
+    const esc = d.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const m = unit.equipped_with.match(new RegExp('(?:(\\d+)\\s+)?' + esc + 's?\\b', 'i'));
+    if (m) counts.set(d.name, m[1] ? parseInt(m[1], 10) : 1);
+  }
   if (counts.size === 0) return [];
   return [...counts.entries()]
     .map(([name, count]) => ({ drone: data.drones!.find(d => d.name === name)!, count }))

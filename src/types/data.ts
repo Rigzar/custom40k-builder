@@ -156,6 +156,11 @@ export interface OptionEffect {
    */
   removes_weapons?: string[];
   /**
+   * Datasheet abilities this option takes AWAY while it is selected: Tyranid "Ymgarl Genestealers: The unit loses the Infiltrate ability".
+   * Names only; they are dropped from the ability lines of the card and of the Print view (Discord, Dave, 2026-11-13).
+   */
+  removes_abilities?: string[];
+  /**
    * The option makes the model a psyker while it is selected. Tau 1.4 moved the Kroot Master Shaper's Shaman from an
    * archetype upgrade (a group with `inline_pts` and "Psyker" in its header) into the Shaper's own "one of the following"
    * list, where it is a CHOICE next to Flesh Shaper, Trail Shaper and War Shaper.

@@ -65,7 +65,7 @@ export type TranslationKey =
   | 'supplements' | 'supplementsDesc' | 'available' | 'comingSoon'
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
-  | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
+  | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'prArmyRules' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
   | 'navCampaignAlphaOpen' | 'campaignRulesLink' | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonOnly' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon' | 'armReasonTerm' | 'armReasonGravis' | 'armReasonGlyph' | 'armReasonTau' | 'armReasonVehicleShop' | 'armReasonMeleeOnly' | 'armReasonOrdo' | 'armReasonExarch' | 'armReasonAuthority' | 'armReasonPickWeapon' | 'armReasonPickEnh' | 'armReasonCharOnly' | 'armReasonNotChar'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
@@ -769,6 +769,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Army Power',
     prArchetypeRules: 'Archetype Rules',
     prOfficerOrders: 'Officer Orders',
+    prArmyRules: 'Army rules',
     prOrdersInfantry: 'Infantry and creatures',
     prOrdersVehicles: 'Vehicles',
     prOrdersLegacy: 'Legacy order',
@@ -1968,6 +1969,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Armeestärke',
     prArchetypeRules: 'Archetyp-Regeln',
     prOfficerOrders: 'Offiziersbefehle',
+    prArmyRules: 'Armeeregeln',
     prOrdersInfantry: 'Infanterie und Kreaturen',
     prOrdersVehicles: 'Fahrzeuge',
     prOrdersLegacy: 'Legacy-Befehl',
@@ -3165,6 +3167,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Poder del ejército',
     prArchetypeRules: 'Reglas de arquetipo',
     prOfficerOrders: 'Órdenes de oficial',
+    prArmyRules: 'Reglas de ejército',
     prOrdersInfantry: 'Infantería y criaturas',
     prOrdersVehicles: 'Vehículos',
     prOrdersLegacy: 'Orden de Legacy',

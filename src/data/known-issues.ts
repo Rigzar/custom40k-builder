@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-nov13-first-game-feedback-01",
+    status: "known",
+    title: "First-game feedback (Dave, Ed, TeCrisis): what is still open",
+    description: "FIXED in v1.89a: the army-wide rules (Shadow in the Warp...) in the Print view, the Ymgarl Genestealers losing Infiltrator, the Ghostkeel's Stealth Drones, the Coronus Grav-carrier range. STILL OPEN: (1) clickable links from a unit card to the rule text (hover works; core rules such as Fearless and Massive have no link); (2) the General psychic disciplines are hard to find and are not added when a Psyker is added; (3) Print view on Chrome for Android overflows horizontally and the back button falls off the screen (fine in Firefox and in landscape); (4) the Simple print view does not update a unit's profile for Hardened Carapace (+1 to the save) and the card does not say that the profile already includes it; (5) an extra tag for the unit type (Monstrous Infantry...) with a rules reminder; (6) Dark Eldar Power through Pain: the secondary rules it grants (Berserk(5+), Furious Charge) are not listed in the Print view; (7) abilities that only change a weapon (Bolter Drill: Deflagrate(5+) with Bolt weapons) show their text only in the Special rules block at the end of the printout; (8) Entourage (a Greater Daemon present: the Entourage unit uses no HQ slot) is only wired for Chaos Daemons armies, not for Chaos Space Marine archetypes or allies that reach the daemons; waiting for the rules answer.",
+  },
+  {
     id: "ki-nov13-sheets-1-89-01",
     status: "fixed",
     title: "Fourteen codex sheets brought up to date (v1.89)",

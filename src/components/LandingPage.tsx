@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189a_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Print view", "A new Army rules card lists the codex's army-wide rules (Shadow in the Warp, Waaagh!, ...)."],
+        ["Ymgarl", "The Ymgarl Genestealers upgrade removes Infiltrator from the card and the printout."],
+        ["Ghostkeel", "Its two Stealth Drones are listed."],
+        ["Coronus", "The Twin arachnus blaze cannon has its 18\" range."],
         ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
         ["Eldar", "Paragon of War takes two Exarch powers. Banshee mask is an item. Howling Banshee 26, Mandiblaster 6."],
         ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, new Diamond-tipped bladevanes."],
@@ -82,6 +86,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Druckansicht", "Eine neue Karte Armeeregeln listet die armeeweiten Regeln des Codex (Shadow in the Warp, Waaagh!, ...)."],
+        ["Ymgarl", "Das Ymgarl-Upgrade entfernt Infiltrator von Karte und Ausdruck."],
+        ["Ghostkeel", "Seine zwei Stealth Drones werden aufgeführt."],
+        ["Coronus", "Die Twin arachnus blaze cannon hat ihre Reichweite von 18\"."],
         ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
         ["Eldar", "Paragon of War nimmt zwei Exarchenkräfte. Die Banshee-Maske ist ein Gegenstand. Howling Banshee 26, Mandiblaster 6."],
         ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, neu: Diamond-tipped bladevanes."],
@@ -103,6 +111,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Vista de impresión", "Una tarjeta nueva de Reglas de ejército lista las reglas del códice para todo el ejército (Shadow in the Warp, Waaagh!, ...)."],
+        ["Ymgarl", "La mejora Ymgarl quita Infiltrator de la tarjeta y de la impresión."],
+        ["Ghostkeel", "Se listan sus dos Stealth Drones."],
+        ["Coronus", "La Twin arachnus blaze cannon tiene su alcance de 18\"."],
         ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
         ["Eldar", "Paragon of War toma dos poderes de Exarca. La Banshee mask es un objeto. Howling Banshee 26, Mandiblaster 6."],
         ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, nuevo Diamond-tipped bladevanes."],
@@ -124,6 +136,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Печать", "Новая карточка «Правила армии» перечисляет общеармейские правила кодекса (Shadow in the Warp, Waaagh! и др.)."],
+        ["Ymgarl", "Улучшение Ymgarl убирает Infiltrator с карточки и из печати."],
+        ["Ghostkeel", "Два Stealth Drones теперь показаны."],
+        ["Coronus", "У Twin arachnus blaze cannon указана дальность 18\"."],
         ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
         ["Eldar", "Paragon of War берёт две силы Эксарха. Banshee mask — предмет. Howling Banshee 26, Mandiblaster 6."],
         ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, новое Diamond-tipped bladevanes."],
@@ -145,6 +161,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["印刷ビュー", "新しい「軍全体のルール」カードにコデックスの軍全体ルール(Shadow in the Warp、Waaagh!など)を表示します。"],
+        ["Ymgarl", "Ymgarlのアップグレードで、カードと印刷からInfiltratorが外れます。"],
+        ["Ghostkeel", "2体のStealth Droneが表示されます。"],
+        ["Coronus", "Twin arachnus blaze cannonに射程18\"を追加しました。"],
         ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
         ["Eldar", "Paragon of War はExarchパワーを2つ選びます。Banshee maskはアイテムです。Howling Banshee 26、Mandiblaster 6。"],
         ["Dark Eldar", "Reavers 33、Venom 129、Skybike 32、新アイテム Diamond-tipped bladevanes。"],

@@ -8,7 +8,7 @@ import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFo
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
-import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
+import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem, removedAbilityNames, dropRemovedAbilities } from '../engine/resolver';
 import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
 import { OPT_IN_TRAITS, optInTraitApplies } from '../store/army';
 import { usesReputations, factionSymbolFile } from '../utils/factionLabel';
@@ -2387,7 +2387,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               return mentioned.length === 0 || mentioned.some(name => (item.modelSizes?.[name] ?? 0) > 0);
             };
             const ascendedAll = hasAllMarksVariant(item, u);
-            const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
+            const filteredAbilities = u.abilities.map(ab => dropRemovedAbilities(ab, removedAbilityNames(u, item))).map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
+              if (ab === '') return false;
               if (/^\d+$/.test(ab.trim()) || ab.trim() === '-') return false;
               // An ability the sheet marks "Only with the X archetype" (Horus Heresy) is shown only with that archetype.
               { const ga = ab.match(/Only with the (Legacy of [^.]+)./); if (ga && !itemLegacies.includes(ga[1].trim())) return false; }

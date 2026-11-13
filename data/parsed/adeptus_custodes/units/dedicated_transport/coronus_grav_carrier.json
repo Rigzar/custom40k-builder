@@ -25,7 +25,7 @@
     "weapons": [
         {
             "name": "Twin arachnus blaze cannon - Beam",
-            "range": "-",
+            "range": "18\"",
             "type": "Heavy 2",
             "s": "7",
             "ap": "-4",
@@ -34,7 +34,7 @@
         },
         {
             "name": "Twin arachnus blaze cannon - Burst",
-            "range": "-",
+            "range": "18\"",
             "type": "Heavy 6",
             "s": "5",
             "ap": "-2",

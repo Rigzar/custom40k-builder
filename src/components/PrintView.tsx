@@ -19,11 +19,12 @@ import { applyDelta, applyEquipDeltas } from '../utils/statMods';
 import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType, localiseAbility } from '../data/coreRules';
+import { FACTION_INDEX_RULES } from '../data/factionIndexRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { capStat } from '../lib/statPipeline';
-import { resolveUnitProfile } from '../engine/resolver';
+import { resolveUnitProfile, removedAbilityNames, dropRemovedAbilities } from '../engine/resolver';
 import { selectedAbilities, equipTargetsModel } from '../lib/battleProfile';
 import { markStatMods } from '../lib/markMods';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -956,7 +957,8 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
   const _hasPsykerOption = psykerGroupIdx >= 0 && !effectivePsyker;
 
   const abilitiesList = [
-    ...(u.abilities as string[]).filter((ab: string) => {
+    ...(u.abilities as string[]).map((ab: string) => dropRemovedAbilities(ab, removedAbilityNames(u, item))).filter((ab: string) => {
+      if (ab === '') return false;
       if (/^\d+$/.test(ab.trim())) return false;
       const ci = ab.indexOf(':');
       const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
@@ -2004,6 +2006,33 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             per-army in this export). Imperial Guard's own named Officer Orders above are
             army-specific (gated by faction + Legacy) and stay here; the universal token system is
             Core Rules reference material that belongs in the standalone Field Manual instead. */}
+
+        {/* The army-wide rules of the codex (its Index "Special rules": Tyranids' Shadow in the Warp, Orks' Waaagh!...). They are not on any unit card, so a printed list never showed them. */}
+        {(FACTION_INDEX_RULES[data.faction] ?? []).length > 0 && (
+          <div style={{
+            marginBottom: 20, pageBreakInside: 'avoid', breakInside: 'avoid',
+            border: `1px solid ${primaryColor}55`, overflow: 'hidden',
+            ['--ac' as string]: primaryColor,
+          }}>
+            <div style={{
+              background: HDR_BG, color: '#fff',
+              padding: '6px 14px', borderTop: `3px solid ${primaryColor}`,
+              fontFamily: CONDUIT, fontWeight: 800, textTransform: 'uppercase',
+              letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
+            }}>
+              <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
+              <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'prArmyRules')}</span>
+            </div>
+            <div style={{ padding: '6px 14px', background: PARCHMENT, columnCount: 2, columnGap: 20 }}>
+              {(FACTION_INDEX_RULES[data.faction] ?? []).map(r => (
+                <div key={r.name} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.3, color: '#222', marginBottom: 7, paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55` }}>
+                  <div style={{ fontWeight: 700 }}>{nm(r.name)}</div>
+                  <div style={{ color: '#555' }}>{localiseAbility(r.text)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Special rules reference */}
         {allSpecialRules.size > 0 && (

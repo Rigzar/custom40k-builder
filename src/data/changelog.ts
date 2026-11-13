@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = '';
+export const REVISION = 'a';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -48,6 +48,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "TYRANIDS 1.14. Barbed strangler and Venom cannon cost 21 on the Tyranid Warriors, the Symbiote Rippers biomorph costs 5, and the Headlong Charge, Implant Attack and Symbiote Rippers weapons carry the Flyer restriction. Malanthrope and Venomthrope say Obscuring Terrain.",
       "HARLEQUINS 1.4: Hand flamer and Power fist are in the Armory. CHAOS DAEMONS 1.3: the Great Unclean One's Nurgling infestation is Auto Hit, Extra Attack(4), Poison(4+). ADEPTUS MECHANICUS: Scarifying Weaponry works on weapons with Rad. T'AU: the Support Turrets are a Squadron. LEAGUES OF VOTANN: Resource Transmutation spelling.",
       "CORE RULES 1.45 (was 1.43). The new Acute Senses Meta-Order is in the Field Manual: the ability now says \"The model is able to use the Acute Senses Meta-Order\" and the shooting rule lives in the order. Skip tokens expire at the end of the battle round, and several units using Defensive Reactions declare them at the same time. The Missions text was reworded (controlling and contesting objectives, VP for destroyed or weakened units) with the same numbers. LEAGUES OF VOTANN: the Exo-armor gives Deep Strike (it said Shock Troops) and the Skimmer bike is a Jet bike type.",
+      "FIRST-GAME FEEDBACK (Discord, Dave, Ed, TeCrisis). ARMY RULES IN THE PRINT VIEW: a new Army rules card lists the army-wide rules each codex prints on its Index tab (Tyranids' Instinctive Behaviour, Psychic Feedback and Shadow in the Warp, Orks' Waaagh!, Eldar's Battle Focus...); they were on no unit card, so a printed list never showed them. YMGARL GENESTEALERS: the upgrade removes the Infiltrator ability from the card and the printout (new option effect removes_abilities). GHOSTKEEL: the 2 Stealth Drones that come with the datasheet are listed with their profile; only drones bought as an option were shown. CORONUS GRAV-CARRIER: the Twin arachnus blaze cannon has its 18\" range (Custodes 1.7).",
       "TRYGON (GH#274, #275, thank you DemonGyro): the Trygon is a Heavy Support unit again; it took a Fast Attack slot. The same pull request left a broken line in the Known Issues file, repaired here.",
     ],
   },
