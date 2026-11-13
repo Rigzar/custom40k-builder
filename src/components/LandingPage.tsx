@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -63,22 +63,39 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "General", rows: [
         ["Print view", "Simple view applies Hardened Carapace and other profile changes; unit types, Power Through Pain rules and the General psychic disciplines are printed; the buttons wrap on phones."],
         ["Print view", "A new Army rules card lists the codex's army-wide rules (Shadow in the Warp, Waaagh!, ...)."],
+        ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
+      ] },
+      { label: "Bugs (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Thank you for the first-game feedback."],
         ["Ymgarl", "The Ymgarl Genestealers upgrade removes Infiltrator from the card and the printout."],
-        ["Entourage", "Entourage and Herald now free HQ slots for the Daemons a Chaos Space Marine archetype reaches, and for allied Daemons, within the same detachment as the Greater Daemon."],
-        ["Servitors", "The single Shock charger no longer shows on Servitors that have not bought the swap."],
         ["Ghostkeel", "Its two Stealth Drones are listed."],
         ["Coronus", "The Twin arachnus blaze cannon has its 18\" range."],
-        ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
-        ["Eldar", "Paragon of War takes two Exarch powers. Banshee mask is an item. Howling Banshee 26, Mandiblaster 6."],
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, new Diamond-tipped bladevanes."],
-        ["Necrons", "The Catacomb Command Barge is an HQ that uses no HQ slot (one per Lord)."],
-        ["Tyranids", "Barbed strangler and Venom cannon +21 on the Warriors; Obscuring Terrain wording."],
-        ["Harlequins", "Hand flamer and Power fist in the Armory."],
-        ["Daemons", "The Great Unclean One's Nurgling infestation has Extra Attack(4)."],
-        ["Mechanicus", "Scarifying Weaponry works on weapons with Rad."],
       ] },
-      { label: "GitHub", rows: [
+      { label: "Bugs (GitHub)", rows: [
         ["#275", "The Trygon is a Heavy Support unit (thanks, DemonGyro)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War takes two Exarch powers. Banshee mask is an item. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, new Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "The Catacomb Command Barge is an HQ that uses no HQ slot (one per Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler and Venom cannon +21 on the Warriors; Obscuring Terrain wording."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer and Power fist in the Armory."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "The Great Unclean One's Nurgling infestation has Extra Attack(4)."],
+        ["Entourage", "Entourage and Herald now free HQ slots for the Daemons a Chaos Space Marine archetype reaches, and for allied Daemons, within the same detachment as the Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry works on weapons with Rad."],
+        ["Servitors", "The single Shock charger no longer shows on Servitors that have not bought the swap."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -91,22 +108,39 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Allgemein", rows: [
         ["Druckansicht", "Die einfache Ansicht wendet Hardened Carapace und andere Profiländerungen an; Einheitentypen, Power-Through-Pain-Regeln und die allgemeinen psychischen Disziplinen werden gedruckt; die Knöpfe brechen auf Handys um."],
         ["Druckansicht", "Eine neue Karte Armeeregeln listet die armeeweiten Regeln des Codex (Shadow in the Warp, Waaagh!, ...)."],
+        ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
+      ] },
+      { label: "Fehler (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Danke für das Feedback nach dem ersten Spiel."],
         ["Ymgarl", "Das Ymgarl-Upgrade entfernt Infiltrator von Karte und Ausdruck."],
-        ["Entourage", "Entourage und Herald geben jetzt HQ-Plätze frei für Dämonen, die ein Chaos-Space-Marine-Archetyp erreicht, und für verbündete Dämonen, im selben Kontingent wie der Greater Daemon."],
-        ["Servitors", "Die einzelne Shock charger erscheint nicht mehr bei Servitors ohne den Tausch."],
         ["Ghostkeel", "Seine zwei Stealth Drones werden aufgeführt."],
         ["Coronus", "Die Twin arachnus blaze cannon hat ihre Reichweite von 18\"."],
-        ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
-        ["Eldar", "Paragon of War nimmt zwei Exarchenkräfte. Die Banshee-Maske ist ein Gegenstand. Howling Banshee 26, Mandiblaster 6."],
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, neu: Diamond-tipped bladevanes."],
-        ["Necrons", "Der Catacomb Command Barge ist ein HQ ohne HQ-Slot (einer pro Lord)."],
-        ["Tyranids", "Barbed strangler und Venom cannon +21 bei den Warriors; Wortlaut Obscuring Terrain."],
-        ["Harlequins", "Hand flamer und Power fist im Arsenal."],
-        ["Daemons", "Die Nurgling-Plage des Great Unclean One hat Extra Attack(4)."],
-        ["Mechanicus", "Scarifying Weaponry wirkt auf Waffen mit Rad."],
       ] },
-      { label: "GitHub", rows: [
+      { label: "Fehler (GitHub)", rows: [
         ["#275", "Der Trygon ist eine Heavy-Support-Einheit (danke, DemonGyro)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War nimmt zwei Exarchenkräfte. Die Banshee-Maske ist ein Gegenstand. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, neu: Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Der Catacomb Command Barge ist ein HQ ohne HQ-Slot (einer pro Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler und Venom cannon +21 bei den Warriors; Wortlaut Obscuring Terrain."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer und Power fist im Arsenal."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "Die Nurgling-Plage des Great Unclean One hat Extra Attack(4)."],
+        ["Entourage", "Entourage und Herald geben jetzt HQ-Plätze frei für Dämonen, die ein Chaos-Space-Marine-Archetyp erreicht, und für verbündete Dämonen, im selben Kontingent wie der Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry wirkt auf Waffen mit Rad."],
+        ["Servitors", "Die einzelne Shock charger erscheint nicht mehr bei Servitors ohne den Tausch."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -119,22 +153,39 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "General", rows: [
         ["Vista de impresión", "La vista simple aplica Hardened Carapace y otros cambios de perfil; se imprimen los tipos de unidad, las reglas de Power Through Pain y las disciplinas psíquicas generales; los botones se ajustan en el móvil."],
         ["Vista de impresión", "Una tarjeta nueva de Reglas de ejército lista las reglas del códice para todo el ejército (Shadow in the Warp, Waaagh!, ...)."],
+        ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
+      ] },
+      { label: "Errores (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Gracias por el feedback de la primera partida."],
         ["Ymgarl", "La mejora Ymgarl quita Infiltrator de la tarjeta y de la impresión."],
-        ["Entourage", "Entourage y Herald liberan ahora espacios de HQ para los Demonios a los que llega un arquetipo de Chaos Space Marines y para los demonios aliados, dentro del mismo destacamento que el Greater Daemon."],
-        ["Servitors", "La Shock charger suelta ya no aparece en los Servitors que no han comprado el cambio."],
         ["Ghostkeel", "Se listan sus dos Stealth Drones."],
         ["Coronus", "La Twin arachnus blaze cannon tiene su alcance de 18\"."],
-        ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
-        ["Eldar", "Paragon of War toma dos poderes de Exarca. La Banshee mask es un objeto. Howling Banshee 26, Mandiblaster 6."],
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, nuevo Diamond-tipped bladevanes."],
-        ["Necrons", "La Catacomb Command Barge es un HQ que no usa slot de HQ (una por Lord)."],
-        ["Tyranids", "Barbed strangler y Venom cannon +21 en los Warriors; texto de Obscuring Terrain."],
-        ["Harlequins", "Hand flamer y Power fist en la Armería."],
-        ["Daemons", "La Nurgling infestation del Great Unclean One tiene Extra Attack(4)."],
-        ["Mechanicus", "Scarifying Weaponry funciona con armas con Rad."],
       ] },
-      { label: "GitHub", rows: [
+      { label: "Errores (GitHub)", rows: [
         ["#275", "El Trygon es una unidad de Heavy Support (gracias, DemonGyro)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War toma dos poderes de Exarca. La Banshee mask es un objeto. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, nuevo Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "La Catacomb Command Barge es un HQ que no usa slot de HQ (una por Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler y Venom cannon +21 en los Warriors; texto de Obscuring Terrain."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer y Power fist en la Armería."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "La Nurgling infestation del Great Unclean One tiene Extra Attack(4)."],
+        ["Entourage", "Entourage y Herald liberan ahora espacios de HQ para los Demonios a los que llega un arquetipo de Chaos Space Marines y para los demonios aliados, dentro del mismo destacamento que el Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry funciona con armas con Rad."],
+        ["Servitors", "La Shock charger suelta ya no aparece en los Servitors que no han comprado el cambio."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -147,22 +198,39 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Общее", rows: [
         ["Печать", "Простой вид применяет Hardened Carapace и другие изменения профиля; печатаются типы отрядов, правила Power Through Pain и общие псионические дисциплины; кнопки переносятся на телефоне."],
         ["Печать", "Новая карточка «Правила армии» перечисляет общеармейские правила кодекса (Shadow in the Warp, Waaagh! и др.)."],
+        ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
+      ] },
+      { label: "Ошибки (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Спасибо за отзывы после первой игры."],
         ["Ymgarl", "Улучшение Ymgarl убирает Infiltrator с карточки и из печати."],
-        ["Entourage", "Entourage и Herald теперь освобождают слоты HQ для Демонов, доступных через архетип Chaos Space Marines, и для союзных Демонов, в том же отряде, что и Greater Daemon."],
-        ["Servitors", "Одиночный Shock charger больше не показывается у Servitors без покупки замены."],
         ["Ghostkeel", "Два Stealth Drones теперь показаны."],
         ["Coronus", "У Twin arachnus blaze cannon указана дальность 18\"."],
-        ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
-        ["Eldar", "Paragon of War берёт две силы Эксарха. Banshee mask — предмет. Howling Banshee 26, Mandiblaster 6."],
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, новое Diamond-tipped bladevanes."],
-        ["Necrons", "Catacomb Command Barge — HQ, не занимающий слот HQ (по одному на Lord)."],
-        ["Tyranids", "Barbed strangler и Venom cannon +21 у Warriors; формулировка Obscuring Terrain."],
-        ["Harlequins", "Hand flamer и Power fist в Арсенале."],
-        ["Daemons", "Nurgling infestation у Great Unclean One имеет Extra Attack(4)."],
-        ["Mechanicus", "Scarifying Weaponry действует на оружие с Rad."],
       ] },
-      { label: "GitHub", rows: [
+      { label: "Ошибки (GitHub)", rows: [
         ["#275", "Trygon — отряд Heavy Support (спасибо, DemonGyro)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War берёт две силы Эксарха. Banshee mask — предмет. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, новое Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Catacomb Command Barge — HQ, не занимающий слот HQ (по одному на Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler и Venom cannon +21 у Warriors; формулировка Obscuring Terrain."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer и Power fist в Арсенале."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "Nurgling infestation у Great Unclean One имеет Extra Attack(4)."],
+        ["Entourage", "Entourage и Herald теперь освобождают слоты HQ для Демонов, доступных через архетип Chaos Space Marines, и для союзных Демонов, в том же отряде, что и Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry действует на оружие с Rad."],
+        ["Servitors", "Одиночный Shock charger больше не показывается у Servitors без покупки замены."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -175,22 +243,39 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "全般", rows: [
         ["印刷ビュー", "シンプル表示でHardened Carapaceなどのプロファイル変更を反映。ユニットタイプ、Power Through Painのルール、共通サイキック学派も印刷。スマホでボタンが折り返します。"],
         ["印刷ビュー", "新しい「軍全体のルール」カードにコデックスの軍全体ルール(Shadow in the Warp、Waaagh!など)を表示します。"],
+        ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
+      ] },
+      { label: "不具合 (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "初めての対戦後のフィードバックをありがとうございます。"],
         ["Ymgarl", "Ymgarlのアップグレードで、カードと印刷からInfiltratorが外れます。"],
-        ["Entourage", "EntourageとHeraldが、Chaos Space Marinesのアーキタイプで使えるDaemonと同盟のDaemonにもHQ枠の免除を与えます（Greater Daemonと同じ分遣隊内）。"],
-        ["Servitors", "交換を購入していないServitorに、単体のShock chargerが表示されなくなりました。"],
         ["Ghostkeel", "2体のStealth Droneが表示されます。"],
         ["Coronus", "Twin arachnus blaze cannonに射程18\"を追加しました。"],
-        ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
-        ["Eldar", "Paragon of War はExarchパワーを2つ選びます。Banshee maskはアイテムです。Howling Banshee 26、Mandiblaster 6。"],
-        ["Dark Eldar", "Reavers 33、Venom 129、Skybike 32、新アイテム Diamond-tipped bladevanes。"],
-        ["Necrons", "Catacomb Command BargeはHQスロットを使わないHQです(Lordにつき1つ)。"],
-        ["Tyranids", "Warriorsの Barbed strangler と Venom cannon は+21。Obscuring Terrainの表記。"],
-        ["Harlequins", "アーモリーに Hand flamer と Power fist。"],
-        ["Daemons", "Great Unclean OneのNurgling infestationは Extra Attack(4)。"],
-        ["Mechanicus", "Scarifying WeaponryはRad付き武器に効きます。"],
       ] },
-      { label: "GitHub", rows: [
+      { label: "不具合 (GitHub)", rows: [
         ["#275", "TrygonはHeavy Supportのユニットです(DemonGyroさんありがとう)。"],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War はExarchパワーを2つ選びます。Banshee maskはアイテムです。Howling Banshee 26、Mandiblaster 6。"],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33、Venom 129、Skybike 32、新アイテム Diamond-tipped bladevanes。"],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Catacomb Command BargeはHQスロットを使わないHQです(Lordにつき1つ)。"],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Warriorsの Barbed strangler と Venom cannon は+21。Obscuring Terrainの表記。"],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "アーモリーに Hand flamer と Power fist。"],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "Great Unclean OneのNurgling infestationは Extra Attack(4)。"],
+        ["Entourage", "EntourageとHeraldが、Chaos Space Marinesのアーキタイプで使えるDaemonと同盟のDaemonにもHQ枠の免除を与えます（Greater Daemonと同じ分遣隊内）。"],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying WeaponryはRad付き武器に効きます。"],
+        ["Servitors", "交換を購入していないServitorに、単体のShock chargerが表示されなくなりました。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
