@@ -39,7 +39,7 @@ export const TTS_GAME = {
     { key: 'command', name: 'Command', summary: 'Both players assign orders to all units by placing them face down.', steps: [
       'Orders are cards or tokens placed face-down next to each unit, simultaneously. If players cannot agree who places first, roll a die.',
       'A unit does not need to perform every aspect of an order (Doing Nothing).',
-      'If one player has more orders than the other, the player with fewer receives one Skip token for every two orders of difference (rounded up): a difference of 1, 3, 5... gives 1, 2, 3... Skip orders.',
+      'If one player has more orders than the other, the player with fewer receives one Skip token for every two orders of difference (rounded up): a difference of 1-2 gives 1 token, 3-4 gives 2, 5-6 gives 3. Unused Skip tokens expire at the end of the battle round.',
     ] },
     { key: 'initiative', name: 'Initiative', summary: 'Determine which player activates the first unit this round.', steps: [
       'Both players roll 2D6; the higher result gains the initiative and activates the first unit in the Action Phase.',

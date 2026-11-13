@@ -1463,6 +1463,14 @@ const COMMAND_ORDERS: Record<Language, OrderEntry[]> = {
 const META_ORDERS: Record<Language, OrderEntry[]> = {
   en: [
     {
+      name: 'Acute Senses',
+      prerequisite: 'The unit has the Acute Senses ability, has not yet activated this turn, and an enemy unit is deployed from reserves within 12" of it.',
+      effect: [
+        'It may immediately fire at the enemy unit as if it had received a Stand & Shoot order.',
+        'The attack resolves after the enemy unit has been deployed and before it takes another action.',
+      ],
+    },
+    {
       name: 'Counter-Attack',
       prerequisite: 'The unit has the Counter-Attack ability, is declared as a target for a charge move and after the charging unit has declared all charge targets.',
       effect: [
@@ -1497,6 +1505,14 @@ const META_ORDERS: Record<Language, OrderEntry[]> = {
     },
   ],
   de: [
+    {
+      name: 'Acute Senses',
+      prerequisite: 'Die Einheit hat die Fähigkeit Acute Senses, wurde in dieser Runde noch nicht aktiviert, und eine gegnerische Einheit wird aus der Reserve innerhalb von 12" aufgestellt.',
+      effect: [
+        'Sie darf sofort auf die gegnerische Einheit schießen, als hätte sie den Befehl Stand & Shoot erhalten.',
+        'Der Angriff wird nach der Aufstellung der gegnerischen Einheit und vor ihrer nächsten Aktion abgehandelt.',
+      ],
+    },
     {
       name: 'Counter-Attack',
       prerequisite: 'Die Einheit hat die Counter-Attack-Fähigkeit, wird als Ziel einer Charge-Bewegung erklärt, und die angreifende Einheit hat bereits alle Charge-Ziele erklärt.',
@@ -1533,6 +1549,14 @@ const META_ORDERS: Record<Language, OrderEntry[]> = {
   ],
   es: [
     {
+      name: 'Acute Senses',
+      prerequisite: 'La unidad tiene la habilidad Acute Senses, aún no se ha activado este turno y una unidad enemiga se despliega desde la reserva a 12" o menos.',
+      effect: [
+        'Puede disparar de inmediato a la unidad enemiga como si hubiera recibido la orden Stand & Shoot.',
+        'El ataque se resuelve después de desplegar a la unidad enemiga y antes de que realice otra acción.',
+      ],
+    },
+    {
       name: 'Counter-Attack',
       prerequisite: 'La unidad tiene la habilidad Counter-Attack, es declarada objetivo de un movimiento de Charge, y la unidad que carga ya ha declarado todos sus objetivos de Charge.',
       effect: [
@@ -1568,6 +1592,14 @@ const META_ORDERS: Record<Language, OrderEntry[]> = {
   ],
   ru: [
     {
+      name: 'Acute Senses',
+      prerequisite: 'У отряда есть способность Acute Senses, он ещё не активировался в этом ходу, и вражеский отряд выходит из резерва в пределах 12".',
+      effect: [
+        'Он может немедленно стрелять по вражескому отряду, как если бы получил приказ Stand & Shoot.',
+        'Атака разрешается после выхода вражеского отряда и до его следующего действия.',
+      ],
+    },
+    {
       name: 'Counter-Attack',
       prerequisite: 'У отряда есть способность Counter-Attack, он объявлен целью движения Charge, и это происходит после того, как атакующий отряд объявил все цели Charge.',
       effect: [
@@ -1602,6 +1634,14 @@ const META_ORDERS: Record<Language, OrderEntry[]> = {
     },
   ],
   ja: [
+    {
+      name: 'Acute Senses',
+      prerequisite: 'その部隊はAcute Senses能力を持ち、このターンまだ起動しておらず、敵部隊が12インチ以内にリザーブから配置された。',
+      effect: [
+        'Stand & Shoot命令を受けたかのように、その敵部隊へ即座に射撃できる。',
+        '攻撃は敵部隊の配置後、その部隊が次の行動を行う前に解決される。',
+      ],
+    },
     {
       name: 'Counter-Attack',
       prerequisite: '部隊が Counter-Attack 能力を持ち、チャージ移動の目標に宣言されており、かつチャージ側の部隊がすべての Charge 目標を宣言した後であること。',
@@ -1645,7 +1685,7 @@ const ORDERS_UI_TEXT: Record<Language, OrdersUiText> = {
     title: 'ORDERS', subtitle: 'Command Phase Orders · Meta Orders',
     assignedTitle: 'Assigned in the Command Phase — one per unit',
     metaTitle: 'Meta Orders — triggered, not assigned',
-    notes: "**Meta Orders are Defensive Reactions:** usable only if the unit has not been activated this round, and using one removes its order · never usable by a unit engaged in melee. **Notes:** a unit doesn't have to perform every part of its order (e.g. Move & Shoot may skip moving or shooting) · fewer orders than your opponent gives you **Skip tokens** (1 per 2 orders of difference, rounded up).",
+    notes: "**Meta Orders are Defensive Reactions:** usable only if the unit has not been activated this round, and using one removes its order · never usable by a unit engaged in melee. **Notes:** a unit doesn't have to perform every part of its order (e.g. Move & Shoot may skip moving or shooting) · fewer orders than your opponent gives you **Skip tokens** (1 per 2 orders of difference, rounded up; they expire at the end of the round) · several units using Defensive Reactions declare them **simultaneously**.",
   },
   de: {
     title: 'ORDERS', subtitle: 'Command Phase Orders · Meta Orders',

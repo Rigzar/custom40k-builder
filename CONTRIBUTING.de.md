@@ -1083,6 +1083,11 @@ Teste nach der Änderung die Einheit in der App und fahre jeden Zähler bis zur 
 2. Um nur einen Teil zu pushen, während andere Commits lokal bleiben, lege einen Worktree von `origin/main` an, wende nur diese Dateien an, pushe von dort und lass deinen Branch unverändert.
 3. Pushe nicht ohne das Ja des Besitzers, und erhöhe Banner-Schlüssel und Revisionsbuchstaben beim Push, nicht vorher.
 
+### Ein Arsenal-Gegenstand mit zwei Wahlen und eine Einheit, die ihren Slot nicht braucht
+
+- **Zwei benannte Wahlen in einem Gegenstand** (Eldar "Paragon of war": "It must chose two Exarch powers"): beide Namen stehen zusammen in `ArmorySelection.chosenPower` als `"A + B"`. Das Arsenal-Fenster zeigt zwei Auswahlfelder und fügt den Gegenstand mit nur einer Wahl nicht hinzu; `getActiveExarchPowers` in `src/engine/resolver.ts` trennt den Text. Nutze dieselbe Form für jeden neuen Gegenstand, der zwei Dinge wählen muss.
+- **Eine Einheit, die "keinen Slot belegt"** (Necrons Catacomb Command Barge: "Does not use up an HQ slot", eine pro Lord): schreibe in `src/engine/validators.ts` eine Funktion `compute...FreeSlots`, die zurückgibt, wie viele Einheiten befreit sind, plus eine Notiz, und füge sie zu `computeFreeSlotAdjustments` hinzu. Slot-Panel und Validator lesen diese eine Funktion, deshalb können sie sich nie widersprechen.
+
 ### Gitfinda — Spieler gesucht (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
 Eine Tafel, auf der Spieler „ich suche ein Spiel“ veröffentlichen (Armee, Skirmish / Pitched / Epic, Punkte, eine IANA-Zeitzone und ihre freien Zeiten); andere durchsuchen sie und drücken **Match**, und jedes Match bekommt einen privaten Chat. Nach Dominics Anforderungsdokument gebaut; **Beta** — was bewusst noch fehlt (keine E-Mail, kein Blockieren), steht in `ki-gitfinda-beta-scope-01`.

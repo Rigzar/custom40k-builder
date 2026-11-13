@@ -499,7 +499,12 @@
       "term_compat": false,
       "desc": "The bearer gains +6\" Movement, +1 Toughness, +1 Wound, the \"Jetbike\" type and the \"Bladevanes\" equipment.",
       "p_unit": null,
-      "p_char": 32
+      "p_char": 32,
+      "effect": {
+        "grants_weapons": [
+          "Bladevanes"
+        ]
+      }
     },
     {
       "name": "Skyboard",

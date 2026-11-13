@@ -1071,6 +1071,11 @@ Tras el cambio, prueba la unidad en la app y lleva cada contador a su límite.
 2. Para subir solo una parte mientras otros commits siguen en local, crea un worktree desde `origin/main`, aplica solo esos ficheros, sube desde ahí y deja tu rama como está.
 3. No subas sin el visto bueno del dueño, y sube la clave del banner y la letra de revisión al subir, no antes.
 
+### Un objeto de Armería que pide dos elecciones, y una unidad que no gasta su slot
+
+- **Dos elecciones con nombre en un mismo objeto** (Eldar "Paragon of war": "It must chose two Exarch powers"): los dos nombres viajan juntos en `ArmorySelection.chosenPower` como `"A + B"`. El modal de la Armería muestra dos selectores y no deja añadir el objeto con uno; `getActiveExarchPowers` en `src/engine/resolver.ts` separa el texto. Usa la misma forma para cualquier objeto nuevo que deba elegir dos cosas.
+- **Una unidad que "no gasta slot"** (Necrons Catacomb Command Barge: "Does not use up an HQ slot", una por Lord): escribe una función `compute...FreeSlots` en `src/engine/validators.ts` que devuelva cuántas unidades se eximen y una nota, y añádela a `computeFreeSlotAdjustments`. El panel de slots y el validador leen esa misma función, así que nunca pueden discrepar.
+
 ### Gitfinda — busco partida (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
 Un tablón donde los jugadores publican «quiero una partida» (ejército, Skirmish / Pitched / Epic, puntos, una zona horaria IANA y las horas en que están libres), otros navegan y pulsan **Match**, y cada match tiene un chat privado. Hecho según el documento de requisitos de Dominic; **beta** — mira `ki-gitfinda-beta-scope-01` para lo que a propósito aún no hace (sin email, sin bloqueo).

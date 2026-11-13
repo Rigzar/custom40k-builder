@@ -909,6 +909,11 @@ After the change, run the unit in the app and move every counter to its limit.
 2. To push only some work while other commits stay local, make a worktree from `origin/main`, apply just those files, push from there, and keep your own branch as it is.
 3. Do not push without the owner's yes, and raise the banner key and the revision letter at the push, not before.
 
+### An Armory item that needs two picks, and a unit that does not use its slot
+
+- **Two named picks in one item** (Eldar "Paragon of war": "It must chose two Exarch powers"): both names travel together in `ArmorySelection.chosenPower` as `"A + B"`. The Armory modal shows two selectors and will not add the item with one; `getActiveExarchPowers` in `src/engine/resolver.ts` splits the string. Use the same shape for any new item that must choose two things.
+- **A unit that "does not use up a slot"** (Necrons Catacomb Command Barge: "Does not use up an HQ slot", one per Lord): write a `compute...FreeSlots` function in `src/engine/validators.ts` that returns how many units are exempted and a note, and add it to `computeFreeSlotAdjustments`. The slot panel and the validator both read that one function, so the two can never disagree.
+
 ### Gitfinda — looking for a game (`api/_lib/gitfinda.js`, `src/components/GitfindaModal.tsx`)
 
 A board where players post "I want a game" (army, Skirmish / Pitched / Epic, points, an IANA time zone and the times they are free), others browse and press **Match**, and each match gets a private chat. Built to Dominic's requirements document; **beta** — see `ki-gitfinda-beta-scope-01` for what it deliberately does not do yet (no email, no blocking).

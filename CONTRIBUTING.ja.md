@@ -792,6 +792,11 @@ Inquisitor パネルのボタンは Action `update-units.yml` を起動し、プ
 2. 他のコミットをローカルに残したまま一部だけプッシュするには、`origin/main` から worktree を作り、そのファイルだけを適用し、そこからプッシュして、自分のブランチはそのままにします。
 3. オーナーの了承なしにプッシュしません。バナーキーとリビジョン文字はプッシュ時に上げ、その前には上げません。
 
+### 2つの選択を求めるアーモリーのアイテムと、スロットを使わないユニット
+
+- **1つのアイテムの中の2つの名前付き選択**(Eldar の "Paragon of war":"It must chose two Exarch powers"):2つの名前は `ArmorySelection.chosenPower` に `"A + B"` としてまとめて入ります。アーモリーのモーダルは2つのセレクターを表示し、1つだけではアイテムを追加できません。`src/engine/resolver.ts` の `getActiveExarchPowers` がこの文字列を分けます。2つのものを選ぶ新しいアイテムにも同じ形を使ってください。
+- **「スロットを使わない」ユニット**(Necrons の Catacomb Command Barge:"Does not use up an HQ slot"、Lordにつき1つ):`src/engine/validators.ts` に、免除されるユニット数とメモを返す `compute...FreeSlots` 関数を書き、`computeFreeSlotAdjustments` に追加します。スロットパネルとバリデーターはこの1つの関数を読むので、食い違うことはありません。
+
 ### Gitfinda — 対戦相手探し（`api/_lib/gitfinda.js`、`src/components/GitfindaModal.tsx`）
 
 プレイヤーが「対戦したい」（軍勢、Skirmish / Pitched / Epic、ポイント、IANAタイムゾーン、空いている時間）を投稿し、他の人が閲覧して**Match**を押すと、各マッチに非公開のチャットができる掲示板です。Dominicの要件ドキュメントに沿って作られました；**ベータ版** — 意図的にまだ行っていないこと（メールなし、ブロックなし）は `ki-gitfinda-beta-scope-01` を参照してください。

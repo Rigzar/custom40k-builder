@@ -3296,5 +3296,11 @@
  "ab.1cs7vc2": "Die Einheit erhält die Fähigkeit „Furious Charge“.",
  "ab.o4yhfe": "Die Einheit erhält die Fähigkeit „Warded“.",
  "ab.ii1s1q": "Die Einheit erhält die Fähigkeit „Counter-Attack“.",
- "ab.1dqxqom": "Die Fernkampfwaffen der Einheit erhalten „Suppression(3)“."
+ "ab.1dqxqom": "Die Fernkampfwaffen der Einheit erhalten „Suppression(3)“.",
+ "ab.1vziuav": "Wraithbone: Verringert AP und AT gegnerischer Angriffe um -1 (mindestens 0).",
+ "ab.16g0qmh": "Sentinel construct: Wird eine befreundete Einheit innerhalb von 12\" angegriffen (Charge), kann der Doomstalker ebenfalls Defensive Fire gegen den Angreifer einsetzen.",
+ "ab.x99z0l": "Fabricator claw array: Am Ende seiner Bewegung kann das Modell versuchen, ein Fahrzeug innerhalb von 3\" zu reparieren. Bei 4+ wird ein Ergebnis „Engine Damage“ oder „Weapon Damage“ vom Fahrzeug entfernt oder 1 Hull Point wiederhergestellt.",
+ "ab.4rv9ks": "Enhanced Sporecloud: Befreundete Modelle innerhalb von 9\" profitieren von Obscuring Terrain.",
+ "ab.1dag0b": "Sporecloud: Befreundete Einheiten innerhalb von 3\" profitieren von Obscuring Terrain. Die Reichweite erhöht sich um +3\" für jeden weiteren Venomthrope in der Einheit.",
+ "ab.13ayn4c": "Resource Transmutation: Das Modell und seine angeschlossene Einheit erhalten „Deflagrate(5+)“ für alle Fernkampfwaffen."
 }
