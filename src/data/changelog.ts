@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'b';
+export const REVISION = 'c';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-13',
     title: "14 codices up to date",
     changes: [
+      "SERVITORS. The single Shock charger showed on every Servitor that had not bought a swap, because the new default weapon \"Paired shock chargers\" contains the same words; a \"Paired\" prefix now counts as a different weapon. The resolver also honours a weapon grant written on a whole option group, not only on each choice.",
       "ENTOURAGE AND HERALD in Chaos Space Marine armies and allied detachments. The Chaos Daemons rule that a Greater Daemon makes up to two Heralds of the same god occupy no HQ slot now also applies to the Daemons that a Chaos Space Marine archetype reaches (All is Dust, Daemonkin...) and to an allied Chaos Daemons detachment, each detachment counted on its own (the Greater Daemon must be in the same detachment as the Herald), as Dominic confirmed.",
       "THE SHEETS THAT MOVED SINCE 1.88 ARE IN THE APP. Adeptus Custodes 1.7, Chaos Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Leagues of Votann 1.7, Necrons 1.12, Tyranids 1.14, and the changed tabs of Adeptus Mechanicus, T'au Empire, Knight Households and the Imperial Navy were read cell by cell against the app: unit facts, options, abilities, the Armory, Army Customisation and the Index. Space Marines 1.14, Imperial Guard 1.15 and Orks 1.8 went out earlier in 1.88.",
       "ELDAR 1.13. PARAGON OF WAR now takes TWO Exarch powers (\"It must chose two Exarch powers\"): the Armory item shows two pickers and cannot be bought with one. BANSHEE MASK is an Armory item (3) and the Howling Banshees are equipped with it; Howling Banshee costs 26. MANDIBLASTER costs 6 and gives the Hunter ability, so the Striking Scorpions no longer list Hunter or the Mandiblaster text themselves. Fusion pistol and Shuriken pistol are Pistol 1. WRAITHBONE reduces AP and AT. The Hemlock Wraithfighter's Heavy D-scythe has Distortion.",
