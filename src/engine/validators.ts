@@ -249,7 +249,14 @@ function getSlotUsage(
   excludeSlotOptIns?: boolean,
 ): number {
   const exemptIds = engagement === 'skirmish' ? new Set<string>() : advisorExemptIds(army, data, rule, alliedFaction);
-  if (engagement !== 'skirmish') for (const id of alliedCdFreeHeraldIds(army, data, alliedFaction)) exemptIds.add(id);
+  if (engagement !== 'skirmish') {
+    // Entourage / Herald apply per DETACHMENT (Dominic, 2026-11-13: "applies and yes, same detachment"): the Greater Daemon must sit in the same
+    // detachment as the Herald it frees. A user-picked allied Chaos Daemons detachment is one scope; the Daemons an archetype of a Chaos Space
+    // Marine army reaches (rule.alliedFaction, e.g. All is Dust, Daemonkin) are another, so they are evaluated separately.
+    for (const scope of new Set([alliedFaction, rule?.alliedFaction])) {
+      for (const id of alliedCdFreeHeraldIds(army, data, scope)) exemptIds.add(id);
+    }
+  }
   return army.filter(i => {
     if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
