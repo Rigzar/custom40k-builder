@@ -492,6 +492,8 @@ const loadoutNames = (equipped: string | undefined, name: string): boolean => {
   // The Carnodon carries a Twin multilaser, so its swap for two Multilasers showed a stray Multilaser from the start (GH#260).
   for (let i = hay.indexOf(needle); i >= 0 && needle; i = hay.indexOf(needle, i + 1)) {
     if (!needle.startsWith('twin') && (hay.slice(Math.max(0, i - 4), i) === 'twin' || hay.slice(Math.max(0, i - 10), i) === 'twinlinked')) continue;
+    // Same for "Paired shock chargers" (the Servitors' default) against the single "Shock charger" the swap grants.
+    if (!needle.startsWith('paired') && hay.slice(Math.max(0, i - 6), i) === 'paired') continue;
     return true;
   }
   return false;
@@ -584,7 +586,9 @@ const optionalWeapons = new Map<string, Set<string>>();
       // below), tie it to this choice the same way, so an unselected specialisation's weapon is
       // correctly hidden instead of falling through as a fixed default (all 7 of a Cryptek's
       // possible weapons showed regardless of which specialisation was actually taken).
-      for (const grantedName of c.effect?.grants_weapons ?? []) {
+      // A grant written on the GROUP applies to whichever choice is picked (the Servitor swap hands over the Shock charger whatever gun is chosen); the
+      // selection side below already honoured it, this side did not, so the weapon stayed visible unbought.
+      for (const grantedName of [...(g.effect?.grants_weapons ?? []), ...(c.effect?.grants_weapons ?? [])]) {
         const gk = wkey(grantedName);
         if (!unit.weapons.some(w => wkey(w.name) === gk)) continue;
         if (!optionalWeapons.has(gk)) optionalWeapons.set(gk, new Set());
@@ -628,7 +632,7 @@ const optionalWeapons = new Map<string, Set<string>>();
   if (unit.equipped_with) {
     for (const g of unit.option_groups) {
       for (const c of g.choices) {
-        const granted = c.effect?.grants_weapons ?? [];
+        const granted = [...(g.effect?.grants_weapons ?? []), ...(c.effect?.grants_weapons ?? [])];
         if (granted.length === 0) continue;
         const esc = String(c.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const clause = unit.equipped_with.match(new RegExp(`\\bAn?\\s+${esc}\\s+is equipped with:\\s*([^.]+)\\.`, 'i'))?.[1];
