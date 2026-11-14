@@ -40,7 +40,10 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Death Guard': r({ troopsRemap: ['Legion Veteran Squad'], troopsCount: 'remap' }),
   'Alpha Legion': r({ troopsRemap: ['Headhunter Kill Team'], troopsCount: 'remap' }),
   'Thousand Sons': r({ troopsRemap: ['Castellax-Achea Automata'], troopsCount: 'remap' }),
-  // Space Wolves, Ultramarines and Sons of Horus have a unique unit that is Troops by itself (Grey Slayer Pack, Praetorian Breacher Squad, Reaver Attack Squad): their archetype has no Troops line
+  // Space Wolves, Ultramarines and Sons of Horus have a unique unit that is Troops by itself (Grey Slayer Pack, Praetorian Breacher Squad, Reaver Attack Squad): their archetype has no Troops line; the rule is empty on purpose (it exists so the table is complete)
+  'Space Wolves': r({}),
+  'Ultramarines': r({}),
+  'Sons of Horus': r({}),
   // Shattered Legions: three Legacies and ONE Trait ("The army has access to one Trait only, instead of the usual two"); Blackshields: the Legacy of the Sundered plus the Armory of one Legion (second Legacy, only its Armory)
   'Shattered Legions': r({ twoLegacies: true, archetypeTraitBonus: -1 }),
   'Blackshields': r({ twoLegacies: true, legacy2ArmoryOnly: true, archetypeTraitBonus: -1, troopsRemap: ['Legion Veteran Squad'], troopsCount: 'remap' }),

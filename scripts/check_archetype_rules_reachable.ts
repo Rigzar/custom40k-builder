@@ -34,23 +34,7 @@ const KNOWN_UNWIRED = new Set([
   'inquisition/Sector Lord',    // Henchman Warband without an Inquisitor, size 5-10
   'imperial_navy/Heretic',      // widens the Legendary Retinue (engine/legendaryRetinue.ts), no ArchetypeRule needed
   'imperial_navy/Iconoclast',   // same, with the Xenos codices
-  // Horus Heresy books (hidden alpha work, deliberately not in known-issues): the Legion archetypes, whose lines are weapon swaps and ability lines the rule table
-  // cannot express, so they stay as the sheet's text. Their slot effects are in engine/codex_horus_heresy/archetypes.ts.
-  "horus_heresy_loyal/Dark Angels",
-  "horus_heresy_loyal/White Scars",
-  "horus_heresy_loyal/Space Wolves",
-  "horus_heresy_loyal/Imperial Fists",
-  "horus_heresy_loyal/Blood Angels",
-  "horus_heresy_loyal/Iron Hands",
-  "horus_heresy_loyal/Ultramarines",
-  "horus_heresy_loyal/Salamanders",
-  "horus_heresy_loyal/Raven Guard",
-  "horus_heresy_traitor/Alpha Legion",
-  "horus_heresy_traitor/Iron Warriors",
-  "horus_heresy_traitor/Night Lords",
-  "horus_heresy_traitor/World Eaters",
-  "horus_heresy_traitor/Death Guard",
-  "horus_heresy_traitor/Sons of Horus",
+  // Horus Heresy books: every archetype has a rule now (2026-11-14), so none is listed here any more.
 ]);
 
 function main() {

@@ -348,7 +348,7 @@
             ]
         },
         {
-            "header": "Only with the Legacy of the Death Lord: every Legion Cataphractii may swap their Combi-bolter with",
+            "header": "Every Legion Cataphractii may swap their Combi-bolter with",
             "constraint": {
                 "type": "one"
             },
@@ -363,10 +363,11 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Combi-bolter"
-            ]
+            ],
+            "requires_legacy": "Legacy of the Death Lord"
         },
         {
-            "header": "One Legion Cataphractii may swap their Combi-bolter with",
+            "header": "For each 5 models, one Legion Cataphractii may swap their Combi-bolter with",
             "constraint": {
                 "type": "per_n",
                 "per_n": 5,
@@ -384,10 +385,10 @@
             "replaces": [
                 "Combi-bolter"
             ],
-            "requires_legacy": "Legacy of the Death Lord: for each 5 models"
+            "requires_legacy": "Legacy of the Death Lord"
         },
         {
-            "header": "+5 points per model",
+            "header": "Death Cloud, +5 points per model",
             "constraint": {
                 "type": "one"
             },
@@ -396,7 +397,7 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true,
-            "requires_legacy": "Legacy of the Death Lord: Death Cloud"
+            "requires_legacy": "Legacy of the Death Lord"
         }
     ],
     "abilities": [
