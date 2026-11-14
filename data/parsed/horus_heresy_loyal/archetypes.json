@@ -304,7 +304,8 @@
       "pts_char": "10",
       "pts_monster": "0",
       "pts_veh": "0",
-      "enables_second_legacy": false
+      "enables_second_legacy": false,
+      "requires_archetype": "Blackshields"
     },
     {
       "name": "Precise Killers",

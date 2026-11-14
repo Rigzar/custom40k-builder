@@ -141,6 +141,15 @@
             "abilities": "AT(2), Combi, Overheating"
         },
         {
+            "name": "Death Cloud",
+            "range": "-",
+            "type": "Melee",
+            "s": "2",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Extra Attack(4), Poison(4+)"
+        },
+        {
             "name": "Heavy alchem flamer",
             "range": "9\"",
             "type": "Assault 4",
@@ -388,12 +397,23 @@
             "requires_legacy": "Legacy of the Death Lord"
         },
         {
-            "header": "Death Cloud, +5 points per model",
+            "header": "Any model may be equipped with a Death Cloud for +5 points each.",
             "constraint": {
                 "type": "one"
             },
-            "choices": [],
-            "inline_pts": 5,
+            "choices": [
+                {
+                    "name": "Death Cloud",
+                    "points": 5,
+                    "per_model": true,
+                    "effect": {
+                        "grants_weapons": [
+                            "Death Cloud"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true,

@@ -3600,6 +3600,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     state.campaignTraitBonus ?? 0,
     data.faction,
   );
+  for (const tn of state.traitPool) {
+    const tr = data.traits.find(t => t.name === tn);
+    if (tr?.requires_archetype && tr.requires_archetype !== state.archetype) items.push({ type: 'error', text: `${tn} can only be taken with the ${tr.requires_archetype} archetype.` });
+  }
   if (state.traitPool.length > maxTraits) {
     items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length, max: maxTraits }) });
   }

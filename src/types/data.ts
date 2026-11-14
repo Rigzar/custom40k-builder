@@ -606,6 +606,8 @@ export interface Trait {
   enables_second_legacy?: boolean;
   /** Horus Heresy Legion traits: the Legion (an `armory_key`) whose Legacy may take this trait. */
   legion?: string;
+  /** A trait the sheet writes "Blackshields only": only an army with this archetype may take it (picker and validator). */
+  requires_archetype?: string;
   /**
    * Set only on a trait borrowed from ANOTHER codex's list, to the display name of that codex
    * (Space Marines' Renegades archetype borrows from Chaos Space Marines). Used to cap how many

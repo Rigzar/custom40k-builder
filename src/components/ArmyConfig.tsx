@@ -438,7 +438,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     {openTraitSlot !== null && (
                       <TraitPickerModal
                         traits={(() => {
-                          const own = data.traits.filter(t => !t.foreign_faction);
+                          const openTraits = data.traits.filter(t => !t.requires_archetype || t.requires_archetype === archetype);   // a trait the sheet writes "Blackshields only" is not offered to the other armies
+                          const own = openTraits.filter(t => !t.foreign_faction);
                           if (!foreignTraitMax) return own;
                           // This slot may still offer the borrowed list while the army is under
                           // the cap, or when THIS slot is the one already holding a borrowed
@@ -446,7 +447,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                           const thisSlotIsForeign = !!data.traits.find(
                             t => t.name === traitPool[openTraitSlot] && t.foreign_faction);
                           return foreignTraitsTaken < foreignTraitMax || thisSlotIsForeign
-                            ? data.traits : own;
+                            ? openTraits : own;
                         })()}
                         excludedNames={traitSlots
                           .filter(s => s !== openTraitSlot)
