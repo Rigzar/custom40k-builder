@@ -422,7 +422,7 @@ export function armoryWeaponTargets(unit: Unit, item: RosterEntry, profile: Reso
  * weapons that were not selected. A weapon counts as optional when it also appears
  * as a choice in some option group; built-in gear (not in any group) is always shown.
  */
-export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: RosterEntry, armoryGranted: string[] = []): Weapon[] {
+export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: RosterEntry, armoryGranted: string[] = [], armoryOnly: Set<string> = new Set()): Weapon[] {
   // A weapon bought from the Armory is on the model, full stop. When the datasheet ALSO lists it as
   // a squad swap (the Plague Marines' Plasma gun), it would otherwise stay hidden behind an option
   // the buyer never took — so a Champion could pay for a weapon that then appeared nowhere.
@@ -897,6 +897,8 @@ const optionalWeapons = new Map<string, Set<string>>();
     // Bought from the Armory beats a swap that took the datasheet's copy away: the Malcador that swaps both Heavy stubbers for
     // Heavy bolters and then buys the Heavy stubber vehicle upgrade carries a Heavy stubber again (GH#264).
     if (boughtFromArmory.has(w.name)) return true;
+    // A weapon row that only an Armory item hands out (the Death Guard's Death Cloud sits on the Cataphractii datasheet): no loadout line and no option names it, so without this it counted as a default and showed unbought.
+    if (armoryOnly.has(w.name) && !loadoutNames(unit.equipped_with, baseName(w.name)) && !optionalWeapons.has(wkey(w.name))) return false;
     if (replacedWeaponNames.has(w.name)) return false;
     if (zeroCountModelWeapons.has(w.name)) return false;
     const owningChoices = optionalWeapons.get(wkey(w.name));
@@ -1641,6 +1643,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       const find = (p?: (typeof pools)[number]) => ((p?.weapons ?? []) as import('../types/data').ArmoryItem[]).find(w => w.name.toLowerCase() === grantedName.toLowerCase());
       const granted = find(own) ?? find(data.armory_general) ?? pools.map(find).find(Boolean);
       if (granted) pushGrantedWeapon(granted);
+      // Not sold as a weapon anywhere, but the unit's own datasheet carries the row (the Death Guard's Death Cloud): buying the item switches that row on.
+      else if (weapons.some(w => w.name.toLowerCase() === grantedName.toLowerCase())) armoryGrantedWeapons.push(weapons.find(w => w.name.toLowerCase() === grantedName.toLowerCase())!.name);
     }
   }
 
@@ -3312,7 +3316,9 @@ export function resolveUnitProfile(
   const factionFn = FACTION_RESOLVERS[resolverFaction];
   const profile = factionFn ? factionFn(base, item, unit, state, data) : base;
   // Faction resolvers may rewrite `weapons`; derive the display list from the final set.
-  profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item, profile.armoryGrantedWeapons);
+  const armoryOnly = new Set<string>();
+  for (const src of armorySources(data)) for (const sec of [src.equipment, src.weapons, src.daemon_weapons].filter(Boolean) as any[][]) for (const it of sec) for (const gw of it.effect?.grants_weapons ?? []) armoryOnly.add(gw);
+  profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item, profile.armoryGrantedWeapons, armoryOnly);
   // Cosmetic archetype renames/ability-injections apply AFTER gating (see weaponDisplayOverride
   // doc) so they never interfere with matching choice names against original weapon names.
   if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);

@@ -475,8 +475,14 @@ export const useArmyStore = create<ArmyStore>()(
               return e;
             })
           : s.army;
+        // What the old archetype allowed must not outlive it: a Trait the sheet writes "Blackshields only", more Traits than the new archetype gives
+        // (the Shattered Legions and the Blackshields have ONE), and the second Legacy of an archetype with two Legacies.
+        let pool = s.traitPool.filter((n: string) => { const t = s.data?.traits.find(x => x.name === n); return !t?.requires_archetype || t.requires_archetype === a; });
+        const traitCap = maxArmyTraits(s.engagement, s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0, newRule?.archetypeTraitBonus ?? 0, s.campaignTraitBonus ?? 0, s.data?.faction);
+        if (pool.length > traitCap) pool = pool.slice(0, traitCap);
+        const keepLegacy2 = !!newRule?.twoLegacies || pool.some((n: string) => s.data?.traits.find(t => t.name === n)?.enables_second_legacy);
         const army = s.data
-          ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
+          ? applyArmyTraits(baseArmy, pool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : baseArmy;
         /*
          * An archetype's HQ promotion belongs to THAT archetype, so switching away always drops
@@ -487,7 +493,7 @@ export const useArmyStore = create<ArmyStore>()(
          */
         const cleared = army.map((e: RosterEntry) =>
           e.archetypeHqUpgrade ? (getArchetypeRule(s.archetype)?.hqPromotion?.grantsArmoryAccess && s.data ? dropLegacyArmory({ ...e, archetypeHqUpgrade: false }, s.data) : { ...e, archetypeHqUpgrade: false }) : e);
-        return { archetype: a, data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
+        return { archetype: a, traitPool: pool, legacy2: keepLegacy2 ? s.legacy2 : '', data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
           : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),
