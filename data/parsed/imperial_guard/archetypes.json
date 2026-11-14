@@ -20,7 +20,7 @@
     },
     {
       "name": "Jungle Fighters",
-      "desc": "- All units gain the \"Move through cover\" and \"Use cover\" abilities.\n- All creature units additionally gain the \"Infiltrate\" ability.\n- All creature units reduce their armor save by -1.\n- Creature units that have access to Lascannons may select a Heavy Flamer for +5 points in its place."
+      "desc": "- All units gain the \"Infiltrator\", \"Move through cover\" and \"Use cover\" abilities.\n- All creature units reduce their armor save by -1.\n- Creature units that have access to Lascannons may select a Heavy Flamer for +5 points in its place."
     },
     {
       "name": "Mechanised Company",

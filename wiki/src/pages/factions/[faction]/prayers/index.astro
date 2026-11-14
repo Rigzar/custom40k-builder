@@ -1,10 +1,11 @@
 ---
-import Layout from '../../../../components/Layout.astro';
+import Layout from '../../../../components/Layout.astro';
+
 import { localiseAbility } from '../../../../vendor/src/data/coreRules';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { wt } from '../../../../lib/i18n';
-import { wn, wp, wPhrase, wRange } from '../../../../lib/loc';
+import { wn, wp, wPhrase, wRange, wd } from '../../../../lib/loc';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -99,7 +100,7 @@ const tabs = [
               <td class="center">{p.range ? wRange(p.range) : '-'}</td>
               <td class="center">{p.target ? wPhrase(p.target) : '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
-              <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
+              <td class="effect">{p.effect ? wd(p.effect) : '-'}</td>
               <td class="center">{p.duration ? wPhrase(p.duration) : '-'}</td>
               <td class="center">{p.complexity ? wp(p.complexity) : '-'}</td>
             </tr>
@@ -133,7 +134,7 @@ const tabs = [
               <td class="center">{p.range ? wRange(p.range) : '-'}</td>
               <td class="center">{p.target ? wPhrase(p.target) : '-'}</td>
               <td class="center cast">{p.cast_value ?? '-'}</td>
-              <td class="effect">{p.effect ? localiseAbility(p.effect) : '-'}</td>
+              <td class="effect">{p.effect ? wd(p.effect) : '-'}</td>
               <td class="center">{p.duration ? wPhrase(p.duration) : '-'}</td>
               <td class="center">{p.complexity ? wp(p.complexity) : '-'}</td>
             </tr>

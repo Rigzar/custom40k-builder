@@ -1,0 +1,123 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-9",
+        "Infiltrator",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        3,
+        2,
+        4,
+        2,
+        7,
+        "4+",
+        37
+    ],
+    [
+        1,
+        "Infiltrator Princeps",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        3,
+        2,
+        4,
+        2,
+        7,
+        "4+",
+        37
+    ],
+    [
+        "Every model is equipped with: Enhanced Bionics; Flechette blaster; Taser goad."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Flechette blaster",
+        "12\"",
+        "Pistol 1",
+        4,
+        0,
+        1,
+        "Blast(4), Shred"
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-"
+    ],
+    [
+        "Stubcarbine",
+        "18\"",
+        "Pistol 3",
+        4,
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Taser goad",
+        "-",
+        "Melee",
+        "+2",
+        -1,
+        1,
+        "Tesla"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model may swap their Flechette blaster and Taser goad:"
+    ],
+    [
+        "- Power sword and Stubcarbine",
+        "+2 points"
+    ],
+    [
+        "\u2022 The Infiltrator Princeps has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 The unit may select one Doctrina Imperative."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Canticles of the Omnissiah, Deflect, Infiltrator, Massive(1), Move through cover, Parry"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

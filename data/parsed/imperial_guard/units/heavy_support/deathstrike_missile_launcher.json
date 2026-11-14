@@ -30,7 +30,7 @@
             "s": "D",
             "ap": "-4",
             "d": "3",
-            "abilities": "AT(5), Blast(6), Indirect"
+            "abilities": "Ammo(1), AT(5), Blast(6), Indirect"
         },
         {
             "name": "Heavy bolter",
@@ -44,7 +44,7 @@
         {
             "name": "Heavy flamer",
             "range": "9\"",
-            "type": "Assault 1",
+            "type": "Assault 4",
             "s": "5",
             "ap": "-1",
             "d": "1",

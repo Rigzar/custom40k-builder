@@ -1,0 +1,102 @@
+{
+    "name": "Hearthkyn Skyriggers",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "3+"
+            },
+            "name": "Skyrigger",
+            "min": 5,
+            "max": 10,
+            "points": 29
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "3+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Theyn",
+            "min": 0,
+            "max": 1,
+            "points": 34
+        }
+    ],
+    "min_cost": 145,
+    "default_size": 5,
+    "equipped_with": "Every model is equipped with: Autoch-pattern bolt pistol; Gravitic concussion grenade; Plasma axe.",
+    "weapons": [
+        {
+            "name": "Autoch-pattern bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Concussion weapon",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-2)"
+        },
+        {
+            "name": "Gravitic concussion grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast(4), Graviton"
+        },
+        {
+            "name": "Plasma axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Plasma sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "abilities": [
+        "Eye of the Ancestors, Steady Advance, Void armor",
+        "Medipack: The model gains the \"Narthecium\" ability.",
+        "Multiwave comms array: The unit may use the Ld value of a friendly K\u00e2hl, if any is present and alive in the army.",
+        "Pan spectral scanner: All weapons of the unit gain Sunder(1)"
+    ],
+    "unit_type": "Jump Pack Infantry",
+    "is_monster": false,
+    "keywords": []
+}

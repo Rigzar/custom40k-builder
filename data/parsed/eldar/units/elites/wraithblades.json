@@ -65,7 +65,7 @@
     "abilities": [
         "Massive(1)",
         "Forceshield: The model gains the \"Deflect\" and \"Parry\" abilities.",
-        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+        "Wraithbone: Reduces AP and AT of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Monstrous Infantry",
     "keywords": [

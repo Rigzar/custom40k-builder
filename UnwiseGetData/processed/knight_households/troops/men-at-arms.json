@@ -1,0 +1,92 @@
+{
+    "name": "Men-at-Arms",
+    "models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "6",
+                "SV": "5+"
+            },
+            "name": "Man-at-Arms",
+            "min": 10,
+            "max": 30,
+            "points": 11
+        }
+    ],
+    "variant_models": [
+        {
+            "stats": {
+                "M": "6\"",
+                "WS": "4+",
+                "BS": "4+",
+                "S": "3",
+                "T": "3",
+                "W": "1",
+                "I": "3",
+                "A": "1",
+                "LD": "7",
+                "SV": "5+"
+            },
+            "name": "Captain",
+            "min": 0,
+            "max": 1,
+            "points": 16
+        }
+    ],
+    "min_cost": 110,
+    "default_size": 10,
+    "equipped_with": "Every model is equipped with: Bayonet; Las carbine; Shield.",
+    "weapons": [
+        {
+            "name": "Bayonet",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Quick(+1), Unwieldy"
+        },
+        {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Las carbine",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "3",
+            "ap": "0",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta"
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Deflect, Infantry, Parry",
+    "is_monster": false,
+    "keywords": [
+        "Feudal Levy"
+    ]
+}

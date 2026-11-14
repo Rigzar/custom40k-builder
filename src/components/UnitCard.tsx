@@ -3,12 +3,12 @@ import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
-import { useArmyStore } from '../store/army';
+import { useArmyStore, type ArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
-import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
+import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem, removedAbilityNames, dropRemovedAbilities } from '../engine/resolver';
 import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
 import { OPT_IN_TRAITS, optInTraitApplies } from '../store/army';
 import { usesReputations, factionSymbolFile } from '../utils/factionLabel';
@@ -157,7 +157,7 @@ function headerForPromotedCap(header: string, g: { constraint: { max?: number };
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
   const { language: uiLang } = useLanguage();
-  const store = useArmyStore();
+  const store: ArmyStore = useArmyStore();
   const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
@@ -717,7 +717,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       })()}
 
       {/* ── Gue'vesa Lasgun/Hot-shot lasgun → Pulse rifle swap (per model, ods-verbatim) ── */}
-      {data?.faction === 'Imperial Guard' && archetype === 'Gue\'vesa' && !item.factionSource && !u.is_vehicle && (() => {
+      {(item.factionSource ? item.factionSource === 'imperial_guard' : data?.faction === 'Imperial Guard') && itemArchetype === 'Gue\'vesa' && !u.is_vehicle && (() => {
         const hasLasgun = (u.equipped_with ?? '').includes('Lasgun');
         const hasHotshot = (u.equipped_with ?? '').includes('Hot-shot lasgun');
         if (!hasLasgun && !hasHotshot) return null;
@@ -1348,7 +1348,19 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const granted = u.option_groups.some((og, ogi) => og !== g && og.choices.some((c, ci) =>
                 g.requires_choice!.includes(c.name) && (item.optionQty?.[ogi]?.[ci] ?? 0) > 0));
               const chosen = Object.values(item.optionQty?.[realGi] ?? {}).some(q => (q ?? 0) > 0);
-              if (!granted && !chosen) return null;
+              // Shown, not hidden: the sheet lists the swap, so the list has to as well. It just cannot be used yet.
+              if (!granted && !chosen) return (
+                <div key={`needs-${realGi}`} className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 opacity-70">
+                  <div className="text-[11px] text-zinc-400">{g.header}</div>
+                  <div className="text-[10px] text-zinc-500 italic">{tpl(t('needsChoiceFirst'), { choice: g.requires_choice!.join(', ') })}</div>
+                  {/* The choices as the sheet lists them, with their price, so nothing of the rule is missing from the card. */}
+                  <ul className="mt-1 space-y-0.5">
+                    {g.choices.map(c => (
+                      <li key={c.name} className="flex justify-between text-[11px] text-zinc-500"><span>{nm(c.name)}</span><span>{c.points > 0 ? `+${c.points}` : c.points}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              );
             }
 
             // Required OG warning: show if nothing is selected
@@ -2375,7 +2387,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               return mentioned.length === 0 || mentioned.some(name => (item.modelSizes?.[name] ?? 0) > 0);
             };
             const ascendedAll = hasAllMarksVariant(item, u);
-            const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
+            const filteredAbilities = u.abilities.map(ab => dropRemovedAbilities(ab, removedAbilityNames(u, item))).map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
+              if (ab === '') return false;
               if (/^\d+$/.test(ab.trim()) || ab.trim() === '-') return false;
               // An ability the sheet marks "Only with the X archetype" (Horus Heresy) is shown only with that archetype.
               { const ga = ab.match(/Only with the (Legacy of [^.]+)./); if (ga && !itemLegacies.includes(ga[1].trim())) return false; }

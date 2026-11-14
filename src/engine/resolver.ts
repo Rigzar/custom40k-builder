@@ -122,6 +122,9 @@ export interface ResolvedProfile {
    * copy of the named weapon, not every copy the squad carries. Applied by computeWeaponGroups
    * to the Champion's weapon group only. */
   championWeaponTraitMap: Map<string, string[]>;
+  /** Ids of the Armory selections whose numeric weapon boost (+Strength, +shots, +range...) was bought by the squad's
+   *  Champion/Sergeant: they change only his own copy of the weapon, never every copy in the squad (Flash Gitz "More Boom!"). */
+  championBoostSelIds?: string[];
   /** Mark-derived ability injections (e.g. Warded, Warpflamer) — shown with "Mark" badge. */
   injectedAbilities: string[];
   /**
@@ -489,6 +492,8 @@ const loadoutNames = (equipped: string | undefined, name: string): boolean => {
   // The Carnodon carries a Twin multilaser, so its swap for two Multilasers showed a stray Multilaser from the start (GH#260).
   for (let i = hay.indexOf(needle); i >= 0 && needle; i = hay.indexOf(needle, i + 1)) {
     if (!needle.startsWith('twin') && (hay.slice(Math.max(0, i - 4), i) === 'twin' || hay.slice(Math.max(0, i - 10), i) === 'twinlinked')) continue;
+    // Same for "Paired shock chargers" (the Servitors' default) against the single "Shock charger" the swap grants.
+    if (!needle.startsWith('paired') && hay.slice(Math.max(0, i - 6), i) === 'paired') continue;
     return true;
   }
   return false;
@@ -581,7 +586,9 @@ const optionalWeapons = new Map<string, Set<string>>();
       // below), tie it to this choice the same way, so an unselected specialisation's weapon is
       // correctly hidden instead of falling through as a fixed default (all 7 of a Cryptek's
       // possible weapons showed regardless of which specialisation was actually taken).
-      for (const grantedName of c.effect?.grants_weapons ?? []) {
+      // A grant written on the GROUP applies to whichever choice is picked (the Servitor swap hands over the Shock charger whatever gun is chosen); the
+      // selection side below already honoured it, this side did not, so the weapon stayed visible unbought.
+      for (const grantedName of [...(g.effect?.grants_weapons ?? []), ...(c.effect?.grants_weapons ?? [])]) {
         const gk = wkey(grantedName);
         if (!unit.weapons.some(w => wkey(w.name) === gk)) continue;
         if (!optionalWeapons.has(gk)) optionalWeapons.set(gk, new Set());
@@ -625,7 +632,7 @@ const optionalWeapons = new Map<string, Set<string>>();
   if (unit.equipped_with) {
     for (const g of unit.option_groups) {
       for (const c of g.choices) {
-        const granted = c.effect?.grants_weapons ?? [];
+        const granted = [...(g.effect?.grants_weapons ?? []), ...(c.effect?.grants_weapons ?? [])];
         if (granted.length === 0) continue;
         const esc = String(c.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const clause = unit.equipped_with.match(new RegExp(`\\bAn?\\s+${esc}\\s+is equipped with:\\s*([^.]+)\\.`, 'i'))?.[1];
@@ -1069,6 +1076,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const championOnlyArmory = !!unit.champion_has_armory && !unit.has_armory_access;
   const weaponTraitMap = new Map<string, string[]>();
   const championWeaponTraitMap = new Map<string, string[]>();
+  const championBoostSelIds: string[] = [];
+  for (const sel of item.armory) {
+    if (!sel.targetWeapon || (sel.section !== 'equipment' && sel.section !== 'daemon_weapons')) continue;
+    const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
+    if (!armItem) continue;
+    const isCharacterScoped = (armItem.p_char != null && armItem.p_unit == null) || championOnlyArmory;
+    if (isCharacterScoped && hasCharacterScopedBuyer) championBoostSelIds.push(sel.id);
+  }
   for (const sel of item.armory) {
     if (sel.section !== 'daemon_weapons' || !sel.targetWeapon) continue;
     const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
@@ -1836,7 +1851,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
     effectiveHasVetAbilities,
-    equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], attachedDrones: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap,
+    equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], attachedDrones: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap, championBoostSelIds,
     injectedAbilities: choiceAbilities,
     hiddenUpgradeAbilityLabels,
     hiddenUpgradeAbilityLines: hiddenUpgradeLines(unit, item),
@@ -1876,6 +1891,29 @@ function renderedAbilities(w: Weapon, traitMap: Map<string, string[]>): string {
  *   - Everything else (units with no built-in Champion) returns a single unlabeled,
  *     uncounted group — unchanged from the previous flat weaponsToShow rendering.
  */
+/** Abilities the chosen options take away (`effect.removes_abilities`), lower-cased. */
+export function removedAbilityNames(unit: Unit, item: RosterEntry): string[] {
+  const out: string[] = [];
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      for (const n of g.choices[parseInt(ci)]?.effect?.removes_abilities ?? []) out.push(n.toLowerCase());
+    }
+  }
+  return out;
+}
+
+/** An ability line without the removed names: "Infiltrator, Move Through Cover" loses Infiltrator and keeps the rest; a line that is only a removed name disappears (returns ''). */
+export function dropRemovedAbilities(line: string, removed: string[]): string {
+  if (removed.length === 0) return line;
+  const colon = line.indexOf(':');
+  if (colon > 0 && colon < 60) return removed.includes(line.slice(0, colon).trim().toLowerCase()) ? '' : line;
+  const kept = line.split(',').map(x => x.trim()).filter(x => x && !removed.includes(x.toLowerCase()));
+  return kept.join(', ');
+}
+
 export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: ResolvedProfile): WeaponGroup[] {
   const baseName = (n: string) => n.split(' - ')[0];
 
@@ -2683,9 +2721,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))))));
+    return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(unit, item, profile, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))))));
   }
-  return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))))));
+  return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(unit, item, profile, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))))));
 }
 
 /**
@@ -3144,7 +3182,7 @@ function applyBiomorphRangeBoosts(unit: Unit, item: RosterEntry, groups: WeaponG
  * can't carry. Mirrors applyNamedWeaponBoosts's shape, driven by the player's own chosen
  * `targetWeapon` instead of a single hardcoded weapon name.
  */
-function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+function applyChosenWeaponStatBoosts(unit: Unit, item: RosterEntry, profile: ResolvedProfile, groups: WeaponGroup[]): WeaponGroup[] {
   const effectFor = (a: (typeof item.armory)[number]): ChosenWeaponEffect | null => {
     const fixed = CHOSEN_WEAPON_GRANT_ITEMS[a.itemName];
     if (fixed) return fixed;
@@ -3164,17 +3202,17 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
     // half of daemon weapons already applies via weaponTraitMap above, but numeric deltas never
     // had anywhere to go).
     .filter(a => (a.section === 'equipment' || a.section === 'daemon_weapons') && a.targetWeapon)
-    .map(a => { const effect = effectFor(a); return effect && { targetWeapon: a.targetWeapon!, effect }; })
-    .filter((b): b is { targetWeapon: string; effect: ChosenWeaponEffect } =>
+    .map(a => { const effect = effectFor(a); return effect && { targetWeapon: a.targetWeapon!, effect, champion: (profile.championBoostSelIds ?? []).includes(a.id) }; })
+    .filter((b): b is { targetWeapon: string; effect: ChosenWeaponEffect; champion: boolean } =>
       !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta || !!b.effect.rangeDelta || !!b.effect.shotsDelta || !!b.effect.solariteX2ToX3));
   if (!boosts.length) return groups;
-  const boost = (w: Weapon): Weapon => {
+  const boostWith = (list: typeof boosts) => (w: Weapon): Weapon => {
     // Match by BASE name. A weapon with several firing modes is stored as one entry per mode,
     // and the picker lists each of them, so choosing "Plasma cannon (Standard)" used to boost
     // that profile alone and leave "(Overheating)" -- the one you actually shoot with --
     // untouched. It is one physical weapon: an enhancement applies to all of its profiles.
     // (GH#115: a Leman Russ Tank Commander's Regimental artefact appeared to do nothing.)
-    const matches = boosts.filter(b => weaponBaseName(b.targetWeapon) === weaponBaseName(w.name));
+    const matches = list.filter(b => weaponBaseName(b.targetWeapon) === weaponBaseName(w.name));
     if (!matches.length) return w;
     let s = w.s, ap = w.ap, d = w.d, range = w.range, type = w.type;
     for (const { effect } of matches) {
@@ -3193,7 +3231,28 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
     }
     return { ...w, s, ap, d, range, type };
   };
-  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+  const everyone = boostWith(boosts.filter(b => !b.champion));
+  const mine = boosts.filter(b => b.champion);
+  let out = groups.map(g => ({ ...g, weapons: g.weapons.map(everyone) }));
+  if (!mine.length) return out;
+  // What the Champion/Sergeant bought changes HIS copy of the weapon only. His own group takes it; a squad that folds him into
+  // the common row gets a one-model row of his own, and the common row loses one model.
+  const champName = (profile.variantActive && profile.variant ? profile.variant : getBuiltInChampion(unit))?.name;
+  if (!champName) return out;
+  const champBoost = boostWith(mine);
+  const isHis = (g: WeaponGroup) => (g.label ?? '').toLowerCase() === champName.toLowerCase();
+  if (out.some(isHis)) return out.map(g => isHis(g) ? { ...g, weapons: g.weapons.map(champBoost) } : g);
+  const targets = new Set(mine.map(b => weaponBaseName(b.targetWeapon)));
+  const at = out.findIndex(g => g.weapons.some(w => targets.has(weaponBaseName(w.name))));
+  if (at < 0) return out;
+  const base = out[at];
+  if (base.count === 1) return out.map((g, i) => i === at ? { ...g, weapons: g.weapons.map(champBoost) } : g);
+  const dec = (n: number | undefined) => (n && n > 1 ? n - 1 : n);
+  const rest: WeaponGroup = { ...base, count: base.count != null ? base.count - 1 : null,
+    ...(base.countOverrides ? { countOverrides: new Map([...base.countOverrides].map(([k, v]) => [k, dec(v) ?? v] as [string, number])) } : {}) };
+  const his: WeaponGroup = { label: champName, count: 1, weapons: base.weapons.map(champBoost), traitMap: base.traitMap };
+  out = [...out.slice(0, at), rest, his, ...out.slice(at + 1)];
+  return out;
 }
 
 /**
@@ -3208,7 +3267,7 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
 function getActiveExarchPowers(unit: Unit, item: RosterEntry): string[] {
   const powers: string[] = [];
   for (const sel of item.armory) {
-    if ((sel.itemName === 'Paragon of war' || sel.itemName === 'Orders of the Hekatonystika') && sel.chosenPower) powers.push(sel.chosenPower);
+    if ((sel.itemName === 'Paragon of war' || sel.itemName === 'Orders of the Hekatonystika') && sel.chosenPower) powers.push(...sel.chosenPower.split(' + ').filter(Boolean));  // Eldar 1.13: two powers, "A + B"
   }
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
@@ -3425,6 +3484,14 @@ function computeAttachedDrones(unit: Unit, item: RosterEntry, data: FactionData)
       counts.set(c.name, (counts.get(c.name) ?? 0) + qty);
     });
   });
+  // Drones that come WITH the datasheet ("A Ghostkeel Shas'vre is equipped with: ...; 2 Stealth Drones") are not an option, so the loop above never saw them
+  // (Discord, Dave, 2026-11-13: "Ghostkeels come with 2x stealth drones, which don't show"). Counted here from the loadout sentence.
+  for (const d of data.drones!) {
+    if (counts.has(d.name) || !unit.equipped_with) continue;
+    const esc = d.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const m = unit.equipped_with.match(new RegExp('(?:(\\d+)\\s+)?' + esc + 's?\\b', 'i'));
+    if (m) counts.set(d.name, m[1] ? parseInt(m[1], 10) : 1);
+  }
   if (counts.size === 0) return [];
   return [...counts.entries()]
     .map(([name, count]) => ({ drone: data.drones!.find(d => d.name === name)!, count }))

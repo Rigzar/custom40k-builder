@@ -1,0 +1,127 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "4-19",
+        "Haemoxyte",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        4,
+        1,
+        4,
+        2,
+        8,
+        "6+",
+        13
+    ],
+    [
+        1,
+        "Haemoxyte Acothyst",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        4,
+        1,
+        4,
+        3,
+        8,
+        "6+",
+        18
+    ],
+    [
+        "Every model is equipped with: Wrack blades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Liquifier gun",
+        "9\"",
+        "Assault 4",
+        4,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Ossefactor",
+        "24\"",
+        "Assault 1",
+        2,
+        -3,
+        2,
+        "Poison(2+)"
+    ],
+    [
+        "Wrack blades",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Poison(3+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 For every Haemonculus selection, the army may include one Haemoxytes unit."
+    ],
+    [
+        "\u2022 For each 5 models, two Haemoxytes may be equipped with:"
+    ],
+    [
+        "- Liquifier gun",
+        "+15 points"
+    ],
+    [
+        "- Ossefactor",
+        "+23 points"
+    ],
+    [
+        "\u2022 The Haemoxyte Acothyst has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Power through Pain"
+    ],
+    [
+        "Further transformed shape: The unit starts with two \"Power through Pain\" tokens."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Coven"
+    ]
+]

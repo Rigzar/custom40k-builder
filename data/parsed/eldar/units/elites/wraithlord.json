@@ -178,7 +178,7 @@
     ],
     "abilities": [
         "Squadron",
-        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+        "Wraithbone: Reduces AP and AT of enemy attacks by -1 (to a minimum of 0)."
     ],
     "unit_type": "Monstrous Creature",
     "keywords": [

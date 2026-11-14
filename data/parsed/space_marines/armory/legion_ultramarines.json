@@ -2,6 +2,23 @@
   "name": "Ultramarines Armory",
   "weapons": [
     {
+      "name": "Blades of Honour",
+      "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(1), Shred, Unwieldy. Company Champion only.",
+      "p_unit": null,
+      "p_char": 7
+    },
+    {
       "name": "Soldier's Blade",
       "term_compat": true,
       "gravis_compat": true,

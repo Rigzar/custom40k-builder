@@ -352,7 +352,7 @@ export const RULES: Record<string, RuleEntry> = {
   // ── Model special rules ───────────────────────────────────────────────────
   'acute senses': {
     name: 'Acute Senses',
-    description: 'Infiltrators always have to stay more than 18" away during deployment, even if there is no direct Line of Sight to this unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 12" that is deployed from reserves as if it had been given the "Stand & Shoot" order. The attack resolves after the enemy unit has been deployed and before it takes another action.',
+    description: 'Infiltrators always have to stay more than 18" away during deployment, even if there is no direct Line of Sight to this unit. The model is able to use the Acute Senses Meta-Order.',
   },
   // Core Rules 1.35: "Advisor" is now a general ability (the per-unit "For every HQ selection..." sentence was removed from the sheets).
   'advisor': {
@@ -796,6 +796,14 @@ export const COMMAND_ORDERS: OrderEntry[] = [
 ];
 
 export const META_ORDERS: OrderEntry[] = [
+  {
+    name: 'Acute Senses',
+    prerequisite: 'The unit has the Acute Senses ability, has not yet activated this turn, and an enemy unit is deployed from reserves within 12" of it.',
+    effect: [
+      'It may immediately fire at the enemy unit as if it had received a Stand & Shoot order.',
+      'The attack resolves after the enemy unit has been deployed and before it takes another action.',
+    ],
+  },
   {
     name: 'Counter-Attack',
     prerequisite: 'The unit has the Counter-Attack ability, is declared as a target for a charge move and after the charging unit has declared all charge targets.',

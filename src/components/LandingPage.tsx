@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v188e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -56,176 +56,226 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "{v}: sort the Armory, move your units",
-    intro: "Armory columns sort, units move up and down the list, Core Rules 1.43, and fixes from your reports.",
+    title: "{v}: 14 codices up to date",
+    intro: "Every codex sheet that moved since 1.88 is in the app: units, options, Armory and rules.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Armory", "Click Weapon, Range, Type or Pts in the weapon table to sort."],
-        ["Army list", "Arrows beside each unit move it up or down in its slot (also sets the print order)."],
-        ["Core Rules 1.43", "Rule texts updated: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
-        ["Allied detachments", "Elite, Fast Attack and Heavy Support together can't exceed the Troops taken, and no more than one of each."],
+        ["Print view", "Simple view applies Hardened Carapace and other profile changes; unit types, Power Through Pain rules and the General psychic disciplines are printed; the buttons wrap on phones."],
+        ["Print view", "A new Army rules card lists the codex's army-wide rules (Shadow in the Warp, Waaagh!, ...)."],
+        ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
       ] },
-      { label: "Discord", rows: [
-        ["Imperial Guard", "A Sergeant no longer inherits squad weapons; buying him gear keeps his default weapon."],
-        ["Jakhals", "Swapping a weapon in one option group no longer removes another group's weapons."],
-        ["Votann", "The Hernkyn Theyn shows the Armory weapons he bought."],
-        ["Gue'vesa", "Pulse rifles show correctly."],
-        ["Magos", "No false ward error in Skirmish."],
-        ["Remora", "The Armory button is back."],
-        ["Dark Eldar", "The Sslyth of a Court of the Archon can use the Armory."],
-        ["T'au Armory", "Rows nobody can buy (Markerlight, Seeker missile...) are no longer listed."],
-        ["T'au Armory", "Tactical philosophies is back in the Armory (it had been hidden by mistake)."],
-        ["T'au Commander", "An XV85 Enforcer battlesuit allows a fourth weapon."],
-        ["Strength U", "A weapon with Strength U now gets +1 Strength enhancements (Regimental relic and similar)."],
+      { label: "Bugs (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Thank you for the first-game feedback."],
+        ["Ymgarl", "The Ymgarl Genestealers upgrade removes Infiltrator from the card and the printout."],
+        ["Ghostkeel", "Its two Stealth Drones are listed."],
+        ["Coronus", "The Twin arachnus blaze cannon has its 18\" range."],
       ] },
-      { label: "GitHub", rows: [
-        ["#271", "Daemonkin: Chaos Daemons units can be picked right away."],
-        ["#272", "An Eightbound frees one Elite slot for a Slaughterbound."],
-        ["#269", "Chosen: a bike on one model gives one Combi-bolter; one Terminator no longer greys out the Armory for the rest."],
+      { label: "Bugs (GitHub)", rows: [
+        ["#275", "The Trygon is a Heavy Support unit (thanks, DemonGyro)."],
       ] },
-      { label: "We need your help", rows: [
-        ["T'au Pathfinder", "Markerlights vanishing? Send us the list.", "https://github.com/Rigzar/custom40k-builder/issues"],
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War takes two Exarch powers. Banshee mask is an item. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, new Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "The Catacomb Command Barge is an HQ that uses no HQ slot (one per Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler and Venom cannon +21 on the Warriors; Obscuring Terrain wording."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer and Power fist in the Armory."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "The Great Unclean One's Nurgling infestation has Extra Attack(4)."],
+        ["Entourage", "Entourage and Herald now free HQ slots for the Daemons a Chaos Space Marine archetype reaches, and for allied Daemons, within the same detachment as the Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry works on weapons with Rad."],
+        ["Servitors", "The single Shock charger no longer shows on Servitors that have not bought the swap."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "{v}: Arsenal sortieren, Einheiten verschieben",
-    intro: "Arsenal-Spalten sortierbar, Einheiten in der Liste verschiebbar, Core Rules 1.43 und Korrekturen aus euren Meldungen.",
+    title: "{v}: 14 Codizes auf dem neuesten Stand",
+    intro: "Jedes Codex-Datenblatt, das sich seit 1.88 geändert hat, ist in der App: Einheiten, Optionen, Arsenal und Regeln.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
-        ["Armory", "Klicke in der Waffentabelle auf Waffe, Reichweite, Typ oder Pkt, um zu sortieren."],
-        ["Armeeliste", "Pfeile neben jeder Einheit verschieben sie in ihrem Slot (bestimmt auch die Druckreihenfolge)."],
-        ["Core Rules 1.43", "Regeltexte aktualisiert: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
-        ["Verbündete", "Elite, Fast Attack und Heavy Support zusammen dürfen die Zahl der Troops nicht überschreiten, jeweils höchstens eine."],
+        ["Druckansicht", "Die einfache Ansicht wendet Hardened Carapace und andere Profiländerungen an; Einheitentypen, Power-Through-Pain-Regeln und die allgemeinen psychischen Disziplinen werden gedruckt; die Knöpfe brechen auf Handys um."],
+        ["Druckansicht", "Eine neue Karte Armeeregeln listet die armeeweiten Regeln des Codex (Shadow in the Warp, Waaagh!, ...)."],
+        ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
       ] },
-      { label: "Discord", rows: [
-        ["Imperial Guard", "Ein Sergeant erbt keine Trupp-Waffen mehr; Ausrüstung für ihn behält seine Standardwaffe."],
-        ["Jakhals", "Ein Waffentausch in einer Optionsgruppe entfernt keine Waffen anderer Gruppen mehr."],
-        ["Votann", "Der Hernkyn Theyn zeigt die gekauften Armory-Waffen."],
-        ["Gue'vesa", "Pulse rifles werden korrekt angezeigt."],
-        ["Magos", "Kein falscher Ward-Fehler im Skirmish."],
-        ["Remora", "Der Armory-Knopf ist zurück."],
-        ["Dark Eldar", "Die Sslyth eines Court of the Archon können das Arsenal nutzen."],
-        ["T'au Armory", "Zeilen, die niemand kaufen kann (Markerlight, Seeker missile...), werden nicht mehr aufgeführt."],
-        ["T'au Armory", "Tactical philosophies ist wieder im Arsenal (war versehentlich ausgeblendet)."],
-        ["T'au Commander", "Ein XV85 Enforcer battlesuit erlaubt eine vierte Waffe."],
-        ["Stärke U", "Eine Waffe mit Stärke U erhält jetzt +1-Stärke-Verbesserungen (Regimental relic und ähnliche)."],
+      { label: "Fehler (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Danke für das Feedback nach dem ersten Spiel."],
+        ["Ymgarl", "Das Ymgarl-Upgrade entfernt Infiltrator von Karte und Ausdruck."],
+        ["Ghostkeel", "Seine zwei Stealth Drones werden aufgeführt."],
+        ["Coronus", "Die Twin arachnus blaze cannon hat ihre Reichweite von 18\"."],
       ] },
-      { label: "GitHub", rows: [
-        ["#271", "Daemonkin: Chaos-Daemons-Einheiten sind sofort wählbar."],
-        ["#272", "Ein Eightbound macht einen Elite-Slot für einen Slaughterbound frei."],
-        ["#269", "Chosen: ein Bike an einem Modell gibt einen Combi-bolter; ein Terminator sperrt die Armory nicht mehr für den Rest."],
+      { label: "Fehler (GitHub)", rows: [
+        ["#275", "Der Trygon ist eine Heavy-Support-Einheit (danke, DemonGyro)."],
       ] },
-      { label: "Wir brauchen Hilfe", rows: [
-        ["T'au Pathfinder", "Markerlights verschwinden? Schickt uns die Liste.", "https://github.com/Rigzar/custom40k-builder/issues"],
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War nimmt zwei Exarchenkräfte. Die Banshee-Maske ist ein Gegenstand. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, neu: Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Der Catacomb Command Barge ist ein HQ ohne HQ-Slot (einer pro Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler und Venom cannon +21 bei den Warriors; Wortlaut Obscuring Terrain."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer und Power fist im Arsenal."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "Die Nurgling-Plage des Great Unclean One hat Extra Attack(4)."],
+        ["Entourage", "Entourage und Herald geben jetzt HQ-Plätze frei für Dämonen, die ein Chaos-Space-Marine-Archetyp erreicht, und für verbündete Dämonen, im selben Kontingent wie der Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry wirkt auf Waffen mit Rad."],
+        ["Servitors", "Die einzelne Shock charger erscheint nicht mehr bei Servitors ohne den Tausch."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "{v}: ordena la Armería, mueve tus unidades",
-    intro: "Las columnas de la Armería se ordenan, las unidades suben y bajan en la lista, Core Rules 1.43 y arreglos de vuestros reportes.",
+    title: "{v}: 14 códices al día",
+    intro: "Cada hoja de códice que cambió desde la 1.88 está en la app: unidades, opciones, Armería y reglas.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Armería", "Haz clic en Arma, Alcance, Tipo o Pts de la tabla de armas para ordenar."],
-        ["Lista del ejército", "Las flechas junto a cada unidad la suben o bajan dentro de su slot (también fija el orden de impresión)."],
-        ["Core Rules 1.43", "Textos de reglas actualizados: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
-        ["Aliados", "Elite, Fast Attack y Heavy Support juntos no pueden superar las Troops tomadas, y no más de una de cada."],
+        ["Vista de impresión", "La vista simple aplica Hardened Carapace y otros cambios de perfil; se imprimen los tipos de unidad, las reglas de Power Through Pain y las disciplinas psíquicas generales; los botones se ajustan en el móvil."],
+        ["Vista de impresión", "Una tarjeta nueva de Reglas de ejército lista las reglas del códice para todo el ejército (Shadow in the Warp, Waaagh!, ...)."],
+        ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
       ] },
-      { label: "Discord", rows: [
-        ["Imperial Guard", "Un Sargento ya no hereda las armas de la escuadra; comprarle equipo conserva su arma por defecto."],
-        ["Jakhals", "Cambiar un arma en un grupo de opciones ya no quita las armas de otro grupo."],
-        ["Votann", "El Hernkyn Theyn muestra las armas de Armería que compró."],
-        ["Gue'vesa", "Los Pulse rifle se muestran bien."],
-        ["Magos", "Sin falso error de ward en Skirmish."],
-        ["Remora", "Vuelve el botón de Armería."],
-        ["Dark Eldar", "Los Sslyth de una Court of the Archon pueden usar la Armería."],
-        ["Armería T'au", "Ya no se listan filas que nadie puede comprar (Markerlight, Seeker missile...)."],
-        ["Armería T'au", "Tactical philosophies vuelve a la armería (se había ocultado por error)."],
-        ["Commander T'au", "Un XV85 Enforcer battlesuit permite una cuarta arma."],
-        ["Fuerza U", "Un arma con Fuerza U ahora recibe las mejoras de +1 Fuerza (Regimental relic y similares)."],
+      { label: "Errores (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Gracias por el feedback de la primera partida."],
+        ["Ymgarl", "La mejora Ymgarl quita Infiltrator de la tarjeta y de la impresión."],
+        ["Ghostkeel", "Se listan sus dos Stealth Drones."],
+        ["Coronus", "La Twin arachnus blaze cannon tiene su alcance de 18\"."],
       ] },
-      { label: "GitHub", rows: [
-        ["#271", "Daemonkin: las unidades de Chaos Daemons se pueden elegir desde el principio."],
-        ["#272", "Un Eightbound libera un slot de Elite para un Slaughterbound."],
-        ["#269", "Chosen: una moto en un modelo da un Combi-bolter; un Terminator ya no apaga la Armería del resto."],
+      { label: "Errores (GitHub)", rows: [
+        ["#275", "El Trygon es una unidad de Heavy Support (gracias, DemonGyro)."],
       ] },
-      { label: "Necesitamos ayuda", rows: [
-        ["T'au Pathfinder", "¿Desaparecen los Markerlights? Mándanos la lista.", "https://github.com/Rigzar/custom40k-builder/issues"],
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War toma dos poderes de Exarca. La Banshee mask es un objeto. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, nuevo Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "La Catacomb Command Barge es un HQ que no usa slot de HQ (una por Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler y Venom cannon +21 en los Warriors; texto de Obscuring Terrain."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer y Power fist en la Armería."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "La Nurgling infestation del Great Unclean One tiene Extra Attack(4)."],
+        ["Entourage", "Entourage y Herald liberan ahora espacios de HQ para los Demonios a los que llega un arquetipo de Chaos Space Marines y para los demonios aliados, dentro del mismo destacamento que el Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry funciona con armas con Rad."],
+        ["Servitors", "La Shock charger suelta ya no aparece en los Servitors que no han comprado el cambio."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "{v}: сортировка Арсенала и перемещение отрядов",
-    intro: "Колонки Арсенала сортируются, отряды двигаются по списку, Core Rules 1.43 и исправления по вашим сообщениям.",
+    title: "{v}: 14 кодексов обновлены",
+    intro: "Каждая таблица кодекса, изменившаяся после 1.88, теперь в приложении: отряды, опции, Арсенал и правила.",
     install: "",
     sections: [
       { label: "Общее", rows: [
-        ["Арсенал", "Нажмите Оружие, Дальность, Тип или Очки в таблице оружия, чтобы отсортировать."],
-        ["Список армии", "Стрелки рядом с отрядом двигают его вверх или вниз в своём слоте (это же задаёт порядок печати)."],
-        ["Core Rules 1.43", "Тексты правил обновлены: Extra Attack, Favoured Enemy, Outflank, Defensive Fire, Take Cover."],
-        ["Союзники", "Elite, Fast Attack и Heavy Support вместе не могут превышать число Troops, и не больше одного каждого."],
+        ["Печать", "Простой вид применяет Hardened Carapace и другие изменения профиля; печатаются типы отрядов, правила Power Through Pain и общие псионические дисциплины; кнопки переносятся на телефоне."],
+        ["Печать", "Новая карточка «Правила армии» перечисляет общеармейские правила кодекса (Shadow in the Warp, Waaagh! и др.)."],
+        ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
       ] },
-      { label: "Discord", rows: [
-        ["Imperial Guard", "Сержант больше не наследует оружие отряда; покупка снаряжения сохраняет его оружие по умолчанию."],
-        ["Jakhals", "Замена оружия в одной группе опций больше не убирает оружие другой группы."],
-        ["Votann", "Hernkyn Theyn показывает купленное оружие из Арсенала."],
-        ["Gue'vesa", "Pulse rifle отображаются правильно."],
-        ["Magos", "Нет ложной ошибки ward в Skirmish."],
-        ["Remora", "Кнопка Арсенала вернулась."],
-        ["Dark Eldar", "Сслиты из Court of the Archon могут пользоваться Арсеналом."],
-        ["Арсенал T'au", "Строки, которые никто не может купить (Markerlight, Seeker missile...), больше не показываются."],
-        ["Арсенал T'au", "Tactical philosophies снова в арсенале (по ошибке было скрыто)."],
-        ["T'au Commander", "XV85 Enforcer battlesuit даёт четвёртое оружие."],
-        ["Сила U", "Оружие с Силой U теперь получает улучшения +1 к Силе (Regimental relic и подобные)."],
+      { label: "Ошибки (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "Спасибо за отзывы после первой игры."],
+        ["Ymgarl", "Улучшение Ymgarl убирает Infiltrator с карточки и из печати."],
+        ["Ghostkeel", "Два Stealth Drones теперь показаны."],
+        ["Coronus", "У Twin arachnus blaze cannon указана дальность 18\"."],
       ] },
-      { label: "GitHub", rows: [
-        ["#271", "Daemonkin: отряды Chaos Daemons можно выбирать сразу."],
-        ["#272", "Eightbound освобождает слот Elite для Slaughterbound."],
-        ["#269", "Chosen: байк у одной модели даёт один Combi-bolter; один Terminator больше не блокирует Арсенал остальным."],
+      { label: "Ошибки (GitHub)", rows: [
+        ["#275", "Trygon — отряд Heavy Support (спасибо, DemonGyro)."],
       ] },
-      { label: "Нужна помощь", rows: [
-        ["T'au Pathfinder", "Пропадают Markerlights? Пришлите список.", "https://github.com/Rigzar/custom40k-builder/issues"],
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War берёт две силы Эксарха. Banshee mask — предмет. Howling Banshee 26, Mandiblaster 6."],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, новое Diamond-tipped bladevanes."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Catacomb Command Barge — HQ, не занимающий слот HQ (по одному на Lord)."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Barbed strangler и Venom cannon +21 у Warriors; формулировка Obscuring Terrain."],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "Hand flamer и Power fist в Арсенале."],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "Nurgling infestation у Great Unclean One имеет Extra Attack(4)."],
+        ["Entourage", "Entourage и Herald теперь освобождают слоты HQ для Демонов, доступных через архетип Chaos Space Marines, и для союзных Демонов, в том же отряде, что и Greater Daemon."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying Weaponry действует на оружие с Rad."],
+        ["Servitors", "Одиночный Shock charger больше не показывается у Servitors без покупки замены."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "{v}: アーモリーの並べ替えとユニットの移動",
-    intro: "アーモリーの列を並べ替え、ユニットをリスト内で上下に移動、Core Rules 1.43、そしてご報告の修正。",
+    title: "{v}: 14のコデックスを最新に",
+    intro: "1.88以降に変わったコデックスのシートをすべて反映しました。ユニット、オプション、アーモリー、ルールです。",
     install: "",
     sections: [
       { label: "全般", rows: [
-        ["アーモリー", "武器表のWeapon、Range、Type、Ptsをクリックして並べ替え。"],
-        ["軍リスト", "各ユニットの横の矢印でスロット内を上下に移動（印刷順も決まります）。"],
-        ["Core Rules 1.43", "ルール文を更新：Extra Attack、Favoured Enemy、Outflank、Defensive Fire、Take Cover。"],
-        ["同盟軍", "Elite、Fast Attack、Heavy Supportの合計は選んだTroopsの数まで、各1つまで。"],
+        ["印刷ビュー", "シンプル表示でHardened Carapaceなどのプロファイル変更を反映。ユニットタイプ、Power Through Painのルール、共通サイキック学派も印刷。スマホでボタンが折り返します。"],
+        ["印刷ビュー", "新しい「軍全体のルール」カードにコデックスの軍全体ルール(Shadow in the Warp、Waaagh!など)を表示します。"],
+        ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
       ] },
-      { label: "Discord", rows: [
-        ["Imperial Guard", "軍曹が分隊の武器を引き継がなくなり、装備を買っても標準武器が残ります。"],
-        ["Jakhals", "ある選択肢グループで武器を交換しても、他グループの武器が消えません。"],
-        ["Votann", "Hernkyn Theynが購入したアーモリー武器を表示します。"],
-        ["Gue'vesa", "Pulse rifleが正しく表示されます。"],
-        ["Magos", "Skirmishでの誤ったwardエラーを解消。"],
-        ["Remora", "アーモリーのボタンが戻りました。"],
-        ["Dark Eldar", "Court of the Archon のスリスはアーモリーを使えます。"],
-        ["T'auアーモリー", "誰も購入できない行（Markerlight、Seeker missileなど）は表示されなくなりました。"],
-        ["T'auアーモリー", "Tactical philosophiesがアーモリーに戻りました（誤って非表示になっていました）。"],
-        ["T'au Commander", "XV85 Enforcer battlesuitで4つ目の武器を持てます。"],
-        ["強さU", "強さUの武器にも+1強さの強化（Regimental relicなど）が反映されます。"],
+      { label: "不具合 (Discord)", rows: [
+        ["Dave, Ed, TeCrisis", "初めての対戦後のフィードバックをありがとうございます。"],
+        ["Ymgarl", "Ymgarlのアップグレードで、カードと印刷からInfiltratorが外れます。"],
+        ["Ghostkeel", "2体のStealth Droneが表示されます。"],
+        ["Coronus", "Twin arachnus blaze cannonに射程18\"を追加しました。"],
       ] },
-      { label: "GitHub", rows: [
-        ["#271", "Daemonkin：Chaos Daemonsのユニットをすぐに選べます。"],
-        ["#272", "EightboundがSlaughterbound用のEliteスロットを1つ空けます。"],
-        ["#269", "Chosen：1体のバイクでCombi-bolterは1つ。Terminator 1体で他のアーモリーが無効になりません。"],
+      { label: "不具合 (GitHub)", rows: [
+        ["#275", "TrygonはHeavy Supportのユニットです(DemonGyroさんありがとう)。"],
       ] },
-      { label: "ご協力のお願い", rows: [
-        ["T'au Pathfinder", "Markerlightが消える？リストを送ってください。", "https://github.com/Rigzar/custom40k-builder/issues"],
+      { label: "Eldar", rows: [
+        ["Eldar", "Paragon of War はExarchパワーを2つ選びます。Banshee maskはアイテムです。Howling Banshee 26、Mandiblaster 6。"],
+      ] },
+      { label: "Dark Eldar", rows: [
+        ["Dark Eldar", "Reavers 33、Venom 129、Skybike 32、新アイテム Diamond-tipped bladevanes。"],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Catacomb Command BargeはHQスロットを使わないHQです(Lordにつき1つ)。"],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Warriorsの Barbed strangler と Venom cannon は+21。Obscuring Terrainの表記。"],
+      ] },
+      { label: "Harlequins", rows: [
+        ["Harlequins", "アーモリーに Hand flamer と Power fist。"],
+      ] },
+      { label: "Chaos Daemons", rows: [
+        ["Daemons", "Great Unclean OneのNurgling infestationは Extra Attack(4)。"],
+        ["Entourage", "EntourageとHeraldが、Chaos Space Marinesのアーキタイプで使えるDaemonと同盟のDaemonにもHQ枠の免除を与えます（Greater Daemonと同じ分遣隊内）。"],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Mechanicus", "Scarifying WeaponryはRad付き武器に効きます。"],
+        ["Servitors", "交換を購入していないServitorに、単体のShock chargerが表示されなくなりました。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

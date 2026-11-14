@@ -1,0 +1,115 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-3",
+        "Pyrovore",
+        "6\"",
+        "3+",
+        "3+",
+        5,
+        5,
+        3,
+        2,
+        2,
+        6,
+        "3+",
+        75
+    ],
+    [
+        "Every model is equipped with: Acid maw; Flamespurt."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Acid maw",
+        "-",
+        "Melee",
+        "U",
+        -4,
+        1,
+        "-"
+    ],
+    [
+        "Flamespurt *"
+    ],
+    [
+        "- Burning spray",
+        "12\"",
+        "Assault 4",
+        6,
+        -3,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "- Pyrogout",
+        "18\"",
+        "Assault 8",
+        4,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Resonator",
+        "+7 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+10 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Instinctive Behaviour, Massive(2), Move Through Cover"
+    ],
+    [
+        "Volatile: The model always explodes like a vehicle."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]
