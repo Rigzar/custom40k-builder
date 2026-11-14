@@ -37,6 +37,24 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Death Cloud",
+      "term_compat": true,
+      "desc": "The model and its attached unit inflict 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D: 1; Poison(4+). Only for the Sergeant of a Legion Terminator Cataphractii Squad (Cataphractii armor).",
+      "p_unit": 25,
+      "p_char": 25,
+      "armour_compat": [
+        "Terminator"
+      ],
+      "requires_keywords": [
+        "Cataphractii"
+      ],
+      "effect": {
+        "grants_weapons": [
+          "Death Cloud"
+        ]
+      }
     }
   ],
   "daemon_weapons": []
