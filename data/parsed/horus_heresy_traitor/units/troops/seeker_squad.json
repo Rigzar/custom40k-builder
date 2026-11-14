@@ -128,18 +128,18 @@
             "range": "-",
             "type": "Melee",
             "s": "+1",
-            "ap": "-",
+            "ap": "0",
             "d": "1",
-            "abilities": "Two-handed"
+            "abilities": "Unwieldy"
         },
         {
             "name": "Chain bayonet",
             "range": "-",
             "type": "Melee",
             "s": "+1",
-            "ap": "-",
+            "ap": "-1",
             "d": "1",
-            "abilities": "Two-handed, Shred"
+            "abilities": "Unwieldy"
         }
     ],
     "option_groups": [
