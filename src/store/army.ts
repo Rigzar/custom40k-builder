@@ -493,7 +493,9 @@ export const useArmyStore = create<ArmyStore>()(
          */
         const cleared = army.map((e: RosterEntry) =>
           e.archetypeHqUpgrade ? (getArchetypeRule(s.archetype)?.hqPromotion?.grantsArmoryAccess && s.data ? dropLegacyArmory({ ...e, archetypeHqUpgrade: false }, s.data) : { ...e, archetypeHqUpgrade: false }) : e);
-        return { archetype: a, traitPool: pool, legacy2: keepLegacy2 ? s.legacy2 : '', data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
+        // A Legacy tied to an archetype (the Legacy of the Sundered: Blackshields) does not outlive it.
+        const legacyNow = (() => { const l = s.data?.legacies.find(x => x.name === s.legacy); return l?.requires_archetype && l.requires_archetype !== a ? '' : s.legacy; })();
+        return { archetype: a, traitPool: pool, legacy: legacyNow, legacy2: keepLegacy2 ? s.legacy2 : '', data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
           : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),

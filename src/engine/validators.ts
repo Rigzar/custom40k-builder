@@ -2204,6 +2204,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // A Legacy tied to an archetype (the Legacy of the Sundered: Blackshields only)
+  for (const ln of [state.legacy, state.legacy2]) {
+    const need = ln ? data.legacies.find(l => l.name === ln)?.requires_archetype : null;
+    if (need && state.archetype !== need) items.push({ type: 'error', text: `${ln} can only be taken with the ${need} archetype.` });
+  }
+
   // 2nd legacy requires a "enables_second_legacy" trait to be active
   if (state.legacy2 && !rule?.twoLegacies && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
     items.push({ type: 'error', text: T('val2ndLegacyRequiresTrait') });

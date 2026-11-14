@@ -605,6 +605,8 @@ export interface Legacy {
   /** Extra Army Trait picker slots this Legacy grants while active (e.g. IG's "Ministorum World":
    *  "The army must select a third Trait."). Default budget is 2; this adds N more slots. */
   trait_slot_bonus?: number;
+  /** A Legacy only an army with this archetype may take (the Legacy of the Sundered: Blackshields). Picker, archetype switch and validator all read it. */
+  requires_archetype?: string;
 }
 
 export interface Trait {

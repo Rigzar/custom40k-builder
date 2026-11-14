@@ -311,13 +311,13 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         className={`${selectClass}${lockedLegacy ? ' opacity-60 cursor-not-allowed' : ''}`}
                       >
                         <option value="">{t('noLegacy')}</option>
-                        {data.legacies.map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
+                        {data.legacies.filter(l => !l.requires_archetype || l.requires_archetype === archetype).map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
                       </select>
                       {data.legacies.length > 1 && (
                         <details className="mt-2 border border-zinc-800 bg-zinc-950/50">
                           <summary className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-zinc-500 cursor-pointer select-none hover:text-zinc-300">{t('legacyBrowseAll')}</summary>
                           <div className="px-3 pb-2 space-y-2">
-                            {data.legacies.map(l => (
+                            {data.legacies.filter(l => !l.requires_archetype || l.requires_archetype === archetype).map(l => (
                               <div key={l.name} className="text-[10px] leading-relaxed">
                                 <div className={l.name === legacy ? 'text-amber-400 font-semibold' : 'text-zinc-300 font-semibold'}>{nm(l.name)}</div>
                                 <div className="text-zinc-500 whitespace-pre-line">{localiseAbility(l.desc ?? '')}</div>
@@ -344,7 +344,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                             className={selectClass}
                           >
                             <option value="">{t('secondLegacyNone')}</option>
-                            {data.legacies.filter(l => l.name !== legacy && (!rule?.legacy2ArmoryOnly || (l as any).armory_key)).map(l => (
+                            {data.legacies.filter(l => l.name !== legacy && !l.requires_archetype && (!rule?.legacy2ArmoryOnly || (l as any).armory_key)).map(l => (
                               <option key={l.name} value={l.name}>{nm(l.name)}</option>
                             ))}
                           </select>

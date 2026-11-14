@@ -131,7 +131,8 @@
       "name": "Legacy of the Sundered",
       "desc": "The army has access to the Armory of one Legion of this book, chosen when the army is built (not its Legion Archetypes), and the Malignant psychic discipline.\n- The army has the mark of the Blackshields Legion (see the Special rules in the Index).",
       "armory_key": null,
-      "legion": "Blackshields"
+      "legion": "Blackshields",
+      "requires_archetype": "Blackshields"
     }
   ],
   "traits": [
