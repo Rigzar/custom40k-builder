@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { secondTraitGate, applySecondTraitGate } from '../lib/legacyGatedChoices';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
 import type { FactionData, Trait, Unit, Armory } from '../types/data';
@@ -480,6 +481,7 @@ export const useArmyStore = create<ArmyStore>()(
         let pool = s.traitPool.filter((n: string) => { const t = s.data?.traits.find(x => x.name === n); return !t?.requires_archetype || t.requires_archetype === a; });
         const traitCap = maxArmyTraits(s.engagement, s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0, newRule?.archetypeTraitBonus ?? 0, s.campaignTraitBonus ?? 0, s.data?.faction);
         if (pool.length > traitCap) pool = pool.slice(0, traitCap);
+        pool = applySecondTraitGate(pool, secondTraitGate(s.data?.archetypes.find(x => x.name === a)));
         const keepLegacy2 = !!newRule?.twoLegacies || pool.some((n: string) => s.data?.traits.find(t => t.name === n)?.enables_second_legacy);
         const army = s.data
           ? applyArmyTraits(baseArmy, pool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
@@ -558,7 +560,7 @@ export const useArmyStore = create<ArmyStore>()(
           s.campaignTraitBonus ?? 0,
           s.data?.faction,
         );
-        const newPool = pool.slice(0, maxTraits);
+        const newPool = applySecondTraitGate(pool.slice(0, maxTraits), secondTraitGate(s.data?.archetypes.find(x => x.name === s.archetype)));
         const hadBC = s.traitPool.includes('Black Crusade');
         const hasBC = newPool.includes('Black Crusade');
 

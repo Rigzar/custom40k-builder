@@ -5,7 +5,7 @@ import { localiseAbility } from '../data/coreRules';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
-import { archetypeRequiredLegacy } from '../lib/legacyGatedChoices';
+import { archetypeRequiredLegacy, secondTraitGate } from '../lib/legacyGatedChoices';
 import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
@@ -139,7 +139,10 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
     campaignTraitBonus,
     data.faction,
   );
-  const traitSlots = Array.from({ length: traitSlotCount }, (_, i) => i);
+  // "The army can only take a second trait if the first one is A or B" (the HH Legion archetypes): one slot that offers only those two; the rest open once one is taken.
+  const traitGate = secondTraitGate(data.archetypes.find(x => x.name === archetype));
+  const visibleTraitSlots = traitGate && !(traitPool[0] && traitGate.includes(traitPool[0])) ? Math.min(1, traitSlotCount) : traitSlotCount;
+  const traitSlots = Array.from({ length: visibleTraitSlots }, (_, i) => i);
 
   const ARCHETYPE_MARK: Record<string, string> = {
     'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
@@ -438,7 +441,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     {openTraitSlot !== null && (
                       <TraitPickerModal
                         traits={(() => {
-                          const openTraits = data.traits.filter(t => !t.requires_archetype || t.requires_archetype === archetype);   // a trait the sheet writes "Blackshields only" is not offered to the other armies
+                          const openTraits = data.traits.filter(t => (!t.requires_archetype || t.requires_archetype === archetype) && !(traitGate && openTraitSlot === 0 && !traitGate.includes(t.name)));   // a trait the sheet writes "Blackshields only" is not offered to the other armies
                           const own = openTraits.filter(t => !t.foreign_faction);
                           if (!foreignTraitMax) return own;
                           // This slot may still offer the borrowed list while the army is under
@@ -458,7 +461,9 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         accent={accent}
                         onPick={val => {
                           const slot = openTraitSlot;
-                          const newPool = traitSlots.map(s => (s === slot ? val : (traitPool[s] ?? ''))).filter(Boolean) as string[];
+                          const allSlots = Array.from({ length: traitSlotCount }, (_, i) => i);
+                          let newPool = allSlots.map(s => (s === slot ? val : (traitPool[s] ?? ''))).filter(Boolean) as string[];
+                          if (traitGate && slot === 0 && !val) newPool = [];   // no first Trait, no second
                           setTraitPool(newPool);
                         }}
                         onClose={() => setOpenTraitSlot(null)}

@@ -20,7 +20,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
-import { archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit, primarchOpened } from '../lib/legacyGatedChoices';
+import { secondTraitGate, archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit, primarchOpened } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { ownWardAbilities } from '../lib/wardSave';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
@@ -3635,6 +3635,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const tn of state.traitPool) {
     const tr = data.traits.find(t => t.name === tn);
     if (tr?.requires_archetype && tr.requires_archetype !== state.archetype) items.push({ type: 'error', text: `${tn} can only be taken with the ${tr.requires_archetype} archetype.` });
+  }
+  const traitGate = secondTraitGate(data.archetypes.find(x => x.name === state.archetype));
+  if (traitGate && state.traitPool.length > 1 && !traitGate.includes(state.traitPool[0])) {
+    items.push({ type: 'error', text: `${state.archetype} can only take a second trait if the first one is "${traitGate[0]}" or "${traitGate[1]}".` });
   }
   if (state.traitPool.length > maxTraits) {
     items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length, max: maxTraits }) });
