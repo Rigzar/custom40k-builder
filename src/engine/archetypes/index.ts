@@ -815,6 +815,7 @@ export function countsTroops(
     return rule.troopsRemap.includes(unitName);
   }
   return true;
+}
 
 /**
  * The Legacies whose Legion UNLOCKS units, benefits and disciplines. Both, except in the Blackshields: their second Legacy is only the Armory of one Legion
@@ -823,5 +824,4 @@ export function countsTroops(
 export function unlockingLegacies(archetype: string | null | undefined, legacy: string | null | undefined, legacy2: string | null | undefined): string[] {
   const armoryOnly = !!getArchetypeRule(archetype ?? '')?.legacy2ArmoryOnly;
   return [legacy, armoryOnly ? '' : legacy2].filter(Boolean) as string[];
-}
 }
