@@ -20,7 +20,7 @@
           "s": "+4",
           "ap": "-2",
           "d": "2",
-          "abilities": "Armor piercing(5+), Charge, Quick(+1), Unwieldy"
+          "abilities": "Piercing(5+), Charge, Quick(+1), Unwieldy"
         },
         {
           "name": "Melee",
@@ -29,7 +29,7 @@
           "s": "+2",
           "ap": "-2",
           "d": "1",
-          "abilities": "Armor piercing(5+), Unwieldy"
+          "abilities": "Piercing(5+), Unwieldy"
         }
       ]
     },

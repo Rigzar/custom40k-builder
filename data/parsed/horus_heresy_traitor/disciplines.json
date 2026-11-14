@@ -442,7 +442,7 @@
       "range": "-",
       "target": "Self",
       "cast_value": "7",
-      "effect": "The target's ranged attacks gain the \"Armor piercing(4+)\" and \"Seeking\" abilities.",
+      "effect": "The target's ranged attacks gain the \"Piercing(4+)\" and \"Seeking\" abilities.",
       "duration": "Until the caster's next activation.",
       "complexity": "Complex"
     }
