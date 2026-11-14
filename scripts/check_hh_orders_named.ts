@@ -2,7 +2,7 @@
  * Horus Heresy books (Dark Angels / any Legion): the two weapon rules written on the sheets, read through the real code.
  *  1. Orders of the Hekatonystika: one unique item whose text lists six named orders. The picker reads the names from the text; each order is applied by the resolver
  *     (an ability for the model, or an ability on its melee / all weapons).
- *  2. Crusade weapon: "Can not be applied to named weapons: ..." removes those weapons from the list it may be pointed at; the common weapons stay.
+ *  2. Crusade weapon: out of both books since 2026-11-14.
  * Run: npx tsx scripts/check_hh_orders_named.ts
  */
 const mem: Record<string, string> = {};
@@ -50,17 +50,11 @@ type Any = any;
   ok(/Psi-shock/.test(wabil(card('Breakers of Witches'), true)), 'Breakers of Witches: Psi-shock on the melee weapons');
   ok(/Monstrous creature/i.test(abil(card('Hunters of Beasts'))), 'Hunters of Beasts: the re-roll text is on the card');
 
-  // Crusade weapon: the named weapons are not offered
+  // Crusade weapon: Rigzar took it out of both books (2026-11-14, sheets), so it must not be in the data any more
   for (const k of ['horus_heresy_loyal', 'horus_heresy_traitor']) {
     const dd: Any = await (FACTION_LOADERS as Any)[k]();
-    const cw = flat(dd.armory_general ?? dd.armory ?? {}).find((x: Any) => /^Crusade weapon/i.test(x.name));
-    const blocked = namedWeaponsBlockedBy(cw?.desc);
-    ok(blocked.size >= 8, `${k}: the Crusade weapon names its named weapons (${blocked.size})`);
-    ok(!blocked.has('power sword') && !blocked.has('chainglaive') && !blocked.has('power scythe'), `${k}: the common weapons are not on the list`);
+    ok(!flat(dd.armory_general ?? dd.armory ?? {}).some((x: Any) => /^Crusade weapon/i.test(x.name)), `${k}: no Crusade weapon in the general Armory`);
   }
-  const l: Any = await (FACTION_LOADERS as Any).horus_heresy_loyal();
-  const lb = namedWeaponsBlockedBy(flat(l.armory_general ?? l.armory ?? {}).find((x: Any) => /^Crusade weapon/i.test(x.name))?.desc);
-  ok(lb.has('terranic greatsword') && lb.has('calibanite warblade'), 'Terranic greatsword and Calibanite warblade cannot take the Crusade weapon');
-  console.log(bad.length ? 'PROBLEMS\n' + bad.join('\n') : 'OK  the Orders of the Hekatonystika work through the resolver and the Crusade weapon skips the named weapons');
+  console.log(bad.length ? 'PROBLEMS\n' + bad.join('\n') : 'OK  the Orders of the Hekatonystika work through the resolver and there is no Crusade weapon');
   process.exit(bad.length ? 1 : 0);
 })();

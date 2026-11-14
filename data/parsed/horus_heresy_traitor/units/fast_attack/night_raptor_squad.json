@@ -60,6 +60,24 @@
             "abilities": "-"
         },
         {
+            "name": "Chainblade",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Chainglaive",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Quick(1), Shred, Unwieldy"
+        },
+        {
             "name": "Flamer",
             "range": "9\"",
             "type": "Assault 4",
@@ -203,6 +221,28 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Bolt pistol"
+            ]
+        },
+        {
+            "header": "Any model may swap their Astartes chainsword with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Chainblade",
+                    "points": 4
+                },
+                {
+                    "name": "Chainglaive",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
             ]
         }
     ],

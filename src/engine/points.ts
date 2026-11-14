@@ -109,7 +109,7 @@ export function effectiveLegacyFor(item: { factionSource?: string; unitLegacy?: 
   const isAlliedItem = !!item.factionSource && item.factionSource === state.alliedFaction;
   if (isAlliedItem) return state.alliedLegacy ?? '';
   // Shattered Legions / Blackshields: the unit belongs to the one of the two Legacies it was given
-  if (item.unitLegacy && getArchetypeRule(state.archetype ?? '')?.twoLegacies && (item.unitLegacy === state.legacy || item.unitLegacy === state.legacy2)) return item.unitLegacy;
+  if (item.unitLegacy && getArchetypeRule(state.archetype ?? '')?.twoLegacies && !getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly && (item.unitLegacy === state.legacy || item.unitLegacy === state.legacy2)) return item.unitLegacy;
   return state.legacy;
 }
 

@@ -3288,7 +3288,7 @@ export function resolveUnitProfile(
     const arch = (item.factionSource && item.factionSource === state.alliedFaction) ? state.alliedArchetype : state.archetype;
     const pool = (item.factionSource && item.factionSource === state.alliedFaction)
       ? (state.alliedTraitPool ?? []) : (state.traitPool ?? []);
-    const legs = [effectiveLegacyFor(item, state), item.factionSource && item.factionSource === state.alliedFaction ? '' : state.legacy2].filter(Boolean) as string[];
+    const legs = [effectiveLegacyFor(item, state), item.factionSource && item.factionSource === state.alliedFaction ? '' : (getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly ? '' : state.legacy2)].filter(Boolean) as string[];
     const kept: Record<number, Record<string, number>> = {};
     for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
       const g = unit.option_groups[Number(gi)];

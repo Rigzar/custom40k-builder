@@ -262,7 +262,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // data user is the integrated HH supplement, whose host is the primary army).
   const itemArchetype = effectiveArchetypeFor(item, store);
   const hhLegionMark = data.faction.startsWith('Horus Heresy:') && !item.factionSource ? hhMarkFor(effectiveLegacyFor(item, store), data.faction, u) : null;
-  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && item.factionSource === store.alliedFaction ? '' : store.legacy2].filter(Boolean) as string[];
+  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && item.factionSource === store.alliedFaction ? '' : (getArchetypeRule(store.archetype ?? '')?.legacy2ArmoryOnly ? '' : store.legacy2)].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
@@ -819,7 +819,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       {!collapsed && (
         <div className="space-y-0 md:grid md:grid-cols-2 md:items-start">
           {/* Horus Heresy Shattered Legions / Blackshields: which of the army's two Legacies (Legions) this unit belongs to. */}
-          {!item.factionSource && getArchetypeRule(archetype ?? '')?.twoLegacies && (
+          {!item.factionSource && getArchetypeRule(archetype ?? '')?.twoLegacies && !getArchetypeRule(archetype ?? '')?.legacy2ArmoryOnly && (
             <div className="md:col-span-2 px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
               <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('legacy')}</span>
               <select

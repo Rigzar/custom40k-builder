@@ -16,12 +16,12 @@
             },
             "name": "Domitar-ferrum",
             "min": 1,
-            "max": 1,
+            "max": 6,
             "points": 141
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Domitar-ferrum is a single model and is equipped with: Shrapnel cannon; Graviton maul.",
+    "equipped_with": "Every model is equipped with: Shrapnel cannon; Graviton maul.",
     "weapons": [
         {
             "name": "Graviton maul",

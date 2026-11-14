@@ -2,18 +2,6 @@
   "name": "Imperial Fists Armory",
   "weapons": [
     {
-      "name": "Ferromag shotgun",
-      "term_compat": false,
-      "range": "10\"",
-      "type": "Assault 1",
-      "s": "5",
-      "ap": "-2",
-      "d": "1",
-      "abilities": "Rending(6+)",
-      "p_unit": 6,
-      "p_char": 7
-    },
-    {
       "name": "Iliastus assault cannon",
       "term_compat": false,
       "range": "24\"",
@@ -24,6 +12,21 @@
       "abilities": "Piercing(5+)",
       "p_unit": 32,
       "p_char": 40
+    },
+    {
+      "name": "Solarite power gauntlet",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-1)",
+      "p_unit": 18,
+      "p_char": 22,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -48,12 +51,11 @@
       ]
     },
     {
-      "name": "LEGION ARCHETYPES",
+      "name": "Ferromag shotgun",
       "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
+      "desc": "One Astartes shotgun of the model gains the \"Rending(6+)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
     }
   ],
   "daemon_weapons": []

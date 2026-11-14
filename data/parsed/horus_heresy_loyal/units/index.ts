@@ -22,6 +22,8 @@ import elites_legion_saturnine_dreadnought from './elites/legion_saturnine_dread
 import elites_legion_tartaros_terminator_squad from './elites/legion_tartaros_terminator_squad.json';
 import elites_legion_terminator_cataphractii_squad from './elites/legion_terminator_cataphractii_squad.json';
 import elites_legion_veteran_squad from './elites/legion_veteran_squad.json';
+import elites_overseer from './elites/overseer.json';
+import elites_pyroclast_squad from './elites/pyroclast_squad.json';
 import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squad.json';
 import elites_techmarine from './elites/techmarine.json';
 import elites_templar_brethren_squad from './elites/templar_brethren_squad.json';
@@ -48,16 +50,13 @@ import heavy_support_legion_heavy_support_squad from './heavy_support/legion_hea
 import heavy_support_legion_kratos_assault_tank from './heavy_support/legion_kratos_assault_tank.json';
 import heavy_support_legion_leviathan_dreadnought from './heavy_support/legion_leviathan_dreadnought.json';
 import heavy_support_legion_predator from './heavy_support/legion_predator.json';
-import heavy_support_legion_sicaran_battle_tank from './heavy_support/legion_sicaran_battle_tank.json';
 import heavy_support_legion_whirlwind from './heavy_support/legion_whirlwind.json';
 import heavy_support_phalanx_warder_squad from './heavy_support/phalanx_warder_squad.json';
-import heavy_support_sanctifier_squad from './heavy_support/sanctifier_squad.json';
 import heavy_support_thunderfire_cannon from './heavy_support/thunderfire_cannon.json';
 import heavy_support_vindicator_siege_tank from './heavy_support/vindicator_siege_tank.json';
 import hq_centurion from './hq/centurion.json';
 import hq_chaplain from './hq/chaplain.json';
 import hq_librarian from './hq/librarian.json';
-import troops_adherents_squad from './troops/adherents_squad.json';
 import troops_grey_slayer_pack from './troops/grey_slayer_pack.json';
 import troops_legion_breacher_squad from './troops/legion_breacher_squad.json';
 import troops_legion_despoiler_squad from './troops/legion_despoiler_squad.json';
@@ -71,18 +70,6 @@ import troops_seeker_squad from './troops/seeker_squad.json';
 export const faction = "Horus Heresy: Loyal Legions";
 
 export const slot_to_units: Record<string, string[]> = {
-  "Troops": [
-    "Adherents Squad",
-    "Grey Slayer Pack",
-    "Legion Breacher Squad",
-    "Legion Despoiler Squad",
-    "Legion Scout Squad",
-    "Legion Tactical Squad",
-    "Legion Tactical Support Squad",
-    "Medusan Immortal Squad",
-    "Praetorian Breacher Squad",
-    "Seeker Squad"
-  ],
   "Elites": [
     "Apothecary",
     "Castra Ferrum Dreadnought",
@@ -95,6 +82,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Tartaros Terminator Squad",
     "Legion Terminator Cataphractii Squad",
     "Legion Veteran Squad",
+    "Overseer",
+    "Pyroclast Squad",
     "Saturnine Terminator Squad",
     "Techmarine",
     "Templar Brethren Squad"
@@ -121,10 +110,8 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Kratos Assault Tank",
     "Legion Leviathan Dreadnought",
     "Legion Predator",
-    "Legion Sicaran Battle Tank",
     "Legion Whirlwind",
     "Phalanx Warder Squad",
-    "Sanctifier Squad",
     "Thunderfire Cannon",
     "Vindicator Siege Tank"
   ],
@@ -146,20 +133,21 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Rhino",
     "Legion Termite",
     "Spartan"
+  ],
+  "Troops": [
+    "Grey Slayer Pack",
+    "Legion Breacher Squad",
+    "Legion Despoiler Squad",
+    "Legion Scout Squad",
+    "Legion Tactical Squad",
+    "Legion Tactical Support Squad",
+    "Medusan Immortal Squad",
+    "Praetorian Breacher Squad",
+    "Seeker Squad"
   ]
 };
 
 export const units: Record<string, Unit> = {
-  "Adherents Squad": troops_adherents_squad as unknown as Unit,
-  "Grey Slayer Pack": troops_grey_slayer_pack as unknown as Unit,
-  "Legion Breacher Squad": troops_legion_breacher_squad as unknown as Unit,
-  "Legion Despoiler Squad": troops_legion_despoiler_squad as unknown as Unit,
-  "Legion Scout Squad": troops_legion_scout_squad as unknown as Unit,
-  "Legion Tactical Squad": troops_legion_tactical_squad as unknown as Unit,
-  "Legion Tactical Support Squad": troops_legion_tactical_support_squad as unknown as Unit,
-  "Medusan Immortal Squad": troops_medusan_immortal_squad as unknown as Unit,
-  "Praetorian Breacher Squad": troops_praetorian_breacher_squad as unknown as Unit,
-  "Seeker Squad": troops_seeker_squad as unknown as Unit,
   "Apothecary": elites_apothecary as unknown as Unit,
   "Castra Ferrum Dreadnought": elites_castra_ferrum_dreadnought as unknown as Unit,
   "Crimson Paladins Squad": elites_crimson_paladins_squad as unknown as Unit,
@@ -171,6 +159,8 @@ export const units: Record<string, Unit> = {
   "Legion Tartaros Terminator Squad": elites_legion_tartaros_terminator_squad as unknown as Unit,
   "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
   "Legion Veteran Squad": elites_legion_veteran_squad as unknown as Unit,
+  "Overseer": elites_overseer as unknown as Unit,
+  "Pyroclast Squad": elites_pyroclast_squad as unknown as Unit,
   "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
   "Techmarine": elites_techmarine as unknown as Unit,
   "Templar Brethren Squad": elites_templar_brethren_squad as unknown as Unit,
@@ -191,10 +181,8 @@ export const units: Record<string, Unit> = {
   "Legion Kratos Assault Tank": heavy_support_legion_kratos_assault_tank as unknown as Unit,
   "Legion Leviathan Dreadnought": heavy_support_legion_leviathan_dreadnought as unknown as Unit,
   "Legion Predator": heavy_support_legion_predator as unknown as Unit,
-  "Legion Sicaran Battle Tank": heavy_support_legion_sicaran_battle_tank as unknown as Unit,
   "Legion Whirlwind": heavy_support_legion_whirlwind as unknown as Unit,
   "Phalanx Warder Squad": heavy_support_phalanx_warder_squad as unknown as Unit,
-  "Sanctifier Squad": heavy_support_sanctifier_squad as unknown as Unit,
   "Thunderfire Cannon": heavy_support_thunderfire_cannon as unknown as Unit,
   "Vindicator Siege Tank": heavy_support_vindicator_siege_tank as unknown as Unit,
   "Dark Fury Squad": fast_attack_dark_fury_squad as unknown as Unit,
@@ -212,4 +200,13 @@ export const units: Record<string, Unit> = {
   "Legion Rhino": dedicated_transport_legion_rhino as unknown as Unit,
   "Legion Termite": dedicated_transport_legion_termite as unknown as Unit,
   "Spartan": dedicated_transport_spartan as unknown as Unit,
+  "Grey Slayer Pack": troops_grey_slayer_pack as unknown as Unit,
+  "Legion Breacher Squad": troops_legion_breacher_squad as unknown as Unit,
+  "Legion Despoiler Squad": troops_legion_despoiler_squad as unknown as Unit,
+  "Legion Scout Squad": troops_legion_scout_squad as unknown as Unit,
+  "Legion Tactical Squad": troops_legion_tactical_squad as unknown as Unit,
+  "Legion Tactical Support Squad": troops_legion_tactical_support_squad as unknown as Unit,
+  "Medusan Immortal Squad": troops_medusan_immortal_squad as unknown as Unit,
+  "Praetorian Breacher Squad": troops_praetorian_breacher_squad as unknown as Unit,
+  "Seeker Squad": troops_seeker_squad as unknown as Unit,
 };

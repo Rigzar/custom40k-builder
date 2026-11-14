@@ -344,14 +344,16 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                             className={selectClass}
                           >
                             <option value="">{t('secondLegacyNone')}</option>
-                            {data.legacies.filter(l => l.name !== legacy).map(l => (
+                            {data.legacies.filter(l => l.name !== legacy && (!rule?.legacy2ArmoryOnly || (l as any).armory_key)).map(l => (
                               <option key={l.name} value={l.name}>{nm(l.name)}</option>
                             ))}
                           </select>
                           {legacy2 && (
                             <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
-                              {localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
-                              {hhMarkFor(legacy2, data.faction)?.legionTerm.note && (
+                              {rule?.legacy2ArmoryOnly
+                                ? <>Armory of the {(data.legacies.find(l => l.name === legacy2) as any)?.armory_key} Legion only: no special units, no mark, no discipline.</>
+                                : localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
+                              {!rule?.legacy2ArmoryOnly && hhMarkFor(legacy2, data.faction)?.legionTerm.note && (
                                 <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy2, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
                               )}
                             </div>

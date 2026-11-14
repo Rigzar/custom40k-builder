@@ -1,0 +1,175 @@
+{
+    "name": "Rampager Squad",
+    "models": [
+        {
+            "stats": {
+                "M": "7\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "8",
+                "SV": "3+"
+            },
+            "name": "Rampager",
+            "min": 4,
+            "max": 14,
+            "points": 55
+        },
+        {
+            "stats": {
+                "M": "7\"",
+                "WS": "2+",
+                "BS": "3+",
+                "S": "4",
+                "T": "4",
+                "W": "2",
+                "I": "4",
+                "A": "3",
+                "LD": "9",
+                "SV": "3+"
+            },
+            "name": "Rampager Champion",
+            "min": 1,
+            "max": 1,
+            "points": 57
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "Every model is equipped with: Caedere weapon; Frag grenades; Krak grenades.",
+    "weapons": [
+        {
+            "name": "Caedere weapon - Eviscerating blade",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Caedere weapon - Heavy chainaxe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy"
+        },
+        {
+            "name": "Caedere weapon - Meteor hammer",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Caedere weapon - Paired falax blades",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Extra Attack(1), Shred, Unwieldy"
+        },
+        {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
+            "name": "Krak grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Pair of lightning claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        },
+        {
+            "name": "Power fist",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Slow(-2)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "The Rampager Champion may swap their Caedere weapon with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Pair of lightning claws",
+                    "points": -9
+                },
+                {
+                    "name": "Power fist",
+                    "points": 2
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Caedere weapon - Eviscerating blade",
+                "Caedere weapon - Heavy chainaxe",
+                "Caedere weapon - Meteor hammer",
+                "Caedere weapon - Paired falax blades"
+            ]
+        },
+        {
+            "header": "Every Rampager may be equipped with a Jump pack for +9 points each. The model gains +6\" Movement and its unit type becomes \"Jump pack infantry\".",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 9,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true
+        }
+    ],
+    "abilities": [
+        "Furious charge, They Shall Know No Fear, World Eaters Legion"
+    ],
+    "unit_type": "Infantry",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": true,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 1,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 5,
+    "min_cost": 277,
+    "requires_legacy": "Legacy of the Lord of Red Sands"
+}

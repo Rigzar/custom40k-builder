@@ -74,14 +74,6 @@
       "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

@@ -408,7 +408,7 @@ async function loadFaction(key: string): Promise<FactionData> {
     // Alpha faction (admins and Servitors only, see factionCatalog.alpha): the traitor book of the Horus Heresy project, built from the Google book
     // by scratch_cx/hh_codex/build_*.cjs. Self-contained: its own units, general Armory, one Armory per Legion (opened by the Legacy) and its Archetypes / Legacies / Legion traits.
     case 'horus_heresy_traitor': {
-      const [u, g, arch, discs, prayers, l0, l1, l2, l3, l4, l5, l6, l7, l8, l9] = await Promise.all([
+      const [u, g, arch, discs, prayers, l0, l1, l2, l3, l4, l5, l6, l7, l8] = await Promise.all([
         import('../../data/parsed/horus_heresy_traitor/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/horus_heresy_traitor/armory/general.json'),
         import('../../data/parsed/horus_heresy_traitor/archetypes.json'),
@@ -423,9 +423,8 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/horus_heresy_traitor/armory/legion_death_guard.json'),
         import('../../data/parsed/horus_heresy_traitor/armory/legion_emperors_children.json'),
         import('../../data/parsed/horus_heresy_traitor/armory/legion_thousand_sons.json'),
-        import('../../data/parsed/horus_heresy_traitor/armory/legion_blackshields.json'),
       ]);
-      const hh = await asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8, "Blackshields": l9 }, { disciplines: discs, prayers });
+      const hh = await asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8 }, { disciplines: discs, prayers });
       registerHhMarks(hh.faction, hh.legacies, (hh as any).legion_marks);
       return hh;
     }

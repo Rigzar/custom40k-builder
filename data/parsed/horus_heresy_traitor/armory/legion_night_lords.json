@@ -86,14 +86,6 @@
       "desc": "The model improves its BS by 1. Only for characters.",
       "p_unit": null,
       "p_char": 10
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

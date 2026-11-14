@@ -94,6 +94,41 @@
       ]
     },
     {
+      "name": "Equinox blades",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 5,
+      "profiles": [
+        {
+          "name": "Sunrise",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Shred, Unwieldy, Charge, Quick(+1)"
+        },
+        {
+          "name": "Sunset",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Rending(5+), Sunder(1), Unwieldy"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
       "name": "Iliastus assault cannon",
       "term_compat": false,
       "range": "24\"",
@@ -145,14 +180,6 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

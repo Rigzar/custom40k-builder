@@ -6,7 +6,7 @@ import { SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MA
 import { alliedSlotFactor } from '../engine/navyRules';
 import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engine/legendaryRetinue';
 import { ironLordGuardKeys, ironLordGuardEligible } from '../engine/ironLordGuard';
-import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits, archetypeSlotBonus } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits, archetypeSlotBonus, unlockingLegacies } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeFreeSlotAdjustments, ctanShardCapBlockReason, pointCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
@@ -300,7 +300,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       if (!u) continue;
       if (!isUnitAllowed(name, u, rule, originalSlot)) continue;
       if (isArmyItemGateBlocked(u, rosterArmoryItemNames)) continue;
-      { const need = unitRequiredLegacy(u); if (need && need !== legacy && need !== legacy2) continue; }
+      { const need = unitRequiredLegacy(u); if (need && !unlockingLegacies(archetype, legacy, legacy2).includes(need)) continue; }
       { const needArch = unitRequiredArchetype(u); if (needArch && !archetypeOpensUnit(needArch, archetype, legacy, primaryData.archetypes)) continue; }
       { const needPrimarch = u.requires_primarch_legacy; if (needPrimarch && !primarchOpened(needPrimarch, archetype, legacy, primaryData.archetypes)) continue; }
       const effSlot = getEffectiveSlot(name, originalSlot, rule);

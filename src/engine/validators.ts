@@ -12,6 +12,7 @@ import { SLOT_ORDER, ALLIED_AOP, maxArmyTraits, engagementFor } from './engageme
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
 import {
   getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, archetypeSlotBonus, countsTroops, cleanArchetypeName,
+  unlockingLegacies,
 } from './archetypes';
 import { applyVariantSlotOverride, hasSlotOptIn, variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { removedUnitNote } from './unitRenames';
@@ -1633,7 +1634,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     if (item.factionSource) continue;
     const need = unitRequiredLegacy(resolveUnit(item, data));
-    if (need && need !== state.legacy && need !== state.legacy2) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
+    if (need && !unlockingLegacies(state.archetype, state.legacy, state.legacy2).includes(need)) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
     const needArch = unitRequiredArchetype(resolveUnit(item, data));
     if (needArch && !archetypeOpensUnit(needArch, state.archetype, state.legacy, data.archetypes)) items.push({ type: 'error', text: `${item.unitName} can only be selected with the ${needArch} archetype.` });
     const needPrimarch = resolveUnit(item, data)?.requires_primarch_legacy;

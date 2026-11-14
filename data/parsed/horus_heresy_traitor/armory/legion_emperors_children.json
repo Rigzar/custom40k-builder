@@ -169,30 +169,6 @@
       "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "3rd Company Elite \n(Traitor only)",
-      "term_compat": false,
-      "desc": "- Kakophoni Squad units may be taken as Troops.\n- Only Kakophoni Squad units count towards the 25% Troops limitation.\n- The army must have the Traitor alignment.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Maru Skara",
-      "term_compat": false,
-      "desc": "- At the beginning of the Deployment Phase, select up 1-3 Elites, Troops or Fast Attack units that do not have the \"Unyielding\" ability. These units gain the \"Outflank\" ability. From the second round onwards, these units may be deployed together from Reserves using the \"Outflanking\" ability without making a Reserves roll.\n- In the first round, units which began the game deployed on the table gain +2\" Movement.\n- The army cannot take any units with 0\" Movement characteristic.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

@@ -820,7 +820,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
 
   // Allied units don't have access to the main army's legacy armories
-  const twoLegaciesRule = getArchetypeRule(archetype)?.twoLegacies;
+  const twoLegaciesRule = getArchetypeRule(archetype)?.twoLegacies && !getArchetypeRule(archetype)?.legacy2ArmoryOnly;   // Blackshields: the second Legacy is the Armory of one Legion only
   const unitOwnLegacy = twoLegaciesRule ? (item.unitLegacy && [legacy, legacy2].includes(item.unitLegacy) ? item.unitLegacy : legacy) : null;
   const legacyLegionKeys = (unitOwnLegacy ? [unitOwnLegacy] : [legacy, legacy2])
     .filter(Boolean)

@@ -35,7 +35,7 @@ const key = (s: string) => base(s).replace(/[^a-z0-9]+/g, ' ').trim();
           try { out = shown({ [gi]: { [ci]: 1 } }); } catch (e: any) { problems.push(`${label}: resolver threw ${String(e.message).slice(0, 80)}`); return; }
           if (!want.size) {
             // an upgrade without a weapon: it must be an effect, an inline ability or at least priced text the card prints
-            if (!hasEffect && !/\b(ability|abilities|armor|armour|save|\+\d|ward|upgrade|vexilla|banner|mark|legion|veteran)\b/i.test(c.name + ' ' + g.header) && !/tempest|dark shroud|nemesis|khorne|slaanesh|nurgle|tzeentch|haywire mine|omni scrambler/i.test(c.name)) problems.push(`${label}: names no weapon of the datasheet and has no effect`);
+            if (!hasEffect && !/\b(ability|abilities|armor|armour|save|\+\d|ward|upgrade|vexilla|banner|mark|legion|veteran)\b/i.test(c.name + ' ' + g.header) && !/grenade harness|troops units of the imperial guard|tempest|dark shroud|nemesis|khorne|slaanesh|nurgle|tzeentch|haywire mine|omni scrambler/i.test(c.name)) problems.push(`${label}: names no weapon of the datasheet and has no effect`);
             return;
           }
           for (const w of want) {

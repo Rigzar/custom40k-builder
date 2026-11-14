@@ -368,6 +368,8 @@ export interface ArchetypeRule {
   unitsArePsykers?: { discipline: string } | null;
   /** Horus Heresy Shattered Legions / Blackshields: the army has TWO Legacies (two Legions) and each unit chooses which of them it belongs to; no Primarch. */
   twoLegacies?: boolean;
+  /** Horus Heresy Blackshields: the second Legacy only opens its Legion's Armory (Oath of Moment "Panoply of Old"): the units do not belong to it, it gives no mark, no Legion benefit and no discipline. */
+  legacy2ArmoryOnly?: boolean;
 }
 
 export const BASE: ArchetypeRule = {

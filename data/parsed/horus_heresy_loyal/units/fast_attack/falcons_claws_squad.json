@@ -42,6 +42,15 @@
     "equipped_with": "Every model is equipped with: Pair of lightning claws; Frag grenades; Krak grenades.",
     "weapons": [
         {
+            "name": "Bolt pistol",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Frag grenades",
             "range": "6\"",
             "type": "Grenade 1",
@@ -67,9 +76,43 @@
             "ap": "-2",
             "d": "1",
             "abilities": "Extra Attack(2), Shred, Unwieldy"
+        },
+        {
+            "name": "Power sword",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+            "header": "Any model may swap their Pair of lightning claws with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Power sword and Bolt pistol",
+                    "points": 1,
+                    "effect": {
+                        "grants_weapons": [
+                            "Power sword",
+                            "Bolt pistol"
+                        ]
+                    }
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Pair of lightning claws"
+            ]
+        }
+    ],
     "abilities": [
         "Outflank, They Shall Know No Fear, White Scars Legion",
         "Smoke grenades: The unit may use its Smoke grenades once per game (as the Seeker Squad)."

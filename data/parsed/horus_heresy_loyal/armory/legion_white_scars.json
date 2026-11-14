@@ -168,30 +168,6 @@
       "p_unit": null,
       "p_char": 5,
       "category": "vehicle"
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Chogorian Brotherhood",
-      "term_compat": false,
-      "desc": "- Legion Outrider Squadron and Legion Sky-hunter Squadron units may be taken as Troops.\n- All Bike and Jet Bike units gain the \"Hit and Run\" ability.\n- All Infantry units gain the \"Outflank\" ability.\n- All units with less than 12\" Movement may only be deployed at the start of the game as passengers inside a transport.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Sagyar Mazan",
-      "term_compat": false,
-      "desc": "- Ebon Keshig Cohort units may be taken as Troops.\n- All Creature units must be upgraded to gain the \"Blind Rage\" ability for +5 points per unit.\n- Heavy Support units with the Vehicle unit type may not be taken.\n- The army may not choose to start the game with any units in Reserve. Units which cannot begin the game deployed on the table cannot be taken.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

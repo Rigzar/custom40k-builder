@@ -6,7 +6,7 @@ import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { knowsEveryPower } from '../engine/knownPowers';
 import { hasAllMarksVariant } from '../engine/slotOverrides';
-import { getArchetypeRule } from '../engine/archetypes';
+import { getArchetypeRule, unlockingLegacies } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
 import { CSM_LOWER_PRAYERS } from '../engine/codex_csm/legacies';
@@ -162,7 +162,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
         }
         if (legion === 'Anathemata') return true;                          // the Esoterist's own discipline is open to any psyker
         if (legion === unit.name) return archetype === 'Thousand Sons';    // Numerology: the Legion Tactical Squad leader of the Thousand Sons archetype
-        const opened = [legacy, legacy2].map(l => (data.legacies ?? []).find(x => x.name === l)?.armory_key).filter(Boolean);
+        const opened = unlockingLegacies(archetype, legacy, legacy2).map(l => { const x = (data.legacies ?? []).find(y => y.name === l) as any; return x?.legion || x?.armory_key; }).filter(Boolean);
         return opened.includes(legion) || archetype === legion;
       }
     }

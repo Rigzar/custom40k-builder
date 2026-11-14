@@ -42,6 +42,24 @@
     "equipped_with": "Every model is equipped with: Combi-Bolter; Power sword.",
     "weapons": [
         {
+            "name": "Assault grenade launcher - Krak",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "6",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "-"
+        },
+        {
+            "name": "Assault grenade launcher - Toxin",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "1",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Poison(3+)"
+        },
+        {
             "name": "Chainfist",
             "range": "-",
             "type": "Melee",
@@ -121,6 +139,15 @@
             "ap": "-4",
             "d": "2",
             "abilities": "AT(2), Combi, Overheating"
+        },
+        {
+            "name": "Heavy alchem flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Auto Hit, Poison(2+)"
         },
         {
             "name": "Heavy flamer",
@@ -319,6 +346,57 @@
             "replaces": [
                 "Combi-bolter"
             ]
+        },
+        {
+            "header": "Only with the Legacy of the Death Lord: every Legion Cataphractii may swap their Combi-bolter with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Assault grenade launcher",
+                    "points": 19
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ]
+        },
+        {
+            "header": "One Legion Cataphractii may swap their Combi-bolter with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Heavy alchem flamer",
+                    "points": 14
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Combi-bolter"
+            ],
+            "requires_legacy": "Legacy of the Death Lord: for each 5 models"
+        },
+        {
+            "header": "+5 points per model",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 5,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "per_model": true,
+            "requires_legacy": "Legacy of the Death Lord: Death Cloud"
         }
     ],
     "abilities": [

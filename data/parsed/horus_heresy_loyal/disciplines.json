@@ -308,5 +308,67 @@
       "duration": "Instant",
       "complexity": "Normal"
     }
+  ],
+  "Malignant (Blackshields)": [
+    {
+      "name": "Warp Torrent",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers D6 automatic hits with Strength: 5 AP: -1 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Abyss",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
+      "duration": "Until the target's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Umbral Form",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "5",
+      "effect": "The target gains Ward(4+).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Shadowstep",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "One friendly character may be removed from the table and placed immediately via the rules for Deep Strike.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Darkness Within",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Select up to 3 enemy units. Each target must pass a Leadership test or suffer 1 Mortal Wound. The same unit may be targeted multiple times.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Enveloping Darkness",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target can't use Meta orders.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
   ]
 }
