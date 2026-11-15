@@ -15,6 +15,8 @@
  "archetype": "アーキタイプ",
  "legacy": "レガシー",
  "hhLegionLabel": "レギオン",
+ "traitImprovementLabel": "強化",
+ "traitImprovementNone": "— 1つ選択 —",
  "armyTraits": "軍の特性",
  "noArchetype": "— なし —",
  "noLegacy": "— なし —",

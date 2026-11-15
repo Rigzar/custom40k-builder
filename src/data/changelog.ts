@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'f';
+export const REVISION = 'g';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -44,6 +44,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "ARMORY ITEMS STACK ON THE UNIT CARD (Discord). Several copies of the same item (ten Storm shields on a squad) show as one row with \"×10\" and their total price, as in the Armory window; the ✕ removes one copy at a time.",
       "STAT LIMITS EVERYWHERE (Discord, TeCrisis). The Core Rules limits of Strength, Toughness, Initiative, Attacks and Leadership (1 to 10) now also apply in the print view and the TTS export, and a modifier can no longer push them below 1 (before, only the maximum was enforced, and only on the unit card).",
       "ARMORY RESTRICTIONS ENFORCED (Discord, Birdy). Items whose own text limits who can take them could be bought by any unit with Armory access, so a R'varna could take a Knarloc steed, Wings and Pech'ra. The app now reads the restriction from the item's text and greys the row out with the reason (\"Only for Kroot Infantry\", \"Only for Painboy\"). Covered: unit types and flags (\"Kroot only\", \"Only for Infantry\", \"Psyker only\", \"Only for Bikes\", \"Vehicle only\", \"Walker only\", \"Only for characters\", \"Only for units without the Flyer type\", Terminator armour, a Mark), roles (\"Painboy only\", \"Mek, Big Mek, and Spanna only\", \"Warbuggy only\", \"Only for Librarians\", \"Only for Primaris Psykers\", \"Spanna only\": a promoted model counts only once promoted), and items that need another item first (\"Exo-armor only\", \"Only for models on a Jetbike\", the Hunting javelin with a Krootox steed, the Tellyport blasta in Mega armor). With the authors' answers: the Ork 'Eavy armour cabin is for vehicles with a transport capacity, and the Sororitas Holy weapon for the Palatine (the sheet said \"Palantines\").",
+      "PICK THE IMPROVEMENT OF A \"SELECT ONE\" TRAIT (Discord, Unwise and TeCrisis). Space Marine Cursed Founding, Imperial Guard Abhuman Auxiliaries and the T'au Signature Evolutionary Adaption list several improvements, but the app only showed the list as text and applied none. Each now has a dropdown in the army setup: the improvement you pick is applied with its real rules (They Shall Know No Fear, Furious Charge, +2 Strength, Ward(6+)...) and shows in the Abilities section. As Dominic confirmed: one improvement per army; Cursed Founding applies to every creature unit, Abhuman Auxiliaries to the creature units you tick, Signature Evolutionary Adaption to the Kroot units (only they pay for it). The army list warns until an improvement is picked.",
     ],
   },
   {

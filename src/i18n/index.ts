@@ -51,7 +51,7 @@ useLanguage.subscribe((s) => setRuleLanguage(s.language));
 export type TranslationKey =
   | 'appTitle' | 'appSubtitle' | 'landingQuote' | 'selectFaction' | 'savedArmies' | 'loadArmy'
   | 'buildArmy' | 'addTroops' | 'updates' | 'battleType' | 'pointsLimit' | 'pointsLeft' | 'pointsOver' | 'archetype'
-  | 'legacy' | 'hhLegionLabel' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
+  | 'legacy' | 'hhLegionLabel' | 'traitImprovementLabel' | 'traitImprovementNone' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
   | 'addUnit' | 'removeUnit' | 'size' | 'mark' | 'options' | 'armory' | 'psychic' | 'prayers'
@@ -599,6 +599,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     archetype: 'Archetype',
     legacy: 'Legacy',
     hhLegionLabel: 'Legion',
+    traitImprovementLabel: 'improvement',
+    traitImprovementNone: '— choose one —',
     armyTraits: 'Army Traits',
     noArchetype: '— none —',
     noLegacy: '— none —',
@@ -1801,6 +1803,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     archetype: 'Archetyp',
     legacy: 'Vermächtnis',
     hhLegionLabel: 'Legion',
+    traitImprovementLabel: 'Verbesserung',
+    traitImprovementNone: '— eine wählen —',
     armyTraits: 'Armeeeigenschaften',
     noArchetype: '— keiner —',
     noLegacy: '— keines —',
@@ -3001,6 +3005,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     archetype: 'Arquetipo',
     legacy: 'Legado',
     hhLegionLabel: 'Legión',
+    traitImprovementLabel: 'mejora',
+    traitImprovementNone: '— elige una —',
     armyTraits: 'Rasgos del ejército',
     noArchetype: '— ninguno —',
     noLegacy: '— ninguno —',

@@ -59,7 +59,53 @@ function effectApplies(effect: TraitEffect, unit: Unit): boolean {
 }
 
 /** Traits whose text limits them to a keyword ("Only for <Necron> units."). A unit without it neither gets the effect nor pays for the trait. */
-const KEYWORD_ONLY_TRAITS: Record<string, string> = { 'Eternal Conquerors': 'Necron' };
+const KEYWORD_ONLY_TRAITS: Record<string, string> = { 'Eternal Conquerors': 'Necron', 'Signature Evolutionary Adaption': 'Kroot' };
+
+/**
+ * Traits that say "Select one improvement/Adaptation": the army picks ONE of the listed options (Dominic 2026-11-15: Cursed
+ * Founding applies it to the whole army, Abhuman Auxiliaries to the creature units that take the trait). The pick lives in
+ * ArmyState.traitSubChoices; until one is picked the trait keeps its summary text and gives nothing.
+ * The option names and texts are the sheet's own (data/parsed/<faction>/archetypes.json).
+ */
+export const TRAIT_SUB_EFFECTS: Record<string, Record<string, TraitEffect[]>> = {
+  // Space Marines
+  'Cursed Founding': {
+    'Apparitions': [
+      { type: 'unit_ability', name: 'Apparitions', desc: "The unit must use \"Deep Strike\" during the DEPLOYMENT PHASE instead of being set up as normal. It may deep strike anywhere that isn't the enemy's deployment zone, but may scatter into it.", applies_to: 'creature' },
+      { type: 'unit_ability', name: 'Deep Strike', applies_to: 'creature' },
+      { type: 'unit_ability', name: 'Warded', applies_to: 'creature' },
+    ],
+    'Aura of Doom': [{ type: 'unit_ability', name: 'Terrifying(-2)', applies_to: 'creature' }],
+    'Berserkers': [{ type: 'unit_ability', name: 'Blind Rage', applies_to: 'creature' }],
+    'Immolation': [{ type: 'unit_ability', name: 'Retribution(2)', applies_to: 'creature' }],
+    'Ossific Blades': [{ type: 'grant_armory_item', item: 'Ossific Blades', applies_to: 'creature' }],
+  },
+  // Imperial Guard
+  'Abhuman Auxiliaries': {
+    'Afriel Strain': [{ type: 'unit_ability', name: 'They Shall Know No Fear', applies_to: 'creature' }],
+    'Beasts': [{ type: 'unit_ability', name: 'Furious Charge', applies_to: 'creature' }],
+    'Gland Warriors': [
+      { type: 'stat_mod', stat: 'S', delta: 2, applies_to: 'creature' },
+      { type: 'unit_ability', name: 'Gland Warriors', desc: 'During every activation the unit needs to pass a Dangerous Terrain test.', applies_to: 'creature' },
+    ],
+    'Nightsiders': [{ type: 'unit_ability', name: 'Acute Senses', applies_to: 'creature' }],
+    'Slave Levies': [{ type: 'unit_ability', name: 'Unyielding', applies_to: 'creature' }],
+  },
+  // T'au Empire (Kroot units only, see KEYWORD_ONLY_TRAITS)
+  'Signature Evolutionary Adaption': {
+    'Bold': [{ type: 'stat_mod', stat: 'LD', delta: 1, applies_to: 'all' }],
+    'Chameleon': [{ type: 'unit_ability', name: 'Deflect', applies_to: 'all' }],
+    'Fast Reflexes': [{ type: 'stat_mod', stat: 'I', delta: 1, applies_to: 'all' }],
+    'Hyperactive Nymune Organ': [{ type: 'unit_ability', name: 'Frenzy(2")', applies_to: 'all' }],
+    'Ork Hybrid': [{ type: 'stat_mod', stat: 'T', delta: 1, applies_to: 'all' }],
+    'Sixth Sense': [{ type: 'inv_save', value: 6, applies_to: 'all' }],
+  },
+};
+
+/** The options of a "Select one improvement" trait, in sheet order; [] for any other trait. */
+export function traitSubOptions(traitName: string): string[] {
+  return Object.keys(TRAIT_SUB_EFFECTS[traitName] ?? {});
+}
 
 export function traitExcludesUnit(traitName: string, unit: Unit): boolean {
   const kw = KEYWORD_ONLY_TRAITS[traitName];
@@ -67,8 +113,8 @@ export function traitExcludesUnit(traitName: string, unit: Unit): boolean {
 }
 
 /** Returns all TraitEffect entries for the given trait that apply to the given unit. */
-export function getTraitEffects(traitName: string, unit: Unit): TraitEffect[] {
-  const effects = TRAIT_EFFECTS[traitName];
+export function getTraitEffects(traitName: string, unit: Unit, subChoice?: string): TraitEffect[] {
+  const effects = (subChoice && TRAIT_SUB_EFFECTS[traitName]?.[subChoice]) || TRAIT_EFFECTS[traitName];
   if (!effects || traitExcludesUnit(traitName, unit)) return [];
   return effects.filter(e => effectApplies(e, unit));
 }

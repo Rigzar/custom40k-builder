@@ -12,6 +12,7 @@ import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
 import { FACTION_NAMES } from '../utils/factionLabel';
 import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
+import { traitSubOptions } from '../engine/traitEffects';
 
 import type { EngagementType, Mark } from '../types/army';
 
@@ -490,6 +491,22 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         onClose={() => setOpenTraitSlot(null)}
                       />
                     )}
+
+                    {/* "Select one improvement" traits (Cursed Founding, Abhuman Auxiliaries, Signature Evolutionary Adaption):
+                        the army picks ONE option and its effect is applied (Dominic 2026-11-15). */}
+                    {traitPool.filter(n => traitSubOptions(n).length > 0).map(n => (
+                      <div key={`sub-${n}`}>
+                        <div className={`text-[10px] uppercase tracking-widest mb-1 ${accentText}`}>{nm(n)}: {t('traitImprovementLabel')}</div>
+                        <select
+                          value={store.traitSubChoices?.[n] ?? ''}
+                          onChange={e => store.setTraitSubChoice(n, e.target.value)}
+                          className={selectClass}
+                        >
+                          <option value="">{t('traitImprovementNone')}</option>
+                          {traitSubOptions(n).map(o => <option key={o} value={o}>{o}</option>)}
+                        </select>
+                      </div>
+                    ))}
 
                     {/* Black Crusade champion (primary only — relies on the main army's HQ items) */}
                     {!isAllied && traitPool.includes('Black Crusade') && (

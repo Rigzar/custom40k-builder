@@ -259,6 +259,7 @@ export interface ArmyStore extends ArmyState {
   setLegacy: (l: string) => void;
   setLegacy2: (l: string) => void;
   setLegacy3: (l: string) => void;
+  setTraitSubChoice: (trait: string, sub: string) => void;
   /** Set the full army trait pool (max 2). Automatically syncs traits to all units. */
   setTraitPool: (pool: string[]) => void;
   /** Extra trait slots from a Planetary Assault campaign's "Features of.." bonus. */
@@ -362,6 +363,7 @@ const defaultState: ArmyState = {
   legacy2: '',
   legacy3: '',
   traitPool: [],
+  traitSubChoices: {},
   campaignTraitBonus: 0,
   campaignId: null,
   campaignFaction: null,
@@ -401,6 +403,7 @@ export const useArmyStore = create<ArmyStore>()(
             legacy2: '',
             legacy3: '',
             traitPool: [],
+            traitSubChoices: {},
             hqMark: 'Undivided' as Mark,
             alliedFaction: undefined,
             alliedData: null,
@@ -546,6 +549,7 @@ export const useArmyStore = create<ArmyStore>()(
       }),
       setLegacy2: (l: string) => set({ legacy2: l }),
       setLegacy3: (l: string) => set({ legacy3: l }),
+      setTraitSubChoice: (trait: string, sub: string) => set((s: S) => ({ traitSubChoices: { ...(s.traitSubChoices ?? {}), [trait]: sub } })),
 
       setCampaignTraitBonus: (n: number) => set({ campaignTraitBonus: Math.max(0, Math.round(n)) }),
       setCampaignLink: (campaignId: number | null, faction: string | null) => set({ campaignId, campaignFaction: faction }),
@@ -1085,7 +1089,7 @@ export const useArmyStore = create<ArmyStore>()(
       partialize: (s: ArmyStore) => ({
         armyName: s.armyName, faction: s.faction, engagement: s.engagement,
         pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
-        legacy: s.legacy, legacy2: s.legacy2, legacy3: s.legacy3, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus,
+        legacy: s.legacy, legacy2: s.legacy2, legacy3: s.legacy3, traitPool: s.traitPool, traitSubChoices: s.traitSubChoices, campaignTraitBonus: s.campaignTraitBonus,
         campaignId: s.campaignId, campaignFaction: s.campaignFaction, army: s.army,
         // alliedData itself is NOT persisted (re-fetched via FACTION_LOADERS by App.tsx's
         // alliedFaction effect) but its own Army Customisation state must be, same as the
@@ -1137,7 +1141,7 @@ function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
 export function getSerializableState(s: {
   armyName: string; faction: string; engagement: EngagementType;
   pointLimit: number; hqMark: Mark; archetype: string;
-  legacy: string; legacy2: string; legacy3?: string; traitPool: string[]; campaignTraitBonus?: number;
+  legacy: string; legacy2: string; legacy3?: string; traitPool: string[]; traitSubChoices?: Record<string, string>; campaignTraitBonus?: number;
   campaignId?: number | null; campaignFaction?: string | null; army: RosterEntry[];
   alliedFaction?: string | null; alliedArchetype?: string;
   alliedLegacy?: string; alliedTraitPool?: string[]; alliedHqMark?: Mark;
@@ -1145,7 +1149,7 @@ export function getSerializableState(s: {
   return {
     armyName: s.armyName, faction: s.faction, engagement: s.engagement,
     pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype ?? '',
-    legacy: s.legacy, legacy2: s.legacy2, legacy3: s.legacy3 ?? '', traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus ?? 0,
+    legacy: s.legacy, legacy2: s.legacy2, legacy3: s.legacy3 ?? '', traitPool: s.traitPool, traitSubChoices: s.traitSubChoices ?? {}, campaignTraitBonus: s.campaignTraitBonus ?? 0,
     campaignId: s.campaignId ?? null, campaignFaction: s.campaignFaction ?? null, army: s.army,
     savedFormat: 5,
     alliedFaction: s.alliedFaction ?? undefined, alliedArchetype: s.alliedArchetype ?? '',

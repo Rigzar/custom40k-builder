@@ -1149,7 +1149,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         const req = traitRequiredSubfaction(t.name);
         if (req && !deEffectiveSub.includes(req)) continue;
       }
-      for (const e of getTraitEffects(t.name, unit)) {
+      for (const e of getTraitEffects(t.name, unit, state.traitSubChoices?.[t.name])) {
         if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });
         else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Ward Save` });
         else if (e.type === 'unit_ability')   traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });

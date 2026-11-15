@@ -1,3 +1,4 @@
+import { traitSubOptions } from './traitEffects';
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
 import { alliedSlotFactor } from './navyRules';
@@ -2211,6 +2212,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
 
   // a third Legacy only with an archetype that has three (Horus Heresy Shattered Legions)
+  // "Select one improvement" traits: the effect only applies once the army has picked one (Dominic 2026-11-15).
+  for (const tn of state.traitPool ?? []) {
+    if (traitSubOptions(tn).length && !state.traitSubChoices?.[tn]) items.push({ type: 'warn', text: `${tn}: choose its improvement in the army setup (${traitSubOptions(tn).join(', ')}).` });
+  }
   if (state.legacy3 && !rule?.threeLegacies) items.push({ type: 'error', text: `A third Legacy (${state.legacy3}) can only be taken with an archetype that allows three Legacies.` });
   // 2nd legacy requires a "enables_second_legacy" trait to be active
   if (state.legacy2 && !rule?.twoLegacies && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {

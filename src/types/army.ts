@@ -210,6 +210,9 @@ export interface ArmyState {
   /** Horus Heresy Shattered Legions: the third Legacy (the army has three; each unit belongs to one of them). */
   legacy3?: string;
   traitPool: string[];
+  /** The one improvement picked for a trait that says "Select one improvement..." (Cursed Founding, Abhuman Auxiliaries,
+   *  Signature Evolutionary Adaption), keyed by trait name. Dominic 2026-11-15: one pick per army. */
+  traitSubChoices?: Record<string, string>;
   /**
    * Extra Army Trait slots granted by a Planetary Assault campaign's "Features of.." bonus
    * (Research Facility building, or the Breakthrough! weekly event) — manually entered by the
