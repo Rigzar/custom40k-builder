@@ -127,11 +127,11 @@
             "choices": [
                 {
                     "name": "Hunter-killer missiles",
-                    "points": 6
+                    "points": 0
                 },
                 {
                     "name": "2 Twin lascannon",
-                    "points": 262,
+                    "points": 271,
                     "effect": {
                         "grants_weapons": [
                             "Twin lascannon"

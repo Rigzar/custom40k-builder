@@ -138,11 +138,11 @@
             "choices": [
                 {
                     "name": "Power fist",
-                    "points": 9
+                    "points": 11
                 },
                 {
                     "name": "Chainfist",
-                    "points": 17
+                    "points": 19
                 }
             ],
             "inline_pts": null,
