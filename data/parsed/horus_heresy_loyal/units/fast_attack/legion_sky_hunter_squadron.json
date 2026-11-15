@@ -123,7 +123,7 @@
             "abilities": "AT(2), Blast(4), Overheating"
         },
         {
-            "name": "Volkite culverin",
+            "name": "Legion volkite culverin",
             "range": "48\"",
             "type": "Heavy 3",
             "s": "6",
@@ -132,7 +132,7 @@
             "abilities": "Soul burn(6+)"
         },
         {
-            "name": "Volkite serpenta",
+            "name": "Legion volkite serpenta",
             "range": "10\"",
             "type": "Pistol 2",
             "s": "5",
@@ -149,7 +149,7 @@
             },
             "choices": [
                 {
-                    "name": "Volkite culverin",
+                    "name": "Legion volkite culverin",
                     "points": 16
                 },
                 {
@@ -179,7 +179,7 @@
                     "points": 2
                 },
                 {
-                    "name": "Volkite serpenta",
+                    "name": "Legion volkite serpenta",
                     "points": 2
                 }
             ],

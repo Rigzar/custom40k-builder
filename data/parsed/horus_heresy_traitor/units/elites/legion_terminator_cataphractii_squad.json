@@ -240,7 +240,7 @@
             "abilities": "AT(3), Slow(-3)"
         },
         {
-            "name": "Volkite charger",
+            "name": "Legion volkite charger",
             "range": "15\"",
             "type": "Assault 2",
             "s": "5",
@@ -257,7 +257,7 @@
             },
             "choices": [
                 {
-                    "name": "Volkite charger",
+                    "name": "Legion volkite charger",
                     "points": -10
                 },
                 {

@@ -123,13 +123,13 @@
             "abilities": "AT(1), Melta"
         },
         {
-            "name": "Volkite charger",
+            "name": "Legion volkite charger",
             "range": "15\"",
             "type": "Assault 2",
             "s": "5",
             "ap": "-1",
             "d": "1",
-            "abilities": "Deadly(5+)"
+            "abilities": "Soul burn(6+)"
         }
     ],
     "option_groups": [
@@ -176,7 +176,7 @@
                     "points": -3
                 },
                 {
-                    "name": "Volkite charger",
+                    "name": "Legion volkite charger",
                     "points": 5
                 }
             ],

@@ -150,7 +150,7 @@
             "abilities": "AT(2), Blast(4), Overheating"
         },
         {
-            "name": "Volkite caliver",
+            "name": "Legion volkite caliver",
             "range": "30\"",
             "type": "Heavy 3",
             "s": "6",
@@ -171,7 +171,7 @@
                     "points": 5
                 },
                 {
-                    "name": "Volkite caliver",
+                    "name": "Legion volkite caliver",
                     "points": 9
                 },
                 {

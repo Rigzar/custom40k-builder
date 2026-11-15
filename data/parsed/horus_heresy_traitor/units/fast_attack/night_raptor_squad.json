@@ -60,7 +60,7 @@
             "abilities": "-"
         },
         {
-            "name": "Chainblade",
+            "name": "Night Lords chainblade",
             "range": "-",
             "type": "Melee",
             "s": "U",
@@ -159,7 +159,7 @@
             "abilities": "AT(2), Overheating"
         },
         {
-            "name": "Volkite serpenta",
+            "name": "Legion volkite serpenta",
             "range": "10\"",
             "type": "Pistol 2",
             "s": "5",
@@ -212,7 +212,7 @@
                     "points": 5
                 },
                 {
-                    "name": "Volkite serpenta",
+                    "name": "Legion volkite serpenta",
                     "points": 5
                 }
             ],
@@ -230,7 +230,7 @@
             },
             "choices": [
                 {
-                    "name": "Chainblade",
+                    "name": "Night Lords chainblade",
                     "points": 4
                 },
                 {

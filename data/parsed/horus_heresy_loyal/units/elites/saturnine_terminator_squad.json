@@ -42,7 +42,7 @@
     "equipped_with": "Every model is equipped with: Power fist; Twin heavy disintegrator.",
     "weapons": [
         {
-            "name": "Particle shredder",
+            "name": "Saturnine particle shredder",
             "range": "9\"",
             "type": "Assault 4",
             "s": "6",
@@ -135,7 +135,7 @@
             },
             "choices": [
                 {
-                    "name": "Particle shredder",
+                    "name": "Saturnine particle shredder",
                     "points": 19
                 }
             ],
