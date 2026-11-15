@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189f_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Armory", "Items limited by their own text (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) can only be bought by units that qualify; the row says why."],
         ["Armory", "Several copies of one item stack on the unit card (\"Storm shield ×10\"); the ✕ removes one."],
         ["Stats", "Strength, Toughness, Initiative, Attacks and Leadership stay between 1 and 10 in the print view and the TTS export too."],
         ["Print view", "Simple view applies Hardened Carapace and other profile changes; unit types, Power Through Pain rules and the General psychic disciplines are printed; the buttons wrap on phones."],
@@ -108,6 +109,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Arsenal", "Gegenstände, deren Text den Käufer einschränkt (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...), kann nur noch eine passende Einheit kaufen; die Zeile sagt warum."],
         ["Arsenal", "Mehrere Exemplare eines Gegenstands werden auf der Einheitenkarte gestapelt (\"Storm shield ×10\"); das ✕ entfernt eines."],
         ["Werte", "Stärke, Widerstand, Initiative, Attacken und Moral bleiben auch in der Druckansicht und im TTS-Export zwischen 1 und 10."],
         ["Druckansicht", "Die einfache Ansicht wendet Hardened Carapace und andere Profiländerungen an; Einheitentypen, Power-Through-Pain-Regeln und die allgemeinen psychischen Disziplinen werden gedruckt; die Knöpfe brechen auf Handys um."],
@@ -155,6 +157,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Armería", "Los objetos que su texto limita (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) solo los compra la unidad que cumple; la fila dice por qué."],
         ["Armería", "Varias copias de un mismo objeto se agrupan en la ficha (\"Storm shield ×10\"); la ✕ quita una."],
         ["Atributos", "Fuerza, Resistencia, Iniciativa, Ataques y Liderazgo se quedan entre 1 y 10 también en la impresión y en el export de TTS."],
         ["Vista de impresión", "La vista simple aplica Hardened Carapace y otros cambios de perfil; se imprimen los tipos de unidad, las reglas de Power Through Pain y las disciplinas psíquicas generales; los botones se ajustan en el móvil."],
@@ -202,6 +205,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Арсенал", "Предметы с ограничением в тексте (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) покупает только подходящий отряд; строка объясняет причину."],
         ["Арсенал", "Несколько копий одного предмета объединяются на карточке отряда (\"Storm shield ×10\"); ✕ убирает одну."],
         ["Характеристики", "Сила, Стойкость, Инициатива, Атаки и Лидерство остаются в пределах от 1 до 10 и в режиме печати, и в экспорте TTS."],
         ["Печать", "Простой вид применяет Hardened Carapace и другие изменения профиля; печатаются типы отрядов, правила Power Through Pain и общие псионические дисциплины; кнопки переносятся на телефоне."],
@@ -249,6 +253,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["アーモリー", "本文で購入者が限定されたアイテム（\"Kroot only\"、\"Painboy only\"、\"Exo-armor only\"など）は条件を満たすユニットだけが購入でき、行に理由が表示されます。"],
         ["アーモリー", "同じアイテムの複数個はユニットカード上でまとめて表示されます（\"Storm shield ×10\"）。✕で1つずつ外せます。"],
         ["能力値", "筋力・耐久力・イニシアチブ・攻撃回数・リーダーシップは印刷ビューとTTSエクスポートでも1〜10に収まります。"],
         ["印刷ビュー", "シンプル表示でHardened Carapaceなどのプロファイル変更を反映。ユニットタイプ、Power Through Painのルール、共通サイキック学派も印刷。スマホでボタンが折り返します。"],
