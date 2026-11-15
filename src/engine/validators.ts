@@ -1344,7 +1344,7 @@ export function computeFreeSlotAdjustments(
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
   const eng = engagementFor(state.engagement, data.faction);
-  const rule = getArchetypeRule(state.archetype, state.legacy, state.legacy2);
+  const rule = getArchetypeRule(state.archetype, state.legacy, state.legacy2, state.legacy3);
   const items: ValidationItem[] = [];
 
   // True when the primary archetype grants a supplement faction (HH, future similar supplements)
@@ -1660,7 +1660,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     if (item.factionSource) continue;
     const need = unitRequiredLegacy(resolveUnit(item, data));
-    if (need && !unlockingLegacies(state.archetype, state.legacy, state.legacy2).includes(need)) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
+    if (need && !unlockingLegacies(state.archetype, state.legacy, state.legacy2, state.legacy3).includes(need)) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
     const needArch = unitRequiredArchetype(resolveUnit(item, data));
     if (needArch && !archetypeOpensUnit(needArch, state.archetype, state.legacy, data.archetypes)) items.push({ type: 'error', text: `${item.unitName} can only be selected with the ${needArch} archetype.` });
     const needPrimarch = resolveUnit(item, data)?.requires_primarch_legacy;
@@ -2210,6 +2210,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (need && state.archetype !== need) items.push({ type: 'error', text: `${ln} can only be taken with the ${need} archetype.` });
   }
 
+  // a third Legacy only with an archetype that has three (Horus Heresy Shattered Legions)
+  if (state.legacy3 && !rule?.threeLegacies) items.push({ type: 'error', text: `A third Legacy (${state.legacy3}) can only be taken with an archetype that allows three Legacies.` });
   // 2nd legacy requires a "enables_second_legacy" trait to be active
   if (state.legacy2 && !rule?.twoLegacies && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
     items.push({ type: 'error', text: T('val2ndLegacyRequiresTrait') });

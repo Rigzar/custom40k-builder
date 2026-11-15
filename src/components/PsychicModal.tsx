@@ -162,7 +162,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
         }
         if (legion === 'Anathemata') return true;                          // the Esoterist's own discipline is open to any psyker
         if (legion === unit.name) return archetype === 'Thousand Sons';    // Numerology: the Legion Tactical Squad leader of the Thousand Sons archetype
-        const opened = unlockingLegacies(archetype, legacy, legacy2).map(l => { const x = (data.legacies ?? []).find(y => y.name === l) as any; return x?.legion || x?.armory_key; }).filter(Boolean);
+        const opened = unlockingLegacies(archetype, legacy, legacy2, isAllied ? '' : useArmyStore.getState().legacy3).map(l => { const x = (data.legacies ?? []).find(y => y.name === l) as any; return x?.legion || x?.armory_key; }).filter(Boolean);
         return opened.includes(legion) || archetype === legion;
       }
     }

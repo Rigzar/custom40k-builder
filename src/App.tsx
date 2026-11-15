@@ -646,7 +646,7 @@ export default function App() {
     // The faction the player picked, not whatever the store last held (see the loader effect).
     const savedFaction = FACTION_NAMES[selectedFaction] ?? faction;
     const stateSnapshot = {
-      armyName: baseName, faction: savedFaction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
+      armyName: baseName, faction: savedFaction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, legacy3: store.legacy3, traitPool, army,
       campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction,
       alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
     };
@@ -698,7 +698,7 @@ export default function App() {
       savedAt: Date.now(),
       totalPts: total,
       unitCount: army.length,
-      state: getSerializableState({ armyName: name, faction: savedFaction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army, campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
+      state: getSerializableState({ armyName: name, faction: savedFaction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, legacy3: store.legacy3, traitPool, army, campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
     };
 
     saveArmy(entry);

@@ -510,7 +510,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             ) : null}
             {hhLegionMark && (
               <span className="ml-1" title={hhLegionMark.legionTerm.note}>
-                <MarkBadge mark={`Mark of ${hhLegionMark.legion}`} suffix={u.requires_legacy ? t('lockedSuffix') : undefined} />
+                <MarkBadge mark={hhLegionMark.legion} suffix={u.requires_legacy ? t('lockedSuffix') : undefined} />
               </span>
             )}
             {isFavored && (
@@ -821,13 +821,18 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           {/* Horus Heresy Shattered Legions / Blackshields: which of the army's two Legacies (Legions) this unit belongs to. */}
           {!item.factionSource && getArchetypeRule(archetype ?? '')?.twoLegacies && !getArchetypeRule(archetype ?? '')?.legacy2ArmoryOnly && (
             <div className="md:col-span-2 px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('legacy')}</span>
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('hhLegionLabel')}</span>
               <select
                 value={itemLegacies[0] ?? ''}
                 onChange={e => updateUnit(item.id, { unitLegacy: e.target.value || undefined })}
                 className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
               >
-                {[store.legacy, store.legacy2].filter(Boolean).map(l => <option key={l} value={l}>{l}</option>)}
+                {[store.legacy, store.legacy2, getArchetypeRule(archetype ?? '')?.threeLegacies ? store.legacy3 : ''].filter(Boolean).map(l => {
+                  // the unit takes the Legion of this Legacy and pays its mark (the Legion benefits of the Index)
+                  const lm = hhMarkFor(l, data.faction, u); const lt = lm?.legionTerm;
+                  const cost = !lt ? '' : u.is_vehicle ? lt.vehicleFlat : u.is_character ? lt.perCharacter : lt.perModel;
+                  return <option key={l} value={l}>{lm ? lm.legion : l}{cost ? ` (+${cost} ${u.is_vehicle || u.is_character ? 'pts' : 'pts/model'})` : ''}</option>;
+                })}
               </select>
             </div>
           )}
@@ -2098,7 +2103,17 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const veterans = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'veteran');
             const vehicles = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'vehicle');
 
-            function ArmoryRow({ a }: { a: ArmorySelection }) {
+            // identical copies of one item (ten Storm shields) are one row "×10" (players asked for the card to take less room)
+            const stack = (list: ArmorySelection[]) => {
+              const out: { a: ArmorySelection; copies: ArmorySelection[] }[] = [];
+              for (const a of list) {
+                const k = [a.itemName, a.section, a.source, a.chosenPower ?? '', a.targetWeapon ?? ''].join('|');
+                const g = out.find(x => [x.a.itemName, x.a.section, x.a.source, x.a.chosenPower ?? '', x.a.targetWeapon ?? ''].join('|') === k);
+                if (g) g.copies.push(a); else out.push({ a, copies: [a] });
+              }
+              return out;
+            };
+            function ArmoryRow({ a, copies = [a] }: { a: ArmorySelection; copies?: ArmorySelection[] }) {
               const armItem = findArmoryItemData(effectiveArmData, a);
               const isDaemonWeaponTrait = a.section === 'daemon_weapons';
               const isArmoryWeapon = a.section === 'weapons';
@@ -2106,15 +2121,16 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const weaponTargetingTrait = isDaemonWeaponTrait && isWeaponTrait(armItem?.desc) && a.targetWeapon;
               // Extra traits applied to this armory weapon
               const extraTraitsForWeapon = isArmoryWeapon ? (weaponTraitMap.get(a.itemName) ?? []) : [];
-              const livePts = liveArmoryPoints(a, item, u);
+              const livePts = copies.reduce((s, c) => s + liveArmoryPoints(c, item, u), 0);
               return (
                 <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <div className="flex justify-between items-center">
-                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{nm(a.itemName)}</span>
+                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{nm(a.itemName)}{copies.length > 1 && <span className="text-amber-500 ml-1">×{copies.length}</span>}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-amber-600">{livePts >= 0 ? '+' : ''}{livePts} pts</span>
                       <button
-                        onClick={() => useArmyStore.getState().removeArmoryItem(item.id, a.id)}
+                        onClick={() => useArmyStore.getState().removeArmoryItem(item.id, copies[copies.length - 1].id)}
+                        title={copies.length > 1 ? 'Remove one' : undefined}
                         className="text-red-500 hover:text-red-300 text-[11px]"
                       >✕</button>
                     </div>
@@ -2161,19 +2177,19 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 {regular.length > 0 && (
                   <div className="space-y-1">
                     <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('equipment')}</div>
-                    {regular.map(a => <ArmoryRow key={a.id} a={a} />)}
+                    {stack(regular).map(g => <ArmoryRow key={g.a.id} a={g.a} copies={g.copies} />)}
                   </div>
                 )}
                 {veterans.length > 0 && (
                   <div className="space-y-1">
                     <div className="text-[10px] text-amber-700 uppercase tracking-widest">{usesReputations(data.faction) ? t('reputationsLabel') : t('veteranAbilities')}</div>
-                    {veterans.map(a => <ArmoryRow key={a.id} a={a} />)}
+                    {stack(veterans).map(g => <ArmoryRow key={g.a.id} a={g.a} copies={g.copies} />)}
                   </div>
                 )}
                 {vehicles.length > 0 && (
                   <div className="space-y-1">
                     <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('armoryTitleVehicle')}</div>
-                    {vehicles.map(a => <ArmoryRow key={a.id} a={a} />)}
+                    {stack(vehicles).map(g => <ArmoryRow key={g.a.id} a={g.a} copies={g.copies} />)}
                   </div>
                 )}
               </div>

@@ -38,6 +38,15 @@ export interface KnownIssue {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.89',
+    date: '2026-11-15',
+    title: "Armory stacks and stat limits",
+    changes: [
+      "ARMORY ITEMS STACK ON THE UNIT CARD (Discord). Several copies of the same item (ten Storm shields on a squad) show as one row with \"×10\" and their total price, as in the Armory window; the ✕ removes one copy at a time.",
+      "STAT LIMITS EVERYWHERE (Discord, TeCrisis). The Core Rules limits of Strength, Toughness, Initiative, Attacks and Leadership (1 to 10) now also apply in the print view and the TTS export, and a modifier can no longer push them below 1 (before, only the maximum was enforced, and only on the unit card).",
+    ],
+  },
+  {
+    version: '1.89',
     date: '2026-11-13',
     title: "14 codices up to date",
     changes: [

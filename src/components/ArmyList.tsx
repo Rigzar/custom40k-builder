@@ -90,7 +90,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
     );
   }
 
-  const rule = getArchetypeRule(effectiveArchetype, scope === 'allied' ? alliedLegacy : legacy, scope === 'allied' ? undefined : legacy2);
+  const rule = getArchetypeRule(effectiveArchetype, scope === 'allied' ? alliedLegacy : legacy, scope === 'allied' ? undefined : legacy2, scope === 'allied' ? undefined : useArmyStore.getState().legacy3);
 
   return (
     <div>

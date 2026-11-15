@@ -370,6 +370,8 @@ export interface ArchetypeRule {
   twoLegacies?: boolean;
   /** Horus Heresy Blackshields: the second Legacy only opens its Legion's Armory (Oath of Moment "Panoply of Old"): the units do not belong to it, it gives no mark, no Legion benefit and no discipline. */
   legacy2ArmoryOnly?: boolean;
+  /** Horus Heresy Shattered Legions: a THIRD Legacy, and each unit picks which of the three it belongs to. */
+  threeLegacies?: boolean;
 }
 
 export const BASE: ArchetypeRule = {

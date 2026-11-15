@@ -3,8 +3,6 @@ import { BASE } from '../archetypes/base';
 
 const r = (over: Partial<ArchetypeRule>): ArchetypeRule => ({ ...BASE, ...over });
 
-/** Every unit of Terminator armour that the sheets list as an Elites choice, for the "any unit composed entirely of Terminator armour" line of Pride of the Legion. */
-const TERMINATOR_ELITES = ['Legion Terminator Cataphractii Squad', 'Legion Tartaros Terminator Squad', 'Saturnine Terminator Squad', 'Firedrake Terminator Squad', 'Crimson Paladins Squad', 'Red Butcher Terminators', 'Deathshroud Terminator Squad', 'Scarab Occult Terminator Squad'];
 
 /**
  * Horus Heresy Loyal / Traitor books (alpha): the slot effects of each archetype that the rule table can carry, with the names the sheets use now
@@ -13,15 +11,15 @@ const TERMINATOR_ELITES = ['Legion Terminator Cataphractii Squad', 'Legion Tarta
  * so the lookup by name cannot confuse it with the Space Marines archetype. The Legion archetypes force their Legacy through their own text ('Must select "Legacy of X"').
  */
 export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
-  'Armoured Spearhead': r({ requiresLegacy: true, troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran'] }),
+  'Armoured Spearhead': r({ requiresLegacy: true, troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran'], slotCaps: [{ slot: 'Heavy Support', max: 1 }] }),   // "Only a single Heavy Support choice may be taken"
   // "access to all Robot units from the Horus Heresy Mechanicum supplement" = Forces of the Machine God (loader key legio_titanicus); the only Robot of that supplement is the Thanatar Siege-Automata.
   // The Castellax Battle-automata Maniple the sheet makes Troops is not in that supplement's data.
   'Brethren of Iron': r({ requiresLegacy: true, alliedFaction: 'legio_titanicus', alliedMarkFilter: 'all', alliedUnitsOnly: ['Thanatar Siege-Automata'] }),
   'Death from Above': r({ requiresLegacy: true, troopsRemap: ['Legion Assault Squad'], troopsCount: 'remap' }),
   'Drop Pod Assault (HH)': r({ requiresLegacy: true }),
-  'Legion Specialists': r({ requiresLegacy: true, hqOverride: [1, 3], slotBonus: [{ slot: 'Elites', add: 1 }] }),   // 1-3 HQ and 0-4 Elites in the first AOP
+  'Legion Specialists': r({ requiresLegacy: true, hqOverride: [1, 3] }),   // 1-3 HQ in the first AOP (the extra Elite is gone, 13 Nov)
   'Outrider Phalanx': r({ requiresLegacy: true, troopsRemap: ['Outrider Squadron', 'Legion Sky-hunter Squadron'], lowMoveMustEmbark: {} }),
-  'Pride of the Legion': r({ requiresLegacy: true, troopsRemap: ['Legion Veteran Squad', ...TERMINATOR_ELITES], troopsCount: 'remap', slotCaps: [{ slot: 'Heavy Support', max: 1 }, { slot: 'Fast Attack', max: 1 }] }),
+  'Pride of the Legion': r({ requiresLegacy: true, troopsRemap: ['Legion Veteran Squad', 'Legion Terminator Cataphractii Squad', 'Legion Tartaros Terminator Squad'], troopsCount: 'remap', slotCaps: [{ slot: 'Heavy Support', max: 1 }, { slot: 'Fast Attack', max: 1 }] }),
   'Recon Demi-Company': r({ requiresLegacy: true, troopsRemap: ['Legion Scout Squad', 'Seeker Squad'], troopsCount: 'remap', slotCaps: [{ slot: 'Fortification', max: 0 }] }),
   'Underworld Assault': r({ requiresLegacy: true }),
   // the Legion archetypes: their weapon and ability lines are text; the ones that make a unique unit of the Legion Troops (and the only one that counts towards the 25%) are in the table
@@ -45,7 +43,7 @@ export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
   'Ultramarines': r({}),
   'Sons of Horus': r({}),
   // Shattered Legions: three Legacies and ONE Trait ("The army has access to one Trait only, instead of the usual two"); Blackshields: the Legacy of the Sundered plus the Armory of one Legion (second Legacy, only its Armory)
-  'Shattered Legions': r({ twoLegacies: true, archetypeTraitBonus: -1 }),
+  'Shattered Legions': r({ twoLegacies: true, threeLegacies: true, archetypeTraitBonus: -1 }),
   'Blackshields': r({ twoLegacies: true, legacy2ArmoryOnly: true, archetypeTraitBonus: -1, troopsRemap: ['Legion Veteran Squad'], troopsCount: 'remap' }),
 };
 

@@ -1,4 +1,7 @@
 import type { EquipMods } from '../engine/equipMods';
+import { capStat } from '../lib/statPipeline';
+/** Core Rules maxima and minima (Strength, Toughness, Initiative, Attacks, Leadership 1-10) on every stat of a modified profile. */
+const capAll = (r: Record<string, string>) => { for (const k of Object.keys(r)) r[k] = capStat(k, r[k]); return r; };
 
 /**
  * Stat-block modifier maths, shared by Print View and the Tabletop Simulator export.
@@ -35,7 +38,7 @@ export function applyEquipDeltas(
     const existing = result.SV?.match(/(\d+)\+/);
     if (!existing || mods.armorSave < parseInt(existing[1])) result.SV = `${mods.armorSave}+`;
   }
-  return result;
+  return capAll(result);
 }
 
 /** Apply a list of `{ stat, delta }` entries (option effects, army traits, C'tan Yngir, ...). */
@@ -46,5 +49,5 @@ export function applyStatMods(
   for (const { stat, delta } of mods) {
     if (result[stat] !== undefined) result[stat] = applyDelta(result[stat], delta);
   }
-  return result;
+  return capAll(result);
 }

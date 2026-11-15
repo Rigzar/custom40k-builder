@@ -53,6 +53,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const setArchetype = isAllied ? store.setAlliedArchetype : store.setArchetype;
   const setLegacy = isAllied ? store.setAlliedLegacy : store.setLegacy;
   const setLegacy2 = store.setLegacy2;
+  const legacy3 = isAllied ? '' : (store.legacy3 ?? '');
+  const setLegacy3 = store.setLegacy3;
   const setTraitPool = isAllied ? store.setAlliedTraitPool : store.setTraitPool;
 
   const t = useT();
@@ -358,6 +360,25 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                                 : localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
                               {!rule?.legacy2ArmoryOnly && hhMarkFor(legacy2, data.faction)?.legionTerm.note && (
                                 <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy2, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
+                              )}
+                            </div>
+                          )}
+                          {/* Horus Heresy Shattered Legions: a third Legacy; every unit then picks which of the three Legions it belongs to */}
+                          {rule?.threeLegacies && (
+                            <div className="mt-2">
+                              <select value={legacy3} onChange={e => setLegacy3(e.target.value)} className={selectClass}>
+                                <option value="">{t('secondLegacyNone')}</option>
+                                {data.legacies.filter(l => l.name !== legacy && l.name !== legacy2 && !l.requires_archetype).map(l => (
+                                  <option key={l.name} value={l.name}>{nm(l.name)}</option>
+                                ))}
+                              </select>
+                              {legacy3 && (
+                                <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
+                                  {localiseAbility(data.legacies.find(l => l.name === legacy3)?.desc ?? "")}
+                                  {hhMarkFor(legacy3, data.faction)?.legionTerm.note && (
+                                    <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy3, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
+                                  )}
+                                </div>
                               )}
                             </div>
                           )}

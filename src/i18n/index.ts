@@ -51,7 +51,7 @@ useLanguage.subscribe((s) => setRuleLanguage(s.language));
 export type TranslationKey =
   | 'appTitle' | 'appSubtitle' | 'landingQuote' | 'selectFaction' | 'savedArmies' | 'loadArmy'
   | 'buildArmy' | 'addTroops' | 'updates' | 'battleType' | 'pointsLimit' | 'pointsLeft' | 'pointsOver' | 'archetype'
-  | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
+  | 'legacy' | 'hhLegionLabel' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
   | 'addUnit' | 'removeUnit' | 'size' | 'mark' | 'options' | 'armory' | 'psychic' | 'prayers'
@@ -598,6 +598,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     pointsLeft: '{n} left', pointsOver: '{n} over the limit',
     archetype: 'Archetype',
     legacy: 'Legacy',
+    hhLegionLabel: 'Legion',
     armyTraits: 'Army Traits',
     noArchetype: '— none —',
     noLegacy: '— none —',
@@ -1799,6 +1800,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     pointsLeft: 'noch {n}', pointsOver: '{n} über dem Limit',
     archetype: 'Archetyp',
     legacy: 'Vermächtnis',
+    hhLegionLabel: 'Legion',
     armyTraits: 'Armeeeigenschaften',
     noArchetype: '— keiner —',
     noLegacy: '— keines —',
@@ -2998,6 +3000,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     pointsLeft: 'quedan {n}', pointsOver: '{n} por encima del límite',
     archetype: 'Arquetipo',
     legacy: 'Legado',
+    hhLegionLabel: 'Legión',
     armyTraits: 'Rasgos del ejército',
     noArchetype: '— ninguno —',
     noLegacy: '— ninguno —',

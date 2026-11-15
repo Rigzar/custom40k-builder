@@ -1131,7 +1131,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
   if (hhMark && data.faction.startsWith('Horus Heresy:')) {
-    const markName = `Mark of ${hhMark.legion}`;
+    const markName = hhMark.legion;
     const infantry = String(unit.unit_type).toLowerCase().includes('infantry');
     for (const ab of unit.is_vehicle ? hhMark.vehicleAbilities : (!hhMark.infantryOnlyAbilities || infantry ? hhMark.creatureAbilities : [])) traitAbilities.push({ traitName: markName, name: ab });
   }

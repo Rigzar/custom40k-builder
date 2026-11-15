@@ -77,7 +77,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     return <div className="text-[11px] text-zinc-700 px-1 py-1.5 italic">{t('noUnitsAvailable')}</div>;
   }
   const eng = engagementFor(engagement, isAllied ? null : data.faction);
-  const rule = getArchetypeRule(archetype, isAllied ? alliedLegacy : legacy, isAllied ? undefined : legacy2);
+  const rule = getArchetypeRule(archetype, isAllied ? alliedLegacy : legacy, isAllied ? undefined : legacy2, isAllied ? undefined : store.legacy3);
 
   if (isAllied) {
     // Allied scope: the ally's own nested-ally injection (e.g. CSM "Plaguehost" granting Chaos
@@ -300,7 +300,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       if (!u) continue;
       if (!isUnitAllowed(name, u, rule, originalSlot)) continue;
       if (isArmyItemGateBlocked(u, rosterArmoryItemNames)) continue;
-      { const need = unitRequiredLegacy(u); if (need && !unlockingLegacies(archetype, legacy, legacy2).includes(need)) continue; }
+      { const need = unitRequiredLegacy(u); if (need && !unlockingLegacies(archetype, legacy, legacy2, store.legacy3).includes(need)) continue; }
       { const needArch = unitRequiredArchetype(u); if (needArch && !archetypeOpensUnit(needArch, archetype, legacy, primaryData.archetypes)) continue; }
       { const needPrimarch = u.requires_primarch_legacy; if (needPrimarch && !primarchOpened(needPrimarch, archetype, legacy, primaryData.archetypes)) continue; }
       const effSlot = getEffectiveSlot(name, originalSlot, rule);

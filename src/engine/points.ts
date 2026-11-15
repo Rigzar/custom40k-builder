@@ -105,11 +105,11 @@ export function effectiveArchetypeFor(item: { factionSource?: string }, state: P
 /** Same scoping as {@link effectiveArchetypeFor}, for the active Legacy. An Allied Detachment
  *  only ever has one Legacy slot (no 2nd-legacy-via-trait unlock — see ArmyState.alliedLegacy
  *  doc), so there is no allied equivalent of `legacy2`. */
-export function effectiveLegacyFor(item: { factionSource?: string; unitLegacy?: string }, state: Pick<ArmyState, 'legacy' | 'alliedLegacy' | 'alliedFaction'> & { archetype?: string; legacy2?: string }): string {
+export function effectiveLegacyFor(item: { factionSource?: string; unitLegacy?: string }, state: Pick<ArmyState, 'legacy' | 'alliedLegacy' | 'alliedFaction'> & { archetype?: string; legacy2?: string; legacy3?: string }): string {
   const isAlliedItem = !!item.factionSource && item.factionSource === state.alliedFaction;
   if (isAlliedItem) return state.alliedLegacy ?? '';
   // Shattered Legions / Blackshields: the unit belongs to the one of the two Legacies it was given
-  if (item.unitLegacy && getArchetypeRule(state.archetype ?? '')?.twoLegacies && !getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly && (item.unitLegacy === state.legacy || item.unitLegacy === state.legacy2)) return item.unitLegacy;
+  if (item.unitLegacy && getArchetypeRule(state.archetype ?? '')?.twoLegacies && !getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly && (item.unitLegacy === state.legacy || item.unitLegacy === state.legacy2 || (!!state.legacy3 && getArchetypeRule(state.archetype ?? '')?.threeLegacies && item.unitLegacy === state.legacy3))) return item.unitLegacy;
   return state.legacy;
 }
 

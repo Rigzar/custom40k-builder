@@ -690,12 +690,12 @@ const withLegacyCache = new Map<string, ArchetypeRule>();
  * The rule of an archetype. Horus Heresy: the units a Legacy makes Troops (the Mark of its Legion) are added to the archetype's own, so the slot code,
  * which only reads `troopsRemap`, needs nothing else.
  */
-export function getArchetypeRule(archetype: string, legacy?: string | null, legacy2?: string | null): ArchetypeRule | null {
+export function getArchetypeRule(archetype: string, legacy?: string | null, legacy2?: string | null, legacy3?: string | null): ArchetypeRule | null {
   const own = ARCHETYPE_RULES[archetype] ?? ARCHETYPE_RULES[RENAMED_ARCHETYPES[archetype]] ?? null;
-  const extraRaw = [...(legacy ? HH_LEGACY_TROOPS[legacy] ?? [] : []), ...(legacy2 && own?.twoLegacies ? HH_LEGACY_TROOPS[legacy2] ?? [] : [])];
+  const extraRaw = [...(legacy ? HH_LEGACY_TROOPS[legacy] ?? [] : []), ...(legacy2 && own?.twoLegacies ? HH_LEGACY_TROOPS[legacy2] ?? [] : []), ...(legacy3 && own?.threeLegacies ? HH_LEGACY_TROOPS[legacy3] ?? [] : [])];
   const extra = extraRaw.length ? extraRaw : undefined;
   if (!extra) return own;
-  const key = archetype + '|' + legacy + '|' + (own?.twoLegacies ? legacy2 : '');
+  const key = archetype + '|' + legacy + '|' + (own?.twoLegacies ? legacy2 : '') + '|' + (own?.threeLegacies ? legacy3 : '');
   let merged = withLegacyCache.get(key);
   if (!merged) { merged = { ...(own ?? BASE), troopsRemap: [...(own?.troopsRemap ?? []), ...extra] }; withLegacyCache.set(key, merged); }
   return merged;
@@ -821,7 +821,8 @@ export function countsTroops(
  * The Legacies whose Legion UNLOCKS units, benefits and disciplines. Both, except in the Blackshields: their second Legacy is only the Armory of one Legion
  * (Oath of Moment "Panoply of Old"), so it opens no special unit, no Legion benefit and no discipline.
  */
-export function unlockingLegacies(archetype: string | null | undefined, legacy: string | null | undefined, legacy2: string | null | undefined): string[] {
-  const armoryOnly = !!getArchetypeRule(archetype ?? '')?.legacy2ArmoryOnly;
-  return [legacy, armoryOnly ? '' : legacy2].filter(Boolean) as string[];
+export function unlockingLegacies(archetype: string | null | undefined, legacy: string | null | undefined, legacy2: string | null | undefined, legacy3?: string | null): string[] {
+  const rule = getArchetypeRule(archetype ?? '');
+  const armoryOnly = !!rule?.legacy2ArmoryOnly;
+  return [legacy, armoryOnly ? '' : legacy2, rule?.threeLegacies ? legacy3 : ''].filter(Boolean) as string[];
 }

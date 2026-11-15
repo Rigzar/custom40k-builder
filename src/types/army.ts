@@ -207,6 +207,8 @@ export interface ArmyState {
   archetype: string;
   legacy: string;
   legacy2: string;
+  /** Horus Heresy Shattered Legions: the third Legacy (the army has three; each unit belongs to one of them). */
+  legacy3?: string;
   traitPool: string[];
   /**
    * Extra Army Trait slots granted by a Planetary Assault campaign's "Features of.." bonus

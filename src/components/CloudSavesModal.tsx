@@ -45,7 +45,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   onLoadCloudRoster?: (data: Record<string, unknown>, rosterId: number) => void;
 }) {
   const {
-    army, engagement, hqMark, archetype, legacy, legacy2, traitPool, campaignTraitBonus,
+    army, engagement, hqMark, archetype, legacy, legacy2, legacy3, traitPool, campaignTraitBonus,
     faction, pointLimit, armyName,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
   } = useArmyStore();
@@ -73,7 +73,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   // but a row saved right is a row nothing downstream has to repair.
   const stateSnapshot = {
     armyName, faction: factionLabel(faction) || faction, engagement, pointLimit, hqMark,
-    archetype, legacy, legacy2, traitPool, campaignTraitBonus, army,
+    archetype, legacy, legacy2, legacy3, traitPool, campaignTraitBonus, army,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, totalPts,
   };
 

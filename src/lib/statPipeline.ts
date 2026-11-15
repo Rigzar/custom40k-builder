@@ -71,14 +71,17 @@ export interface StatPipelineInput {
  * quietly overrule the item.
  */
 const STAT_MAX: Record<string, number> = { S: 10, T: 10, I: 10, A: 10, LD: 10 };
+/** ...and the minimum the same section states ("Minimum Value: 1" for Toughness, Initiative, Attacks and Leadership). Strength gets
+ * the same floor: a -1 Strength debuff on a Strength 1 model would otherwise print 0 (a player asked for 1-10 on both). */
+const STAT_MIN: Record<string, number> = { S: 1, T: 1, I: 1, A: 1, LD: 1 };
 
 export function capStat(key: string, value: string): string {
-  const max = STAT_MAX[key.toUpperCase()];
+  const max = STAT_MAX[key.toUpperCase()], min = STAT_MIN[key.toUpperCase()];
   if (max === undefined) return value;
-  const m = value.match(/^(\d+)(\*?)$/);
+  const m = value.match(/^(-?\d+)(\*?)$/);
   if (!m) return value;            // "D", "-", an inches value: nothing to cap
   const n = parseInt(m[1], 10);
-  return n > max ? `${max}${m[2]}` : value;
+  return n > max ? `${max}${m[2]}` : min !== undefined && n < min ? `${min}${m[2]}` : value;
 }
 
 export function applyStatDelta(value: string, delta: number): { display: string; modified: boolean } {
