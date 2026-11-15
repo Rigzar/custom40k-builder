@@ -9,7 +9,7 @@
       "s": "6",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor pierching(3+), Master-crafted",
+      "abilities": "Piercing(3+), Master-crafted",
       "p_unit": 7,
       "p_char": 8
     },
@@ -510,14 +510,14 @@
     {
       "name": "Rad grenades",
       "term_compat": true,
-      "range": "8\"",
-      "type": "Grenade",
+      "range": "6\"",
+      "type": "Grenade 1",
       "s": "4",
-      "ap": "-3",
+      "ap": "0",
       "d": "1",
-      "abilities": "Poison(2+)",
-      "p_unit": 6,
-      "p_char": null,
+      "abilities": "Rad",
+      "p_unit": null,
+      "p_char": 1,
       "armour_compat": [
         "Terminator"
       ]
