@@ -30,7 +30,7 @@
             "s": "7",
             "ap": "-2",
             "d": "1",
-            "abilities": "Anti-Air, AT(1)"
+            "abilities": "Anti-air, AT(1)"
         },
         {
             "name": "Las-talon",
@@ -130,7 +130,7 @@
         }
     ],
     "abilities": [
-        "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability."
+        "Interceptor: All ranged attacks of the model gain the \"Anti-air\" ability."
     ],
     "unit_type": "Flyer",
     "keywords": [],

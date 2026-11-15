@@ -51,7 +51,7 @@
     {
       "name": "Haywire pulse",
       "term_compat": true,
-      "desc": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n        1 - The vehicle suffers a penetrating hit with AT(1).\n        2 - The vehicle suffers a penetrating hit with AT(2).\n        3 - The vehicle suffers a penetrating hit with AT(3).",
+      "desc": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n 1 - The vehicle suffers a penetrating hit with AT(1).\n 2 - The vehicle suffers a penetrating hit with AT(2).\n 3 - The vehicle suffers a penetrating hit with AT(3).",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [

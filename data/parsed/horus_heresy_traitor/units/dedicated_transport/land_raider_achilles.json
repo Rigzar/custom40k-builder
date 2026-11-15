@@ -17,38 +17,38 @@
             "name": "Land Raider Achilles",
             "min": 1,
             "max": 1,
-            "points": 466
+            "points": 429
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Land Raider Achilles is a single model and is equipped with: Hull Mounted Achillus Quad Launcher.",
+    "equipped_with": "A Land Raider Achilles is a single model and is equipped with: Achillus quad launcher.",
     "weapons": [
         {
-            "name": "Achillus Quad Launcher (Strike)",
+            "name": "Achillus quad launcher - Strike",
             "range": "24\"",
             "type": "Heavy 4",
             "s": "8",
             "ap": "-2",
             "d": "1",
-            "abilities": "AT (1), Sunder (2)"
+            "abilities": "AT(1), Sunder(2)"
         },
         {
-            "name": "Achillus Quad Launcher (Shard)",
+            "name": "Achillus quad launcher - Shard",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "5",
             "ap": "-1",
             "d": "1",
-            "abilities": "Blast (4), Shred"
+            "abilities": "Blast(4), Shred"
         },
         {
-            "name": "Multi-Melta",
+            "name": "Multi-melta",
             "range": "24\"",
             "type": "Assault 1",
             "s": "8",
             "ap": "-5",
             "d": "2",
-            "abilities": "AT (2), Melta"
+            "abilities": "AT(2), Melta"
         },
         {
             "name": "Twin legion volkite culverin",
@@ -57,7 +57,7 @@
             "s": "6",
             "ap": "-1",
             "d": "1",
-            "abilities": "Soul Burn (6+)"
+            "abilities": "Soul burn(6+)"
         }
     ],
     "option_groups": [
@@ -68,12 +68,12 @@
             },
             "choices": [
                 {
-                    "name": "Multi-Melta",
-                    "points": 35
+                    "name": "Multi-melta",
+                    "points": 28
                 },
                 {
                     "name": "Twin legion volkite culverin",
-                    "points": 68
+                    "points": 51
                 }
             ],
             "inline_pts": null,
@@ -100,5 +100,5 @@
     "advisor": false,
     "slot": "Dedicated Transport",
     "default_size": 1,
-    "min_cost": 466
+    "min_cost": 429
 }

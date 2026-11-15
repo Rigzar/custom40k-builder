@@ -17,11 +17,11 @@
             "name": "Legion Malcador",
             "min": 1,
             "max": 1,
-            "points": 272
+            "points": 294
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Malcador is equipped with: 2 Heavy Bolters.",
+    "equipped_with": "A Legion Malcador is equipped with: 2 Heavy bolters.",
     "weapons": [
         {
             "name": "Autocannon",
@@ -105,7 +105,7 @@
             "choices": [
                 {
                     "name": "four Heavy bolters",
-                    "points": 54,
+                    "points": 72,
                     "effect": {
                         "grants_weapons": [
                             "Heavy bolter"
@@ -114,15 +114,15 @@
                 },
                 {
                     "name": "Vanquisher battle cannon",
-                    "points": 93
+                    "points": 124
                 },
                 {
                     "name": "Twin lascannon",
-                    "points": 104
+                    "points": 138
                 },
                 {
                     "name": "Battle cannon",
-                    "points": 163
+                    "points": 218
                 }
             ],
             "inline_pts": null,
@@ -137,19 +137,19 @@
             "choices": [
                 {
                     "name": "Heavy bolter",
-                    "points": 14
+                    "points": 18
                 },
                 {
                     "name": "Autocannon",
-                    "points": 20
+                    "points": 27
                 },
                 {
                     "name": "Lascannon",
-                    "points": 52
+                    "points": 69
                 },
                 {
                     "name": "Demolisher battle cannon",
-                    "points": 170
+                    "points": 227
                 }
             ],
             "inline_pts": null,
@@ -157,14 +157,14 @@
             "is_unique_per_army": false
         },
         {
-            "header": "May swap both Heavy Bolters",
+            "header": "May swap both Heavy bolters",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
                     "name": "two Heavy flamers",
-                    "points": 12,
+                    "points": -10,
                     "effect": {
                         "grants_weapons": [
                             "Heavy flamer"
@@ -182,7 +182,7 @@
                 },
                 {
                     "name": "two Lascannons",
-                    "points": 81,
+                    "points": 102,
                     "effect": {
                         "grants_weapons": [
                             "Lascannon"
@@ -218,5 +218,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 272
+    "min_cost": 294
 }

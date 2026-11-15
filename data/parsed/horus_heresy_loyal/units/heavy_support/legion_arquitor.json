@@ -17,41 +17,41 @@
             "name": "Legion Arquitor",
             "min": 1,
             "max": 1,
-            "points": 327
+            "points": 269
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Arquitor is a single model and is equipped with: 2 Heavy bolters and Morbus Bombard.",
+    "equipped_with": "A Legion Arquitor is a single model and is equipped with: 2 Heavy bolters; Morbus bombard.",
     "weapons": [
         {
-            "name": "Graviton-Charge Cannon",
+            "name": "Graviton-charge cannon",
             "range": "24\"",
             "type": "Heavy 1",
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "AT (1), Blast (6), Indirect, Graviton, Haywire, Suppression (2)"
+            "abilities": "AT(1), Blast(6), Indirect, Graviton, Haywire, Suppression(2)"
         },
         {
-            "name": "Heavy Mortar",
+            "name": "Heavy mortar",
             "range": "72\"",
             "type": "Heavy 1",
             "s": "7",
             "ap": "-2",
             "d": "1",
-            "abilities": "AT (1), Blast (6), Indirect, Suppression (3)"
+            "abilities": "AT(1), Blast(6), Indirect, Suppression(3)"
         },
         {
-            "name": "Morbus Bombard",
+            "name": "Morbus bombard",
             "range": "36\"",
             "type": "Heavy 1",
             "s": "10",
             "ap": "-2",
             "d": "1",
-            "abilities": "AT (1), Blast (4), Indirect, Suppression (3), Rending (6+)"
+            "abilities": "AT(1), Blast(4), Indirect, Suppression(3), Rending(6+)"
         },
         {
-            "name": "Heavy Bolter",
+            "name": "Heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 2",
             "s": "5",
@@ -62,30 +62,30 @@
     ],
     "option_groups": [
         {
-            "header": "May swap their Morbus Bombard",
+            "header": "May swap their Morbus bombard",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
-                    "name": "Heavy Mortar",
-                    "points": 2
+                    "name": "Heavy mortar",
+                    "points": 31
                 },
                 {
-                    "name": "Graviton-Charge Cannon",
-                    "points": 6
+                    "name": "Graviton-charge cannon",
+                    "points": -20
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Morbus Bombard"
+                "Morbus bombard"
             ]
         }
     ],
     "abilities": [
-        "Move Through Cover."
+        "Move through cover"
     ],
     "unit_type": "Vehicle",
     "keywords": [],
@@ -102,5 +102,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 327
+    "min_cost": 269
 }

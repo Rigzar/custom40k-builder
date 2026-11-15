@@ -17,11 +17,11 @@
             "name": "Legion Medusa",
             "min": 1,
             "max": 1,
-            "points": 277
+            "points": 360
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Medusa is a single model and is equipped with: Heavy bolter, Medusa siege cannon with HE shells.",
+    "equipped_with": "A Legion Medusa is a single model and is equipped with: Heavy bolter; Medusa siege cannon.",
     "weapons": [
         {
             "name": "Medusa siege cannon - HE shells",
@@ -30,7 +30,7 @@
             "s": "10",
             "ap": "-3",
             "d": "2",
-            "abilities": "AT (4), Blast (6)"
+            "abilities": "AT(4), Blast(6)"
         },
         {
             "name": "Medusa siege cannon - Bastion-breacher shells",
@@ -39,10 +39,10 @@
             "s": "10",
             "ap": "-4",
             "d": "2",
-            "abilities": "AT (4), Blast (4), Tank Hunter"
+            "abilities": "AT(4), Blast(4), Tank hunter"
         },
         {
-            "name": "Heavy Bolter",
+            "name": "Heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 2",
             "s": "5",
@@ -51,23 +51,7 @@
             "abilities": "-"
         }
     ],
-    "option_groups": [
-        {
-            "header": "May be equipped with additional ammunition",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [
-                {
-                    "name": "Bastion-Breacher Shells",
-                    "points": 10
-                }
-            ],
-            "inline_pts": null,
-            "variant_link": null,
-            "is_unique_per_army": false
-        }
-    ],
+    "option_groups": [],
     "abilities": [
         "Squadron"
     ],
@@ -86,5 +70,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 277
+    "min_cost": 360
 }

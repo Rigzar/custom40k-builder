@@ -17,14 +17,14 @@
             "name": "Rapier Battery",
             "min": 1,
             "max": 3,
-            "points": 128
+            "points": 135
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every model is equipped with: Quad Heavy Bolter",
+    "equipped_with": "Every model is equipped with: Quad heavy bolter.",
     "weapons": [
         {
-            "name": "Quad Heavy Bolter",
+            "name": "Quad heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 8",
             "s": "5",
@@ -42,7 +42,7 @@
             "abilities": "Blast(4), Grav"
         },
         {
-            "name": "Laser Destroyer",
+            "name": "Laser destroyer",
             "range": "72\"",
             "type": "Heavy 1",
             "s": "10",
@@ -62,44 +62,34 @@
     ],
     "option_groups": [
         {
-            "header": "Every model may swap their Quad Heavy Bolter",
+            "header": "Every model may swap their Quad heavy bolter",
             "constraint": {
                 "type": "every"
             },
             "choices": [
                 {
-                    "name": "Laser Destroyer                +68",
-                    "points": 0,
-                    "effect": {
-                        "grants_weapons": [
-                            "Laser Destroyer"
-                        ]
-                    }
+                    "name": "Laser destroyer",
+                    "points": 68
                 },
                 {
-                    "name": "Grav cannon              +0",
-                    "points": 0,
-                    "effect": {
-                        "grants_weapons": [
-                            "Grav cannon"
-                        ]
-                    }
+                    "name": "Grav cannon",
+                    "points": -46
                 },
                 {
                     "name": "Heavy quad launcher",
-                    "points": 0
+                    "points": 12
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Quad Heavy Bolter"
+                "Quad heavy bolter"
             ]
         }
     ],
     "abilities": [
-        "Massive (4), Swarm, Squadron, They Shall Know No Fear"
+        "Massive(4), Swarm, Squadron, They Shall Know No Fear"
     ],
     "unit_type": "Monstrous Infantry",
     "keywords": [],
@@ -116,5 +106,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 128
+    "min_cost": 135
 }

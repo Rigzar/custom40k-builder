@@ -21,19 +21,19 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Sicaran Battle Tank is a single model and is equipped with: Accelerator Autocannon, 2 Heavy Bolters",
+    "equipped_with": "A Sicaran Battle Tank is a single model and is equipped with: Legion accelerator autocannon; 2 Heavy bolters.",
     "weapons": [
         {
-            "name": "Accelerator Autocannon",
+            "name": "Legion accelerator autocannon",
             "range": "48\"",
             "type": "Heavy 8",
             "s": "7",
             "ap": "-2",
             "d": "1",
-            "abilities": "Piercing (6+)"
+            "abilities": "Piercing(6+)"
         },
         {
-            "name": "Heavy Bolter",
+            "name": "Heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 2",
             "s": "5",
@@ -42,43 +42,43 @@
             "abilities": "-"
         },
         {
-            "name": "Arcus Missile Launcher - Arcus Warheads",
+            "name": "Arcus missile launcher - Arcus warheads",
             "range": "36\"",
             "type": "Heavy 5",
             "s": "8",
             "ap": "-5",
             "d": "2",
-            "abilities": "AT (1)"
+            "abilities": "AT(1)"
         },
         {
-            "name": "Arcus Missile Launcher - Neutron-Flux Warheads",
+            "name": "Arcus missile launcher - Neutron-flux warheads",
             "range": "36\"",
             "type": "Heavy 4",
             "s": "7",
             "ap": "-2",
             "d": "2",
-            "abilities": "AT(1) Haywire, Tank Hunter"
+            "abilities": "AT(1), Haywire, Tank hunter"
         },
         {
-            "name": "Arcus Missile Launcher - Pyrax Warheads",
+            "name": "Arcus missile launcher - Pyrax warheads",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Blast (4), Supression (2), Sunder (3)"
+            "abilities": "Blast(4), Suppression(2), Sunder(3)"
         },
         {
-            "name": "Arcus Missile Launcher - Skyspear Warheads",
+            "name": "Arcus missile launcher - Skyspear warheads",
             "range": "48\"",
             "type": "Heavy 5",
             "s": "7",
             "ap": "-5",
             "d": "2",
-            "abilities": "AT(1), Anti-Air"
+            "abilities": "AT(1), Anti-air"
         },
         {
-            "name": "Omega Plasma Array - (Maximal Fire)",
+            "name": "Omega plasma array - Maximal fire",
             "range": "36\"",
             "type": "Heavy 2",
             "s": "9",
@@ -87,16 +87,16 @@
             "abilities": "Piercing(4+), Overheating"
         },
         {
-            "name": "Omega Plasma Array - (Sustained Fire)",
+            "name": "Omega plasma array - Sustained fire",
             "range": "36\"",
             "type": "Heavy 8",
             "s": "7",
             "ap": "-2",
             "d": "1",
-            "abilities": "Armorbane (1)"
+            "abilities": "Armorbane(1)"
         },
         {
-            "name": "Neutron Beam Laser",
+            "name": "Neutron beam laser",
             "range": "36\"",
             "type": "Heavy 2",
             "s": "10",
@@ -105,76 +105,53 @@
             "abilities": "Indirect, Overheating, Neuro Disruptor"
         },
         {
-            "name": "Punisher Rotary Cannon",
+            "name": "Punisher rotary cannon",
             "range": "36\"",
             "type": "Heavy 18",
             "s": "6",
             "ap": "-2",
             "d": "1",
-            "abilities": "Suppression (3)"
+            "abilities": "Suppression(3)"
         }
     ],
     "option_groups": [
         {
-            "header": "May swap its Accelerator Autocannon with",
+            "header": "May swap its Legion accelerator autocannon with",
             "constraint": {
                 "type": "one"
             },
             "choices": [
                 {
-                    "name": "Punisher Rotary Cannon",
+                    "name": "Punisher rotary cannon",
                     "points": 51
                 },
                 {
-                    "name": "Arcus Missile Launcher",
+                    "name": "Arcus missile launcher",
                     "points": 70
                 },
                 {
-                    "name": "Neutron Beam Laser",
-                    "points": 0
+                    "name": "Neutron beam laser",
+                    "points": -8
                 },
                 {
-                    "name": "Omega Plasma Array",
-                    "points": 0
+                    "name": "Omega plasma array",
+                    "points": -23
                 }
             ],
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false,
             "replaces": [
-                "Accelerator Autocannon"
+                "Legion accelerator autocannon"
             ]
         },
         {
-            "header": "May be equipped with an additional Heavy Bolter for +14 points.",
+            "header": "May be equipped with an additional Heavy bolter for +14 points.",
             "constraint": {
                 "type": "one"
             },
             "choices": [],
             "inline_pts": 14,
-            "variant_link": null,
-            "is_unique_per_army": false
-        },
-        {
-            "header": "An Arcus Missile Launcher may be equipped with additional ammunition",
-            "constraint": {
-                "type": "one"
-            },
-            "choices": [
-                {
-                    "name": "Neutron-Flux Warheads",
-                    "points": 62
-                },
-                {
-                    "name": "Pyrax Warheads",
-                    "points": 49
-                },
-                {
-                    "name": "Skyspear Warheads",
-                    "points": 130
-                }
-            ],
-            "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
         }

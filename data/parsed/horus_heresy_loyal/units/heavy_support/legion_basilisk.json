@@ -17,23 +17,32 @@
             "name": "Legion Basilisk",
             "min": 1,
             "max": 1,
-            "points": 267
+            "points": 442
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Basilisk is a single model and is equipped with: Earthshaker Cannon, Heavy Bolter.",
+    "equipped_with": "A Legion Basilisk is a single model and is equipped with: Earthshaker cannon; Heavy bolter.",
     "weapons": [
         {
-            "name": "Earthshaker Cannon",
+            "name": "Earthshaker cannon - HE shells",
             "range": "240\"",
             "type": "Heavy 1",
             "s": "9",
-            "ap": "-1",
-            "d": "1",
-            "abilities": "Blast (4), Indirect, Shred, Suppression (3)"
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3), Blast(6), Indirect"
         },
         {
-            "name": "Heavy Bolter",
+            "name": "Earthshaker cannon - Gas shells",
+            "range": "240\"",
+            "type": "Heavy 1",
+            "s": "1",
+            "ap": "0",
+            "d": "2",
+            "abilities": "Blast(6), Poison(2+), Indirect, Seeking, Suppression(3)"
+        },
+        {
+            "name": "Heavy bolter",
             "range": "36\"",
             "type": "Rapid Fire 2",
             "s": "5",
@@ -61,5 +70,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 267
+    "min_cost": 442
 }

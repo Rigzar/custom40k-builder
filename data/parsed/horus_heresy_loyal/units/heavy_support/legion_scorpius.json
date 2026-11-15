@@ -17,20 +17,20 @@
             "name": "Legion Scorpius",
             "min": 1,
             "max": 1,
-            "points": 173
+            "points": 207
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Scorpius is a single model and is equipped with: Storm bolter, Scorpius Missile Launcher.",
+    "equipped_with": "A Legion Scorpius is a single model and is equipped with: Storm bolter; Scorpius missile launcher.",
     "weapons": [
         {
-            "name": "Scorpius Missile Launcher",
+            "name": "Scorpius missile launcher",
             "range": "48\"",
             "type": "Heavy 1",
             "s": "8",
             "ap": "-2",
             "d": "1",
-            "abilities": "Blast (4)"
+            "abilities": "Blast(4)"
         },
         {
             "name": "Storm bolter",
@@ -55,7 +55,7 @@
         }
     ],
     "abilities": [
-        "Rocket Barrage: If this model didn't move during it's turn, attacks with the Scorpius Missile Launcher gain Rending (5+) and Suppression (2)"
+        "Rocket Barrage: If this model didn't move during its turn, attacks with the Scorpius missile launcher gain Rending(5+) and Suppression(2)"
     ],
     "unit_type": "Vehicle",
     "keywords": [],
@@ -72,5 +72,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 173
+    "min_cost": 207
 }

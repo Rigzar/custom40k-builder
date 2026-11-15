@@ -114,7 +114,7 @@
             "choices": [
                 {
                     "name": "Combi-bolter and Power axe",
-                    "points": 0,
+                    "points": 11,
                     "effect": {
                         "grants_weapons": [
                             "Combi-bolter",

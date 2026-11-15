@@ -17,11 +17,11 @@
             "name": "Legion Deathstorm Drop Pod",
             "min": 1,
             "max": 3,
-            "points": 183
+            "points": 168
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Deathstorm Drop Pod is a single model and is equipped with a Deathstorm Missile Launcher",
+    "equipped_with": "A Legion Deathstorm Drop Pod is a single model and is equipped with: Deathstorm missile launcher.",
     "weapons": [
         {
             "name": "Deathstorm missile launcher",
@@ -30,7 +30,7 @@
             "s": "6",
             "ap": "-1",
             "d": "1",
-            "abilities": "Ammo (2), Suppression(3)"
+            "abilities": "Ammo(2), Suppression(3)"
         }
     ],
     "option_groups": [],
@@ -55,5 +55,5 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 1,
-    "min_cost": 183
+    "min_cost": 168
 }

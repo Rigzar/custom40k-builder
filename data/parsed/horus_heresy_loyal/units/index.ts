@@ -8,7 +8,6 @@ import type { Unit } from '../../../../src/types/data';
 import dedicated_transport_dreadclaw_drop_pod from './dedicated_transport/dreadclaw_drop_pod.json';
 import dedicated_transport_land_raider_achilles from './dedicated_transport/land_raider_achilles.json';
 import dedicated_transport_land_raider_carrier from './dedicated_transport/land_raider_carrier.json';
-import dedicated_transport_land_raider_phobos from './dedicated_transport/land_raider_phobos.json';
 import dedicated_transport_legion_drop_pod from './dedicated_transport/legion_drop_pod.json';
 import dedicated_transport_legion_rhino from './dedicated_transport/legion_rhino.json';
 import dedicated_transport_legion_termite from './dedicated_transport/legion_termite.json';
@@ -56,7 +55,6 @@ import heavy_support_legion_kratos_assault_tank from './heavy_support/legion_kra
 import heavy_support_legion_leviathan_dreadnought from './heavy_support/legion_leviathan_dreadnought.json';
 import heavy_support_legion_malcador from './heavy_support/legion_malcador.json';
 import heavy_support_legion_medusa from './heavy_support/legion_medusa.json';
-import heavy_support_legion_minotaur from './heavy_support/legion_minotaur.json';
 import heavy_support_legion_predator from './heavy_support/legion_predator.json';
 import heavy_support_legion_scorpius from './heavy_support/legion_scorpius.json';
 import heavy_support_legion_sicaran from './heavy_support/legion_sicaran.json';
@@ -125,7 +123,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Leviathan Dreadnought",
     "Legion Malcador",
     "Legion Medusa",
-    "Legion Minotaur",
     "Legion Predator",
     "Legion Scorpius",
     "Legion Sicaran",
@@ -150,7 +147,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Dreadclaw Drop Pod",
     "Land Raider Achilles",
     "Land Raider Carrier",
-    "Land Raider Phobos",
     "Legion Drop Pod",
     "Legion Rhino",
     "Legion Termite",
@@ -207,7 +203,6 @@ export const units: Record<string, Unit> = {
   "Legion Leviathan Dreadnought": heavy_support_legion_leviathan_dreadnought as unknown as Unit,
   "Legion Malcador": heavy_support_legion_malcador as unknown as Unit,
   "Legion Medusa": heavy_support_legion_medusa as unknown as Unit,
-  "Legion Minotaur": heavy_support_legion_minotaur as unknown as Unit,
   "Legion Predator": heavy_support_legion_predator as unknown as Unit,
   "Legion Scorpius": heavy_support_legion_scorpius as unknown as Unit,
   "Legion Sicaran": heavy_support_legion_sicaran as unknown as Unit,
@@ -228,7 +223,6 @@ export const units: Record<string, Unit> = {
   "Dreadclaw Drop Pod": dedicated_transport_dreadclaw_drop_pod as unknown as Unit,
   "Land Raider Achilles": dedicated_transport_land_raider_achilles as unknown as Unit,
   "Land Raider Carrier": dedicated_transport_land_raider_carrier as unknown as Unit,
-  "Land Raider Phobos": dedicated_transport_land_raider_phobos as unknown as Unit,
   "Legion Drop Pod": dedicated_transport_legion_drop_pod as unknown as Unit,
   "Legion Rhino": dedicated_transport_legion_rhino as unknown as Unit,
   "Legion Termite": dedicated_transport_legion_termite as unknown as Unit,
