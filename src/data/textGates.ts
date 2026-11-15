@@ -43,6 +43,10 @@ const KEYWORD_SENTENCES: Array<[RegExp, Gate]> = [
   // another item on the same model
   [/^Exo-armou?r only$/i, { requires_owned_item: 'Exo-armor' }],
   [/^Only for models on a Jetbike$/i, { requires_owned_item: 'Eldar jetbike' }],
+  // "Only for models with a Cult icon" (GSC Pennant of Ascension): the author answered "a unit that has taken the Cult icon
+  // option", but no unit with that option has Armory access, so a gate would make the item unbuyable. Left open, asked again.
+  // atypicalhero 2026-11-15: any vehicle with a transport capacity ('Transport' keyword, keywords.ts).
+  [/^Transport vehicle only$/i, { requires_all_keywords: ['Vehicle', 'Transport'] }],
   [/^Only for Kroot Shapers with Krootox steed$/i, { requires_unit_names: ['shaper'], requires_owned_item: 'Krootox steed' }],
   [/^Mek in Mega armou?r only$/i, { requires_unit_names: ['mekboy'], requires_owned_item: 'Mega armor' }],
 ];
@@ -77,6 +81,17 @@ export function ownsItem(required: string, boughtNames: Iterable<string>): boole
   const want = k(required);
   for (const n of boughtNames) if (k(n) === want || k(n).startsWith(want + ' (')) return true;
   return false;
+}
+
+/** Has the unit taken a datasheet option whose header or choice names the item ("...replace their Autopistol with a Cult icon")? */
+export function ownsOption(unit: Unit, optionQty: Record<string, Record<string, number | boolean>> | undefined, required: string): boolean {
+  const want = required.toLowerCase();
+  return (unit.option_groups ?? []).some((g, gi) => {
+    const q = optionQty?.[gi] ?? optionQty?.[String(gi)];
+    if (!q) return false;
+    if (g.choices?.length) return g.choices.some((c, ci) => Number(q[ci] ?? 0) > 0 && c.name.toLowerCase().includes(want));
+    return !!q['__inline'] && (g.header ?? '').toLowerCase().includes(want);
+  });
 }
 
 function sentencesOf(desc: string): string[] {

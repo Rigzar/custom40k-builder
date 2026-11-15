@@ -1,4 +1,4 @@
-import { buyerRoleNames, roleMatches, ownsItem } from '../data/textGates';
+import { buyerRoleNames, roleMatches, ownsItem, ownsOption } from '../data/textGates';
 import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
@@ -478,6 +478,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (!req || boughtItemNames.has(arm.name)) return false;
     const low = req.toLowerCase();
     if (unit.armourKeyword?.toLowerCase() === low || (unit.equipped_with ?? '').toLowerCase().includes(low)) return false;
+    if (ownsOption(unit, item.optionQty as never, req)) return false;
     return !ownsItem(req, currentArmory.map(a => a.itemName));
   }
 

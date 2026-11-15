@@ -587,7 +587,7 @@
     {
       "name": "Holy weapon",
       "term_compat": false,
-      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Palantines.",
+      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Palatines.",
       "p_unit": null,
       "p_char": null
     },

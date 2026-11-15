@@ -173,6 +173,8 @@ export function effectiveKeywords(
     ...(unit.is_vehicle ? ['Vehicle']  : []),
     ...(unit.is_monster ? ['Monster']  : []),
     ...(unit.is_character ? ['Character'] : []),
+    // "Transport vehicle only": a vehicle whose own rules give it a transport capacity above 0.
+    ...((unit.abilities ?? []).some(a => /transport capacity (?:of|to) [1-9]/i.test(a)) ? ['Transport'] : []),
     // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
     ...roleKeywordsFromName(unit.name),
     ...(selectedMark ? [selectedMark] : []),
