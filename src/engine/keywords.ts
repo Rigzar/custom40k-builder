@@ -128,6 +128,8 @@ const ROLE_KW_FROM_NAME: Array<[RegExp, string]> = [
   // T'au "Only for Ethereals" (the Ethereal itself, not the Ethereal Guard) and "Only for Kroot Shapers"
   // (Kroot Shaper, Kroot Master Shaper).
   [/^ethereal$/i,     'Ethereal'],
+  // "Only for characters and Command squads" (Ymira stasis bombs): the unit's name is the gate.
+  [/command squad/i,  'Command Squad'],
   [/\bshaper\b/i,     'Shaper'],
 ];
 

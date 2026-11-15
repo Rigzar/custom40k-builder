@@ -27,6 +27,8 @@ const KEYWORD_SENTENCES: Array<[RegExp, Gate]> = [
   // "Only for characters in Terminator armor": the armour is often bought, which the static keyword set cannot see; the
   // character half is the part that can be checked here.
   [/^Only for characters in Terminator armou?r$/i, { requires_keywords: ['Character'] }],
+  // Dominic 2026-11-15: characters, plus any model in a unit called "Command Squad" (keyword from the unit name, keywords.ts).
+  [/^Only for characters and Command squads$/i, { requires_keywords: ['Character', 'Command Squad'] }],
   [/^(?:Psyker only|Only for psykers)$/i, { requires_keywords: ['Psyker'] }],
   [/^Only for Ethereals$/i, { requires_keywords: ['Ethereal'] }],
   [/^(?:Only for Bikes|Bikes? only)$/i, { requires_keywords: ['Bike'] }],
