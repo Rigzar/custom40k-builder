@@ -39,10 +39,11 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.89',
     date: '2026-11-15',
-    title: "Armory stacks and stat limits",
+    title: "Armory stacks, restrictions and stat limits",
     changes: [
       "ARMORY ITEMS STACK ON THE UNIT CARD (Discord). Several copies of the same item (ten Storm shields on a squad) show as one row with \"×10\" and their total price, as in the Armory window; the ✕ removes one copy at a time.",
       "STAT LIMITS EVERYWHERE (Discord, TeCrisis). The Core Rules limits of Strength, Toughness, Initiative, Attacks and Leadership (1 to 10) now also apply in the print view and the TTS export, and a modifier can no longer push them below 1 (before, only the maximum was enforced, and only on the unit card).",
+      "ARMORY RESTRICTIONS ENFORCED (Discord, Birdy). Items whose own text limits who can take them (\"Kroot only\", \"Kroot infantry only\", \"Only for Infantry\", \"Only for Ethereals\", \"Only for Kroot Shapers\", \"Psyker only\", \"Only for Bikes\", \"Only for characters\"...) could be bought by any unit with Armory access, so a R'varna could take a Knarloc steed, Wings and Pech'ra. The app now reads the restriction from the item's text and greys the row out with the reason (\"Only for Kroot Infantry\"). In T'au the Kroot items are now for the Kroot Shapers only, the Markerlight for infantry, and the Ethereal items for the Ethereal; the same check covers the other codices.",
     ],
   },
   {

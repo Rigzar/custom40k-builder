@@ -23,7 +23,7 @@
  *   5. Add engine/factions/<faction>/ if it needs a custom resolver/traits/validators.
  */
 
-import type { FactionData } from '../types/data';
+import type { ArmoryItem, FactionData } from '../types/data';
 import { registerHhMarks } from '../engine/codex_horus_heresy/archetypes';
 import { applyDataOverrides, type DataOverrides } from '../engine/dataOverrides';
 import { applyKnightHouseholdRules } from './knightRules';
@@ -572,6 +572,41 @@ function applyArmoryModelTypes(data: FactionData, key: string): void {
   }
 }
 
+/**
+ * Armory items whose own text restricts the buyer ("Kroot only", "Only for Infantry") but carry no keyword gate in the
+ * data, so any unit with Armory access could buy them (Birdy 2026-11-15: a R'varna with Knarloc steed, Wings and Pech'ra).
+ * Read the gate from the sentence itself, so a sheet update keeps it. Items that already carry a gate are left alone.
+ * Only the phrases whose keyword every qualifying unit really carries are listed; anything else stays as it was.
+ */
+const TEXT_GATES: Array<[RegExp, { any?: string[]; all?: string[] }]> = [
+  [/(?:^|[.!]\s*)Kroot infantry only\s*(?:\.|$)/i, { all: ['Kroot', 'Infantry'] }],
+  [/(?:^|[.!]\s*)Kroot only\s*(?:\.|$)/i, { any: ['Kroot'] }],
+  [/(?:^|[.!]\s*)(?:Only for infantry|Infantry only|For infantry only)\s*(?:\.|$)/i, { any: ['Infantry'] }],
+  [/(?:^|[.!]\s*)(?:Psyker only|Only for psykers)\s*(?:\.|$)/i, { any: ['Psyker'] }],
+  [/(?:^|[.!]\s*)Only for Ethereals\s*(?:\.|$)/i, { any: ['Ethereal'] }],
+  [/(?:^|[.!]\s*)Only for Kroot Shapers\b/i, { any: ['Shaper'] }],
+  [/(?:^|[.!]\s*)(?:Only for Bikes|Bikes? only)\s*(?:\.|$)/i, { any: ['Bike'] }],
+  [/(?:^|[.!]\s*)Only for models on a Jetbike\s*(?:\.|$)/i, { any: ['Jetbike'] }],
+  [/(?:^|[.!]\s*)(?:Only for characters|Character only|Only for Character models)\s*(?:\.|$)/i, { any: ['Character'] }],
+];
+
+function applyTextGates(data: FactionData): void {
+  const arms = [data.armory_general, ...Object.values(data.armory_marks ?? {}), ...Object.values(data.armory_legions ?? {})];
+  for (const a of arms) {
+    if (!a) continue;
+    for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
+      for (const it of ((a as unknown as Record<string, ArmoryItem[] | undefined>)[sec] ?? [])) {
+        if (it.requires_keywords?.length || it.requires_all_keywords?.length || it.category) continue;
+        const text = `${it.desc ?? ''}`;
+        const hit = TEXT_GATES.find(([re]) => re.test(text));
+        if (!hit) continue;
+        if (hit[1].any) it.requires_keywords = hit[1].any;
+        if (hit[1].all) it.requires_all_keywords = hit[1].all;
+      }
+    }
+  }
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -584,6 +619,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      normaliseEveryModelPick(data);
      linkSharedCapGroups(data);
      applyArmoryModelTypes(data, k);
+     applyTextGates(data);
      if (k === 'knight_households') applyKnightHouseholdRules(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].includes(k));

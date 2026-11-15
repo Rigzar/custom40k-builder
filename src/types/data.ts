@@ -562,6 +562,11 @@ export interface ArmoryItem {
    * read "Only for units without the Flyer type" -> `excludes_keywords: ["Flyer"]`.
    */
   excludes_keywords?: string[];
+  /**
+   * AND gate: the buyer must carry EVERY one of these ("Kroot infantry only" -> ["Kroot", "Infantry"]).
+   * Checked together with `requires_keywords` (both must pass).
+   */
+  requires_all_keywords?: string[];
 
   /**
    * Army-wide gate (distinct from `requires_keywords`, which is unit-scoped): the item is only

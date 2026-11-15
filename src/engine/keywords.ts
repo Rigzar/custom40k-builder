@@ -125,6 +125,10 @@ const ROLE_KW_FROM_NAME: Array<[RegExp, string]> = [
   [/techmarine/i,     'Techmarine'],
   [/dreadnought/i,    'Dreadnought'],
   [/herald/i,         'Herald'],
+  // T'au "Only for Ethereals" (the Ethereal itself, not the Ethereal Guard) and "Only for Kroot Shapers"
+  // (Kroot Shaper, Kroot Master Shaper).
+  [/^ethereal$/i,     'Ethereal'],
+  [/\bshaper\b/i,     'Shaper'],
 ];
 
 function roleKeywordsFromName(unitName: string): string[] {
@@ -191,6 +195,7 @@ export function isItemRequirementsBlocked(
   unitEffectiveKeywords: string[],
 ): boolean {
   if (item.excludes_keywords?.some(x => unitEffectiveKeywords.includes(x.toLowerCase()))) return true;
+  if (item.requires_all_keywords?.some(x => !unitEffectiveKeywords.includes(x.toLowerCase()))) return true;
   if (!item.requires_keywords?.length) return false;
   return !item.requires_keywords.some(req =>
     unitEffectiveKeywords.includes(req.toLowerCase())

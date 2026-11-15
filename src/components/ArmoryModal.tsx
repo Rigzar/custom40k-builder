@@ -500,7 +500,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (isItemRequirementsBlocked(arm, _effectiveKws)) {
       // Name who CAN buy it ("Only for Mek") instead of the generic "does not meet its requirements".
       const lacks = !!arm.requires_keywords?.length && !arm.requires_keywords.some(k => _effectiveKws.includes(k.toLowerCase()));
-      const who = (lacks ? arm.requires_keywords! : []).map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
+      const lacksAll = !!arm.requires_all_keywords?.some(k => !_effectiveKws.includes(k.toLowerCase()));
+      const who = (lacks ? arm.requires_keywords! : lacksAll ? [arm.requires_all_keywords!.join(' ')] : [])
+        .map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
       return who.length ? t('armReasonOnly').replace('{kw}', who.join(' / ')) : t('armReasonNeeds');
     }
     if (!arm.category) {
