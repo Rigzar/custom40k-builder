@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189e_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Armory", "Several copies of one item stack on the unit card (\"Storm shield ×10\"); the ✕ removes one."],
+        ["Stats", "Strength, Toughness, Initiative, Attacks and Leadership stay between 1 and 10 in the print view and the TTS export too."],
         ["Print view", "Simple view applies Hardened Carapace and other profile changes; unit types, Power Through Pain rules and the General psychic disciplines are printed; the buttons wrap on phones."],
         ["Print view", "A new Army rules card lists the codex's army-wide rules (Shadow in the Warp, Waaagh!, ...)."],
         ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
@@ -106,6 +108,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Arsenal", "Mehrere Exemplare eines Gegenstands werden auf der Einheitenkarte gestapelt (\"Storm shield ×10\"); das ✕ entfernt eines."],
+        ["Werte", "Stärke, Widerstand, Initiative, Attacken und Moral bleiben auch in der Druckansicht und im TTS-Export zwischen 1 und 10."],
         ["Druckansicht", "Die einfache Ansicht wendet Hardened Carapace und andere Profiländerungen an; Einheitentypen, Power-Through-Pain-Regeln und die allgemeinen psychischen Disziplinen werden gedruckt; die Knöpfe brechen auf Handys um."],
         ["Druckansicht", "Eine neue Karte Armeeregeln listet die armeeweiten Regeln des Codex (Shadow in the Warp, Waaagh!, ...)."],
         ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
@@ -151,6 +155,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Armería", "Varias copias de un mismo objeto se agrupan en la ficha (\"Storm shield ×10\"); la ✕ quita una."],
+        ["Atributos", "Fuerza, Resistencia, Iniciativa, Ataques y Liderazgo se quedan entre 1 y 10 también en la impresión y en el export de TTS."],
         ["Vista de impresión", "La vista simple aplica Hardened Carapace y otros cambios de perfil; se imprimen los tipos de unidad, las reglas de Power Through Pain y las disciplinas psíquicas generales; los botones se ajustan en el móvil."],
         ["Vista de impresión", "Una tarjeta nueva de Reglas de ejército lista las reglas del códice para todo el ejército (Shadow in the Warp, Waaagh!, ...)."],
         ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
@@ -196,6 +202,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Арсенал", "Несколько копий одного предмета объединяются на карточке отряда (\"Storm shield ×10\"); ✕ убирает одну."],
+        ["Характеристики", "Сила, Стойкость, Инициатива, Атаки и Лидерство остаются в пределах от 1 до 10 и в режиме печати, и в экспорте TTS."],
         ["Печать", "Простой вид применяет Hardened Carapace и другие изменения профиля; печатаются типы отрядов, правила Power Through Pain и общие псионические дисциплины; кнопки переносятся на телефоне."],
         ["Печать", "Новая карточка «Правила армии» перечисляет общеармейские правила кодекса (Shadow in the Warp, Waaagh! и др.)."],
         ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
@@ -241,6 +249,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["アーモリー", "同じアイテムの複数個はユニットカード上でまとめて表示されます（\"Storm shield ×10\"）。✕で1つずつ外せます。"],
+        ["能力値", "筋力・耐久力・イニシアチブ・攻撃回数・リーダーシップは印刷ビューとTTSエクスポートでも1〜10に収まります。"],
         ["印刷ビュー", "シンプル表示でHardened Carapaceなどのプロファイル変更を反映。ユニットタイプ、Power Through Painのルール、共通サイキック学派も印刷。スマホでボタンが折り返します。"],
         ["印刷ビュー", "新しい「軍全体のルール」カードにコデックスの軍全体ルール(Shadow in the Warp、Waaagh!など)を表示します。"],
         ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
