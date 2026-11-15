@@ -8,6 +8,7 @@ import type { Unit } from '../../../../src/types/data';
 import dedicated_transport_dreadclaw_drop_pod from './dedicated_transport/dreadclaw_drop_pod.json';
 import dedicated_transport_land_raider_achilles from './dedicated_transport/land_raider_achilles.json';
 import dedicated_transport_land_raider_carrier from './dedicated_transport/land_raider_carrier.json';
+import dedicated_transport_land_raider_phobos from './dedicated_transport/land_raider_phobos.json';
 import dedicated_transport_legion_drop_pod from './dedicated_transport/legion_drop_pod.json';
 import dedicated_transport_legion_rhino from './dedicated_transport/legion_rhino.json';
 import dedicated_transport_legion_termite from './dedicated_transport/legion_termite.json';
@@ -31,7 +32,6 @@ import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squ
 import elites_scarab_occult_terminator_squad from './elites/scarab_occult_terminator_squad.json';
 import elites_techmarine from './elites/techmarine.json';
 import fast_attack_headhunter_kill_team from './fast_attack/headhunter_kill_team.json';
-import fast_attack_land_raider_phobos from './fast_attack/land_raider_phobos.json';
 import fast_attack_land_speeder_squadron from './fast_attack/land_speeder_squadron.json';
 import fast_attack_legion_assault_squad from './fast_attack/legion_assault_squad.json';
 import fast_attack_legion_bike_squad from './fast_attack/legion_bike_squad.json';
@@ -135,6 +135,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Dreadclaw Drop Pod",
     "Land Raider Achilles",
     "Land Raider Carrier",
+    "Land Raider Phobos",
     "Legion Drop Pod",
     "Legion Rhino",
     "Legion Termite",
@@ -142,7 +143,6 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fast Attack": [
     "Headhunter Kill Team",
-    "Land Raider Phobos",
     "Land Speeder Squadron",
     "Legion Assault Squad",
     "Legion Bike Squad",
@@ -211,12 +211,12 @@ export const units: Record<string, Unit> = {
   "Dreadclaw Drop Pod": dedicated_transport_dreadclaw_drop_pod as unknown as Unit,
   "Land Raider Achilles": dedicated_transport_land_raider_achilles as unknown as Unit,
   "Land Raider Carrier": dedicated_transport_land_raider_carrier as unknown as Unit,
+  "Land Raider Phobos": dedicated_transport_land_raider_phobos as unknown as Unit,
   "Legion Drop Pod": dedicated_transport_legion_drop_pod as unknown as Unit,
   "Legion Rhino": dedicated_transport_legion_rhino as unknown as Unit,
   "Legion Termite": dedicated_transport_legion_termite as unknown as Unit,
   "Spartan": dedicated_transport_spartan as unknown as Unit,
   "Headhunter Kill Team": fast_attack_headhunter_kill_team as unknown as Unit,
-  "Land Raider Phobos": fast_attack_land_raider_phobos as unknown as Unit,
   "Land Speeder Squadron": fast_attack_land_speeder_squadron as unknown as Unit,
   "Legion Assault Squad": fast_attack_legion_assault_squad as unknown as Unit,
   "Legion Bike Squad": fast_attack_legion_bike_squad as unknown as Unit,

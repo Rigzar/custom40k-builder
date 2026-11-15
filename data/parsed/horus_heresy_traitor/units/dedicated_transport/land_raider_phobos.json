@@ -17,7 +17,7 @@
             "name": "Land Raider Phobos",
             "min": 1,
             "max": 1,
-            "points": 595
+            "points": 593
         }
     ],
     "variant_models": [
@@ -108,7 +108,7 @@
     "abilities": [
         "Ward(5+)",
         "Explorator: The model gains the \"Infiltrate\" ability. Explorator Augury Web: at the beginning of this model's activation, choose to either gain the benefits of \"Auspex Scanner\" or \"Nuncio-Vox\".",
-        "Transport: This model has a transport capacity of 10 infantry models."
+        "Transport: This model has a transport capacity of 8 infantry models."
     ],
     "unit_type": "Vehicle",
     "keywords": [],
@@ -123,7 +123,7 @@
     "veteran_max": null,
     "locked_mark": null,
     "advisor": false,
-    "slot": "Fast Attack",
+    "slot": "Dedicated Transport",
     "default_size": 1,
-    "min_cost": 595
+    "min_cost": 593
 }
