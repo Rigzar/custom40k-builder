@@ -567,6 +567,11 @@ export interface ArmoryItem {
    * Checked together with `requires_keywords` (both must pass).
    */
   requires_all_keywords?: string[];
+  /** Role gate read from the item text ("Painboy only"): normalised role names (textGates.normRole), matched against the
+   *  unit, its models and its active promotion. */
+  requires_unit_names?: string[];
+  /** The model must already carry this Armory item ("Exo-armor only", "Only for models on a Jetbike"). */
+  requires_owned_item?: string;
 
   /**
    * Army-wide gate (distinct from `requires_keywords`, which is unit-scoped): the item is only

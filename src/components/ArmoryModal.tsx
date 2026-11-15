@@ -1,3 +1,4 @@
+import { buyerRoleNames, roleMatches, ownsItem } from '../data/textGates';
 import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
@@ -464,6 +465,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return null;
   }
 
+  // Role and "needs another item" gates read from the item text at load time (data/textGates.ts).
+  function textRoleBlocked(arm: ArmoryItem): boolean {
+    if (!arm.requires_unit_names?.length || boughtItemNames.has(arm.name)) return false;
+    return !roleMatches(arm.requires_unit_names, buyerRoleNames(unit, activeVariant?.variant.name));
+  }
+  function textRoleLabel(arm: ArmoryItem): string {
+    return (arm.requires_unit_names ?? []).map(n => n.replace(/\b\w/g, c => c.toUpperCase())).join(' / ');
+  }
+  function textOwnedBlocked(arm: ArmoryItem): boolean {
+    const req = arm.requires_owned_item;
+    if (!req || boughtItemNames.has(arm.name)) return false;
+    const low = req.toLowerCase();
+    if (unit.armourKeyword?.toLowerCase() === low || (unit.equipped_with ?? '').toLowerCase().includes(low)) return false;
+    return !ownsItem(req, currentArmory.map(a => a.itemName));
+  }
+
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (structuralReason(arm, sec)) return true;
@@ -476,6 +493,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (sec === 'equipment' && daemonGatewayConflict(arm)) return true;
     // instanceOf gate: requires_keywords checked against effectiveKeywords (BSData model)
     if (isItemRequirementsBlocked(arm, _effectiveKws)) return true;
+    if (textRoleBlocked(arm) || textOwnedBlocked(arm)) return true;
     // For regular (non-veteran/vehicle) equipment: enforce mark restriction and null price
     if (!arm.category) {
       if (isMarkBlocked(arm)) return true;
@@ -505,6 +523,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         .map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
       return who.length ? t('armReasonOnly').replace('{kw}', who.join(' / ')) : t('armReasonNeeds');
     }
+    if (textRoleBlocked(arm)) return t('armReasonOnly').replace('{kw}', textRoleLabel(arm));
+    if (textOwnedBlocked(arm)) return t('armReasonOnly').replace('{kw}', arm.requires_owned_item!);
     if (!arm.category) {
       if (isMarkBlocked(arm)) return t('armReasonMark');
       if (getItemPts(arm) === null) {
