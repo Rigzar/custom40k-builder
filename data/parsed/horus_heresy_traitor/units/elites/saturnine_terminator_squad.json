@@ -96,7 +96,7 @@
             "choices": [
                 {
                     "name": "Twin heavy disintegrator",
-                    "points": 18
+                    "points": 21
                 },
                 {
                     "name": "Plasma bombard",
@@ -136,7 +136,7 @@
             "choices": [
                 {
                     "name": "Saturnine particle shredder",
-                    "points": 19
+                    "points": 25
                 }
             ],
             "inline_pts": null,

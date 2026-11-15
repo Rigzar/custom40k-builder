@@ -217,7 +217,7 @@
                 },
                 {
                     "name": "Predator autocannon",
-                    "points": 28
+                    "points": 24
                 },
                 {
                     "name": "Twin lascannon",
@@ -292,7 +292,7 @@
             "choices": [
                 {
                     "name": "Flamestorm cannon",
-                    "points": -30
+                    "points": -34
                 },
                 {
                     "name": "Grav cannon",
@@ -312,7 +312,7 @@
                 },
                 {
                     "name": "Volkite macro-saker",
-                    "points": -8
+                    "points": -12
                 },
                 {
                     "name": "Heavy conversion beam cannon",

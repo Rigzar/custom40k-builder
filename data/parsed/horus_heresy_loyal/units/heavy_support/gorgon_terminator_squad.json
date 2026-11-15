@@ -230,7 +230,7 @@
                 },
                 {
                     "name": "Chainfist",
-                    "points": 10
+                    "points": 17
                 }
             ],
             "inline_pts": null,
@@ -295,7 +295,7 @@
             "choices": [
                 {
                     "name": "Heavy flamer",
-                    "points": 5
+                    "points": 2
                 },
                 {
                     "name": "Graviton gun",

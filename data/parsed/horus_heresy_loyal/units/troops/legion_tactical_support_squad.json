@@ -158,7 +158,7 @@
                 },
                 {
                     "name": "Legion volkite caliver",
-                    "points": 12
+                    "points": 17
                 },
                 {
                     "name": "Legion rotor cannon",
@@ -177,14 +177,14 @@
             ]
         },
         {
-            "header": "All Legionary models in the unit may be equipped with an Astartes chainsword for +5 points each.",
+            "header": "All Legionary models in the unit may be equipped with an Astartes chainsword for +3 points each.",
             "constraint": {
                 "type": "every"
             },
             "choices": [
                 {
                     "name": "Astartes chainsword",
-                    "points": 5
+                    "points": 3
                 }
             ],
             "inline_pts": null,

@@ -197,7 +197,7 @@
             "choices": [
                 {
                     "name": "Flamer",
-                    "points": 5
+                    "points": 3
                 },
                 {
                     "name": "Meltagun",
@@ -205,15 +205,15 @@
                 },
                 {
                     "name": "Plasma gun",
-                    "points": 10
+                    "points": 20
                 },
                 {
                     "name": "Plasma pistol",
-                    "points": 5
+                    "points": 8
                 },
                 {
                     "name": "Legion volkite serpenta",
-                    "points": 5
+                    "points": 3
                 }
             ],
             "inline_pts": null,
@@ -231,7 +231,7 @@
             "choices": [
                 {
                     "name": "Night Lords chainblade",
-                    "points": 4
+                    "points": 2
                 },
                 {
                     "name": "Chainglaive",

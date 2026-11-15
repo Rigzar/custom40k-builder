@@ -143,7 +143,7 @@
             "choices": [
                 {
                     "name": "Flamer",
-                    "points": 5
+                    "points": 0
                 },
                 {
                     "name": "Graviton gun",
@@ -151,11 +151,11 @@
                 },
                 {
                     "name": "Graviton shredder",
-                    "points": 15
+                    "points": 7
                 },
                 {
                     "name": "Meltagun",
-                    "points": 15
+                    "points": 12
                 }
             ],
             "inline_pts": null,

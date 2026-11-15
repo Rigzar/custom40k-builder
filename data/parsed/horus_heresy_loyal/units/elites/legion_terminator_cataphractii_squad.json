@@ -222,7 +222,7 @@
             "choices": [
                 {
                     "name": "Legion volkite charger",
-                    "points": -10
+                    "points": -1
                 },
                 {
                     "name": "Combi-flamer",
@@ -302,7 +302,7 @@
             "choices": [
                 {
                     "name": "Heavy flamer",
-                    "points": 5
+                    "points": 2
                 },
                 {
                     "name": "Plasma blaster",
