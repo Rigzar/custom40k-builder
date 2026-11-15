@@ -267,7 +267,7 @@
             "choices": [
                 {
                     "name": "Combi-flamer",
-                    "points": 10
+                    "points": 0
                 },
                 {
                     "name": "Combi-melta",
@@ -303,11 +303,11 @@
                 },
                 {
                     "name": "Reaper autocannon",
-                    "points": 15
+                    "points": 20
                 },
                 {
                     "name": "Plasma blaster",
-                    "points": 10
+                    "points": 31
                 }
             ],
             "inline_pts": null,

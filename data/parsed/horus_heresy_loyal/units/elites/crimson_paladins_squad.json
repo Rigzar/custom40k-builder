@@ -114,11 +114,11 @@
             "choices": [
                 {
                     "name": "Heavy flamer",
-                    "points": 5
+                    "points": 13
                 },
                 {
                     "name": "Assault cannon",
-                    "points": 15
+                    "points": 32
                 },
                 {
                     "name": "Plasma blaster",

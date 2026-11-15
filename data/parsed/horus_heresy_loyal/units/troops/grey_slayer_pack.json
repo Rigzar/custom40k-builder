@@ -178,7 +178,7 @@
                 },
                 {
                     "name": "Lightning claw",
-                    "points": 1
+                    "points": 0
                 }
             ],
             "inline_pts": null,
@@ -198,7 +198,7 @@
             "choices": [
                 {
                     "name": "Hand flamer",
-                    "points": 0
+                    "points": 2
                 },
                 {
                     "name": "Plasma pistol",

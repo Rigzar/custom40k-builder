@@ -234,7 +234,7 @@
                 },
                 {
                     "name": "Combi-plasma",
-                    "points": 15
+                    "points": 10
                 }
             ],
             "inline_pts": null,
@@ -305,8 +305,8 @@
                     "points": 5
                 },
                 {
-                    "name": "Plasma Blaster",
-                    "points": 20
+                    "name": "Plasma blaster",
+                    "points": 31
                 },
                 {
                     "name": "Reaper autocannon",

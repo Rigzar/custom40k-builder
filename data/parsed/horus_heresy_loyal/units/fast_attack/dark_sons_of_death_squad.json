@@ -186,11 +186,11 @@
             "choices": [
                 {
                     "name": "Hand flamer",
-                    "points": 5
+                    "points": 2
                 },
                 {
                     "name": "Plasma pistol",
-                    "points": 5
+                    "points": 8
                 }
             ],
             "inline_pts": null,
