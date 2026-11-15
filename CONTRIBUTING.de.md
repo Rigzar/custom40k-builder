@@ -839,6 +839,8 @@ Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. I
 
 Der Loader, der jede `FactionData` zusammensetzt, ist **`src/data/loaders.ts`** -- er importiert die Einzeldateien mit statischen Pfaden (von Vite gefordert) und fuegt sie zusammen. Das Engine erhalt dasselbe Objekt wie vorher; nur die Dateiorganisation hat sich geandert.
 
+**Rüstkammer-Beschränkungen aus dem Gegenstandstext (`src/data/textGates.ts`).** Ein Gegenstand, dessen Text den Käufer einschränkt ("Kroot only", "Only for Infantry", "Painboy only", "Exo-armor only"), erhält seine Sperre beim Laden aus diesem Satz: `requires_keywords` / `requires_all_keywords` / `excludes_keywords` (Einheitentyp und Flags), `requires_unit_names` (die Einheit, ihre Modelle oder ihre AKTIVE Beförderung) oder `requires_owned_item` (ein anderer Rüstkammer-Gegenstand am selben Modell). Hat der Gegenstand schon eine Sperre in den Daten, bleibt er unverändert; ein Rollensatz wird nur zur Sperre, wenn eine Einheit der Fraktion so heißt. Anpassen, wenn ein Blatt eine neue Formulierung einführt; Legacy-Beschränkungen ("Vior'la Sept only") prüft `legacyItemAllowed`.
+
 **Neue Fraktion hinzufuegen:** Ordner + Dateien erstellen → `case` in `loaders.ts` hinzufuegen → zu `FACTION_LOADERS` hinzufuegen → in `data/factionCatalog.ts` registrieren und Abkuerzung/Kategorie in `FactionSymbol.tsx` eintragen → (optional) `engine/factions/<fraktion>/` fuer eigene Resolver/Traits/Validatoren. Trage die Fraktion außerdem in `src/data/alliedMatrix.ts` und, für das Blatt-Update, in `UnwiseGetData/factions.csv` ein. Die Engine der Fraktion liegt in `src/engine/codex_<fraktion>/`.
 
 ### Wo anfangen / wie helfen

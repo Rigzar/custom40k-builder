@@ -827,6 +827,8 @@ Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facc
 
 El loader que ensambla cada `FactionData` es **`src/data/loaders.ts`** — importa los archivos individuales con rutas estáticas (requerido por Vite) y los fusiona. El engine recibe exactamente el mismo objeto que antes; solo cambió la organización de archivos.
 
+**Restricciones del Armory leídas del texto del objeto (`src/data/textGates.ts`).** Un objeto cuyo texto limita al comprador ("Kroot only", "Only for Infantry", "Painboy only", "Exo-armor only") recibe su restricción al cargar, a partir de esa frase: `requires_keywords` / `requires_all_keywords` / `excludes_keywords` (tipo de unidad y flags), `requires_unit_names` (la unidad, sus modelos o su promoción ACTIVA) o `requires_owned_item` (otro objeto del Armory en el mismo modelo). Si el objeto ya trae restricción en los datos no se toca, y una frase de rol solo se convierte en restricción si alguna unidad de la facción responde a ese nombre. Tócalo cuando una hoja añada una redacción nueva; las restricciones de Legacy ("Vior'la Sept only") van por `legacyItemAllowed`.
+
 **Añadir una nueva facción:** crear la carpeta + archivos → añadir `case` en `loaders.ts` → añadir a `FACTION_LOADERS` → registrar en `data/factionCatalog.ts` y añadir abreviatura/categoría en `FactionSymbol.tsx` → (opcional) añadir `engine/factions/<faccion>/` si necesita resolver/rasgos/validadores propios. Añadí también la facción a `src/data/alliedMatrix.ts` y, para la actualización desde las hojas, a `UnwiseGetData/factions.csv`. El motor de la facción va en `src/engine/codex_<facción>/`.
 
 ### Por dónde empezar / cómo ayudar
