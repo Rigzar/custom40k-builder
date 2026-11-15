@@ -129,13 +129,6 @@
       ]
     },
     {
-      "name": "Rage stimms",
-      "term_compat": false,
-      "desc": "Once per game, when this model activates, this model and any attached unit may gain Mindless and improve their A characteristic by 1. Lasts until this model's next activation. Only for <Cultist> units.",
-      "p_unit": 5,
-      "p_char": null
-    },
-    {
       "name": "Rune of brass",
       "term_compat": true,
       "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results. Unique.",

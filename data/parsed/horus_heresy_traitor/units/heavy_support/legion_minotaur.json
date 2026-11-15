@@ -1,0 +1,56 @@
+{
+    "name": "Legion Minotaur",
+    "models": [
+        {
+            "stats": {
+                "M": "8\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "13",
+                "I": "4",
+                "A": "1",
+                "HP": "5"
+            },
+            "name": "Legion Minotaur",
+            "min": 1,
+            "max": 1,
+            "points": 301
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Legion Minotaur is a single model and is equipped with: Earthshaker Cannon.",
+    "weapons": [
+        {
+            "name": "Earthshaker Cannon",
+            "range": "240\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast (4), Indirect, Shred, Suppression (3)"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Squadron"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 301
+}

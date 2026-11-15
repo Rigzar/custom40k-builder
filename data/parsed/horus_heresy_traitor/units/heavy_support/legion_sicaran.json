@@ -1,0 +1,201 @@
+{
+    "name": "Legion Sicaran",
+    "models": [
+        {
+            "stats": {
+                "M": "16\"",
+                "WS": "6+",
+                "BS": "4+",
+                "S": "6",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Sicaran Battle Tank",
+            "min": 1,
+            "max": 1,
+            "points": 319
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Sicaran Battle Tank is a single model and is equipped with: Accelerator Autocannon, 2 Heavy Bolters",
+    "weapons": [
+        {
+            "name": "Accelerator Autocannon",
+            "range": "48\"",
+            "type": "Heavy 8",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Piercing (6+)"
+        },
+        {
+            "name": "Heavy Bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Arcus Missile Launcher - Arcus Warheads",
+            "range": "36\"",
+            "type": "Heavy 5",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT (1)"
+        },
+        {
+            "name": "Arcus Missile Launcher - Neutron-Flux Warheads",
+            "range": "36\"",
+            "type": "Heavy 4",
+            "s": "7",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1) Haywire, Tank Hunter"
+        },
+        {
+            "name": "Arcus Missile Launcher - Pyrax Warheads",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Blast (4), Supression (2), Sunder (3)"
+        },
+        {
+            "name": "Arcus Missile Launcher - Skyspear Warheads",
+            "range": "48\"",
+            "type": "Heavy 5",
+            "s": "7",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT(1), Anti-Air"
+        },
+        {
+            "name": "Omega Plasma Array - (Maximal Fire)",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Piercing(4+), Overheating"
+        },
+        {
+            "name": "Omega Plasma Array - (Sustained Fire)",
+            "range": "36\"",
+            "type": "Heavy 8",
+            "s": "7",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Armorbane (1)"
+        },
+        {
+            "name": "Neutron Beam Laser",
+            "range": "36\"",
+            "type": "Heavy 2",
+            "s": "10",
+            "ap": "-6",
+            "d": "2",
+            "abilities": "Indirect, Overheating, Neuro Disruptor"
+        },
+        {
+            "name": "Punisher Rotary Cannon",
+            "range": "36\"",
+            "type": "Heavy 18",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Suppression (3)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May swap its Accelerator Autocannon with",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Punisher Rotary Cannon",
+                    "points": 51
+                },
+                {
+                    "name": "Arcus Missile Launcher",
+                    "points": 70
+                },
+                {
+                    "name": "Neutron Beam Laser",
+                    "points": 0
+                },
+                {
+                    "name": "Omega Plasma Array",
+                    "points": 0
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Accelerator Autocannon"
+            ]
+        },
+        {
+            "header": "May be equipped with an additional Heavy Bolter for +14 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 14,
+            "variant_link": null,
+            "is_unique_per_army": false
+        },
+        {
+            "header": "An Arcus Missile Launcher may be equipped with additional ammunition",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Neutron-Flux Warheads",
+                    "points": 62
+                },
+                {
+                    "name": "Pyrax Warheads",
+                    "points": 49
+                },
+                {
+                    "name": "Skyspear Warheads",
+                    "points": 130
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "-"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 319
+}

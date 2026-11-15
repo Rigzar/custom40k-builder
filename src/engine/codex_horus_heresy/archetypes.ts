@@ -13,7 +13,7 @@ const TERMINATOR_ELITES = ['Legion Terminator Cataphractii Squad', 'Legion Tarta
  * so the lookup by name cannot confuse it with the Space Marines archetype. The Legion archetypes force their Legacy through their own text ('Must select "Legacy of X"').
  */
 export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
-  'Armoured Spearhead': r({ requiresLegacy: true, troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran Battle Tank'] }),
+  'Armoured Spearhead': r({ requiresLegacy: true, troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran'] }),
   // "access to all Robot units from the Horus Heresy Mechanicum supplement" = Forces of the Machine God (loader key legio_titanicus); the only Robot of that supplement is the Thanatar Siege-Automata.
   // The Castellax Battle-automata Maniple the sheet makes Troops is not in that supplement's data.
   'Brethren of Iron': r({ requiresLegacy: true, alliedFaction: 'legio_titanicus', alliedMarkFilter: 'all', alliedUnitsOnly: ['Thanatar Siege-Automata'] }),

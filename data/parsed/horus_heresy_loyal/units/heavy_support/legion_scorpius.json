@@ -1,0 +1,76 @@
+{
+    "name": "Legion Scorpius",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "4",
+                "A": "1",
+                "HP": "3"
+            },
+            "name": "Legion Scorpius",
+            "min": 1,
+            "max": 1,
+            "points": 173
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Legion Scorpius is a single model and is equipped with: Storm bolter, Scorpius Missile Launcher.",
+    "weapons": [
+        {
+            "name": "Scorpius Missile Launcher",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Blast (4)"
+        },
+        {
+            "name": "Storm bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with an additional Storm bolter for +11 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 11,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Rocket Barrage: If this model didn't move during it's turn, attacks with the Scorpius Missile Launcher gain Rending (5+) and Suppression (2)"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 173
+}

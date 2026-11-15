@@ -182,41 +182,6 @@
       ]
     },
     {
-      "name": "Combi-grenade launcher",
-      "term_compat": true,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 20,
-      "p_char": 24,
-      "profiles": [
-        {
-          "name": "Bolter",
-          "range": "24\"",
-          "type": "Rapid Fire 2",
-          "s": "4",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Combi"
-        },
-        {
-          "name": "Grenade launcher",
-          "range": "24\"",
-          "type": "Assault 1",
-          "s": "4",
-          "ap": "0",
-          "d": "1",
-          "abilities": "Blast(4), Combi"
-        }
-      ],
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
       "name": "Combi-melta",
       "term_compat": true,
       "range": "",
@@ -864,31 +829,11 @@
       "p_char": null
     },
     {
-      "name": "Psychic training",
-      "term_compat": true,
-      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. May be taken multiple times.",
-      "p_unit": 5,
-      "p_char": 5,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
       "name": "Refractor field",
       "term_compat": false,
       "desc": "The model gains a 5+ ward save.",
       "p_unit": 9,
       "p_char": 19
-    },
-    {
-      "name": "Relic blade",
-      "term_compat": true,
-      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. May only be used on weapons with D:1. Only for Lieutenants.",
-      "p_unit": null,
-      "p_char": null,
-      "armour_compat": [
-        "Terminator"
-      ]
     },
     {
       "name": "Saturnine armor",
@@ -906,23 +851,6 @@
       "armour_compat": [
         "Terminator"
       ]
-    },
-    {
-      "name": "Space Marine bike",
-      "term_compat": false,
-      "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, a Twin bolt rifle, the \"Bike\" type, and \"Devastating Charge\" (see Outrider Squads). Only for infantry.",
-      "p_unit": 36,
-      "p_char": 47,
-      "effect": {
-        "adds_unit_types": [
-          "Bike"
-        ],
-        "grants_weapons": [
-          "Twin bolt rifle (Bolt ammo)",
-          "Twin bolt rifle (Stalker ammo)",
-          "Twin bolt rifle (Assault ammo)"
-        ]
-      }
     },
     {
       "name": "Storm shield",

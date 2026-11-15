@@ -1,0 +1,104 @@
+{
+    "name": "Land Raider Achilles",
+    "models": [
+        {
+            "stats": {
+                "M": "12\"",
+                "WS": "6+",
+                "BS": "4+",
+                "S": "7",
+                "FRONT": "14",
+                "SIDE": "14",
+                "REAR": "14",
+                "I": "4",
+                "A": "1",
+                "HP": "5"
+            },
+            "name": "Land Raider Achilles",
+            "min": 1,
+            "max": 1,
+            "points": 466
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Land Raider Achilles is a single model and is equipped with: Hull Mounted Achillus Quad Launcher.",
+    "weapons": [
+        {
+            "name": "Achillus Quad Launcher (Strike)",
+            "range": "24\"",
+            "type": "Heavy 4",
+            "s": "8",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "AT (1), Sunder (2)"
+        },
+        {
+            "name": "Achillus Quad Launcher (Shard)",
+            "range": "24\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Blast (4), Shred"
+        },
+        {
+            "name": "Multi-Melta",
+            "range": "24\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "2",
+            "abilities": "AT (2), Melta"
+        },
+        {
+            "name": "Twin legion volkite culverin",
+            "range": "48\"",
+            "type": "Heavy 6",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul Burn (6+)"
+        }
+    ],
+    "option_groups": [
+        {
+            "header": "May be equipped with one of the following",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Multi-Melta",
+                    "points": 35
+                },
+                {
+                    "name": "Twin legion volkite culverin",
+                    "points": 68
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
+        }
+    ],
+    "abilities": [
+        "Ward(5+)",
+        "Transport: This model has a transport capacity of 6 infantry models."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Dedicated Transport",
+    "default_size": 1,
+    "min_cost": 466
+}
