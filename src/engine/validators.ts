@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { traitSubOptions } from './traitEffects';
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
@@ -151,7 +152,7 @@ export function alliedCdFreeHeraldIds(army: RosterEntry[], data: FactionData, al
   const greaterByGod: Record<string, number> = {};
   const heralds: { id: string; god: string }[] = [];
   for (const i of army) {
-    if (i.factionSource !== alliedFaction) continue;
+    if (!isAlliedEntry(i, alliedFaction)) continue;
     const u = resolveUnit(i, data);
     if (!u?.locked_mark) continue;
     const isHerald = (u.abilities ?? []).some(a => /^herald:/i.test(a));
@@ -190,7 +191,7 @@ export function advisorExemptIds(
   function hqCount(isAllied: boolean): number {
     if (!hqCountCache.has(isAllied)) {
       const n = army.filter(j => {
-        const jIsAllied = !!(j.factionSource && j.factionSource === alliedFaction);
+        const jIsAllied = !!(j.factionSource && isAlliedEntry(j, alliedFaction));
         if (jIsAllied !== isAllied) return false;
         const u = resolveUnit(j, data);
         const printed = getEffectiveSlotFor(j, rule);
@@ -212,7 +213,7 @@ export function advisorExemptIds(
     if (variantIsHq(i, u, getEffectiveSlotFor(i, rule))) continue;   // an HQ now, so no free Advisor slot
     // Advisor is optional: the player can make this one occupy its slot (Unwise, Discord 2026-11-16).
     if (i.declineFreeSlot) continue;
-    const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
+    const isAllied = !!(i.factionSource && isAlliedEntry(i, alliedFaction));
     const key = `${isAllied}:${i.unitName}`;
     const n = seen.get(key) ?? 0;
     seen.set(key, n + 1);
@@ -263,7 +264,7 @@ function getSlotUsage(
   }
   return army.filter(i => {
     if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;
-    const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
+    const isAllied = !!(i.factionSource && isAlliedEntry(i, alliedFaction));
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     if (exemptIds.has(i.id)) return false;
     const u = resolveUnit(i, data);
@@ -327,7 +328,7 @@ function isStrictInfantrySelection(item: RosterEntry, data: FactionData, state: 
  */
 function countInfantrySelections(state: ArmyState, data: FactionData, countAllied: boolean): number {
   return state.army.filter(i => {
-    const isAllied = !!(i.factionSource && i.factionSource === state.alliedFaction);
+    const isAllied = !!(i.factionSource && isAlliedEntry(i, state.alliedFaction));
     if (isAllied !== countAllied) return false;
     return isStrictInfantrySelection(i, data, state);
   }).length;
@@ -1359,7 +1360,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const alliesShareAop = isIntegratedSuppl || (state.engagement === 'skirmish' && !!state.alliedFaction);
   // Helper: is this item an integrated supplement unit?
   const isSupplItem = (item: { factionSource?: string | null }) =>
-    isIntegratedSuppl && item.factionSource === state.alliedFaction;
+    isIntegratedSuppl && isAlliedEntry(item, state.alliedFaction);
   // Names in the message are drawn in the reader's script: slots by their own label, everything else
   // through the katakana table (Japanese only; every other language gets the name as written).
   const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => {
@@ -1675,7 +1676,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u?.requires_archetype_unlock) continue;
-    const isAlly = !!item.factionSource && item.factionSource === state.alliedFaction;
+    const isAlly = !!item.factionSource && isAlliedEntry(item, state.alliedFaction);
     const r = isAlly ? getArchetypeRule(state.alliedArchetype) : rule;
     if (!(r?.unlocksUnits ?? []).includes(item.unitName)) items.push({ type: 'error', text: T('valUnitNeedsChaosArchetype', { unit: item.unitName }) });
   }
@@ -2804,14 +2805,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const mechInfCount = isImperialGuard
       ? state.army.filter(i =>
           i.unitName === 'Mechanised Infantry' &&
-          !(state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)),
+          !(state.alliedFaction && isAlliedEntry(i, state.alliedFaction) && !isSupplItem(i)),
         ).length
       : 0;
     const transportPct = state.archetype === 'Mechanised Company' ? 0.75 : 0.5;
     const transportBonus = mechInfCount > 0
       ? state.army
           .filter(i => {
-            if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return false;
+            if (state.alliedFaction && isAlliedEntry(i, state.alliedFaction) && !isSupplItem(i)) return false;
             return i.slot === 'Dedicated Transport';
           })
           .map(i => {
@@ -2868,7 +2869,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // army/primary rule.
   if (state.alliedFaction && state.alliedArchetype) {
     const allyRule = getArchetypeRule(state.alliedArchetype);
-    const allyItems = state.army.filter(i => i.factionSource === state.alliedFaction);
+    const allyItems = state.army.filter(i => isAlliedEntry(i, state.alliedFaction));
     const allyLabel = cleanArchetypeName(state.alliedArchetype);
 
     if (allyRule) {
@@ -3526,7 +3527,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
   // are already counted in the primary AOP block above.
   if (state.alliedFaction && !isIntegratedSuppl && state.engagement !== 'skirmish') {
-    const alliedUnits = state.army.filter(e => e.factionSource === state.alliedFaction);
+    const alliedUnits = state.army.filter(e => isAlliedEntry(e, state.alliedFaction));
     if (alliedUnits.length > 0) {
       // The ALLY's own archetype rule (e.g. a troopsRemap-style slot effect) governs how its OWN
       // units' slots resolve here, never the primary's `rule` — getSlotUsage's getEffectiveSlot
@@ -3615,7 +3616,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (!allyRuleForAnimosity?.noAnimosity) {
       const allyAllowed = allowedMarksFor(state.alliedHqMark ?? 'Undivided', alliedData);
       for (const item of state.army) {
-        if (item.factionSource !== state.alliedFaction) continue;
+        if (!isAlliedEntry(item, state.alliedFaction)) continue;
         if (item.mark && !allyAllowed.includes(item.mark)) {
           items.push({
             type: 'error',
@@ -3729,7 +3730,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
     const allyRule = getArchetypeRule(state.alliedArchetype);
     const alliedIn = (slot: string) => getSlotUsage(state.army, data, slot, allyRule, state.alliedFaction, true, state.engagement);
-    const alliedAny = state.army.some(i => i.factionSource === state.alliedFaction);
+    const alliedAny = state.army.some(i => isAlliedEntry(i, state.alliedFaction));
     const troops = alliedIn('Troops');
     const allyFactor = alliedSlotFactor(data.faction);
     const troopsCap = SKIRMISH_ALLY_TROOPS * allyFactor, extrasCap = SKIRMISH_ALLY_EXTRA_MAX * allyFactor;
@@ -3757,7 +3758,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // data/archetype/legacy (its units already live in data.allied[factionSource], merged in by
     // injectArchetypeFaction — see effectiveArchetypeFor/effectiveLegacyFor in points.ts for the
     // same distinction, and ArmoryModal.tsx's isTrueAllyUnit for the identical fix there).
-    const isTrueAllyEntry = !!(state.alliedFaction && entry.factionSource === state.alliedFaction);
+    const isTrueAllyEntry = !!(state.alliedFaction && isAlliedEntry(entry, state.alliedFaction));
     const entryData = isTrueAllyEntry ? (alliedData ?? data) : data;
     const entryArchetype = effectiveArchetypeFor(entry, state);
     const entryLegacy = effectiveLegacyFor(entry, state);

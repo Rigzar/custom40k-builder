@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { entryHasKeyword } from './keywords';
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect, DroneType } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
@@ -926,7 +927,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Allied Detachment units use the allied faction's OWN Army Customisation (Core Rules: "Allies
   // may select their own Army Customisation options"), not the primary faction's archetype.
   const effectiveArchetype = effectiveArchetypeFor(item, state);
-  const rule = getArchetypeRule(effectiveArchetype, effectiveLegacyFor(item, state), item.factionSource && item.factionSource === state.alliedFaction ? undefined : state.legacy2);
+  const rule = getArchetypeRule(effectiveArchetype, effectiveLegacyFor(item, state), item.factionSource && isAlliedEntry(item, state.alliedFaction) ? undefined : state.legacy2);
 
   // Points & slot
   const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state));
@@ -1109,7 +1110,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // gate silently discarded them for any ally of a DIFFERENT faction (name not in the primary
   // catalog), so allied trait stat mods/abilities never reached the profile. The CSM-keyword
   // restriction is evaluated against the item's OWN faction, not the primary's.
-  const isAlliedScopeItem = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
+  const isAlliedScopeItem = !!(state.alliedFaction && isAlliedEntry(item, state.alliedFaction));
   const isMainFaction = !item.factionSource && item.unitName in data.units;
   // A supplement unit of the army itself (not the allied detachment) that gained the keyword the codex asks for (grantedKeywords).
   const isGrantedSupplementItem = !!item.factionSource && !isAlliedScopeItem && data.faction === 'Chaos Space Marines'
@@ -1354,7 +1355,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Grey Knights character could still buy it. Gated on factionSource matching the ACTIVE allied
   // faction, not on factionSource alone: injected-supplement units (Assassins, Horus Heresy) carry
   // their own factionSource without being an allied detachment in the rules sense.
-  const isAlliedDetachmentUnit = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
+  const isAlliedDetachmentUnit = !!(state.alliedFaction && isAlliedEntry(item, state.alliedFaction));
   const activeExarchPowers = getActiveExarchPowers(unit, item);
   // Ability-text grants (unitAbility, and allWeapons' named ability/Deadly-stacking) are handled
   // here via weaponTraitMap/grantedAbilities; the numeric rangeDelta half is applied separately in
@@ -3373,10 +3374,10 @@ export function resolveUnitProfile(
   // survives in the save (so re-adding the trait restores it) and simply does not apply.
   const gated = unit.option_groups.some(g => g.requires_trait || g.requires_archetype || g.requires_legacy || g.choices.some(c => c.requires_archetype || c.requires_legacy));
   if (gated) {
-    const arch = (item.factionSource && item.factionSource === state.alliedFaction) ? state.alliedArchetype : state.archetype;
-    const pool = (item.factionSource && item.factionSource === state.alliedFaction)
+    const arch = (item.factionSource && isAlliedEntry(item, state.alliedFaction)) ? state.alliedArchetype : state.archetype;
+    const pool = (item.factionSource && isAlliedEntry(item, state.alliedFaction))
       ? (state.alliedTraitPool ?? []) : (state.traitPool ?? []);
-    const legs = [effectiveLegacyFor(item, state), item.factionSource && item.factionSource === state.alliedFaction ? '' : (getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly ? '' : state.legacy2)].filter(Boolean) as string[];
+    const legs = [effectiveLegacyFor(item, state), item.factionSource && isAlliedEntry(item, state.alliedFaction) ? '' : (getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly ? '' : state.legacy2)].filter(Boolean) as string[];
     const kept: Record<number, Record<string, number>> = {};
     for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
       const g = unit.option_groups[Number(gi)];

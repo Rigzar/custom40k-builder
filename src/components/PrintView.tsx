@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { useState, useRef, useLayoutEffect, Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
@@ -1678,7 +1679,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   // True allied-detachment unit (not an integrated supplement like Assassins/Horus Heresy) — these
   // print in their own "Allied Detachment" section.
   const isAlliedDetachmentItem = (i: RosterEntry) =>
-    !!(alliedFaction && i.factionSource === alliedFaction);
+    !!(alliedFaction && isAlliedEntry(i, alliedFaction));
   const alliedFactionName = alliedData?.faction ?? alliedFaction ?? 'Allied Detachment';
 
   const rule         = getArchetypeRule(archetype);

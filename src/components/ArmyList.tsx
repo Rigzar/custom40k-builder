@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { UnitCard } from './UnitCard';
@@ -76,8 +77,8 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
   if (!data) return null;
 
   const scopedArmy = scope === 'allied'
-    ? army.filter(item => !!alliedFaction && item.factionSource === alliedFaction)
-    : army.filter(item => !alliedFaction || item.factionSource !== alliedFaction);
+    ? army.filter(item => !!alliedFaction && isAlliedEntry(item, alliedFaction))
+    : army.filter(item => !alliedFaction || !isAlliedEntry(item, alliedFaction));
   const effectiveArchetype = scope === 'allied' ? (alliedArchetype ?? '') : archetype;
 
   if (scopedArmy.length === 0) {

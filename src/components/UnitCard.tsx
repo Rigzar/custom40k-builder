@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { useState, useEffect, useRef, Fragment } from 'react';
 import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import { armoryDataFor } from '../engine/armorySource';
@@ -262,7 +263,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // data user is the integrated HH supplement, whose host is the primary army).
   const itemArchetype = effectiveArchetypeFor(item, store);
   const hhLegionMark = data.faction.startsWith('Horus Heresy:') && !item.factionSource ? hhMarkFor(effectiveLegacyFor(item, store), data.faction, u) : null;
-  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && item.factionSource === store.alliedFaction ? '' : (getArchetypeRule(store.archetype ?? '')?.legacy2ArmoryOnly ? '' : store.legacy2)].filter(Boolean) as string[];
+  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && isAlliedEntry(item, store.alliedFaction) ? '' : (getArchetypeRule(store.archetype ?? '')?.legacy2ArmoryOnly ? '' : store.legacy2)].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
@@ -271,7 +272,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
   // An ALLIED Chaos Space Marines unit asks whether ITS OWN faction fields Marks (its animosity table), not the primary's: under a
   // Space Marines or Imperial Guard host `data.animosity` is empty, so no allied CSM unit could ever take a Mark (Stu, Discord 2026-10-22).
-  const markData = (alliedFaction && item.factionSource === alliedFaction && alliedData) ? alliedData : data;
+  const markData = (alliedFaction && isAlliedEntry(item, alliedFaction) && alliedData) ? alliedData : data;
   const markPick = markAccess(u, markData, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
@@ -340,7 +341,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // A genuine, user-picked Allied Detachment only — NOT a same-army supplement injection (Horus
   // Heresy, Legio Titanicus, Daemonkin, ...), which stays scoped to the primary's own trait pool.
   // Mirrors ArmoryModal.tsx's isTrueAllyUnit / resolver.ts's isAlliedDetachmentUnit.
-  const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
+  const isTrueAllyUnit = !!(alliedFaction && isAlliedEntry(item, alliedFaction));
   const effectiveArmData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
   // The rule text of an option choice that has no weapon of its own (an upgrade like Magos "Manipulus",
   // a piece of gear like "Omnispex"): the unit's own ability that opens with the choice's name, else

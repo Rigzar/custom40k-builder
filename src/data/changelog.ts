@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'h';
+export const REVISION = 'i';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -48,6 +48,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "REDEMPTOR DREADNOUGHT (Unwise). Taking \"Redemptor fist with Storm bolter\" on both arms showed one fist and one Storm bolter. A choice written \"X with Y\" now counts both weapons, which also fixes the Dreadnought, Captain and Chaplain Dreadnought arms that come on top of their base loadout, and the Fighta-Bommer's extra turret.",
       "BOLTER DRILL ON GRANTED WEAPONS (Unwise). An army trait that gives an ability to weapons (Bolter Drill's Deflagrate(5+)) skipped the weapons an Armory item hands out, such as the Space Marine bike's Twin bolt rifle. The same for an item aimed at one weapon (Master-crafted on that Twin bolt rifle showed nothing).",
       "LEGION UNITS WITH A MARK ARE CHAOS SPACE MARINES (Dominic, Discord, TeCrisis). In a Chaos Space Marine army with the Legion CSM archetype, a Horus Heresy unit that takes a Mark of Chaos (Undivided included) gains the Chaos Space Marine keyword, so the army's Traits apply to it and are charged; without a Mark it still gets none, as the codex says Traits only apply to that keyword.",
+      "SAME FACTION IN THE ARMY AND AS ALLY (Discord, MeMegaCreeper). An army whose archetype gives it units of another codex (Sororitas Chamber Militant: Inquisition) and also takes that codex as its ally counted every such unit as allied, even the ones bought from the main army list, so a Sanctioned Bombardment in the main AOP filled the ally's Heavy Support. A unit added from the main list now stays in the main army. Units already in a saved list cannot tell where they were added: remove them and add them again from the main list.",
       "CODEX VERSIONS ON THE FACTION BUTTONS. They showed old numbers (Space Marines 1.6, Orks 1.4...) because a version saved in the admin settings long ago overrode the one each update brings. A saved version now only counts when it is newer, so the buttons show the sheet the app actually uses (Space Marines 1.14, Imperial Guard 1.15, Orks 1.8...).",
       "MASTER-CRAFTED (TeCrisis). The weapon list of a Master-crafted item no longer offers grenades or Ammo(x) weapons, which the Core Rules say cannot be master-crafted.",
     ],

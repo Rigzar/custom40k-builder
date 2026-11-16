@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { entryHasKeyword } from '../engine/keywords';
 import { create } from 'zustand';
 import { secondTraitGate, applySecondTraitGate } from '../lib/legacyGatedChoices';
@@ -194,7 +195,7 @@ function applyArmyTraits(
   return army.map(item => {
     // Check allied scope FIRST so same-faction allies (primary=CSM, ally=CSM) don't fall into
     // the isMainFaction branch and incorrectly receive the primary trait pool.
-    if (alliedFaction && alliedData && item.factionSource === alliedFaction) {
+    if (alliedFaction && alliedData && isAlliedEntry(item, alliedFaction)) {
       const unit = resolveUnit(item, data); // data.allied[factionSource] was merged in by setAlliedFaction
       if (!unit || !allyTraitNames.length) return { ...item, traits: [] };
       if (alliedData.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
@@ -296,7 +297,7 @@ export interface ArmyStore extends ArmyState {
    */
   setLegacyArmoryLock: (id: string, key: string | null) => void;
 
-  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => void;
+  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean, ownArmy?: boolean) => void;
   removeUnit: (id: string) => void;
   /** Swap two roster entries in the army array (list / print order). */
   swapUnits: (idA: string, idB: string) => void;
@@ -657,7 +658,7 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
-      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => {
+      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean, ownArmy?: boolean) => {
         const s = get();
         if (!s.data) return;
         const u = nestedFaction
@@ -676,7 +677,7 @@ export const useArmyStore = create<ArmyStore>()(
         const computedSize = modelSizes
           ? Object.values(modelSizes).reduce((s, n) => s + n, 0)
           : defaultSize;
-        const isAlliedScopeUnit = !!(factionSource && factionSource === s.alliedFaction);
+        const isAlliedScopeUnit = !ownArmy && !!(factionSource && factionSource === s.alliedFaction);
         const archetypeRule = getArchetypeRule(isAlliedScopeUnit ? (s.alliedArchetype ?? '') : s.archetype);
         const autoMark = (archetypeRule?.forcedMark && !u.locked_mark)
           ? archetypeRule.forcedMark as Mark
@@ -689,6 +690,7 @@ export const useArmyStore = create<ArmyStore>()(
           ...(nestedFaction ? { nestedFaction } : {}),
           ...(retinue ? { retinue: true } : {}),
           ...(ironLordGuard ? { ironLordGuard: true } : {}),
+          ...(ownArmy && factionSource ? { ownArmy: true } : {}),
           size: computedSize,
           mark: autoMark,
           optionQty: {},
@@ -777,7 +779,7 @@ export const useArmyStore = create<ArmyStore>()(
         const extra: Record<string, unknown> = {};
         if ('mark' in patch) {
           const entry = s.army.find((e: RosterEntry) => e.id === id);
-          if (entry?.slot === 'HQ' && !!entry.factionSource && entry.factionSource === s.alliedFaction) {
+          if (entry?.slot === 'HQ' && !!entry.factionSource && isAlliedEntry(entry, s.alliedFaction)) {
             extra.alliedHqMark = patch.mark ?? 'Undivided';
           } else if (entry?.slot === 'HQ' && !entry.factionSource) {
             const multiMark = s.traitPool.includes('Black Crusade') || s.archetype === "Abaddon's Chosen";

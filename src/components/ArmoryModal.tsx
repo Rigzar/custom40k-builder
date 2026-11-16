@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { buyerRoleNames, roleMatches, ownsItem, ownsOption } from '../data/textGates';
 import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { localiseAbility } from '../data/coreRules';
@@ -248,7 +249,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // slot rule, Legacy armory access) must use this, not the bare isAllied above — isAllied
   // itself stays correct for "which faction's raw armory/unit DATA to read" (armoryDataFor and
   // the archetype-armory-tab gates below), since a supplement item still reads foreign data.
-  const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
+  const isTrueAllyUnit = !!(alliedFaction && isAlliedEntry(item, alliedFaction));
   const activeData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
   // Horus Heresy / Legio Titanicus only: the raw supplement/ally FactionData this item's own
   // armory ultimately comes from, before armoryDataFor merges in marks/legions. Its own

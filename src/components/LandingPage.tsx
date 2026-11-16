@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189h_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189i_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Allies", "A unit bought from the main list (Chamber Militant's Inquisition) no longer counts as allied when the ally is the same faction; re-add old ones. Faction buttons show the current codex versions."],
         ["Legion CSM", "A Horus Heresy unit that takes a Mark of Chaos counts as a Chaos Space Marine and gets the army's Traits."],
         ["Skirmish", "A full AOP unlocks a second one; Chief Apothecary and Master of the Forge count as once-per-army HQ upgrades."],
         ["Units", "Advisors can occupy their slot (button on the card); Intercessors can take the same swap twice; Redemptor fists counted on both arms; Master-crafted skips grenades and works on the bike's Twin bolt rifle."],
@@ -113,6 +114,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Verbündete", "Eine aus der Hauptliste gekaufte Einheit (Inquisition bei Chamber Militant) zählt nicht mehr als verbündet, wenn der Verbündete dieselbe Fraktion ist; alte neu hinzufügen. Die Fraktionsknöpfe zeigen die aktuellen Codex-Versionen."],
         ["Legion CSM", "Eine Horus-Heresy-Einheit mit einem Mal des Chaos zählt als Chaos Space Marine und erhält die Merkmale der Armee."],
         ["Skirmish", "Eine volle AOP schaltet eine zweite frei; Chief Apothecary und Master of the Forge zählen als einmalige HQ-Aufwertungen."],
         ["Einheiten", "Advisors können ihren Slot belegen (Knopf auf der Karte); Intercessors können denselben Tausch zweimal wählen; Redemptor-Fäuste an beiden Armen gezählt; Master-crafted ohne Granaten, wirkt jetzt auch auf das Twin bolt rifle des Bikes."],
@@ -165,6 +167,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Aliados", "Una unidad comprada desde la lista principal (la Inquisición de Chamber Militant) ya no cuenta como aliada aunque el aliado sea la misma facción; vuelve a añadir las antiguas. Los botones de facción muestran las versiones actuales."],
         ["Legion CSM", "Una unidad de Horus Heresy con una Marca del Caos cuenta como Chaos Space Marine y recibe los rasgos del ejército."],
         ["Skirmish", "Un AOP completo desbloquea un segundo; Chief Apothecary y Master of the Forge cuentan como mejoras de HQ una por ejército."],
         ["Unidades", "Los Advisors pueden ocupar su slot (botón en la ficha); los Intercessors pueden repetir el mismo cambio; los puños del Redemptor cuentan en ambos brazos; Master-crafted sin granadas y ya funciona en el Twin bolt rifle de la moto."],
@@ -217,6 +220,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Союзники", "Отряд, купленный из основного списка (Инквизиция у Chamber Militant), больше не считается союзным, даже если союзник той же фракции; старые добавьте заново. Кнопки фракций показывают текущие версии кодексов."],
         ["Legion CSM", "Отряд Horus Heresy с Меткой Хаоса считается Chaos Space Marine и получает черты армии."],
         ["Skirmish", "Заполненный AOP открывает второй; Chief Apothecary и Master of the Forge считаются улучшениями Штаба «одно на армию»."],
         ["Отряды", "Advisor может занимать слот (кнопка на карточке); Intercessors могут взять одну замену дважды; кулаки Redemptor считаются на обеих руках; Master-crafted без гранат и работает на Twin bolt rifle байка."],
@@ -269,6 +273,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["同盟", "メインのリストから追加したユニット(Chamber Militant の Inquisition)は、同盟が同じ勢力でも同盟扱いされなくなりました。古いものは追加し直してください。勢力ボタンに最新のコデックス版が表示されます。"],
         ["Legion CSM", "混沌の印を得た Horus Heresy ユニットは Chaos Space Marine として扱われ、軍の特性を得ます。"],
         ["Skirmish", "AOP を埋めると2つ目が解放されます。Chief Apothecary と Master of the Forge は軍に1つの HQ 強化として扱われます。"],
         ["ユニット", "Advisor は枠を使うことも可能(カードのボタン)。Intercessors は同じ交換を2回選択可能。Redemptor の拳は両腕で数えます。Master-crafted はグレネード不可、バイクの Twin bolt rifle にも適用されます。"],

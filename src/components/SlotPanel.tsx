@@ -520,7 +520,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           </div>
                         )}
                         <button
-                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource, undefined, entry.retinue, entry.ironLordGuard); } }}
+                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource, undefined, entry.retinue, entry.ironLordGuard, true); } }}
                           disabled={!!entry.disabledReason}
                           title={entry.disabledReason}
                           className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${

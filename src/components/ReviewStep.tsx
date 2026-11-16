@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { useArmyStore } from '../store/army';
 import { validateArmy } from '../engine/validators';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, factionForEntry } from '../engine/points';
@@ -35,8 +36,8 @@ export function ReviewStep({ onPlay, onPrint, onSave, onImported, savedMsg, onBa
     return u ? computeUnitPoints(item, u, effectiveArchetypeFor(item, state), factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state)) : 0;
   };
 
-  const alliedUnits  = alliedFaction ? army.filter(i => i.factionSource === alliedFaction) : [];
-  const primaryUnits = alliedFaction ? army.filter(i => i.factionSource !== alliedFaction) : army;
+  const alliedUnits  = alliedFaction ? army.filter(i => isAlliedEntry(i, alliedFaction)) : [];
+  const primaryUnits = alliedFaction ? army.filter(i => !isAlliedEntry(i, alliedFaction)) : army;
   const primaryPts   = primaryUnits.reduce((s, i) => s + ptsOf(i), 0);
   const alliedPts    = alliedUnits.reduce((s, i) => s + ptsOf(i), 0);
   const total        = primaryPts + alliedPts;

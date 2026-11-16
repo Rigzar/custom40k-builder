@@ -1,4 +1,5 @@
-﻿import { useState } from 'react';
+﻿import { isAlliedEntry } from '../types/army';
+import { useState } from 'react';
 import { nm } from '../utils/localName';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
@@ -45,7 +46,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // An Allied Detachment's psyker/priest/cultist sees ITS OWN faction's disciplines/prayers/
   // pacts and its OWN archetype/legacy — this used to always read the PRIMARY's, so e.g. an
   // Eldar Allied Detachment's psyker would be shown Chaos Space Marines' psychic disciplines.
-  const isAllied = !!item.factionSource && item.factionSource === store.alliedFaction;
+  const isAllied = !!item.factionSource && isAlliedEntry(item, store.alliedFaction);
   const data = isAllied ? alliedData : primaryData;
   const archetype = isAllied ? (store.alliedArchetype ?? '') : primaryArchetype;
   const legacy = isAllied ? (store.alliedLegacy ?? '') : primaryLegacy;
