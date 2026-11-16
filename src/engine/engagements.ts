@@ -57,7 +57,7 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
       'Heavy Support': [0,1], 'Dedicated Transport': [0,1], Fortifications: [0,0], Flyers: [0,0],
       'Lords of War': [0,0],
     },
-    multiAop: false, minTroopsRatio: 0.25, statCaps: true, maxTraits: 1,
+    multiAop: true, minTroopsRatio: 0.25, statCaps: true, maxTraits: 1,   // Missions: a filled AOP unlocks a second one (a slot the faction cannot fill counts as filled)
     notes: 'HQ ≤150 pts · non-Troops ≤300 pts · no Archetypes · 1 Trait · no Squadrons > 1 model',
   },
   pitched: {

@@ -210,6 +210,8 @@ export function advisorExemptIds(
     const u = resolveUnit(i, data);
     if (!u?.advisor) continue;
     if (variantIsHq(i, u, getEffectiveSlotFor(i, rule))) continue;   // an HQ now, so no free Advisor slot
+    // Advisor is optional: the player can make this one occupy its slot (Unwise, Discord 2026-11-16).
+    if (i.declineFreeSlot) continue;
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
     const key = `${isAllied}:${i.unitName}`;
     const n = seen.get(key) ?? 0;
@@ -3021,7 +3023,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // group the codex caps at one per army (`unique_upgrade`), such as the Necron Lord's
       // promotion to Overlord. Armory "Unique" items are the OTHER Skirmish rule, capped at one
       // for the whole army above, and are not restricted by slot.
-      if (effSlot === 'HQ') {
+      // The upgrade that MAKES the unit an HQ counts too (Chief Apothecary, Master of the Forge, Ascended Daemon Prince): Dominic
+      // ruled it once per army like the Lieutenant's Captain, so it is barred in Skirmish (TeCrisis, Discord 2026-11-16).
+      if (effSlot === 'HQ' || variantIsHq(item, u, item.slot)) {
         u.option_groups.forEach((g, gi) => {
           if (g.constraint.type !== 'unique_upgrade') return;
           const picked = item.optionQty?.[gi];

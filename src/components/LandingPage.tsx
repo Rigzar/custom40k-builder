@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189h_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -61,6 +61,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Skirmish", "A full AOP unlocks a second one; Chief Apothecary and Master of the Forge count as once-per-army HQ upgrades."],
+        ["Units", "Advisors can occupy their slot (button on the card); Intercessors can take the same swap twice; Redemptor fists counted on both arms; Master-crafted skips grenades."],
         ["Traits", "Cursed Founding, Abhuman Auxiliaries and Signature Evolutionary Adaption: pick the improvement in the army setup and it is applied to the units."],
         ["Armory", "Items limited by their own text (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) can only be bought by units that qualify; the row says why."],
         ["Armory", "Several copies of one item stack on the unit card (\"Storm shield ×10\"); the ✕ removes one."],
@@ -110,6 +112,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Skirmish", "Eine volle AOP schaltet eine zweite frei; Chief Apothecary und Master of the Forge zählen als einmalige HQ-Aufwertungen."],
+        ["Einheiten", "Advisors können ihren Slot belegen (Knopf auf der Karte); Intercessors können denselben Tausch zweimal wählen; Redemptor-Fäuste an beiden Armen gezählt; Master-crafted ohne Granaten."],
         ["Merkmale", "Cursed Founding, Abhuman Auxiliaries und Signature Evolutionary Adaption: die Verbesserung in der Armee-Konfiguration wählen, sie wird auf die Einheiten angewendet."],
         ["Arsenal", "Gegenstände, deren Text den Käufer einschränkt (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...), kann nur noch eine passende Einheit kaufen; die Zeile sagt warum."],
         ["Arsenal", "Mehrere Exemplare eines Gegenstands werden auf der Einheitenkarte gestapelt (\"Storm shield ×10\"); das ✕ entfernt eines."],
@@ -159,6 +163,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Skirmish", "Un AOP completo desbloquea un segundo; Chief Apothecary y Master of the Forge cuentan como mejoras de HQ una por ejército."],
+        ["Unidades", "Los Advisors pueden ocupar su slot (botón en la ficha); los Intercessors pueden repetir el mismo cambio; los puños del Redemptor cuentan en ambos brazos; Master-crafted sin granadas."],
         ["Rasgos", "Cursed Founding, Abhuman Auxiliaries y Signature Evolutionary Adaption: elige la mejora en la configuración del ejército y se aplica a las unidades."],
         ["Armería", "Los objetos que su texto limita (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) solo los compra la unidad que cumple; la fila dice por qué."],
         ["Armería", "Varias copias de un mismo objeto se agrupan en la ficha (\"Storm shield ×10\"); la ✕ quita una."],
@@ -208,6 +214,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Skirmish", "Заполненный AOP открывает второй; Chief Apothecary и Master of the Forge считаются улучшениями Штаба «одно на армию»."],
+        ["Отряды", "Advisor может занимать слот (кнопка на карточке); Intercessors могут взять одну замену дважды; кулаки Redemptor считаются на обеих руках; Master-crafted без гранат."],
         ["Черты", "Cursed Founding, Abhuman Auxiliaries и Signature Evolutionary Adaption: выберите улучшение в настройках армии, и оно применяется к отрядам."],
         ["Арсенал", "Предметы с ограничением в тексте (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) покупает только подходящий отряд; строка объясняет причину."],
         ["Арсенал", "Несколько копий одного предмета объединяются на карточке отряда (\"Storm shield ×10\"); ✕ убирает одну."],
@@ -257,6 +265,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["Skirmish", "AOP を埋めると2つ目が解放されます。Chief Apothecary と Master of the Forge は軍に1つの HQ 強化として扱われます。"],
+        ["ユニット", "Advisor は枠を使うことも可能(カードのボタン)。Intercessors は同じ交換を2回選択可能。Redemptor の拳は両腕で数えます。Master-crafted はグレネード不可。"],
         ["特性", "Cursed Founding、Abhuman Auxiliaries、Signature Evolutionary Adaption：軍の設定で強化を選ぶと、ユニットに適用されます。"],
         ["アーモリー", "本文で購入者が限定されたアイテム（\"Kroot only\"、\"Painboy only\"、\"Exo-armor only\"など）は条件を満たすユニットだけが購入でき、行に理由が表示されます。"],
         ["アーモリー", "同じアイテムの複数個はユニットカード上でまとめて表示されます（\"Storm shield ×10\"）。✕で1つずつ外せます。"],

@@ -799,7 +799,7 @@ export const useArmyStore = create<ArmyStore>()(
           const pool = grp?.constraint?.type === 'per_n' && grp.constraint.per_n ? Math.floor(e.size / grp.constraint.per_n) * (grp.constraint.count_per_n ?? 1) : e.size;
           if (shared?.length && qty > 0) {
             const others = shared.reduce((n, og) => n + Object.entries(oq[og] ?? {}).reduce((m, [k, q]) => m + (k === '__inline' ? 0 : Number(q) || 0), 0), 0);
-            const mine = Object.entries(group).reduce((m, [k, q]) => m + (k === ci || k === '__inline' ? 0 : Number(q) || 0), 0);
+            const mine = Object.entries(group).reduce((m, [k, q]) => m + (k === String(ci) || k === '__inline' ? 0 : Number(q) || 0), 0);
             qty = Math.max(0, Math.min(qty, pool - others - mine));
           }
           if (qty === 0) delete group[ci];

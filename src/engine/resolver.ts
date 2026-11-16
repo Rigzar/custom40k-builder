@@ -1382,12 +1382,18 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   // Inject global trait weapon abilities into weaponTraitMap so the WeaponTable shows them
   // directly on each weapon row (e.g. Siege Experts → Sunder(1) on every ranged weapon).
+  // A function so it can run again for the weapons an Armory item's `effect.grants_weapons` adds further down (the Space Marine
+  // bike's Twin bolt rifle missed Bolter Drill's Deflagrate(5+), Unwise 2026-11-16).
+  const traitAbilitiesDoneFor = new Set<string>();
+  const injectTraitWeaponAbilities = (list: Weapon[]) => {
   if (traitWeaponAbilities.length > 0) {
     // `weapons`, not `unit.weapons`: a trait that grants an ability to ALL ranged attacks grants it
     // to the ones bought from the Armory too. Iterating the datasheet list left an armoury weapon
     // as the only row on the card without it — AdMech's Djinn Eyes ("This unit gains the
     // 'Sunder(1)' ability for all ranged attacks") added nothing to a bought weapon (GH#137).
-    for (const weapon of weapons) {
+    for (const weapon of list) {
+      if (traitAbilitiesDoneFor.has(weapon.name)) continue;
+      traitAbilitiesDoneFor.add(weapon.name);
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       for (const wa of traitWeaponAbilities) {
         const applies =
@@ -1401,6 +1407,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       }
     }
   }
+  };
+  injectTraitWeaponAbilities(weapons);
 
   // Equipment items that grant weapon abilities globally: "All ranged/melee/all weapons gain 'X'."
   // Detected via desc text — same injection mechanism as trait weapon abilities above.
@@ -1662,6 +1670,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       else if (weapons.some(w => w.name.toLowerCase() === grantedName.toLowerCase())) armoryGrantedWeapons.push(weapons.find(w => w.name.toLowerCase() === grantedName.toLowerCase())!.name);
     }
   }
+  injectTraitWeaponAbilities(weapons);   // the weapons added just above (and by option choices) get the army traits too
 
   /*
    * Upgrades that grant a weapon ability to every melee or ranged weapon, READ FROM THE CODEX TEXT
@@ -2407,7 +2416,8 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         groupQty += n;
         const choice = g.choices[parseInt(ci)];
         if (!choice) continue;
-        const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+        // "with" too: "Redemptor fist with Storm bolter" grants both weapons; a Redemptor taking it on both arms counted one fist (Unwise).
+        const parts = choice.name.split(/\s*(?:&|\band\b|\bwith\b)\s*/i).filter(Boolean);
         // The FULL choice name must also be a candidate, same as the optionalWeapons visibility
         // pass above (see its own comment) — a weapon whose OWN name contains "and" ("Lash whip
         // and bonesword", "Shardnet and impaler") gets wrongly split into two non-existent halves

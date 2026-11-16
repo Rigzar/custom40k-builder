@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'g';
+export const REVISION = 'h';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -36,6 +36,20 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.89',
+    date: '2026-11-16',
+    title: "Discord fixes: Skirmish, Advisors, weapon counts",
+    changes: [
+      "SKIRMISH: A SECOND AOP (Discord, Birdy, Ed, TeCrisis). Filling the Skirmish AOP did not unlock a second one. The Missions text allows it (\"If a faction cannot fill a slot due to these restrictions, that slot counts as filled when determining eligibility for a second AOP\"), so a complete Skirmish AOP now opens the next, and a slot your faction has no unit for counts as filled.",
+      "SKIRMISH: CHIEF APOTHECARY AND MASTER OF THE FORGE (TeCrisis). \"HQ models may not take 'once per army' upgrades\" was only checked on units that start as HQ (Lieutenant to Captain). An upgrade that makes the unit an HQ (Chief Apothecary, Master of the Forge, Ascended Daemon Prince) is now flagged too, as Dominic ruled.",
+      "ADVISOR IS OPTIONAL (Unwise). A unit with the Advisor rule has a button on its card to make it occupy its slot anyway, like the Tyrant Guard toggle.",
+      "INTERCESSORS (Unwise). The same swap could not be taken twice (two Heavy bolters): when two option lists share one limit, the choice you were raising was counted against itself.",
+      "REDEMPTOR DREADNOUGHT (Unwise). Taking \"Redemptor fist with Storm bolter\" on both arms showed one fist and one Storm bolter. A choice written \"X with Y\" now counts both weapons, which also fixes the Dreadnought, Captain and Chaplain Dreadnought arms that come on top of their base loadout, and the Fighta-Bommer's extra turret.",
+      "BOLTER DRILL ON GRANTED WEAPONS (Unwise). An army trait that gives an ability to weapons (Bolter Drill's Deflagrate(5+)) skipped the weapons an Armory item hands out, such as the Space Marine bike's Twin bolt rifle.",
+      "MASTER-CRAFTED (TeCrisis). The weapon list of a Master-crafted item no longer offers grenades or Ammo(x) weapons, which the Core Rules say cannot be master-crafted.",
+    ],
+  },
   {
     version: '1.89',
     date: '2026-11-15',

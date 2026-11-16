@@ -152,6 +152,7 @@ export type TranslationKey =
   | 'addOnBadge' | 'everyWord' | 'isEquippedWithSuffix' | 'rangedWeaponsHeader' | 'meleeWeaponsHeader'
   | 'blackCrusadeChampionActiveLabel' | 'blackCrusadeChampionToggleOff' | 'blackCrusadeChampionDesc'
   | 'tyrantGuardDeclineActiveLabel' | 'tyrantGuardDeclineToggleOff' | 'tyrantGuardDeclineDesc'
+  | 'advisorDeclineActiveLabel' | 'advisorDeclineToggleOff' | 'advisorDeclineDesc'
   | 'chaosMarkLabel' | 'markForcedPrefix' | 'allChaosMarksLabel' | 'allMarksVehicleBonus'
   | 'allMarksCharacterBonus' | 'allMarksInfantryBonus' | 'vetSlotSuffix' | 'markOfChaosUndividedLabel'
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
@@ -1188,6 +1189,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tyrantGuardDeclineActiveLabel: '○ Counts as a normal HQ choice (not exempted)',
     tyrantGuardDeclineToggleOff: '⚜ Exempted from the HQ slot — click to make it count instead',
     tyrantGuardDeclineDesc: 'By default, one Tyrant Guard Brood per Hive Tyrant/Neurotyrant/Swarmlord does not take up an HQ slot. That\'s optional — turn it off here to let this one occupy a normal HQ slot instead.',
+    advisorDeclineActiveLabel: "○ Occupies its slot (Advisor not used)",
+    advisorDeclineToggleOff: "⚜ Advisor: takes no slot — click to make it occupy one",
+    advisorDeclineDesc: "Advisor is optional: one per HQ selection may be taken without using a slot. Turn it off here if you want this unit to fill its slot.",
     chaosMarkLabel: 'Chaos Mark',
     markForcedPrefix: 'Mark forced by archetype:',
     allChaosMarksLabel: '⚜ All Chaos Marks:',
@@ -2392,6 +2396,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tyrantGuardDeclineActiveLabel: '○ Zählt als normale HQ-Wahl (nicht befreit)',
     tyrantGuardDeclineToggleOff: '⚜ Von HQ-Slot befreit — klicken, damit es stattdessen zählt',
     tyrantGuardDeclineDesc: 'Standardmäßig belegt ein Tyrant-Guard-Trupp pro Hive Tyrant/Neurotyrant/Swarmlord keinen HQ-Slot. Das ist optional — hier ausschalten, damit dieser Trupp stattdessen einen normalen HQ-Slot belegt.',
+    advisorDeclineActiveLabel: "○ Belegt seinen Slot (Advisor nicht genutzt)",
+    advisorDeclineToggleOff: "⚜ Advisor: belegt keinen Slot — klicken, damit er einen belegt",
+    advisorDeclineDesc: "Advisor ist optional: einer pro HQ-Auswahl belegt keinen Slot. Hier ausschalten, wenn diese Einheit ihren Slot füllen soll.",
     chaosMarkLabel: 'Chaos-Mal',
     markForcedPrefix: 'Mal durch Archetyp vorgegeben:',
     allChaosMarksLabel: '⚜ Alle Chaos-Male:',
@@ -3594,6 +3601,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tyrantGuardDeclineActiveLabel: '○ Cuenta como elección de HQ normal (no exento)',
     tyrantGuardDeclineToggleOff: '⚜ Exento del slot de HQ — pulsa para que cuente en su lugar',
     tyrantGuardDeclineDesc: 'Por defecto, un Tyrant Guard Brood por cada Hive Tyrant/Neurotyrant/Swarmlord no ocupa un slot de HQ. Eso es opcional — desactívalo aquí para que este ocupe un slot de HQ normal en su lugar.',
+    advisorDeclineActiveLabel: "○ Ocupa su slot (sin usar Advisor)",
+    advisorDeclineToggleOff: "⚜ Advisor: no ocupa slot — pulsa para que ocupe uno",
+    advisorDeclineDesc: "Advisor es opcional: uno por cada HQ puede tomarse sin ocupar slot. Desactívalo aquí si quieres que esta unidad llene su slot.",
     chaosMarkLabel: 'Marca del Caos',
     markForcedPrefix: 'Marca impuesta por el arquetipo:',
     allChaosMarksLabel: '⚜ Todas las Marcas del Caos:',

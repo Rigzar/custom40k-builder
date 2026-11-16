@@ -945,6 +945,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ...item.armory.filter(a => a.section === 'weapons').map(a => weaponBaseName(a.itemName)),
   ])];
   const meleeWeapons: string[] = [...new Set(carriedTargets.filter(isMeleeTarget).map(w => weaponBaseName(w.name)))];
+  // Core Rules, Master-crafted: "Can't be used on 'Grenade' type weapons or weapons with the 'Ammo(x)' ability" (TeCrisis, Discord).
+  const cannotMc = (w?: { type?: string; abilities?: string }) => !!w && (/grenade/i.test(w.type ?? '') || /\bAmmo\(/i.test(w.abilities ?? ''));
+  const notMasterCraftable: string[] = [...new Set([
+    ...carriedTargets.filter(cannotMc).map(w => weaponBaseName(w.name)),
+    ...item.armory.filter(a => a.section === 'weapons').filter(a => cannotMc(findArmoryItem(data, a) as never)).map(a => weaponBaseName(a.itemName)),
+  ])];
 
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;
@@ -1425,6 +1431,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         }}
                         availableWeapons={availableWeapons}
                         meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1530,6 +1537,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         }}
                         availableWeapons={availableWeapons}
                         meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1629,6 +1637,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         }}
                         availableWeapons={availableWeapons}
                         meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1711,6 +1720,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       }}
                       availableWeapons={availableWeapons}
                       meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                       eqTargetWeapon={eqTargetWeapon}
                       onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       eqExarchPower={eqExarchPower}
@@ -1774,6 +1784,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               }}
               availableWeapons={availableWeapons}
               meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
               eqTargetWeapon={eqTargetWeapon}
               onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
               eqExarchPower={eqExarchPower}
@@ -1869,6 +1880,7 @@ interface EquipGroupsProps {
   availableWeapons?: string[];
   /** The melee ones among `availableWeapons`, so a "melee weapon" item is only offered those. */
   meleeWeapons?: string[];
+  notMasterCraftable?: string[];
   /** Current weapon target selections for equipment that requires a target */
   eqTargetWeapon?: Record<string, string>;
   onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
@@ -1917,6 +1929,7 @@ function EquipmentGroups({
   reaverLord,
   availableWeapons = [],
   meleeWeapons = [],
+  notMasterCraftable = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
   eqExarchPower = {},
@@ -2025,7 +2038,7 @@ function EquipmentGroups({
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
                       <option value="">{t('selectWeaponOption')}</option>
-                      {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
+                      {targetsFor(arm, availableWeapons, meleeWeapons, notMasterCraftable).map(wn => (
                         <option key={wn} value={wn} disabled={takenTargets.includes(wn)}>{wn}{takenTargets.includes(wn) ? ' — ' + t('takenLabel') : ''}</option>
                       ))}
                     </select>
@@ -2190,7 +2203,7 @@ function EquipmentGroups({
                         className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                       >
                         <option value="">{t('selectWeaponOption')}</option>
-                        {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
+                        {targetsFor(arm, availableWeapons, meleeWeapons, notMasterCraftable).map(wn => (
                           <option key={wn} value={wn}>{wn}</option>
                         ))}
                       </select>
@@ -2337,9 +2350,11 @@ function ReaverLordPicker({
 }
 
 /** The weapons a weapon-target item may be pointed at: "One melee weapon..." only the melee ones, "One ranged weapon..." only the others. */
-function targetsFor(arm: ArmoryItem, all0: string[], melee: string[]): string[] {
+function targetsFor(arm: ArmoryItem, all0: string[], melee: string[], notMasterCraftable: string[] = []): string[] {
   // "Can not be applied to named weapons: ..." (the Crusade weapon of the Horus Heresy books): those weapons are not offered.
   const blocked = namedWeaponsBlockedBy(arm.desc);
+  // An item that hands out "Master-crafted" is never offered a grenade or an Ammo(x) weapon (Core Rules, Master-crafted).
+  if (/master-crafted/i.test(arm.desc ?? '')) for (const n of notMasterCraftable) blocked.add(weaponBaseName(n).toLowerCase());
   const all = blocked.size ? all0.filter(w => !blocked.has(weaponBaseName(w).toLowerCase())) : all0;
   const kind = weaponTargetKind(arm.desc);
   if (kind === 'any') return all;
