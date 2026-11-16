@@ -46,7 +46,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "ADVISOR IS OPTIONAL (Unwise). A unit with the Advisor rule has a button on its card to make it occupy its slot anyway, like the Tyrant Guard toggle.",
       "INTERCESSORS (Unwise). The same swap could not be taken twice (two Heavy bolters): when two option lists share one limit, the choice you were raising was counted against itself.",
       "REDEMPTOR DREADNOUGHT (Unwise). Taking \"Redemptor fist with Storm bolter\" on both arms showed one fist and one Storm bolter. A choice written \"X with Y\" now counts both weapons, which also fixes the Dreadnought, Captain and Chaplain Dreadnought arms that come on top of their base loadout, and the Fighta-Bommer's extra turret.",
-      "BOLTER DRILL ON GRANTED WEAPONS (Unwise). An army trait that gives an ability to weapons (Bolter Drill's Deflagrate(5+)) skipped the weapons an Armory item hands out, such as the Space Marine bike's Twin bolt rifle.",
+      "BOLTER DRILL ON GRANTED WEAPONS (Unwise). An army trait that gives an ability to weapons (Bolter Drill's Deflagrate(5+)) skipped the weapons an Armory item hands out, such as the Space Marine bike's Twin bolt rifle. The same for an item aimed at one weapon (Master-crafted on that Twin bolt rifle showed nothing).",
       "MASTER-CRAFTED (TeCrisis). The weapon list of a Master-crafted item no longer offers grenades or Ammo(x) weapons, which the Core Rules say cannot be master-crafted.",
     ],
   },

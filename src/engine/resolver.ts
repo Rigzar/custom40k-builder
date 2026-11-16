@@ -1463,6 +1463,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // ~35 items across every faction was silently a no-op past the points charge. Numeric stat
   // deltas (dDelta/sDelta/apDelta) are applied separately in computeWeaponGroups via
   // applyChosenWeaponStatBoosts; this loop only handles the ability-text half.
+  // A function so it runs again for the weapons an Armory item adds further down: Master-crafted on the Space Marine bike's
+  // Twin bolt rifle found no row and did nothing (Unwise 2026-11-16). `done` keeps a row from getting the same grant twice.
+  const chosenGrantDone = new Set<string>();
+  const applyChosenWeaponGrants = () => {
   for (const sel of item.armory) {
     if (sel.section !== 'equipment' || !sel.targetWeapon) continue;
     const armItem = findArmoryItem(data, sel, !!unit.is_vehicle);
@@ -1514,9 +1518,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     const targetBase = weaponBaseName(sel.targetWeapon);
     const profiles = weapons.filter(w => weaponBaseName(w.name) === targetBase).map(w => w.name);
     for (const name of profiles.length ? profiles : [sel.targetWeapon]) {
+      const key = `${sel.id}|${name}`;
+      if (chosenGrantDone.has(key)) continue;
+      chosenGrantDone.add(key);
       target.set(name, [...(target.get(name) ?? []), ...abilities]);
     }
   }
+  };
+  applyChosenWeaponGrants();
 
   // Named per-unit choices the generic "All weapons gain X" loop above can't see, worded "the
   // unit gains 'X' for all ranged/melee weapons/attacks" — Tyranid Biomorphs (Discord: "infrasonic
@@ -1671,6 +1680,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
   injectTraitWeaponAbilities(weapons);   // the weapons added just above (and by option choices) get the army traits too
+  applyChosenWeaponGrants();   // and an "Apply to" item aimed at one of them (Master-crafted on the bike's Twin bolt rifle)
 
   /*
    * Upgrades that grant a weapon ability to every melee or ranged weapon, READ FROM THE CODEX TEXT
