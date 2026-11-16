@@ -138,7 +138,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'lance': {
     name: 'Lance({X})',
-    description: 'Armor penetration rolls gain a {X} bonus.',
+    description: 'Old name of Armorbane({X}) (Core Rules 1.279 merged them): the weapon gains a {X} bonus for armor penetration rolls.',
   },
   'life curse': {
     name: 'Life Curse',
