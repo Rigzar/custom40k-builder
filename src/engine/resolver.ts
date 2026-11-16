@@ -1,3 +1,4 @@
+import { entryHasKeyword } from './keywords';
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect, DroneType } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
@@ -1110,11 +1111,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // restriction is evaluated against the item's OWN faction, not the primary's.
   const isAlliedScopeItem = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
   const isMainFaction = !item.factionSource && item.unitName in data.units;
+  // A supplement unit of the army itself (not the allied detachment) that gained the keyword the codex asks for (grantedKeywords).
+  const isGrantedSupplementItem = !!item.factionSource && !isAlliedScopeItem && data.faction === 'Chaos Space Marines'
+    && entryHasKeyword(unit, item, 'Chaos Space Marine');
   const itemFactionForTraits = isAlliedScopeItem
     ? (FACTION_SLUG_TO_NAME[item.factionSource!] ?? '')
     : data.faction;
-  const hasCSMKeyword = unit.keywords?.includes('Chaos Space Marine') ?? false;
-  const traitsApply = (isMainFaction || isAlliedScopeItem) &&
+  const hasCSMKeyword = entryHasKeyword(unit, item, 'Chaos Space Marine');
+  const traitsApply = (isMainFaction || isAlliedScopeItem || isGrantedSupplementItem) &&
     (itemFactionForTraits !== 'Chaos Space Marines' || hasCSMKeyword);
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   // An archetype can change stats army-wide too (Ratling Company). Same list as the traits,

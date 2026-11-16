@@ -47,6 +47,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "INTERCESSORS (Unwise). The same swap could not be taken twice (two Heavy bolters): when two option lists share one limit, the choice you were raising was counted against itself.",
       "REDEMPTOR DREADNOUGHT (Unwise). Taking \"Redemptor fist with Storm bolter\" on both arms showed one fist and one Storm bolter. A choice written \"X with Y\" now counts both weapons, which also fixes the Dreadnought, Captain and Chaplain Dreadnought arms that come on top of their base loadout, and the Fighta-Bommer's extra turret.",
       "BOLTER DRILL ON GRANTED WEAPONS (Unwise). An army trait that gives an ability to weapons (Bolter Drill's Deflagrate(5+)) skipped the weapons an Armory item hands out, such as the Space Marine bike's Twin bolt rifle. The same for an item aimed at one weapon (Master-crafted on that Twin bolt rifle showed nothing).",
+      "LEGION UNITS WITH A MARK ARE CHAOS SPACE MARINES (Dominic, Discord, TeCrisis). In a Chaos Space Marine army with the Legion CSM archetype, a Horus Heresy unit that takes a Mark of Chaos (Undivided included) gains the Chaos Space Marine keyword, so the army's Traits apply to it and are charged; without a Mark it still gets none, as the codex says Traits only apply to that keyword.",
       "MASTER-CRAFTED (TeCrisis). The weapon list of a Master-crafted item no longer offers grenades or Ammo(x) weapons, which the Core Rules say cannot be master-crafted.",
     ],
   },

@@ -61,6 +61,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Legion CSM", "A Horus Heresy unit that takes a Mark of Chaos counts as a Chaos Space Marine and gets the army's Traits."],
         ["Skirmish", "A full AOP unlocks a second one; Chief Apothecary and Master of the Forge count as once-per-army HQ upgrades."],
         ["Units", "Advisors can occupy their slot (button on the card); Intercessors can take the same swap twice; Redemptor fists counted on both arms; Master-crafted skips grenades and works on the bike's Twin bolt rifle."],
         ["Traits", "Cursed Founding, Abhuman Auxiliaries and Signature Evolutionary Adaption: pick the improvement in the army setup and it is applied to the units."],
@@ -112,6 +113,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Allgemein", rows: [
+        ["Legion CSM", "Eine Horus-Heresy-Einheit mit einem Mal des Chaos zählt als Chaos Space Marine und erhält die Merkmale der Armee."],
         ["Skirmish", "Eine volle AOP schaltet eine zweite frei; Chief Apothecary und Master of the Forge zählen als einmalige HQ-Aufwertungen."],
         ["Einheiten", "Advisors können ihren Slot belegen (Knopf auf der Karte); Intercessors können denselben Tausch zweimal wählen; Redemptor-Fäuste an beiden Armen gezählt; Master-crafted ohne Granaten, wirkt jetzt auch auf das Twin bolt rifle des Bikes."],
         ["Merkmale", "Cursed Founding, Abhuman Auxiliaries und Signature Evolutionary Adaption: die Verbesserung in der Armee-Konfiguration wählen, sie wird auf die Einheiten angewendet."],
@@ -163,6 +165,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "General", rows: [
+        ["Legion CSM", "Una unidad de Horus Heresy con una Marca del Caos cuenta como Chaos Space Marine y recibe los rasgos del ejército."],
         ["Skirmish", "Un AOP completo desbloquea un segundo; Chief Apothecary y Master of the Forge cuentan como mejoras de HQ una por ejército."],
         ["Unidades", "Los Advisors pueden ocupar su slot (botón en la ficha); los Intercessors pueden repetir el mismo cambio; los puños del Redemptor cuentan en ambos brazos; Master-crafted sin granadas y ya funciona en el Twin bolt rifle de la moto."],
         ["Rasgos", "Cursed Founding, Abhuman Auxiliaries y Signature Evolutionary Adaption: elige la mejora en la configuración del ejército y se aplica a las unidades."],
@@ -214,6 +217,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "Общее", rows: [
+        ["Legion CSM", "Отряд Horus Heresy с Меткой Хаоса считается Chaos Space Marine и получает черты армии."],
         ["Skirmish", "Заполненный AOP открывает второй; Chief Apothecary и Master of the Forge считаются улучшениями Штаба «одно на армию»."],
         ["Отряды", "Advisor может занимать слот (кнопка на карточке); Intercessors могут взять одну замену дважды; кулаки Redemptor считаются на обеих руках; Master-crafted без гранат и работает на Twin bolt rifle байка."],
         ["Черты", "Cursed Founding, Abhuman Auxiliaries и Signature Evolutionary Adaption: выберите улучшение в настройках армии, и оно применяется к отрядам."],
@@ -265,6 +269,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: "",
     sections: [
       { label: "全般", rows: [
+        ["Legion CSM", "混沌の印を得た Horus Heresy ユニットは Chaos Space Marine として扱われ、軍の特性を得ます。"],
         ["Skirmish", "AOP を埋めると2つ目が解放されます。Chief Apothecary と Master of the Forge は軍に1つの HQ 強化として扱われます。"],
         ["ユニット", "Advisor は枠を使うことも可能(カードのボタン)。Intercessors は同じ交換を2回選択可能。Redemptor の拳は両腕で数えます。Master-crafted はグレネード不可、バイクの Twin bolt rifle にも適用されます。"],
         ["特性", "Cursed Founding、Abhuman Auxiliaries、Signature Evolutionary Adaption：軍の設定で強化を選ぶと、ユニットに適用されます。"],

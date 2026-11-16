@@ -1,3 +1,4 @@
+import { entryHasKeyword } from '../engine/keywords';
 import { create } from 'zustand';
 import { secondTraitGate, applySecondTraitGate } from '../lib/legacyGatedChoices';
 import { persist, createJSONStorage } from 'zustand/middleware';
@@ -222,12 +223,20 @@ function applyArmyTraits(
 
       // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
       // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
-      if (data.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
+      if (data.faction === 'Chaos Space Marines' && !entryHasKeyword(unit, item, 'Chaos Space Marine')) {
         return { ...item, traits: [] };
       }
 
       // All selected traits apply to all eligible units — veteran_max limits only armory items
       return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
+    }
+
+    // A Horus Heresy unit of a Legion CSM army that took a Mark is a Chaos Space Marine (Dominic 2026-11-16): the army's traits apply.
+    if (data.faction === 'Chaos Space Marines' && item.factionSource && unitTraitNames.length) {
+      const unit = resolveUnit(item, data);
+      if (unit && entryHasKeyword(unit, item, 'Chaos Space Marine')) {
+        return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
+      }
     }
 
     return { ...item, traits: [] };

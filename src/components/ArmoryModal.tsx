@@ -17,7 +17,7 @@ import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
   modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
-  effectiveKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
+  effectiveKeywords, grantedKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
   glyphArmourRestriction,
 } from '../engine/keywords';
@@ -437,7 +437,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // effectiveKeywords: single source of truth for all keyword-based gating (instanceOf).
   // Combines unit.keywords + unit_type tokens + selected mark + bought armour keywords.
-  const _effectiveKws = effectiveKeywords(unit, item.mark, getBoughtArmourKws());
+  const _effectiveKws = effectiveKeywords(unit, item.mark, [...getBoughtArmourKws(), ...grantedKeywords(item)]);   // grantedKeywords: keywords the army gives this entry (keywords.ts)
 
   // T'au support systems stop at the datasheet's cap ("up to two SUPPORT SYSTEMS from the armory", GH#243).
   function supportCapBlocked(arm: ArmoryItem, sec: Section): boolean {

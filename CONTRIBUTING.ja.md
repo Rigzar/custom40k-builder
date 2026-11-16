@@ -753,6 +753,10 @@ node tts/test/run_table.cjs army.json    # オールインワンのGlobalスク�
 - その他の英語のエンジンデータには専用の描画ヘルパーがあり、素の `{x.name}` は決して使いません：スロットは `slotLabel(lang, slot)`（`src/utils/slotLabel.ts`）、ユニットタイプは `unitTypeLabel(lang, type)`（`src/utils/unitTypeLabel.ts`）、形式の名前とルールの行は `engName`/`engNotes`（`src/utils/engagementText.ts`）、サイキックパワーの種類／ターゲット／持続は `powerMetaLine`（テキストの表を使う）、バリデーターのメッセージは `src/engine/validators.ts` の `T()` の中で `{slot}`/`{unit}` の値がローカライズされます。コンポーネントに直書きした英語のラベルはバグです：代わりに `src/i18n`（5言語すべて）にキーを追加してください。
 - **オプショングループの見出し**（`g.header`、各オプションブロックの上の文）は、`localiseAbility()` と `src/data/abilityTexts.<言語>.json` を通して、英語テキストのハッシュをキーにして文ごとに翻訳されます — ルールのテキストとまったく同じです。シートが言い換えた見出しは、追加されるまで翻訳がありません；`npx tsx scripts/_headers_test.ts` は、ゲーム内で翻訳のない見出しを、4つの言語それぞれについて一覧にします。
 
+### ユニットが軍から得るキーワード(`src/engine/keywords.ts` の `grantedKeywords`)
+
+データシートにないキーワードをロスターの項目が得る唯一の場所です(Dominic 2026-11-16:Legion CSM 軍で混沌の印を得た Horus Heresy ユニットは "Chaos Space Marine")。キーワードの判定はすべてここを通ります:特性(`store/army.ts` と `engine/resolver.ts` の `entryHasKeyword`)とアーモリー(`effectiveKeywords` の追加引数)。新しい付与はここに追加し、別の場所に `unit.keywords.includes(...)` を書かないでください。
+
 ### アイテム本文から読むアーモリー制限(`src/data/textGates.ts`)
 
 本文で購入者を制限するアーモリーアイテム("Kroot only"、"Only for Infantry"、"Painboy only"、"Exo-armor only")は、読み込み時にその文から制限を得ます:`requires_keywords` / `requires_all_keywords` / `excludes_keywords`(ユニットタイプとフラグ)、`requires_unit_names`(ユニット、そのモデル、または有効な昇格)、`requires_owned_item`(同じモデルの別のアーモリーアイテム)。データに既に制限があるアイテムはそのまま、役割の文はファクションにその名前のユニットがある場合だけ制限になります。シートに新しい言い回しが出たら触ってください。Legacy の制限("Vior'la Sept only")は `legacyItemAllowed` が扱います。

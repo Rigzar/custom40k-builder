@@ -153,6 +153,29 @@ function roleKeywordsFromName(unitName: string): string[] {
  *   6. selectedMark         — e.g. "Mark of Nurgle"
  *   7. boughtArmourKws      — armour BOUGHT from armory: ["Cataphractii"…]
  */
+/**
+ * Keywords a ROSTER ENTRY gains from the army it sits in, on top of its datasheet's own. The single place for such grants:
+ * every keyword check that can see the entry (traits in store/army.ts and engine/resolver.ts, the Armory through
+ * effectiveKeywords' `extra` argument) goes through `entryHasKeyword` / this list, so a new grant only has to be added here.
+ *
+ *   Dominic, 2026-11-16: "Once a Legion unit gets a Mark it should also gain the CSM keyword and be eligible for traits."
+ *   A Horus Heresy supplement unit (Legion CSM archetype) with any Mark of Chaos, Undivided included, counts as a
+ *   "Chaos Space Marine", so the CSM rule "Traits in this army can only apply to models with the Chaos Space Marine
+ *   keyword" now lets it take (and pay for) the army's traits.
+ */
+export function grantedKeywords(item: { factionSource?: string | null; mark?: string | null } | null | undefined): string[] {
+  if (!item) return [];
+  const out: string[] = [];
+  if (item.factionSource === 'horus_heresy' && item.mark) out.push('Chaos Space Marine');
+  return out;
+}
+
+/** Does this unit, as this roster entry, carry the keyword (datasheet keywords plus grantedKeywords)? */
+export function entryHasKeyword(unit: Unit, item: Parameters<typeof grantedKeywords>[0], keyword: string): boolean {
+  const k = keyword.toLowerCase();
+  return (unit.keywords ?? []).some(x => x.toLowerCase() === k) || grantedKeywords(item).some(x => x.toLowerCase() === k);
+}
+
 export function effectiveKeywords(
   unit: Unit,
   selectedMark?: string | null,
