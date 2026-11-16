@@ -135,6 +135,23 @@ export const DEFAULT_CODEX_VERSIONS: Record<string, { version: string; status: F
   Object.fromEntries(CATEGORIES.flatMap(c => c.factions.map(f =>
     [f.key, { version: f.version ?? '1.00', status: f.status }])));
 
+/**
+ * The codex version to show: the admin setting only when it is NEWER than the one compiled into this build. The settings row
+ * was saved once (Space Marines 1.6, Orks 1.4...) and kept overriding every newer sheet the code moved to (Rigzar 2026-11-16:
+ * "las versiones en la app no estan actualizadas"). A non-numeric value ("2.0 draft") is compared by its leading number.
+ */
+export function newerCodexVersion(compiled: string | undefined, saved: string | undefined): string | undefined {
+  if (!saved) return compiled;
+  if (!compiled) return saved;
+  const parts = (v: string) => (v.match(/\d+(?:\.\d+)*/)?.[0] ?? '0').split('.').map(Number);
+  const a = parts(saved), b = parts(compiled);
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    const d = (a[i] ?? 0) - (b[i] ?? 0);
+    if (d !== 0) return d > 0 ? saved : compiled;
+  }
+  return compiled;
+}
+
 export function getFactionName(key: string): string {
   for (const cat of CATEGORIES) {
     const f = cat.factions.find(f => f.key === key);
