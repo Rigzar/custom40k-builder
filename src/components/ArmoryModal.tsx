@@ -17,8 +17,7 @@ import { getActiveVariant, gameSizePrice, liveArmoryPoints } from '../engine/poi
 import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
-  modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
-  effectiveKeywords, grantedKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
+  modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked, isItemRequirementsBlocked, isArmyItemGateBlocked,
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
   glyphArmourRestriction,
 } from '../engine/keywords';
@@ -199,8 +198,12 @@ const ArmoryCountsContext = createContext<{
 } | null>(null);
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
-  const t = useT();
+  // Retrieve army store and resolve unit profile
   const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army, pointLimit } = useArmyStore();
+  if (!data) return null;
+  const unitProfile = resolveUnitProfile(item, unit, useArmyStore.getState(), data);
+
+  const t = useT();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -235,8 +238,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       .then(fd => setArchetypeArmoryData(fd))
       .finally(() => setArchetypeArmoryLoading(false));
   }, [archetypeRuleForArmory?.armoryOnlyFaction]);
-  if (!data) return null;
-
   // For allied units use their own faction's armory data.
   // alliedData = user-selected allied detachment; supplementData = primary faction's
   // supplemental/native-ally factions (Assassins, Inquisition, HH, Daemonkin, etc.).
@@ -307,7 +308,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // scale the cap by item.size the way an ordinary has_armory_access squad's gear would.
     if (isBiomorph(arm.desc)) return 1;
     const accessorCount = isVehicle ? item.size : (!unit.has_armory_access && unit.armory_model_types?.length) ? armoryTypeHolders(unit, item.modelSizes) : (unit.has_armory_access || (unit.option_groups ?? []).some(g => isSupportSystemGroup(g))) ? armoryAccessorCount(unit, item.size) : championArmoryBuyers(unit, item.modelSizes);
-    const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
+    const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool?.includes('Waaagh! Coast Kustoms'))
       ? accessorCount + 1
       // "Must be purchased separately for each weapon" (Master-crafted weapon, Forgewrought
       // weapon): the cap is one purchase per WEAPON the model can point it at, not one per model.
@@ -367,7 +368,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       if (a.itemName === arm.name && a.section === sec) return false; // same item — oncePerModelBlocked already covers it
       // Falls back to the host's own data when this item came from the "hostGeneral" tab
       // (ownArmoryGenerals doc above) — activeData alone no longer carries the host's items.
-      const found = findArmoryItem(activeData, a) ?? (inheritsHostArmory ? findArmoryItem(data, a) : undefined);
+      const found = findArmoryItem(activeData, a) ?? (inheritsHostArmory && !!data ? findArmoryItem(data, a) : undefined);
       return !!found && isUnwieldyItem(found.desc);
     });
   }
@@ -422,6 +423,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       return false;
     });
   }
+  
   // Collect armour-class keywords from already-bought equipment (for effectiveKeywords).
   function getBoughtArmourKws(): string[] {
     const kw: string[] = [];
@@ -435,10 +437,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     }
     return kw;
   }
-
-  // effectiveKeywords: single source of truth for all keyword-based gating (instanceOf).
-  // Combines unit.keywords + unit_type tokens + selected mark + bought armour keywords.
-  const _effectiveKws = effectiveKeywords(unit, item.mark, [...getBoughtArmourKws(), ...grantedKeywords(item)]);   // grantedKeywords: keywords the army gives this entry (keywords.ts)
+  // _effectiveKws: single source of truth for all keyword-based gating for armour
+  // Combines unit profile keywords (using effectiveKeywords) + bought armour keywords
+  const _effectiveKws = [...unitProfile.keywords, ...getBoughtArmourKws()];
 
   // T'au support systems stop at the datasheet's cap ("up to two SUPPORT SYSTEMS from the armory", GH#243).
   function supportCapBlocked(arm: ArmoryItem, sec: Section): boolean {
@@ -556,14 +557,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
-  const rule = getArchetypeRule(archetype);
   // An Ascended Daemon Prince "has all Marks of Chaos" (datasheet), so it reaches all four Mark
   // armouries and every item that wants a particular Mark, exactly like a Black Crusade champion.
   // It had none of that: with no Mark chosen there was no Mark tab at all (reported by Rigzar).
   const ascendedDaemonPrince = unit.option_groups.some((g, gi) =>
     g.variant_link === 'Ascended Daemon Prince'
     && !!(army.find(e => e.id === item.id) ?? item).optionQty?.[gi]?.['__inline']);
-  const effectiveMark = unit.locked_mark ?? ((isTrueAllyUnit ? getArchetypeRule(alliedArchetype)?.forcedMark : rule?.forcedMark) ?? null) ?? item.mark;
+  const itemRule = isTrueAllyUnit && !!alliedArchetype ? getArchetypeRule(alliedArchetype) : getArchetypeRule(archetype);
+  const effectiveMark = unit.locked_mark ?? itemRule?.forcedMark ?? item.mark;
   // "Has access to gear from the Armory like a Character model" (Sororitas Canoness in Paragon
   // Warsuit, Dogmata on Throne of Condemnation): grants Character-tier armory pricing/items
   // without making is_character true (that would wrongly add the "Character" keyword for
@@ -590,7 +591,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isMarklessFaction = !MARK_FACTIONS.has(tab === 'hostGeneral' ? data.faction : activeData.faction);
   /** True when the given legion-armory key is the archetype-granted supplement (e.g. Horus Heresy). */
   const legMarkless = (legName: string): boolean =>
-    isMarklessFaction || legName === rule?.sharedSupplementArmory;
+    isMarklessFaction || legName === itemRule?.sharedSupplementArmory;
   // Use is_monster as the CD proxy for Greater Daemon (avoids false-positive on Heralds whose
   // Entourage ability text references "Greater Daemon" without the unit being one).
   const isGreaterDaemon = isCD && unit.is_monster;
@@ -618,7 +619,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // A null column (e.g. Tusked's p_unit) already means "not for this buyer" via the null-price
     // block in isAddBlocked, so this alone also covers the five items only Advanced Bioforms may
     // take at all — no separate requires_keywords needed for that axis.
-    if (isAdvancedBiomorph(arm.desc)) return (unit.keywords ?? []).includes('Advanced Bioform') ? cp : up;
+    if (isAdvancedBiomorph(arm.desc)) return (_effectiveKws ?? []).includes('Advanced Bioform') ? cp : up;
     if (isCD) return isGreaterDaemon ? cp : up;
     // Eldar: a lone character buyer (Autarch/Farseer/Spiritseer/Wraithseer) prices off the
     // column matching its own role — see resolveEldarCharPrice. A squad buyer (e.g. Warlocks)
@@ -701,7 +702,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // grantsMarkPurchase is an archetype grant — read the archetype governing THIS item's own
   // detachment (ally rule for a genuine allied-detachment unit only; a same-army supplement
   // item like Horus Heresy/Legio Titanicus stays governed by the primary archetype).
-  const itemRule = isTrueAllyUnit ? getArchetypeRule(alliedArchetype) : rule;
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!itemRule?.grantsMarkPurchase;
   const hhMarkUsesVet = !!data?.faction.startsWith('Horus Heresy:') && !item.factionSource && !unit.requires_legacy && !!hhMarkFor(effectiveLegacyFor(item, { legacy, legacy2, alliedLegacy, alliedFaction, archetype } as never), data.faction, unit);
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark) || hhMarkUsesVet;
@@ -852,7 +852,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     .filter((k): k is string => !!k && k in data.armory_legions);
   // A supplement-granting archetype (e.g. Legion → 'Horus Heresy') exposes its armory to the
   // whole army as a legion tab — gated by access only, no mark. Mirrors a Legacy grant.
-  const archetypeArmoryKey = rule?.sharedSupplementArmory;
+  const archetypeArmoryKey = itemRule?.sharedSupplementArmory;
   const grantedArchetypeKeys = archetypeArmoryKey && archetypeArmoryKey in data.armory_legions
     ? [archetypeArmoryKey] : [];
   // Allied units' OWN legacy armory (from the ally's selected alliedLegacy) — separate from the
@@ -890,7 +890,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Legacies' items rendered together under a tab labelled with only the first Legacy's name — read
   // as "the second Legacy never got added" (Rigzar, live: Legion archetype + Hydra + Warmaster).
   const traitPoolData = (isTrueAllyUnit && alliedData) ? alliedData : data;
-  const isMixedWarband = !!twoLegaciesRule || effectiveTraitPool.some(n =>
+  const isMixedWarband = !!twoLegaciesRule || effectiveTraitPool?.some(n =>
     traitPoolData.traits.find(t => t.name === n)?.enables_second_legacy
   );
   const hasTwoLegacies = activeLegionKeys.length >= 2;
@@ -911,7 +911,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (tab === 'legion') return null;
     // See inheritsHostArmory: the host's own General armory, kept as its own tab rather than
     // merged into the supplement's.
-    if (tab === 'hostGeneral') return data.armory_general;
+    if (tab === 'hostGeneral') return !!data ? data.armory_general : null;
     // The Veteran Ability picker (filterCategory='veteran') has no tab bar of its own — the whole
     // block above is hidden behind `!filterCategory` — so it can never reach the "hostGeneral" tab
     // a Horus Heresy/Legio Titanicus unit would otherwise need. Its OWN armory_general never
@@ -924,8 +924,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (filterCategory === 'veteran' && inheritsHostArmory) {
       return {
         ...activeData.armory_general,
-        weapons: [...activeData.armory_general.weapons, ...data.armory_general.weapons],
-        equipment: [...activeData.armory_general.equipment, ...data.armory_general.equipment],
+        weapons: [...activeData.armory_general.weapons, ...data?.armory_general.weapons ?? []],
+        equipment: [...activeData.armory_general.equipment, ...data?.armory_general.equipment ?? []],
       };
     }
     return activeData.armory_general;
@@ -939,7 +939,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // matches by base name, so storing the base name here is what the engine expects.
   // The weapons the model that is buying carries (a Champion's own loadout, not the whole squad's kit), so
   // "One ranged weapon of the model gains +1 Strength" cannot be pointed at a Flamer the Champion never holds.
-  const carriedTargets = armoryWeaponTargets(unit, item, resolveUnitProfile(item, unit, useArmyStore.getState() as never, data));
+  const carriedTargets = armoryWeaponTargets(unit, item, unitProfile);
   const isMeleeTarget = (w: { name: string; type?: string; range?: string }) => /melee/i.test(w.type ?? '') || !w.range || w.range === '-';
   const availableWeapons: string[] = [...new Set([
     ...carriedTargets.map(w => weaponBaseName(w.name)),
@@ -1355,7 +1355,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines.
               PRIMARY-archetype grant only: an allied unit uses its own Army Customisation, so the
               primary archetype's foreign-armory tab must not appear on allied-scope units. */}
-          {!isAllied && rule?.armoryOnlyFaction && (
+          {!isAllied && itemRule?.armoryOnlyFaction && (
             <button
               onClick={() => setTab('archetypeArmory')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
@@ -2002,7 +2002,7 @@ function EquipmentGroups({
             // mechanism already built for Crusade weapon/Paragon of war (a fixed pool, read from
             // the item's own desc text via parseEnumerableWeaponChoices instead of a hardcoded
             // list, since not every item offers all 4 — Heavenfall blade excludes Range).
-            const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
+            const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc ?? null) : [];
             // Orders of the Hekatonystika (Horus Heresy): the item's own text lists six NAMED orders and says "only one": the same picker, with the names read from the text.
             const namedChoices = (enumOptions.length === 0 && arm.name !== 'Crusade weapon' && arm.name !== 'Paragon of war') ? parseNamedChoices(arm.desc) : [];
             const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0 || namedChoices.length > 0;
@@ -2637,7 +2637,7 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
   if (arm.range) {
     return (
       <div className="text-[10px] text-zinc-600 mt-0.5">
-        {arm.range} · <WeaponTypeTip type={arm.type} /> · S{arm.s} AP{arm.ap} D{arm.d}
+        {arm.range} · <WeaponTypeTip type={arm.type ?? ""} /> · S{arm.s} AP{arm.ap} D{arm.d}
         {arm.abilities && arm.abilities !== '-' && <span> · {rl(arm.abilities)}</span>}
       </div>
     );
@@ -2734,7 +2734,7 @@ function ArmoryWeaponTable({
             return (
               <tr
                 key={i}
-                title={localiseAbility(arm.desc)}
+                title={localiseAbility(arm.desc ?? "")}
                 className={`border-b border-zinc-700/40 last:border-b-0 ${disabled ? 'opacity-60' : ''} ${justAddedName === arm.name ? 'bg-green-900/20' : ''}`}
               >
                 {/* A COUNTER, not a checkbox. Clicking the box buys another copy and shows how

@@ -182,7 +182,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   if (!uPlain) return null;
   // An archetype HQ promotion that grants Armory access (Tyranids Megafauna / Subterranean Assault: "The model gains access to the
   // Hive Fleet Armory") is priced and offered like a Character: the Hive Fleet items are Character-only (p_char), and the Carnifex already reaches the Armory through champion_has_armory.
-  const promoRule = item.archetypeHqUpgrade ? getArchetypeRule(effectiveArchetypeFor(item, store))?.hqPromotion : null;
+  const rule = getArchetypeRule(effectiveArchetypeFor(item, store));
+  const promoRule = item.archetypeHqUpgrade ? rule?.hqPromotion : null;
   const u = promoRule?.grantsArmoryAccess && promotionFragment(promoRule, uPlain.name) ? { ...uPlain, armory_as_character: true } : uPlain;
 
   const rp = resolveUnitProfile(item, u, store, data);
@@ -197,7 +198,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
     blackCrusadeChampion,
     ctanYngirActive,
     optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
-    attachedDrones,
+    attachedDrones, keywords
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
   const unitTypeDisplay = [baseTypeDisplay, ...optionAddedUnitTypes].filter(Boolean).join(', ');
@@ -266,7 +267,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && isAlliedEntry(item, store.alliedFaction) ? '' : (getArchetypeRule(store.archetype ?? '')?.legacy2ArmoryOnly ? '' : store.legacy2)].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
-    isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
+    isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype));
   // Whether this unit may be given a Mark, and which ones. NOT `data.animosity` alone: that
   // table exists only for CSM and Chaos Daemons, so the two archetypes whose whole point is
   // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
@@ -755,7 +756,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
            their own (Incubi, Mandrakes, Scourges). A unit locked to a single sub-faction keyword
            shows no picker. Narrows which sub-faction's traits apply (codex_dark_eldar/subfaction). ── */}
       {data?.faction === 'Dark Eldar' && !item.factionSource && (() => {
-        const subs = unitSubfactions(u.keywords);
+        const subs = unitSubfactions(keywords);
         if (subs.length === 1) return null;                    // fixed sub-faction — no choice
         const options = subs.length > 1 ? subs : [...DE_SUBFACTIONS]; // no keyword → offer all three
         return (
@@ -1348,7 +1349,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // A group the datasheet only has because an army TRAIT grants it (IG Close Combat
             // Specialists). `realGi` below is an index into the unfiltered array, so hiding it
             // here moves nothing.
-            && (!g.requires_trait || effectiveTraitPool.includes(g.requires_trait))
+            && (!g.requires_trait || effectiveTraitPool?.includes(g.requires_trait))
             // A Legion option (Horus Heresy) is only shown with its own archetype.
             && (!g.requires_archetype || g.requires_archetype === (effectiveArchetypeFor(item, store) ?? ''))
             && (!g.requires_legacy || itemLegacies.includes(g.requires_legacy))).map((g) => {
@@ -1358,7 +1359,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // "if part of a Space Marine army" option is hidden under a Chaos Space Marine host.
             // Unit-scope conditions stay visible-but-disabled below (validated UX); force-scope is hidden.
             if ((g.available_if?.scope === 'force' || g.available_if?.scope === 'archetype') &&
-                !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype)) return null;
+                !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype)) return null;
 
             // A swap for a weapon the model does not start with: hidden until something you picked
             // actually gives you one (see OptionGroup.requires_choice).
@@ -1505,7 +1506,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
               // Keyword-gated availability (BSData condition primitive). effectiveMark is the
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
-              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype);
+              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype);
               // "One Guardsman PER Heavy Weapons Team may take a Vox": a count, not a tick-box.
               if (g.constraint?.type === 'per_n') {
                 const cMax = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
@@ -1574,7 +1575,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const modelGroupCap = sumModelGroups(applyModelNames);
             // Drone controller groups (their choices are all named Tau Drones, see
             // computeAttachedDrones) get +1 to their fixed_max when "Swarm Controllers" is active.
-            const swarmControllersBonus = isFixedMax ? swarmControllersBonusFor(g, effectiveArmData.drones, effectiveTraitPool) : 0;
+            const swarmControllersBonus = isFixedMax ? swarmControllersBonusFor(g, effectiveArmData.drones, effectiveTraitPool ?? []) : 0;
             // A swap group can be PER COPY, and the header is what says so: "may swap EACH Scatter
             // laser" is one swap per copy carried, while "may swap BOTH Storm bolters" / "their two
             // Power fists" is a single selection covering all of them. Only the first multiplies
@@ -1740,7 +1741,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               // this leaves "−" live, so a selection made before the keyword existed can be
               // cleared instead of stranding the player on an illegal list.
               const choiceKeywordBlocked = c.requires_keyword != null
-                && !unitMatchesKeyword(u, c.requires_keyword);
+                && !unitMatchesKeyword({keywords: keywords}, c.requires_keyword);
               const addBlocked = choiceMarkBlocked || choiceKeywordBlocked;
               const blockTitle = choiceMarkBlocked
                 ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}`
@@ -2575,12 +2576,12 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
           </div>{/* close px-3 builder section */}
 
           {/* ── Keywords ── */}
-          {u.keywords.length > 0 && (
+          {keywords.length > 0 && (
             <div className="md:col-span-2 px-3 py-2.5 border-t border-zinc-700 bg-zinc-800/50">
               <div className="flex flex-wrap gap-1.5 items-center">
                 <span className="text-[9px] text-zinc-500 uppercase tracking-widest shrink-0 font-semibold">{t('keywords')}</span>
                 <span className="text-zinc-700 text-[9px]">|</span>
-                {u.keywords.map((kw, i) => (
+                {keywords.map((kw, i) => (
                   <span key={i} className="text-[10px] uppercase tracking-wider text-zinc-400 font-medium">
                     {i > 0 && <span className="text-zinc-700 mr-1.5">·</span>}{kw}
                   </span>

@@ -70,7 +70,7 @@ function _getAllowedDiscKeys(
   legacy2: string,
 ): Set<string> {
   const rule = getArchetypeRule(archetype);
-  const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+  const effectiveMark = unit.locked_mark ?? rule?.forcedMark ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
   // Mirrors PsychicModal (GH#85): the bought "Cult initiate" item ADDS Cult Powers (it exchanges
   // one known power), while the datasheet flag marks a psyker that knows Cult Powers and nothing

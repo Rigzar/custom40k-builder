@@ -160,6 +160,7 @@ type ActiveVariant = { variant: Model; group: { header: string; inline_pts: numb
 export function unitMatchesKeyword(
   unit: { keywords?: string[]; unit_type?: string }, keyword: string,
 ): boolean {
+  console.log(`checking unitMatchesKeyword ${unit.keywords} vs ${keyword}`);
   if ((unit.keywords ?? []).includes(keyword)) return true;
   return String(unit.unit_type ?? '').split(',').map(t => t.trim()).includes(keyword);
 }

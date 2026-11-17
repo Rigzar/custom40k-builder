@@ -372,6 +372,8 @@ export interface ArchetypeRule {
   legacy2ArmoryOnly?: boolean;
   /** Horus Heresy Shattered Legions: a THIRD Legacy, and each unit picks which of the three it belongs to. */
   threeLegacies?: boolean;
+
+  grantsKeywords?: Array<{ keyword: string; units?: string[]; factions?: string[]; ifKeywords?: string[] }>;
 }
 
 export const BASE: ArchetypeRule = {

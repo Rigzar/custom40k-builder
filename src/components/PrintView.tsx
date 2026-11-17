@@ -416,7 +416,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   // injectedAbilities / optionAbilities / effectivePsyker / psykerGroupIdx are no longer pulled
   // out here: selectedAbilities() reads them straight off `rp`.
   const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
-          optionStatMods, optionStatSets, optionStatExact, attachedDrones, optionAbilities, traitAbilities } = rp;
+          optionStatMods, optionStatSets, optionStatExact, attachedDrones, optionAbilities, traitAbilities, keywords } = rp;
   // This card used to read `equipMods.invulnSave` alone, so a ward save that came from the
   // DATASHEET printed nowhere at all -- 163 of 666 datasheets state one, every faction
   // affected. Same derivation as the unit card now.
@@ -828,7 +828,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       </div>
 
       {/* ══ KEYWORDS STRIP ══ */}
-      {u.keywords.length > 0 && (
+      {keywords.length > 0 && (
         <div style={{
           padding: '4px 12px',
           background: color, color: '#fff',
@@ -837,7 +837,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
           display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0 2px',
         }}>
           <span style={{ opacity: .55, marginRight: 6, fontSize: '.85em', flexShrink: 0 }}>◆</span>
-          {u.keywords.join(' · ')}
+          {keywords.join(' · ')}
         </div>
       )}
     </div>
@@ -886,7 +886,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
   const { pts, variant, weaponTraitMap, injectedAbilities, hiddenUpgradeAbilityLabels, hiddenUpgradeAbilityLines, optionAbilities, equipMods, traitEquipMods,
-          effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
+          effectivePsyker, psykerGroupIdx, attachedDrones, keywords } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
   // Armory-bought weapons are already folded into rp.weaponGroups by resolver.ts's
@@ -1129,9 +1129,9 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
           <span style={{ fontWeight: 700 }}>{tFn(lang, 'prRules')}: </span>{ruleNames.join(', ')}
         </div>
       )}
-      {u.keywords.length > 0 && (
+      {keywords.length > 0 && (
         <div style={{ fontSize: '.74em', color: '#444' }}>
-          <span style={{ fontWeight: 700 }}>{tFn(lang, 'prCategories')}: </span>{u.keywords.join(', ')}
+          <span style={{ fontWeight: 700 }}>{tFn(lang, 'prCategories')}: </span>{keywords.join(', ')}
         </div>
       )}
     </div>

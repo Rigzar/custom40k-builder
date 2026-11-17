@@ -1,6 +1,13 @@
 import type { ArmoryItem, Unit } from '../types/data';
 export type { ArmoryItem };
 import { MARK_GLYPHS, type ChaosMark } from '../types/keywords';
+import type { ArchetypeRule } from './archetypes';
+
+/**
+ * Expected object fields for functions as types
+ */
+type ShortRosterEntry = { factionSource?: string | null; mark?: string | null; ownArmy?: boolean } | null;
+type GrantsKeywords = { grantsKeywords?: Array<{ keyword: string; units?: string[]; factions?: string[]; ifKeywords?: string[] }> } | null;
 
 // Re-export so existing consumers don't need to change their import path.
 export { MARK_GLYPHS };
@@ -138,7 +145,6 @@ function roleKeywordsFromName(unitName: string): string[] {
     .filter(([re]) => re.test(unitName))
     .map(([, kw]) => kw);
 }
-
 /**
  * Compute the full effective keyword set for a unit at list-building time.
  * Mirrors BattleScribe's categoryLinks: the union of everything the unit "is".
@@ -163,23 +169,57 @@ function roleKeywordsFromName(unitName: string): string[] {
  *   "Chaos Space Marine", so the CSM rule "Traits in this army can only apply to models with the Chaos Space Marine
  *   keyword" now lets it take (and pay for) the army's traits.
  */
-export function grantedKeywords(item: { factionSource?: string | null; mark?: string | null } | null | undefined): string[] {
-  if (!item) return [];
-  const out: string[] = [];
-  if (item.factionSource === 'horus_heresy' && item.mark) out.push('Chaos Space Marine');
-  return out;
+// export function grantedKeywords(item: { factionSource?: string | null; mark?: string | null } | null | undefined): string[] {
+//   if (!item) return [];
+//   const out: string[] = [];
+//   if (item.factionSource === 'horus_heresy' && item.mark) out.push('Chaos Space Marine');
+//   return out;
+// }
+
+/**
+ * Determines the granted keywords from the unit's archetype. Used by effectiveKeywords after determining implied keywords.
+ * @param unitName Name of the corresponding unit
+ * @param entry Roster Entry subset for the unit
+ * @param kws Implied keywords as determined by effectiveKeywords (used to check against ifKeywords)
+ * @param grants Granted keywords from the archetype (order matters as keywords can matter for other ifKeywords)
+ * @returns A list of all granted keywords for the archetype
+ */
+function _getArchetypeKeywords(
+  unitName: string, 
+  entry: ShortRosterEntry, 
+  kws: string[],
+  grants: GrantsKeywords
+): string[] {
+  if (!grants) return [];
+
+  const grantedKws: string[] = [];
+  for (const gk of grants.grantsKeywords ?? []) {
+    // Empty sets, so free keyword with archetype
+    if (!gk.units && !gk.factions && !gk.ifKeywords) {
+      grantedKws.push(gk.keyword);
+      continue;
+    }
+
+    // Match unit and/or faction names then check for any required keywords
+    if ((!gk.units || gk.units?.some(k => unitName.toLowerCase() === k.toLowerCase())) &&
+      (!gk.factions || gk.factions?.some(v => entry?.factionSource?.toLowerCase() === v.toLowerCase())) &&
+      (!gk.ifKeywords || gk.ifKeywords.some(v => kws?.some(k => v.toLowerCase() === k.toLowerCase()) || grantedKws.some(k => v.toLowerCase() === k.toLowerCase())))) {
+      grantedKws.push(gk.keyword);
+    }
+  }
+  return grantedKws;
 }
 
-/** Does this unit, as this roster entry, carry the keyword (datasheet keywords plus grantedKeywords)? */
-export function entryHasKeyword(unit: Unit, item: Parameters<typeof grantedKeywords>[0], keyword: string): boolean {
-  const k = keyword.toLowerCase();
-  return (unit.keywords ?? []).some(x => x.toLowerCase() === k) || grantedKeywords(item).some(x => x.toLowerCase() === k);
+/** Does this unit, as this roster entry, carry the keyword (datasheet keywords plus grantsKeyword)? */
+export function entryHasKeyword(unit: Unit, entry: ShortRosterEntry, keyword: string, rule: ArchetypeRule | null): boolean {
+  return effectiveKeywords(unit, entry, rule).some(k => keyword.toLowerCase() === k.toLowerCase());
 }
 
 export function effectiveKeywords(
   unit: Unit,
-  selectedMark?: string | null,
-  boughtArmourKws: string[] = [],
+  entry: ShortRosterEntry,
+  rule: ArchetypeRule | null,
+  additionalKeywords: string[] = []
 ): string[] {
   const kws: string[] = [
     ...(unit.keywords ?? []),
@@ -200,9 +240,14 @@ export function effectiveKeywords(
     ...((unit.abilities ?? []).some(a => /transport capacity (?:of|to) [1-9]/i.test(a)) ? ['Transport'] : []),
     // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
     ...roleKeywordsFromName(unit.name),
-    ...(selectedMark ? [selectedMark] : []),
-    ...boughtArmourKws,
+    ...(entry?.mark ? [entry.mark] : []),
+    ...additionalKeywords
   ];
+
+  // use generated keywords to determine if archetype keywords get applied
+  kws.push(..._getArchetypeKeywords(unit.name, entry, kws, rule));
+  
+  // Dedupes keywords
   return [...new Set(kws.map(k => k.toLowerCase()))];
 }
 

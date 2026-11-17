@@ -52,7 +52,8 @@ function exact(s: string): string | undefined {
  * uses: "Plasma gun - Standard", "Plasma gun (Standard)", "Heavy bolter and Meltagun",
  * "Blacksun filterᴵ".
  */
-export function jaName(raw: string): string {
+export function jaName(raw: string | null): string | null {
+  if (!raw) return raw;
   if (!TABLE) { ensureLoaded(); return raw; }
   const s = raw.trim();
   if (!s) return raw;
@@ -99,7 +100,7 @@ export function jaName(raw: string): string {
 }
 
 /** Use this wherever a name is DRAWN. Returns the name unchanged unless the language is Japanese. */
-export function nm(raw: string): string {
+export function nm(raw: string | null): string | null {
   return useLanguage.getState().language === 'ja' ? jaName(raw) : raw;
 }
 
@@ -122,7 +123,7 @@ function who(lang: Lang, subject: string, everyIn: boolean, extra: boolean): str
   // "model", "models" and "All models" all mean the whole squad
   const bare = /^(?:all )?models?$/i.test(subject.trim());
   if (/^all /i.test(subject.trim())) every = true;
-  const name = lang === 'ja' ? jaName(subject) : subject;
+  const name = lang === 'ja' ? jaName(subject) ?? subject : subject;
   switch (lang) {
     case 'ja': return `${bare ? (every ? '全モデル' : 'モデル') : (every ? `全${name}` : name)}${extra ? '（追加）' : ''}`;
     case 'de': return `${bare ? (every ? 'Alle Modelle' : 'Modell') : (every ? `Alle „${name}“` : `„${name}“`)}${extra ? ' (zusätzlich)' : ''}`;
