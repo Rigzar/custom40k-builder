@@ -20,7 +20,11 @@ export type TraitEffect =
   | { type: 'stat_mod';       stat: string; delta: number;                                applies_to: AppliesTo }
   | { type: 'inv_save';       value: number;                                               applies_to: AppliesTo }
   | { type: 'unit_ability';   name: string; desc?: string;                                applies_to: AppliesTo }
-  | { type: 'weapon_ability'; name: string; weapon_type?: 'ranged' | 'melee' | 'bolt';   applies_to: AppliesTo }
+  /** `if_ability`: only weapons whose own abilities already name it (AdMech Scarifying Weaponry: "Radiation weapons (any weapon with
+   *  the 'Rad' ability) gain Deadly(6+)"). */
+  | { type: 'weapon_ability'; name: string; weapon_type?: 'ranged' | 'melee' | 'bolt'; if_ability?: string; applies_to: AppliesTo }
+  /** "The unit's weapons increase their range by 3\"" (Necron Solar Fury): added to every ranged weapon's range. */
+  | { type: 'weapon_range'; delta: number; applies_to: AppliesTo }
   /**
    * The trait hands the unit an item from its own faction's general Armory, free of charge —
    * e.g. IG "Heavy Infantry": "The unit gains Krak grenades and Plate armor." `item` must match

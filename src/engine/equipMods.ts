@@ -48,7 +48,8 @@ const EQUIP_STAT_MAP: [RegExp, string, number][] = [
 // Descriptions that indicate the bonus applies to OTHER units/a WEAPON, not the bearer's stat block.
 // "one weapon of the model gains" → bonus goes to a single weapon (e.g. Artifact of Gork ... or Mork),
 // not to the model's base stats.
-const AURA_PHRASES = /attached unit|friendly unit|friendly (?:[a-z]+ )?unit|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
+// "friendly <Canoptek> or <Necron> creature unit" too: the Necron Atomic Energy Manipulator boosts ANOTHER unit and its bearer got the +1 S/T (Sophtym, Discord 2026-11-17).
+const AURA_PHRASES = /attached unit|friendly unit|friendly [^.]{0,60}?\bunits?\b|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
 
 // Quoted words that name a UNIT TYPE, not an ability. When an item says "gains the unit type 'Bike'"
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a

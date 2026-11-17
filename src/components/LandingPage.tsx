@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189i_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v189j_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -67,6 +67,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
       ] },
       { label: "Bugs (Discord)", rows: [
+        ["Necrons", "Solar Fury adds 3\" to the weapons; the Atomic Energy Manipulator no longer boosts its own bearer."],
+        ["Mechanicus", "Scarifying Weaponry gives Deadly(6+) to the Rad weapons."],
         ["Allies", "A unit bought from the main list (Chamber Militant's Inquisition) no longer counts as allied when the ally is the same faction; re-add old ones. Faction buttons show the current codex versions."],
         ["Legion CSM", "A Horus Heresy unit that takes a Mark of Chaos counts as a Chaos Space Marine and gets the army's Traits."],
         ["Skirmish", "A full AOP unlocks a second one; Chief Apothecary and Master of the Forge count as once-per-army HQ upgrades."],
@@ -120,6 +122,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
       ] },
       { label: "Fehler (Discord)", rows: [
+        ["Necrons", "Solar Fury gibt den Waffen 3\" mehr Reichweite; der Atomic Energy Manipulator verstärkt nicht mehr seinen Träger."],
+        ["Mechanicus", "Scarifying Weaponry gibt den Rad-Waffen Deadly(6+)."],
         ["Verbündete", "Eine aus der Hauptliste gekaufte Einheit (Inquisition bei Chamber Militant) zählt nicht mehr als verbündet, wenn der Verbündete dieselbe Fraktion ist; alte neu hinzufügen. Die Fraktionsknöpfe zeigen die aktuellen Codex-Versionen."],
         ["Legion CSM", "Eine Horus-Heresy-Einheit mit einem Mal des Chaos zählt als Chaos Space Marine und erhält die Merkmale der Armee."],
         ["Skirmish", "Eine volle AOP schaltet eine zweite frei; Chief Apothecary und Master of the Forge zählen als einmalige HQ-Aufwertungen."],
@@ -173,6 +177,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
       ] },
       { label: "Errores (Discord)", rows: [
+        ["Necrons", "Solar Fury suma 3\" a las armas; el Atomic Energy Manipulator ya no potencia a su portador."],
+        ["Mechanicus", "Scarifying Weaponry da Deadly(6+) a las armas Rad."],
         ["Aliados", "Una unidad comprada desde la lista principal (la Inquisición de Chamber Militant) ya no cuenta como aliada aunque el aliado sea la misma facción; vuelve a añadir las antiguas. Los botones de facción muestran las versiones actuales."],
         ["Legion CSM", "Una unidad de Horus Heresy con una Marca del Caos cuenta como Chaos Space Marine y recibe los rasgos del ejército."],
         ["Skirmish", "Un AOP completo desbloquea un segundo; Chief Apothecary y Master of the Forge cuentan como mejoras de HQ una por ejército."],
@@ -226,6 +232,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
       ] },
       { label: "Ошибки (Discord)", rows: [
+        ["Necrons", "Solar Fury добавляет 3\" дальности оружию; Atomic Energy Manipulator больше не усиливает своего носителя."],
+        ["Mechanicus", "Scarifying Weaponry даёт Deadly(6+) оружию с Rad."],
         ["Союзники", "Отряд, купленный из основного списка (Инквизиция у Chamber Militant), больше не считается союзным, даже если союзник той же фракции; старые добавьте заново. Кнопки фракций показывают текущие версии кодексов."],
         ["Legion CSM", "Отряд Horus Heresy с Меткой Хаоса считается Chaos Space Marine и получает черты армии."],
         ["Skirmish", "Заполненный AOP открывает второй; Chief Apothecary и Master of the Forge считаются улучшениями Штаба «одно на армию»."],
@@ -279,6 +287,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
       ] },
       { label: "不具合 (Discord)", rows: [
+        ["Necrons", "Solar Fury で武器の射程が3\"伸びます。Atomic Energy Manipulator は持ち主自身を強化しなくなりました。"],
+        ["Mechanicus", "Scarifying Weaponry で Rad 武器が Deadly(6+) を得ます。"],
         ["同盟", "メインのリストから追加したユニット(Chamber Militant の Inquisition)は、同盟が同じ勢力でも同盟扱いされなくなりました。古いものは追加し直してください。勢力ボタンに最新のコデックス版が表示されます。"],
         ["Legion CSM", "混沌の印を得た Horus Heresy ユニットは Chaos Space Marine として扱われ、軍の特性を得ます。"],
         ["Skirmish", "AOP を埋めると2つ目が解放されます。Chief Apothecary と Master of the Forge は軍に1つの HQ 強化として扱われます。"],
