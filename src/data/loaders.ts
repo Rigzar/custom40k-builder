@@ -529,6 +529,18 @@ function normaliseMonsterFlag(data: FactionData): void {
 }
 
 /**
+ * The unit update writes a sheet's keyword line "Cultist, Death Guard" as ONE keyword, so the Poxwalkers had neither "Cultist" nor
+ * "Death Guard", and the Necron Lord and Cryptek ("Lord, Necron") were not Necrons for Eternal Conquerors (DemonGyro, Discord
+ * 2026-11-17; 11 units). Split them here so the script's output format cannot matter, like normaliseMonsterFlag.
+ */
+function normaliseKeywordList(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    if (!(unit.keywords ?? []).some(k => k.includes(','))) continue;
+    unit.keywords = [...new Set(unit.keywords.flatMap(k => k.split(',').map(x => x.trim()).filter(Boolean)))];
+  }
+}
+
+/**
  * "Every Mek Gun must select one weapon": a mandatory pick for EACH model of the unit. The sheet script writes it as a plain
  * "one" group, so a unit of 2 guns paid and showed ONE weapon (Ork Mek Gunz, TeCrisis 2026-11-10). Marking the group per_model
  * makes the cost and the weapon count follow the unit size, as in the other "per model" groups.
@@ -573,6 +585,22 @@ function applyArmoryModelTypes(data: FactionData, key: string): void {
   }
 }
 
+/**
+ * Eldar and Dark Eldar Index, "Visitors of the Black Library": "The army has access to Harlequin units. Harlequins can not be
+ * the mandatory HQ selection." The own-army grant mechanism (`intrinsic_allies`, the same path as Chamber Militant's
+ * Inquisition) was never switched on for them, so no Harlequin unit could be added (Ed, Discord 2026-11-17).
+ */
+const INTRINSIC_ALLIES: Record<string, { factions: string[]; notMandatoryHq?: string[] }> = {
+  eldar: { factions: ['harlequins'], notMandatoryHq: ['harlequins'] },
+  dark_eldar: { factions: ['harlequins'], notMandatoryHq: ['harlequins'] },
+};
+function applyIntrinsicAllies(data: FactionData, key: string): void {
+  const r = INTRINSIC_ALLIES[key];
+  if (!r) return;
+  data.intrinsic_allies = [...new Set([...(data.intrinsic_allies ?? []), ...r.factions])];
+  if (r.notMandatoryHq) data.intrinsic_allies_not_mandatory_hq = r.notMandatoryHq;
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -582,10 +610,12 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
+     normaliseKeywordList(data);
      normaliseEveryModelPick(data);
      linkSharedCapGroups(data);
      applyArmoryModelTypes(data, k);
      applyTextGates(data);
+     applyIntrinsicAllies(data, k);
      if (k === 'knight_households') applyKnightHouseholdRules(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].includes(k));

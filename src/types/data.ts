@@ -785,6 +785,9 @@ export interface FactionData {
    * (injectArchetypeFaction / SlotPanel ownGrantedFaction — mirrors v0.56 Alien Hunters fix).
    */
   intrinsic_allies?: string[];
+  /** Factions of `intrinsic_allies` whose units cannot be the MANDATORY HQ selection (Eldar / Dark Eldar "Visitors of the Black
+   *  Library": "Harlequins can not be the mandatory HQ selection"). They still fill HQ slots. */
+  intrinsic_allies_not_mandatory_hq?: string[];
   /**
    * Armory of a FOREIGN faction that the primary archetype grants access to without granting
    * any of its units — `ArchetypeRule.armoryOnlyFaction` (IG "Traitor Guard" / AdMech "Dark

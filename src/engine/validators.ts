@@ -275,6 +275,8 @@ function getSlotUsage(
     if (excludeSlotOptIns && hasSlotOptIn(i, u ?? undefined, printedSlot)) return false;
     // "Only Kroot units count towards mandatory unit minimums" (Kroot Hunting Pack): this call is the minimum check.
     if (excludeSlotOptIns && rule?.minimumsOnlyKeyword && !(u && unitMatchesKeyword(u, rule.minimumsOnlyKeyword))) return false;
+    // "Harlequins can not be the mandatory HQ selection" (Eldar / Dark Eldar): they fill HQ slots but not the minimum.
+    if (excludeSlotOptIns && slot === 'HQ' && i.factionSource && data.intrinsic_allies_not_mandatory_hq?.includes(i.factionSource)) return false;
     const baseSlot = applyVariantSlotOverride(i, u ?? undefined, printedSlot);
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;

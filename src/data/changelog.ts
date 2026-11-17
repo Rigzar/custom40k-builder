@@ -43,6 +43,8 @@ export const CHANGELOG: ChangelogEntry[] = [
     changes: [
       "SOLAR FURY (Necrons, Discord, Sophtym). \"The unit's weapons increase their range by 3\\\"\" now adds the 3\" to every ranged weapon on the card, the print view and the TTS export; it was only a sentence.",
       "SCARIFYING WEAPONRY (Adeptus Mechanicus, Discord, TeCrisis). The weapons with the \"Rad\" ability (Radium carbine, Radium jezzail, Rad cleanser) now get Deadly(6+); it was only a sentence, and its summary wrongly said \"Decimate\". The cost was already right: 5 points per unit, and characters and monsters cannot take it (the sheet prints \"-\").",
+      "HARLEQUINS IN ELDAR AND DARK ELDAR ARMIES (Discord, Ed). Both Indexes say \"Visitors of the Black Library: The army has access to Harlequin units\", and no Harlequin unit could be added: the access was never switched on. They are now in the unit list as part of the army; as the Index says, a Harlequin HQ fills an HQ slot but cannot be the mandatory one.",
+      "KEYWORDS WRITTEN AS ONE (Discord, DemonGyro). 11 units carried their keyword line as a single keyword (\"Cultist, Death Guard\", \"Lord, Necron\"), so the Poxwalkers, Jakhals and Tzaangors were not Cultists and the Necron Lord, Cryptek and Ancient Destructor Lord were not Necrons (Eternal Conquerors skipped them). They are split now.",
       "ATOMIC ENERGY MANIPULATOR (Necrons, Discord, Sophtym). It boosts ANOTHER friendly Canoptek or Necron unit, but the model carrying it got the +1 Strength and +1 Toughness itself.",
     ],
   },
