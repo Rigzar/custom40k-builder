@@ -68,7 +68,8 @@
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [
-        "Lord, Necron"
+        "Lord",
+        "Necron"
     ],
     "is_vehicle": false,
     "is_character": true,

@@ -40,7 +40,8 @@
     ],
     "unit_type": "Infantry",
     "keywords": [
-        "Cultist, Death Guard"
+        "Cultist", 
+        "Death Guard"
     ],
     "is_vehicle": false,
     "is_character": false,
