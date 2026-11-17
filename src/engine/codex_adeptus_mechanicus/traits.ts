@@ -134,12 +134,9 @@ export const ADMECH_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // NOTE: conditional on a weapon already having "Rad" — no generic "weapons with ability
   // X gain ability Y" effect type; descriptive only.
   'Scarifying Weaponry': [
-    {
-      type: 'unit_ability',
-      name: 'Scarifying Weaponry',
-      desc: 'This unit\'s Radiation weapons (any weapon with Decimate) gain Deadly(6+).',
-      applies_to: 'all',
-    },
+    // Applied to the weapons now (TeCrisis, Discord 2026-11-17): only the ones whose abilities already say "Rad"
+    // (Radium carbine, Radium jezzail, Rad cleanser). The old summary said "Decimate"; the sheet says "Rad".
+    { type: 'weapon_ability', name: 'Deadly(6+)', if_ability: 'Rad', applies_to: 'all' },
   ],
 
   // SOURCE — Shroud Protocols:

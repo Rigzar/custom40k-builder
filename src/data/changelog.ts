@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'i';
+export const REVISION = 'j';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -36,6 +36,16 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.89',
+    date: '2026-11-17',
+    title: "Necron and Mechanicus traits on the weapons",
+    changes: [
+      "SOLAR FURY (Necrons, Discord, Sophtym). \"The unit's weapons increase their range by 3\\\"\" now adds the 3\" to every ranged weapon on the card, the print view and the TTS export; it was only a sentence.",
+      "SCARIFYING WEAPONRY (Adeptus Mechanicus, Discord, TeCrisis). The weapons with the \"Rad\" ability (Radium carbine, Radium jezzail, Rad cleanser) now get Deadly(6+); it was only a sentence, and its summary wrongly said \"Decimate\". The cost was already right: 5 points per unit, and characters and monsters cannot take it (the sheet prints \"-\").",
+      "ATOMIC ENERGY MANIPULATOR (Necrons, Discord, Sophtym). It boosts ANOTHER friendly Canoptek or Necron unit, but the model carrying it got the +1 Strength and +1 Toughness itself.",
+    ],
+  },
   {
     version: '1.89',
     date: '2026-11-16',

@@ -150,7 +150,9 @@ export interface ResolvedProfile {
   // Trait effects
   traitStatMods: Array<{ stat: string; delta: number }>;
   traitAbilities: Array<{ traitName: string; name: string; desc?: string }>;
-  traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }>;
+  traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string; if_ability?: string }>;
+  /** Inches added to every ranged weapon by army traits (Necron Solar Fury). */
+  traitRangeDelta?: number;
 
   /** True when this HQ is the Black Crusade champion bearing all four Chaos god marks. */
   blackCrusadeChampion: boolean;
@@ -1140,7 +1142,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     const infantry = String(unit.unit_type).toLowerCase().includes('infantry');
     for (const ab of unit.is_vehicle ? hhMark.vehicleAbilities : (!hhMark.infantryOnlyAbilities || infantry ? hhMark.creatureAbilities : [])) traitAbilities.push({ traitName: markName, name: ab });
   }
-  const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
+  const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string; if_ability?: string }> = [];
+  let traitRangeDelta = 0;
   const traitGrantedItems: string[] = [];
   // Dark Eldar traits are sub-faction-gated: a ᴷ/ᶜᵒ/ᶜᵘ trait only applies to a unit whose
   // effective sub-faction (its keyword, or the player's pick for shared multi-keyword units)
@@ -1158,7 +1161,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });
         else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Ward Save` });
         else if (e.type === 'unit_ability')   traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
-        else if (e.type === 'weapon_ability') traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
+        else if (e.type === 'weapon_ability') traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type, if_ability: e.if_ability });
+        else if (e.type === 'weapon_range') traitRangeDelta += e.delta;
         else if (e.type === 'grant_armory_item') traitGrantedItems.push(e.item);
       }
     }
@@ -1406,7 +1410,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
           (wa.weapon_type === 'melee'   &&  isMelee) ||
           (wa.weapon_type === 'ranged'  && !isMelee) ||
           (wa.weapon_type === 'bolt'    && /bolt/i.test(weapon.name));
-        if (applies) {
+        const hasRequired = !wa.if_ability || new RegExp(`\\b${wa.if_ability.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(weapon.abilities ?? '');
+        if (applies && hasRequired) {
           weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), wa.name]);
         }
       }
@@ -1887,6 +1892,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ctanYngirActive,
     optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     familyBoostKeys,
+    traitRangeDelta,
   };
 }
 
@@ -2746,9 +2752,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(unit, item, profile, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))))));
+    return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyTraitRangeBoost(profile.traitRangeDelta, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(unit, item, profile, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]))))))))));
   }
-  return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(unit, item, profile, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))))));
+  return applyFlamingVengeance(item, applyStrengthSevenAT(unit, profile, applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyTraitRangeBoost(profile.traitRangeDelta, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(unit, item, profile, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty))))))))));
 }
 
 /**
@@ -3176,6 +3182,17 @@ const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {
 const BIOMORPH_ALL_RANGED_RANGE_BOOSTS: Record<string, number> = {
   'Pathogenesis': 3,
 };
+/** Army traits that lengthen every ranged weapon ("The unit's weapons increase their range by 3\"", Necron Solar Fury). */
+function applyTraitRangeBoost(delta: number | undefined, groups: WeaponGroup[]): WeaponGroup[] {
+  if (!delta) return groups;
+  const boost = (w: Weapon): Weapon => {
+    if (w.range === '-' || /^melee/i.test(w.type ?? '')) return w;
+    const m = (w.range ?? '').match(/^(\d+)"$/);
+    return m ? { ...w, range: `${parseInt(m[1], 10) + delta}"` } : w;
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
 function applyBiomorphRangeBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
   const delta = Object.entries(BIOMORPH_ALL_RANGED_RANGE_BOOSTS)
     .reduce((sum, [name, d]) => sum + (isNamedChoiceActive(unit, item, name) ? d : 0), 0);
