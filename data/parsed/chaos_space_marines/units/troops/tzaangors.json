@@ -155,7 +155,8 @@
     ],
     "unit_type": "Infantry",
     "keywords": [
-        "Cultist, Thousand Sons"
+        "Cultist", 
+        "Thousand Sons"
     ],
     "is_vehicle": false,
     "is_character": false,

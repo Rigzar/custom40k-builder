@@ -401,7 +401,8 @@
     ],
     "unit_type": "Character model, Infantry",
     "keywords": [
-        "Cryptek, Necron"
+        "Cryptek", 
+        "Necron"
     ],
     "is_vehicle": false,
     "is_character": true,
