@@ -1,5 +1,5 @@
 import { isAlliedEntry } from '../types/army';
-import { entryHasKeyword } from './keywords';
+import { effectiveKeywords, entryHasKeyword } from './keywords';
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect, DroneType } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
@@ -191,6 +191,7 @@ export interface ResolvedProfile {
    *  two same-named "Special energy cells" is active needs `data`/findArmoryItem, which
    *  computeWeaponGroups doesn't receive. */
   familyBoostKeys: string[];
+  keywords: string[];
 }
 
 // ── Shared utility ────────────────────────────────────────────────────────────
@@ -930,6 +931,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // may select their own Army Customisation options"), not the primary faction's archetype.
   const effectiveArchetype = effectiveArchetypeFor(item, state);
   const rule = getArchetypeRule(effectiveArchetype, effectiveLegacyFor(item, state), item.factionSource && isAlliedEntry(item, state.alliedFaction) ? undefined : state.legacy2);
+  const keywords = effectiveKeywords(unit, item, rule);
 
   // Points & slot
   const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state));
@@ -1114,13 +1116,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // restriction is evaluated against the item's OWN faction, not the primary's.
   const isAlliedScopeItem = !!(state.alliedFaction && isAlliedEntry(item, state.alliedFaction));
   const isMainFaction = !item.factionSource && item.unitName in data.units;
-  // A supplement unit of the army itself (not the allied detachment) that gained the keyword the codex asks for (grantedKeywords).
-  const isGrantedSupplementItem = !!item.factionSource && !isAlliedScopeItem && data.faction === 'Chaos Space Marines'
-    && entryHasKeyword(unit, item, 'Chaos Space Marine');
+  // A supplement unit of the army itself (not the allied detachment) that gained the keyword the codex asks for (grantsKeyword).
+  const hasCSMKeyword = entryHasKeyword(unit, item, 'Chaos Space Marine', rule);
+  const isGrantedSupplementItem = !!item.factionSource && !isAlliedScopeItem && hasCSMKeyword;
   const itemFactionForTraits = isAlliedScopeItem
     ? (FACTION_SLUG_TO_NAME[item.factionSource!] ?? '')
     : data.faction;
-  const hasCSMKeyword = entryHasKeyword(unit, item, 'Chaos Space Marine');
   const traitsApply = (isMainFaction || isAlliedScopeItem || isGrantedSupplementItem) &&
     (itemFactionForTraits !== 'Chaos Space Marines' || hasCSMKeyword);
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
@@ -1149,7 +1150,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // effective sub-faction (its keyword, or the player's pick for shared multi-keyword units)
   // matches. Non-Dark-Eldar trait names carry no marker, so this never gates other factions.
   const deEffectiveSub = itemFactionForTraits === 'Dark Eldar'
-    ? effectiveSubfactions(unit.keywords, item.subfaction)
+    ? effectiveSubfactions(keywords, item.subfaction)
     : null;
   if (traitsApply && item.traits.length > 0) {
     for (const t of item.traits) {
@@ -1551,7 +1552,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       if ((grant.scope === 'ranged') === isMelee) continue;
       if (grant.excludeWeapons?.includes(weapon.name)) continue;
-      const granted = grant.basicBioform && (unit.keywords ?? []).includes('Basic Bioform')
+      const granted = grant.basicBioform && (keywords ?? []).includes('Basic Bioform')
         ? grant.basicBioform
         : grant.ability;
       weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), granted]);
@@ -1681,7 +1682,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       // The weapon is looked up in the armoury the ITEM comes from first (a Mark armoury sells its own "Coruscating beam"
       // for Lord of the Silver Tower), then in the general one, then anywhere else.
       const pools = armorySources(data);
-      const own = pools.find(p => ((p[sel.section as keyof typeof p] ?? []) as import('../types/data').ArmoryItem[]).includes(ai));
+      const own = !!ai ? pools.find(p => ((p[sel.section as keyof typeof p] ?? []) as import('../types/data').ArmoryItem[]).includes(ai)) : undefined;
       const find = (p?: (typeof pools)[number]) => ((p?.weapons ?? []) as import('../types/data').ArmoryItem[]).find(w => w.name.toLowerCase() === grantedName.toLowerCase());
       const granted = find(own) ?? find(data.armory_general) ?? pools.map(find).find(Boolean);
       if (granted) pushGrantedWeapon(granted);
@@ -1779,7 +1780,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // AND Retribution(3) after buying it). Same shape as Infrasonic Roar's tiered Suppression
   // above, just a general ability rather than a weapon-scoped one.
   if (isNamedChoiceActive(unit, item, 'Acid Blood')) {
-    const wrong = (unit.keywords ?? []).includes('Advanced Bioform') ? 'Retribution(1)' : 'Retribution(3)';
+    const wrong = (keywords ?? []).includes('Advanced Bioform') ? 'Retribution(1)' : 'Retribution(3)';
     equipMods.grantedAbilities = equipMods.grantedAbilities.filter(a => a !== wrong);
   }
 
@@ -1893,6 +1894,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     familyBoostKeys,
     traitRangeDelta,
+    keywords,
   };
 }
 

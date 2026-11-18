@@ -27,7 +27,9 @@ export function weaponBaseName(name: string): string {
 }
 
 /** The firing mode alone, or null for a single-profile weapon. */
-export function weaponMode(name: string): string | null {
+export function weaponMode(name: string | null): string | null {
+  if (!name) return null;
+  
   const dash = name.split(' - ');
   if (dash.length > 1) return dash.slice(1).join(' - ');
   const paren = name.match(/\(([^)]*)\)\s*$/);

@@ -395,7 +395,8 @@ export function isEnumerableWeaponChoice(desc: string | undefined): boolean {
  *  ("- Additional +6\" Range (only for ranged weapons)" → "+6\" Range"). Read from each item's
  *  OWN text rather than a single hardcoded 4-option pool because not every item offers all 4 —
  *  Heavenfall blade (melee-only) lists just +1 Strength/-1 AP/+1 AT, no Range option. */
-export function parseEnumerableWeaponChoices(desc: string): string[] {
+export function parseEnumerableWeaponChoices(desc?: string | null): string[] {
+  if (!desc) return [];
   return Array.from(desc.matchAll(/-\s*Additional\s+([^\n(]+?)\s*(?:\(only for ranged weapons\))?\s*(?=\n|$)/gi))
     .map(m => m[1].trim());
 }

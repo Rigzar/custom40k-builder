@@ -60,7 +60,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
-  const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+  const effectiveMark = unit.locked_mark ?? rule?.forcedMark ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
 
   // Yngir (Necrons): "The range for each C'tan power is increased by 6"" (ods-verbatim) — only

@@ -142,6 +142,27 @@ export async function runDataHealth(): Promise<HealthFinding[]> {
       check('allowedUnitsOnly', rule.allowedUnitsOnly);
       check('troopsCountExclude', rule.troopsCountExclude);
       check('liftsUniqueLimit', rule.liftsUniqueLimit);
+
+      for (const gk of rule.grantsKeywords ?? []) {
+        // Verifies each granted keyword unit-name reference
+        const gkField = `grantsKeywords[].${gk.keyword}`;
+        check(gkField, gk.units);
+
+        // Verify faction-name reference in this faction's archetype rules
+        for (const f of gk.factions ?? []) {
+          let found = false;
+          for (const d of datas) {
+            // Checks for `horus_heresy` and `Horus Heresy Legiones Astartes`
+            if (d.slug === f || d.data.faction === f) {
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            findings.push({ category: 'D', faction: slug, message: `archetype "${arch.name}".${gkField}: "${f}" matches no faction sources or names` });
+          }
+        }
+      }
     }
   }
 

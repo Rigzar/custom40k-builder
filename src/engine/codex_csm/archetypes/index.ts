@@ -241,6 +241,7 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
     troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
     troopsCount: 'remap',
     alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',
+    grantsKeywords: [{keyword: 'Chaos Space Marine', factions: ['horus_heresy'], ifKeywords: ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch', 'Undivided']}],
     // "Access to the Horus Heresy Armory for the whole army" needs its own ArmoryModal tab, same
     // mechanism as Dark Mechanicum -> chaos_space_marines (armoryOnlyFaction alongside the SAME
     // alliedFaction key — combining both is an established pattern, not new here). The field this

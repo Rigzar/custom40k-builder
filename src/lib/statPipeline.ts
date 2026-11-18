@@ -23,7 +23,7 @@ import { markStatMods } from './markMods';
 
 export interface StatMod { stat: string; delta: number }
 export interface EquipLike {
-  statDeltas: Record<string, number>;
+  statDeltas: Partial<Record<string, number>>;
   statSets: Record<string, string | undefined>;
   armorSave: number | null;
 }

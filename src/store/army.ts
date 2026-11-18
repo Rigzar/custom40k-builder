@@ -224,7 +224,7 @@ function applyArmyTraits(
 
       // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
       // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
-      if (data.faction === 'Chaos Space Marines' && !entryHasKeyword(unit, item, 'Chaos Space Marine')) {
+      if (data.faction === 'Chaos Space Marines' && !entryHasKeyword(unit, item, 'Chaos Space Marine', null)) {
         return { ...item, traits: [] };
       }
 
@@ -235,7 +235,7 @@ function applyArmyTraits(
     // A Horus Heresy unit of a Legion CSM army that took a Mark is a Chaos Space Marine (Dominic 2026-11-16): the army's traits apply.
     if (data.faction === 'Chaos Space Marines' && item.factionSource && unitTraitNames.length) {
       const unit = resolveUnit(item, data);
-      if (unit && entryHasKeyword(unit, item, 'Chaos Space Marine')) {
+      if (unit && entryHasKeyword(unit, item, 'Chaos Space Marine', null)) {
         return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
       }
     }
@@ -741,7 +741,7 @@ export const useArmyStore = create<ArmyStore>()(
       // that field is documented as "unique per selection".
       duplicateUnit: (id: string) => {
         const s = get();
-        const entry: RosterEntry = s.army.find((e: RosterEntry) => e.id === id);
+        const entry = s.army.find((e: RosterEntry) => e.id === id);
         if (!entry || !s.data) return;
         const copy: RosterEntry = {
           ...entry,
