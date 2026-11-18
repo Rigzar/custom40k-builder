@@ -1,4 +1,6 @@
 import json
+import re
+import logging
 
 FACTIONS = []
 UNIT_CATEGORIES = ["HQ","Troops","Elite","Fast Attack","Heavy Support", "Transports", "Fortifications", "Flyers"]
@@ -15,6 +17,10 @@ UNIT_PATH = {
 CREATURE_FORMAT = ["No.","NAME","M","WS","BS","S","T","W","I","A","LD","SV","POINTS"]
 VEHICLE_FORMAT = ["No.","NAME","M","WS","BS","S","FRONT", "SIDE", "REAR", "I","A","HP", "POINTS"]
 WEAPON_FORMAT = ["WEAPON", "RANGE", "TYPE", "S", "AP", "D", "ABILITIES"]
+
+NUMBERS_DICT = {"a": 1, "an": 1, "the": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+def convert_to_int(s):
+    return NUMBERS_DICT[s.lower()] if s.lower() in NUMBERS_DICT else int(s)
 
 # Make a list of all the troops that exist in the faction's Index.json file. 
 def process_faction_units(faction_path, faction_name):
@@ -66,6 +72,73 @@ def process_weapon(weapon_data):
     APP_FORMAT = "name", "range","type", "s", "ap", "d", "abilities"
     weapon_data = [str(x) for x in weapon_data]
     return dict(zip(APP_FORMAT, weapon_data))
+
+def proccess_option(option_data):
+    
+    header = "".join(option_data[0])
+    
+    ret_option = {"header": header, "inline_pts": None, "variant_link": None, "is_unique_per_army": False}
+    constraint = {}
+    
+    ### For every [x] models VS May swap [x]
+    if re.search(r"For every .* models?, ", header):
+            
+        constraint["type"] = "per_n"
+            
+        number = re.findall(r"For every (.*) models?, ", header)[0]
+        constraint["per_n"]: convert_to_int(number)
+    else:
+        constraint["type"] = "fixed_max"
+            
+        number = re.findall(r"[Mm]ay swap ([a-zA-Z]) ", header)[0]
+        constraint["max"]: convert_to_int(number)
+    
+    ### REPLACEMENTS
+    if re.search(r"[Mm]ay swap", header):
+        number = re.split(r", (.*) [Mm]ay swap", header)[1].split(" ")[0]
+        constraint["count_per_n"]: convert_to_int(number)
+            
+    
+    #swaps
+    if re.search(r" swap ", header):
+        choices = []
+        
+        print(f"Processing option: {header}")
+        
+        ### X model(s) may swap its/their <weapon/gear> for <weapon/gear>
+        
+            
+        ### "may swap its/their <weapon/gear>:"
+        print("\n\n\n")
+        print(re.split(r"[Mm]ay swap their ", header))
+        print("\n\n\n")
+        swapped_weapon = re.split(r"[Mm]ay swap their ", header)[1].split(":")[0]
+        ret_option["replaces"] = swapped_weapon
+    
+        option_data = option_data[1:]
+        
+        ### Get the list of {name: <weapon/gear>, points: <points>} for the swapped weapons/gear.
+        while "- " in option_data[0][0]:
+            replacment_name = "".join(option_data[0][0]).replace("- ", "")
+            
+            #drop the + and points from the end of the name
+            replacement_points = "".join(option_data[0][1])
+            replacement_points = int(replacement_points.replace("+", "").replace("pts", "").replace("points", "").strip())
+            
+            choices.append({"name": replacment_name, "points": replacement_points})
+            
+            option_data = option_data[1:]
+            
+        ret_option["choices"] = choices
+    
+    #may be equipped with
+    elif re.search(r"may be equipped with:", header):
+        pass
+        ### TODO: Implement the "may be equipped with" header processing.
+        
+    option_data = option_data[1:]
+    ret_option["constraint"]: constraint
+    return ret_option, option_data
 
 # Intermediary step. Take the formatted data and format it into the app's unit data format. Save it to the processed folder.
 def main():
@@ -163,14 +236,24 @@ def main():
                             unit_sheet = unit_sheet[1:]
                     
                     ### OPTIONS           
-                    #  FOR NOW WE IGNORE THE OPTIONS SECTION AND KEEP IT MANUAL. TODO: ACCOUNT FOR ALL THE OPTIONS.
                     while "ABILITIES" not in unit_sheet[0]:
                         unit_sheet = unit_sheet[1:]
-                    unit_sheet = unit_sheet[1:]
+                
+                    ## TODO: UNCOMMENT THIS WHEN THE OPTIONS ARE FULLY IMPLEMENTED
+                    # unit_sheet = unit_sheet[1:]
+                    # option_groups = []
+                    # 
+                    # while "ABILITIES" not in unit_sheet[0]:
+                    #     option, unit_sheet = proccess_option(unit_sheet)
+                    #     option_groups.append(option)
+                    
+                    # print(f"option_groups: {option_groups}")
+                    # app_unit_json["option_groups"] = option_groups
                     
                     ### ABILITIES
+                    unit_sheet = unit_sheet[1:]
                     app_unit_json["abilities"] = []
-                    # Process all abilities in the unit sheet until we reach the keywords section.
+                    # Process all abilities in the unit sheet until we reach the UNIT TYPE section.
                     while "UNIT TYPE" not in unit_sheet[0]:
                         # ignore the "Upgrades:" row, as it is not needed in the app.
                         if "Upgrades:" in unit_sheet[0]:
@@ -178,10 +261,11 @@ def main():
                             continue
                         app_unit_json["abilities"] = app_unit_json["abilities"] + (unit_sheet[0])
                         unit_sheet = unit_sheet[1:]
+                    
                     unit_sheet = unit_sheet[1:]
                     
                     ### UNIT TYPE
-                    # Add the unit type, switch to the next row, which should be the keywords header.
+                    # Add the unit type, switch to the next row, which should be the KEYWORDS section.
                     app_unit_json["unit_type"] = "".join(unit_sheet[0])
                     app_unit_json["is_monster"] = "Monstrous Creature" in app_unit_json["unit_type"]
                     unit_sheet = unit_sheet[1:]
@@ -196,8 +280,6 @@ def main():
                     else:
                         unit_sheet = unit_sheet[1:]
                         app_unit_json["keywords"] = unit_sheet[0]
-                    # calculate is_monster
-                    
         
                 # Save the processed unit data to its respective path.
                 processed_unit_path = f"processed/{faction_path}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"

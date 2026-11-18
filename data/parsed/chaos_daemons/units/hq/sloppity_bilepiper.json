@@ -16,7 +16,7 @@
             },
             "name": "Sloppity Bilepiper",
             "min": 1,
-            "max": 1,
+            "max": 2,
             "points": 55
         }
     ],
@@ -35,9 +35,8 @@
     ],
     "option_groups": [],
     "abilities": [
-        "Command squad, Deepstrike, Daemon, Daemonic instability, Mark of Nurgle, Terrifying(-1)",
-        "Entourage: For each Greater Daemon of the same Chaos god, up to two units with this rule can be can be chosen that do not occupy an HQ slot.",
-        "Herald: Up to two units with this rule can be taken as a single HQ choice.",
+        "Command squad, Deepstrike, Daemon, Daemonic instability, Mark of Nurgle, Squadron, Terrifying(-1)",
+        "Entourage: For each Greater Daemon of the same Chaos god, one unit with this rule can be can be chosen that does not occupy an HQ slot.",
         "Disease of Mirth: The model and its attached unit roll an additional die for Leadership tests and discard the highest. Whenever an enemy unit within 14\" fails a Leadership test, one model in that unit is slain. Character models and Monstrous Creatures are unaffected.",
         "Jolly Gutpipes: During the activation, select a friendly Mark of Nurgle unit that is within 7\" of the Sloppity Bilepiper. All models in that unit move +1\" until the end of their next activation."
     ],

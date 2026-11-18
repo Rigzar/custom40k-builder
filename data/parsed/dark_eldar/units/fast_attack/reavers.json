@@ -37,20 +37,11 @@
             "name": "Arena Champion",
             "min": 0,
             "max": 1,
-            "points": 45
+            "points": 43
         }
     ],
     "equipped_with": "Every model is equipped with: Bladevanes; Splinter pistol; Splinter rifle.",
     "weapons": [
-        {
-            "name": "Bladevanes",
-            "range": "-",
-            "type": "Melee",
-            "s": "+1",
-            "ap": "-1",
-            "d": "1",
-            "abilities": "Can't be used normally in combat. Instead, every enemy model that this model moves over takes one automatic hit with the profile."
-        },
         {
             "name": "Blaster",
             "range": "18\"",

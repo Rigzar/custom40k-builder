@@ -33,9 +33,21 @@
             "abilities": "AT(3), Deadly(5+), Decimate"
         },
         {
-            "name": "Whip of Khorne",
+            "name": "Whip of Khorne"
+        },
+        {
+            "name": "- Ranged",
             "range": "8\"",
             "type": "Pistol 3",
+            "s": "U",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+        },
+        {
+            "name": "- Melee",
+            "range": "-",
+            "type": "Melee",
             "s": "U",
             "ap": "-3",
             "d": "2",

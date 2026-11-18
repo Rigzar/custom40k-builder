@@ -8,7 +8,6 @@ UNIT_CATEGORIES = ["hq","troops","elites","fast_attack","heavy_support", "dedica
 def unlink_file(file_path):
     try:
         os.unlink(file_path)
-        print(f"Deleted {file_path}.")
     except Exception as e:
         print(f"Error deleting {file_path}: {e}")
 
@@ -27,6 +26,7 @@ def main():
         for filename in raw_files:
             unlink_file(raw_dir / filename.name)
 
+        print(f"Cleaning up processed data files for faction: {faction}")
         ## clean up processed files
         for category in UNIT_CATEGORIES:
             processed_dir = Path(f'processed/{faction}/{category}')

@@ -90,8 +90,7 @@
         }
     ],
     "abilities": [
-        "Infiltrator, Massive(1), Move Through Cover, Stealth, Use cover",
-        "Leaping charge: The unit has a 12\" Charge move."
+        "Frenzy(6\"), Infiltrator, Massive(1), Move Through Cover, Stealth, Use cover"
     ],
     "unit_type": "Infantry",
     "keywords": [
