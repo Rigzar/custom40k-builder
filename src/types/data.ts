@@ -156,6 +156,11 @@ export interface OptionEffect {
    */
   removes_weapons?: string[];
   /**
+   * Datasheet abilities this option takes AWAY while it is selected: Tyranid "Ymgarl Genestealers: The unit loses the Infiltrate ability".
+   * Names only; they are dropped from the ability lines of the card and of the Print view (Discord, Dave, 2026-11-13).
+   */
+  removes_abilities?: string[];
+  /**
    * The option makes the model a psyker while it is selected. Tau 1.4 moved the Kroot Master Shaper's Shaman from an
    * archetype upgrade (a group with `inline_pts` and "Psyker" in its header) into the Shaper's own "one of the following"
    * list, where it is a CHOICE next to Flesh Shaper, Trail Shaper and War Shaper.
@@ -349,6 +354,13 @@ export interface OptionGroup {
    * leave this UNSET. Choice-based "every-model" swaps don't need it (their qty already = size).
    */
   per_model?: boolean;
+  /**
+   * Indexes of the OTHER groups of the same unit that draw from the same models: "Any number of models may do ONE of the
+   * following" is a single rule on the sheet, and the script writes it as separate groups. Together they cannot go
+   * over the unit size (Orks Boyz: replace the Choppa and Slugga with a Shoota, OR be additionally equipped with one).
+   * Set by the loader; the store clamps the total when a quantity changes.
+   */
+  shares_cap_with?: number[];
 }
 
 export interface Unit {
@@ -550,6 +562,16 @@ export interface ArmoryItem {
    * read "Only for units without the Flyer type" -> `excludes_keywords: ["Flyer"]`.
    */
   excludes_keywords?: string[];
+  /**
+   * AND gate: the buyer must carry EVERY one of these ("Kroot infantry only" -> ["Kroot", "Infantry"]).
+   * Checked together with `requires_keywords` (both must pass).
+   */
+  requires_all_keywords?: string[];
+  /** Role gate read from the item text ("Painboy only"): normalised role names (textGates.normRole), matched against the
+   *  unit, its models and its active promotion. */
+  requires_unit_names?: string[];
+  /** The model must already carry this Armory item ("Exo-armor only", "Only for models on a Jetbike"). */
+  requires_owned_item?: string;
 
   /**
    * Army-wide gate (distinct from `requires_keywords`, which is unit-scoped): the item is only
@@ -593,6 +615,8 @@ export interface Legacy {
   /** Extra Army Trait picker slots this Legacy grants while active (e.g. IG's "Ministorum World":
    *  "The army must select a third Trait."). Default budget is 2; this adds N more slots. */
   trait_slot_bonus?: number;
+  /** A Legacy only an army with this archetype may take (the Legacy of the Sundered: Blackshields). Picker, archetype switch and validator all read it. */
+  requires_archetype?: string;
 }
 
 export interface Trait {
@@ -606,6 +630,8 @@ export interface Trait {
   enables_second_legacy?: boolean;
   /** Horus Heresy Legion traits: the Legion (an `armory_key`) whose Legacy may take this trait. */
   legion?: string;
+  /** A trait the sheet writes "Blackshields only": only an army with this archetype may take it (picker and validator). */
+  requires_archetype?: string;
   /**
    * Set only on a trait borrowed from ANOTHER codex's list, to the display name of that codex
    * (Space Marines' Renegades archetype borrows from Chaos Space Marines). Used to cap how many
@@ -759,6 +785,9 @@ export interface FactionData {
    * (injectArchetypeFaction / SlotPanel ownGrantedFaction — mirrors v0.56 Alien Hunters fix).
    */
   intrinsic_allies?: string[];
+  /** Factions of `intrinsic_allies` whose units cannot be the MANDATORY HQ selection (Eldar / Dark Eldar "Visitors of the Black
+   *  Library": "Harlequins can not be the mandatory HQ selection"). They still fill HQ slots. */
+  intrinsic_allies_not_mandatory_hq?: string[];
   /**
    * Armory of a FOREIGN faction that the primary archetype grants access to without granting
    * any of its units — `ArchetypeRule.armoryOnlyFaction` (IG "Traitor Guard" / AdMech "Dark

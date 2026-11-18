@@ -6,7 +6,7 @@ import { useArmyStore } from '../store/army';
 import { FactionSymbol } from './FactionSymbol';
 import { useTheme } from '../theme';
 import { useT } from '../i18n';
-import { visibleCategories, isAlphaFaction, STATUS_DOT, STATUS_I18N_KEY } from '../data/factionCatalog';
+import { visibleCategories, isAlphaFaction, STATUS_DOT, STATUS_I18N_KEY, newerCodexVersion } from '../data/factionCatalog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import type { SavedArmy } from '../hooks/useSavedArmies';
@@ -217,7 +217,7 @@ export function FactionStep({
                   const over = codexVersions?.[fDef.key];
                   const f = { ...fDef,
                     available: factionFlags?.[fDef.key] ?? fDef.available,
-                    version: over?.version ?? fDef.version,
+                    version: newerCodexVersion(fDef.version, over?.version),
                     status: over?.status ?? fDef.status };
                   const selected = selectedFaction === f.key;
                   return (

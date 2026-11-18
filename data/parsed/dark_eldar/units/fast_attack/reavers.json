@@ -17,7 +17,7 @@
             "name": "Reaver",
             "min": 3,
             "max": 12,
-            "points": 35
+            "points": 33
         }
     ],
     "variant_models": [
@@ -47,9 +47,9 @@
             "range": "-",
             "type": "Melee",
             "s": "+1",
-            "ap": "-2",
+            "ap": "-1",
             "d": "1",
-            "abilities": "Unwieldy"
+            "abilities": "Can't be used normally in combat. Instead, every enemy model that this model moves over takes one automatic hit with the profile."
         },
         {
             "name": "Blaster",
@@ -142,5 +142,5 @@
     "advisor": false,
     "slot": "Fast Attack",
     "default_size": 3,
-    "min_cost": 105
+    "min_cost": 99
 }

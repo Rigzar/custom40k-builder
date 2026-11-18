@@ -48,7 +48,7 @@
             "s": "4",
             "ap": "-1",
             "d": "1",
-            "abilities": "Poison(4+)"
+            "abilities": "Rending(6+)"
         },
         {
             "name": "Bolt pistol",
@@ -116,11 +116,11 @@
             "choices": [
                 {
                     "name": "Heavy bolter",
-                    "points": 5
+                    "points": 16
                 },
                 {
                     "name": "Multi-melta",
-                    "points": 20
+                    "points": 39
                 }
             ],
             "inline_pts": null,

@@ -3297,5 +3297,11 @@
  "ab.1cs7vc2": "ユニットは「Furious Charge」アビリティを得ます。",
  "ab.o4yhfe": "ユニットは「Warded」アビリティを得ます。",
  "ab.ii1s1q": "ユニットは「Counter-Attack」アビリティを得ます。",
- "ab.1dqxqom": "ユニットの遠距離武器は「Suppression(3)」を得ます。"
+ "ab.1dqxqom": "ユニットの遠距離武器は「Suppression(3)」を得ます。",
+ "ab.1vziuav": "Wraithbone: 敵の攻撃の AP と AT を -1 する（最小0）。",
+ "ab.16g0qmh": "Sentinel construct: 12\" 以内の味方部隊がチャージされた場合、Doomstalker も攻撃側に対して Defensive Fire を使える。",
+ "ab.x99z0l": "Fabricator claw array: 移動の終わりに、モデルは 3\" 以内の車両の修理を試みられる。4+ で、車両から「Engine Damage」または「Weapon Damage」の結果を取り除くか、ハル・ポイントを1回復する。",
+ "ab.4rv9ks": "Enhanced Sporecloud: 9\" 以内の味方モデルは Obscuring Terrain の恩恵を受ける。",
+ "ab.1dag0b": "Sporecloud: 3\" 以内の味方部隊は Obscuring Terrain の恩恵を受ける。部隊内の Venomthrope が1体増えるごとに、範囲が +3\" 増える。",
+ "ab.13ayn4c": "Resource Transmutation: モデルと合流した部隊は、すべての遠距離武器に「Deflagrate(5+)」を得る。"
 }

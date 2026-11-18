@@ -36,8 +36,9 @@ const { unit, slot, factionLabel } = Astro.props;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const slotIcon = getSlotIcon(slot);
 
-const minModels = Math.min(...unit.models.map(m => m.min).filter(n => n > 0));
-const maxModels = Math.max(...unit.models.map(m => m.max).filter(n => n > 0));
+// Same arithmetic as the app's unit card: the squad is the SUM of its model rows (Tactical Squad: 4 Marines + 1 Sergeant = 5, up to 9 + 1 = 10).
+const minModels = Math.max(1, unit.models.reduce((s, m) => s + m.min, 0));
+const maxModels = unit.models.reduce((s, m) => s + m.max, 0) || 1;
 const costLabel = unit.models.length === 1
   ? `${unit.min_cost} ${wt('ptsWord')}`
   : `${unit.min_cost}+ ${wt('ptsWord')}`;
@@ -117,7 +118,7 @@ const costLabel = unit.models.length === 1
             <p class="option-header">
               {wPhrase(g.header)}
               {g.inline_pts != null && g.inline_pts > 0 && (
-                <span class="option-pts">+{g.inline_pts} pts</span>
+                <span class="option-pts">+{g.inline_pts} {wt('ptsWord')}</span>
               )}
             </p>
             {g.choices.length > 0 && (
@@ -125,7 +126,7 @@ const costLabel = unit.models.length === 1
                 {g.choices.map((c: { name: string; points: number }) => (
                   <li>
                     <span class="choice-name">{wn(c.name)}</span>
-                    {c.points > 0 && <span class="choice-pts">+{c.points} pts</span>}
+                    {c.points > 0 && <span class="choice-pts">+{c.points} {wt('ptsWord')}</span>}
                     {c.points === 0 && <span class="choice-pts free">{wp('free')}</span>}
                   </li>
                 ))}

@@ -48,9 +48,9 @@ type Any = any;
   want('first AOP, 2 Heavy Support', { HQ: 2, Troops: 6, Elites: 3, 'Fast Attack': 3, 'Heavy Support': 2 }, 1, 1);
   // Full, then a third HQ: now it is legal, and the second AOP is in use.
   want('full + 3rd HQ', { HQ: 3, Troops: 6, Elites: 3, 'Fast Attack': 3, 'Heavy Support': 3 }, 2, 2);
-  // Skirmish has no second AOP at all.
+  // Skirmish has a second AOP since 2026-11-16, but only once the first is full: 3 HQs alone take 3 and unlock 1.
   const sk = getAopState(army({ HQ: 3 }), data, 'skirmish', null as Any);
-  if (sk.taken !== 1 || sk.unlocked !== 1) fails.push(`skirmish: ${sk.taken}/${sk.unlocked}, want 1/1`);
+  if (sk.taken !== 3 || sk.unlocked !== 1) fails.push(`skirmish: ${sk.taken}/${sk.unlocked}, want 3/1`);
 
   for (const f of fails) console.log('  ' + f);
   if (fails.length) { console.error(`\nFAIL: ${fails.length} problem(s).`); process.exit(1); }

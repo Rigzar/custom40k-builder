@@ -1,0 +1,89 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Hemlock Wraithfighter",
+        "12\"",
+        "-",
+        "3+",
+        5,
+        11,
+        11,
+        10,
+        5,
+        1,
+        2,
+        263
+    ],
+    [
+        "A Hemlock Wraithfighter is equipped with: 2 Heavy D-scythes."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Heavy D-scythe",
+        "18\"",
+        "Assault 2",
+        "D",
+        -4,
+        2,
+        "AT(2), Auto Hit, Distortion, Sunder(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deflect, Ward(5+)"
+    ],
+    [
+        "Distortion: The weapon has a -1 penalty for armor penetration and wound rolls."
+    ],
+    [
+        "Mindshock Pods: Enemy units within 24\" range reduce their Leadership by -1."
+    ],
+    [
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline."
+    ],
+    [
+        "Wraithbone: Reduces AP and AT of enemy attacks by -1 (to a minimum of 0)."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Flyer"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Craftworld, Wraith"
+    ]
+]

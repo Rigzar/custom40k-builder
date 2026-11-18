@@ -21,6 +21,8 @@ import { setRuleLanguage, localiseAbility } from '../vendor/src/data/coreRules';
 import { jaProse } from '../vendor/src/utils/jaProse';
 import RU_RULES from '../vendor/src/data/ruleDescriptions.ru.json';
 import JA_RULES from '../vendor/src/data/ruleDescriptions.ja.json';
+import ES_RULES from '../vendor/src/data/ruleDescriptions.es.json';
+import DE_RULE_FIXES from '../data/rule-fixes.de.json';
 
 export type WikiLang = 'en' | 'de' | 'es' | 'ru' | 'ja';
 /** Every language the wiki is built in, in the order the language switcher lists them. */
@@ -144,10 +146,13 @@ export function wtf(key: WikiKey, vars: Record<string, string | number>): string
 }
 
 /** Translate a content string by namespace + id, falling back to the given English text. */
-const BUILTIN_RULES: Partial<Record<WikiLang, Record<string, string>>> = { ru: RU_RULES, ja: JA_RULES };
+const BUILTIN_RULES: Partial<Record<WikiLang, Record<string, string>>> = { ru: RU_RULES, ja: JA_RULES, es: ES_RULES };
+/** Corrections that win over the admin-edited text: a German Armorbane that still described the pre-1.4x rule, and rules the admin never translated. */
+const RULE_FIXES: Partial<Record<WikiLang, Record<string, string>>> = { de: DE_RULE_FIXES };
 export function wtContent(namespace: 'glossary' | 'armyRules', id: string, english: string): string {
   const builtin = namespace === 'glossary' ? BUILTIN_RULES[WIKI_LANG]?.[id] : undefined;
-  const found = O[WIKI_LANG]?.[namespace]?.[id] ?? builtin;
+  const fixed = namespace === 'glossary' ? RULE_FIXES[WIKI_LANG]?.[id] : undefined;
+  const found = fixed ?? O[WIKI_LANG]?.[namespace]?.[id] ?? builtin;
   // Japanese: the game's names inside a translated text go into katakana (the table is set in ./loc).
   if (found !== undefined) return WIKI_LANG === 'ja' ? jaProse(found) : found;
   return localiseAbility(english);

@@ -152,7 +152,8 @@
     ],
     "unit_type": "Vehicle",
     "keywords": [
-        "Chaos Space Marine, Emperor's Children"
+        "Chaos Space Marine", 
+        "Emperor's Children"
     ],
     "is_vehicle": true,
     "is_character": false,

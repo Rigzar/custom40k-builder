@@ -5,13 +5,14 @@ import { localiseAbility } from '../data/coreRules';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
-import { archetypeRequiredLegacy } from '../lib/legacyGatedChoices';
+import { archetypeRequiredLegacy, secondTraitGate } from '../lib/legacyGatedChoices';
 import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
 import { FACTION_NAMES } from '../utils/factionLabel';
 import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
+import { traitSubOptions } from '../engine/traitEffects';
 
 import type { EngagementType, Mark } from '../types/army';
 
@@ -53,6 +54,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const setArchetype = isAllied ? store.setAlliedArchetype : store.setArchetype;
   const setLegacy = isAllied ? store.setAlliedLegacy : store.setLegacy;
   const setLegacy2 = store.setLegacy2;
+  const legacy3 = isAllied ? '' : (store.legacy3 ?? '');
+  const setLegacy3 = store.setLegacy3;
   const setTraitPool = isAllied ? store.setAlliedTraitPool : store.setTraitPool;
 
   const t = useT();
@@ -139,7 +142,10 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
     campaignTraitBonus,
     data.faction,
   );
-  const traitSlots = Array.from({ length: traitSlotCount }, (_, i) => i);
+  // "The army can only take a second trait if the first one is A or B" (the HH Legion archetypes): one slot that offers only those two; the rest open once one is taken.
+  const traitGate = secondTraitGate(data.archetypes.find(x => x.name === archetype));
+  const visibleTraitSlots = traitGate && !(traitPool[0] && traitGate.includes(traitPool[0])) ? Math.min(1, traitSlotCount) : traitSlotCount;
+  const traitSlots = Array.from({ length: visibleTraitSlots }, (_, i) => i);
 
   const ARCHETYPE_MARK: Record<string, string> = {
     'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
@@ -311,13 +317,13 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         className={`${selectClass}${lockedLegacy ? ' opacity-60 cursor-not-allowed' : ''}`}
                       >
                         <option value="">{t('noLegacy')}</option>
-                        {data.legacies.map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
+                        {data.legacies.filter(l => !l.requires_archetype || l.requires_archetype === archetype).map(l => <option key={l.name} value={l.name}>{nm(l.name)}</option>)}
                       </select>
                       {data.legacies.length > 1 && (
                         <details className="mt-2 border border-zinc-800 bg-zinc-950/50">
                           <summary className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-zinc-500 cursor-pointer select-none hover:text-zinc-300">{t('legacyBrowseAll')}</summary>
                           <div className="px-3 pb-2 space-y-2">
-                            {data.legacies.map(l => (
+                            {data.legacies.filter(l => !l.requires_archetype || l.requires_archetype === archetype).map(l => (
                               <div key={l.name} className="text-[10px] leading-relaxed">
                                 <div className={l.name === legacy ? 'text-amber-400 font-semibold' : 'text-zinc-300 font-semibold'}>{nm(l.name)}</div>
                                 <div className="text-zinc-500 whitespace-pre-line">{localiseAbility(l.desc ?? '')}</div>
@@ -344,15 +350,36 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                             className={selectClass}
                           >
                             <option value="">{t('secondLegacyNone')}</option>
-                            {data.legacies.filter(l => l.name !== legacy).map(l => (
+                            {data.legacies.filter(l => l.name !== legacy && !l.requires_archetype && (!rule?.legacy2ArmoryOnly || (l as any).armory_key)).map(l => (
                               <option key={l.name} value={l.name}>{nm(l.name)}</option>
                             ))}
                           </select>
                           {legacy2 && (
                             <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
-                              {localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
-                              {hhMarkFor(legacy2, data.faction)?.legionTerm.note && (
+                              {rule?.legacy2ArmoryOnly
+                                ? <>Armory of the {(data.legacies.find(l => l.name === legacy2) as any)?.armory_key} Legion only: no special units, no mark, no discipline.</>
+                                : localiseAbility(data.legacies.find(l => l.name === legacy2)?.desc ?? "")}
+                              {!rule?.legacy2ArmoryOnly && hhMarkFor(legacy2, data.faction)?.legionTerm.note && (
                                 <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy2, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
+                              )}
+                            </div>
+                          )}
+                          {/* Horus Heresy Shattered Legions: a third Legacy; every unit then picks which of the three Legions it belongs to */}
+                          {rule?.threeLegacies && (
+                            <div className="mt-2">
+                              <select value={legacy3} onChange={e => setLegacy3(e.target.value)} className={selectClass}>
+                                <option value="">{t('secondLegacyNone')}</option>
+                                {data.legacies.filter(l => l.name !== legacy && l.name !== legacy2 && !l.requires_archetype).map(l => (
+                                  <option key={l.name} value={l.name}>{nm(l.name)}</option>
+                                ))}
+                              </select>
+                              {legacy3 && (
+                                <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
+                                  {localiseAbility(data.legacies.find(l => l.name === legacy3)?.desc ?? "")}
+                                  {hhMarkFor(legacy3, data.faction)?.legionTerm.note && (
+                                    <div className="mt-1.5 text-zinc-300">{hhMarkFor(legacy3, data.faction)!.legionTerm.note} Counts as a veteran ability.</div>
+                                  )}
+                                </div>
                               )}
                             </div>
                           )}
@@ -436,7 +463,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     {openTraitSlot !== null && (
                       <TraitPickerModal
                         traits={(() => {
-                          const own = data.traits.filter(t => !t.foreign_faction);
+                          const openTraits = data.traits.filter(t => (!t.requires_archetype || t.requires_archetype === archetype) && !(traitGate && openTraitSlot === 0 && !traitGate.includes(t.name)));   // a trait the sheet writes "Blackshields only" is not offered to the other armies
+                          const own = openTraits.filter(t => !t.foreign_faction);
                           if (!foreignTraitMax) return own;
                           // This slot may still offer the borrowed list while the army is under
                           // the cap, or when THIS slot is the one already holding a borrowed
@@ -444,7 +472,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                           const thisSlotIsForeign = !!data.traits.find(
                             t => t.name === traitPool[openTraitSlot] && t.foreign_faction);
                           return foreignTraitsTaken < foreignTraitMax || thisSlotIsForeign
-                            ? data.traits : own;
+                            ? openTraits : own;
                         })()}
                         excludedNames={traitSlots
                           .filter(s => s !== openTraitSlot)
@@ -455,12 +483,30 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         accent={accent}
                         onPick={val => {
                           const slot = openTraitSlot;
-                          const newPool = traitSlots.map(s => (s === slot ? val : (traitPool[s] ?? ''))).filter(Boolean) as string[];
+                          const allSlots = Array.from({ length: traitSlotCount }, (_, i) => i);
+                          let newPool = allSlots.map(s => (s === slot ? val : (traitPool[s] ?? ''))).filter(Boolean) as string[];
+                          if (traitGate && slot === 0 && !val) newPool = [];   // no first Trait, no second
                           setTraitPool(newPool);
                         }}
                         onClose={() => setOpenTraitSlot(null)}
                       />
                     )}
+
+                    {/* "Select one improvement" traits (Cursed Founding, Abhuman Auxiliaries, Signature Evolutionary Adaption):
+                        the army picks ONE option and its effect is applied (Dominic 2026-11-15). */}
+                    {traitPool.filter(n => traitSubOptions(n).length > 0).map(n => (
+                      <div key={`sub-${n}`}>
+                        <div className={`text-[10px] uppercase tracking-widest mb-1 ${accentText}`}>{nm(n)}: {t('traitImprovementLabel')}</div>
+                        <select
+                          value={store.traitSubChoices?.[n] ?? ''}
+                          onChange={e => store.setTraitSubChoice(n, e.target.value)}
+                          className={selectClass}
+                        >
+                          <option value="">{t('traitImprovementNone')}</option>
+                          {traitSubOptions(n).map(o => <option key={o} value={o}>{o}</option>)}
+                        </select>
+                      </div>
+                    ))}
 
                     {/* Black Crusade champion (primary only — relies on the main army's HQ items) */}
                     {!isAllied && traitPool.includes('Black Crusade') && (

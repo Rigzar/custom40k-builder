@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Each model is equipped with: Heavy Bolter.",
+    "equipped_with": "Each model is equipped with: Heavy bolter.",
     "weapons": [
         {
             "name": "Assault cannon",
@@ -76,6 +76,15 @@
             "ap": "-1",
             "d": "1",
             "abilities": "Auto Hit, Sunder(1)"
+        },
+        {
+            "name": "Twin lascannon",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "9",
+            "ap": "-4",
+            "d": "3",
+            "abilities": "AT(3)"
         },
         {
             "name": "Typhoon missile launcher - Frag missile",
@@ -139,6 +148,10 @@
                 {
                     "name": "Multi-melta",
                     "points": 19
+                },
+                {
+                    "name": "Twin lascannon",
+                    "points": 120
                 }
             ],
             "inline_pts": null,
@@ -185,11 +198,20 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "Every model may gain the \"Outflank\" ability for +2 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 2,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [
         "Anti-Grav, Deep Strike, Squadron",
-        "Upgrades:",
         "Dark Shroud: Friendly units within 6\" benefit from Obscuring cover.",
         "Tempest: The model gains +1 AV on its Front.",
         "Vengeance: The model gains the \"Plasma Storm battery\" weapon."

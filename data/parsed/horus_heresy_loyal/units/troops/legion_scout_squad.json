@@ -123,6 +123,15 @@
             "abilities": "AT(2), Anti-air"
         },
         {
+            "name": "Nemesis-Bolter",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "5",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "Piercing(5+), Precision(5+), Sniper, Suppression(6)"
+        },
+        {
             "name": "Sniper rifle",
             "range": "36\"",
             "type": "Heavy 1",
@@ -146,6 +155,10 @@
                 {
                     "name": "Boltgun",
                     "points": 2
+                },
+                {
+                    "name": "Nemesis-Bolter",
+                    "points": 17
                 },
                 {
                     "name": "Sniper rifle",
@@ -191,6 +204,16 @@
             "variant_link": null,
             "is_unique_per_army": false,
             "per_model": true
+        },
+        {
+            "header": "Every Scout may be equipped with Power armour, which gives a 3+ armor save, for +3 points. The Scout Sergeant for +7 points.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [],
+            "inline_pts": 3,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [

@@ -99,7 +99,7 @@
             "name": "Redemptor claw",
             "range": "-",
             "type": "Melee",
-            "s": "2",
+            "s": "+2",
             "ap": "-3",
             "d": "2",
             "abilities": "AT(2), Extra Attack(2)"

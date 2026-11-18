@@ -17,7 +17,7 @@
             "name": "Legionary",
             "min": 4,
             "max": 19,
-            "points": 40
+            "points": 38
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legion Sergeant",
             "min": 1,
             "max": 1,
-            "points": 50
+            "points": 48
         }
     ],
     "variant_models": [],
@@ -45,7 +45,7 @@
             "name": "Astartes chainsword",
             "range": "-",
             "type": "Melee",
-            "s": "T",
+            "s": "U",
             "ap": "-1",
             "d": "1",
             "abilities": "-"
@@ -126,14 +126,14 @@
             "is_unique_per_army": false
         },
         {
-            "header": "All Legionary models in the unit may be equipped with an Astartes chainsword for +5 points each.",
+            "header": "All Legionary models in the unit may be equipped with an Astartes chainsword for +3 points each.",
             "constraint": {
                 "type": "every"
             },
             "choices": [
                 {
                     "name": "Astartes chainsword",
-                    "points": 5
+                    "points": 3
                 }
             ],
             "inline_pts": null,
@@ -163,8 +163,7 @@
     ],
     "abilities": [
         "They Shall Know No Fear",
-        "Heart of the Legion: The unit gains a 5+ ward saving throw while within 6\" of a mission objective.",
-        "Wrath of the Legion: All weapons in the unit have the \"Deflagrate(5+)\" ability."
+        "Heart of the Legion: The unit gains a 5+ ward saving throw while within 6\" of a mission objective."
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -181,5 +180,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 210
+    "min_cost": 200
 }

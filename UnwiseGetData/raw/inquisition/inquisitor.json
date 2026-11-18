@@ -1,0 +1,124 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Inquisitor",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        2,
+        8,
+        "4+",
+        36
+    ],
+    [
+        "*",
+        "Inquisitor Lord",
+        "6\"",
+        "3+",
+        "3+",
+        3,
+        3,
+        3,
+        4,
+        3,
+        9,
+        "4+",
+        51
+    ],
+    [
+        "An Inquisitor is equipped with: Frag grenades; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 One Inquisitor per army can be upgraded to an Inquisitor Lord for +15 points."
+    ],
+    [
+        "\u2022 May be upgraded to one of the following:"
+    ],
+    [
+        "- Priest",
+        "+5 points"
+    ],
+    [
+        "- Psyker",
+        "+5 points"
+    ],
+    [
+        "\u2022 Has access to weapons and gear from the Armory."
+    ],
+    [
+        "\u2022 Can gain one Veteran ability."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Command squad"
+    ],
+    [
+        "Priest: This model can recite 1 hymn per turn. A hymn is successfully recited on a roll of 3+. It knows one hymn from the Hymns of Battle."
+    ],
+    [
+        "Psyker: This model can cast 1 psychic power and dispel 1 psychic power per round. It knows Smite, as well as one psychic power from a chosen psychic discipline."
+    ],
+    [
+        "Quarry: After units are deployed, you may secretly choose an enemy unit to be your quarry. At the start of any battle round, if your quarry is on the battlefield, you may reveal your choice. Friendly Inquisition units get +1 to hit your revealed quarry."
+    ],
+    [
+        "Inquisitor Lord: This model may choose a second quarry."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Infantry"
+    ]
+]

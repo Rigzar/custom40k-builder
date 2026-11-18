@@ -115,11 +115,11 @@
             "choices": [
                 {
                     "name": "Barbed strangler",
-                    "points": 19
+                    "points": 21
                 },
                 {
                     "name": "Venom cannon",
-                    "points": 19
+                    "points": 21
                 }
             ],
             "replaces": [

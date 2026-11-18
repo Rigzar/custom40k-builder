@@ -106,6 +106,53 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Plasma incinerator",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "7",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Auto Hit, AT(1), Sunder(1)",
+      "p_unit": 23,
+      "p_char": 29
+    },
+    {
+      "name": "Calibanite charge-blade",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 7,
+      "profiles": [
+        {
+          "name": "Uncharged",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+2)"
+        },
+        {
+          "name": "Charged",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Rending(6+), Slow(-1)"
+        }
+      ],
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -170,35 +217,28 @@
       ]
     },
     {
+      "name": "Orders of the Hekatonystika",
+      "term_compat": true,
+      "desc": "The model gains one of the following:\n- Augurs of Weakness: All weapons of the model gain the \"Armorbane(1)\" ability.\n- Icons of Resolve: The model gains the \"Parry\" ability.\n- Slayers of Kings: All melee weapons of the model gain the \"Precision(6+)\" ability.\n- Hunters of Beasts: A single wound roll against a Monstrous creature can be re-rolled.\n- Reapers of Hosts: All melee weapons of the model gain the \"Extra Attack(1)\" ability.\n- Breakers of Witches: All melee weapons of the model gain the \"Psi-shock\" ability.\nOnly one order may be chosen. Unique.",
+      "p_unit": 5,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Artificia kill-switch",
+      "term_compat": false,
+      "desc": "Only if the army includes an Excindio Battle-automata. In the End phase the model may choose one friendly Excindio Battle-automata within 12\". It suffers D6+2 unsaved wounds.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
       "name": "Teleport homing beacon",
       "term_compat": false,
       "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
       "p_unit": null,
       "p_char": 10,
-      "category": "vehicle"
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Eskaton Imperative",
-      "term_compat": false,
-      "desc": "- Legion Destroyer Squads and Dreadwing Interemptor Squads may be taken as Troops.\n- Before any models are deployed, you may choose to place one Eskaton marker (represented by any token no larger than a 25mm base) per 500 points of game size anywhere in the playing area that is 6\" from a battlefield edge or any player’s Deployment Zone. The area within 3\" of an Eskaton marker, including terrain pieces within the zone of this effect, are counted as Dangerous Terrain in addition to any other effects for the duration of the battle.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Storm of War",
-      "term_compat": false,
-      "desc": "- Any unit with an attached character ignores negative leadership modifiers.\n- No Legion Tactical Squad or Legion Despoiler Squad may take a Dedicated Transport.",
-      "p_unit": null,
-      "p_char": null,
       "category": "vehicle"
     }
   ],

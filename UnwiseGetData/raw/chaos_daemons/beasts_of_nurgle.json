@@ -1,0 +1,74 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "1-4",
+        "Beast of Nurgle",
+        "6\"",
+        "4+",
+        "4+",
+        6,
+        6,
+        5,
+        2,
+        4,
+        7,
+        "6+",
+        61
+    ],
+    [
+        "Every model is equipped with: Putrid appendages."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Putrid appendages",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        2,
+        "Poison(4+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deepstrike, Daemon, Daemonic instability, Mark of Nurgle, Terrifying(-1)"
+    ],
+    [
+        "Attention seeker: The unit can move an additional 6\" if it charges an enemy unit which is already in close combat."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Monstrous infantry"
+    ]
+]

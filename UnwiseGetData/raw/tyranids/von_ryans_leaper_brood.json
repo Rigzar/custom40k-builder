@@ -1,0 +1,99 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-6",
+        "Von Ryan's Leaper",
+        "6\"",
+        "3+",
+        "3+",
+        4,
+        4,
+        2,
+        5,
+        3,
+        7,
+        "5+",
+        36
+    ],
+    [
+        "Every model is equipped with: Rending claws."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Rending claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Rending(5+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Resonator",
+        "+3 points"
+    ],
+    [
+        "- Feeder Tendrils",
+        "+5 points"
+    ],
+    [
+        "- Scuttlers",
+        "+5 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+8 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Infiltrator, Massive(1), Move Through Cover, Stealth, Use cover"
+    ],
+    [
+        "Leaping charge: The unit has a 12\" Charge move."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

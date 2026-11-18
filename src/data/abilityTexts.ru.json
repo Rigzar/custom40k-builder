@@ -3297,5 +3297,11 @@
  "ab.1cs7vc2": "Юнит получает способность «Furious Charge».",
  "ab.o4yhfe": "Юнит получает способность «Warded».",
  "ab.ii1s1q": "Юнит получает способность «Counter-Attack».",
- "ab.1dqxqom": "Дальнобойное оружие юнита получает «Suppression(3)»."
+ "ab.1dqxqom": "Дальнобойное оружие юнита получает «Suppression(3)».",
+ "ab.1vziuav": "Wraithbone: Уменьшает AP и AT вражеских атак на −1 (минимум 0).",
+ "ab.16g0qmh": "Sentinel construct: Если дружественный отряд в пределах 12\" атакован чарджем, Doomstalker тоже может использовать Defensive Fire против атакующего.",
+ "ab.x99z0l": "Fabricator claw array: В конце своего движения модель может попытаться починить технику в пределах 3\". При 4+ с техники снимается результат «Engine Damage» или «Weapon Damage», либо восстанавливается 1 Hull Point.",
+ "ab.4rv9ks": "Enhanced Sporecloud: Дружественные модели в пределах 9\" получают выгоду от Obscuring Terrain.",
+ "ab.1dag0b": "Sporecloud: Дружественные отряды в пределах 3\" получают выгоду от Obscuring Terrain. Дальность увеличивается на +3\" за каждого дополнительного Venomthrope в отряде.",
+ "ab.13ayn4c": "Resource Transmutation: Модель и её присоединённый отряд получают «Deflagrate(5+)» для всего дальнобойного оружия."
 }

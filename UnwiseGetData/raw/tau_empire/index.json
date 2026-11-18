@@ -1,0 +1,72 @@
+[
+    [
+        "T'au Empire"
+    ],
+    [
+        "HQ",
+        "Commander",
+        "Ethereal",
+        "Ethereal Guard",
+        "Kroot Master Shaper",
+        "Sub-Commander",
+        "Special rules"
+    ],
+    [
+        "Troops",
+        "Breacher Team",
+        "Kroot Carnivores",
+        "Strike Team",
+        "Support Turrets"
+    ],
+    [
+        "Elite",
+        "Crisis Battlesuits",
+        "Crisis Honor Guard",
+        "Ghostkeel Battlesuits",
+        "Kroot Farstalkers",
+        "Kroot Lone-Spear",
+        "Kroot Shaper",
+        "Stealth Battlesuits"
+    ],
+    [
+        "Fast Attack",
+        "Firesight Marksman",
+        "Hazard Battlesuits",
+        "Kroot Hounds",
+        "Kroot Trackers",
+        "Kroot Vultures",
+        "Krootox Rampagers",
+        "Pathfinder Team",
+        "Piranha",
+        "R'varna Battlesuit",
+        "Remora Stealth Drones",
+        "Tetras",
+        "Vespid Stingwings",
+        "Y'vahra Battlesuit"
+    ],
+    [
+        "Heavy Support",
+        "Broadside Battlesuits",
+        "Hammerhead Gunship",
+        "Kroot Great Knarloc",
+        "Krootox Riders",
+        "Riptide Battlesuit",
+        "Sky Ray Gunship"
+    ],
+    [
+        "Transports",
+        "Devilfish"
+    ],
+    [
+        "Fortifications",
+        "Tidewall Droneport",
+        "Tidewall Gunrig",
+        "Tidewall Shieldline"
+    ],
+    [
+        "Flyers",
+        "Barracuda Air Superiority Fighter",
+        "Razorshark Strike Fighter",
+        "Sun Shark Bomber"
+    ]
+]

@@ -94,11 +94,11 @@
             "choices": [
                 {
                     "name": "Laser destroyer",
-                    "points": -83
+                    "points": -87
                 },
                 {
                     "name": "Magna laser destroyer",
-                    "points": -48
+                    "points": -52
                 }
             ],
             "inline_pts": null,

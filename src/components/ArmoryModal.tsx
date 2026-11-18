@@ -1,3 +1,5 @@
+import { isAlliedEntry } from '../types/army';
+import { buyerRoleNames, roleMatches, ownsItem, ownsOption } from '../data/textGates';
 import { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
@@ -9,14 +11,14 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { effectiveLegacyFor } from '../engine/points';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices , allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, isPerWeaponPurchase, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices, parseNamedChoices, namedWeaponsBlockedBy, allowsMultipleCopies, weaponTargetKind, enhancementsUniquePerArmy, isBiomorph, isAdvancedBiomorph } from '../engine/equipMods';
 import { findArmoryItem, resolveUnitProfile, armoryWeaponTargets } from '../engine/resolver';
 import { getActiveVariant, gameSizePrice, liveArmoryPoints } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
   modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
-  effectiveKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
+  effectiveKeywords, grantedKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
   glyphArmourRestriction,
 } from '../engine/keywords';
@@ -247,7 +249,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // slot rule, Legacy armory access) must use this, not the bare isAllied above — isAllied
   // itself stays correct for "which faction's raw armory/unit DATA to read" (armoryDataFor and
   // the archetype-armory-tab gates below), since a supplement item still reads foreign data.
-  const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
+  const isTrueAllyUnit = !!(alliedFaction && isAlliedEntry(item, alliedFaction));
   const activeData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
   // Horus Heresy / Legio Titanicus only: the raw supplement/ally FactionData this item's own
   // armory ultimately comes from, before armoryDataFor merges in marks/legions. Its own
@@ -436,7 +438,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // effectiveKeywords: single source of truth for all keyword-based gating (instanceOf).
   // Combines unit.keywords + unit_type tokens + selected mark + bought armour keywords.
-  const _effectiveKws = effectiveKeywords(unit, item.mark, getBoughtArmourKws());
+  const _effectiveKws = effectiveKeywords(unit, item.mark, [...getBoughtArmourKws(), ...grantedKeywords(item)]);   // grantedKeywords: keywords the army gives this entry (keywords.ts)
 
   // T'au support systems stop at the datasheet's cap ("up to two SUPPORT SYSTEMS from the armory", GH#243).
   function supportCapBlocked(arm: ArmoryItem, sec: Section): boolean {
@@ -464,6 +466,23 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return null;
   }
 
+  // Role and "needs another item" gates read from the item text at load time (data/textGates.ts).
+  function textRoleBlocked(arm: ArmoryItem): boolean {
+    if (!arm.requires_unit_names?.length || boughtItemNames.has(arm.name)) return false;
+    return !roleMatches(arm.requires_unit_names, buyerRoleNames(unit, activeVariant?.variant.name));
+  }
+  function textRoleLabel(arm: ArmoryItem): string {
+    return (arm.requires_unit_names ?? []).map(n => n.replace(/\b\w/g, c => c.toUpperCase())).join(' / ');
+  }
+  function textOwnedBlocked(arm: ArmoryItem): boolean {
+    const req = arm.requires_owned_item;
+    if (!req || boughtItemNames.has(arm.name)) return false;
+    const low = req.toLowerCase();
+    if (unit.armourKeyword?.toLowerCase() === low || (unit.equipped_with ?? '').toLowerCase().includes(low)) return false;
+    if (ownsOption(unit, item.optionQty as never, req)) return false;
+    return !ownsItem(req, currentArmory.map(a => a.itemName));
+  }
+
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (structuralReason(arm, sec)) return true;
@@ -476,6 +495,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (sec === 'equipment' && daemonGatewayConflict(arm)) return true;
     // instanceOf gate: requires_keywords checked against effectiveKeywords (BSData model)
     if (isItemRequirementsBlocked(arm, _effectiveKws)) return true;
+    if (textRoleBlocked(arm) || textOwnedBlocked(arm)) return true;
     // For regular (non-veteran/vehicle) equipment: enforce mark restriction and null price
     if (!arm.category) {
       if (isMarkBlocked(arm)) return true;
@@ -500,9 +520,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (isItemRequirementsBlocked(arm, _effectiveKws)) {
       // Name who CAN buy it ("Only for Mek") instead of the generic "does not meet its requirements".
       const lacks = !!arm.requires_keywords?.length && !arm.requires_keywords.some(k => _effectiveKws.includes(k.toLowerCase()));
-      const who = (lacks ? arm.requires_keywords! : []).map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
+      const lacksAll = !!arm.requires_all_keywords?.some(k => !_effectiveKws.includes(k.toLowerCase()));
+      const who = (lacks ? arm.requires_keywords! : lacksAll ? [arm.requires_all_keywords!.join(' ')] : [])
+        .map(k => k.replace(/\b\w/g, c => c.toUpperCase()));
       return who.length ? t('armReasonOnly').replace('{kw}', who.join(' / ')) : t('armReasonNeeds');
     }
+    if (textRoleBlocked(arm)) return t('armReasonOnly').replace('{kw}', textRoleLabel(arm));
+    if (textOwnedBlocked(arm)) return t('armReasonOnly').replace('{kw}', arm.requires_owned_item!);
     if (!arm.category) {
       if (isMarkBlocked(arm)) return t('armReasonMark');
       if (getItemPts(arm) === null) {
@@ -820,8 +844,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
 
   // Allied units don't have access to the main army's legacy armories
-  const twoLegaciesRule = getArchetypeRule(archetype)?.twoLegacies;
-  const unitOwnLegacy = twoLegaciesRule ? (item.unitLegacy && [legacy, legacy2].includes(item.unitLegacy) ? item.unitLegacy : legacy) : null;
+  const twoLegaciesRule = getArchetypeRule(archetype)?.twoLegacies && !getArchetypeRule(archetype)?.legacy2ArmoryOnly;   // Blackshields: the second Legacy is the Armory of one Legion only
+  const unitOwnLegacy = twoLegaciesRule ? (item.unitLegacy && [legacy, legacy2, useArmyStore.getState().legacy3].includes(item.unitLegacy) ? item.unitLegacy : legacy) : null;
   const legacyLegionKeys = (unitOwnLegacy ? [unitOwnLegacy] : [legacy, legacy2])
     .filter(Boolean)
     .map(name => data.legacies.find(l => l.name === name)?.armory_key)
@@ -922,6 +946,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ...item.armory.filter(a => a.section === 'weapons').map(a => weaponBaseName(a.itemName)),
   ])];
   const meleeWeapons: string[] = [...new Set(carriedTargets.filter(isMeleeTarget).map(w => weaponBaseName(w.name)))];
+  // Core Rules, Master-crafted: "Can't be used on 'Grenade' type weapons or weapons with the 'Ammo(x)' ability" (TeCrisis, Discord).
+  const cannotMc = (w?: { type?: string; abilities?: string }) => !!w && (/grenade/i.test(w.type ?? '') || /\bAmmo\(/i.test(w.abilities ?? ''));
+  const notMasterCraftable: string[] = [...new Set([
+    ...carriedTargets.filter(cannotMc).map(w => weaponBaseName(w.name)),
+    ...item.armory.filter(a => a.section === 'weapons').filter(a => cannotMc(findArmoryItem(data, a) as never)).map(a => weaponBaseName(a.itemName)),
+  ])];
 
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;
@@ -1402,6 +1432,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         }}
                         availableWeapons={availableWeapons}
                         meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1507,6 +1538,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         }}
                         availableWeapons={availableWeapons}
                         meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1606,6 +1638,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         }}
                         availableWeapons={availableWeapons}
                         meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                         eqExarchPower={eqExarchPower}
@@ -1688,6 +1721,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       }}
                       availableWeapons={availableWeapons}
                       meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
                       eqTargetWeapon={eqTargetWeapon}
                       onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       eqExarchPower={eqExarchPower}
@@ -1751,6 +1785,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               }}
               availableWeapons={availableWeapons}
               meleeWeapons={meleeWeapons}
+                        notMasterCraftable={notMasterCraftable}
               eqTargetWeapon={eqTargetWeapon}
               onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
               eqExarchPower={eqExarchPower}
@@ -1846,6 +1881,7 @@ interface EquipGroupsProps {
   availableWeapons?: string[];
   /** The melee ones among `availableWeapons`, so a "melee weapon" item is only offered those. */
   meleeWeapons?: string[];
+  notMasterCraftable?: string[];
   /** Current weapon target selections for equipment that requires a target */
   eqTargetWeapon?: Record<string, string>;
   onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
@@ -1894,6 +1930,7 @@ function EquipmentGroups({
   reaverLord,
   availableWeapons = [],
   meleeWeapons = [],
+  notMasterCraftable = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
   eqExarchPower = {},
@@ -1966,13 +2003,18 @@ function EquipmentGroups({
             // the item's own desc text via parseEnumerableWeaponChoices instead of a hardcoded
             // list, since not every item offers all 4 — Heavenfall blade excludes Range).
             const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
-            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0;
+            // Orders of the Hekatonystika (Horus Heresy): the item's own text lists six NAMED orders and says "only one": the same picker, with the names read from the text.
+            const namedChoices = (enumOptions.length === 0 && arm.name !== 'Crusade weapon' && arm.name !== 'Paragon of war') ? parseNamedChoices(arm.desc) : [];
+            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0 || namedChoices.length > 0;
             const chosenPower = eqExarchPower[arm.name] ?? '';
             // "Must be purchased for each weapon separately": the picker stays open after the first purchase so the
             // next weapon can be chosen, and a weapon that already has it cannot be picked again.
             const perWeapon = isPerWeaponPurchase(arm.desc);
             const takenTargets = perWeapon ? (countsCtx?.targetsTakenOf(arm.name) ?? []) : [];
-            const canAdd = !uniqueSel && (!needsTarget || (chosenTarget !== '' && !takenTargets.includes(chosenTarget))) && (!needsPower || chosenPower !== '');
+            // Eldar 1.13: "Paragon of war ... must chose two Exarch powers". The two names travel together in `chosenPower` ("A + B").
+            const isParagon = arm.name === 'Paragon of war';
+            const powersChosen = chosenPower.split(' + ').filter(Boolean);
+            const canAdd = !uniqueSel && (!needsTarget || (chosenTarget !== '' && !takenTargets.includes(chosenTarget))) && (!needsPower || chosenPower !== '') && (!isParagon || powersChosen.length === 2);
             return (
               <div key={i}>
                 <ArmoryItemRow
@@ -1981,7 +2023,7 @@ function EquipmentGroups({
                   disabled={!canAdd}
                   reason={uniqueSel ? (reasonFor?.(arm) ?? null)
                     : (needsTarget && chosenTarget === '') ? t('armReasonPickWeapon')
-                    : (needsPower && chosenPower === '') ? t('armReasonPickEnh') : null}
+                    : (needsPower && (chosenPower === '' || (isParagon && powersChosen.length < 2))) ? t('armReasonPickEnh') : null}
                   selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
                   ptsOverride={getPts ? getPts(arm) : undefined}
                   onRemove={onRemove}
@@ -1997,7 +2039,7 @@ function EquipmentGroups({
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
                       <option value="">{t('selectWeaponOption')}</option>
-                      {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
+                      {targetsFor(arm, availableWeapons, meleeWeapons, notMasterCraftable).map(wn => (
                         <option key={wn} value={wn} disabled={takenTargets.includes(wn)}>{wn}{takenTargets.includes(wn) ? ' — ' + t('takenLabel') : ''}</option>
                       ))}
                     </select>
@@ -2017,18 +2059,29 @@ function EquipmentGroups({
                       {arm.name === 'Paragon of war' ? t('exarchPowerLabel') : t('enhancementLabel')}
                     </span>
                     <select
-                      value={chosenPower}
-                      onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
+                      value={isParagon ? (powersChosen[0] ?? '') : chosenPower}
+                      onChange={e => onSetEqExarchPower?.(arm.name, isParagon ? [e.target.value, powersChosen[1]].filter(Boolean).join(' + ') : e.target.value)}
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
                       <option value="">{arm.name === 'Paragon of war' ? t('selectPowerOption') : t('selectEnhancementOption')}</option>
                       {(arm.name === 'Paragon of war' ? ELDAR_EXARCH_POWERS
                         : arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS
+                        : namedChoices.length > 0 ? namedChoices
                         : enumOptions).map(pn => {
-                        const taken = (takenEnhancements?.(arm) ?? []).includes(pn);
+                        const taken = (takenEnhancements?.(arm) ?? []).includes(pn) || (isParagon && pn === powersChosen[1]);
                         return <option key={pn} value={pn} disabled={taken}>{pn}{taken ? ' — ' + t('takenLabel') : ''}</option>;
                       })}
                     </select>
+                    {isParagon && (
+                      <select
+                        value={powersChosen[1] ?? ''}
+                        onChange={e => onSetEqExarchPower?.(arm.name, [powersChosen[0], e.target.value].filter(Boolean).join(' + '))}
+                        className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                      >
+                        <option value="">{t('selectPowerOption')}</option>
+                        {ELDAR_EXARCH_POWERS.map(pn => <option key={pn} value={pn} disabled={pn === powersChosen[0]}>{pn}{pn === powersChosen[0] ? ' — ' + t('takenLabel') : ''}</option>)}
+                      </select>
+                    )}
                   </div>
                 )}
                 {/* Daemon weapon ability picker — shown inline right under whichever gateway
@@ -2151,7 +2204,7 @@ function EquipmentGroups({
                         className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                       >
                         <option value="">{t('selectWeaponOption')}</option>
-                        {targetsFor(arm, availableWeapons, meleeWeapons).map(wn => (
+                        {targetsFor(arm, availableWeapons, meleeWeapons, notMasterCraftable).map(wn => (
                           <option key={wn} value={wn}>{wn}</option>
                         ))}
                       </select>
@@ -2298,7 +2351,12 @@ function ReaverLordPicker({
 }
 
 /** The weapons a weapon-target item may be pointed at: "One melee weapon..." only the melee ones, "One ranged weapon..." only the others. */
-function targetsFor(arm: ArmoryItem, all: string[], melee: string[]): string[] {
+function targetsFor(arm: ArmoryItem, all0: string[], melee: string[], notMasterCraftable: string[] = []): string[] {
+  // "Can not be applied to named weapons: ..." (the Crusade weapon of the Horus Heresy books): those weapons are not offered.
+  const blocked = namedWeaponsBlockedBy(arm.desc);
+  // An item that hands out "Master-crafted" is never offered a grenade or an Ammo(x) weapon (Core Rules, Master-crafted).
+  if (/master-crafted/i.test(arm.desc ?? '')) for (const n of notMasterCraftable) blocked.add(weaponBaseName(n).toLowerCase());
+  const all = blocked.size ? all0.filter(w => !blocked.has(weaponBaseName(w).toLowerCase())) : all0;
   const kind = weaponTargetKind(arm.desc);
   if (kind === 'any') return all;
   const m = new Set(melee);

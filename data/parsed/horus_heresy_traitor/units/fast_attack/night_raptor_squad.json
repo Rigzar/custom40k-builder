@@ -60,6 +60,24 @@
             "abilities": "-"
         },
         {
+            "name": "Night Lords chainblade",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Shred"
+        },
+        {
+            "name": "Chainglaive",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "2",
+            "abilities": "AT(1), Quick(1), Shred, Unwieldy"
+        },
+        {
             "name": "Flamer",
             "range": "9\"",
             "type": "Assault 4",
@@ -141,7 +159,7 @@
             "abilities": "AT(2), Overheating"
         },
         {
-            "name": "Volkite serpenta",
+            "name": "Legion volkite serpenta",
             "range": "10\"",
             "type": "Pistol 2",
             "s": "5",
@@ -179,7 +197,7 @@
             "choices": [
                 {
                     "name": "Flamer",
-                    "points": 5
+                    "points": 3
                 },
                 {
                     "name": "Meltagun",
@@ -187,15 +205,15 @@
                 },
                 {
                     "name": "Plasma gun",
-                    "points": 10
+                    "points": 20
                 },
                 {
                     "name": "Plasma pistol",
-                    "points": 5
+                    "points": 8
                 },
                 {
-                    "name": "Volkite serpenta",
-                    "points": 5
+                    "name": "Legion volkite serpenta",
+                    "points": 3
                 }
             ],
             "inline_pts": null,
@@ -203,6 +221,28 @@
             "is_unique_per_army": false,
             "replaces": [
                 "Bolt pistol"
+            ]
+        },
+        {
+            "header": "Any model may swap their Astartes chainsword with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Night Lords chainblade",
+                    "points": 2
+                },
+                {
+                    "name": "Chainglaive",
+                    "points": 8
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Astartes chainsword"
             ]
         }
     ],

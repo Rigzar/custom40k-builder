@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { nm } from '../utils/localName';
 import { useState } from 'react';
 import { useT } from '../i18n';
@@ -24,7 +25,7 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
   const { data: primaryData, alliedData, alliedFaction, traitPool: primaryTraitPool, alliedTraitPool, setUnitTraitChoice } = useArmyStore();
   // An allied unit picks from its OWN detachment's trait pool and trait definitions (Core Rules:
   // allies use their own Army Customisation), never the primary army's.
-  const isAllied = !!item.factionSource && item.factionSource === alliedFaction;
+  const isAllied = !!item.factionSource && isAlliedEntry(item, alliedFaction);
   const data = isAllied ? alliedData : primaryData;
   const traitPool = isAllied ? (alliedTraitPool ?? []) : primaryTraitPool;
 

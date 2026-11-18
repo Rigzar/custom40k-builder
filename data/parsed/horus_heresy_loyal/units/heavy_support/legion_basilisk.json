@@ -1,0 +1,74 @@
+{
+    "name": "Legion Basilisk",
+    "models": [
+        {
+            "stats": {
+                "M": "10\"",
+                "WS": "6+",
+                "BS": "3+",
+                "S": "5",
+                "FRONT": "13",
+                "SIDE": "12",
+                "REAR": "10",
+                "I": "4",
+                "A": "1",
+                "HP": "4"
+            },
+            "name": "Legion Basilisk",
+            "min": 1,
+            "max": 1,
+            "points": 442
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Legion Basilisk is a single model and is equipped with: Earthshaker cannon; Heavy bolter.",
+    "weapons": [
+        {
+            "name": "Earthshaker cannon - HE shells",
+            "range": "240\"",
+            "type": "Heavy 1",
+            "s": "9",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(3), Blast(6), Indirect"
+        },
+        {
+            "name": "Earthshaker cannon - Gas shells",
+            "range": "240\"",
+            "type": "Heavy 1",
+            "s": "1",
+            "ap": "0",
+            "d": "2",
+            "abilities": "Blast(6), Poison(2+), Indirect, Seeking, Suppression(3)"
+        },
+        {
+            "name": "Heavy bolter",
+            "range": "36\"",
+            "type": "Rapid Fire 2",
+            "s": "5",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Squadron"
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 442
+}

@@ -24,6 +24,7 @@
  */
 
 import type { FactionData } from '../types/data';
+import { applyTextGates } from './textGates';
 import { registerHhMarks } from '../engine/codex_horus_heresy/archetypes';
 import { applyDataOverrides, type DataOverrides } from '../engine/dataOverrides';
 import { applyKnightHouseholdRules } from './knightRules';
@@ -408,7 +409,7 @@ async function loadFaction(key: string): Promise<FactionData> {
     // Alpha faction (admins and Servitors only, see factionCatalog.alpha): the traitor book of the Horus Heresy project, built from the Google book
     // by scratch_cx/hh_codex/build_*.cjs. Self-contained: its own units, general Armory, one Armory per Legion (opened by the Legacy) and its Archetypes / Legacies / Legion traits.
     case 'horus_heresy_traitor': {
-      const [u, g, arch, discs, prayers, l0, l1, l2, l3, l4, l5, l6, l7, l8, l9] = await Promise.all([
+      const [u, g, arch, discs, prayers, l0, l1, l2, l3, l4, l5, l6, l7, l8] = await Promise.all([
         import('../../data/parsed/horus_heresy_traitor/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/horus_heresy_traitor/armory/general.json'),
         import('../../data/parsed/horus_heresy_traitor/archetypes.json'),
@@ -423,9 +424,8 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/horus_heresy_traitor/armory/legion_death_guard.json'),
         import('../../data/parsed/horus_heresy_traitor/armory/legion_emperors_children.json'),
         import('../../data/parsed/horus_heresy_traitor/armory/legion_thousand_sons.json'),
-        import('../../data/parsed/horus_heresy_traitor/armory/legion_blackshields.json'),
       ]);
-      const hh = await asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8, "Blackshields": l9 }, { disciplines: discs, prayers });
+      const hh = await asm(u, g, arch, noRules, {}, { "Alpha Legion": l0, "Iron Warriors": l1, "Night Lords": l2, "Word Bearers": l3, "Sons of Horus": l4, "World Eaters": l5, "Death Guard": l6, "Emperor's Children": l7, "Thousand Sons": l8 }, { disciplines: discs, prayers });
       registerHhMarks(hh.faction, hh.legacies, (hh as any).legion_marks);
       return hh;
     }
@@ -529,6 +529,47 @@ function normaliseMonsterFlag(data: FactionData): void {
 }
 
 /**
+ * The unit update writes a sheet's keyword line "Cultist, Death Guard" as ONE keyword, so the Poxwalkers had neither "Cultist" nor
+ * "Death Guard", and the Necron Lord and Cryptek ("Lord, Necron") were not Necrons for Eternal Conquerors (DemonGyro, Discord
+ * 2026-11-17; 11 units). Split them here so the script's output format cannot matter, like normaliseMonsterFlag.
+ */
+function normaliseKeywordList(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    if (!(unit.keywords ?? []).some(k => k.includes(','))) continue;
+    unit.keywords = [...new Set(unit.keywords.flatMap(k => k.split(',').map(x => x.trim()).filter(Boolean)))];
+  }
+}
+
+/**
+ * "Every Mek Gun must select one weapon": a mandatory pick for EACH model of the unit. The sheet script writes it as a plain
+ * "one" group, so a unit of 2 guns paid and showed ONE weapon (Ork Mek Gunz, TeCrisis 2026-11-10). Marking the group per_model
+ * makes the cost and the weapon count follow the unit size, as in the other "per model" groups.
+ */
+function normaliseEveryModelPick(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    for (const g of unit.option_groups ?? []) {
+      if (!g.per_model && g.constraint?.type === 'one' && /^Every\s.+\smust select one/i.test(g.header ?? '')) g.per_model = true;
+    }
+  }
+}
+
+/**
+ * "Any number of models may do one of the following": the sheet script splits the alternatives into one group each, so the
+ * counters ran independently and a unit of 10 could take 10 of each. The groups of one such rule share the unit size.
+ * Only the Boyz use it today; detected by the wording of the two headers so a sheet fix keeps working.
+ */
+function linkSharedCapGroups(data: FactionData): void {
+  for (const unit of Object.values(data.units)) {
+    const idx: number[] = [];
+    (unit.option_groups ?? []).forEach((g, i) => {
+      if (g.constraint?.type === 'every' && /^Any number of models may (replace their .+ with a|be additionally equipped with a) /i.test(g.header ?? '')) idx.push(i);
+    });
+    if (idx.length < 2) continue;
+    for (const i of idx) unit.option_groups[i].shares_cap_with = idx.filter(j => j !== i);
+  }
+}
+
+/**
  * Units whose datasheet gives the Armory to a whole MODEL TYPE of a mixed unit, not to the unit or to one champion
  * ("Sslyth have access to weapons and gear from the Armory"). The unit flags cannot say it, and the sheet script does
  * not write it, so the list lives here. Faction key -> unit name -> the model names that hold the access.
@@ -544,6 +585,22 @@ function applyArmoryModelTypes(data: FactionData, key: string): void {
   }
 }
 
+/**
+ * Eldar and Dark Eldar Index, "Visitors of the Black Library": "The army has access to Harlequin units. Harlequins can not be
+ * the mandatory HQ selection." The own-army grant mechanism (`intrinsic_allies`, the same path as Chamber Militant's
+ * Inquisition) was never switched on for them, so no Harlequin unit could be added (Ed, Discord 2026-11-17).
+ */
+const INTRINSIC_ALLIES: Record<string, { factions: string[]; notMandatoryHq?: string[] }> = {
+  eldar: { factions: ['harlequins'], notMandatoryHq: ['harlequins'] },
+  dark_eldar: { factions: ['harlequins'], notMandatoryHq: ['harlequins'] },
+};
+function applyIntrinsicAllies(data: FactionData, key: string): void {
+  const r = INTRINSIC_ALLIES[key];
+  if (!r) return;
+  data.intrinsic_allies = [...new Set([...(data.intrinsic_allies ?? []), ...r.factions])];
+  if (r.notMandatoryHq) data.intrinsic_allies_not_mandatory_hq = r.notMandatoryHq;
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -553,7 +610,12 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      normaliseMonsterFlag(data);
+     normaliseKeywordList(data);
+     normaliseEveryModelPick(data);
+     linkSharedCapGroups(data);
      applyArmoryModelTypes(data, k);
+     applyTextGates(data);
+     applyIntrinsicAllies(data, k);
      if (k === 'knight_households') applyKnightHouseholdRules(data);
      // The supplements are not regenerated from a sheet by the unit update, so their corrections still apply.
      applyDataOverrides(data, (await getDataOverrides())[k], !['horus_heresy', 'legio_titanicus', 'legion_of_the_damned', 'escalation', 'horus_heresy_loyal', 'horus_heresy_traitor', 'knight_households'].includes(k));

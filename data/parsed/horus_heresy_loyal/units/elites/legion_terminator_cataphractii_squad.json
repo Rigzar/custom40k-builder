@@ -39,7 +39,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "Every model is equipped with: Combi-Bolter; Power sword.",
+    "equipped_with": "Every model is equipped with: Combi-bolter; Power sword.",
     "weapons": [
         {
             "name": "Chainfist",
@@ -48,7 +48,7 @@
             "s": "x2",
             "ap": "-4",
             "d": "3",
-            "abilities": "Armorbane(3), AT(2), Slow(-3)"
+            "abilities": "Armorbane(3), AT(3), Slow(-3)"
         },
         {
             "name": "Combi-bolter",
@@ -125,7 +125,7 @@
         {
             "name": "Heavy flamer",
             "range": "9\"",
-            "type": "Assault 1",
+            "type": "Assault 4",
             "s": "5",
             "ap": "-1",
             "d": "1",
@@ -174,7 +174,7 @@
             "s": "x2",
             "ap": "-3",
             "d": "2",
-            "abilities": "AT(1), Slow(-2)"
+            "abilities": "AT(2), Slow(-2)"
         },
         {
             "name": "Power sword",
@@ -201,10 +201,10 @@
             "s": "x2",
             "ap": "-3",
             "d": "3",
-            "abilities": "AT(2), Slow(-3)"
+            "abilities": "AT(3), Slow(-3)"
         },
         {
-            "name": "Volkite charger",
+            "name": "Legion volkite charger",
             "range": "15\"",
             "type": "Assault 2",
             "s": "5",
@@ -221,8 +221,8 @@
             },
             "choices": [
                 {
-                    "name": "Volkite charger",
-                    "points": -10
+                    "name": "Legion volkite charger",
+                    "points": -1
                 },
                 {
                     "name": "Combi-flamer",
@@ -230,11 +230,11 @@
                 },
                 {
                     "name": "Combi-melta",
-                    "points": 10
+                    "points": 6
                 },
                 {
                     "name": "Combi-plasma",
-                    "points": 15
+                    "points": 10
                 }
             ],
             "inline_pts": null,
@@ -302,11 +302,11 @@
             "choices": [
                 {
                     "name": "Heavy flamer",
-                    "points": 0
+                    "points": 2
                 },
                 {
-                    "name": "Plasma Blaster",
-                    "points": 20
+                    "name": "Plasma blaster",
+                    "points": 31
                 },
                 {
                     "name": "Reaper autocannon",
@@ -341,5 +341,6 @@
     "advisor": false,
     "slot": "Elites",
     "default_size": 5,
-    "min_cost": 430
+    "min_cost": 430,
+    "armourKeyword": "Cataphractii"
 }

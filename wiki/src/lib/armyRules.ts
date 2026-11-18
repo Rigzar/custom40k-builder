@@ -3,6 +3,8 @@
  * Source: "Special rules" / "Army specific Rules:" section of each faction's Index sheet in the canonical .ods files.
  */
 
+import { FACTION_INDEX_RULES } from '../vendor/src/data/factionIndexRules';
+
 export type RuleTag = 'signature' | 'ally' | 'deployment' | 'weapon' | 'universal';
 
 export interface ArmyRule {
@@ -429,3 +431,20 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
   legion_of_the_damned: [],
   escalation: [],
 };
+
+/**
+ * The sheets are the source (Rigzar, 2026-11-13: the wiki had drifted). Every faction's text comes from the Index tab of its sheet,
+ * through the same generated table the app prints (src/data/factionIndexRules.ts); this file keeps only the TAGS and the order, and
+ * adds a rule the sheet has that this file lacked. A rule that only this file had (the Legendary Retinue) stays as it was.
+ */
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+for (const [key, list] of Object.entries(ARMY_RULES)) {
+  const sheet = Object.entries(FACTION_INDEX_RULES).find(([name]) => norm(name) === norm(key))?.[1];
+  if (!sheet) continue;
+  for (const r of sheet) {
+    const mine = list.find(x => norm(x.name) === norm(r.name));
+    const text = r.text.replace(/[ \t]*\n[ \t]*/g, '\n').trim();
+    if (mine) mine.description = text;
+    else list.push({ name: r.name.trim(), description: text, tag: 'universal' });
+  }
+}

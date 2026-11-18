@@ -1,0 +1,104 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Ancient Destructor Lord",
+        "12\"",
+        "2+",
+        "2+",
+        7,
+        7,
+        7,
+        4,
+        4,
+        10,
+        "3+",
+        420
+    ],
+    [
+        "An Ancient Destructor Lord is equipped with: Blade tail; Enmitic disintegrators; Unmaker gauntlet."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Blade tail",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(2)"
+    ],
+    [
+        "Enmitic disintegrators",
+        "12\"",
+        "Rapid Fire 2",
+        6,
+        -3,
+        2,
+        "Deflagrate(5+)"
+    ],
+    [
+        "Unmaker gauntlet",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        3,
+        "AT(2), Extra Attack(2), Unwieldy"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Only one Ancient Destructor Lord per army."
+    ],
+    [
+        "\u2022 Has access to gear from the Armory like a Lord."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Favoured enemy(everything), Furious Charge, Regeneration(1)"
+    ],
+    [
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+    ],
+    [
+        "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jump Pack, Monstrous Creature"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Lord, Necron"
+    ]
+]

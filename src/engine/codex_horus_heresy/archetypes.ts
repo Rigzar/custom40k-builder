@@ -3,8 +3,6 @@ import { BASE } from '../archetypes/base';
 
 const r = (over: Partial<ArchetypeRule>): ArchetypeRule => ({ ...BASE, ...over });
 
-/** Every unit of Terminator armour that the sheets list as an Elites choice, for the "any unit composed entirely of Terminator armour" line of Pride of the Legion. */
-const TERMINATOR_ELITES = ['Legion Terminator Cataphractii Squad', 'Legion Tartaros Terminator Squad', 'Saturnine Terminator Squad', 'Firedrake Terminator Squad', 'Crimson Paladins Squad', 'Red Butcher Terminators', 'Deathshroud Terminator Squad', 'Scarab Occult Terminator Squad'];
 
 /**
  * Horus Heresy Loyal / Traitor books (alpha): the slot effects of each archetype that the rule table can carry, with the names the sheets use now
@@ -13,24 +11,40 @@ const TERMINATOR_ELITES = ['Legion Terminator Cataphractii Squad', 'Legion Tarta
  * so the lookup by name cannot confuse it with the Space Marines archetype. The Legion archetypes force their Legacy through their own text ('Must select "Legacy of X"').
  */
 export const HH_ARCHETYPES: Record<string, ArchetypeRule> = {
-  'Armoured Spearhead': r({ requiresLegacy: true, troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran Battle Tank'] }),
+  'Armoured Spearhead': r({ requiresLegacy: true, troopsRemap: ['Legion Predator'], elitesRemap: ['Legion Sicaran'], slotCaps: [{ slot: 'Heavy Support', max: 1 }] }),   // "Only a single Heavy Support choice may be taken"
   // "access to all Robot units from the Horus Heresy Mechanicum supplement" = Forces of the Machine God (loader key legio_titanicus); the only Robot of that supplement is the Thanatar Siege-Automata.
   // The Castellax Battle-automata Maniple the sheet makes Troops is not in that supplement's data.
   'Brethren of Iron': r({ requiresLegacy: true, alliedFaction: 'legio_titanicus', alliedMarkFilter: 'all', alliedUnitsOnly: ['Thanatar Siege-Automata'] }),
   'Death from Above': r({ requiresLegacy: true, troopsRemap: ['Legion Assault Squad'], troopsCount: 'remap' }),
   'Drop Pod Assault (HH)': r({ requiresLegacy: true }),
-  'Legion Specialists': r({ requiresLegacy: true, hqOverride: [1, 3], slotBonus: [{ slot: 'Elites', add: 1 }] }),   // 1-3 HQ and 0-4 Elites in the first AOP
+  'Legion Specialists': r({ requiresLegacy: true, hqOverride: [1, 3] }),   // 1-3 HQ in the first AOP (the extra Elite is gone, 13 Nov)
   'Outrider Phalanx': r({ requiresLegacy: true, troopsRemap: ['Outrider Squadron', 'Legion Sky-hunter Squadron'], lowMoveMustEmbark: {} }),
-  'Pride of the Legion': r({ requiresLegacy: true, troopsRemap: ['Legion Veteran Squad', ...TERMINATOR_ELITES], troopsCount: 'remap', slotCaps: [{ slot: 'Heavy Support', max: 1 }, { slot: 'Fast Attack', max: 1 }] }),
-  'Recon Demi-Company': r({ requiresLegacy: true, troopsRemap: ['Legion Scout Squad', 'Seeker Squad'] }),
+  'Pride of the Legion': r({ requiresLegacy: true, troopsRemap: ['Legion Veteran Squad', 'Legion Terminator Cataphractii Squad', 'Legion Tartaros Terminator Squad'], troopsCount: 'remap', slotCaps: [{ slot: 'Heavy Support', max: 1 }, { slot: 'Fast Attack', max: 1 }] }),
+  'Recon Demi-Company': r({ requiresLegacy: true, troopsRemap: ['Legion Scout Squad', 'Seeker Squad'], troopsCount: 'remap', slotCaps: [{ slot: 'Fortification', max: 0 }] }),
   'Underworld Assault': r({ requiresLegacy: true }),
-  // the Legion archetypes: their weapon and ability lines are text; three of them also make a unit Troops
+  // the Legion archetypes: their weapon and ability lines are text; the ones that make a unique unit of the Legion Troops (and the only one that counts towards the 25%) are in the table
+  'Dark Angels': r({ troopsRemap: ['Dreadwing Interemptor Squad'], troopsCount: 'remap' }),
+  'White Scars': r({ troopsRemap: ["Falcon's Claws Squad"], troopsCount: 'remap' }),
+  'Imperial Fists': r({ troopsRemap: ['Phalanx Warder Squad'], troopsCount: 'remap' }),
+  'Blood Angels': r({ troopsRemap: ['Crimson Paladins Squad'], troopsCount: 'remap' }),
+  'Iron Hands': r({ troopsRemap: ['Medusan Immortal Squad'], troopsCount: 'remap' }),
+  'Salamanders': r({ troopsRemap: ['Pyroclast Squad'], troopsCount: 'remap' }),
+  'Raven Guard': r({ troopsRemap: ['Dark Fury Squad'], troopsCount: 'remap' }),
   "Emperor's Children": r({ troopsRemap: ['Kakophoni Squad'], troopsCount: 'remap' }),
+  'Iron Warriors': r({ troopsRemap: ['Iron Circle Maniple'], troopsCount: 'remap' }),
+  'Night Lords': r({ troopsRemap: ['Night Raptor Squad'], troopsCount: 'remap' }),
+  'World Eaters': r({ troopsRemap: ['Rampager Squad'], troopsCount: 'remap' }),
   'Word Bearers': r({ troopsRemap: ['Gal Vorbak'], troopsCount: 'remap' }),
+  'Death Guard': r({ troopsRemap: ['Legion Veteran Squad'], troopsCount: 'remap' }),
+  'Alpha Legion': r({ troopsRemap: ['Headhunter Kill Team'], troopsCount: 'remap' }),
   'Thousand Sons': r({ troopsRemap: ['Castellax-Achea Automata'], troopsCount: 'remap' }),
-  // two Legacies and a third Trait to choose from the list (an army takes from 0 to 2)
-  'Shattered Legions': r({ twoLegacies: true, archetypeTraitBonus: 1 }),
-  'Blackshields': r({ twoLegacies: true, archetypeTraitBonus: 1 }),
+  // Space Wolves, Ultramarines and Sons of Horus have a unique unit that is Troops by itself (Grey Slayer Pack, Praetorian Breacher Squad, Reaver Attack Squad): their archetype has no Troops line; the rule is empty on purpose (it exists so the table is complete)
+  'Space Wolves': r({}),
+  'Ultramarines': r({}),
+  'Sons of Horus': r({}),
+  // Shattered Legions: three Legacies and ONE Trait ("The army has access to one Trait only, instead of the usual two"); Blackshields: the Legacy of the Sundered plus the Armory of one Legion (second Legacy, only its Armory)
+  'Shattered Legions': r({ twoLegacies: true, threeLegacies: true, archetypeTraitBonus: -1 }),
+  'Blackshields': r({ twoLegacies: true, legacy2ArmoryOnly: true, archetypeTraitBonus: -1, troopsRemap: ['Legion Veteran Squad'], troopsCount: 'remap' }),
 };
 
 /** The Legacies of these books give no Troops of their own any more (the Legion archetypes do). Kept as an empty table for the lookup in archetypes/index.ts. */
@@ -56,9 +70,9 @@ export interface LegionMark {
 const REGISTRY = new Map<string, { legionOfLegacy: Record<string, string>; marks: Record<string, LegionMark> }>();
 
 /** Called by the loader of a Horus Heresy book with its archetypes.json: the Legacy -> Legion map and the marks. */
-export function registerHhMarks(faction: string, legacies: Array<{ name: string; armory_key?: string | null }>, legionMarks: Record<string, any> | undefined): void {
+export function registerHhMarks(faction: string, legacies: Array<{ name: string; armory_key?: string | null; legion?: string | null }>, legionMarks: Record<string, any> | undefined): void {
   const legionOfLegacy: Record<string, string> = {};
-  for (const l of legacies) if (l.armory_key) legionOfLegacy[l.name] = l.armory_key;
+  for (const l of legacies) if (l.legion || l.armory_key) legionOfLegacy[l.name] = (l.legion || l.armory_key) as string;
   const marks: Record<string, LegionMark> = {};
   for (const [legion, m] of Object.entries<any>(legionMarks ?? {})) {
     const statMods: NonNullable<ArchetypeRule['statMods']> = [

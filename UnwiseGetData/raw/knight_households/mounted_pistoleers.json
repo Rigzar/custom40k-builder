@@ -1,0 +1,186 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "5-10",
+        "Pistoleer",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        2,
+        3,
+        1,
+        6,
+        "5+",
+        18
+    ],
+    [
+        "*",
+        "Outrider",
+        "12\"",
+        "4+",
+        "4+",
+        3,
+        4,
+        2,
+        3,
+        1,
+        7,
+        "5+",
+        23
+    ],
+    [
+        "Every model is equipped with: 2 Hot-shot las pistols."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Hot-shot blunderbuss",
+        "18\"",
+        "Assault 1",
+        6,
+        -2,
+        1,
+        "Blast(4), Rending(5+)"
+    ],
+    [
+        "Hot-shot las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Hot-shot volley gun",
+        "24\"",
+        "Rapid Fire 2",
+        3,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Inferno pistol",
+        "6\"",
+        "Pistol 1",
+        8,
+        -5,
+        1,
+        "AT(1), Melta"
+    ],
+    [
+        "Plasma pistol *"
+    ],
+    [
+        "- Standard",
+        "24\"",
+        "Rapid Fire 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "- Overheating",
+        "24\"",
+        "Rapid Fire 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Every model may be equipped with:"
+    ],
+    [
+        "- Heavy armor",
+        "+3 points"
+    ],
+    [
+        "\u2022 One model may be equipped with:"
+    ],
+    [
+        "- Instrument",
+        "+5 points"
+    ],
+    [
+        "\u2022 Another model may be equipped with:"
+    ],
+    [
+        "- Household banner",
+        "+5 points"
+    ],
+    [
+        "\u2022 For every five models, two Pistoleers may swap both their Hot-shot las pistols:"
+    ],
+    [
+        "- 2 Inferno pistols",
+        "+9 points"
+    ],
+    [
+        "- 2 Plasma pistols",
+        "+12 points"
+    ],
+    [
+        "- Hot-shot blunderbuss",
+        "+12 points"
+    ],
+    [
+        "\u2022 All remaining models may swap both Hot-shot las pistols:"
+    ],
+    [
+        "- Hot-shot volley gun",
+        "+6 points"
+    ],
+    [
+        "\u2022 One model may be upgraded to an Outrider for +10 points and gains access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Outflank"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Bike"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Noble"
+    ]
+]

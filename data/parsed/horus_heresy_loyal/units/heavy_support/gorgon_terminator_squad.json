@@ -17,7 +17,7 @@
             "name": "Gorgon Terminator",
             "min": 4,
             "max": 9,
-            "points": 40
+            "points": 86
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Gorgon Hammerbearer",
             "min": 1,
             "max": 1,
-            "points": 40
+            "points": 101
         }
     ],
     "variant_models": [],
@@ -129,7 +129,7 @@
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Blast(4), Graviton, Impuls, Sunder(2)"
+            "abilities": "Blast(4), Graviton, Sunder(2)"
         },
         {
             "name": "Heavy flamer",
@@ -230,7 +230,7 @@
                 },
                 {
                     "name": "Chainfist",
-                    "points": 10
+                    "points": 17
                 }
             ],
             "inline_pts": null,
@@ -267,11 +267,11 @@
             "choices": [
                 {
                     "name": "Combi-flamer",
-                    "points": 10
+                    "points": 0
                 },
                 {
                     "name": "Combi-melta",
-                    "points": 10
+                    "points": 6
                 },
                 {
                     "name": "Combi-plasma",
@@ -295,19 +295,19 @@
             "choices": [
                 {
                     "name": "Heavy flamer",
-                    "points": 5
+                    "points": 2
                 },
                 {
                     "name": "Graviton gun",
-                    "points": 10
+                    "points": 26
                 },
                 {
                     "name": "Reaper autocannon",
-                    "points": 15
+                    "points": 20
                 },
                 {
                     "name": "Plasma blaster",
-                    "points": 10
+                    "points": 31
                 }
             ],
             "inline_pts": null,
@@ -330,7 +330,7 @@
     ],
     "abilities": [
         "Deep strike, Iron Hands Legion, Massive(1), They Shall Know No Fear, Unyielding, Vanguard",
-        "Gorgon Terminator armor: The model gains a 5+ ward save and the \"Warded\" ability (the Feel No Pain (5+) of the book)."
+        "Gorgon Terminator armor: The model gains a 5+ ward save and the \"Warded\" ability."
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -347,6 +347,6 @@
     "advisor": false,
     "slot": "Heavy Support",
     "default_size": 5,
-    "min_cost": 200,
+    "min_cost": 445,
     "requires_legacy": "Legacy of the Gorgon"
 }

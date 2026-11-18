@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import type { Unit, Model, FactionData, OptionGroup, Constraint } from '../types/data';
 import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
@@ -98,18 +99,18 @@ export function resolveUnit(item: { unitName: string; factionSource?: string; ne
  * directly, so the scope check can't be forgotten again.
  */
 export function effectiveArchetypeFor(item: { factionSource?: string }, state: Pick<ArmyState, 'archetype' | 'alliedArchetype' | 'alliedFaction'>): string {
-  const isAlliedItem = !!item.factionSource && item.factionSource === state.alliedFaction;
+  const isAlliedItem = !!item.factionSource && isAlliedEntry(item, state.alliedFaction);
   return isAlliedItem ? (state.alliedArchetype ?? '') : state.archetype;
 }
 
 /** Same scoping as {@link effectiveArchetypeFor}, for the active Legacy. An Allied Detachment
  *  only ever has one Legacy slot (no 2nd-legacy-via-trait unlock — see ArmyState.alliedLegacy
  *  doc), so there is no allied equivalent of `legacy2`. */
-export function effectiveLegacyFor(item: { factionSource?: string; unitLegacy?: string }, state: Pick<ArmyState, 'legacy' | 'alliedLegacy' | 'alliedFaction'> & { archetype?: string; legacy2?: string }): string {
-  const isAlliedItem = !!item.factionSource && item.factionSource === state.alliedFaction;
+export function effectiveLegacyFor(item: { factionSource?: string; unitLegacy?: string }, state: Pick<ArmyState, 'legacy' | 'alliedLegacy' | 'alliedFaction'> & { archetype?: string; legacy2?: string; legacy3?: string }): string {
+  const isAlliedItem = !!item.factionSource && isAlliedEntry(item, state.alliedFaction);
   if (isAlliedItem) return state.alliedLegacy ?? '';
   // Shattered Legions / Blackshields: the unit belongs to the one of the two Legacies it was given
-  if (item.unitLegacy && getArchetypeRule(state.archetype ?? '')?.twoLegacies && (item.unitLegacy === state.legacy || item.unitLegacy === state.legacy2)) return item.unitLegacy;
+  if (item.unitLegacy && getArchetypeRule(state.archetype ?? '')?.twoLegacies && !getArchetypeRule(state.archetype ?? '')?.legacy2ArmoryOnly && (item.unitLegacy === state.legacy || item.unitLegacy === state.legacy2 || (!!state.legacy3 && getArchetypeRule(state.archetype ?? '')?.threeLegacies && item.unitLegacy === state.legacy3))) return item.unitLegacy;
   return state.legacy;
 }
 

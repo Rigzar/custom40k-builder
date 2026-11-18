@@ -15,7 +15,7 @@ function fromCode(code: string): unknown {
 export function ExportImport({ onPrint, onImported }: { onPrint?: () => void; onImported?: () => void }) {
   const t = useT();
   const {
-    army, engagement, hqMark, archetype, legacy, legacy2,
+    army, engagement, hqMark, archetype, legacy, legacy2, legacy3, traitSubChoices,
     traitPool, campaignTraitBonus, faction, pointLimit, armyName, importRoster, clearArmy,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
   } = useArmyStore();
@@ -53,7 +53,7 @@ export function ExportImport({ onPrint, onImported }: { onPrint?: () => void; on
   // it used to silently delete the ally on every export+reimport, since importRoster spreads the
   // parsed JSON straight over defaultState and a missing `alliedFaction` resets it to undefined.
   const stateSnapshot = {
-    armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, campaignTraitBonus, army,
+    armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, legacy3, traitPool, traitSubChoices, campaignTraitBonus, army,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
   };
 

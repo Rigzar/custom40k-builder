@@ -78,6 +78,15 @@
             "abilities": "Auto Hit, AT(1), Sunder(1)"
         },
         {
+            "name": "Plasma incinerator",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "7",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Auto Hit, AT(1), Sunder(1)"
+        },
+        {
             "name": "Rad grenades",
             "range": "6\"",
             "type": "Grenade 1",
@@ -87,7 +96,28 @@
             "abilities": "Rad"
         }
     ],
-    "option_groups": [],
+    "option_groups": [
+        {
+            "header": "For each 5 models, one Interemptor may swap their Plasma burner with",
+            "constraint": {
+                "type": "per_n",
+                "per_n": 5,
+                "count_per_n": 1
+            },
+            "choices": [
+                {
+                    "name": "Plasma incinerator",
+                    "points": 25
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Plasma burner"
+            ]
+        }
+    ],
     "abilities": [
         "Combat squads, Dark Angels Legion, They Shall Know No Fear"
     ],

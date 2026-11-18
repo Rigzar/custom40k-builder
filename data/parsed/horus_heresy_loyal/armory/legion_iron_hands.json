@@ -24,14 +24,54 @@
       "abilities": "Grav, Haywire",
       "p_unit": null,
       "p_char": null
+    },
+    {
+      "name": "Medusan power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(2), Unwieldy",
+      "p_unit": 7,
+      "p_char": 8,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Artificer power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 6,
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
     {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
+      "name": "Gorgon Terminator armor",
+      "term_compat": true,
+      "desc": "Only for characters in Terminator armor. The model gains the \"Warded\" ability.",
       "p_unit": null,
+      "p_char": 14,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Armatus Necrotechnika",
+      "term_compat": false,
+      "desc": "At the start of each Rally phase, roll a D6 for the vehicle: on a 5+ it repairs one Engine Damage or Weapon Damage result (on a 4+ if any model was removed as a casualty within 6\" of it during the battle round). Not for Flyers.",
+      "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
     }

@@ -2,21 +2,6 @@
   "name": "Ultramarines Armory",
   "weapons": [
     {
-      "name": "Legatine axe",
-      "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "U",
-      "ap": "-4",
-      "d": "1",
-      "abilities": "Precision(4+)",
-      "p_unit": null,
-      "p_char": 7,
-      "armour_compat": [
-        "Terminator"
-      ]
-    },
-    {
       "name": "Sunwrath Pistol",
       "term_compat": false,
       "range": "12\"",
@@ -85,35 +70,18 @@
       ]
     },
     {
+      "name": "Legatine axe",
+      "term_compat": false,
+      "desc": "One Power axe of the model gains the \"Precision(4+)\" ability.",
+      "p_unit": null,
+      "p_char": 7
+    },
+    {
       "name": "Supply Vehicle",
       "term_compat": false,
       "desc": "Instead of using any of its weapons, this vehicle may use a \"Stand & Shoot\" command to grant a friendly Ultramarines unit within 6\" another use of any weapon or wargear item with the \"Ammo(x)\" ability.",
       "p_unit": null,
       "p_char": 5,
-      "category": "vehicle"
-    },
-    {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Logos Lectora",
-      "term_compat": false,
-      "desc": "- At the start of the Command phase, this army may choose a single Logos Lectora Command, which affects all Infantry and Walker units for the rest of the round:\n  - Full March: Units may change their assigned command to \"Advance\" when they activate and may re-roll Advance distances.\n  - Hold Fast: Units may change their assigned command to \"Stand & Shoot\" when they activate and do not suffer the to hit penalty from Defensive Fire.\n  - Retribution Strike: Units may change their assigned command to \"Charge\" when they activate and gain the \"Counter-attack\" ability.\n\n- Units in this army may not use the \"Deep Strike\", \"Infiltrate\" or \"Outflank\" abilities. Units which must use one of these abilities to deploy cannot be taken.\n- The army must take one additional compulsory Troops unit.",
-      "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
-    },
-    {
-      "name": "Vigil Opertii Mission\n(Loyalist only)",
-      "term_compat": false,
-      "desc": "- The army must take an Imperial Army Allied Detachment which does not have an Archetype. \n- Units that are taken in the Allied Detachment can make use of the “Objective secured!” rule.\n- The army must have the Loyalist alignment.",
-      "p_unit": null,
-      "p_char": null,
       "category": "vehicle"
     }
   ],

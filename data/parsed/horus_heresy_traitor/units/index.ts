@@ -6,6 +6,7 @@
 import type { Unit } from '../../../../src/types/data';
 
 import dedicated_transport_dreadclaw_drop_pod from './dedicated_transport/dreadclaw_drop_pod.json';
+import dedicated_transport_land_raider_achilles from './dedicated_transport/land_raider_achilles.json';
 import dedicated_transport_land_raider_carrier from './dedicated_transport/land_raider_carrier.json';
 import dedicated_transport_legion_drop_pod from './dedicated_transport/legion_drop_pod.json';
 import dedicated_transport_legion_rhino from './dedicated_transport/legion_rhino.json';
@@ -23,6 +24,7 @@ import elites_legion_saturnine_dreadnought from './elites/legion_saturnine_dread
 import elites_legion_tartaros_terminator_squad from './elites/legion_tartaros_terminator_squad.json';
 import elites_legion_terminator_cataphractii_squad from './elites/legion_terminator_cataphractii_squad.json';
 import elites_legion_veteran_squad from './elites/legion_veteran_squad.json';
+import elites_overseer from './elites/overseer.json';
 import elites_palatine_blade_squad from './elites/palatine_blade_squad.json';
 import elites_red_butcher_terminators from './elites/red_butcher_terminators.json';
 import elites_saturnine_terminator_squad from './elites/saturnine_terminator_squad.json';
@@ -43,12 +45,20 @@ import heavy_support_castellax_achea_automata from './heavy_support/castellax_ac
 import heavy_support_firestrike_servo_turret from './heavy_support/firestrike_servo_turret.json';
 import heavy_support_kakophoni_squad from './heavy_support/kakophoni_squad.json';
 import heavy_support_kharybdis_assault_claw from './heavy_support/kharybdis_assault_claw.json';
+import heavy_support_legion_arquitor from './heavy_support/legion_arquitor.json';
+import heavy_support_legion_basilisk from './heavy_support/legion_basilisk.json';
+import heavy_support_legion_deathstorm_drop_pod from './heavy_support/legion_deathstorm_drop_pod.json';
 import heavy_support_legion_heavy_support_squad from './heavy_support/legion_heavy_support_squad.json';
 import heavy_support_legion_kratos_assault_tank from './heavy_support/legion_kratos_assault_tank.json';
 import heavy_support_legion_leviathan_dreadnought from './heavy_support/legion_leviathan_dreadnought.json';
+import heavy_support_legion_malcador from './heavy_support/legion_malcador.json';
+import heavy_support_legion_medusa from './heavy_support/legion_medusa.json';
 import heavy_support_legion_predator from './heavy_support/legion_predator.json';
-import heavy_support_legion_sicaran_battle_tank from './heavy_support/legion_sicaran_battle_tank.json';
+import heavy_support_legion_scorpius from './heavy_support/legion_scorpius.json';
+import heavy_support_legion_sicaran from './heavy_support/legion_sicaran.json';
 import heavy_support_legion_whirlwind from './heavy_support/legion_whirlwind.json';
+import heavy_support_rampager_squad from './heavy_support/rampager_squad.json';
+import heavy_support_rapier_battery from './heavy_support/rapier_battery.json';
 import heavy_support_thunderfire_cannon from './heavy_support/thunderfire_cannon.json';
 import heavy_support_vindicator_siege_tank from './heavy_support/vindicator_siege_tank.json';
 import hq_centurion from './hq/centurion.json';
@@ -78,6 +88,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Legion Tartaros Terminator Squad",
     "Legion Terminator Cataphractii Squad",
     "Legion Veteran Squad",
+    "Overseer",
     "Palatine Blade Squad",
     "Red Butcher Terminators",
     "Saturnine Terminator Squad",
@@ -95,12 +106,20 @@ export const slot_to_units: Record<string, string[]> = {
     "Firestrike Servo-turret",
     "Kakophoni Squad",
     "Kharybdis Assault Claw",
+    "Legion Arquitor",
+    "Legion Basilisk",
+    "Legion Deathstorm Drop Pod",
     "Legion Heavy Support Squad",
     "Legion Kratos Assault Tank",
     "Legion Leviathan Dreadnought",
+    "Legion Malcador",
+    "Legion Medusa",
     "Legion Predator",
-    "Legion Sicaran Battle Tank",
+    "Legion Scorpius",
+    "Legion Sicaran",
     "Legion Whirlwind",
+    "Rampager Squad",
+    "Rapier Battery",
     "Thunderfire Cannon",
     "Vindicator Siege Tank"
   ],
@@ -111,6 +130,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Dedicated Transport": [
     "Dreadclaw Drop Pod",
+    "Land Raider Achilles",
     "Land Raider Carrier",
     "Legion Drop Pod",
     "Legion Rhino",
@@ -150,6 +170,7 @@ export const units: Record<string, Unit> = {
   "Legion Tartaros Terminator Squad": elites_legion_tartaros_terminator_squad as unknown as Unit,
   "Legion Terminator Cataphractii Squad": elites_legion_terminator_cataphractii_squad as unknown as Unit,
   "Legion Veteran Squad": elites_legion_veteran_squad as unknown as Unit,
+  "Overseer": elites_overseer as unknown as Unit,
   "Palatine Blade Squad": elites_palatine_blade_squad as unknown as Unit,
   "Red Butcher Terminators": elites_red_butcher_terminators as unknown as Unit,
   "Saturnine Terminator Squad": elites_saturnine_terminator_squad as unknown as Unit,
@@ -163,18 +184,27 @@ export const units: Record<string, Unit> = {
   "Firestrike Servo-turret": heavy_support_firestrike_servo_turret as unknown as Unit,
   "Kakophoni Squad": heavy_support_kakophoni_squad as unknown as Unit,
   "Kharybdis Assault Claw": heavy_support_kharybdis_assault_claw as unknown as Unit,
+  "Legion Arquitor": heavy_support_legion_arquitor as unknown as Unit,
+  "Legion Basilisk": heavy_support_legion_basilisk as unknown as Unit,
+  "Legion Deathstorm Drop Pod": heavy_support_legion_deathstorm_drop_pod as unknown as Unit,
   "Legion Heavy Support Squad": heavy_support_legion_heavy_support_squad as unknown as Unit,
   "Legion Kratos Assault Tank": heavy_support_legion_kratos_assault_tank as unknown as Unit,
   "Legion Leviathan Dreadnought": heavy_support_legion_leviathan_dreadnought as unknown as Unit,
+  "Legion Malcador": heavy_support_legion_malcador as unknown as Unit,
+  "Legion Medusa": heavy_support_legion_medusa as unknown as Unit,
   "Legion Predator": heavy_support_legion_predator as unknown as Unit,
-  "Legion Sicaran Battle Tank": heavy_support_legion_sicaran_battle_tank as unknown as Unit,
+  "Legion Scorpius": heavy_support_legion_scorpius as unknown as Unit,
+  "Legion Sicaran": heavy_support_legion_sicaran as unknown as Unit,
   "Legion Whirlwind": heavy_support_legion_whirlwind as unknown as Unit,
+  "Rampager Squad": heavy_support_rampager_squad as unknown as Unit,
+  "Rapier Battery": heavy_support_rapier_battery as unknown as Unit,
   "Thunderfire Cannon": heavy_support_thunderfire_cannon as unknown as Unit,
   "Vindicator Siege Tank": heavy_support_vindicator_siege_tank as unknown as Unit,
   "Centurion": hq_centurion as unknown as Unit,
   "Chaplain": hq_chaplain as unknown as Unit,
   "Librarian": hq_librarian as unknown as Unit,
   "Dreadclaw Drop Pod": dedicated_transport_dreadclaw_drop_pod as unknown as Unit,
+  "Land Raider Achilles": dedicated_transport_land_raider_achilles as unknown as Unit,
   "Land Raider Carrier": dedicated_transport_land_raider_carrier as unknown as Unit,
   "Legion Drop Pod": dedicated_transport_legion_drop_pod as unknown as Unit,
   "Legion Rhino": dedicated_transport_legion_rhino as unknown as Unit,

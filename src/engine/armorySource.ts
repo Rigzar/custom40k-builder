@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import type { FactionData } from '../types/data';
 
 /**
@@ -57,7 +58,7 @@ export function armoryDataFor(
   // `inherits_parent_armory` flag means the same thing here as it does below — access to a host
   // codex's basic Armory (shown as its own separate tab by ArmoryModal, see withParentArmory's
   // doc comment), and that host is the PRIMARY faction, same as the archetype path.
-  if (item.factionSource === alliedFaction && alliedData) return withParentArmory(alliedData, data);
+  if (isAlliedEntry(item, alliedFaction) && alliedData) return withParentArmory(alliedData, data);
 
   const supp = supplementData[item.factionSource];
   if (!supp) return data;

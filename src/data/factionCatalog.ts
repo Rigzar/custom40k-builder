@@ -60,7 +60,7 @@ export const CATEGORIES: FactionCategory[] = [
     pillFg: '#cc8888', pillFgLight: '#8a3236', dividerColor: '#3a1a1a',
     factions: [
       { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.11' },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.2' },
+      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.3' },
     ],
   },
   {
@@ -68,10 +68,10 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/imperium.svg',
     pillFg: '#c8b56a', pillFgLight: '#6b5a17', dividerColor: '#3a3520',
     factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.12' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.11' },
+      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.14' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.15' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'complete', version: '1.5' },
-      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'complete', version: '1.6' },
+      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'complete', version: '1.7' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.3' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.4' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'complete', version: '1.4' },
@@ -85,14 +85,14 @@ export const CATEGORIES: FactionCategory[] = [
     pillFg: '#6ab88a', pillFgLight: '#1d6944', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'complete', version: '1.10' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.9' },
-      { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.6' },
-      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.9' },
-      { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.6' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.12' },
+      { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.8' },
+      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.13' },
+      { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.7' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.5' },
-      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.3' },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.5' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.12' },
+      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'complete', version: '1.4' },
+      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.7' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.14' },
     ],
   },
   {
@@ -134,6 +134,23 @@ export const ALL_FACTIONS: { key: string; name: string; defaultAvailable: boolea
 export const DEFAULT_CODEX_VERSIONS: Record<string, { version: string; status: FactionStatus }> =
   Object.fromEntries(CATEGORIES.flatMap(c => c.factions.map(f =>
     [f.key, { version: f.version ?? '1.00', status: f.status }])));
+
+/**
+ * The codex version to show: the admin setting only when it is NEWER than the one compiled into this build. The settings row
+ * was saved once (Space Marines 1.6, Orks 1.4...) and kept overriding every newer sheet the code moved to (Rigzar 2026-11-16:
+ * "las versiones en la app no estan actualizadas"). A non-numeric value ("2.0 draft") is compared by its leading number.
+ */
+export function newerCodexVersion(compiled: string | undefined, saved: string | undefined): string | undefined {
+  if (!saved) return compiled;
+  if (!compiled) return saved;
+  const parts = (v: string) => (v.match(/\d+(?:\.\d+)*/)?.[0] ?? '0').split('.').map(Number);
+  const a = parts(saved), b = parts(compiled);
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    const d = (a[i] ?? 0) - (b[i] ?? 0);
+    if (d !== 0) return d > 0 ? saved : compiled;
+  }
+  return compiled;
+}
 
 export function getFactionName(key: string): string {
   for (const cat of CATEGORIES) {

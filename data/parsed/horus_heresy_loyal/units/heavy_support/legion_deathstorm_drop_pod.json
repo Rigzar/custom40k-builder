@@ -1,0 +1,59 @@
+{
+    "name": "Legion Deathstorm Drop Pod",
+    "models": [
+        {
+            "stats": {
+                "M": "-",
+                "WS": "-",
+                "BS": "4+",
+                "S": "5",
+                "FRONT": "12",
+                "SIDE": "12",
+                "REAR": "12",
+                "I": "-",
+                "A": "-",
+                "HP": "3"
+            },
+            "name": "Legion Deathstorm Drop Pod",
+            "min": 1,
+            "max": 3,
+            "points": 168
+        }
+    ],
+    "variant_models": [],
+    "equipped_with": "A Legion Deathstorm Drop Pod is a single model and is equipped with: Deathstorm missile launcher.",
+    "weapons": [
+        {
+            "name": "Deathstorm missile launcher",
+            "range": "18\"",
+            "type": "Heavy 9",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Ammo(2), Suppression(3)"
+        }
+    ],
+    "option_groups": [],
+    "abilities": [
+        "Deep Strike",
+        "Control Jets: The unit must land at least 6\" away from other units (friendly or enemy) and may never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
+        "Drop Pod Assault: Drop Pods always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!",
+        "Unmanned: A Drop Pod cannot contest or hold mission objectives."
+    ],
+    "unit_type": "Vehicle",
+    "keywords": [],
+    "is_vehicle": true,
+    "is_character": false,
+    "is_monster": false,
+    "is_psyker": false,
+    "has_armory_access": true,
+    "champion_has_armory": false,
+    "has_veteran_abilities": true,
+    "veteran_required": false,
+    "veteran_max": 2,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Heavy Support",
+    "default_size": 1,
+    "min_cost": 168
+}

@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Dreadnought is a single model and is equipped with: Dreadnought close combat weapon with Storm bolter; Seismis hammer with Heavy flamer.",
+    "equipped_with": "Every model is equipped with: Dreadnought close combat weapon with Storm bolter; Seismis hammer with Heavy flamer.",
     "weapons": [
         {
             "name": "Dreadnought chainfist",

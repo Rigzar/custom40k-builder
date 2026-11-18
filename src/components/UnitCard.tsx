@@ -1,14 +1,15 @@
+import { isAlliedEntry } from '../types/army';
 import { useState, useEffect, useRef, Fragment } from 'react';
 import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
-import { useArmyStore } from '../store/army';
+import { useArmyStore, type ArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
-import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem } from '../engine/resolver';
+import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems, findArmoryItem, removedAbilityNames, dropRemovedAbilities } from '../engine/resolver';
 import { armoryItemsLostByDeselecting, dropLegacyArmory } from '../utils/armoryGuard';
 import { OPT_IN_TRAITS, optInTraitApplies } from '../store/army';
 import { usesReputations, factionSymbolFile } from '../utils/factionLabel';
@@ -157,7 +158,7 @@ function headerForPromotedCap(header: string, g: { constraint: { max?: number };
 export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const t = useT();
   const { language: uiLang } = useLanguage();
-  const store = useArmyStore();
+  const store: ArmyStore = useArmyStore();
   const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
@@ -262,7 +263,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // data user is the integrated HH supplement, whose host is the primary army).
   const itemArchetype = effectiveArchetypeFor(item, store);
   const hhLegionMark = data.faction.startsWith('Horus Heresy:') && !item.factionSource ? hhMarkFor(effectiveLegacyFor(item, store), data.faction, u) : null;
-  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && item.factionSource === store.alliedFaction ? '' : store.legacy2].filter(Boolean) as string[];
+  const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && isAlliedEntry(item, store.alliedFaction) ? '' : (getArchetypeRule(store.archetype ?? '')?.legacy2ArmoryOnly ? '' : store.legacy2)].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
@@ -271,7 +272,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
   // An ALLIED Chaos Space Marines unit asks whether ITS OWN faction fields Marks (its animosity table), not the primary's: under a
   // Space Marines or Imperial Guard host `data.animosity` is empty, so no allied CSM unit could ever take a Mark (Stu, Discord 2026-10-22).
-  const markData = (alliedFaction && item.factionSource === alliedFaction && alliedData) ? alliedData : data;
+  const markData = (alliedFaction && isAlliedEntry(item, alliedFaction) && alliedData) ? alliedData : data;
   const markPick = markAccess(u, markData, getArchetypeRule(itemArchetype), effectiveSlot, markIsForced, hasMarkGroup);
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
@@ -340,7 +341,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   // A genuine, user-picked Allied Detachment only — NOT a same-army supplement injection (Horus
   // Heresy, Legio Titanicus, Daemonkin, ...), which stays scoped to the primary's own trait pool.
   // Mirrors ArmoryModal.tsx's isTrueAllyUnit / resolver.ts's isAlliedDetachmentUnit.
-  const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
+  const isTrueAllyUnit = !!(alliedFaction && isAlliedEntry(item, alliedFaction));
   const effectiveArmData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
   // The rule text of an option choice that has no weapon of its own (an upgrade like Magos "Manipulus",
   // a piece of gear like "Omnispex"): the unit's own ability that opens with the choice's name, else
@@ -510,7 +511,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             ) : null}
             {hhLegionMark && (
               <span className="ml-1" title={hhLegionMark.legionTerm.note}>
-                <MarkBadge mark={`Mark of ${hhLegionMark.legion}`} suffix={u.requires_legacy ? t('lockedSuffix') : undefined} />
+                <MarkBadge mark={hhLegionMark.legion} suffix={u.requires_legacy ? t('lockedSuffix') : undefined} />
               </span>
             )}
             {isFavored && (
@@ -717,7 +718,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       })()}
 
       {/* ── Gue'vesa Lasgun/Hot-shot lasgun → Pulse rifle swap (per model, ods-verbatim) ── */}
-      {data?.faction === 'Imperial Guard' && archetype === 'Gue\'vesa' && !item.factionSource && !u.is_vehicle && (() => {
+      {(item.factionSource ? item.factionSource === 'imperial_guard' : data?.faction === 'Imperial Guard') && itemArchetype === 'Gue\'vesa' && !u.is_vehicle && (() => {
         const hasLasgun = (u.equipped_with ?? '').includes('Lasgun');
         const hasHotshot = (u.equipped_with ?? '').includes('Hot-shot lasgun');
         if (!hasLasgun && !hasHotshot) return null;
@@ -819,15 +820,20 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
       {!collapsed && (
         <div className="space-y-0 md:grid md:grid-cols-2 md:items-start">
           {/* Horus Heresy Shattered Legions / Blackshields: which of the army's two Legacies (Legions) this unit belongs to. */}
-          {!item.factionSource && getArchetypeRule(archetype ?? '')?.twoLegacies && (
+          {!item.factionSource && getArchetypeRule(archetype ?? '')?.twoLegacies && !getArchetypeRule(archetype ?? '')?.legacy2ArmoryOnly && (
             <div className="md:col-span-2 px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('legacy')}</span>
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('hhLegionLabel')}</span>
               <select
                 value={itemLegacies[0] ?? ''}
                 onChange={e => updateUnit(item.id, { unitLegacy: e.target.value || undefined })}
                 className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
               >
-                {[store.legacy, store.legacy2].filter(Boolean).map(l => <option key={l} value={l}>{l}</option>)}
+                {[store.legacy, store.legacy2, getArchetypeRule(archetype ?? '')?.threeLegacies ? store.legacy3 : ''].filter(Boolean).map(l => {
+                  // the unit takes the Legion of this Legacy and pays its mark (the Legion benefits of the Index)
+                  const lm = hhMarkFor(l, data.faction, u); const lt = lm?.legionTerm;
+                  const cost = !lt ? '' : u.is_vehicle ? lt.vehicleFlat : u.is_character ? lt.perCharacter : lt.perModel;
+                  return <option key={l} value={l}>{lm ? lm.legion : l}{cost ? ` (+${cost} ${u.is_vehicle || u.is_character ? 'pts' : 'pts/model'})` : ''}</option>;
+                })}
               </select>
             </div>
           )}
@@ -1077,6 +1083,25 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               </button>
               <div className="text-[10px] text-zinc-500 mt-0.5 pl-2 border-l border-amber-900">
                 {t('tyrantGuardDeclineDesc')}
+              </div>
+            </div>
+          )}
+
+          {/* Advisor ("does not take up a slot") is optional: a player may still want the unit to fill its slot. */}
+          {u.advisor && item.unitName !== 'Tyrant Guard Brood' && (
+            <div className="mb-2">
+              <button
+                onClick={() => store.setDeclineFreeSlot(item.id, !item.declineFreeSlot)}
+                className={`w-full text-left text-[11px] px-3 py-1.5 border transition-colors
+                  ${item.declineFreeSlot
+                    ? 'bg-amber-900/40 border-amber-600 text-amber-300 font-semibold'
+                    : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:border-amber-700 hover:text-amber-400'
+                  }`}
+              >
+                {item.declineFreeSlot ? t('advisorDeclineActiveLabel') : t('advisorDeclineToggleOff')}
+              </button>
+              <div className="text-[10px] text-zinc-500 mt-0.5 pl-2 border-l border-amber-900">
+                {t('advisorDeclineDesc')}
               </div>
             </div>
           )}
@@ -1348,7 +1373,19 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const granted = u.option_groups.some((og, ogi) => og !== g && og.choices.some((c, ci) =>
                 g.requires_choice!.includes(c.name) && (item.optionQty?.[ogi]?.[ci] ?? 0) > 0));
               const chosen = Object.values(item.optionQty?.[realGi] ?? {}).some(q => (q ?? 0) > 0);
-              if (!granted && !chosen) return null;
+              // Shown, not hidden: the sheet lists the swap, so the list has to as well. It just cannot be used yet.
+              if (!granted && !chosen) return (
+                <div key={`needs-${realGi}`} className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 opacity-70">
+                  <div className="text-[11px] text-zinc-400">{g.header}</div>
+                  <div className="text-[10px] text-zinc-500 italic">{tpl(t('needsChoiceFirst'), { choice: g.requires_choice!.join(', ') })}</div>
+                  {/* The choices as the sheet lists them, with their price, so nothing of the rule is missing from the card. */}
+                  <ul className="mt-1 space-y-0.5">
+                    {g.choices.map(c => (
+                      <li key={c.name} className="flex justify-between text-[11px] text-zinc-500"><span>{nm(c.name)}</span><span>{c.points > 0 ? `+${c.points}` : c.points}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              );
             }
 
             // Required OG warning: show if nothing is selected
@@ -2086,7 +2123,17 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const veterans = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'veteran');
             const vehicles = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'vehicle');
 
-            function ArmoryRow({ a }: { a: ArmorySelection }) {
+            // identical copies of one item (ten Storm shields) are one row "×10" (players asked for the card to take less room)
+            const stack = (list: ArmorySelection[]) => {
+              const out: { a: ArmorySelection; copies: ArmorySelection[] }[] = [];
+              for (const a of list) {
+                const k = [a.itemName, a.section, a.source, a.chosenPower ?? '', a.targetWeapon ?? ''].join('|');
+                const g = out.find(x => [x.a.itemName, x.a.section, x.a.source, x.a.chosenPower ?? '', x.a.targetWeapon ?? ''].join('|') === k);
+                if (g) g.copies.push(a); else out.push({ a, copies: [a] });
+              }
+              return out;
+            };
+            function ArmoryRow({ a, copies = [a] }: { a: ArmorySelection; copies?: ArmorySelection[] }) {
               const armItem = findArmoryItemData(effectiveArmData, a);
               const isDaemonWeaponTrait = a.section === 'daemon_weapons';
               const isArmoryWeapon = a.section === 'weapons';
@@ -2094,15 +2141,16 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const weaponTargetingTrait = isDaemonWeaponTrait && isWeaponTrait(armItem?.desc) && a.targetWeapon;
               // Extra traits applied to this armory weapon
               const extraTraitsForWeapon = isArmoryWeapon ? (weaponTraitMap.get(a.itemName) ?? []) : [];
-              const livePts = liveArmoryPoints(a, item, u);
+              const livePts = copies.reduce((s, c) => s + liveArmoryPoints(c, item, u), 0);
               return (
                 <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <div className="flex justify-between items-center">
-                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{nm(a.itemName)}</span>
+                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{nm(a.itemName)}{copies.length > 1 && <span className="text-amber-500 ml-1">×{copies.length}</span>}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-amber-600">{livePts >= 0 ? '+' : ''}{livePts} pts</span>
                       <button
-                        onClick={() => useArmyStore.getState().removeArmoryItem(item.id, a.id)}
+                        onClick={() => useArmyStore.getState().removeArmoryItem(item.id, copies[copies.length - 1].id)}
+                        title={copies.length > 1 ? 'Remove one' : undefined}
                         className="text-red-500 hover:text-red-300 text-[11px]"
                       >✕</button>
                     </div>
@@ -2149,19 +2197,19 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 {regular.length > 0 && (
                   <div className="space-y-1">
                     <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('equipment')}</div>
-                    {regular.map(a => <ArmoryRow key={a.id} a={a} />)}
+                    {stack(regular).map(g => <ArmoryRow key={g.a.id} a={g.a} copies={g.copies} />)}
                   </div>
                 )}
                 {veterans.length > 0 && (
                   <div className="space-y-1">
                     <div className="text-[10px] text-amber-700 uppercase tracking-widest">{usesReputations(data.faction) ? t('reputationsLabel') : t('veteranAbilities')}</div>
-                    {veterans.map(a => <ArmoryRow key={a.id} a={a} />)}
+                    {stack(veterans).map(g => <ArmoryRow key={g.a.id} a={g.a} copies={g.copies} />)}
                   </div>
                 )}
                 {vehicles.length > 0 && (
                   <div className="space-y-1">
                     <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('armoryTitleVehicle')}</div>
-                    {vehicles.map(a => <ArmoryRow key={a.id} a={a} />)}
+                    {stack(vehicles).map(g => <ArmoryRow key={g.a.id} a={g.a} copies={g.copies} />)}
                   </div>
                 )}
               </div>
@@ -2375,7 +2423,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               return mentioned.length === 0 || mentioned.some(name => (item.modelSizes?.[name] ?? 0) > 0);
             };
             const ascendedAll = hasAllMarksVariant(item, u);
-            const filteredAbilities = u.abilities.map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
+            const filteredAbilities = u.abilities.map(ab => dropRemovedAbilities(ab, removedAbilityNames(u, item))).map(ab => (ascendedAll ? ascendedKeywordLine(ab) : ab)).filter(ab => {
+              if (ab === '') return false;
               if (/^\d+$/.test(ab.trim()) || ab.trim() === '-') return false;
               // An ability the sheet marks "Only with the X archetype" (Horus Heresy) is shown only with that archetype.
               { const ga = ab.match(/Only with the (Legacy of [^.]+)./); if (ga && !itemLegacies.includes(ga[1].trim())) return false; }

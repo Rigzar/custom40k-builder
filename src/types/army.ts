@@ -109,6 +109,13 @@ export interface RosterEntry {
    * free-slot mechanism needs the same opt-out later.
    */
   declineFreeSlot?: boolean;
+  /**
+   * Added from the MAIN army's own list although its codex is another faction (an archetype grant: Chamber Militant's
+   * Inquisition units, Legion's Horus Heresy units...). Never part of the allied detachment, even when the ally is that same
+   * faction: MeMegaCreeper (Discord 2026-11-16) put Sanctioned Bombardments in the main AOP of a Chamber Militant army with an
+   * Inquisition ally and every one of them was counted as allied. Read through isAlliedEntry().
+   */
+  ownArmy?: boolean;
   /** User-defined display name for this unit (overrides the default unit name). */
   customName?: string;
   /** ID of the roster unit this character is pre-assigned to join at deployment. */
@@ -207,7 +214,12 @@ export interface ArmyState {
   archetype: string;
   legacy: string;
   legacy2: string;
+  /** Horus Heresy Shattered Legions: the third Legacy (the army has three; each unit belongs to one of them). */
+  legacy3?: string;
   traitPool: string[];
+  /** The one improvement picked for a trait that says "Select one improvement..." (Cursed Founding, Abhuman Auxiliaries,
+   *  Signature Evolutionary Adaption), keyed by trait name. Dominic 2026-11-15: one pick per army. */
+  traitSubChoices?: Record<string, string>;
   /**
    * Extra Army Trait slots granted by a Planetary Assault campaign's "Features of.." bonus
    * (Research Facility building, or the Breakthrough! weekly event) — manually entered by the
@@ -242,4 +254,9 @@ export interface ArmyState {
    * against its OWN army mark, not the primary's.
    */
   alliedHqMark?: Mark;
+}
+
+/** Is this roster entry part of the allied detachment? The ONE test for it: same faction as the ally and not added to the main army. */
+export function isAlliedEntry(item: { factionSource?: string | null; ownArmy?: boolean } | null | undefined, alliedFaction: string | null | undefined): boolean {
+  return !!item && !!alliedFaction && item.factionSource === alliedFaction && !item.ownArmy;
 }

@@ -1,3 +1,5 @@
+import { isAlliedEntry } from '../types/army';
+import { traitSubOptions } from './traitEffects';
 import type { FactionData, Unit } from '../types/data';
 import { slotLabel } from '../utils/slotLabel';
 import { alliedSlotFactor } from './navyRules';
@@ -12,6 +14,7 @@ import { SLOT_ORDER, ALLIED_AOP, maxArmyTraits, engagementFor } from './engageme
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCap } from './deploymentUpgrades';
 import {
   getArchetypeRule, getEffectiveSlotFor, getEffectiveHqLimits, archetypeSlotBonus, countsTroops, cleanArchetypeName,
+  unlockingLegacies,
 } from './archetypes';
 import { applyVariantSlotOverride, hasSlotOptIn, variantIsHq, hasAllMarksVariant } from './slotOverrides';
 import { removedUnitNote } from './unitRenames';
@@ -19,7 +22,7 @@ import { validateSpaceMarines } from './codex_space_marines/validator';
 import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { enforcerWeaponBonus, enforcerCount, supportSystemCap, supportSystemsOwned } from '../lib/supportSystems';
-import { archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit, primarchOpened } from '../lib/legacyGatedChoices';
+import { secondTraitGate, archetypeRequiredLegacy, unitRequiredLegacy, unitRequiredArchetype, archetypeOpensUnit, primarchOpened } from '../lib/legacyGatedChoices';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { ownWardAbilities } from '../lib/wardSave';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
@@ -149,7 +152,7 @@ export function alliedCdFreeHeraldIds(army: RosterEntry[], data: FactionData, al
   const greaterByGod: Record<string, number> = {};
   const heralds: { id: string; god: string }[] = [];
   for (const i of army) {
-    if (i.factionSource !== alliedFaction) continue;
+    if (!isAlliedEntry(i, alliedFaction)) continue;
     const u = resolveUnit(i, data);
     if (!u?.locked_mark) continue;
     const isHerald = (u.abilities ?? []).some(a => /^herald:/i.test(a));
@@ -188,7 +191,7 @@ export function advisorExemptIds(
   function hqCount(isAllied: boolean): number {
     if (!hqCountCache.has(isAllied)) {
       const n = army.filter(j => {
-        const jIsAllied = !!(j.factionSource && j.factionSource === alliedFaction);
+        const jIsAllied = !!(j.factionSource && isAlliedEntry(j, alliedFaction));
         if (jIsAllied !== isAllied) return false;
         const u = resolveUnit(j, data);
         const printed = getEffectiveSlotFor(j, rule);
@@ -208,7 +211,9 @@ export function advisorExemptIds(
     const u = resolveUnit(i, data);
     if (!u?.advisor) continue;
     if (variantIsHq(i, u, getEffectiveSlotFor(i, rule))) continue;   // an HQ now, so no free Advisor slot
-    const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
+    // Advisor is optional: the player can make this one occupy its slot (Unwise, Discord 2026-11-16).
+    if (i.declineFreeSlot) continue;
+    const isAllied = !!(i.factionSource && isAlliedEntry(i, alliedFaction));
     const key = `${isAllied}:${i.unitName}`;
     const n = seen.get(key) ?? 0;
     seen.set(key, n + 1);
@@ -249,10 +254,17 @@ function getSlotUsage(
   excludeSlotOptIns?: boolean,
 ): number {
   const exemptIds = engagement === 'skirmish' ? new Set<string>() : advisorExemptIds(army, data, rule, alliedFaction);
-  if (engagement !== 'skirmish') for (const id of alliedCdFreeHeraldIds(army, data, alliedFaction)) exemptIds.add(id);
+  if (engagement !== 'skirmish') {
+    // Entourage / Herald apply per DETACHMENT (Dominic, 2026-11-13: "applies and yes, same detachment"): the Greater Daemon must sit in the same
+    // detachment as the Herald it frees. A user-picked allied Chaos Daemons detachment is one scope; the Daemons an archetype of a Chaos Space
+    // Marine army reaches (rule.alliedFaction, e.g. All is Dust, Daemonkin) are another, so they are evaluated separately.
+    for (const scope of new Set([alliedFaction, rule?.alliedFaction])) {
+      for (const id of alliedCdFreeHeraldIds(army, data, scope)) exemptIds.add(id);
+    }
+  }
   return army.filter(i => {
     if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;
-    const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
+    const isAllied = !!(i.factionSource && isAlliedEntry(i, alliedFaction));
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     if (exemptIds.has(i.id)) return false;
     const u = resolveUnit(i, data);
@@ -263,6 +275,8 @@ function getSlotUsage(
     if (excludeSlotOptIns && hasSlotOptIn(i, u ?? undefined, printedSlot)) return false;
     // "Only Kroot units count towards mandatory unit minimums" (Kroot Hunting Pack): this call is the minimum check.
     if (excludeSlotOptIns && rule?.minimumsOnlyKeyword && !(u && unitMatchesKeyword(u, rule.minimumsOnlyKeyword))) return false;
+    // "Harlequins can not be the mandatory HQ selection" (Eldar / Dark Eldar): they fill HQ slots but not the minimum.
+    if (excludeSlotOptIns && slot === 'HQ' && i.factionSource && data.intrinsic_allies_not_mandatory_hq?.includes(i.factionSource)) return false;
     const baseSlot = applyVariantSlotOverride(i, u ?? undefined, printedSlot);
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;
@@ -316,7 +330,7 @@ function isStrictInfantrySelection(item: RosterEntry, data: FactionData, state: 
  */
 function countInfantrySelections(state: ArmyState, data: FactionData, countAllied: boolean): number {
   return state.army.filter(i => {
-    const isAllied = !!(i.factionSource && i.factionSource === state.alliedFaction);
+    const isAllied = !!(i.factionSource && isAlliedEntry(i, state.alliedFaction));
     if (isAllied !== countAllied) return false;
     return isStrictInfantrySelection(i, data, state);
   }).length;
@@ -848,6 +862,24 @@ export function computeSubCommanderFreeSlots(
 }
 
 /**
+ * Necrons 1.12: the Catacomb Command Barge is listed under HQ and "Can not be selected without having an Overlord in the army. Does not use up
+ * an HQ slot." One Barge per Lord in the army is exempted from the HQ slot (the Overlord is a Lord that starts the game inside it).
+ */
+export function computeCatacombBargeFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Necrons') return { hq: 0, notes: [] };
+  const barges = army.filter(i => i.unitName === 'Catacomb Command Barge' && !i.factionSource).length;
+  const lords = army.filter(i => i.unitName === 'Lord' && !i.factionSource).length;
+  if (barges === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(barges, lords);
+  const notes = [`Catacomb Command Barge: ${credited} of ${barges} exempted from the HQ slot (needs an Overlord, one per Lord; have ${lords}).`];
+  if (barges > lords) notes.push(`Catacomb Command Barge: ${barges - lords} without a Lord to carry still occupy${barges - lords === 1 ? 's' : ''} a normal HQ slot.`);
+  return { hq: credited, notes };
+}
+
+/**
  * T'au Ethereal Guard: same wrong-anchor bug — "1 unit of Ethereal Guard can be taken for each
  * Ethereal. Does not occupy an HQ slot", anchored to Ethereal count specifically, not any HQ.
  */
@@ -1294,10 +1326,11 @@ export function computeFreeSlotAdjustments(
   const retinue         = computeRetinueFreeSlots(army, data);
   const ringleader      = computeRingleaderFreeSlots(army, data);
   const overseerAuxilia = computeOverseerAuxiliaFreeSlots(army);
+  const barge           = computeCatacombBargeFreeSlots(army, data);
 
   return {
     hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
-      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq,
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq + hqShared.hq + navy.hq + retinue.hq + ringleader.hq + barge.hq,
     elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
       + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
       + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites + navy.elites + possessedLord.elites,
@@ -1310,14 +1343,14 @@ export function computeFreeSlotAdjustments(
       ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
       ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
       ...plasmacyte.notes, ...cryptothralls.notes, ...possessedLord.notes, ...hexmark.notes, ...spiritseer.notes,
-      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes,
+      ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes, ...barge.notes,
     ],
   };
 }
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
   const eng = engagementFor(state.engagement, data.faction);
-  const rule = getArchetypeRule(state.archetype, state.legacy, state.legacy2);
+  const rule = getArchetypeRule(state.archetype, state.legacy, state.legacy2, state.legacy3);
   const items: ValidationItem[] = [];
 
   // True when the primary archetype grants a supplement faction (HH, future similar supplements)
@@ -1329,7 +1362,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const alliesShareAop = isIntegratedSuppl || (state.engagement === 'skirmish' && !!state.alliedFaction);
   // Helper: is this item an integrated supplement unit?
   const isSupplItem = (item: { factionSource?: string | null }) =>
-    isIntegratedSuppl && item.factionSource === state.alliedFaction;
+    isIntegratedSuppl && isAlliedEntry(item, state.alliedFaction);
   // Names in the message are drawn in the reader's script: slots by their own label, everything else
   // through the katakana table (Japanese only; every other language gets the name as written).
   const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => {
@@ -1633,7 +1666,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     if (item.factionSource) continue;
     const need = unitRequiredLegacy(resolveUnit(item, data));
-    if (need && need !== state.legacy && need !== state.legacy2) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
+    if (need && !unlockingLegacies(state.archetype, state.legacy, state.legacy2, state.legacy3).includes(need)) items.push({ type: 'error', text: `${item.unitName} can only be selected if the army has the ${need}.` });
     const needArch = unitRequiredArchetype(resolveUnit(item, data));
     if (needArch && !archetypeOpensUnit(needArch, state.archetype, state.legacy, data.archetypes)) items.push({ type: 'error', text: `${item.unitName} can only be selected with the ${needArch} archetype.` });
     const needPrimarch = resolveUnit(item, data)?.requires_primarch_legacy;
@@ -1645,7 +1678,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u?.requires_archetype_unlock) continue;
-    const isAlly = !!item.factionSource && item.factionSource === state.alliedFaction;
+    const isAlly = !!item.factionSource && isAlliedEntry(item, state.alliedFaction);
     const r = isAlly ? getArchetypeRule(state.alliedArchetype) : rule;
     if (!(r?.unlocksUnits ?? []).includes(item.unitName)) items.push({ type: 'error', text: T('valUnitNeedsChaosArchetype', { unit: item.unitName }) });
   }
@@ -2177,6 +2210,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // A Legacy tied to an archetype (the Legacy of the Sundered: Blackshields only)
+  for (const ln of [state.legacy, state.legacy2]) {
+    const need = ln ? data.legacies.find(l => l.name === ln)?.requires_archetype : null;
+    if (need && state.archetype !== need) items.push({ type: 'error', text: `${ln} can only be taken with the ${need} archetype.` });
+  }
+
+  // a third Legacy only with an archetype that has three (Horus Heresy Shattered Legions)
+  // "Select one improvement" traits: the effect only applies once the army has picked one (Dominic 2026-11-15).
+  for (const tn of state.traitPool ?? []) {
+    if (traitSubOptions(tn).length && !state.traitSubChoices?.[tn]) items.push({ type: 'warn', text: `${tn}: choose its improvement in the army setup (${traitSubOptions(tn).join(', ')}).` });
+  }
+  if (state.legacy3 && !rule?.threeLegacies) items.push({ type: 'error', text: `A third Legacy (${state.legacy3}) can only be taken with an archetype that allows three Legacies.` });
   // 2nd legacy requires a "enables_second_legacy" trait to be active
   if (state.legacy2 && !rule?.twoLegacies && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
     items.push({ type: 'error', text: T('val2ndLegacyRequiresTrait') });
@@ -2762,14 +2807,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const mechInfCount = isImperialGuard
       ? state.army.filter(i =>
           i.unitName === 'Mechanised Infantry' &&
-          !(state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)),
+          !(state.alliedFaction && isAlliedEntry(i, state.alliedFaction) && !isSupplItem(i)),
         ).length
       : 0;
     const transportPct = state.archetype === 'Mechanised Company' ? 0.75 : 0.5;
     const transportBonus = mechInfCount > 0
       ? state.army
           .filter(i => {
-            if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return false;
+            if (state.alliedFaction && isAlliedEntry(i, state.alliedFaction) && !isSupplItem(i)) return false;
             return i.slot === 'Dedicated Transport';
           })
           .map(i => {
@@ -2826,7 +2871,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // army/primary rule.
   if (state.alliedFaction && state.alliedArchetype) {
     const allyRule = getArchetypeRule(state.alliedArchetype);
-    const allyItems = state.army.filter(i => i.factionSource === state.alliedFaction);
+    const allyItems = state.army.filter(i => isAlliedEntry(i, state.alliedFaction));
     const allyLabel = cleanArchetypeName(state.alliedArchetype);
 
     if (allyRule) {
@@ -2981,7 +3026,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // group the codex caps at one per army (`unique_upgrade`), such as the Necron Lord's
       // promotion to Overlord. Armory "Unique" items are the OTHER Skirmish rule, capped at one
       // for the whole army above, and are not restricted by slot.
-      if (effSlot === 'HQ') {
+      // The upgrade that MAKES the unit an HQ counts too (Chief Apothecary, Master of the Forge, Ascended Daemon Prince): Dominic
+      // ruled it once per army like the Lieutenant's Captain, so it is barred in Skirmish (TeCrisis, Discord 2026-11-16).
+      if (effSlot === 'HQ' || variantIsHq(item, u, item.slot)) {
         u.option_groups.forEach((g, gi) => {
           if (g.constraint.type !== 'unique_upgrade') return;
           const picked = item.optionQty?.[gi];
@@ -3482,7 +3529,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
   // are already counted in the primary AOP block above.
   if (state.alliedFaction && !isIntegratedSuppl && state.engagement !== 'skirmish') {
-    const alliedUnits = state.army.filter(e => e.factionSource === state.alliedFaction);
+    const alliedUnits = state.army.filter(e => isAlliedEntry(e, state.alliedFaction));
     if (alliedUnits.length > 0) {
       // The ALLY's own archetype rule (e.g. a troopsRemap-style slot effect) governs how its OWN
       // units' slots resolve here, never the primary's `rule` — getSlotUsage's getEffectiveSlot
@@ -3571,7 +3618,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (!allyRuleForAnimosity?.noAnimosity) {
       const allyAllowed = allowedMarksFor(state.alliedHqMark ?? 'Undivided', alliedData);
       for (const item of state.army) {
-        if (item.factionSource !== state.alliedFaction) continue;
+        if (!isAlliedEntry(item, state.alliedFaction)) continue;
         if (item.mark && !allyAllowed.includes(item.mark)) {
           items.push({
             type: 'error',
@@ -3599,6 +3646,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     state.campaignTraitBonus ?? 0,
     data.faction,
   );
+  for (const tn of state.traitPool) {
+    const tr = data.traits.find(t => t.name === tn);
+    if (tr?.requires_archetype && tr.requires_archetype !== state.archetype) items.push({ type: 'error', text: `${tn} can only be taken with the ${tr.requires_archetype} archetype.` });
+  }
+  const traitGate = secondTraitGate(data.archetypes.find(x => x.name === state.archetype));
+  if (traitGate && state.traitPool.length > 1 && !traitGate.includes(state.traitPool[0])) {
+    items.push({ type: 'error', text: `${state.archetype} can only take a second trait if the first one is "${traitGate[0]}" or "${traitGate[1]}".` });
+  }
   if (state.traitPool.length > maxTraits) {
     items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length, max: maxTraits }) });
   }
@@ -3677,7 +3732,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
     const allyRule = getArchetypeRule(state.alliedArchetype);
     const alliedIn = (slot: string) => getSlotUsage(state.army, data, slot, allyRule, state.alliedFaction, true, state.engagement);
-    const alliedAny = state.army.some(i => i.factionSource === state.alliedFaction);
+    const alliedAny = state.army.some(i => isAlliedEntry(i, state.alliedFaction));
     const troops = alliedIn('Troops');
     const allyFactor = alliedSlotFactor(data.faction);
     const troopsCap = SKIRMISH_ALLY_TROOPS * allyFactor, extrasCap = SKIRMISH_ALLY_EXTRA_MAX * allyFactor;
@@ -3705,7 +3760,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // data/archetype/legacy (its units already live in data.allied[factionSource], merged in by
     // injectArchetypeFaction — see effectiveArchetypeFor/effectiveLegacyFor in points.ts for the
     // same distinction, and ArmoryModal.tsx's isTrueAllyUnit for the identical fix there).
-    const isTrueAllyEntry = !!(state.alliedFaction && entry.factionSource === state.alliedFaction);
+    const isTrueAllyEntry = !!(state.alliedFaction && isAlliedEntry(entry, state.alliedFaction));
     const entryData = isTrueAllyEntry ? (alliedData ?? data) : data;
     const entryArchetype = effectiveArchetypeFor(entry, state);
     const entryLegacy = effectiveLegacyFor(entry, state);

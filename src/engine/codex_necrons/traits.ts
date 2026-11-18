@@ -138,12 +138,8 @@ export const NECRONS_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // "The unit's weapons increase their range by 3\"."
   // COST: 5 | 0 | 5 | -
   'Solar Fury': [
-    {
-      type: 'unit_ability',
-      name: 'Solar Fury',
-      desc: 'The unit\'s weapons increase their range by 3".',
-      applies_to: 'all',
-    },
+    // Applied to the weapons now (Sophtym, Discord 2026-11-17); the card used to show only the sentence.
+    { type: 'weapon_range', delta: 3, applies_to: 'all' },
   ],
 
   // SOURCE — Superior Artisans:

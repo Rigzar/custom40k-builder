@@ -51,7 +51,7 @@ useLanguage.subscribe((s) => setRuleLanguage(s.language));
 export type TranslationKey =
   | 'appTitle' | 'appSubtitle' | 'landingQuote' | 'selectFaction' | 'savedArmies' | 'loadArmy'
   | 'buildArmy' | 'addTroops' | 'updates' | 'battleType' | 'pointsLimit' | 'pointsLeft' | 'pointsOver' | 'archetype'
-  | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
+  | 'legacy' | 'hhLegionLabel' | 'traitImprovementLabel' | 'traitImprovementNone' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
   | 'addUnit' | 'removeUnit' | 'size' | 'mark' | 'options' | 'armory' | 'psychic' | 'prayers'
@@ -65,7 +65,7 @@ export type TranslationKey =
   | 'supplements' | 'supplementsDesc' | 'available' | 'comingSoon'
   | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
   | 'hhCardDesc' | 'mgCardTitle' | 'mgCardDesc' | 'escCardDesc' | 'assCardDesc'
-  | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
+  | 'bugIntro' | 'bugWhat' | 'bugWhatPh' | 'bugExpected' | 'bugExpectedPh' | 'bugWhere' | 'bugWherePh' | 'bugContact' | 'bugOptional' | 'bugContactPh' | 'bugContactNote' | 'bugError' | 'bugCancel' | 'bugSending' | 'bugSend' | 'prPsychicPowers' | 'prPrayers' | 'prRules' | 'prCategories' | 'prDedicatedTransport' | 'prPtsPerWound' | 'prModeCards' | 'prModeSimple' | 'prModeList' | 'armSpecial' | 'armRemoveOne' | 'legalPrivacy' | 'legalTerms' | 'legalCookies' | 'legalNotice' | 'legalAccessibility' | 'colWhite' | 'colGold' | 'colRed' | 'colBlue' | 'colGreen' | 'colPurple' | 'colOrange' | 'colCyan' | 'colPink' | 'colBone' | 'inquisitorPanel' | 'engNoteSkirmish' | 'engNotePitched' | 'engNoteEpic' | 'prConfiguration' | 'prMatchInfo' | 'prForceComposition' | 'prArmyRoster' | 'prUnitsWord' | 'prPlayer' | 'prWarlord' | 'prTraits' | 'prRadarCaption' | 'applyBtn' | 'loadingText' | 'errTitle' | 'errBody' | 'catChaos' | 'catImperium' | 'catXenos' | 'bugButton' | 'gwDisclaimer' | 'footerFan' | 'defaultArmyName' | 'prUnitWord' | 'ptsHeader' | 'prArmyOverview' | 'prAxisMove' | 'prAxisAttacks' | 'prAxisTough' | 'prAxisWounds' | 'prAxisSave' | 'prAxisShoot' | 'bugReportTitle' | 'bugSent' | 'bugSentSub' | 'engineSoonTitle' | 'engineSoonBody' | 'voteUp' | 'voteDown' | 'removeFriend' | 'traitNotApplicable' | 'prUnit' | 'prDrones' | 'prDescription' | 'prTotal' | 'prUnitComposition' | 'prArmyPower' | 'prArchetypeRules' | 'prOfficerOrders' | 'prArmyRules' | 'prGeneralPsychic' | 'ttsButtonTitle' | 'wardSaveLabel' | 'suppHH' | 'suppLegiones' | 'suppTaghmata' | 'suppEsc' | 'suppAss' | 'suppExec' | 'navEvents' | 'navEventsSignIn' | 'navWiki' | 'navLoginSignIn' | 'navMessages' | 'navGlossary' | 'navFieldManual' | 'navCommunityArmies'
   | 'navCampaignAlphaOpen' | 'campaignRulesLink' | 'navDiscord' | 'navDiscordJoin' | 'referenceModelTag' | 'gfFocusGone' | 'armReasonCap' | 'armReasonUnique' | 'armReasonKustom' | 'armReasonUnwieldy' | 'armReasonArmour' | 'armReasonDaemon' | 'armReasonNeeds' | 'armReasonOnly' | 'armReasonMark' | 'armReasonNoPrice' | 'armReasonVet' | 'armCarryTitle' | 'armClearAll' | 'navCampaignAlphaAdmin' | 'navCampaignComingSoon' | 'armReasonTerm' | 'armReasonGravis' | 'armReasonGlyph' | 'armReasonTau' | 'armReasonVehicleShop' | 'armReasonMeleeOnly' | 'armReasonOrdo' | 'armReasonExarch' | 'armReasonAuthority' | 'armReasonPickWeapon' | 'armReasonPickEnh' | 'armReasonCharOnly' | 'armReasonNotChar'
   | 'howToActivate' | 'catalogLabel' | 'unitTypeLabel' | 'fromPtsLabel' | 'weaponTypeLabel' | 'ptsSuffixLabel'
   | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login'
@@ -152,6 +152,7 @@ export type TranslationKey =
   | 'addOnBadge' | 'everyWord' | 'isEquippedWithSuffix' | 'rangedWeaponsHeader' | 'meleeWeaponsHeader'
   | 'blackCrusadeChampionActiveLabel' | 'blackCrusadeChampionToggleOff' | 'blackCrusadeChampionDesc'
   | 'tyrantGuardDeclineActiveLabel' | 'tyrantGuardDeclineToggleOff' | 'tyrantGuardDeclineDesc'
+  | 'advisorDeclineActiveLabel' | 'advisorDeclineToggleOff' | 'advisorDeclineDesc'
   | 'chaosMarkLabel' | 'markForcedPrefix' | 'allChaosMarksLabel' | 'allMarksVehicleBonus'
   | 'allMarksCharacterBonus' | 'allMarksInfantryBonus' | 'vetSlotSuffix' | 'markOfChaosUndividedLabel'
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
@@ -229,7 +230,7 @@ export type TranslationKey =
   | 'myCampaignsLabel' | 'campaignRoleGm' | 'campaignRolePlayer' | 'campaignFinishedBadge' | 'openButton'
   | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
-  | 'optInTraitLabel' | 'changeUsernameLabel' | 'newUsernamePlaceholder' | 'usernameChangedMsg' | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
+  | 'optInTraitLabel' | 'needsChoiceFirst' | 'changeUsernameLabel' | 'newUsernamePlaceholder' | 'usernameChangedMsg' | 'changePasswordLabel' | 'currentPasswordPlaceholder' | 'newPasswordPlaceholder' | 'passwordChangedMsg'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
   | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
   | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton'
@@ -598,6 +599,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     pointsLeft: '{n} left', pointsOver: '{n} over the limit',
     archetype: 'Archetype',
     legacy: 'Legacy',
+    hhLegionLabel: 'Legion',
+    traitImprovementLabel: 'improvement',
+    traitImprovementNone: '— choose one —',
     armyTraits: 'Army Traits',
     noArchetype: '— none —',
     noLegacy: '— none —',
@@ -769,6 +773,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Army Power',
     prArchetypeRules: 'Archetype Rules',
     prOfficerOrders: 'Officer Orders',
+    prArmyRules: 'Army rules',
+    prGeneralPsychic: 'General psychic disciplines',
     prOrdersInfantry: 'Infantry and creatures',
     prOrdersVehicles: 'Vehicles',
     prOrdersLegacy: 'Legacy order',
@@ -1183,6 +1189,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tyrantGuardDeclineActiveLabel: '○ Counts as a normal HQ choice (not exempted)',
     tyrantGuardDeclineToggleOff: '⚜ Exempted from the HQ slot — click to make it count instead',
     tyrantGuardDeclineDesc: 'By default, one Tyrant Guard Brood per Hive Tyrant/Neurotyrant/Swarmlord does not take up an HQ slot. That\'s optional — turn it off here to let this one occupy a normal HQ slot instead.',
+    advisorDeclineActiveLabel: "○ Occupies its slot (Advisor not used)",
+    advisorDeclineToggleOff: "⚜ Advisor: takes no slot — click to make it occupy one",
+    advisorDeclineDesc: "Advisor is optional: one per HQ selection may be taken without using a slot. Turn it off here if you want this unit to fill its slot.",
     chaosMarkLabel: 'Chaos Mark',
     markForcedPrefix: 'Mark forced by archetype:',
     allChaosMarksLabel: '⚜ All Chaos Marks:',
@@ -1401,6 +1410,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
     noRecoveryCode: 'No code on file yet — reset your password once to get one.',
     optInTraitLabel: "{trait}: use it on this unit (+{pts} pts)",
+    needsChoiceFirst: "Available once the unit takes: {choice}",
     changeUsernameLabel: "Username", newUsernamePlaceholder: "New username (3-24 letters, numbers, _ or -)", usernameChangedMsg: "Username changed!",
     changePasswordLabel: "Change password", currentPasswordPlaceholder: "Current password", newPasswordPlaceholder: "New password (min. 8 characters)", passwordChangedMsg: "Password changed!",
     secretQuestionSectionLabel: 'Secret question', changeButton: 'Change',
@@ -1796,6 +1806,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     pointsLeft: 'noch {n}', pointsOver: '{n} über dem Limit',
     archetype: 'Archetyp',
     legacy: 'Vermächtnis',
+    hhLegionLabel: 'Legion',
+    traitImprovementLabel: 'Verbesserung',
+    traitImprovementNone: '— eine wählen —',
     armyTraits: 'Armeeeigenschaften',
     noArchetype: '— keiner —',
     noLegacy: '— keines —',
@@ -1967,6 +1980,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Armeestärke',
     prArchetypeRules: 'Archetyp-Regeln',
     prOfficerOrders: 'Offiziersbefehle',
+    prArmyRules: 'Armeeregeln',
+    prGeneralPsychic: 'Allgemeine psychische Disziplinen',
     prOrdersInfantry: 'Infanterie und Kreaturen',
     prOrdersVehicles: 'Fahrzeuge',
     prOrdersLegacy: 'Legacy-Befehl',
@@ -2381,6 +2396,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tyrantGuardDeclineActiveLabel: '○ Zählt als normale HQ-Wahl (nicht befreit)',
     tyrantGuardDeclineToggleOff: '⚜ Von HQ-Slot befreit — klicken, damit es stattdessen zählt',
     tyrantGuardDeclineDesc: 'Standardmäßig belegt ein Tyrant-Guard-Trupp pro Hive Tyrant/Neurotyrant/Swarmlord keinen HQ-Slot. Das ist optional — hier ausschalten, damit dieser Trupp stattdessen einen normalen HQ-Slot belegt.',
+    advisorDeclineActiveLabel: "○ Belegt seinen Slot (Advisor nicht genutzt)",
+    advisorDeclineToggleOff: "⚜ Advisor: belegt keinen Slot — klicken, damit er einen belegt",
+    advisorDeclineDesc: "Advisor ist optional: einer pro HQ-Auswahl belegt keinen Slot. Hier ausschalten, wenn diese Einheit ihren Slot füllen soll.",
     chaosMarkLabel: 'Chaos-Mal',
     markForcedPrefix: 'Mal durch Archetyp vorgegeben:',
     allChaosMarksLabel: '⚜ Alle Chaos-Male:',
@@ -2597,6 +2615,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
     noRecoveryCode: 'Noch kein Code vorhanden — Passwort einmal zurücksetzen um einen zu erhalten.',
     optInTraitLabel: "{trait}: bei dieser Einheit nutzen (+{pts} Pkt.)",
+    needsChoiceFirst: "Verfügbar, sobald die Einheit nimmt: {choice}",
     changeUsernameLabel: "Benutzername", newUsernamePlaceholder: "Neuer Benutzername (3-24 Buchstaben, Zahlen, _ oder -)", usernameChangedMsg: "Benutzername geändert!",
     changePasswordLabel: "Passwort ändern", currentPasswordPlaceholder: "Aktuelles Passwort", newPasswordPlaceholder: "Neues Passwort (mind. 8 Zeichen)", passwordChangedMsg: "Passwort geändert!",
     secretQuestionSectionLabel: 'Sicherheitsfrage', changeButton: 'Ändern',
@@ -2992,6 +3011,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     pointsLeft: 'quedan {n}', pointsOver: '{n} por encima del límite',
     archetype: 'Arquetipo',
     legacy: 'Legado',
+    hhLegionLabel: 'Legión',
+    traitImprovementLabel: 'mejora',
+    traitImprovementNone: '— elige una —',
     armyTraits: 'Rasgos del ejército',
     noArchetype: '— ninguno —',
     noLegacy: '— ninguno —',
@@ -3163,6 +3185,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     prArmyPower: 'Poder del ejército',
     prArchetypeRules: 'Reglas de arquetipo',
     prOfficerOrders: 'Órdenes de oficial',
+    prArmyRules: 'Reglas de ejército',
+    prGeneralPsychic: 'Disciplinas psíquicas generales',
     prOrdersInfantry: 'Infantería y criaturas',
     prOrdersVehicles: 'Vehículos',
     prOrdersLegacy: 'Orden de Legacy',
@@ -3577,6 +3601,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tyrantGuardDeclineActiveLabel: '○ Cuenta como elección de HQ normal (no exento)',
     tyrantGuardDeclineToggleOff: '⚜ Exento del slot de HQ — pulsa para que cuente en su lugar',
     tyrantGuardDeclineDesc: 'Por defecto, un Tyrant Guard Brood por cada Hive Tyrant/Neurotyrant/Swarmlord no ocupa un slot de HQ. Eso es opcional — desactívalo aquí para que este ocupe un slot de HQ normal en su lugar.',
+    advisorDeclineActiveLabel: "○ Ocupa su slot (sin usar Advisor)",
+    advisorDeclineToggleOff: "⚜ Advisor: no ocupa slot — pulsa para que ocupe uno",
+    advisorDeclineDesc: "Advisor es opcional: uno por cada HQ puede tomarse sin ocupar slot. Desactívalo aquí si quieres que esta unidad llene su slot.",
     chaosMarkLabel: 'Marca del Caos',
     markForcedPrefix: 'Marca impuesta por el arquetipo:',
     allChaosMarksLabel: '⚜ Todas las Marcas del Caos:',
@@ -3793,6 +3820,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',
     noRecoveryCode: 'Aún no hay código — restablece tu contraseña una vez para obtener uno.',
     optInTraitLabel: "{trait}: usarlo en esta unidad (+{pts} pts)",
+    needsChoiceFirst: "Disponible cuando la unidad tome: {choice}",
     changeUsernameLabel: "Nombre de usuario", newUsernamePlaceholder: "Nuevo nombre (3-24 letras, números, _ o -)", usernameChangedMsg: "¡Nombre de usuario cambiado!",
     changePasswordLabel: "Cambiar contraseña", currentPasswordPlaceholder: "Contraseña actual", newPasswordPlaceholder: "Contraseña nueva (mín. 8 caracteres)", passwordChangedMsg: "¡Contraseña cambiada!",
     secretQuestionSectionLabel: 'Pregunta secreta', changeButton: 'Cambiar',

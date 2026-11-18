@@ -125,6 +125,12 @@ const ROLE_KW_FROM_NAME: Array<[RegExp, string]> = [
   [/techmarine/i,     'Techmarine'],
   [/dreadnought/i,    'Dreadnought'],
   [/herald/i,         'Herald'],
+  // T'au "Only for Ethereals" (the Ethereal itself, not the Ethereal Guard) and "Only for Kroot Shapers"
+  // (Kroot Shaper, Kroot Master Shaper).
+  [/^ethereal$/i,     'Ethereal'],
+  // "Only for characters and Command squads" (Ymira stasis bombs): the unit's name is the gate.
+  [/command squad/i,  'Command Squad'],
+  [/\bshaper\b/i,     'Shaper'],
 ];
 
 function roleKeywordsFromName(unitName: string): string[] {
@@ -147,6 +153,29 @@ function roleKeywordsFromName(unitName: string): string[] {
  *   6. selectedMark         — e.g. "Mark of Nurgle"
  *   7. boughtArmourKws      — armour BOUGHT from armory: ["Cataphractii"…]
  */
+/**
+ * Keywords a ROSTER ENTRY gains from the army it sits in, on top of its datasheet's own. The single place for such grants:
+ * every keyword check that can see the entry (traits in store/army.ts and engine/resolver.ts, the Armory through
+ * effectiveKeywords' `extra` argument) goes through `entryHasKeyword` / this list, so a new grant only has to be added here.
+ *
+ *   Dominic, 2026-11-16: "Once a Legion unit gets a Mark it should also gain the CSM keyword and be eligible for traits."
+ *   A Horus Heresy supplement unit (Legion CSM archetype) with any Mark of Chaos, Undivided included, counts as a
+ *   "Chaos Space Marine", so the CSM rule "Traits in this army can only apply to models with the Chaos Space Marine
+ *   keyword" now lets it take (and pay for) the army's traits.
+ */
+export function grantedKeywords(item: { factionSource?: string | null; mark?: string | null } | null | undefined): string[] {
+  if (!item) return [];
+  const out: string[] = [];
+  if (item.factionSource === 'horus_heresy' && item.mark) out.push('Chaos Space Marine');
+  return out;
+}
+
+/** Does this unit, as this roster entry, carry the keyword (datasheet keywords plus grantedKeywords)? */
+export function entryHasKeyword(unit: Unit, item: Parameters<typeof grantedKeywords>[0], keyword: string): boolean {
+  const k = keyword.toLowerCase();
+  return (unit.keywords ?? []).some(x => x.toLowerCase() === k) || grantedKeywords(item).some(x => x.toLowerCase() === k);
+}
+
 export function effectiveKeywords(
   unit: Unit,
   selectedMark?: string | null,
@@ -167,6 +196,8 @@ export function effectiveKeywords(
     ...(unit.is_vehicle ? ['Vehicle']  : []),
     ...(unit.is_monster ? ['Monster']  : []),
     ...(unit.is_character ? ['Character'] : []),
+    // "Transport vehicle only": a vehicle whose own rules give it a transport capacity above 0.
+    ...((unit.abilities ?? []).some(a => /transport capacity (?:of|to) [1-9]/i.test(a)) ? ['Transport'] : []),
     // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
     ...roleKeywordsFromName(unit.name),
     ...(selectedMark ? [selectedMark] : []),
@@ -191,6 +222,7 @@ export function isItemRequirementsBlocked(
   unitEffectiveKeywords: string[],
 ): boolean {
   if (item.excludes_keywords?.some(x => unitEffectiveKeywords.includes(x.toLowerCase()))) return true;
+  if (item.requires_all_keywords?.some(x => !unitEffectiveKeywords.includes(x.toLowerCase()))) return true;
   if (!item.requires_keywords?.length) return false;
   return !item.requires_keywords.some(req =>
     unitEffectiveKeywords.includes(req.toLowerCase())

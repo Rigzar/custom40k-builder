@@ -48,7 +48,8 @@ const EQUIP_STAT_MAP: [RegExp, string, number][] = [
 // Descriptions that indicate the bonus applies to OTHER units/a WEAPON, not the bearer's stat block.
 // "one weapon of the model gains" → bonus goes to a single weapon (e.g. Artifact of Gork ... or Mork),
 // not to the model's base stats.
-const AURA_PHRASES = /attached unit|friendly unit|friendly (?:[a-z]+ )?unit|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
+// "friendly <Canoptek> or <Necron> creature unit" too: the Necron Atomic Energy Manipulator boosts ANOTHER unit and its bearer got the +1 S/T (Sophtym, Discord 2026-11-17).
+const AURA_PHRASES = /attached unit|friendly unit|friendly [^.]{0,60}?\bunits?\b|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
 
 // Quoted words that name a UNIT TYPE, not an ability. When an item says "gains the unit type 'Bike'"
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a
@@ -366,6 +367,26 @@ export function enhancementsUniquePerArmy(desc: string | undefined): boolean {
   return /(every|each)\s+(enhancement|improvement)\s+is\s+unique\s+per\s+army/i.test(desc ?? '');
 }
 
+/**
+ * A pick-one item whose own text lists NAMED choices (Orders of the Hekatonystika, Horus Heresy): "The model gains one of the following:" and then one line per choice,
+ * "- Augurs of Weakness: ...". Returns the choice names. The relics that list "- Additional +1 Strength" lines and the Crusade weapon (a fixed pool of its own) are not read here.
+ */
+export function parseNamedChoices(desc: string | undefined): string[] {
+  const d = desc ?? '';
+  if (!/gains one of the following:/i.test(d)) return [];
+  return Array.from(d.matchAll(/^\s*-\s*(?!Additional\b)([A-Z][^:\n]{2,40}):\s/gm)).map(m => m[1].trim());
+}
+
+/**
+ * "Can not be applied to named weapons: A, B, C." -- the weapons that an item (the Crusade weapon of the Horus Heresy books) may not be pointed at. The list is written in the item's own
+ * text, so the sheet is the source and the app only reads it. Lower case base names; empty when the item says nothing.
+ */
+export function namedWeaponsBlockedBy(desc: string | undefined): Set<string> {
+  const m = (desc ?? '').match(/can not be applied to named weapons:\s*([^\n]+?)\.?\s*$/im);
+  if (!m) return new Set();
+  return new Set(m[1].split(',').map(x => x.trim().toLowerCase()).filter(Boolean));
+}
+
 export function isEnumerableWeaponChoice(desc: string | undefined): boolean {
   return /gains one of the following/i.test(desc ?? '');
 }
@@ -480,7 +501,7 @@ export interface ExarchPowerEffect {
   unitAbility?: string;
   /** "(Ranged|Melee) weapons of the model gain X" — applies to every weapon of that type. */
   allWeapons?: {
-    type: 'melee' | 'ranged';
+    type: 'melee' | 'ranged' | 'all';
     ability?: string;
     rangeDelta?: number;
     /** Dragon's bite: "+1 AT, cumulative" — incremented like Deadly-stacking, not a flat floor. */
@@ -490,6 +511,14 @@ export interface ExarchPowerEffect {
   };
 }
 export const EXARCH_POWER_EFFECTS: Record<string, ExarchPowerEffect> = {
+  // ---- Orders of the Hekatonystika (Horus Heresy, Dark Angels Armory): one unique item with a pick-one list of six orders, the same named-choice mechanism as the Exarch Powers. Each order is
+  // emulated with an ability of the Core Rules (the sheet writes which); the names are the keys, and no other option choice in the game shares them.
+  'Augurs of Weakness': { allWeapons: { type: 'all', ability: 'Armorbane(1)' } },
+  'Icons of Resolve': { unitAbility: 'Parry' },
+  'Slayers of Kings': { allWeapons: { type: 'melee', ability: 'Precision(6+)' } },
+  'Hunters of Beasts': { unitAbility: 'A single wound roll against a Monstrous creature can be re-rolled' },
+  'Reapers of Hosts': { allWeapons: { type: 'melee', ability: 'Extra Attack(1)' } },
+  'Breakers of Witches': { allWeapons: { type: 'melee', ability: 'Psi-shock' } },
   // SOURCE: "The model and its unit trigger the 'Shuriken' special rule on each to wound roll."
   Bladestorm: { unitAbility: 'Shuriken' },
   // SOURCE: "Ranged weapons of the model gain an additional -1 AP against units in cover." —

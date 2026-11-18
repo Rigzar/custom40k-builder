@@ -78,7 +78,7 @@
       "range": "-",
       "target": "Self + attached unit",
       "cast_value": "4",
-      "effect": "The target gains any additional order.",
+      "effect": "The target gains any additional Guard Order.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

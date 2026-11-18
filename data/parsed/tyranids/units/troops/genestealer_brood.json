@@ -95,7 +95,12 @@
             "choices": [
                 {
                     "name": "Ymgarl Genestealers",
-                    "points": 0
+                    "points": 0,
+                    "effect": {
+                        "removes_abilities": [
+                            "Infiltrator"
+                        ]
+                    }
                 }
             ],
             "inline_pts": null,

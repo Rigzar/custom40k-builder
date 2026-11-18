@@ -57,7 +57,7 @@
             "s": "2",
             "ap": "0",
             "d": "1",
-            "abilities": "The bearer inflicts 4 automatic hits with this weapon in close combat, Poison(4+)"
+            "abilities": "Auto Hit, Extra Attack(4), Poison(4+)"
         },
         {
             "name": "Plague flail",

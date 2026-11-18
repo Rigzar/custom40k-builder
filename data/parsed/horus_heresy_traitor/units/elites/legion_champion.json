@@ -21,7 +21,7 @@
         }
     ],
     "variant_models": [],
-    "equipped_with": "A Legion Champion is equipped with: Power sword; Volkite serpenta; Frag grenades; Krak grenades.",
+    "equipped_with": "A Legion Champion is equipped with: Power sword; Legion volkite serpenta; Frag grenades; Krak grenades.",
     "weapons": [
         {
             "name": "Frag grenades",
@@ -51,7 +51,7 @@
             "abilities": "-"
         },
         {
-            "name": "Volkite serpenta",
+            "name": "Legion volkite serpenta",
             "range": "10\"",
             "type": "Pistol 2",
             "s": "5",

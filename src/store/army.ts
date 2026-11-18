@@ -1,4 +1,7 @@
+import { isAlliedEntry } from '../types/army';
+import { entryHasKeyword } from '../engine/keywords';
 import { create } from 'zustand';
+import { secondTraitGate, applySecondTraitGate } from '../lib/legacyGatedChoices';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
 import type { FactionData, Trait, Unit, Armory } from '../types/data';
@@ -69,8 +72,8 @@ function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData):
 
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
 /** Traits that are an UPGRADE rather than a blanket bonus: "One non-character model per squad ... may be upgraded to an Apothecary"
- *  (Space Marines, Purity above All). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
-export const OPT_IN_TRAITS = new Set(['Purity above All', 'Abhuman Auxiliaries']);
+ *  (Space Marines, Purity above All and Sons of Mars - the Techmarine). The cost is paid only on a unit that actually does the upgrade (Dyon / Dominic, 2026-10-23). */
+export const OPT_IN_TRAITS = new Set(['Purity above All', 'Sons of Mars', 'Abhuman Auxiliaries']);
 
 /**
  * May this unit take an opt-in trait (offered as a tick-box on its card)?
@@ -192,7 +195,7 @@ function applyArmyTraits(
   return army.map(item => {
     // Check allied scope FIRST so same-faction allies (primary=CSM, ally=CSM) don't fall into
     // the isMainFaction branch and incorrectly receive the primary trait pool.
-    if (alliedFaction && alliedData && item.factionSource === alliedFaction) {
+    if (alliedFaction && alliedData && isAlliedEntry(item, alliedFaction)) {
       const unit = resolveUnit(item, data); // data.allied[factionSource] was merged in by setAlliedFaction
       if (!unit || !allyTraitNames.length) return { ...item, traits: [] };
       if (alliedData.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
@@ -221,12 +224,20 @@ function applyArmyTraits(
 
       // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
       // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
-      if (data.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
+      if (data.faction === 'Chaos Space Marines' && !entryHasKeyword(unit, item, 'Chaos Space Marine')) {
         return { ...item, traits: [] };
       }
 
       // All selected traits apply to all eligible units — veteran_max limits only armory items
       return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
+    }
+
+    // A Horus Heresy unit of a Legion CSM army that took a Mark is a Chaos Space Marine (Dominic 2026-11-16): the army's traits apply.
+    if (data.faction === 'Chaos Space Marines' && item.factionSource && unitTraitNames.length) {
+      const unit = resolveUnit(item, data);
+      if (unit && entryHasKeyword(unit, item, 'Chaos Space Marine')) {
+        return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
+      }
     }
 
     return { ...item, traits: [] };
@@ -257,6 +268,8 @@ export interface ArmyStore extends ArmyState {
   setArchetype: (a: string) => void;
   setLegacy: (l: string) => void;
   setLegacy2: (l: string) => void;
+  setLegacy3: (l: string) => void;
+  setTraitSubChoice: (trait: string, sub: string) => void;
   /** Set the full army trait pool (max 2). Automatically syncs traits to all units. */
   setTraitPool: (pool: string[]) => void;
   /** Extra trait slots from a Planetary Assault campaign's "Features of.." bonus. */
@@ -284,7 +297,7 @@ export interface ArmyStore extends ArmyState {
    */
   setLegacyArmoryLock: (id: string, key: string | null) => void;
 
-  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => void;
+  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean, ownArmy?: boolean) => void;
   removeUnit: (id: string) => void;
   /** Swap two roster entries in the army array (list / print order). */
   swapUnits: (idA: string, idB: string) => void;
@@ -358,7 +371,9 @@ const defaultState: ArmyState = {
   archetype: '',
   legacy: '',
   legacy2: '',
+  legacy3: '',
   traitPool: [],
+  traitSubChoices: {},
   campaignTraitBonus: 0,
   campaignId: null,
   campaignFaction: null,
@@ -396,7 +411,9 @@ export const useArmyStore = create<ArmyStore>()(
             archetype: '',
             legacy: '',
             legacy2: '',
+            legacy3: '',
             traitPool: [],
+            traitSubChoices: {},
             hqMark: 'Undivided' as Mark,
             alliedFaction: undefined,
             alliedData: null,
@@ -475,8 +492,15 @@ export const useArmyStore = create<ArmyStore>()(
               return e;
             })
           : s.army;
+        // What the old archetype allowed must not outlive it: a Trait the sheet writes "Blackshields only", more Traits than the new archetype gives
+        // (the Shattered Legions and the Blackshields have ONE), and the second Legacy of an archetype with two Legacies.
+        let pool = s.traitPool.filter((n: string) => { const t = s.data?.traits.find(x => x.name === n); return !t?.requires_archetype || t.requires_archetype === a; });
+        const traitCap = maxArmyTraits(s.engagement, s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0, newRule?.archetypeTraitBonus ?? 0, s.campaignTraitBonus ?? 0, s.data?.faction);
+        if (pool.length > traitCap) pool = pool.slice(0, traitCap);
+        pool = applySecondTraitGate(pool, secondTraitGate(s.data?.archetypes.find(x => x.name === a)));
+        const keepLegacy2 = !!newRule?.twoLegacies || pool.some((n: string) => s.data?.traits.find(t => t.name === n)?.enables_second_legacy);
         const army = s.data
-          ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
+          ? applyArmyTraits(baseArmy, pool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : baseArmy;
         /*
          * An archetype's HQ promotion belongs to THAT archetype, so switching away always drops
@@ -487,7 +511,9 @@ export const useArmyStore = create<ArmyStore>()(
          */
         const cleared = army.map((e: RosterEntry) =>
           e.archetypeHqUpgrade ? (getArchetypeRule(s.archetype)?.hqPromotion?.grantsArmoryAccess && s.data ? dropLegacyArmory({ ...e, archetypeHqUpgrade: false }, s.data) : { ...e, archetypeHqUpgrade: false }) : e);
-        return { archetype: a, data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
+        // A Legacy tied to an archetype (the Legacy of the Sundered: Blackshields) does not outlive it.
+        const legacyNow = (() => { const l = s.data?.legacies.find(x => x.name === s.legacy); return l?.requires_archetype && l.requires_archetype !== a ? '' : s.legacy; })();
+        return { archetype: a, traitPool: pool, legacy: legacyNow, legacy2: keepLegacy2 ? s.legacy2 : '', legacy3: newRule?.threeLegacies ? s.legacy3 : '', data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
           : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
       }),
@@ -532,6 +558,8 @@ export const useArmyStore = create<ArmyStore>()(
         return { legacy: l };
       }),
       setLegacy2: (l: string) => set({ legacy2: l }),
+      setLegacy3: (l: string) => set({ legacy3: l }),
+      setTraitSubChoice: (trait: string, sub: string) => set((s: S) => ({ traitSubChoices: { ...(s.traitSubChoices ?? {}), [trait]: sub } })),
 
       setCampaignTraitBonus: (n: number) => set({ campaignTraitBonus: Math.max(0, Math.round(n)) }),
       setCampaignLink: (campaignId: number | null, faction: string | null) => set({ campaignId, campaignFaction: faction }),
@@ -550,7 +578,7 @@ export const useArmyStore = create<ArmyStore>()(
           s.campaignTraitBonus ?? 0,
           s.data?.faction,
         );
-        const newPool = pool.slice(0, maxTraits);
+        const newPool = applySecondTraitGate(pool.slice(0, maxTraits), secondTraitGate(s.data?.archetypes.find(x => x.name === s.archetype)));
         const hadBC = s.traitPool.includes('Black Crusade');
         const hasBC = newPool.includes('Black Crusade');
 
@@ -630,7 +658,7 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
-      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean) => {
+      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string, retinue?: boolean, ironLordGuard?: boolean, ownArmy?: boolean) => {
         const s = get();
         if (!s.data) return;
         const u = nestedFaction
@@ -649,7 +677,7 @@ export const useArmyStore = create<ArmyStore>()(
         const computedSize = modelSizes
           ? Object.values(modelSizes).reduce((s, n) => s + n, 0)
           : defaultSize;
-        const isAlliedScopeUnit = !!(factionSource && factionSource === s.alliedFaction);
+        const isAlliedScopeUnit = !ownArmy && !!(factionSource && factionSource === s.alliedFaction);
         const archetypeRule = getArchetypeRule(isAlliedScopeUnit ? (s.alliedArchetype ?? '') : s.archetype);
         const autoMark = (archetypeRule?.forcedMark && !u.locked_mark)
           ? archetypeRule.forcedMark as Mark
@@ -662,6 +690,7 @@ export const useArmyStore = create<ArmyStore>()(
           ...(nestedFaction ? { nestedFaction } : {}),
           ...(retinue ? { retinue: true } : {}),
           ...(ironLordGuard ? { ironLordGuard: true } : {}),
+          ...(ownArmy && factionSource ? { ownArmy: true } : {}),
           size: computedSize,
           mark: autoMark,
           optionQty: {},
@@ -712,7 +741,7 @@ export const useArmyStore = create<ArmyStore>()(
       // that field is documented as "unique per selection".
       duplicateUnit: (id: string) => {
         const s = get();
-        const entry = s.army.find((e: RosterEntry) => e.id === id);
+        const entry: RosterEntry = s.army.find((e: RosterEntry) => e.id === id);
         if (!entry || !s.data) return;
         const copy: RosterEntry = {
           ...entry,
@@ -750,7 +779,7 @@ export const useArmyStore = create<ArmyStore>()(
         const extra: Record<string, unknown> = {};
         if ('mark' in patch) {
           const entry = s.army.find((e: RosterEntry) => e.id === id);
-          if (entry?.slot === 'HQ' && !!entry.factionSource && entry.factionSource === s.alliedFaction) {
+          if (entry?.slot === 'HQ' && !!entry.factionSource && isAlliedEntry(entry, s.alliedFaction)) {
             extra.alliedHqMark = patch.mark ?? 'Undivided';
           } else if (entry?.slot === 'HQ' && !entry.factionSource) {
             const multiMark = s.traitPool.includes('Black Crusade') || s.archetype === "Abaddon's Chosen";
@@ -774,6 +803,16 @@ export const useArmyStore = create<ArmyStore>()(
           if (e.id !== id) return e;
           const oq = { ...e.optionQty };
           const group = { ...(oq[gi] ?? {}) };
+          // Alternatives of one rule ("do one of the following") share the unit size: clamp this change to what the others leave.
+          const grp = s.data ? resolveUnit(e, s.data)?.option_groups[gi] : undefined;
+          const shared = grp?.shares_cap_with;
+          // The pool is the unit size, or for "for every N models, M may..." the M per N models (Space Marines Intercessors: two per five).
+          const pool = grp?.constraint?.type === 'per_n' && grp.constraint.per_n ? Math.floor(e.size / grp.constraint.per_n) * (grp.constraint.count_per_n ?? 1) : e.size;
+          if (shared?.length && qty > 0) {
+            const others = shared.reduce((n, og) => n + Object.entries(oq[og] ?? {}).reduce((m, [k, q]) => m + (k === '__inline' ? 0 : Number(q) || 0), 0), 0);
+            const mine = Object.entries(group).reduce((m, [k, q]) => m + (k === String(ci) || k === '__inline' ? 0 : Number(q) || 0), 0);
+            qty = Math.max(0, Math.min(qty, pool - others - mine));
+          }
           if (qty === 0) delete group[ci];
           else group[ci] = qty;
           oq[gi] = group;
@@ -946,7 +985,7 @@ export const useArmyStore = create<ArmyStore>()(
           // and every `state.archetype === '...'` check in the validator would miss.
           if (newState.archetype) newState.archetype = currentArchetypeName(newState.archetype);
           if (newState.alliedArchetype) newState.alliedArchetype = currentArchetypeName(newState.alliedArchetype);
-          for (const k of ['legacy', 'legacy2', 'alliedLegacy'] as const) if (typeof newState[k] === 'string' && newState[k]) newState[k] = currentLegacyName(newState[k] as string);
+          for (const k of ['legacy', 'legacy2', 'legacy3', 'alliedLegacy'] as const) if (typeof newState[k] === 'string' && newState[k]) newState[k] = currentLegacyName(newState[k] as string);
           // Same for datasheets the author has renamed: a saved entry holds the unit NAME, and a
           // name that no longer resolves renders nothing and costs nothing (see unitRenames.ts).
           if (Array.isArray(newState.army)) {
@@ -1025,7 +1064,7 @@ export const useArmyStore = create<ArmyStore>()(
           // archetype's previous name.
           if (typeof s.archetype === 'string') s.archetype = currentArchetypeName(s.archetype);
           if (typeof s.alliedArchetype === 'string') s.alliedArchetype = currentArchetypeName(s.alliedArchetype);
-          for (const k of ['legacy', 'legacy2', 'alliedLegacy']) if (typeof s[k] === 'string' && s[k]) s[k] = currentLegacyName(s[k] as string);
+          for (const k of ['legacy', 'legacy2', 'legacy3', 'alliedLegacy']) if (typeof s[k] === 'string' && s[k]) s[k] = currentLegacyName(s[k] as string);
           if (typeof s.faction === 'string' && Array.isArray(s.army)) {
             s.army = applyUnitRenames(s.faction, s.army as { unitName: string }[]);   // no data at rehydrate; the import path applies the upgrade
             s.army = applyArmoryRenames(s.faction, s.army as { armory?: { itemName: string }[] }[]) as typeof s.army;
@@ -1061,7 +1100,7 @@ export const useArmyStore = create<ArmyStore>()(
       partialize: (s: ArmyStore) => ({
         armyName: s.armyName, faction: s.faction, engagement: s.engagement,
         pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
-        legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus,
+        legacy: s.legacy, legacy2: s.legacy2, legacy3: s.legacy3, traitPool: s.traitPool, traitSubChoices: s.traitSubChoices, campaignTraitBonus: s.campaignTraitBonus,
         campaignId: s.campaignId, campaignFaction: s.campaignFaction, army: s.army,
         // alliedData itself is NOT persisted (re-fetched via FACTION_LOADERS by App.tsx's
         // alliedFaction effect) but its own Army Customisation state must be, same as the
@@ -1113,7 +1152,7 @@ function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
 export function getSerializableState(s: {
   armyName: string; faction: string; engagement: EngagementType;
   pointLimit: number; hqMark: Mark; archetype: string;
-  legacy: string; legacy2: string; traitPool: string[]; campaignTraitBonus?: number;
+  legacy: string; legacy2: string; legacy3?: string; traitPool: string[]; traitSubChoices?: Record<string, string>; campaignTraitBonus?: number;
   campaignId?: number | null; campaignFaction?: string | null; army: RosterEntry[];
   alliedFaction?: string | null; alliedArchetype?: string;
   alliedLegacy?: string; alliedTraitPool?: string[]; alliedHqMark?: Mark;
@@ -1121,7 +1160,7 @@ export function getSerializableState(s: {
   return {
     armyName: s.armyName, faction: s.faction, engagement: s.engagement,
     pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype ?? '',
-    legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus ?? 0,
+    legacy: s.legacy, legacy2: s.legacy2, legacy3: s.legacy3 ?? '', traitPool: s.traitPool, traitSubChoices: s.traitSubChoices ?? {}, campaignTraitBonus: s.campaignTraitBonus ?? 0,
     campaignId: s.campaignId ?? null, campaignFaction: s.campaignFaction ?? null, army: s.army,
     savedFormat: 5,
     alliedFaction: s.alliedFaction ?? undefined, alliedArchetype: s.alliedArchetype ?? '',

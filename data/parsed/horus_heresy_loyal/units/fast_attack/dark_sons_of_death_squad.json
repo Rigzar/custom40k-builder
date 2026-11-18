@@ -168,7 +168,7 @@
             "choices": [
                 {
                     "name": "Charnabal sabre",
-                    "points": 5
+                    "points": 1
                 }
             ],
             "inline_pts": null,
@@ -186,11 +186,11 @@
             "choices": [
                 {
                     "name": "Hand flamer",
-                    "points": 5
+                    "points": 0
                 },
                 {
                     "name": "Plasma pistol",
-                    "points": 5
+                    "points": 8
                 }
             ],
             "inline_pts": null,
@@ -210,7 +210,7 @@
             "choices": [
                 {
                     "name": "Flamer",
-                    "points": 5
+                    "points": 3
                 },
                 {
                     "name": "Meltagun",
@@ -218,7 +218,7 @@
                 },
                 {
                     "name": "Plasma gun",
-                    "points": 10
+                    "points": 20
                 }
             ],
             "inline_pts": null,

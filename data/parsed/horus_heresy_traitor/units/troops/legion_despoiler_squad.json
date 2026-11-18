@@ -17,7 +17,7 @@
             "name": "Legionary",
             "min": 4,
             "max": 19,
-            "points": 32
+            "points": 33
         },
         {
             "stats": {
@@ -35,7 +35,7 @@
             "name": "Legion Sergeant",
             "min": 1,
             "max": 1,
-            "points": 42
+            "points": 43
         }
     ],
     "variant_models": [],
@@ -45,7 +45,7 @@
             "name": "Astartes chainsword",
             "range": "-",
             "type": "Melee",
-            "s": "T",
+            "s": "U",
             "ap": "-1",
             "d": "1",
             "abilities": "-"
@@ -120,7 +120,7 @@
             "s": "x2",
             "ap": "-3",
             "d": "2",
-            "abilities": "AT(1), Slow(-2)"
+            "abilities": "AT(2), Slow(-2)"
         }
     ],
     "option_groups": [
@@ -157,7 +157,7 @@
                 },
                 {
                     "name": "Power fist",
-                    "points": 10
+                    "points": 11
                 }
             ],
             "inline_pts": null,
@@ -189,7 +189,8 @@
         }
     ],
     "abilities": [
-        "They Shall Know No Fear"
+        "They Shall Know No Fear",
+        "Wrath of the Legion: All weapons in the unit have the \"Deflagrate(5+)\" ability."
     ],
     "unit_type": "Infantry",
     "keywords": [],
@@ -206,5 +207,5 @@
     "advisor": false,
     "slot": "Troops",
     "default_size": 5,
-    "min_cost": 170
+    "min_cost": 175
 }

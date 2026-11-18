@@ -1,0 +1,487 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Close combat weapon",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "-",
+        1,
+        1
+    ],
+    [
+        "Force axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "Force Weapon",
+        3,
+        "-"
+    ],
+    [
+        "Force staff",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "Force Weapon",
+        3,
+        "-"
+    ],
+    [
+        "Force sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Force Weapon",
+        3,
+        "-"
+    ],
+    [
+        "Hot-shot las pistol",
+        "12\"",
+        "Pistol 1",
+        3,
+        -2,
+        1,
+        "-",
+        2,
+        2
+    ],
+    [
+        "Hot-shot lasgun",
+        "24\"",
+        "Rapid Fire 1",
+        3,
+        -2,
+        1,
+        "-",
+        5,
+        6
+    ],
+    [
+        "Hunter-killer missile",
+        "120\"",
+        "Heavy 1",
+        8,
+        -3,
+        2,
+        "Ammo(1), AT(2)",
+        "-",
+        "-"
+    ],
+    [
+        "Krak lance *",
+        "Only for Bikes",
+        6,
+        9
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+3",
+        -2,
+        2,
+        "Charge, Quick(+1)"
+    ],
+    [
+        "- Normal",
+        "-",
+        "Melee",
+        "+1",
+        -2,
+        1,
+        "Unwieldy"
+    ],
+    [
+        "Melta bomb",
+        "3\"",
+        "Grenade 1",
+        8,
+        -5,
+        2,
+        "Armorbane(3), AT(3)",
+        5,
+        5
+    ],
+    [
+        "Melta lance *",
+        "Only for Bikes",
+        8,
+        17
+    ],
+    [
+        "- Charge",
+        "-",
+        "Melee",
+        "+5",
+        -5,
+        3,
+        "Armorbane(3), AT(4), Charge, Quick(+1)"
+    ],
+    [
+        "- Normal",
+        "-",
+        "Melee",
+        "+1",
+        -5,
+        2,
+        "Unwieldy"
+    ],
+    [
+        "Plasma pistol *",
+        8,
+        10
+    ],
+    [
+        "- Overheating",
+        "12\"",
+        "Pistol 1",
+        8,
+        -4,
+        2,
+        "AT(2), Overheating"
+    ],
+    [
+        "- Standard",
+        "12\"",
+        "Pistol 1",
+        7,
+        -3,
+        1,
+        "AT(1)"
+    ],
+    [
+        "Power axe",
+        "-",
+        "Melee",
+        "+2",
+        -2,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Power maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "Power sword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "-",
+        3,
+        4
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Auspex scanner",
+        "The model and its attached unit gain the \"Acute Senses\" ability.",
+        10,
+        10
+    ],
+    [
+        "Bionics",
+        "The model gains Ward(6+).",
+        4,
+        5
+    ],
+    [
+        "Heavy armor",
+        "The model gains a 4+ armor save.",
+        2,
+        3
+    ],
+    [
+        "Heirloom",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "-",
+        10
+    ],
+    [
+        "Household banner",
+        "The model and its attached unit gain +1 Leadership.",
+        "-",
+        "-"
+    ],
+    [
+        "Instrument",
+        "The model and its attached unit may reroll Leadership tests during the Rally phase.",
+        "-",
+        "-"
+    ],
+    [
+        "Light armor",
+        "The model gains a 5+ armor save.",
+        1,
+        "-"
+    ],
+    [
+        "Marksman honours",
+        "The model gains +1 Ballistic skill.",
+        4,
+        5
+    ],
+    [
+        "Master-crafted armor",
+        "The model gains a 2+ armor save.",
+        23,
+        29
+    ],
+    [
+        "Master-crafted weapon",
+        "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        2,
+        2
+    ],
+    [
+        "Mechanical steed",
+        "The model gains +6\" Movement, +1 Strength +1 Toughness, +1 Wound, +1 Attack and the type \"Bike\". For infantry only.        ",
+        6,
+        14
+    ],
+    [
+        "Psychic training",
+        "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        5,
+        "-"
+    ],
+    [
+        "Purity seal",
+        "Enemy psykers suffer a -1 penalty to manifest a power when they target the model or its attached unit.",
+        2,
+        2
+    ],
+    [
+        "Refractor field",
+        "The model gains Ward(5+) ",
+        4,
+        6
+    ],
+    [
+        "Shield",
+        "The model gains the abilities \"Deflect\" and \"Parry\".",
+        2,
+        4
+    ],
+    [
+        "Swordsman honours",
+        "The model gains +1 Weapon skill.",
+        4,
+        5
+    ],
+    [
+        "Teleport homing beacon",
+        "A friendly unit arriving via Deep Strike within 3\" of the bearer does not scatter. Can only be used if the bearer was on the battlefield at the start of the battle round and has not moved more than 12\" during that battle round yet.",
+        10,
+        10
+    ],
+    [
+        "Trophy",
+        "The model gains a cumulative instance of the \"Terrifying(-1)\" ability.",
+        5,
+        5
+    ],
+    [
+        "REPUTATIONS",
+        "POINTS"
+    ],
+    [
+        "Adamantium Knight",
+        "The model gains +1 Armor Value on all sides.",
+        15
+    ],
+    [
+        "Blessed by the Sacristans",
+        "One weapon of the model gains the \"Soul Burn(5+)\" ability.",
+        15
+    ],
+    [
+        "Champion of the Household",
+        "The model gains the \"Frenzy(2\")\" ability.",
+        5
+    ],
+    [
+        "Cold-blooded",
+        "The model gains +1 to hit rolls against enemy units with at least 1 Battleshock token.",
+        10
+    ],
+    [
+        "Cunning Commander",
+        "The model gains the \"Ouflank\" and \"Vanguard\" abilities.",
+        10
+    ],
+    [
+        "First Knight",
+        "The model may reroll hit rolls of 1.",
+        10
+    ],
+    [
+        "Glooming Legacy",
+        "The model gains the \"Deflect\" ability.",
+        8
+    ],
+    [
+        "Indomitable",
+        "The model gains the \"Parry\" ability.",
+        8
+    ],
+    [
+        "Knight of Mars",
+        "All ranged weapons of the model gain the \"Rending(5+)\" ability.",
+        10
+    ],
+    [
+        "Last of Their Line",
+        "The model gains +1 Attack and another +1 for each missing Hull Point.",
+        10
+    ],
+    [
+        "Legendary Hero",
+        "During each activation, you may remove one Battleshock token from each unit in your army.",
+        10
+    ],
+    [
+        "Master of the Joust",
+        "The model resolves Tank Shock attacks at Strength 10.",
+        10
+    ],
+    [
+        "Master of the Trial",
+        "Enemy attacks reduce their AT by 1 (to a minimum of 0) against this model.",
+        10
+    ],
+    [
+        "Paragon",
+        "The model gains +1 Hull Point.",
+        20
+    ],
+    [
+        "Peerless Warrior",
+        "The model may re-roll one of each: Armor penetration roll, Hit roll, Wound roll.",
+        10
+    ],
+    [
+        "Revered Knight",
+        "The model gains +1 Initiative.",
+        15
+    ],
+    [
+        "Sworn to Quest",
+        "The model gains the \"Objective Secured!\" ability.",
+        15
+    ],
+    [
+        "Tireless",
+        "The model may make a 6\" consolidation move after melee combat.",
+        5
+    ],
+    [
+        "Wyrd",
+        "The model becomes a psyker and can manifest 1 power per activation. It knows one Witchfire from a chosen discipline.",
+        10
+    ],
+    [
+        "VEHICLE EQUIPMENT",
+        "POINTS"
+    ],
+    [
+        "Additional armor",
+        "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        5
+    ],
+    [
+        "Blessed Autosimulacra",
+        "The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        15
+    ],
+    [
+        "Hunter-killer missile",
+        "The model gains a Hunter-killer missile.",
+        5
+    ],
+    [
+        "Imperial Banner",
+        "All friendly units within 12\" must reroll failed Leadership tests.",
+        10
+    ],
+    [
+        "Improved targeting",
+        "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        5
+    ],
+    [
+        "Ion Bulwark",
+        "The model gains the \"Warded\" ability.",
+        35
+    ],
+    [
+        "Jammer",
+        "Equipment such as Icons or Teleport homing beacons do not function within 12\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll an additional 2D6 for scattering.",
+        15
+    ],
+    [
+        "Machine spirit",
+        "If the model is under the effect of \"Crew shaken\", it may use one weapon at BS 3+.",
+        5
+    ],
+    [
+        "Purity seal",
+        "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+        4
+    ],
+    [
+        "Relic heirloom",
+        "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        20
+    ],
+    [
+        "Sanctuary Shield",
+        "The model's ward saves works in melee and ranged combat.",
+        15
+    ],
+    [
+        "Smoke Launcher",
+        "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        15
+    ]
+]

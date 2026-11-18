@@ -42,10 +42,10 @@
     "equipped_with": "Every model is equipped with: Bolter; Bolt pistol; Frag grenades; Krak grenades.",
     "weapons": [
         {
-            "name": "Bolter",
-            "range": "24\"",
-            "type": "Rapid Fire 1",
-            "s": "4",
+            "name": "Astartes chainsword",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
             "ap": "-1",
             "d": "1",
             "abilities": "-"
@@ -60,13 +60,13 @@
             "abilities": "-"
         },
         {
-            "name": "Frag grenades",
-            "range": "6\"",
-            "type": "Grenade 1",
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 1",
             "s": "4",
-            "ap": "0",
+            "ap": "-1",
             "d": "1",
-            "abilities": "Blast(4)"
+            "abilities": "-"
         },
         {
             "name": "Flamer",
@@ -78,13 +78,22 @@
             "abilities": "Auto Hit, Sunder(1)"
         },
         {
+            "name": "Frag grenades",
+            "range": "6\"",
+            "type": "Grenade 1",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Blast(4)"
+        },
+        {
             "name": "Graviton gun",
             "range": "18\"",
             "type": "Heavy 1",
             "s": "5",
             "ap": "-2",
             "d": "2",
-            "abilities": "Blast(4), Graviton, Impuls, Sunder(2)"
+            "abilities": "Blast(4), Graviton, Sunder(2)"
         },
         {
             "name": "Graviton shredder",
@@ -112,6 +121,15 @@
             "ap": "-5",
             "d": "1",
             "abilities": "AT(1), Melta"
+        },
+        {
+            "name": "Legion volkite charger",
+            "range": "15\"",
+            "type": "Assault 2",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Soul burn(6+)"
         }
     ],
     "option_groups": [
@@ -125,19 +143,41 @@
             "choices": [
                 {
                     "name": "Flamer",
-                    "points": 5
+                    "points": 0
                 },
                 {
                     "name": "Graviton gun",
-                    "points": 10
+                    "points": 31
                 },
                 {
                     "name": "Graviton shredder",
-                    "points": 15
+                    "points": 7
                 },
                 {
                     "name": "Meltagun",
-                    "points": 15
+                    "points": 12
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Bolter"
+            ]
+        },
+        {
+            "header": "Any model may swap their Bolter with",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Astartes chainsword",
+                    "points": -3
+                },
+                {
+                    "name": "Legion volkite charger",
+                    "points": 5
                 }
             ],
             "inline_pts": null,

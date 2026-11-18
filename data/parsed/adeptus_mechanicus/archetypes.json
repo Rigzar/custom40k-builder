@@ -161,7 +161,7 @@
     },
     {
       "name": "Scarifying Weaponry",
-      "desc": "This unit's Radiation weapons (any weapon with Decimate) gain Deadly(6+).",
+      "desc": "This unit's Radiation weapons (any weapon with the \"Rad\" ability) gain Deadly(6+).",
       "pts_unit": "5",
       "pts_char": "-",
       "pts_monster": "-",

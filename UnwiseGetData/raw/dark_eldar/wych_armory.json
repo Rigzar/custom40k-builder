@@ -1,0 +1,45 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Blood Dancer",
+        "The model gains the \"Deflagrate(5+)\" ability with all melee weapons. Unique.",
+        10
+    ],
+    [
+        "Hyperswift reflexes",
+        "The model gains a cumulative instance of both the \"Deflect\" and \"Parry\" ability. Unique.",
+        6
+    ],
+    [
+        "Treacherous Deceiver",
+        "The model gains the \"Retribution(5)\" ability. Unique.",
+        5
+    ]
+]

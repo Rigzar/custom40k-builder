@@ -1,0 +1,113 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-9",
+        "Bullgryn",
+        "6\"",
+        "3+",
+        "4+",
+        5,
+        5,
+        3,
+        3,
+        4,
+        6,
+        "4+",
+        53
+    ],
+    [
+        1,
+        "Bullgryn Bone'ead",
+        "6\"",
+        "3+",
+        "4+",
+        5,
+        5,
+        3,
+        3,
+        4,
+        7,
+        "4+",
+        53
+    ],
+    [
+        "Every model is equipped with: Bullgryn maul; Brute shield; Frag bombs."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Bullgryn maul",
+        "-",
+        "Melee",
+        "+3",
+        -1,
+        1,
+        "AT(2)"
+    ],
+    [
+        "Frag bomb",
+        "6\"",
+        "Grenade 1",
+        5,
+        -1,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Grenadier gauntlet",
+        "18\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "Blast(4), Suppression(2)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Any model may swap their Brute shield for a Plate shield for +17 points each.        "
+    ],
+    [
+        "\u2022 Any model may swap their Bullgryn maul for a Grenadier gauntlet for +17 points."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Furious Charge, Massive(1)"
+    ],
+    [
+        "Brute shield: The model gains the abilities \"Deflect\" and \"Parry\"."
+    ],
+    [
+        "Plate shield: The model gains +2 to armor rolls."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

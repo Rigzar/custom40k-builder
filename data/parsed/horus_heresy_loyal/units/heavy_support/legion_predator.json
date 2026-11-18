@@ -213,15 +213,15 @@
             "choices": [
                 {
                     "name": "Twin assault cannon",
-                    "points": 4
+                    "points": 0
                 },
                 {
                     "name": "Predator autocannon",
-                    "points": 28
+                    "points": 24
                 },
                 {
                     "name": "Twin lascannon",
-                    "points": 78
+                    "points": 74
                 }
             ],
             "inline_pts": null,
@@ -292,31 +292,31 @@
             "choices": [
                 {
                     "name": "Flamestorm cannon",
-                    "points": -30
-                },
-                {
-                    "name": "Grav cannon",
                     "points": -34
                 },
                 {
+                    "name": "Grav cannon",
+                    "points": -38
+                },
+                {
                     "name": "Executioner plasma cannon",
-                    "points": 136
+                    "points": 132
                 },
                 {
                     "name": "Graviton cannon",
-                    "points": 108
+                    "points": 104
                 },
                 {
                     "name": "Magna-melta cannon",
-                    "points": 126
+                    "points": 122
                 },
                 {
                     "name": "Volkite macro-saker",
-                    "points": -8
+                    "points": -12
                 },
                 {
                     "name": "Heavy conversion beam cannon",
-                    "points": 17
+                    "points": 53
                 }
             ],
             "inline_pts": null,

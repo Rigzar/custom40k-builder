@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'e';
+export const REVISION = 'j';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -37,6 +37,73 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.89',
+    date: '2026-11-17',
+    title: "Necron and Mechanicus traits on the weapons",
+    changes: [
+      "SOLAR FURY (Necrons, Discord, Sophtym). \"The unit's weapons increase their range by 3\\\"\" now adds the 3\" to every ranged weapon on the card, the print view and the TTS export; it was only a sentence.",
+      "SCARIFYING WEAPONRY (Adeptus Mechanicus, Discord, TeCrisis). The weapons with the \"Rad\" ability (Radium carbine, Radium jezzail, Rad cleanser) now get Deadly(6+); it was only a sentence, and its summary wrongly said \"Decimate\". The cost was already right: 5 points per unit, and characters and monsters cannot take it (the sheet prints \"-\").",
+      "HARLEQUINS IN ELDAR AND DARK ELDAR ARMIES (Discord, Ed). Both Indexes say \"Visitors of the Black Library: The army has access to Harlequin units\", and no Harlequin unit could be added: the access was never switched on. They are now in the unit list as part of the army; as the Index says, a Harlequin HQ fills an HQ slot but cannot be the mandatory one.",
+      "KEYWORDS WRITTEN AS ONE (Discord, DemonGyro). 11 units carried their keyword line as a single keyword (\"Cultist, Death Guard\", \"Lord, Necron\"), so the Poxwalkers, Jakhals and Tzaangors were not Cultists and the Necron Lord, Cryptek and Ancient Destructor Lord were not Necrons (Eternal Conquerors skipped them). They are split now.",
+      "ATOMIC ENERGY MANIPULATOR (Necrons, Discord, Sophtym). It boosts ANOTHER friendly Canoptek or Necron unit, but the model carrying it got the +1 Strength and +1 Toughness itself.",
+    ],
+  },
+  {
+    version: '1.89',
+    date: '2026-11-16',
+    title: "Discord fixes: Skirmish, Advisors, weapon counts",
+    changes: [
+      "SKIRMISH: A SECOND AOP (Discord, Birdy, Ed, TeCrisis). Filling the Skirmish AOP did not unlock a second one. The Missions text allows it (\"If a faction cannot fill a slot due to these restrictions, that slot counts as filled when determining eligibility for a second AOP\"), so a complete Skirmish AOP now opens the next, and a slot your faction has no unit for counts as filled.",
+      "SKIRMISH: CHIEF APOTHECARY AND MASTER OF THE FORGE (TeCrisis). \"HQ models may not take 'once per army' upgrades\" was only checked on units that start as HQ (Lieutenant to Captain). An upgrade that makes the unit an HQ (Chief Apothecary, Master of the Forge, Ascended Daemon Prince) is now flagged too, as Dominic ruled.",
+      "ADVISOR IS OPTIONAL (Unwise). A unit with the Advisor rule has a button on its card to make it occupy its slot anyway, like the Tyrant Guard toggle.",
+      "INTERCESSORS (Unwise). The same swap could not be taken twice (two Heavy bolters): when two option lists share one limit, the choice you were raising was counted against itself.",
+      "REDEMPTOR DREADNOUGHT (Unwise). Taking \"Redemptor fist with Storm bolter\" on both arms showed one fist and one Storm bolter. A choice written \"X with Y\" now counts both weapons, which also fixes the Dreadnought, Captain and Chaplain Dreadnought arms that come on top of their base loadout, and the Fighta-Bommer's extra turret.",
+      "BOLTER DRILL ON GRANTED WEAPONS (Unwise). An army trait that gives an ability to weapons (Bolter Drill's Deflagrate(5+)) skipped the weapons an Armory item hands out, such as the Space Marine bike's Twin bolt rifle. The same for an item aimed at one weapon (Master-crafted on that Twin bolt rifle showed nothing).",
+      "LEGION UNITS WITH A MARK ARE CHAOS SPACE MARINES (Dominic, Discord, TeCrisis). In a Chaos Space Marine army with the Legion CSM archetype, a Horus Heresy unit that takes a Mark of Chaos (Undivided included) gains the Chaos Space Marine keyword, so the army's Traits apply to it and are charged; without a Mark it still gets none, as the codex says Traits only apply to that keyword.",
+      "SAME FACTION IN THE ARMY AND AS ALLY (Discord, MeMegaCreeper). An army whose archetype gives it units of another codex (Sororitas Chamber Militant: Inquisition) and also takes that codex as its ally counted every such unit as allied, even the ones bought from the main army list, so a Sanctioned Bombardment in the main AOP filled the ally's Heavy Support. A unit added from the main list now stays in the main army. Units already in a saved list cannot tell where they were added: remove them and add them again from the main list.",
+      "LANCE(X) IS ARMORBANE(X) (Discord, Birdy). Core Rules 1.279 merged Lance into Armorbane: +X to armour penetration rolls. The Ork Wildork option still said \"Lance(1)\" on 9 units although the Orks sheet already says \"Armorbane(1)\"; it now matches the sheet, and the Lance tooltip says it is the old name of Armorbane.",
+      "CODEX VERSIONS ON THE FACTION BUTTONS. They showed old numbers (Space Marines 1.6, Orks 1.4...) because a version saved in the admin settings long ago overrode the one each update brings. A saved version now only counts when it is newer, so the buttons show the sheet the app actually uses (Space Marines 1.14, Imperial Guard 1.15, Orks 1.8...).",
+      "MASTER-CRAFTED (TeCrisis). The weapon list of a Master-crafted item no longer offers grenades or Ammo(x) weapons, which the Core Rules say cannot be master-crafted.",
+    ],
+  },
+  {
+    version: '1.89',
+    date: '2026-11-15',
+    title: "Armory stacks, restrictions and stat limits",
+    changes: [
+      "ARMORY ITEMS STACK ON THE UNIT CARD (Discord). Several copies of the same item (ten Storm shields on a squad) show as one row with \"×10\" and their total price, as in the Armory window; the ✕ removes one copy at a time.",
+      "STAT LIMITS EVERYWHERE (Discord, TeCrisis). The Core Rules limits of Strength, Toughness, Initiative, Attacks and Leadership (1 to 10) now also apply in the print view and the TTS export, and a modifier can no longer push them below 1 (before, only the maximum was enforced, and only on the unit card).",
+      "ARMORY RESTRICTIONS ENFORCED (Discord, Birdy). Items whose own text limits who can take them could be bought by any unit with Armory access, so a R'varna could take a Knarloc steed, Wings and Pech'ra. The app now reads the restriction from the item's text and greys the row out with the reason (\"Only for Kroot Infantry\", \"Only for Painboy\"). Covered: unit types and flags (\"Kroot only\", \"Only for Infantry\", \"Psyker only\", \"Only for Bikes\", \"Vehicle only\", \"Walker only\", \"Only for characters\", \"Only for units without the Flyer type\", Terminator armour, a Mark), roles (\"Painboy only\", \"Mek, Big Mek, and Spanna only\", \"Warbuggy only\", \"Only for Librarians\", \"Only for Primaris Psykers\", \"Spanna only\": a promoted model counts only once promoted), and items that need another item first (\"Exo-armor only\", \"Only for models on a Jetbike\", the Hunting javelin with a Krootox steed, the Tellyport blasta in Mega armor). With the authors' answers: the Ork 'Eavy armour cabin is for vehicles with a transport capacity, and the Sororitas Holy weapon for the Palatine (the sheet said \"Palantines\").",
+      "PICK THE IMPROVEMENT OF A \"SELECT ONE\" TRAIT (Discord, Unwise and TeCrisis). Space Marine Cursed Founding, Imperial Guard Abhuman Auxiliaries and the T'au Signature Evolutionary Adaption list several improvements, but the app only showed the list as text and applied none. Each now has a dropdown in the army setup: the improvement you pick is applied with its real rules (They Shall Know No Fear, Furious Charge, +2 Strength, Ward(6+)...) and shows in the Abilities section. As Dominic confirmed: one improvement per army; Cursed Founding applies to every creature unit, Abhuman Auxiliaries to the creature units you tick, Signature Evolutionary Adaption to the Kroot units (only they pay for it). The army list warns until an improvement is picked.",
+    ],
+  },
+  {
+    version: '1.89',
+    date: '2026-11-13',
+    title: "14 codices up to date",
+    changes: [
+      "SERVITORS. The single Shock charger showed on every Servitor that had not bought a swap, because the new default weapon \"Paired shock chargers\" contains the same words; a \"Paired\" prefix now counts as a different weapon. The resolver also honours a weapon grant written on a whole option group, not only on each choice.",
+      "ENTOURAGE AND HERALD in Chaos Space Marine armies and allied detachments. The Chaos Daemons rule that a Greater Daemon makes up to two Heralds of the same god occupy no HQ slot now also applies to the Daemons that a Chaos Space Marine archetype reaches (All is Dust, Daemonkin...) and to an allied Chaos Daemons detachment, each detachment counted on its own (the Greater Daemon must be in the same detachment as the Herald), as Dominic confirmed.",
+      "THE SHEETS THAT MOVED SINCE 1.88 ARE IN THE APP. Adeptus Custodes 1.7, Chaos Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Leagues of Votann 1.7, Necrons 1.12, Tyranids 1.14, and the changed tabs of Adeptus Mechanicus, T'au Empire, Knight Households and the Imperial Navy were read cell by cell against the app: unit facts, options, abilities, the Armory, Army Customisation and the Index. Space Marines 1.14, Imperial Guard 1.15 and Orks 1.8 went out earlier in 1.88.",
+      "ELDAR 1.13. PARAGON OF WAR now takes TWO Exarch powers (\"It must chose two Exarch powers\"): the Armory item shows two pickers and cannot be bought with one. BANSHEE MASK is an Armory item (3) and the Howling Banshees are equipped with it; Howling Banshee costs 26. MANDIBLASTER costs 6 and gives the Hunter ability, so the Striking Scorpions no longer list Hunter or the Mandiblaster text themselves. Fusion pistol and Shuriken pistol are Pistol 1. WRAITHBONE reduces AP and AT. The Hemlock Wraithfighter's Heavy D-scythe has Distortion.",
+      "DARK ELDAR 1.7. Reaver 33, Venom 129 and without Bladevanes by default, Flickerfield for the Venom +32, Skybike +32 (it gives the Bladevanes), and Diamond-tipped bladevanes (10) replace the old Bladevanes vehicle upgrade. The Bladevanes weapon of the Reavers has the new text.",
+      "NECRONS 1.12. The CATACOMB COMMAND BARGE is listed under HQ and \"does not use up an HQ slot\": one Barge per Lord is exempted from the HQ slot (the validator says so), and the Barge has Open and the new Chariot text. Canoptek Spyders and Doomstalker follow the new wording.",
+      "TYRANIDS 1.14. Barbed strangler and Venom cannon cost 21 on the Tyranid Warriors, the Symbiote Rippers biomorph costs 5, and the Headlong Charge, Implant Attack and Symbiote Rippers weapons carry the Flyer restriction. Malanthrope and Venomthrope say Obscuring Terrain.",
+      "HARLEQUINS 1.4: Hand flamer and Power fist are in the Armory. CHAOS DAEMONS 1.3: the Great Unclean One's Nurgling infestation is Auto Hit, Extra Attack(4), Poison(4+). ADEPTUS MECHANICUS: Scarifying Weaponry works on weapons with Rad. T'AU: the Support Turrets are a Squadron. LEAGUES OF VOTANN: Resource Transmutation spelling.",
+      "CORE RULES 1.45 (was 1.43). The new Acute Senses Meta-Order is in the Field Manual: the ability now says \"The model is able to use the Acute Senses Meta-Order\" and the shooting rule lives in the order. Skip tokens expire at the end of the battle round, and several units using Defensive Reactions declare them at the same time. The Missions text was reworded (controlling and contesting objectives, VP for destroyed or weakened units) with the same numbers. LEAGUES OF VOTANN: the Exo-armor gives Deep Strike (it said Shock Troops) and the Skimmer bike is a Jet bike type.",
+      "FIRST-GAME FEEDBACK (Discord, Dave, Ed, TeCrisis). ARMY RULES IN THE PRINT VIEW: a new Army rules card lists the army-wide rules each codex prints on its Index tab (Tyranids' Instinctive Behaviour, Psychic Feedback and Shadow in the Warp, Orks' Waaagh!, Eldar's Battle Focus...); they were on no unit card, so a printed list never showed them. YMGARL GENESTEALERS: the upgrade removes the Infiltrator ability from the card and the printout (new option effect removes_abilities). GHOSTKEEL: the 2 Stealth Drones that come with the datasheet are listed with their profile; only drones bought as an option were shown. CORONUS GRAV-CARRIER: the Twin arachnus blaze cannon has its 18\" range (Custodes 1.7). PRINT VIEW, MORE: the Simple view applies what the options change on the profile (Hardened Carapace +1 to the save, Reinforced forelimbs, Grot Mega armor), the unit type's rule (Monstrous Infantry...) and the rules a rule grants (Power Through Pain: Aegis(4+), Berserk(5+), Furious Charge) are printed in the Special rules block, a General psychic disciplines card is added when the army has a psyker, and the toolbar buttons wrap on narrow phones (Chrome for Android cut the Back button off).",
+      "TRYGON (GH#274, #275, thank you DemonGyro): the Trygon is a Heavy Support unit again; it took a Fast Attack slot. The same pull request left a broken line in the Known Issues file, repaired here.",
+    ],
+  },
+  {
+    version: '1.88a',
+    date: '2026-11-12',
+    title: 'Fixed Trygon slot to Heavy Support',
+    changes: [
+      "FIX - TRYGON IS HEAVY SUPPORT (GH#274): Updated Trygon to correctly use a Heavy Support slot instead of a Fast Attack slot."
+    ]
+  },
+  {
     version: '1.88',
     date: '2026-11-06',
     title: "Sorting, ordering and sergeant fixes",
@@ -52,6 +119,10 @@ export const CHANGELOG: ChangelogEntry[] = [
       "T'AU TACTICAL PHILOSOPHIES BACK IN THE ARMORY (Discord, TeCrisis and Sedroc). The change that hides unbuyable Armory rows also hid this item, because the sheet prices it by game size (\"10p per 500p game size\") and the parser stores no number for that. It is listed again, at its game-size price.",
       "T'AU COMMANDER IN AN XV85 ENFORCER SUIT CAN TAKE A FOURTH WEAPON (Discord, Sedroc). The Enforcer's extra weapon only worked on the Crisis Honor Guard; the Commander's weapon line (\"up to three of the following\") stayed at three after buying the XV85 Enforcer battlesuit. It is now four, and the list still reports an error if the suit takes both the extra weapon and the extra support system.",
       "DARK ELDAR COURT OF THE ARCHON: THE SSLYTH CAN USE THE ARMORY (Discord, mattrubin; answered by the rules author). The sheet gives the Armory to the Sslyth (\"Sslyth have access to weapons and gear from the Armory\"), and the app had no way to give Armory access to ONE TYPE of model in a mixed unit, so the unit had no Armory button. It now shows while at least one Sslyth is in the unit, the once-per-model limit counts the Sslyth only, and armor and other stat changes land on the Sslyth rows alone (the Lhaemaean, Medusae and Ur-Ghul keep their own stats).",
+      "ORKS AND OTHERS — FIVE DISCORD REPORTS (TeCrisis, DemonGyro, Dominic). MEK GUNZ: changing the unit size from 1 to 2 did not change the number of guns; the \"Every Mek Gun must select one weapon\" group is now per model. GUE'VESA: the Lasgun / Hot-shot lasgun to Pulse rifle swap was only offered to the main army; it now also appears in an allied Imperial Guard detachment. SONS OF MARS: the Techmarine is a tick-box on each unit, like Purity above All, and only the units that tick it pay the 5 points (it charged every infantry unit and gave no way to choose). WEAPON BOOSTS FROM A SERGEANT (Flash Gitz and others): an Armory item such as More Boom! or More Dakka! bought by the Nob or Sergeant changed the profile of every copy of that weapon in the squad; it now creates a one-model row with his own name and leaves the rest alone. BOYZ: the swap \"For every 10 models, two Boyz equipped with a Shoota may swap it\" was hidden until a Shoota was taken; it is now listed from the start, greyed out with the choice it needs (same for every unit with such a swap). The two Shoota groups (replace the Choppa and Slugga / be additionally equipped) now share the unit size, as the sheet's \"do one of the following\" says.",
+      "ORKS 1.8 ARMORY. The Grot Mega armor gives -1 Toughness (it said +1), the Sneakiest Git costs 15 and grants Infiltrator, Move Through Cover and Use Cover (the Throat Slittas are gone), and the Waaagh!-Trike now carries its three Double-barreled Bummstikks and Kill jets and counts as a Bike. The Boyz swap rule that needs a Shoota now lists its choices (Big shoota, Burna, Rokkit launcha) with their prices while it is locked. The other Ork unit sheets are unchanged from the app.",
+      "IMPERIAL GUARD 1.15. The Guard Orders follow the sheet: Fix bayonets! applies when a Fight order involving the unit is resolved, Take cover! when it is targeted by a ranged weapon or a damaging effect, First rank fire / Overcharge batteries / Gunners kill on sight / Fire and fade / Burn them out / Form firing squad also work on Defensive Fire, and Fire and fade lets the unit use its Smoke launcher in addition to firing. JUNGLE FIGHTERS: every unit gains Infiltrator (it was only the creature units), Move through cover and Use cover. SEASONED OFFICER and VOX have the new wording. The Heavy flamer exists in the Armory (not for sale), the Krak grenades and Melta bomb are Grenade 1, the Deathstrike missile has Ammo(1) and the Deathstrike's Heavy flamer is Assault 4. TELEPATHIC ORDER gives any additional Guard Order.",
+      "SPACE MARINES 1.14. INTERCESSOR SQUAD: the Grenade launcher and the swaps of the Bolt rifle are one rule on the sheet (two Marines per five), so they now share one pool; before, a squad of five could take two grenade launchers AND two other swaps. TECHMARINE: the Forge bolter no longer has Limit(1). IRONCLAD DREADNOUGHT and THUNDERFIRE CANNON: the loadout sentence follows the sheet. ULTRAMARINES ARMORY: new weapon Blades of Honour (Extra Attack(1), Shred, Unwieldy; Company Champion only; 7 points on a character).",
     ],
   },
   {

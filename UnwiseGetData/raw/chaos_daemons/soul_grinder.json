@@ -1,0 +1,141 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Soul Grinder",
+        "6\"",
+        "3+",
+        "3+",
+        6,
+        13,
+        13,
+        11,
+        4,
+        3,
+        3,
+        385
+    ],
+    [
+        "A Soul Grinder is equipped with: Harvester gun; Iron claw; Maw cannon; Warpsword."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Harvester gun",
+        "36\"",
+        "Heavy 6",
+        7,
+        -2,
+        1,
+        "AT(1), Suppression(3)"
+    ],
+    [
+        "Iron claw",
+        "-",
+        "Melee",
+        "x2",
+        -3,
+        2,
+        "AT(2)"
+    ],
+    [
+        "Maw cannon *"
+    ],
+    [
+        "- Vomit",
+        "9\"",
+        "Assault 6",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "- Tongue",
+        "24\"",
+        "Assault 1",
+        10,
+        -4,
+        3,
+        "AT(3)"
+    ],
+    [
+        "- Phlegm",
+        "36\"",
+        "Assault 1",
+        8,
+        -3,
+        2,
+        "AT(2), Blast(4)"
+    ],
+    [
+        "Warpsword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "AT(1), Extra Attack(3)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 Can take a Mark of Chaos:"
+    ],
+    [
+        "- Khorne",
+        "+10 points"
+    ],
+    [
+        "- Slaanesh",
+        "+10 points"
+    ],
+    [
+        "- Tzeentch",
+        "+10 points"
+    ],
+    [
+        "- Nurgle",
+        "+10 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deep strike, Daemon, Terrifying(-1)"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Walker"
+    ]
+]

@@ -2,7 +2,7 @@
   "archetypes": [
     {
       "name": "Armoured Spearhead",
-      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Predators can be taken as Troops.\n- Legion Sicaran Battle Tanks can be taken as Elites.\n- A unit that could take a Legion Rhino may take a Land Raider Carrier instead if it has ten models or fewer."
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Predators can be taken as Troops.\n- Legion Sicaran Battle Tanks can be taken as Elites.\n- Only a single Heavy Support choice may be taken in this army."
     },
     {
       "name": "Brethren of Iron",
@@ -18,7 +18,7 @@
     },
     {
       "name": "Legion Specialists",
-      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- The army may take 1-3 HQ and 0-4 Elite units in the first AOP.\n- Techmarines and Apothecaries cannot be promoted to a Forge Lord or a Primus Medicae."
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- The army may take 1-3 HQ units in the first AOP.\n- Techmarines and Apothecaries cannot be promoted to a Forge Lord or a Primus Medicae."
     },
     {
       "name": "Outrider Phalanx",
@@ -26,11 +26,11 @@
     },
     {
       "name": "Pride of the Legion",
-      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Veteran Squad, Legion Terminator Cataphractii Squad, Legion Tartaros Terminator Squad units may be taken as Troops.\n- Any unit composed entirely of models with either Cataphractii Terminator armor, Tartaros Terminator armor or any other pattern of Terminator armor and that is normally selected as an Elites choice may be taken as Troops.\n- Only Veteran and Terminator units count towards the 25% Troops limitation.\n- Only a single Heavy Support choice and a single Fast Attack choice may be taken in this army."
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Veteran Squad, Legion Terminator Cataphractii Squad, Legion Tartaros Terminator Squad units may be taken as Troops.\n- Only Legion Veteran Squad, Legion Terminator Cataphractii Squad and Legion Tartaros Terminator Squad units count towards the 25% Troops limitation.\n- Only a single Heavy Support choice and a single Fast Attack choice may be taken in this army."
     },
     {
       "name": "Recon Demi-Company",
-      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Legion Scout Squads and Seeker Squads can be taken as Troops."
+      "desc": "- Must select a Legacy: the Legion of that Legacy is the Legion of the whole army and all its units and characters belong to it.\n- Only Legion Scout Squad and Seeker Squad units count towards the 25% Troops limitation.\n- Once per battle, the army may re-roll the roll-off that decides who acts first at the start of a battle round.\n- Heavy Support units must start the game in reserves, even if the mission does not allow reserves.\n- The army cannot take Fortifications."
     },
     {
       "name": "Underworld Assault",
@@ -38,27 +38,27 @@
     },
     {
       "name": "Dark Angels",
-      "desc": "- Must select \"Legacy of the Lion\".\n- Any model may give its Power swords the \"Rending(6+)\" ability for +1 point each.\n- Any model may exchange their Plasma guns for Plasma repeaters for +12 points each.\n- Any model may exchange their Missile launchers for Stasis missile launchers for +4 points each.\n- The army gets access to all units from this book that can take the Dark Angels Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Grim Resolve\" or \"Scions of the Hexagrammaton\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Lion\".\n- The army gets access to all units from this book that can take the Dark Angels Legion and all units must take it.\n- Dreadwing Interemptor Squad units can be taken as Troops.\n- Only Dreadwing Interemptor Squad units count towards the 25% Troops limitation.\n- The army can only take a second trait if the first one is \"Grim Resolve\" or \"Scions of the Hexagrammaton\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "White Scars",
-      "desc": "- Must select \"Legacy of the Great Khan\".\n- The army gets access to all units from this book that can take the White Scars Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Swift Action\" or \"Eye of the Storm\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Great Khan\".\n- The army gets access to all units from this book that can take the White Scars Legion and all units must take it.\n- Falcon's Claws Squad units can be taken as Troops.\n- Only Falcon's Claws Squad units count towards the 25% Troops limitation.\n- The army can only take a second trait if the first one is \"Swift Action\" or \"Eye of the Storm\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Space Wolves",
-      "desc": "- Must select \"Legacy of the Wolf King\".\n- The army gets access to all units from this book that can take the Space Wolves Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Bestial Savagery\" or \"Unleashed Hunters\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Wolf King\".\n- The army gets access to all units from this book that can take the Space Wolves Legion and all units must take it.\n- Any model may exchange their Astartes chainswords for Fenrisian axes for +2 points each.\n- The army can only take a second trait if the first one is \"Bestial Savagery\" or \"Unleashed Hunters\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Imperial Fists",
-      "desc": "- Must select \"Legacy of the Praetorian of Terra\".\n- The army gets access to all units from this book that can take the Imperial Fists Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Bolter Drill\" or \"Unshakable Defence\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Praetorian of Terra\".\n- The army gets access to all units from this book that can take the Imperial Fists Legion and all units must take it.\n- Phalanx Warder Squad units can be taken as Troops.\n- Only Phalanx Warder Squad units count towards the 25% Troops limitation.\n- The army can only take a second trait if the first one is \"Bolter Drill\" or \"Unshakable Defence\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Blood Angels",
-      "desc": "- Must select \"Legacy of the Angel\".\n- The army gets access to all units from this book that can take the Blood Angels Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Encarmine Fury\" or \"Without Remorse, Without Relent\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Angel\".\n- The army gets access to all units from this book that can take the Blood Angels Legion and all units must take it.\n- Crimson Paladins Squad units can be taken as Troops.\n- Only Crimson Paladins Squad units count towards the 25% Troops limitation.\n- Any model may exchange their Plasma pistols for Inferno pistols for free.\n- The army can only take a second trait if the first one is \"Encarmine Fury\" or \"Without Remorse, Without Relent\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Iron Hands",
-      "desc": "- Must select \"Legacy of the Gorgon\".\n- Any model may exchange their Plasma pistols for Graviton pistols for +1 point each and Graviton guns for Graviton shredders for +1 point each.\n- The army gets access to all units from this book that can take the Iron Hands Legion and all units must take it.\n- The army can only take a second trait if the first one is \"The Medusa's Scales\" or \"Inviolate Armor\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Gorgon\".\n- The army gets access to all units from this book that can take the Iron Hands Legion and all units must take it.\n- Medusan Immortal Squad units can be taken as Troops.\n- Only Medusan Immortal Squad units count towards the 25% Troops limitation.\n- The army can only take a second trait if the first one is \"The Medusa's Scales\" or \"Inviolate Armor\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Ultramarines",
@@ -66,15 +66,19 @@
     },
     {
       "name": "Salamanders",
-      "desc": "- Must select \"Legacy of the Lord of Drakes\".\n- The army gets access to all units from this book that can take the Salamanders Legion and all units must take it.\n- The army can only take a second trait if the first one is \"Promethean Blood\" or \"Strength of Will\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Lord of Drakes\".\n- The army gets access to all units from this book that can take the Salamanders Legion and all units must take it.\n- Pyroclast Squad units can be taken as Troops.\n- Only Pyroclast Squad units count towards the 25% Troops limitation.\n- The army can only take a second trait if the first one is \"Promethean Blood\" or \"Strength of Will\". All traits combined cost 10 points for each non-character unit."
     },
     {
       "name": "Raven Guard",
-      "desc": "- Must select \"Legacy of the Liberator\".\n- Any model may give its Lightning claws the \"Rending(5+)\" ability for +5 points each.\n- The army gets access to all units from this book that can take the Raven Guard Legion and all units must take it.\n- The army can only take a second trait if the first one is \"By Wing and Talon\" or \"Shadow and Fury\". All traits combined cost 10 points for each non-character unit."
+      "desc": "- Must select \"Legacy of the Liberator\".\n- The army gets access to all units from this book that can take the Raven Guard Legion and all units must take it.\n- Dark Fury Squad units can be taken as Troops.\n- Only Dark Fury Squad units count towards the 25% Troops limitation.\n- The army can only take a second trait if the first one is \"By Wing and Talon\" or \"Shadow and Fury\". All traits combined cost 10 points for each non-character unit."
+    },
+    {
+      "name": "Blackshields",
+      "desc": "- Must select \"Legacy of the Sundered\".\n- Units and characters belong to no Legion of this book: the army has no access to the special units of any Legion.\n- Legion Veteran Squads can be taken as Troops and count towards the 25% Troops limitation.\n- Any model may swap its Plasma gun or Nemesis-Bolter for a Gauss blaster, its Plasma pistol for a Tesla carbine and its Power sword for a Hyperphase sword. Profiles and prices: see the Necrons codex and its Armory.\n- Warriors who cast off their Legion's insignia and honours: the army has access to one Trait only, instead of the usual two.\n- The side of the army (Loyalist or Traitor) is the one of this book."
     },
     {
       "name": "Shattered Legions",
-      "desc": "- The army has two Legacies (any two Legions of this book), both chosen in Army Customisation, and each unit and character chooses which of the two it belongs to.\n- A unit has everything of the Legacy it belongs to: its Legion benefits, its Armory, the special units, the Troops and the options of that Legion.\n- The two Legacies must be of Legions that are not marked red against each other in the Legion alliances tab.\n- Survivors of several betrayed Legions fighting under one banner: a unit is of one Legion or of the other, never of a third.\n- The army has access to a third Trait, to choose from the list: three Legion Traits instead of two."
+      "desc": "- The army has three Legacies (any three Legions of this book), all chosen in Army Customisation, and each unit and character chooses which of the three it belongs to.\n- A unit has everything of the Legacy it belongs to: its Legion benefits, its Armory, the special units, the Troops and the options of that Legion.\n- Survivors of several Legions fighting under one banner: a unit is of one Legion, never of two.\n- Legions marked red against each other in the Legion alliances tab may be chosen together: that is part of what this archetype does.\n- The army has access to one Trait only, instead of the usual two."
     }
   ],
   "legacies": [
@@ -122,6 +126,13 @@
       "name": "Legacy of the Liberator",
       "desc": "The army has access to the Raven Guard Armory.\n- The army has the mark of the Raven Guard Legion (see the Special rules in the Index).",
       "armory_key": "Raven Guard"
+    },
+    {
+      "name": "Legacy of the Sundered",
+      "desc": "The army has access to the Armory of one Legion of this book, chosen when the army is built (not its Legion Archetypes), and the Malignant psychic discipline.\n- The army has the mark of the Blackshields Legion (see the Special rules in the Index).",
+      "armory_key": null,
+      "legion": "Blackshields",
+      "requires_archetype": "Blackshields"
     }
   ],
   "traits": [
@@ -281,6 +292,43 @@
     {
       "name": "Shadow and Fury",
       "desc": "The unit gains the \"Deflect\" ability against ranged attacks from enemy units which are more than 12\" away.",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Death Seekers",
+      "desc": "Blackshields only. The unit gains the \"Warded\" and \"Blind Rage\" abilities.",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
+      "enables_second_legacy": false,
+      "requires_archetype": "Blackshields"
+    },
+    {
+      "name": "Precise Killers",
+      "desc": "The unit gains the \"Rending(5+)\" ability with all melee weapons.",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Suppressing Volley",
+      "desc": "The unit gains the \"Suppression(3)\" ability with Bolt weapons.",
+      "pts_unit": null,
+      "pts_char": "10",
+      "pts_monster": "0",
+      "pts_veh": "0",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Venomous Rounds",
+      "desc": "The unit gains the \"Poison(4+)\" ability with Bolt weapons.",
       "pts_unit": null,
       "pts_char": "10",
       "pts_monster": "0",
@@ -539,6 +587,18 @@
           "Deflect"
         ]
       }
+    },
+    "Blackshields": {
+      "abbr": "BS",
+      "note": "Mark of Blackshields (BS): The model gains +1 Strength and +1 Toughness while its unit has at least one Battleshock token. Vehicles are not affected. Costs +1 points per model, +1 per character model, +0 per vehicle.",
+      "cost": {
+        "unit": 1,
+        "char": 1,
+        "vehicle": 0
+      },
+      "all": {},
+      "char": {},
+      "veh": {}
     }
   }
 }

@@ -66,6 +66,21 @@
             "inline_pts": null,
             "variant_link": null,
             "is_unique_per_army": false
+        },
+        {
+            "header": "Any model may be equipped with a Grenade harness for +5 points each: the model may always throw a Grenade in addition to its ranged weapons, or throw two Grenades instead of one.",
+            "constraint": {
+                "type": "one"
+            },
+            "choices": [
+                {
+                    "name": "Grenade harness",
+                    "points": 5
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false
         }
     ],
     "abilities": [

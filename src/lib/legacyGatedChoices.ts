@@ -7,6 +7,20 @@ import { getArchetypeRule } from '../engine/archetypes';
  */
 
 /** The Legacy an archetype demands, or null when its text names none. `faction` is the loader's faction name: only the Horus Heresy books write it as 'Must select "Legacy of X"'. */
+/**
+ * "The army can only take a second trait if the first one is "A" or "B"." (the Horus Heresy Legion archetypes): the two Traits that open the second slot,
+ * or null for an archetype without that clause. Read from the archetype's own text, like the Legacy it names.
+ */
+export function secondTraitGate(archetype: Pick<Archetype, 'desc'> | undefined): string[] | null {
+  const m = String(archetype?.desc ?? '').match(/can only take a second trait if the first one is ["“]([^"”]+)["”] or ["“]([^"”]+)["”]/i);
+  return m ? [m[1].trim(), m[2].trim()] : null;
+}
+
+/** A pool kept to what that clause allows: with a first Trait outside the two, there is no second. */
+export function applySecondTraitGate(pool: string[], gate: string[] | null): string[] {
+  return gate && pool.length > 1 && !gate.includes(pool[0]) ? pool.slice(0, 1) : pool;
+}
+
 export function archetypeRequiredLegacy(archetype: Pick<Archetype, 'desc'> | undefined, faction?: string): string | null {
   const text = String(archetype?.desc ?? '');
   let m = text.match(/Can only be selected with the (Legacy of [^.\n]+?)\./);

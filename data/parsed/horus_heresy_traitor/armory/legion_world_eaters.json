@@ -1,14 +1,92 @@
 {
   "name": "World Eaters Armory",
-  "weapons": [],
+  "weapons": [
+    {
+      "name": "Barb-hook lash",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(6+), Rad",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Excoriator chainaxe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Rending(6+), Shred",
+      "p_unit": null,
+      "p_char": 9,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Meteor hammer",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "-",
+      "p_unit": 12,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Paired falax blades",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(1), Shred, Unwieldy",
+      "p_unit": 6,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Heavy chainaxe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy",
+      "p_unit": 13,
+      "p_char": 17,
+      "armour_compat": [
+        "Terminator"
+      ]
+    }
+  ],
   "equipment": [
     {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
+      "name": "Rune of brass",
+      "term_compat": true,
+      "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results. Unique.",
       "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": []

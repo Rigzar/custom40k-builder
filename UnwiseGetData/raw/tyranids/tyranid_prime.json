@@ -1,0 +1,190 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        1,
+        "Tyranid Prime",
+        "6\"",
+        "2+",
+        "2+",
+        5,
+        5,
+        4,
+        5,
+        2,
+        10,
+        "4+",
+        86
+    ],
+    [
+        "A Tyranid Prime is equipped with: Scything talons; Spinefists."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Boneswords",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Deadly(5+), Extra Attack(1)"
+    ],
+    [
+        "Deathspitter",
+        "24\"",
+        "Assault 2",
+        5,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Devourer",
+        "18\"",
+        "Rapid Fire 2",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "Lash whip and Bonesword",
+        "-",
+        "Melee",
+        "+1",
+        -3,
+        1,
+        "Deadly(5+), Quick(+1)"
+    ],
+    [
+        "Rending claws",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "Rending(5+)"
+    ],
+    [
+        "Scything talons",
+        "-",
+        "Melee",
+        "U",
+        -1,
+        1,
+        "Extra Attack(1)"
+    ],
+    [
+        "Spinefists",
+        "12\"",
+        "Pistol 2",
+        "U",
+        0,
+        1,
+        "-"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap its Scything talons:"
+    ],
+    [
+        "- Rending claws",
+        "+3 points"
+    ],
+    [
+        "- Boneswords",
+        "+6 points"
+    ],
+    [
+        "- Lash whip and Bonesword",
+        "+6 points"
+    ],
+    [
+        "\u2022 May swap its Spinefists:"
+    ],
+    [
+        "- Scything talons",
+        "+0 points"
+    ],
+    [
+        "- Devourer",
+        "+2 points"
+    ],
+    [
+        "- Deathspitter",
+        "+2 points"
+    ],
+    [
+        "\u2022 May select one Special Biomorph:"
+    ],
+    [
+        "- Resonator",
+        "+9 points"
+    ],
+    [
+        "- Leaping",
+        "+12 points"
+    ],
+    [
+        "- Regeneration",
+        "+12 points"
+    ],
+    [
+        "- Winged",
+        "+14 points"
+    ],
+    [
+        "- Hardened Carapace",
+        "+18 points"
+    ],
+    [
+        "\u2022 May additionally select any number of Basic and Advanced Biomorphs (see Armory)."
+    ],
+    [
+        "\u2022 May additionally select items from the Hive Fleet Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Fearless, Massive(1), Move Through Cover, Synapse"
+    ],
+    [
+        "Alpha Warrior: A Tyranid Prime can attach to any unit like a character model. If the model is attached to a unit of Tyranid Warriors, they gain a +1 bons to Weapon Skill and Ballistic Skill."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Character model, Monstrous Infantry"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Advanced Bioform"
+    ]
+]

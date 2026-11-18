@@ -1,3 +1,4 @@
+import { isAlliedEntry } from '../types/army';
 import { useState, useRef, useLayoutEffect, Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
@@ -19,11 +20,14 @@ import { applyDelta, applyEquipDeltas } from '../utils/statMods';
 import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType, localiseAbility } from '../data/coreRules';
+import { FACTION_INDEX_RULES } from '../data/factionIndexRules';
+import { lookupUnitType } from '../data/unitTypeRules';
+import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { capStat } from '../lib/statPipeline';
-import { resolveUnitProfile } from '../engine/resolver';
+import { resolveUnitProfile, removedAbilityNames, dropRemovedAbilities } from '../engine/resolver';
 import { selectedAbilities, equipTargetsModel } from '../lib/battleProfile';
 import { markStatMods } from '../lib/markMods';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -956,7 +960,8 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
   const _hasPsykerOption = psykerGroupIdx >= 0 && !effectivePsyker;
 
   const abilitiesList = [
-    ...(u.abilities as string[]).filter((ab: string) => {
+    ...(u.abilities as string[]).map((ab: string) => dropRemovedAbilities(ab, removedAbilityNames(u, item))).filter((ab: string) => {
+      if (ab === '') return false;
       if (/^\d+$/.test(ab.trim())) return false;
       const ci = ab.indexOf(':');
       const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
@@ -1004,6 +1009,18 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
         <tbody>
           {modelsToShow.map((m, mi) => {
             const modStats = applyEquipDeltas(equipTargetsModel(u, m, variant) ? applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle) : { ...(m.stats as Record<string, string>) }, traitEquipMods, u.is_vehicle);
+            // The full card applies what the OPTIONS change on the profile (Hardened Carapace +1 to the save, "Reinforced forelimbs: WS 3+", Grot Mega armor);
+            // the Simple view printed the unit's own stats without them (Discord, Dave, 2026-11-13).
+            for (const sm of rp.optionStatMods) {
+              if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
+            }
+            for (const [k, v] of Object.entries(rp.optionStatSets ?? {})) {
+              if (modStats[k] === undefined || !v) continue;
+              const cur = String(modStats[k]).match(/^(\d+)\+/)?.[1];
+              const set = v.match(/^(\d+)\+/)?.[1];
+              if (!cur || modStats[k] === '-' || (set && parseInt(set, 10) < parseInt(cur, 10))) modStats[k] = v;
+            }
+            for (const [k, v] of Object.entries(rp.optionStatExact ?? {})) if (modStats[k] !== undefined && v) modStats[k] = v;
             return (
               <tr key={mi}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>
@@ -1662,7 +1679,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   // True allied-detachment unit (not an integrated supplement like Assassins/Horus Heresy) — these
   // print in their own "Allied Detachment" section.
   const isAlliedDetachmentItem = (i: RosterEntry) =>
-    !!(alliedFaction && i.factionSource === alliedFaction);
+    !!(alliedFaction && isAlliedEntry(i, alliedFaction));
   const alliedFactionName = alliedData?.faction ?? alliedFaction ?? 'Allied Detachment';
 
   const rule         = getArchetypeRule(archetype);
@@ -1717,6 +1734,11 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     for (const ab of u.abilities) {
       if (/^\d+$/.test(ab.trim())) continue;
       parseGeneric(ab);
+    }
+    // The unit type's own rules ("Monstrous Infantry: cannot be joined by a Character, +2 on Armor penetration in melee..."), the reminder the card shows on hover.
+    for (const part of String(u.unit_type ?? '').split(',')) {
+      const ut = lookupUnitType(part);
+      if (ut) addRule(nm(ut.name), ut.description);
     }
 
     const optWpnNames = new Set<string>();
@@ -1797,6 +1819,18 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   // viewport width, which is why the card looked "cut off on the right" with the SV/invuln columns
   // unreachable (Discord 2026-07-18, Firefox/Android) — scrolling right only revealed empty
   // background. The toolbar now wraps, and this guards against any future wide child.
+  // A rule that GRANTS other rules from a list ("Power Through Pain: ... Aegis(4+), Berserk(5+), Furious Charge, +1 Initiative ...") lists them without saying what
+  // they do; the printout now carries the ones that are rules of the book too (Discord, Ed, 2026-11-13: "it would be really good if they populated as well").
+  for (const [ruleName, ruleDesc] of [...allSpecialRules.entries()]) {
+    if (!ruleDesc || !/^power through pain$/i.test(ruleName)) continue;
+    for (const piece of ruleDesc.replace(/^[^:(]*[:(]/, '').split(/[,;]/)) {
+      const token = piece.replace(/\)?\.?$/, '').replace(/\band\b/i, '').trim();
+      if (!token || /^[+-]/.test(token)) continue;
+      const found = lookupRuleGeneric(token);
+      if (found && !allSpecialRules.has(nm(found.displayName))) allSpecialRules.set(nm(found.displayName), found.description);
+    }
+  }
+
   // Explicit pagination. Every card already carries `break-inside: avoid`, which Blink honours
   // and WebKit ignores, so iPhone printouts split a datasheet down the middle (Discord report,
   // and still broken after a `display: table` workaround). Rather than send another hint the
@@ -1813,8 +1847,8 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           {archetype && <span className="text-zinc-500 text-xs hidden sm:inline">{archetype}</span>}
           {legacy && <span className="text-zinc-500 text-xs hidden sm:inline">{legacy}{legacy2 ? ` · ${legacy2}` : ''}</span>}
         </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 ml-auto">
-          <div className="flex items-center gap-1 sm:mr-1">
+        <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2 ml-auto min-w-0 max-w-full">
+          <div className="flex flex-wrap items-center gap-1 sm:mr-1">
             {(['cards', 'simple', 'list'] as const).map(m => (
               <button key={m} onClick={() => setMode(m)}
                 className={`px-2 sm:px-3 py-1.5 text-[10px] sm:text-xs uppercase tracking-wide border transition-colors ${mode === m ? 'bg-amber-800 border-amber-600 text-white' : 'bg-zinc-700 border-zinc-600 text-zinc-300 hover:bg-zinc-600'}`}>
@@ -2004,6 +2038,66 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             per-army in this export). Imperial Guard's own named Officer Orders above are
             army-specific (gated by faction + Legacy) and stay here; the universal token system is
             Core Rules reference material that belongs in the standalone Field Manual instead. */}
+
+        {/* The army-wide rules of the codex (its Index "Special rules": Tyranids' Shadow in the Warp, Orks' Waaagh!...). They are not on any unit card, so a printed list never showed them. */}
+        {(FACTION_INDEX_RULES[data.faction] ?? []).length > 0 && (
+          <div style={{
+            marginBottom: 20, pageBreakInside: 'avoid', breakInside: 'avoid',
+            border: `1px solid ${primaryColor}55`, overflow: 'hidden',
+            ['--ac' as string]: primaryColor,
+          }}>
+            <div style={{
+              background: HDR_BG, color: '#fff',
+              padding: '6px 14px', borderTop: `3px solid ${primaryColor}`,
+              fontFamily: CONDUIT, fontWeight: 800, textTransform: 'uppercase',
+              letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
+            }}>
+              <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
+              <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'prArmyRules')}</span>
+            </div>
+            <div style={{ padding: '6px 14px', background: PARCHMENT, columnCount: 2, columnGap: 20 }}>
+              {(FACTION_INDEX_RULES[data.faction] ?? []).map(r => (
+                <div key={r.name} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.3, color: '#222', marginBottom: 7, paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55` }}>
+                  <div style={{ fontWeight: 700 }}>{nm(r.name)}</div>
+                  <div style={{ color: '#555' }}>{localiseAbility(r.text)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* The General psychic disciplines: hard to find in the builder, and a printed list had no trace of them (Discord, Dave, 2026-11-13). Shown whenever the army has a psyker. */}
+        {army.some(i => resolveUnit(i, data)?.is_psyker) && (
+          <div style={{
+            marginBottom: 20, border: `1px solid ${primaryColor}55`, overflow: 'hidden',
+            ['--ac' as string]: primaryColor,
+          }}>
+            <div style={{
+              background: HDR_BG, color: '#fff',
+              padding: '6px 14px', borderTop: `3px solid ${primaryColor}`,
+              fontFamily: CONDUIT, fontWeight: 800, textTransform: 'uppercase',
+              letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
+            }}>
+              <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
+              <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'prGeneralPsychic')}</span>
+            </div>
+            <div style={{ padding: '6px 14px', background: PARCHMENT, columnCount: 2, columnGap: 20 }}>
+              {Object.entries(GENERAL_DISCIPLINES).filter(([d]) => d !== 'General').flatMap(([disc, powers]) => [
+                <div key={'gd-' + disc} style={{
+                  breakInside: 'avoid', breakAfter: 'avoid', fontFamily: CONDUIT, fontWeight: 800,
+                  textTransform: 'uppercase', letterSpacing: '.08em', fontSize: '.72em',
+                  color: primaryColor, borderBottom: `1px solid ${primaryColor}66`, margin: '4px 0 6px',
+                }}>{nm(disc)}</div>,
+                ...powers.map(pw => (
+                  <div key={disc + pw.name} style={{ breakInside: 'avoid', fontSize: '.74em', lineHeight: 1.3, color: '#222', marginBottom: 6, paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55` }}>
+                    <div style={{ fontWeight: 700 }}>{nm(pw.name)} <span style={{ fontWeight: 400, color: '#777' }}>({[pw.type, pw.range, pw.cast_value ? 'C' + pw.cast_value : '', pw.complexity].filter(Boolean).join(', ')})</span></div>
+                    <div style={{ color: '#555' }}>{pw.effect}</div>
+                  </div>
+                )),
+              ])}
+            </div>
+          </div>
+        )}
 
         {/* Special rules reference */}
         {allSpecialRules.size > 0 && (

@@ -2,60 +2,16 @@
   "name": "Death Guard Armory",
   "weapons": [
     {
-      "name": "Alchem pistol",
-      "term_compat": false,
-      "range": "6\"",
-      "type": "Pistol 4",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Auto Hit, Overheating",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Alchem flamer",
-      "term_compat": false,
-      "range": "9\"",
-      "type": "Assault 4",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Auto Hit, Poison(2+)",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Alchem combi-flamer",
+      "name": "Power scythe",
       "term_compat": true,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": null,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Bolter",
-          "range": "24\"",
-          "type": "Rapid Fire 1",
-          "s": "4",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Combi"
-        },
-        {
-          "name": "Alchem flamer",
-          "range": "9\"",
-          "type": "Assault 1",
-          "s": "4",
-          "ap": "-1",
-          "d": "1",
-          "abilities": "Auto Hit, Combi, Poison(2+)"
-        }
-      ],
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Extra Attack(1), Unwieldy",
+      "p_unit": 9,
+      "p_char": 12,
       "armour_compat": [
         "Terminator"
       ]
@@ -63,12 +19,42 @@
   ],
   "equipment": [
     {
-      "name": "LEGION ARCHETYPES",
-      "term_compat": false,
-      "desc": "",
+      "name": "Toxin bombs",
+      "term_compat": true,
+      "desc": "Whenever an enemy unit declares a Charge against the unit, roll a die for each of its models that charged. On a 1 that model suffers a wound that only a ward save can prevent. Only for Character models.",
       "p_unit": null,
-      "p_char": null,
-      "category": "vehicle"
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Unnatural Resilience",
+      "term_compat": true,
+      "desc": "The model gains +1 Wound. Only for Centurions. Unique.",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Death Cloud",
+      "term_compat": true,
+      "desc": "The model and its attached unit inflict 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D: 1; Poison(4+). Only for the Sergeant of a Legion Terminator Cataphractii Squad (Cataphractii armor).",
+      "p_unit": 25,
+      "p_char": 25,
+      "armour_compat": [
+        "Terminator"
+      ],
+      "requires_keywords": [
+        "Cataphractii"
+      ],
+      "effect": {
+        "grants_weapons": [
+          "Death Cloud"
+        ]
+      }
     }
   ],
   "daemon_weapons": []

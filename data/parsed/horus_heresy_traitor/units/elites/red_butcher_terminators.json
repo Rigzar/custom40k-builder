@@ -42,6 +42,33 @@
     "equipped_with": "Each model is equipped with: Twin Power axes.",
     "weapons": [
         {
+            "name": "Combi-bolter",
+            "range": "24\"",
+            "type": "Rapid Fire 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
+            "name": "Pair of lightning claws",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Extra Attack(2), Shred, Unwieldy"
+        },
+        {
+            "name": "Power axe",
+            "range": "-",
+            "type": "Melee",
+            "s": "+2",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "-"
+        },
+        {
             "name": "Twin chainfist",
             "range": "-",
             "type": "Melee",
@@ -69,6 +96,34 @@
             "choices": [
                 {
                     "name": "Twin chainfist",
+                    "points": 26
+                }
+            ],
+            "inline_pts": null,
+            "variant_link": null,
+            "is_unique_per_army": false,
+            "replaces": [
+                "Twin power axe"
+            ]
+        },
+        {
+            "header": "Any Red Butcher may swap their Twin power axe",
+            "constraint": {
+                "type": "every"
+            },
+            "choices": [
+                {
+                    "name": "Combi-bolter and Power axe",
+                    "points": 11,
+                    "effect": {
+                        "grants_weapons": [
+                            "Combi-bolter",
+                            "Power axe"
+                        ]
+                    }
+                },
+                {
+                    "name": "Pair of lightning claws",
                     "points": 0
                 }
             ],
