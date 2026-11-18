@@ -236,14 +236,17 @@ def main():
                             unit_sheet = unit_sheet[1:]
                     
                     ### OPTIONS           
-                    #  TODO: ACCOUNT FOR ALL THE OPTIONS.
-                    unit_sheet = unit_sheet[1:]
-                    option_groups = []
                     while "ABILITIES" not in unit_sheet[0]:
-                        option, unit_sheet = proccess_option(unit_sheet)
-                        option_groups.append(option)
-                    
+                        unit_sheet = unit_sheet[1:]
+                
                     ## TODO: UNCOMMENT THIS WHEN THE OPTIONS ARE FULLY IMPLEMENTED
+                    # unit_sheet = unit_sheet[1:]
+                    # option_groups = []
+                    # 
+                    # while "ABILITIES" not in unit_sheet[0]:
+                    #     option, unit_sheet = proccess_option(unit_sheet)
+                    #     option_groups.append(option)
+                    
                     # print(f"option_groups: {option_groups}")
                     # app_unit_json["option_groups"] = option_groups
                     

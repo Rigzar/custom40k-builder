@@ -66,7 +66,12 @@ def download_sheet(faction, sheet_id):
         logging.debug(f"Sheet: {sheet_name}")
         logging.debug(values)
         
-        json.dump(values, open(f"raw/{faction.lower().replace(" ","_").replace("'", "")}/{sheet_name}.json", "w"), indent=4)
+        print(f"Writing {sheet_name}.json for {faction}...")
+        try:
+            json.dump(values, open(f"raw/{faction.lower().replace(" ","_").replace("'", "")}/{sheet_name}.json", "w"), indent=4)
+        except Exception as e:
+            logging.error(f"Error writing {sheet_name}.json for {faction}: {e}")
+            exit()
 
 # First step. Get the raw text from the google sheets and remove all empty rows and columns, leaving only useful raw data. 
 def main():
