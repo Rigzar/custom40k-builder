@@ -11,6 +11,7 @@
 import type { Unit } from '../../../../src/types/data';
 
 import hq_ancient_destructor_lord from './hq/ancient_destructor_lord.json';
+import hq_catacomb_command_barge from './hq/catacomb_command_barge.json';
 import hq_cryptek from './hq/cryptek.json';
 import hq_lord from './hq/lord.json';
 import hq_royal_warden from './hq/royal_warden.json';
@@ -41,7 +42,6 @@ import heavy_support_doomsday_ark from './heavy_support/doomsday_ark.json';
 import heavy_support_lokhust_destroyers from './heavy_support/lokhust_destroyers.json';
 import heavy_support_monolith from './heavy_support/monolith.json';
 import dedicated_transport_ghost_ark from './dedicated_transport/ghost_ark.json';
-import dedicated_transport_catacomb_command_barge from './dedicated_transport/catacomb_command_barge.json';
 import fortifications_convergence_of_dominion from './fortifications/convergence_of_dominion.json';
 import flyers_doom_scythe from './flyers/doom_scythe.json';
 import flyers_night_scythe from './flyers/night_scythe.json';
@@ -111,6 +111,7 @@ export const slot_to_units: Record<string, string[]> = {
 /** All units keyed by name. */
 export const units: Record<string, Unit> = {
   "Ancient Destructor Lord": hq_ancient_destructor_lord as Unit,
+  "Catacomb Command Barge": hq_catacomb_command_barge as Unit,
   "Cryptek": hq_cryptek as Unit,
   "Lord": hq_lord as Unit,
   "Royal Warden": hq_royal_warden as Unit,
@@ -141,7 +142,6 @@ export const units: Record<string, Unit> = {
   "Lokhust Destroyers": heavy_support_lokhust_destroyers as Unit,
   "Monolith": heavy_support_monolith as Unit,
   "Ghost Ark": dedicated_transport_ghost_ark as Unit,
-  "Catacomb Command Barge": dedicated_transport_catacomb_command_barge as Unit,
   "Convergence of Dominion": fortifications_convergence_of_dominion as Unit,
   "Doom Scythe": flyers_doom_scythe as Unit,
   "Night Scythe": flyers_night_scythe as Unit,

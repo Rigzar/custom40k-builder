@@ -28,7 +28,7 @@ import heavy_support_caladius_grav_tank from './heavy_support/caladius_grav-tank
 import heavy_support_telemon_heavy_dreadnought from './heavy_support/telemon_heavy_dreadnought.json';
 import heavy_support_venerable_land_raider from './heavy_support/venerable_land_raider.json';
 import dedicated_transport_null_maiden_rhino from './dedicated_transport/null-maiden_rhino.json';
-import dedicated_transport_coronus_grav_carrier from './dedicated_transport/coronus_grav_carrier.json';
+import dedicated_transport_coronus_grav_carrier from './dedicated_transport/coronus_grav-carrier.json';
 
 export const faction = "Adeptus Custodes";
 
