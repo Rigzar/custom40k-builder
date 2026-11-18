@@ -66,7 +66,6 @@ def download_sheet(faction, sheet_id):
         logging.debug(f"Sheet: {sheet_name}")
         logging.debug(values)
         
-        print(f"Writing {sheet_name}.json for {faction}...")
         try:
             json.dump(values, open(f"raw/{faction.lower().replace(" ","_").replace("'", "")}/{sheet_name}.json", "w"), indent=4)
         except Exception as e:
