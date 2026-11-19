@@ -327,9 +327,9 @@ export function isUnwieldyItem(desc: string | undefined): boolean {
  */
 /** Which weapons a weapon-target item may be pointed at: "One ranged weapon of the model gains +1 Strength"
  *  (Maelstrom Weapon) only ranged, "One melee weapon..." (Reaver Weapon) only melee, anything else any. */
-export function weaponTargetKind(desc: string | undefined): 'melee' | 'ranged' | 'any' {
+export function weaponTargetKind(desc: string | undefined): 'melee' | 'ranged' | 'all' {
   const m = (desc ?? '').match(/(?:one|a|an) (melee|ranged) weapon of the model/i);
-  return m ? (m[1].toLowerCase() as 'melee' | 'ranged') : 'any';
+  return m ? (m[1].toLowerCase() as 'melee' | 'ranged') : 'all';
 }
 
 export function requiresWeaponTarget(desc: string | undefined): boolean {

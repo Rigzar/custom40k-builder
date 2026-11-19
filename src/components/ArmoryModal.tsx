@@ -2358,7 +2358,7 @@ function targetsFor(arm: ArmoryItem, all0: string[], melee: string[], notMasterC
   if (/master-crafted/i.test(arm.desc ?? '')) for (const n of notMasterCraftable) blocked.add(weaponBaseName(n).toLowerCase());
   const all = blocked.size ? all0.filter(w => !blocked.has(weaponBaseName(w).toLowerCase())) : all0;
   const kind = weaponTargetKind(arm.desc);
-  if (kind === 'any') return all;
+  if (kind === 'all') return all;
   const m = new Set(melee);
   return all.filter(w => (kind === 'melee') === m.has(w));
 }
