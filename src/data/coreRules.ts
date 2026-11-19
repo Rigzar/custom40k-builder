@@ -21,7 +21,7 @@ export interface RuleEntry {
  * keys against the SAME canonical glossary instead of duplicating the ~120-entry vocabulary.
  * One source of truth — the two layers can never drift apart. Do not mutate from outside.
  */
-export const RULES: Record<string, RuleEntry> = {
+export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   // ── Weapon abilities ──────────────────────────────────────────────────────
   'ammo': {
     name: 'Ammo({X})',
@@ -31,33 +31,12 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Anti-Air',
     description: 'Attacks made with this weapon against models with the Anti-Grav, Jet Bike, or Jump Pack special rules or the Flyer unit type gain +1 to hit rolls and +1 Strength.',
   },
-  // Core Rules L714-718 ("Jump Pack Infantry" type) + designer confirmation (2026-06-12):
-  // the "Jump pack" ability referenced standalone at L551 and L1331 is the package granted
-  // by the "Jump Pack Infantry" unit type.
-  'jump pack': {
-    name: 'Jump Pack',
-    description: 'The model ignores terrain and vertical movement costs, and gains the "Deep Strike" special rule (the package granted by the "Jump Pack Infantry" unit type).',
-  },
   // Core Rules 1.279: "Armorbane(x) - The weapon gains a +x bonus for armor penetration rolls." It used to be a fixed +3, and Lance(+x)
   // was folded into it (Lance(2) is now Armorbane(2)). A bare "Armorbane" still on a datasheet that has not been updated yet reads as the
   // old +3, see lookupRule.
   'armorbane': {
     name: 'Armorbane({X})',
     description: 'The weapon gains a +{X} bonus for armor penetration rolls.',
-  },
-  'armor piercing': {
-    name: 'Armor Piercing({X})',
-    description: 'Wound rolls of {X} always succeed and gain an additional -2 AP. Armor penetration rolls of {X} gain +1 AT and a +2 bonus for armor penetration rolls.',
-  },
-  // The authors renamed Armor piercing(x+) to Piercing(x+) in every sheet (2026-10). Both names are kept: sheets and saved data move at different times.
-  'piercing': {
-    name: 'Piercing({X})',
-    description: 'Successful wound rolls of {X} always succeed and gain an additional -2 AP. Successful armor penetration rolls of {X} gain a +2 bonus to the result and are considered to have AT(1) unless their AT is already higher.',
-  },
-  // New in the sheets (Unwise, 2026-10): the ward save as an ability with a value, replacing the sentences "The model gains a 5+ ward save".
-  'ward': {
-    name: 'Ward({X})',
-    description: 'The model has a {X} ward save.',
   },
   'at': {
     name: 'AT({X})',
@@ -73,6 +52,10 @@ export const RULES: Record<string, RuleEntry> = {
   'beam': {
     name: 'Beam',
     description: 'Choose a target and make a hit roll with the weapon as normal. If the hit is successful, draw a 1mm straight line from the nearest point of the shooting model\'s base to the nearest point of a model in the target unit. Make a wound roll against the target unit and any other units the line passes over.',
+  },
+  'blast': {
+    name: 'Blast({X})',
+    description: 'A successful hit roll with this weapon generates 1 hit per model in the target unit, to a maximum of {X} hits. An unsuccessful hit roll can be re-rolled once and can only generate half (rounded down) that many maximum hits.',
   },
   'blind': {
     name: 'Blind',
@@ -106,10 +89,6 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Deflagrate({X})',
     description: 'Successful hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
   },
-  'blast': {
-    name: 'Blast({X})',
-    description: 'A successful hit roll with this weapon generates 1 hit per model in the target unit, to a maximum of {X} hits. An unsuccessful hit roll can be re-rolled once and can only generate half (rounded down) that many maximum hits.',
-  },
   'extra attack': {
     name: 'Extra Attack({X})',
     // 1.262 split this in two: the cap moved out into Limit(x), so a weapon that had the old
@@ -132,17 +111,21 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Gruesome',
     description: 'Every wound caused by a weapon with this rule counts as two for combat resolution. Models that are caught while fleeing from close combat suffer an additional automatic wound from this weapon.',
   },
+  'hover mode': {
+    name: 'Hover Mode',
+    description: 'The model is eligible to use the "Stand & Shoot" order to land.',
+  },
   'haywire': {
     name: 'Haywire',
     description: 'Each hit causes one automatic penetrating hit against a Vehicle, in addition to any normal damage. Does not work against Creatures.',
   },
-  'lance': {
-    name: 'Lance({X})',
-    description: 'Old name of Armorbane({X}) (Core Rules 1.279 merged them): the weapon gains a {X} bonus for armor penetration rolls.',
-  },
   'life curse': {
     name: 'Life Curse',
     description: 'A single wound roll can be re-rolled against Creatures. If multiple models in a unit have the same weapon with this rule, they can make their wound rolls together. In this case, one wound roll per model may be re-rolled.',
+  },
+  'limit': {
+    name: 'Limit({X})',
+    description: 'Only {X} attacks can be made with this weapon each turn.',
   },
   'indirect': {
     name: 'Indirect',
@@ -164,6 +147,10 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Overheating',
     description: 'Self-Inflicted Damage on Hit Rolls: Each roll of a 1 on a hit roll with this weapon causes the user to suffer a Mortal Wound. If the model is a vehicle, it instead suffers a glancing hit using the weapon\'s AT value. Re-Roll Restriction: If the model has any ability to re-roll hit rolls (such as from Blast(x), Psychic effects, or other rules), the result of the initial roll determines whether the weapon is overheating. Automatic Hits: For weapons that hit automatically, any roll of a 1 when determining wound rolls causes the user to suffer the same penalty: a Mortal Wound or, for vehicles, a glancing hit using the weapon\'s AT value. Wound Assignment: Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons. These wounds cannot spill over to other models without Overheating weapons, overriding the standard rule that entire models must be removed first.',
   },
+  'piercing': {
+    name: 'Piercing({X})',
+    description: 'Successful wound rolls of {X} always succeed and gain an additional -2 AP. Successful armor penetration rolls of {X} gain a +2 bonus to the result and are considered to have AT(1) unless their AT is already higher.',
+  },
   'poison': {
     name: 'Poison({X})',
     description: 'Wound rolls of {X} against creatures always succeed. Can be affected by effects that give bonuses or penalties to wound rolls.',
@@ -176,13 +163,13 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Psi-shock',
     description: 'If a creature unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 Mortal Wounds. If a vehicle unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 instances of Critical Damage. Each additional hit from the same unit during the same activation incurs a cumulative -1 penalty for the test. Can\'t be triggered more than once per activated unit.',
   },
-  'rad': {
-    name: 'Rad',
-    description: 'A unit hit by this weapon suffers a -1 penalty to its Toughness value until the end of its next activation.',
-  },
   'quick': {
     name: 'Quick({X})',
     description: 'The model gains {X} to its Initiative.',
+  },
+  'rad': {
+    name: 'Rad',
+    description: 'A unit hit by this weapon suffers a -1 penalty to its Toughness value until the end of its next activation.',
   },
   'rending': {
     name: 'Rending({X})',
@@ -204,13 +191,13 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Slow({X})',
     description: 'The model suffers {X} to its Initiative.',
   },
+  'sniper': {
+    name: 'Sniper',
+    description: 'The model gains +1 Ballistic Skill when using a weapon with this ability. The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it. Models with the Bodyguard ability must be targeted first, before a character model may be selected.',
+  },
   'soul burn': {
     name: 'Soul Burn({X})',
     description: 'Successful wound rolls of {X} against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work against Vehicles. Excess wounds do not spill over to the next model, as the Mortal Wound is part of the original attack.',
-  },
-  'limit': {
-    name: 'Limit({X})',
-    description: 'Only {X} attacks can be made with this weapon each turn.',
   },
   'sunder': {
     name: 'Sunder({X})',
@@ -223,8 +210,10 @@ export const RULES: Record<string, RuleEntry> = {
   'unwieldy': {
     name: 'Unwieldy',
     description: 'The model does not gain an additional attack for having a pistol in close combat.',
-  },
+  }
+}
 
+export const CODEX_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   // ── Codex weapon abilities ────────────────────────────────────────────────
   // These are NOT in Custom40k Core Rules.txt — each is defined in its own faction's .ods
   // (Index / "Weapon abilities" section) and the text below is verbatim from there. They were
@@ -318,8 +307,10 @@ export const RULES: Record<string, RuleEntry> = {
   'tellyported': {
     name: 'Tellyported',
     description: 'Any To Wound roll of a 6 made with this weapon inflicts 1 Mortal Wound. If this weapon rolls a 6 for armour penetration, it causes a penetrating hit, regardless of whether the armour penetration result was higher than the target\'s armour value or not.',
-  },
+  }
+}
 
+export const CORE_WEAPON_TYPES: Record<string, RuleEntry> = {
   // ── Weapon types ──────────────────────────────────────────────────────────
   // Source: Custom40k Core Rules.txt L1072-1128 ("Weapon types" — its own canonical
   // glossary category, distinct from Weapon/Model abilities). Order-compatibility
@@ -347,9 +338,12 @@ export const RULES: Record<string, RuleEntry> = {
   'rapid fire': {
     name: 'Rapid Fire',
     description: 'May be used with Stand & Shoot and Move & Shoot orders only. If the target of this weapon is within half its range, it doubles its attacks. If the unit does not have the "Stand & Shoot" order, it can only fire the weapon at targets within half range.',
-  },
+  }
+}
 
-  // ── Model special rules ───────────────────────────────────────────────────
+export const CORE_MODEL_ABILITIES: Record<string, RuleEntry> = {
+  // ── Model abilites (Special Rules) ───────────────────────────────────────────────────
+  // Ordered to match Core Rules
   'acute senses': {
     name: 'Acute Senses',
     description: 'Infiltrators always have to stay more than 18" away during deployment, even if there is no direct Line of Sight to this unit. The model is able to use the Acute Senses Meta-Order.',
@@ -358,16 +352,6 @@ export const RULES: Record<string, RuleEntry> = {
   'advisor': {
     name: 'Advisor',
     description: 'For each HQ selection, one copy of this unit may be taken without occupying an AOP slot.',
-  },
-  // Core Rules 1.278 (October update): the Pariahs' "Psionic Abomination" became a general ability.
-  'blank': {
-    name: 'Blank',
-    description: 'Any model with this rule can never be targeted by any psychic power. Additionally, the model cannot be targeted by anything outside of 18". Additionally, all psykers within 18" suffer a -1 penalty to manifest and deny psychic powers. Additionally, all units within 12" suffer a -1 penalty to their Leadership values.',
-  },
-  // Core Rules 1.278, "Disorderly Charge": a term other rules refer to (a unit arriving from Deep Strike may only perform one).
-  'disorderly charge': {
-    name: 'Disorderly Charge',
-    description: 'Some rules refer to a unit only being able to perform a "Disorderly Charge". In this case, the unit may only select a single target for its Charge order and does not gain any Charge bonus or other benefit for charging.',
   },
   'aegis': {
     name: 'Aegis({X})',
@@ -380,6 +364,11 @@ export const RULES: Record<string, RuleEntry> = {
   'berserk': {
     name: 'Berserk({X})',
     description: 'The model gains a {X} ward save, but it does not work against weapons with Strength 8 or higher. Limitations Cannot use the Escape command. Cannot use the Take Cover defensive reaction.',
+  },
+  // Core Rules 1.278 (October update): the Pariahs' "Psionic Abomination" became a general ability.
+  'blank': {
+    name: 'Blank',
+    description: 'Any model with this rule can never be targeted by any psychic power. Additionally, the model cannot be targeted by anything outside of 18". Additionally, all psykers within 18" suffer a -1 penalty to manifest and deny psychic powers. Additionally, all units within 12" suffer a -1 penalty to their Leadership values.',
   },
   'blind rage': {
     name: 'Blind Rage',
@@ -409,10 +398,6 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Deep Strike',
     description: 'Models arriving from reserve via Deep Strike can be placed anywhere on the battlefield. They are only allowed to receive the "Charge" or "Move & Shoot" order. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, on impassable terrain or another unit, the unit goes back into reserve and must take a dangerous terrain test. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. The unit counts as having moved 6" and can\'t move any further with its regular Movement profile. The unit may still make its "Charge move". The unit may only perform a "Disorderly Charge".',
   },
-  'deepstrike': {
-    name: 'Deep Strike',
-    description: 'Models arriving from reserve can be placed anywhere on the battlefield. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, the unit goes back into reserve. If the first model lands in direct base contact with or on an enemy unit: Roll a D6: 1-3: The unit returns to reserve. 4-6: The opponent sets up the unit anywhere on the battlefield (except impassable terrain) using Deep Strike rules without rolling scatter. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. Units deployed this way count as having already moved up to their maximum Movement value this Battle Round and can only receive a "Move & Shoot" order. Example The first model (1) is placed on the battlefield. A circle of models (2) is formed around the first. If there are any remaining models, another circle (3) is formed, and this process continues until all models are placed.',
-  },
   'deflect': {
     name: 'Deflect',
     description: 'Ranged attacks against the model suffer a -1 penalty to hit rolls.',
@@ -436,14 +421,6 @@ export const RULES: Record<string, RuleEntry> = {
   'favoured enemy': {
     name: 'Favoured Enemy',
     description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from Armory equipment, datasheet abilities and psychic powers by 1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
-  },
-  'favored enemy': {
-    name: 'Favoured Enemy',
-    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from Armory equipment, datasheet abilities and psychic powers by 1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
-  },
-  'fire hatches': {
-    name: 'Fire Hatches({X})',
-    description: 'The vehicle has {X} fire hatches. Each fire hatch allows one passenger to fire their weapon when the unit activates.',
   },
   'frenzy': {
     name: 'Frenzy({X})',
@@ -469,10 +446,6 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Hunter',
     description: "The unit does not scatter when being set up via Deep Strike. Additionally, it gains Charge benefits normally and doesn't have to make a Disorderly Charge.",
   },
-  'infiltrate': {
-    name: 'Infiltrate',
-    description: 'After all normal deployment, this unit can be deployed anywhere on the battlefield — maintaining 18" from enemy units in line of sight, or 12" if out of line of sight. Units deployed this way cannot make a Vanguard move.',
-  },
   'infiltrator': {
     name: 'Infiltrator',
     description: 'During deployment, a unit with this ability can be declared as an Infiltrator. After all normal deployment is complete, Infiltrators can be deployed anywhere on the battlefield, maintaining: 18" distance from enemy units if in direct line of sight. 12" distance if out of line of sight. Units deployed this way cannot make a Vanguard move. Simultaneous Units: If both players have Infiltrator units, alternate deploying them, starting with the player who deployed first.',
@@ -492,6 +465,10 @@ export const RULES: Record<string, RuleEntry> = {
   'narthecium': {
     name: 'Narthecium',
     description: 'Once per battle round, the damage of a wound against the model or attached unit can be reduced by 1 (to a minimum of 0). Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
+  },
+  'objective secured': {
+    name: 'Objective Secured!',
+    description: 'If an objective is captured or controlled by a unit with this rule, the objective remains under the controlling player\'s possession even if no friendly units remain in range. Control is only lost if the opposing player conquers or contests the objective with one of their own units at the end of a battle round. Transport vehicles also benefit from this rule if an embarked unit has it. Automatically granted to every Troop selection; units gain or lose it when switching battlefield role through Archetypes.',
   },
   'open': {
     name: 'Open',
@@ -521,18 +498,6 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Stealth',
     description: 'The model always counts as being in Heavy cover except when targeted by a Charge.',
   },
-  'shrouding': {
-    name: 'Shrouding',
-    description: 'The model gains "Deflect" against all attacks that are more than 12" away.',
-  },
-  'they shall know no fear': {
-    name: 'They Shall Know No Fear',
-    description: 'A pinned or fleeing unit automatically regroups at the start of the turn or when it reaches the edge of the board. It can never use the "Take Cover" Defensive reaction.',
-  },
-  'true grit': {
-    name: 'True Grit',
-    description: 'The model may treat all of its ranged weapons during its Activation as "Assault" weapons (e.g. Rapid Fire 2 becomes Assault 2) and gains +1 attack for any combination of a ranged weapon with a melee weapon, not just for Pistols.',
-  },
   'swarm': {
     name: 'Swarm',
     description: "All attacks that target this unit have their Damage reduced to 1 if it was higher. Attacks with the \"Blast(x)\" ability use the unit's remaining Wounds (instead of the number of models) to determine the amount of hits they can generate.",
@@ -561,60 +526,50 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Vanguard',
     description: 'At the start of the first battle round, the unit can: Move 6" if deployed on the battlefield. Move 12" if deployed in a dedicated transport vehicle. Simultaneous Units: If both players have Vanguard units, alternate activating them, starting with the player who deployed first.',
   },
+  // New in the sheets (Unwise, 2026-10): the ward save as an ability with a value, replacing the sentences "The model gains a 5+ ward save".
+  'ward': {
+    name: 'Ward({X})',
+    description: 'The model has a {X} ward save.',
+  },
   'warded': {
     name: 'Warded',
     description: 'The model gains a 6+ ward save, or improves an existing ward save by +1 (to a maximum of 4+). Cumulative with itself.',
   },
-  'objective secured': {
-    name: 'Objective Secured!',
-    description: 'If an objective is captured or controlled by a unit with this rule, the objective remains under the controlling player\'s possession even if no friendly units remain in range. Control is only lost if the opposing player conquers or contests the objective with one of their own units at the end of a battle round. Transport vehicles also benefit from this rule if an embarked unit has it. Automatically granted to every Troop selection; units gain or lose it when switching battlefield role through Archetypes.',
+}
+
+export const ADDITIONAL_CORE_SPECIAL_RULES: Record<string, RuleEntry> = {
+  // Core Rules 1.278, "Disorderly Charge": a term other rules refer to (a unit arriving from Deep Strike may only perform one).
+  'disorderly charge': {
+    name: 'Disorderly Charge',
+    description: 'Some rules refer to a unit only being able to perform a "Disorderly Charge". In this case, the unit may only select a single target for its Charge order and does not gain any Charge bonus or other benefit for charging.',
   },
-  'objective secured!': {
-    name: 'Objective Secured!',
-    description: 'If an objective is captured or controlled by a unit with this rule, the objective remains under the controlling player\'s possession even if no friendly units remain in range. Control is only lost if the opposing player conquers or contests the objective with one of their own units at the end of a battle round. Transport vehicles also benefit from this rule if an embarked unit has it. Automatically granted to every Troop selection; units gain or lose it when switching battlefield role through Archetypes.',
+  // Vehicle
+  'fire hatches': {
+    name: 'Fire Hatches({X})',
+    description: 'The vehicle has {X} fire hatches. Each fire hatch allows one passenger to fire their weapon when the unit activates.',
   },
+  // Core Rules L714-718 ("Jump Pack Infantry" type) + designer confirmation (2026-06-12):
+  // the "Jump pack" ability referenced standalone at L551 and L1331 is the package granted
+  // by the "Jump Pack Infantry" unit type.
+  'jump pack': {
+    name: 'Jump Pack',
+    description: 'The model ignores terrain and vertical movement costs, and gains the "Deep Strike" special rule (the package granted by the "Jump Pack Infantry" unit type).',
+  }
+} 
+
+export const FACTION_SIGNATURE_RULES: Record<string, RuleEntry> = {
   // ── Faction signature rules ────────────────────────────────────────────────
-  'supporting fire': {
-    name: 'Supporting Fire',
-    description: 'If a friendly unit within 6" is the target of a charge and is using Defensive Fire, this unit may also be activated in the same way using an unused order token. That token is consumed.',
+  // Adeptus Custodes
+  'shield host': {
+    name: 'Shield Host',
+    description: 'The model can contest a mission objective while in the same table quarter and hold one while within 12" (instead of the normal 3"). It gains "Objective secured!". If it would gain two Battleshock tokens, it is set to one instead. If it would lose a melee combat, the result is changed to a draw. It may never receive the "Escape" order or the "Take Cover" Meta order. All its attacks gain "Precision(5+)".',
   },
-  'ramshackle': {
-    name: 'Ramshackle',
-    description: 'Units with this rule roll on the Ramshackle table when they lose their last Hull Point. Vehicles with a transport capacity roll on the Ramshackle table for transports. If the vehicle has been immobilized, the controlling player can roll with any order on the Ramshackle table in the next activation and apply the result. Ramshackle (D6): 1-3 Kaboom! The vehicle explodes with a radius of 6\". 4-6 Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled. If the scatter die is a hit symbol, the controlling player can decide the direction. Ramshackle Transports (D6): 1-2 Kaboom! (as above). 3-4 Kareen! (as above). 5-6 Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as wreckage.',
-  },
-  'dakka dakka dakka': {
-    name: 'Dakka Dakka Dakka',
-    description: 'The unit reduces its total penalty to hit rolls in ranged combat by -1 (minimum 0). Blast(x) weapons do not benefit from this rule.',
-  },
-  'waaagh!': {
-    name: 'Waaagh!',
-    description: 'The army may declare a Waaagh! once per game at the start of the Command phase, lasting two battle rounds. Infantry and Walkers gain +D6" movement (not counted for weapon choice). Other vehicles, Bikes and Jump pack infantry gain "Deflect" instead if they moved at their maximum possible speed (at least 8"). In a Skirmish game the effect lasts one battle round.',
-  },
-  'mob': {
-    name: 'Mob',
-    description: 'For every 5 models in the unit, it gains +1 Leadership (cumulative). At 20+ models it gains "Fearless". A unit reduced below half its starting strength may merge with another unit that has this rule within 2" during the Rally phase — from that point they act as a single unit with one shared order.',
-  },
-  'battle focus': {
-    name: 'Battle Focus',
-    description: '"Assault", "Grenade" and "Pistol" weapons ignore the hit penalty for Advance and Charge orders. "Heavy" weapons can be used without penalty with a Move & Shoot order and with only -1 to hit on Advance/Charge. All psychic powers are treated as Basic.',
-  },
-  'acts of faith': {
-    name: 'Acts of Faith',
-    description: 'The unit may perform an Act of Faith each battle round. Each unit may use as many Acts of Faith per round as the army has Faith points, but can only benefit from one effect at a time. Attached character models gain the same benefit if they have this rule.',
-  },
-  'shield of faith': {
-    name: 'Shield of Faith',
-    description: 'The model gains a 6+ ward save.',
-  },
-  'ambush': {
-    name: 'Ambush',
-    description: 'For each started 500 points of game size, one Ambush marker may be placed after all Infiltrators deploy but before the first battle round — at least 12" from any enemy unit and at least 6" from a mission objective or another Ambush marker. Units with Ambush arriving from reserves may deploy within 3" of a marker with any order (these count towards the reserves-arrival limit). Units with Ambush may also embark into a marker like a transport and enter reserves, automatically arriving next Reinforcement phase. If an enemy unit is within 3" of an Ambush marker during the Reinforcement phase, the marker is removed for the rest of the game.',
-  },
+
+  // Adeptus Mechanicus / Forces of the Machine God
   'canticles of the omnissiah': {
     name: 'Canticles of the Omnissiah',
     description: 'At the start of the Command phase, choose one Canticle. All units with this rule within 9" of a Choir Master model roll a D6 — on 4+ they gain the chosen Canticle\'s benefit until the end of the battle round.',
   },
-  // Adeptus Mechanicus.ods, Index: Special rules
   'choir master': {
     name: 'Choir Master',
     description: 'Units containing this model automatically pass their Canticle of the Omnissiah roll.',
@@ -623,47 +578,18 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Monotask',
     description: 'This unit does not benefit from Canticles of the Omnissiah unless it is accompanied by a character with "Choir Master".',
   },
-  'instinctive behaviour': {
-    name: 'Instinctive Behaviour',
-    description: 'If the unit is outside Synapse range during the Rally phase and has no Battleshock token, it gains one. This token can only be removed by being in Synapse range during the next Rally phase. If such a unit must flee, it moves toward the nearest Synapse unit. Units that start the battle round off the board in reserves count as being within Synapse range during that Rally phase (but not afterwards).',
+
+  // Adeptus Sororitas
+  'acts of faith': {
+    name: 'Acts of Faith',
+    description: 'The unit may perform an Act of Faith each battle round. Each unit may use as many Acts of Faith per round as the army has Faith points, but can only benefit from one effect at a time. Attached character models gain the same benefit if they have this rule.',
   },
-  'synapse': {
-    name: 'Synapse',
-    description: 'Friendly Tyranid units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; if they fail a Leadership test they suffer 1 Mortal Wound per point of difference (instead of a Battleshock token) and count as having passed; and lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
+  'shield of faith': {
+    name: 'Shield of Faith',
+    description: 'The model gains a 6+ ward save.',
   },
-  'void armor': {
-    name: 'Void Armor',
-    description: 'Enemy attacks targeting this unit reduce their AT and AP values each by -1 (minimum 0 each).',
-  },
-  'eye of the ancestors': {
-    name: 'Eye of the Ancestors',
-    description: 'Each time a friendly unit is removed from the game, place a Judgement token on the enemy unit that caused the last wound (max 2 per enemy unit). All friendly units attacking a target with Judgement tokens gain: 1 token — re-roll 1 hit roll per activation; 2 tokens — also re-roll 1 wound roll per activation. Character models in a unit pool their tokens; tokens split evenly when they leave.',
-  },
-  'steady advance': {
-    name: 'Steady Advance',
-    description: 'The unit can never receive an Advance order and gains "Move through cover".',
-  },
-  'shield host': {
-    name: 'Shield Host',
-    description: 'The model can contest a mission objective while in the same table quarter and hold one while within 12" (instead of the normal 3"). It gains "Objective secured!". If it would gain two Battleshock tokens, it is set to one instead. If it would lose a melee combat, the result is changed to a draw. It may never receive the "Escape" order or the "Take Cover" Meta order. All its attacks gain "Precision(5+)".',
-  },
-  'power through pain': {
-    name: 'Power Through Pain',
-    description: 'Each time an enemy unit is destroyed, the army gains a Power Through Pain token with a special rule assigned from the list (Aegis(4+), Berserk(5+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength). Distribute it to any friendly unit with this rule. Multiple tokens with the same bonus do not stack. Characters joining a unit pool tokens together; tokens split evenly when they leave.',
-  },
-  'combat drugs': {
-    name: 'Combat Drugs',
-    description: 'After all units have been set up, pick a combat drug for this unit. Its effect lasts for the rest of the battle.',
-  },
-  'reanimation protocols': {
-    name: 'Reanimation Protocols',
-    // The Necrons Index prints TWO versions of this rule: the live one under "Special rules", and
-    // a different one further down under a heading that reads "Experimental Rules". We had the
-    // experimental one verbatim — no RPoints at all, just a 5+ roll per lost wound (Discord report,
-    // 2026-08-13: "necrons reanimation protocols are not right rule on the app, its the
-    // experimental"). This is the Special rules version.
-    description: 'The army receives 3 Reanimation Points (RPoints) for every 500 points of game size, used to heal wounded or fallen models. During the Reinforcement phase each unit must be allocated at least as many RPoints as the wounds it has lost so far, including slain models; if there are not enough to go round, you choose which units receive them, and no unit may take more RPoints than it has lost wounds while another unit still has fewer than its own losses. Roll one die per RPoint: on 4+ the unit regains a wound and the RPoint is kept for the next Reinforcement phase; on a 3 nothing is regained but the RPoint is kept; on a 1 or 2 nothing is regained and the RPoint is lost for the rest of the game. Damaged models must be healed before any slain model returns. A unit that has been wiped out leaves its last model on the field until the next Reinforcement phase, where it may be revived at a -1 penalty; if it is not revived it is permanently removed. Restored models go into base contact with as many of their unit as possible and, unless the unit is already in melee, not in contact with an enemy; a wiped-out unit returns as close as possible to its last position, towards its own deployment zone. Some units gain "temporary RPoints", resolved as above but discarded at the end of the battle round without affecting the pool. A model killed by a weapon with at least twice the Strength of its own Toughness cannot use Reanimation Protocols. For rules like Blood Tithe and Power through Pain, a unit only counts as eliminated once it can no longer use RPoints, or no models make or succeed in their rolls in the upcoming Reinforcement phase — on the last round of a game it counts as destroyed when it loses its last wound.',
-  },
+
+  // Chaos
   'mark of khorne': {
     name: 'Mark of Khorne',
     description: 'The model gains +1 Attack. Character models and Monstrous Creatures also gain +1 Strength. Vehicles cause double hits on Tank Shocks. Counts as a veteran ability.',
@@ -680,10 +606,106 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Mark of Tzeentch',
     description: 'The model gains the "Warded" ability. Character models and Monstrous Creatures become a Psyker knowing 1 power from any discipline (or manifest/deny 1 additional power if already a Psyker). Vehicles gain a Warpflamer weapon (Range 9", Assault 4, S:4 AP:-1 D:1, Auto Hit, Sunder(1)). Counts as a veteran ability.',
   },
-  'hover mode': {
-    name: 'Hover Mode',
-    description: 'The model is eligible to use the "Stand & Shoot" order to land.',
+
+  // Dark Eldar
+  'combat drugs': {
+    name: 'Combat Drugs',
+    description: 'After all units have been set up, pick a combat drug for this unit. Its effect lasts for the rest of the battle.',
   },
+  'power through pain': {
+    name: 'Power Through Pain',
+    description: 'Each time an enemy unit is destroyed, the army gains a Power Through Pain token with a special rule assigned from the list (Aegis(4+), Berserk(5+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength). Distribute it to any friendly unit with this rule. Multiple tokens with the same bonus do not stack. Characters joining a unit pool tokens together; tokens split evenly when they leave.',
+  },
+
+  // Eldar
+  'battle focus': {
+    name: 'Battle Focus',
+    description: '"Assault", "Grenade" and "Pistol" weapons ignore the hit penalty for Advance and Charge orders. "Heavy" weapons can be used without penalty with a Move & Shoot order and with only -1 to hit on Advance/Charge. All psychic powers are treated as Basic.',
+  },
+
+  // Genestealer Cults
+  'ambush': {
+    name: 'Ambush',
+    description: 'For each started 500 points of game size, one Ambush marker may be placed after all Infiltrators deploy but before the first battle round — at least 12" from any enemy unit and at least 6" from a mission objective or another Ambush marker. Units with Ambush arriving from reserves may deploy within 3" of a marker with any order (these count towards the reserves-arrival limit). Units with Ambush may also embark into a marker like a transport and enter reserves, automatically arriving next Reinforcement phase. If an enemy unit is within 3" of an Ambush marker during the Reinforcement phase, the marker is removed for the rest of the game.',
+  },
+
+  // Grey Knights
+  'shrouding': {
+    name: 'Shrouding',
+    description: 'The model gains "Deflect" against all attacks that are more than 12" away.',
+  },
+  'true grit': {
+    name: 'True Grit',
+    description: 'The model may treat all of its ranged weapons during its Activation as "Assault" weapons (e.g. Rapid Fire 2 becomes Assault 2) and gains +1 attack for any combination of a ranged weapon with a melee weapon, not just for Pistols.',
+  },
+
+  // Leagues of Votann
+  'eye of the ancestors': {
+    name: 'Eye of the Ancestors',
+    description: 'Each time a friendly unit is removed from the game, place a Judgement token on the enemy unit that caused the last wound (max 2 per enemy unit). All friendly units attacking a target with Judgement tokens gain: 1 token — re-roll 1 hit roll per activation; 2 tokens — also re-roll 1 wound roll per activation. Character models in a unit pool their tokens; tokens split evenly when they leave.',
+  },
+  'steady advance': {
+    name: 'Steady Advance',
+    description: 'The unit can never receive an Advance order and gains "Move through cover".',
+  },
+  'void armor': {
+    name: 'Void Armor',
+    description: 'Enemy attacks targeting this unit reduce their AT and AP values each by -1 (minimum 0 each).',
+  },
+
+  // Necrons
+  'reanimation protocols': {
+    name: 'Reanimation Protocols',
+    // The Necrons Index prints TWO versions of this rule: the live one under "Special rules", and
+    // a different one further down under a heading that reads "Experimental Rules". We had the
+    // experimental one verbatim — no RPoints at all, just a 5+ roll per lost wound (Discord report,
+    // 2026-08-13: "necrons reanimation protocols are not right rule on the app, its the
+    // experimental"). This is the Special rules version.
+    description: 'The army receives 3 Reanimation Points (RPoints) for every 500 points of game size, used to heal wounded or fallen models. During the Reinforcement phase each unit must be allocated at least as many RPoints as the wounds it has lost so far, including slain models; if there are not enough to go round, you choose which units receive them, and no unit may take more RPoints than it has lost wounds while another unit still has fewer than its own losses. Roll one die per RPoint: on 4+ the unit regains a wound and the RPoint is kept for the next Reinforcement phase; on a 3 nothing is regained but the RPoint is kept; on a 1 or 2 nothing is regained and the RPoint is lost for the rest of the game. Damaged models must be healed before any slain model returns. A unit that has been wiped out leaves its last model on the field until the next Reinforcement phase, where it may be revived at a -1 penalty; if it is not revived it is permanently removed. Restored models go into base contact with as many of their unit as possible and, unless the unit is already in melee, not in contact with an enemy; a wiped-out unit returns as close as possible to its last position, towards its own deployment zone. Some units gain "temporary RPoints", resolved as above but discarded at the end of the battle round without affecting the pool. A model killed by a weapon with at least twice the Strength of its own Toughness cannot use Reanimation Protocols. For rules like Blood Tithe and Power through Pain, a unit only counts as eliminated once it can no longer use RPoints, or no models make or succeed in their rolls in the upcoming Reinforcement phase — on the last round of a game it counts as destroyed when it loses its last wound.',
+  },
+
+  // Orks
+  'dakka dakka dakka': {
+    name: 'Dakka Dakka Dakka',
+    description: 'The unit reduces its total penalty to hit rolls in ranged combat by -1 (minimum 0). Blast(x) weapons do not benefit from this rule.',
+  },
+  'mob': {
+    name: 'Mob',
+    description: 'For every 5 models in the unit, it gains +1 Leadership (cumulative). At 20+ models it gains "Fearless". A unit reduced below half its starting strength may merge with another unit that has this rule within 2" during the Rally phase — from that point they act as a single unit with one shared order.',
+  },
+  'ramshackle': {
+    name: 'Ramshackle',
+    description: 'Units with this rule roll on the Ramshackle table when they lose their last Hull Point. Vehicles with a transport capacity roll on the Ramshackle table for transports. If the vehicle has been immobilized, the controlling player can roll with any order on the Ramshackle table in the next activation and apply the result. Ramshackle (D6): 1-3 Kaboom! The vehicle explodes with a radius of 6\". 4-6 Kareen! Move the vehicle 3D6\" in a random direction and then execute Kaboom! The vehicle stops at the first unit (friendly or enemy!) instead of moving the distance rolled. If the scatter die is a hit symbol, the controlling player can decide the direction. Ramshackle Transports (D6): 1-2 Kaboom! (as above). 3-4 Kareen! (as above). 5-6 Kerrunch! Passengers must disembark and receive no damage. The vehicle remains as wreckage.',
+  },
+  'waaagh!': {
+    name: 'Waaagh!',
+    description: 'The army may declare a Waaagh! once per game at the start of the Command phase, lasting two battle rounds. Infantry and Walkers gain +D6" movement (not counted for weapon choice). Other vehicles, Bikes and Jump pack infantry gain "Deflect" instead if they moved at their maximum possible speed (at least 8"). In a Skirmish game the effect lasts one battle round.',
+  },
+  
+  // Space Marines
+  'they shall know no fear': {
+    name: 'They Shall Know No Fear',
+    description: 'A pinned or fleeing unit automatically regroups at the start of the turn or when it reaches the edge of the board. It can never use the "Take Cover" Defensive reaction.',
+  },
+
+  // Tau Empire
+  'supporting fire': {
+    name: 'Supporting Fire',
+    description: 'If a friendly unit within 6" is the target of a charge and is using Defensive Fire, this unit may also be activated in the same way using an unused order token. That token is consumed.',
+  },
+
+  // Tyranids
+  'instinctive behaviour': {
+    name: 'Instinctive Behaviour',
+    description: 'If the unit is outside Synapse range during the Rally phase and has no Battleshock token, it gains one. This token can only be removed by being in Synapse range during the next Rally phase. If such a unit must flee, it moves toward the nearest Synapse unit. Units that start the battle round off the board in reserves count as being within Synapse range during that Rally phase (but not afterwards).',
+  },
+  'synapse': {
+    name: 'Synapse',
+    description: 'Friendly Tyranid units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; if they fail a Leadership test they suffer 1 Mortal Wound per point of difference (instead of a Battleshock token) and count as having passed; and lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
+  }
+}
+
+export const ESCALATION_RULES: Record<string, RuleEntry> = {
   // ── Escalation supplement (Gargantuan Creatures & Super-heavy Vehicles) ──────
   'strength d': {
     name: 'Strength "D"',
@@ -696,13 +718,17 @@ export const RULES: Record<string, RuleEntry> = {
   'super-heavy vehicle': {
     name: 'Super-heavy Vehicle',
     description: 'Follows the rules for vehicles with these exceptions: need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1; ignores difficult terrain and auto-passes dangerous terrain; ward saves against Strength D only for other gargantuan/super-heavy models; can always shoot one more weapon than allowed for the distance moved; on losing its last Hull Point, on a 4+ it explodes (2D6" radius, S7 AP-2 D2). Uses its own super-heavy vehicle damage chart.',
-  },
-  // ── Experimental Rules (Core Rules.txt L1940-1949 — "currently undergoing playtesting and
-  // completely optional"; this is the LAST entry in the canonical Core Rules text) ───────────
-  'sniper': {
-    name: 'Sniper',
-    description: 'The model gains +1 Ballistic Skill when using a weapon with this ability. The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it. Models with the Bodyguard ability must be targeted first, before a character model may be selected.',
-  },
+  }
+}
+
+export const RULES: Record<string, RuleEntry> = {
+  ...CORE_WEAPON_ABILITIES,
+  ...CODEX_WEAPON_ABILITIES,
+  ...CORE_WEAPON_TYPES,
+  ...CORE_MODEL_ABILITIES,
+  ...ADDITIONAL_CORE_SPECIAL_RULES,
+  ...FACTION_SIGNATURE_RULES,
+  ...ESCALATION_RULES
 };
 
 /**
@@ -822,6 +848,13 @@ export const META_ORDERS: OrderEntry[] = [
     ],
   },
   {
+    name: 'Disorderly Charge',
+    prerequisite: 'Some rules refer to a unit only being able to perform a "Disorderly Charge".',
+    effect: [
+      'In this case, the unit may only select a single target for its Charge order and does not gain any Charge bonus or other benefit for charging.',
+    ],
+  },
+  {
     name: 'Hold Your Ground',
     prerequisite: 'The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.',
     effect: [
@@ -852,7 +885,15 @@ export const META_ORDERS: OrderEntry[] = [
 const RULE_ALIASES: Record<string, string> = {
   'overheat': 'overheating',      // Core Rules L1413 "Overheating"; every codex writes "Overheat"
   'indirect fire': 'indirect',    // Core Rules L1402 "Indirect"
+  'armor piercing': 'piercing',   // The authors renamed Armor piercing(x+) to Piercing(x+) in every sheet (2026-10). Both names are kept: sheets and saved data move at different times.
+  'objective secured!': 'objective secured', // Can be written either way
+  'deepstrike': 'deep strike',    // Duplicated rule
+  'favored enemy': 'favoured enemy', // Americans...
+  'armourbane': 'armorbane',      // Americans...
+  'lance': 'armorbane',           // Old name of Armorbane({X}) (Core Rules 1.279 merged them)
+  'infiltrate': 'infiltrator'
 };
+const resolveAlias = (k: string) => RULE_ALIASES[k] ?? k;
 
 /** Split "Rending(4+)" into key + param. No restriction-sentence handling — see normaliseKey. */
 function splitToken(t: string): { key: string; param: string | null } {
@@ -861,8 +902,6 @@ function splitToken(t: string): { key: string; param: string | null } {
     ? { key: m[1].trim().toLowerCase(), param: m[2].trim() }
     : { key: t.trim().toLowerCase(), param: null };
 }
-
-const resolveAlias = (k: string) => RULE_ALIASES[k] ?? k;
 
 /**
  * Turn one raw ability token into a glossary key + parameter.
@@ -1004,7 +1043,7 @@ export function lookupRuleGeneric(token: string): { displayName: string; descrip
  * ("Rapid Fire 1", "Assault 2", "Heavy 1") — strip it before matching the key.
  */
 export function lookupWeaponType(raw: string): { displayName: string; description: string } | null {
-  const key = raw.trim().toLowerCase().replace(/\s+\d+$/, '');
+  const { key } = normaliseKey(raw.trim().toLowerCase().replace(/\s+\d+$/, ''));
   const entry = RULES[key];
   if (!entry) return null;
   return {
@@ -1013,14 +1052,20 @@ export function lookupWeaponType(raw: string): { displayName: string; descriptio
   };
 }
 
+/** Returns legacy defaults for rules updated with {X} params */
+const LEGACY_PARAMS: Record<string, string> = {
+  // A bare "Armorbane" is the pre-1.279 fixed +3; datasheets are moved to Armorbane(3) by the unit update.
+  'armorbane': '3'
+};
+const getLegacyParam = (k: string) => LEGACY_PARAMS[k] ?? null;
+
 /** Look up a single ability token. Returns null if not in the glossary. */
 export function lookupRule(token: string): { displayName: string; description: string } | null {
   const { key, param } = normaliseKey(token);
   const entry = RULES[key];
   if (!entry) return null;
 
-  // A bare "Armorbane" is the pre-1.279 fixed +3; datasheets are moved to Armorbane(3) by the unit update.
-  const effective = param || (key === 'armorbane' ? '3' : '');
+  const effective = param || getLegacyParam(key);
   const sub = (s: string) => effective ? s.replace(/\{X\}/g, effective) : s;
   return {
     displayName: sub(localised(key, 'name', entry.name)),
