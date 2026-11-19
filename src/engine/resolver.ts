@@ -3143,14 +3143,20 @@ function allWeaponsWargearGrants(unit: Unit, item: RosterEntry): string[] {
  * which is the place for oddly worded one-offs (Infrasonic Roar reads the unit's bioform;
  * Monstrous Visages puts two different abilities in one sentence).
  */
-export function parseWeaponAbilityGrant(text: string):
-  { ability: string; scope: 'melee' | 'ranged' | 'both' | 'all' } | null {
-  const m = text.match(
-    /\b(?:the|this) (?:unit|model)\b[^.]*?\bgains? the ["“]([^"”]+)["”] abilit(?:y|ies) for (?:all )?(?:(melee|ranged)(?:\s+(?:or|and)\s+(melee|ranged))?\s+)?(attacks|weapons)\b/i);
+export function parseWeaponAbilityGrant(text: string): { ability: string; scope: 'melee' | 'ranged' | 'both' | 'all' } | null {
+  let m = text.match(/\b(?:the|this) (?:unit|model)\b[^.]*?\bgains? the ["“]([^"”]+)["”] abilit(?:y|ies) for (?:all )?(?:(melee|ranged)(?:\s+(?:or|and)\s+(melee|ranged))?\s+)?(attacks|weapons)\b/i);
+  if (!!m) {
+    const first = m[2]?.toLowerCase() as 'melee' | 'ranged' | undefined;
+    if (!first) return { ability: m[1], scope: 'all' };
+    return { ability: m[1], scope: m[3] ? 'both' : first };
+  }
+  // Issue #287 -- Daemonic Venom was not being granted to the weapons due to different wording of the ability description
+  m = text.match(/\b(?:all )?(?:(melee|ranged)(?:\s+(?:or|and)\s+(melee|ranged))?\s+)?(attacks|weapons) of \b(?:the|this) (?:unit|model)\b[^.]*?\bgains? (\bthe )*["“]([^"”]+)["”]( \babilit(?:y|ies)\b)*/i);
   if (!m) return null;
-  const first = m[2]?.toLowerCase() as 'melee' | 'ranged' | undefined;
-  if (!first) return { ability: m[1], scope: 'all' };
-  return { ability: m[1], scope: m[3] ? 'both' : first };
+
+  const first = m[1]?.toLowerCase() as 'melee' | 'ranged' | undefined;
+  if (!first) return { ability: m[5], scope: 'all' };
+  return { ability: m[5], scope: m[2] ? 'both' : first };
 }
 
 const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {
