@@ -50,6 +50,15 @@ export function validateSpaceMarines(
       if (item.unitName === 'Honor Guard' && item.size < 5) {
         items.push({ type: 'error', text: T('valSm1stCompanyHonorGuardMin', { n: item.size }) });
       }
+      // ...and "can never make use of the Squadron ability": the only way an Honor Guard gets it is the Wolf Guard upgrade.
+      if (item.unitName === 'Honor Guard') {
+        const hu = resolveUnit(item, data);
+        const gi = hu?.option_groups.findIndex(g => g.choices.some(c => c.name === 'Wolf Guard')) ?? -1;
+        const ci = gi >= 0 ? hu!.option_groups[gi].choices.findIndex(c => c.name === 'Wolf Guard') : -1;
+        if (gi >= 0 && Number(item.optionQty?.[gi]?.[ci] ?? 0) > 0) {
+          items.push({ type: 'error', text: T('valSm1stCompanyHonorGuardSquadron') });
+        }
+      }
     }
   }
 

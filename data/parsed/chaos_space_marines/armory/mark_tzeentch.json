@@ -2,7 +2,7 @@
   "name": "Armory of Tzeentch",
   "weapons": [
     {
-      "name": "Inferno boltpistol",
+      "name": "Inferno bolt pistol",
       "term_compat": false,
       "range": "12\"",
       "type": "Pistol 1",
