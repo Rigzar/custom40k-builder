@@ -24,6 +24,8 @@ export interface BattleProfileInput {
   }>;
   weaponTraitMap: Map<string, string[]>;
   injectedAbilities: string[];
+  /** Rules the army gives the unit (Objective secured!, the deployment rule bought with Webway raid...), shown on the card as rule notes. */
+  injectedRuleNotes?: string[];
   optionAbilities: string[];
   equipMods: { grantedAbilities: string[] };
   effectivePsyker: boolean;
@@ -115,6 +117,9 @@ export function selectedAbilities(u: Unit, item: RosterEntry, rp: BattleProfileI
     ...rp.equipMods.grantedAbilities.filter(
       ab => !(u.abilities ?? []).some(a => abilityKey(a) === ab.toLowerCase())),
     ...rp.optionAbilities.filter(notAlreadyListed),
+    // The deployment rule paid for with Webway strike / Webway raid / Lightning strike / Tellyporta reached the card and the printout but not
+    // the battle view (Ed, Discord 2026-11-19: no Infiltrators there).
+    ...(rp.injectedRuleNotes ?? []).filter(notAlreadyListed),
   ];
 
   // De-dupe by NAME: an item-granted "Tank hunter" and a datasheet "Tank Hunter" are one ability.

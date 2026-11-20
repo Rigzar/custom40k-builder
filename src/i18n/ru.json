@@ -632,7 +632,7 @@
  "powersPrayersLabel": "Силы/молитвы",
  "powersLabel": "Силы",
  "pactsCountLabel": "Договоры",
- "valSkirmishCap": "Лимит Стычки — 1500 очк. (сейчас: {total}).",
+ "valSkirmishCap": "Лимит Стычки — 1750 очк. (сейчас: {total}).",
  "valPointsToGo": "Не хватает {short} очк. до {min} (сейчас: {total}).",
  "viewingCopyOf": "Вы просматриваете копию «{name}» от {author}. То, что вы здесь делаете, не изменит их список.",
  "editMyCopy": "Редактировать мою копию",

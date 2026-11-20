@@ -1448,11 +1448,11 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   if (total > 0) {
     const short = (min: number) => T('valPointsToGo', { short: min - total, min, total });
     if (state.engagement === 'skirmish') {
-      if (total < 1000) items.push({ type: 'info', text: short(1000) });
-      if (total > 1500) items.push({ type: 'error', text: T('valSkirmishCap', { total }) });
+      if (total < eng.min) items.push({ type: 'info', text: short(eng.min) });
+      if (total > eng.max) items.push({ type: 'error', text: T('valSkirmishCap', { total }) });
     } else if (state.engagement === 'pitched') {
-      if (total < 2500) items.push({ type: 'info', text: short(2500) });
-      if (total > 3500) items.push({ type: 'error', text: T('valPitchedCap', { total }) });
+      if (total < eng.min) items.push({ type: 'info', text: short(eng.min) });
+      if (total > eng.max) items.push({ type: 'error', text: T('valPitchedCap', { total }) });
     } else {
       if (total < 4000) items.push({ type: 'info', text: short(4000) });
     }
@@ -3134,7 +3134,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // below, and these equipment checks then catch a unit that only becomes illegal once it
       // buys something. 105 of 666 datasheets are barred by the printed-profile half.
       // ── the printed datasheet, per the author's ruling ──────────────────────────────────
-      const svPrinted = (u.models ?? [])
+      // Only the models that are really in the list: the Henchman Warband's optional "Crusader 0-4" (SV 2+) made every Warband illegal in
+      // Skirmish although none was taken (TeCrisis, Discord).
+      const presentModels = (() => {
+        const all = u.models ?? [];
+        const here = all.filter(m => (m.min ?? 0) > 0 || (item.modelSizes?.[m.name] ?? 0) > 0);
+        return item.modelSizes ? here : (here.length ? here : all);   // a unit built from model groups has only the groups that were taken
+      })();
+      const svPrinted = presentModels
         .map(m => (m.stats as Record<string, string>)?.SV)
         .map(v => String(v ?? '').match(/^(\d)\+$/)?.[1])
         .filter((v): v is string => !!v)
@@ -3152,7 +3159,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         items.push({ type: 'error', text: T('valSkirmishInvSaveBase', { unit: item.unitName, sv: wardBase }) });
       }
 
-      const tPrinted = (u.models ?? [])
+      const tPrinted = presentModels
         .map(m => parseInt(String((m.stats as Record<string, string>)?.T ?? ''), 10))
         .filter(v => Number.isFinite(v));
       const bestT = tPrinted.length ? Math.max(...tPrinted) : null;

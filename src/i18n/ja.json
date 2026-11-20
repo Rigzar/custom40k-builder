@@ -632,7 +632,7 @@
  "powersPrayersLabel": "パワー／祈祷",
  "powersLabel": "パワー",
  "pactsCountLabel": "契約",
- "valSkirmishCap": "スカーミッシュの上限は1500pts（現在：{total}）。",
+ "valSkirmishCap": "スカーミッシュの上限は1750pts（現在：{total}）。",
  "valPointsToGo": "{min} に到達するまであと {short} pts（現在：{total}）。",
  "viewingCopyOf": "{author} の「{name}」のコピーを表示しています。ここでの操作が元のリストを変更することはありません。",
  "editMyCopy": "自分用のコピーを編集",

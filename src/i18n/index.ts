@@ -1232,7 +1232,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     powersPrayersLabel: 'Powers/Prayers',
     powersLabel: 'Powers',
     pactsCountLabel: 'Pacts',
-    valSkirmishCap: 'Skirmish cap 1500 pts (current: {total}).',
+    valSkirmishCap: 'Skirmish cap 1750 pts (current: {total}).',
     /** Neutral: the list is still being built, not broken. See ValidationItem's 'info' type. */
     valPointsToGo: '{short} points to go to reach {min} (current: {total}).',
     /** Shown when the builder holds a copy of somebody else's community list. */
@@ -2439,7 +2439,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     powersPrayersLabel: 'Kräfte/Gebete',
     powersLabel: 'Kräfte',
     pactsCountLabel: 'Pakte',
-    valSkirmishCap: 'Skirmish-Obergrenze 1500 Pkt (aktuell: {total}).',
+    valSkirmishCap: 'Skirmish-Obergrenze 1750 Pkt (aktuell: {total}).',
     valPointsToGo: 'Noch {short} Punkte bis {min} (aktuell: {total}).',
     viewingCopyOf: 'Du siehst eine Kopie von „{name}“ von {author}. Nichts hier kann deren Liste ändern.',
     editMyCopy: 'Meine Kopie bearbeiten',
@@ -3644,7 +3644,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     powersPrayersLabel: 'Poderes/Plegarias',
     powersLabel: 'Poderes',
     pactsCountLabel: 'Pactos',
-    valSkirmishCap: 'Tope de Skirmish 1500 pts (actual: {total}).',
+    valSkirmishCap: 'Tope de Skirmish 1750 pts (actual: {total}).',
     valPointsToGo: 'Faltan {short} puntos para {min} (actual: {total}).',
     viewingCopyOf: 'Estás viendo una copia de «{name}» de {author}. Nada de lo que hagas aquí cambia su lista.',
     editMyCopy: 'Editar mi copia',

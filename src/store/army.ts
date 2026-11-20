@@ -816,6 +816,18 @@ export const useArmyStore = create<ArmyStore>()(
           if (qty === 0) delete group[ci];
           else group[ci] = qty;
           oq[gi] = group;
+          // "May be upgraded to ONE of the following: Priest, Psyker" (Inquisitor): the two inline toggles are exclusive, so ticking one
+          // unticks the other instead of leaving an illegal list for the validator to flag (TeCrisis, Discord 2026-11-18).
+          const EXCLUSIVE_UPGRADE = /upgraded to an? (?:priest|psyker)\b/i;
+          if (qty > 0 && String(ci) === '__inline' && EXCLUSIVE_UPGRADE.test(grp?.header ?? '')) {
+            resolveUnit(e, s.data!)?.option_groups.forEach((g2, gi2) => {
+              if (gi2 !== gi && EXCLUSIVE_UPGRADE.test(g2.header ?? '') && oq[gi2]?.['__inline']) {
+                const other = { ...(oq[gi2] ?? {}) };
+                delete other['__inline'];
+                oq[gi2] = other;
+              }
+            });
+          }
           // Turning off the upgrade that grants Armory access takes the purchases with it. A
           // Devastator Sergeant demoted from Veteran kept the weapons he could only buy as one
           // (Discord 2026-08-16). Pruned here rather than in the component so no path — undo,

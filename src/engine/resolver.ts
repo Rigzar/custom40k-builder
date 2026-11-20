@@ -1041,7 +1041,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     (item.optionQty?.[psykerInlineIdx]?.['__inline'] ?? 0) > 0));
   // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
   // knowing 1 power from any discipline" — the monster half was missing.
-  const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks);
+  // A Black Crusade champion has the Mark of every god ("Designate as Black Crusade Champion"), Tzeentch included (Birdy, Discord 2026-11-19).
+  const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && (statModMark === 'Tzeentch' || allMarks || !!item.blackCrusadeHQ);
   // Horus Heresy Thousand Sons (Cult Arcana, part of the archetype): every unit that is not a character, a Monstrous Creature or a vehicle is a Psyker
   const isArchetypePsyker = !!rule?.unitsArePsykers && !unit.is_psyker && !unit.is_character && !unit.is_monster && !unit.is_vehicle && !/monstrous/i.test(unit.unit_type ?? '');
   // Horus Heresy: the mark of Thousand Sons / Word Bearers makes a character model or Monstrous Creature a psyker
@@ -1362,6 +1363,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // their own factionSource without being an allied detachment in the rules sense.
   const isAlliedDetachmentUnit = !!(state.alliedFaction && isAlliedEntry(item, state.alliedFaction));
   const activeExarchPowers = getActiveExarchPowers(unit, item);
+  const exarchAlone = !!activeVariant && totalModels > 1;
   // Ability-text grants (unitAbility, and allWeapons' named ability/Deadly-stacking) are handled
   // here via weaponTraitMap/grantedAbilities; the numeric rangeDelta half is applied separately in
   // computeWeaponGroups via applyExarchAllWeaponsRangeBoost, same split as every other
@@ -1370,6 +1372,16 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     const ep = EXARCH_POWER_EFFECTS[powerName];
     if (!ep) continue;
     if (ep.unitAbility) equipMods.grantedAbilities.push(ep.unitAbility);
+    // "Melee attacks OF THE MODEL gain Piercing(5+)": the Exarch's own weapons. In a squad the weapon rows are shared by every model, so
+    // writing the grant on them made all the squad's weapons look upgraded (TeCrisis, Discord). Until the Exarch has a row of his own it is
+    // shown as what it is, an ability of the Exarch.
+    if (exarchAlone && ep.allWeapons && powerName !== "Reaper's reach") {   // Reaper's reach says "of the model AND ITS ATTACHED UNIT": the whole squad
+      const aw = ep.allWeapons;
+      const what = aw.type === 'all' ? 'weapons' : `${aw.type} weapons`;
+      const gives = [aw.ability, aw.deadlyStack ? 'Deadly(5+)' : '', aw.atDelta ? `+${aw.atDelta} AT` : '', aw.rangeDelta ? `+${aw.rangeDelta}" range` : ''].filter(Boolean).join(', ');
+      if (gives) equipMods.grantedAbilities.push(`${powerName} (the Exarch only): his ${what} gain ${gives}`);
+      continue;
+    }
     if (ep.allWeapons?.ability || ep.allWeapons?.deadlyStack || ep.allWeapons?.atDelta) {
       for (const weapon of weapons) {
         const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
@@ -2492,6 +2504,12 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
           const wordCounts: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6 };
           const partCopies = countMatch ? (countMatch[1] ? parseInt(countMatch[1], 10) : wordCounts[countMatch[2].toLowerCase()]) : 1;
           const partBare = part.replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/i, '').replace(/s$/, '').trim().toLowerCase();
+          // The choice can carry the profile mode in its name ("Scorpion claw - Melee"); the weapon is then listed as "Scorpion claw - Melee"
+          // and "Scorpion claw - Shooting", whose base name is the same. Without this the grant matched nothing and the Exarch's claw counted for the whole squad.
+          // Only for a weapon the unit does NOT already carry: when it does (the Shining Spears' Exarch swaps his sabre for a Laser lance,
+          // and every Spear has one) the squad's own count already includes it and adding the grant would count it twice.
+          const partBase0 = baseName(partBare).toLowerCase();
+          const partBase = (unit.equipped_with ?? '').toLowerCase().includes(partBase0) ? partBare : partBase0;
           // Match the choice against the weapon with BOTH multi-profile spellings stripped —
           // " - Krak" and "(Bolt ammo)". Comparing only the former meant an ammo-profile weapon
           // never registered a granted quantity and fell back to the model count (GH#89).
@@ -2502,7 +2520,8 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
             // has to lose its own "s" too, or "two Hellstrike missiles" granted nothing and the row printed a single missile (Vulture).
             const wl = wb.toLowerCase().replace(/s$/, ''), wsl = wbStripped.toLowerCase().replace(/s$/, '');
             return wb === part || wbStripped === part
-              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare || wl === partBare || wsl === partBare;
+              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare || wl === partBare || wsl === partBare
+              || (partBase !== partBare && (wb.toLowerCase() === partBase || wl === partBase));
           });
           if (matched) {
             const key = baseName(matched.name);
@@ -3379,7 +3398,10 @@ function getActiveExarchPowers(unit: Unit, item: RosterEntry): string[] {
  * grant to the model, not to a per-weapon bonus).
  */
 function applyExarchAllWeaponsRangeBoost(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
-  const activePowers = getActiveExarchPowers(unit, item);
+  // One model of a squad: the +6" is the Exarch's, shown as his ability (see resolveBase), not added to every weapon of the squad.
+  const totalModelsHere = (unit.models ?? []).reduce((n, m) => n + (m.max ?? 1), 0);
+  const exarchAloneHere = !!getActiveVariant(item, unit) && totalModelsHere > 1;
+  const activePowers = getActiveExarchPowers(unit, item).filter(p => !exarchAloneHere || p === "Reaper's reach");   // that one is "of the model and its attached unit"
   const delta = activePowers.reduce((sum, p) => sum + (EXARCH_POWER_EFFECTS[p]?.allWeapons?.rangeDelta ?? 0), 0);
   if (!delta) return groups;
   const boost = (w: Weapon): Weapon => {

@@ -548,7 +548,7 @@ export const EXARCH_POWER_EFFECTS: Record<string, ExarchPowerEffect> = {
   // consolidates into an enemy unit, that unit may not use Defensive Fire."
   'Lightning attacks': { unitAbility: 'Consolidate 6" after winning melee; target loses Defensive Fire' },
   // SOURCE: "Melee attacks of the model gain Armor piercing(5+)."
-  'Piercing strike': { allWeapons: { type: 'melee', ability: 'Armor piercing(5+)' } },
+  'Piercing strike': { allWeapons: { type: 'melee', ability: 'Piercing(5+)' } },   // the sheet writes Piercing(5+) since the rename
   // SOURCE: "The model and its unit gain the 'Hit & Run' ability."
   'Rapid redeployment': { unitAbility: 'Hit & Run' },
   // SOURCE: "Ranged weapons of the model and its attached unit gain +6\" range." — only the

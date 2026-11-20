@@ -661,7 +661,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   /** True when the item requires a mark the unit doesn't have. markless (HH supplement) carries no
    *  marks — a trailing ᵀ is Terminator-compat, never Tzeentch (ki-hh-tcollision-01). */
   function isMarkBlocked(arm: ArmoryItem): boolean {
-    return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark, allMarks: ascendedDaemonPrince });
+    // the Black Crusade champion has all four Marks too, so a "Nurgle only" item is open to him (Birdy, Discord 2026-11-19)
+    return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark, allMarks: ascendedDaemonPrince || !!(army.find(e => e.id === item.id) ?? item).blackCrusadeHQ });
   }
 
   // Faction capability flags — use activeData (allied faction's armory for allied units)
