@@ -418,6 +418,8 @@ todo lo del ejército que no es una unidad: doctrina, legacy, traits y el Destac
 excepción es cambiar de facción con unidades ya puestas, y eso pregunta antes. Toda pantalla a la
 que llegue un jugador tiene que tener una salida visible que no destruya su trabajo.
 
+> **Nuevo: [ARCHITECTURE.md](ARCHITECTURE.md)** (en inglés) explica cómo encajan los datos, el store, el motor y las vistas, los casos especiales y qué revisar al tocar cada parte. Léelo antes de cambiar el motor.
+
 ### Archivos del motor
 
 | Archivo | Responsabilidad |

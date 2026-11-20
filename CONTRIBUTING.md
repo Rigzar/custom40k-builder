@@ -438,6 +438,8 @@ catalogue and the list, with a Primary / Allied switch when an ally exists.
 exception is switching to a different faction with units on the table, and it asks first. Any
 screen a player can reach must have a visible way out that does not destroy their work.
 
+> **New: [ARCHITECTURE.md](ARCHITECTURE.md)** explains how the data, the store, the engine and the views fit together, the special cases, and what to check when you touch each part. Read it before changing the engine.
+
 ### Engine files
 
 | File | Responsibility |

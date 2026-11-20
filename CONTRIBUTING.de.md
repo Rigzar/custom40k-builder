@@ -421,6 +421,8 @@ einzige Ausnahme ist der Wechsel zu einer anderen Fraktion, waehrend Einheiten i
 stehen, und der fragt vorher nach. Jeder Bildschirm, den ein Spieler erreichen kann, braucht einen
 sichtbaren Ausgang, der seine Arbeit nicht zerstoert.
 
+> **Neu: [ARCHITECTURE.md](ARCHITECTURE.md)** (auf Englisch) erklärt, wie Daten, Store, Engine und Ansichten zusammenspielen, die Sonderfälle und was man beim Ändern jedes Teils prüfen muss. Vor Änderungen an der Engine lesen.
+
 ### Engine-Dateien
 
 | Datei | Zuständigkeit |
