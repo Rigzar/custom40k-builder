@@ -79,7 +79,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'deadly': {
     name: 'Deadly({X})',
-    description: 'Successful wound rolls of {X} increase the Damage value of the attack by +1.',
+    description: 'For each unmodified wound roll of {X} that successfully wounds the target, increase the Damage value of that attack by 1.',
   },
   'decimate': {
     name: 'Decimate',
@@ -87,7 +87,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'deflagrate': {
     name: 'Deflagrate({X})',
-    description: 'Successful hit rolls of {X} score an additional hit. Does not work with Blast(x) weapons.',
+    description: 'Each successful unmodified hit roll of {X} scores one additional hit. Does not work with Blast(x) weapons.',
   },
   'extra attack': {
     name: 'Extra Attack({X})',
@@ -141,7 +141,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'monofilament': {
     name: 'Monofilament',
-    description: 'If at least one hit has been scored with the weapon, the target counts as being in difficult and dangerous terrain until the end of the next activation of the target unit.',
+    description: 'If at least one hit has been scored with the weapon, the target counts as being in dangerous terrain until the end of the next activation of the target unit.',
   },
   'overheating': {
     name: 'Overheating',
@@ -149,15 +149,15 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'piercing': {
     name: 'Piercing({X})',
-    description: 'Successful wound rolls of {X} always succeed and gain an additional -2 AP. Successful armor penetration rolls of {X} gain a +2 bonus to the result and are considered to have AT(1) unless their AT is already higher.',
+    description: 'Unmodified wound rolls of {X} always succeed and improve the attack\'s AP by -2. Successful armor penetration rolls of {X} gain a +2 bonus to the result and are considered to have AT(1) unless their AT is already higher.',
   },
   'poison': {
     name: 'Poison({X})',
-    description: 'Wound rolls of {X} against creatures always succeed. Can be affected by effects that give bonuses or penalties to wound rolls.',
+    description: 'Unmodified wound rolls of {X} against creatures always succeed. Can be affected by effects that give bonuses or penalties to wound rolls.',
   },
   'precision': {
     name: 'Precision({X})',
-    description: "Successful hit rolls of {X} automatically wound creatures. Can't be used with \"Blast(x)\" weapons.",
+    description: "Each successful unmodified hit roll of {X} automatically wounds creatures. Can't be used with \"Blast(x)\" weapons.",
   },
   'psi-shock': {
     name: 'Psi-shock',
@@ -173,7 +173,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'rending': {
     name: 'Rending({X})',
-    description: 'Successful wound rolls of {X} gain an additional bonus of -1 to their AP.',
+    description: 'Each successful unmodified wound roll of {X} improves the attack\'s AP by -1.',
   },
   'seeking': {
     name: 'Seeking',
@@ -197,7 +197,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'soul burn': {
     name: 'Soul Burn({X})',
-    description: 'Successful wound rolls of {X} against Creatures inflict 1 Mortal Wound in addition to any normal weapon damage, even if the wound gets saved. Does not work against Vehicles. Excess wounds do not spill over to the next model, as the Mortal Wound is part of the original attack.',
+    description: 'Each successful unmodified wound roll of {X} against Creatures inflicts 1 Mortal Wound in addition to normal weapon damage, even if the wound gets saved. Does not work against Vehicles. Excess wounds do not spill over to the next model, as the Mortal Wound is part of the original attack.',
   },
   'sunder': {
     name: 'Sunder({X})',
