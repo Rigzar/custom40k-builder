@@ -7,7 +7,7 @@ import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlotFor, cleanArchetypeName } from '../engine/archetypes';
 import { archetypeRequiredLegacy, secondTraitGate } from '../lib/legacyGatedChoices';
 import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
-import { allowEngagementChange } from '../utils/engagementGuard';
+import { allowEngagementChange, commitPointsLimit } from '../utils/engagementGuard';
 import { archetypeAllowedInSkirmish } from '../engine/skirmishRules';
 import { useT } from '../i18n';
 import { FACTION_NAMES } from '../utils/factionLabel';
@@ -47,6 +47,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const data = isAllied ? store.alliedData : store.data;
   const army = store.army;
   const { engagement, setEngagement, setPointLimit, pointLimit, setHqMark } = store;
+  const [pointDraft, setPointDraft] = useState<string | null>(null);   // typing stays free text; the size is committed on blur / Enter
   const archetype = (isAllied ? store.alliedArchetype : store.archetype) ?? '';
   const legacy = (isAllied ? store.alliedLegacy : store.legacy) ?? '';
   const legacy2 = isAllied ? '' : store.legacy2;
@@ -93,9 +94,12 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
               <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('pointsLimit')}</span>
               <input
                 type="number"
-                value={pointLimit}
-                onChange={e => setPointLimit(Number(e.target.value))}
-                step={250}
+                value={pointDraft ?? pointLimit}
+                onChange={e => setPointDraft(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
+                onBlur={e => { const raw = e.target.value.trim(); commitPointsLimit(raw === '' ? pointLimit : Number(raw), engagement, t('skirmishDropsArchetypeConfirm'), setEngagement, setPointLimit); setPointDraft(null); }}
+                min={ENGAGEMENTS.skirmish.min}
+                step={50}
                 className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm
                   focus:outline-none focus:border-amber-600 text-center tabular-nums"
               />
@@ -214,9 +218,12 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
             <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('pointsLimit')}</span>
             <input
               type="number"
-              value={pointLimit}
-              onChange={e => setPointLimit(Number(e.target.value))}
-              step={250}
+              value={pointDraft ?? pointLimit}
+              onChange={e => setPointDraft(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
+              onBlur={e => { const raw = e.target.value.trim(); commitPointsLimit(raw === '' ? pointLimit : Number(raw), engagement, t('skirmishDropsArchetypeConfirm'), setEngagement, setPointLimit); setPointDraft(null); }}
+              min={ENGAGEMENTS.skirmish.min}
+              step={50}
               className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm
                 focus:outline-none focus:border-amber-600 text-center tabular-nums"
             />

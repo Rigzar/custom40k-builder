@@ -8,7 +8,7 @@ import { useTheme } from '../theme';
 import { useT } from '../i18n';
 import { visibleCategories, isAlphaFaction, STATUS_DOT, STATUS_I18N_KEY, newerCodexVersion } from '../data/factionCatalog';
 import { ENGAGEMENTS } from '../engine/engagements';
-import { allowEngagementChange } from '../utils/engagementGuard';
+import { allowEngagementChange, commitPointsLimit } from '../utils/engagementGuard';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import type { EngagementType } from '../types/army';
 
@@ -59,8 +59,7 @@ export function FactionStep({
     const eng = ENGAGEMENTS[e];
     if (!allowEngagementChange(e, t('skirmishDropsArchetypeConfirm'))) return;
     setEngagement(e);
-    if (pointLimit < eng.min) setPointLimit(eng.min);
-    else if (pointLimit > eng.max) setPointLimit(eng.max);
+    void eng;   // the store sets the new type's default size
   }
 
   return (
@@ -108,16 +107,13 @@ export function FactionStep({
                 // into the minimum and the field could only ever end up at min or max — the
                 // "can't change pts limit on mobile, it's just 1000 or 2499" Discord report.
                 value={pointDraft ?? pointLimit}
-                min={ENGAGEMENTS[engagement].min}
-                max={ENGAGEMENTS[engagement].max}
-                step={250}
+                min={ENGAGEMENTS.skirmish.min}
+                step={50}
                 onChange={e => setPointDraft(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
                 onBlur={e => {
-                  const eng = ENGAGEMENTS[engagement];
                   const raw = e.target.value.trim();
-                  const v = raw === '' ? pointLimit : Number(raw);
-                  setPointLimit(Number.isFinite(v) ? Math.min(eng.max, Math.max(eng.min, v)) : pointLimit);
+                  commitPointsLimit(raw === '' ? pointLimit : Number(raw), engagement, t('skirmishDropsArchetypeConfirm'), setEngagement, setPointLimit);
                   setPointDraft(null);
                 }}
                 className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm

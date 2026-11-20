@@ -1446,15 +1446,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   //
   // An empty army is exempt entirely: a list you have not started is not an unfinished list.
   if (total > 0) {
-    const short = (min: number) => T('valPointsToGo', { short: min - total, min, total });
-    if (state.engagement === 'skirmish') {
-      if (total < eng.min) items.push({ type: 'info', text: short(eng.min) });
-      if (total > eng.max) items.push({ type: 'error', text: T('valSkirmishCap', { total }) });
-    } else if (state.engagement === 'pitched') {
-      if (total < eng.min) items.push({ type: 'info', text: short(eng.min) });
-      if (total > eng.max) items.push({ type: 'error', text: T('valPitchedCap', { total }) });
-    } else {
-      if (total < 4000) items.push({ type: 'info', text: short(4000) });
+    // Missions, Nov 2026: the headings are "small / default / big sized games" and "Army size recommendation is 1000-1500 points per player" is only
+    // a recommendation, so a points limit outside it is a note and the player's own limit (checked below) is the one that binds.
+    if (state.pointLimit < eng.min || state.pointLimit > eng.max) {
+      items.push({ type: 'info', text: T('valOutsideRecommended', { limit: state.pointLimit, range: eng.range, name: eng.name }) });
     }
   }
 
@@ -3057,6 +3052,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       items.push({ type: 'error', text: T('valSkirmishUniqueLimit', { count: totalUnique, names }) });
     }
 
+    // Missions, Nov 2026: "A single unit in your army may have Toughness 8. All remaining units may not exceed Toughness 7" and the same for a
+    // combined armour value of 34 (it used to bar every unit). The first offender in the list is the one allowed; each further one is an error.
+    const t8Offenders: Array<{ id: string; text: string }> = [];
+    const av34Offenders: Array<{ id: string; text: string }> = [];
+    const noteOffender = (list: Array<{ id: string; text: string }>, id: string, text: string) => { if (!list.some(o => o.id === id)) list.push({ id, text }); };
+
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
@@ -3074,7 +3075,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // for the whole army above, and are not restricted by slot.
       // The upgrade that MAKES the unit an HQ counts too (Chief Apothecary, Master of the Forge, Ascended Daemon Prince): Dominic
       // ruled it once per army like the Lieutenant's Captain, so it is barred in Skirmish (TeCrisis, Discord 2026-11-16).
-      if (effSlot === 'HQ' || variantIsHq(item, u, item.slot)) {
+      // Missions, Nov 2026: "Models may not take 'once per army' upgrades" (it used to say HQ models), so it is every unit now.
+      {
         u.option_groups.forEach((g, gi) => {
           if (g.constraint.type !== 'unique_upgrade') return;
           const picked = item.optionQty?.[gi];
@@ -3120,7 +3122,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (vStats?.FRONT && vStats?.SIDE && vStats?.REAR) {
         const combined = parseInt(vStats.FRONT) + parseInt(vStats.SIDE) + parseInt(vStats.REAR);
         if (combined >= 34) {
-          items.push({ type: 'error', text: T('valSkirmishCombinedArmour', { unit: item.unitName, combined, front: vStats.FRONT, side: vStats.SIDE, rear: vStats.REAR }) });
+          noteOffender(av34Offenders, item.id, T('valSkirmishCombinedArmour', { unit: item.unitName, combined, front: vStats.FRONT, side: vStats.SIDE, rear: vStats.REAR }));
         }
       }
 
@@ -3164,7 +3166,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         .filter(v => Number.isFinite(v));
       const bestT = tPrinted.length ? Math.max(...tPrinted) : null;
       if (bestT !== null && bestT >= 8) {
-        items.push({ type: 'error', text: T('valSkirmishToughnessBase', { unit: item.unitName, t: bestT }) });
+        noteOffender(t8Offenders, item.id, T('valSkirmishToughnessBase', { unit: item.unitName, t: bestT }));
       }
 
       // Saves and Toughness that an OPTION, an Armory item's effect or a Trait improves through a stat modifier (Tyranid Hardened Carapace:
@@ -3193,7 +3195,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const baseTopt = parseInt(String(u.models[0]?.stats?.T ?? '0'));
         const tDelta = sumMods('T');
         if (baseTopt > 0 && baseTopt < 8 && tDelta > 0 && baseTopt + tDelta >= 8) {
-          items.push({ type: 'error', text: T('valSkirmishToughnessGain', { unit: item.unitName, t: baseTopt + tDelta }) });
+          noteOffender(t8Offenders, item.id, T('valSkirmishToughnessGain', { unit: item.unitName, t: baseTopt + tDelta }));
         }
       }
 
@@ -3229,7 +3231,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const baseT = parseInt(String(u.models[0]?.stats?.T ?? '0'));
         const gainedT = mods.statDeltas['T'] ?? 0;
         if (baseT > 0 && baseT + gainedT >= 8) {
-          items.push({ type: 'error', text: T('valSkirmishToughnessGain', { unit: item.unitName, t: baseT + gainedT }) });
+          noteOffender(t8Offenders, item.id, T('valSkirmishToughnessGain', { unit: item.unitName, t: baseT + gainedT }));
         }
 
         // Weapon Damage 3+ from any bought weapon item
@@ -3243,6 +3245,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         }
       }
     }
+    for (const o of t8Offenders.slice(1)) items.push({ type: 'error', text: o.text });
+    for (const o of av34Offenders.slice(1)) items.push({ type: 'error', text: o.text });
   }
 
   // XV85 Enforcer: "it may select one more weapon OR support system" -- the extra is ONE, taken as either, so weapons beyond the base three

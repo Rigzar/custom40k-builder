@@ -52,7 +52,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       "INQUISITION (Discord, TeCrisis). A Henchman Warband was flagged as having a 2+ armour save in Skirmish because the optional Crusaders (2+) exist on the datasheet even when none is taken; only the models you take count now. The Inquisitor's Priest and Psyker upgrades are one choice: ticking one unticks the other.",
       "BLACK CRUSADE CHAMPION (Chaos Space Marines, Discord, Birdy). Having every Mark, he now also gets the Mark of Tzeentch's Psyker, as the single Mark does. The Armory no longer closes Mark-specific items to him.",
       "BATTLE VIEW (Dark Eldar, Eldar, Harlequins, Custodes, Orks, Discord, Ed). The deployment rule bought with Webway raid / Webway strike / Lightning strike / Tellyporta (Infiltrators, Deep Strike) is listed in the battle view, as on the card and the printout.",
-      "ARMY SIZE (Discord, Ed). The setup screen forced 1000-1500 for Skirmish and 2500-3500 for Pitched Battle, so a 2000-point list could not be built. The two sizes now meet: Skirmish 1000-1750 and Pitched Battle 1751-3500 (the Missions text calls the sizes a recommendation).",
+      "ARMY SIZE (Discord, Ed, TeCrisis). The setup screen forced 1000-1500 for Skirmish and 2500-3500 for Pitched Battle, so a 2000-point list could not be built. The three sizes now meet, with no gap: Skirmish 1000-1750, Pitched Battle 1751-3500 and Epic Battle from 3501. You can type any size or step by 50; if the size you type belongs to another battle type, the battle type changes with it (it asks first when that would drop an archetype).",
+      "SKIRMISH FOLLOWS THE NEW MISSIONS (Unwise). The Missions changed: one unit in the army may have Toughness 8 and one a combined armour value of 34 (all the others may not), so only the second and later ones are flagged; and \"Models may not take once per army upgrades\" now applies to every unit, not only HQ units.",
     ],
   },
   {

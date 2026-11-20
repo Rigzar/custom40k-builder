@@ -71,7 +71,7 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
     notes: 'Standard engagement · ≥25% Troops · multi-AOP allowed',
   },
   epic: {
-    name: 'Epic Battle', range: '4000+ pts', min: 4000, max: 50000, default: 5000,
+    name: 'Epic Battle', range: '3501+ pts', min: 3501, max: 50000, default: 5000,
     aop: {
       HQ: [1,2], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
       'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,2],
@@ -118,4 +118,14 @@ export function maxArmyTraits(
  */
 export function engagementFor(engKey: string, _factionName?: string | null): Engagement {
   return ENGAGEMENTS[engKey] ?? ENGAGEMENTS.pitched;
+}
+
+/**
+ * The battle type whose size band holds `points`. The bands meet (Skirmish up to 1750, Pitched Battle from 1751 to 3500, Epic Battle from 3501), so every
+ * size belongs to exactly one type and a player who types a size in another band moves to that type (Ed, TeCrisis and Rigzar, Discord Nov 2026: nothing
+ * between 1500 and 2500 could be built).
+ */
+export function engagementForPoints(points: number): 'skirmish' | 'pitched' | 'epic' | null {
+  for (const k of ['skirmish', 'pitched', 'epic'] as const) if (points >= ENGAGEMENTS[k].min && points <= ENGAGEMENTS[k].max) return k;
+  return null;
 }
