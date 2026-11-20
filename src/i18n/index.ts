@@ -195,7 +195,7 @@ export type TranslationKey =
   | 'valOrdoMinorisExcess'
   | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord' | 'valNavyWarbandPerTrader' | 'valSectorProtectorWarbandMin'
   | 'valCsmLegacyKhorne' | 'valCsmLegacyUnitRestrict'
-  | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
+  | 'valSm1stCompanyHonorGuardMin' | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
   | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian'
   | 'valDeCoordRaidNoDracon' | 'valDeCoordRaidNoHaemonculus' | 'valDeCoordRaidNoSuccubus'
   | 'valDeCoordRaidTraitCoven' | 'valDeCoordRaidTraitKabal' | 'valDeCoordRaidTraitCult'
@@ -1362,6 +1362,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valCsmLegacyKhorne: '{armory} armory — "{item}": only for models with the Mark of Khorne ({unit} has Mark of {mark}).',
     valCsmLegacyUnitRestrict: '{armory} armory — "{item}": {restriction} (cannot be equipped on {unit}).',
     valSm1stCompanyForbidden: '1st Company: "{unit}" is not allowed in this archetype.',
+    valSm1stCompanyHonorGuardMin: '1st Company: an Honor Guard squad needs at least 5 models (it has {n}) and can never use Squadron.',
     valSmForlornBrothers: 'Forlorn Brothers: "{unit}" requires the "Black Rage" equipment (Blood Angels Legacy) or must be a Dreadnought/transport.',
     valSmExpandedArmory: 'Expanded Armory: {unit} has items from multiple legacy armories. Each unit may only use one.',
     valSmOneCaptain: 'Only one Captain or Captain Dreadnought per army.',
@@ -2568,6 +2569,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valCsmLegacyKhorne: '{armory}-Rüstkammer — „{item}": nur für Modelle mit der Mark des Khorne ({unit} hat Mark des {mark}).',
     valCsmLegacyUnitRestrict: '{armory}-Rüstkammer — „{item}": {restriction} (nicht ausrüstbar für {unit}).',
     valSm1stCompanyForbidden: '1. Kompanie: „{unit}" ist in diesem Archetyp nicht erlaubt.',
+    valSm1stCompanyHonorGuardMin: '1. Kompanie: Eine Honor-Guard-Einheit braucht mindestens 5 Modelle (hat {n}) und darf nie Squadron nutzen.',
     valSmForlornBrothers: 'Verlorene Brüder: „{unit}" benötigt das Ausrüstungsstück „Schwarze Wut" (Blood-Angels-Vermächtnis) oder muss ein Dreadnought/Transport sein.',
     valSmExpandedArmory: 'Erweiterte Rüstkammer: {unit} hat Gegenstände aus mehreren Legionsrüstkammern. Jede Einheit darf nur eine verwenden.',
     valSmOneCaptain: 'Nur ein Captain oder Dreadnought-Captain pro Armee.',
@@ -3774,6 +3776,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valCsmLegacyKhorne: 'Armería {armory} — "{item}": solo para modelos con la Marca de Khorne ({unit} tiene Marca de {mark}).',
     valCsmLegacyUnitRestrict: 'Armería {armory} — "{item}": {restriction} (no se puede equipar en {unit}).',
     valSm1stCompanyForbidden: '1.ª Compañía: "{unit}" no está permitida en este arquetipo.',
+    valSm1stCompanyHonorGuardMin: '1.ª Compañía: una escuadra de Honor Guard necesita al menos 5 modelos (tiene {n}) y nunca puede usar Squadron.',
     valSmForlornBrothers: 'Hermanos Perdidos: "{unit}" requiere el equipo "Black Rage" (Legado Blood Angels) o debe ser un Dreadnought/transporte.',
     valSmExpandedArmory: 'Armería Ampliada: {unit} tiene objetos de varias armerías de legión. Cada unidad solo puede usar una.',
     valSmOneCaptain: 'Solo un Captain o Captain Dreadnought por ejército.',

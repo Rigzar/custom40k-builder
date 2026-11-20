@@ -757,6 +757,7 @@
  "valCsmLegacyKhorne": "Арсенал {armory} — «{item}»: только для моделей с Меткой Кхорна (у {unit} Метка {mark}).",
  "valCsmLegacyUnitRestrict": "Арсенал {armory} — «{item}»: {restriction} (нельзя взять для {unit}).",
  "valSm1stCompanyForbidden": "1-я рота: «{unit}» не допускается в этом архетипе.",
+ "valSm1stCompanyHonorGuardMin": "1-я рота: отряд Honor Guard должен иметь не менее 5 моделей (сейчас {n}) и никогда не может использовать Squadron.",
  "valSmForlornBrothers": "Forlorn Brothers: «{unit}» требует снаряжение «Black Rage» (Наследие Кровавых Ангелов) либо должен быть Дредноутом/транспортом.",
  "valSmExpandedArmory": "Расширенный арсенал: у {unit} предметы из нескольких арсеналов Наследий. Каждый отряд может использовать только один.",
  "valSmOneCaptain": "Только один Капитан или Капитан-Дредноут на армию.",

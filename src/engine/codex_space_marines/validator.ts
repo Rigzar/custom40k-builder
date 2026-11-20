@@ -45,6 +45,11 @@ export function validateSpaceMarines(
           text: T('valSm1stCompanyForbidden', { unit: item.unitName }),
         });
       }
+      // Sheet 1.15, Army Customisation > 1st Company: Honor Guard "must have a minimal squad size of 5 models and can never
+      // make use of the Squadron ability".
+      if (item.unitName === 'Honor Guard' && item.size < 5) {
+        items.push({ type: 'error', text: T('valSm1stCompanyHonorGuardMin', { n: item.size }) });
+      }
     }
   }
 

@@ -37,7 +37,7 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
     notes: [
       'Restricted to: 1x Captain Dreadnought or Lieutenant, 1x Chaplain (or Dreadnought), 1x Emperor\'s Champion, 1x Librarian (or Dreadnought), 1x Ancient, 1x Apothecary, 1x Company Champion, Deathwing Knights, Dreadnoughts, Honor Guard, 1x Judicar, 1x Techmarine, Terminator Squads, Land Raiders, Repulsors, Drop Pods.',
       'Honor Guard and Terminator Squads count as Troops.',
-      'Honor Guard units are no longer limited to 1 per HQ selection.',
+      'Honor Guard units are no longer limited to 1 per HQ selection, but need a squad of at least 5 models and can never use Squadron.',
       'All units gain "Objective secured!".',
       'HQ models must gain their "once per army" upgrade if possible.',
     ],

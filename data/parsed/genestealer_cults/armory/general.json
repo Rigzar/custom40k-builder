@@ -239,6 +239,13 @@
       "p_char": 30
     },
     {
+      "name": "Elder",
+      "term_compat": false,
+      "desc": "The model can manifest and deny an additional psychic power per turn. Psykers only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
       "name": "Cult relic",
       "term_compat": false,
       "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
