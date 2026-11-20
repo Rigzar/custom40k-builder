@@ -14,6 +14,7 @@ import elites_sacristan_maiden from './elites/sacristan_maiden.json';
 import fast_attack_lancers from './fast_attack/lancers.json';
 import fast_attack_mounted_pistoleers from './fast_attack/mounted_pistoleers.json';
 import fast_attack_yeomen from './fast_attack/yeomen.json';
+import heavy_support_knight_crusader from './heavy_support/knight_crusader.json';
 import heavy_support_knight_paladin from './heavy_support/knight_paladin.json';
 import heavy_support_lancebreakers from './heavy_support/lancebreakers.json';
 import heavy_support_siegebreakers from './heavy_support/siegebreakers.json';
@@ -39,6 +40,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Men-at-Arms"
   ],
   "Heavy Support": [
+    "Knight Crusader",
     "Knight Paladin",
     "Lancebreakers",
     "Siegebreakers"
@@ -62,6 +64,7 @@ export const units: Record<string, Unit> = {
   "War Wagon": dedicated_transport_war_wagon as unknown as Unit,
   "Feudal Levy": troops_feudal_levy as unknown as Unit,
   "Men-at-Arms": troops_men_at_arms as unknown as Unit,
+  "Knight Crusader": heavy_support_knight_crusader as unknown as Unit,
   "Knight Paladin": heavy_support_knight_paladin as unknown as Unit,
   "Lancebreakers": heavy_support_lancebreakers as unknown as Unit,
   "Siegebreakers": heavy_support_siegebreakers as unknown as Unit,

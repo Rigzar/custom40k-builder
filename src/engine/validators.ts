@@ -27,7 +27,7 @@ import { parseInvSaveFromAbilities } from './equipMods';
 import { ownWardAbilities } from '../lib/wardSave';
 import { parseEquipMods, isUniqueItem, weaponCopiesPerModel, enhancementsUniquePerArmy } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS, csmLegacySlotBonus, legacySlotBonusOnly } from './codex_csm/legacies';
-import { getAssassinAccessAlignment } from './keywords';
+import { getAssassinAccessAlignment, entryHasKeyword } from './keywords';
 import { FACTION_NAMES } from '../utils/factionLabel';
 import { archetypeAllowedInSkirmish, SKIRMISH_ALLY_TROOPS, SKIRMISH_ALLY_EXTRA_SLOTS, SKIRMISH_ALLY_EXTRA_MAX } from './skirmishRules';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
@@ -2069,6 +2069,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (!u) continue;
         const native = (u.abilities ?? []).some(a => String(a).split(/,(?![^(]*\))/).some(t => isDaemonAbility(t.split(':')[0])));
         if (native) continue;
+        // "If it has the 'Daemon' (or 'Greater Daemon') keyword for any reason it is a valid unit choice" (Unwise, 2026-11-21).
+        if (entryHasKeyword(u, item, 'Daemon', rule) || entryHasKeyword(u, item, 'Greater Daemon', rule)) continue;
         const rp = resolveUnitProfile(item, u, state, data);
         const bought = rp.equipMods.grantedAbilities.some(isDaemonAbility)
           || rp.optionAbilities.some(t => /["“](Greater )?Daemon["”]/i.test(t));

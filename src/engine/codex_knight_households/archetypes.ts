@@ -7,9 +7,9 @@ import { BASE } from '../archetypes/base';
 export const KNIGHT_HOUSEHOLD_ARCHETYPES: Record<string, ArchetypeRule> = {
   // "- A single <Scion> and <Knight> must be selected as an allied force. - No other unit from the codex "Knight Households" may be selected."
   'Freeblade': { ...BASE,
-    allowedUnitsOnly: ['Scion', 'Knight Paladin'],
+    allowedUnitsOnly: ['Scion', 'Knight Paladin', 'Knight Crusader'],
     notes: [
-      'Only a Scion and a Knight Paladin may be selected, as an allied force.',
+      'Only a Scion and one Knight (Knight Paladin or Knight Crusader) may be selected, as an allied force.',
       'No other unit of the Knight Households codex may be selected.',
     ],
   },
