@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190c_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -64,6 +64,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Army size", "No gaps between battle types: Skirmish 1000–1750, Pitched 1751–3500, Epic from 3501. Type any size or step by 50; a size from another band switches the battle type."],
         ["Skirmish", "Follows the new Missions: one unit may have Toughness 8 and one a combined armour value of 34 (the others may not), and \"once per army\" upgrades are barred for every unit, not only HQ."],
         ["Battle view", "Lists the deployment rule bought with Webway raid, Webway strike, Lightning strike or Tellyporta."],
+        ["Sheets", "New sheet versions: hand flamers are Strength 3 and Pistol 2 and cheaper in the Armory; Genestealer Cults Magus and Patriarch cast and deny 1 power and the Armory has the Elder; Necron Scarabs carry the Disruptor field (Gauss); Knight Households, Imperial Navy, Inquisition and other Armory updates; Space Marines 1st Company needs 5 Honor Guard. The Black Crusade champion lists Psyker(1) with his Marks."],
       ] },
       { label: "Bugs (GitHub)", rows: [
         ["#288", "Skirmish: an upgrade that takes a unit to a 2+ save or Toughness 8 (Hardened Carapace) is flagged now."],
@@ -103,6 +104,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Armeegröße", "Keine Lücken zwischen den Schlachttypen: Skirmish 1000–1750, Pitched 1751–3500, Epic ab 3501. Beliebige Größe eingeben oder in 50er-Schritten ändern; eine Größe aus einem anderen Bereich wechselt den Schlachttyp."],
         ["Skirmish", "Folgt den neuen Missions: eine Einheit darf Widerstand 8 und eine einen kombinierten Panzerungswert von 34 haben (alle anderen nicht), und „einmal pro Armee“-Upgrades sind für jede Einheit gesperrt, nicht nur für HQ."],
         ["Schlachtansicht", "Zeigt die Aufstellungsregel von Webway raid, Webway strike, Lightning strike oder Tellyporta."],
+        ["Blätter", "Neue Blattversionen: Handflammenwerfer haben Stärke 3 und Pistol 2 und sind im Arsenal billiger; Magus und Patriarch der Genestealer Cults wirken und bannen 1 Kraft, das Arsenal hat den Elder; die Skarabäen der Necrons tragen das Disruptor field (Gauss); Updates für Knight Households, Imperial Navy, Inquisition und weitere Arsenale; Space Marines 1. Kompanie braucht 5 Honor Guard. Der Black-Crusade-Champion zeigt Psyker(1) bei seinen Malen."],
       ] },
       { label: "Fehler (GitHub)", rows: [
         ["#288", "Skirmish: ein Upgrade, das eine Einheit auf 2+-Rettungswurf oder Widerstand 8 bringt (Hardened Carapace), wird jetzt gemeldet."],
@@ -142,6 +144,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Tamaño del ejército", "Sin huecos entre tipos de batalla: Skirmish 1000–1750, Pitched 1751–3500, Epic desde 3501. Escribe cualquier tamaño o sube de 50 en 50; un tamaño de otra franja cambia el tipo de batalla."],
         ["Skirmish", "Sigue las nuevas Missions: una unidad puede tener Resistencia 8 y una un blindaje combinado de 34 (las demás no), y las mejoras “una vez por ejército” están prohibidas para toda unidad, no solo para HQ."],
         ["Vista de batalla", "Muestra la regla de despliegue comprada con Webway raid, Webway strike, Lightning strike o Tellyporta."],
+        ["Hojas", "Nuevas versiones de las hojas: los lanzallamas de mano son Fuerza 3 y Pistol 2 y cuestan menos en la armería; el Magus y el Patriarca de Genestealer Cults lanzan y niegan 1 poder y la armería tiene el Elder; los Scarabs de Necrons llevan el Disruptor field (Gauss); actualizaciones de Knight Households, Imperial Navy, Inquisition y otras armerías; la 1.ª Compañía de Space Marines exige 5 Honor Guard. El campeón de Black Crusade muestra Psyker(1) con sus Marcas."],
       ] },
       { label: "Errores (GitHub)", rows: [
         ["#288", "Skirmish: una mejora que lleva a una unidad a salvación 2+ o Resistencia 8 (Hardened Carapace) se marca ahora."],
@@ -181,6 +184,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Размер армии", "Без пропусков между типами боя: Стычка 1000–1750, Pitched 1751–3500, Epic от 3501. Введите любой размер или меняйте шагом 50; размер из другого диапазона переключает тип боя."],
         ["Стычка", "Следует новым Missions: один отряд может иметь Стойкость 8 и один — суммарную броню 34 (остальные нет), а улучшения «раз за армию» запрещены любому отряду, не только Штабу."],
         ["Вид боя", "Показывает правило развёртывания, купленное через Webway raid, Webway strike, Lightning strike или Tellyporta."],
+        ["Листы", "Новые версии листов: ручные огнемёты имеют Силу 3 и Pistol 2 и дешевле в арсенале; Magus и Patriarch Genestealer Cults накладывают и отрицают 1 силу, в арсенале появился Elder; Scarabs Necrons несут Disruptor field (Gauss); обновления Knight Households, Imperial Navy, Inquisition и других арсеналов; 1-я рота Space Marines требует 5 Honor Guard. Чемпион Black Crusade показывает Psyker(1) среди Меток."],
       ] },
       { label: "Ошибки (GitHub)", rows: [
         ["#288", "Стычка: улучшение, доводящее отряд до сейва 2+ или Стойкости 8 (Hardened Carapace), теперь отмечается."],
@@ -220,6 +224,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["軍のサイズ", "戦闘タイプ間に隙間がありません：スカーミッシュ 1000–1750、ピッチド 1751–3500、エピック 3501以上。好きなサイズを入力するか50刻みで変更でき、別の範囲のサイズを入れると戦闘タイプが切り替わります。"],
         ["スカーミッシュ", "新しいMissionsに対応：耐久8は1ユニット、合計装甲値34も1ユニットのみ（他は不可）。「軍につき1回」のアップグレードはHQだけでなく全ユニットで禁止です。"],
         ["バトルビュー", "Webway raid、Webway strike、Lightning strike、Tellyportaで購入した展開ルールを表示します。"],
+        ["シート", "新しいシート版：ハンドフレイマーは強さ3・Pistol 2になりアーモリーで安くなりました。Genestealer CultsのMagusとPatriarchは1つの能力を使用・否定でき、アーモリーにElderが追加。NecronのScarabsはDisruptor field（Gauss）を装備。Knight Households、Imperial Navy、Inquisitionなどのアーモリー更新。Space Marines第1中隊はHonor Guard 5体が必要。Black Crusadeのチャンピオンは印にPsyker(1)を表示します。"],
       ] },
       { label: "不具合 (GitHub)", rows: [
         ["#288", "スカーミッシュ：ユニットをセーブ2+や耐久8にするアップグレード（Hardened Carapace）が警告されるようになりました。"],
