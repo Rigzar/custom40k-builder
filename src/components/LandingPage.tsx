@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v189j_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -56,276 +56,176 @@ type AnnouncementSection = { label: string; rows: AnnouncementRow[] };
 type AnnouncementLang = { title: string; intro: string; install: string; sections: AnnouncementSection[]; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "{v}: 14 codices up to date",
-    intro: "Every codex sheet that moved since 1.88 is in the app: units, options, Armory and rules.",
+    title: "{v}: the new Missions and no gaps in army size",
+    intro: "Skirmish follows the new Missions, army sizes no longer have gaps, and a round of bugs reported on GitHub and Discord is fixed.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Armory", "Several copies of one item stack on the unit card (\"Storm shield ×10\"); the ✕ removes one."],
-        ["Print view", "Simple view applies Hardened Carapace and other profile changes; unit types, Power Through Pain rules and the General psychic disciplines are printed; the buttons wrap on phones."],
-        ["Print view", "A new Army rules card lists the codex's army-wide rules (Shadow in the Warp, Waaagh!, ...)."],
-        ["Codices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, plus Mechanicus, T'au, Knights and Navy."],
-      ] },
-      { label: "Bugs (Discord)", rows: [
-        ["Necrons", "Solar Fury adds 3\" to the weapons; the Atomic Energy Manipulator no longer boosts its own bearer."],
-        ["Mechanicus", "Scarifying Weaponry gives Deadly(6+) to the Rad weapons."],
-        ["Allies", "A unit bought from the main list (Chamber Militant's Inquisition) no longer counts as allied when the ally is the same faction; re-add old ones. Faction buttons show the current codex versions."],
-        ["Legion CSM", "A Horus Heresy unit that takes a Mark of Chaos counts as a Chaos Space Marine and gets the army's Traits."],
-        ["Skirmish", "A full AOP unlocks a second one; Chief Apothecary and Master of the Forge count as once-per-army HQ upgrades."],
-        ["Units", "Advisors can occupy their slot (button on the card); Intercessors can take the same swap twice; Redemptor fists counted on both arms; Master-crafted skips grenades and works on the bike's Twin bolt rifle."],
-        ["Traits", "Cursed Founding, Abhuman Auxiliaries and Signature Evolutionary Adaption: pick the improvement in the army setup and it is applied to the units."],
-        ["Armory", "Items limited by their own text (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) can only be bought by units that qualify; the row says why."],
-        ["Stats", "Strength, Toughness, Initiative, Attacks and Leadership stay between 1 and 10 in the print view and the TTS export too."],
-        ["Dave, Ed, TeCrisis", "Thank you for the first-game feedback."],
-        ["Ymgarl", "The Ymgarl Genestealers upgrade removes Infiltrator from the card and the printout."],
-        ["Ghostkeel", "Its two Stealth Drones are listed."],
-        ["Coronus", "The Twin arachnus blaze cannon has its 18\" range."],
+        ["Army size", "No gaps between battle types: Skirmish 1000–1750, Pitched 1751–3500, Epic from 3501. Type any size or step by 50; a size from another band switches the battle type."],
+        ["Skirmish", "Follows the new Missions: one unit may have Toughness 8 and one a combined armour value of 34 (the others may not), and \"once per army\" upgrades are barred for every unit, not only HQ."],
+        ["Battle view", "Lists the deployment rule bought with Webway raid, Webway strike, Lightning strike or Tellyporta."],
       ] },
       { label: "Bugs (GitHub)", rows: [
-        ["#275", "The Trygon is a Heavy Support unit (thanks, DemonGyro)."],
-      ] },
-      { label: "Eldar", rows: [
-        ["Eldar", "Paragon of War takes two Exarch powers. Banshee mask is an item. Howling Banshee 26, Mandiblaster 6."],
-      ] },
-      { label: "Dark Eldar", rows: [
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, new Diamond-tipped bladevanes."],
-      ] },
-      { label: "Necrons", rows: [
-        ["Necrons", "The Catacomb Command Barge is an HQ that uses no HQ slot (one per Lord)."],
-      ] },
-      { label: "Tyranids", rows: [
-        ["Tyranids", "Barbed strangler and Venom cannon +21 on the Warriors; Obscuring Terrain wording."],
-      ] },
-      { label: "Harlequins", rows: [
-        ["Harlequins", "Hand flamer and Power fist in the Armory."],
+        ["#288", "Skirmish: an upgrade that takes a unit to a 2+ save or Toughness 8 (Hardened Carapace) is flagged now."],
+        ["#286", "Options that give an ability to weapons (Chosen Accursed Weaponry and 15 more) put it on the right weapons now."],
       ] },
       { label: "Chaos Daemons", rows: [
-        ["Daemons", "The Great Unclean One's Nurgling infestation has Extra Attack(4)."],
-        ["Entourage", "Entourage and Herald now free HQ slots for the Daemons a Chaos Space Marine archetype reaches, and for allied Daemons, within the same detachment as the Greater Daemon."],
+        ["Chaos Daemons", "Entourage frees the HQ slot again (one unit per Greater Daemon of the same god, as the sheet says) and Heralds can buy the Palanquin of Nurgle again (#282)."],
       ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Mechanicus", "Scarifying Weaponry works on weapons with Rad."],
-        ["Servitors", "The single Shock charger no longer shows on Servitors that have not bought the swap."],
+      { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonkin shows an error when a unit does not have or buy the Daemon ability, and its unit-count message shows the real difference (#280, #285). Daemonic possession makes BS and WS worse, it improved them (#281). The Black Crusade champion also gets the Mark of Tzeentch's Psyker."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Winged moves the Tyranid Warrior Brood and the Ripper Swarms to Fast Attack (#278)."],
+      ] },
+      { label: "Imperial Guard", rows: [
+        ["Imperial Guard", "The Command Squad's Heavy flamer shows 1x, not 4x (#284)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "The Exarch's swapped weapon counts once (the Scorpion claw was shown x5) and his powers worded \"of the model\" no longer mark every weapon of the squad."],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Inquisition", "A Henchman Warband without Crusaders is no longer flagged 2+ in Skirmish, and the Inquisitor's Priest and Psyker upgrades are one choice."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "{v}: 14 Codizes auf dem neuesten Stand",
-    intro: "Jedes Codex-Datenblatt, das sich seit 1.88 geändert hat, ist in der App: Einheiten, Optionen, Arsenal und Regeln.",
+    title: "{v}: die neuen Missions und keine Lücken bei der Armeegröße",
+    intro: "Skirmish folgt den neuen Missions, die Armeegrößen haben keine Lücken mehr, und eine Runde von Fehlern aus GitHub und Discord ist behoben.",
     install: "",
     sections: [
       { label: "Allgemein", rows: [
-        ["Arsenal", "Mehrere Exemplare eines Gegenstands werden auf der Einheitenkarte gestapelt (\"Storm shield ×10\"); das ✕ entfernt eines."],
-        ["Druckansicht", "Die einfache Ansicht wendet Hardened Carapace und andere Profiländerungen an; Einheitentypen, Power-Through-Pain-Regeln und die allgemeinen psychischen Disziplinen werden gedruckt; die Knöpfe brechen auf Handys um."],
-        ["Druckansicht", "Eine neue Karte Armeeregeln listet die armeeweiten Regeln des Codex (Shadow in the Warp, Waaagh!, ...)."],
-        ["Codizes", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14 sowie Mechanicus, T'au, Knights und Navy."],
-      ] },
-      { label: "Fehler (Discord)", rows: [
-        ["Necrons", "Solar Fury gibt den Waffen 3\" mehr Reichweite; der Atomic Energy Manipulator verstärkt nicht mehr seinen Träger."],
-        ["Mechanicus", "Scarifying Weaponry gibt den Rad-Waffen Deadly(6+)."],
-        ["Verbündete", "Eine aus der Hauptliste gekaufte Einheit (Inquisition bei Chamber Militant) zählt nicht mehr als verbündet, wenn der Verbündete dieselbe Fraktion ist; alte neu hinzufügen. Die Fraktionsknöpfe zeigen die aktuellen Codex-Versionen."],
-        ["Legion CSM", "Eine Horus-Heresy-Einheit mit einem Mal des Chaos zählt als Chaos Space Marine und erhält die Merkmale der Armee."],
-        ["Skirmish", "Eine volle AOP schaltet eine zweite frei; Chief Apothecary und Master of the Forge zählen als einmalige HQ-Aufwertungen."],
-        ["Einheiten", "Advisors können ihren Slot belegen (Knopf auf der Karte); Intercessors können denselben Tausch zweimal wählen; Redemptor-Fäuste an beiden Armen gezählt; Master-crafted ohne Granaten, wirkt jetzt auch auf das Twin bolt rifle des Bikes."],
-        ["Merkmale", "Cursed Founding, Abhuman Auxiliaries und Signature Evolutionary Adaption: die Verbesserung in der Armee-Konfiguration wählen, sie wird auf die Einheiten angewendet."],
-        ["Arsenal", "Gegenstände, deren Text den Käufer einschränkt (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...), kann nur noch eine passende Einheit kaufen; die Zeile sagt warum."],
-        ["Werte", "Stärke, Widerstand, Initiative, Attacken und Moral bleiben auch in der Druckansicht und im TTS-Export zwischen 1 und 10."],
-        ["Dave, Ed, TeCrisis", "Danke für das Feedback nach dem ersten Spiel."],
-        ["Ymgarl", "Das Ymgarl-Upgrade entfernt Infiltrator von Karte und Ausdruck."],
-        ["Ghostkeel", "Seine zwei Stealth Drones werden aufgeführt."],
-        ["Coronus", "Die Twin arachnus blaze cannon hat ihre Reichweite von 18\"."],
+        ["Armeegröße", "Keine Lücken zwischen den Schlachttypen: Skirmish 1000–1750, Pitched 1751–3500, Epic ab 3501. Beliebige Größe eingeben oder in 50er-Schritten ändern; eine Größe aus einem anderen Bereich wechselt den Schlachttyp."],
+        ["Skirmish", "Folgt den neuen Missions: eine Einheit darf Widerstand 8 und eine einen kombinierten Panzerungswert von 34 haben (alle anderen nicht), und „einmal pro Armee“-Upgrades sind für jede Einheit gesperrt, nicht nur für HQ."],
+        ["Schlachtansicht", "Zeigt die Aufstellungsregel von Webway raid, Webway strike, Lightning strike oder Tellyporta."],
       ] },
       { label: "Fehler (GitHub)", rows: [
-        ["#275", "Der Trygon ist eine Heavy-Support-Einheit (danke, DemonGyro)."],
-      ] },
-      { label: "Eldar", rows: [
-        ["Eldar", "Paragon of War nimmt zwei Exarchenkräfte. Die Banshee-Maske ist ein Gegenstand. Howling Banshee 26, Mandiblaster 6."],
-      ] },
-      { label: "Dark Eldar", rows: [
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, neu: Diamond-tipped bladevanes."],
-      ] },
-      { label: "Necrons", rows: [
-        ["Necrons", "Der Catacomb Command Barge ist ein HQ ohne HQ-Slot (einer pro Lord)."],
-      ] },
-      { label: "Tyranids", rows: [
-        ["Tyranids", "Barbed strangler und Venom cannon +21 bei den Warriors; Wortlaut Obscuring Terrain."],
-      ] },
-      { label: "Harlequins", rows: [
-        ["Harlequins", "Hand flamer und Power fist im Arsenal."],
+        ["#288", "Skirmish: ein Upgrade, das eine Einheit auf 2+-Rettungswurf oder Widerstand 8 bringt (Hardened Carapace), wird jetzt gemeldet."],
+        ["#286", "Optionen, die Waffen eine Fähigkeit geben (Chosen Accursed Weaponry und 15 weitere), legen sie jetzt auf die richtigen Waffen."],
       ] },
       { label: "Chaos Daemons", rows: [
-        ["Daemons", "Die Nurgling-Plage des Great Unclean One hat Extra Attack(4)."],
-        ["Entourage", "Entourage und Herald geben jetzt HQ-Plätze frei für Dämonen, die ein Chaos-Space-Marine-Archetyp erreicht, und für verbündete Dämonen, im selben Kontingent wie der Greater Daemon."],
+        ["Chaos Daemons", "Entourage befreit den HQ-Slot wieder (eine Einheit pro Greater Daemon desselben Gottes, wie im Datenblatt) und Heralds können die Palanquin of Nurgle wieder kaufen (#282)."],
       ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Mechanicus", "Scarifying Weaponry wirkt auf Waffen mit Rad."],
-        ["Servitors", "Die einzelne Shock charger erscheint nicht mehr bei Servitors ohne den Tausch."],
+      { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonkin meldet einen Fehler, wenn eine Einheit die Fähigkeit Daemon weder hat noch kauft, und die Meldung zur Einheitenzahl zeigt den echten Unterschied (#280, #285). Daemonic possession verschlechtert BF und KG, statt sie zu verbessern (#281). Der Black-Crusade-Champion bekommt auch den Psyker des Mals des Tzeentch."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Winged setzt die Tyranid Warrior Brood und die Ripper Swarms auf Fast Attack (#278)."],
+      ] },
+      { label: "Imperial Guard", rows: [
+        ["Imperial Guard", "Der Heavy flamer des Command Squad zeigt 1x statt 4x (#284)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Die getauschte Waffe des Exarchen zählt einmal (die Scorpion claw wurde x5 angezeigt) und seine Kräfte mit „of the model“ markieren nicht mehr jede Waffe des Trupps."],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Inquisition", "Ein Henchman Warband ohne Crusaders wird im Skirmish nicht mehr als 2+ gemeldet, und die Priester- und Psyker-Upgrades des Inquisitors sind eine Wahl."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "{v}: 14 códices al día",
-    intro: "Cada hoja de códice que cambió desde la 1.88 está en la app: unidades, opciones, Armería y reglas.",
+    title: "{v}: las nuevas Missions y sin huecos en el tamaño del ejército",
+    intro: "Skirmish sigue las nuevas Missions, los tamaños de ejército ya no tienen huecos y se arregla una ronda de bugs de GitHub y Discord.",
     install: "",
     sections: [
       { label: "General", rows: [
-        ["Armería", "Varias copias de un mismo objeto se agrupan en la ficha (\"Storm shield ×10\"); la ✕ quita una."],
-        ["Vista de impresión", "La vista simple aplica Hardened Carapace y otros cambios de perfil; se imprimen los tipos de unidad, las reglas de Power Through Pain y las disciplinas psíquicas generales; los botones se ajustan en el móvil."],
-        ["Vista de impresión", "Una tarjeta nueva de Reglas de ejército lista las reglas del códice para todo el ejército (Shadow in the Warp, Waaagh!, ...)."],
-        ["Códices", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, más Mechanicus, T'au, Knights y Navy."],
-      ] },
-      { label: "Errores (Discord)", rows: [
-        ["Necrons", "Solar Fury suma 3\" a las armas; el Atomic Energy Manipulator ya no potencia a su portador."],
-        ["Mechanicus", "Scarifying Weaponry da Deadly(6+) a las armas Rad."],
-        ["Aliados", "Una unidad comprada desde la lista principal (la Inquisición de Chamber Militant) ya no cuenta como aliada aunque el aliado sea la misma facción; vuelve a añadir las antiguas. Los botones de facción muestran las versiones actuales."],
-        ["Legion CSM", "Una unidad de Horus Heresy con una Marca del Caos cuenta como Chaos Space Marine y recibe los rasgos del ejército."],
-        ["Skirmish", "Un AOP completo desbloquea un segundo; Chief Apothecary y Master of the Forge cuentan como mejoras de HQ una por ejército."],
-        ["Unidades", "Los Advisors pueden ocupar su slot (botón en la ficha); los Intercessors pueden repetir el mismo cambio; los puños del Redemptor cuentan en ambos brazos; Master-crafted sin granadas y ya funciona en el Twin bolt rifle de la moto."],
-        ["Rasgos", "Cursed Founding, Abhuman Auxiliaries y Signature Evolutionary Adaption: elige la mejora en la configuración del ejército y se aplica a las unidades."],
-        ["Armería", "Los objetos que su texto limita (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) solo los compra la unidad que cumple; la fila dice por qué."],
-        ["Atributos", "Fuerza, Resistencia, Iniciativa, Ataques y Liderazgo se quedan entre 1 y 10 también en la impresión y en el export de TTS."],
-        ["Dave, Ed, TeCrisis", "Gracias por el feedback de la primera partida."],
-        ["Ymgarl", "La mejora Ymgarl quita Infiltrator de la tarjeta y de la impresión."],
-        ["Ghostkeel", "Se listan sus dos Stealth Drones."],
-        ["Coronus", "La Twin arachnus blaze cannon tiene su alcance de 18\"."],
+        ["Tamaño del ejército", "Sin huecos entre tipos de batalla: Skirmish 1000–1750, Pitched 1751–3500, Epic desde 3501. Escribe cualquier tamaño o sube de 50 en 50; un tamaño de otra franja cambia el tipo de batalla."],
+        ["Skirmish", "Sigue las nuevas Missions: una unidad puede tener Resistencia 8 y una un blindaje combinado de 34 (las demás no), y las mejoras “una vez por ejército” están prohibidas para toda unidad, no solo para HQ."],
+        ["Vista de batalla", "Muestra la regla de despliegue comprada con Webway raid, Webway strike, Lightning strike o Tellyporta."],
       ] },
       { label: "Errores (GitHub)", rows: [
-        ["#275", "El Trygon es una unidad de Heavy Support (gracias, DemonGyro)."],
-      ] },
-      { label: "Eldar", rows: [
-        ["Eldar", "Paragon of War toma dos poderes de Exarca. La Banshee mask es un objeto. Howling Banshee 26, Mandiblaster 6."],
-      ] },
-      { label: "Dark Eldar", rows: [
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, nuevo Diamond-tipped bladevanes."],
-      ] },
-      { label: "Necrons", rows: [
-        ["Necrons", "La Catacomb Command Barge es un HQ que no usa slot de HQ (una por Lord)."],
-      ] },
-      { label: "Tyranids", rows: [
-        ["Tyranids", "Barbed strangler y Venom cannon +21 en los Warriors; texto de Obscuring Terrain."],
-      ] },
-      { label: "Harlequins", rows: [
-        ["Harlequins", "Hand flamer y Power fist en la Armería."],
+        ["#288", "Skirmish: una mejora que lleva a una unidad a salvación 2+ o Resistencia 8 (Hardened Carapace) se marca ahora."],
+        ["#286", "Las opciones que dan una habilidad a las armas (Accursed Weaponry de los Chosen y 15 más) la ponen ahora en las armas correctas."],
       ] },
       { label: "Chaos Daemons", rows: [
-        ["Daemons", "La Nurgling infestation del Great Unclean One tiene Extra Attack(4)."],
-        ["Entourage", "Entourage y Herald liberan ahora espacios de HQ para los Demonios a los que llega un arquetipo de Chaos Space Marines y para los demonios aliados, dentro del mismo destacamento que el Greater Daemon."],
+        ["Chaos Daemons", "Entourage libera otra vez el slot de HQ (una unidad por Greater Daemon del mismo dios, como dice la hoja) y los Heralds pueden volver a comprar el Palanquin of Nurgle (#282)."],
       ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Mechanicus", "Scarifying Weaponry funciona con armas con Rad."],
-        ["Servitors", "La Shock charger suelta ya no aparece en los Servitors que no han comprado el cambio."],
+      { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonkin da error cuando una unidad no tiene ni compra la habilidad Daemon, y su mensaje de número de unidades muestra la diferencia real (#280, #285). Daemonic possession empeora BS y WS, antes los mejoraba (#281). El campeón de la Cruzada Negra también recibe el Psyker de la Marca de Tzeentch."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Winged pasa el Tyranid Warrior Brood y los Ripper Swarms a Fast Attack (#278)."],
+      ] },
+      { label: "Imperial Guard", rows: [
+        ["Imperial Guard", "El Heavy flamer del Command Squad sale 1x, no 4x (#284)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "El arma cambiada del Exarca cuenta una vez (la Scorpion claw salía x5) y sus poderes “of the model” ya no marcan todas las armas del escuadrón."],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Inquisition", "Un Henchman Warband sin Crusaders ya no sale como 2+ en Skirmish, y las mejoras de sacerdote y psíquico del Inquisitor son una sola elección."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
   ru: {
-    title: "{v}: 14 кодексов обновлены",
-    intro: "Каждая таблица кодекса, изменившаяся после 1.88, теперь в приложении: отряды, опции, Арсенал и правила.",
+    title: "{v}: новые Missions и размер армии без пропусков",
+    intro: "Стычка следует новым Missions, размеры армии больше не имеют пропусков, исправлена серия ошибок из GitHub и Discord.",
     install: "",
     sections: [
       { label: "Общее", rows: [
-        ["Арсенал", "Несколько копий одного предмета объединяются на карточке отряда (\"Storm shield ×10\"); ✕ убирает одну."],
-        ["Печать", "Простой вид применяет Hardened Carapace и другие изменения профиля; печатаются типы отрядов, правила Power Through Pain и общие псионические дисциплины; кнопки переносятся на телефоне."],
-        ["Печать", "Новая карточка «Правила армии» перечисляет общеармейские правила кодекса (Shadow in the Warp, Waaagh! и др.)."],
-        ["Кодексы", "Custodes 1.7, Daemons 1.3, Dark Eldar 1.7, Eldar 1.13, Harlequins 1.4, Votann 1.7, Necrons 1.12, Tyranids 1.14, а также Mechanicus, T'au, Knights и Navy."],
-      ] },
-      { label: "Ошибки (Discord)", rows: [
-        ["Necrons", "Solar Fury добавляет 3\" дальности оружию; Atomic Energy Manipulator больше не усиливает своего носителя."],
-        ["Mechanicus", "Scarifying Weaponry даёт Deadly(6+) оружию с Rad."],
-        ["Союзники", "Отряд, купленный из основного списка (Инквизиция у Chamber Militant), больше не считается союзным, даже если союзник той же фракции; старые добавьте заново. Кнопки фракций показывают текущие версии кодексов."],
-        ["Legion CSM", "Отряд Horus Heresy с Меткой Хаоса считается Chaos Space Marine и получает черты армии."],
-        ["Skirmish", "Заполненный AOP открывает второй; Chief Apothecary и Master of the Forge считаются улучшениями Штаба «одно на армию»."],
-        ["Отряды", "Advisor может занимать слот (кнопка на карточке); Intercessors могут взять одну замену дважды; кулаки Redemptor считаются на обеих руках; Master-crafted без гранат и работает на Twin bolt rifle байка."],
-        ["Черты", "Cursed Founding, Abhuman Auxiliaries и Signature Evolutionary Adaption: выберите улучшение в настройках армии, и оно применяется к отрядам."],
-        ["Арсенал", "Предметы с ограничением в тексте (\"Kroot only\", \"Painboy only\", \"Exo-armor only\"...) покупает только подходящий отряд; строка объясняет причину."],
-        ["Характеристики", "Сила, Стойкость, Инициатива, Атаки и Лидерство остаются в пределах от 1 до 10 и в режиме печати, и в экспорте TTS."],
-        ["Dave, Ed, TeCrisis", "Спасибо за отзывы после первой игры."],
-        ["Ymgarl", "Улучшение Ymgarl убирает Infiltrator с карточки и из печати."],
-        ["Ghostkeel", "Два Stealth Drones теперь показаны."],
-        ["Coronus", "У Twin arachnus blaze cannon указана дальность 18\"."],
+        ["Размер армии", "Без пропусков между типами боя: Стычка 1000–1750, Pitched 1751–3500, Epic от 3501. Введите любой размер или меняйте шагом 50; размер из другого диапазона переключает тип боя."],
+        ["Стычка", "Следует новым Missions: один отряд может иметь Стойкость 8 и один — суммарную броню 34 (остальные нет), а улучшения «раз за армию» запрещены любому отряду, не только Штабу."],
+        ["Вид боя", "Показывает правило развёртывания, купленное через Webway raid, Webway strike, Lightning strike или Tellyporta."],
       ] },
       { label: "Ошибки (GitHub)", rows: [
-        ["#275", "Trygon — отряд Heavy Support (спасибо, DemonGyro)."],
-      ] },
-      { label: "Eldar", rows: [
-        ["Eldar", "Paragon of War берёт две силы Эксарха. Banshee mask — предмет. Howling Banshee 26, Mandiblaster 6."],
-      ] },
-      { label: "Dark Eldar", rows: [
-        ["Dark Eldar", "Reavers 33, Venom 129, Skybike 32, новое Diamond-tipped bladevanes."],
-      ] },
-      { label: "Necrons", rows: [
-        ["Necrons", "Catacomb Command Barge — HQ, не занимающий слот HQ (по одному на Lord)."],
-      ] },
-      { label: "Tyranids", rows: [
-        ["Tyranids", "Barbed strangler и Venom cannon +21 у Warriors; формулировка Obscuring Terrain."],
-      ] },
-      { label: "Harlequins", rows: [
-        ["Harlequins", "Hand flamer и Power fist в Арсенале."],
+        ["#288", "Стычка: улучшение, доводящее отряд до сейва 2+ или Стойкости 8 (Hardened Carapace), теперь отмечается."],
+        ["#286", "Опции, дающие оружию способность (Accursed Weaponry у Chosen и ещё 15), теперь ставят её на нужное оружие."],
       ] },
       { label: "Chaos Daemons", rows: [
-        ["Daemons", "Nurgling infestation у Great Unclean One имеет Extra Attack(4)."],
-        ["Entourage", "Entourage и Herald теперь освобождают слоты HQ для Демонов, доступных через архетип Chaos Space Marines, и для союзных Демонов, в том же отряде, что и Greater Daemon."],
+        ["Chaos Daemons", "Entourage снова освобождает слот Штаба (один отряд на Greater Daemon того же бога, как в таблице), а Heralds снова могут купить Palanquin of Nurgle (#282)."],
       ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Mechanicus", "Scarifying Weaponry действует на оружие с Rad."],
-        ["Servitors", "Одиночный Shock charger больше не показывается у Servitors без покупки замены."],
+      { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonkin показывает ошибку, если у отряда нет и он не покупает способность Daemon, а сообщение о числе отрядов показывает реальную разницу (#280, #285). Daemonic possession ухудшает BS и WS, а не улучшал (#281). Чемпион Чёрного крестового похода получает и Psyker Метки Tzeentch."],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "Winged переводит Tyranid Warrior Brood и Ripper Swarms в Fast Attack (#278)."],
+      ] },
+      { label: "Imperial Guard", rows: [
+        ["Imperial Guard", "Heavy flamer у Command Squad показывается 1x, а не 4x (#284)."],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "Заменённое оружие Эксарха считается один раз (Scorpion claw показывалась x5), а его силы «of the model» больше не отмечают всё оружие отряда."],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Inquisition", "Henchman Warband без Crusaders больше не помечается как 2+ в Стычке, а улучшения жреца и пси-силы Инквизитора — один выбор."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
   ja: {
-    title: "{v}: 14のコデックスを最新に",
-    intro: "1.88以降に変わったコデックスのシートをすべて反映しました。ユニット、オプション、アーモリー、ルールです。",
+    title: "{v}：新しいMissionsと隙間のない軍のサイズ",
+    intro: "スカーミッシュは新しいMissionsに従い、軍のサイズに隙間がなくなり、GitHubとDiscordで報告された不具合をまとめて修正しました。",
     install: "",
     sections: [
       { label: "全般", rows: [
-        ["アーモリー", "同じアイテムの複数個はユニットカード上でまとめて表示されます（\"Storm shield ×10\"）。✕で1つずつ外せます。"],
-        ["印刷ビュー", "シンプル表示でHardened Carapaceなどのプロファイル変更を反映。ユニットタイプ、Power Through Painのルール、共通サイキック学派も印刷。スマホでボタンが折り返します。"],
-        ["印刷ビュー", "新しい「軍全体のルール」カードにコデックスの軍全体ルール(Shadow in the Warp、Waaagh!など)を表示します。"],
-        ["コデックス", "Custodes 1.7、Daemons 1.3、Dark Eldar 1.7、Eldar 1.13、Harlequins 1.4、Votann 1.7、Necrons 1.12、Tyranids 1.14、Mechanicus、T'au、Knights、Navy。"],
-      ] },
-      { label: "不具合 (Discord)", rows: [
-        ["Necrons", "Solar Fury で武器の射程が3\"伸びます。Atomic Energy Manipulator は持ち主自身を強化しなくなりました。"],
-        ["Mechanicus", "Scarifying Weaponry で Rad 武器が Deadly(6+) を得ます。"],
-        ["同盟", "メインのリストから追加したユニット(Chamber Militant の Inquisition)は、同盟が同じ勢力でも同盟扱いされなくなりました。古いものは追加し直してください。勢力ボタンに最新のコデックス版が表示されます。"],
-        ["Legion CSM", "混沌の印を得た Horus Heresy ユニットは Chaos Space Marine として扱われ、軍の特性を得ます。"],
-        ["Skirmish", "AOP を埋めると2つ目が解放されます。Chief Apothecary と Master of the Forge は軍に1つの HQ 強化として扱われます。"],
-        ["ユニット", "Advisor は枠を使うことも可能(カードのボタン)。Intercessors は同じ交換を2回選択可能。Redemptor の拳は両腕で数えます。Master-crafted はグレネード不可、バイクの Twin bolt rifle にも適用されます。"],
-        ["特性", "Cursed Founding、Abhuman Auxiliaries、Signature Evolutionary Adaption：軍の設定で強化を選ぶと、ユニットに適用されます。"],
-        ["アーモリー", "本文で購入者が限定されたアイテム（\"Kroot only\"、\"Painboy only\"、\"Exo-armor only\"など）は条件を満たすユニットだけが購入でき、行に理由が表示されます。"],
-        ["能力値", "筋力・耐久力・イニシアチブ・攻撃回数・リーダーシップは印刷ビューとTTSエクスポートでも1〜10に収まります。"],
-        ["Dave, Ed, TeCrisis", "初めての対戦後のフィードバックをありがとうございます。"],
-        ["Ymgarl", "Ymgarlのアップグレードで、カードと印刷からInfiltratorが外れます。"],
-        ["Ghostkeel", "2体のStealth Droneが表示されます。"],
-        ["Coronus", "Twin arachnus blaze cannonに射程18\"を追加しました。"],
+        ["軍のサイズ", "戦闘タイプ間に隙間がありません：スカーミッシュ 1000–1750、ピッチド 1751–3500、エピック 3501以上。好きなサイズを入力するか50刻みで変更でき、別の範囲のサイズを入れると戦闘タイプが切り替わります。"],
+        ["スカーミッシュ", "新しいMissionsに対応：耐久8は1ユニット、合計装甲値34も1ユニットのみ（他は不可）。「軍につき1回」のアップグレードはHQだけでなく全ユニットで禁止です。"],
+        ["バトルビュー", "Webway raid、Webway strike、Lightning strike、Tellyportaで購入した展開ルールを表示します。"],
       ] },
       { label: "不具合 (GitHub)", rows: [
-        ["#275", "TrygonはHeavy Supportのユニットです(DemonGyroさんありがとう)。"],
-      ] },
-      { label: "Eldar", rows: [
-        ["Eldar", "Paragon of War はExarchパワーを2つ選びます。Banshee maskはアイテムです。Howling Banshee 26、Mandiblaster 6。"],
-      ] },
-      { label: "Dark Eldar", rows: [
-        ["Dark Eldar", "Reavers 33、Venom 129、Skybike 32、新アイテム Diamond-tipped bladevanes。"],
-      ] },
-      { label: "Necrons", rows: [
-        ["Necrons", "Catacomb Command BargeはHQスロットを使わないHQです(Lordにつき1つ)。"],
-      ] },
-      { label: "Tyranids", rows: [
-        ["Tyranids", "Warriorsの Barbed strangler と Venom cannon は+21。Obscuring Terrainの表記。"],
-      ] },
-      { label: "Harlequins", rows: [
-        ["Harlequins", "アーモリーに Hand flamer と Power fist。"],
+        ["#288", "スカーミッシュ：ユニットをセーブ2+や耐久8にするアップグレード（Hardened Carapace）が警告されるようになりました。"],
+        ["#286", "武器に能力を与えるオプション（ChosenのAccursed Weaponryほか15件）が正しい武器に付くようになりました。"],
       ] },
       { label: "Chaos Daemons", rows: [
-        ["Daemons", "Great Unclean OneのNurgling infestationは Extra Attack(4)。"],
-        ["Entourage", "EntourageとHeraldが、Chaos Space Marinesのアーキタイプで使えるDaemonと同盟のDaemonにもHQ枠の免除を与えます（Greater Daemonと同じ分遣隊内）。"],
+        ["Chaos Daemons", "Entourageが再びHQ枠を空け（同じ神のGreater Daemonごとに1ユニット、シートどおり）、HeraldがPalanquin of Nurgleを再び購入できます（#282）。"],
       ] },
-      { label: "Adeptus Mechanicus", rows: [
-        ["Mechanicus", "Scarifying WeaponryはRad付き武器に効きます。"],
-        ["Servitors", "交換を購入していないServitorに、単体のShock chargerが表示されなくなりました。"],
+      { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "ユニットがDaemon能力を持たず購入もしない場合、Daemonkinがエラーを出し、ユニット数のメッセージは実際の差を表示します（#280、#285）。Daemonic possessionはBSとWSを悪化させます（以前は改善していました、#281）。ブラッククルセードのチャンピオンはティーンチの印のPsykerも得ます。"],
+      ] },
+      { label: "Tyranids", rows: [
+        ["Tyranids", "WingedでTyranid Warrior BroodとRipper SwarmsがFast Attackになります（#278）。"],
+      ] },
+      { label: "Imperial Guard", rows: [
+        ["Imperial Guard", "Command SquadのHeavy flamerは4xではなく1xと表示されます（#284）。"],
+      ] },
+      { label: "Eldar", rows: [
+        ["Eldar", "エグザークが交換した武器は1回だけ数えられ（Scorpion clawはx5と表示されていました）、「of the model」の能力が分隊の全武器に付かなくなりました。"],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Inquisition", "Crusadersのいないヘンチマンウォーバンドはスカーミッシュで2+と警告されなくなり、インクイジターの司祭とサイカーのアップグレードは1つの選択です。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
