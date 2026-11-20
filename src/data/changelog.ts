@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'a';
+export const REVISION = 'b';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -48,6 +48,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       "OPTIONS THAT GIVE ABILITIES TO WEAPONS (#286). The Chosen's Accursed Weaponry, Monstrous Visages and Malicious Ammunition did nothing on the weapons. The same was true of 13 more options: Chaos Spawn and Giant Chaos Spawn Toxic Haemorrhage, Lord Discordant Technovirus-Injector, Flesh Shaper and Cadre Fireblade (T'au), Entropic Touch, Nebuloscope, Incubi Onslaught, Sword Brethren, Corvus Blackstar Auspex array and the Breachers' CAT Unit. When you pick one, its ability now appears on the right weapons (melee or ranged). Options that say \"when ...\" (Icarian) are left out because they are not always on.",
       "WINGED BIOMORPH (Tyranids, #278). \"If this Biomorph is taken, the unit counts as a Fast Attack selection\" now moves the Tyranid Warrior Brood and the Ripper Swarms to Fast Attack, and back to Troops without it. Under Flying Death they stay Troops, as that archetype says.",
       "BLACK CRUSADE CHAMPION AND MARK-ONLY OPTIONS (Chaos Space Marines, Discord, Birdy). A datasheet option written \"(Nurgle only)\" (the Daemon Prince's Plague spewer) stayed hidden for the champion although he has the Mark of every god; it is open to him now, and so are the options of the other Marks.",
+      "BLACK CRUSADE CHAMPION (Chaos Space Marines, Birdy). A Black Crusade champion carries the Mark of every god, so the datasheet options written \"(Nurgle only)\", \"(Khorne only)\" and so on are open to him.",
       "CATAPHRACTII ARMOUR (Chaos Space Marines, #292, Chi). The weapons that need Cataphractii armour (Manreaper, Twin plague spewer, Orb of desiccation, Plaguereaper) stayed closed after buying it: the armour a unit buys was compared with a different capital letter. They open now, and Cataphractii or Tartaros armour counts as Terminator armour, as it does when the unit wears it from its datasheet.",
       "DAEMONIC VENOM AND ESCHER (#287, DemonGyro). The Daemonic venom gives Poison(4+) to the melee weapons of the model, and the Imperial Guard Hive Gangers' Escher gives Poison(4+) to all their weapons; neither reached the weapon rows.",
       "ABILITIES FROM SEVERAL SOURCES (DemonGyro). When two sources gave the same ability to a weapon it printed twice (\"Poison(3+), Poison(3+)\") or kept the worse value next to the better one; it is listed once now, with the best value.",
