@@ -2166,7 +2166,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     u.option_groups.forEach((g, gi) => {
       if (!g.available_if) return;
       const selected = Object.entries(item.optionQty?.[gi] ?? {}).some(([, v]) => (v ?? 0) > 0);
-      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction, effectiveArchetypeFor(item, state))) {
+      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction, effectiveArchetypeFor(item, state), !!item.blackCrusadeHQ || hasAllMarksVariant(item, u))) {
         const reason = g.available_if.scope === 'unit'
           ? T('valOptionNotAvailableMark', { unit: item.unitName, header: g.header, mark: g.available_if.keyword })
           : g.available_if.scope === 'archetype'

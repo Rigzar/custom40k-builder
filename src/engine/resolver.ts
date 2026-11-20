@@ -329,11 +329,13 @@ export function isOptionAvailable(
   keywords: string[],
   hostFaction?: string | null,
   archetype?: string | null,
+  allMarks = false,
 ): boolean {
   if (!cond) return true;
   let has: boolean;
   if (cond.scope === 'unit') {
-    has = unitHasKeyword(cond.keyword, mark, keywords);
+    // A Black Crusade champion (and an Ascended Daemon Prince) has the Mark of EVERY god, so "(Nurgle only)" is open to him (Birdy, Discord 2026-11-21).
+    has = (allMarks && ['khorne', 'nurgle', 'slaanesh', 'tzeentch'].includes(cond.keyword.toLowerCase())) || unitHasKeyword(cond.keyword, mark, keywords);
   } else if (cond.scope === 'archetype') {
     has = (archetype ?? '').toLowerCase() === cond.keyword.toLowerCase();
   } else {

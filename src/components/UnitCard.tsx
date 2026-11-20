@@ -267,7 +267,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const itemLegacies = [effectiveLegacyFor(item, store), item.factionSource && isAlliedEntry(item, store.alliedFaction) ? '' : (getArchetypeRule(store.archetype ?? '')?.legacy2ArmoryOnly ? '' : store.legacy2)].filter(Boolean) as string[];
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
-    isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype));
+    isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype, !!item.blackCrusadeHQ || hasAllMarksVariant(item, u)));
   // Whether this unit may be given a Mark, and which ones. NOT `data.animosity` alone: that
   // table exists only for CSM and Chaos Daemons, so the two archetypes whose whole point is
   // letting a non-Chaos army buy Marks could never show a button. See lib/markAccess.ts.
@@ -1359,7 +1359,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             // "if part of a Space Marine army" option is hidden under a Chaos Space Marine host.
             // Unit-scope conditions stay visible-but-disabled below (validated UX); force-scope is hidden.
             if ((g.available_if?.scope === 'force' || g.available_if?.scope === 'archetype') &&
-                !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype)) return null;
+                !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype, !!item.blackCrusadeHQ || hasAllMarksVariant(item, u))) return null;
 
             // A swap for a weapon the model does not start with: hidden until something you picked
             // actually gives you one (see OptionGroup.requires_choice).
@@ -1506,7 +1506,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
               // Keyword-gated availability (BSData condition primitive). effectiveMark is the
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
-              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype);
+              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype, !!item.blackCrusadeHQ || hasAllMarksVariant(item, u));
               // "One Guardsman PER Heavy Weapons Team may take a Vox": a count, not a tick-box.
               if (g.constraint?.type === 'per_n') {
                 const cMax = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
