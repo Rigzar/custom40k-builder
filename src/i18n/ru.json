@@ -596,7 +596,7 @@
  "markForcedPrefix": "Метка навязана архетипом:",
  "allChaosMarksLabel": "⚜ Все метки Хаоса:",
  "allMarksVehicleBonus": "Танковый удар (двойное попадание) · Восстановление повреждений 2D6/7+ · -1/-2 LD (18″/9″) · Варп-огнемёт",
- "allMarksCharacterBonus": "+1A +1S · +1T +1W · +1I +2″M · Оберег",
+ "allMarksCharacterBonus": "+1A +1S · +1T +1W · +1I +2″M · Оберег · Psyker(1)",
  "allMarksInfantryBonus": "+1 A · +1 T · +1 I · Оберег",
  "vetSlotSuffix": "· считается за 1 слот способности ветерана",
  "markOfChaosUndividedLabel": "Метка Нераздельного Хаоса:",
