@@ -238,6 +238,9 @@ export function effectiveKeywords(
     ...(unit.is_character ? ['Character'] : []),
     // "Transport vehicle only": a vehicle whose own rules give it a transport capacity above 0.
     ...((unit.abilities ?? []).some(a => /transport capacity (?:of|to) [1-9]/i.test(a)) ? ['Transport'] : []),
+    // Chaos Daemons Heralds carry the rule line "Entourage:" (older sheets "Herald:") and no keyword, so "Only for Heralds" (Palanquin of
+    // Nurgle) matched nobody (GitHub #282, DemonGyro).
+    ...((unit.abilities ?? []).some(a => /^(?:entourage|herald):/i.test(a)) ? ['Herald'] : []),
     // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
     ...roleKeywordsFromName(unit.name),
     ...(entry?.mark ? [entry.mark] : []),

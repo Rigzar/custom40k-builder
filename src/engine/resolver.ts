@@ -1741,16 +1741,30 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const armoryGrantTexts = item.armory
     .map(sel => findArmoryItem(data, sel, !!unit.is_vehicle)?.desc)
     .filter((d): d is string => !!d);
-  for (const text of [...optionAbilities, ...armoryGrantTexts]) {
-    const grant = parseWeaponAbilityGrant(text);
-    if (!grant) continue;
+  // The same sentence when the datasheet keeps it only in its ABILITIES list under the option's own name and the option carries no effect:
+  // Chosen "Accursed Weaponry: The model gains the \"Deflagrate(5+)\" ability for all melee attacks" (GitHub #286). Found for 16 options.
+  const optionLineGrants: Array<{ ability: string; scope: 'melee' | 'ranged' | 'both' | 'all' }> = [];
+  for (const line of unit.abilities ?? []) {
+    const m = String(line).match(/^([^:]{2,60}):\s*(.+)$/s);
+    if (!m || !isNamedChoiceActive(unit, item, m[1].trim())) continue;
+    if (m[1].trim() in PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS) continue;   // that table is the authority for these (Flensing Scarabs, Infrasonic Roar, Zzapkrumpaz)
+    // an option whose own effect already carries a readable grant is handled through optionAbilities above
+    const ownChoice = unit.option_groups.flatMap(g => g.choices ?? []).find(c => c.name === m[1].trim());
+    if ((ownChoice?.effect?.grants_abilities ?? []).some(t => !!parseWeaponAbilityGrant(t))) continue;
+    optionLineGrants.push(...parseOptionLineGrants(m[2]));
+  }
+  const grantSources: Array<{ ability: string; scope: 'melee' | 'ranged' | 'both' | 'all' }> = [
+    ...[...optionAbilities, ...armoryGrantTexts].map(t => parseWeaponAbilityGrant(t)).filter((g): g is NonNullable<typeof g> => !!g),
+    ...optionLineGrants,
+  ];
+  for (const grant of grantSources) {
     for (const weapon of weapons) {
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       const applies = grant.scope === 'all'
         || grant.scope === 'both'
         || (grant.scope === 'melee' && isMelee)
         || (grant.scope === 'ranged' && !isMelee);
-      if (applies)
+      if (applies && !(weaponTraitMap.get(weapon.name) ?? []).includes(grant.ability))
         weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), grant.ability]);
     }
   }
@@ -2503,10 +2517,17 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       if ((g.choices ?? []).length === 0 && ch['__inline']) {
         const header = g.header ?? '';
         const isExtra = /\b(additional|second|extra)\b/i.test(header);
-        const extra = isExtra ? grp.weapons.find(w => {
-          const wb = baseName(w.name).replace(/\s*\([^)]*\)\s*$/, '').trim();
-          return header.toLowerCase().includes(wb.toLowerCase());
-        }) : undefined;
+        // "One Veteran may be equipped with: +10 points Heavy flamer." (Guard Command Squads, GitHub #284): the weapon is NOT in the
+        // base loadout, so the option adds one and the card said "4x Heavy flamer" for the whole squad. Only a weapon the unit does not
+        // already carry counts here, and the LONGEST name wins so "Heavy flamer" is not read as the "Flamer" inside it.
+        const isEquippedWith = /\b(?:may|can) be equipped with\b/i.test(header) && !/\b(?:all|every|each)\b/i.test(header);   // \"All models ... +5 points each\" is the whole squad
+        const carries = (name: string) => (unit.equipped_with ?? '').toLowerCase().includes(name.toLowerCase());
+        const extra = (isExtra || isEquippedWith) ? grp.weapons
+          .filter(w => {
+            const wb = baseName(w.name).replace(/\s*\([^)]*\)\s*$/, '').trim();
+            return header.toLowerCase().includes(wb.toLowerCase()) && (isExtra || !carries(wb));
+          })
+          .sort((a, b) => b.name.length - a.name.length)[0] : undefined;
         if (extra) {
           const k = baseName(extra.name);
           grantedQty.set(k, (grantedQty.get(k) ?? 0) + Number(ch['__inline']));
@@ -3151,6 +3172,29 @@ export function parseWeaponAbilityGrant(text: string):
   const first = m[2]?.toLowerCase() as 'melee' | 'ranged' | undefined;
   if (!first) return { ability: m[1], scope: 'all' };
   return { ability: m[1], scope: m[3] ? 'both' : first };
+}
+
+/**
+ * What one datasheet option sentence gives the model's WEAPONS, for the wordings parseWeaponAbilityGrant does not read:
+ *   "Melee attacks gain the \"Tank hunter\" ability."            (Lord Discordant Technovirus-Injector)
+ *   "All ranged weapons equipped by this vehicle gain the ..."    (Corvus Blackstar Auspex array)
+ *   "The model gains the \"Parry\" ability and additionally the \"Gruesome\" ability for all melee weapons."  (Chosen Monstrous Visages;
+ *        the first ability belongs to the model and is already shown, only the second one goes on the weapons)
+ *   "The model and its attached unit gain \"Deflagrate(5+)\" for all melee attacks."  (T'au Flesh Shaper)
+ * A sentence that opens with a condition ("When resolving a Stand & Shoot Order, ...") is not always true and is left alone.
+ */
+function parseOptionLineGrants(text: string): Array<{ ability: string; scope: 'melee' | 'ranged' | 'both' | 'all' }> {
+  const t = text.trim();
+  if (/^(?:when|if|during|once|at the)\b/i.test(t)) return [];
+  const plain = parseWeaponAbilityGrant(t);
+  if (plain) return [plain];
+  let m = t.match(/\bthe ["“][^"”]+["”] abilit(?:y|ies) and additionally the ["“]([^"”]+)["”] abilit(?:y|ies) for (?:all )?(melee|ranged) (?:attacks|weapons)/i);
+  if (m) return [{ ability: m[1], scope: m[2].toLowerCase() as 'melee' | 'ranged' }];
+  m = t.match(/^the (?:model|unit)(?: and its attached unit)? gains? ["“]([^"”]+)["”] for (?:all )?(melee|ranged) (?:attacks|weapons)/i);
+  if (m) return [{ ability: m[1], scope: m[2].toLowerCase() as 'melee' | 'ranged' }];
+  m = t.match(/^(?:all )?(melee|ranged) (?:attacks|weapons)[^.]*?\bgain (?:the )?["“]([^"”]+)["”]/i);
+  if (m) return [{ ability: m[2], scope: m[1].toLowerCase() as 'melee' | 'ranged' }];
+  return [];
 }
 
 const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, {

@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'j';
+export const REVISION = '';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -36,6 +36,20 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.90',
+    date: '2026-11-20',
+    title: "GitHub bug round: Daemonkin, Entourage, Skirmish saves, option abilities",
+    changes: [
+      "ENTOURAGE (Chaos Daemons, #282). The Heralds (Bloodmaster, Changecaster, Poxbringer...) no longer carry a \"Herald:\" line on the sheet, only \"Entourage\", and the app was looking for the old line, so Entourage freed no HQ slot. The Heralds are now found by their Entourage line and the number it frees is read from the sheet's own sentence: \"one unit with this rule\" per Greater Daemon of the same god (it used to be \"up to two\"). The Palanquin of Nurgle (\"Only for Heralds\") can be bought again by the eight Heralds.",
+      "DAEMONKIN (#280, #285). The army now shows an error when a unit does not have or buy the \"Daemon\" or \"Greater Daemon\" ability (Daemonic aura, Daemonic possession, the Doombike and the Exalted Eightbound give it; the Possessed and the Adept of Possession have it). The unit-count message said one unit less than the real difference (\"1 more\" for 2 more); it shows the real number.",
+      "DAEMONIC POSSESSION (#281). \"Reduces its BS and WS values by -1\" improved them (3+ became 2+) because skills are stored the other way round; it now makes them worse (3+ becomes 4+).",
+      "SKIRMISH SAVES FROM UPGRADES (#288, Dave). \"No unit may gain a 2+ armour save or Toughness 8\" only looked at the text of Armory equipment, so a Tyrant Guard with Hardened Carapace reached 2+ without an error. The check now reads the finished profile: options, Armory effects and Traits count too.",
+      "OPTIONS THAT GIVE ABILITIES TO WEAPONS (#286). The Chosen's Accursed Weaponry, Monstrous Visages and Malicious Ammunition did nothing on the weapons. The same was true of 13 more options: Chaos Spawn and Giant Chaos Spawn Toxic Haemorrhage, Lord Discordant Technovirus-Injector, Flesh Shaper and Cadre Fireblade (T'au), Entropic Touch, Nebuloscope, Incubi Onslaught, Sword Brethren, Corvus Blackstar Auspex array and the Breachers' CAT Unit. When you pick one, its ability now appears on the right weapons (melee or ranged). Options that say \"when ...\" (Icarian) are left out because they are not always on.",
+      "WINGED BIOMORPH (Tyranids, #278). \"If this Biomorph is taken, the unit counts as a Fast Attack selection\" now moves the Tyranid Warrior Brood and the Ripper Swarms to Fast Attack, and back to Troops without it. Under Flying Death they stay Troops, as that archetype says.",
+      "COMMAND SQUAD HEAVY FLAMER (Imperial Guard, #284). The Heavy flamer showed as 4x for the whole squad; it shows 1x. The rest of that report (should these upgrades replace a Lasgun, and a cap so the upgrades cannot exceed the squad size) needs a ruling from the author.",
+    ],
+  },
   {
     version: '1.89',
     date: '2026-11-17',

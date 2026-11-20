@@ -76,6 +76,26 @@ export function hasSlotOptIn(item: RosterEntry, unit: Unit | undefined, baseSlot
   });
 }
 
+const SLOT_NAMES = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support'];
+
+/**
+ * A choice whose own datasheet line moves the unit to another slot: Tyranid "Winged: If this Biomorph is taken, the unit counts as a
+ * Fast Attack selection." (GitHub #278: a Tyranid Warrior Brood with Winged stayed in Troops.) Read from the ability line so the
+ * sheet's wording is the rule; the choice can be a datasheet option or an Armory item (the Biomorph lists moved to the Armory).
+ */
+function choiceSlot(item: RosterEntry, unit: Unit): string | null {
+  for (const a of unit.abilities ?? []) {
+    const m = String(a).match(/^([^:]{2,40}):\s*If this Biomorph is taken, the unit counts as an? ([A-Za-z ]+?) selection/i);
+    if (!m) continue;
+    const name = m[1].trim();
+    const taken = item.armory.some(x => x.itemName === name)
+      || unit.option_groups.some((g, gi) => (g.choices ?? []).some((c, ci) => c.name === name && (item.optionQty?.[gi]?.[ci] ?? 0) > 0));
+    const slot = SLOT_NAMES.find(s => s.toLowerCase() === m[2].trim().toLowerCase());
+    if (taken && slot) return slot;
+  }
+  return null;
+}
+
 /**
  * Apply dynamic slot overrides based on active variant upgrades or slot opt-ins.
  *
@@ -86,12 +106,15 @@ export function hasSlotOptIn(item: RosterEntry, unit: Unit | undefined, baseSlot
  * @param item  The roster entry (carries optionQty state).
  * @param unit  The unit definition (carries option_groups metadata).
  * @param baseSlot  The slot after static archetype remapping (from getEffectiveSlot).
+ * @param rule  The archetype rule in force: a unit it remaps to Troops (Flying Death: "Winged Tyranid Warrior Broods count as Troops")
+ *              keeps that slot whatever its biomorph says.
  * @returns  The final effective slot for this specific roster entry.
  */
 export function applyVariantSlotOverride(
   item: RosterEntry,
   unit: Unit | undefined,
   baseSlot: string,
+  rule?: { troopsRemap?: string[] } | null,
 ): string {
   if (!unit) return baseSlot;
 
@@ -103,6 +126,9 @@ export function applyVariantSlotOverride(
     const gi = unit.option_groups.findIndex(g => rule.test.test(g.header));
     if (gi >= 0 && (item.optionQty?.[gi]?.['__inline'] ?? 0) > 0) return rule.to;
   }
+
+  const viaChoice = choiceSlot(item, unit);
+  if (viaChoice && !(rule?.troopsRemap ?? []).includes(unit.name)) return viaChoice;
 
   return baseSlot;
 }

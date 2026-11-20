@@ -160,7 +160,10 @@ export function parseEquipMods(
         for (const sn of statNames) {
           const snTrim = sn.trim().toUpperCase();
           if (snTrim === 'BS' || snTrim === 'WS' || snTrim === 'S' || snTrim === 'T' || snTrim === 'A' || snTrim === 'I' || snTrim === 'LD') {
-            mods.statDeltas[snTrim] = (mods.statDeltas[snTrim] ?? 0) + delta;
+            // BS and WS are stored in printed-number space ("3+"): reducing the skill makes the number BIGGER (3+ -> 4+). Daemonic
+            // possession's "reduces its BS and WS values by -1" improved them to 2+ (GitHub #281).
+            const skill = snTrim === 'BS' || snTrim === 'WS';
+            mods.statDeltas[snTrim] = (mods.statDeltas[snTrim] ?? 0) + (skill ? -delta : delta);
           }
         }
       }

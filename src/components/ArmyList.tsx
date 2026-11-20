@@ -114,7 +114,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
       {SLOT_ORDER.map(slot => {
         const slotUnits = scopedArmy.filter(item => {
           const u = resolveUnit(item, data);
-          const baseSlot = applyVariantSlotOverride(item, u, getEffectiveSlotFor(item, rule));
+          const baseSlot = applyVariantSlotOverride(item, u, getEffectiveSlotFor(item, rule), rule);
           return applyPlatoonSlotOverride(item, scopedArmy, baseSlot) === slot;
         });
         if (slotUnits.length === 0) return null;

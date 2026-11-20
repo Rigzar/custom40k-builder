@@ -146,26 +146,43 @@ function _getAllowedDiscKeys(
  * Entourage frees up to two Heralds of the same god for each Greater Daemon (GH#258). Returns the ids of the allied Heralds that occupy no slot:
  * first those freed by Entourage (2 per Greater Daemon of the same god), then every second remaining Herald (the Herald rule).
  */
+/**
+ * A Chaos Daemons Herald, read from the datasheet's own rule lines (GitHub #282: the sheet stopped printing a separate "Herald:" line,
+ * so no Herald was found and Entourage freed nothing).
+ *   "Entourage: For each Greater Daemon of the same Chaos god, one unit with this rule ... does not occupy an HQ slot." -> frees `perGreater`
+ *        units per Greater Daemon of the same god (the sheet says "one" or "up to two": read the number, never assume it);
+ *   "Herald: Up to two units with this rule can be taken as a single HQ choice."  (older sheets) -> the rest pair up.
+ */
+export function cdHeraldRule(u: { abilities?: string[] } | null | undefined): { isHerald: boolean; perGreater: number; pairs: boolean } {
+  const lines = u?.abilities ?? [];
+  const ent = lines.find(a => /^entourage:/i.test(a));
+  const pairs = lines.some(a => /^herald:/i.test(a));
+  if (!ent && !pairs) return { isHerald: false, perGreater: 0, pairs: false };
+  const n = ent?.match(/\b(one|two|three)\s+units?\b/i)?.[1]?.toLowerCase();
+  return { isHerald: true, perGreater: n === 'one' ? 1 : n === 'three' ? 3 : 2, pairs };
+}
+
 export function alliedCdFreeHeraldIds(army: RosterEntry[], data: FactionData, alliedFaction?: string): Set<string> {
   const free = new Set<string>();
   if (alliedFaction !== 'chaos_daemons') return free;
   const greaterByGod: Record<string, number> = {};
-  const heralds: { id: string; god: string }[] = [];
+  const heralds: { id: string; god: string; per: number; pairs: boolean }[] = [];
   for (const i of army) {
     if (!isAlliedEntry(i, alliedFaction)) continue;
     const u = resolveUnit(i, data);
     if (!u?.locked_mark) continue;
-    const isHerald = (u.abilities ?? []).some(a => /^herald:/i.test(a));
-    if (isHerald) heralds.push({ id: i.id, god: u.locked_mark });
+    const h = cdHeraldRule(u);
+    if (h.isHerald) heralds.push({ id: i.id, god: u.locked_mark, per: h.perGreater, pairs: h.pairs });
     else if (u.is_monster) greaterByGod[u.locked_mark] = (greaterByGod[u.locked_mark] ?? 0) + 1;
   }
-  const left: { id: string; god: string }[] = [];
+  const left: { id: string; god: string; per: number; pairs: boolean }[] = [];
   const usedByGod: Record<string, number> = {};
   for (const h of heralds) {
-    if ((usedByGod[h.god] ?? 0) < (greaterByGod[h.god] ?? 0) * 2) { usedByGod[h.god] = (usedByGod[h.god] ?? 0) + 1; free.add(h.id); }
+    if ((usedByGod[h.god] ?? 0) < (greaterByGod[h.god] ?? 0) * h.per) { usedByGod[h.god] = (usedByGod[h.god] ?? 0) + 1; free.add(h.id); }
     else left.push(h);
   }
-  for (let k = 0; k < Math.floor(left.length / 2); k++) free.add(left[k].id);
+  const pairable = left.filter(h => h.pairs);
+  for (let k = 0; k < Math.floor(pairable.length / 2); k++) free.add(pairable[k].id);
   return free;
 }
 
@@ -277,7 +294,7 @@ function getSlotUsage(
     if (excludeSlotOptIns && rule?.minimumsOnlyKeyword && !(u && unitMatchesKeyword(u, rule.minimumsOnlyKeyword))) return false;
     // "Harlequins can not be the mandatory HQ selection" (Eldar / Dark Eldar): they fill HQ slots but not the minimum.
     if (excludeSlotOptIns && slot === 'HQ' && i.factionSource && data.intrinsic_allies_not_mandatory_hq?.includes(i.factionSource)) return false;
-    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, printedSlot);
+    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, printedSlot, rule);
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;
     // IG Platoon grouping (ki-45b): a member linked to a live Platoon Command Squad is folded
@@ -450,7 +467,7 @@ function allowedMarksFor(mark: string, data: FactionData): string[] {
 
 /**
  * CD-only: compute HQ and FA slots freed by the three special rules.
- *   Entourage  — per-god: each Greater Daemon grants up to 2 free HQ slots to heralds of the same god.
+ *   Entourage  — per-god: each Greater Daemon frees the number of Heralds of the same god that the sheet's Entourage line names (one, or up to two).
  *   Herald     — remaining heralds pair up, every 2 sharing 1 HQ slot (save = floor(n/2)).
  *   Bound Beast— each HQ unit with Mark of Khorne frees 1 Slaughterbrute from the FA slot count.
  *
@@ -466,6 +483,8 @@ export function computeCdFreeSlots(
 
   const greaterDaemonsByGod: Record<string, number> = {};
   const heraldsByGod: Record<string, number> = {};
+  const perGreaterByGod: Record<string, number> = {};
+  const pairableByGod: Record<string, number> = {};
   let khorneHqCount = 0;
   let slaughterbruteCount = 0;
 
@@ -481,7 +500,8 @@ export function computeCdFreeSlots(
     // god — which freed its own HQ slot, for any god, with no cap that could ever bite (GH#126).
     // `is_monster` is the same proxy ArmoryModal already uses for this exact reason; the Herald
     // test is kept alongside it so a future monstrous Herald could not slip back through.
-    const isHerald = abilities.some(a => /^herald:/i.test(a));
+    const heraldRule = cdHeraldRule(u);
+    const isHerald = heraldRule.isHerald;
     // Greater Daemon: contributes Entourage quota for its god
     if (u.is_monster && !isHerald && u.locked_mark) {
       greaterDaemonsByGod[u.locked_mark] = (greaterDaemonsByGod[u.locked_mark] ?? 0) + 1;
@@ -489,9 +509,11 @@ export function computeCdFreeSlots(
     // Herald: heralds that can be freed by Entourage or paired by Herald rule
     if (isHerald && u.locked_mark) {
       heraldsByGod[u.locked_mark] = (heraldsByGod[u.locked_mark] ?? 0) + 1;
+      perGreaterByGod[u.locked_mark] = Math.max(perGreaterByGod[u.locked_mark] ?? 0, heraldRule.perGreater);
+      if (heraldRule.pairs) pairableByGod[u.locked_mark] = (pairableByGod[u.locked_mark] ?? 0) + 1;
     }
     // Khorne HQ count — for Bound Beast
-    const effSlot = applyVariantSlotOverride(item, u, getEffectiveSlotFor(item, rule));
+    const effSlot = applyVariantSlotOverride(item, u, getEffectiveSlotFor(item, rule), rule);
     if (effSlot === 'HQ') {
       const mark = u.locked_mark ?? item.mark;
       if (mark === 'Khorne') khorneHqCount++;
@@ -508,14 +530,15 @@ export function computeCdFreeSlots(
   for (const [god, gdCount] of Object.entries(greaterDaemonsByGod)) {
     const heraldsOfGod = remainingHeraldsByGod[god] ?? 0;
     if (heraldsOfGod === 0) continue;
-    const freed = Math.min(heraldsOfGod, gdCount * 2);
+    const freed = Math.min(heraldsOfGod, gdCount * (perGreaterByGod[god] ?? 2));
     entourageFree += freed;
     remainingHeraldsByGod[god] = heraldsOfGod - freed;
     notes.push(`Entourage (${god}): ${freed} herald(s) occupy no HQ slot.`);
   }
 
   // ── Herald: remaining heralds pair up, every 2 sharing 1 HQ slot ─────────────
-  const totalRemaining = Object.values(remainingHeraldsByGod).reduce((s, n) => s + n, 0);
+  // only the Heralds whose sheet still carries the pairing line ("Herald: Up to two units ... a single HQ choice") can pair up
+  const totalRemaining = Object.entries(remainingHeraldsByGod).reduce((s, [god, n]) => s + Math.min(n, pairableByGod[god] ?? 0), 0);
   const heraldSaving = Math.floor(totalRemaining / 2);
   if (heraldSaving > 0) {
     notes.push(
@@ -2034,9 +2057,32 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (Math.abs(mainCount - alliedCount) > 1) {
         const more = mainCount > alliedCount ? 'CSM' : 'Daemons';
         const less = mainCount > alliedCount ? 'Daemons' : 'CSM';
+        // The real difference, not the excess over the limit: GitHub #285 had 2 more units and the message said 1.
         items.push({
           type: 'error',
-          text: `Daemonkin: ${more} has ${Math.abs(mainCount - alliedCount) - 1} more unit(s) than ${less} — max difference is 1.`,
+          text: `Daemonkin: ${more} has ${Math.abs(mainCount - alliedCount)} more unit(s) than ${less} — max difference is 1.`,
+        });
+      }
+      // "All units in the army must have or purchase the 'Daemon' or 'Greater Daemon' ability" (GitHub #280). The Chaos Space Marine
+      // side gets it from its datasheet (Possessed, Adept of Possession), an option (Exalted Eightbound) or an Armory item (Daemonic
+      // aura, Daemonic possession, Doombike); the Chaos Daemons side always has it.
+      const isDaemonAbility = (a: string) => /^(Greater )?Daemon$/i.test(a.trim());
+      const lacksDaemon = new Set<string>();
+      for (const item of state.army) {
+        if (!isDaemonkinMain(item)) continue;
+        const u = resolveUnit(item, data);
+        if (!u) continue;
+        const native = (u.abilities ?? []).some(a => String(a).split(/,(?![^(]*\))/).some(t => isDaemonAbility(t.split(':')[0])));
+        if (native) continue;
+        const rp = resolveUnitProfile(item, u, state, data);
+        const bought = rp.equipMods.grantedAbilities.some(isDaemonAbility)
+          || rp.optionAbilities.some(t => /["“](Greater )?Daemon["”]/i.test(t));
+        if (!bought) lacksDaemon.add(item.unitName);
+      }
+      if (lacksDaemon.size > 0) {
+        items.push({
+          type: 'error',
+          text: `Daemonkin: every unit must have or buy the "Daemon" or "Greater Daemon" ability — missing on: ${[...lacksDaemon].join(', ')}.`,
         });
       }
     }
@@ -2790,7 +2836,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         // the 25% requirement (GH#130). The codex's other half -- "Can't be a mandatory unit
         // selection" -- is about the AOP MINIMUM and is enforced separately, by `excludeSlotOptIns`
         // in getSlotUsage; it is not about the points share.
-        const slot = applyPlatoonSlotOverride(i, state.army, applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule)));
+        const slot = applyPlatoonSlotOverride(i, state.army, applyVariantSlotOverride(i, u, getEffectiveSlotFor(i, iRule), iRule));
         if (slot !== 'Troops') return false;
         return countsTroops(i.unitName, u.locked_mark, iRule);
       })
@@ -3114,6 +3160,36 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         items.push({ type: 'error', text: T('valSkirmishToughnessBase', { unit: item.unitName, t: bestT }) });
       }
 
+      // Saves and Toughness that an OPTION, an Armory item's effect or a Trait improves through a stat modifier (Tyranid Hardened Carapace:
+      // "improves its armor save by +1" is SV -1): the checks below only read the text of equipment, so a Tyrant Guard with Hardened
+      // Carapace reached a 2+ armour save with no error (GitHub #288, Dave). The resolved profile has every source, so ask it.
+      {
+        const rpSk = resolveUnitProfile(item, u, state, data);
+        const sumMods = (stat: string) => [...(rpSk.optionStatMods ?? []), ...(rpSk.traitStatMods ?? [])]
+          .filter(m => m.stat === stat).reduce((n, m) => n + m.delta, 0);
+        const culpritFor = (stat: string, sign: number): string => {
+          const names: string[] = [];
+          u.option_groups.forEach((g, gi) => g.choices.forEach((c, ci) => {
+            if ((item.optionQty?.[gi]?.[ci] ?? 0) > 0 && (c.effect?.stat_mod ?? []).some(m => m.stat === stat && Math.sign(m.delta) === sign)) names.push(c.name);
+          }));
+          for (const a of item.armory) {
+            const ai = findArmoryItem(data, a);
+            if ((ai?.effect?.stat_mod ?? []).some(m => m.stat === stat && Math.sign(m.delta) === sign)) names.push(a.itemName);
+          }
+          return names.join(', ') || 'an upgrade';
+        };
+        // SV is stored in printed-number space, so an improvement is a NEGATIVE delta.
+        const svDelta = sumMods('SV');
+        if (bestSv !== null && bestSv > 2 && svDelta < 0 && bestSv + svDelta <= 2) {
+          items.push({ type: 'error', text: T('valSkirmishArmourSaveGain', { unit: item.unitName, culprit: culpritFor('SV', -1) }) });
+        }
+        const baseTopt = parseInt(String(u.models[0]?.stats?.T ?? '0'));
+        const tDelta = sumMods('T');
+        if (baseTopt > 0 && baseTopt < 8 && tDelta > 0 && baseTopt + tDelta >= 8) {
+          items.push({ type: 'error', text: T('valSkirmishToughnessGain', { unit: item.unitName, t: baseTopt + tDelta }) });
+        }
+      }
+
       if (item.armory.length > 0) {
         const equipItems = item.armory
           .filter(a => a.section === 'equipment')
@@ -3387,7 +3463,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   {
     const lowUnits = state.army.filter(i => {
       const u = resolveUnit(i, data);
-      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlotFor(i, effectiveRuleFor(i, state)));
+      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlotFor(i, effectiveRuleFor(i, state)), effectiveRuleFor(i, state));
       return effSlot === 'Lords of War';
     });
     if (lowUnits.length > 0) {

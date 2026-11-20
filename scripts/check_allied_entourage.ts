@@ -28,7 +28,9 @@ const fail = (m: string) => { failures++; console.log('  WRONG ' + m); };
   if (hqErrors([mk('a', lord), t('t1')]).length) fail('control: one Lord of Change alone should fill the ally HQ slot without error');
   if (!hqErrors([mk('a', lord), mk('b', 'Bloodthirster'), t('t1')]).length) fail('control: two Greater Daemons of different gods should overflow one ally HQ slot, the probe measures nothing otherwise');
   if (hqErrors([mk('a', lord), mk('b', caster), t('t1')]).length) fail('a Changecaster next to a Lord of Change should occupy no HQ slot (Entourage)');
-  if (hqErrors([mk('a', lord), mk('b', caster), mk('c', caster), t('t1')]).length) fail('two Changecasters next to a Lord of Change should both be free');
+  // The sheet now says "one unit with this rule" per Greater Daemon (it used to say "up to two"): the number is read from the Entourage line.
+  if (hqErrors([mk('a', lord), mk('b', caster), t('t1')]).length) fail('one Changecaster next to a Lord of Change should be free');
+  if (!hqErrors([mk('a', lord), mk('b', caster), mk('c', caster), t('t1')]).length) fail('a second Changecaster next to ONE Lord of Change should occupy the ally HQ slot (Entourage frees one per Greater Daemon)');
   console.log(failures ? `\n${failures} FAILURE(S)` : '\nOK  allied Entourage frees the HQ slot');
   process.exit(failures ? 1 : 0);
 })();
