@@ -170,12 +170,15 @@ function applyArmyTraits(
   army: RosterEntry[],
   traitPool: string[],
   data: FactionData,
-  _archetype: string,
+  archetype: string,
   legacy?: string,
   alliedFaction?: string,
   alliedData?: FactionData | null,
   alliedTraitPool?: string[],
 ): RosterEntry[] {
+  // The rule of the MAIN army: its grantsKeywords (Legion CSM: a Horus Heresy unit with a Mark is a Chaos Space Marine) decide who gets the Traits.
+  // Both checks below passed null, so the grant never applied and the unit paid for and got no Trait.
+  const mainRule = getArchetypeRule(archetype);
   const holyTrinity = legacy === 'The Holy Trinity';
   // See computeTraitSelections: Ministorum World makes the army's THIRD Trait cost nothing. Held
   // by NAME rather than by index because `unitTraitNames` below is the pool with army-only traits
@@ -224,7 +227,7 @@ function applyArmyTraits(
 
       // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
       // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
-      if (data.faction === 'Chaos Space Marines' && !entryHasKeyword(unit, item, 'Chaos Space Marine', null)) {
+      if (data.faction === 'Chaos Space Marines' && !entryHasKeyword(unit, item, 'Chaos Space Marine', mainRule)) {
         return { ...item, traits: [] };
       }
 
@@ -235,7 +238,7 @@ function applyArmyTraits(
     // A Horus Heresy unit of a Legion CSM army that took a Mark is a Chaos Space Marine (Dominic 2026-11-16): the army's traits apply.
     if (data.faction === 'Chaos Space Marines' && item.factionSource && unitTraitNames.length) {
       const unit = resolveUnit(item, data);
-      if (unit && entryHasKeyword(unit, item, 'Chaos Space Marine', null)) {
+      if (unit && entryHasKeyword(unit, item, 'Chaos Space Marine', mainRule)) {
         return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data, freeTraitName) };
       }
     }

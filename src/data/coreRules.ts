@@ -1066,7 +1066,8 @@ export function lookupRule(token: string): { displayName: string; description: s
   if (!entry) return null;
 
   const effective = param || getLegacyParam(key);
-  const sub = (s: string) => effective ? s.replace(/\{X\}/g, effective) : s;
+  // The sheets write Lance(+2); a template that already says "+{X}" must not print "++2".
+  const sub = (s: string) => effective ? s.replace(/\+\{X\}/g, '+' + effective.replace(/^\+/, '')).replace(/\{X\}/g, effective) : s;
   return {
     displayName: sub(localised(key, 'name', entry.name)),
     description: sub(localised(key, 'desc', entry.description)),

@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190a_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -68,18 +68,21 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Bugs (GitHub)", rows: [
         ["#288", "Skirmish: an upgrade that takes a unit to a 2+ save or Toughness 8 (Hardened Carapace) is flagged now."],
         ["#286", "Options that give an ability to weapons (Chosen Accursed Weaponry and 15 more) put it on the right weapons now."],
+        ["Weapons", "An ability given by several sources is listed once, with the best value."],
       ] },
       { label: "Chaos Daemons", rows: [
         ["Chaos Daemons", "Entourage frees the HQ slot again (one unit per Greater Daemon of the same god, as the sheet says) and Heralds can buy the Palanquin of Nurgle again (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
         ["Chaos Space Marines", "Daemonkin shows an error when a unit does not have or buy the Daemon ability, and its unit-count message shows the real difference (#280, #285). Daemonic possession makes BS and WS worse, it improved them (#281). The Black Crusade champion also gets the Mark of Tzeentch's Psyker."],
+        ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged moves the Tyranid Warrior Brood and the Ripper Swarms to Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
         ["Imperial Guard", "The Command Squad's Heavy flamer shows 1x, not 4x (#284)."],
+        ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
         ["Eldar", "The Exarch's swapped weapon counts once (the Scorpion claw was shown x5) and his powers worded \"of the model\" no longer mark every weapon of the squad."],
@@ -103,18 +106,21 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Fehler (GitHub)", rows: [
         ["#288", "Skirmish: ein Upgrade, das eine Einheit auf 2+-Rettungswurf oder Widerstand 8 bringt (Hardened Carapace), wird jetzt gemeldet."],
         ["#286", "Optionen, die Waffen eine Fähigkeit geben (Chosen Accursed Weaponry und 15 weitere), legen sie jetzt auf die richtigen Waffen."],
+        ["Waffen", "Eine Fähigkeit aus mehreren Quellen wird einmal mit dem besten Wert aufgeführt."],
       ] },
       { label: "Chaos Daemons", rows: [
         ["Chaos Daemons", "Entourage befreit den HQ-Slot wieder (eine Einheit pro Greater Daemon desselben Gottes, wie im Datenblatt) und Heralds können die Palanquin of Nurgle wieder kaufen (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
         ["Chaos Space Marines", "Daemonkin meldet einen Fehler, wenn eine Einheit die Fähigkeit Daemon weder hat noch kauft, und die Meldung zur Einheitenzahl zeigt den echten Unterschied (#280, #285). Daemonic possession verschlechtert BF und KG, statt sie zu verbessern (#281). Der Black-Crusade-Champion bekommt auch den Psyker des Mals des Tzeentch."],
+        ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged setzt die Tyranid Warrior Brood und die Ripper Swarms auf Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
         ["Imperial Guard", "Der Heavy flamer des Command Squad zeigt 1x statt 4x (#284)."],
+        ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
         ["Eldar", "Die getauschte Waffe des Exarchen zählt einmal (die Scorpion claw wurde x5 angezeigt) und seine Kräfte mit „of the model“ markieren nicht mehr jede Waffe des Trupps."],
@@ -138,18 +144,21 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Errores (GitHub)", rows: [
         ["#288", "Skirmish: una mejora que lleva a una unidad a salvación 2+ o Resistencia 8 (Hardened Carapace) se marca ahora."],
         ["#286", "Las opciones que dan una habilidad a las armas (Accursed Weaponry de los Chosen y 15 más) la ponen ahora en las armas correctas."],
+        ["Armas", "Una habilidad dada por varias fuentes se muestra una vez, con el mejor valor."],
       ] },
       { label: "Chaos Daemons", rows: [
         ["Chaos Daemons", "Entourage libera otra vez el slot de HQ (una unidad por Greater Daemon del mismo dios, como dice la hoja) y los Heralds pueden volver a comprar el Palanquin of Nurgle (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
         ["Chaos Space Marines", "Daemonkin da error cuando una unidad no tiene ni compra la habilidad Daemon, y su mensaje de número de unidades muestra la diferencia real (#280, #285). Daemonic possession empeora BS y WS, antes los mejoraba (#281). El campeón de la Cruzada Negra también recibe el Psyker de la Marca de Tzeentch."],
+        ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged pasa el Tyranid Warrior Brood y los Ripper Swarms a Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
         ["Imperial Guard", "El Heavy flamer del Command Squad sale 1x, no 4x (#284)."],
+        ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
         ["Eldar", "El arma cambiada del Exarca cuenta una vez (la Scorpion claw salía x5) y sus poderes “of the model” ya no marcan todas las armas del escuadrón."],
@@ -173,18 +182,21 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Ошибки (GitHub)", rows: [
         ["#288", "Стычка: улучшение, доводящее отряд до сейва 2+ или Стойкости 8 (Hardened Carapace), теперь отмечается."],
         ["#286", "Опции, дающие оружию способность (Accursed Weaponry у Chosen и ещё 15), теперь ставят её на нужное оружие."],
+        ["Оружие", "Способность из нескольких источников показывается один раз, с лучшим значением."],
       ] },
       { label: "Chaos Daemons", rows: [
         ["Chaos Daemons", "Entourage снова освобождает слот Штаба (один отряд на Greater Daemon того же бога, как в таблице), а Heralds снова могут купить Palanquin of Nurgle (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
         ["Chaos Space Marines", "Daemonkin показывает ошибку, если у отряда нет и он не покупает способность Daemon, а сообщение о числе отрядов показывает реальную разницу (#280, #285). Daemonic possession ухудшает BS и WS, а не улучшал (#281). Чемпион Чёрного крестового похода получает и Psyker Метки Tzeentch."],
+        ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged переводит Tyranid Warrior Brood и Ripper Swarms в Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
         ["Imperial Guard", "Heavy flamer у Command Squad показывается 1x, а не 4x (#284)."],
+        ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
         ["Eldar", "Заменённое оружие Эксарха считается один раз (Scorpion claw показывалась x5), а его силы «of the model» больше не отмечают всё оружие отряда."],
@@ -208,18 +220,21 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "不具合 (GitHub)", rows: [
         ["#288", "スカーミッシュ：ユニットをセーブ2+や耐久8にするアップグレード（Hardened Carapace）が警告されるようになりました。"],
         ["#286", "武器に能力を与えるオプション（ChosenのAccursed Weaponryほか15件）が正しい武器に付くようになりました。"],
+        ["武器", "複数の出典から与えられる能力は、最良の値で1回だけ表示されます。"],
       ] },
       { label: "Chaos Daemons", rows: [
         ["Chaos Daemons", "Entourageが再びHQ枠を空け（同じ神のGreater Daemonごとに1ユニット、シートどおり）、HeraldがPalanquin of Nurgleを再び購入できます（#282）。"],
       ] },
       { label: "Chaos Space Marines", rows: [
         ["Chaos Space Marines", "ユニットがDaemon能力を持たず購入もしない場合、Daemonkinがエラーを出し、ユニット数のメッセージは実際の差を表示します（#280、#285）。Daemonic possessionはBSとWSを悪化させます（以前は改善していました、#281）。ブラッククルセードのチャンピオンはティーンチの印のPsykerも得ます。"],
+        ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "WingedでTyranid Warrior BroodとRipper SwarmsがFast Attackになります（#278）。"],
       ] },
       { label: "Imperial Guard", rows: [
         ["Imperial Guard", "Command SquadのHeavy flamerは4xではなく1xと表示されます（#284）。"],
+        ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
         ["Eldar", "エグザークが交換した武器は1回だけ数えられ（Scorpion clawはx5と表示されていました）、「of the model」の能力が分隊の全武器に付かなくなりました。"],

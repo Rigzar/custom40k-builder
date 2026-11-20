@@ -439,7 +439,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   // _effectiveKws: single source of truth for all keyword-based gating for armour
   // Combines unit profile keywords (using effectiveKeywords) + bought armour keywords
-  const _effectiveKws = [...unitProfile.keywords, ...getBoughtArmourKws()];
+  // isItemRequirementsBlocked compares in LOWER CASE, and the armour keyword of a bought item is written "Cataphractii": it never matched, so the
+  // weapons that need that armour (Manreaper, Twin plague spewer...) stayed closed after buying it (GitHub #292, Chi). A Cataphractii or
+  // Tartaros suit also counts as Terminator armour, as it does when the unit wears it from its datasheet (effectiveKeywords).
+  const _boughtArmourKws = getBoughtArmourKws()
+    .flatMap(k => (isTerminatorArmourName(k) && k.toLowerCase() !== 'terminator') ? [k, 'Terminator'] : [k])
+    .map(k => k.toLowerCase());
+  const _effectiveKws = [...unitProfile.keywords, ..._boughtArmourKws];
 
   // T'au support systems stop at the datasheet's cap ("up to two SUPPORT SYSTEMS from the armory", GH#243).
   function supportCapBlocked(arm: ArmoryItem, sec: Section): boolean {

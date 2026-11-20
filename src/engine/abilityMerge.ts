@@ -87,12 +87,16 @@ export function mergeWeaponAbilities(
   const resultParts = [...existingParts];
   const improved: string[] = [];   // replaced existing with better value
   const added: string[] = [];      // new ability not previously present
+  // Additions are also compared with EACH OTHER: two sources giving the same ability ("Poison(3+)" from Plague ammunition and from a
+  // generic grant, or Poison(4+) and Poison(3+) from two items) used to both print when the weapon did not have it. Only the better
+  // value is kept, and an ability without a value is listed once.
+  const addedIndex = new Map<string, { value: number; idx: number }>();
 
   for (const add of additions) {
     const parsed = parseAbilityValue(add);
     if (!parsed) {
       // Non-mergeable ability — just append if not already present
-      if (!existing.toLowerCase().includes(add.toLowerCase())) {
+      if (!existing.toLowerCase().includes(add.toLowerCase()) && !added.some(a => a.toLowerCase() === add.toLowerCase())) {
         added.push(add);
       }
       continue;
@@ -100,8 +104,15 @@ export function mergeWeaponAbilities(
 
     const existing_ = existingMap.get(parsed.key);
     if (!existing_) {
-      // Not present yet — new addition
-      added.push(add);
+      // Not present yet — new addition, unless an earlier addition already gives it (then the better one stays)
+      const prior = addedIndex.get(parsed.key);
+      if (!prior) {
+        addedIndex.set(parsed.key, { value: parsed.value, idx: added.length });
+        added.push(add);
+      } else if (isBetter(parsed.key, parsed.value, prior.value)) {
+        added[prior.idx] = add;
+        addedIndex.set(parsed.key, { value: parsed.value, idx: prior.idx });
+      }
     } else if (isBetter(parsed.key, parsed.value, existing_.value)) {
       // New value is better — replace the existing one
       resultParts[existing_.index] = add;
