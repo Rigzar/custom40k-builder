@@ -79,6 +79,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "A Black Crusade champion can take the datasheet options marked (Nurgle only), (Khorne only)... as he has every Mark."],
       ] },
+      { label: "Space Marines", rows: [
+        ["Space Marines", "The Death Watch Watch spear counts as a bolt weapon (its ranged profile is named Bolt Caster, as in the sheet)."],
+      ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "The Knight Crusader is in: 579 points, 1–2 models, and the Freeblade archetype can take it."],
       ] },
@@ -121,6 +124,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Daemonkin meldet einen Fehler, wenn eine Einheit die Fähigkeit Daemon weder hat noch kauft, und die Meldung zur Einheitenzahl zeigt den echten Unterschied (#280, #285). Daemonic possession verschlechtert BF und KG, statt sie zu verbessern (#281). Der Black-Crusade-Champion bekommt auch den Psyker des Mals des Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Ein Black-Crusade-Champion kann die Datenblatt-Optionen mit (Nurgle only), (Khorne only)... wählen, da er jedes Mal besitzt."],
+      ] },
+      { label: "Space Marines", rows: [
+        ["Space Marines", "Der Watch spear der Death Watch zählt als Bolt-Waffe (sein Fernkampfprofil heißt Bolt Caster, wie im Blatt)."],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Der Knight Crusader ist dabei: 579 Punkte, 1–2 Modelle, und die Archetype Freeblade darf ihn nehmen."],
@@ -165,6 +171,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Un campeón de Black Crusade puede tomar las opciones de la hoja marcadas (Nurgle only), (Khorne only)... porque tiene todas las Marcas."],
       ] },
+      { label: "Space Marines", rows: [
+        ["Space Marines", "El Watch spear de la Death Watch cuenta como arma bolt (su perfil a distancia se llama Bolt Caster, como en la hoja)."],
+      ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Añadido el Knight Crusader: 579 puntos, 1–2 modelos; el arquetipo Freeblade puede tomarlo."],
       ] },
@@ -208,6 +217,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Чемпион Black Crusade может брать опции датащита с пометкой (Nurgle only), (Khorne only)..., так как имеет все Метки."],
       ] },
+      { label: "Space Marines", rows: [
+        ["Space Marines", "Watch spear Death Watch считается болтерным оружием (его стрелковый профиль назван Bolt Caster, как в таблице)."],
+      ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Добавлен Knight Crusader: 579 очков, 1–2 модели; архетип Freeblade может его взять."],
       ] },
@@ -250,6 +262,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "ユニットがDaemon能力を持たず購入もしない場合、Daemonkinがエラーを出し、ユニット数のメッセージは実際の差を表示します（#280、#285）。Daemonic possessionはBSとWSを悪化させます（以前は改善していました、#281）。ブラッククルセードのチャンピオンはティーンチの印のPsykerも得ます。"],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Black Crusadeのチャンピオンは全ての印を持つため、(Nurgle only)、(Khorne only)などの選択肢を選べます。"],
+      ] },
+      { label: "Space Marines", rows: [
+        ["Space Marines", "Death WatchのWatch spearはボルト武器として扱われます(射撃プロファイル名がシート通りBolt Casterになりました)。"],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Knight Crusader追加: 579ポイント、1~2モデル。Freebladeアーキタイプでも選べます。"],

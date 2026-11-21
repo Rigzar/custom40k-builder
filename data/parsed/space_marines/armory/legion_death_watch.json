@@ -133,7 +133,7 @@
       "p_char": 16,
       "profiles": [
         {
-          "name": "Ranged",
+          "name": "Bolt Caster",
           "range": "12\"",
           "type": "Pistol 1",
           "s": "4",
