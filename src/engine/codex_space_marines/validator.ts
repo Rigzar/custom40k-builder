@@ -56,7 +56,7 @@ export function validateSpaceMarines(
         const gi = hu?.option_groups.findIndex(g => g.choices.some(c => c.name === 'Wolf Guard')) ?? -1;
         const ci = gi >= 0 ? hu!.option_groups[gi].choices.findIndex(c => c.name === 'Wolf Guard') : -1;
         if (gi >= 0 && Number(item.optionQty?.[gi]?.[ci] ?? 0) > 0) {
-          items.push({ type: 'error', text: T('valSm1stCompanyHonorGuardSquadron') });
+          items.push({ type: 'warn', text: T('valSm1stCompanyHonorGuardSquadron') });
         }
       }
     }
