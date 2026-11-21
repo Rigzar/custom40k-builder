@@ -121,7 +121,9 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state, data) => 
       injectedAbilities.push(
         isChar && unit.is_psyker
           ? 'Mark of Tzeentch: Warded · +1 psychic power per turn'
-          : 'Mark of Tzeentch: Warded',
+          : isChar
+            ? 'Mark of Tzeentch: Warded · Psyker(1)'
+            : 'Mark of Tzeentch: Warded',
       );
     }
   }

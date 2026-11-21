@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190d_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -79,6 +79,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "A Black Crusade champion can take the datasheet options marked (Nurgle only), (Khorne only)... as he has every Mark."],
       ] },
+      { label: "Knight Households", rows: [
+        ["Knight Crusader", "The Knight Crusader is in: 579 points, 1–2 models, and the Freeblade archetype can take it."],
+      ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged moves the Tyranid Warrior Brood and the Ripper Swarms to Fast Attack (#278)."],
       ] },
@@ -118,6 +121,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Daemonkin meldet einen Fehler, wenn eine Einheit die Fähigkeit Daemon weder hat noch kauft, und die Meldung zur Einheitenzahl zeigt den echten Unterschied (#280, #285). Daemonic possession verschlechtert BF und KG, statt sie zu verbessern (#281). Der Black-Crusade-Champion bekommt auch den Psyker des Mals des Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Ein Black-Crusade-Champion kann die Datenblatt-Optionen mit (Nurgle only), (Khorne only)... wählen, da er jedes Mal besitzt."],
+      ] },
+      { label: "Knight Households", rows: [
+        ["Knight Crusader", "Der Knight Crusader ist dabei: 579 Punkte, 1–2 Modelle, und die Archetype Freeblade darf ihn nehmen."],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged setzt die Tyranid Warrior Brood und die Ripper Swarms auf Fast Attack (#278)."],
@@ -159,6 +165,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Un campeón de Black Crusade puede tomar las opciones de la hoja marcadas (Nurgle only), (Khorne only)... porque tiene todas las Marcas."],
       ] },
+      { label: "Knight Households", rows: [
+        ["Knight Crusader", "Añadido el Knight Crusader: 579 puntos, 1–2 modelos; el arquetipo Freeblade puede tomarlo."],
+      ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged pasa el Tyranid Warrior Brood y los Ripper Swarms a Fast Attack (#278)."],
       ] },
@@ -199,6 +208,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Чемпион Black Crusade может брать опции датащита с пометкой (Nurgle only), (Khorne only)..., так как имеет все Метки."],
       ] },
+      { label: "Knight Households", rows: [
+        ["Knight Crusader", "Добавлен Knight Crusader: 579 очков, 1–2 модели; архетип Freeblade может его взять."],
+      ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "Winged переводит Tyranid Warrior Brood и Ripper Swarms в Fast Attack (#278)."],
       ] },
@@ -238,6 +250,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "ユニットがDaemon能力を持たず購入もしない場合、Daemonkinがエラーを出し、ユニット数のメッセージは実際の差を表示します（#280、#285）。Daemonic possessionはBSとWSを悪化させます（以前は改善していました、#281）。ブラッククルセードのチャンピオンはティーンチの印のPsykerも得ます。"],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Black Crusadeのチャンピオンは全ての印を持つため、(Nurgle only)、(Khorne only)などの選択肢を選べます。"],
+      ] },
+      { label: "Knight Households", rows: [
+        ["Knight Crusader", "Knight Crusader追加: 579ポイント、1~2モデル。Freebladeアーキタイプでも選べます。"],
       ] },
       { label: "Tyranids", rows: [
         ["Tyranids", "WingedでTyranid Warrior BroodとRipper SwarmsがFast Attackになります（#278）。"],
