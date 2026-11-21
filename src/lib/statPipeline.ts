@@ -129,7 +129,8 @@ export function resolveStatValue(
   // 3 — Traits
   step(input.traitStatMods.filter(s => s.stat === k).reduce((a, s) => a + s.delta, 0), 'trait');
   // 4 — Wargear this row actually carries
-  if (!input.unit.is_vehicle && input.isEquipTarget) {
+  // A vehicle takes none of them except its firing and fighting skill: Daemonic possession "reduces its BS and WS" (#281).
+  if ((!input.unit.is_vehicle || k === 'BS' || k === 'WS') && input.isEquipTarget) {
     step(input.equipMods.statDeltas[k] ?? 0, 'equip');
     floorSave(input.equipMods.armorSave, 'equip');
   }
