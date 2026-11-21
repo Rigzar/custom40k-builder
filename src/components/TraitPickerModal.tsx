@@ -14,10 +14,12 @@ export function formatTraitCost(raw: string | null | undefined, label: string): 
 }
 
 export function traitCostParts(tr: Trait): string[] {
+  const t = useT();
   return [
-    formatTraitCost(tr.pts_unit, 'per unit'),
-    formatTraitCost(tr.pts_monster, 'per monster'),
-    formatTraitCost(tr.pts_char, 'per char'),
+    formatTraitCost(tr.pts_unit, t('perUnit')),
+    formatTraitCost(tr.pts_monster, t(!tr.pts_veh ? 'perMonsterVehicle' : 'perMonster')),
+    formatTraitCost(tr.pts_veh, t('perVehicle')),
+    formatTraitCost(tr.pts_char, t('perCharacter')),
   ].filter((s): s is string => s !== null);
 }
 

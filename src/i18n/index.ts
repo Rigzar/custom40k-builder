@@ -581,7 +581,8 @@ export type TranslationKey =
   | 'gfButton'
   | 'gfButtonSignIn'
   | 'gfButtonTitle'
-  | 'gfYourPost';
+  | 'gfYourPost' 
+  | 'perUnit' | 'perMonster' | 'perMonsterVehicle' | 'perVehicle' | 'perCharacter';
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1793,6 +1794,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButtonSignIn: 'GITFINDA — SIGN IN',
     gfButtonTitle: 'Find someone to play Custom40k with',
     gfYourPost: 'Your post',
+    perUnit: 'per unit',
+    perMonster: 'per monster',
+    perMonsterVehicle: 'per monster/vehicle',
+    perVehicle: 'per vehicle',
+    perCharacter: 'per character'
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -3001,6 +3007,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButtonSignIn: 'GITFINDA — ANMELDEN',
     gfButtonTitle: 'Finde jemanden zum Custom40k-Spielen',
     gfYourPost: 'Dein Beitrag',
+    perUnit: 'pro Einheit',
+    perMonster: 'pro Monster',
+    perMonsterVehicle: 'pro Monster/Fahrzeug',
+    perVehicle: 'pro Fahrzeug',
+    perCharacter: 'pro Charakter',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -4209,6 +4220,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButtonSignIn: 'GITFINDA — INICIA SESIÓN',
     gfButtonTitle: 'Encuentra con quién jugar a Custom40k',
     gfYourPost: 'Tu anuncio',
+    perUnit: 'por unidad',
+    perMonster: 'por monstruo',
+    perMonsterVehicle: 'por monstruo/vehículo',
+    perVehicle: 'por vehículo',
+    perCharacter: 'por personaje'
   },
   ru: ruJson as Record<TranslationKey, string>,
   ja: jaJson as Record<TranslationKey, string>,
