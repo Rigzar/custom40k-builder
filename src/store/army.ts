@@ -95,6 +95,11 @@ function computeTraitSelections(
       if (OPT_IN_TRAITS.has(name) && !(item.optInTraits ?? []).includes(name)) return null;
       if (name === 'Heavy Infantry' && alreadyHasArmorSave4Plus(unit, item, data)) return null;
       if (name === 'Bionic Improvement' && alreadyHasInvulnSave(unit, item, data)) return null;
+      // Any trait worded "Only for creature models that do not already have a ward save from their datasheet or Armory"
+      // (Space Marines The Flesh is Weak, Chaos Space Marines Iron Within Iron Without, Genestealer Cults Cyborgised Hybrids):
+      // a creature that already has one neither gets it nor pays. A vehicle is not a creature, so its part is untouched.
+      if (!unit.is_vehicle && alreadyHasInvulnSave(unit, item, data)
+        && /do not already have an? ward save/i.test(traits.find(t => t.name === name)?.desc ?? '')) return null;
 
       // Dark Eldar sub-faction gate: a ᴷ/ᶜᵒ/ᶜᵘ trait is only paid for by units of that sub-faction
       // (its keyword, or the player's pick for multi-keyword shared vehicles). Mirrors the effect
@@ -114,7 +119,8 @@ function computeTraitSelections(
       // traits don't apply to vehicles and they don't pay for it"). Text-based so it works across
       // every faction regardless of how the effect's applies_to was modelled. Matches all phrasings:
       // "Only for creatures." / "Only for creature units." / "Only for creature models …".
-      if (unit.is_vehicle && /only for creature/i.test(def.desc)) return null;
+      // A trait that ALSO has a vehicle part ("...Vehicles repair either one Engine Damage...", The Flesh is Weak) is open to vehicles.
+      if (unit.is_vehicle && /only for creature/i.test(def.desc) && !/vehicles?/i.test(def.desc)) return null;
 
       // "Only for Psykers." — Eldar's Children of Prophecy and Space Marines' Knowledge is Power.
       // The engine has only ever given these to psykers, and the picker stopped offering them to
