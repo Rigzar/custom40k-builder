@@ -1,6 +1,7 @@
 import json
 import re
 import logging
+import os
 
 FACTIONS = []
 UNIT_CATEGORIES = ["HQ","Troops","Elite","Fast Attack","Heavy Support", "Transports", "Fortifications", "Flyers"]
@@ -282,7 +283,9 @@ def main():
                         app_unit_json["keywords"] = unit_sheet[0]
         
                 # Save the processed unit data to its respective path.
-                processed_unit_path = f"processed/{faction_path}/{UNIT_PATH[category]}/{unit_lowercase_name}.json"
+                processed_unit_dir = f"processed/{faction_path}/{UNIT_PATH[category]}"
+                processed_unit_path = f"{processed_unit_dir}/{unit_lowercase_name}.json"
+                os.makedirs(processed_unit_dir, exist_ok=True)
                 with open(processed_unit_path, "w") as f:
                     json.dump(app_unit_json, f, indent=4)
                     

@@ -6,6 +6,7 @@ from math import isnan
 from io import BytesIO
 import logging
 import multiprocessing as mp
+import os
 
 def check_nan(value):
     value = str(value).lower()
@@ -67,6 +68,7 @@ def download_sheet(faction, sheet_id):
         logging.debug(values)
         
         try:
+            os.makedirs(f"raw/{faction.lower().replace(" ","_").replace("'", "")}", exist_ok=True)
             json.dump(values, open(f"raw/{faction.lower().replace(" ","_").replace("'", "")}/{sheet_name}.json", "w"), indent=4)
         except Exception as e:
             logging.error(f"Error writing {sheet_name}.json for {faction}: {e}")

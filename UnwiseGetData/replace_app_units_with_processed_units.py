@@ -20,6 +20,9 @@ def main():
             print(f"\nProcessing {faction} - {category}...")
 
             update_dir = Path(f'processed/{faction}/{category}')
+            if not update_dir.exists():
+                print(f"Skipping {faction} - {category}")
+                continue
             update_files = [f for f in update_dir.iterdir()]
             print(f"Update files: {[file.name for file in update_files]}")
             
