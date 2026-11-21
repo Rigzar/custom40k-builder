@@ -1,12 +1,15 @@
 ---
 import Layout from '../../components/Layout.astro';
-import { RULES } from '../../lib/glossary';
+import { RULES as RULES_RAW, normaliseKey } from '../../lib/glossary';
 import { wtContent } from '../../lib/i18n';
 import { wr } from '../../lib/loc';
 
 // The Special Rules and Weapon Abilities tabs are GENERATED from the glossary (the same text the glossary pages and the app show, which
 // matches Core Rules 1.45 rule by rule), in the order the Core Rules print them. They used to be typed by hand and had drifted
 // (Armorbane "+3" instead of "+x", "Armor Piercing" for Piercing, no Advisor, Sniper, Charge or Hover Mode).
+// The key list below is the Core Rules spelling ("favored enemy", "objective secured!"); the glossary files the same rules under their
+// canonical key ("favoured enemy", "objective secured"), so look each one up through normaliseKey (a missing rule broke the wiki build on 2026-11-21).
+const RULES = new Proxy(RULES_RAW, { get: (t, k: string) => t[k] ?? t[normaliseKey(k).key] }) as typeof RULES_RAW;
 const SPECIAL_KEYS = ["ward","open","objective secured!","vanguard","deep strike","stealth","terrifying","swarm","berserk","aegis","blank","acute senses","advisor","anti-grav","blind rage","bodyguard","brotherhood of psykers","combat squads","command squad","counter-attack","deflect","daemon","daemonic instability","fast","fearless","favored enemy","frenzy","furious charge","greater daemon","haste","hit & run","hunter","infiltrator","massive","mindless","move through cover","narthecium","outflank","parry","regeneration","retribution","squadron","tank hunter","use cover","unique","unyielding","warded"]
   .sort((a, b) => RULES[a].name.localeCompare(RULES[b].name));
 const WEAPON_KEYS = ["ammo","anti-air","armorbane","at","auto hit","beam","blast","blind","blood drinker","bomb","charge","combi","deadly","decimate","deflagrate","extra attack","force weapon","grav","graviton","gruesome","haywire","hover mode","indirect","life curse","limit","master-crafted","melta","monofilament","overheating","piercing","poison","precision","psi-shock","quick","rad","rending","seeking","shield breaker","shred","slow","sniper","soul burn","sunder","suppression","unwieldy"];
