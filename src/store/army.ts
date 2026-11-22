@@ -522,9 +522,9 @@ export const useArmyStore = create<ArmyStore>()(
           e.archetypeHqUpgrade ? (getArchetypeRule(s.archetype)?.hqPromotion?.grantsArmoryAccess && s.data ? dropLegacyArmory({ ...e, archetypeHqUpgrade: false }, s.data) : { ...e, archetypeHqUpgrade: false }) : e);
         // A Legacy tied to an archetype (the Legacy of the Sundered: Blackshields) does not outlive it.
         const legacyNow = (() => { const l = s.data?.legacies.find(x => x.name === s.legacy); return l?.requires_archetype && l.requires_archetype !== a ? '' : s.legacy; })();
-        return { archetype: a, traitPool: pool, legacy: legacyNow, legacy2: keepLegacy2 ? s.legacy2 : '', legacy3: newRule?.threeLegacies ? s.legacy3 : '', data: s.data ? dataForArchetype(s.data, a) : s.data, army: clearYngir ? cleared.map((e: RosterEntry) =>
+        return { archetype: a, traitPool: pool, legacy: legacyNow, legacy2: keepLegacy2 ? s.legacy2 : '', legacy3: newRule?.threeLegacies ? s.legacy3 : '', data: s.data ? dataForArchetype(s.data, a) : s.data, army: ((arr: RosterEntry[]) => s.data ? arr.map((e: RosterEntry) => { const u = resolveUnit(e, s.data!); return u ? withKnownPowers(e, u, s.data!, a) : e; }) : arr)(clearYngir ? cleared.map((e: RosterEntry) =>
           e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: false } : e)
-          : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e) };
+          : cleared.map((e: RosterEntry) => !e.factionSource && /^C'tan Shard/.test(e.unitName) && !e.ctanYngirUpgrade ? { ...e, ctanYngirUpgrade: true } : e)) };
       }),
 
       setLegacy: (l: string) => set((s: S) => {
@@ -727,7 +727,7 @@ export const useArmyStore = create<ArmyStore>()(
           }
         }
         // A psyker that knows every power of its disciplines (Paladin Squad) starts with them.
-        const newArmy = [...s.army, withKnownPowers(entry, u, s.data)];
+        const newArmy = [...s.army, withKnownPowers(entry, u, s.data, s.archetype)];
         const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool);
         set({ army });
       },
@@ -1036,7 +1036,7 @@ export const useArmyStore = create<ArmyStore>()(
           const repairedArmy = s.data
             ? migratedArmy.map((e: RosterEntry) => {
                 const u = resolveUnit(e, s.data!);
-                return u ? withKnownPowers(repairOrphanedArmory(e, u, s.data!), u, s.data!) : e;
+                return u ? withKnownPowers(repairOrphanedArmory(e, u, s.data!), u, s.data!, s.archetype) : e;
               })
             : migratedArmy;
           const army = s.data

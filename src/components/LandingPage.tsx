@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190g_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -83,7 +83,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Space Marines", "The Death Watch Watch spear counts as a bolt weapon (its ranged profile is named Bolt Caster, as in the sheet)."],
       ] },
       { label: "Necrons", rows: [
-        ["Necrons", "Vehicle-only traits (Interplanetary Invasors) no longer charge monsters, and trait costs read per unit / monster / vehicle / character. Fixed by DemonGyro. Necrons sheet 1.14: the Domination Staff works during each activation."],
+        ["Necrons", "Vehicle-only traits (Interplanetary Invasors) no longer charge monsters, and trait costs read per unit / monster / vehicle / character. Fixed by DemonGyro. Necrons sheet 1.14: the Domination Staff works during each activation. The Yngir C'tan Shard is an HQ with +30 points and +6\" power range (also in the Print View and battle view), knows all its powers by itself, and only Yngir knows Time's Arrow. Fixed by DemonGyro."],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "The Knight Crusader is in: 579 points, 1–2 models, and the Freeblade archetype can take it."],
@@ -132,7 +132,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Space Marines", "Der Watch spear der Death Watch zählt als Bolt-Waffe (sein Fernkampfprofil heißt Bolt Caster, wie im Blatt)."],
       ] },
       { label: "Necrons", rows: [
-        ["Necrons", "Nur-für-Fahrzeuge-Eigenschaften (Interplanetary Invasors) berechnen für Monster nichts mehr, und die Kosten stehen pro Einheit / Monster / Fahrzeug / Charakter. Behoben von DemonGyro. Necrons-Blatt 1.14: Der Domination Staff wirkt bei jeder Aktivierung."],
+        ["Necrons", "Nur-für-Fahrzeuge-Eigenschaften (Interplanetary Invasors) berechnen für Monster nichts mehr, und die Kosten stehen pro Einheit / Monster / Fahrzeug / Charakter. Behoben von DemonGyro. Necrons-Blatt 1.14: Der Domination Staff wirkt bei jeder Aktivierung. Der C'tan Shard unter Yngir ist HQ mit +30 Punkten und +6\" Kraftreichweite (auch in Druck- und Schlachtansicht), kennt alle seine Kräfte von selbst, und nur Yngir kennt Time's Arrow. Behoben von DemonGyro."],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Der Knight Crusader ist dabei: 579 Punkte, 1–2 Modelle, und die Archetype Freeblade darf ihn nehmen."],
@@ -181,7 +181,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Space Marines", "El Watch spear de la Death Watch cuenta como arma bolt (su perfil a distancia se llama Bolt Caster, como en la hoja)."],
       ] },
       { label: "Necrons", rows: [
-        ["Necrons", "Los rasgos solo para vehículos (Interplanetary Invasors) ya no cobran a los monstruos, y el coste se lee por unidad / monstruo / vehículo / personaje. Arreglado por DemonGyro. Hoja de Necrons 1.14: el Domination Staff actúa en cada activación."],
+        ["Necrons", "Los rasgos solo para vehículos (Interplanetary Invasors) ya no cobran a los monstruos, y el coste se lee por unidad / monstruo / vehículo / personaje. Arreglado por DemonGyro. Hoja de Necrons 1.14: el Domination Staff actúa en cada activación. El C'tan Shard de Yngir es HQ con +30 puntos y +6\" de alcance de poderes (también en la impresión y la vista de batalla), conoce todos sus poderes solo, y solo Yngir conoce Time's Arrow. Arreglado por DemonGyro."],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Añadido el Knight Crusader: 579 puntos, 1–2 modelos; el arquetipo Freeblade puede tomarlo."],
@@ -230,7 +230,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Space Marines", "Watch spear Death Watch считается болтерным оружием (его стрелковый профиль назван Bolt Caster, как в таблице)."],
       ] },
       { label: "Necrons", rows: [
-        ["Necrons", "Черты только для машин (Interplanetary Invasors) больше не берут очки с монстров, а стоимость указана на отряд / монстра / машину / персонажа. Исправил DemonGyro. Лист Necrons 1.14: Domination Staff действует при каждой активации."],
+        ["Necrons", "Черты только для машин (Interplanetary Invasors) больше не берут очки с монстров, а стоимость указана на отряд / монстра / машину / персонажа. Исправил DemonGyro. Лист Necrons 1.14: Domination Staff действует при каждой активации. C'tan Shard под Yngir — HQ с +30 очками и +6\" к дальности сил (также в печати и боевом виде), сам знает все свои силы, а Time's Arrow знает только Yngir. Исправил DemonGyro."],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Добавлен Knight Crusader: 579 очков, 1–2 модели; архетип Freeblade может его взять."],
@@ -279,7 +279,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Space Marines", "Death WatchのWatch spearはボルト武器として扱われます(射撃プロファイル名がシート通りBolt Casterになりました)。"],
       ] },
       { label: "Necrons", rows: [
-        ["Necrons", "乗り物専用の特性(Interplanetary Invasors)はモンスターに課金されなくなり、コストはユニット/モンスター/車両/キャラクターごとに表示されます。修正：DemonGyro。Necronシート1.14：Domination Staffは各アクティベーションで使用できます。"],
+        ["Necrons", "乗り物専用の特性(Interplanetary Invasors)はモンスターに課金されなくなり、コストはユニット/モンスター/車両/キャラクターごとに表示されます。修正：DemonGyro。Necronシート1.14：Domination Staffは各アクティベーションで使用できます。YngirのC'tan ShardはHQで+30点、パワーの射程+6\"(印刷ビューと戦闘ビューも)、全パワーを自動で習得し、Time's ArrowはYngirだけが使えます。修正：DemonGyro。"],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Knight Crusader追加: 579ポイント、1~2モデル。Freebladeアーキタイプでも選べます。"],

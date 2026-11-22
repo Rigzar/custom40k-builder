@@ -553,7 +553,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
                 const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one' && psykerMode !== 'knows_all'
                   && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
-                const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite'));
+                const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite') && !(/only for yngir/i.test(p.name) && archetype !== 'Yngir'));
                 const selectedInDisc = psykerMode === 'all_from_one'
                   ? (isChosen ? powersArr.length : 0)
                   : powersArr.filter(p => isPowerSelected(discName, p.name)).length;
