@@ -7,6 +7,7 @@ import { hhMarkFor } from './codex_horus_heresy/archetypes';
 import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 import { expandAllRemaining } from './allRemaining';
+import { effectiveKeywords } from './keywords';
 
 /**
  * Live-recompute an armory selection's cost from the unit's CURRENT size/wounds, instead of
@@ -289,6 +290,14 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     total += extra * (variable?.points ?? 0);
   }
 
+  const rule = getArchetypeRule(archetype);
+  
+  // Yngir: "C'tan Shards count as an HQ selection... It costs an additional +30 points"
+  // (ods-verbatim, Necrons 1.5 Army Customisation). Flat surcharge, not per-model —
+  // C'tan Shards are always a single model (default_size 1).
+  const keywords = effectiveKeywords(unit, item, rule);
+  total += keywords.includes('yngir') ? 30 : 0;
+  
   if (item.blackCrusadeHQ) {
     // Black Crusade champion pays the combined cost of all four god marks
     const mg = unit.option_groups.find(isMarkGroup);
@@ -305,7 +314,6 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
     // null) — mirrors resolver.ts's effectiveMark, which already grants the forced mark's
     // keyword/abilities for free. Without this, forced-mark armies silently undercharge
     // every unit that didn't get an explicit per-unit mark selection.
-    const rule = getArchetypeRule(archetype);
     const effMark = unit.locked_mark ?? (rule?.forcedMark as string | null) ?? (hasAllMarksVariant(item, unit) ? null : item.mark) ?? null;
     if (effMark) {
       const mg = unit.option_groups.find(isMarkGroup);
@@ -406,10 +414,6 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // "+3 points"/"+2 points" — per model swapping, not a flat unit-wide cost).
   total += (item.gueVesaLasgunSwaps ?? 0) * 3 + (item.gueVesaHotshotSwaps ?? 0) * 2;
 
-  // Yngir: "C'tan Shards count as an HQ selection... It costs an additional +30 points"
-  // (ods-verbatim, Necrons 1.5 Army Customisation). Flat surcharge, not per-model —
-  // C'tan Shards are always a single model (default_size 1).
-  if (item.ctanYngirUpgrade) total += 30;
   // The promoted model's flat surcharge (Megafauna: "The model costs +36 points"), only on the entry that claimed the promotion.
   if (item.archetypeHqUpgrade) {
     const promo = getArchetypeRule(archetype)?.hqPromotion;

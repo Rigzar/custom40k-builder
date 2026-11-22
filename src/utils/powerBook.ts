@@ -31,7 +31,8 @@ export function disciplinePowers(discipline: string, data: FactionData | null | 
   return Array.isArray(granted) ? granted : [];
 }
 
-const entryOf = (p: Power | undefined, name: string): BookEntry => ({ name, meta: powerMetaLine(p), effect: p?.effect ?? '' });
+// Faction-level powers
+const entryOf = (p: Power | undefined, name: string): BookEntry => ({ name, meta: powerMetaLine(p, []), effect: p?.effect ?? '' });
 
 /** What a unit card says about its powers: names, and whole disciplines it knows entirely ("Biomancy (all)"). */
 export function unitPowerSummary(item: RosterEntry, data: FactionData | null | undefined): {

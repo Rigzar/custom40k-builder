@@ -58,14 +58,14 @@ export function complexityLabel(c: string | undefined, lang = useLanguage.getSta
  * Fields absent from the source are simply skipped, and a range of "-" (self-only, the majority of
  * prayers) is omitted rather than printed as a dash.
  */
-export function powerMetaLine(p: Power | undefined): string {
+export function powerMetaLine(p: Power | undefined, keywords: string[]): string {
   if (!p) return '';
   const lang = useLanguage.getState().language;
   // "Cast" is the interface's own word for it; the descriptive fields go through the text table.
   const cast = t(lang, 'castLabel').replace(/[:：]\s*$/, '');
   const loc = (s: string | null | undefined) => (s ? localiseAbility(s) : s);
   const range = p.range && p.range !== '-'
-    ? p.range.replace(/\s*radius$/i, ` ${localiseAbility('radius')}`) : null;
+    ? effectivePowerRange(keywords, p.range)!.replace(/\s*radius$/i, ` ${localiseAbility('radius')}`) : null;
   return [
     loc(p.type),
     // Basic / Normal / Complex decides which orders can cast it (Core Rules, Psychic Powers); every power has one
@@ -79,11 +79,19 @@ export function powerMetaLine(p: Power | undefined): string {
 }
 
 /** Metadata line for a name, resolving it against the faction data first. */
-export function powerMetaByName(name: string, data: FactionData | null | undefined): string {
-  return powerMetaLine(findPowerByName(name, data));
+export function powerMetaByName(name: string, data: FactionData | null | undefined, keywords: string[]): string {
+  return powerMetaLine(findPowerByName(name, data), keywords);
 }
 
 /** The rules text for a name, or '' when the entry cannot be resolved. */
 export function powerEffectByName(name: string, data: FactionData | null | undefined): string {
   return findPowerByName(name, data)?.effect ?? '';
+}
+
+export function effectivePowerRange(keywords: string[], range: string | undefined) {
+    // Yngir (Necrons): "The range for each C'tan power is increased by 6"" (ods-verbatim) — only
+    // for the one flagged C'tan Shard, mirrors the HQ/stat/save mods applied in resolver.ts.
+    if ((!!keywords && !keywords.includes('yngir')) || !range) return range;
+    const m = range.match(/^(\d+)"$/);
+    return m ? `${parseInt(m[1], 10) + 6}"` : range;
 }

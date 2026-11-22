@@ -2270,7 +2270,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   power's range, cast value, target or duration — the same complaint v1.70 fixed,
                   on the one kind of entry it missed. Same formatter as the modal and Print View. */}
               {item.powers.filter(p => p.powerName !== '__discipline__').map((p, i) => {
-                const meta = powerMetaByName(p.powerName, data);
+                const meta = powerMetaByName(p.powerName, data, keywords);
                 const eff = powerEffectByName(p.powerName, data);
                 return (
                   <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
@@ -2314,7 +2314,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   range, target or duration — the reported v1.70 bug. Full line now, via the shared
                   formatter so the modal and Print View can't drift from this. */}
               {item.prayers.map((prayer, i) => {
-                const meta = powerMetaByName(prayer, data);
+                const meta = powerMetaByName(prayer, data, keywords);
                 const eff = powerEffectByName(prayer, data);
                 return (
                   <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
@@ -2340,7 +2340,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('infernalPactsLabel')}</div>
               {(item.pacts ?? []).map((pact, i) => {
-                const meta = powerMetaByName(pact, data);
+                const meta = powerMetaByName(pact, data, keywords);
                 const eff = powerEffectByName(pact, data);
                 return (
                   <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
