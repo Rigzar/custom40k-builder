@@ -157,11 +157,6 @@ export interface ResolvedProfile {
   /** True when this HQ is the Black Crusade champion bearing all four Chaos god marks. */
   blackCrusadeChampion: boolean;
 
-  /** Yngir (Necrons): this exact roster entry is the army's one flagged C'tan Shard upgrade —
-   *  HQ slot + stat mods are applied elsewhere; this flag only drives the 2+ armor-save floor
-   *  (Sv isn't a delta stat, can't go through optionStatMods) and the UI toggle's checked state. */
-  ctanYngirActive: boolean;
-
   // Option effects (ki-parser-02) — stat/type/ability changes a selected wargear option confers.
   /** Stat deltas from selected options (e.g. Daemon Prince wings M +6), stacked over base. */
   optionStatMods: Array<{ stat: string; delta: number }>;
@@ -937,14 +932,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   // Points & slot
   const pts = computeUnitPoints(item, unit, effectiveArchetype, factionForEntry(item, data), state.pointLimit, effectiveLegacyFor(item, state));
-  // Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) — re-slots
-  // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
-  // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
-  const ctanYngirActive = !!item.ctanYngirUpgrade && effectiveArchetype === 'Yngir' && /^C'tan Shard/.test(unit.name);
   const printedSlot = getEffectiveSlot(item.unitName, item.slot, rule);
-  const effectiveSlot = ctanYngirActive ? 'HQ'
-    : variantIsHq(item, unit, printedSlot) ? 'HQ'
-    : applyPlatoonSlotOverride(item, state.army, printedSlot);
+  const effectiveSlot = variantIsHq(item, unit, printedSlot) ? 'HQ' : 
+    applyPlatoonSlotOverride(item, state.army, printedSlot);
 
   // Variant model
   const activeVariant = getActiveVariant(item, unit);
@@ -1918,7 +1908,6 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     traitEquipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
-    ctanYngirActive,
     optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     familyBoostKeys,
     traitRangeDelta,

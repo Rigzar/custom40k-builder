@@ -91,7 +91,7 @@ export function powerEffectByName(name: string, data: FactionData | null | undef
 export function effectivePowerRange(keywords: string[], range: string | undefined) {
     // Yngir (Necrons): "The range for each C'tan power is increased by 6"" (ods-verbatim) — only
     // for the one flagged C'tan Shard, mirrors the HQ/stat/save mods applied in resolver.ts.
-    if ((!!keywords && !keywords.includes('yngir')) || !range) return range;
+    if ((!!keywords && !keywords.some(k => k.match(/\byngir\b/i))) || !range) return range;
     const m = range.match(/^(\d+)"$/);
     return m ? `${parseInt(m[1], 10) + 6}"` : range;
 }

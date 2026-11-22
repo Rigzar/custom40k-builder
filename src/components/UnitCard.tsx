@@ -196,10 +196,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
     injectedAbilities, hiddenUpgradeAbilityLabels, hiddenUpgradeAbilityLines, injectedRuleNotes, equipMods, traitEquipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
-    ctanYngirActive,
     optionStatMods, optionStatSets, optionStatExact, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
     attachedDrones, keywords
   } = rp;
+  const ctanYngirActive = keywords.some(k => k.match(/\byngir\b/i));
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
   const unitTypeDisplay = [baseTypeDisplay, ...optionAddedUnitTypes].filter(Boolean).join(', ');
   const factionCat = getFactionCat(data.faction);

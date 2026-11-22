@@ -296,7 +296,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
   // (ods-verbatim, Necrons 1.5 Army Customisation). Flat surcharge, not per-model —
   // C'tan Shards are always a single model (default_size 1).
   const keywords = effectiveKeywords(unit, item, rule);
-  total += keywords.includes('yngir') ? 30 : 0;
+  total += keywords.some(k => k.match(/\byngir\b/i)) ? 30 : 0;
   
   if (item.blackCrusadeHQ) {
     // Black Crusade champion pays the combined cost of all four god marks
