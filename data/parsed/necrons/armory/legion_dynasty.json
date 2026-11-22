@@ -19,7 +19,7 @@
     {
       "name": "Domination Staff",
       "term_compat": false,
-      "desc": "Select one enemy model in direct base contact. The model suffers a -2 penalty to its Initiative for the remaining battleround. Szarekhan only.",
+      "desc": "Select one enemy model in direct base contact during each activation. The model suffers a -2 penalty to its Initiative for the remaining battleround. Szarekhan only.",
       "p_unit": null,
       "p_char": 10
     },
