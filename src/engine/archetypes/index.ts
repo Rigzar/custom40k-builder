@@ -493,6 +493,8 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Yngir': { ...BASE,
+    // Issue #297 - C'tan Shard upgraded to HQ. Updated to show it as HQ always, not just when selected as an Elites unit.
+    hqRemap: ['C\'tan Shard'],
     troopsRemap: ['Pariahs'],
     // Sheet 1.9: "It loses the "Mindless" ability and gains the "Fearless" ability."
     unitPatch: { units: ["C'tan Shard"], dropAbilityNames: ['Mindless'] },
@@ -501,6 +503,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
       "The C'tan Shard counts as an HQ selection and may select up to five upgrades (three otherwise). It loses \"Mindless\" and gains \"Fearless\"; its powers gain +6\" range and it knows \"Time's Arrow\". Costs +30 pts.",
       'Pariahs count as Troops.',
     ],
+    grantsKeywords: [{ keyword: 'Yngir', units: ['C\'tan Shard'] }],
   },
 
   // ── Orks ──────────────────────────────────────────────────────────────────
@@ -751,9 +754,11 @@ export function getEffectiveSlot(
   originalSlot: string,
   rule: ArchetypeRule | null,
 ): string {
-  if (rule && rule.troopsRemap.includes(unitName)) return 'Troops';
+  if (!rule) return originalSlot;
+  if (rule?.troopsRemap.includes(unitName)) return 'Troops';
   // Named demotion, read before the blanket one: an archetype that moves two units by name has
   // said nothing about the rest (Tyranid Swarming Masses).
+  if (rule?.hqRemap?.includes(unitName)) return 'HQ';
   if (rule?.elitesRemap?.includes(unitName)) return 'Elites';
   if (rule?.demoteOtherTroops && originalSlot === 'Troops' && !rule.troopsRemap.includes(unitName)) return 'Elites';
   return originalSlot;
