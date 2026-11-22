@@ -64,6 +64,17 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
+  // Sheet 1.7 (2026-11-22): "Xenarites are treated like Allies of Convenience instead of Battle Brothers for other
+  // factions" (every Battle Brothers cell of the AdM row becomes Allies of Convenience) and "Every model with access to
+  // the Armory may select a single item from any Xenos faction" (the Authority tab, Xenos list; see ArmoryModal).
+  'Xenarites': { ...BASE,
+    alliedRelationshipOverrides: { adeptus_custodes: 'Y', adeptus_sororitas: 'Y', imperial_guard: 'Y', imperial_navy: 'Y', space_marines: 'Y' },
+    notes: [
+      'Allies of Convenience instead of Battle Brothers with other factions.',
+      'Every model with Armory access may select a single item from any Xenos faction.',
+    ],
+  },
+
   'Ordo Reductor Covenant': { ...BASE,
     troopsCount: 'remap',
     requiresHqUpgrade: { unitNameContains: 'Magos', choiceName: 'Myrmidax' },

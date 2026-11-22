@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-20',
     title: "GitHub bug round: Daemonkin, Entourage, Skirmish saves, option abilities",
     changes: [
+      "SHEETS 2026-11-22 (Adeptus Mechanicus 1.7, Inquisition 1.6, Space Marines 1.16, T'au 1.11). Adeptus Mechanicus: the Xenarites archetype is in (Allies of Convenience instead of Battle Brothers with the Imperial factions, and every model with Armory access may take one item from any Xenos faction); the Ordo Reductor Covenant left the sheet. Inquisition: a Heretic or Iconoclast Legendary Retinue can no longer include Adeptus Sororitas or Space Marines, and the Retinue needs an Inquisitor in the army.",
       "SHEET UPDATE (2026-11-22). Blood Claws are now 5 to 15 models (35 points each, 175 minimum), Striking Scorpions gain Hunter, the Knight Paladin weapon is spelled \"Rapid-fire battle cannon\" everywhere, and the Heldrake Warpfire text names the Baleflamer. The Knight Crusader stays at 1-2 models until the sheet author confirms.",
       "FLESH HOUNDS (Chaos Daemons, Urza). The Burning roar was counted for every hound in a big pack; the sheet now says only the Gore Hound carries it (fixed by Unwise in the sheet).",
       "WARRIOR NOBLES (Necrons, #298, DemonGyro). The Ancient Destructor Lord is both a character and a monster, so it hit the character column and took the trait for free. Warrior Nobles is now for HQ character infantry only: a monster or vehicle can't take it (picker and pricing), and saved lists drop it on load.",

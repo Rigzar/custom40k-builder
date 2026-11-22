@@ -2440,6 +2440,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const members = state.army.filter(e => e.retinue);
     if (members.length > 0) {
       const allowed = retinueFactionKeys(data.faction, state.archetype);
+      // Inquisition sheet 1.6: "Can only be selected if an Inquisitor is selected as well."
+      if (data.faction === 'Inquisition' && !state.army.some(e => !e.retinue && !e.factionSource && e.unitName === 'Inquisitor')) {
+        items.push({ type: 'error', text: T('valRetinueNeedsInquisitor') });
+      }
       if (members.length > RETINUE_MAX_MODELS) items.push({ type: 'error', text: T('valRetinueMax', { max: RETINUE_MAX_MODELS, count: members.length }) });
       const perFaction = new Map<string, number>();
       for (const m of members) perFaction.set(m.factionSource ?? '', (perFaction.get(m.factionSource ?? '') ?? 0) + 1);

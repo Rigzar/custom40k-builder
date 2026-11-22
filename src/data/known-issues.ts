@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tau-drone-swarm-unit-01",
+    status: "known",
+    title: "T'au: the new Drone Swarm unit (Fast Attack) is on the sheet but not in the app",
+    description: "REPORTED 2026-11-22. The T'au sheet 1.11 has a Drone Swarm unit (10 drone types, Fast Attack) and no longer lists the drones as options of the Tidewall Droneport and other units. The unit update script did not create it, so the app still shows the old drone options. Unit files are the script's, so this goes to Unwise."
+  },
+  {
     id: "ki-necrons-warrior-nobles-hq-01",
     status: "by_design",
     title: "Warrior Nobles trait doesn't apply to a Yngir C'tan (it should apply to all HQs) (GH#298)",

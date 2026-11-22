@@ -282,9 +282,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isInquisition = activeData.faction === 'Inquisition';
   // (Imperial Navy 1.1 dropped the single-item pick from the Warrant of Trade: only the Inquisition keeps this tab.)
   // Inquisition 1.4: Heretic and Iconoclast "Does not apply to Legendary Retinue" - a retinue keeps the Imperial list.
-  const hasAuthorityTab = isInquisition;
+  // Adeptus Mechanicus sheet 1.7, archetype "Xenarites": the same single-item pick, from any XENOS faction.
+  const unitArchetype = activeData === alliedData ? alliedArchetype : archetype;
+  const isXenarite = activeData.faction === 'Adeptus Mechanicus' && unitArchetype === 'Xenarites';
+  const hasAuthorityTab = isInquisition || isXenarite;
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
-  const authorityFactions = item.retinue ? IMPERIAL_AUTHORITY_FACTIONS
+  const authorityFactions = isXenarite ? XENOS_AUTHORITY_FACTIONS : item.retinue ? IMPERIAL_AUTHORITY_FACTIONS
     : archetype === 'Heretic' ? CHAOS_AUTHORITY_FACTIONS : archetype === 'Iconoclast' ? XENOS_AUTHORITY_FACTIONS : IMPERIAL_AUTHORITY_FACTIONS;
 
   // Level 1 — once per model: blocked once the squad already holds one copy per model (item.size),
@@ -1356,7 +1359,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {t('authorityTabLabel')}
+              {t(isXenarite ? 'xenariteTabLabel' : 'authorityTabLabel')}
             </button>
           )}
           {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines.
@@ -1582,7 +1585,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           ) : tab === 'authority' ? (
             <div className="space-y-2">
               <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400">
-                {t('authorityIntro')}
+                {t(isXenarite ? 'xenariteIntro' : 'authorityIntro')}
               </div>
               {authorityCapReached && (
                 <div className="px-2 py-1.5 bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400">

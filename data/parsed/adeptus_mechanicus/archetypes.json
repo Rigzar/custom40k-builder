@@ -10,16 +10,16 @@
       "skirmish": true
     },
     {
-      "name": "Ordo Reductor Covenant",
-      "desc": "- The army has access to all Ordo Reductor and Taghmata units from the Horus Heresy Mechanicum supplement.\n- The army must take at least one Magos or Archmagos with the Myrmidax upgrade.\n- Only Ordo Reductor units count towards the 25% Troops limitation."
-    },
-    {
       "name": "Servitor Maniple",
       "desc": "- Servitors can be taken as Troops.\n- For each Servitor unit taken as Troops, the army must also take a Tech-priest. This Tech-priest does not occupy an Elite slot, but must always be attached to a Servitor unit.\n- Skitarii units do not count towards the 25% Troops limitation."
     },
     {
       "name": "Taghmata",
       "desc": "- The army has access to everything from the Horus Heresy Forces of the Machine God Supplement.\n- Only Troops from the Horus Heresy Forces of the Machine God Supplement count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Xenarites",
+      "desc": "- Xenarites are treated like \"Allies of Convenience\" instead of \"Battle Brothers\" for other factions.\n- Every model in the army with access to the Armory may select a single item from any Xenos faction."
     }
   ],
   "legacies": [
