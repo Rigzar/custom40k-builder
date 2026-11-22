@@ -2,6 +2,30 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-necrons-warrior-nobles-hq-01",
+    status: "known",
+    title: "Warrior Nobles trait doesn't apply to a Yngir C'tan (it should apply to all HQs) (GH#298)",
+    description: "OPEN 2026-11-21, reported by Sophtym (Discord). CAUSE: Warrior Nobles is not applying to Yngir C'tan Shards. It should apply to HQ regardless of unit type. Displays as free (char) instead of free. Wasn't fixed by hqRemap change."
+  },
+  {
+    id: "ki-necrons-ctan-shard-yngir-slot-powers-01",
+    status: "fixed",
+    title: "The C'tan Shard unit for a Yngir archetype Necrons detachment does not get the archetype bonuses (HQ slot, +30pts, +2 choices) (GH#297)",
+    description: "FIXED 2026-11-22, reported by Sophtym (Discord). CAUSE: The Yngir archetype did not have range added to Powers and was only shown under Elites (despite being mapped to HQ). General disciplines also appeared for C'tan Shards (despite not being available to them). OPEN: The range in Print View does not represent changes to the unit, but is listed as part of the archetype. Fixed by DemonGyro (PR#299).",
+  },
+  {
+    id: "ki-imperial-guard-command-squad-weapon-upgrades-01",
+    status: "known",
+    title: "Command Squad weapon upgrades are not replacing Lasguns; Heavy Flamer is given to entire unit instead of 1 model (GH#296)",
+    description: "FIXED 2026-11-19, reported by Birdy (Discord). CAUSE: Expectation is that the models swap their weapons and adding a single weapon upgrade, ex. Heavy Flamer, should only show as 1x, not Nx (unit size=N). v1.90 fixes the Heavy flamer showing 4x (it shows 1x). Still open: whether these upgrades should replace a Lasgun and whether the total is capped by the squad size; waiting for the author's ruling."
+  },
+  {
+    id: "ki-necrons-interplanetary-invasors-monster-01",
+    status: "fixed",
+    title: "Necron trait Interplanetary Invaders should only apply to vehicles (GH#295)",
+    description: "FIXED 2026-11-21, reported by Sophtym (Discord). CAUSE: The trait was being applied to both monsters and vehicles and was showing as pts per monster. Fixed by DemonGyro (PR#296).",
+  },
+  {
     id: "ki-nov13-first-game-feedback-01",
     status: "known",
     title: "First-game feedback (Dave, Ed, TeCrisis): what is fixed and what is still open",
