@@ -92,7 +92,7 @@
       "desc": "Vehicle units can fire all weapons, if they move up to 12\". Only for vehicles.",
       "pts_unit": "-",
       "pts_char": "-",
-      "pts_monster": "5",
+      "pts_monster": "-",
       "pts_veh": "5",
       "enables_second_legacy": false
     },
