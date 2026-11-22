@@ -1,7 +1,9 @@
 /**
  * pointsCalculator.ts — the game author's own points formula, in code.
  *
- * WHERE THIS COMES FROM: `Codex/Points calculator_v5.4.xlsx`, sheet "Punkterechner v5". Every
+ * WHERE THIS COMES FROM: `Codex/Points calculator_v5.4.xlsx`, sheet "Punkterechner v5". Checked cell by cell against v5.5
+ * on 2026-11-22: every table, ladder and formula cell is identical (v5.5 only changes the sample rows, the note that
+ * renames Explosive/Barrage to Blast(4)/Blast(6), and drops a scratch block). Every
  * table below is copied cell for cell from it — rows 21-32 (Strength / Toughness / Initiative /
  * Leadership / Save / Ward Save), rows 34-45 (Movement / BS-WS / Attacks / AP Ranged) and rows
  * 47-72 (Range / S Ranged / S Melee / AP Melee). Each formula was read out of its actual cell
