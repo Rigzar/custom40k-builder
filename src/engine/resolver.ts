@@ -2072,7 +2072,19 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // prints a real second clause for an attached companion (Y'vahra/R'varna Battlesuit: "Every
   // Missile Drone is equipped with: Missile pod.") actually reach 2 matched clauses instead of 1,
   // which is what routes it into the per-clause split below instead of the flattened fallback.
-  const clauses = [...unit.equipped_with.matchAll(
+  // T'au Drone Swarm (sheet 1.11) writes its loadouts in the plural: "Gun Drones are equipped with: Twin pulse carbine." and
+  // "Shield Drones, Stealth Drones and Warscaper Drones are equipped with: -.". Read as "Every Gun Drone is equipped with:" when
+  // each subject is a model row of the unit; clauses that equip nothing ("-") are dropped.
+  const equippedForClauses = unit.equipped_with.replace(
+    /([A-Z][^.:]*?) are equipped with:\s*([^.]+)\./g,
+    (whole: string, subj: string, items: string) => {
+      if (items.trim() === '-') return '';
+      const rows = subj.split(/,\s*|\s+and\s+/).map(x => x.trim().replace(/s$/i, ''));
+      // Only for drones: the other plural sheets (Kroot Carnivores, Farstalkers, Custodes) have always been read as one loadout.
+      const named = rows.filter(r => / Drone$/i.test(r) && unit.models.some(m => m.name.toLowerCase() === r.toLowerCase()));
+      return named.length === rows.length ? named.map(r => `Every ${r} is equipped with: ${items}.`).join(' ') : whole;
+    });
+  const clauses = [...equippedForClauses.matchAll(
     /(?:Every|Each|The|An?) ([^.]+?) is (?:a single character model and |a single model and |a single model |a single character and |a character model and |a character and |)equipped with:\s*([^.]+)\./g
   )];
   // Ghostkeel Battlesuits has no second clause at all (its 2 Stealth Drones carry no weapons of

@@ -26,6 +26,7 @@ import elites_kroot_farstalkers from './elites/kroot_farstalkers.json';
 import elites_kroot_lone_spear from './elites/kroot_lone-spear.json';
 import elites_kroot_shaper from './elites/kroot_shaper.json';
 import elites_stealth_battlesuits from './elites/stealth_battlesuits.json';
+import fast_attack_drone_swarm from './fast_attack/drone_swarm.json';
 import fast_attack_firesight_marksman from './fast_attack/firesight_marksman.json';
 import heavy_support_great_knarloc from './heavy_support/kroot_great_knarloc.json';
 import fast_attack_hazard_battlesuits from './fast_attack/hazard_battlesuits.json';
@@ -80,6 +81,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Stealth Battlesuits"
   ],
   "Fast Attack": [
+    "Drone Swarm",
     "Firesight Marksman",
     "Hazard Battlesuits",
     "Kroot Hounds",
@@ -138,6 +140,7 @@ export const units: Record<string, Unit> = {
   "Kroot Lone-Spear": elites_kroot_lone_spear as Unit,
   "Kroot Shaper": elites_kroot_shaper as Unit,
   "Stealth Battlesuits": elites_stealth_battlesuits as Unit,
+  "Drone Swarm": fast_attack_drone_swarm as Unit,
   "Firesight Marksman": fast_attack_firesight_marksman as Unit,
   "Kroot Great Knarloc": heavy_support_great_knarloc as Unit,
   "Hazard Battlesuits": fast_attack_hazard_battlesuits as Unit,

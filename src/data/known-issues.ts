@@ -3,9 +3,9 @@ import type { KnownIssue } from './changelog';
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: "ki-tau-drone-swarm-unit-01",
-    status: "known",
+    status: "fixed",
     title: "T'au: the new Drone Swarm unit (Fast Attack) is on the sheet but not in the app",
-    description: "REPORTED 2026-11-22. The T'au sheet 1.11 has a Drone Swarm unit (10 drone types, Fast Attack) and no longer lists the drones as options of the Tidewall Droneport and other units. The unit update script did not create it, so the app still shows the old drone options. Unit files are the script's, so this goes to Unwise."
+    description: "FIXED 2026-11-22. The T'au sheet 1.11 has a new Drone Swarm unit (Fast Attack, 10 drone types, each with its own weapon). The unit update never creates units, so the file was made by hand from the sheet (and the loadout lines, written in the plural \"Gun Drones are equipped with:\", are read per drone type); from now on the update keeps its stats, points and weapons current. The drones bought as options of other units (Drone controller) are unchanged: the sheet still says \"up to N Tau Drones in any combination\"."
   },
   {
     id: "ki-necrons-warrior-nobles-hq-01",
