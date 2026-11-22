@@ -243,6 +243,12 @@ export function parseEquipMods(
       const orderNames = new Set(Array.from(
         quotable.matchAll(/"([^"]+)"\s+orders?\b/gi),
         m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
+      // A quoted name followed by "attack" is something that HAPPENS ("Psykers within 18" suffer a "Perils of the Warp" attack",
+      // the Rune of brass, Empyric Overcharger, Baleful tome), not a rule the bearer gains: it showed up as a bare "Perils of the Warp"
+      // ability with no description in the battle view (Urza, 2026-11-22).
+      const attackNames = new Set(Array.from(
+        quotable.matchAll(/"([^"]+)"\s+attacks?\b/gi),
+        m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
       for (const raw of quoted) {
         // Some descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads
         // `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the captured name
@@ -254,6 +260,7 @@ export function parseEquipMods(
         // still shown under the wargear entry itself, so nothing is hidden from the player.
         if (negated.has(ab.toLowerCase())) continue;
         if (orderNames.has(ab.toLowerCase())) continue;
+        if (attackNames.has(ab.toLowerCase())) continue;
         // A quoted unit-type word THIS ITEM grants as a type is handled by the type system, not
         // shown as an ability too. Still guarded by UNIT_TYPE_WORDS so an unrelated quoted phrase
         // that happens to coincide with a real type name isn't swallowed by a data mistake.

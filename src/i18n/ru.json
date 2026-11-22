@@ -449,7 +449,7 @@
  "retinueFull": "Legendary Retinue заполнена (до 4 моделей).",
  "retinueSameAsAlly": "Этот кодекс — ваш союзный отряд; выберите другой для Retinue.",
  "valRetinueMax": "Legendary Retinue: до {max} моделей (сейчас {count}).",
- "valRetinueNeedsInquisitor": "Legendary Retinue можно выбрать, только если выбран и Inquisitor.",
+ "valRetinueNeedsInquisitor": "Legendary Retinue можно выбрать, только если в армии есть и этот отряд: {unit}.",
  "ironLordGuardFull": "Наследие Iron Lord: один транспорт Imperial Guard на AOP уже выбран.",
  "ironLordGuardSameAsAlly": "Imperial Guard — ваш союзный отряд: берите транспорт там.",
  "valIronLordGuardMax": "Наследие Iron Lord: один транспорт Imperial Guard на AOP (до {max}, выбрано {count}).",

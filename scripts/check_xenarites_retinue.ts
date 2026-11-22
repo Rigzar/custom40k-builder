@@ -17,3 +17,4 @@ for (const a of ['Heretic', 'Iconoclast']) {
 }
 ok(retinueFactionKeys('Inquisition', null).includes('space_marines'), 'no archetype: SM allowed');
 process.exit(bad ? 1 : 0);
+// Imperial Navy 1.3 uses the same Heretic / Iconoclast wording (no SM / Sororitas in the retinue) via retinueFactionKeys.
