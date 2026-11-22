@@ -51,7 +51,7 @@
             "abilities": "AT(1), Melta"
         },
         {
-            "name": "Rapid-fire Battle cannon",
+            "name": "Rapid-fire battle cannon",
             "range": "72\"",
             "type": "Heavy 2",
             "s": "8",

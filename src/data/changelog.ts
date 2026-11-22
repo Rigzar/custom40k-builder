@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-20',
     title: "GitHub bug round: Daemonkin, Entourage, Skirmish saves, option abilities",
     changes: [
+      "SHEET UPDATE (2026-11-22). Blood Claws are now 5 to 15 models (35 points each, 175 minimum), Striking Scorpions gain Hunter, the Knight Paladin weapon is spelled \"Rapid-fire battle cannon\" everywhere, and the Heldrake Warpfire text names the Baleflamer. The Knight Crusader stays at 1-2 models until the sheet author confirms.",
       "FLESH HOUNDS (Chaos Daemons, Urza). The Burning roar was counted for every hound in a big pack; the sheet now says only the Gore Hound carries it (fixed by Unwise in the sheet).",
       "WARRIOR NOBLES (Necrons, #298, DemonGyro). The Ancient Destructor Lord is both a character and a monster, so it hit the character column and took the trait for free. Warrior Nobles is now for HQ character infantry only: a monster or vehicle can't take it (picker and pricing), and saved lists drop it on load.",
       "ENTOURAGE (Chaos Daemons, #282). The Heralds (Bloodmaster, Changecaster, Poxbringer...) no longer carry a \"Herald:\" line on the sheet, only \"Entourage\", and the app was looking for the old line, so Entourage freed no HQ slot. The Heralds are now found by their Entourage line and the number it frees is read from the sheet's own sentence: \"one unit with this rule\" per Greater Daemon of the same god (it used to be \"up to two\"). The Palanquin of Nurgle (\"Only for Heralds\") can be bought again by the eight Heralds.",

@@ -100,7 +100,7 @@
     ],
     "abilities": [
         "Hover Mode",
-        "Warpfire: All weapons with the \"Auto Hit\" ability on the model gain +6\" range (already included in the weapon's profile)."
+        "Warpfire: All weapons with the \"Auto Hit\" ability on the model gain +6\" range (already included in the Baleflamer's profile)."
     ],
     "unit_type": "Flyer, Vehicle",
     "keywords": [
