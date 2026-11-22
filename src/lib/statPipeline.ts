@@ -26,6 +26,7 @@ export interface EquipLike {
   statDeltas: Partial<Record<string, number>>;
   statSets: Record<string, string | undefined>;
   armorSave: number | null;
+  skillCap?: Partial<Record<string, number>>;
 }
 export interface StatSource {
   mark: boolean;
@@ -131,7 +132,11 @@ export function resolveStatValue(
   // 4 — Wargear this row actually carries
   // A vehicle takes none of them except its firing and fighting skill: Daemonic possession "reduces its BS and WS" (#281).
   if ((!input.unit.is_vehicle || k === 'BS' || k === 'WS') && input.isEquipTarget) {
+    const before = display.match(/^(\d)\+/)?.[1];
     step(input.equipMods.statDeltas[k] ?? 0, 'equip');
+    // "(to a maximum of 4+)": a reduction never takes a skill past the cap (a value already worse than the cap is left alone).
+    const capV = input.equipMods.skillCap?.[k], after = display.match(/^(\d)\+/)?.[1];
+    if (capV && before && after && parseInt(after, 10) > capV) display = `${Math.max(parseInt(before, 10), capV)}+`;
     floorSave(input.equipMods.armorSave, 'equip');
   }
   // 5 — Wargear a TRAIT granted, which equips the whole unit rather than one model

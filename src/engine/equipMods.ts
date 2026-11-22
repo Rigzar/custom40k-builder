@@ -8,6 +8,8 @@ export interface EquipMods {
   armorSave: number | null;
   invulnSave: number | null;
   grantedAbilities: string[];
+  /** "reduces its BS and WS values by 1 (to a maximum of 4+)": the worst printed value the reduction may reach, per stat. */
+  skillCap?: Partial<Record<string, number>>;
 }
 
 // Third element is the sign to apply to the parsed "+N" value once it reaches statDeltas.
@@ -164,6 +166,9 @@ export function parseEquipMods(
             // possession's "reduces its BS and WS values by -1" improved them to 2+ (GitHub #281).
             const skill = snTrim === 'BS' || snTrim === 'WS';
             mods.statDeltas[snTrim] = (mods.statDeltas[snTrim] ?? 0) + (skill ? -delta : delta);
+            // Daemonic possession (sheet 2026-11): "...by 1 (to a maximum of 4+)" - the reduction stops at 4+.
+            const cap = skill ? desc.match(/to a maximum of (\d)\+/i) : null;
+            if (cap) mods.skillCap = { ...(mods.skillCap ?? {}), [snTrim]: parseInt(cap[1]) };
           }
         }
       }

@@ -69,7 +69,7 @@
     {
       "name": "Heightened Reflexes",
       "term_compat": false,
-      "desc": "Basic Biomorph. Point costs are paid per unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
+      "desc": "Basic Biomorph. Point costs are paid per unit. The unit does not suffer the to hit penalty from Defensive Fire.",
       "p_unit": 5,
       "p_char": 5
     },

@@ -234,7 +234,6 @@
     "option_groups": [],
     "abilities": [
         "Mindless, Unyielding",
-        "Drone abilities:",
         "Accelerator: A Pulse Accelerator Drones increase the range of all pulse weapons in the unit by 6\". A second Pulse Accelerator Drone increases it by another 6\".",
         "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their Charge move. If a second Warscaper Drone is selected, enemy units have to make two dangerous terrain tests instead.",
         "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\". If a second Grav Inhibitor Drone is present, it reduces the range by another 2\".",

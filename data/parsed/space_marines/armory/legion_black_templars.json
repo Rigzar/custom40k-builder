@@ -76,7 +76,7 @@
         "Terminator",
         "Gravis"
       ],
-      "desc": "The model and its attached unit can reposition up to 6\" after a close combat.",
+      "desc": "The unit gains +3\" for its Consolidation moves.",
       "p_unit": 3,
       "p_char": 3
     },

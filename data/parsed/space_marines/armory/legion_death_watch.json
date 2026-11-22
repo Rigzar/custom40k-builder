@@ -174,7 +174,7 @@
         "Terminator",
         "Gravis"
       ],
-      "desc": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n        1 - The vehicle suffers a penetrating hit with AT(1).\n        2 - The vehicle suffers a penetrating hit with AT(2).\n        3 - The vehicle suffers a penetrating hit with AT(3).",
+      "desc": "Roll 1D6 during activation if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
       "p_unit": null,
       "p_char": 10
     },
