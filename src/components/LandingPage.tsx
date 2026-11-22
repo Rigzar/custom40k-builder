@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190e_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -82,6 +82,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Space Marines", rows: [
         ["Space Marines", "The Death Watch Watch spear counts as a bolt weapon (its ranged profile is named Bolt Caster, as in the sheet)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Vehicle-only traits (Interplanetary Invasors) no longer charge monsters, and trait costs read per unit / monster / vehicle / character. Fixed by DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "The Knight Crusader is in: 579 points, 1–2 models, and the Freeblade archetype can take it."],
       ] },
@@ -127,6 +130,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Der Watch spear der Death Watch zählt als Bolt-Waffe (sein Fernkampfprofil heißt Bolt Caster, wie im Blatt)."],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Nur-für-Fahrzeuge-Eigenschaften (Interplanetary Invasors) berechnen für Monster nichts mehr, und die Kosten stehen pro Einheit / Monster / Fahrzeug / Charakter. Behoben von DemonGyro."],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Der Knight Crusader ist dabei: 579 Punkte, 1–2 Modelle, und die Archetype Freeblade darf ihn nehmen."],
@@ -174,6 +180,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Space Marines", rows: [
         ["Space Marines", "El Watch spear de la Death Watch cuenta como arma bolt (su perfil a distancia se llama Bolt Caster, como en la hoja)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Los rasgos solo para vehículos (Interplanetary Invasors) ya no cobran a los monstruos, y el coste se lee por unidad / monstruo / vehículo / personaje. Arreglado por DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Añadido el Knight Crusader: 579 puntos, 1–2 modelos; el arquetipo Freeblade puede tomarlo."],
       ] },
@@ -220,6 +229,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Space Marines", rows: [
         ["Space Marines", "Watch spear Death Watch считается болтерным оружием (его стрелковый профиль назван Bolt Caster, как в таблице)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Черты только для машин (Interplanetary Invasors) больше не берут очки с монстров, а стоимость указана на отряд / монстра / машину / персонажа. Исправил DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Добавлен Knight Crusader: 579 очков, 1–2 модели; архетип Freeblade может его взять."],
       ] },
@@ -265,6 +277,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Death WatchのWatch spearはボルト武器として扱われます(射撃プロファイル名がシート通りBolt Casterになりました)。"],
+      ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "乗り物専用の特性(Interplanetary Invasors)はモンスターに課金されなくなり、コストはユニット/モンスター/車両/キャラクターごとに表示されます。修正：DemonGyro。"],
       ] },
       { label: "Knight Households", rows: [
         ["Knight Crusader", "Knight Crusader追加: 579ポイント、1~2モデル。Freebladeアーキタイプでも選べます。"],
