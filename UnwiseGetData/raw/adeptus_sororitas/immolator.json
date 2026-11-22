@@ -1,0 +1,112 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Immolator",
+        "12\"",
+        "-",
+        "3+",
+        5,
+        11,
+        11,
+        10,
+        3,
+        1,
+        2,
+        155
+    ],
+    [
+        "An Immolator is equipped with: Heavy bolter; Twin Heavy flamer."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin heavy bolter",
+        "36\"",
+        "Rapid Fire 4",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Twin heavy flamer",
+        "9\"",
+        "Assault 8",
+        5,
+        -1,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Twin multi-melta",
+        "24\"",
+        "Assault 2",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May swap both Heavy flamers:"
+    ],
+    [
+        "- Twin heavy bolter",
+        "+10 points"
+    ],
+    [
+        "- Twin multi-melta",
+        "+47 points"
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Acts of Faith, Shield of Faith"
+    ],
+    [
+        "Transport: This model has a transport capacity of 6 infantry models, excluding \"Massive(x)\" models."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ]
+]

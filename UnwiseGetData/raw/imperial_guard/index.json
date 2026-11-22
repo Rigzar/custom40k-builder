@@ -1,0 +1,102 @@
+[
+    [
+        "Imperial Guard"
+    ],
+    [
+        "HQ",
+        "Captain",
+        "Leman Russ Tank Commander",
+        "Lord Commissar",
+        "Primaris Psyker",
+        "Rogal Dorn Tank Commander",
+        "Salamander Command",
+        "Special rules"
+    ],
+    [
+        "Troops",
+        "Conscript Infantry Platoon",
+        "Hive Gangers",
+        "Infantry Squad",
+        "Mechanised Infantry",
+        "Penal Legion Squad",
+        "Platoon Command Squad"
+    ],
+    [
+        "Elite",
+        "Ambassador",
+        "Astropath",
+        "Atlas Recovery Vehicle",
+        "Bullgryns",
+        "Commissar",
+        "Company Command Squad",
+        "Company Hero",
+        "Crusaders",
+        "Engineseer",
+        "Leman Russ Commissar",
+        "Master of Ordnance",
+        "Officer of the Fleet",
+        "Ogryn Bodyguard",
+        "Ogryn Brutes",
+        "Ogryns",
+        "Preacher",
+        "Ratlings",
+        "Sanctioned Psykers",
+        "Scribe Historicus",
+        "Special Weapon Squad",
+        "Staff Officer",
+        "Stormtrooper Command Squad",
+        "Stormtroopers",
+        "Veterans"
+    ],
+    [
+        "Fast Attack",
+        "Armoured Sentinels",
+        "Combat Engineers",
+        "Hellhounds",
+        "Hippogriff AFV",
+        "Rough Riders",
+        "Salamander Scout",
+        "Sentinel",
+        "Tauros"
+    ],
+    [
+        "Heavy Support",
+        "Basilisk",
+        "Carnodon",
+        "Colossus Bombard",
+        "Deathstrike Missile Launcher",
+        "Destroyer Tank Hunter",
+        "Field Ordnance Battery",
+        "Griffon",
+        "Heavy Ordnance Carriage",
+        "Heavy Weapon Squad",
+        "Hydra",
+        "Leman Russ",
+        "Malcador",
+        "Manticore",
+        "Medusa",
+        "Rogal Dorn",
+        "Wyvern"
+    ],
+    [
+        "Transports",
+        "Centaur Carrier",
+        "Centaur RSV",
+        "Chimera",
+        "Taurox",
+        "Trojan",
+        "Valkyrie",
+        "Vigilator RSV"
+    ],
+    [
+        "Fortifications"
+    ],
+    [
+        "Flyers",
+        "Avenger",
+        "Lightning",
+        "Thunderbolt",
+        "Vendetta",
+        "Vulture"
+    ]
+]

@@ -1,0 +1,25 @@
+[
+    [
+        "Track the total number of unsaved Wounds inflicted by units with the Mark of Nurgle. At the start of each battle round, consult the Tally of Pestilence table to determine the current bonus. All models with the Mark of Nurgle gain the corresponding characteristic boost or special rule. All bonuses stack."
+    ],
+    [
+        "Tally",
+        "Effect"
+    ],
+    [
+        7,
+        "The models gain +1 Strength."
+    ],
+    [
+        14,
+        "The models gain gain +1 Toughness."
+    ],
+    [
+        21,
+        "Weapons with \"Poison(x+)\" may re-roll wound rolls of 1."
+    ],
+    [
+        28,
+        "The models gain the \"Warded\" ability."
+    ]
+]

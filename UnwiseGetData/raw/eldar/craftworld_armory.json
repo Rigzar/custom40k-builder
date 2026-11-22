@@ -1,0 +1,55 @@
+[
+    [
+        "Unless stated otherwise, every item can only be purchased once by each model. Any model with access to the Armory can buy as many items as it wants. Items with a cost of \"-\" can not be selected."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES",
+        "POINTS CHARACTER"
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-"
+    ],
+    [
+        "EQUIPMENT",
+        "POINTS CHARACTER"
+    ],
+    [
+        "Fate Reader",
+        "Any one die from either player may be re-rolled once per battle round. Unique. Ulthw\u00e9 only.",
+        15
+    ],
+    [
+        "Master of Ambush",
+        "After both players assigned orders during the first battle round, remove up to one unit from your own army and re-redploy it anywhere on the table that is more than 9\" away from the enemy deployment zone and units. Unique. Alaitoc only.",
+        25
+    ],
+    [
+        "Natural Leader",
+        "Select up to one friendly unit during each Command phase. All selected units gain a +1 bonus to hit rolls for their next activation. Unique. Biel-Tan only.",
+        15
+    ],
+    [
+        "Enduring Resolve",
+        "All to wound rolls against the model suffer a -1 penalty. Unique. Iyanden only.",
+        10
+    ],
+    [
+        "Wild Rider Chieftain",
+        "The model gains +1 Attack. Unique. Saim-Hann only.",
+        5
+    ]
+]

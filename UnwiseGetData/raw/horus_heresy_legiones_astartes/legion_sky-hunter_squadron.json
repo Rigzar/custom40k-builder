@@ -1,0 +1,230 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "2-8",
+        "Legion Sky-hunter",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        5,
+        3,
+        4,
+        2,
+        7,
+        "3+",
+        81
+    ],
+    [
+        1,
+        "Legion Sky-hunter Sergeant",
+        "12\"",
+        "3+",
+        "3+",
+        4,
+        5,
+        3,
+        4,
+        2,
+        8,
+        "3+",
+        91
+    ],
+    [
+        "Every model is equipped with: Astartes chainsword; Bolt pistol; Legion Scimitar Jetbike; Frag grenades; Heavy bolter; Krak grenades."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Astartes chainsword",
+        "-",
+        "Melee",
+        "T",
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Bolt pistol",
+        "12\"",
+        "Pistol 1",
+        4,
+        -1,
+        1,
+        "-"
+    ],
+    [
+        "Frag grenade",
+        "6\"",
+        "Grenade 1",
+        4,
+        0,
+        1,
+        "Blast(4)"
+    ],
+    [
+        "Hand flamer",
+        "6\"",
+        "Pistol 4",
+        4,
+        0,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "Heavy bolter",
+        "36\"",
+        "Rapid Fire 2",
+        5,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Krak grenade",
+        "6\"",
+        "Grenade 1",
+        6,
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Multi-melta",
+        "24\"",
+        "Assault 1",
+        8,
+        -5,
+        2,
+        "AT(2), Melta"
+    ],
+    [
+        "Plasma cannon *"
+    ],
+    [
+        "- Standard",
+        "36\"",
+        "Heavy 1",
+        7,
+        -3,
+        1,
+        "AT(1), Blast(4)"
+    ],
+    [
+        "- Overcharged",
+        "36\"",
+        "Heavy 1",
+        8,
+        -4,
+        2,
+        "AT(2), Blast(4), Overheating"
+    ],
+    [
+        "Volkite culverin",
+        "48\"",
+        "Heavy 3",
+        6,
+        -1,
+        1,
+        "Soul burn(6+)"
+    ],
+    [
+        "Volkite serpenta",
+        "10\"",
+        "Pistol 2",
+        5,
+        -1,
+        1,
+        "Soul burn(6+)"
+    ],
+    [
+        "* Choose one of the following profiles"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +1 point."
+    ],
+    [
+        "\u2022 If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model):"
+    ],
+    [
+        "- Khorne",
+        "+3 points"
+    ],
+    [
+        "- Slaanesh",
+        "+3 points"
+    ],
+    [
+        "- Nurgle",
+        "+3 points"
+    ],
+    [
+        "- Tzeentch",
+        "+7 points"
+    ],
+    [
+        "\u2022 Every model may swap their Heavy bolter with:"
+    ],
+    [
+        "- Volkite culverin",
+        "+16 points"
+    ],
+    [
+        "- Multi-melta",
+        "+19 points"
+    ],
+    [
+        "- Plasma cannon",
+        "+80 points"
+    ],
+    [
+        "\u2022 Every model may swap their Bolt pistol with:"
+    ],
+    [
+        "- Hand flamer",
+        "+2 points"
+    ],
+    [
+        "- Volkite serpenta",
+        "+2 points"
+    ],
+    [
+        "\u2022 The Legion Sky-hunter Sergeant has access to weapons and gear from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "-"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Jet Bike"
+    ]
+]

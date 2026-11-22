@@ -1,0 +1,71 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "T",
+        "W",
+        "I",
+        "A",
+        "LD",
+        "SV",
+        "POINTS"
+    ],
+    [
+        "3-9",
+        "Nurgling Swarm",
+        "6\"",
+        "5+",
+        "5+",
+        2,
+        2,
+        3,
+        2,
+        3,
+        7,
+        "6+",
+        24
+    ],
+    [
+        "Every model is equipped with: Diseased claws and teeth."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Diseased claws and teeth",
+        "-",
+        "Melee",
+        "U",
+        0,
+        1,
+        "Poison(4+)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "-"
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Deepstrike, Daemon, Daemonic instability, Infiltrator, Mark of Nurgle, Mindless, Use cover, Swarm"
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Infantry"
+    ]
+]

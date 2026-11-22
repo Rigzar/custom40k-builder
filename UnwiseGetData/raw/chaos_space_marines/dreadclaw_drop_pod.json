@@ -1,0 +1,117 @@
+[
+    [
+        "No.",
+        "NAME",
+        "M",
+        "WS",
+        "BS",
+        "S",
+        "FRONT",
+        "SIDE",
+        "REAR",
+        "I",
+        "A",
+        "HP",
+        "POINTS"
+    ],
+    [
+        1,
+        "Dreadclaw Drop Pod",
+        "12\"",
+        "4+",
+        "4+",
+        5,
+        11,
+        11,
+        11,
+        4,
+        4,
+        2,
+        154
+    ],
+    [
+        "A Dreadclaw Drop Pod is equipped with: Blade struts; Thermal jets."
+    ],
+    [
+        "WEAPON",
+        "RANGE",
+        "TYPE",
+        "S",
+        "AP",
+        "D",
+        "ABILITIES"
+    ],
+    [
+        "Blade struts",
+        "-",
+        "Melee",
+        "U",
+        -2,
+        1,
+        "-"
+    ],
+    [
+        "Thermal jets",
+        "9\"",
+        "Assault 4",
+        6,
+        -2,
+        1,
+        "Auto Hit, Sunder(1)"
+    ],
+    [
+        "OPTIONS"
+    ],
+    [
+        "\u2022 May receive a Mark of Chaos:"
+    ],
+    [
+        "- Khorne",
+        "+10 points"
+    ],
+    [
+        "- Nurgle",
+        "+10 points"
+    ],
+    [
+        "- Slaanesh",
+        "+10 points"
+    ],
+    [
+        "- Tzeentch",
+        "+10 points"
+    ],
+    [
+        "\u2022 May have up to 2 veteran abilities."
+    ],
+    [
+        "\u2022 Has access to vehicle equipment from the Armory."
+    ],
+    [
+        "ABILITIES"
+    ],
+    [
+        "Anti-Grav, Deep strike"
+    ],
+    [
+        "Control Jets: The Drop Pod must land at least 6\" away from other units (friendly or enemy) and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the Drop Pod."
+    ],
+    [
+        "Drop Pod Assault: Drop Pods always start the game as reserves and are always set up via Deep strike. Even if the played mission does not allow reinforcements and/or Deep strike!"
+    ],
+    [
+        "Transport: This model has a transport capacity of 10 models or 1 Helbrute."
+    ],
+    [
+        "UNIT TYPE"
+    ],
+    [
+        "Vehicle"
+    ],
+    [
+        "KEYWORDS"
+    ],
+    [
+        "Chaos Space Marine"
+    ]
+]

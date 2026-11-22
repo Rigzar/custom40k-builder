@@ -1,0 +1,61 @@
+[
+    [
+        "Inquisition"
+    ],
+    [
+        "HQ",
+        "Inquisitor",
+        "Special rules"
+    ],
+    [
+        "Troops",
+        "Arbites",
+        "Stormtroopers"
+    ],
+    [
+        "Elite",
+        "Acolytes",
+        "Alien World Scouts",
+        "Arch-Militant",
+        "Archaeotech Researchers",
+        "Arco-flagellants",
+        "Chirurgeons",
+        "Crusaders",
+        "Daemonhosts",
+        "Deathcult Assassins",
+        "Eldar Outcast",
+        "Exorcists",
+        "Jokaero Weaponsmiths",
+        "Missionaries",
+        "Mystics",
+        "Penitents",
+        "Psykers",
+        "Sages",
+        "Servitors",
+        "Xenologists"
+    ],
+    [
+        "Fast Attack"
+    ],
+    [
+        "Heavy Support",
+        "Land Raider",
+        "Land Raider Prometheus",
+        "Sanctioned Bombardement"
+    ],
+    [
+        "Transports",
+        "Chimera",
+        "Corvus Blackstar",
+        "Repressor",
+        "Rhino",
+        "Taurox",
+        "Valkyrie"
+    ],
+    [
+        "Fortifications"
+    ],
+    [
+        "Flyers"
+    ]
+]
