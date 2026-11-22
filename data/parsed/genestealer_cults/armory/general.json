@@ -297,7 +297,7 @@
     {
       "name": "Pennant of Ascension",
       "term_compat": false,
-      "desc": "The unit gains an additional bonus of +1 to the combat result, as well as +1 attack per model. Only for models with a Cult icon. Unique.",
+      "desc": "The unit gains an additional bonus of +1 to the combat result, as well as +1 attack per model. Acolyte Iconward only. Unique.",
       "p_unit": 15,
       "p_char": null
     },

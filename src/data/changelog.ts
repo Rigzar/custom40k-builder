@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-20',
     title: "GitHub bug round: Daemonkin, Entourage, Skirmish saves, option abilities",
     changes: [
+      "SHEETS 2026-11-22 (Harlequins 1.5, Genestealer Cults 1.7). The GSC Pennant of Ascension is for the Acolyte Iconward only (it was open to any model with a Cult icon, which no unit with Armory access could take). Command Squads (Imperial Guard, #284): the author confirmed the weapon counts are right, so nothing more changes there.",
       "SHEETS 2026-11-22 (Adeptus Mechanicus 1.7, Inquisition 1.6, Space Marines 1.16, T'au 1.11). Adeptus Mechanicus: the Xenarites archetype is in (Allies of Convenience instead of Battle Brothers with the Imperial factions, and every model with Armory access may take one item from any Xenos faction); the Ordo Reductor Covenant left the sheet. Inquisition: a Heretic or Iconoclast Legendary Retinue can no longer include Adeptus Sororitas or Space Marines, and the Retinue needs an Inquisitor in the army.",
       "SHEET UPDATE (2026-11-22). Blood Claws are now 5 to 15 models (35 points each, 175 minimum), Striking Scorpions gain Hunter, the Knight Paladin weapon is spelled \"Rapid-fire battle cannon\" everywhere, and the Heldrake Warpfire text names the Baleflamer. The Knight Crusader stays at 1-2 models until the sheet author confirms.",
       "FLESH HOUNDS (Chaos Daemons, Urza). The Burning roar was counted for every hound in a big pack; the sheet now says only the Gore Hound carries it (fixed by Unwise in the sheet).",

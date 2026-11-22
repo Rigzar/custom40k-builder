@@ -21,9 +21,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: "ki-imperial-guard-command-squad-weapon-upgrades-01",
-    status: "known",
+    status: "fixed",
     title: "Command Squad weapon upgrades are not replacing Lasguns; Heavy Flamer is given to entire unit instead of 1 model (GH#284)",
-    description: "PARTLY FIXED 2026-11-19, reported by Birdy (Discord). CAUSE: Expectation is that the models swap their weapons and adding a single weapon upgrade, ex. Heavy Flamer, should only show as 1x, not Nx (unit size=N). v1.90 fixes the Heavy flamer showing 4x (it shows 1x). Still open: whether these upgrades should replace a Lasgun and whether the total is capped by the squad size; waiting for the author's ruling."
+    description: "FIXED 2026-11-22, reported by Birdy (Discord). The Heavy flamer showed as 4x for the whole squad; it shows 1x (v1.90). The author (atypicalhero) answered the open questions: nothing replaces a Lasgun (a Heavy weapons team is two models, which is why the line reads \"Two Veterans may form a Heavy weapons team\"); the models that carry a Banner, Vox or Medical bag can take upgraded weapons; and there is nothing wrong with the number of weapons (1 Heavy flamer, 1 Heavy weapon from 2 models, up to 2 melee weapons, and the remaining models may take special weapons)."
   },
   {
     id: "ki-necrons-interplanetary-invasors-monster-01",

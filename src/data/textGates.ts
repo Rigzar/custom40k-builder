@@ -43,8 +43,8 @@ const KEYWORD_SENTENCES: Array<[RegExp, Gate]> = [
   // another item on the same model
   [/^Exo-armou?r only$/i, { requires_owned_item: 'Exo-armor' }],
   [/^Only for models on a Jetbike$/i, { requires_owned_item: 'Eldar jetbike' }],
-  // "Only for models with a Cult icon" (GSC Pennant of Ascension): the author answered "a unit that has taken the Cult icon
-  // option", but no unit with that option has Armory access, so a gate would make the item unbuyable. Left open, asked again.
+  // (GSC Pennant of Ascension used to say "Only for models with a Cult icon"; the sheet now says "Acolyte Iconward only",
+  // a role sentence handled below.)
   // atypicalhero 2026-11-15: any vehicle with a transport capacity ('Transport' keyword, keywords.ts).
   [/^Transport vehicle only$/i, { requires_all_keywords: ['Vehicle', 'Transport'] }],
   [/^Only for Kroot Shapers with Krootox steed$/i, { requires_unit_names: ['shaper'], requires_owned_item: 'Krootox steed' }],
