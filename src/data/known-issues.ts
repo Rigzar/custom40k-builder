@@ -5,7 +5,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: "ki-necrons-warrior-nobles-hq-01",
     status: "by_design",
     title: "Warrior Nobles trait doesn't apply to a Yngir C'tan (it should apply to all HQs) (GH#298)",
-    description: "BY DESIGN 2026-11-22, reported by Sophtym (Discord). The trait says \"Only for HQ units\", but the sheet prices it for characters only (the monster column is \"-\") and the C'tan Shard is a monster. Asked the sheet author (atypicalhero): \"C'tan stays out of it for now.\" Nothing to change in the app; if the sheet ever prices it for monsters, the C'tan gets it."
+    description: "BY DESIGN 2026-11-22, reported by Sophtym (Discord). The trait says \"Only for HQ units\", but the sheet prices it for characters only (the monster column is \"-\") and the C'tan Shard is a monster. Asked the sheet author (atypicalhero): \"C'tan stays out of it for now.\" Nothing to change for the C'tan; if the sheet ever prices it for monsters, it gets it. FOLLOW-UP (DemonGyro): the Ancient Destructor Lord is both a character and a monster, so it hit the character column and got the trait for free. The app now treats Warrior Nobles as HQ character infantry only: any unit flagged monster or vehicle can't take it (picker and pricing)."
   },
   {
     id: "ki-necrons-ctan-shard-yngir-slot-powers-01",

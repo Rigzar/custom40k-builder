@@ -112,6 +112,11 @@ export function traitSubOptions(traitName: string): string[] {
 }
 
 export function traitExcludesUnit(traitName: string, unit: Unit): boolean {
+  // Necron "Warrior Nobles" (GH#298): "Only for HQ units", priced 0 for characters and "-" for
+  // monsters. A unit that is BOTH character and monster (Ancient Destructor Lord) hit the character
+  // column and got it free; DemonGyro's reading, which Rigzar accepted: HQ character infantry only,
+  // so a monster never takes it, whatever else it is flagged as.
+  if (traitName === 'Warrior Nobles' && (unit.is_monster || unit.is_vehicle)) return true;
   const kw = KEYWORD_ONLY_TRAITS[traitName];
   return !!kw && !(unit.keywords ?? []).some(k => k.toLowerCase() === kw.toLowerCase());
 }

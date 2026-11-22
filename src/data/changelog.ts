@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'g';
+export const REVISION = 'h';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-20',
     title: "GitHub bug round: Daemonkin, Entourage, Skirmish saves, option abilities",
     changes: [
+      "WARRIOR NOBLES (Necrons, #298, DemonGyro). The Ancient Destructor Lord is both a character and a monster, so it hit the character column and took the trait for free. Warrior Nobles is now for HQ character infantry only: a monster or vehicle can't take it (picker and pricing), and saved lists drop it on load.",
       "ENTOURAGE (Chaos Daemons, #282). The Heralds (Bloodmaster, Changecaster, Poxbringer...) no longer carry a \"Herald:\" line on the sheet, only \"Entourage\", and the app was looking for the old line, so Entourage freed no HQ slot. The Heralds are now found by their Entourage line and the number it frees is read from the sheet's own sentence: \"one unit with this rule\" per Greater Daemon of the same god (it used to be \"up to two\"). The Palanquin of Nurgle (\"Only for Heralds\") can be bought again by the eight Heralds.",
       "DAEMONKIN (#280, #285). The army now shows an error when a unit does not have or buy the \"Daemon\" or \"Greater Daemon\" ability (Daemonic aura, Daemonic possession, the Doombike and the Exalted Eightbound give it; the Possessed and the Adept of Possession have it). The unit-count message said one unit less than the real difference (\"1 more\" for 2 more); it shows the real number.",
       "DAEMONIC POSSESSION (#281). \"Reduces its BS and WS values by -1\" improved them (3+ became 2+) because skills are stored the other way round; it now makes them worse (3+ becomes 4+).",

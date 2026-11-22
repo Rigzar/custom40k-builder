@@ -6,7 +6,7 @@ import { localiseAbility } from '../data/coreRules';
 import type { RosterEntry } from '../types/army';
 import type { Unit } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { isPsykerOnlyTrait } from '../engine/traitEffects';
+import { isPsykerOnlyTrait, traitExcludesUnit } from '../engine/traitEffects';
 
 interface Props {
   item: RosterEntry;
@@ -48,6 +48,7 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
     // never manifest a power. Driven by the effect registry now, so a future psyker-only trait is
     // gated the day it is wired.
     if (isPsykerOnlyTrait(t.name) && !unit.is_psyker) return false;
+    if (traitExcludesUnit(t.name, unit)) return false;
     // Iron Within, Iron Without (CSM): "Only for creature models that do not already have an
     // ward save" — hide for creature units whose datasheet already grants one
     if (t.name === 'Iron Within, Iron Without' && !unit.is_vehicle) {
