@@ -19,17 +19,17 @@ const fail = (m: string) => {
     const data: FactionData = await (FACTION_LOADERS)[faction]();
     console.log(`Checking faction ${faction} with ${data.traits.length} traits`);
     data.traits.forEach((trait: Trait) => {
-      const hasMonsterPts = trait.pts_monster !== null;
-      const hasVehiclePts = trait.pts_veh !== null;
+      const hasMonsterPts = !!trait.pts_monster && trait.pts_monster !== '-';
+      const hasVehiclePts = !!trait.pts_veh && trait.pts_veh !== '-';
       if (hasMonsterPts || hasVehiclePts) {
         console.log(`  Checking trait ${trait.name} with monster points ${trait.pts_monster} and vehicle points ${trait.pts_veh}`);
         const isMonsterOnly = trait.desc.match(/only for monsters/i);
-        if (isMonsterOnly && trait.pts_veh) {
+        if (isMonsterOnly && hasVehiclePts) {
           fail(`trait ${trait.name} in faction ${faction} is marked only for monsters but has vehicle points`);
           return;
         }
         const isVehicleOnly = trait.desc.match(/only for vehicles/i);
-        if (isVehicleOnly && trait.pts_monster) {
+        if (isVehicleOnly && hasMonsterPts) {
           fail(`trait ${trait.name} in faction ${faction} is marked only for vehicles but has monster points`);
           return;
         }
@@ -39,6 +39,12 @@ const fail = (m: string) => {
       }    
     });
   }
-  console.log(`Finished checking traits. Failures:\n -> ${failuresInfo.join('\n -> ')}`);
+  console.log(`\nFinished checking traits.`);
+  if (failures > 0) {
+    console.log(`Found ${failures} failures:`);
+    failuresInfo.forEach((info) => console.log(`  --> ${info}`));
+  } else {
+    console.log('No failures found.');
+  }
   process.exit(failures ? 1 : 0);
 })();
