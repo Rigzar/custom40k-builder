@@ -15,7 +15,7 @@ import { countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { slotLabel } from '../utils/slotLabel';
 import { unitTypeLabel } from '../utils/unitTypeLabel';
 import { engName } from '../utils/engagementText';
-import { unitPowerSummary, collectPowerBook, powerBookIsEmpty } from '../utils/powerBook';
+import { unitPowerSummary, collectPowerBook, powerBookIsEmpty, armyHasGeneralDisciplines } from '../utils/powerBook';
 import { applyDelta, applyEquipDeltas } from '../utils/statMods';
 import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -2067,7 +2067,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         )}
 
         {/* The General psychic disciplines: hard to find in the builder, and a printed list had no trace of them (Discord, Dave, 2026-11-13). Shown whenever the army has a psyker. */}
-        {army.some(i => resolveUnit(i, data)?.is_psyker) && (
+        {armyHasGeneralDisciplines(army, data) && (
           <div style={{
             marginBottom: 20, border: `1px solid ${primaryColor}55`, overflow: 'hidden',
             ['--ac' as string]: primaryColor,
@@ -2082,7 +2082,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'prGeneralPsychic')}</span>
             </div>
             <div style={{ padding: '6px 14px', background: PARCHMENT, columnCount: 2, columnGap: 20 }}>
-              {Object.entries(GENERAL_DISCIPLINES).filter(([d]) => d !== 'General').flatMap(([disc, powers]) => [
+              {Object.entries(GENERAL_DISCIPLINES).flatMap(([disc, powers]) => [
                 <div key={'gd-' + disc} style={{
                   breakInside: 'avoid', breakAfter: 'avoid', fontFamily: CONDUIT, fontWeight: 800,
                   textTransform: 'uppercase', letterSpacing: '.08em', fontSize: '.72em',

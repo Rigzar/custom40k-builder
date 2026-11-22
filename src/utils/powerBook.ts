@@ -2,6 +2,7 @@ import type { FactionData, Power } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { findPowerByName, powerMetaLine } from './psychicFormat';
+import { factionForEntry, resolveUnit } from '../engine/points';
 
 /**
  * The "book" at the end of a list: every psychic power, prayer and pact the army uses, ONCE, with its full text.
@@ -31,7 +32,8 @@ export function disciplinePowers(discipline: string, data: FactionData | null | 
   return Array.isArray(granted) ? granted : [];
 }
 
-const entryOf = (p: Power | undefined, name: string): BookEntry => ({ name, meta: powerMetaLine(p), effect: p?.effect ?? '' });
+// Faction-level powers
+const entryOf = (p: Power | undefined, name: string): BookEntry => ({ name, meta: powerMetaLine(p, []), effect: p?.effect ?? '' });
 
 /** What a unit card says about its powers: names, and whole disciplines it knows entirely ("Biomancy (all)"). */
 export function unitPowerSummary(item: RosterEntry, data: FactionData | null | undefined): {
@@ -74,6 +76,11 @@ export function collectPowerBook(army: RosterEntry[], data: FactionData | null |
     prayers: [...prayers.values()],
     pacts: [...pacts.values()],
   };
+}
+
+export function armyHasGeneralDisciplines(army: RosterEntry[], data: FactionData): boolean {
+  // Only Psykers in the Necron faction are C'tan Shards, which do not have access to the General disciplines.
+  return army.some(i => !factionForEntry(i, data).match(/\bNecrons\b/i) && resolveUnit(i, data)?.is_psyker);
 }
 
 export const powerBookIsEmpty = (b: PowerBook) => b.powers.length === 0 && b.prayers.length === 0 && b.pacts.length === 0;

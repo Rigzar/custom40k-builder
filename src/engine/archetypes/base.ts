@@ -22,6 +22,7 @@ export interface ArchetypeRule {
    * would have demoted six gaunt broods the sheet never mentions.
    */
   elitesRemap?: string[];
+  hqRemap?: string[];
   forcedMark: string | null;
   requireForcedMarkOnly: boolean;
   bannedUnits: string[];
