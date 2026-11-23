@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'i';
+export const REVISION = 'j';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -41,6 +41,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-11-20',
     title: "GitHub bug round: Daemonkin, Entourage, Skirmish saves, option abilities",
     changes: [
+      "SIEGE BREAKER (Chaos Space Marines, Iron Warriors, #305, DemonGyro). The item says the model MAY choose to make melee attacks at Initiative 1 and gain +5 Strength for them, but the app added +5 Strength to the model for good. The stat block is untouched now and the card lists the choice as an ability.",
       "KNIGHT CRUSADER. It is 1 model, not 1-2 (it costs 579 points before any upgrade; confirmed by Unwise on the sheet).",
       "FULL SHEET AUDIT (2026-11-22). Every unit tab of the 22 sheets was compared with the app (stats, points, weapons, abilities, unit types, option groups and prices) and every Armory item text. Fixed: Land Raider Prometheus Multi-melta costs +11 (it was +35); the Armory texts that had drifted from the sheets: Orks Wildork (melee hits against vehicles and monsters gain Armorbane(1) and Decimate), Space Marines Crusader seals (+3\" for Consolidation moves), Dark Angels Teleport homing beacon, Death Watch Clavis (1D6 table), Chaos Shamblerot (the Poxwalker plague; it carried the Clavis text), Tyranid Heightened Reflexes (no Defensive Fire penalty) and T'au Academy Luminary (25% VP). Daemonic possession now stops BS and WS at 4+ as the sheet says. The Rune of brass, Empyric Overcharger and Baleful tome no longer list Perils of the Warp as an ability the bearer gains (Urza). The Imperial Navy Legendary Retinue needs a Rogue Trader.",
       "DRONE SWARM (T'au, sheet 1.11). The new Fast Attack unit is in: ten drone types (Gun, Marker, Missile, Recon, Sniper and the support drones) each with its own weapon, from 4 Gun Drones (48 points).",

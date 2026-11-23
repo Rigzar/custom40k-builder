@@ -51,7 +51,9 @@ const EQUIP_STAT_MAP: [RegExp, string, number][] = [
 // "one weapon of the model gains" → bonus goes to a single weapon (e.g. Artifact of Gork ... or Mork),
 // not to the model's base stats.
 // "friendly <Canoptek> or <Necron> creature unit" too: the Necron Atomic Energy Manipulator boosts ANOTHER unit and its bearer got the +1 S/T (Sophtym, Discord 2026-11-17).
-const AURA_PHRASES = /attached unit|friendly unit|friendly [^.]{0,60}?\bunits?\b|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
+// "+5 Strength for these attacks" (Iron Warriors Siege Breaker, GH#305) is an optional, per-attack trade
+// ("may choose to make some or all melee attacks at Initiative 1"), not a bonus to the bearer's profile.
+const AURA_PHRASES = /\+\d+ \w+ for (?:these|those) (?:melee |ranged )?attacks|attached unit|friendly unit|friendly [^.]{0,60}?\bunits?\b|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
 
 // Quoted words that name a UNIT TYPE, not an ability. When an item says "gains the unit type 'Bike'"
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a
@@ -186,6 +188,14 @@ export function parseEquipMods(
     // "Ward(X+)" is the new spelling in the sheets (2026-10); the sentence form still works for sheets not moved yet.
     const invuln = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i) ?? desc.match(/\bWard\((\d)\+\)/i);
     if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }
+    // An optional per-attack trade ("may choose ... but gains +5 Strength for these attacks", Siege Breaker, GH#305)
+    // is not added to the stat block (see AURA_PHRASES); show it as a described ability so the card still says what
+    // the player can pick.
+    const optionalTrade = desc.match(/\bmay choose to ([^.]*?),? but gains (\+\d+ \w+) for (?:these|those) (?:melee |ranged )?attacks/i);
+    if (optionalTrade) {
+      const line = `${it.name}: ${optionalTrade[1].replace(/^make /i, 'Makes ')} (your choice), ${optionalTrade[2].replace(/\s+/, ' ')} for those attacks`;
+      if (!mods.grantedAbilities.includes(line)) mods.grantedAbilities.push(line);
+    }
     // "All [type] weapons gain 'X'" → handled by the weapon table injection in resolver.ts.
     // Don't also add to grantedAbilities — that would duplicate the display.
     const isGlobalWeaponAbility = /\bAll\s+\w*\s*weapons?\b.*\bgain\b/i.test(desc);

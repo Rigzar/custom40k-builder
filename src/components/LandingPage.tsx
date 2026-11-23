@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190i_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190j_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -80,6 +80,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Daemonkin shows an error when a unit does not have or buy the Daemon ability, and its unit-count message shows the real difference (#280, #285). Daemonic possession makes BS and WS worse, it improved them (#281). The Black Crusade champion also gets the Mark of Tzeentch's Psyker."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "A Black Crusade champion can take the datasheet options marked (Nurgle only), (Khorne only)... as he has every Mark."],
+        ["Chaos Space Marines", "Iron Warriors: the Siege Breaker no longer adds +5 Strength to the model by itself. The card lists it as a choice: some or all melee attacks at Initiative 1 with +5 Strength (#305, DemonGyro)."],
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Blood Claws are 5 to 15 models. Armory texts brought up to date: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) and Clavis (Death Watch)."],
@@ -150,6 +151,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Daemonkin meldet einen Fehler, wenn eine Einheit die Fähigkeit Daemon weder hat noch kauft, und die Meldung zur Einheitenzahl zeigt den echten Unterschied (#280, #285). Daemonic possession verschlechtert BF und KG, statt sie zu verbessern (#281). Der Black-Crusade-Champion bekommt auch den Psyker des Mals des Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Ein Black-Crusade-Champion kann die Datenblatt-Optionen mit (Nurgle only), (Khorne only)... wählen, da er jedes Mal besitzt."],
+        ["Chaos Space Marines", "Iron Warriors: Der Siege Breaker gibt dem Modell nicht mehr automatisch +5 Stärke. Die Karte zeigt ihn als Wahl: einige oder alle Nahkampfangriffe mit Initiative 1 und +5 Stärke (#305, DemonGyro)."],
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Blood Claws sind 5 bis 15 Modelle. Rüstkammertexte aktualisiert: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) und Clavis (Death Watch)."],
@@ -220,6 +222,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Daemonkin da error cuando una unidad no tiene ni compra la habilidad Daemon, y su mensaje de número de unidades muestra la diferencia real (#280, #285). Daemonic possession empeora BS y WS, antes los mejoraba (#281). El campeón de la Cruzada Negra también recibe el Psyker de la Marca de Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Un campeón de Black Crusade puede tomar las opciones de la hoja marcadas (Nurgle only), (Khorne only)... porque tiene todas las Marcas."],
+        ["Chaos Space Marines", "Iron Warriors: el Siege Breaker ya no suma +5 de Fuerza al modelo por sí solo. La ficha lo muestra como una elección: algunos o todos los ataques cuerpo a cuerpo con Iniciativa 1 y +5 de Fuerza (#305, DemonGyro)."],
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Los Blood Claws son de 5 a 15 modelos. Textos de armería al día: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) y Clavis (Death Watch)."],
@@ -290,6 +293,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "Daemonkin показывает ошибку, если у отряда нет и он не покупает способность Daemon, а сообщение о числе отрядов показывает реальную разницу (#280, #285). Daemonic possession ухудшает BS и WS, а не улучшал (#281). Чемпион Чёрного крестового похода получает и Psyker Метки Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Чемпион Black Crusade может брать опции датащита с пометкой (Nurgle only), (Khorne only)..., так как имеет все Метки."],
+        ["Chaos Space Marines", "Iron Warriors: Siege Breaker больше не добавляет модели +5 к Силе сам по себе. На карточке это выбор: часть или все атаки в ближнем бою с Инициативой 1 и +5 к Силе (#305, DemonGyro)."],
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Blood Claws — от 5 до 15 моделей. Тексты арсенала обновлены: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) и Clavis (Death Watch)."],
@@ -360,6 +364,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Chaos Space Marines", "ユニットがDaemon能力を持たず購入もしない場合、Daemonkinがエラーを出し、ユニット数のメッセージは実際の差を表示します（#280、#285）。Daemonic possessionはBSとWSを悪化させます（以前は改善していました、#281）。ブラッククルセードのチャンピオンはティーンチの印のPsykerも得ます。"],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Black Crusadeのチャンピオンは全ての印を持つため、(Nurgle only)、(Khorne only)などの選択肢を選べます。"],
+        ["Chaos Space Marines", "Iron Warriors: Siege Breakerはモデルの強さを自動で+5しなくなりました。カードでは選択として表示されます：近接攻撃の一部または全部を主導値1で行い、強さ+5（#305、DemonGyro）。"],
       ] },
       { label: "Space Marines", rows: [
         ["Space Marines", "Blood Clawsは5〜15モデルになりました。武器庫の文を更新：Crusader seals（Black Templars）、Teleport homing beacon（Dark Angels）、Clavis（Death Watch）。"],
