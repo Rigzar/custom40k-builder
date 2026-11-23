@@ -118,7 +118,7 @@
         {
             "header": "Every Mek Gun must select one weapon",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {
