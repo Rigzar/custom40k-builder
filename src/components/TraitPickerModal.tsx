@@ -1,7 +1,7 @@
 import { nm } from '../utils/localName';
 import { useState } from 'react';
 import { localiseAbility } from '../data/coreRules';
-import { useT } from '../i18n';
+import { useT, type TranslationKey } from '../i18n';
 import type { Trait } from '../types/data';
 
 /** "5*" -> "+5 pts/W per unit", "0" -> "free (per unit)", "-"/null -> not shown at all. */
@@ -13,11 +13,12 @@ export function formatTraitCost(raw: string | null | undefined, label: string): 
   return `+${num}${perW ? ' pts/W' : ' pts'} ${label}`;
 }
 
-export function traitCostParts(tr: Trait): string[] {
+export function traitCostParts(tr: Trait, t: (k: TranslationKey) => string): string[] {
   return [
-    formatTraitCost(tr.pts_unit, 'per unit'),
-    formatTraitCost(tr.pts_monster, 'per monster'),
-    formatTraitCost(tr.pts_char, 'per char'),
+    formatTraitCost(tr.pts_unit, t('perUnit')),
+    formatTraitCost(tr.pts_monster, t(!tr.pts_veh ? 'perMonsterVehicle' : 'perMonster')),
+    formatTraitCost(tr.pts_veh, t('perVehicle')),
+    formatTraitCost(tr.pts_char, t('perCharacter')),
   ].filter((s): s is string => s !== null);
 }
 
@@ -98,7 +99,7 @@ export function TraitPickerModal({ traits, excludedNames, currentValue, slotLabe
           ) : filtered.map(tr => {
             const isCurrent = tr.name === currentValue;
             const isExcluded = !isCurrent && excludedNames.includes(tr.name);
-            const costParts = traitCostParts(tr);
+            const costParts = traitCostParts(tr, t);
             return (
               <div
                 key={tr.name}

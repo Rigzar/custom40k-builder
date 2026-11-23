@@ -25,11 +25,18 @@ const BY_ARCHETYPE: Record<string, string[]> = {
   Heretic: ['chaos_daemons', 'chaos_space_marines', 'genestealer_cults'],
   Iconoclast: ['dark_eldar', 'eldar', 'leagues_of_votann', 'orks', 'tau_empire'],
 };
+// Inquisition sheet 1.6 (2026-11-22): Heretic and Iconoclast "may no longer include models from the following armies:
+// Adeptus Sororitas, Space Marines."
+const REMOVED_BY_ARCHETYPE: Record<string, string[]> = {
+  Heretic: ['adeptus_sororitas', 'space_marines'],
+  Iconoclast: ['adeptus_sororitas', 'space_marines'],
+};
 
 /** The codex keys whose HQ models this army's Legendary Retinue may draw from ([] for any other army). */
 export function retinueFactionKeys(faction: string | undefined | null, archetype: string | null | undefined): string[] {
   if (!faction || !(RETINUE_FACTIONS as readonly string[]).includes(faction)) return [];
-  return [...BASE, ...(archetype ? BY_ARCHETYPE[archetype] ?? [] : [])];
+  const removed = archetype ? REMOVED_BY_ARCHETYPE[archetype] ?? [] : [];
+  return [...BASE.filter(k => !removed.includes(k)), ...(archetype ? BY_ARCHETYPE[archetype] ?? [] : [])];
 }
 
 /** "none of the models may be unique per army" - a unit whose own sheet says only one may be taken. */

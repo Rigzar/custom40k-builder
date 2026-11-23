@@ -563,7 +563,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         {traitPool.map(name => {
                           const tr = data.traits.find(t => t.name === name);
                           if (!tr) return null;
-                          const costParts = traitCostParts(tr);
+                          const costParts = traitCostParts(tr, t);
                           return (
                             <div key={name} className="pl-3 border-l-2 border-amber-900 text-[10px]">
                               <span className="text-amber-400 font-semibold">{name}</span>

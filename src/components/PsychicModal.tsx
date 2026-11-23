@@ -12,9 +12,10 @@ import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
 import { CSM_LOWER_PRAYERS } from '../engine/codex_csm/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
-import { powerMetaLine, complexityLabel } from '../utils/psychicFormat';
+import { powerMetaLine, complexityLabel, effectivePowerRange } from '../utils/psychicFormat';
 import { useT } from '../i18n';
 import { hhDisciplineLabel } from '../utils/hhDisciplineLabel';
+import { effectiveKeywords } from '../engine/keywords';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
@@ -62,15 +63,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? rule?.forcedMark ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
-
-  // Yngir (Necrons): "The range for each C'tan power is increased by 6"" (ods-verbatim) — only
-  // for the one flagged C'tan Shard, mirrors the HQ/stat/save mods applied in resolver.ts.
-  const ctanYngirActive = archetype === 'Yngir' && !!item.ctanYngirUpgrade && /^C'tan Shard/.test(unit.name);
-  const bumpRange = (range: string | undefined): string | undefined => {
-    if (!ctanYngirActive || !range) return range;
-    const m = range.match(/^(\d+)"$/);
-    return m ? `${parseInt(m[1], 10) + 6}"` : range;
-  };
+  const keywords = effectiveKeywords(unit, item, rule);
 
   // Legacy power: the legacy grants all psykers one fixed always-known power, displayed the
   // same way as Smite ("Always known" badge). Grey Knights and Genestealer Cults both have it;
@@ -253,7 +246,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     const knowsSmite = psykerAbilityText.includes('smite');
     // "Knows Smite and all powers from the General psychic disciplines and ...": nothing to choose, the unit knows them all.
     if (knowsEveryPower(unit)) return { mode: 'knows_all', limit: 999, knowsSmite };
-    if (namedDiscipline && Object.keys(data.disciplines ?? {}).some(k => k.toLowerCase().includes(namedDiscipline))) return { mode: 'all_from_one', limit: 999, knowsSmite };
+    if (namedDiscipline && Object.keys(data?.disciplines ?? {}).some(k => k.toLowerCase().includes(namedDiscipline))) return { mode: 'all_from_one', limit: 999, knowsSmite };
     // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X"
     // (CD god-specific) OR "all powers from the X discipline" (unit-specific, e.g. Wraithseer)
     if (psykerAbilityText.includes('all powers from a chosen discipline') ||
@@ -537,7 +530,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   <div className="text-left px-3 py-2 border bg-amber-900/30 border-amber-700 text-amber-300">
                     <div className="text-sm font-medium">{nm(smite.name)}</div>
                     <div className="text-[10px] text-zinc-500 mt-0.5">
-                      {[localiseAbility(smite.type), complexityLabel(smite.complexity), bumpRange(smite.range), smite.cast_value ? `${t('castLabel')} ${smite.cast_value}` : null]
+                      {[localiseAbility(smite.type), complexityLabel(smite.complexity), effectivePowerRange(keywords, smite.range), smite.cast_value ? `${t('castLabel')} ${smite.cast_value}` : null]
                         .filter(Boolean).join(' · ')}
                     </div>
                     <div className="text-[10px] text-zinc-400 mt-1 leading-relaxed">{localiseAbility(smite.effect)}</div>
@@ -560,7 +553,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
                 const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one' && psykerMode !== 'knows_all'
                   && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
-                const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite'));
+                const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite') && !(/only for yngir/i.test(p.name) && archetype !== 'Yngir'));
                 const selectedInDisc = psykerMode === 'all_from_one'
                   ? (isChosen ? powersArr.length : 0)
                   : powersArr.filter(p => isPowerSelected(discName, p.name)).length;
@@ -614,7 +607,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                               )}
                             </div>
                             <div className="text-[10px] text-zinc-500 mt-0.5">
-                              {[localiseAbility(p.type), complexityLabel(p.complexity), bumpRange(p.range), p.cast_value ? `${t('castLabel')} ${p.cast_value}` : null]
+                              {[localiseAbility(p.type), complexityLabel(p.complexity), effectivePowerRange(keywords, p.range), p.cast_value ? `${t('castLabel')} ${p.cast_value}` : null]
                                 .filter(Boolean).join(' · ')}
                             </div>
                             {p.effect && (
@@ -649,8 +642,8 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                     <div className="text-sm font-medium">{nm(p.name)}</div>
                     {/* Range/target/duration used to be dropped here, so a prayer's own reach was
                         invisible everywhere in the app (v1.70). Shown like psychic powers already do. */}
-                    {powerMetaLine(p) && (
-                      <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p)}</div>
+                    {powerMetaLine(p, keywords) && (
+                      <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p, keywords)}</div>
                     )}
                     {p.effect && (
                       <div className="text-[11px] text-zinc-400 mt-1">{localiseAbility(p.effect)}</div>
@@ -677,8 +670,8 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                       }`}
                   >
                     <div className="text-sm font-medium">{nm(p.name)}</div>
-                    {powerMetaLine(p) && (
-                      <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p)}</div>
+                    {powerMetaLine(p, keywords) && (
+                      <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p, keywords)}</div>
                     )}
                     {p.effect && (
                       <div className="text-[11px] text-zinc-400 mt-1">{localiseAbility(p.effect)}</div>

@@ -2,12 +2,12 @@
   "archetypes": [
     {
       "name": "Heretic",
-      "desc": "- A Legendary Retinue may additionally include models from the following armies: Chaos Daemons, Chaos Space Marines, Genestealer Cults.",
+      "desc": "- A Legendary Retinue may additionally include models from the following armies: Chaos Daemons, Chaos Space Marines, Genestealer Cults.\n- It may no longer include models from the following armies: Adeptus Sororitas, Space Marines.",
       "skirmish": true
     },
     {
       "name": "Iconoclast",
-      "desc": "- A Legendary Retinue may additionally include models from the following armies: Dark Eldar, Eldar, Leagues of Votann, Orks, T'au Empire.",
+      "desc": "- A Legendary Retinue may additionally include models from the following armies: Dark Eldar, Eldar, Leagues of Votann, Orks, T'au Empire.\n- It may no longer include models from the following armies: Adeptus Sororitas, Space Marines.",
       "skirmish": true
     }
   ],

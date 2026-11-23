@@ -8,6 +8,8 @@ export interface EquipMods {
   armorSave: number | null;
   invulnSave: number | null;
   grantedAbilities: string[];
+  /** "reduces its BS and WS values by 1 (to a maximum of 4+)": the worst printed value the reduction may reach, per stat. */
+  skillCap?: Partial<Record<string, number>>;
 }
 
 // Third element is the sign to apply to the parsed "+N" value once it reaches statDeltas.
@@ -164,6 +166,9 @@ export function parseEquipMods(
             // possession's "reduces its BS and WS values by -1" improved them to 2+ (GitHub #281).
             const skill = snTrim === 'BS' || snTrim === 'WS';
             mods.statDeltas[snTrim] = (mods.statDeltas[snTrim] ?? 0) + (skill ? -delta : delta);
+            // Daemonic possession (sheet 2026-11): "...by 1 (to a maximum of 4+)" - the reduction stops at 4+.
+            const cap = skill ? desc.match(/to a maximum of (\d)\+/i) : null;
+            if (cap) mods.skillCap = { ...(mods.skillCap ?? {}), [snTrim]: parseInt(cap[1]) };
           }
         }
       }
@@ -243,6 +248,12 @@ export function parseEquipMods(
       const orderNames = new Set(Array.from(
         quotable.matchAll(/"([^"]+)"\s+orders?\b/gi),
         m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
+      // A quoted name followed by "attack" is something that HAPPENS ("Psykers within 18" suffer a "Perils of the Warp" attack",
+      // the Rune of brass, Empyric Overcharger, Baleful tome), not a rule the bearer gains: it showed up as a bare "Perils of the Warp"
+      // ability with no description in the battle view (Urza, 2026-11-22).
+      const attackNames = new Set(Array.from(
+        quotable.matchAll(/"([^"]+)"\s+attacks?\b/gi),
+        m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
       for (const raw of quoted) {
         // Some descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads
         // `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the captured name
@@ -254,6 +265,7 @@ export function parseEquipMods(
         // still shown under the wargear entry itself, so nothing is hidden from the player.
         if (negated.has(ab.toLowerCase())) continue;
         if (orderNames.has(ab.toLowerCase())) continue;
+        if (attackNames.has(ab.toLowerCase())) continue;
         // A quoted unit-type word THIS ITEM grants as a type is handled by the type system, not
         // shown as an ability too. Still guarded by UNIT_TYPE_WORDS so an unrelated quoted phrase
         // that happens to coincide with a real type name isn't swallowed by a data mistake.

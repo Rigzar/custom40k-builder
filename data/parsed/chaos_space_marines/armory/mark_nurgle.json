@@ -329,7 +329,7 @@
     {
       "name": "Shamblerot",
       "term_compat": true,
-      "desc": "Roll 1D6 during the model's activation, if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
+      "desc": "During each Reinforcement phase, roll 1D3. Add that many Poxwalker models to the closest friendly Poxwalker unit within 7\" of this model, attached unit included. If that Poxwalker model is below half Starting Strength, Roll 1D6 instead. Shamblerot can not increase a Poxwalker unit above its Starting Strength. Can not be taken together with other plagues.",
       "p_unit": null,
       "p_char": 15,
       "armour_compat": [

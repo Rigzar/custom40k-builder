@@ -15,8 +15,8 @@
                 "SV": "3+"
             },
             "name": "Blood Claw",
-            "min": 9,
-            "max": 9,
+            "min": 4,
+            "max": 14,
             "points": 35
         },
         {
@@ -221,6 +221,6 @@
     "locked_mark": null,
     "advisor": false,
     "slot": "Troops",
-    "default_size": 10,
-    "min_cost": 350
+    "default_size": 5,
+    "min_cost": 175
 }

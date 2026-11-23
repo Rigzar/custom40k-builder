@@ -126,7 +126,7 @@ export type TranslationKey =
   | 'ironLordGuardFull' | 'ironLordGuardSameAsAlly' | 'valIronLordGuardMax' | 'valIronLordGuardNoLegacy' | 'valIronLordGuardUnit' | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
-  | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
+  | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice' | 'valRetinueNeedsInquisitor' | 'xenariteTabLabel' | 'xenariteIntro'
   | 'loadingPrefix' | 'chooseDifferentFaction' | 'archetypeArmoryIntroPart1' | 'slotsUsedLabel'
   | 'vehicleWargearHintA' | 'vehicleWargearHintB' | 'applyToLabel' | 'selectWeaponOption'
   | 'exarchPowerLabel' | 'selectPowerOption' | 'enhancementLabel' | 'selectEnhancementOption' | 'daemonWeaponAbilitiesLabel' | 'noDaemonWeaponTraits'
@@ -581,7 +581,8 @@ export type TranslationKey =
   | 'gfButton'
   | 'gfButtonSignIn'
   | 'gfButtonTitle'
-  | 'gfYourPost';
+  | 'gfYourPost' 
+  | 'perUnit' | 'perMonster' | 'perMonsterVehicle' | 'perVehicle' | 'perCharacter';
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1041,10 +1042,13 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ All Marks',
     armourySuffix: 'Armoury',
     authorityTabLabel: 'Authority of the Inquisition',
+    xenariteTabLabel: 'Xenos item (Xenarites)',
+    xenariteIntro: "Every model with Armory access may select a single item from any Xenos faction's Armory.",
     retinueFactionTaken: 'One model per codex: the Retinue already has one from this codex.',
     retinueFull: 'The Legendary Retinue is full (up to 4 models).',
     retinueSameAsAlly: 'This codex is your allied detachment; pick another one for the Retinue.',
     valRetinueMax: 'Legendary Retinue: up to {max} models (have {count}).',
+    valRetinueNeedsInquisitor: 'The Legendary Retinue can only be selected if the army also has this unit: {unit}.',
     ironLordGuardFull: "Legacy of the Iron Lord: one Imperial Guard vehicle per AOP is already taken.",
     ironLordGuardSameAsAlly: "Imperial Guard is your Allied Detachment: take the vehicle there.",
     valIronLordGuardMax: "Legacy of the Iron Lord: a single Imperial Guard vehicle per AOP (up to {max}, have {count}).",
@@ -1793,6 +1797,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButtonSignIn: 'GITFINDA — SIGN IN',
     gfButtonTitle: 'Find someone to play Custom40k with',
     gfYourPost: 'Your post',
+    perUnit: 'per unit',
+    perMonster: 'per monster',
+    perMonsterVehicle: 'per monster/vehicle',
+    perVehicle: 'per vehicle',
+    perCharacter: 'per character'
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -2251,10 +2260,13 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Alle Male',
     armourySuffix: 'Rüstkammer',
     authorityTabLabel: 'Autorität der Inquisition',
+    xenariteTabLabel: 'Xenos-Gegenstand (Xenarites)',
+    xenariteIntro: 'Jedes Modell mit Rüstkammerzugriff darf einen einzelnen Gegenstand aus der Rüstkammer einer beliebigen Xenos-Fraktion wählen.',
     retinueFactionTaken: 'Ein Modell pro Codex: Die Gefolgschaft hat schon eines aus diesem Codex.',
     retinueFull: 'Die Legendary Retinue ist voll (bis zu 4 Modelle).',
     retinueSameAsAlly: 'Dieser Codex ist dein Verbündeter; wähle für die Retinue einen anderen.',
     valRetinueMax: 'Legendary Retinue: bis zu {max} Modelle (hat {count}).',
+    valRetinueNeedsInquisitor: 'Die Legendary Retinue kann nur gewählt werden, wenn die Armee auch diese Einheit hat: {unit}.',
     ironLordGuardFull: "Vermächtnis des Iron Lord: Pro AOP ist bereits ein Imperial-Guard-Fahrzeug gewählt.",
     ironLordGuardSameAsAlly: "Imperial Guard ist dein verbündetes Kontingent: wähle das Fahrzeug dort.",
     valIronLordGuardMax: "Vermächtnis des Iron Lord: ein Imperial-Guard-Fahrzeug pro AOP (bis zu {max}, hat {count}).",
@@ -3001,6 +3013,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButtonSignIn: 'GITFINDA — ANMELDEN',
     gfButtonTitle: 'Finde jemanden zum Custom40k-Spielen',
     gfYourPost: 'Dein Beitrag',
+    perUnit: 'pro Einheit',
+    perMonster: 'pro Monster',
+    perMonsterVehicle: 'pro Monster/Fahrzeug',
+    perVehicle: 'pro Fahrzeug',
+    perCharacter: 'pro Charakter',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -3459,10 +3476,13 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     allMarksLabel: '⚜ Todas las marcas',
     armourySuffix: 'Armería',
     authorityTabLabel: 'Autoridad de la Inquisición',
+    xenariteTabLabel: 'Objeto xenos (Xenarites)',
+    xenariteIntro: 'Todo modelo con acceso a Armería puede elegir un único objeto de la Armería de cualquier facción Xenos.',
     retinueFactionTaken: 'Un modelo por códice: la Retinue ya tiene uno de este códice.',
     retinueFull: 'La Legendary Retinue está completa (hasta 4 modelos).',
     retinueSameAsAlly: 'Este códice es tu destacamento aliado; elige otro para la Retinue.',
     valRetinueMax: 'Legendary Retinue: hasta {max} modelos (tiene {count}).',
+    valRetinueNeedsInquisitor: 'La Legendary Retinue solo puede elegirse si el ejército también tiene esta unidad: {unit}.',
     ironLordGuardFull: "Legacy of the Iron Lord: ya hay un vehículo de la Imperial Guard por AOP.",
     ironLordGuardSameAsAlly: "La Imperial Guard es tu Destacamento Aliado: toma el vehículo allí.",
     valIronLordGuardMax: "Legacy of the Iron Lord: un solo vehículo de la Imperial Guard por AOP (hasta {max}, tiene {count}).",
@@ -4209,6 +4229,11 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     gfButtonSignIn: 'GITFINDA — INICIA SESIÓN',
     gfButtonTitle: 'Encuentra con quién jugar a Custom40k',
     gfYourPost: 'Tu anuncio',
+    perUnit: 'por unidad',
+    perMonster: 'por monstruo',
+    perMonsterVehicle: 'por monstruo/vehículo',
+    perVehicle: 'por vehículo',
+    perCharacter: 'por personaje'
   },
   ru: ruJson as Record<TranslationKey, string>,
   ja: jaJson as Record<TranslationKey, string>,

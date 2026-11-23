@@ -2,6 +2,7 @@ import type { FactionData, Power } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { findPowerByName, powerMetaLine } from './psychicFormat';
+import { factionForEntry, resolveUnit } from '../engine/points';
 
 /**
  * The "book" at the end of a list: every psychic power, prayer and pact the army uses, ONCE, with its full text.
@@ -31,7 +32,8 @@ export function disciplinePowers(discipline: string, data: FactionData | null | 
   return Array.isArray(granted) ? granted : [];
 }
 
-const entryOf = (p: Power | undefined, name: string): BookEntry => ({ name, meta: powerMetaLine(p), effect: p?.effect ?? '' });
+// Faction-level powers
+const entryOf = (p: Power | undefined, name: string, keywords: string[] = []): BookEntry => ({ name, meta: powerMetaLine(p, keywords), effect: p?.effect ?? '' });
 
 /** What a unit card says about its powers: names, and whole disciplines it knows entirely ("Biomancy (all)"). */
 export function unitPowerSummary(item: RosterEntry, data: FactionData | null | undefined): {
@@ -56,15 +58,17 @@ export function collectPowerBook(army: RosterEntry[], data: FactionData | null |
   const powers = new Map<string, Map<string, BookEntry>>();
   const prayers = new Map<string, BookEntry>();
   const pacts = new Map<string, BookEntry>();
-  const addPower = (disc: string, name: string, p?: Power) => {
+  const addPower = (disc: string, name: string, p?: Power, kws: string[] = []) => {
     if (!powers.has(disc)) powers.set(disc, new Map());
     const m = powers.get(disc)!;
-    if (!m.has(name)) m.set(name, entryOf(p ?? findPowerByName(name, data), name));
+    if (!m.has(name)) m.set(name, entryOf(p ?? findPowerByName(name, data), name, kws));
   };
   for (const item of army) {
+    // Yngir: the range of every C'tan power is +6" (the flag is set automatically on the Shard while the army is Yngir).
+    const kws = item.ctanYngirUpgrade ? ['yngir'] : [];
     for (const p of item.powers ?? []) {
-      if (p.powerName === '__discipline__') for (const pw of disciplinePowers(p.disciplineName, data)) addPower(p.disciplineName, pw.name, pw);
-      else addPower(p.disciplineName, p.powerName);
+      if (p.powerName === '__discipline__') for (const pw of disciplinePowers(p.disciplineName, data)) addPower(p.disciplineName, pw.name, pw, kws);
+      else addPower(p.disciplineName, p.powerName, undefined, kws);
     }
     for (const n of item.prayers ?? []) if (!prayers.has(n)) prayers.set(n, entryOf(findPowerByName(n, data), n));
     for (const n of item.pacts ?? []) if (!pacts.has(n)) pacts.set(n, entryOf(findPowerByName(n, data), n));
@@ -74,6 +78,11 @@ export function collectPowerBook(army: RosterEntry[], data: FactionData | null |
     prayers: [...prayers.values()],
     pacts: [...pacts.values()],
   };
+}
+
+export function armyHasGeneralDisciplines(army: RosterEntry[], data: FactionData): boolean {
+  // Only Psykers in the Necron faction are C'tan Shards, which do not have access to the General disciplines.
+  return army.some(i => !factionForEntry(i, data).match(/\bNecrons\b/i) && resolveUnit(i, data)?.is_psyker);
 }
 
 export const powerBookIsEmpty = (b: PowerBook) => b.powers.length === 0 && b.prayers.length === 0 && b.pacts.length === 0;

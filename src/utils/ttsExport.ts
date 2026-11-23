@@ -4,6 +4,7 @@ import type { RosterEntry } from '../types/army';
 import { resolveUnit } from '../engine/points';
 import { resolveUnitProfile, findArmoryItem, type WeaponGroup, type ResolvedProfile } from '../engine/resolver';
 import { applyEquipDeltas, applyStatMods } from './statMods';
+import { markStatMods } from '../lib/markMods';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { wardSave, ownWardAbilities, markWardedCount } from '../lib/wardSave';
 import { isAttendantModel } from '../lib/battleProfile';
@@ -295,6 +296,9 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     // the live card and the printed sheet apply them in.
     const rows = rp.modelsToShow.map(m => {
       let stats: Record<string, string> = { ...(m.stats as unknown as Record<string, string>) };
+      // The Mark the player chose (a Black Crusade champion carries all four): +1 Toughness for Nurgle and so on, as the card shows it.
+      const marks = rp.blackCrusadeChampion ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'] : rp.statModMark ? [rp.statModMark] : [];
+      stats = applyStatMods(stats, marks.flatMap(mk => markStatMods(mk, unit)));
       stats = applyEquipDeltas(stats, rp.equipMods, unit.is_vehicle);
       stats = applyStatMods(stats, [...rp.optionStatMods, ...rp.traitStatMods]);
       return { name: m.name, stats, statKeys: Object.keys(stats), wardSave: isAttendantModel(unit, m) ? null : ward };

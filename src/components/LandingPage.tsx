@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v190d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v190i_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -72,20 +72,27 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Weapons", "An ability given by several sources is listed once, with the best value."],
       ] },
       { label: "Chaos Daemons", rows: [
+        ["Chaos Daemons", "Flesh Hounds: only the Gore Hound carries the Burning roar. The Rune of brass no longer lists Perils of the Warp as an ability of the bearer, and neither do the Baleful tome or the Necron Empyric Overcharger (reported by Urza)."],
         ["Chaos Daemons", "Entourage frees the HQ slot again (one unit per Greater Daemon of the same god, as the sheet says) and Heralds can buy the Palanquin of Nurgle again (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonic possession stops BS and WS at 4+, as the sheet says. Shamblerot has its own text again (it carried the Clavis one) and the Slaanesh pact Diabolic Majesty adds the Battleshock Token."],
         ["Chaos Space Marines", "Daemonkin shows an error when a unit does not have or buy the Daemon ability, and its unit-count message shows the real difference (#280, #285). Daemonic possession makes BS and WS worse, it improved them (#281). The Black Crusade champion also gets the Mark of Tzeentch's Psyker."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "A Black Crusade champion can take the datasheet options marked (Nurgle only), (Khorne only)... as he has every Mark."],
       ] },
       { label: "Space Marines", rows: [
+        ["Space Marines", "Blood Claws are 5 to 15 models. Armory texts brought up to date: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) and Clavis (Death Watch)."],
         ["Space Marines", "The Death Watch Watch spear counts as a bolt weapon (its ranged profile is named Bolt Caster, as in the sheet)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Vehicle-only traits (Interplanetary Invasors) no longer charge monsters, and trait costs read per unit / monster / vehicle / character. Fixed by DemonGyro. Necrons sheet 1.14: the Domination Staff works during each activation. The Yngir C'tan Shard is an HQ with +30 points and +6\" power range (also in the Print View and battle view), knows all its powers by itself, and only Yngir knows Time's Arrow. Fixed by DemonGyro. Warrior Nobles is now for HQ character infantry only, so monsters like the Ancient Destructor Lord no longer get it. Reported by DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
-        ["Knight Crusader", "The Knight Crusader is in: 579 points, 1–2 models, and the Freeblade archetype can take it."],
+        ["Knight Crusader", "The Knight Crusader is in: 579 points, 1 model, and the Freeblade archetype can take it."],
       ] },
       { label: "Tyranids", rows: [
+        ["Tyranids", "Heightened Reflexes: the unit does not suffer the to hit penalty from Defensive Fire, as the sheet says."],
         ["Tyranids", "Winged moves the Tyranid Warrior Brood and the Ripper Swarms to Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
@@ -93,9 +100,26 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
+        ["Eldar", "Striking Scorpions gain Hunter."],
         ["Eldar", "The Exarch's swapped weapon counts once (the Scorpion claw was shown x5) and his powers worded \"of the model\" no longer mark every weapon of the squad."],
       ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Adeptus Mechanicus", "New archetype Xenarites: Allies of Convenience instead of Battle Brothers with the Imperial factions, and every model with Armory access may take one item from any Xenos faction. The Ordo Reductor Covenant left the sheet."],
+      ] },
+      { label: "Imperial Navy", rows: [
+        ["Imperial Navy", "The Legendary Retinue needs a Rogue Trader in the army, and Heretic and Iconoclast can no longer include Adeptus Sororitas or Space Marines in it."],
+      ] },
+      { label: "Orks", rows: [
+        ["Orks", "Wildork: melee hit rolls against vehicles and monstrous creatures gain Armorbane(1) and Decimate, as the sheet says."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Genestealer Cults", "The Pennant of Ascension is for the Acolyte Iconward only."],
+      ] },
+      { label: "T'au Empire", rows: [
+        ["T'au Empire", "New unit: the Drone Swarm (Fast Attack, ten drone types, from 4 Gun Drones). The Academy Luminary gives 25% victory points."],
+      ] },
       { label: "Inquisition", rows: [
+        ["Inquisition", "A Heretic or Iconoclast Legendary Retinue can no longer include Adeptus Sororitas or Space Marines, and the Retinue needs an Inquisitor in the army. The Land Raider Prometheus' Multi-melta costs +11, as the sheet says."],
         ["Inquisition", "A Henchman Warband without Crusaders is no longer flagged 2+ in Skirmish, and the Inquisitor's Priest and Psyker upgrades are one choice."],
       ] },
     ],
@@ -118,20 +142,27 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Waffen", "Eine Fähigkeit aus mehreren Quellen wird einmal mit dem besten Wert aufgeführt."],
       ] },
       { label: "Chaos Daemons", rows: [
+        ["Chaos Daemons", "Flesh Hounds: nur der Gore Hound trägt das Burning roar. Die Rune of brass führt Perils of the Warp nicht mehr als Fähigkeit des Trägers auf, ebenso wenig der Baleful tome und der Empyric Overcharger der Necrons (gemeldet von Urza)."],
         ["Chaos Daemons", "Entourage befreit den HQ-Slot wieder (eine Einheit pro Greater Daemon desselben Gottes, wie im Datenblatt) und Heralds können die Palanquin of Nurgle wieder kaufen (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonic possession hält BS und WS bei 4+, wie im Blatt. Shamblerot hat wieder seinen eigenen Text (er trug den des Clavis) und der Slaanesh-Pakt Diabolic Majesty gibt den Battleshock-Marker."],
         ["Chaos Space Marines", "Daemonkin meldet einen Fehler, wenn eine Einheit die Fähigkeit Daemon weder hat noch kauft, und die Meldung zur Einheitenzahl zeigt den echten Unterschied (#280, #285). Daemonic possession verschlechtert BF und KG, statt sie zu verbessern (#281). Der Black-Crusade-Champion bekommt auch den Psyker des Mals des Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Ein Black-Crusade-Champion kann die Datenblatt-Optionen mit (Nurgle only), (Khorne only)... wählen, da er jedes Mal besitzt."],
       ] },
       { label: "Space Marines", rows: [
+        ["Space Marines", "Blood Claws sind 5 bis 15 Modelle. Rüstkammertexte aktualisiert: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) und Clavis (Death Watch)."],
         ["Space Marines", "Der Watch spear der Death Watch zählt als Bolt-Waffe (sein Fernkampfprofil heißt Bolt Caster, wie im Blatt)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Nur-für-Fahrzeuge-Eigenschaften (Interplanetary Invasors) berechnen für Monster nichts mehr, und die Kosten stehen pro Einheit / Monster / Fahrzeug / Charakter. Behoben von DemonGyro. Necrons-Blatt 1.14: Der Domination Staff wirkt bei jeder Aktivierung. Der C'tan Shard unter Yngir ist HQ mit +30 Punkten und +6\" Kraftreichweite (auch in Druck- und Schlachtansicht), kennt alle seine Kräfte von selbst, und nur Yngir kennt Time's Arrow. Behoben von DemonGyro. Warrior Nobles gilt jetzt nur für HQ-Charakter-Infanterie, Monster wie der Ancient Destructor Lord bekommen es nicht mehr. Gemeldet von DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
-        ["Knight Crusader", "Der Knight Crusader ist dabei: 579 Punkte, 1–2 Modelle, und die Archetype Freeblade darf ihn nehmen."],
+        ["Knight Crusader", "Der Knight Crusader ist dabei: 579 Punkte, 1 Modell, und die Archetype Freeblade darf ihn nehmen."],
       ] },
       { label: "Tyranids", rows: [
+        ["Tyranids", "Heightened Reflexes: Die Einheit erleidet den Trefferwurf-Malus der Defensive Fire nicht, wie im Blatt."],
         ["Tyranids", "Winged setzt die Tyranid Warrior Brood und die Ripper Swarms auf Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
@@ -139,9 +170,26 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
+        ["Eldar", "Striking Scorpions erhalten Hunter."],
         ["Eldar", "Die getauschte Waffe des Exarchen zählt einmal (die Scorpion claw wurde x5 angezeigt) und seine Kräfte mit „of the model“ markieren nicht mehr jede Waffe des Trupps."],
       ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Adeptus Mechanicus", "Neuer Archetyp Xenarites: Allies of Convenience statt Battle Brothers mit den imperialen Fraktionen, und jedes Modell mit Rüstkammerzugriff darf einen Gegenstand aus einer beliebigen Xenos-Fraktion nehmen. Der Ordo Reductor Covenant ist aus dem Blatt verschwunden."],
+      ] },
+      { label: "Imperial Navy", rows: [
+        ["Imperial Navy", "Die Legendary Retinue braucht einen Rogue Trader in der Armee, und Heretic und Iconoclast dürfen keine Adeptus Sororitas oder Space Marines mehr hineinnehmen."],
+      ] },
+      { label: "Orks", rows: [
+        ["Orks", "Wildork: Nahkampf-Trefferwürfe gegen Fahrzeuge und Monstrous Creatures erhalten Armorbane(1) und Decimate, wie im Blatt."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Genestealer Cults", "Das Pennant of Ascension ist nur für den Acolyte Iconward."],
+      ] },
+      { label: "T'au Empire", rows: [
+        ["T'au Empire", "Neue Einheit: der Drone Swarm (Fast Attack, zehn Drohnentypen, ab 4 Gun Drones). Der Academy Luminary gibt 25 % Siegpunkte."],
+      ] },
       { label: "Inquisition", rows: [
+        ["Inquisition", "Eine Legendary Retinue von Heretic oder Iconoclast darf keine Adeptus Sororitas oder Space Marines mehr enthalten, und die Retinue braucht einen Inquisitor in der Armee. Das Multi-melta des Land Raider Prometheus kostet +11, wie im Blatt."],
         ["Inquisition", "Ein Henchman Warband ohne Crusaders wird im Skirmish nicht mehr als 2+ gemeldet, und die Priester- und Psyker-Upgrades des Inquisitors sind eine Wahl."],
       ] },
     ],
@@ -164,20 +212,27 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Armas", "Una habilidad dada por varias fuentes se muestra una vez, con el mejor valor."],
       ] },
       { label: "Chaos Daemons", rows: [
+        ["Chaos Daemons", "Flesh Hounds: solo el Gore Hound lleva el Burning roar. La Rune of brass ya no muestra Perils of the Warp como habilidad de quien la lleva, ni el Baleful tome ni el Empyric Overcharger de los Necrons (avisó Urza)."],
         ["Chaos Daemons", "Entourage libera otra vez el slot de HQ (una unidad por Greater Daemon del mismo dios, como dice la hoja) y los Heralds pueden volver a comprar el Palanquin of Nurgle (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonic possession deja BS y WS como máximo en 4+, como dice la hoja. Shamblerot vuelve a tener su texto (tenía el del Clavis) y el pacto de Slaanesh Diabolic Majesty añade el Battleshock Token."],
         ["Chaos Space Marines", "Daemonkin da error cuando una unidad no tiene ni compra la habilidad Daemon, y su mensaje de número de unidades muestra la diferencia real (#280, #285). Daemonic possession empeora BS y WS, antes los mejoraba (#281). El campeón de la Cruzada Negra también recibe el Psyker de la Marca de Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Un campeón de Black Crusade puede tomar las opciones de la hoja marcadas (Nurgle only), (Khorne only)... porque tiene todas las Marcas."],
       ] },
       { label: "Space Marines", rows: [
+        ["Space Marines", "Los Blood Claws son de 5 a 15 modelos. Textos de armería al día: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) y Clavis (Death Watch)."],
         ["Space Marines", "El Watch spear de la Death Watch cuenta como arma bolt (su perfil a distancia se llama Bolt Caster, como en la hoja)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Los rasgos solo para vehículos (Interplanetary Invasors) ya no cobran a los monstruos, y el coste se lee por unidad / monstruo / vehículo / personaje. Arreglado por DemonGyro. Hoja de Necrons 1.14: el Domination Staff actúa en cada activación. El C'tan Shard de Yngir es HQ con +30 puntos y +6\" de alcance de poderes (también en la impresión y la vista de batalla), conoce todos sus poderes solo, y solo Yngir conoce Time's Arrow. Arreglado por DemonGyro. Warrior Nobles ahora es solo para infantería personaje HQ, así que monstruos como el Ancient Destructor Lord ya no lo reciben. Reportado por DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
-        ["Knight Crusader", "Añadido el Knight Crusader: 579 puntos, 1–2 modelos; el arquetipo Freeblade puede tomarlo."],
+        ["Knight Crusader", "Añadido el Knight Crusader: 579 puntos, 1 modelo; el arquetipo Freeblade puede tomarlo."],
       ] },
       { label: "Tyranids", rows: [
+        ["Tyranids", "Heightened Reflexes: la unidad no sufre el penalizador al impactar de Defensive Fire, como dice la hoja."],
         ["Tyranids", "Winged pasa el Tyranid Warrior Brood y los Ripper Swarms a Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
@@ -185,9 +240,26 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
+        ["Eldar", "Los Striking Scorpions ganan Hunter."],
         ["Eldar", "El arma cambiada del Exarca cuenta una vez (la Scorpion claw salía x5) y sus poderes “of the model” ya no marcan todas las armas del escuadrón."],
       ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Adeptus Mechanicus", "Nuevo arquetipo Xenarites: Allies of Convenience en vez de Battle Brothers con las facciones imperiales, y todo modelo con acceso a Armería puede elegir un objeto de cualquier facción Xenos. El Ordo Reductor Covenant salió de la hoja."],
+      ] },
+      { label: "Imperial Navy", rows: [
+        ["Imperial Navy", "La Legendary Retinue necesita un Rogue Trader en el ejército, y Heretic e Iconoclast ya no pueden incluir Adeptus Sororitas ni Space Marines."],
+      ] },
+      { label: "Orks", rows: [
+        ["Orks", "Wildork: las tiradas de impactar cuerpo a cuerpo contra vehículos y Monstrous Creatures ganan Armorbane(1) y Decimate, como dice la hoja."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Genestealer Cults", "El Pennant of Ascension es solo para el Acolyte Iconward."],
+      ] },
+      { label: "T'au Empire", rows: [
+        ["T'au Empire", "Unidad nueva: el Drone Swarm (Fast Attack, diez tipos de dron, desde 4 Gun Drones). El Academy Luminary da un 25% de puntos de victoria."],
+      ] },
       { label: "Inquisition", rows: [
+        ["Inquisition", "Una Legendary Retinue de Heretic o Iconoclast ya no puede incluir Adeptus Sororitas ni Space Marines, y la Retinue necesita un Inquisitor en el ejército. El Multi-melta del Land Raider Prometheus cuesta +11, como dice la hoja."],
         ["Inquisition", "Un Henchman Warband sin Crusaders ya no sale como 2+ en Skirmish, y las mejoras de sacerdote y psíquico del Inquisitor son una sola elección."],
       ] },
     ],
@@ -210,20 +282,27 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Оружие", "Способность из нескольких источников показывается один раз, с лучшим значением."],
       ] },
       { label: "Chaos Daemons", rows: [
+        ["Chaos Daemons", "Flesh Hounds: Burning roar есть только у Gore Hound. Rune of brass больше не показывает Perils of the Warp как способность владельца, так же как Baleful tome и Empyric Overcharger некронов (сообщил Urza)."],
         ["Chaos Daemons", "Entourage снова освобождает слот Штаба (один отряд на Greater Daemon того же бога, как в таблице), а Heralds снова могут купить Palanquin of Nurgle (#282)."],
       ] },
       { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonic possession останавливает BS и WS на 4+, как в листе. У Shamblerot снова свой текст (был текст Clavis), а пакт Слаанеш Diabolic Majesty добавляет жетон Battleshock."],
         ["Chaos Space Marines", "Daemonkin показывает ошибку, если у отряда нет и он не покупает способность Daemon, а сообщение о числе отрядов показывает реальную разницу (#280, #285). Daemonic possession ухудшает BS и WS, а не улучшал (#281). Чемпион Чёрного крестового похода получает и Psyker Метки Tzeentch."],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Чемпион Black Crusade может брать опции датащита с пометкой (Nurgle only), (Khorne only)..., так как имеет все Метки."],
       ] },
       { label: "Space Marines", rows: [
+        ["Space Marines", "Blood Claws — от 5 до 15 моделей. Тексты арсенала обновлены: Crusader seals (Black Templars), Teleport homing beacon (Dark Angels) и Clavis (Death Watch)."],
         ["Space Marines", "Watch spear Death Watch считается болтерным оружием (его стрелковый профиль назван Bolt Caster, как в таблице)."],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "Черты только для машин (Interplanetary Invasors) больше не берут очки с монстров, а стоимость указана на отряд / монстра / машину / персонажа. Исправил DemonGyro. Лист Necrons 1.14: Domination Staff действует при каждой активации. C'tan Shard под Yngir — HQ с +30 очками и +6\" к дальности сил (также в печати и боевом виде), сам знает все свои силы, а Time's Arrow знает только Yngir. Исправил DemonGyro. Warrior Nobles теперь только для HQ-персонажей-пехоты, так что монстры вроде Ancient Destructor Lord его больше не получают. Сообщил DemonGyro."],
+      ] },
       { label: "Knight Households", rows: [
-        ["Knight Crusader", "Добавлен Knight Crusader: 579 очков, 1–2 модели; архетип Freeblade может его взять."],
+        ["Knight Crusader", "Добавлен Knight Crusader: 579 очков, 1 модель; архетип Freeblade может его взять."],
       ] },
       { label: "Tyranids", rows: [
+        ["Tyranids", "Heightened Reflexes: отряд не получает штраф к попаданию от Defensive Fire, как в листе."],
         ["Tyranids", "Winged переводит Tyranid Warrior Brood и Ripper Swarms в Fast Attack (#278)."],
       ] },
       { label: "Imperial Guard", rows: [
@@ -231,9 +310,26 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
+        ["Eldar", "Striking Scorpions получают Hunter."],
         ["Eldar", "Заменённое оружие Эксарха считается один раз (Scorpion claw показывалась x5), а его силы «of the model» больше не отмечают всё оружие отряда."],
       ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Adeptus Mechanicus", "Новый архетип Xenarites: Allies of Convenience вместо Battle Brothers с имперскими фракциями, и каждая модель с доступом к Арсеналу может взять один предмет любой фракции ксеносов. Ordo Reductor Covenant исчез из листа."],
+      ] },
+      { label: "Imperial Navy", rows: [
+        ["Imperial Navy", "Legendary Retinue требует Rogue Trader в армии, а Heretic и Iconoclast больше не могут включать в неё Adeptus Sororitas и Space Marines."],
+      ] },
+      { label: "Orks", rows: [
+        ["Orks", "Wildork: броски попадания в ближнем бою по машинам и Monstrous Creatures получают Armorbane(1) и Decimate, как в листе."],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Genestealer Cults", "Pennant of Ascension — только для Acolyte Iconward."],
+      ] },
+      { label: "T'au Empire", rows: [
+        ["T'au Empire", "Новый отряд: Drone Swarm (Fast Attack, десять типов дронов, от 4 Gun Drones). Academy Luminary даёт 25% очков победы."],
+      ] },
       { label: "Inquisition", rows: [
+        ["Inquisition", "Legendary Retinue у Heretic и Iconoclast больше не может включать Adeptus Sororitas и Space Marines, а Retinue требует Inquisitor в армии. Multi-melta у Land Raider Prometheus стоит +11, как в листе."],
         ["Inquisition", "Henchman Warband без Crusaders больше не помечается как 2+ в Стычке, а улучшения жреца и пси-силы Инквизитора — один выбор."],
       ] },
     ],
@@ -256,20 +352,27 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["武器", "複数の出典から与えられる能力は、最良の値で1回だけ表示されます。"],
       ] },
       { label: "Chaos Daemons", rows: [
+        ["Chaos Daemons", "Flesh Hounds：Burning roarを持つのはGore Houndだけになりました。Rune of brass、Baleful tome、NecronのEmpyric Overchargerは、Perils of the Warpを所持者の能力として表示しなくなりました（Urza報告）。"],
         ["Chaos Daemons", "Entourageが再びHQ枠を空け（同じ神のGreater Daemonごとに1ユニット、シートどおり）、HeraldがPalanquin of Nurgleを再び購入できます（#282）。"],
       ] },
       { label: "Chaos Space Marines", rows: [
+        ["Chaos Space Marines", "Daemonic possessionはシートどおりBSとWSを4+までで止めます。Shamblerotは自分の説明文に戻り（Clavisの文が入っていました）、スラーネッシュの誓約Diabolic MajestyはBattleshockトークンを与えます。"],
         ["Chaos Space Marines", "ユニットがDaemon能力を持たず購入もしない場合、Daemonkinがエラーを出し、ユニット数のメッセージは実際の差を表示します（#280、#285）。Daemonic possessionはBSとWSを悪化させます（以前は改善していました、#281）。ブラッククルセードのチャンピオンはティーンチの印のPsykerも得ます。"],
         ["Chaos Space Marines", "Weapons that need Cataphractii armour (Manreaper, Twin plague spewer...) open once you buy it (#292). Daemonic venom gives Poison(4+) to the melee weapons (#287). A Horus Heresy unit with a Mark gets the army's Traits again."],
         ["Chaos Space Marines", "Black Crusadeのチャンピオンは全ての印を持つため、(Nurgle only)、(Khorne only)などの選択肢を選べます。"],
       ] },
       { label: "Space Marines", rows: [
+        ["Space Marines", "Blood Clawsは5〜15モデルになりました。武器庫の文を更新：Crusader seals（Black Templars）、Teleport homing beacon（Dark Angels）、Clavis（Death Watch）。"],
         ["Space Marines", "Death WatchのWatch spearはボルト武器として扱われます(射撃プロファイル名がシート通りBolt Casterになりました)。"],
       ] },
+      { label: "Necrons", rows: [
+        ["Necrons", "乗り物専用の特性(Interplanetary Invasors)はモンスターに課金されなくなり、コストはユニット/モンスター/車両/キャラクターごとに表示されます。修正：DemonGyro。Necronシート1.14：Domination Staffは各アクティベーションで使用できます。YngirのC'tan ShardはHQで+30点、パワーの射程+6\"(印刷ビューと戦闘ビューも)、全パワーを自動で習得し、Time's ArrowはYngirだけが使えます。修正：DemonGyro。 Warrior NoblesはHQのキャラクター歩兵専用になり、Ancient Destructor Lordのようなモンスターは使えなくなりました。報告：DemonGyro。"],
+      ] },
       { label: "Knight Households", rows: [
-        ["Knight Crusader", "Knight Crusader追加: 579ポイント、1~2モデル。Freebladeアーキタイプでも選べます。"],
+        ["Knight Crusader", "Knight Crusader追加: 579ポイント、1モデル。Freebladeアーキタイプでも選べます。"],
       ] },
       { label: "Tyranids", rows: [
+        ["Tyranids", "Heightened Reflexes：シートどおり、ユニットはDefensive Fireの命中ペナルティを受けません。"],
         ["Tyranids", "WingedでTyranid Warrior BroodとRipper SwarmsがFast Attackになります（#278）。"],
       ] },
       { label: "Imperial Guard", rows: [
@@ -277,9 +380,26 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Imperial Guard", "The Hive Gangers' Escher gives Poison(4+) to their weapons."],
       ] },
       { label: "Eldar", rows: [
+        ["Eldar", "Striking ScorpionsがHunterを得ます。"],
         ["Eldar", "エグザークが交換した武器は1回だけ数えられ（Scorpion clawはx5と表示されていました）、「of the model」の能力が分隊の全武器に付かなくなりました。"],
       ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Adeptus Mechanicus", "新アーキタイプXenarites：帝国勢力とBattle BrothersではなくAllies of Convenienceになり、武器庫を使える各モデルはいずれかのゼノス勢力からアイテムを1つ選べます。Ordo Reductor Covenantはシートから消えました。"],
+      ] },
+      { label: "Imperial Navy", rows: [
+        ["Imperial Navy", "Legendary Retinueには軍にRogue Traderが必要で、HereticとIconoclastはAdeptus SororitasとSpace Marinesを含められなくなりました。"],
+      ] },
+      { label: "Orks", rows: [
+        ["Orks", "Wildork：シートどおり、車両とMonstrous Creaturesへの近接命中ロールがArmorbane(1)とDecimateを得ます。"],
+      ] },
+      { label: "Genestealer Cults", rows: [
+        ["Genestealer Cults", "Pennant of AscensionはAcolyte Iconward専用です。"],
+      ] },
+      { label: "T'au Empire", rows: [
+        ["T'au Empire", "新ユニット：Drone Swarm（Fast Attack、ドローン10種、Gun Drone 4体から）。Academy Luminaryは勝利点25%を与えます。"],
+      ] },
       { label: "Inquisition", rows: [
+        ["Inquisition", "HereticまたはIconoclastのLegendary RetinueにはAdeptus SororitasとSpace Marinesを含められなくなり、軍にInquisitorが必要です。Land Raider PrometheusのMulti-meltaはシートどおり+11です。"],
         ["Inquisition", "Crusadersのいないヘンチマンウォーバンドはスカーミッシュで2+と警告されなくなり、インクイジターの司祭とサイカーのアップグレードは1つの選択です。"],
       ] },
     ],

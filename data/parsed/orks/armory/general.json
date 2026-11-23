@@ -712,7 +712,7 @@
         {
             "name": "Wildorkᴹ",
             "term_compat": false,
-            "desc": "The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Armorbane(1)\" ability.",
+            "desc": "The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures gain the \"Armorbane(1)\" and \"Decimate\" abilities.",
             "p_unit": null,
             "p_char": 10
         },

@@ -133,7 +133,9 @@ export async function runDataHealth(): Promise<HealthFinding[]> {
           if (!allUnitNames.has(n)) findings.push({ category: 'D', faction: slug, message: `archetype "${arch.name}".${field}: "${n}" matches no unit name` });
         }
       };
+      check('hqRemap', rule.hqRemap);
       check('troopsRemap', rule.troopsRemap);
+      check('elitesRemap', rule.elitesRemap);
       check('bannedUnits', rule.bannedUnits);
       check('hqAllowed', rule.hqAllowed);
       check('grantVetAbilities', rule.grantVetAbilities);

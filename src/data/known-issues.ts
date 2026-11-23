@@ -2,6 +2,36 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tau-drone-swarm-unit-01",
+    status: "fixed",
+    title: "T'au: the new Drone Swarm unit (Fast Attack) is on the sheet but not in the app",
+    description: "FIXED 2026-11-22. The T'au sheet 1.11 has a new Drone Swarm unit (Fast Attack, 10 drone types, each with its own weapon). The unit update never creates units, so the file was made by hand from the sheet (and the loadout lines, written in the plural \"Gun Drones are equipped with:\", are read per drone type); from now on the update keeps its stats, points and weapons current. The drones bought as options of other units (Drone controller) are unchanged: the sheet still says \"up to N Tau Drones in any combination\"."
+  },
+  {
+    id: "ki-necrons-warrior-nobles-hq-01",
+    status: "by_design",
+    title: "Warrior Nobles trait doesn't apply to a Yngir C'tan (it should apply to all HQs) (GH#298)",
+    description: "BY DESIGN 2026-11-22, reported by Sophtym (Discord). The trait says \"Only for HQ units\", but the sheet prices it for characters only (the monster column is \"-\") and the C'tan Shard is a monster. Asked the sheet author (atypicalhero): \"C'tan stays out of it for now.\" Nothing to change for the C'tan; if the sheet ever prices it for monsters, it gets it. FOLLOW-UP (DemonGyro): the Ancient Destructor Lord is both a character and a monster, so it hit the character column and got the trait for free. The app now treats Warrior Nobles as HQ character infantry only: any unit flagged monster or vehicle can't take it (picker and pricing)."
+  },
+  {
+    id: "ki-necrons-ctan-shard-yngir-slot-powers-01",
+    status: "fixed",
+    title: "The C'tan Shard unit for a Yngir archetype Necrons detachment does not get the archetype bonuses (HQ slot, +30pts, +2 choices) (GH#297)",
+    description: "FIXED 2026-11-22, reported by Sophtym (Discord). CAUSE: The Yngir archetype did not have range added to Powers and was only shown under Elites (despite being mapped to HQ). General disciplines also appeared for C'tan Shards (despite not being available to them). Then, in the same pass: the C'tan Shard now knows every C'tan power by itself (nothing to pick), Time's Arrow is only known and listed under Yngir, and the +6\" range shows in the Print View and the battle view power list. Fixed by DemonGyro (PR#299) and the follow-up the same day.",
+  },
+  {
+    id: "ki-imperial-guard-command-squad-weapon-upgrades-01",
+    status: "fixed",
+    title: "Command Squad weapon upgrades are not replacing Lasguns; Heavy Flamer is given to entire unit instead of 1 model (GH#284)",
+    description: "FIXED 2026-11-22, reported by Birdy (Discord). The Heavy flamer showed as 4x for the whole squad; it shows 1x (v1.90). The author (atypicalhero) answered the open questions: nothing replaces a Lasgun (a Heavy weapons team is two models, which is why the line reads \"Two Veterans may form a Heavy weapons team\"); the models that carry a Banner, Vox or Medical bag can take upgraded weapons; and there is nothing wrong with the number of weapons (1 Heavy flamer, 1 Heavy weapon from 2 models, up to 2 melee weapons, and the remaining models may take special weapons)."
+  },
+  {
+    id: "ki-necrons-interplanetary-invasors-monster-01",
+    status: "fixed",
+    title: "Necron trait Interplanetary Invaders should only apply to vehicles (GH#295)",
+    description: "FIXED 2026-11-21, reported by Sophtym (Discord). CAUSE: The trait was being applied to both monsters and vehicles and was showing as pts per monster. Fixed by DemonGyro (PR#296).",
+  },
+  {
     id: "ki-nov13-first-game-feedback-01",
     status: "known",
     title: "First-game feedback (Dave, Ed, TeCrisis): what is fixed and what is still open",

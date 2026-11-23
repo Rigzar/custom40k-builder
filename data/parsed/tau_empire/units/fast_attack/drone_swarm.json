@@ -183,8 +183,6 @@
         }
     ],
     "variant_models": [],
-    "min_cost": 48,
-    "default_size": 4,
     "equipped_with": "Grav Inhibitor Drones are equipped with: -. Gun Drones are equipped with: Twin pulse carbine. Marker Drones are equipped with: Drone markerlight. Missile Drones are equipped with: Missile pod. Pulse Accelerator Drones are equipped with: -. Recon Drones are equipped with: Burst cannon; Target lock. Shield Drones, Stealth Drones and Warscaper Drones are equipped with: -. Sniper Drones are equipped with: Longshot pulse rifles.",
     "weapons": [
         {
@@ -233,15 +231,29 @@
             "abilities": "Suppression(3)"
         }
     ],
+    "option_groups": [],
     "abilities": [
         "Mindless, Unyielding",
         "Accelerator: A Pulse Accelerator Drones increase the range of all pulse weapons in the unit by 6\". A second Pulse Accelerator Drone increases it by another 6\".",
         "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their Charge move. If a second Warscaper Drone is selected, enemy units have to make two dangerous terrain tests instead.",
         "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\". If a second Grav Inhibitor Drone is present, it reduces the range by another 2\".",
         "Shielded: Units that contain a Shield Drone gain Ward(6+) against ranged attacks. A second Shield Drone grants Ward(5+) against ranged attacks.",
-        "Shrouded: Units that contain a Stealth Drone can't be targeted by enemies outside of 24\" range. A second Stealth Drone reduces that range to 18\". "
+        "Shrouded: Units that contain a Stealth Drone can't be targeted by enemies outside of 24\" range. A second Stealth Drone reduces that range to 18\"."
     ],
     "unit_type": "Jump pack",
+    "keywords": [],
+    "is_vehicle": false,
+    "is_character": false,
     "is_monster": false,
-    "keywords": []
+    "is_psyker": false,
+    "has_armory_access": false,
+    "champion_has_armory": false,
+    "has_veteran_abilities": false,
+    "veteran_required": false,
+    "veteran_max": null,
+    "locked_mark": null,
+    "advisor": false,
+    "slot": "Fast Attack",
+    "default_size": 4,
+    "min_cost": 48
 }
