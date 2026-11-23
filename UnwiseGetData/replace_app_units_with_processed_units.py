@@ -7,12 +7,16 @@ from io import BytesIO
 
 UNIT_CATEGORIES = ["hq","troops","elites","fast_attack","heavy_support", "dedicated_transport", "fortifications", "flyers"]
 
+# Sanitises a name
+def sanitise_name(value):
+    return str(value).lower().replace("'", "").replace(" ", "_").replace("\u00b4", "")
+
 # Takes the processed unit data and updates the app's unit data with it. 
 def main():
     
+    # Load the list of factions from factions.csv
     with open("factions.csv", "r") as f:
-        FACTIONS = [line.split(",")[0] for line in f.readlines() if line.strip()]
-        FACTIONS = [faction.lower().replace(" ", "_").replace("'", "").replace("\u00b4", "") for faction in FACTIONS]
+        FACTIONS = [sanitise_name(line.split(",")[0]) for line in f.readlines() if line.strip()]
         
     for faction in FACTIONS:
         for category in UNIT_CATEGORIES:
