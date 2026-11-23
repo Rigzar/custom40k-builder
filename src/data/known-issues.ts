@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-orks-mek-gunz-unit-weapon-01",
+    status: "fixed",
+    title: "Mek Gunz should allow for different types; should be one choice per unit selection (GH#302)",
+    description: "FIXED 2026-11-22, reported by pynchon (Discord). CAUSE: Mek Gunz option was one, should be every. Fixed by DemonGyro (PR#303)."
+  },
+  {
     id: "ki-tau-drone-swarm-unit-01",
     status: "fixed",
     title: "T'au: the new Drone Swarm unit (Fast Attack) is on the sheet but not in the app",
