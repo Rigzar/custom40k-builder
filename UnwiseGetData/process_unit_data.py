@@ -23,6 +23,10 @@ NUMBERS_DICT = {"a": 1, "an": 1, "the": 1, "one": 1, "two": 2, "three": 3, "four
 def convert_to_int(s):
     return NUMBERS_DICT[s.lower()] if s.lower() in NUMBERS_DICT else int(s)
 
+# Sanitises a name
+def sanitise_name(value):
+    return str(value).lower().replace("'", "").replace(" ", "_").replace("\u00b4", "")
+
 # Make a list of all the troops that exist in the faction's Index.json file. 
 def process_faction_units(faction_path, faction_name):
     ret = {}
@@ -74,6 +78,9 @@ def process_weapon(weapon_data):
     weapon_data = [str(x) for x in weapon_data]
     return dict(zip(APP_FORMAT, weapon_data))
 
+# OPTION MAPPING
+# "For every <n> models, <n> <model_name> may swap <number> <weapon/gear> for <number> <weapon/gear>."
+# "For every <n> models, <n> <model_name> may be equipped with <number> <weapon/gear>."
 def proccess_option(option_data):
     
     header = "".join(option_data[0])
@@ -81,18 +88,25 @@ def proccess_option(option_data):
     ret_option = {"header": header, "inline_pts": None, "variant_link": None, "is_unique_per_army": False}
     constraint = {}
     
-    ### For every [x] models VS May swap [x]
-    if re.search(r"For every .* models?, ", header):
-            
+    ### How many models can take this option - per_n / fixed_max / every
+    if re.search(r"For every .* models?, ", header):  
         constraint["type"] = "per_n"
             
         number = re.findall(r"For every (.*) models?, ", header)[0]
         constraint["per_n"]: convert_to_int(number)
-    else:
+    
+    elif re.search(r"up to .* models?, ", header):
         constraint["type"] = "fixed_max"
             
-        number = re.findall(r"[Mm]ay swap ([a-zA-Z]) ", header)[0]
+        number = re.findall(r"up to (.*) models?, ", header)[0]
         constraint["max"]: convert_to_int(number)
+    
+    elif re.search(r"The unit may ", header):
+        constraint["type"] = "every"
+        
+    else:
+        logging.error(f"NO VALID CONSTRAINT FOUND FOR OPTION HEADER: {header}. Stopping the program.")
+        exit()
     
     ### REPLACEMENTS
     if re.search(r"[Mm]ay swap", header):
@@ -150,7 +164,7 @@ def main():
     print(f"Factions found:{FACTIONS}")
     for faction in FACTIONS:
         
-        faction_path = f"{faction.lower().replace(' ', '_').replace("'", '')}"
+        faction_path = sanitise_name(faction)
         print(f"Processing {faction}...")
         faction_units = process_faction_units(faction_path, faction)
         print(f"Faction troops: {faction_units}")
@@ -159,7 +173,7 @@ def main():
         for category, units in faction_units.items():
             for unit in units:
                 unit_name = "".join(unit)
-                unit_lowercase_name = unit_name.lower().replace("'", "").replace(" ", "_").replace("\u00b4", "")
+                unit_lowercase_name = sanitise_name(unit_name)
                 raw_unit_path = f"raw/{faction_path}/{unit_lowercase_name}"
                 
                 app_unit_json = {"name" : unit_name, "models": []}
@@ -269,6 +283,8 @@ def main():
                     # Add the unit type, switch to the next row, which should be the KEYWORDS section.
                     app_unit_json["unit_type"] = "".join(unit_sheet[0])
                     app_unit_json["is_monster"] = "Monstrous Creature" in app_unit_json["unit_type"]
+                    app_unit_json["is_character"] = "Character" in app_unit_json["unit_type"]
+                    app_unit_json["is_vehicle"] = "Vehicle" in app_unit_json["unit_type"]
                     unit_sheet = unit_sheet[1:]
                     
                     ### KEYWORDS  

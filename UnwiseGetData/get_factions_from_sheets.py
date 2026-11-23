@@ -8,9 +8,14 @@ import logging
 import multiprocessing as mp
 import os
 
+# Checks if a value is NaN or null, returns True if it is, False otherwise
 def check_nan(value):
     value = str(value).lower()
     return value == 'nan' or value == 'null'
+
+# Sanitises a name by converting it to lowercase, removing apostrophes, and replacing spaces with underscores
+def sanitise_name(value):
+    return str(value).lower().replace("'", "").replace(" ", "_")
 
 #really silly workaround, but it's not worth the effort doing it in a cleaner way.
 NAMES_TOO_LONG_FOR_GOOGLE_SHEET = {
@@ -21,7 +26,7 @@ NAMES_TOO_LONG_FOR_GOOGLE_SHEET = {
     }
 
 SKIPPED_SHEETS = ["Henchman Warband", "Legendary Retinue"]
-SKIPPED_SHEETS_LOWERCASE = [s.lower().replace(" ", "_") for s in SKIPPED_SHEETS]
+SKIPPED_SHEETS_LOWERCASE = [sanitise_name(s) for s in SKIPPED_SHEETS]
 
 def download_sheet(faction, sheet_id):
     res = requests.get("https://docs.google.com/spreadsheets/export?exportFormat=xlsx&id=" + sheet_id)
@@ -31,7 +36,7 @@ def download_sheet(faction, sheet_id):
     for sheet_name in xlsx.sheetnames:
         values = pd.read_excel(data, sheet_name=sheet_name)
         values = values.dropna(how='all')
-        sheet_name = sheet_name.lower().replace("\'", "").replace(" ", "_")
+        sheet_name = sanitise_name(sheet_name)
         
         if sheet_name == "index":
             # Everything under the "Special rules" row is rules text, not units. It can run over more than one column (Knight Households
@@ -67,9 +72,11 @@ def download_sheet(faction, sheet_id):
         logging.debug(f"Sheet: {sheet_name}")
         logging.debug(values)
         
+        # Create the directory if it doesn't exist and write the JSON file. If that fails, log the error and exit the program.
         try:
-            os.makedirs(f"raw/{faction.lower().replace(" ","_").replace("'", "")}", exist_ok=True)
-            json.dump(values, open(f"raw/{faction.lower().replace(" ","_").replace("'", "")}/{sheet_name}.json", "w"), indent=4)
+            faction = sanitise_name(faction)
+            os.makedirs(f"raw/{faction}", exist_ok=True)
+            json.dump(values, open(f"raw/{faction}/{sheet_name}.json", "w"), indent=4)
         except Exception as e:
             logging.error(f"Error writing {sheet_name}.json for {faction}: {e}")
             exit()
