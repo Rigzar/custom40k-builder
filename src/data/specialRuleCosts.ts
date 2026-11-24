@@ -1,7 +1,7 @@
 /**
  * specialRuleCosts.ts — what each special rule costs, from the author's own sheet.
  *
- * SOURCE: `Codex/Points calculator_v5.4.xlsx`, sheet "Sonderregeln & Punkte (neu)", rows 3-207.
+ * SOURCE: `Codex/Points calculator_v5.5.xlsx`, sheet "Sonderregeln & Punkte (neu)", rows 3-211 (v5.5 added Acute Senses, Reanimation protocols, Canticles of the Omnissiah and Djinn Sight; the "0" costs and Shield host were re-read from it on 2026-11-24).
  * Copied verbatim, including the entries he wrote as prose ("0,5 * LP", "wie 5+ Rettungswurf",
  * "6+ 0,25, 5+ 0,50, 4+ 1"). They are NOT parsed into numbers and NOT applied automatically:
  * turning "like a 5+ ward save" into arithmetic would be guessing, and a wrong points cost is
@@ -46,19 +46,19 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Ängstlich",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
     "name": "Squig-Hund",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
     "name": "Unorkig",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
@@ -76,7 +76,7 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Volle Fahrt voraus!",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
@@ -94,8 +94,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Shockk-Tunnel",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Raketenrucksack",
@@ -106,8 +106,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Zusammengetackert",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Abomination",
@@ -167,7 +167,7 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
     "name": "Automated weapons",
     "de": "",
     "pts": "-",
-    "veh": ""
+    "veh": "0"
   },
   {
     "name": "Battle Focus",
@@ -190,8 +190,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Bileblade",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Bio meltdown",
@@ -214,8 +214,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Blind rage",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Blitz",
@@ -286,8 +286,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Command squad",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Control jets",
@@ -304,8 +304,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Crisis bodyguard",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Cyberstimms",
@@ -412,8 +412,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Eyes of Mortarion",
     "de": "Augen von Mortarion",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Failure is not an option",
@@ -448,8 +448,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Fire hatches",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "First to the fray",
@@ -472,8 +472,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Furioso",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Furious charge",
@@ -526,14 +526,14 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Honor or death",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Hover mode",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Hyper metabolism",
@@ -551,7 +551,7 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
     "name": "Inbuilt access to armory for non HQ",
     "de": "Eingebauter Zugriff auf Rüstkammer für nicht HQ",
     "pts": "5",
-    "veh": ""
+    "veh": "0"
   },
   {
     "name": "Inevitable death",
@@ -689,7 +689,7 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
     "name": "Mobile defense",
     "de": "",
     "pts": "-",
-    "veh": ""
+    "veh": "0"
   },
   {
     "name": "Molten body",
@@ -706,8 +706,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Mutated beyond recognition",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Nanoscarab reanimator beam",
@@ -724,8 +724,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Oath",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Omni-visors",
@@ -826,8 +826,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Putrescent fog",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Reanimation Protocols",
@@ -880,13 +880,13 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Servant",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Shield host",
     "de": "",
-    "pts": "0,5 * LP",
+    "pts": "1 * LP",
     "veh": ""
   },
   {
@@ -910,8 +910,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Shunting",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Sky dive",
@@ -922,8 +922,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Slaves of Darkness",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Soul harvest",
@@ -934,20 +934,20 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Soul-shredding explosion",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Squadron",
     "de": "Schwadron",
     "pts": "-",
-    "veh": ""
+    "veh": "0"
   },
   {
     "name": "Steady Advance",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Stealth",
@@ -964,8 +964,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Summoning",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Supporting Fire",
@@ -982,8 +982,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Systemic Vigour",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Tactical philosophies",
@@ -1012,7 +1012,7 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Teleport strike",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
@@ -1073,7 +1073,7 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
     "name": "Troublemakers",
     "de": "",
     "pts": "-1 * LP",
-    "veh": ""
+    "veh": "0"
   },
   {
     "name": "Unpredictable mutations",
@@ -1084,8 +1084,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Unyielding",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Upgrade for HQ",
@@ -1114,8 +1114,8 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Vector strike",
     "de": "",
-    "pts": "",
-    "veh": ""
+    "pts": "0",
+    "veh": "0"
   },
   {
     "name": "Void armor",
@@ -1210,13 +1210,13 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
   {
     "name": "Es ist zu deinem eigenen Besten",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
     "name": "Prioritätsbombardement",
     "de": "",
-    "pts": "",
+    "pts": "0",
     "veh": "-"
   },
   {
@@ -1254,5 +1254,29 @@ export const SPECIAL_RULE_COSTS: SpecialRuleCost[] = [
     "de": "",
     "pts": "4.5",
     "veh": "-"
+  },
+  {
+    "name": "Acute Senses",
+    "de": "",
+    "pts": "0,5 * Wounds",
+    "veh": "1 * Wounds"
+  },
+  {
+    "name": "Reanimation protocols",
+    "de": "",
+    "pts": "Base profile *4/5",
+    "veh": "Base profile *4/5"
+  },
+  {
+    "name": "Canticles of the Omnissiah",
+    "de": "",
+    "pts": "0,5 * Wounds",
+    "veh": "1 * Wound"
+  },
+  {
+    "name": "Djinn Sight",
+    "de": "",
+    "pts": "0,75 * Wounds",
+    "veh": ""
   }
 ];
