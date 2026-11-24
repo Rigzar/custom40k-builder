@@ -1724,9 +1724,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
 
     // Whitelist — only specific units allowed (e.g. Krumpa Kompany, Tempestus Scions)
-    if (rule.allowedUnitsOnly.length > 0) {
+    if (rule.allowedUnitsOnly.length > 0 || rule.closedPrimaryRoster) {
       for (const item of state.army) {
-        if (!item.factionSource && !rule.allowedUnitsOnly.includes(item.unitName)) {
+        if (!item.factionSource && (rule.closedPrimaryRoster || !rule.allowedUnitsOnly.includes(item.unitName))) {
           items.push({
             type: 'error',
             text: T('valArchetypeNotInAllowedList', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName }),
@@ -2929,9 +2929,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           items.push({ type: 'error', text: T('valAllyArchetypeUnitNotAllowed', { archetype: allyLabel, unit: item.unitName }) });
         }
       }
-      if (allyRule.allowedUnitsOnly.length > 0) {
+      if (allyRule.allowedUnitsOnly.length > 0 || allyRule.closedPrimaryRoster) {
         for (const item of allyItems) {
-          if (!allyRule.allowedUnitsOnly.includes(item.unitName)) {
+          if (allyRule.closedPrimaryRoster || !allyRule.allowedUnitsOnly.includes(item.unitName)) {
             items.push({ type: 'error', text: T('valAllyArchetypeNotInAllowedList', { archetype: allyLabel, unit: item.unitName }) });
           }
         }

@@ -85,10 +85,10 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
   //  - May not select any Traits."
   // The supplement (Codex/Legion of the Damned 1.0.ods) adds "Aid unlooked for" (its units can only attach to and be joined by
   // characters from the supplement) and "Flaming Vengeance" (cumulative -1 AP and +1 AT on every attack, in the resolver).
-  // `allowedUnitsOnly` holds a name no Space Marines unit has: the primary roster is closed, only the supplement's units remain.
+  // `closedPrimaryRoster`: no Space Marines unit may be taken, only the supplement's units remain.
   'Legion of the Damned': { ...BASE,
     noTraits: true,
-    allowedUnitsOnly: ['(supplement units only)'],
+    closedPrimaryRoster: true,
     alliedFaction: 'legion_of_the_damned', alliedMarkFilter: 'all',
     notes: [
       'Only units from the Legion of the Damned supplement can be taken. No Traits.',

@@ -109,6 +109,11 @@ export interface ArchetypeRule {
    */
   alliedUnitsOnly?: string[];
   allowedUnitsOnly: string[];
+  /**
+   * The PRIMARY faction's own roster is closed: none of its units may be taken, only what the archetype injects (Space Marines "Legion of
+   * the Damned": only the supplement's units). Replaces a whitelist holding a name no unit has, which the data health check rightly flagged.
+   */
+  closedPrimaryRoster?: boolean;
   /** Units with none of these keywords are blocked (empty = no filter). "-" keyword (Swords for hire) bypasses check. */
   allowedKeywords: string[];
   /** Units allowed BY NAME in addition to the keyword matches (Orks' Gretchin Revolutionary Committee: Gretchins and Snotlings are Grot units but carry no Grot keyword). */

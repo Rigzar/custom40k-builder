@@ -793,6 +793,7 @@ export function isUnitAllowed(
   }
   // ...unless the archetype hands that access out itself (see grantVetAbilitiesToAll).
   if (rule.requireVetAbilities && !rule.grantVetAbilitiesToAll && !unit.has_veteran_abilities) return false;
+  if (rule.closedPrimaryRoster) return false;
   if (rule.allowedUnitsOnly.length > 0 && !rule.allowedUnitsOnly.includes(unitName)) return false;
   if (rule.allowedKeywords.length > 0) {
     // A Vehicle carries no keyword of its own: the type counts ("Only Grot and Vehicle units may be taken").
