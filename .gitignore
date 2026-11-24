@@ -43,6 +43,8 @@ custom40k-homebrew-system-MVeedra-main/
 parser/
 scripts/
 !wiki/scripts/
+UnwiseGetData/raw/
+UnwiseGetData/processed/
 
 # Dev server log
 dev-server.log
