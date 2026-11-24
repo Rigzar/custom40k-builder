@@ -146,7 +146,7 @@ export type TranslationKey =
   | 'noUnitOption' | 'platoonLabel' | 'independentOwnSlotOption' | 'platoonNoAnchorOption' | 'markOfChaosLabel' | 'noneOption'
   | 'costFlat10Suffix' | 'costPerWound1Suffix' | 'costPerWound2Suffix' | 'ctanShardTakenLabel' | 'yngirToggleLabel'
   | 'lasgunSwapLabel' | 'hotshotSwapLabel' | 'defaultLoadoutLabel' | 'liveProfileLabel' | 'profileLabel'
-  | 'subfactionLabel' | 'combatDrugsLabel'
+  | 'subfactionLabel' | 'combatDrugsLabel' | 'freeVeteransLabel' | 'freeVeteransNote'
   | 'markBonusAsteriskNote' | 'traitBonusDaggerNote' | 'equipmentDiamondNote' | 'modelHeader' | 'buildLabel'
   | 'fixedLabel' | 'totalLabel' | 'modelsWord' | 'theWord' | 'armoryAccessSuffix' | 'selectToEnableArmory'
   | 'addOnBadge' | 'everyWord' | 'isEquippedWithSuffix' | 'rangedWeaponsHeader' | 'meleeWeaponsHeader'
@@ -1168,6 +1168,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     hotshotSwapLabel: '↳ Hot-shot lasgun → Pulse rifle (+2pt/model)',
     subfactionLabel: 'Sub-faction',
     combatDrugsLabel: 'Combat drugs',
+    freeVeteransLabel: "Free Veteran abilities",
+    freeVeteransNote: "Also for one friendly unit; can be changed each Reinforcement phase. Not counted against the veteran limit.",
     defaultLoadoutLabel: 'Default loadout:',
     liveProfileLabel: 'Live profile',
     profileLabel: 'Profile',
@@ -2386,6 +2388,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     hotshotSwapLabel: '↳ Hot-Shot-Lasgewehr → Pulsgewehr (+2Pkt/Modell)',
     subfactionLabel: 'Unterfraktion',
     combatDrugsLabel: 'Kampfdrogen',
+    freeVeteransLabel: "Kostenlose Veteranenfähigkeiten",
+    freeVeteransNote: "Auch für eine verbündete Einheit; in jeder Verstärkungsphase änderbar. Zählt nicht zum Veteranenlimit.",
     defaultLoadoutLabel: 'Standardausrüstung:',
     liveProfileLabel: 'Live-Profil',
     profileLabel: 'Profil',
@@ -3602,6 +3606,8 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     hotshotSwapLabel: '↳ Lasfusil de sobrecarga → Fusil de impulsos (+2pt/modelo)',
     subfactionLabel: 'Subfacción',
     combatDrugsLabel: 'Drogas de combate',
+    freeVeteransLabel: "Habilidades de veterano gratis",
+    freeVeteransNote: "También para una unidad aliada; se pueden cambiar en cada fase de Refuerzos. No cuentan para el límite de veteranos.",
     defaultLoadoutLabel: 'Equipo por defecto:',
     liveProfileLabel: 'Perfil en vivo',
     profileLabel: 'Perfil',

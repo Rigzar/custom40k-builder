@@ -567,6 +567,8 @@
  "hotshotSwapLabel": "↳ ホットショット・ラスガン → パルス・ライフル（+2pt／モデル）",
  "subfactionLabel": "サブ勢力",
  "combatDrugsLabel": "戦闘薬",
+ "freeVeteransLabel": "無料のベテラン能力",
+ "freeVeteransNote": "味方1ユニットにも与えられます。増援フェイズごとに変更できます。ベテラン能力の上限には数えません。",
  "defaultLoadoutLabel": "標準装備：",
  "liveProfileLabel": "現在のプロファイル",
  "profileLabel": "プロファイル",

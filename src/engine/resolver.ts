@@ -16,6 +16,7 @@ import { weaponBaseName } from '../utils/weaponName';
 import { getTraitEffects } from './traitEffects';
 import { effectiveSubfactions, traitRequiredSubfaction } from './codex_dark_eldar/subfaction';
 import { getCombatDrug } from './codex_dark_eldar/combatDrugs';
+import { freeVeteranCap, veteranAbilityItems, veteranAbilityName } from './freeVeterans';
 import { csmResolve } from './codex_csm/resolver';
 import { cdResolve } from './codex_chaos_daemons/resolver';
 import { smResolve } from './codex_space_marines/resolver';
@@ -1782,6 +1783,19 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       if (!drug) continue;
       for (const sm of drug.statMods) optionStatMods.push(sm);
       if (drug.ability) optionAbilities.push(`${drug.name} (Combat drug): ${drug.desc}`);
+    }
+  }
+
+  // Free Veteran abilities the character assigns to himself ("Battle Tactics", "Veterans of the Long War", "Combat tactics"):
+  // granted like a bought Veteran ability, so the card, the print and the battle view list them with their rule text.
+  const freeVetCap = freeVeteranCap(unit.abilities);
+  if (freeVetCap > 0 && item.freeVeterans?.length) {
+    const vets = veteranAbilityItems(data.armory_general);
+    for (const vn of item.freeVeterans.slice(0, freeVetCap)) {
+      const vi = vets.find(v => v.name === vn);
+      if (!vi) continue;
+      const ab = veteranAbilityName(vi);
+      if (!equipMods.grantedAbilities.some(g => g.toLowerCase() === ab.toLowerCase())) equipMods.grantedAbilities.push(ab);
     }
   }
 

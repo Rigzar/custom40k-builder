@@ -194,6 +194,13 @@ export interface RosterEntry {
    */
   combatDrugs?: string[];
   /**
+   * The free Veteran abilities this character assigns to himself ("Battle Tactics" of the Custodes Shield-Captain, "Veterans of the
+   * Long War" of the Chaos Lieutenant, the Space Marine / Grey Knights "Combat tactics"...: "can assign (a | two) free Veteran
+   * abilit(y|ies) to himself and a friendly unit"). Names of the faction's own Veteran abilities (Armory items of category
+   * 'veteran'); the cap comes from the unit's text (src/engine/freeVeterans.ts). They do not count against the veteran limit.
+   */
+  freeVeterans?: string[];
+  /**
    * Weapon target for a per-unit option_groups choice that names no FIXED weapon of its own
    * (unlike most named-weapon Kustom Jobs/Biomorphs) — mirrors `ArmorySelection.targetWeapon`,
    * which only covers general Armory purchases (`item.armory`), not per-unit options. Keyed by

@@ -26,6 +26,7 @@ import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
 import { unitSubfactions, DE_SUBFACTIONS } from '../engine/codex_dark_eldar/subfaction';
 import { DARK_ELDAR_COMBAT_DRUGS, hasCombatDrugs } from '../engine/codex_dark_eldar/combatDrugs';
+import { freeVeteranCap, veteranAbilityItems } from '../engine/freeVeterans';
 import { hhMarkFor } from '../engine/codex_horus_heresy/archetypes';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
@@ -822,6 +823,50 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                         : 'bg-zinc-800 border-zinc-600 text-zinc-300 hover:border-fuchsia-700'}`}
                   >
                     {nm(d.name)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* ── Free Veteran abilities — "can assign (a | two) free Veteran abilit(y|ies) to himself and a friendly unit" (Custodes
+           Shield-Captain "Battle Tactics", Chaos Lieutenant, SM / GK Captain, Lieutenant, Centurion...). Free, and not counted
+           against the veteran limit. The friendly unit gets the same ones: the note says so, the player applies them. ── */}
+      {(() => {
+        const cap = freeVeteranCap(u.abilities);
+        const options = cap > 0 ? veteranAbilityItems(data?.armory_general) : [];
+        if (!cap || options.length === 0) return null;
+        const selected = (item.freeVeterans ?? []).filter(n => options.some(o => o.name === n));
+        const toggle = (name: string) => {
+          if (selected.includes(name)) updateUnit(item.id, { freeVeterans: selected.filter(d => d !== name) });
+          else if (selected.length < cap) updateUnit(item.id, { freeVeterans: [...selected, name] });
+        };
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('freeVeteransLabel')}</span>
+              <span className="text-[10px] text-zinc-600">{selected.length}/{cap}</span>
+              <span className="text-[10px] text-zinc-600 italic">{t('freeVeteransNote')}</span>
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {options.map(o => {
+                const active = selected.includes(o.name);
+                const disabled = !active && selected.length >= cap;
+                return (
+                  <button
+                    key={o.name}
+                    onClick={() => toggle(o.name)}
+                    disabled={disabled}
+                    title={o.desc}
+                    className={`text-[10px] px-2 py-0.5 border transition-colors ${active
+                      ? 'bg-amber-900/50 border-amber-600 text-amber-200'
+                      : disabled
+                        ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-not-allowed'
+                        : 'bg-zinc-800 border-zinc-600 text-zinc-300 hover:border-amber-700'}`}
+                  >
+                    {nm(o.name)}
                   </button>
                 );
               })}
