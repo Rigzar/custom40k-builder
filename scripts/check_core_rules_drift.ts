@@ -1,6 +1,8 @@
 /**
- * Core Rules drift report: the rulebook's glossary (src/data/coreRules.generated.json, made by scripts/gen_core_rules.cjs)
- * against the hand-written glossary the app shows (CORE_WEAPON_ABILITIES / CORE_MODEL_ABILITIES in src/data/coreRules.ts).
+ * Core Rules check: the rulebook's glossary (src/data/coreRules.generated.json, made by scripts/gen_core_rules.cjs)
+ * against what the app shows (CORE_WEAPON_ABILITIES / CORE_MODEL_ABILITIES in src/data/coreRules.ts, which applies the
+ * generated text on load). "In sync" means every rule of the rulebook is in the app with the rulebook's text; the
+ * other way round it lists rules the app has that the rulebook's two lists do not (hand-written leftovers to review).
  *
  *   npx tsx scripts/check_core_rules_drift.ts
  *
@@ -16,7 +18,7 @@ const gen = JSON.parse(fs.readFileSync('src/data/coreRules.generated.json', 'utf
 };
 // The rulebook writes the parameter as "x+", "+x", "-x", "X+"; the app stores it as {X}, which carries the sign and the plus itself.
 const norm = (s: string) => s.toLowerCase().replace(/[“”]/g, '"').replace(/[‘’]/g, "'")
-  .replace(/\{x\}/g, 'x').replace(/(?<![a-z])[+-]?x\+?(?![a-z])/g, 'x').replace(/[^a-z0-9]+/g, ' ').trim();
+  .replace(/\{x\}/g, 'x').replace(/(?<![a-z])[+-]?x\+?(?![a-z])/g, 'x').replace(/ x amount of /g, ' x ').replace(/[^a-z0-9]+/g, ' ').trim();
 const key = (n: string) => n.toLowerCase().replace(/\s*\(.*$/, '').replace(/!$/, '').replace(/\s+/g, ' ').trim();
 
 let problems = 0;

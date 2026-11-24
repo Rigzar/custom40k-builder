@@ -1,3 +1,4 @@
+import CORE_GEN from './coreRules.generated.json';
 import RU_DESC from './ruleDescriptions.ru.json';
 import JA_DESC from './ruleDescriptions.ja.json';
 import ES_DESC from './ruleDescriptions.es.json';
@@ -720,6 +721,30 @@ export const ESCALATION_RULES: Record<string, RuleEntry> = {
     description: 'Follows the rules for vehicles with these exceptions: need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1; ignores difficult terrain and auto-passes dangerous terrain; ward saves against Strength D only for other gargantuan/super-heavy models; can always shoot one more weapon than allowed for the distance moved; on losing its last Hull Point, on a 4+ it explodes (2D6" radius, S7 AP-2 D2). Uses its own super-heavy vehicle damage chart.',
   }
 }
+
+/**
+ * The Core Rules' own glossary text (src/data/coreRules.generated.json, made from the rulebook by scripts/gen_core_rules.cjs)
+ * replaces the hand-written description of every Core rule it covers, so a new Core Rules version only needs the script run.
+ * A rule the rulebook has and this file lacks is added. What stays hand-written: the names, the codex rules (CODEX_WEAPON_ABILITIES,
+ * FACTION_SIGNATURE_RULES) and everything else below, which overrides these in RULES — Core Rules FAQ 5: "Specific rules from the
+ * Codex override general rules from the Core Rules".
+ * The rulebook writes the parameter as "x+", "+x", "-x" or "X+"; here it is {X}, which carries the sign and the plus itself.
+ * No lookbehind in the pattern: Safari before 16.4 fails to parse the whole bundle on one (see equipMods.ts).
+ */
+function applyGeneratedCoreRules(target: Record<string, RuleEntry>, generated: Record<string, string>) {
+  for (const [docName, text] of Object.entries(generated)) {
+    const base = docName.replace(/\s*\(.*$/, '').replace(/!$/, '').trim();
+    const key = base.toLowerCase().replace(/\s+/g, ' ');
+    const own = docName.includes('(') ? new RegExp(base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*\\([+-]?[xX]\\+?\\)', 'g') : null;
+    let description = own ? text.replace(own, base + '({X})') : text;
+    // "roll x amount of dice" / "used x amount of times": the rulebook's wording, which reads badly with a number in it ("2 amount of times").
+    description = description.replace(/(^|[^A-Za-z(])[+-]?[xX]\+?(?![A-Za-z])/g, '$1{X}').replace(/\{X\} amount of /g, '{X} ');
+    if (target[key]) target[key] = { ...target[key], description };
+    else target[key] = { name: docName.includes('(') ? base + '({X})' : docName, description };
+  }
+}
+applyGeneratedCoreRules(CORE_WEAPON_ABILITIES, CORE_GEN.weaponAbilities);
+applyGeneratedCoreRules(CORE_MODEL_ABILITIES, CORE_GEN.modelAbilities);
 
 export const RULES: Record<string, RuleEntry> = {
   ...CORE_WEAPON_ABILITIES,
