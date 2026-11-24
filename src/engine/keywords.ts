@@ -6,7 +6,7 @@ import type { ArchetypeRule } from './archetypes';
 /**
  * Expected object fields for functions as types
  */
-type ShortRosterEntry = { factionSource?: string | null; mark?: string | null; ownArmy?: boolean } | null;
+type ShortRosterEntry = { factionSource?: string | null; mark?: string | null; ownArmy?: boolean; subfaction?: string | null } | null;
 type GrantsKeywords = { grantsKeywords?: Array<{ keyword: string; units?: string[]; factions?: string[]; ifKeywords?: string[] }> } | null;
 
 // Re-export so existing consumers don't need to change their import path.
@@ -244,13 +244,14 @@ export function effectiveKeywords(
     // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
     ...roleKeywordsFromName(unit.name),
     ...(entry?.mark ? [entry.mark] : []),
+    ...(entry?.subfaction ? [entry.subfaction] : []),
     ...additionalKeywords
   ];
 
   // use generated keywords to determine if archetype keywords get applied
   kws.push(..._getArchetypeKeywords(unit.name, entry, kws, rule));
   
-  // Dedupes keywords
+  // Dedupes keywords and set to lowercase for comparisons
   return [...new Set(kws.map(k => k.toLowerCase()))];
 }
 

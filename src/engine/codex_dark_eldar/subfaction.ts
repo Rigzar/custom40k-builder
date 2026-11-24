@@ -25,7 +25,7 @@ export function traitRequiredSubfaction(traitName: string): DESubfaction | null 
 
 /** The sub-faction keywords a unit's datasheet carries (0, 1, or all 3 for shared vehicles). */
 export function unitSubfactions(keywords: string[] | undefined): DESubfaction[] {
-  return DE_SUBFACTIONS.filter(s => keywords?.includes(s));
+  return DE_SUBFACTIONS.filter(s => keywords?.includes(s.toLowerCase()));
 }
 
 /**
