@@ -37,13 +37,18 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state, data) => 
   // Favored Units grants its bonus to the unit's "squad leader" — a single model with
   // sole access to the armory. Units with neither armory nor champion armory access
   // (e.g. Poxwalkers) have no such model, so they cannot be Favored.
+  // The squad leader is ONE model with sole access to the Armory (Index: "Squad leaders are single models within a unit that have
+  // sole access to the armory"). Where the leader only gets that access from an upgrade (Aspiring Champion, Traitor Sergeant,
+  // Mutant Boss: a `variant_models` row), the upgrade has to be taken; a unit whose every model has access (Chosen) has no single
+  // leader. GH#309 (DemonGyro): 8 plain Chaos Space Marines were Favored with no Aspiring Champion.
+  const hasArmoryLeader = unit.variant_models?.length ? base.variantActive : !!unit.champion_has_armory;
   const isFavored =
     !!base.effectiveMark &&
     base.effectiveMark !== 'Undivided' &&
     SACRED_NUMBERS[base.effectiveMark] != null &&
     item.size > 0 &&
     item.size % SACRED_NUMBERS[base.effectiveMark] === 0 &&
-    (unit.has_armory_access || unit.champion_has_armory);
+    hasArmoryLeader;
 
   const injectedAbilities = [...base.injectedAbilities];
   // Favored Units: "Squad leaders receive +1 attack and a personal icon" (Chaos Space Marines sheet, Index). The +1 Attack is

@@ -57,12 +57,12 @@ function equipWardedCount(a: string[] | null | undefined): number {
   return (a ?? []).filter(x => /(^|[^A-Za-z])Warded\b/i.test(x)).length;
 }
 
-/** 0 or 1: the Mark of Tzeentch's "Warded", unless the datasheet already carries its own. */
+/** 0 or 1: the Mark of Tzeentch's "Warded", unless the datasheet already carries its own. Takes the EFFECTIVE mark, locked ones too: a Rubric Marine / Pink Horror has Tzeentch locked and was passed `statModMark`, which is null for those (GH#308). */
 export function markWardedCount(
-  statModMark: string | null | undefined, blackCrusadeChampion: boolean | null | undefined,
+  mark: string | null | undefined, blackCrusadeChampion: boolean | null | undefined,
   ownAbilities: string[] | null | undefined,
 ): number {
-  if (statModMark !== 'Tzeentch' && !blackCrusadeChampion) return 0;
+  if (mark !== 'Tzeentch' && !blackCrusadeChampion) return 0;
   return (ownAbilities ?? []).some(a => /(^|[^A-Za-z])Warded\b/i.test(a)) ? 0 : 1;
 }
 

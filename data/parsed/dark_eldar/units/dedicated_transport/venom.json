@@ -69,7 +69,12 @@
             "choices": [],
             "inline_pts": 32,
             "variant_link": null,
-            "is_unique_per_army": false
+            "is_unique_per_army": false,
+            "effect": {
+                "grants_abilities": [
+                    "Flickerfield: The model gains a 5+ ward save."
+                ]
+            }
         }
     ],
     "abilities": [

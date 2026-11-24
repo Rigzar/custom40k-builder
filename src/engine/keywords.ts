@@ -6,7 +6,7 @@ import type { ArchetypeRule } from './archetypes';
 /**
  * Expected object fields for functions as types
  */
-type ShortRosterEntry = { factionSource?: string | null; mark?: string | null; ownArmy?: boolean } | null;
+type ShortRosterEntry = { factionSource?: string | null; mark?: string | null; ownArmy?: boolean; subfaction?: string | null } | null;
 type GrantsKeywords = { grantsKeywords?: Array<{ keyword: string; units?: string[]; factions?: string[]; ifKeywords?: string[] }> } | null;
 
 // Re-export so existing consumers don't need to change their import path.
@@ -244,6 +244,9 @@ export function effectiveKeywords(
     // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
     ...roleKeywordsFromName(unit.name),
     ...(entry?.mark ? [entry.mark] : []),
+    // Dark Eldar "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit": the sub-faction the player picks
+    // becomes a real keyword of that unit (only the mercenary units, whose datasheet keyword is "-"; GH#306).
+    ...(entry?.subfaction && (unit.keywords ?? []).includes('-') ? [entry.subfaction] : []),
     ...additionalKeywords
   ];
 

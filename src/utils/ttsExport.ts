@@ -288,7 +288,7 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
     const wardValue = wardSave({
       abilities: ownWardAbilities(unit, item), equipInvSave: rp.equipMods.invulnSave,
       optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities, equipAbilities: rp.equipMods.grantedAbilities,
-      markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, unit.abilities),
+      markWarded: markWardedCount(rp.effectiveMark, rp.blackCrusadeChampion, unit.abilities),
     });
     const ward = wardValue !== null ? `${wardValue}+` : null;
 

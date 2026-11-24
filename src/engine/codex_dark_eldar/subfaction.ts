@@ -25,7 +25,10 @@ export function traitRequiredSubfaction(traitName: string): DESubfaction | null 
 
 /** The sub-faction keywords a unit's datasheet carries (0, 1, or all 3 for shared vehicles). */
 export function unitSubfactions(keywords: string[] | undefined): DESubfaction[] {
-  return DE_SUBFACTIONS.filter(s => keywords?.includes(s));
+  // Case-insensitive: the keywords the resolver hands back are lowercased ("kabal"), the datasheet's are not ("Kabal").
+  // Matching only the datasheet spelling made every Kabal / Coven / Cult unit look like a mercenary (GH#306).
+  const have = new Set((keywords ?? []).map(k => k.toLowerCase()));
+  return DE_SUBFACTIONS.filter(s => have.has(s.toLowerCase()));
 }
 
 /**

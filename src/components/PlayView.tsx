@@ -101,7 +101,7 @@ function PlayCard({ item, data, armoryData, defaultOpen }: {
   const ward = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: rp.equipMods?.invulnSave,
     optionAbilities: rp.optionAbilities, traitAbilities: rp.traitAbilities, equipAbilities: rp.equipMods?.grantedAbilities,
-    markWarded: markWardedCount(rp.statModMark, rp.blackCrusadeChampion, u.abilities),
+    markWarded: markWardedCount(rp.effectiveMark, rp.blackCrusadeChampion, u.abilities),
   });
   // At the table the number you roll against is the FINAL one, so this runs the whole chain the
   // unit card runs — Marks, traits, wargear and options — not just the Marks. Reported the day

@@ -233,7 +233,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const ward = wardSources({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave,
     optionAbilities, traitAbilities, equipAbilities: equipMods.grantedAbilities,
-    markWarded: markWardedCount(statModMark, blackCrusadeChampion, u.abilities),
+    markWarded: markWardedCount(effectiveMark, blackCrusadeChampion, u.abilities),
   });
   const effectiveInvSv = ward.value;
   // Source markers for the ◆ indicator — the card's own tie-breaking, unchanged: equipment
@@ -244,6 +244,18 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const statKeys: readonly string[] = u.is_vehicle
     ? (vehicleHasWS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)
     : [...STAT_KEYS_INF, ...(effectiveInvSv !== null ? ['InvSv'] : [])];
+  // The stat cell of a model profile shown OUTSIDE the main Profile table (the promotion / add-on model panels of the Build
+  // section). It used to print the datasheet value: Aspiring Champion showed neither his Mark's bonus nor the Favoured +1
+  // Attack, while the Profile table did (GH#309, DemonGyro). Same pipeline, same inputs.
+  const sideStat = (leader: boolean, equip: boolean) => (raw: string, k: string) => resolveStatValue(raw, k, {
+    unit: u,
+    marks: blackCrusadeChampion ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'] : statModMark ? [statModMark] : [],
+    favouredLeader: leader,
+    traitStatMods, optionStatMods, optionStatSets, optionStatExact,
+    equipMods, traitEquipMods,
+    isEquipTarget: equip,
+    ctanYngirActive,
+  });
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
   // Disjoint legal range ("1 or 4-10", e.g. Necrons Lychguard) — see Model.squad_min. Only
@@ -756,7 +768,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
            their own (Incubi, Mandrakes, Scourges). A unit locked to a single sub-faction keyword
            shows no picker. Narrows which sub-faction's traits apply (codex_dark_eldar/subfaction). ── */}
       {data?.faction === 'Dark Eldar' && !item.factionSource && (() => {
-        const subs = unitSubfactions(keywords);
+        const subs = unitSubfactions(u.keywords);   // the DATASHEET's own: the picked one is added to `keywords` and must not hide the picker
         if (subs.length === 1) return null;                    // fixed sub-faction — no choice
         const options = subs.length > 1 ? subs : [...DE_SUBFACTIONS]; // no keyword → offer all three
         return (
@@ -1200,7 +1212,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   {equipText && (
                     <div className="text-zinc-400 text-[11px]">{t('everyWord')} {nm(m.name)} {t('isEquippedWithSuffix')} {equipText}.</div>
                   )}
-                  <ModelProfileRow m={m} statKeys={STAT_KEYS_INF} />
+                  <ModelProfileRow m={m} statKeys={STAT_KEYS_INF} resolve={sideStat(false, false)} />
                   {mAbilities.length > 0 && (
                     <div>
                       <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-0.5">{t('abilities')}</div>
@@ -1477,7 +1489,8 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                   </summary>
                   {variantModel && (
                     <div className="px-2 pb-2 space-y-2">
-                      <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
+                      <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF}
+                        resolve={sideStat(isFavored && !!variant && variantModel === variant, !equipModsScopedToChampion || (!!variant && variantModel === variant))} />
                       {/* A unit with unit-wide Armory access (Necron Lord, Lootas) already has the global button; repeating it here behind the promotion read as if the Overlord title unlocked the Armory. */}
                       {(u.champion_has_armory || /armory/i.test(g.header)) && (
                         <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
@@ -2644,7 +2657,7 @@ function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryIte
 
 /** Single-row stat table for a supplementary model (Chaos Ogryn, Traitor Sergeant, etc.) —
  * same columns as the main Profile table but without mark/trait/equip bonus annotations. */
-function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[] }) {
+function ModelProfileRow({ m, statKeys, resolve }: { m: Model; statKeys: readonly string[]; resolve?: (raw: string, k: string) => { display: string; source: { mark: boolean; trait: boolean; equip: boolean; option: boolean } } }) {
   const t = useT();
   return (
     <div className="overflow-x-auto">
@@ -2673,11 +2686,19 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
       <tbody>
         <tr className="border-b border-zinc-700/40 text-zinc-100">
           <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{nm(m.name)}</td>
-          {statKeys.map(k => (
-            <td key={k} className="text-center py-2 px-2 font-mono text-xs text-zinc-100">
-              {(m.stats as Record<string, string>)[k] ?? '-'}
-            </td>
-          ))}
+          {statKeys.map(k => {
+            const raw = (m.stats as Record<string, string>)[k] ?? '-';
+            const r = resolve ? resolve(raw, k) : null;
+            const src = r?.source;
+            const boosted = !!src && (src.mark || src.trait || src.equip || src.option);
+            const cls = !src ? 'text-zinc-100' : src.mark ? 'text-blue-400 font-bold' : src.trait ? 'text-emerald-400 font-bold' : src.equip ? 'text-violet-400 font-bold' : src.option ? 'text-cyan-400 font-bold' : 'text-zinc-100';
+            const suffix = !src || !boosted ? '' : src.mark ? '*' : src.trait ? '†' : src.equip ? '◆' : '‡';
+            return (
+              <td key={k} className={`text-center py-2 px-2 font-mono text-xs ${cls}`}>
+                {(r ? r.display : raw)}{suffix}
+              </td>
+            );
+          })}
           <td className="text-right text-amber-700 py-2 pr-2 text-xs">{m.points}</td>
         </tr>
       </tbody>

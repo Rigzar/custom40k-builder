@@ -423,7 +423,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const effectiveInvSv = wardSave({
     abilities: ownWardAbilities(u, item), equipInvSave: equipMods.invulnSave, optionAbilities, traitAbilities,
     equipAbilities: equipMods.grantedAbilities,
-    markWarded: markWardedCount(statModMark, rp.blackCrusadeChampion, u.abilities),
+    markWarded: markWardedCount(effectiveMark, rp.blackCrusadeChampion, u.abilities),
   });
   const color = getThemeColor(data.faction, effectiveMark);
 
@@ -677,7 +677,8 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               for (const [k, v] of Object.entries(optionStatExact ?? {})) if (modStats[k] !== undefined && v) modStats[k] = v;
               return (
                 <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-                  <StatRow keys={statKeys} stats={modStats} mods={markMods} showLabels={mi === 0}
+                  {/* A Favored unit's squad leader gains +1 Attack; the print listed the Mark on every row and never this (GH#309). */}
+                  <StatRow keys={statKeys} stats={modStats} mods={rp.isFavored && mi === rp.squadLeaderIdx ? [...markMods, { stat: 'A', delta: 1 }] : markMods} showLabels={mi === 0}
                     modelLabel={`${rp.modelRowCounts[mi]}× ${nm(m.name)}`}
                     color={color} />
                   {mi === 0 && effectiveInvSv !== null && (
