@@ -25,7 +25,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   // ── Weapon abilities ──────────────────────────────────────────────────────
   'ammo': {
     name: 'Ammo({X})',
-    description: 'Wargear with this special rule can only be used {X} times per game',
+    description: 'Wargear with this special rule can only be used {X} times per game. Can only be the target of a "Weapon Damage" result if at least one use is left.',
   },
   'anti-air': {
     name: 'Anti-Air',
@@ -105,7 +105,7 @@ export const CORE_WEAPON_ABILITIES: Record<string, RuleEntry> = {
   },
   'graviton': {
     name: 'Graviton',
-    description: 'Creatures that lose a wound by this weapon must pass a Strength test or suffer another wound with S: 4 AP: 0 D: 1; Seeking. This is in addition to the actual wound roll. If the target enemy unit is in cover and at least one hit is scored with this weapon, the terrain becomes difficult and dangerous terrain until the next unit activation that caused the hit.',
+    description: 'Creatures that lose a wound by this weapon must pass a Strength test or suffer another wound with S: 4 AP: 0 D: 1; Seeking. This is in addition to the actual wound roll. If the target enemy unit is in cover and at least one hit is scored with this weapon, the target counts as being in dangerous terrain until the end of the next activation of the target unit.',
   },
   'gruesome': {
     name: 'Gruesome',
@@ -701,7 +701,7 @@ export const FACTION_SIGNATURE_RULES: Record<string, RuleEntry> = {
   },
   'synapse': {
     name: 'Synapse',
-    description: 'Friendly Tyranid units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; if they fail a Leadership test they suffer 1 Mortal Wound per point of difference (instead of a Battleshock token) and count as having passed; and lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
+    description: 'Friendly Tyranid units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; all Leadership tests are treated as successful, but if the unit has suffered at least 1 unsaved Wound before the test and the result would normally fail, it suffers 1 Mortal Wound for each point by which the result exceeds its Leadership value; and they lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
   }
 }
 
