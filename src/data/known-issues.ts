@@ -15,9 +15,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: "ki-unit-update-pending-2026-11-24",
-    status: "known",
-    title: "Waiting for the next unit update: Scorpion claw columns, Abominant and Skorpekh Lord join text",
-    description: "OPEN 2026-11-24. The Striking Scorpions' Scorpion claw is still stored with the shifted columns the sheet had (Range \"Melee\", Type \"x2\"...); the author fixed the sheet. The Abominant (\"Unquestioning Loyalty\") and Skorpekh Lord (\"Flesh-eater Court\") sheet text adds \"like a Character\". All three are unit data written by the update script, which crashed on its own last commit (an `in ... | in ...` precedence slip, fixed in the repository on 2026-11-24)."
+    status: "fixed",
+    title: "Scorpion claw columns, Abominant and Skorpekh Lord join text (unit update)",
+    description: "FIXED 2026-11-24. The update script crashed on its own last commit (an `in ... | in ...` precedence slip), so the sheet fixes did not arrive: the Striking Scorpions' Scorpion claw kept the shifted columns (Range \"Melee\", Type \"x2\"...) and the Abominant and Skorpekh Lord lacked \"like a Character\". The script is fixed and the three changes were applied by hand from its pull request. The same pull request also set is_vehicle to false on 23 flyers and is_character to false on 11 units, and dropped \"Character model\" from three unit types: those flags are kept by hand (the sheets do not carry them), so it was NOT merged. Question for the script author: leave is_vehicle / is_character / the Character model type alone when the sheet has no such field."
   },
   {
     id: "ki-orks-mek-gunz-unit-weapon-01",
