@@ -284,7 +284,7 @@ def main():
                     app_unit_json["unit_type"] = "".join(unit_sheet[0])
                     app_unit_json["is_monster"] = "Monstrous Creature" in app_unit_json["unit_type"]
                     app_unit_json["is_character"] = "Character" in app_unit_json["unit_type"]
-                    app_unit_json["is_vehicle"] = "Vehicle" in app_unit_json["unit_type"] | "Walker" in app_unit_json["unit_type"]
+                    app_unit_json["is_vehicle"] = ("Vehicle" in app_unit_json["unit_type"]) or ("Walker" in app_unit_json["unit_type"])
                     unit_sheet = unit_sheet[1:]
                     
                     ### KEYWORDS  
