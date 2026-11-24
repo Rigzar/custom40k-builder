@@ -53,11 +53,12 @@
         },
         {
             "name": "Scorpion claw - Melee",
-            "range": "Melee",
-            "type": "x2",
-            "s": "-3",
-            "ap": "2",
-            "d": "Slow(-1)"
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Slow(-1)"
         },
         {
             "name": "Scorpion claw - Shooting",

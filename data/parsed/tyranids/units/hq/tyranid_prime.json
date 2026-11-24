@@ -214,12 +214,12 @@
         "Fearless, Massive(1), Move Through Cover, Synapse",
         "Alpha Warrior: A Tyranid Prime can attach to any unit like a character model. If the model is attached to a unit of Tyranid Warriors, they gain a +1 bons to Weapon Skill and Ballistic Skill."
     ],
-    "unit_type": "Character model, Monstrous Infantry",
+    "unit_type": "Monstrous Infantry",
     "keywords": [
         "Advanced Bioform"
     ],
     "is_vehicle": false,
-    "is_character": true,
+    "is_character": false,
     "is_psyker": false,
     "has_armory_access": true,
     "champion_has_armory": false,

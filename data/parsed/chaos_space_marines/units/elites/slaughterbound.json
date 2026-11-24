@@ -44,7 +44,7 @@
         "World Eaters"
     ],
     "is_vehicle": false,
-    "is_character": true,
+    "is_character": false,
     "is_monster": false,
     "is_psyker": false,
     "has_armory_access": true,

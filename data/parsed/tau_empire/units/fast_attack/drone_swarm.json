@@ -238,7 +238,7 @@
         "Environmental scan: Enemy units charging a unit with a Warscaper Drone have to make a dangerous terrain test after their Charge move. If a second Warscaper Drone is selected, enemy units have to make two dangerous terrain tests instead.",
         "Grav inhibitor: Grav Inhibitor Drones reduce enemy Charge movements that target the model or its attached unit by 2\". If a second Grav Inhibitor Drone is present, it reduces the range by another 2\".",
         "Shielded: Units that contain a Shield Drone gain Ward(6+) against ranged attacks. A second Shield Drone grants Ward(5+) against ranged attacks.",
-        "Shrouded: Units that contain a Stealth Drone can't be targeted by enemies outside of 24\" range. A second Stealth Drone reduces that range to 18\"."
+        "Shrouded: Units that contain a Stealth Drone can't be targeted by enemies outside of 24\" range. A second Stealth Drone reduces that range to 18\". "
     ],
     "unit_type": "Jump pack",
     "keywords": [],

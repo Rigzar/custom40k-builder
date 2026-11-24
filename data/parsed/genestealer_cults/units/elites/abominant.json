@@ -39,12 +39,12 @@
         "Ambush, Berserk(5+), Infiltrator, Massive(1), Regeneration(1), Use cover",
         "Mindwyrm familiar: The model can re-roll 1 to hit and 1 to wound roll.",
         "The Chosen One: All melee weapons of the Abominant and its attached unit gain the \"Deflagrate(5+)\" ability.",
-        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
+        "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type) like a Character. Additionally, that unit gains the \"Bodyguard\" ability."
     ],
-    "unit_type": "Character model, Monstrous Infantry",
+    "unit_type": "Monstrous Infantry",
     "keywords": [],
     "is_vehicle": false,
-    "is_character": true,
+    "is_character": false,
     "is_monster": false,
     "is_psyker": false,
     "has_armory_access": true,
