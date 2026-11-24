@@ -32,6 +32,9 @@ export function applyEquipDeltas(
 ): Record<string, string> {
   const result = { ...stats };
   for (const [key, delta] of Object.entries(mods.statDeltas)) {
+    // A vehicle takes none of the model-stat bonuses except its Movement and its firing / fighting skill (same rule as
+    // lib/statPipeline.ts, which the unit card and the battle view use; the print used to apply every one of them).
+    if (isVehicle && key !== 'M' && key !== 'BS' && key !== 'WS') continue;
     if (result[key] !== undefined) result[key] = applyDelta(result[key], delta!);
   }
   if (!isVehicle && mods.armorSave !== null) {

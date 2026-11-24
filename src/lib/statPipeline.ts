@@ -131,7 +131,9 @@ export function resolveStatValue(
   step(input.traitStatMods.filter(s => s.stat === k).reduce((a, s) => a + s.delta, 0), 'trait');
   // 4 — Wargear this row actually carries
   // A vehicle takes none of them except its firing and fighting skill: Daemonic possession "reduces its BS and WS" (#281).
-  if ((!input.unit.is_vehicle || k === 'BS' || k === 'WS') && input.isEquipTarget) {
+  // ...and its Movement: Votann "Refined power cores" (+2"), Orks "Red paint" (+1") and "Stompamatic Pistons" (+2") are vehicle
+  // upgrades whose whole effect is Movement, and none of them showed (found by buying every stat item and reading the profile).
+  if ((!input.unit.is_vehicle || k === 'BS' || k === 'WS' || k === 'M') && input.isEquipTarget) {
     const before = display.match(/^(\d)\+/)?.[1];
     step(input.equipMods.statDeltas[k] ?? 0, 'equip');
     // "(to a maximum of 4+)": a reduction never takes a skill past the cap (a value already worse than the cap is left alone).

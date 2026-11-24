@@ -26,7 +26,7 @@ const EQUIP_STAT_MAP: [RegExp, string, number][] = [
   [/\+(\d+)\s+wounds?/i,         'W',  1],
   [/\+(\d+)"\s+movement/i,       'M',  1],
   [/\+(\d+)\s+initiative/i,      'I',  1],
-  [/\+(\d+)\s+leadership/i,      'LD', 1],
+  [/\+(\d+)\s+(?:to\s+)?leadership/i, 'LD', 1],
   // SOURCE: Marksman honours "The model gains +1 Ballistic skill."
   [/\+(\d+)\s+ballistic\s+skill/i, 'BS', -1],
   // SOURCE: Swordsman honours "The model gains +1 Weapon skill."
@@ -54,6 +54,65 @@ const EQUIP_STAT_MAP: [RegExp, string, number][] = [
 // "+5 Strength for these attacks" (Iron Warriors Siege Breaker, GH#305) is an optional, per-attack trade
 // ("may choose to make some or all melee attacks at Initiative 1"), not a bonus to the bearer's profile.
 const AURA_PHRASES = /\+\d+ \w+ for (?:these|those) (?:melee |ranged )?attacks|attached unit|friendly unit|friendly [^.]{0,60}?\bunits?\b|roll 1d6 during each [a-z]+ phase\. if the result|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
+
+/**
+ * Words that make a bonus temporary or conditional. TEMPORARY ones do so wherever they stand in the sentence ("+1 Attack until the end of
+ * the battle round, when they perform a Charge"); POSITIONAL ones only when they come BEFORE the bonus ("If the model manifested a power, it
+ * gains +1 Initiative" is conditional, "The model gains +1 Leadership, but loses this bonus if it ever flees" is part of the profile).
+ */
+const TEMPORARY = /\b(?:until|when|whenever|during|once per|at the start|at the end|everytime|every time|each time|for the rest|may activate)\b/i;
+const POSITIONAL = /\b(?:if|as long as|may choose|can choose|may gain|instead|roll \d*d\d)\b/i;
+/** The first bonus a sentence states: "+1 Strength", "+1" Movement", "a 4+ ward save", "Ward(4+)". */
+const BONUS = /\+\d|\d\+\s+(?:armou?r|ward|invulnerab\w+)\s+save|\bgains an? \d\+ save|\bWard\(\d\+\)/i;
+
+/** Is the bonus of this sentence only conditional / temporary? */
+function isConditional(sentence: string): boolean {
+  // "gains +1" Movement when equipped with a Jump pack" names the gear that has to be there, not a moment of the game.
+  const s = sentence.replace(/\bwhen equipped with\b[^.]*/i, '');
+  if (TEMPORARY.test(s)) return true;
+  const c = s.search(POSITIONAL);
+  if (c < 0) return false;
+  const bonus = s.search(BONUS);
+  return bonus < 0 || c < bonus;
+}
+
+/** The sentences of an item's text whose bonus is always true (see isConditional). */
+function permanentText(desc: string): string {
+  return (desc.match(/[^.!?]+[.!?]?/g) ?? []).filter(x => !isConditional(x)).join(' ');
+}
+
+/**
+ * The sentences of an item's text that are about the bearer himself: no condition, and no aura on others. "The model and its attached
+ * unit gain +1 Strength" counts (the model is the bearer, the unit gets it too: not modelled); "The attached unit gains..." and
+ * "friendly units within 12" gain..." do not.
+ */
+function bearerSentences(desc: string): string {
+  const sentences = desc.match(/[^.!?]+[.!?]?/g) ?? [];
+  return sentences.filter(s => {
+    if (isConditional(s)) return false;
+    // The outcomes of a roll or a choice ("Roll 1D3: 1 - The unit gains +1 Strength. 2 - ...") are lines of a list, not the bearer's own bonus.
+    if (/^\s*(?:\d+\s*[-–:)]|[-•–]\s)/.test(s)) return false;
+    if (/\b(?:this|the) model and (?:its|an|the) (?:attached )?unit\b/i.test(s)) return true;
+    return !AURA_PHRASES.test(s);
+  }).join(' ');
+}
+
+/**
+ * The stat and armour-save changes an OPTION's own ability line gives its bearer ("Grasping Pseudopods: The model gains +2 Attacks.",
+ * "Subcutaneous Armor: The model gains a 5+ armor save."). Same reading as an Armory item's text: only the sentences that are always true,
+ * and for an aura ("The model and its attached unit...") the bearer's own part. Stats the option already declares in effect.stat_mod are skipped.
+ */
+export function parseOptionText(text: string, declaredStats: Set<string>): { statDeltas: Record<string, number>; armorSave: number | null } {
+  const src = AURA_PHRASES.test(text) ? bearerSentences(text) : permanentText(text);
+  const statDeltas: Record<string, number> = {};
+  for (const [re, key, sign] of EQUIP_STAT_MAP) {
+    if (declaredStats.has(key)) continue;
+    const m = src.match(re);
+    if (m) statDeltas[key] = parseInt(m[1]) * sign;
+  }
+  const armor = src.match(/(\d)\+\s+armou?r\s+save/i) ?? src.match(/\bgains an? (\d)\+ save\b(?!\s+against)/i);
+  return { statDeltas, armorSave: armor ? parseInt(armor[1]) : null };
+}
 
 // Quoted words that name a UNIT TYPE, not an ability. When an item says "gains the unit type 'Bike'"
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a
@@ -127,6 +186,21 @@ export function parseEquipMods(
     // the base profile already bakes in the shared armour bonuses (+1 T / +1 A / Sv), so only the
     // save/invuln may change. Suppress the bought armour's stat deltas so they do not double-apply.
     const isArmourSwap = !!it.armourKeyword && !!innateArmour;
+    // Only the sentences that are always true: "Once per game, the model may gain a 3+ ward save" (Shield Bearer, Bone Shard, Starmist Raiment),
+    // "If the model manifested a power, it gains +1 Initiative" (Gyrotemporal vault), "Once per battle ... +2 Attacks" (Moment Shackle) are not part of the profile.
+    const permanent = permanentText(desc);
+    // An item with an aura phrase ANYWHERE in its text used to lose every stat bonus it had (Shard of the Monolith: "The model gains +1 Strength and
+    // +1 Initiative. It may never use ... the nearest enemy unit"; Banner of the Eagle / Crusade of Wrath / Household banner: "The model and its
+    // attached unit gain +1 Strength"). The bearer's own sentences still count: read them one by one, skipping the conditional and aura ones.
+    if (!isArmourSwap && AURA_PHRASES.test(desc)) {
+      const bearerText = bearerSentences(desc);
+      const declared = new Set((it.typeEffect?.stat_mod ?? []).map(sm => String(sm.stat).toUpperCase()));
+      for (const [re, key, sign] of EQUIP_STAT_MAP) {
+        if (declared.has(String(key).toUpperCase())) continue;
+        const m = bearerText.match(re);
+        if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]) * sign;
+      }
+    }
     // Only apply stat deltas when the bonus clearly applies to the bearer, not an aura for other units
     if (!isArmourSwap && !AURA_PHRASES.test(desc)) {
       // An item that already DECLARES the change in its `effect.stat_mod` is applied through the
@@ -139,7 +213,7 @@ export function parseEquipMods(
       // Positive stat deltas: "gains +N Stat"
       for (const [re, key, sign] of EQUIP_STAT_MAP) {
         if (declared.has(String(key).toUpperCase())) continue;
-        const m = desc.match(re);
+        const m = permanent.match(re);
         if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]) * sign;
       }
       // SET stat: "improves its X value to Y" / "improves its X to Y" (e.g. Living vehicle "WS to 4+")
@@ -183,10 +257,10 @@ export function parseEquipMods(
     // session's earlier "paid for, never applied" armory audit). Excludes a save conditioned on
     // something else ("...4+ save against losing a wound from Overheating", Tau's Earth caste pilot
     // array) via the negative lookahead — that isn't a general armor-save upgrade.
-    const armor = desc.match(/(\d)\+\s+armou?r\s+save/i) ?? desc.match(/\bgains an? (\d)\+ save\b(?!\s+against)/i);
+    const armor = permanent.match(/(\d)\+\s+armou?r\s+save/i) ?? permanent.match(/\bgains an? (\d)\+ save\b(?!\s+against)/i);
     if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }
     // "Ward(X+)" is the new spelling in the sheets (2026-10); the sentence form still works for sheets not moved yet.
-    const invuln = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i) ?? desc.match(/\bWard\((\d)\+\)/i);
+    const invuln = permanent.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i) ?? permanent.match(/\bWard\((\d)\+\)/i);
     if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }
     // An optional per-attack trade ("may choose ... but gains +5 Strength for these attacks", Siege Breaker, GH#305)
     // is not added to the stat block (see AURA_PHRASES); show it as a described ability so the card still says what

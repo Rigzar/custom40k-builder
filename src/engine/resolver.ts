@@ -17,6 +17,7 @@ import { getTraitEffects } from './traitEffects';
 import { effectiveSubfactions, traitRequiredSubfaction } from './codex_dark_eldar/subfaction';
 import { getCombatDrug } from './codex_dark_eldar/combatDrugs';
 import { freeVeteranCap, veteranAbilityItems, veteranAbilityName } from './freeVeterans';
+import { parseOptionText } from './equipMods';
 import { csmResolve } from './codex_csm/resolver';
 import { cdResolve } from './codex_chaos_daemons/resolver';
 import { smResolve } from './codex_space_marines/resolver';
@@ -1675,6 +1676,23 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       }
       applyEffect(choice?.effect);
       grantChoiceWeapons(choice?.effect);
+      // The datasheet states the upgrade's stat / save change only as text ("Grasping Pseudopods: The model gains +2 Attacks."): paid for, never shown
+      // (found by buying every option and reading the profile). Read it like an Armory item's text, minus the stats the option declares itself.
+      if (choice) {
+        const declared = new Set((choice.effect?.stat_mod ?? []).map(sm => String(sm.stat).toUpperCase()));
+        const declaresSv = (choice.effect?.stat_set ?? []).some(ss => ss.stat === 'SV') || (choice.effect?.stat_exact ?? []).some(se => se.stat === 'SV');
+        for (const nm of [choice.name, ...choice.name.split(/\s+&\s+/)]) {
+          const line = (unit.abilities ?? []).find(a => { const c = a.indexOf(':'); return c > 0 && _choiceNorm(a.slice(0, c).split(/\r?\n/)[0]) === _choiceNorm(nm); });
+          if (!line) continue;
+          const parsed = parseOptionText(line.slice(line.indexOf(':') + 1), declared);
+          for (const [stat, delta] of Object.entries(parsed.statDeltas)) optionStatMods.push({ stat, delta });
+          if (parsed.armorSave !== null && !declaresSv) {
+            const cur = optionStatSets.SV?.match(/^(\d)\+/)?.[1];
+            if (!cur || parsed.armorSave < parseInt(cur, 10)) optionStatSets.SV = parsed.armorSave + '+';
+          }
+          break;
+        }
+      }
     }
   }
   // Armory-item effects: a bought item may confer a UNIT-TYPE change ("Chaos Space Marine bike" →
