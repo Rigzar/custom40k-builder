@@ -2,6 +2,24 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-favoured-daemons-leader-armory-01",
+    status: "known",
+    title: "Favoured units: do Chaos Daemons need a squad leader with Armory access? (GH#309)",
+    description: "OPEN, asked 2026-11-24. The Index says squad leaders are \"single models within a unit that have sole access to the armory\". No Daemon leader (Bloodreaper, Plaguebringer, Alluress, Heartseeker...) has Armory access on the sheet, so read literally no Daemon unit could be Favoured; the app keeps today's reading (a leader model is enough) for Chaos Daemons, and requires the Armory-holding leader for Chaos Space Marines (with the upgrade taken). Chaos Space Marines Chosen, where every model has access, count as having no single leader. Question for DemonGyro / Dominic; TeCrisis suggested a \"discernible leader regardless of Armory access\" as the ideal."
+  },
+  {
+    id: "ki-de-flickerfield-flyers-01",
+    status: "known",
+    title: "Dark Eldar Flickerfield on the Razorwing Jetfighter and Voidraven Bomber adds nothing (GH#307)",
+    description: "OPEN, question for Dominic. Both flyers already have Ward(5+) on the datasheet, and the Flickerfield (+41 points) gives a 5+ ward save too, so buying it changes nothing. Intended, or should it improve the ward or not be offered?"
+  },
+  {
+    id: "ki-unit-update-pending-2026-11-24",
+    status: "known",
+    title: "Waiting for the next unit update: Scorpion claw columns, Abominant and Skorpekh Lord join text",
+    description: "OPEN 2026-11-24. The Striking Scorpions' Scorpion claw is still stored with the shifted columns the sheet had (Range \"Melee\", Type \"x2\"...); the author fixed the sheet. The Abominant (\"Unquestioning Loyalty\") and Skorpekh Lord (\"Flesh-eater Court\") sheet text adds \"like a Character\". All three are unit data written by the update script, which crashed on its own last commit (an `in ... | in ...` precedence slip, fixed in the repository on 2026-11-24)."
+  },
+  {
     id: "ki-orks-mek-gunz-unit-weapon-01",
     status: "fixed",
     title: "Mek Gunz should allow for different types; should be one choice per unit selection (GH#302)",

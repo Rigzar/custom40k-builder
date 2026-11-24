@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'j';
+export const REVISION = '';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -36,6 +36,23 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.91',
+    date: '2026-11-24',
+    title: "Item and option stats fixed, Core Rules 1.49, free Veteran abilities",
+    changes: [
+      "STAT ITEMS AND OPTIONS. Every Armory item and every option that changes a stat was bought and its resolved profile compared with its text (1,292 items, 3,881 options). Items with an aura phrase anywhere in the text lost their whole bonus; they show it now: Shard of the Monolith (+1 S, +1 I), Lord of Death (+1 S, +1 T), Banner of the Eagle and Crusade of Wrath (+1 S), Chalice of Blood (+1 I), Cenobite servitor (+1\" M), Enhanced data-tether and Household banner (+1 LD), the Chapter, Order, Brotherhood and Waaagh! banners (+1 LD, +1 A), Paragon of fate (+1 T). Only the bearer's own sentences count: the Atomic Energy Manipulator and the Righteous Fury / Aura of Fervor / Anvil sigil conditionals still give the bearer nothing.",
+      "TEMPORARY BONUSES. A bonus that is once per game, once per battle or conditional showed as permanent and no longer does: Moment Shackle (+2 A), Bloodsoaked mantle, Combat Drugs, Gyrotemporal vault, A league apart, Shield Bearer / Bone Shard / Starmist Raiment (3+ ward). A bonus stated first with a later loss (\"+1 Leadership, but loses it if it flees\") stays.",
+      "VEHICLES. Movement upgrades never showed on vehicles (Votann Refined power cores +2\", Orks Red paint +1\" and Stompamatic Pistons +2\"). They do now, and the Print View applies the same vehicle rule as the card (Movement, BS and WS only).",
+      "OPTION UPGRADES. 15 options stated their stat only as text and gave nothing: Chaos Spawn Grasping Pseudopods (+2 A) and Subcutaneous Armor (5+), Hive Gangers Cawdor, Goliath and Van Saar, Custodian Guard Vexilia, Plague Marines banner, Kroot Great Knarloc armor, Patriarch and Purestrain Bulwark strain, Hybrid Metamorph whip, claw and talon. They are read from the datasheet line of the same name now.",
+      "FREE VETERAN ABILITIES (suggested by Dave). The Custodes Shield-Captain's Battle Tactics (two), the Chaos Lieutenant's Veterans of the Long War, and the Combat tactics of the Space Marine and Grey Knights Captains, Lieutenant, Centurion and Captain Dreadnought (one or two): pick them on the character's card; they show in the card, the print and the battle view and do not count against the veteran limit. The friendly unit that gets them is not tracked.",
+      "CORE RULES 1.49. The model and weapon ability texts are generated from the rulebook (scripts/gen_core_rules.cjs) and the app shows that text, so a new Core Rules version only needs the script run; docs/core-rules-changelog.md records every change with its date. Updated: Bomb (range increase), Stealth (or Indirect weapons), Swarm, Vanguard, Ammo (Weapon Damage), Graviton (dangerous terrain until the end of the next activation) and more. Codex rules still override the Core Rules (FAQ 5). Translations of the changed rules are pending.",
+      "GITHUB #309, FAVOURED UNITS. A Favoured unit needs a squad leader with Armory access: with the upgrade that gives it (Aspiring Champion, Traitor Sergeant, Mutant Boss, Aspiring Havoc Champion) or a champion who has it. Eight Chaos Space Marines were Favoured without one; Chosen (every model has access) are not. The leader's Mark and +1 Attack show in the options panels and the Print View too. Chaos Daemons are unchanged: their leaders have no Armory access on the sheet, which asks for the authors' answer.",
+      "GITHUB #308, LOCKED TZEENTCH MARKS. Rubric Marines, Scarab Occult Terminators, Tzaangors, Changecaster, Pink Horrors and the other locked-Tzeentch units gain Warded (a 6+ ward, or one better than the one they have).",
+      "GITHUB #307, #306, #305. The Dark Eldar Flickerfield gives its 5+ ward save. Dark Eldar units with a fixed Kabal, Coven or Cult no longer offer the sub-faction picker, and \"Swords for hire\" units get the one they pick as a keyword (the keywords were compared with a different capitalisation). The Iron Warriors Siege Breaker no longer adds +5 Strength to the model; the card lists it as a choice.",
+      "SHEETS 2026-11-24. Dark Eldar 1.8: the Agonizer costs 4 / 5 points. Tyranids 1.15: Synapse no longer says the unit does not receive a Battleshock token. Necrons 1.14, Genestealer Cults 1.7 and Eldar tabs were compared: the unit text of the Abominant and Skorpekh Lord (\"join ... like a Character\") and the Striking Scorpions' Scorpion claw wait for the next unit update.",
+    ],
+  },
   {
     version: '1.90',
     date: '2026-11-20',
