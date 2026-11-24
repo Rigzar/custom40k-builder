@@ -258,7 +258,9 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
     ctanYngirActive,
   });
   const minSize = unitMinSize(u);
-  const maxSize = unitMaxSize(u);
+  // A Legendary Retinue member is taken at its MINIMUM size, never a bigger squad ("up to 4 models"): one model, or the pair a datasheet
+  // fixes (Geminae Superia, Ethereal Guard), whatever size range its own datasheet has.
+  const maxSize = item.retinue ? minSize : unitMaxSize(u);
   // Disjoint legal range ("1 or 4-10", e.g. Necrons Lychguard) — see Model.squad_min. Only
   // meaningful for single-model-group units; multi-group units use the modelSizes stepper instead.
   const squadMin = u.models.length === 1 ? u.models[0].squad_min : undefined;

@@ -2446,6 +2446,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (retinueLead && !state.army.some(e => !e.retinue && !e.factionSource && e.unitName === retinueLead)) {
         items.push({ type: 'error', text: T('valRetinueNeedsInquisitor', { unit: retinueLead }) });
       }
+      // "You may select up to 4 MODELS": each member is one model, never a squad (a T'au Sub-commander has a 1-2 range of its own).
+      for (const m of members) {
+        const mu = data.allied?.[m.factionSource ?? '']?.units[m.unitName];
+        const least = Math.max(1, (mu?.models ?? []).reduce((n, x) => n + x.min, 0));
+        if ((m.size ?? 1) > least) items.push({ type: 'error', text: T('valRetinueOneModel', { unit: m.customName || m.unitName, count: m.size }) });
+      }
       if (members.length > RETINUE_MAX_MODELS) items.push({ type: 'error', text: T('valRetinueMax', { max: RETINUE_MAX_MODELS, count: members.length }) });
       const perFaction = new Map<string, number>();
       for (const m of members) perFaction.set(m.factionSource ?? '', (perFaction.get(m.factionSource ?? '') ?? 0) + 1);

@@ -123,7 +123,7 @@ export type TranslationKey =
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
   | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
   | 'campaignLogging'
-  | 'ironLordGuardFull' | 'ironLordGuardSameAsAlly' | 'valIronLordGuardMax' | 'valIronLordGuardNoLegacy' | 'valIronLordGuardUnit' | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
+  | 'ironLordGuardFull' | 'ironLordGuardSameAsAlly' | 'valIronLordGuardMax' | 'valIronLordGuardNoLegacy' | 'valIronLordGuardUnit' | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel' | 'retinueFactionTaken' | 'retinueFull' | 'retinueSameAsAlly' | 'valRetinueMax' | 'valRetinueOneModel' | 'valRetinueFactionTwice' | 'valRetinueFactionNotAllowed' | 'valRetinueUnitNotAllowed' | 'valRetinueUnique' | 'valRetinueSameAsAlly'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'ascendedAllMarksBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice' | 'valRetinueNeedsInquisitor' | 'xenariteTabLabel' | 'xenariteIntro'
@@ -1048,6 +1048,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     retinueFull: 'The Legendary Retinue is full (up to 4 models).',
     retinueSameAsAlly: 'This codex is your allied detachment; pick another one for the Retinue.',
     valRetinueMax: 'Legendary Retinue: up to {max} models (have {count}).',
+    valRetinueOneModel: 'Legendary Retinue: {unit} counts as ONE model (it has {count}).',
     valRetinueNeedsInquisitor: 'The Legendary Retinue can only be selected if the army also has this unit: {unit}.',
     ironLordGuardFull: "Legacy of the Iron Lord: one Imperial Guard vehicle per AOP is already taken.",
     ironLordGuardSameAsAlly: "Imperial Guard is your Allied Detachment: take the vehicle there.",
@@ -2268,6 +2269,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     retinueFull: 'Die Legendary Retinue ist voll (bis zu 4 Modelle).',
     retinueSameAsAlly: 'Dieser Codex ist dein Verbündeter; wähle für die Retinue einen anderen.',
     valRetinueMax: 'Legendary Retinue: bis zu {max} Modelle (hat {count}).',
+    valRetinueOneModel: 'Legendary Retinue: {unit} zählt als EIN Modell (hat {count}).',
     valRetinueNeedsInquisitor: 'Die Legendary Retinue kann nur gewählt werden, wenn die Armee auch diese Einheit hat: {unit}.',
     ironLordGuardFull: "Vermächtnis des Iron Lord: Pro AOP ist bereits ein Imperial-Guard-Fahrzeug gewählt.",
     ironLordGuardSameAsAlly: "Imperial Guard ist dein verbündetes Kontingent: wähle das Fahrzeug dort.",
@@ -3486,6 +3488,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     retinueFull: 'La Legendary Retinue está completa (hasta 4 modelos).',
     retinueSameAsAlly: 'Este códice es tu destacamento aliado; elige otro para la Retinue.',
     valRetinueMax: 'Legendary Retinue: hasta {max} modelos (tiene {count}).',
+    valRetinueOneModel: 'Legendary Retinue: {unit} cuenta como UN modelo (tiene {count}).',
     valRetinueNeedsInquisitor: 'La Legendary Retinue solo puede elegirse si el ejército también tiene esta unidad: {unit}.',
     ironLordGuardFull: "Legacy of the Iron Lord: ya hay un vehículo de la Imperial Guard por AOP.",
     ironLordGuardSameAsAlly: "La Imperial Guard es tu Destacamento Aliado: toma el vehículo allí.",
