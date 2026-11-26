@@ -725,6 +725,7 @@
  "valUsingAops": "{n} 個のAOPを使用中。",
  "valAlliedNeedAtLeast": "同盟分遣隊：{slot} が最低 {min} 必要です（現在 {used}）。",
  "valAlliedTransportOverMax": "同盟分遣隊：専用輸送車両が最大数を超えています（{used}/{max}）。",
+ "valAlliedDetachmentPrefix": "同盟分遣隊：",
  "valAlliedSlotNotAllowed": "同盟分遣隊：{slot} は使用できません（現在 {used}）。",
  "valAlliedSlotOverMax": "同盟分遣隊：{slot} が最大数を超えています（{used}/{max}）。",
  "valAlliedRatioExceedsTroops": "同盟：{slot}（{used}）が主力部隊（{troops}）を上回っています — 主力部隊1つにつき {slot} は1つまで。",

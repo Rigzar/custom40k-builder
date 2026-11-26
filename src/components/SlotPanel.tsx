@@ -8,7 +8,7 @@ import { retinueFactionKeys, retinueEligible, RETINUE_MAX_MODELS } from '../engi
 import { ironLordGuardKeys, ironLordGuardEligible } from '../engine/ironLordGuard';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits, archetypeSlotBonus, unlockingLegacies } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeFreeSlotAdjustments, ctanShardCapBlockReason, pointCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
+import { computeFreeSlotAdjustments, computeAlliedFreeSlotAdjustments, freeSlotsFor, ctanShardCapBlockReason, pointCapBlockReason, engagementGateBlockReason, countInfantrySelections, getSlotUsage, getAopState } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -162,8 +162,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
      * always counted it correctly — only the panel the player reads was wrong, and it also drove
      * the Elites/FA/HS maxima, which scale with the Troop count.
      */
+    // ...and the ally's own "does not occupy a slot" unit rules come off the count, as in the validator (Skirmish gets none).
+    const allyFree = computeAlliedFreeSlotAdjustments(army, data as FactionData, alliedFactionKey, store);
     const usedAllied = (slot: string) =>
-      getSlotUsage(army, store.data!, slot, rule, alliedFactionKey ?? undefined, true, engagement);
+      Math.max(0, getSlotUsage(army, store.data!, slot, rule, alliedFactionKey ?? undefined, true, engagement) - freeSlotsFor(allyFree, slot));
     // Core Rules: each Troop beyond 1 grants +1 Elites/FA/HS slot — precompute troop count.
     const allyTroopCount = usedAllied('Troops');
     const allyExtrasUsed = ['Elites', 'Fast Attack', 'Heavy Support'].reduce((n, sl) => n + usedAllied(sl), 0);

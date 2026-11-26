@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = '';
+export const REVISION = 'a';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -51,6 +51,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       "GITHUB #308, LOCKED TZEENTCH MARKS. Rubric Marines, Scarab Occult Terminators, Tzaangors, Changecaster, Pink Horrors and the other locked-Tzeentch units gain Warded (a 6+ ward, or one better than the one they have).",
       "GITHUB #307, #306, #305. The Dark Eldar Flickerfield gives its 5+ ward save. Dark Eldar units with a fixed Kabal, Coven or Cult no longer offer the sub-faction picker, and \"Swords for hire\" units get the one they pick as a keyword (the keywords were compared with a different capitalisation). The Iron Warriors Siege Breaker no longer adds +5 Strength to the model; the card lists it as a choice.",
       "LEGENDARY RETINUE (reported by DemonGyro). The Retinue takes up to 4 MODELS, and the model choice was not locked: a T'au Sub-Commander (1-2), a Votann Iron-master (1-4) or Grimnyr (1-3) or a Daemon Herald (1-2) could be taken as several. Each member is one model now (or the pair a datasheet fixes, Geminae Superia and Ethereal Guard), the size stepper is hidden on a Retinue member, and a saved list with a bigger one shows an error. LEGION OF THE DAMNED archetype: the closed Space Marines roster is an explicit rule instead of a whitelist with a made-up unit name (the data health check flagged it). POINTS CALCULATOR: the special rule costs were re-read from the v5.5 workbook (34 rules with a 0 cost showed empty, Shield host is 1 per Wound, four rules were missing).",
+      "ALLIED DETACHMENTS AND FREE SLOTS (reported by Sophtym). A unit whose own rule says it does not occupy a slot still took one in an allied detachment: an allied Necron Hexmark Destroyer used an Elite slot although the detachment had a Lord. The ally's own unit rules (Hexmark Destroyer, Royal Court, Cryptothralls, Kroot, Commissar...) now come off the slot count of its detachment, in the Allied Detachment panel and in the validator, counted among that detachment's own units only (a Lord of the main army frees nothing there). Skirmish still grants none, as the Missions say.",
+      "INQUISITION ARBITES (reported by barney). \"Any remaining models may swap their Arbites combat shotguns\" for the shield and shock maul only changed one model. It is a count you choose now (one, several or all), sharing the shotgun pool with the two Arbitrators who may take a Webber, grenade launcher, Executioner shotgun or heavy stubber.",
       "SHEETS 2026-11-24. Dark Eldar 1.8: the Agonizer costs 4 / 5 points. Tyranids 1.15: Synapse no longer says the unit does not receive a Battleshock token. Necrons 1.14, Genestealer Cults 1.7 and Eldar tabs were compared: the Abominant and Skorpekh Lord join text (\"like a Character\") and the Striking Scorpions' Scorpion claw columns are fixed.",
     ],
   },

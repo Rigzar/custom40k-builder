@@ -1320,9 +1320,13 @@ export function computeFreeSlotAdjustments(
   data: FactionData,
   rule: Rule,
   state: ArmyState,
+  /** true when `army` is ONE allied detachment's own units (see computeAlliedFreeSlotAdjustments) */
+  alliedScope = false,
 ): FreeSlotAdjustments {
   const pts = state.pointLimit;
-  const cd              = computeCdFreeSlots(army, data, rule);
+  // In an allied detachment the Daemons' Entourage / Herald are already counted by getSlotUsage (alliedCdFreeHeraldIds), by id,
+  // and the Legendary Retinue and the HH Overseer's Auxilia are primary-army mechanisms: leaving them out stops them being subtracted twice.
+  const cd              = alliedScope ? { hq: 0, fa: 0, notes: [] as string[] } : computeCdFreeSlots(army, data, rule);
   const assassin        = computeAssassinFreeSlots(army, data);
   const warlock         = computeEldarWarlockFreeSlots(army, data, pts);
   const geminaeSuperia  = computeGeminaeSuperiaFreeSlots(army, data);
@@ -1346,9 +1350,9 @@ export function computeFreeSlotAdjustments(
   const royalCourt      = computeRoyalCourtFreeSlots(army, data);
   const hqShared        = computeArchetypeHqSharedSlots(army, rule);
   const navy            = computeNavyFreeSlots(army, data);
-  const retinue         = computeRetinueFreeSlots(army, data);
+  const retinue         = alliedScope ? { hq: 0, notes: [] as string[] } : computeRetinueFreeSlots(army, data);
   const ringleader      = computeRingleaderFreeSlots(army, data);
-  const overseerAuxilia = computeOverseerAuxiliaFreeSlots(army);
+  const overseerAuxilia = alliedScope ? { troops: 0, notes: [] as string[] } : computeOverseerAuxiliaFreeSlots(army);
   const barge           = computeCatacombBargeFreeSlots(army, data);
 
   return {
@@ -1369,6 +1373,34 @@ export function computeFreeSlotAdjustments(
       ...royalCourt.notes, ...hqShared.notes, ...navy.notes, ...retinue.notes, ...ringleader.notes, ...overseerAuxilia.notes, ...barge.notes,
     ],
   };
+}
+
+/**
+ * The same unit-rule slot exemptions, for an ALLIED detachment (Discord, Sophtym: "detachments don't allow units to not take a slot. E.g. a
+ * Necrons Hexmark Destroyer still uses an Elite slot when the detachment has a Lord").
+ *
+ * Core Rules: allies use their own AOP and nothing there switches a datasheet's own "does not occupy a slot" line off (a Codex rule beats the
+ * Core Rules, FAQ 5); only Skirmish does, so it returns nothing there. The ally's units are computed ALONE (factionSource stripped, the ally's
+ * data and archetype) so an allied Lord frees an allied Hexmark and never one of the primary army's.
+ */
+export function computeAlliedFreeSlotAdjustments(
+  army: RosterEntry[],
+  alliedData: FactionData | null | undefined,
+  alliedFaction: string | null | undefined,
+  state: ArmyState,
+): FreeSlotAdjustments {
+  const none: FreeSlotAdjustments = { hq: 0, elites: 0, fa: 0, hs: 0, troops: 0, notes: [] };
+  if (!alliedData || !alliedFaction || state.engagement === 'skirmish') return none;
+  const allyArmy = army.filter(i => isAlliedEntry(i, alliedFaction)).map(i => ({ ...i, factionSource: undefined }));
+  if (allyArmy.length === 0) return none;
+  const allyRule = getArchetypeRule(state.alliedArchetype ?? '', state.alliedLegacy);
+  return computeFreeSlotAdjustments(allyArmy, alliedData, allyRule, { ...state, army: allyArmy }, true);
+}
+
+/** How many entries of `slot` the adjustments take out of the slot count. */
+export function freeSlotsFor(adj: FreeSlotAdjustments, slot: string): number {
+  return slot === 'HQ' ? adj.hq : slot === 'Elites' ? adj.elites : slot === 'Fast Attack' ? adj.fa
+    : slot === 'Heavy Support' ? adj.hs : slot === 'Troops' ? adj.troops : 0;
 }
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
@@ -3646,8 +3678,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // not more than 1 of each battlefield role, and each of these requires a Troop unit to unlock." So the
       // three slots share ONE allowance equal to the Troop count, and each holds at most 1 (x Warrant of Trade).
       const troopScaledSlots: readonly string[] = ['Elites', 'Fast Attack', 'Heavy Support'];
-      const alliedTroops = getSlotUsage(state.army, data, 'Troops', allyRuleForAop, state.alliedFaction, true, state.engagement);
-      const extrasUsed = troopScaledSlots.reduce((n, sl) => n + getSlotUsage(state.army, data, sl, allyRuleForAop, state.alliedFaction, true, state.engagement), 0);
+      // The ally's own unit rules that take a unit out of a slot (Hexmark Destroyer, Royal Court, Commissar...), worked out inside that detachment.
+      const allyFree = computeAlliedFreeSlotAdjustments(state.army, alliedData, state.alliedFaction, state);
+      for (const note of allyFree.notes) items.push({ type: 'ok', text: `${T('valAlliedDetachmentPrefix')} ${note}` });
+      const alliedUsed = (sl: string) => Math.max(0, getSlotUsage(state.army, data, sl, allyRuleForAop, state.alliedFaction, true, state.engagement) - freeSlotsFor(allyFree, sl));
+      const alliedTroops = alliedUsed('Troops');
+      const extrasUsed = troopScaledSlots.reduce((n, sl) => n + alliedUsed(sl), 0);
       if (extrasUsed > alliedTroops * alliedSlotFactor(data.faction)) {
         items.push({ type: 'error', text: T('valAlliedRatioExceedsTroops', { slot: troopScaledSlots.join(' / '), used: extrasUsed, troops: alliedTroops }) });
       }
@@ -3657,7 +3693,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           : ALLIED_AOP[slot];
         // Imperial Navy, Warrant of Trade: the army doubles its available slots for allied detachments.
         const max = baseMax * alliedSlotFactor(data.faction);
-        const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
+        const used = alliedUsed(slot);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: T('valAlliedNeedAtLeast', { min, slot, used }) });
         }

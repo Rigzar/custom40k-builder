@@ -183,7 +183,7 @@ export type TranslationKey =
   | 'valSkirmishDamageGain' | 'valPerNExceeded' | 'valFixedMaxExceeded' | 'valDisjointSquadSize'
   | 'valRatioPerNExceeded' | 'valCrossGroupPoolExceeded' | 'valMustPickWeapon' | 'valLowEpicOnly' | 'valLowExceeds33' | 'valLowOk'
   | 'valPlatoonLinkedCount' | 'valPlatoonUnlinkedInfantry' | 'valSlotOverMax' | 'valUsingAops' | 'valSecondAopNeedsFull' | 'valAlliedNeedAtLeast'
-  | 'valAlliedTransportOverMax' | 'valAlliedSlotNotAllowed' | 'valAlliedSlotOverMax' | 'valAlliedRatioExceedsTroops'
+  | 'valAlliedDetachmentPrefix' | 'valAlliedTransportOverMax' | 'valAlliedSlotNotAllowed' | 'valAlliedSlotOverMax' | 'valAlliedRatioExceedsTroops'
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
   | 'valLockedMarkIncompatibleAllyHq' | 'valOnlyTwoTraits' | 'valSectorLordAcolytes' | 'valScarabsAsTroopsCap' | 'valUnitNotInCodex' | 'valUnitRemovedFromCodex' | 'valMinistorumThirdTraitPerUnit'
   | 'unitNotInCodexTitle' | 'unitNotInCodexBody' | 'removeFromList' | 'moveUnitUp' | 'moveUnitDown' | 'valVeteranRequired' | 'valUndividedLegacyRestriction'
@@ -1328,6 +1328,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valSecondAopNeedsFull: 'A second AOP only opens once the whole first one is filled: {list} (slots this army has no unit for count as filled; Transports, Fortifications and Flyers do not have to be).',
     valAlliedNeedAtLeast: 'Allied detachment: need at least {min} {slot} (have {used}).',
     valAlliedTransportOverMax: 'Allied detachment: Dedicated Transport over maximum ({used}/{max}).',
+    valAlliedDetachmentPrefix: 'Allied detachment:',
     valAlliedSlotNotAllowed: 'Allied detachment: {slot} not allowed (have {used}).',
     valAlliedSlotOverMax: 'Allied detachment: {slot} over maximum ({used}/{max}).',
     valAlliedRatioExceedsTroops: 'Allied: {slot} ({used}) exceeds Troops ({troops}) — 1 {slot} per Troop unit.',
@@ -2547,6 +2548,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valSecondAopNeedsFull: 'Ein zweiter AOP öffnet sich erst, wenn der gesamte erste gefüllt ist: {list} (Plätze, für die diese Armee keine Einheit hat, gelten als gefüllt; Transporter, Festungen und Flieger müssen nicht gefüllt sein).',
     valAlliedNeedAtLeast: 'Verbündete Abteilung: mindestens {min} {slot} benötigt (haben {used}).',
     valAlliedTransportOverMax: 'Verbündete Abteilung: Transportfahrzeug über Maximum ({used}/{max}).',
+    valAlliedDetachmentPrefix: 'Verbündete Abteilung:',
     valAlliedSlotNotAllowed: 'Verbündete Abteilung: {slot} nicht erlaubt (haben {used}).',
     valAlliedSlotOverMax: 'Verbündete Abteilung: {slot} über Maximum ({used}/{max}).',
     valAlliedRatioExceedsTroops: 'Verbündete: {slot} ({used}) überschreitet Truppen ({troops}) — 1 {slot} pro Truppen-Einheit.',
@@ -3766,6 +3768,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     valSecondAopNeedsFull: 'Un segundo AOP solo se abre cuando el primero está completo: {list} (los huecos para los que este ejército no tiene unidad cuentan como llenos; Transportes, Fortificaciones y Voladores no hace falta llenarlos).',
     valAlliedNeedAtLeast: 'Destacamento aliado: se necesitan al menos {min} {slot} (tienes {used}).',
     valAlliedTransportOverMax: 'Destacamento aliado: Transporte Dedicado por encima del máximo ({used}/{max}).',
+    valAlliedDetachmentPrefix: 'Destacamento aliado:',
     valAlliedSlotNotAllowed: 'Destacamento aliado: {slot} no permitido (tienes {used}).',
     valAlliedSlotOverMax: 'Destacamento aliado: {slot} por encima del máximo ({used}/{max}).',
     valAlliedRatioExceedsTroops: 'Aliado: {slot} ({used}) excede las Tropas ({troops}) — 1 {slot} por unidad de Tropas.',

@@ -158,7 +158,7 @@
         {
             "header": "Any remaining models may swap their Arbites combat shotguns",
             "constraint": {
-                "type": "one"
+                "type": "every"
             },
             "choices": [
                 {

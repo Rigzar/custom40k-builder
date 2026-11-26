@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v191_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v191a_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -75,6 +75,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["#306", "Dark Eldar units with a fixed Kabal, Coven or Cult no longer offer the sub-faction picker; \"Swords for hire\" units get the sub-faction they pick as a keyword."],
         ["#305", "The Iron Warriors Siege Breaker no longer adds +5 Strength by itself; the card lists it as a choice."],
       ] },
+      { label: "Inquisition", rows: [
+        ["Arbites", "Swapping the combat shotgun for the shield and shock maul now lets you choose how many models swap, not only one (barney)."],
+      ] },
+      { label: "Bugs (Discord)", rows: [
+        ["Allied detachments", "A unit whose rule says it takes no slot (a Hexmark Destroyer with a Lord, Royal Court, Commissar...) now takes none inside an allied detachment too, counted within that detachment (Sophtym). Skirmish still gives none."],
+      ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
   },
@@ -97,6 +103,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["#307", "Das Flickerfield der Dark Eldar gibt seinen 5+-Ward-Save."],
         ["#306", "Dark-Eldar-Einheiten mit festem Kabal, Coven oder Cult bieten die Unterfraktionsauswahl nicht mehr an; \"Swords for hire\"-Einheiten erhalten die gewählte Unterfraktion als Schlüsselwort."],
         ["#305", "Der Siege Breaker der Iron Warriors gibt nicht mehr von selbst +5 Stärke; die Karte listet ihn als Wahl."],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Arbites", "Beim Tausch der Kampfschrotflinte gegen Schild und Schockhammer wählst du jetzt, wie viele Modelle tauschen, nicht nur eines (barney)."],
+      ] },
+      { label: "Fehler (Discord)", rows: [
+        ["Verbündete Abteilungen", "Eine Einheit, deren Regel sagt, dass sie keinen Slot belegt (Hexmark Destroyer mit einem Lord, Royal Court, Commissar...), belegt auch in einer verbündeten Abteilung keinen mehr, gezählt innerhalb dieser Abteilung (Sophtym). Skirmish gibt weiterhin keine."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -121,6 +133,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["#306", "Las unidades Dark Eldar con Kabal, Coven o Cult fijos ya no ofrecen el selector de subfacción; las de \"Swords for hire\" reciben la subfacción elegida como palabra clave."],
         ["#305", "El Siege Breaker de los Iron Warriors ya no suma +5 de Fuerza por sí solo; la ficha lo muestra como una elección."],
       ] },
+      { label: "Inquisition", rows: [
+        ["Arbites", "Al cambiar la escopeta de combate por el escudo y la maza de choque ya eliges cuántos modelos cambian, no solo uno (barney)."],
+      ] },
+      { label: "Bugs (Discord)", rows: [
+        ["Destacamentos aliados", "Una unidad cuya regla dice que no ocupa slot (un Hexmark Destroyer con un Lord, Royal Court, Commissar...) tampoco lo ocupa ya dentro de un destacamento aliado, contando dentro de ese destacamento (Sophtym). Skirmish sigue sin dar ninguno."],
+      ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
   },
@@ -144,6 +162,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["#306", "Отряды Dark Eldar с фиксированным Kabal, Coven или Cult больше не предлагают выбор подфракции; отряды «Swords for hire» получают выбранную подфракцию как ключевое слово."],
         ["#305", "Siege Breaker Iron Warriors больше не добавляет +5 к Силе сам по себе; карточка показывает его как выбор."],
       ] },
+      { label: "Inquisition", rows: [
+        ["Arbites", "При замене боевого дробовика на щит и шоковую дубинку теперь можно выбрать, сколько моделей меняют оружие, а не только одну (barney)."],
+      ] },
+      { label: "Ошибки (Discord)", rows: [
+        ["Союзные контингенты", "Отряд, чьё правило гласит, что он не занимает слот (Hexmark Destroyer при Lord, Royal Court, Commissar...), теперь не занимает его и в союзном контингенте; считается внутри этого контингента (Sophtym). В Skirmish такого по-прежнему нет."],
+      ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
   },
@@ -166,6 +190,12 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["#307", "Dark EldarのFlickerfieldが5+のウォードセーブを与えます。"],
         ["#306", "KabalやCoven、Cultが固定のDark Eldarユニットは、サブ派閥の選択欄を出さなくなりました。「Swords for hire」ユニットは選んだサブ派閥をキーワードとして得ます。"],
         ["#305", "Iron WarriorsのSiege Breakerは自動で強さ+5を与えなくなり、カードでは選択として表示されます。"],
+      ] },
+      { label: "Inquisition", rows: [
+        ["Arbites", "戦闘用ショットガンをシールドとショックメイスに交換するとき、1体だけでなく何体交換するか選べるようになりました (barney)。"],
+      ] },
+      { label: "不具合（Discord）", rows: [
+        ["同盟分遣隊", "「スロットを使わない」というルールを持つユニット（Lordと一緒のHexmark Destroyer、Royal Court、Commissarなど）は、同盟分遣隊の中でもスロットを使わなくなりました。その分遣隊の中で数えます (Sophtym)。Skirmishでは引き続き適用されません。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",

@@ -725,6 +725,7 @@
  "valUsingAops": "Используется AOP: {n}.",
  "valAlliedNeedAtLeast": "Союзный контингент: нужно минимум {min} {slot} (есть {used}).",
  "valAlliedTransportOverMax": "Союзный контингент: Транспорт превышает максимум ({used}/{max}).",
+ "valAlliedDetachmentPrefix": "Союзный контингент:",
  "valAlliedSlotNotAllowed": "Союзный контингент: {slot} не допускается (есть {used}).",
  "valAlliedSlotOverMax": "Союзный контингент: {slot} превышает максимум ({used}/{max}).",
  "valAlliedRatioExceedsTroops": "Союзники: {slot} ({used}) превышает Войска ({troops}) — 1 {slot} на отряд Войск.",

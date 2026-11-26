@@ -43,5 +43,31 @@ let bad = 0; const eq = (l: string, a: unknown, b: unknown) => { if (JSON.string
   const gi = w.option_groups.findIndex((g: Any) => /remaining models/i.test(g.header));
   it = mk('Hearthkyn Warriors', 10, { [gi]: { 0: 1 } });
   eq('Hearthkyn Warriors x10 box only: ten Ion blasters', rows(w, it)['Ion blaster'], 10);
+
+  // Inquisition Arbites: "ANY remaining models may swap" is a count the player chooses (one, several or all), not the
+  // all-or-nothing box: 'every' stepper, sharing the shotgun pool with the two-Arbitrator group (barney: only one model changed)
+  const inq: Any = await loadBundledFaction('inquisition');
+  const a = inq.units['Arbites'];
+  const rowsI = (item: Any) => {
+    const state: Any = { army: [item], traits: {}, traitPool: [], archetype: null, legacy: null, legacy2: null, hqMark: null, engagement: 'pitched', pointLimit: 2000, alliedFaction: null, alliedArchetype: null };
+    const r: Any = resolveUnitProfile(item, a, state, inq);
+    const out: Record<string, number> = {};
+    for (const g of r.weaponGroups) for (const w of g.weapons) out[w.name] = g.countOverrides?.get(w.name) ?? g.count;
+    return out;
+  };
+  const priceI = (item: Any) => computeUnitPoints(item, a, '', 'Inquisition', 2000);
+  const ga = a.option_groups.findIndex((g: Any) => /remaining models/i.test(g.header));
+  eq('Arbites remaining-swap group is a stepper (every)', a.option_groups[ga].constraint.type, 'every');
+  const base = priceI(mk('Arbites', 5, {}));
+  for (const n of [1, 3, 5]) {
+    it = mk('Arbites', 5, { [ga]: { 0: n } });
+    eq('Arbites x5 stepper ' + n + ': Shock mauls', rowsI(it)['Shock maul'], n);
+    eq('Arbites x5 stepper ' + n + ': shotguns left', rowsI(it)['Arbites combat shotgun'] ?? 0, 5 - n);
+    eq('Arbites x5 stepper ' + n + ': base + n x 2', priceI(it), base + 2 * n);
+  }
+  it = mk('Arbites', 5, { 0: { 1: 2 }, [ga]: { 0: 3 } });
+  eq('Arbites x5 launchers + 3 mauls: three Shock mauls', rowsI(it)['Shock maul'], 3);
+  eq('Arbites x5 launchers + 3 mauls: two launchers', rowsI(it)['Arbites grenade launcher'], 2);
+  eq('Arbites x5 launchers + 3 mauls: base + 2x2 + 3x2', priceI(it), base + 10);
   process.exit(bad ? 1 : 0);
 })();
