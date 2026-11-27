@@ -235,9 +235,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                         <button
                           key={`${entry.factionSource ?? 'base'}::${entry.name}`}
                           onClick={() => { addUnit(entry.name, originalSlot, alliedFactionKey, isNested ? entry.factionSource : undefined); }}
-                          disabled={isFull}
-                          className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${
-                            isFull ? 'opacity-40 cursor-not-allowed' : 'hover:bg-emerald-900/10 group'
+                          // A full slot only dims the row and turns the count red, like the primary army's: a unit that occupies no slot
+                          // (Necron Royal Court, Hexmark) can only be added into a "full" slot, and the validator still flags a real overflow.
+                          className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left group ${
+                            isFull ? 'opacity-60 hover:opacity-100 hover:bg-emerald-900/10' : 'hover:bg-emerald-900/10'
                           }`}
                         >
                           <span className="text-[11px] text-emerald-900 group-hover:text-emerald-500 transition-colors w-3 shrink-0 text-center">+</span>

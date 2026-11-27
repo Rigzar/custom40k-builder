@@ -110,7 +110,8 @@ function _getAllowedDiscKeys(
     const psykerLine = (unit.abilities ?? []).find(a => /^psyker:/i.test(a)) ?? '';
     const lc = psykerLine.toLowerCase();
     if (!lc.includes('chosen discipline')) {
-      const allowsGenerals = lc.includes('all general disciplines');
+      // Interdimensional Knowledge opens the general disciplines for a unit that has none of its own (mirrors PsychicModal)
+      const allowsGenerals = lc.includes('all general disciplines') || item.armory.some(a => a.itemName === 'Interdimensional Knowledge');
       allowed = allowed.filter(([discName]) => {
         if (Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName)) return allowsGenerals;
         const dn = discName.toLowerCase();
@@ -162,13 +163,16 @@ export function cdHeraldRule(u: { abilities?: string[] } | null | undefined): { 
   return { isHerald: true, perGreater: n === 'one' ? 1 : n === 'three' ? 3 : 2, pairs };
 }
 
-export function alliedCdFreeHeraldIds(army: RosterEntry[], data: FactionData, alliedFaction?: string): Set<string> {
+export function alliedCdFreeHeraldIds(army: RosterEntry[], data: FactionData, alliedFaction?: string, ownArmyScope = false): Set<string> {
   const free = new Set<string>();
   if (alliedFaction !== 'chaos_daemons') return free;
   const greaterByGod: Record<string, number> = {};
   const heralds: { id: string; god: string; per: number; pairs: boolean }[] = [];
   for (const i of army) {
-    if (!isAlliedEntry(i, alliedFaction)) continue;
+    // `ownArmyScope`: the Daemons a Chaos Space Marines archetype reaches (All is Dust, Daemonkin...) are entries flagged `ownArmy`, and
+    // isAlliedEntry deliberately says "not allied" for them, so this scope never saw them and the Entourage was never applied
+    // (Discord, Sophtym: Lord of Change + Changecaster used 2 HQ slots). A picked allied Daemon detachment is the other scope.
+    if (i.factionSource !== alliedFaction || !!i.ownArmy !== ownArmyScope) continue;
     const u = resolveUnit(i, data);
     if (!u?.locked_mark) continue;
     const h = cdHeraldRule(u);
@@ -275,9 +279,8 @@ function getSlotUsage(
     // Entourage / Herald apply per DETACHMENT (Dominic, 2026-11-13: "applies and yes, same detachment"): the Greater Daemon must sit in the same
     // detachment as the Herald it frees. A user-picked allied Chaos Daemons detachment is one scope; the Daemons an archetype of a Chaos Space
     // Marine army reaches (rule.alliedFaction, e.g. All is Dust, Daemonkin) are another, so they are evaluated separately.
-    for (const scope of new Set([alliedFaction, rule?.alliedFaction])) {
-      for (const id of alliedCdFreeHeraldIds(army, data, scope)) exemptIds.add(id);
-    }
+    for (const id of alliedCdFreeHeraldIds(army, data, alliedFaction, false)) exemptIds.add(id);
+    for (const id of alliedCdFreeHeraldIds(army, data, rule?.alliedFaction, true)) exemptIds.add(id);
   }
   return army.filter(i => {
     if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;

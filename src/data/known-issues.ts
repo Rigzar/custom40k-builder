@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-eldar-autarch-hq-zero-01",
+    status: "investigating",
+    title: "Eldar Autarch shown as 0/2 HQ (Discord, Truesight)",
+    description: "NOT REPRODUCED, 2026-11-27. A list with an Autarch showed 0/2 Headquarters once. A lone Autarch counts 1 HQ in Pitched and Skirmish, with and without Ynnari, and no free-slot rule reaches it. Asked for the list: the likely cause is another unit in it that the Autarch shares or frees a slot with.",
+  },
+  {
+    id: "ki-admech-doctrina-line-on-card-01",
+    status: "fixed",
+    title: "Magos / Tech-Priest: nowhere to select the Doctrina Imperative (Discord, DemonGyro)",
+    description: "FIXED 2026-11-27. DemonGyro could not find where to pick a Doctrina Imperative. They are Armory veteran items, and the option line \"Can select one Doctrina Imperative.\" has no choices of its own, so it read as plain text; the picker was the Veteran button further down the card. The line now carries a Veteran button that opens it (checked in the app on a Magos under Dark Mechanicum: four Doctrinas listed, 0/1 slots). Same report: the card listed all six focus specialisations whichever one was bought; only the bought one shows now.",
+  },
+  {
     id: "ki-favoured-daemons-leader-armory-01",
     status: "known",
     title: "Favoured units: do Chaos Daemons need a squad leader with Armory access? (GH#309)",

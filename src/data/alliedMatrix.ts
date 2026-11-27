@@ -129,6 +129,9 @@ export function getRelationship(
   return MATRIX[codeA]?.[codeB] ?? null;
 }
 
+/** Keys that have a matrix code but can never be picked as an allied detachment: they only exist inside a parent army. */
+const NEVER_A_DETACHMENT = new Set<string>(['assassins']);
+
 /** Returns all factions with their relationship to the given faction, sorted G → Y → R.
  *  Only THIS army's archetype is known here — the picker runs before an ally, let alone an allied
  *  archetype, has been chosen — so a rewrite that lives on the ally's side (Traitor Guard) cannot
@@ -144,6 +147,8 @@ export function getAlliableWith(
   const result: Array<{ key: string; relationship: Relationship }> = [];
   for (const [key, code] of Object.entries(FACTION_TO_CODE)) {
     if (seen.has(key)) continue;
+    // Assassins hold a code only so lookups for their units resolve; they are never a detachment of their own (Discord, DemonGyro).
+    if (NEVER_A_DETACHMENT.has(key)) continue;
     seen.add(key);
     const rel = overrides?.[key] ?? MATRIX[codeA]?.[code];
     if (rel) result.push({ key, relationship: rel });

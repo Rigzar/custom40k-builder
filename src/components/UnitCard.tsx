@@ -1856,6 +1856,14 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
                 <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
                   <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{headerForPromotedCap(localiseAbility(g.header), g, gc)}</span>
                   {headerQty?.control}
+                  {/* "Can select one Doctrina Imperative." has no choices of its own: they are Armory veteran items. The line was bare text
+                      and the picker is a button further down, so players could not find where to choose (Discord, DemonGyro). */}
+                  {g.choices.length === 0 && /doctrina imperative/i.test(g.header) && hasFactionVeteranItems && (
+                    <button type="button" onClick={e => { e.preventDefault(); e.stopPropagation(); setVetOpen(true); }}
+                      className="shrink-0 inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 border border-yellow-800 text-yellow-400 hover:bg-yellow-900/30 transition-colors">
+                      <span className="opacity-70">★</span>{t('veteranLabel')}{vetItemsCount > 0 ? ` (${vetItemsCount})` : ''}
+                    </button>
+                  )}
                   {(isPerN || isFixedMax) && groupMax !== null && !g.independent_choices && (
                     <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>
                       {groupUsed}/{groupMax}

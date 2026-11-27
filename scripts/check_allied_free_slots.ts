@@ -40,7 +40,8 @@ const eq = (l: string, a: unknown, b: unknown) => { if (JSON.stringify(a) !== JS
   const cd: Any = await L['chaos_daemons']();
   csm.allied = { ...(csm.allied ?? {}), chaos_daemons: cd };
   const rule: Any = getArchetypeRule('All is Dust');
-  const dae = mk(cd, ['Lord of Change', 'Changecaster'], 'chaos_daemons');
+  // `ownArmy: true` is how the app creates the Daemons an archetype reaches; without it this passed while the real app did not (see check_archetype_entourage.ts)
+  const dae = mk(cd, ['Lord of Change', 'Changecaster'], 'chaos_daemons').map((e: Any) => ({ ...e, ownArmy: true }));
   eq('All is Dust, Pitched: Lord of Change + Changecaster = 1 HQ', getSlotUsage(dae, csm, 'HQ', rule, undefined, undefined, 'pitched'), 1);
   eq('All is Dust, Skirmish: both occupy a slot = 2 HQ', getSlotUsage(dae, csm, 'HQ', rule, undefined, undefined, 'skirmish'), 2);
   process.exit(bad ? 1 : 0);

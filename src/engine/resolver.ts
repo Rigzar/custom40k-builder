@@ -1626,8 +1626,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     // A specialisation prints its own name on a LINE OF ITS OWN above the rule it grants, so the
     // label spans two lines ("Technoarchaeologist" then "Seekers of Divine Arcana"); either line
     // may be the choice's name.
-    .flatMap(h => (/\r?\n/.test(h) ? [h, h.split(/\r?\n/)[0].trim()] : [h]))
-    .filter(h => _allChoiceNorm.has(_choiceNorm(h)) && !_selChoiceNorm.has(_choiceNorm(h)));
+    // The label is kept WHOLE ("Datasmith\nCybertheurgy"), because that is what UnitCard and PrintView compare an ability line against; only the
+    // test looks at its lines one by one. Keeping just the first line left every two-line specialisation (Magos / Tech-Priest: Datasmith,
+    // Manipulus, Myrmidax...) visible on the card whichever one was bought (Discord, DemonGyro).
+    .filter(h => {
+      const names = /\r?\n/.test(h) ? [h, ...h.split(/\r?\n/).map(l => l.trim()).filter(Boolean)] : [h];
+      const known = names.filter(n => _allChoiceNorm.has(_choiceNorm(n)));
+      return known.length > 0 && !known.some(n => _selChoiceNorm.has(_choiceNorm(n)));
+    });
 
   const _norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
   const _baseTypeNorm = _norm(unit.unit_type);

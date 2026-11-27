@@ -170,12 +170,19 @@ export function PsychicModal({ item, unit, onClose }: Props) {
 
   // CD: per-unit discipline access derived from psyker ability text.
   // Each unit lists exactly which disciplines it knows — enforce that here.
+  // "Interdimensional Knowledge" (Mark of Tzeentch armoury): "The model may pick 2 additional psychic powers from any general psychic discipline."
+  // A Changecaster knows ONE discipline whole and has no general ones of its own, so the item has to open them (Discord, Sophtym).
+  const hasInterdimensional = item.armory.some(a => a.itemName === 'Interdimensional Knowledge');
+  // The general disciplines that are here ONLY because of that item: picked power by power, never "chosen" whole.
+  const itemOnlyGeneral = new Set<string>();
   if (data.faction === 'Chaos Daemons' && hasPowers) {
     const psykerLine = (unit.abilities ?? []).find(a => /^psyker:/i.test(a)) ?? '';
     const lc = psykerLine.toLowerCase();
     // "chosen discipline" (Daemon Prince) = no restriction — can pick any
     if (!lc.includes('chosen discipline')) {
-      const allowsGenerals = lc.includes('all general disciplines');
+      const nativeGenerals = lc.includes('all general disciplines');
+      const allowsGenerals = nativeGenerals || hasInterdimensional;
+      if (!nativeGenerals && hasInterdimensional) for (const [d] of generalDiscs) itemOnlyGeneral.add(d);
       allowedDiscs = allowedDiscs.filter(([discName]) => {
         // Is it a general discipline?
         if (Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName)) return allowsGenerals;
@@ -304,6 +311,10 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // picks land in the right pool without a second mechanism.
   const interdimensionalCount = item.armory.filter(a => a.itemName === 'Interdimensional Knowledge').length;
   const bonusPowerSlots = psychicTrainingCount + balefulTomeCount + interdimensionalCount * 2;
+  // A unit that picks ONE whole discipline (Changecaster) uses Interdimensional Knowledge's two slots on single powers of the general disciplines.
+  const extraSlots = interdimensionalCount * 2;
+  const extraPool = (disc: string) => extraSlots > 0 && itemOnlyGeneral.has(disc);
+  const extraPicked = item.powers.filter(p => p.powerName !== '__discipline__' && itemOnlyGeneral.has(p.disciplineName)).length;
   // One discipline at a time. "from a chosen discipline" is ONE discipline (the sheet author and Dominic, Discord 2026-10-16), and
   // Psychic training adds picks under the same rule: "you have to learn a discipline completely first before dabbling into a
   // different one, so you can't just cherry pick from the whole list". So the picks fill the discipline they started, and only
@@ -330,7 +341,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     : null;
 
   function isPowerSelected(disc: string, power: string) {
-    if (psykerMode === 'all_from_one') {
+    if (psykerMode === 'all_from_one' && !extraPool(disc)) {
       // Powers are "known" implicitly when the discipline is chosen — not stored individually
       return chosenDisc === disc;
     }
@@ -347,6 +358,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   function togglePower(disc: string, power: string) {
     if (psykerMode === 'knows_all') return;   // known, not chosen
     if (psykerMode === 'all_from_one') {
+      if (extraPool(disc)) {
+        if (isPowerSelected(disc, power)) removePower(item.id, disc, power);
+        else if (extraPicked < extraSlots) addPower(item.id, disc, power);
+        return;
+      }
       chooseAllFromDisc(disc);
       return;
     }
@@ -500,6 +516,12 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   : <span className="text-zinc-500 not-italic ml-1">{t('noneChosenYet')}</span>}
               </div>
             )}
+            {psykerMode === 'all_from_one' && extraSlots > 0 && itemOnlyGeneral.size > 0 && (
+              <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
+                +<strong className="text-amber-400 not-italic">{extraSlots} {t('powersWord')}</strong>
+                <span className={`not-italic ml-1 ${extraPicked >= extraSlots ? 'text-amber-500' : 'text-zinc-500'}`}>({extraPicked}/{extraSlots} {t('selectedCountSuffix')})</span>
+              </div>
+            )}
             {psykerMode === 'knows_all' && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
                 {t('modeKnowsAll')} <span className="text-zinc-500 not-italic ml-1">({selectedPowersCount})</span>
@@ -551,10 +573,13 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               <div className="space-y-2">
               {allowedDiscs.map(([discName, powers]) => {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
-                const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one' && psykerMode !== 'knows_all'
-                  && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
+                const isExtra = psykerMode === 'all_from_one' && extraPool(discName);
+                const atLimit = isExtra
+                  ? extraPicked >= extraSlots
+                  : psykerMode !== 'unlimited' && psykerMode !== 'all_from_one' && psykerMode !== 'knows_all'
+                    && (selectedPowersCount >= effectivePowerLimit || (!!lockedDisc && lockedDisc !== discName));
                 const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite') && !(/only for yngir/i.test(p.name) && archetype !== 'Yngir'));
-                const selectedInDisc = psykerMode === 'all_from_one'
+                const selectedInDisc = psykerMode === 'all_from_one' && !isExtra
                   ? (isChosen ? powersArr.length : 0)
                   : powersArr.filter(p => isPowerSelected(discName, p.name)).length;
                 const defaultOpen = allowedDiscs.length === 1 || selectedInDisc > 0 || isChosen;
@@ -564,7 +589,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                         "Choose" badge (which selects the whole discipline) is a separate control. */}
                     <summary className="flex items-center justify-between gap-2 px-2.5 py-1.5 cursor-pointer select-none hover:bg-zinc-800/40">
                       <span className={`text-[11px] uppercase tracking-widest ${isChosen ? 'text-amber-400' : 'text-amber-700'}`}>{nm(hhDisciplineLabel(discName))}</span>
-                      {psykerMode === 'all_from_one' ? (
+                      {psykerMode === 'all_from_one' && !isExtra ? (
                         <button
                           onClick={e => { e.preventDefault(); e.stopPropagation(); chooseAllFromDisc(discName); }}
                           className={`shrink-0 text-[9px] px-2 py-0.5 border font-bold uppercase tracking-wide transition-colors
@@ -583,19 +608,19 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                         Smite is filtered out here — it's already shown as "Always known" above. */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-2 pt-0.5">
                       {powersArr.map(p => {
-                        const sel = psykerMode === 'all_from_one' ? isChosen : isPowerSelected(discName, p.name);
+                        const sel = isPowerSelected(discName, p.name);
                         const disabled = !sel && atLimit;
                         return (
                           <button
                             key={p.name}
                             disabled={disabled}
-                            onClick={() => psykerMode !== 'all_from_one' && togglePower(discName, p.name)}
+                            onClick={() => (psykerMode !== 'all_from_one' || isExtra) && togglePower(discName, p.name)}
                             className={`text-left px-3 py-2 border transition-colors
                               ${sel
                                 ? 'bg-amber-900/30 border-amber-700 text-amber-300'
                                 : disabled
                                   ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-not-allowed opacity-50'
-                                  : psykerMode === 'all_from_one'
+                                  : psykerMode === 'all_from_one' && !isExtra
                                     ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-default'
                                     : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700 text-zinc-200'
                               }`}

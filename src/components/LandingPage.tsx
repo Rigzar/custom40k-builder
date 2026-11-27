@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v191a_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v191b_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -78,8 +78,17 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "Swapping the combat shotgun for the shield and shock maul now lets you choose how many models swap, not only one (barney)."],
       ] },
+      { label: "Chaos Daemons", rows: [
+        ["Entourage", "Under a Chaos Space Marines archetype that reaches the Daemons (All is Dust, Daemonkin...), a Herald takes no HQ slot next to its Greater Daemon now: a Lord of Change and a Changecaster were counted as 2 HQ (Sophtym)."],
+        ["Changecaster", "Interdimensional Knowledge lets a Changecaster pick its two extra powers from the general disciplines (Sophtym)."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Magos and Tech-Priest", "The card and the print show only the focus that was bought (Datasmith, Enginseer...), not all six. The line \"Can select one Doctrina Imperative\" has a Veteran button that opens the picker (DemonGyro)."],
+      ] },
       { label: "Bugs (Discord)", rows: [
         ["Allied detachments", "A unit whose rule says it takes no slot (a Hexmark Destroyer with a Lord, Royal Court, Commissar...) now takes none inside an allied detachment too, counted within that detachment (Sophtym). Skirmish still gives none."],
+        ["Allied slots", "A full slot in an allied detachment no longer blocks adding units: the count turns red and the validator flags a real overflow (the Royal Court could not be added after the Lord)."],
+        ["Allies", "Assassins are no longer offered as an allied detachment (DemonGyro)."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Found something wrong? The in-app bug report form works \u2014 unit, engagement, archetype and a picture.",
@@ -107,8 +116,17 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "Beim Tausch der Kampfschrotflinte gegen Schild und Schockhammer wählst du jetzt, wie viele Modelle tauschen, nicht nur eines (barney)."],
       ] },
+      { label: "Chaos Daemons", rows: [
+        ["Entourage", "Unter einem Chaos-Space-Marines-Archetyp, der die Daemons erreicht (All is Dust, Daemonkin...), belegt ein Herald neben seinem Greater Daemon jetzt keinen HQ-Slot: ein Lord of Change und ein Changecaster wurden als 2 HQ gezählt (Sophtym)."],
+        ["Changecaster", "Interdimensional Knowledge lässt einen Changecaster seine zwei zusätzlichen Kräfte aus den allgemeinen Disziplinen wählen (Sophtym)."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Magos und Tech-Priest", "Die Karte und der Druck zeigen nur den gekauften Fokus (Datasmith, Enginseer...), nicht alle sechs. Die Zeile \"Can select one Doctrina Imperative\" hat einen Veteranen-Knopf, der die Auswahl öffnet (DemonGyro)."],
+      ] },
       { label: "Fehler (Discord)", rows: [
         ["Verbündete Abteilungen", "Eine Einheit, deren Regel sagt, dass sie keinen Slot belegt (Hexmark Destroyer mit einem Lord, Royal Court, Commissar...), belegt auch in einer verbündeten Abteilung keinen mehr, gezählt innerhalb dieser Abteilung (Sophtym). Skirmish gibt weiterhin keine."],
+        ["Verbündete Slots", "Ein voller Slot in einer verbündeten Abteilung sperrt das Hinzufügen nicht mehr: die Zahl wird rot, und die Prüfung meldet einen echten Überschuss (der Royal Court ließ sich nach dem Lord nicht hinzufügen)."],
+        ["Verbündete", "Assassins werden nicht mehr als verbündete Abteilung angeboten (DemonGyro)."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f Etwas gefunden, das nicht stimmt? Das Fehlerformular in der App funktioniert \u2014 Einheit, Engagement, Archetyp und ein Bild.",
@@ -136,8 +154,17 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "Al cambiar la escopeta de combate por el escudo y la maza de choque ya eliges cuántos modelos cambian, no solo uno (barney)."],
       ] },
+      { label: "Chaos Daemons", rows: [
+        ["Entourage", "Con un arquetipo de Chaos Space Marines que alcanza a los Daemons (All is Dust, Daemonkin...), un Herald ya no ocupa slot de HQ junto a su Greater Daemon: un Lord of Change y un Changecaster se contaban como 2 HQ (Sophtym)."],
+        ["Changecaster", "Interdimensional Knowledge permite al Changecaster elegir sus dos poderes extra de las disciplinas generales (Sophtym)."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Magos y Tech-Priest", "La ficha y la impresión muestran solo el foco comprado (Datasmith, Enginseer...), no los seis. La línea \"Can select one Doctrina Imperative\" tiene un botón Veterano que abre el selector (DemonGyro)."],
+      ] },
       { label: "Bugs (Discord)", rows: [
         ["Destacamentos aliados", "Una unidad cuya regla dice que no ocupa slot (un Hexmark Destroyer con un Lord, Royal Court, Commissar...) tampoco lo ocupa ya dentro de un destacamento aliado, contando dentro de ese destacamento (Sophtym). Skirmish sigue sin dar ninguno."],
+        ["Slots aliados", "Un slot lleno en un destacamento aliado ya no impide añadir unidades: el contador se pone rojo y el validador avisa de un desbordamiento real (el Royal Court no se podía añadir tras el Lord)."],
+        ["Aliados", "Los Assassins ya no se ofrecen como destacamento aliado (DemonGyro)."],
       ] },
     ],
     contrib: "\ud83d\udc41\ufe0f \u00bfEncontraste algo mal? El formulario de reporte de la app funciona \u2014 unidad, engagement, arquetipo y una foto.",
@@ -165,8 +192,17 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "При замене боевого дробовика на щит и шоковую дубинку теперь можно выбрать, сколько моделей меняют оружие, а не только одну (barney)."],
       ] },
+      { label: "Chaos Daemons", rows: [
+        ["Entourage", "При архетипе Chaos Space Marines, открывающем доступ к Daemons (All is Dust, Daemonkin...), Herald теперь не занимает слот HQ рядом со своим Greater Daemon: Lord of Change и Changecaster считались за 2 HQ (Sophtym)."],
+        ["Changecaster", "Interdimensional Knowledge позволяет Changecaster выбрать две дополнительные силы из общих дисциплин (Sophtym)."],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["Magos и Tech-Priest", "Карточка и печать показывают только купленный фокус (Datasmith, Enginseer...), а не все шесть. У строки \"Can select one Doctrina Imperative\" есть кнопка «Ветеран», открывающая выбор (DemonGyro)."],
+      ] },
       { label: "Ошибки (Discord)", rows: [
         ["Союзные контингенты", "Отряд, чьё правило гласит, что он не занимает слот (Hexmark Destroyer при Lord, Royal Court, Commissar...), теперь не занимает его и в союзном контингенте; считается внутри этого контингента (Sophtym). В Skirmish такого по-прежнему нет."],
+        ["Союзные слоты", "Заполненный слот в союзном контингенте больше не мешает добавлять отряды: счётчик краснеет, а проверка отмечает реальное превышение (Royal Court нельзя было добавить после Lord)."],
+        ["Союзники", "Assassins больше не предлагаются как союзный контингент (DemonGyro)."],
       ] },
     ],
     contrib: "👁️ Нашли ошибку? Форма отчёта об ошибках в приложении работает — отряд, формат боя, архетип и картинка.",
@@ -194,8 +230,17 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "戦闘用ショットガンをシールドとショックメイスに交換するとき、1体だけでなく何体交換するか選べるようになりました (barney)。"],
       ] },
+      { label: "Chaos Daemons", rows: [
+        ["Entourage", "Daemonsを使えるChaos Space Marinesのアーキタイプ（All is Dust、Daemonkinなど）で、HeraldがGreater Daemonの隣でHQスロットを使わなくなりました。Lord of ChangeとChangecasterが2 HQと数えられていました (Sophtym)。"],
+        ["Changecaster", "Interdimensional Knowledgeで、Changecasterが一般ディシプリンから追加の2つの能力を選べるようになりました (Sophtym)。"],
+      ] },
+      { label: "Adeptus Mechanicus", rows: [
+        ["MagosとTech-Priest", "カードと印刷には、購入したフォーカス（Datasmith、Enginseerなど）だけが表示され、6つ全部は出なくなりました。「Can select one Doctrina Imperative」の行に、選択画面を開くベテランボタンが付きました (DemonGyro)。"],
+      ] },
       { label: "不具合（Discord）", rows: [
         ["同盟分遣隊", "「スロットを使わない」というルールを持つユニット（Lordと一緒のHexmark Destroyer、Royal Court、Commissarなど）は、同盟分遣隊の中でもスロットを使わなくなりました。その分遣隊の中で数えます (Sophtym)。Skirmishでは引き続き適用されません。"],
+        ["同盟スロット", "同盟分遣隊のスロットがいっぱいでも、ユニットを追加できるようになりました。数が赤くなり、本当の超過は検証が知らせます（Lordの後にRoyal Courtを追加できませんでした）。"],
+        ["同盟", "Assassinsは同盟分遣隊として選べなくなりました (DemonGyro)。"],
       ] },
     ],
     contrib: "👁️ 間違いを見つけましたか？アプリ内の不具合報告フォームをご利用ください — 部隊、交戦規模、アーキタイプ、画像を添えられます。",
