@@ -33,6 +33,8 @@ const FACTIONS = [
 const copies = [
   ['src/types/data.ts', 'src/types/data.ts'],
   ['src/data/coreRules.ts', 'src/data/coreRules.ts'],
+  // coreRules.ts imports it (the model/weapon ability texts generated from the rulebook); without it the wiki build cannot resolve the import.
+  ['src/data/coreRules.generated.json', 'src/data/coreRules.generated.json'],
   ['src/data/ruleDescriptions.es.json', 'src/data/ruleDescriptions.es.json'],
   ['src/data/ruleDescriptions.ru.json', 'src/data/ruleDescriptions.ru.json'],
   ['src/data/ruleDescriptions.ja.json', 'src/data/ruleDescriptions.ja.json'],
