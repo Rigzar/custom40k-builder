@@ -312,9 +312,17 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const interdimensionalCount = item.armory.filter(a => a.itemName === 'Interdimensional Knowledge').length;
   const bonusPowerSlots = psychicTrainingCount + balefulTomeCount + interdimensionalCount * 2;
   // A unit that picks ONE whole discipline (Changecaster) uses Interdimensional Knowledge's two slots on single powers of the general disciplines.
-  const extraSlots = interdimensionalCount * 2;
-  const extraPool = (disc: string) => extraSlots > 0 && itemOnlyGeneral.has(disc);
-  const extraPicked = item.powers.filter(p => p.powerName !== '__discipline__' && itemOnlyGeneral.has(p.disciplineName)).length;
+  // The same goes for Psychic training and Baleful tome on a psyker that knows ONE whole discipline (Chaos Sorcerer, Master of Sorcery):
+  // their extra power is a single power of ANOTHER discipline, so with the main one chosen the other disciplines turn into power-by-power picks
+  // (Sophtym, GH#320).
+  const trainingExtras = psykerMode === 'all_from_one' ? psychicTrainingCount + balefulTomeCount : 0;
+  // "Cult initiate" is an EXCHANGE of one power for one Cult Power: a psyker that knows a whole discipline (Chaos Sorcerer) takes that single
+  // Cult Power on top of the discipline instead of having to give the discipline up (Sophtym, GH#314).
+  const cultExchange = hasCultInitiateItem && !cultPowersOnly && psykerMode === 'all_from_one';
+  const extraSlots = interdimensionalCount * 2 + trainingExtras + (cultExchange ? 1 : 0);
+  const extraPool = (disc: string) => extraSlots > 0 && (itemOnlyGeneral.has(disc) || (cultExchange && isCultOnlyDisc(disc)) || (trainingExtras > 0 && !!chosenDisc && chosenDisc !== disc));
+  // In this mode the only powers stored one by one ARE the extras (the chosen discipline is a marker).
+  const extraPicked = item.powers.filter(p => p.powerName !== '__discipline__').length;
   // One discipline at a time. "from a chosen discipline" is ONE discipline (the sheet author and Dominic, Discord 2026-10-16), and
   // Psychic training adds picks under the same rule: "you have to learn a discipline completely first before dabbling into a
   // different one, so you can't just cherry pick from the whole list". So the picks fill the discipline they started, and only
@@ -352,7 +360,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     // Remove any existing discipline choice, then set the new one
     const existing = item.powers.find(p => p.powerName === '__discipline__');
     if (existing) removePower(item.id, existing.disciplineName, '__discipline__');
-    if (chosenDisc !== discName) addPower(item.id, discName, '__discipline__');
+    if (chosenDisc !== discName) {
+      // A power of this discipline taken as an extra is already included once the whole discipline is known.
+      for (const p of item.powers) if (p.powerName !== '__discipline__' && p.disciplineName === discName) removePower(item.id, discName, p.powerName);
+      addPower(item.id, discName, '__discipline__');
+    }
   }
 
   function togglePower(disc: string, power: string) {
@@ -516,7 +528,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   : <span className="text-zinc-500 not-italic ml-1">{t('noneChosenYet')}</span>}
               </div>
             )}
-            {psykerMode === 'all_from_one' && extraSlots > 0 && itemOnlyGeneral.size > 0 && (
+            {psykerMode === 'all_from_one' && extraSlots > 0 && (itemOnlyGeneral.size > 0 || cultExchange || (trainingExtras > 0 && !!chosenDisc)) && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
                 +<strong className="text-amber-400 not-italic">{extraSlots} {t('powersWord')}</strong>
                 <span className={`not-italic ml-1 ${extraPicked >= extraSlots ? 'text-amber-500' : 'text-zinc-500'}`}>({extraPicked}/{extraSlots} {t('selectedCountSuffix')})</span>

@@ -59,7 +59,7 @@
     "name": "Warp Barrier",
     "range": "-",
     "target": "Self",
-    "effect": "Enemy psykers within 12\" must reroll successful psychic tests. They suffer a \"Peril of the warp\" off of all doublets.",
+    "effect": "Enemy psykers within 12\" must reroll successful psychic tests. They suffer a \"Peril of the warp\" off of all doubles.",
     "duration": "Until the next activation of the caster",
     "complexity": "Basic"
   },

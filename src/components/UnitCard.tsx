@@ -5,7 +5,7 @@ import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore, type ArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor, effectiveLegacyFor, groupConstraint, unitMatchesKeyword, variantPromotionCap, perOwnedWeaponCap, inlinePerModelCap, swarmControllersBonus as swarmControllersBonusFor } from '../engine/points';
 import { localiseAbility, parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { wardSources, ownWardAbilities, markWardedCount } from '../lib/wardSave';
@@ -242,8 +242,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
   const invSvFromEquip = ward.equipment !== null && (ward.datasheet === null || ward.equipment <= (ward.datasheet ?? 99)) && ward.equipment === effectiveInvSv;
   const invSvFromTrait = ward.trait !== null && ward.trait === effectiveInvSv && ward.equipment !== effectiveInvSv;
 
+  // A vehicle can carry a ward save too (Daemonic possession gives it the Daemon ability's 5+): the column was only added for infantry,
+  // so the save was bought and never shown (GH#316, Sophtym).
   const statKeys: readonly string[] = u.is_vehicle
-    ? (vehicleHasWS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)
+    ? [...(vehicleHasWS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH), ...(effectiveInvSv !== null ? ['InvSv'] : [])]
     : [...STAT_KEYS_INF, ...(effectiveInvSv !== null ? ['InvSv'] : [])];
   // The stat cell of a model profile shown OUTSIDE the main Profile table (the promotion / add-on model panels of the Build
   // section). It used to print the datasheet value: Aspiring Champion showed neither his Mark's bonus nor the Favoured +1
@@ -1568,8 +1570,10 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
               const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, keywords, data.faction, itemArchetype, !!item.blackCrusadeHQ || hasAllMarksVariant(item, u));
               // "One Guardsman PER Heavy Weapons Team may take a Vox": a count, not a tick-box.
-              if (g.constraint?.type === 'per_n') {
-                const cMax = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
+              // "Can be equipped with a Staff of change" on a unit of two: each model may take it, so it is a count too (GH#313/#318).
+              const perModelCap = inlinePerModelCap(u, g, item.size);
+              if (g.constraint?.type === 'per_n' || perModelCap !== null) {
+                const cMax = perModelCap ?? (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
                 const cQty = Math.min(Number(item.optionQty?.[realGi]?.['__inline'] ?? 0) || 0, cMax);
                 return (
                   <div key={realGi} className={`border-l-2 ${cQty > 0 ? 'border-amber-700/70' : 'border-zinc-700/50'} ${blocked ? 'opacity-50' : ''}`}>
@@ -1685,7 +1689,7 @@ export function UnitCard({ item, collapseSignal, collapseAll }: Props) {
             const groupMax = supportCap !== null ? supportCap : perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
-                ? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies
+                ? (perOwnedWeaponCap(u, item, g) ?? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies)
                 : isFixedMax
                   ? Math.min(
                       modelGroupCap !== null

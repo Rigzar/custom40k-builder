@@ -3554,8 +3554,31 @@ export function resolveUnitProfile(
   profile.modelRowCounts = computeModelRowCounts(unit, item, profile);
   fillMissingWeaponCounts(unit, item, profile.weaponGroups);
   applyGueVesaSwaps(item, profile);
+  applyFuriosoAttacks(unit, item, profile);
   profile.attachedDrones = computeAttachedDrones(unit, item, data);
   return profile;
+}
+
+/**
+ * "Furioso: If the model is equipped with two melee weapons, it gains +2 attacks." (Helbrute, Blood Slaughterer, Decimator.) The
+ * ability was only text, so the statline never moved (Sophtym, GH#317). Counted from the weapons the unit actually carries: a
+ * squad whose models average two melee weapons or more gets it; the statline is one row, so a mixed squad is judged on average.
+ */
+function applyFuriosoAttacks(unit: Unit, item: RosterEntry, profile: ResolvedProfile): void {
+  const m = (unit.abilities ?? []).map(a => /^furioso:.*?(?:equipped with|has) two melee weapons.*?\+(\d+) attacks?/i.exec(a)).find(Boolean);
+  if (!m) return;
+  const models = Math.max(1, item.size ?? 1);
+  let melee = 0;
+  for (const g of profile.weaponGroups) {
+    for (const w of g.weapons) {
+      if (!/^melee/i.test(w.type ?? '')) continue;
+      melee += g.countOverrides?.get(w.name) ?? g.count ?? models;
+    }
+  }
+  if (melee < models * 2) return;
+  const delta = parseInt(m[1], 10);
+  const eq = profile.equipMods;
+  profile.equipMods = { ...eq, statDeltas: { ...(eq?.statDeltas ?? {}), A: (eq?.statDeltas?.A ?? 0) + delta } } as typeof eq;
 }
 
 /**

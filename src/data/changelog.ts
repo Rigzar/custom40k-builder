@@ -18,7 +18,7 @@ export interface ChangelogEntry {
  * SAME version adds the next one ("v1.87a", "v1.87b"...), so readers can tell more changed. Bump it with every push, and
  * set it back to '' when a new version is cut (Rigzar, 2026-10-31).
  */
-export const REVISION = 'b';
+export const REVISION = 'c';
 /** "1.87" plus the push letter, for display (the changelog entry itself keeps the plain version). */
 export function versionLabel(version: string | undefined): string {
   return version && version === CHANGELOG[0]?.version ? version + REVISION : version ?? '';
@@ -59,6 +59,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       "MAGOS AND TECH-PRIEST FOCUS (reported by DemonGyro). The unit card and the printed sheet listed all six specialisations (Datasmith, Enginseer, Manipulus, Myrmidax, Technoarchaeologist, Underseer) whichever one was bought; only the bought one shows now.",
       "ASSASSINS are no longer offered as an allied detachment (reported by DemonGyro): they only exist inside a parent army.",
       "DOCTRINA IMPERATIVE (reported by DemonGyro: \"I can't find where to select it\"). The line \"Can select one Doctrina Imperative.\" on the Adeptus Mechanicus cards was plain text and the picker is the Veteran button further down. The line carries a Veteran button of its own now that opens it.",
+      "GITHUB #313-#320 (reported by Sophtym). Nine Blue Horrors were all treated as the squad leader of a Favoured unit and every one gained +1 Attack: the Brimstone Horror reference row (max 0) counted as a second model, and it no longer does, so a unit with no leader is not Favoured (#319). \"For every Helbrute fist, it may be equipped with...\" is one pick per fist carried, so a Helbrute that swapped its Power scourge for a second fist takes two Heavy flamers (#315). Furioso now adds its +2 Attacks to the statline of a Helbrute, Blood Slaughterer or Decimator with two melee weapons (#317). A vehicle with a ward save shows a Ward column: Daemonic possession gives its 5+ (#316). A Chaos Sorcerer with Psychic training or Baleful tome picks the extra power from another discipline power by power, and Cult initiate takes one Cult Power on top of the discipline (#320, #314). A \"Can be equipped with...\" option on a unit of two is a count up to the unit size, ruled by the author: both Changecasters can take a Staff of change (#313), both Helbrutes the psyker upgrade (#318), and the same for the Whirlwind, Ravager, Reaper, Wraithlord, Nemesis Dreadknight, Onager Dunecrawler, Looted Valkyrie, Warbuggy and T'au Sub-Commander.",
+      "SHEETS 2026-11-28. Chaos Space Marines 1.12, Dark Eldar 1.8 (Mandrakes) and Imperial Guard 1.16 differ from our copies in five texts only: the Disciplines of Chaos power that gives +4 Strength (\"to its profile value\"), the Infernal Pact \"Re-roll hit rolls of 1\", the Prayer \"doubles\", the Mandrakes' Fade away (set up again as Deep Strike, not Infiltrator) and the Chain guard, which Flyers cannot take.",
       "SHEETS 2026-11-24. Dark Eldar 1.8: the Agonizer costs 4 / 5 points. Tyranids 1.15: Synapse no longer says the unit does not receive a Battleshock token. Necrons 1.14, Genestealer Cults 1.7 and Eldar tabs were compared: the Abominant and Skorpekh Lord join text (\"like a Character\") and the Striking Scorpions' Scorpion claw columns are fixed.",
     ],
   },

@@ -43,7 +43,7 @@
     "name": "Empyric Guidance",
     "range": "12\"",
     "target": "Friendly unit",
-    "effect": "Re-roll to hit rolls of 1.",
+    "effect": "Re-roll hit rolls of 1.",
     "duration": "Until the caster's next activation",
     "complexity": "Normal"
   }

@@ -6,7 +6,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
 import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS, maxArmyTraits } from '../engine/engagements';
-import { resolveUnit } from '../engine/points';
+import { resolveUnit, perOwnedWeaponCap, inlinePerModelCap } from '../engine/points';
 import { getArchetypeRule, currentArchetypeName, currentLegacyName } from '../engine/archetypes';
 import { dataForArchetype } from '../engine/archetypes/dataPatch';
 import { withKnownPowers } from '../engine/knownPowers';
@@ -1151,7 +1151,13 @@ function clampOptionsToSize(e: RosterEntry, data: FactionData): RosterEntry {
       oq = { ...oq, [gi]: group as typeof oq[number] };
       return;
     }
-    const max = c.type === 'every' ? e.size
+    // A "Can be equipped with..." tick-box of a small unit is a count up to the unit size (see inlinePerModelCap): trim it when the unit shrinks.
+    if (inlinePerModelCap(unit, g, e.size) !== null) {
+      const q = Number(oq[gi]['__inline'] ?? 0);
+      if (q > e.size) oq = { ...oq, [gi]: { ...oq[gi], __inline: e.size } };
+      return;
+    }
+    const max = c.type === 'every' ? (perOwnedWeaponCap(unit, e, g) ?? e.size)
       : c.type === 'per_n' && c.per_n ? Math.floor(e.size / c.per_n) * (c.count_per_n ?? 1) + enforcerWeaponBonus(unit, e, g)
       : null;
     if (max === null) return;

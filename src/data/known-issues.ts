@@ -2,6 +2,30 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-gh-313-318-per-model-inline-options-01",
+    status: "fixed",
+    title: "Two Changecasters: one Staff of change? Two Helbrutes: one psyker upgrade? (GH#313, GH#318)",
+    description: "FIXED 2026-11-28, ruled by Rigzar: if the unit can have two models, both can take the option. \"Can be equipped with a Staff of change for +63 points\" (Changecaster) and \"...can be upgraded to a psyker for +5 points\" (Helbrute) were a single tick-box; they are a count up to the unit size now, priced per copy. The same rule covers the other 'Can/May be equipped...' options of units whose models are all of one type (Onager Dunecrawler, Ravager, Reaper, Wraithlord, Harlequin Wraithlord, Nemesis Dreadknight, Legion Contemptor, Looted Valkyrie, Warbuggy, Whirlwind, T'au Sub-Commander). \"One model may...\", \"The Exarch can...\" and \"Every model...\" are unchanged."
+  },
+  {
+    id: "ki-gh-319-blue-horrors-leader-01",
+    status: "fixed",
+    title: "Nine Blue Horrors all gained the squad leader's +1 Attack (GH#319, Sophtym)",
+    description: "FIXED 2026-11-28. The Brimstone Horror reference row (max 0) counted as a second model, so the unit was Favoured and its only fielded row became the squad leader. It has no leader (no Armory, no champion model), so it is not Favoured. Whether a Blue Horror unit should have one is the open question in ki-favoured-daemons-leader-armory-01."
+  },
+  {
+    id: "ki-gh-315-317-316-helbrute-furioso-ward-01",
+    status: "fixed",
+    title: "Helbrute: Heavy flamer per fist, Furioso +2 Attacks, vehicle ward save (GH#315, #317, #316, Sophtym)",
+    description: "FIXED 2026-11-28. \"For every Helbrute fist\" now counts the fists carried (a second fist bought in place of the Power scourge gives a second Heavy flamer). Furioso adds its +2 Attacks to the statline when the model carries two melee weapons. Vehicles show a Ward column when they have a ward save (Daemonic possession gives 5+)."
+  },
+  {
+    id: "ki-gh-320-314-sorcerer-extra-powers-01",
+    status: "fixed",
+    title: "Chaos Sorcerer: Psychic training and Cult initiate could not pick another discipline's power (GH#320, #314, Sophtym)",
+    description: "FIXED 2026-11-28. A psyker that knows a whole discipline could only swap the whole discipline. Psychic training and Baleful tome now add single powers from the other disciplines, and Cult initiate one Cult Power, as the items read. Checked in the browser for Psychic training; Cult initiate shares the code and was not clicked through."
+  },
+  {
     id: "ki-eldar-autarch-hq-zero-01",
     status: "investigating",
     title: "Eldar Autarch shown as 0/2 HQ (Discord, Truesight)",

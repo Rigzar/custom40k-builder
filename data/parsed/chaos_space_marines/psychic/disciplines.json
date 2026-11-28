@@ -68,7 +68,7 @@
       "range": "12\"",
       "target": "Friendly model",
       "cast_value": "5",
-      "effect": "The target gains +4 Strength and the \"Decimate\" ability for melee attacks.",
+      "effect": "The target gains +4 Strength to its profile value as well as the \"Decimate\" ability for its melee attacks.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

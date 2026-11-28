@@ -40,6 +40,7 @@ const KEYWORD_SENTENCES: Array<[RegExp, Gate]> = [
   [/^Only for models in Cataphractii or Terminator armou?r$/i, { requires_keywords: ['Cataphractii', 'Terminator', 'Tartaros'] }],
   [/^Only for models with the Mark of (Khorne|Nurgle|Slaanesh|Tzeentch)$/i, {}],
   [/^Only for units without the Flyer type$/i, { excludes_keywords: ['Flyer'] }],
+  [/^Cannot be taken by Flyers$/i, { excludes_keywords: ['Flyer'] }],
   // another item on the same model
   [/^Exo-armou?r only$/i, { requires_owned_item: 'Exo-armor' }],
   [/^Only for models on a Jetbike$/i, { requires_owned_item: 'Eldar jetbike' }],

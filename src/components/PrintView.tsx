@@ -478,7 +478,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
     const m = g.header.match(/(?:equipped with|gains?|receives?|may take|carr(?:y|ies))\s*(?:a |an |one |: )?([a-z][a-z0-9'\-/ ]*?)(?:\s+for\b|\s*\(|[.,:]|$)/i);
     const name = m ? m[1].trim().replace(/\b\w/, c => c.toUpperCase()) : g.header.replace(/\s+for\b.*$/i, '').trim();
     if (name && !armEquip.some(e => e.name.toLowerCase() === name.toLowerCase())) {
-      armEquip.push({ name, desc: '' });
+      armEquip.push({ name: name + (Number(item.optionQty?.[gi]?.['__inline']) > 1 ? ` x${item.optionQty?.[gi]?.['__inline']}` : ''), desc: '' });
     }
   });
 
@@ -881,7 +881,7 @@ function SimpleUnitCard({ item, data, armoryData }: { item: RosterEntry; data: F
     if (!item.optionQty?.[gi]?.['__inline']) return;
     const m = g.header.match(/(?:equipped with|gains?|receives?|may take|carr(?:y|ies))\s*(?:a |an |one |: )?([a-z][a-z0-9'\-/ ]*?)(?:\s+for\b|\s*\(|[.,:]|$)/i);
     const name = m ? m[1].trim().replace(/\b\w/, c => c.toUpperCase()) : g.header.replace(/\s+for\b.*$/i, '').trim();
-    if (name && !equipmentNames.some(e => e.toLowerCase() === name.toLowerCase())) equipmentNames.push(name);
+    if (name && !equipmentNames.some(e => e.toLowerCase() === name.toLowerCase())) equipmentNames.push(name + (Number(item.optionQty?.[gi]?.['__inline']) > 1 ? ` x${item.optionQty?.[gi]?.['__inline']}` : ''));
   });
 
   const storeState = useArmyStore.getState();

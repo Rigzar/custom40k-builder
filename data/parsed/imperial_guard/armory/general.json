@@ -741,7 +741,7 @@
     {
       "name": "Chain guard",
       "term_compat": false,
-      "desc": "The model ignores \"Engine damage\" vehicle damage on a roll of 4+",
+      "desc": "The model ignores \"Engine damage\" vehicle damage on a roll of 4+. Cannot be taken by Flyers.",
       "p_unit": 5,
       "p_char": null,
       "category": "vehicle"

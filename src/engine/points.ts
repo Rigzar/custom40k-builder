@@ -8,6 +8,7 @@ import { hasAllMarksVariant } from './slotOverrides';
 import { getDeploymentUpgrade, unitMayTakeDeploymentUpgrade, deploymentUpgradeCost } from './deploymentUpgrades';
 import { expandAllRemaining } from './allRemaining';
 import { effectiveKeywords } from './keywords';
+import { weaponCopiesPerModel } from './equipMods';
 
 /**
  * Live-recompute an armory selection's cost from the unit's CURRENT size/wounds, instead of
@@ -189,6 +190,45 @@ export function groupConstraint(group: OptionGroup, item: RosterEntry, unit: Uni
 }
 
 /**
+ * "Can be equipped with a Staff of change" on a unit of up to two Changecasters, "Can be equipped with a Flickerfield" on a pair of Ravagers:
+ * the author's ruling (Rigzar, 2026-11-28) is that when the unit may have two models, BOTH may take it, so the tick-box is a count up to
+ * the unit size. Only the "Can/May be equipped..." wording of a unit with ONE fielded model type; "One model may...", "The Exarch can be
+ * equipped...", "Every model..." and promotions keep their own meaning. Returns the cap (the unit size), or null when the group is not one.
+ */
+export function inlinePerModelCap(unit: Unit, group: OptionGroup, size: number): number | null {
+  if (group.choices.length || group.inline_pts == null || group.constraint?.type !== 'one') return null;
+  if (group.variant_link || group.is_unique_per_army) return null;
+  if (!/^(?:if [^,]+, )?(?:can|may) (?:be|take)\b/i.test(group.header ?? '') || /\bup to\b/i.test(group.header ?? '')) return null;
+  const fielded = unit.models.filter(m => m.max > 0);
+  if (fielded.length !== 1 || fielded[0].max < 2) return null;
+  return Math.max(1, size);
+}
+
+/**
+ * "For every Helbrute fist, it may be equipped with one of the following": one pick PER WEAPON CARRIED, not per model. A Helbrute
+ * that swapped its Power scourge for a second fist carries two, so it takes two Heavy flamers (GH#315, Sophtym). The count is the
+ * copies in `equipped_with`, minus the ones another group replaces, plus the ones another group hands out. Null when the header is
+ * not worded that way (every other group in the game), so callers keep their usual per-model cap.
+ */
+export function perOwnedWeaponCap(unit: Unit, item: RosterEntry, group: OptionGroup): number | null {
+  const m = /^for (?:every|each) ([^,]+?),/i.exec(group.header ?? '');
+  if (!m || group.constraint?.type !== 'every' || !group.choices.length) return null;
+  const name = m[1].trim().toLowerCase();
+  if (!unit.weapons.some(w => w.name.toLowerCase() === name)) return null;
+  const carried = (unit.equipped_with ?? '').toLowerCase().includes(name) ? weaponCopiesPerModel(unit.equipped_with, m[1].trim()) : 0;
+  let total = carried * Math.max(1, item.size);
+  unit.option_groups.forEach((other, oi) => {
+    if (other === group) return;
+    const taken = item.optionQty?.[oi] ?? {};
+    if (other.replaces?.some(w => w.toLowerCase() === name)) {
+      for (const [k, q] of Object.entries(taken)) if (k !== '__inline') total -= Number(q) || 0;
+    }
+    other.choices.forEach((c, ci) => { if (c.name.toLowerCase() === name) total += Number(taken[ci]) || 0; });
+  });
+  return Math.max(0, total);
+}
+
+/**
  * How many models a variant promotion may promote. Almost always one; "Up to three ... may be upgraded to Spannas" is a fixed_max;
  * and Tyranids 1.10's Zoanthropes read "For every three models, one Zoanthrope may be upgraded to a Neurothrope" -- per_n, which
  * scales with the squad: 3-5 models allow one, 6-8 two, 9 three.
@@ -362,7 +402,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype: stri
         // choices: its stored value is how many, not on/off.
         // A tick-box under an "every" constraint ("Each Sentinel may be equipped with +15 points Sentinel chainsaw", "All models may remove
         // their Jump packs for -9 points each", "Any Tauros may be upgraded...") is bought by every model: GH#265, it was charged once.
-        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model || g.constraint?.type === 'every' ? item.size : g.constraint?.type === 'per_n' ? Number(qty) : 1);
+        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model || g.constraint?.type === 'every' ? item.size : g.constraint?.type === 'per_n' ? Number(qty) : inlinePerModelCap(unit, g, item.size) !== null ? Math.min(Number(qty), item.size) : 1);
         continue;
       }
       const choice = g.choices[parseInt(ci)];

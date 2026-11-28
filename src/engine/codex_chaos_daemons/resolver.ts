@@ -20,7 +20,9 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
     SACRED_NUMBERS[base.effectiveMark] != null &&
     item.size > 0 &&
     item.size % SACRED_NUMBERS[base.effectiveMark] === 0 &&
-    unit.models.length > 1;
+    // Reference rows (max 0: Blue Horrors' Brimstone Horror) are not models you can field, so they are not a leader. Counting
+    // them made all 9 Blue Horrors the "squad leader" and every one gained +1 Attack (GH#319).
+    unit.models.filter(m => m.max > 0).length > 1;
 
   const injectedAbilities = [...base.injectedAbilities];
   const injectedRuleNotes = [...base.injectedRuleNotes];

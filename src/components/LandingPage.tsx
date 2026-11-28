@@ -14,7 +14,7 @@ import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG, versionLabel } from '../data/changelog';
 import { DiscordIcon, DISCORD_INVITE_URL } from './DiscordLink';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v191b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v191c_dismissed';
 
 // v1.80 (2026-09-30) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] this
 // banner is RESET to ONLY v1.80's own content. Everything v1.78 announced lives on in the
@@ -67,6 +67,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Free Veteran abilities", "Battle Tactics (Custodes Shield-Captain), Veterans of the Long War, Combat tactics...: choose the free Veteran abilities on the character's card; they show in the card, the print and the battle view (suggested by Dave). The friendly unit that gets them is not tracked."],
         ["Core Rules 1.49", "The model and weapon ability texts are read from the rulebook now, and a dated changelog records every change. Updated: Bomb, Stealth, Swarm, Vanguard, Ammo, Graviton and more. Tyranid Synapse follows sheet 1.15."],
         ["Sheets", "Dark Eldar 1.8: the Agonizer costs 4 / 5 points."],
+        ["Options per model", "\"Can be equipped with...\" options on a unit that can have two models are a count now: both Changecasters can take a Staff of change, both Helbrutes the psyker upgrade, and the same for the Whirlwind, Ravager, Reaper, Wraithlord, Nemesis Dreadknight and others (Sophtym)."],
+        ["Vehicles", "A vehicle with a ward save shows a Ward column (Daemonic possession gives 5+) (Sophtym)."],
+        ["Sheets", "Chaos Space Marines 1.12, Dark Eldar 1.8 and Imperial Guard 1.16: five small text changes (the Mandrakes' Fade away is Deep Strike, the Chain guard cannot be taken by Flyers)."],
       ] },
       { label: "Bugs (GitHub)", rows: [
         ["#309", "Favoured units: the squad leader needs Armory access, so take the Aspiring Champion, Traitor Sergeant or Mutant Boss first (Chosen have no single leader). The leader's Mark and +1 Attack show in the options, the Print View and the battle view."],
@@ -78,9 +81,14 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "Swapping the combat shotgun for the shield and shock maul now lets you choose how many models swap, not only one (barney)."],
       ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Helbrute", "A second fist takes a second Heavy flamer, and Furioso adds its +2 Attacks to the statline (Sophtym)."],
+        ["Chaos Sorcerer", "Psychic training lets you pick a power of another discipline, and Cult initiate one Cult Power, on top of the discipline you chose (Sophtym)."],
+      ] },
       { label: "Chaos Daemons", rows: [
         ["Entourage", "Under a Chaos Space Marines archetype that reaches the Daemons (All is Dust, Daemonkin...), a Herald takes no HQ slot next to its Greater Daemon now: a Lord of Change and a Changecaster were counted as 2 HQ (Sophtym)."],
         ["Changecaster", "Interdimensional Knowledge lets a Changecaster pick its two extra powers from the general disciplines (Sophtym)."],
+        ["Blue Horrors", "Nine Blue Horrors no longer count as the squad leader all at once: nobody gets the +1 Attack, the unit has no leader (Sophtym)."],
       ] },
       { label: "Adeptus Mechanicus", rows: [
         ["Magos and Tech-Priest", "The card and the print show only the focus that was bought (Datasmith, Enginseer...), not all six. The line \"Can select one Doctrina Imperative\" has a Veteran button that opens the picker (DemonGyro)."],
@@ -105,6 +113,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Kostenlose Veteranenfähigkeiten", "Battle Tactics (Custodes Shield-Captain), Veterans of the Long War, Combat tactics...: Wähle die kostenlosen Veteranenfähigkeiten auf der Karte des Charakters; sie erscheinen auf der Karte, im Druck und in der Schlachtansicht (Vorschlag von Dave). Die verbündete Einheit, die sie bekommt, wird nicht verfolgt."],
         ["Core Rules 1.49", "Die Texte der Modell- und Waffenfähigkeiten werden jetzt aus dem Regelwerk gelesen, und ein datiertes Änderungsprotokoll hält jede Änderung fest. Aktualisiert: Bomb, Stealth, Swarm, Vanguard, Ammo, Graviton und mehr. Die Synapse der Tyraniden folgt Tabelle 1.15."],
         ["Tabellen", "Dark Eldar 1.8: Der Agonizer kostet 4 / 5 Punkte."],
+        ["Optionen pro Modell", "\"Can be equipped with...\"-Optionen einer Einheit, die zwei Modelle haben kann, sind jetzt eine Anzahl: beide Changecaster können einen Staff of change nehmen, beide Helbrutes das Psyker-Upgrade, ebenso Whirlwind, Ravager, Reaper, Wraithlord, Nemesis Dreadknight und andere (Sophtym)."],
+        ["Fahrzeuge", "Ein Fahrzeug mit Ward-Wurf zeigt eine Ward-Spalte (Daemonic possession gibt 5+) (Sophtym)."],
+        ["Datenblätter", "Chaos Space Marines 1.12, Dark Eldar 1.8 und Imperial Guard 1.16: fünf kleine Textänderungen (Fade away der Mandrakes ist Deep Strike, die Chain guard dürfen Flyer nicht nehmen)."],
       ] },
       { label: "Fehler (GitHub)", rows: [
         ["#309", "Favored units: Der Trupp-Anführer braucht Zugang zur Armory, also zuerst den Aspiring Champion, Traitor Sergeant oder Mutant Boss nehmen (Chosen haben keinen einzelnen Anführer). Marke und +1 Angriff des Anführers erscheinen in den Optionen, der Druckansicht und der Schlachtansicht."],
@@ -116,9 +127,14 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "Beim Tausch der Kampfschrotflinte gegen Schild und Schockhammer wählst du jetzt, wie viele Modelle tauschen, nicht nur eines (barney)."],
       ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Helbrute", "Eine zweite Faust nimmt einen zweiten Heavy flamer, und Furioso addiert seine +2 Attacken in der Profilzeile (Sophtym)."],
+        ["Chaos Sorcerer", "Psychic training erlaubt eine Kraft aus einer anderen Disziplin, Cult initiate eine Kultkraft, zusätzlich zur gewählten Disziplin (Sophtym)."],
+      ] },
       { label: "Chaos Daemons", rows: [
         ["Entourage", "Unter einem Chaos-Space-Marines-Archetyp, der die Daemons erreicht (All is Dust, Daemonkin...), belegt ein Herald neben seinem Greater Daemon jetzt keinen HQ-Slot: ein Lord of Change und ein Changecaster wurden als 2 HQ gezählt (Sophtym)."],
         ["Changecaster", "Interdimensional Knowledge lässt einen Changecaster seine zwei zusätzlichen Kräfte aus den allgemeinen Disziplinen wählen (Sophtym)."],
+        ["Blue Horrors", "Neun Blue Horrors zählen nicht mehr alle als Truppführer: niemand bekommt den +1 Angriff, die Einheit hat keinen Anführer (Sophtym)."],
       ] },
       { label: "Adeptus Mechanicus", rows: [
         ["Magos und Tech-Priest", "Die Karte und der Druck zeigen nur den gekauften Fokus (Datasmith, Enginseer...), nicht alle sechs. Die Zeile \"Can select one Doctrina Imperative\" hat einen Veteranen-Knopf, der die Auswahl öffnet (DemonGyro)."],
@@ -143,6 +159,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Habilidades de veterano gratis", "Battle Tactics (Shield-Captain de los Custodes), Veterans of the Long War, Combat tactics...: elige las habilidades de veterano gratis en la ficha del personaje; salen en la ficha, la impresión y la vista de batalla (sugerido por Dave). La unidad aliada que las recibe no se registra."],
         ["Core Rules 1.49", "Los textos de habilidades de modelo y de arma se leen ahora del reglamento, y un registro con fecha anota cada cambio. Actualizadas: Bomb, Stealth, Swarm, Vanguard, Ammo, Graviton y más. La Synapse de Tyranids sigue la hoja 1.15."],
         ["Hojas", "Dark Eldar 1.8: el Agonizer cuesta 4 / 5 puntos."],
+        ["Opciones por modelo", "Las opciones \"Can be equipped with...\" de una unidad que puede tener dos modelos son ahora un contador: los dos Changecaster pueden llevar un Staff of change, los dos Helbrute la mejora de psíquico, y lo mismo el Whirlwind, Ravager, Reaper, Wraithlord, Nemesis Dreadknight y otros (Sophtym)."],
+        ["Vehículos", "Un vehículo con salvación de protección muestra una columna Ward (Daemonic possession da 5+) (Sophtym)."],
+        ["Hojas", "Chaos Space Marines 1.12, Dark Eldar 1.8 e Imperial Guard 1.16: cinco textos pequeños (el Fade away de los Mandrakes es Deep Strike, los Flyers no pueden llevar la Chain guard)."],
       ] },
       { label: "Bugs (GitHub)", rows: [
         ["#309", "Unidades Favoured: el líder de escuadra necesita acceso a la armería, así que toma antes el Aspiring Champion, el Traitor Sergeant o el Mutant Boss (los Chosen no tienen un líder único). La Marca y el +1 Ataque del líder salen en las opciones, la impresión y la vista de batalla."],
@@ -154,9 +173,14 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "Al cambiar la escopeta de combate por el escudo y la maza de choque ya eliges cuántos modelos cambian, no solo uno (barney)."],
       ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Helbrute", "Un segundo puño admite un segundo Heavy flamer, y Furioso suma sus +2 Ataques en la línea de estadísticas (Sophtym)."],
+        ["Chaos Sorcerer", "Psychic training permite un poder de otra disciplina, y Cult initiate un Cult Power, además de la disciplina elegida (Sophtym)."],
+      ] },
       { label: "Chaos Daemons", rows: [
         ["Entourage", "Con un arquetipo de Chaos Space Marines que alcanza a los Daemons (All is Dust, Daemonkin...), un Herald ya no ocupa slot de HQ junto a su Greater Daemon: un Lord of Change y un Changecaster se contaban como 2 HQ (Sophtym)."],
         ["Changecaster", "Interdimensional Knowledge permite al Changecaster elegir sus dos poderes extra de las disciplinas generales (Sophtym)."],
+        ["Blue Horrors", "Nueve Blue Horrors ya no cuentan todos como jefe de escuadra: nadie recibe el +1 Ataque, la unidad no tiene jefe (Sophtym)."],
       ] },
       { label: "Adeptus Mechanicus", rows: [
         ["Magos y Tech-Priest", "La ficha y la impresión muestran solo el foco comprado (Datasmith, Enginseer...), no los seis. La línea \"Can select one Doctrina Imperative\" tiene un botón Veterano que abre el selector (DemonGyro)."],
@@ -181,6 +205,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["Бесплатные способности ветерана", "Battle Tactics (Shield-Captain Кустодов), Veterans of the Long War, Combat tactics...: выбирайте бесплатные способности ветерана на карточке персонажа; они видны на карточке, в печати и в боевом режиме (предложил Dave). Дружественный отряд, который их получает, не отслеживается."],
         ["Core Rules 1.49", "Тексты способностей моделей и оружия теперь читаются из свода правил, а датированный журнал записывает каждое изменение. Обновлены: Bomb, Stealth, Swarm, Vanguard, Ammo, Graviton и другие. Synapse тиранидов следует таблице 1.15."],
         ["Таблицы", "Dark Eldar 1.8: Agonizer стоит 4 / 5 очков."],
+        ["Опции на модель", "Опции «Can be equipped with...» у отряда, который может состоять из двух моделей, теперь считаются количеством: оба Changecaster могут взять Staff of change, оба Helbrute — улучшение до псайкера, то же для Whirlwind, Ravager, Reaper, Wraithlord, Nemesis Dreadknight и других (Sophtym)."],
+        ["Техника", "У техники с защитным броском появился столбец Ward (Daemonic possession даёт 5+) (Sophtym)."],
+        ["Таблицы", "Chaos Space Marines 1.12, Dark Eldar 1.8 и Imperial Guard 1.16: пять небольших правок текста (Fade away у Mandrakes — Deep Strike, Chain guard нельзя брать Flyer)."],
       ] },
       { label: "Ошибки (GitHub)", rows: [
         ["#309", "Favoured-отряды: лидеру отряда нужен доступ к Арсеналу, поэтому сначала возьмите Aspiring Champion, Traitor Sergeant или Mutant Boss (у Chosen нет единственного лидера). Метка и +1 к Атакам лидера видны в опциях, в печати и в боевом режиме."],
@@ -192,9 +219,14 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "При замене боевого дробовика на щит и шоковую дубинку теперь можно выбрать, сколько моделей меняют оружие, а не только одну (barney)."],
       ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Helbrute", "Второй кулак позволяет взять второй Heavy flamer, а Furioso добавляет свои +2 Атаки в строку характеристик (Sophtym)."],
+        ["Chaos Sorcerer", "Psychic training даёт силу из другой дисциплины, а Cult initiate — одну Cult Power, сверх выбранной дисциплины (Sophtym)."],
+      ] },
       { label: "Chaos Daemons", rows: [
         ["Entourage", "При архетипе Chaos Space Marines, открывающем доступ к Daemons (All is Dust, Daemonkin...), Herald теперь не занимает слот HQ рядом со своим Greater Daemon: Lord of Change и Changecaster считались за 2 HQ (Sophtym)."],
         ["Changecaster", "Interdimensional Knowledge позволяет Changecaster выбрать две дополнительные силы из общих дисциплин (Sophtym)."],
+        ["Blue Horrors", "Девять Blue Horrors больше не считаются все лидером отряда: никто не получает +1 Атаку, у отряда нет лидера (Sophtym)."],
       ] },
       { label: "Adeptus Mechanicus", rows: [
         ["Magos и Tech-Priest", "Карточка и печать показывают только купленный фокус (Datasmith, Enginseer...), а не все шесть. У строки \"Can select one Doctrina Imperative\" есть кнопка «Ветеран», открывающая выбор (DemonGyro)."],
@@ -219,6 +251,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
         ["無料のベテラン能力", "Battle Tactics（カストーデスのShield-Captain）、Veterans of the Long War、Combat tacticsなど：キャラクターのカードで無料のベテラン能力を選べます。カード、印刷、戦闘表示に出ます（Daveの提案）。それを受ける味方ユニットは記録されません。"],
         ["Core Rules 1.49", "モデル能力と武器能力の文面をルールブックから読み込み、変更のたびに日付付きの記録を残します。更新：Bomb、Stealth、Swarm、Vanguard、Ammo、Graviton など。タイラニッドのSynapseはシート1.15に従います。"],
         ["シート", "Dark Eldar 1.8：Agonizerは4 / 5ポイント。"],
+        ["モデルごとのオプション", "2モデルまで持てるユニットの「Can be equipped with...」オプションは個数指定になりました。2体のChangecasterがそれぞれStaff of changeを、2体のHelbruteがそれぞれサイカー化を取れます。Whirlwind、Ravager、Reaper、Wraithlord、Nemesis Dreadknightなども同じです (Sophtym)。"],
+        ["車両", "ウォードセーブを持つ車両にWard列が表示されます（Daemonic possessionは5+） (Sophtym)。"],
+        ["シート", "Chaos Space Marines 1.12、Dark Eldar 1.8、Imperial Guard 1.16：小さな文面変更が5件（MandrakesのFade awayはDeep Strike、Chain guardはFlyerが持てません）。"],
       ] },
       { label: "不具合（GitHub）", rows: [
         ["#309", "Favoredユニット：分隊長はアーモリーへのアクセスが必要です。先にAspiring Champion、Traitor Sergeant、Mutant Bossを選んでください（Chosenには単独の分隊長がいません）。分隊長のマークと+1攻撃が、オプション、印刷、戦闘表示に出ます。"],
@@ -230,9 +265,14 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
       { label: "Inquisition", rows: [
         ["Arbites", "戦闘用ショットガンをシールドとショックメイスに交換するとき、1体だけでなく何体交換するか選べるようになりました (barney)。"],
       ] },
+      { label: "Chaos Space Marines", rows: [
+        ["Helbrute", "2本目の拳に2つ目のHeavy flamerが付けられ、Furiosoの+2攻撃がステータス行に反映されます (Sophtym)。"],
+        ["Chaos Sorcerer", "Psychic trainingで別のディシプリンの能力を1つ、Cult initiateでCult Powerを1つ、選んだディシプリンに加えて取れます (Sophtym)。"],
+      ] },
       { label: "Chaos Daemons", rows: [
         ["Entourage", "Daemonsを使えるChaos Space Marinesのアーキタイプ（All is Dust、Daemonkinなど）で、HeraldがGreater Daemonの隣でHQスロットを使わなくなりました。Lord of ChangeとChangecasterが2 HQと数えられていました (Sophtym)。"],
         ["Changecaster", "Interdimensional Knowledgeで、Changecasterが一般ディシプリンから追加の2つの能力を選べるようになりました (Sophtym)。"],
+        ["Blue Horrors", "9体のBlue Horrorsが全員スクワッドリーダー扱いになることはなくなりました。このユニットにリーダーはおらず、+1攻撃は誰にも付きません (Sophtym)。"],
       ] },
       { label: "Adeptus Mechanicus", rows: [
         ["MagosとTech-Priest", "カードと印刷には、購入したフォーカス（Datasmith、Enginseerなど）だけが表示され、6つ全部は出なくなりました。「Can select one Doctrina Imperative」の行に、選択画面を開くベテランボタンが付きました (DemonGyro)。"],
